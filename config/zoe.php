@@ -5,7 +5,7 @@ return [
       'plugin'=>'core/plugins',
       'theme'=>'core/themes'
   ],
-  'modules'=>['admin'],
+  'modules'=>['admin','user'],
   'providers' => [
 
   ],

@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Zoe\Http\Controllers';
+    protected $namespace = 'App\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -52,13 +52,18 @@ class RouteServiceProvider extends ServiceProvider
             }
             $namespace = isset($route['namespace'])?$route['namespace'].'\\':'';
             $controller = isset($route['controller'])?$route['controller'].'@':'';
+
+//            var_dump($route);
+
+
+
             foreach ($route['router'] as $key=>$_route){
 
                 $method = ['get', 'post'];
                 if(isset($_route['method'])){
                     $method = $_route['method'];
                 }
-                $permission = $name.'-'.$key;
+                $permission = $name.':'.$key;
                 if(isset($_route['name'])){
                     $alias = $_route['name'];
                 }else{
@@ -74,11 +79,29 @@ class RouteServiceProvider extends ServiceProvider
                     continue;
                 }
                 $middleware = ["web"];
+                $auth_guard = isset($_route["guard"])?$_route["guard"]:(isset($route["guard"])?$route["guard"]:$type);
+
+                if(!empty($auth_guard)){
+                    $middleware[] = 'auth:'.$auth_guard;
+                    $acl = isset($_route["acl"])?($_route["acl"]==true?$permission:$_route["acl"]):(isset($route["acl"])?$route["acl"]:"");
+
+                    if(!empty($acl)){
+                        $middleware[] = "permission:".$auth_guard."-".$acl;
+                    }
+                }
+//                var_dump($method);
+//                var_dump($auth_guard);
+//                var_dump($link);
+//                var_dump($action);
+//                var_dump($alias);
+//                echo "<BR>";
+//                var_dump($middleware);
                 $r = Route::match($method,$link,$action);
                 $r->name($alias);
                 $r->middleware($middleware);
             }
         }
+//        die;
     }
     /**
      * Define the routes for the application.

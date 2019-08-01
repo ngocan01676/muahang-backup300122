@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-
+use Illuminate\Auth\AuthenticationException;
 class Authenticate extends Middleware
 {
     /**
@@ -12,6 +12,23 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string
      */
+    public $guards;
+    protected function authenticate($request, array $guards)
+    {
+        if (empty($guards)) {
+            $this->guards = [null];
+        }else{
+            $this->guards = $guards;
+        }
+        foreach ($this->guards as $guard) {
+            if ($this->auth->guard($guard)->check()) {
+                return $this->auth->shouldUse($guard);
+            }
+        }
+        throw new AuthenticationException(
+            'Unauthenticated.', $guards, $this->redirectTo($request)
+        );
+    }
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {

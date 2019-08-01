@@ -1,7 +1,7 @@
 <?php
 return [
     'views'=>[
-        'backend-admin'=>__DIR__.'/../views'
+        'backend'=>__DIR__.'/../views'
     ],
     'packages'=>[
         'namespaces'=>[

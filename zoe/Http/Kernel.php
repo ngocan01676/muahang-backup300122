@@ -8,6 +8,5 @@ class Kernel extends LKernel{
     public function __construct(Application $app, Router $router)
     {
         parent::__construct($app, $router);
-
     }
 }

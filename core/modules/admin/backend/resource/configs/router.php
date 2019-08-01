@@ -6,11 +6,10 @@ return [
                 "namespace"=>"AdminBackend\Http\Controllers",
                 "controller"=>"DashboardController",
                 "prefix"=>"admin",
-                "guard"=>"admin",// pải login
+                "guard"=>"backend",// pải login
                 "router"=>[
                     "list"=>[
                         "url"=>"/",
-//                        "action"=>"index"
                     ]
                 ]
             ]
