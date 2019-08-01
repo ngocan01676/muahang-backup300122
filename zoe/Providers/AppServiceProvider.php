@@ -46,6 +46,13 @@ class AppServiceProvider extends ServiceProvider
             $loader->addPsr4($namespace.'\\',$path);
         }
         $loader->register();
+
+
+        foreach ($this->app->_configs->providers as $class=>$provider) {
+            if (class_exists($provider)) {
+                $this->app->register($provider);
+            }
+        }
     }
     public function InitModule($module){
         $path = base_path($this->config_zoe['structure']['module'].'/'.$module);
