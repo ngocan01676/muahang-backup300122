@@ -15,13 +15,13 @@ return [
                     "login:post"=>[
                         "url"=>"/login/action",
                         "action"=>"postLogin",
-                        "type"=>"post",
+                        "method"=>["post"],
                         "guard"=>""
                     ],
                     "logout"=>[
                         "url"=>"/logout",
                         "action"=>"logout",
-                        "type"=>"post",
+                        "method"=>["post"],
                         "name"=>"backend:logout"
                     ],
                 ]
