@@ -5,7 +5,7 @@ return [
     ],
     'packages'=>[
         'namespaces'=>[
-            'AdminBackend'=>__DIR__.'/../../src'
+            'Admin'=>__DIR__.'/../../src'
         ],
         'providers'=>[
 

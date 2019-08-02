@@ -1,10 +1,9 @@
 @extends('backend::layout.layout')
 @section('content')
     <!-- Default box -->
-    <div class="box">
+    <div class="box box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Title</h3>
-
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                         title="Collapse">
@@ -14,8 +13,7 @@
             </div>
         </div>
         <div class="box-body">
-           User
-           User
+            Start creating your amazing application!
         </div>
         <!-- /.box-body -->
         <div class="box-footer">

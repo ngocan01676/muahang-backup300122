@@ -36,6 +36,17 @@ return [
                     ],
                 ]
             ],
+            'user:role'=>[
+                "namespace"=>"User\Http\Controllers",
+                "controller"=>"RoleController",
+                "acl"=>"user:role",
+                "router"=>[
+                    "list"=>[
+                        "url"=>"/user/role"
+                    ],
+
+                ]
+            ],
         ]
     ]
 ];

@@ -4,7 +4,7 @@ return [
         "dashboard"=>[
             "name"=>"Dashboard",
             "pos"=>1,
-            "url"=>"admin:dashboard:list"
+            "url"=>"backend:dashboard:list"
         ],
 //        "page"=>[
 //            "name"=>"Page",

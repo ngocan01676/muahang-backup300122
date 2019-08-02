@@ -37,12 +37,29 @@ class Backend extends Authenticatable
             return DB::table('role')
                 ->select()->where('guard_name',$this->guard)->get();
         });
+
         $permissions = Cache::remember('permissions:'.$this->guard.":".$this->role_id, 60, function()
         {
             return DB::table('permissions')
                 ->select()->where('role_id',$this->role_id)->get();
         });
-        return $permissions->contains("name",$permission);
+
+        $permissions_user = Cache::remember('permissions:user:'.$this->guard, 1, function()
+        {
+            $rs = DB::table('permissions_user')
+                ->select()->where('guard_name',$this->guard)->get();
+            $arr = [];
+            foreach ($rs as $value){
+                $arr[$value->user_id] = $value;
+            }
+            return $arr;
+        });
+
+        $bool = $permissions->contains("name",$permission);
+        if(isset($permissions_user[$this->id])){
+            return $bool?($permissions_user[$this->id]->status==0?false:true):($permissions_user[$this->id]->status==1?true:false);
+        }
+        return $bool;
     }
     public function keyCache(){
         return $this->guard.":".$this->roleId;

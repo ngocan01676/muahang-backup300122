@@ -29,7 +29,7 @@
          {
              $app = app();
              $sidebars =  $app->_configs->sidebars;
-             $aliases_acl = [];
+             $aliases_acl = $app->permissions['aliases'];
              $sidebar_new = [];
              foreach ($sidebars as $key=>$sidebar){
                 if(isset($sidebar['url']) && !empty($sidebar['url'])){
@@ -38,7 +38,6 @@
                         if($this->user->IsAcl($acl)){
                             $sidebar_new[$key] = $sidebar;
                         }
-
                     }else{
                         $sidebar_new[$key] = $sidebar;
                     }
@@ -61,7 +60,6 @@
              }
              return $sidebar_new;
          });
-         var_dump($sidebars);
          $view->with('lists_sidebar', $sidebars);
      }
  }

@@ -15,5 +15,10 @@ return [
           'guard'=>'admin'
       ],
       'frontend'=>[]
+  ],
+  'auth'=>[
+      'backend'=>[
+          'login'=>'backend:login'
+      ]
   ]
 ];

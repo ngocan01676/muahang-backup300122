@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
             $this->InitRouter('backend',$this->app->_configs['routers']['backend'],$config['backend']);
         }
     }
-    public function InitRouter($type,$routers,$config){
+    public function InitRouter($guard,$routers,$config){
         foreach ($routers as $name=>$route){
             if(isset($route['prefix'])){
                 $prefix = $route['prefix'];
@@ -52,22 +52,20 @@ class RouteServiceProvider extends ServiceProvider
             }
             $namespace = isset($route['namespace'])?$route['namespace'].'\\':'';
             $controller = isset($route['controller'])?$route['controller'].'@':'';
-
 //            var_dump($route);
-
-
 
             foreach ($route['router'] as $key=>$_route){
 
-                $method = ['get', 'post'];
+                $method = ['get'];
                 if(isset($_route['method'])){
                     $method = $_route['method'];
                 }
+
                 $permission = $name.':'.$key;
                 if(isset($_route['name'])){
                     $alias = $_route['name'];
                 }else{
-                    $alias = $type.":".$permission;
+                    $alias = $guard.":".$permission;
                 }
                 if(isset($_route['action'])){
                     $action = $namespace.$controller.$_route['action'];
@@ -79,7 +77,7 @@ class RouteServiceProvider extends ServiceProvider
                     continue;
                 }
                 $middleware = ["web"];
-                $auth_guard = isset($_route["guard"])?$_route["guard"]:(isset($route["guard"])?$route["guard"]:$type);
+                $auth_guard = isset($_route["guard"])?$_route["guard"]:(isset($route["guard"])?$route["guard"]:$guard);
 
                 if(!empty($auth_guard)){
                     $middleware[] = 'auth:'.$auth_guard;
@@ -87,6 +85,13 @@ class RouteServiceProvider extends ServiceProvider
 
                     if(!empty($acl)){
                         $middleware[] = "permission:".$auth_guard."-".$acl;
+                    }
+                    if(!empty($acl)){
+                        if(!isset($this->app->permissions['data'][$auth_guard][$acl])){
+                            $this->app->permissions['data'][$auth_guard][$acl] = [];
+                        }
+                        $this->app->permissions['data'][$auth_guard][$acl][] = $alias;
+                        $this->app->permissions['aliases'][$alias] = $acl;
                     }
                 }
 //                var_dump($method);
@@ -96,11 +101,18 @@ class RouteServiceProvider extends ServiceProvider
 //                var_dump($alias);
 //                echo "<BR>";
 //                var_dump($middleware);
+                if(isset($_route['form'])){
+                    $r = Route::match(['post'],$link.'-form',$namespace.$controller."postCreate");
+                    $r->name($alias.":post");
+                    $r->middleware($middleware);
+                }
                 $r = Route::match($method,$link,$action);
                 $r->name($alias);
                 $r->middleware($middleware);
             }
         }
+
+
 //        die;
     }
     /**

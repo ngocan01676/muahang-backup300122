@@ -32,7 +32,11 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+           $zoe = config('zoe');
+           if(isset($this->guards[0]) && isset($zoe['auth'][$this->guards[0]]['login'])){
+               return route($zoe['auth'][$this->guards[0]]['login']);
+           }
+           return route('login');
         }
     }
 }

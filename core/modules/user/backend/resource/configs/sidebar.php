@@ -1,0 +1,20 @@
+<?php
+return [
+    "sidebars"=>[
+        "user"=>[
+            "name"=>"User",
+            "pos"=>2,
+            "url"=>"",
+            "items"=>[
+                [
+                    "name"=>"List",
+                    "url"=>"backend:user:list",
+                ],
+                [
+                    "name"=>"Role",
+                    "url"=>"backend:user:role:list",
+                ]
+            ]
+        ]
+    ]
+];
