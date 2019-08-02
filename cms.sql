@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2019 at 12:28 PM
+-- Generation Time: Aug 02, 2019 at 01:37 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -46,7 +46,8 @@ CREATE TABLE `cms_admin` (
 
 INSERT INTO `cms_admin` (`id`, `name`, `role_id`, `avatar`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'NGUYEN VAN TUAN', 1, 'dist/img/user2-160x160.jpg', 'admin', '$2y$10$P0GK/41Xk88OL55si5OGpeGrRBRaEkxZcuIbzx1fZiTWIfA1WjaFC', NULL, '2019-07-23 00:23:29', '2019-07-23 00:23:29'),
-(2, 'NGUYEN VAN TUAN', 2, 'dist/img/user2-160x160.jpg', 'admin1', '$2y$10$P0GK/41Xk88OL55si5OGpeGrRBRaEkxZcuIbzx1fZiTWIfA1WjaFC', NULL, '2019-07-23 00:23:29', '2019-07-23 00:23:29');
+(2, 'NGUYEN VAN TUAN', 2, 'dist/img/user2-160x160.jpg', 'admin1', '$2y$10$P0GK/41Xk88OL55si5OGpeGrRBRaEkxZcuIbzx1fZiTWIfA1WjaFC', NULL, '2019-07-23 00:23:29', '2019-07-23 00:23:29'),
+(3, 'NGUYEN VAN TUAN', 2, 'dist/img/user2-160x160.jpg', 'admin2', '$2y$10$P0GK/41Xk88OL55si5OGpeGrRBRaEkxZcuIbzx1fZiTWIfA1WjaFC', NULL, '2019-07-23 00:23:29', '2019-07-23 00:23:29');
 
 -- --------------------------------------------------------
 
@@ -144,6 +145,29 @@ INSERT INTO `cms_permissions` (`id`, `name`, `role_id`, `created_at`, `updated_a
 (6, 'module:user:role:index', 1, '2019-07-23 17:00:00', '2019-07-23 17:00:00'),
 (7, 'module:user:permission:index', 1, '2019-07-23 17:00:00', '2019-07-23 17:00:00'),
 (8, 'user:home:member', 3, '2019-07-23 17:00:00', '2019-07-23 17:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_permissions_user`
+--
+
+CREATE TABLE `cms_permissions_user` (
+  `id` int(10) NOT NULL,
+  `user_id` int(10) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cms_permissions_user`
+--
+
+INSERT INTO `cms_permissions_user` (`id`, `user_id`, `name`, `guard_name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 3, 'user', 'backend', 1, '2019-08-01 17:00:00', '2019-08-01 17:00:00');
 
 -- --------------------------------------------------------
 
@@ -324,6 +348,12 @@ ALTER TABLE `cms_permissions`
   ADD UNIQUE KEY `name` (`name`,`role_id`);
 
 --
+-- Indexes for table `cms_permissions_user`
+--
+ALTER TABLE `cms_permissions_user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cms_posts`
 --
 ALTER TABLE `cms_posts`
@@ -382,7 +412,7 @@ ALTER TABLE `role_users`
 -- AUTO_INCREMENT for table `cms_admin`
 --
 ALTER TABLE `cms_admin`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cms_categories`
@@ -406,7 +436,13 @@ ALTER TABLE `cms_page`
 -- AUTO_INCREMENT for table `cms_permissions`
 --
 ALTER TABLE `cms_permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `cms_permissions_user`
+--
+ALTER TABLE `cms_permissions_user`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `cms_posts`
