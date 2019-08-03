@@ -28,6 +28,9 @@
 ))@includeIf('theme::widget.login.form', array (
   'status' => '1',
   'action' => 'none',
+))@includeIf('theme::widget.navbar.navbar', array (
+  'status' => '1',
+  'action' => 'none',
 ))</div>
 <div>
 @yield('content') View</div>
