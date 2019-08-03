@@ -14,11 +14,17 @@ return [
           'prefix'=>'admin',
           'guard'=>'admin'
       ],
-      'frontend'=>[]
+      'frontend'=>[
+          'prefix'=>'/',
+          'guard'=>'user'
+      ]
   ],
   'auth'=>[
       'backend'=>[
           'login'=>'backend:login'
+      ],
+      'frontend'=>[
+          'login'=>'login'
       ]
   ]
 ];

@@ -26,12 +26,20 @@ class LayoutBlade{
         }
         return $html;
     }
+    public static $blade = null;
     public static function plugin($option,$index=''){
-        return "{{@json(".(var_export($option,true)).", JSON_PRETTY_PRINT)}}\n";
+        if(method_exists(static::$blade,$option['stg']['widget'])){
+            return call_user_func_array(array(static::$blade, $option['stg']['widget']), array($option));;
+        }else{
+            if(isset($option['cfg']['view'])){
+                return  "@includeIf('".$option['cfg']['view']."', ".(var_export($option['opt'],true)).")";
+            }
+            return "<div>@ZoeWidget(".(var_export($option,true)).")</div>\n";
+        }
     }
     public static function rows($row,$layout = true,$lever = 0){
         $html = "";
-        var_dump($row);
+
         if($row['option']){
             $option = $row['option'];
             if(isset($option['stg']['col'])){
@@ -54,7 +62,7 @@ class LayoutBlade{
     }
     static function render($data){
         static::$datas = $data['data'];
-        static::$widget = $data['widget'];
+        static::$widget = isset($data['widget'])?$data['widget']:[];
         $lever = 0;
         if(isset(static::$datas[0])){
             foreach(static::$datas as $rows){
@@ -63,10 +71,11 @@ class LayoutBlade{
                 }
             }
             $file = new \Illuminate\Filesystem\Filesystem();
-            $file->put(base_path('bootstrap/zoe/views/layout-'.md5(1).".blade.php"),static::$html);
-            echo static::$html;
+            $template =  $file->get(base_path('core/modules/admin/backend/resource/stubs/layout.stubs'));
+            $file->put(base_path('bootstrap/zoe/views/layout-'.md5(1).".blade.php"),str_replace_first("{{CONTENT}}",static::$html,$template));
         }else{
 
         }
     }
+
 }

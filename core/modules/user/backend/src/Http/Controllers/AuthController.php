@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class AuthController extends \Zoe\Http\Controller
+class AuthController extends \Zoe\Http\ControllerBackend
 {
     /*
     |--------------------------------------------------------------------------

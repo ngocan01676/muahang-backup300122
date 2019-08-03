@@ -1,14 +1,11 @@
 <?php
 return [
     'views'=>[
-        'paths'=>['user'=>__DIR__.'/../views'],
-        'alias'=>[
-
-        ]
+        'paths'=>['theme'=>__DIR__.'/../views']
     ],
     'packages'=>[
         'namespaces'=>[
-            'User'=>__DIR__.'/../../src'
+            'ZoeTheme'=>__DIR__.'/../../src'
         ],
         'providers'=>[
 

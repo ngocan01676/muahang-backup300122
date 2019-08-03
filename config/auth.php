@@ -48,7 +48,11 @@ return [
         'backend'=>[
             'driver' => 'session',
             'provider' => 'backend',
-        ]
+        ],
+        'frontend' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
 
     /*

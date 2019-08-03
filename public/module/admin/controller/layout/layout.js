@@ -50,37 +50,37 @@ $(".demo").sortable({
         //console.log(ui.target);
     }
 });
-// $(".demo .column").sortable({
-//     connectWith: ".column",
-//     opacity: .35,
-//     handle: ".drag",
-//     cursorAt: {top: 0, left: 0 },
-//     stop:function (ui) {
-//         console.log("stop .demo, .demo .column");
-//         // console.log(ui.target);
-//         // console.log($(ui.target).height());
-//         var arrColumn =  $(ui.target);
-//         console.log(arrColumn);
-//         // console.log(arrColumn);
-//         // var indexPos = arrColumn.index($(ui.target));
-//         // var list = [];
-//         // for(var v=0 ; v<arrColumn.length ; v++){
-//         //     list.push($(arrColumn[v]).height());
-//         // }
-//         // var max = Math.max(...list);
-//         // var index = list.indexOf(max);
-//         //
-//         // for(var v=0 ; v<arrColumn.length ; v++){
-//         //     if(index!=v){
-//         //         list.push($(arrColumn[v]).height((max)+"px"));
-//         //     }
-//         // }
-//     },
-//     start:function (ui) {
-//         console.log("start");
-//         //console.log(ui.target);
-//     }
-// });
+$(".demo .column").sortable({
+    connectWith: ".column",
+    opacity: .35,
+    handle: ".drag",
+    cursorAt: {top: 0, left: 0 },
+    stop:function (ui) {
+        console.log("stop .demo, .demo .column");
+        // console.log(ui.target);
+        // console.log($(ui.target).height());
+        var arrColumn =  $(ui.target);
+        console.log(arrColumn);
+        // console.log(arrColumn);
+        // var indexPos = arrColumn.index($(ui.target));
+        // var list = [];
+        // for(var v=0 ; v<arrColumn.length ; v++){
+        //     list.push($(arrColumn[v]).height());
+        // }
+        // var max = Math.max(...list);
+        // var index = list.indexOf(max);
+        //
+        // for(var v=0 ; v<arrColumn.length ; v++){
+        //     if(index!=v){
+        //         list.push($(arrColumn[v]).height((max)+"px"));
+        //     }
+        // }
+    },
+    start:function (ui) {
+        console.log("start");
+        //console.log(ui.target);
+    }
+});
 $(".sidebar-nav .grid").draggable({
     connectToSortable: ".demo",
     helper: "clone",
@@ -309,15 +309,21 @@ $("#saveLayout").click(function () {
     DataLayout = [];
     var grids = $("#layout_demo>.grid");
     var layout = saveLayout("#layout_demo");
-    console.log(layout);
+
     $.ajax({
         type:'POST',
         url:$(this).attr('url'),
         data:{
-            layout:layout
+            layout:layout,
+            name:"Home",
+            theme:"zoe",
+            id:$("#id").val()
         },
         success:function(data){
-            console.log(data);
+            var json = JSON.parse(data);
+            if(json.hasOwnProperty('id')){
+                $("#id").val(json.id);
+            }
         }
     });
 });

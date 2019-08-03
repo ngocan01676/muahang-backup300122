@@ -24,7 +24,9 @@ return [
                     ],
                     "create"=>[
                         "url"=>"/create",
-                        "form"=>"create"
+                    ],
+                    "edit"=>[
+                        "url"=>"/edit/{id}",
                     ],
                     "ajax"=>[
                         "url"=>"/ajax",

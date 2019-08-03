@@ -7,7 +7,6 @@ class Layout{
         static::$datas = $data;
         static::$widgets = $widgets;
         // 87ebd29d-92da-ef9d-0bdc-8274c91bef7d
-
         $html = '';
         if(!is_array($data) || !count($data)){
             return $html;
@@ -53,7 +52,7 @@ class Layout{
 
         $html = '';
         $preview =
-        $data_id = $layout?' data-id="'.$option['stg']['id'].'"':'';
+        $data_id = $layout?' data-id="'.(isset($option['stg']['id'])?"":"").'"':'';
         $draggable = $layout?"ui-draggable":'';
         $html.='<div class="box-pluign '.$draggable.'" '.$data_id.'>';
         $html.='<div class="tool">';

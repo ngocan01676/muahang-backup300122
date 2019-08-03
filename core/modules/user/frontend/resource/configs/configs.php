@@ -1,14 +1,11 @@
 <?php
 return [
     'views'=>[
-        'paths'=>['user'=>__DIR__.'/../views'],
-        'alias'=>[
-
-        ]
+       'paths'=>[ 'user_front'=>__DIR__.'/../views']
     ],
     'packages'=>[
         'namespaces'=>[
-            'User'=>__DIR__.'/../../src'
+            'UserFront'=>__DIR__.'/../../src'
         ],
         'providers'=>[
 

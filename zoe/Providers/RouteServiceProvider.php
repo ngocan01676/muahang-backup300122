@@ -42,8 +42,12 @@ class RouteServiceProvider extends ServiceProvider
         if(isset($config['backend'])){
             $this->InitRouter('backend',$this->app->_configs['routers']['backend'],$config['backend']);
         }
+        if(isset($config['frontend']) && isset($this->app->_configs['routers']['frontend'])){
+            $this->InitRouter('frontend',$this->app->_configs['routers']['frontend'],$config['frontend']);
+        }
     }
     public function InitRouter($guard,$routers,$config){
+
         foreach ($routers as $name=>$route){
             if(isset($route['prefix'])){
                 $prefix = $route['prefix'];
