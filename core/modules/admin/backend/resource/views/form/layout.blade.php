@@ -118,7 +118,8 @@
                                 ),
                                 'opt' => array()
                             )],
-                        ["name" => "thumbnail-image",
+                        [
+                            "name" => "thumbnail-image",
                             "option" => array(
                                 'cfg' => array(
                                     'view' => 'theme::component.thumbnail-image.views.view'
@@ -133,7 +134,8 @@
                                     'compiler' => []
                                 ),
                                 'opt' => array()
-                            )]
+                            )
+                        ]
                     ],
                 ];
                 foreach ($widgets as $module=>$widget):
@@ -165,7 +167,7 @@
                 </div>
                 <?php endforeach; ?>
                 <?php
-                $components = app()->_configs->components;
+                $components = [];//app()->_configs->components;
                 foreach ($components as $module=>$_components):
                 ?>
                 <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
