@@ -26,5 +26,6 @@ return [
       'frontend'=>[
           'login'=>'login'
       ]
-  ]
+  ],
+  'theme'=>'zoe'
 ];
