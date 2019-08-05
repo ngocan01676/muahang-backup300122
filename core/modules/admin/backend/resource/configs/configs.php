@@ -7,7 +7,8 @@ return [
                'layout.create'=> 'backend::controller.layout.create',
                'layout.edit'=> 'backend::controller.layout.edit',
            ]
-        ]
+        ],
+
     ],
     'packages'=>[
         'namespaces'=>[

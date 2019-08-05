@@ -27,5 +27,6 @@ return [
           'login'=>'login'
       ]
   ],
-  'theme'=>'zoe'
+  'theme'=>'zoe',
+
 ];

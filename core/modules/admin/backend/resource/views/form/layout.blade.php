@@ -1,7 +1,5 @@
 @php
-    $optionGrid = array(
-
-    );
+    $optionGrid = [];
     $girds = array(
         array(
             'option'=>array(
@@ -77,18 +75,21 @@
                 <?php
                 $widgets = [
                     "system" => [
-                        ["name" => "content", "option" => array(
-                            'cfg' => array(),
-                            'stg' => array(
-                                'system' => "module",
-                                'module' => 'admin',
-                                'type' => 'component',
-                                'status' => 1,
-                                'blade' => 'content',
-                                'view' => 'admin_front'
-                            ),
-                            'opt' => array()
-                        )],
+                        [
+                            "name" => "content",
+                            "option" => array(
+                                'cfg' => array(),
+                                'stg' => array(
+                                    'system' => "module",
+                                    'module' => 'admin',
+                                    'type' => 'component',
+                                    'status' => 1,
+                                    'blade' => 'content',
+                                    'view' => 'admin_front'
+                                ),
+                                'opt' => array()
+                            )
+                        ],
                         ["name" => "Login",
                             "option" => array(
                                 'cfg' => array(
@@ -163,6 +164,35 @@
                     </div>
                 </div>
                 <?php endforeach; ?>
+                <?php
+                $components = app()->_configs->components;
+                foreach ($components as $module=>$_components):
+                ?>
+                <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="menu-item"
+                                   data-toggle="collapse"
+                                   data-parent="#accordion-<?php echo $module; ?>"
+                                   href="#menu-accordion-<?php echo $module; ?>"><?php echo $module; ?></a>
+                            </h4>
+                        </div>
+                        <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
+
+                            <?php
+                            foreach ($_components as $name=>$component) {
+                                $option = $component['option'];
+                                $option["stg"]['name'] = $component['name'];
+                                $option["stg"]['system'] = $module;
+                                echo \Admin\Lib\Layout::plugin($option, false);
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+
                 <div class="row">
                     <div class="col-xs-12">
                         <table class="table table-bordered table-responsive">
@@ -294,11 +324,10 @@
     <link rel="stylesheet" href="{{asset('module/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/controller/layout/style.css')}}">
     <link rel="stylesheet" href="{{asset("module/admin/asset/multi-select/css/multi-select.css")}}">
-    <style> 
+    <style>
         .CodeMirror {
             border: 1px solid black;
         }
-
         iframe {
             margin: 10px auto;
             display: block; /* iframes are inline by default */
@@ -306,6 +335,5 @@
             border: 1px solid #dedede; /* Reset default border */
             height: 50vh; /* Viewport-relative units */
             width: 100%;
-        }
-    </style> 
+        }</style>
 @endpush

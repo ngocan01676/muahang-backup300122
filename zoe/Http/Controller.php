@@ -10,15 +10,22 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
+    public $data = [];
+    public $view = [];
+    public $asset = [];
+    public function __construct()
+    {
+        $this->asset = app()->make('asset-manager');
+        $this->view = view();
+    }
     protected function _render($view, $data, $key)
     {
         $alias = app()->_configs['views']['alias'];
+        $data = array_merge($this->data,$data);
         if (isset($alias[$key][$view])) {
-            return view($alias[$key][$view], $data);
+            return $this->view->make($alias[$key][$view], $data);
         } else {
-            return view($key . '::controller.' . $view, $data);
+            return $this->view->make($key . '::controller.' . $view, $data);
         }
     }
-
 }

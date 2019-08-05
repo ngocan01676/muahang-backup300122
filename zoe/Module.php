@@ -16,17 +16,30 @@ abstract class Module{
     private function LoadModule(){
 
     }
+    public function FileConfig(){
+        return ["configs","router","sidebar","providers","component"];
+    }
     public function GetClassMap(){
         return [];
     }
     public function Helper(){
 
     }
+
     public function GetResource($prefix){
-        $_path = $this->path.'/'.$prefix."/resource/configs";
-        app()->_configs->load($_path."/configs.php");
-        app()->_configs->load($_path."/router.php");
-        app()->_configs->load($_path."/sidebar.php");
-        app()->_configs->load($_path."/providers.php");
+//        $_path = $this->path.'/'.$prefix."/resource/configs";
+//        $this->loadResource($_path."/configs.php");
+//        $this->loadResource($_path."/router.php");
+//        $this->loadResource($_path."/sidebar.php");
+//        $this->loadResource($_path."/providers.php");
+//        $this->loadResource($_path."/component.php");
+    }
+    public function loadResource($path){
+        if(file_exists($path)){
+            $data = include $path;
+            if(is_array($data)){
+                app()->_configs->add($data);
+            }
+        }
     }
 }

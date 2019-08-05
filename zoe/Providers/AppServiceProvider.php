@@ -36,7 +36,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->is_admin = isset($prefixAdmin[0]) ? ("/" . $prefixAdmin[0] == $admin_url) : false;
 
         $this->config_zoe = config('zoe');
+
+        $this->app->singleton('asset-manager-minify-css', function () {;
+            return new \MatthiasMullie\Minify\CSS();
+        });
+        $this->app->singleton('asset-manager-minify-js', function () {;
+            return new \MatthiasMullie\Minify\JS();
+        });
+
         $this->InitModules();
+      
+
         $this->InitTheme();
         $this->autoLoad();
         $this->providers();
@@ -161,7 +171,30 @@ class AppServiceProvider extends ServiceProvider
             require_once $path . '/Module.php';
             $class = '\\' . ucwords($module) . '\\Module';
             $object = new $class();
-            $object->GetClassMap();
+
+          //  $object->GetClassMap();
+
+            $fileConfig = $object->FileConfig();
+            $folders = ["backend","frontend"];
+            foreach ($folders as $type){
+                foreach ($fileConfig as $file){
+                    $_file = $path."/".$type."/resource/configs/".$file.".php";
+                    if(file_exists($_file)){
+                        $data = include $_file;
+                        if(is_array($data)){
+                            if(isset($data["views"])){
+
+                                foreach ($data["views"]["paths"] as $alise=>$paths){
+                                    $data["views"]["modules"][$module] = $alise;
+                                }
+                            }
+                            $this->app->_configs->add($data);
+                        }
+                    }
+                }
+            }
+          //  var_dump($fileConfig);
+
             $this->app->_modules[$module] = $object;
         }
     }

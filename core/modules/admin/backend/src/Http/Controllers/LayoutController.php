@@ -89,7 +89,6 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                         } else {
 
                         }
-                        echo $path;
                         break;
                 }
                 if (file_exists($path . '/config.php')) {
@@ -130,7 +129,6 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                         foreach ($config["views"] as $_k => $_view) {
                             $data["list_views"][$view_view . $_k] = $_view;
                         }
-//                                        $data["list_views"] = array_merge($data["list_views"], $config["views"]);
                     }
                     return $this->render('layout.ajax.config', $data);
                 }
