@@ -282,7 +282,7 @@ class AppServiceProvider extends ServiceProvider
                                             if(view()->exists($_alias."::component.".$component.".views.".$____view['view'], []))
                                             {
                                                 $_arr_view[$___key] = $____view;
-                                                $_arr_view[$___key]["view"] = $_alias."::component.".$component.".".$____view['view'];
+                                                $_arr_view[$___key]["view"] = $_alias."::component.".$component.".views.".$____view['view'];
                                             }
                                         }
                                     }
@@ -295,11 +295,12 @@ class AppServiceProvider extends ServiceProvider
 
                                     if(is_array($_config)){
                                         if(isset($_config["view"])){
-                                            $_arr_config[$_key] = $_config;
-                                            if(view()->exists($_alias."::component.".$component.".views.".$____view['view'], []))
+                                           // $_arr_config[$_key] = $_config;
+                                            dump($_alias."::component.".$component.".configs.".$_config['view']);
+                                            if(view()->exists($_alias."::component.".$component.".configs.".$_config['view'], []))
                                             {
-                                                $_arr_view[$___key] = $____view;
-                                                $_arr_view[$___key]["view"] = $_alias."::component.".$component.".".$____view['view'];
+                                                $_arr_config[$_key] = $_config;
+                                                $_arr_config[$_key]["view"] = $_alias."::component.".$component.".configs.".$_config['view'];
                                             }
                                             dump($_config);
                                         }else if(isset($_config["template"])){
