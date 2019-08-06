@@ -20,7 +20,17 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div id='app'><div>@yield('content')@yield('content')</div>
+  <div id='app'><div>@includeIf('view', array (
+  'arr' => 
+  array (
+    0 => 
+    array (
+      'image' => 'image',
+      'title' => 'title',
+      'link' => 'link',
+    ),
+  ),
+))</div>
 </div>
 </body>
 </html>

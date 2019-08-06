@@ -1,2 +1,2 @@
 <?php
-return component_create("content-controller", $module, __DIR__);
+return component_create( $module, __DIR__);

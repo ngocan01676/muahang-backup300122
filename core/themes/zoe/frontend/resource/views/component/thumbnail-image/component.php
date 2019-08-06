@@ -1,2 +1,2 @@
 <?php
-return component_create("thumbnail-image", $module, __DIR__);
+return component_create( $module, __DIR__);

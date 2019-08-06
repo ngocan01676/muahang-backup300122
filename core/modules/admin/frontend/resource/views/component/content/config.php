@@ -1,16 +1,18 @@
 <?php
 return component_config(
+    $_opt_,
     component_config_data(
-        [
-            "name" => "Content",
-        ]
-    ),
-    component_config_configs(
         [
 
         ]
     ),
+    component_config_configs(
+        [
+            "temp"=>["template" => "template", "prefix"=>"temp" , "data" => ["count" => 3]],
+        ]
+    ),
     component_config_views([
-        'content' => ["label" => "Content", "view" => "content"]
-    ])
+        'view' => ["label" => "View", "view" => "view"]
+    ]),
+    ["view"=>"content","name" => "Content"]
 );

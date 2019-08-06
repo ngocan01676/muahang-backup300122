@@ -11,23 +11,17 @@ function create_router_item()
     return [];
 }
 
-function component_create($name, $module, $path, $compiler = [], $cfg = [], $opt = [], $type = "component")
+function component_create($module, $path, $cfg = [], $opt = [], $type = "component")
 {
     $stg = array(
         'system' => "",
         'module' => $module,
         'type' => $type,
-        'status' => 1,
-        'compiler' => $compiler
     );
     if (is_null($module)) {
         unset($stg["module"]);
     }
-    if (is_null($compiler)) {
-        unset($stg["compiler"]);
-    }
     return [
-        "name" => $name,
         "path" => $path,
         "option" => array(
             'cfg' => $cfg,
@@ -35,20 +29,20 @@ function component_create($name, $module, $path, $compiler = [], $cfg = [], $opt
                 'system' => "",
                 'module' => $module,
                 'type' => $type,
-                'status' => 1,
-                'compiler' => $compiler
             ),
             'opt' => $opt
         )
     ];
 }
 
-function component_config($data, $config, $views)
+function component_config($_opt_,$data, $config, $views,$cfg = [],$compiler = [])
 {
     return [
         "data" => $data,
-        "config" => $config,
-        "views" => $views
+        "configs" => $config,
+        "views" => $views,
+        "cfg"=>$cfg,
+        "compiler"=>$compiler
     ];
 }
 

@@ -167,8 +167,11 @@
                 </div>
                 <?php endforeach; ?>
                 <?php
-                $components = [];//app()->_configs->components;
-                foreach ($components as $module=>$_components):
+                $components =  app()->getComponents()->info;
+                $components_config =  app()->getComponents()->config;
+
+                $module = "Component";
+               // foreach ($components as $module=>$_components):
                 ?>
                 <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
                     <div class="panel panel-default">
@@ -183,17 +186,43 @@
                         <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
 
                             <?php
-                            foreach ($_components as $name=>$component) {
+                            foreach ($components as $name=>$component) {
                                 $option = $component['option'];
                                 $option["stg"]['name'] = $component['name'];
-                                $option["stg"]['system'] = $module;
+//                                $option["stg"]['system'] = $module;
+                                if(isset($components_config[$name])){
+                                    //$option['cfg'] = array_merge();
+                                    $_config = $components_config[$name]["configs"];
+                                    dump( $components_config[$name]);
+                                    $_cfg = new Zoe\Config($components_config[$name]["cfg"]);
+                                    foreach ($_config as $__config){
+                                        $_prefix = "";
+                                        if(isset($__config["prefix"])){
+                                             if(empty($__config["prefix"])){
+                                                 $__data = $__config["data"];
+                                             }else{
+                                                 $__data = [$__config["prefix"]=>$__config["data"]];
+                                             }
+                                        }else{
+                                            $__data = $__config["data"];
+                                        }
+                                        $_cfg->add(["config"=>$__data]);
+                                    }
+                                    if(isset($components_config[$name]["compiler"])){
+                                        $_cfg->add(["compiler"=>$components_config[$name]["compiler"]]);
+                                    }
+                                    $_cfg->add(["data"=>[]]);
+                                    $option["cfg"] = $_cfg->getArrayCopy();
+                                    $option["opt"] = $components_config[$name]["data"];
+                                }
+                                dump($option);
                                 echo \Admin\Lib\Layout::plugin($option, false);
                             }
                             ?>
                         </div>
                     </div>
                 </div>
-                <?php endforeach; ?>
+                <?php //endforeach; ?>
 
                 <div class="row">
                     <div class="col-xs-12">
@@ -309,18 +338,15 @@
     <script src="{{asset('module/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/codemirror.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/codemirror.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/codemirror.min.js"></script>
-     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/addon/mode/overlay.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/addon/runmode/runmode.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/mode/xml/xml.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/addon/mode/overlay.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/addon/runmode/runmode.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/mode/xml/xml.js"></script>
 
     <script src="{{asset("module/admin/asset/codemirror/mustache.js")}}"></script>
     <script src="{{asset("module/admin/asset/multi-select/js/jquery.multi-select.js")}}"></script>
-     
     <script src="{{asset('module/admin/controller/layout/layout.js')}}"></script>
-
 @endpush
 @push('links')
     <link rel="stylesheet" href="{{asset('module/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">

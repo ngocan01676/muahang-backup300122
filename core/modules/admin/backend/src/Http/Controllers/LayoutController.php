@@ -56,6 +56,19 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $items = $request->all();
         $theme = config('zoe.theme');
         $data = ["views" => []];
+
+        $components_conf =  app()->getComponents()->config;
+
+
+
+        dump(app()->_configs['views']["paths"]);
+        dump(app()->getComponents()->info);
+        dump(app()->getComponents()->config);
+
+        dump($items);
+
+//        $components_config =  app()->getComponents()->config;
+
 //        dd($items);
         if (isset($items['config']['stg'])) {
             if (isset($items['config']['stg']['system'])) {
@@ -91,11 +104,12 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                         }
                         break;
                 }
-                if (file_exists($path . '/config.php')) {
-                    $config = require $path . '/config.php';
-                    $data["list_views"] = [
-                        "" => "Select View"
-                    ];
+
+                if (isset($items['config']['stg']['name']) && isset($components_conf[$items['config']['stg']['name']])) {
+
+                    $config = $components_conf[$items['config']['stg']['name']];
+                    dump($config);
+
                     $is_template_dynamic = false;
                     if (isset($config['config'])) {
                         foreach ($config['config'] as $label => $_view) {
@@ -122,6 +136,11 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                             }
                         }
                     }
+
+
+                    $data["list_views"] = [
+                        "" => "Select View"
+                    ];
                     if ($is_template_dynamic) {
                         $data["list_views"]["dynamic"] = "Dynamic";
                     }
@@ -130,6 +149,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                             $data["list_views"][$view_view . $_k] = $_view;
                         }
                     }
+                    die;
                     return $this->render('layout.ajax.config', $data);
                 }
             }
@@ -148,6 +168,9 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
             $php = Blade::compileString(\Admin\Lib\LayoutBlade::plugin($items));
             $__env = app(\Illuminate\View\Factory::class);
+
+          // var_dump($__env->exists('demo', ['some' => 'data']));
+
             $obLevel = ob_get_level();
             ob_start();
             $repon = ['content' => "", 'status' => 1, 'php' => $php];
