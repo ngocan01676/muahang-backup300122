@@ -20,37 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div id='app'><div>@includeIf('theme::widget.navbar.navbar', array (
-))<div class="container"><div class="row justify-content-center"><div class="col-md-8"><div class='py-4'><div class="card"><div class="card-header">{{"humbnail-image"}}</div> <div class="card-body">@includeIf('theme::component.thumbnail-image.views.view', array (
-  'lists' => 
-  array (
-    0 => 
-    array (
-      'name' => '1',
-      'image' => '1',
-      'link' => '1',
-    ),
-    1 => 
-    array (
-      'name' => '2',
-      'image' => '2',
-      'link' => '2',
-    ),
-    2 => 
-    array (
-      'name' => '3',
-      'image' => '3',
-      'link' => '3',
-    ),
-    3 => 
-    array (
-      'name' => '4',
-      'image' => '4',
-      'link' => '4',
-    ),
-  ),
-))</div></div></div></div></div></div>@includeIf('theme::widget.login.form', array (
-))@yield('content')</div>
+  <div id='app'><div>@yield('content')@yield('content')</div>
 </div>
 </body>
 </html>
