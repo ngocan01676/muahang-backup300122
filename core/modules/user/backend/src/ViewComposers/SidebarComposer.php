@@ -28,8 +28,8 @@
          $sidebars = Cache::remember('sidebars:'.$this->user->keyCache(),0, function()
          {
              $app = app();
-             $sidebars =  $app->_configs->sidebars;
-             $aliases_acl = $app->permissions['aliases'];
+             $sidebars =  $app->getConfig()->sidebars;
+             $aliases_acl = $app->getPermissions()->aliases;
              $sidebar_new = [];
              foreach ($sidebars as $key=>$sidebar){
                 if(isset($sidebar['url']) && !empty($sidebar['url'])){

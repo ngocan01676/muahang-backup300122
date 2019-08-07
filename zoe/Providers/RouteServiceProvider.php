@@ -34,25 +34,23 @@ class RouteServiceProvider extends ServiceProvider
                 $this->app['router']->getRoutes()->refreshActionLookups();
             });
         }
-
         $this->InitRouters();
-
+        view()->share('time_exe', microtime(true)- $this->app->time_start);
     }
 
     public function InitRouters()
     {
         $config = config('zoe.router');
         if (isset($config['backend'])) {
-            $this->InitRouter('backend', $this->app->_configs['routers']['backend'], $config['backend']);
+            $this->InitRouter('backend', $this->app->getConfig()->routers['backend'], $config['backend']);
         }
-        if (isset($config['frontend']) && isset($this->app->_configs['routers']['frontend'])) {
-            $this->InitRouter('frontend', $this->app->_configs['routers']['frontend'], $config['frontend']);
+        if (isset($config['frontend']) && isset($this->app->getConfig()->routers['frontend'])) {
+            $this->InitRouter('frontend', $this->app->getConfig()->routers['frontend'], $config['frontend']);
         }
-    }
 
+    }
     public function InitRouter($guard, $routers, $config)
     {
-
         foreach ($routers as $name => $route) {
             if (isset($route['prefix'])) {
                 $prefix = $route['prefix'];
@@ -62,7 +60,7 @@ class RouteServiceProvider extends ServiceProvider
             $namespace = isset($route['namespace']) ? $route['namespace'] . '\\' : '';
             $controller = isset($route['controller']) ? $route['controller'] . '@' : '';
 //            var_dump($route);
-
+            $permissions = $this->app->getPermissions();
             foreach ($route['router'] as $key => $_route) {
 
                 $method = ['get'];
@@ -96,11 +94,11 @@ class RouteServiceProvider extends ServiceProvider
                         $middleware[] = "permission:" . $auth_guard . "-" . $acl;
                     }
                     if (!empty($acl)) {
-                        if (!isset($this->app->permissions['data'][$auth_guard][$acl])) {
-                            $this->app->permissions['data'][$auth_guard][$acl] = [];
+                        if (!isset($permissions->data[$auth_guard][$acl])) {
+                            $this->app->getPermissions()->data[$auth_guard][$acl] = [];
                         }
-                        $this->app->permissions['data'][$auth_guard][$acl][] = $alias;
-                        $this->app->permissions['aliases'][$alias] = $acl;
+                        $this->app->getPermissions()->data[$auth_guard][$acl][] = $alias;
+                        $this->app->getPermissions()->aliases[$alias] = $acl;
                     }
                 }
 //                var_dump($method);

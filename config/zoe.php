@@ -28,5 +28,7 @@ return [
       ]
   ],
   'theme'=>'zoe',
-
+  'cache'=>[
+      "status"=>false
+  ]
 ];

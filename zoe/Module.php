@@ -38,7 +38,7 @@ abstract class Module{
         if(file_exists($path)){
             $data = include $path;
             if(is_array($data)){
-                app()->_configs->add($data);
+                app()->getConfig()->add($data);
             }
         }
     }

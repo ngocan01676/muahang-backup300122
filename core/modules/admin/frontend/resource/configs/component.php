@@ -1,6 +1,6 @@
 <?php
 return [
     "components" => [
-        "content"
+        "components"=>["content"],
     ]
 ];

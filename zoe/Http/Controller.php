@@ -20,7 +20,7 @@ class Controller extends BaseController
     }
     protected function _render($view, $data, $key)
     {
-        $alias = app()->_configs['views']['alias'];
+        $alias = app()->getConfig()['views']['alias'];
         $data = array_merge($this->data,$data);
         if (isset($alias[$key][$view])) {
             return $this->view->make($alias[$key][$view], $data);

@@ -2,6 +2,7 @@
 
 namespace Zoe\Providers;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\Blade;
@@ -15,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     protected $config_zoe = [];
+    protected $file;
 
     public function register()
     {
@@ -28,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        $this->file = new \Illuminate\Filesystem\Filesystem();
+        $time_start =  microtime(true);
         $this->blade();
         $this->app['router']->aliasMiddleware("permission", \Zoe\Http\Middleware\PermissionMiddleware::class);
 
@@ -52,11 +57,9 @@ class AppServiceProvider extends ServiceProvider
         $this->providers();
 
         $this->InitViews();
+
         $this->InitComponents();
-
-        $this->app->booted(function () {
-
-        });
+        $this->app->WriteCache();
     }
 
     public function blade()
@@ -145,12 +148,11 @@ class AppServiceProvider extends ServiceProvider
                 $this->InitModule($module);
             }
         }
-
     }
 
     public function providers()
     {
-        foreach ($this->app->_configs->providers as $class => $provider) {
+        foreach ($this->app->getConfig()->providers as $class => $provider) {
             if (class_exists($provider)) {
                 $this->app->register($provider);
             }
@@ -161,7 +163,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $loader = new ClassLoader();
 
-        foreach ($this->app->_configs['packages']['namespaces'] as $namespace => $path) {
+        foreach ($this->app->getConfig()['packages']['namespaces'] as $namespace => $path) {
             $loader->addPsr4($namespace . '\\', $path);
         }
         $loader->register();
@@ -174,16 +176,12 @@ class AppServiceProvider extends ServiceProvider
             require_once $path . '/Module.php';
             $class = '\\' . ucwords($module) . '\\Module';
             $object = new $class();
-
-            //  $object->GetClassMap();
-
-            $this->module($module, $object, $path,"module");
-            //  var_dump($fileConfig);
-
+            if($this->app->getConfig(true)->cache == 0){
+                $this->module($module, $object, $path,"module");
+            }
             $this->app->_modules[$module] = $object;
         }
     }
-
     public function module($module, $object, $path,$typeModule)
     {
         $fileConfig = $object->FileConfig();
@@ -193,6 +191,7 @@ class AppServiceProvider extends ServiceProvider
                 $_file = $path . "/" . $type . "/resource/configs/" . $file . ".php";
                 if (file_exists($_file)) {
                     $data = include $_file;
+
                     if (is_array($data)) {
                         if (isset($data["views"])) {
                             $_paths = [];
@@ -210,17 +209,27 @@ class AppServiceProvider extends ServiceProvider
                             }
                         }
                         if (isset($data["components"])) {
-                            $components = $data["components"];
-                            $data["components"] = [];
-                            foreach ($components as $component) {
-                                $data["components"][$component] = [$module => ['t'=>$type,"m"=>$typeModule]];
+                            if(isset($data["components"]["components"])){
+                                $components = $data["components"]["components"];
+                                $data["components"]["components"] = [];
+                                foreach ($components as $component) {
+                                    $data["components"]["components"][$component] = [$module => ['t'=>$type,"m"=>$typeModule]];
+                                }
                             }
-//                            dump($data);
+                            if(isset($data["components"]["configs"])){
+
+                                $components = $data["components"]["configs"];
+                                foreach ($components as $k=>$value) {
+                                    $data["components"]["configs"][$k] = $value;
+                                    $data["components"]["configs"][$k]['view'] = [$module => ['t'=>$type,"m"=>$typeModule,'v'=>$value["view"]]];
+
+                                }
+                            }
                         }
                         if (isset($data["packages"])) {
                             $data["packages"]["paths"][$module] = $path;
                         }
-                        $this->app->_configs->add($data);
+                        $this->app->getConfig()->add($data);
                     }
                 }
             }
@@ -241,15 +250,39 @@ class AppServiceProvider extends ServiceProvider
 
     public function InitComponents()
     {
-        $components = $this->app->_configs["components"];
+        if( $this->app->getComponents(true)->cache > 0){
+            return;
+        }
+        $components = $this->app->getConfig()->components["components"];
+        $components_configs = $this->app->getConfig()->components["configs"];
+      //  dump( $this->app->_configs['views']["paths"]);
+        $_components_configs = [];
+        foreach ($components_configs as $key=>$components_config){
+            $_view = $components_config["view"];
+            $_arr = [];
+            foreach ($_view as $m=>$__view){
+                $_alias =  $this->app->getConfig()->views["paths"][$m][$__view["t"]]["alias"];
+                if(view()->exists($_alias."::component".".configs.".$__view["v"], [])){
+                    $_arr[] = $_alias."::component".".configs.".$__view["v"];
+                }
+            }
+            if(count($_arr)>0){
+                $components_config["view"] = array_pop($_arr);
+                $this->app->getComponents()->template->add([$key=>$components_config]);
+               // $_components_configs[$key] = $components_config;
+            }
+        }
+      //  $this->app->_configs["components"]["configs"] = $_components_configs;
+        //$this->app->_configs["components"]["configs"] = $components_configs;
+      //  dump($this->app->_configs["components"]["configs"]);
 //        dump($this->app->_configs['views']);
 //        dump($this->app->_configs['packages']);
-//        dump($components);
+      //  dump( $this->app->getComponents());
         foreach ($components as $component => $modules) {
 
             foreach ($modules as $module => $opt) {
-                if (isset($this->app->_configs['packages']["paths"][$module])) {
-                    $path = $this->app->_configs['packages']["paths"][$module];
+                if (isset($this->app->getConfig()->packages["paths"][$module])) {
+                    $path = $this->app->getConfig()->packages["paths"][$module];
                     //  $folders = ["frontend"];
                     // foreach ($folders as $folder) {
                     $_file = $path . "/" . $opt["t"] . "/resource/views/component/" . $component . "/component.php";
@@ -266,14 +299,14 @@ class AppServiceProvider extends ServiceProvider
                     $_opt_ = [
                         "module"=>$module,
                         "type"=>$opt["t"],
-                        "alias"=>$this->app->_configs['views']["paths"][$module][$opt["t"]]["alias"]
+                        "alias"=>$this->app->getConfig()->views["paths"][$module][$opt["t"]]["alias"]
                     ];
                     $_file = $path . "/" . $opt["t"] . "/resource/views/component/" . $component . "/config.php";
-                    if (isset($this->app->_configs['views']["paths"][$module][$opt["t"]])) {
+                    if (isset($this->app->getConfig()->views["paths"][$module][$opt["t"]])) {
                         if (file_exists($_file)) {
                             $config_component = include $_file;
 //                            dump($config_component);
-                            $_alias =  $this->app->_configs['views']["paths"][$module][$opt["t"]]["alias"];
+                            $_alias =  $this->app->getConfig()->views["paths"][$module][$opt["t"]]["alias"];
                             if(isset($config_component['views'])){
                                 $_arr_view = [];
                                 foreach ($config_component['views'] as $___key=>$____view){
@@ -296,15 +329,13 @@ class AppServiceProvider extends ServiceProvider
                                     if(is_array($_config)){
                                         if(isset($_config["view"])){
                                            // $_arr_config[$_key] = $_config;
-                                            dump($_alias."::component.".$component.".configs.".$_config['view']);
                                             if(view()->exists($_alias."::component.".$component.".configs.".$_config['view'], []))
                                             {
                                                 $_arr_config[$_key] = $_config;
                                                 $_arr_config[$_key]["view"] = $_alias."::component.".$component.".configs.".$_config['view'];
                                             }
-                                            dump($_config);
                                         }else if(isset($_config["template"])){
-
+                                            $_arr_config[$_key] = $_config;
                                         }
                                     }
                                 }
@@ -319,17 +350,18 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         }
-        dump($this->app->getComponents());
-        die();
+//        dump($this->app->getComponents());
+//        die();
     }
 
     public function InitViews()
     {
-        foreach ($this->app->_configs['views']['paths'] as $alise => $modules) {
+        foreach ($this->app->getConfig()->views['paths'] as $alise => $modules) {
             foreach ($modules as $_view) {
                 $this->loadViewsFrom($_view['path'], $_view['alias']);
             }
         }
         $this->loadViewsFrom(base_path('bootstrap/zoe/views'), "zoe");
     }
+
 }

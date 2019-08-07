@@ -61,7 +61,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
 
 
-        dump(app()->_configs['views']["paths"]);
+        dump(app()->getConfig()['views']["paths"]);
         dump(app()->getComponents()->info);
         dump(app()->getComponents()->config);
 

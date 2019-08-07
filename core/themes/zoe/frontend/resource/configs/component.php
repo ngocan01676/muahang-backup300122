@@ -1,6 +1,6 @@
 <?php
 return [
     "components" => [
-        "thumbnail-image", "content"
+       "components"=>["thumbnail-image", "content"]
     ]
 ];
