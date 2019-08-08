@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \Zoe\Http\Middleware\Minify::class
     ];
 
     /**
@@ -60,7 +61,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'permission'=>\Zoe\Http\Middleware\PermissionMiddleware::class
+        'permission'=>\Zoe\Http\Middleware\PermissionMiddleware::class,
+        'cache.response'=>\Zoe\Http\Middleware\CacheResponse::class,
     ];
 
     /**

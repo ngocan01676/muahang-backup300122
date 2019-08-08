@@ -6,6 +6,7 @@ return [
       'theme'=>'core/themes'
   ],
   'modules'=>['admin','user'],
+  'plugins'=>['Comment'],
   'providers' => [
 
   ],

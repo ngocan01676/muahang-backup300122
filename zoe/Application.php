@@ -20,7 +20,7 @@ class Application extends App
 
     private $file;
 
-    private $cache = true;
+    private $cache = false;
     public $time_start = 0;
     public function __construct(?string $basePath = null)
     {

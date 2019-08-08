@@ -20,7 +20,20 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div id='app'><div>@includeIf('view', array (
+  <div id='app'><div>@includeIf('content', array (
+  'name' => 'Content Theme',
+  'count' => '5',
+))@includeIf('view', array (
+  'arr' => 
+  array (
+    0 => 
+    array (
+      'image' => 'image',
+      'title' => 'title',
+      'link' => 'link',
+    ),
+  ),
+))@includeIf('view', array (
   'arr' => 
   array (
     0 => 

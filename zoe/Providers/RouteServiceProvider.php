@@ -108,6 +108,7 @@ class RouteServiceProvider extends ServiceProvider
 //                var_dump($alias);
 //                echo "<BR>";
 //                var_dump($middleware);
+
                 if (isset($_route['form'])) {
                     $r = Route::match(['post'], $link . '-form', $namespace . $controller . "postCreate");
                     $r->name($alias . ":post");
@@ -115,7 +116,9 @@ class RouteServiceProvider extends ServiceProvider
                 }
                 $r = Route::match($method, $link, $action);
                 $r->name($alias);
+                $middleware[] = 'cache.response::'.http_build_query([""]);
                 $r->middleware($middleware);
+
             }
         }
 
