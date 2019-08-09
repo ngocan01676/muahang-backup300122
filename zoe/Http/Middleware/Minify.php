@@ -1,26 +1,30 @@
 <?php
+
 namespace Zoe\Http\Middleware;
+
 use Closure;
+
 class Minify
 {
     const DEFAULT_REPLACEMENT = [
         '/<!--[^\[](.*?)[^\]]-->/s' => '',
-        "/<\?php/"                  => '<?php ',
-        "/\n([\S])/"                => '$1',
-        "/\r/"                      => '',
-        "/\n/"                      => '',
-        "/\t/"                      => '',
-        '/ +/'                      => ' ',
-        '/> +</'                    => '><',
+        "/<\?php/" => '<?php ',
+        "/\n([\S])/" => '$1',
+        "/\r/" => '',
+        "/\n/" => '',
+        "/\t/" => '',
+        '/ +/' => ' ',
+        '/> +</' => '><',
     ];
     const SPECIFIC_REPLACEMENT = [
         '/<!--[^\[](.*?)[^\]]-->/s' => '',
-        "/<\?php/"                  => '<?php ',
-        "/\r/"                      => '',
-        "/>\n</"                    => '><',
-        "/>\s+\n</"                 => '><',
-        "/>\n\s+</"                 => '><',
+        "/<\?php/" => '<?php ',
+        "/\r/" => '',
+        "/>\n</" => '><',
+        "/>\s+\n</" => '><',
+        "/>\n\s+</" => '><',
     ];
+
     /**
      * Handle an incoming request.
      *
@@ -30,10 +34,11 @@ class Minify
      */
     public function handle($request, Closure $next)
     {
-//        return response('Hello World', 200);
+//        return $response = $next($request);
         $response = $next($request);
         return $this->html($response);
     }
+
     public function html($response)
     {
         $buffer = $response->getContent();
@@ -44,6 +49,7 @@ class Minify
         $response->setContent($buffer);
         return $response;
     }
+
     /**
      * Check should special RegEx rules be applied
      *

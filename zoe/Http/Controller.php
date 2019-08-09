@@ -13,16 +13,20 @@ class Controller extends BaseController
     public $data = [];
     public $view = [];
     public $asset = [];
+
     public function __construct()
     {
         $this->asset = app()->make('asset-manager');
         $this->view = view();
     }
+
     protected function _render($view, $data, $key)
     {
         $alias = app()->getConfig()['views']['alias'];
-        $data = array_merge($this->data,$data);
+        $data = array_merge($this->data, $data);
+
         if (isset($alias[$key][$view])) {
+
             return $this->view->make($alias[$key][$view], $data);
         } else {
             return $this->view->make($key . '::controller.' . $view, $data);

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AdminLTE 2 | Blank Page</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -27,7 +27,8 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     @stack('links')
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -68,7 +69,8 @@
                                     <li><!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                <img src="../../dist/img/user2-160x160.jpg" class="img-circle"
+                                                     alt="User Image">
                                             </div>
                                             <h4>
                                                 Support Team
@@ -122,7 +124,8 @@
                                                 <small class="pull-right">20%</small>
                                             </h3>
                                             <div class="progress xs">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                                                <div class="progress-bar progress-bar-aqua" style="width: 20%"
+                                                     role="progressbar"
                                                      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">20% Complete</span>
                                                 </div>
@@ -175,13 +178,14 @@
                                 </div>
                                 <div class="pull-right">
 
-                                    <form id="logout-form" action="{{ route('backend:logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('backend:logout') }}" method="POST"
+                                          style="display: none;">
                                         @csrf
                                     </form>
 
-                                    <a  href="{{ route('backend:logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                        class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="{{ route('backend:logout') }}"
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                       class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -198,8 +202,8 @@
     <!-- =============================================== -->
 
     <!-- Left side column. contains the sidebar -->
-    @include('backend::layout.sidebar')
-    <!-- =============================================== -->
+@include('backend::layout.sidebar')
+<!-- =============================================== -->
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -208,7 +212,7 @@
         </section>
         <!-- Main content -->
         <section class="content">
-             @yield('content')
+            @yield('content')
         </section>
         <!-- /.content -->
     </div>

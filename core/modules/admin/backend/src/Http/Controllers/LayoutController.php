@@ -57,18 +57,14 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $theme = config('zoe.theme');
         $data = ["views" => []];
 
-        $components_conf =  app()->getComponents()->config;
-
+        $components_conf = app()->getComponents()->config;
 
 
         dump(app()->getConfig()['views']["paths"]);
-        dump(app()->getComponents()->info);
-        dump(app()->getComponents()->config);
+        dump(app()->getComponents());
 
-        dump($items);
-
+//        dump($items);
 //        $components_config =  app()->getComponents()->config;
-
 //        dd($items);
         if (isset($items['config']['stg'])) {
             if (isset($items['config']['stg']['system'])) {
@@ -103,33 +99,42 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
                         }
                         break;
+                    case "plugin":
+                        if ($stg['type'] == "component") {
+
+                            $path = base_path('core/plugins/' . $stg['module'] . '/resource/views/component/' . $stg['name']);
+                        } else {
+
+                        }
+                        break;
                 }
 
                 if (isset($items['config']['stg']['name']) && isset($components_conf[$items['config']['stg']['name']])) {
 
                     $config = $components_conf[$items['config']['stg']['name']];
-                    dump($config);
+//                    dump("config", $config);
 
                     $is_template_dynamic = false;
-                    if (isset($config['config'])) {
-                        foreach ($config['config'] as $label => $_view) {
-                            if (isset($_view['file']) && isset($_view['label'])) {
+                    if (isset($config['configs'])) {
+                        foreach ($config['configs'] as $label => $_view) {
+                            dump($_view);
+                            if (isset($_view['view']) && isset($_view['label'])) {
                                 $data['views'][] = [
                                     'label' => $_view['label'],
-                                    'view' => $view_config . $_view['file'],
+                                    'view' => $_view['view'],
                                     'data' => $_view['data']
                                 ];
-                            } else if (isset($_view['template']) && isset($templates[$_view['template']])) {
+                            } else if (isset($_view['template']) && isset(app()->getComponents()->template[$_view['template']])) {
                                 if (isset($_view['data'])) {
                                     $__data = $_view["data"];
                                 } else {
                                     $__data = [];
                                 }
-                                $_view = $templates[$_view['template']];
+                                $_view = app()->getComponents()->template[$_view['template']];
                                 $is_template_dynamic = true;
                                 $_tmp = [
                                     'label' => $_view['label'],
-                                    'view' => $_view['file'],
+                                    'view' => $_view['view'],
                                     "data" => array_merge($_view['data'], $__data)
                                 ];
                                 $data['views'][] = $_tmp;
@@ -139,17 +144,17 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
 
                     $data["list_views"] = [
-                        "" => "Select View"
+                        "default" => ["label" => "Select View", "view" => ""]
                     ];
                     if ($is_template_dynamic) {
-                        $data["list_views"]["dynamic"] = "Dynamic";
+                        $data["list_views"]["dynamic"] = ["label" => "Dynamic", "view" => "dynamic"];
                     }
                     if (isset($config["views"])) {
                         foreach ($config["views"] as $_k => $_view) {
                             $data["list_views"][$view_view . $_k] = $_view;
                         }
                     }
-                    die;
+                    dump($data);
                     return $this->render('layout.ajax.config', $data);
                 }
             }
@@ -169,7 +174,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             $php = Blade::compileString(\Admin\Lib\LayoutBlade::plugin($items));
             $__env = app(\Illuminate\View\Factory::class);
 
-          // var_dump($__env->exists('demo', ['some' => 'data']));
+            // var_dump($__env->exists('demo', ['some' => 'data']));
 
             $obLevel = ob_get_level();
             ob_start();

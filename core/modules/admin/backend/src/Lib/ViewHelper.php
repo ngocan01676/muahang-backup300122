@@ -18,7 +18,7 @@ class ViewHelper
         }
         $html = '
         @function(func_' . $func . ' ($data))
-            ' . htmlspecialchars_decode($content) . '
+            ' . (empty($content) ? "" : htmlspecialchars_decode($content)) . '
         @endfunction
          @func_' . $func . '(' . var_export(isset($option['opt']) ? $option['opt'] : [], true) . ')';
         return $html;

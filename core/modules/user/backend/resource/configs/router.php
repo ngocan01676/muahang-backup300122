@@ -1,48 +1,49 @@
 <?php
 return [
-    'routers'=>[
-        'backend'=>[
-            'guest'=>[
-                "namespace"=>"User\Http\Controllers",
-                "controller"=>"AuthController",
-                "router"=>[
-                    "login"=>[
-                        "url"=>"/login",
-                        "action"=>"getLogin",
-                        "name"=>"backend:login",
-                        "guard"=>""
+    'routers' => [
+        'backend' => [
+            'guest' => [
+                "namespace" => "User\Http\Controllers",
+                "controller" => "AuthController",
+                "router" => [
+                    "login" => [
+                        "url" => "/login",
+                        "action" => "getLogin",
+                        "name" => "backend:login",
+                        "guard" => "",
+                        "cache" => 60
                     ],
-                    "login:post"=>[
-                        "url"=>"/login/action",
-                        "action"=>"postLogin",
-                        "method"=>["post"],
-                        "guard"=>""
+                    "login:post" => [
+                        "url" => "/login/action",
+                        "action" => "postLogin",
+                        "method" => ["post"],
+                        "guard" => ""
                     ],
-                    "logout"=>[
-                        "url"=>"/logout",
-                        "action"=>"logout",
-                        "method"=>["post"],
-                        "name"=>"backend:logout"
-                    ],
-                ]
-            ],
-            'user'=>[
-                "namespace"=>"User\Http\Controllers",
-                "controller"=>"UserController",
-                "acl"=>"user",
-                "router"=>[
-                    "list"=>[
-                        "url"=>"/user"
+                    "logout" => [
+                        "url" => "/logout",
+                        "action" => "logout",
+                        "method" => ["post"],
+                        "name" => "backend:logout"
                     ],
                 ]
             ],
-            'user:role'=>[
-                "namespace"=>"User\Http\Controllers",
-                "controller"=>"RoleController",
-                "acl"=>"user:role",
-                "router"=>[
-                    "list"=>[
-                        "url"=>"/user/role"
+            'user' => [
+                "namespace" => "User\Http\Controllers",
+                "controller" => "UserController",
+                "acl" => "user",
+                "router" => [
+                    "list" => [
+                        "url" => "/user"
+                    ],
+                ]
+            ],
+            'user:role' => [
+                "namespace" => "User\Http\Controllers",
+                "controller" => "RoleController",
+                "acl" => "user:role",
+                "router" => [
+                    "list" => [
+                        "url" => "/user/role"
                     ],
 
                 ]

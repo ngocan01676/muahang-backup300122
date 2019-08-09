@@ -35,7 +35,7 @@ class RouteServiceProvider extends ServiceProvider
             });
         }
         $this->InitRouters();
-        view()->share('time_exe', microtime(true)- $this->app->time_start);
+        view()->share('time_exe', microtime(true) - $this->app->time_start);
     }
 
     public function InitRouters()
@@ -49,6 +49,7 @@ class RouteServiceProvider extends ServiceProvider
         }
 
     }
+
     public function InitRouter($guard, $routers, $config)
     {
         foreach ($routers as $name => $route) {
@@ -116,13 +117,15 @@ class RouteServiceProvider extends ServiceProvider
                 }
                 $r = Route::match($method, $link, $action);
                 $r->name($alias);
-                $middleware[] = 'cache.response::'.http_build_query([""]);
+                if (isset($_route['cache'])) {
+                    $middleware[] = 'cache.response:' . $alias . "," . $_route['cache'];
+                }
                 $r->middleware($middleware);
 
             }
         }
 
-
+        $this->app->WriteCache();
 //        die;
     }
 

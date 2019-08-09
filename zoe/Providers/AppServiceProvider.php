@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        $this->app->ReadCache();
         $this->file = new \Illuminate\Filesystem\Filesystem();
         $time_start = microtime(true);
         $this->blade();
@@ -64,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
 
 //        dump($this->app->getConfig()->views);
 
-        $this->app->WriteCache();
+
     }
 
     public function blade()
@@ -170,8 +170,8 @@ class AppServiceProvider extends ServiceProvider
         foreach ($this->app->getConfig()->packages['namespaces'] as $namespace => $path) {
             $loader->addPsr4($namespace . '\\', $path);
         }
-        if(is_array($this->app->getConfig()->class_maps)){
-            foreach ($this->app->getConfig()->class_maps as $class_map){
+        if (is_array($this->app->getConfig()->class_maps)) {
+            foreach ($this->app->getConfig()->class_maps as $class_map) {
                 $loader->addClassMap($class_map);
             }
         }
@@ -235,7 +235,7 @@ class AppServiceProvider extends ServiceProvider
                             }
                         }
                         if (isset($data["packages"])) {
-                            $data["packages"]["paths"][$typeModule.":".$module] = $path;
+                            $data["packages"]["paths"][$typeModule . ":" . $module] = $path;
                         }
                         $this->app->getConfig()->add($data);
                     }
@@ -267,6 +267,7 @@ class AppServiceProvider extends ServiceProvider
 //         $this->app->_plugin[$module] = $object;
         }
     }
+
     public function plugin($plugin, $object, $path)
     {
         $fileConfig = $object->FileConfig();
@@ -277,25 +278,25 @@ class AppServiceProvider extends ServiceProvider
                 if (is_array($data)) {
                     $data = include $_file;
                     $class_maps = [];
-                    if(isset($data["class_maps"])){
+                    if (isset($data["class_maps"])) {
                         $class_maps = $data["class_maps"];
                     }
                     $data["class_maps"] = [];
                     $data["class_maps"][$plugin] = $class_maps;
-                    $routers  = [];
-                    if(isset($data["routers"])){
-                        foreach ($data["routers"] as $key=>$router ){
-                            $routers["backend"]["plugin:".$key] = $router;
-                            $routers["backend"]["plugin:".$key]["prefix"] = "admin/plugin";
+                    $routers = [];
+                    if (isset($data["routers"])) {
+                        foreach ($data["routers"] as $key => $router) {
+                            $routers["backend"]["plugin:" . $key] = $router;
+                            $routers["backend"]["plugin:" . $key]["prefix"] = "admin/plugin";
                         }
                     }
                     $data["routers"] = $routers;
-                    if(isset($data["views"])){
+                    if (isset($data["views"])) {
                         $views = $data["views"];
-                        if(isset($views["path"])){
-                            $views["paths"]["plugin"][$plugin]  = [
-                                "path"=>$views["path"],
-                                "alias"=>"plugin".$plugin
+                        if (isset($views["path"])) {
+                            $views["paths"]["plugin"][$plugin] = [
+                                "path" => $views["path"],
+                                "alias" => "plugin" . $plugin
                             ];
                         }
                         unset($views["path"]);
@@ -324,7 +325,7 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         }
-        $this->app->getConfig()->add(["packages"=>["paths"=>["plugin:".$plugin=>$path]]]);
+        $this->app->getConfig()->add(["packages" => ["paths" => ["plugin:" . $plugin => $path]]]);
     }
 
     public function InitTheme()
@@ -372,14 +373,14 @@ class AppServiceProvider extends ServiceProvider
         foreach ($components as $component => $modules) {
             foreach ($modules as $module => $opt) {
 
-                if (isset($this->app->getConfig()->packages["paths"][$opt["m"].":".$module])) {
-                    $path = $this->app->getConfig()->packages["paths"][$opt["m"].":".$module];
+                if (isset($this->app->getConfig()->packages["paths"][$opt["m"] . ":" . $module])) {
+                    $path = $this->app->getConfig()->packages["paths"][$opt["m"] . ":" . $module];
 //                    echo $path."<BR>";
                     //  $folders = ["frontend"];
                     // foreach ($folders as $folder) {
-                    if(empty($opt["t"])){
+                    if (empty($opt["t"])) {
                         $_file = $path . "/resource/views/component/" . $component . "/component.php";
-                    }else{
+                    } else {
                         $_file = $path . "/" . $opt["t"] . "/resource/views/component/" . $component . "/component.php";
                     }
 
@@ -401,10 +402,10 @@ class AppServiceProvider extends ServiceProvider
                     ];
                     $_file = $path . "/" . $opt["t"] . "/resource/views/component/" . $component . "/config.php";
 
-                    if($opt["m"] == "plugin"){
-                        $view_paths = isset($this->app->getConfig()->views["paths"]["plugin"][$module])?$this->app->getConfig()->views["paths"]["plugin"][$module]:false;
-                    }else{
-                        $view_paths = isset($this->app->getConfig()->views["paths"][$module][$opt["t"]])?$this->app->getConfig()->views["paths"][$module][$opt["t"]]:false;
+                    if ($opt["m"] == "plugin") {
+                        $view_paths = isset($this->app->getConfig()->views["paths"]["plugin"][$module]) ? $this->app->getConfig()->views["paths"]["plugin"][$module] : false;
+                    } else {
+                        $view_paths = isset($this->app->getConfig()->views["paths"][$module][$opt["t"]]) ? $this->app->getConfig()->views["paths"][$module][$opt["t"]] : false;
                     }
                     if (is_array($view_paths)) {
                         if (file_exists($_file)) {
@@ -421,8 +422,8 @@ class AppServiceProvider extends ServiceProvider
                                             if (view()->exists($_alias . "::component." . $component . ".views." . $____view['view'], [])) {
                                                 $_arr_view[$___key] = $____view;
                                                 $_arr_view[$___key]["view"] = $_alias . "::component." . $component . ".views." . $____view['view'];
-                                            }else{
-                                               // echo $_alias . "::component." . $component . ".views." . $____view['view']."<BR>";
+                                            } else {
+                                                // echo $_alias . "::component." . $component . ".views." . $____view['view']."<BR>";
                                             }
                                         }
                                     }
@@ -455,7 +456,7 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         }
-       // dump($this->app->getComponents());
+        // dump($this->app->getComponents());
 //        die();
     }
 

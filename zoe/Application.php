@@ -2,6 +2,7 @@
 
 namespace Zoe;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Foundation\Application as App;
 
 class Application extends App
@@ -20,8 +21,9 @@ class Application extends App
 
     private $file;
 
-    private $cache = false;
+    private $cache = true;
     public $time_start = 0;
+
     public function __construct(?string $basePath = null)
     {
         $this->time_start = microtime(true);
@@ -45,74 +47,88 @@ class Application extends App
         $this->_permissions->data->data = [];
 
         parent::__construct($basePath);
-        $this->ReadCache();
+
     }
 
     public function getComponents($all = false)
     {
-        if($all == false){
+        if ($all == false) {
             return $this->_components->data;
         }
         return $this->_components;
     }
 
-    public function getConfig($all = false){
-        if($all == false){
+    public function getConfig($all = false)
+    {
+        if ($all == false) {
             return $this->_configs->data;
         }
         return $this->_configs;
     }
-    public function getPermissions($all = false){
-        if($all == false){
+
+    public function getPermissions($all = false)
+    {
+        if ($all == false) {
             return $this->_permissions->data;
         }
         return $this->_permissions;
     }
-    public function ReadCache(){
-        if($this->cache == false){
+
+    public function ReadCache()
+    {
+        if ($this->cache == false) {
             return;
         }
-
-        if($this->file->isFile(base_path('bootstrap/zoe/config/configs.php'))){
+        if (Cache::has("zoe:cache")) {
+            if (time() - Cache::get("zoe:cache") > 6000) {
+                return;
+            }
+        }
+        if ($this->file->isFile(base_path('bootstrap/zoe/config/configs.php'))) {
             $data = $this->file->get(base_path('bootstrap/zoe/config/configs.php'));
-            try{
+            try {
                 $this->_configs = unserialize($data);
-            }catch (\Exception $ex){
+            } catch (\Exception $ex) {
 
             }
         }
-        if($this->file->isFile(base_path('bootstrap/zoe/config/components.php'))){
+        if ($this->file->isFile(base_path('bootstrap/zoe/config/components.php'))) {
             $data = $this->file->get(base_path('bootstrap/zoe/config/components.php'));
-            try{
+            try {
                 $this->_components = unserialize($data);
-            }catch (\Exception $ex){
+            } catch (\Exception $ex) {
 
             }
         }
-        if($this->file->isFile(base_path('bootstrap/zoe/config/permissions.php'))){
+        if ($this->file->isFile(base_path('bootstrap/zoe/config/permissions.php'))) {
             $data = $this->file->get(base_path('bootstrap/zoe/config/permissions.php'));
-            try{
+            try {
                 $this->_permissions = unserialize($data);
-            }catch (\Exception $ex){
+            } catch (\Exception $ex) {
 
             }
         }
     }
-    public function WriteCache(){
-        if($this->cache == false){
+
+    public function WriteCache()
+    {
+        if ($this->cache == false) {
             return;
         }
-        if( $this->_configs->cache == 0){
-            $this->file->put(base_path('bootstrap/zoe/config/configs.php'),serialize($this->setTimeCache($this->_configs)));
+        if ($this->_configs->cache == 0) {
+            $this->file->put(base_path('bootstrap/zoe/config/configs.php'), serialize($this->setTimeCache($this->_configs)));
         }
-        if( $this->_components->cache == 0) {
+        if ($this->_components->cache == 0) {
             $this->file->put(base_path('bootstrap/zoe/config/components.php'), serialize($this->setTimeCache($this->_components)));
         }
-        if( $this->_permissions->cache == 0) {
-            $this->file->put(base_path('bootstrap/zoe/config/permissions.php'),serialize($this->setTimeCache($this->_permissions)));
+        if ($this->_permissions->cache == 0) {
+            $this->file->put(base_path('bootstrap/zoe/config/permissions.php'), serialize($this->setTimeCache($this->_permissions)));
         }
+        Cache::add("zoe:cache", time(), 120);
     }
-    public function setTimeCache($data){
+
+    public function setTimeCache($data)
+    {
         $data->cache = time();
         return $data;
     }

@@ -5,6 +5,7 @@
             <li><a data-toggle="tab" href="#{{md5($view['view'])}}">{{$view['label']}}</a></li>
         @endforeach
     </ul>
+
     <div class="tab-content">
         <div id="config" class="tab-pane fade in active">
             <table class="table table-bordered">
@@ -16,13 +17,15 @@
                 <tr>
                     <td><label for="text">View</label></td>
                     <td>
+
                         <select name="cfg.view" class="form-control">
                             @foreach($list_views as $k=>$_view)
-                                <option value="{{$k}}">{{$_view}}</option>
+                                <option value="{!! $_view["view"] !!}">{{$_view["label"]}}</option>
                             @endforeach
                         </select>
                     </td>
                 </tr>
+
                 <tr>
                     <td><label for="text">Stats</label></td>
                     <td>

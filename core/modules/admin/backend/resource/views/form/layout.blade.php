@@ -167,11 +167,11 @@
                 </div>
                 <?php endforeach; ?>
                 <?php
-                $components =  app()->getComponents()->info;
-                $components_config =  app()->getComponents()->config;
+                $components = app()->getComponents()->info;
+                $components_config = app()->getComponents()->config;
 
                 $module = "Component";
-               // foreach ($components as $module=>$_components):
+                // foreach ($components as $module=>$_components):
                 ?>
                 <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
                     <div class="panel panel-default">
@@ -186,36 +186,36 @@
                         <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
 
                             <?php
-                            foreach ($components as $name=>$component) {
+                            foreach ($components as $name => $component) {
                                 $option = $component['option'];
                                 $option["stg"]['name'] = $component['name'];
 //                                $option["stg"]['system'] = $module;
-                                if(isset($components_config[$name])){
+                                if (isset($components_config[$name])) {
                                     //$option['cfg'] = array_merge();
                                     $_config = $components_config[$name]["configs"];
-                                    dump( $components_config[$name]);
+//                                    dump( $components_config[$name]);
                                     $_cfg = new Zoe\Config($components_config[$name]["cfg"]);
-                                    foreach ($_config as $__config){
+                                    foreach ($_config as $__config) {
                                         $_prefix = "";
-                                        if(isset($__config["prefix"])){
-                                             if(empty($__config["prefix"])){
-                                                 $__data = $__config["data"];
-                                             }else{
-                                                 $__data = [$__config["prefix"]=>$__config["data"]];
-                                             }
-                                        }else{
+                                        if (isset($__config["prefix"])) {
+                                            if (empty($__config["prefix"])) {
+                                                $__data = $__config["data"];
+                                            } else {
+                                                $__data = [$__config["prefix"] => $__config["data"]];
+                                            }
+                                        } else {
                                             $__data = $__config["data"];
                                         }
-                                        $_cfg->add(["config"=>$__data]);
+                                        $_cfg->add(["config" => $__data]);
                                     }
-                                    if(isset($components_config[$name]["compiler"])){
-                                        $_cfg->add(["compiler"=>$components_config[$name]["compiler"]]);
+                                    if (isset($components_config[$name]["compiler"])) {
+                                        $_cfg->add(["compiler" => $components_config[$name]["compiler"]]);
                                     }
-                                    $_cfg->add(["data"=>[]]);
+                                    $_cfg->add(["data" => []]);
                                     $option["cfg"] = $_cfg->getArrayCopy();
                                     $option["opt"] = $components_config[$name]["data"];
                                 }
-                                dump($option);
+//                                dump($option);
                                 echo \Admin\Lib\Layout::plugin($option, false);
                             }
                             ?>
@@ -244,7 +244,7 @@
                         </div>
                     </div>
                     <input type="hidden" id="id" value="{{$model->id}}">
-                    <div id="layout" UriConfig="{{route("backend:layout:ajax:form_config")}}">
+                    <div id="layout" UriConfig="{{route('backend:layout:ajax:form_config')}}">
                         <div class="demo" id="layout_demo" UrlSettingWidget="">
                             <?php echo \Admin\Lib\Layout::render($content['data'], $content['widget']); ?>
                         </div>
@@ -356,6 +356,7 @@
         .CodeMirror {
             border: 1px solid black;
         }
+
         iframe {
             margin: 10px auto;
             display: block; /* iframes are inline by default */
