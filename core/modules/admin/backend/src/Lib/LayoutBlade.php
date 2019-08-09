@@ -39,13 +39,12 @@ class LayoutBlade
 
     private static function girds($content, $option)
     {
-
-        if (isset($option['stg']['compiler']['grid'])) {
+        if (isset($option['cfg']['compiler']['grid'])) {
             $grid = [];
-            if (is_string($option['stg']['compiler']['grid'])) {
-                $grid[] = $option['stg']['compiler']['grid'];
-            } else if (is_array($option['stg']['compiler']['grid'])) {
-                $grid = $option['stg']['compiler']['grid'];
+            if (is_string($option['cfg']['compiler']['grid'])) {
+                $grid[] = $option['cfg']['compiler']['grid'];
+            } else if (is_array($option['cfg']['compiler']['grid'])) {
+                $grid = $option['cfg']['compiler']['grid'];
             }
             foreach ($grid as $val) {
                 if (method_exists(static::$GridHelper, "layout_" . $val)) {
@@ -73,7 +72,7 @@ class LayoutBlade
                     $content = call_user_func_array(array(static::$ViewHelper, "commposer"), array($option));
                 }
             } else if ($option['cfg']['view']) {
-                $content = "@includeIf('" . $option['cfg']['view'] . "', " . (var_export(isset($option['opt']) ? $option['opt'] : [], true)) . ")";
+                $content = "@includeIf('" . $option['cfg']['view'] . "', " . (var_export(isset($option['opt']) ? ["data"=>$option['opt']] : ["data"=>[]], true)) . ")";
             } else {
                 $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>\n";
             }

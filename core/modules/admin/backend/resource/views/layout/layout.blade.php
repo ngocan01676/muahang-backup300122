@@ -436,7 +436,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('module/admin/dist/js/demo.js')}}"></script>
 <script type="text/javascript">
-
     $(document).ready(function () {
         $.ajaxSetup({
             headers: {

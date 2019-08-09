@@ -15,22 +15,24 @@ class CacheResponse
     public const RESPONSE_TYPE_NORMAL = 'response_type_normal';
     public const RESPONSE_TYPE_FILE = 'response_type_file';
 
-    public function prepareResponseToCache(Response $response): void
+    public function prepareResponseToCache(Response $response): string
     {
         if (!$response->getContent()) {
-            return;
+            return "";
         }
-        $response->setContent(str_replace(
+        $html = str_replace(
             csrf_token(),
             $this->replacementString,
             $response->getContent()
-        ));
+        );
+        $response->setContent($html."<!-- Cache ".date("Y-m-d H:i:s")." --!>");
+        return $html;
     }
 
-    public function replaceInCachedResponse(Response $response): void
+    public function replaceInCachedResponse(Response $response): string
     {
         if (!$response->getContent()) {
-            return;
+            return "";
         }
         $html = str_replace(
             $this->replacementString,
@@ -39,6 +41,7 @@ class CacheResponse
         );
         $html = preg_replace('#\<div class="_csrf_input"\>(.+?)\<\/div\>#s', '<input cache="true" type="hidden" name="_token" value="' . csrf_token() . '">', $html);
         $response->setContent($html);
+        return $html;
     }
 
     public function handle($request, Closure $next, ...$args)
@@ -49,7 +52,6 @@ class CacheResponse
             if (Cache::has($args[0])) {
                 $response = $this->unserialize(Cache::get($args[0]));
                 $this->replaceInCachedResponse($response);
-
                 return $response;
             } else {
                 $response = $next($request);
@@ -57,8 +59,6 @@ class CacheResponse
                 Cache::add($args[0], $this->serialize($response), $args[1]);
                 $this->replaceInCachedResponse($response);
                 return $response;
-
-                //$this->replaceInCachedResponse($response);
 
             }
         }

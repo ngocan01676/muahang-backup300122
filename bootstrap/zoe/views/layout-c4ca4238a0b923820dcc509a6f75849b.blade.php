@@ -20,30 +20,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div id='app'><div>@includeIf('content', array (
+  <div id='app'><div><div class='py-4'><div class="container"><div class="row justify-content-center"><div class="col-md-8"><div class="card"><div class="card-header">{{"Demo"}}</div> <div class="card-body">
+        @function(func_1565347389_3674_3900 ($data))
+            @yield('content')
+        @endfunction
+         @func_1565347389_3674_3900(array (
   'name' => 'Content Theme',
   'count' => '5',
-))@includeIf('view', array (
-  'arr' => 
-  array (
-    0 => 
-    array (
-      'image' => 'image',
-      'title' => 'title',
-      'link' => 'link',
-    ),
-  ),
-))@includeIf('view', array (
-  'arr' => 
-  array (
-    0 => 
-    array (
-      'image' => 'image',
-      'title' => 'title',
-      'link' => 'link',
-    ),
-  ),
-))</div>
+))</div></div></div></div></div></div></div>
 </div>
 </body>
 </html>

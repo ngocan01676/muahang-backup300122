@@ -9,7 +9,7 @@ return [
                     "info" => [
                         "url" => "user/info",
                         "guard" => "",
-                        "cache" => 50
+                        "cache" => 5
                     ],
                 ]
             ]

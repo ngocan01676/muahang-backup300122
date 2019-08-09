@@ -60,8 +60,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $components_conf = app()->getComponents()->config;
 
 
-        dump(app()->getConfig()['views']["paths"]);
-        dump(app()->getComponents());
+//        dump(app()->getConfig()['views']["paths"]);
+//        dump(app()->getComponents());
 
 //        dump($items);
 //        $components_config =  app()->getComponents()->config;
@@ -73,7 +73,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                 $data["compiler"]['grid'] = $this->GetMethod($this->GetGridBlade());
                 $data["compiler"]['blade'] = $this->GetMethod($this->GetViewHelperBlade());
                 $data["config"] = [
-                    "compiler" => isset($items["config"]['stg']['compiler']) ? $items["config"]['stg']['compiler'] : []
+                    "compiler" => isset($items["config"]['cfg']['compiler']) ? $items["config"]['cfg']['compiler'] : []
                 ];
                 $path = "";
                 $view_config = "";
@@ -117,7 +117,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     $is_template_dynamic = false;
                     if (isset($config['configs'])) {
                         foreach ($config['configs'] as $label => $_view) {
-                            dump($_view);
+//                            dump($_view);
                             if (isset($_view['view']) && isset($_view['label'])) {
                                 $data['views'][] = [
                                     'label' => $_view['label'],
@@ -154,7 +154,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                             $data["list_views"][$view_view . $_k] = $_view;
                         }
                     }
-                    dump($data);
+//                    dump($data);
                     return $this->render('layout.ajax.config', $data);
                 }
             }

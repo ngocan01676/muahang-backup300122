@@ -38,18 +38,21 @@
                     <td>
 
                         <select id='optgroup' multiple='multiple'>
+                            @php
+                                $i = 0;
+                            @endphp
                             @foreach($compiler as $_label=>$_hook)
-                                <optgroup label='{{$_label}}'>
+                                <optgroup data-name="{{$_label}}" label='{{$_label}}'>
                                     @foreach($_hook as $val)
                                         @php
-                                            $index = 0;
+                                            $order = 0;
                                         @endphp
 
                                         @if(isset($config["compiler"][$_label]) && in_array($val,$config["compiler"][$_label]))
-                                            @php $index = array_search($val,$config["compiler"][$_label]); @endphp
-                                            <option selected value='{{$_label}}-{{$val}}'>{{$val}} - {{$index}}</option>
+                                            @php $order = array_search($val,$config["compiler"][$_label])+1; @endphp
+                                            <option data-group="{{$_label}}-{{$val}}"data-order="{{$order}}" data-index="{{$i++}}" selected value='{{$_label}}-{{$val}}'>{{$val}}</option>
                                         @else
-                                            <option value='{{$_label}}-{{$val}}'>{{$val}} - {{$index}}</option>
+                                            <option data-group="{{$_label}}-{{$val}}" data-order="{{$order}}" data-index="{{$i++}}" value='{{$_label}}-{{$val}}'>{{$val}}</option>
                                         @endif
                                     @endforeach
                                 </optgroup>

@@ -22,7 +22,15 @@ function resetColumn(parent) {
         }
     }
 }
-
+function getSorted(selector, attrName) {
+    return $(selector.toArray().sort(function(a, b){
+        var aVal = parseInt(a.getAttribute(attrName)),
+            bVal = parseInt(b.getAttribute(attrName));
+        console.log(aVal);
+        console.log(bVal);
+        return  aVal - bVal;
+    }));
+}
 var demo = $(".demo");
 $(".demo").sortable({
     connectWith: ".column",
@@ -198,7 +206,7 @@ demo.delegate(".configuration", "click", function (e) {
     var edit;
     window._editor = null;
     var compiler = {"grid": [], "blade": []};
-    compiler = $.extend(compiler, config.stg.compiler);
+    compiler = $.extend(compiler, config.cfg.compiler);
     $.ajax({
         url: $("#layout").attr('uriconfig'),
         type: "POST",
@@ -225,7 +233,8 @@ demo.delegate(".configuration", "click", function (e) {
                         config.opt = $.extend(config.opt, data.opt);
                         //console.log(JSON.stringify(data.opt));
                     }
-                    config.stg.compiler = compiler;
+
+                    config.cfg.compiler = compiler;
                     console.log(config);
                     console.log(JSON.stringify(config));
                     option.html(JSON.stringify(config));
@@ -235,19 +244,35 @@ demo.delegate(".configuration", "click", function (e) {
                     console.log(_this.form.zoe_inputs("set", config));
 
                     _this.form.find("#data_config").val(JSON.stringify(config));
-                    $('#optgroup').multiSelect({
+                    var _multiSelect = $('#optgroup').multiSelect({
                         selectableOptgroup: true,
+                        afterInit: function(container){
+                            this.$selectionContainer.find(".ms-optgroup").each(function () {
+                                console.log("#"+$(this).parent().attr("id")+">.ms-elem-selection");
+                                $(this).sortable({
+                                    items: 'li:not(.ms-optgroup-label)',
+                                    stop: function (ev, ui) {
+                                       console.info("sdfdf");
+                                    }
+                                });
+                                $(this).disableSelection();
+                                getSorted($(this).find(".ms-selected"),"data-order").detach().appendTo($(this));
+                            });
+                            // getSorted(this.$selectionContainer.find(".ms-selected"),"data-order").detach().appendTo(this.$selectionContainer);
+                        },
                         afterSelect: function (values, index) {
-                            var val = values[0].split("-");
-
+                           var val = values[0].split("-");
                             if (compiler.hasOwnProperty(val[0])) {
-                                console.log(val);
+                                //console.log(val);
                                 compiler[val[0]].push(val[1]);
+                               this.$selectionContainer.find(".ms-optgroup [data-group='"+val[0]+"-"+val[1]+"']").attr("data-order",compiler[val[0]].length);
+                                this.$selectionContainer.find(".ms-optgroup").each(function () {
+                                    getSorted($(this).find(".ms-selected"),"data-order").detach().appendTo($(this));
+                                });
                             }
-                            console.log(compiler);
                         },
                         afterDeselect: function (values, index) {
-                            // alert("Deselect value: " + values);
+
                             var val = values[0].split("-");
                             if (compiler.hasOwnProperty(val[0])) {
                                 var _index = compiler[val[0]].indexOf(val[1]);
@@ -255,7 +280,16 @@ demo.delegate(".configuration", "click", function (e) {
                                     compiler[val[0]].splice(_index, 1);
                                 }
                             }
-                            console.log(compiler);
+                            for (var key in compiler) {
+                                if(compiler.hasOwnProperty(key)){
+                                    for(var _key in compiler[key]){
+                                        this.$selectionContainer.find(".ms-optgroup [data-group='"+key+"-"+compiler[key][_key]+"']").attr("data-order",_key+1);
+                                    }
+                                }
+                            }
+                            this.$selectionContainer.find(".ms-optgroup").each(function () {
+                                getSorted($(this).find(".ms-selected"),"data-order").detach().appendTo($(this));
+                            });
                         }
                     });
                     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {

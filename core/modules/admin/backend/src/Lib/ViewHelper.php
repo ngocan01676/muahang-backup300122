@@ -11,16 +11,17 @@ class ViewHelper
 
     public function commposer($option)
     {
-        $func = md5(json_encode($option['stg']));
+        $func = rand(1000,9999)."_".rand(1000,9999);
         $content = "";
+
         if (isset($option['cfg']['template']["view"]) && isset($option['cfg']['template']["data"][$option['cfg']['template']["view"]])) {
             $content = $option['cfg']['template']["data"][$option['cfg']['template']["view"]];
         }
         $html = '
-        @function(func_' . $func . ' ($data))
+        @function(func_'.time().'_' . $func . ' ($data))
             ' . (empty($content) ? "" : htmlspecialchars_decode($content)) . '
         @endfunction
-         @func_' . $func . '(' . var_export(isset($option['opt']) ? $option['opt'] : [], true) . ')';
+         @func_'.time().'_' . $func . '(' . var_export(isset($option['opt']) ? $option['opt'] : [], true) . ')';
         return $html;
     }
 }

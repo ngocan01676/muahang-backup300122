@@ -332,11 +332,9 @@
 </style>
 @push('scripts')
     <script src="{{asset('module/admin/bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
-
     <script src="{{asset('module/admin/asset/bootpopup/bootpopup.js')}}"></script>
     <script src="{{asset('module/admin/asset/zoe.jquery.inputs.js')}}"></script>
     <script src="{{asset('module/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
-
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/codemirror.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/codemirror.min.js"></script>

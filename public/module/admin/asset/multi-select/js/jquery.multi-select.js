@@ -362,7 +362,7 @@
           selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable').filter(':not(.'+that.options.disabledClass+')'),
           selections = this.$selectionUl.find('#' + msIds.join('-selection, #') + '-selection').filter(':not(.'+that.options.disabledClass+')'),
           options = ms.find('option:not(:disabled)').filter(function(){ return($.inArray(this.value, value) > -1); });
-
+      console.log(selectables);
       if (method === 'init'){
         selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable'),
         selections = this.$selectionUl.find('#' + msIds.join('-selection, #') + '-selection');
