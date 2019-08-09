@@ -1,16 +1,16 @@
 <?php
 return [
-    'views'=>[
-        'paths'=>['user'=>__DIR__.'/../views'],
-        'alias'=>[
+    'views' => [
+        'paths' => ['user' => 'backend'],
+        'alias' => [
 
         ]
     ],
-    'packages'=>[
-        'namespaces'=>[
-            'User'=>__DIR__.'/../../src'
+    'packages' => [
+        'namespaces' => [
+            'User' => 'backend'
         ],
-        'providers'=>[
+        'providers' => [
 
         ]
     ]

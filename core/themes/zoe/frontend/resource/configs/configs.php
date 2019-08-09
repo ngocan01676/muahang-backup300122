@@ -1,13 +1,13 @@
 <?php
 return [
-    'views'=>[
-        'paths'=>['theme'=>__DIR__.'/../views']
+    'views' => [
+        'paths' => ['theme' => 'frontend']
     ],
-    'packages'=>[
-        'namespaces'=>[
-            'ZoeTheme'=>__DIR__.'/../../src'
+    'packages' => [
+        'namespaces' => [
+            'ZoeTheme' => 'frontend'
         ],
-        'providers'=>[
+        'providers' => [
 
         ]
     ]

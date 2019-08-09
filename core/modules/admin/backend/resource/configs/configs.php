@@ -1,7 +1,7 @@
 <?php
 return [
     'views' => [
-        'paths' => ['backend' => __DIR__ . '/../views'],
+        'paths' => ['backend' => 'backend'],
         'alias' => [
             'layout.create' => 'backend::controller.layout.create',
             'layout.edit' => 'backend::controller.layout.edit',
@@ -9,7 +9,7 @@ return [
     ],
     'packages' => [
         'namespaces' => [
-            'Admin' => __DIR__ . '/../../src'
+            'Admin' => "backend"
         ],
         'providers' => [
 

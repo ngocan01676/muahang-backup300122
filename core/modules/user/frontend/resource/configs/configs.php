@@ -1,13 +1,13 @@
 <?php
 return [
-    'views'=>[
-       'paths'=>[ 'user_front'=>__DIR__.'/../views']
+    'views' => [
+        'paths' => ['user_front' => 'frontend']
     ],
-    'packages'=>[
-        'namespaces'=>[
-            'UserFront'=>__DIR__.'/../../src'
+    'packages' => [
+        'namespaces' => [
+            'UserFront' => 'frontend'
         ],
-        'providers'=>[
+        'providers' => [
 
         ]
     ]

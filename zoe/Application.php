@@ -26,6 +26,7 @@ class Application extends App
 
     public function __construct(?string $basePath = null)
     {
+
         $this->time_start = microtime(true);
         $this->file = new \Illuminate\Filesystem\Filesystem();
         $this->_configs = new \stdClass();
@@ -108,6 +109,7 @@ class Application extends App
 
             }
         }
+        
     }
 
     public function WriteCache()

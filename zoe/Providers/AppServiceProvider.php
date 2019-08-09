@@ -54,6 +54,8 @@ class AppServiceProvider extends ServiceProvider
         $this->InitPlugins();
         $this->InitTheme();
 
+        //        dump($this->app->getConfig()->views);
+
         $this->autoLoad();
 
         $this->providers();
@@ -61,8 +63,6 @@ class AppServiceProvider extends ServiceProvider
         $this->InitViews();
 
         $this->InitComponents();
-
-//        dump($this->app->getConfig()->views);
 
 
     }
@@ -167,8 +167,9 @@ class AppServiceProvider extends ServiceProvider
     public function autoLoad()
     {
         $loader = new ClassLoader();
+
         foreach ($this->app->getConfig()->packages['namespaces'] as $namespace => $path) {
-            $loader->addPsr4($namespace . '\\', $path);
+            $loader->addPsr4($namespace . '\\', base_path($path));
         }
         if (is_array($this->app->getConfig()->class_maps)) {
             foreach ($this->app->getConfig()->class_maps as $class_map) {
@@ -181,37 +182,40 @@ class AppServiceProvider extends ServiceProvider
 
     public function InitModule($module)
     {
-        $path = base_path($this->config_zoe['structure']['module'] . '/' . $module);
-        if (file_exists($path . '/Module.php')) {
-            require_once $path . '/Module.php';
+        $absolute_path = ($this->config_zoe['structure']['module'] . '/' . $module);
+        $relativePath = base_path($absolute_path);
+        if (file_exists($relativePath . '/Module.php')) {
+            require_once $relativePath . '/Module.php';
             $class = '\\' . ucwords($module) . '\\Module';
             $object = new $class();
             if ($this->app->getConfig(true)->cache == 0) {
-                $this->module($module, $object, $path, "module");
+                $this->module($module, $object, $absolute_path, "module");
             }
             $this->app->_modules[$module] = $object;
         }
     }
 
-    public function module($module, $object, $path, $typeModule)
+    public function module($module, $object, $absolute_path, $typeModule)
     {
         $fileConfig = $object->FileConfig();
+        $relativePath = base_path($absolute_path);
         $folders = ["backend", "frontend"];
         foreach ($folders as $type) {
             foreach ($fileConfig as $file) {
-                $_file = $path . "/" . $type . "/resource/configs/" . $file . ".php";
+                $_file = $relativePath . "/" . $type . "/resource/configs/" . $file . ".php";
                 if (file_exists($_file)) {
                     $data = include $_file;
-
                     if (is_array($data)) {
                         if (isset($data["views"])) {
                             $_paths = [];
+
                             foreach ($data["views"]["paths"] as $alise => $paths) {
                                 $_paths[$module][$type] = [
                                     "alias" => $alise,
-                                    "path" => $paths,
+                                    "path" => $absolute_path . "/" . $paths . '/resource/views',
                                 ];
                             }
+
                             $data["views"]["paths"] = $_paths;
                             if (isset($data["views"]["alias"])) {
                                 $data["views"]["alias"] = [$type => $data["views"]["alias"]];
@@ -235,7 +239,13 @@ class AppServiceProvider extends ServiceProvider
                             }
                         }
                         if (isset($data["packages"])) {
-                            $data["packages"]["paths"][$typeModule . ":" . $module] = $path;
+
+                            $data["packages"]["paths"][$typeModule . ":" . $module] = $absolute_path;
+
+                            foreach ($data["packages"]["namespaces"] as $namespaces => $_path) {
+                                $data["packages"]["namespaces"][$namespaces] = $absolute_path . "/" . $_path . "/src";
+                            }
+
                         }
                         $this->app->getConfig()->add($data);
                     }
@@ -256,23 +266,25 @@ class AppServiceProvider extends ServiceProvider
 
     public function InitPlugin($plugin)
     {
-        $path = base_path($this->config_zoe['structure']['plugin'] . "/" . $plugin);
-        if (file_exists($path . '/Plugin.php')) {
-            require_once $path . '/Plugin.php';
+        $absolute_path = base_path($this->config_zoe['structure']['plugin'] . "/" . $plugin);
+        $relativePath = base_path($absolute_path);
+        if (file_exists($relativePath . '/Plugin.php')) {
+            require_once $relativePath . '/Plugin.php';
             $class = '\\' . $plugin . '\\Plugin';
             $object = new $class();
             if ($this->app->getConfig(true)->cache == 0) {
-                $this->plugin($plugin, $object, $path);
+                $this->plugin($plugin, $object, $absolute_path);
             }
 //         $this->app->_plugin[$module] = $object;
         }
     }
 
-    public function plugin($plugin, $object, $path)
+    public function plugin($plugin, $object, $absolute_path)
     {
         $fileConfig = $object->FileConfig();
+        $relativePath = base_path($absolute_path);
         foreach ($fileConfig as $file) {
-            $_file = $path . "/resource/configs/" . $file . ".php";
+            $_file = $relativePath . "/resource/configs/" . $file . ".php";
             if (file_exists($_file)) {
                 $data = include $_file;
                 if (is_array($data)) {
@@ -280,6 +292,7 @@ class AppServiceProvider extends ServiceProvider
                     $class_maps = [];
                     if (isset($data["class_maps"])) {
                         $class_maps = $data["class_maps"];
+
                     }
                     $data["class_maps"] = [];
                     $data["class_maps"][$plugin] = $class_maps;
@@ -325,18 +338,19 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         }
-        $this->app->getConfig()->add(["packages" => ["paths" => ["plugin:" . $plugin => $path]]]);
+        $this->app->getConfig()->add(["packages" => ["paths" => ["plugin:" . $plugin => $relativePath]]]);
     }
 
     public function InitTheme()
     {
         $theme = "zoe";
-        $path = base_path($this->config_zoe['structure']['theme'] . '/' . $theme);
-        if (file_exists($path . '/Theme.php')) {
-            require_once $path . '/Theme.php';
+        $absolute_path = ($this->config_zoe['structure']['theme'] . '/' . $theme);
+        $relativePath = base_path($absolute_path);
+        if (file_exists($relativePath . '/Theme.php')) {
+            require_once $relativePath . '/Theme.php';
             $class = '\\' . ucwords($theme) . 'Theme\\Theme';
             $object = new $class();
-            $this->module($theme, $object, $path, "theme");
+            $this->module($theme, $object, $absolute_path, "theme");
         }
     }
 
@@ -374,7 +388,7 @@ class AppServiceProvider extends ServiceProvider
             foreach ($modules as $module => $opt) {
 
                 if (isset($this->app->getConfig()->packages["paths"][$opt["m"] . ":" . $module])) {
-                    $path = $this->app->getConfig()->packages["paths"][$opt["m"] . ":" . $module];
+                    $path = base_path($this->app->getConfig()->packages["paths"][$opt["m"] . ":" . $module]);
 //                    echo $path."<BR>";
                     //  $folders = ["frontend"];
                     // foreach ($folders as $folder) {
@@ -464,7 +478,7 @@ class AppServiceProvider extends ServiceProvider
     {
         foreach ($this->app->getConfig()->views['paths'] as $alise => $modules) {
             foreach ($modules as $_view) {
-                $this->loadViewsFrom($_view['path'], $_view['alias']);
+                $this->loadViewsFrom(base_path($_view['path']), $_view['alias']);
             }
         }
         $this->loadViewsFrom(base_path('bootstrap/zoe/views'), "zoe");
