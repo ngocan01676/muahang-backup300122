@@ -1,10 +1,31 @@
 <div class="table-responsive">
+
     <table class="table table-bordered">
+        @if(isset($all["temp"]['count']))
+            <tr>
+                <td>View</td>
+                <td>
+                    <select class="form-control cfg-lang-template-view">
+                        <optgroup label="File">
+                        @foreach($list_views as $k=>$_view)
+                            @if(!empty($_view['view']) && $_view['view'] != "dynamic")
+                                    <option value="{!! $_view["view"] !!}">{{$_view["label"]}}</option>
+                            @endif;
+                        @endforeach
+                        </optgroup>
+                        <optgroup label="Template">
+                            @for($i=0;$i<$all["temp"]['count'];$i++)
+                                <option value="{{$i}}">Template ({{$i}})</option>
+                            @endfor
+                        </optgroup>
+                    </select>
+                </td>
+            </tr>
+        @endif
         <tr>
-            <td>
-                {{var_dump($data)}}
+            <td colspan="2">
                 <div class="clearfix">
-                    <div class="row">
+                    <div class="row1">
                         <div class="col-xs-9">
                             <!-- Tab panes -->
                             <div class="tab-content">

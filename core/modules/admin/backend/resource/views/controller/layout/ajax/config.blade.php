@@ -1,7 +1,13 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#config">Config</a></li>
-        @foreach($views as $view)
+        @php
+            $dataConfigAll = [];
+        @endphp
+        @foreach($views as $key=>$view)
+            @php
+                $dataConfigAll[$key] = $view['data'];
+            @endphp
             <li><a data-toggle="tab" href="#{{md5($view['view'])}}">{{$view['label']}}</a></li>
         @endforeach
     </ul>
@@ -66,7 +72,7 @@
         </div>
         @foreach($views as $view)
             <div id="{{md5($view['view'])}}" class="tab-pane fade">
-                @includeIf($view['view'],["data"=>$view['data']])
+                @includeIf($view['view'],["data"=>$view['data'],"all"=>$dataConfigAll,'list_views'=>$list_views])
             </div>
         @endforeach
     </div>

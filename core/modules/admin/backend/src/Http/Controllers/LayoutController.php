@@ -120,7 +120,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                         foreach ($config['configs'] as $label => $_view) {
 //                            dump($_view);
                             if (isset($_view['view']) && isset($_view['label'])) {
-                                $data['views'][] = [
+                                $data['views'][$label] = [
                                     'label' => $_view['label'],
                                     'view' => $_view['view'],
                                     'data' => $_view['data']
@@ -136,14 +136,13 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                                 $_tmp = [
                                     'label' => $_view['label'],
                                     'view' => $_view['view'],
-                                    "data" => array_merge($_view['data'], $__data)
+                                    "data" => array_merge($_view['data'], $__data),
                                 ];
-                                $data['views'][] = $_tmp;
+                                $data['views'][$label] = $_tmp;
                             }
+                            $data['views'][$label]['key'] = $label;
                         }
                     }
-
-
                     $data["list_views"] = [
                         "default" => ["label" => "Select View", "view" => ""]
                     ];
