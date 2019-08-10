@@ -266,8 +266,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function InitPlugin($plugin)
     {
-        $absolute_path = base_path($this->config_zoe['structure']['plugin'] . "/" . $plugin);
+        $absolute_path = $this->config_zoe['structure']['plugin'] . "/" . $plugin;
         $relativePath = base_path($absolute_path);
+
         if (file_exists($relativePath . '/Plugin.php')) {
             require_once $relativePath . '/Plugin.php';
             $class = '\\' . $plugin . '\\Plugin';
@@ -285,6 +286,7 @@ class AppServiceProvider extends ServiceProvider
         $relativePath = base_path($absolute_path);
         foreach ($fileConfig as $file) {
             $_file = $relativePath . "/resource/configs/" . $file . ".php";
+//            echo $_file;
             if (file_exists($_file)) {
                 $data = include $_file;
                 if (is_array($data)) {
@@ -292,6 +294,10 @@ class AppServiceProvider extends ServiceProvider
                     $class_maps = [];
                     if (isset($data["class_maps"])) {
                         $class_maps = $data["class_maps"];
+                        foreach ($data["class_maps"] as $n => $c) {
+                            $class_maps[$n] = $absolute_path . "/src" . $c;
+
+                        }
 
                     }
                     $data["class_maps"] = [];
@@ -338,7 +344,7 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         }
-        $this->app->getConfig()->add(["packages" => ["paths" => ["plugin:" . $plugin => $relativePath]]]);
+        $this->app->getConfig()->add(["packages" => ["paths" => ["plugin:" . $plugin => $absolute_path]]]);
     }
 
     public function InitTheme()
@@ -362,13 +368,14 @@ class AppServiceProvider extends ServiceProvider
         $components = $this->app->getConfig()->components["components"];
 
         $components_configs = $this->app->getConfig()->components["configs"];
-        //  dump( $this->app->_configs['views']["paths"]);
+
         $_components_configs = [];
         foreach ($components_configs as $key => $components_config) {
             $_view = $components_config["view"];
             $_arr = [];
             foreach ($_view as $m => $__view) {
                 $_alias = $this->app->getConfig()->views["paths"][$m][$__view["t"]]["alias"];
+
                 if (view()->exists($_alias . "::component" . ".configs." . $__view["v"], [])) {
                     $_arr[] = $_alias . "::component" . ".configs." . $__view["v"];
                 }
@@ -384,12 +391,14 @@ class AppServiceProvider extends ServiceProvider
         //  dump($this->app->_configs["components"]["configs"]);
 //        dump($this->app->_configs['views']);
 //        dump($this->app->getConfig()->views["paths"]);
+//        dump($this->app->getConfig()->packages["paths"]);
         foreach ($components as $component => $modules) {
             foreach ($modules as $module => $opt) {
 
                 if (isset($this->app->getConfig()->packages["paths"][$opt["m"] . ":" . $module])) {
                     $path = base_path($this->app->getConfig()->packages["paths"][$opt["m"] . ":" . $module]);
-//                    echo $path."<BR>";
+
+//                    echo $path . "<BR>";
                     //  $folders = ["frontend"];
                     // foreach ($folders as $folder) {
                     if (empty($opt["t"])) {
@@ -397,7 +406,7 @@ class AppServiceProvider extends ServiceProvider
                     } else {
                         $_file = $path . "/" . $opt["t"] . "/resource/views/component/" . $component . "/component.php";
                     }
-
+//                    echo $_file . "<BR>";
 
 //                    echo $_file . "<Br>";
                     if (file_exists($_file)) {
@@ -415,7 +424,7 @@ class AppServiceProvider extends ServiceProvider
                         "alias" => ""//$this->app->getConfig()->views["paths"][$module][$opt["t"]]["alias"]
                     ];
                     $_file = $path . "/" . $opt["t"] . "/resource/views/component/" . $component . "/config.php";
-
+//                    echo $_file . "<BR>";
                     if ($opt["m"] == "plugin") {
                         $view_paths = isset($this->app->getConfig()->views["paths"]["plugin"][$module]) ? $this->app->getConfig()->views["paths"]["plugin"][$module] : false;
                     } else {
@@ -470,7 +479,7 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         }
-        // dump($this->app->getComponents());
+//        dump($this->app->getComponents());
 //        die();
     }
 

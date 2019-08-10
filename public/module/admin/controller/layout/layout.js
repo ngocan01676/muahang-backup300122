@@ -12,9 +12,7 @@ function resetColumn(parent) {
     for (var v = 0; v < arrColumn.length; v++) {
         list.push($(arrColumn[v]).height());
     }
-    var max = Math.max(...list
-)
-    ;
+    var max = Math.max(...list);
     var index = list.indexOf(max);
     for (var v = 0; v < arrColumn.length; v++) {
         if (index != v) {
@@ -22,15 +20,17 @@ function resetColumn(parent) {
         }
     }
 }
+
 function getSorted(selector, attrName) {
-    return $(selector.toArray().sort(function(a, b){
+    return $(selector.toArray().sort(function (a, b) {
         var aVal = parseInt(a.getAttribute(attrName)),
             bVal = parseInt(b.getAttribute(attrName));
         console.log(aVal);
         console.log(bVal);
-        return  aVal - bVal;
+        return aVal - bVal;
     }));
 }
+
 var demo = $(".demo");
 $(".demo").sortable({
     connectWith: ".column",
@@ -246,30 +246,40 @@ demo.delegate(".configuration", "click", function (e) {
                     _this.form.find("#data_config").val(JSON.stringify(config));
                     var _multiSelect = $('#optgroup').multiSelect({
                         selectableOptgroup: true,
-                        afterInit: function(container){
+                        afterInit: function (container) {
                             this.$selectionContainer.find(".ms-optgroup").each(function () {
-                                console.log("#"+$(this).parent().attr("id")+">.ms-elem-selection");
+                                console.log("#" + $(this).parent().attr("id") + ">.ms-elem-selection");
                                 $(this).sortable({
                                     items: 'li:not(.ms-optgroup-label)',
                                     stop: function (ev, ui) {
-                                       console.info("sdfdf");
+
+                                        $(this).find(".ms-selected").each(function (i, v) {
+                                            var obj = $(v);
+                                            obj.attr('data-order', i + 1);
+
+                                            var val = obj.attr("data-group").split("-");
+                                            if (compiler.hasOwnProperty(val[0])) {
+                                                compiler[val[0]][i] = val[1];
+                                            }
+                                        });
+                                        console.log(compiler);
                                     }
                                 });
                                 $(this).disableSelection();
-                                getSorted($(this).find(".ms-selected"),"data-order").detach().appendTo($(this));
+                                getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
                             });
                             // getSorted(this.$selectionContainer.find(".ms-selected"),"data-order").detach().appendTo(this.$selectionContainer);
                         },
                         afterSelect: function (values, index) {
-                           var val = values[0].split("-");
+                            var val = values[0].split("-");
                             if (compiler.hasOwnProperty(val[0])) {
-                                //console.log(val);
                                 compiler[val[0]].push(val[1]);
-                               this.$selectionContainer.find(".ms-optgroup [data-group='"+val[0]+"-"+val[1]+"']").attr("data-order",compiler[val[0]].length);
+                                this.$selectionContainer.find(".ms-optgroup [data-group='" + val[0] + "-" + val[1] + "']").attr("data-order", compiler[val[0]].length);
                                 this.$selectionContainer.find(".ms-optgroup").each(function () {
-                                    getSorted($(this).find(".ms-selected"),"data-order").detach().appendTo($(this));
+                                    getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
                                 });
                             }
+                            console.log(compiler);
                         },
                         afterDeselect: function (values, index) {
 
@@ -281,14 +291,15 @@ demo.delegate(".configuration", "click", function (e) {
                                 }
                             }
                             for (var key in compiler) {
-                                if(compiler.hasOwnProperty(key)){
-                                    for(var _key in compiler[key]){
-                                        this.$selectionContainer.find(".ms-optgroup [data-group='"+key+"-"+compiler[key][_key]+"']").attr("data-order",_key+1);
+                                if (compiler.hasOwnProperty(key)) {
+                                    for (var _key in compiler[key]) {
+                                        this.$selectionContainer.find(".ms-optgroup [data-group='" + key + "-" + compiler[key][_key] + "']").attr("data-order", _key + 1);
                                     }
                                 }
                             }
+                            console.log(compiler);
                             this.$selectionContainer.find(".ms-optgroup").each(function () {
-                                getSorted($(this).find(".ms-selected"),"data-order").detach().appendTo($(this));
+                                getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
                             });
                         }
                     });

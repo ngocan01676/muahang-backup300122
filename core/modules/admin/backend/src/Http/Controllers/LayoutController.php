@@ -116,6 +116,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
                     $is_template_dynamic = false;
                     if (isset($config['configs'])) {
+                        $config['configs']['lang'] = ["template" => "language"];
                         foreach ($config['configs'] as $label => $_view) {
 //                            dump($_view);
                             if (isset($_view['view']) && isset($_view['label'])) {
