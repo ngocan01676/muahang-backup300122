@@ -13,6 +13,17 @@ return [
                     ]
                 ]
             ],
+            'language' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "LanguageController",
+                "prefix" => "admin/language",
+                "guard" => "backend",// pải login
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ]
+                ]
+            ],
             'layout' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "LayoutController",
@@ -42,6 +53,11 @@ return [
                         "url" => "/ajax-review-blade",
                         "method" => ['post'],
                         "action" => "ajaxReviewBlade"
+                    ],
+                    "ajax:get_lang" => [
+                        "url" => "/ajax-get-lang",
+                        "method" => ['post'],
+                        "action" => "ajaxGetLang"
                     ],
                 ]
             ]

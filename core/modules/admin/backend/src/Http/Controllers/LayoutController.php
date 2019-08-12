@@ -154,6 +154,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                             $data["list_views"][$view_view . $_k] = $_view;
                         }
                     }
+                    $data['config'] = $items['config'];
 //                    dump($data);
                     return $this->render('layout.ajax.config', $data);
                 }
@@ -171,7 +172,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             \Admin\Lib\LayoutBlade::$ViewHelper = $this->GetViewHelperBlade();
 
 
-            $php = Blade::compileString(\Admin\Lib\LayoutBlade::plugin($items));
+            $php = Blade::compileString(\Admin\Lib\LayoutBlade::InitBuild() . \Admin\Lib\LayoutBlade::plugin($items));
             $__env = app(\Illuminate\View\Factory::class);
 
             // var_dump($__env->exists('demo', ['some' => 'data']));
@@ -193,6 +194,94 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             }
             echo json_encode($repon);
         }
+    }
+
+    public function ajaxGetLang(Request $request)
+    {
+        $items = $request->all();
+        if (isset($items["cfg"]['template'])) {
+            // var_export($items);
+
+            \Admin\Lib\LayoutBlade::$ViewHelper = $this->GetViewHelperBlade();
+
+//            Blade::directive('zlang', function ($expr) {
+//
+//                return 'tag_zlang(' . $expr . ',$__env)';
+//            });
+            $func = '
+            @function(zoe_lang($key))
+                @php 
+                    return "<div class=\"___lang___\">".$key."</div>";
+                @endphp
+            @endfunction';
+            $string_blade = $func . \Admin\Lib\LayoutBlade::plugin($items);
+
+
+            $php = Blade::compileString($string_blade);
+
+
+            $__env = app(\Illuminate\View\Factory::class);
+
+            $obLevel = ob_get_level();
+            ob_start();
+            $repon = ['content' => "", 'status' => 1, 'php' => $php];
+            try {
+                file_put_contents(base_path('storage/demo.php'), $php);
+//                include base_path('storage/demo.php');
+                eval('?' . '>' . $php);
+                $repon['content'] = htmlspecialchars_decode((trim(ob_get_clean())));
+    //                preg_match_all('/@zlang\(\s*([\"\'])(.*?)\\1\s*\)/', $string_blade, $match);
+                preg_match_all('/<div class=\"___lang___\">(.*?)<\/div>/', $repon['content'], $match);
+                $repon['data'] = [];
+                foreach ($match[1] as $value) {
+                    $repon['data'][md5(trim($value, "\""))] = trim($value, "\"");
+                }
+
+                $repon['status'] = 0;
+            } catch (\Exception $e) {
+
+                while (ob_get_level() > $obLevel) ob_end_clean();
+                $repon['content'] = $e->getMessage() . " " . $e->getLine();
+            } catch (\Throwable $e) {
+                while (ob_get_level() > $obLevel) ob_end_clean();
+                $repon['content'] = $e->getMessage() . " " . $e->getLine();
+            }
+            echo json_encode($repon);
+        }
+//        $items = $request->all();
+//        if (isset($items["cfg"]['template'])) {
+//            // var_export($items);
+//            \Admin\Lib\LayoutBlade::$ViewHelper = $this->GetViewHelperBlade();
+//            Blade::directive('zlang', function ($expr) {
+//                return '"<div class="___lang___">' . $expr . '</div>"';
+//            });
+//            $php = Blade::compileString(\Admin\Lib\LayoutBlade::plugin($items));
+//
+////            preg_match_all('/@zlang\(\s*([\"\'])(.*?)\\1\s*\)/', \Admin\Lib\LayoutBlade::plugin($items), $match);
+////            $data = [];
+////            foreach ($match[2] as $value) {
+////                $data[md5(trim($value, "'\""))] = trim($value, "'\"");
+////            }
+//            //echo json_encode($data);
+//
+//
+//            $__env = app(\Illuminate\View\Factory::class);
+//            $obLevel = ob_get_level();
+//            ob_start();
+//            $content = "";
+//            try {
+//                eval('?' . '>' . $php);
+//                $content = trim(ob_get_clean());
+//                var_dump($content);
+//                //  preg_match_all('/(?<=class\=\"___lang___\"\>).*(?=\<\/div\>)/', $content, $match);
+//                // var_dump($match);
+//            } catch (\Exception $e) {
+//                while (ob_get_level() > $obLevel) ob_end_clean();
+//                echo $e->getMessage();
+//            } catch (\Throwable $e) {
+//                while (ob_get_level() > $obLevel) ob_end_clean();
+//            }
+//        }
     }
 
     public function ajaxPost(Request $request)

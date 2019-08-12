@@ -72,6 +72,13 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('ZoeWidget', function ($expr) {
             return "<?php print_r({$expr}); ?>";
         });
+        Blade::directive('zlang', function ($parameters) {
+            return 'zoe_lang(' . $parameters . ',$__env)';
+        });
+        Blade::directive('z_language', function ($parameters) {
+
+            return 'call_user_func_array("z_language",' . $parameters . ')';
+        });
         Blade::directive('function', function ($expression) {
             /**
              * Remove () wrapper in 5.1 and 5.2

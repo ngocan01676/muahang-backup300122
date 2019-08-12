@@ -10,7 +10,8 @@
     </table>
     <div class="row text-center">
         <div class="col-md-12">
-            <button type="button" class="btn btn-default" onclick="BtnReview(this)">Review</button>
+            <button type="button" class="btn btn-default"
+                    onclick="BtnReview(this)">  {!! @z_language(["Review"]) !!}</button>
         </div>
 
     </div>

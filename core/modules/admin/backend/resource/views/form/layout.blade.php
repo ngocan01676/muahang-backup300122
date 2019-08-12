@@ -41,7 +41,6 @@
         )
     );
 @endphp
-
 <div class="box box-solid box-primary">
     <div class="box-header">
         <h3 class="box-title"> Layout </h3>
@@ -340,7 +339,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/addon/mode/overlay.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/addon/runmode/runmode.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/mode/xml/xml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/mode/php/php.js"></script>
 
     <script src="{{asset("module/admin/asset/codemirror/mustache.js")}}"></script>
     <script src="{{asset("module/admin/asset/multi-select/js/jquery.multi-select.js")}}"></script>

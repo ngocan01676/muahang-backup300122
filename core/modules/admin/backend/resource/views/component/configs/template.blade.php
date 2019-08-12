@@ -1,4 +1,5 @@
 <div class="table-responsive">
+
     <table class="table table-bordered">
         <tbody>
         @if(isset($data['count']) && $data['count']>1)
@@ -106,7 +107,6 @@
                     console.log(e)
                 }
             }
-        })
-        ;
+        });
     }
 </script>

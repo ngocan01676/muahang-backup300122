@@ -1,5 +1,8 @@
 <?php
-
+function z_language($key, $par = [])
+{
+    return $key;
+}
 
 function create_router_group()
 {
@@ -35,14 +38,14 @@ function component_create($module, $path, $cfg = [], $opt = [], $type = "compone
     ];
 }
 
-function component_config($_opt_,$data, $config, $views,$cfg = [],$compiler = [])
+function component_config($_opt_, $data, $config, $views, $cfg = [], $compiler = [])
 {
     return [
         "data" => $data,
         "configs" => $config,
         "views" => $views,
-        "cfg"=>$cfg,
-        "compiler"=>$compiler
+        "cfg" => $cfg,
+        "compiler" => $compiler
     ];
 }
 

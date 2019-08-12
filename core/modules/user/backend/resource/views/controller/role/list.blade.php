@@ -15,7 +15,7 @@
     <!-- Default box -->
     <div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">{{__("List Role")}}</h3>
+            <h3 class="box-title">{!! @z_language(["List Role"]) !!}</h3>
             <div class="box-tools">
 
             </div>
@@ -23,7 +23,8 @@
         <!-- /.box-header -->
         <div class="box-body no-padding">
             <table class="table">
-                <tbody><tr>
+                <tbody>
+                <tr>
 
                     <th>ID</th>
                     <th>Name</th>
@@ -32,15 +33,16 @@
                     <th>Update</th>
                 </tr>
                 @foreach($lists as $list)
-                <tr>
-                    <td>{{$list->id}}.</td>
-                    <td>{{$list->name}}</td>
-                    <td>{{$list->guard_name}}</td>
-                    <td>{{$list->created_at}}</td>
-                    <td>{{$list->updated_at}}</td>
-                </tr>
+                    <tr>
+                        <td>{{$list->id}}.</td>
+                        <td>{{$list->name}}</td>
+                        <td>{{$list->guard_name}}</td>
+                        <td>{{$list->created_at}}</td>
+                        <td>{{$list->updated_at}}</td>
+                    </tr>
                 @endforeach
-                </tbody></table>
+                </tbody>
+            </table>
         </div>
         <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-left">

@@ -233,7 +233,20 @@ demo.delegate(".configuration", "click", function (e) {
                         config.opt = $.extend(config.opt, data.opt);
                         //console.log(JSON.stringify(data.opt));
                     }
+                    compiler = {"grid": [], "blade": []};
+                    $("#ms-optgroup .ms-selection .ms-optgroup-container").each(function () {
 
+                        $(this).find(".ms-selected").each(function (i, v) {
+                            var obj = $(v);
+                            var val = obj.attr("data-group").split("-");
+
+                            if (compiler.hasOwnProperty(val[0])) {
+                                compiler[val[0]][i] = val[1];
+                            }
+                        });
+                    });
+                    console.log(compiler);
+                    config = $.extend(config, data);
                     config.cfg.compiler = compiler;
                     console.log(config);
                     console.log(JSON.stringify(config));
@@ -306,6 +319,11 @@ demo.delegate(".configuration", "click", function (e) {
                     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                         var target = $(e.target).attr("href");
                         var editor = $(target + " #editor");
+                        var d = $(this).data();
+
+                        if (window.hasOwnProperty("func_" + d.name)) {
+                            window["func_" + d.name]();
+                        }
                         if (editor.length > 0) {
                             var editorDom = document.getElementById('editor');
                             if (editorDom.style.display !== "none") {

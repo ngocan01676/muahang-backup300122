@@ -1,4 +1,5 @@
 <div class="row">
+    {!! @z_language(["List"]) !!}
     <div class="col-xs-6 col-md-3">
         <a href="#" class="thumbnail">
             <img data-src="holder.js/100%x180" alt="100%x180" style="height: 180px; width: 100%; display: block;"

@@ -1,6 +1,6 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#config">Config</a></li>
+        <li class="active"><a name="config" data-toggle="tab" href="#config">Config</a></li>
         @php
             $dataConfigAll = [];
         @endphp
@@ -8,7 +8,7 @@
             @php
                 $dataConfigAll[$key] = $view['data'];
             @endphp
-            <li><a data-toggle="tab" href="#{{md5($view['view'])}}">{{$view['label']}}</a></li>
+            <li><a data-toggle="tab" data-name="{!! $key !!}" href="#{{md5($view['view'])}}">{{$view['label']}}</a></li>
         @endforeach
     </ul>
 
@@ -54,11 +54,14 @@
                                             $order = 0;
                                         @endphp
 
-                                        @if(isset($config["compiler"][$_label]) && in_array($val,$config["compiler"][$_label]))
-                                            @php $order = array_search($val,$config["compiler"][$_label])+1; @endphp
-                                            <option data-group="{{$_label}}-{{$val}}"data-order="{{$order}}" data-index="{{$i++}}" selected value='{{$_label}}-{{$val}}'>{{$val}}</option>
+                                        @if(isset($config["cfg"]["compiler"][$_label]) && in_array($val,$config["cfg"]["compiler"][$_label]))
+                                            @php $order = array_search($val,$config["cfg"]["compiler"][$_label])+1; @endphp
+                                            <option data-group="{{$_label}}-{{$val}}" data-order="{{$order}}"
+                                                    data-index="{{$i++}}" selected
+                                                    value='{{$_label}}-{{$val}}'>{{$val}}</option>
                                         @else
-                                            <option data-group="{{$_label}}-{{$val}}" data-order="{{$order}}" data-index="{{$i++}}" value='{{$_label}}-{{$val}}'>{{$val}}</option>
+                                            <option data-group="{{$_label}}-{{$val}}" data-order="{{$order}}"
+                                                    data-index="{{$i++}}" value='{{$_label}}-{{$val}}'>{{$val}}</option>
                                         @endif
                                     @endforeach
                                 </optgroup>
@@ -72,7 +75,7 @@
         </div>
         @foreach($views as $view)
             <div id="{{md5($view['view'])}}" class="tab-pane fade">
-                @includeIf($view['view'],["data"=>$view['data'],"all"=>$dataConfigAll,'list_views'=>$list_views])
+                @includeIf($view['view'],["config"=>$config,"data"=>$view['data'],"all"=>$dataConfigAll,'list_views'=>$list_views])
             </div>
         @endforeach
     </div>

@@ -6,6 +6,7 @@ class LayoutBlade
     public static $datas;
     public static $widget = [];
     public static $html = "";
+    public static $langs = [];
 
     private static function attrClass(& $attrs, $class)
     {
@@ -61,6 +62,16 @@ class LayoutBlade
 
     public static function plugin($option, $index = '')
     {
+        if (isset($option['lang'])) {
+            foreach ($option['lang'] as $langname => $langs) {
+                foreach ($langs as $lang) {
+                    if (!empty($lang['val'])) {
+                        static::$langs[$langname][$lang['key']] = $lang['val'];
+                    }
+                }
+            }
+        }
+
         $content = "";
         if (isset($option["stg"]['blade'])) {
             if (method_exists(static::$ViewHelper, $option["stg"]['blade'])) {
@@ -72,7 +83,7 @@ class LayoutBlade
                     $content = call_user_func_array(array(static::$ViewHelper, "commposer"), array($option));
                 }
             } else if ($option['cfg']['view']) {
-                $content = "@includeIf('" . $option['cfg']['view'] . "', " . (var_export(isset($option['opt']) ? ["data"=>$option['opt']] : ["data"=>[]], true)) . ")";
+                $content = "@includeIf('" . $option['cfg']['view'] . "', " . (var_export(isset($option['opt']) ? ["data" => $option['opt']] : ["data" => []], true)) . ")";
             } else {
                 $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>\n";
             }
@@ -126,17 +137,38 @@ class LayoutBlade
         return $html;
     }
 
+    static function InitBuild()
+    {
+        return '
+            @function(zoe_lang($par))
+                @php 
+                    $key =  $par[0];
+                    $_lang_name_ = app()->getLocale();
+                    $_langs_ = ' . (var_export(static::$langs, true)) . '; 
+                    $html = isset($_langs_[$_lang_name_][$key])?$_langs_[$_lang_name_][$key]:$key;
+                    if(isset($par[1])){
+                        foreach($par[1] as $k=>$v){
+                            $html  = str_replace(":".$k,$v,$html);
+                        } 
+                    }
+                    return $html;
+                @endphp
+            @endfunction';
+    }
+
     static function render($data)
     {
         static::$datas = isset($data['data']) ? $data['data'] : [];
         static::$widget = isset($data['widget']) ? $data['widget'] : [];
         $lever = 0;
+
         if (isset(static::$datas[0])) {
             foreach (static::$datas as $rows) {
                 if (isset($rows['row'])) {
                     static::$html .= static::rows($rows['row'], true, $lever);
                 }
             }
+            static::$html = static::InitBuild() . static::$html;
             $file = new \Illuminate\Filesystem\Filesystem();
             $template = $file->get(base_path('core/modules/admin/backend/resource/stubs/layout.stubs'));
             $file->put(base_path('bootstrap/zoe/views/layout-' . md5(1) . ".blade.php"), str_replace_first("{{CONTENT}}", static::$html, $template));
