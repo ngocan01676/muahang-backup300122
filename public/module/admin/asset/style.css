@@ -10,3 +10,19 @@
     padding:10px;
     top:0;
 }
+.content-header {
+    position: relative;
+    padding: 8px 16px 0 9px;
+}
+.content-header>.breadcrumb {
+    float: none;
+    background: transparent;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 15px;
+    padding: 5px 15px;
+    position: relative;
+    /* top: 34px; */
+    /* right: 10px; */
+    border-radius: 2px;
+}
