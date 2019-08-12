@@ -30,7 +30,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
 //        $results = ['/Applications/MAMP/htdocs/zoecms/core/modules/admin/backend/resource/views/controller/language/list.blade.php'];
         $file = new \Illuminate\Filesystem\Filesystem();
         $array = [
-            
+
         ];
         foreach ($results as $_file) {
             $string_blade = ($file->get($_file));
@@ -51,6 +51,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                 $value = [
                     "key" => $key_val,
                     "path" => $sub_path,
+                    "name" => md5($name),
                 ];
                 if ($sub_path[1] == "modules") {
                     if (!isset($array["modules"])) {
