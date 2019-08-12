@@ -43,7 +43,7 @@
 @endphp
 <div class="box box-solid box-primary">
     <div class="box-header">
-        <h3 class="box-title"> Layout </h3>
+        <h3 class="box-title"> {!! @z_language(["Layouts"]) !!}</h3>
     </div>
     <div class="box-body">
         <div class="row">

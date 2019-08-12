@@ -21,7 +21,12 @@ return [
                 "router" => [
                     "list" => [
                         "url" => "/",
-                    ]
+                    ],
+                    "ajax:save" => [
+                        "url" => "/save",
+                        "method" => ['post'],
+                        "action" => "ajaxFormSave"
+                    ],
                 ]
             ],
             'layout' => [

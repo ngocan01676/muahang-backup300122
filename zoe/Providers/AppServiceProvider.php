@@ -76,7 +76,6 @@ class AppServiceProvider extends ServiceProvider
             return 'zoe_lang(' . $parameters . ',$__env)';
         });
         Blade::directive('z_language', function ($parameters) {
-
             return 'call_user_func_array("z_language",' . $parameters . ')';
         });
         Blade::directive('function', function ($expression) {

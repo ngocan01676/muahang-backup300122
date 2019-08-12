@@ -18,7 +18,9 @@ class Application extends App
         'data' => [],
     ];
     private $_components;
+    private $_language = [
 
+    ];
     private $file;
 
     private $cache = false;
@@ -47,8 +49,9 @@ class Application extends App
         $this->_permissions->data->aliases = [];
         $this->_permissions->data->data = [];
 
-        parent::__construct($basePath);
+        $this->_language = new Config();
 
+        parent::__construct($basePath);
     }
 
     public function getComponents($all = false)

@@ -1,2 +1,2 @@
 <?php
-return component_create( $module, __DIR__);
+return component_create( $module, "Comments\main");

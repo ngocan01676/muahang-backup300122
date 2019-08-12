@@ -1,7 +1,15 @@
 <?php
-function z_language($key, $par = [])
+function z_language($key,$par = [],$__env = null)
 {
-    return $key;
+    $_lang_name_ = app()->getLocale();
+    $_langs_ = array ();
+    $html = isset($_langs_[$_lang_name_][$key])?$_langs_[$_lang_name_][$key]:$key;
+    if(is_array($par)){
+        foreach($par as $k=>$v){
+            $html  = str_replace(":".$k,$v,$html);
+        }
+    }
+    return $html;
 }
 
 function create_router_group()
@@ -14,7 +22,7 @@ function create_router_item()
     return [];
 }
 
-function component_create($module, $path, $cfg = [], $opt = [], $type = "component")
+function component_create($module, $main = "", $cfg = [], $opt = [], $type = "component")
 {
     $stg = array(
         'system' => "",
@@ -25,7 +33,7 @@ function component_create($module, $path, $cfg = [], $opt = [], $type = "compone
         unset($stg["module"]);
     }
     return [
-        "path" => $path,
+        "main" => $main,
         "option" => array(
             'cfg' => $cfg,
             'stg' => array(

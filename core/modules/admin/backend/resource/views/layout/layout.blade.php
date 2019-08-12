@@ -19,6 +19,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('module/admin/dist/css/skins/_all-skins.min.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/asset/style.css')}}">
+    <link rel="stylesheet" href="{{asset('module/admin/asset/loadding/css/jquery-loading.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -431,8 +432,13 @@
 <script src="{{asset('module/admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 <!-- FastClick -->
 <script src="{{asset('module/admin/bower_components/fastclick/lib/fastclick.js')}}"></script>
+
+<script src="{{asset('module/admin/asset/loadding/js/jquery-loading.js')}}"></script>
+
 <!-- AdminLTE App -->
 <script src="{{asset('module/admin/dist/js/adminlte.min.js')}}"></script>
+
+
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('module/admin/dist/js/demo.js')}}"></script>
 <script type="text/javascript">
@@ -446,8 +452,37 @@
 </script>
 <script>
     $(document).ready(function () {
-        $('.sidebar-menu').tree()
-    })
+        $('.sidebar-menu').tree();
+        // document.onscroll = function(){
+        //     console.log(o.offsetHeight + o.scrollTop == o.scrollHeight);
+        // };
+        var offset = $( ".content-header" ).offset();
+        var fixed = $(this).scrollTop() > offset.top;
+        if(fixed === true){
+            $(".content-header").addClass('content-header-prefix');
+        }
+        $(window).scroll(function(a) {
+            console.log(offset);
+            if($(this).scrollTop() > offset.top && fixed === false){
+                $(".content-header").addClass('content-header-prefix');
+                // $( ".content-header" ).css({
+                //     // "width":"100%",
+                //     // "height":"50px",
+                //     // "background":"red",
+                //     // "z-index":"999",
+                //     // "padding":"10px",
+                //     // "top":"0",
+                // });
+                console.log("fixed");
+                fixed = true;
+            }else if($(this).scrollTop() < offset.top && fixed === true){
+                console.log("no fixed");
+                fixed = false;
+                $(".content-header").removeClass('content-header-prefix');
+            }
+        });
+    });
+
 </script>
 @stack('scripts')
 @section('extra-script')
