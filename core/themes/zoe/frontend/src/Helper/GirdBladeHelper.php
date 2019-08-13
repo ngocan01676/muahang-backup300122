@@ -20,7 +20,14 @@ class GirdBladeHelper extends \Admin\Lib\GirdBladeHelper
 
     public function layout_card($content, $option = [])
     {
-        return '<div class="card"><div class="card-header">{{"' . (isset($option['cfg']['title']) ? $option['cfg']['title'] : "Tiêu đề") . '"}}</div> <div class="card-body">' . $content . '</div></div>';
+        $html = '<div class="card">';
+        $par = [];
+        if(isset($option['cfg']['title']) && !empty($option['cfg']['title'])) {
+            $html.='<div class="card-header">{{$option["cfg"]["title"]}}</div>';
+            $par['$option'] = var_export($option,true);
+        }
+        $html.='<div class="card-body">' . $content . '</div></div>';
+        return count($par) > 0?$this->func($html,$par):$html;
     }
 
     public function layout_container($content, $option = [])

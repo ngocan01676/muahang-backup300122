@@ -26,12 +26,13 @@ class ViewHelper
 //                }
 //            }
 //        }
+        $t = time();
         $html = '
-        @function(func_' . time() . '_' . $func . ' ($data))
+        @function(func_' . $t . '_' . $func . ' ($data))
            
             ' . (empty($content) ? "" : htmlspecialchars_decode($content)) . '
         @endfunction
-         @func_' . time() . '_' . $func . '(' . var_export(isset($option['opt']) ? $option['opt'] : [], true) . ')';
+         @func_' . $t . '_' . $func . '(' . var_export(isset($option['opt']) ? $option['opt'] : [], true) . ')';
         return $html;
     }
 }

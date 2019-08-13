@@ -11,7 +11,6 @@
             <li><a data-toggle="tab" data-name="{!! $key !!}" href="#{{md5($view['view'])}}">{{$view['label']}}</a></li>
         @endforeach
     </ul>
-
     <div class="tab-content">
         <div id="config" class="tab-pane fade in active">
             <table class="table table-bordered">
@@ -20,6 +19,7 @@
                     <td><label for="text">Title</label></td>
                     <td><input type="text" name="cfg.title" class="form-control" id="title" placeholder="Tên"></td>
                 </tr>
+                @if(count($list_views)>1)
                 <tr>
                     <td><label for="text">View</label></td>
                     <td>
@@ -31,7 +31,7 @@
                         </select>
                     </td>
                 </tr>
-
+                @endif
                 <tr>
                     <td><label for="text">Stats</label></td>
                     <td>
@@ -39,6 +39,18 @@
                         <input type="radio" name="cfg.status" value="0"> No
                     </td>
                 </tr>
+                @if(isset($tags[0]))
+                <tr>
+                    <td><label for="text">Tag</label></td>
+                    <td>
+                        <input type="radio" name="cfg.tag" value="none"> None
+                        <input type="radio" name="cfg.tag" value="block"> Tag
+                        @foreach($tags as $tag)
+                            <input type="radio" name="cfg.tag" value="{!! $tag !!}"> {!! $tag !!}
+                        @endforeach
+                    </td>
+                </tr>
+                @endif
                 <tr>
                     <td></td>
                     <td>
@@ -46,6 +58,7 @@
                         <select id='optgroup' multiple='multiple'>
                             @php
                                 $i = 0;
+                            var_dump($items);
                             @endphp
                             @foreach($compiler as $_label=>$_hook)
                                 <optgroup data-name="{{$_label}}" label='{{$_label}}'>
@@ -53,9 +66,8 @@
                                         @php
                                             $order = 0;
                                         @endphp
-
-                                        @if(isset($config["cfg"]["compiler"][$_label]) && in_array($val,$config["cfg"]["compiler"][$_label]))
-                                            @php $order = array_search($val,$config["cfg"]["compiler"][$_label])+1; @endphp
+                                        @if(isset($items["cfg"]["compiler"][$_label]) && in_array($val,$items["cfg"]["compiler"][$_label]))
+                                            @php $order = array_search($val,$items["cfg"]["compiler"][$_label])+1; @endphp
                                             <option data-group="{{$_label}}-{{$val}}" data-order="{{$order}}"
                                                     data-index="{{$i++}}" selected
                                                     value='{{$_label}}-{{$val}}'>{{$val}}</option>
@@ -75,7 +87,7 @@
         </div>
         @foreach($views as $view)
             <div id="{{md5($view['view'])}}" class="tab-pane fade">
-                @includeIf($view['view'],["config"=>$config,"data"=>$view['data'],"all"=>$dataConfigAll,'list_views'=>$list_views])
+                @include($view['view'],["config"=>$items,"data"=>$view['data'],"all"=>$dataConfigAll,'list_views'=>$list_views])
             </div>
         @endforeach
     </div>

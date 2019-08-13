@@ -200,13 +200,25 @@ $(".sidebar-nav .box-pluign").draggable({
 });
 demo.delegate(".configuration", "click", function (e) {
     e.preventDefault();
+
     var self = $(this).closest('.tool').parent();
-    var option = self.find('.option > .value textarea');
-    var config = _parseJSON(option.val());
+    console.log(self);
+    var option = self.children('.option').find('.value textarea');
+    var _conf = option.val();
+    var config = _parseJSON(_conf);
+    console.log(config);
     var edit;
     window._editor = null;
     var compiler = {"grid": [], "blade": []};
-    compiler = $.extend(compiler, config.cfg.compiler);
+    if(config.cfg.hasOwnProperty('compiler')){
+        compiler = $.extend(compiler, config.cfg.compiler);
+        if(!compiler.grid.push){
+            compiler.grid = Object.values(compiler.grid);
+        }
+        if(!compiler.blade.push){
+            compiler.blade = Object.values(compiler.blade);
+        }
+    }
     $.ajax({
         url: $("#layout").attr('uriconfig'),
         type: "POST",
@@ -224,33 +236,29 @@ demo.delegate(".configuration", "click", function (e) {
 
                 },
                 ok: function (data, array, event) {
-                    console.log(data);
 
-                    if (data.hasOwnProperty('cfg')) {
-                        config.cfg = $.extend(config.cfg, data.cfg);
-                    }
-                    if (data.hasOwnProperty('opt')) {
-                        config.opt = $.extend(config.opt, data.opt);
-                        //console.log(JSON.stringify(data.opt));
-                    }
+                    // if (data.hasOwnProperty('cfg')) {
+                    //    // config.cfg = $.extend(config.cfg, data.cfg);
+                    // }
+                    // if (data.hasOwnProperty('opt')) {
+                    //   //  config.opt = $.extend(config.opt, data.opt);
+                    //     //console.log(JSON.stringify(data.opt));
+                    // }
                     compiler = {"grid": [], "blade": []};
                     $("#ms-optgroup .ms-selection .ms-optgroup-container").each(function () {
 
                         $(this).find(".ms-selected").each(function (i, v) {
                             var obj = $(v);
                             var val = obj.attr("data-group").split("-");
-
-                            if (compiler.hasOwnProperty(val[0])) {
-                                compiler[val[0]][i] = val[1];
+                            if (!compiler.hasOwnProperty(val[0])) {
+                                compiler[val[0]] = [];
                             }
+                            compiler[val[0]][parseInt(i)] = val[1];
                         });
                     });
-                    console.log(compiler);
-                    config = $.extend(config, data);
-                    config.cfg.compiler = compiler;
-                    console.log(config);
-                    console.log(JSON.stringify(config));
-                    option.html(JSON.stringify(config));
+                    var _config = $.extend(config, data);
+                    _config.cfg.compiler = compiler;
+                    option.html(JSON.stringify(_config));
                 },
                 before: function (_this) {
                     console.log(config);
@@ -285,19 +293,22 @@ demo.delegate(".configuration", "click", function (e) {
                         },
                         afterSelect: function (values, index) {
                             var val = values[0].split("-");
-                            if (compiler.hasOwnProperty(val[0])) {
-                                compiler[val[0]].push(val[1]);
-                                this.$selectionContainer.find(".ms-optgroup [data-group='" + val[0] + "-" + val[1] + "']").attr("data-order", compiler[val[0]].length);
-                                this.$selectionContainer.find(".ms-optgroup").each(function () {
-                                    getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
-                                });
+                            console.log(val[0]);
+                            if (!compiler.hasOwnProperty(val[0])) {
+                                compiler[val[0]] = [];
                             }
+                            compiler[val[0]].push(val[1]);
+                            this.$selectionContainer.find(".ms-optgroup [data-group='" + val[0] + "-" + val[1] + "']").attr("data-order", compiler[val[0]].length);
+                            this.$selectionContainer.find(".ms-optgroup").each(function () {
+                                getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
+                            });
                             console.log(compiler);
                         },
                         afterDeselect: function (values, index) {
 
                             var val = values[0].split("-");
                             if (compiler.hasOwnProperty(val[0])) {
+                                console.log(compiler[val[0]]);
                                 var _index = compiler[val[0]].indexOf(val[1]);
                                 if (_index !== -1) {
                                     compiler[val[0]].splice(_index, 1);
@@ -445,14 +456,19 @@ var saveLayout = function (element) {
         $.each(items, function () {
             var trcms = $(this),
                 item = {};
+
             var option = $.extend({}, getOption(trcms));
+
             item.row = {};
             item.row.option = option;
+
             var div_columns = trcms.children('.view').children('.row').children('.column');
             var _option_column = [];
             var place = [];
+
             div_columns.each(function () {
                 var _option_plugins = [];
+
                 if ($(this).attr('place')) {
                     place.push($(this).attr('place'));
                 } else {
@@ -460,18 +476,27 @@ var saveLayout = function (element) {
                 }
                 var div_columns_plugin = $(this).children('div');
                 div_columns_plugin.each(function () {
+                    console.log($(this));
                     if ($(this).hasClass('grid')) {
                         var arr = [];
                         arr.push($(this));
+
                         var _option_plugin = step(arr, depth + 1, 1);
                         _option_plugins.push(_option_plugin);
+
                     } else {
+
+
+
                         var _option_plugin = $.extend({}, _parseJSON($(this).children('.option').find('.value textarea').html()));
                         widget.push(_option_plugin);
                         _option_plugins.push(widget.length - 1);
                     }
+
                 });
+
                 _option_column.push(_option_plugins);
+
             });
             if (_option_column.length) {
                 item.row.view = _option_column;
@@ -490,20 +515,22 @@ $("#saveLayout").click(function () {
     var grids = $("#layout_demo>.grid");
     var layout = saveLayout("#layout_demo");
 
+    console.log((layout));
+
+    $('#layout_demo').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
     $.ajax({
         type: 'POST',
         url: $(this).attr('url'),
         data: {
-            layout: layout,
-            name: "Home",
-            theme: "zoe",
-            id: $("#id").val()
+            layout: JSON.stringify(layout),
+            info:$("#formInfo").zoe_inputs("get")
         },
         success: function (data) {
             var json = JSON.parse(data);
             if (json.hasOwnProperty('id')) {
                 $("#id").val(json.id);
             }
+            $('#layout_demo').loading({destroy: true});
         }
     });
 });

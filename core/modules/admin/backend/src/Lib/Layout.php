@@ -59,6 +59,7 @@ class Layout
     {
 
         $html = '';
+        if(isset($option['stg']['module'])):
         $preview =
         $data_id = $layout ? ' data-id="' . (isset($option['stg']['id']) ? "" : "") . '"' : '';
         $draggable = $layout ? "ui-draggable" : '';
@@ -85,14 +86,51 @@ class Layout
                 </div>
             </div>
        ';
+        else:
+
+        endif;
         return $html;
     }
+    public static function partial($option, $layout = true){
+        $html = '';
+        if(isset($option['stg']['module'])):
+            $preview =
+            $data_id = $layout ? ' data-id="' . (isset($option['stg']['id']) ? "" : "") . '"' : '';
+            $draggable = $layout ? "ui-draggable" : '';
+            $html .= '<div class="box-pluign ' . $draggable . '" ' . $data_id . '>';
+            $html .= '<div class="tool">';
+            if (isset($option['stg']['status']) && $option['stg']['status']):
+                $html .= '<span class="status btn btn-success btn-xs"><i class="fa fa-check-square"></i></span>';
+            else:
+                $html .= '<span class="status btn btn-success btn-xs"><i class="fa fa fa-square"></i></span>';
+            endif;
+            $label = isset($option['stg']['plugin']) ? $option['stg']['plugin'] : (isset($option['stg']['name']) ? $option['stg']['name'] : "");
+            $html .= '
+                    <span class="remove btn btn-danger btn-xs"><i class="fa fa-times"></i></span>
+                    <span class="configuration btn btn-info btn-xs"><i class="fa fa-gear"></i></span>
+                    <span class="drag btn btn btn-primary btn-xs"><i class="fa fa-arrows"></i></span>
+                </div><div class="option">
+                    <div class="value"><textarea>' . json_encode(
+                    $option
+                ) . '</textarea></div>
+                </div>
+                <div class="preview">' . ((isset($option['opt']['title']) && !empty($option['opt']['title'])) ? $option['opt']['title'] : $label) . '</div>
+                <div class="view">
+                    <div class="plugin" data-module="' . $option['stg']['module'] . '" data-widget="' . $option['stg']['name'] . '" data-type="' . $option['stg']['type'] . '" data-system="' . (isset($option['stg']['system']) ? $option['stg']['system'] : 0) . '">' . ((isset($option['opt']['title']) && !empty($option['opt']['title'])) ? $option['opt']['title'] : $option['stg']['module'] . ":" . $label) . '</div>
+                </div>
+            </div>
+       ';
+        else:
 
+        endif;
+        return $html;
+    }
     public static function rows($row, $layout = true)
     {
         $preview = '<span>';
         $rowHtml = '';
         $pace = false;
+//        dump($row);
         foreach ($row['option']['stg']['col'] as $key => $gird) {
             $preview .= $gird . '-';
             $clazz = 'col-md-' . $gird;
@@ -104,7 +142,14 @@ class Layout
                         $_content .= static::rows($_row[0]['row']);
                     } else {
                         if (isset(static::$widgets[$_row])) {
-                            $_content .= static::plugin(static::$widgets[$_row], true);
+
+                            if(isset(static::$widgets[$_row]['stg']['type'])){
+                                if(static::$widgets[$_row]['stg']['type'] == "component"){
+                                    $_content .= static::plugin(static::$widgets[$_row], true);
+                                }else{
+                                    $_content .= static::partial(static::$widgets[$_row], true);
+                                }
+                            }
                         }
                     }
                 }

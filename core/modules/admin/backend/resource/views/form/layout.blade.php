@@ -4,43 +4,73 @@
         array(
             'option'=>array(
                 'cfg'=>array(
+                    'compiler'=>[],
+                    'tag'=>'none',
+                    'status'=>1
                 ),
                 'stg'=>array(
                     'col'=>array('12'),
-                     'gird' => 'body',
+                    'type'=>'gird'
                 ),
                 'opt'=>$optionGrid
             )
         ),
         array(
             'option'=>array(
-                'cfg'=>array(),
+                'cfg'=>array(
+                    'compiler'=>[],
+                    'tag'=>'none',
+                    'status'=>1
+                ),
                 'stg'=>array(
-                    'col'=>array('6','6')
+                    'col'=>array('6','6'),
+                    'type'=>'gird'
                 ),
                 'opt'=>$optionGrid
             )
         ),
         array(
             'option'=>array(
-                'cfg'=>array(),
+                'cfg'=>array(
+                     'compiler'=>[],
+                     'tag'=>'none',
+                     'status'=>1
+                ),
                 'stg'=>array(
-                    'col'=>array('4','4','4')
+                    'col'=>array('4','4','4'),
+                    'type'=>'gird'
                 ),
                 'opt'=>$optionGrid
             )
         ),
         array(
             'option'=>array(
-                'cfg'=>array(),
+                'cfg'=>array(
+                     'compiler'=>[],
+                     'tag'=>'none',
+                     'status'=>1
+                ),
                 'stg'=>array(
-                    'col'=>array('9','3')
+                    'col'=>array('9','3'),
+                     'type'=>'gird'
                 ),
                 'opt'=>$optionGrid
             )
         )
     );
 @endphp
+@section('content-header')
+    <h1>
+        {!! @z_language(["Manager Layout"]) !!}
+        {{--<small>it all starts here</small>--}}
+        <button url="{{route('backend:layout:ajax')}}"  id="saveLayout" type="button" class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
+    </h1>
+    <ol class="breadcrumb float-right">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Examples</a></li>
+        <li class="active">Blank page</li>
+    </ol>
+@endsection
 <div class="box box-solid box-primary">
     <div class="box-header">
         <h3 class="box-title"> {!! @z_language(["Layouts"]) !!}</h3>
@@ -165,12 +195,11 @@
                     </div>
                 </div>
                 <?php endforeach; ?>
+
                 <?php
                 $components = app()->getComponents()->info;
                 $components_config = app()->getComponents()->config;
-
                 $module = "Component";
-                // foreach ($components as $module=>$_components):
                 ?>
                 <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
                     <div class="panel panel-default">
@@ -221,18 +250,38 @@
                         </div>
                     </div>
                 </div>
-                <?php //endforeach; ?>
+                <?php
 
-                <div class="row">
-                    <div class="col-xs-12">
-                        <table class="table table-bordered table-responsive">
+                $module = "Partial";
+                ?>
+                <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="menu-item"
+                                   data-toggle="collapse"
+                                   data-parent="#accordion-<?php echo $module; ?>"
+                                   href="#menu-accordion-<?php echo $module; ?>"><?php echo $module; ?></a>
+                            </h4>
+                        </div>
+                        <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
 
-                        </table>
+                            <?php
+                            foreach ($partials as $name => $partial) {
+                                $option = $partial['option'];
+                                $option["stg"]['name'] = $partial['name'];
+                                echo \Admin\Lib\Layout::plugin($option, false);
+                            }
+                            ?>
+                        </div>
                     </div>
                 </div>
+
             </div>
             <div class="col-xs-10 no-padding">
-                <div class="col-xs-12" style="min-height: 300px;margin-top: 10px">
+
+
+                <div class="col-xs-12" style="min-height: 500px;margin-top: 10px">
                     <div class="screen">
                         <div class="toolbar">
                             <div class="buttons clearfix">
@@ -242,18 +291,35 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" id="id" value="{{$model->id}}">
+
+                    <div style="
+    margin-top: 7px;
+">
+                        <form id="formInfo">
+                            <input type="hidden" name="id" id="id" value="{{$model->id}}">
+                            <table class="table table-bordered table-responsive">
+                                <tr>
+                                    <td class="text-center"><label for="layout name" class="control-label">Name</label></td>
+                                    <td>
+                                        <input type="text" class="form-control" name="name">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"><label for="layout name" class="control-label">Type</label></td>
+                                    <td>
+                                        <input type="radio" name="type" value="layout"> <strong>Layout</strong>
+                                        <input type="radio" name="type" value="partial"> <strong>Partial</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
                     <div id="layout" UriConfig="{{route('backend:layout:ajax:form_config')}}">
                         <div class="demo" id="layout_demo" UrlSettingWidget="">
                             <?php echo \Admin\Lib\Layout::render($content['data'], $content['widget']); ?>
                         </div>
                     </div>
-                    <div class="col-xs-12">
-                        <BR>
-                        <button url="{{route('backend:layout:ajax')}}" type="button" class="btn btn-primary btn-md"
-                                id="saveLayout">Save
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -344,6 +410,11 @@
     <script src="{{asset("module/admin/asset/codemirror/mustache.js")}}"></script>
     <script src="{{asset("module/admin/asset/multi-select/js/jquery.multi-select.js")}}"></script>
     <script src="{{asset('module/admin/controller/layout/layout.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#formInfo").zoe_inputs("set",@json($info));
+        });
+    </script>
 @endpush
 @push('links')
     <link rel="stylesheet" href="{{asset('module/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
