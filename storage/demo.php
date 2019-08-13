@@ -3,10 +3,7 @@
                 <?php 
                     return "<div class=\"___lang___\">".$key."</div>";
                 ?>
-            <?php } ?>@includeIf('theme::component.content.views.view', array (
-  'data' => 
-  array (
-    'name' => 'Content Theme',
-    'count' => '5',
-  ),
+            <?php } ?>@func_1565697212_2912_1124(array (
+  'name' => 'Content Theme',
+  'count' => '5',
 ))

@@ -77,7 +77,7 @@
 .drag, .remove, .configuration, .status {
     white-space: nowrap;
     color: #ffffff;
-    z-index: 999;
+    z-index: 995;
     position: absolute;
 }
 
@@ -160,6 +160,10 @@
     -webkit-box-shadow: inset 0 1px 13px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: inset 0 1px 13px rgba(0, 0, 0, 0.1);
     box-shadow: inset 0 1px 13px rgba(0, 0, 0, 0.1);
+
+}
+
+.demo .partial {
 
 }
 

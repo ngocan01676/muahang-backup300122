@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
+
 class LayoutController extends \Zoe\Http\ControllerBackend
 {
     public function list()
@@ -34,7 +35,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         }
     }
 
-    private function GetMethod($obj,$prefix = "layout_")
+    private function GetMethod($obj, $prefix = "layout_")
     {
         $data = [];
         $class_name = get_class($obj);
@@ -158,7 +159,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     }
                     $data['items'] = $items['config'];
                     return $this->render('layout.ajax.config', $data);
-                }else{
+                } else {
 
                     $data['compiler'] = [];
                     $data["compiler"]['grid'] = $this->GetMethod($this->GetGridBlade());
@@ -176,7 +177,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     return $this->render('layout.ajax.config', $data);
                 }
 
-            }else{
+            } else {
                 $data['compiler'] = [];
 
                 $data["compiler"]['grid'] = $this->GetMethod($this->GetGridBlade());
@@ -207,9 +208,9 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     {
         $items = $request->all();
         if (isset($items["cfg"]['template'])) {
-            if($items['stg']['type'] == "component"){
+            if ($items['stg']['type'] == "component") {
                 \Admin\Lib\LayoutBlade::$ViewHelper = $this->GetViewHelperBlade();
-                $php = Blade::compileString(\Admin\Lib\LayoutBlade::InitBuild() . \Admin\Lib\LayoutBlade::plugin($items));
+                $php = Blade::compileString(\Admin\Lib\LayoutBlade::InitBuild() . \Admin\Lib\LayoutBlade::InitFuc() . \Admin\Lib\LayoutBlade::plugin($items));
                 $__env = app(\Illuminate\View\Factory::class);
                 $obLevel = ob_get_level();
                 ob_start();
@@ -227,12 +228,13 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     while (ob_get_level() > $obLevel) ob_end_clean();
                 }
                 echo json_encode($repon);
-            }else{
-                $repon = ['content' => $items["cfg"]['template'], 'status' => 1, 'php' => \Admin\Lib\LayoutBlade::rows(['option'=>$items])];
+            } else {
+                $repon = ['content' => $items["cfg"]['template'], 'status' => 1, 'php' => \Admin\Lib\LayoutBlade::rows(['option' => $items])];
                 echo json_encode($repon);
             }
         }
     }
+
     public function ajaxGetLang(Request $request)
     {
         $items = $request->all();
@@ -267,7 +269,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 //                include base_path('storage/demo.php');
                 eval('?' . '>' . $php);
                 $repon['content'] = htmlspecialchars_decode((trim(ob_get_clean())));
-    //                preg_match_all('/@zlang\(\s*([\"\'])(.*?)\\1\s*\)/', $string_blade, $match);
+                //                preg_match_all('/@zlang\(\s*([\"\'])(.*?)\\1\s*\)/', $string_blade, $match);
                 preg_match_all('/<div class=\"___lang___\">(.*?)<\/div>/', $repon['content'], $match);
                 $repon['data'] = [];
                 foreach ($match[1] as $value) {
@@ -338,46 +340,50 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $model->slug = $slug;
         $model->theme = $theme;
         $model->type = $items["info"]['type'];
-        $layout = isset($items['layout']) ? json_decode($items['layout'],true) : [];
+        $layout = isset($items['layout']) ? json_decode($items['layout'], true) : [];
         $model->content = base64_encode(serialize($layout));
         $model->save();
+
         \Admin\Lib\LayoutBlade::$ViewHelper = $this->GetViewHelperBlade();
         \Admin\Lib\LayoutBlade::$GridHelper = $this->GetGridBlade();
         \Admin\Lib\LayoutBlade::$TagHelper = \Admin\Lib\LayoutBlade::$GridHelper->CallBackTag();
 
-        \Admin\Lib\LayoutBlade::render($layout,$model->id,$model->type);
+        \Admin\Lib\LayoutBlade::render($layout, $model->id, $model->type);
 
         echo json_encode(['id' => $model->id]);
     }
-    function  getPartial($id){
+
+    function getPartial($id)
+    {
         $theme = config('zoe.theme');
-        $rs = DB::table('layout')->select()->where(['type'=>'partial','theme'=>$theme])->get()->toArray();
+        $rs = DB::table('layout')->select()->where(['type' => 'partial', 'theme' => $theme])->get()->toArray();
         $array = [];
-        foreach ($rs as $val){
-            if($id == $val->id){
+        foreach ($rs as $val) {
+            if ($id == $val->id) {
                 continue;
             }
             $item = [
                 "name" => $val->name,
                 "option" => array(
                     'cfg' => array(
-                        'compiler'=>[],
+                        'compiler' => [],
 
                     ),
                     'stg' => array(
-                        'system' =>"theme",
+                        'system' => "theme",
                         'module' => 'zoe',
                         'type' => 'partial',
-                        'id'=>$val->id
+                        'id' => $val->id
                     ),
                     'opt' => array()
                 )
             ];
-            $array[$val->id]=$item;
+            $array[$val->id] = $item;
         }
 
         return $array;
     }
+
     public function create()
     {
         $model = new \Admin\Http\Models\Layout();
@@ -389,14 +395,14 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         return $this->render("layout.edit", [
             'model' => $model,
             "content" => $content,
-            "info"=>[],
-            "partial"=>$this->getPartial($model->id)
+            "info" => [],
+            "partials" => $this->getPartial($model->id)
         ]);
     }
 
     public function edit($id)
     {
-         $info = [];
+        $info = [];
         $model = \Admin\Http\Models\Layout::find($id);
 
         try {
@@ -417,8 +423,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         return $this->render("layout.edit", [
             'model' => $model,
             "content" => $content,
-            "info"=>$info,
-            "partials"=>$this->getPartial($model->id)
+            "info" => $info,
+            "partials" => $this->getPartial($model->id)
         ]);
     }
 }

@@ -1,4 +1,11 @@
-@includeIf('theme::component.thumbnail-image.views.list', array (
+
+        @function(func_1565697217_4372_4218 ($data))
+            sdfsdfsf
+        @endfunction
+<div class="card"><div class="card-body"><div>@func_1565697217_4372_4218(array (
+  'name' => 'Content Theme',
+  'count' => 5,
+))@includeIf('theme::component.thumbnail-image.views.list', array (
   'data' => 
   array (
     'lists' => 
@@ -29,10 +36,5 @@
       ),
     ),
   ),
-))@includeIf('theme::component.content.views.view', array (
-  'data' => 
-  array (
-    'name' => 'Content Theme',
-    'count' => 5,
-  ),
-))
+))</div>
+</div></div>

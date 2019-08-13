@@ -63,7 +63,8 @@
     <h1>
         {!! @z_language(["Manager Layout"]) !!}
         {{--<small>it all starts here</small>--}}
-        <button url="{{route('backend:layout:ajax')}}"  id="saveLayout" type="button" class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
+        <button url="{{route('backend:layout:ajax')}}" id="saveLayout" type="button"
+                class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
     </h1>
     <ol class="breadcrumb float-right">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -92,7 +93,7 @@
                             <div id="menu-grid-accordion-grid" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <?php  foreach ($girds as $gird): ?>
-                                            <?php echo Admin\Lib\Layout::rows($gird, false); ?>
+                                            <?php echo Admin\Lib\LayoutRender::rows($gird, false); ?>
                                         <?php
                                     endforeach;
                                     ?>
@@ -179,6 +180,7 @@
                                    href="#menu-accordion-<?php echo $module; ?>"><?php echo $module; ?></a>
                             </h4>
                         </div>
+
                         <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
 
                             <?php
@@ -188,7 +190,7 @@
                                 // $option['stg']['module'] = $module;
                                 $option['stg']['name'] = $_widget['name'];
 //                                $option['stg']['type'] = 'widget';
-                                echo \Admin\Lib\Layout::plugin($option, false);
+                                echo \Admin\Lib\LayoutRender::plugin($option, false);
                             }
                             ?>
                         </div>
@@ -244,7 +246,7 @@
                                     $option["opt"] = $components_config[$name]["data"];
                                 }
 //                                dump($option);
-                                echo \Admin\Lib\Layout::plugin($option, false);
+                                echo \Admin\Lib\LayoutRender::plugin($option, false);
                             }
                             ?>
                         </div>
@@ -270,7 +272,7 @@
                             foreach ($partials as $name => $partial) {
                                 $option = $partial['option'];
                                 $option["stg"]['name'] = $partial['name'];
-                                echo \Admin\Lib\Layout::plugin($option, false);
+                                echo \Admin\Lib\LayoutRender::plugin($option, false);
                             }
                             ?>
                         </div>
@@ -279,8 +281,6 @@
 
             </div>
             <div class="col-xs-10 no-padding">
-
-
                 <div class="col-xs-12" style="min-height: 500px;margin-top: 10px">
                     <div class="screen">
                         <div class="toolbar">
@@ -291,7 +291,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div style="
     margin-top: 7px;
 ">
@@ -299,16 +298,18 @@
                             <input type="hidden" name="id" id="id" value="{{$model->id}}">
                             <table class="table table-bordered table-responsive">
                                 <tr>
-                                    <td class="text-center"><label for="layout name" class="control-label">Name</label></td>
+                                    <td class="text-center"><label for="layout name" class="control-label">Name</label>
+                                    </td>
                                     <td>
                                         <input type="text" class="form-control" name="name">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><label for="layout name" class="control-label">Type</label></td>
+                                    <td class="text-center"><label for="layout name" class="control-label">Type</label>
+                                    </td>
                                     <td>
-                                        <input type="radio" name="type" value="layout"> <strong>Layout</strong>
-                                        <input type="radio" name="type" value="partial"> <strong>Partial</strong>
+                                        <input type="radio" name="type" value="layout"> <strong> Layout </strong>
+                                        <input type="radio" name="type" value="partial"> <strong> Partial </strong>
                                     </td>
                                 </tr>
                             </table>
@@ -316,7 +317,7 @@
                     </div>
                     <div id="layout" UriConfig="{{route('backend:layout:ajax:form_config')}}">
                         <div class="demo" id="layout_demo" UrlSettingWidget="">
-                            <?php echo \Admin\Lib\Layout::render($content['data'], $content['widget']); ?>
+                            <?php echo \Admin\Lib\LayoutRender::render($content['data'], $content['widget']); ?>
                         </div>
                     </div>
 
@@ -412,7 +413,7 @@
     <script src="{{asset('module/admin/controller/layout/layout.js')}}"></script>
     <script>
         $(document).ready(function () {
-            $("#formInfo").zoe_inputs("set",@json($info));
+            $("#formInfo").zoe_inputs("set", @json($info));
         });
     </script>
 @endpush

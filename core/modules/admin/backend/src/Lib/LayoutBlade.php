@@ -101,10 +101,13 @@ class LayoutBlade
         }
         return static::girds($content, $option);
     }
-    public static function partial($option, $index = ''){
-        $content = "@includeIf('zoe::" .  static::FilenamePartial($option['stg']['id']) . "', [])";
+
+    public static function partial($option, $index = '')
+    {
+        $content = "@includeIf('zoe::" . static::FilenamePartial($option['stg']['id']) . "', [])";
         return static::girds($content, $option);
     }
+
     public static function rows($row, $layout = true, $lever = 0)
     {
         $html = "";
@@ -114,19 +117,20 @@ class LayoutBlade
             if (isset($option['stg']['col'])) {
                 foreach ($option['stg']['col'] as $key => $gird) {
                     $block = false;
-                    if (isset($option['cfg']['tag']) ){
-                        if(isset(static::$TagHelper[$option['cfg']['tag']])) {
+                    if (isset($option['cfg']['tag'])) {
+                        if (isset(static::$TagHelper[$option['cfg']['tag']])) {
                             $html .= call_user_func_array(static::$TagHelper[$option['cfg']['tag']], array("start", $option));
-                        } else if($option['cfg']['tag'] == "block"){
+                        } else if ($option['cfg']['tag'] == "block") {
                             $block = true;
-                            $class = "";$id = "";
-                            if(isset($option['opt']['attr']['class']) && !empty($option['opt']['attr']['class'])){
-                                $class = " class='".$option['opt']['attr']['class']."'";
+                            $class = "";
+                            $id = "";
+                            if (isset($option['opt']['attr']['class']) && !empty($option['opt']['attr']['class'])) {
+                                $class = " class='" . $option['opt']['attr']['class'] . "'";
                             }
-                            if(isset($option['opt']['attr']['id']) && !empty($option['opt']['attr']['id'])){
-                                $id = " id='".$option['opt']['attr']['id']."'";
+                            if (isset($option['opt']['attr']['id']) && !empty($option['opt']['attr']['id'])) {
+                                $id = " id='" . $option['opt']['attr']['id'] . "'";
                             }
-                            $html .= "<div".$class.$id.">";
+                            $html .= "<div" . $class . $id . ">";
                         }
                     }
                     if (isset($row['view'][$key]) && is_array($row['view'][$key])) {
@@ -134,9 +138,9 @@ class LayoutBlade
                             if (isset($_row[0]['row'])) {
                                 $html .= static::rows($_row[0]['row'], $layout, $lever++);
                             } else if (isset(static::$widget[$_row])) {
-                                if(static::$widget[$_row]['stg']['type'] == "component"){
+                                if (static::$widget[$_row]['stg']['type'] == "component") {
                                     $html .= static::plugin(static::$widget[$_row], $lever . '-' . $key . '-' . $_k);
-                                }else  if(static::$widget[$_row]['stg']['type'] == "partial"){
+                                } else if (static::$widget[$_row]['stg']['type'] == "partial") {
                                     $html .= static::partial(static::$widget[$_row], $lever . '-' . $key . '-' . $_k);
                                 }
                             }
@@ -144,7 +148,7 @@ class LayoutBlade
                     }
                     if (isset($option['cfg']['tag']) && isset(static::$TagHelper[$option['cfg']['tag']])) {
                         $html .= call_user_func_array(static::$TagHelper[$option['cfg']['tag']], array("end", $option));
-                    } else if($block){
+                    } else if ($block) {
                         $html .= "</div>\n";
                     }
                 }
@@ -171,13 +175,23 @@ class LayoutBlade
                 @endphp
             @endfunction';
     }
-    static function FilenamePartial($id){
-        return 'layout-partial-'.$id.'-'. md5($id);
+
+    static function FilenamePartial($id)
+    {
+        return 'layout-partial-' . $id . '-' . md5($id);
     }
-    static function FilenameLayout($id){
+
+    static function FilenameLayout($id)
+    {
         return 'layout-' . ($id);
     }
-    static function render($data,$id,$type = "layout")
+
+    static function InitFuc()
+    {
+        return static::$ViewHelper->GetFunc() . static::$GridHelper->GetFunc();
+    }
+
+    static function render($data, $id, $type = "layout")
     {
         static::$datas = isset($data['data']) ? $data['data'] : [];
         static::$widget = isset($data['widget']) ? $data['widget'] : [];
@@ -188,16 +202,15 @@ class LayoutBlade
                     static::$html .= static::rows($rows['row'], true, $lever);
                 }
             }
-            $file = new \Illuminate\Filesystem\Filesystem();
-            if($type == "layout"){
-                static::$html = static::InitBuild() . static::$html;
-                $template = $file->get(base_path('core/modules/admin/backend/resource/stubs/layout.stubs'));
-                $file->put(base_path('bootstrap/zoe/views/' . static::FilenameLayout($id). ".blade.php"), str_replace_first("{{CONTENT}}", static::$html, $template));
-            }else{
-                $file->put(base_path('bootstrap/zoe/views/' . static::FilenamePartial($id) . ".blade.php"), static::$html);
-            }
-        } else {
+        }
+        $file = new \Illuminate\Filesystem\Filesystem();
+        static::$html = static::InitFuc() . static::$html;
+        if ($type == "layout") {
 
+            $template = $file->get(base_path('core/modules/admin/backend/resource/stubs/layout.stubs'));
+            $file->put(base_path('bootstrap/zoe/views/' . static::FilenameLayout($id) . ".blade.php"), str_replace_first("{{CONTENT}}", static::InitBuild() . static::$html, $template));
+        } else {
+            $file->put(base_path('bootstrap/zoe/views/' . static::FilenamePartial($id) . ".blade.php"), static::$html);
         }
     }
 

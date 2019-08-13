@@ -35,38 +35,12 @@
                     }
                     return $html;
                 @endphp
-            @endfunction<div class="card"><div class="card-body"><div class='py-4'><div class="container"><div class="row justify-content-center"><div class="col-md-8">
-        @function(func_1565690975_3496_5225 ($option))
-            <div class="card"><div class="card-header">{{$option["cfg"]["title"]}}</div><div class="card-body">@includeIf('zoe::layout-partial-7-8f14e45fceea167a5a36dedd4bea2543', [])</div></div>
-        @endfunction
-         @func_1565690975_3496_5225(array (
-  'cfg' => 
+            @endfunction@includeIf('content', array (
+  'data' => 
   array (
-    'title' => 'Chức năng',
-    'status' => '1',
-    'compiler' => 
-    array (
-      'grid' => 
-      array (
-        0 => 'card',
-        1 => 'container',
-      ),
-      'blade' => 
-      array (
-      ),
-    ),
+    'name' => 'Content Theme',
+    'count' => 5,
   ),
-  'stg' => 
-  array (
-    'system' => 'theme',
-    'module' => 'zoe',
-    'type' => 'partial',
-    'id' => 7,
-    'name' => 'demo',
-  ),
-  'opt' => 
-  array (
-  ),
-))</div></div></div></div></div></div>
+))@includeIf('zoe::layout-partial-10-d3d9446802a44259755d38e6d163e820', [])
 </body>
 </html>

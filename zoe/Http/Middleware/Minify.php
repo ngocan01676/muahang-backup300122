@@ -34,7 +34,6 @@ class Minify
      */
     public function handle($request, Closure $next)
     {
-//        return $response = $next($request);
         $response = $next($request);
         return $this->html($response);
     }
@@ -50,13 +49,6 @@ class Minify
         return $response;
     }
 
-    /**
-     * Check should special RegEx rules be applied
-     *
-     * @param string $buffer
-     *
-     * @return bool
-     */
     private function shouldReplaceSpecial($buffer)
     {
         return strpos($buffer, '<pre') !== false

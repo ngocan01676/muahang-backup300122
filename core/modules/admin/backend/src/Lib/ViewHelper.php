@@ -1,9 +1,8 @@
 <?php
 
 namespace Admin\Lib;
-class ViewHelper
+class ViewHelper extends Layout
 {
-
     public function content($option = [], $key = "content")
     {
         return "@yield('{$key}')";
@@ -29,10 +28,9 @@ class ViewHelper
         $t = time();
         $html = '
         @function(func_' . $t . '_' . $func . ' ($data))
-           
             ' . (empty($content) ? "" : htmlspecialchars_decode($content)) . '
-        @endfunction
-         @func_' . $t . '_' . $func . '(' . var_export(isset($option['opt']) ? $option['opt'] : [], true) . ')';
-        return $html;
+        @endfunction';
+        $this->addFunc($html);
+        return '@func_' . $t . '_' . $func . '(' . var_export(isset($option['opt']) ? $option['opt'] : [], true) . ')';
     }
 }

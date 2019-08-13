@@ -462,7 +462,7 @@
             $(".content-header").addClass('content-header-prefix');
         }
         $(window).scroll(function (a) {
-            console.log(offset);
+//            console.log(offset);
             if ($(this).scrollTop() > (offset.top + 25) && fixed === false) {
                 $(".content-header").addClass('content-header-prefix');
                 // $( ".content-header" ).css({

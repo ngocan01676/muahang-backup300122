@@ -37,13 +37,14 @@ $(".demo").sortable({
     opacity: .35,
     handle: ".drag",
     cursorAt: {top: 0, left: 0},
-    stop: function (ui) {
+    stop: function (ui, dom) {
         console.log("stop .demo");
         // console.log(ui.target);
         // console.log($(ui.target).height());
-        var arrColumn = $(ui.target);
+        var arrColumn = $(ui);
+        console.log($(dom.item).attr('data-id', id()));
+
         console.log(arrColumn);
-        // console.log(arrColumn);
         // var indexPos = arrColumn.index($(ui.target));
         // var list = [];
         // for(var v=0 ; v<arrColumn.length ; v++){
@@ -58,8 +59,8 @@ $(".demo").sortable({
         //     }
         // }
     },
-    start: function (ui) {
-        console.log("start");
+    start: function (ui, a) {
+
         //console.log(ui.target);
     }
 });
@@ -68,8 +69,9 @@ $(".demo .column").sortable({
     opacity: .35,
     handle: ".drag",
     cursorAt: {top: 0, left: 0},
-    stop: function (ui) {
+    stop: function (ui, dom) {
         console.log("stop .demo, .demo .column");
+        $(dom).attr('data-id', id());
         // console.log(ui.target);
         // console.log($(ui.target).height());
         var arrColumn = $(ui.target);
@@ -112,20 +114,20 @@ $(".sidebar-nav .grid").draggable({
             console.log($(this).attr('data-id'));
             //layout.formSettingGrid($(this).attr('data-id'));
         } else {
-            var arrColumn = ui.helper;
-            console.log("j=>" + $(this).attr('data-id'));
-            resetColumn(ui.helper.parent().parent());
-            // var arrColumn =  ui.helper.parent().parent().find(">.column");
+            // var arrColumn = ui.helper;
+            // console.log("j=>" + $(this).attr('data-id'));
+            // resetColumn(ui.helper.parent().parent());
+            // var arrColumn = ui.helper.parent().parent().children(".column");
             //
             // var list = [];
-            // for(var v=0 ; v<arrColumn.length ; v++){
+            // for (var v = 0; v < arrColumn.length; v++) {
             //     list.push($(arrColumn[v]).height());
             // }
             // var max = Math.max(...list);
             // var index = list.indexOf(max);
-            // for(var v=0 ; v<arrColumn.length ; v++){
-            //     if(index!=v){
-            //         list.push($(arrColumn[v]).height((max)+"px"));
+            // for (var v = 0; v < arrColumn.length; v++) {
+            //     if (index != v) {
+            //         list.push($(arrColumn[v]).height((max) + "px"));
             //     }
             // }
         }
@@ -154,7 +156,7 @@ $(".sidebar-nav .grid").draggable({
             },
             start: function (ui) {
                 console.log("start");
-                //  console.log(ui.target);
+                console.log(ui);
             }
         });
     },
@@ -210,12 +212,12 @@ demo.delegate(".configuration", "click", function (e) {
     var edit;
     window._editor = null;
     var compiler = {"grid": [], "blade": []};
-    if(config.cfg.hasOwnProperty('compiler')){
+    if (config.cfg.hasOwnProperty('compiler')) {
         compiler = $.extend(compiler, config.cfg.compiler);
-        if(!compiler.grid.push){
+        if (!compiler.grid.push) {
             compiler.grid = Object.values(compiler.grid);
         }
-        if(!compiler.blade.push){
+        if (!compiler.blade.push) {
             compiler.blade = Object.values(compiler.blade);
         }
     }
@@ -273,7 +275,6 @@ demo.delegate(".configuration", "click", function (e) {
                                 $(this).sortable({
                                     items: 'li:not(.ms-optgroup-label)',
                                     stop: function (ev, ui) {
-
                                         $(this).find(".ms-selected").each(function (i, v) {
                                             var obj = $(v);
                                             obj.attr('data-order', i + 1);
@@ -439,6 +440,7 @@ var _parseJSON = function (json) {
 }
 
 function getOption(parent) {
+    console.log(parent.attr('data-id'));
     return _parseJSON(parent.children('.option').find('.value textarea').html());
 }
 
@@ -458,6 +460,7 @@ var saveLayout = function (element) {
                 item = {};
 
             var option = $.extend({}, getOption(trcms));
+            option.cfg.id = trcms.attr('data-id');
 
             item.row = {};
             item.row.option = option;
@@ -468,7 +471,6 @@ var saveLayout = function (element) {
 
             div_columns.each(function () {
                 var _option_plugins = [];
-
                 if ($(this).attr('place')) {
                     place.push($(this).attr('place'));
                 } else {
@@ -476,19 +478,17 @@ var saveLayout = function (element) {
                 }
                 var div_columns_plugin = $(this).children('div');
                 div_columns_plugin.each(function () {
-                    console.log($(this));
+
                     if ($(this).hasClass('grid')) {
+                        console.log($(this).attr('data-id'));
                         var arr = [];
                         arr.push($(this));
-
                         var _option_plugin = step(arr, depth + 1, 1);
+                        // _option_plugin.cfg.id = $(this).attr('data-id');
                         _option_plugins.push(_option_plugin);
-
                     } else {
-
-
-
                         var _option_plugin = $.extend({}, _parseJSON($(this).children('.option').find('.value textarea').html()));
+                        _option_plugin.cfg.id = $(this).attr('data-id');
                         widget.push(_option_plugin);
                         _option_plugins.push(widget.length - 1);
                     }
@@ -523,7 +523,7 @@ $("#saveLayout").click(function () {
         url: $(this).attr('url'),
         data: {
             layout: JSON.stringify(layout),
-            info:$("#formInfo").zoe_inputs("get")
+            info: $("#formInfo").zoe_inputs("get")
         },
         success: function (data) {
             var json = JSON.parse(data);
