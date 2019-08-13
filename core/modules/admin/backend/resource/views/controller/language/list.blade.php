@@ -2,25 +2,27 @@
 @section('content-header')
     <h1>
         {!! @z_language(["Manager Language"]) !!}
-        <small>it all starts here</small>
-        <button type="button" onclick="Save()" class="btn btn-default btn-md">{!! @z_language(["Save"]) !!}</button>
+        {{--<small>it all starts here</small>--}}
+        <button type="button" onclick="Save()" class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
     </h1>
-    <ol class="breadcrumb">
+    <ol class="breadcrumb float-right">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Examples</a></li>
         <li class="active">Blank page</li>
     </ol>
 @endsection
 @section('content')
+
     <form action="" id="formAction">
-    <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-            @php $active = "modules"; @endphp
-            @foreach($lists as $key=>$value)
-                <li {!!$active == $key?'class="active"':'' !!}><a name="config" data-toggle="tab" href="#tab_{!! $key !!}">{!! @z_language([":name",["name"=>$key]]) !!}</a>
-            @endforeach
-        </ul>
-        <div class="tab-content">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                @php $active = "modules"; @endphp
+                @foreach($lists as $key=>$value)
+                    <li {!!$active == $key?'class="active"':'' !!}><a name="config" data-toggle="tab"
+                                                                      href="#tab_{!! $key !!}">{!! @z_language([":name",["name"=>$key]]) !!}</a>
+                @endforeach
+            </ul>
+            <div class="tab-content">
 
                 @php $languages = config('zoe.language');@endphp
                 @foreach($lists as $key=>$values)
@@ -33,75 +35,97 @@
 
                                 @foreach ($languages as $language)
 
-                                    <th class="text-center"><span class="flag-icon flag-icon-{{$language['flag']}}"></span></th>
+                                    <th class="text-center"><span
+                                                class="flag-icon flag-icon-{{$language['flag']}}"></span></th>
                                 @endforeach
                             </tr>
-                    @if($key == "plugins")
-                        @foreach($values['list'] as $key=>$_value)
-                            <tr>
-                                <td class="text-center"> {!! $_value['name'] !!} </td>
+                            @if($key == "plugins")
+                                @foreach($values['list'] as $key=>$_value)
+                                    <tr>
+                                        <td class="text-center"> {!! $_value['name'] !!} </td>
 
-                                @foreach ($languages as $language)
-                                    <td class="text-center"><a href="#" class="lang"  data-lang="{{$language["lang"]}}" data-id="{!! $key !!}" data-title="{!! @z_language(["Please enter at least 1 character"]) !!}"></a></td>
-                                    <input type="hidden" name="lang[{!! $language["lang"] !!}][{!! $key !!}].name" value="{!! $_value['name'] !!}">
-                                    <input type="hidden" name="lang[{!! $language["lang"] !!}][{!! $key !!}].value" value="{!! $_value['value'] !!}">
-                                 @endforeach
-                            </tr>
-                         @endforeach
-                    @else
-                        @foreach($values as $value)
+                                        @foreach ($languages as $language)
+                                            <td class="text-center"><a href="#" class="lang"
+                                                                       data-lang="{{$language["lang"]}}"
+                                                                       data-id="{!! $key !!}"
+                                                                       data-title="{!! @z_language(["Please enter at least 1 character"]) !!}"></a>
 
-                            @foreach($value['list'] as $key=>$_value)
-                            <tr>
-                                <td class="text-center"> {!! $_value['name'] !!} </td>
-
-                                @foreach ($languages as $language)
-                                    <td class="text-center">
-                                        <a href="#" class="lang"  data-title="{!! @z_language(["Please enter at least 1 character"]) !!}"></a>
-                                        <input type="hidden" name="lang[{!! $language["lang"] !!}][{!! $key !!}].name" value="{!! $_value['name'] !!}">
-                                        <input type="hidden" class="val" name="lang[{!! $language["lang"] !!}][{!! $key !!}].value" value="{!! $_value['value'] !!}">
-                                    </td>
+                                                <input type="hidden"
+                                                       name="lang[{!! $language["lang"] !!}][{!! $key !!}].name"
+                                                       value="{!! $_value['name'] !!}">
+                                                <input type="hidden" class="val"
+                                                       name="lang[{!! $language["lang"] !!}][{!! $key !!}].value"
+                                                       value="{!! $_value['value'] !!}">
+                                            </td>
+                                        @endforeach
+                                    </tr>
                                 @endforeach
-                            </tr>
-                            @endforeach
-                        @endforeach
-                    @endif
+                            @else
+                                @foreach($values as $value)
+
+                                    @foreach($value['list'] as $key=>$_value)
+                                        <tr>
+                                            <td class="text-center"> {!! $_value['name'] !!} </td>
+                                            @foreach ($languages as $language)
+                                                <td class="text-center">
+                                                    <a href="#" class="lang"
+                                                       data-title="{!! @z_language(["Please enter at least 1 character"]) !!}"></a>
+                                                    <input type="hidden"
+                                                           name="lang[{!! $language["lang"] !!}][{!! $key !!}].name"
+                                                           value="{!! $_value['name'] !!}">
+                                                    <input type="hidden" class="val"
+                                                           name="lang[{!! $language["lang"] !!}][{!! $key !!}].value"
+                                                           value="{!! $_value['value'] !!}">
+                                                </td>
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>
                 @endforeach
 
+            </div>
         </div>
-    </div>
     </form>
 @endsection
 @push('scripts')
     <script src="{{asset('module/admin/asset/zoe.jquery.inputs.js')}}"></script>
     <script src="{{asset('module/admin/asset/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
     <script>
-        $("#formAction").zoe_inputs("set",@json($data));
-        $(document).ready(function () {
+        $("#formAction").zoe_inputs("set", @json($data));
 
-            $('#tab_modules .lang').each(function () {
+        function InitEditable(obj) {
+            obj.each(function () {
+                console.log('1');
                 $(this).html($(this).parent().find('input.val').val());
-                $(this).editable({
-
-                }).on('save', function(e, params) {
+                $(this).editable({}).on('save', function (e, params) {
                     console.log('Saved value: ' + params.newValue);
-                    console.log($(e.target).parent().find('input.val').val(params.newValue));
+                    console.log(e.target);
+                    $(e.target).parent().find('input.val').val(params.newValue);
                 });
-            })
+            });
+        }
 
+        $(document).ready(function () {
+            InitEditable($('#tab_modules .lang'));
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var target = $(e.target).attr("href");
+                InitEditable($(target).find('.lang:not(.editable)'));
+            })
         });
+
         function Save() {
             var data = $("#formAction").zoe_inputs("get");
-            $('#formAction').loading({ circles: 3,overlay: true,width:"5em",top:"35%",left:"50%" });
+            $('#formAction').loading({circles: 3, overlay: true, width: "5em", top: "35%", left: "50%"});
             $.ajax({
                 type: 'POST',
                 url: '{!! route('backend:language:ajax:save') !!}',
                 data: data,
                 success: function (data) {
-                    console.log(data);
+
                     $('#formAction').loading({destroy: true});
                 }
             });

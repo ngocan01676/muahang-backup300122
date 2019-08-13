@@ -31,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->ReadCache();
+
+        $this->app->InitLanguage();
+
         $this->file = new \Illuminate\Filesystem\Filesystem();
         $time_start = microtime(true);
         $this->blade();
@@ -50,11 +53,10 @@ class AppServiceProvider extends ServiceProvider
             return new \MatthiasMullie\Minify\JS();
         });
 
+
         $this->InitModules();
         $this->InitPlugins();
         $this->InitTheme();
-
-        //        dump($this->app->getConfig()->views);
 
         $this->autoLoad();
 

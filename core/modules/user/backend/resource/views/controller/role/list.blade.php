@@ -1,9 +1,9 @@
 @extends('backend::layout.layout')
 @section('content-header')
     <h1>
-        Manager role
+        {!! @z_language(["Manager role"]) !!}
         <small>it all starts here</small>
-        <button type="button" class="btn btn-default btn-md">Add New</button>
+        <button type="button" class="btn btn-default btn-md">{!! @z_language(["Add New"]) !!}</button>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -25,12 +25,11 @@
             <table class="table">
                 <tbody>
                 <tr>
-
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Guard</th>
-                    <th>Created</th>
-                    <th>Update</th>
+                    <th>{!! @z_language(["ID"]) !!}</th>
+                    <th>{!! @z_language(["Name"]) !!}</th>
+                    <th>{!! @z_language(["Guard"]) !!}</th>
+                    <th>{!! @z_language(["Created"]) !!}</th>
+                    <th>{!! @z_language(["Update"]) !!} </th>
                 </tr>
                 @foreach($lists as $list)
                     <tr>

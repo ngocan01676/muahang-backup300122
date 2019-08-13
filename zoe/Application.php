@@ -4,6 +4,7 @@ namespace Zoe;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Foundation\Application as App;
+use Illuminate\Support\Facades\DB;
 
 class Application extends App
 {
@@ -49,9 +50,29 @@ class Application extends App
         $this->_permissions->data->aliases = [];
         $this->_permissions->data->data = [];
 
-        $this->_language = new Config();
 
         parent::__construct($basePath);
+
+    }
+
+    public function InitLanguage()
+    {
+        $this->_language = Cache::rememberForever("language:data", function () {
+            $rs = DB::table('config')->where([
+                'name' => 'language',
+                'type' => 'data'
+            ])->first();
+            $data = [];
+            if ($rs && !empty($rs->data)) {
+                $data = unserialize($rs->data);
+            }
+            return $data;
+        });
+    }
+
+    public function getLanguage()
+    {
+        return $this->_language;
     }
 
     public function getComponents($all = false)

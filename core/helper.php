@@ -1,12 +1,17 @@
 <?php
-function z_language($key,$par = [],$__env = null)
+
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+
+function z_language($key, $par = [], $__env = null)
 {
     $_lang_name_ = app()->getLocale();
-    $_langs_ = array ();
-    $html = isset($_langs_[$_lang_name_][$key])?$_langs_[$_lang_name_][$key]:$key;
-    if(is_array($par)){
-        foreach($par as $k=>$v){
-            $html  = str_replace(":".$k,$v,$html);
+
+    $_langs_ = app()->getLanguage();
+    $html = isset($_langs_[$_lang_name_][$key]) ? $_langs_[$_lang_name_][$key] : $key;
+    if (is_array($par)) {
+        foreach ($par as $k => $v) {
+            $html = str_replace(":" . $k, $v, $html);
         }
     }
     return $html;

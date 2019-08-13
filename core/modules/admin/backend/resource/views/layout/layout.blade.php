@@ -69,10 +69,10 @@
                                 <ul class="menu">
                                     <li><!-- start message -->
                                         <a href="#">
-                                            <div class="pull-left">
-                                                <img src="../../dist/img/user2-160x160.jpg" class="img-circle"
-                                                     alt="User Image">
-                                            </div>
+                                            {{--<div class="pull-left">--}}
+                                            {{--<img src="../../dist/img/user2-160x160.jpg" class="img-circle"--}}
+                                            {{--alt="User Image">--}}
+                                            {{--</div>--}}
                                             <h4>
                                                 Support Team
                                                 <small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -144,13 +144,13 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            {{--<img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">--}}
                             <span class="hidden-xs">Alexander Pierce</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                {{--<img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">--}}
 
                                 <p>
                                     Alexander Pierce - Web Developer
@@ -456,14 +456,14 @@
         // document.onscroll = function(){
         //     console.log(o.offsetHeight + o.scrollTop == o.scrollHeight);
         // };
-        var offset = $( ".content-header" ).offset();
+        var offset = $(".content-header").offset();
         var fixed = $(this).scrollTop() > offset.top;
-        if(fixed === true){
+        if (fixed === true) {
             $(".content-header").addClass('content-header-prefix');
         }
-        $(window).scroll(function(a) {
+        $(window).scroll(function (a) {
             console.log(offset);
-            if($(this).scrollTop() > offset.top && fixed === false){
+            if ($(this).scrollTop() > (offset.top + 25) && fixed === false) {
                 $(".content-header").addClass('content-header-prefix');
                 // $( ".content-header" ).css({
                 //     // "width":"100%",
@@ -475,7 +475,7 @@
                 // });
                 console.log("fixed");
                 fixed = true;
-            }else if($(this).scrollTop() < offset.top && fixed === true){
+            } else if ($(this).scrollTop() < offset.top && fixed === true) {
                 console.log("no fixed");
                 fixed = false;
                 $(".content-header").removeClass('content-header-prefix');
