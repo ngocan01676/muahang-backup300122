@@ -83,7 +83,7 @@ class LayoutBlade
                     $content = call_user_func_array(array(static::$ViewHelper, "commposer"), array($option));
                 }
             } else if ($option['cfg']['view']) {
-                $content = "@includeIf('" . $option['cfg']['view'] . "', " . (var_export(isset($option['opt']) ? ["data" => $option['opt']] : ["data" => []], true)) . ")";
+                $content = "\n@includeIf('" . $option['cfg']['view'] . "', " . (var_export(isset($option['opt']) ? ["data" => $option['opt']] : ["data" => []], true)) . ")";
             } else {
                 $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>\n";
             }

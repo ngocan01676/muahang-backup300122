@@ -64,6 +64,11 @@ return [
                         "method" => ['post'],
                         "action" => "ajaxGetLang"
                     ],
+                    "ajax:get_com" => [
+                        "url" => "/ajax-post-com",
+                        "method" => ['post'],
+                        "action" => "ajaxPostCom"
+                    ],
                 ]
             ]
         ]

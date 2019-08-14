@@ -315,7 +315,8 @@
                             </table>
                         </form>
                     </div>
-                    <div id="layout" UriConfig="{{route('backend:layout:ajax:form_config')}}">
+                    <div id="layout" UriConfig="{{route('backend:layout:ajax:form_config')}}"
+                         UriCom="{{route('backend:layout:ajax:get_com')}}">
                         <div class="demo" id="layout_demo" UrlSettingWidget="">
                             <?php echo \Admin\Lib\LayoutRender::render($content['data'], $content['widget']); ?>
                         </div>

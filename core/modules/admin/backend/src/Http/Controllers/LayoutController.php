@@ -323,6 +323,17 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 //        }
     }
 
+    public function ajaxPostCom(Request $request)
+    {
+        $items = $request->all();
+        DB::table('component')->updateOrInsert(
+            [
+                'id' => $items['widget']['cfg']['id'],
+            ],
+            ['data' => serialize($items['widget']), 'type' => $items['widget']['stg']['type'], 'update_at' => date('Y-m-d H:i:s')]
+        );
+    }
+
     public function ajaxPost(Request $request)
     {
         $theme = config('zoe.theme');
@@ -341,6 +352,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $model->theme = $theme;
         $model->type = $items["info"]['type'];
         $layout = isset($items['layout']) ? json_decode($items['layout'], true) : [];
+
+
         $model->content = base64_encode(serialize($layout));
         $model->save();
 
@@ -351,6 +364,16 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         \Admin\Lib\LayoutBlade::render($layout, $model->id, $model->type);
 
         echo json_encode(['id' => $model->id]);
+//        if (isset($layout['widget'])) {
+//            foreach ($layout['widget'] as $id => $widget) {
+//                DB::table('component')->updateOrInsert(
+//                    [
+//                        'id' => $id,
+//                    ],
+//                    ['data' => serialize($widget), 'layout' => $model->id]
+//                );
+//            }
+//        }
     }
 
     function getPartial($id)

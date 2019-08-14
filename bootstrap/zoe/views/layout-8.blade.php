@@ -35,7 +35,75 @@
                     }
                     return $html;
                 @endphp
-            @endfunction@includeIf('content', array (
+            @endfunction<div class='py-4'><div>@ZoeWidget(array (
+  'cfg' => 
+  array (
+    'title' => '',
+    'view' => '',
+    'status' => '1',
+    'template' => 
+    array (
+      'view' => '0',
+      'data' => 
+      array (
+        0 => '',
+        1 => '',
+        2 => '',
+      ),
+    ),
+    'compiler' => 
+    array (
+      'grid' => 
+      array (
+        0 => 'main',
+      ),
+      'blade' => 
+      array (
+      ),
+    ),
+    'id' => 'ced989bc-a0e0-29b2-ea6b-8e11d923d465',
+  ),
+  'stg' => 
+  array (
+    'system' => 'theme',
+    'module' => 'zoe',
+    'type' => 'component',
+    'pos' => 'frontend',
+    'name' => 'thumbnail-image',
+  ),
+  'opt' => 
+  array (
+    'lists' => 
+    array (
+      0 => 
+      array (
+        'name' => '',
+        'image' => '',
+        'link' => '',
+      ),
+      1 => 
+      array (
+        'name' => '',
+        'image' => '',
+        'link' => '',
+      ),
+      2 => 
+      array (
+        'name' => '',
+        'image' => '',
+        'link' => '',
+      ),
+      3 => 
+      array (
+        'name' => '',
+        'image' => '',
+        'link' => '',
+      ),
+    ),
+  ),
+))</div>
+</div>
+@includeIf('theme::component.content.views.view', array (
   'data' => 
   array (
     'name' => 'Content Theme',

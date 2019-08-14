@@ -75,21 +75,26 @@ $(".demo .column").sortable({
         // console.log(ui.target);
         // console.log($(ui.target).height());
         var arrColumn = $(ui.target);
-        console.log(arrColumn);
-        // console.log(arrColumn);
-        // var indexPos = arrColumn.index($(ui.target));
-        // var list = [];
-        // for(var v=0 ; v<arrColumn.length ; v++){
-        //     list.push($(arrColumn[v]).height());
-        // }
-        // var max = Math.max(...list);
-        // var index = list.indexOf(max);
-        //
-        // for(var v=0 ; v<arrColumn.length ; v++){
-        //     if(index!=v){
-        //         list.push($(arrColumn[v]).height((max)+"px"));
-        //     }
-        // }
+        var lists_column = arrColumn.parent().children('.column');
+
+        var list = [];
+        for (var v = 0; v < lists_column.length; v++) {
+
+            list.push($(lists_column[v]).height() + 20);
+        }
+        console.log(list);
+        var max = Math.max(...list);
+        var index = list.indexOf(max);
+        console.log("max:" + max);
+        console.log(index);
+
+        for (var v = 0; v < lists_column.length; v++) {
+            if (index === v) {
+                console.log(max);
+                $(lists_column[v]).height(max);
+            }
+        }
+
     },
     start: function (ui) {
         console.log("start");
@@ -260,7 +265,18 @@ demo.delegate(".configuration", "click", function (e) {
                     });
                     var _config = $.extend(config, data);
                     _config.cfg.compiler = compiler;
+                    _config.cfg.id = self.attr('data-id');
                     option.html(JSON.stringify(_config));
+                    $.ajax({
+                        type: 'POST',
+                        url: $("#layout").attr('uricom'),
+                        data: {
+                            widget: _config
+                        },
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    });
                 },
                 before: function (_this) {
                     console.log(config);
@@ -450,7 +466,7 @@ function setOption(parent, Object) {
 
 var saveLayout = function (element) {
     var data,
-        widget = [],
+        widget = {},
         depth = 0;
     var step = function (level, depth, trcms) {
         var array = [],
@@ -489,10 +505,9 @@ var saveLayout = function (element) {
                     } else {
                         var _option_plugin = $.extend({}, _parseJSON($(this).children('.option').find('.value textarea').html()));
                         _option_plugin.cfg.id = $(this).attr('data-id');
-                        widget.push(_option_plugin);
-                        _option_plugins.push(widget.length - 1);
+                        widget[_option_plugin.cfg.id] = _option_plugin;
+                        _option_plugins.push(_option_plugin.cfg.id);//widget.length - 1
                     }
-
                 });
 
                 _option_column.push(_option_plugins);

@@ -164,7 +164,7 @@
 }
 
 .demo .partial {
-
+    border-left: 3px solid red;
 }
 
 .demo .row {
