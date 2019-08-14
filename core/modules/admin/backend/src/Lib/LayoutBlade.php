@@ -1,35 +1,35 @@
 <?php
 
 namespace Admin\Lib;
-class LayoutBlade
+class LayoutBlade extends Layout
 {
-    public static $datas;
-    public static $widget = [];
-    public static $html = "";
-    public static $langs = [];
+    public $datas;
+    public $widget = [];
+    public $html = "";
+    public $langs = [];
 
-    private static function attrClass(& $attrs, $class)
+    private function attrClass(& $attrs, $class)
     {
         $attrs['class'] = empty($attrs['class'])
             ? $class
             : "{$attrs['class']} $class";
     }
 
-    private static function attrId(& $attrs, $id)
+    private function attrId(& $attrs, $id)
     {
         $attrs['id'] = empty($attrs['id'])
             ? $id
             : "{$attrs['id']} $id";
     }
 
-    private static function attrStyle(&$attrs, $style)
+    private function attrStyle(&$attrs, $style)
     {
         $attrs['style'] = empty($attrs['style'])
             ? $style
             : "{$attrs['style']} $style";
     }
 
-    private static function rendAttr($atts)
+    private function rendAttr($atts)
     {
         $html = '';
         foreach ($atts as $att => $rows) {
@@ -38,7 +38,7 @@ class LayoutBlade
         return $html;
     }
 
-    private static function girds($content, $option)
+    private function girds($content, $option)
     {
         if (isset($option['cfg']['compiler']['grid'])) {
             $grid = [];
@@ -48,67 +48,97 @@ class LayoutBlade
                 $grid = $option['cfg']['compiler']['grid'];
             }
             foreach ($grid as $val) {
-                if (method_exists(static::$GridHelper, "layout_" . $val)) {
-                    $content = call_user_func_array(array(static::$GridHelper, "layout_" . $val), array($content, $option));
+                if (method_exists($this->GridHelper, "layout_" . $val)) {
+                    $content = call_user_func_array(array($this->GridHelper, "layout_" . $val), array($content, $option));
                 }
             }
         }
         return $content;
     }
 
-    public static $ViewHelper = null;
-    public static $GridHelper = null;
-    public static $TagHelper = null;
+    public $ViewHelper = null;
+    public $GridHelper = null;
+    public $TagHelper = null;
+    public function addInclude($stg)
+    {
+        $theme = config('zoe.theme');
+        $path = "";
+        switch ($stg['system']) {
+            case "theme":
+                if ($stg['module'] == $theme) {
+                    if ($stg['type'] == "component") {
+                        $path = ('core/themes/' . $stg['module'] . '/frontend/resource/views/component/' . $stg['name']);
+                    }
+                }
+                break;
+            case "module":
+                if ($stg['type'] == "component") {
+                    $path = ('core/modules/' . $stg['module'] . '/frontend/resource/views/component/' . $stg['name']);
+                }
+                break;
+            case "plugin":
+                if ($stg['type'] == "component") {
+                    $path = ('core/plugins/' . $stg['module'] . '/resource/views/component/' . $stg['name']);
+                }
+             break;
+        }
+        parent::addInclude($path.'/main.php');
+    }
 
-    public static function plugin($option, $index = '')
+    public function plugin($option, $index = '')
     {
         if (isset($option['lang'])) {
             foreach ($option['lang'] as $langname => $langs) {
                 foreach ($langs as $lang) {
                     if (!empty($lang['val'])) {
-                        static::$langs[$langname][$lang['key']] = $lang['val'];
+                        $this->langs[$langname][$lang['key']] = $lang['val'];
                     }
                 }
             }
         }
-
         $content = "";
-        if (isset($option["stg"]['blade'])) {
-            if (method_exists(static::$ViewHelper, $option["stg"]['blade'])) {
-                $content = call_user_func_array(array(static::$ViewHelper, $option["stg"]['blade']), array($option));
-            }
-        } else if (isset($option['cfg']['view'])) {
+        $_par = (var_export(isset($option['opt']) ? ["data" => $option['opt']] : ["data" => []], true));
+         if (isset($option['cfg']['view'])) {
             if ($option['cfg']['view'] == "dynamic") {
-                if (method_exists(static::$ViewHelper, "commposer")) {
-                    $content = call_user_func_array(array(static::$ViewHelper, "commposer"), array($option));
-                }
-            } else if ($option['cfg']['view']) {
-                $content = "\n@includeIf('" . $option['cfg']['view'] . "', " . (var_export(isset($option['opt']) ? ["data" => $option['opt']] : ["data" => []], true)) . ")";
-            } else {
-                $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>\n";
-            }
-//            if (isset($option['stg']['blade']) && method_exists(static::$ViewHelper, $option['stg']['blade'])) {
-//                $content = call_user_func_array(array(static::$ViewHelper, $option['stg']['blade']), array($option));
-//            } else {
-//                if (isset($option['cfg']['view'])) {
-//                    $content = "@includeIf('" . $option['cfg']['view'] . "', " . (var_export(isset($option['opt']) ? $option['opt'] : [], true)) . ")";
-//                } else {
-//                    $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>\n";
+//                if (method_exists($this->ViewHelper, "commposer")) {
+//                    $content = call_user_func_array(array($this->ViewHelper, "commposer"), array($option));
+//                }else{
+                    $content = isset($option['cfg']['template']['view']) && isset($option['cfg']['template']['data']) && isset($option['cfg']['template']['data'][$option['cfg']['template']['view']])?$option['cfg']['template']['data'][$option['cfg']['template']['view']]:"";
 //                }
-//            }
+            } else if ($option['cfg']['view'] && $option['cfg']['view']!="0") {
+                $content = "@includeIf('" . $option['cfg']['view'] . "', ['data'=>\$data])";
+            } else {
+                $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>";
+            }
         } else {
-            $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>\n";
+            $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>".PHP_EOL;
         }
-        return static::girds($content, $option);
+
+        if(isset($option['cfg']['func'])){
+            $stringFunc = "";
+            if($option['cfg']['public'] == "1" && $option['cfg']['dynamic'] == "1"){
+                $stringFunc.="@php \$option = get_config_component('".$option['cfg']['id']."',\$option) @endphp".PHP_EOL;
+            }
+            if($option['cfg']['func'] != "No Action"){
+                $this->addInclude($option['stg']);
+                $stringFunc.="@php \$data = run_component('".$option['cfg']['func']."',\$option) @endphp".PHP_EOL;
+
+            }else{
+                $stringFunc.="@php \$data = \$option; @endphp".PHP_EOL;
+            }
+            $content = $this->func($stringFunc.$content,['$option'=>$_par]);
+        }
+
+        return $this->girds(PHP_EOL.$content.PHP_EOL, $option);
     }
 
-    public static function partial($option, $index = '')
+    public function partial($option, $index = '')
     {
-        $content = "@includeIf('zoe::" . static::FilenamePartial($option['stg']['id']) . "', [])";
-        return static::girds($content, $option);
+        $content = "@includeIf('zoe::" . $this->FilenamePartial($option['stg']['id'],$option['stg']['token']) . "', [])";
+        return $this->girds($content, $option);
     }
 
-    public static function rows($row, $layout = true, $lever = 0)
+    public function rows($row, $layout = true, $lever = 0)
     {
         $html = "";
 
@@ -118,8 +148,8 @@ class LayoutBlade
                 foreach ($option['stg']['col'] as $key => $gird) {
                     $block = false;
                     if (isset($option['cfg']['tag'])) {
-                        if (isset(static::$TagHelper[$option['cfg']['tag']])) {
-                            $html .= call_user_func_array(static::$TagHelper[$option['cfg']['tag']], array("start", $option));
+                        if (isset($this->TagHelper[$option['cfg']['tag']])) {
+                            $html .= call_user_func_array($this->TagHelper[$option['cfg']['tag']], array("start", $option));
                         } else if ($option['cfg']['tag'] == "block") {
                             $block = true;
                             $class = "";
@@ -136,35 +166,35 @@ class LayoutBlade
                     if (isset($row['view'][$key]) && is_array($row['view'][$key])) {
                         foreach ($row['view'][$key] as $_k => $_row) {
                             if (isset($_row[0]['row'])) {
-                                $html .= static::rows($_row[0]['row'], $layout, $lever++);
-                            } else if (isset(static::$widget[$_row])) {
-                                if (static::$widget[$_row]['stg']['type'] == "component") {
-                                    $html .= static::plugin(static::$widget[$_row], $lever . '-' . $key . '-' . $_k);
-                                } else if (static::$widget[$_row]['stg']['type'] == "partial") {
-                                    $html .= static::partial(static::$widget[$_row], $lever . '-' . $key . '-' . $_k);
+                                $html .= $this->rows($_row[0]['row'], $layout, $lever++);
+                            } else if (isset($this->widget[$_row])) {
+                                if ($this->widget[$_row]['stg']['type'] == "component") {
+                                    $html .= $this->plugin($this->widget[$_row], $lever . '-' . $key . '-' . $_k);
+                                } else if ($this->widget[$_row]['stg']['type'] == "partial") {
+                                    $html .= $this->partial($this->widget[$_row], $lever . '-' . $key . '-' . $_k);
                                 }
                             }
                         }
                     }
-                    if (isset($option['cfg']['tag']) && isset(static::$TagHelper[$option['cfg']['tag']])) {
-                        $html .= call_user_func_array(static::$TagHelper[$option['cfg']['tag']], array("end", $option));
+                    if (isset($option['cfg']['tag']) && isset($this->TagHelper[$option['cfg']['tag']])) {
+                        $html .= call_user_func_array($this->TagHelper[$option['cfg']['tag']], array("end", $option));
                     } else if ($block) {
-                        $html .= "</div>\n";
+                        $html .= "</div>".PHP_EOL;
                     }
                 }
             }
         }
-        return static::girds($html, $option);
+        return $this->girds($html, $option);
     }
 
-    static function InitBuild()
+    function InitBuild()
     {
         return '
             @function(zoe_lang($par))
                 @php 
                     $key =  $par[0];
                     $_lang_name_ = app()->getLocale();
-                    $_langs_ = ' . (var_export(static::$langs, true)) . '; 
+                    $_langs_ = ' . (var_export($this->langs, true)) . '; 
                     $html = isset($_langs_[$_lang_name_][$key])?$_langs_[$_lang_name_][$key]:$key;
                     if(isset($par[1])){
                         foreach($par[1] as $k=>$v){
@@ -173,44 +203,43 @@ class LayoutBlade
                     }
                     return $html;
                 @endphp
-            @endfunction';
+            @endfunction'.PHP_EOL;
     }
 
-    static function FilenamePartial($id)
+     function FilenamePartial($id,$token)
     {
-        return 'layout-partial-' . $id . '-' . md5($id);
+        return 'layout-partial-' . $id . '-' . $token;
     }
 
-    static function FilenameLayout($id)
+     function FilenameLayout($id,$token)
     {
-        return 'layout-' . ($id);
+        return 'layout-'.$id."-".$token;
     }
 
-    static function InitFuc()
+     function InitFuc()
     {
-        return static::$ViewHelper->GetFunc() . static::$GridHelper->GetFunc();
+        return $this->GetStringInclude().$this->ViewHelper->GetFunc() . $this->GridHelper->GetFunc(). $this->GetFunc();
     }
 
-    static function render($data, $id, $type = "layout")
+     function render($data, $id,$token, $type = "layout")
     {
-        static::$datas = isset($data['data']) ? $data['data'] : [];
-        static::$widget = isset($data['widget']) ? $data['widget'] : [];
+        $this->datas = isset($data['data']) ? $data['data'] : [];
+        $this->widget = isset($data['widget']) ? $data['widget'] : [];
         $lever = 0;
-        if (isset(static::$datas[0])) {
-            foreach (static::$datas as $rows) {
+        if (isset($this->datas[0])) {
+            foreach ($this->datas as $rows) {
                 if (isset($rows['row'])) {
-                    static::$html .= static::rows($rows['row'], true, $lever);
+                    $this->html .= $this->rows($rows['row'], true, $lever);
                 }
             }
         }
         $file = new \Illuminate\Filesystem\Filesystem();
-        static::$html = static::InitFuc() . static::$html;
+        $this->html = $this->InitFuc() . $this->html;
         if ($type == "layout") {
-
             $template = $file->get(base_path('core/modules/admin/backend/resource/stubs/layout.stubs'));
-            $file->put(base_path('bootstrap/zoe/views/' . static::FilenameLayout($id) . ".blade.php"), str_replace_first("{{CONTENT}}", static::InitBuild() . static::$html, $template));
+            $file->put(base_path('bootstrap/zoe/views/'.$this->FilenameLayout($id,$token) . ".blade.php"), str_replace_first("{{CONTENT}}", $this->InitBuild() . $this->html, $template));
         } else {
-            $file->put(base_path('bootstrap/zoe/views/' . static::FilenamePartial($id) . ".blade.php"), static::$html);
+            $file->put(base_path('bootstrap/zoe/views/' . $this->FilenamePartial($id,$token) . ".blade.php"), $this->html);
         }
     }
 

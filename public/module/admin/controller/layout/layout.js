@@ -7,18 +7,38 @@ function id() {
 }
 
 function resetColumn(parent) {
-    var arrColumn = parent.find(">.column");
-    var list = [];
-    for (var v = 0; v < arrColumn.length; v++) {
-        list.push($(arrColumn[v]).height());
-    }
-    var max = Math.max(...list);
-    var index = list.indexOf(max);
-    for (var v = 0; v < arrColumn.length; v++) {
-        if (index != v) {
-            list.push($(arrColumn[v]).height((max) + "px"));
-        }
-    }
+    // var lists_column = parent.children('.column');
+    // if(lists_column.length>1){
+    //     var list = [];
+    //     for (var v = 0; v < lists_column.length; v++) {
+    //         list.push($(lists_column[v]).height() + 20);
+    //     }
+    //     console.log(list);
+    //     var max = Math.max(...list);
+    //     var index = list.indexOf(max);
+    //     console.log("max:" + max);
+    //     console.log(index);
+    //
+    //     for (var v = 0; v < lists_column.length; v++) {
+    //         if (index !== v) {
+    //             console.log(max);
+    //             $(lists_column[v]).height(max);
+    //         }
+    //     }
+    // }
+
+    // var arrColumn = parent.find(">.column");
+    // var list = [];
+    // for (var v = 0; v < arrColumn.length; v++) {
+    //     list.push($(arrColumn[v]).height());
+    // }
+    // var max = Math.max(...list);
+    // var index = list.indexOf(max);
+    // for (var v = 0; v < arrColumn.length; v++) {
+    //     if (index != v) {
+    //         list.push($(arrColumn[v]).height((max) + "px"));
+    //     }
+    // }
 }
 
 function getSorted(selector, attrName) {
@@ -42,9 +62,15 @@ $(".demo").sortable({
         // console.log(ui.target);
         // console.log($(ui.target).height());
         var arrColumn = $(ui);
-        console.log($(dom.item).attr('data-id', id()));
+        var attr = $(dom.item).attr('data-id');
+        if (!(typeof attr !== typeof undefined && attr !== false)) {
+            $(dom.item).attr('data-id', id());
+        }
+        if($(ui.target).hasClass('demo')){
+            $(dom.item).children('.tool').find('.configuration').trigger('click');
+        }
 
-        console.log(arrColumn);
+
         // var indexPos = arrColumn.index($(ui.target));
         // var list = [];
         // for(var v=0 ; v<arrColumn.length ; v++){
@@ -61,7 +87,6 @@ $(".demo").sortable({
     },
     start: function (ui, a) {
 
-        //console.log(ui.target);
     }
 });
 $(".demo .column").sortable({
@@ -70,35 +95,44 @@ $(".demo .column").sortable({
     handle: ".drag",
     cursorAt: {top: 0, left: 0},
     stop: function (ui, dom) {
-        console.log("stop .demo, .demo .column");
-        $(dom).attr('data-id', id());
+           var attr = $(dom.item).attr('data-id');
+           console.log(".demo .column");
+           console.log(attr);
+            if (!(typeof attr !== typeof undefined && attr !== false)) {
+                $(dom.item).attr('data-id', id());
+                console.log("create id");
+            }
+            console.log(ui);
+        // if(!$(dom.item).hasAttribute('data-id') || $(dom.item).attr('data-id').length === 0){
+        //     $(dom.item).attr('data-id', id());
+        // }
+
         // console.log(ui.target);
         // console.log($(ui.target).height());
-        var arrColumn = $(ui.target);
-        var lists_column = arrColumn.parent().children('.column');
-
-        var list = [];
-        for (var v = 0; v < lists_column.length; v++) {
-
-            list.push($(lists_column[v]).height() + 20);
-        }
-        console.log(list);
-        var max = Math.max(...list);
-        var index = list.indexOf(max);
-        console.log("max:" + max);
-        console.log(index);
-
-        for (var v = 0; v < lists_column.length; v++) {
-            if (index === v) {
-                console.log(max);
-                $(lists_column[v]).height(max);
-            }
-        }
-
+        // var arrColumn = $(ui.target);
+        // var lists_column = arrColumn.parent().children('.column');
+        // if(lists_column.length>1){
+        //     console.log(1111111);
+        //     var list = [];
+        //     for (var v = 0; v < lists_column.length; v++) {
+        //         list.push($(lists_column[v]).height() + 30);
+        //     }
+        //     console.log(list);
+        //     var max = Math.max(...list);
+        //     var index = list.indexOf(max);
+        //     console.log("max:" + max);
+        //     console.log(index);
+        //
+        //     for (var v = 0; v < lists_column.length; v++) {
+        //         if (index === v) {
+        //             console.log(max);
+        //             $(lists_column[v]).height(max);
+        //         }
+        //     }
+        // }
     },
-    start: function (ui) {
-        console.log("start");
-        //console.log(ui.target);
+    start: function (ui,dom) {
+        $(dom.item).css('width',250);
     }
 });
 $(".sidebar-nav .grid").draggable({
@@ -170,7 +204,7 @@ $(".sidebar-nav .grid").draggable({
             left: 0,
             top: 0
         });
-        $(this).attr('data-id', id());
+       // $(this).attr('data-id', id());
     }
 });
 $(".sidebar-nav .box-pluign").draggable({
@@ -185,16 +219,16 @@ $(".sidebar-nav .box-pluign").draggable({
         left: 0
     },
     stop: function (e, ui) {
-        ui.helper.attr("data-id", id());
+        console.log("sidebar-nav .box-pluign");
+        var attr =  ui.helper.attr('data-id');
+        if (!(typeof attr !== typeof undefined && attr !== false)) {
+            ui.helper.attr("data-id", id());
+            console.log("create id");
+        }
         ui.helper.removeAttr("style");
-        if (ui.helper.parent().length == 0) {
-            // layout.formSettingWidget($(this).attr('data-id'),function(data,self){
-            //     if(data.opt.title.length)
-            //         self.find(".view >.plugin").html(data.opt.title);
-            //     $.post($("#UrlSaveWidget").attr("data-url"),{act:'saveWidget',data:data},function(data){
-            //
-            //     });
-            // });
+       // if (ui.helper.parent().length === 0)
+        {
+            ui.helper.children('.tool').find('.configuration').trigger('click');
         }
     },
     start: function (e, ui) {
@@ -202,216 +236,254 @@ $(".sidebar-nav .box-pluign").draggable({
             left: 0,
             top: 0
         });
-        $(this).attr('data-id', id());
+       // $(this).attr('data-id', id());
     }
 });
 demo.delegate(".configuration", "click", function (e) {
     e.preventDefault();
 
+
+
+
     var self = $(this).closest('.tool').parent();
-    console.log(self);
     var option = self.children('.option').find('.value textarea');
     var _conf = option.val();
     var config = _parseJSON(_conf);
     console.log(config);
-    var edit;
-    window._editor = null;
-    var compiler = {"grid": [], "blade": []};
-    if (config.cfg.hasOwnProperty('compiler')) {
-        compiler = $.extend(compiler, config.cfg.compiler);
-        if (!compiler.grid.push) {
-            compiler.grid = Object.values(compiler.grid);
+    var success = function (config) {
+        var edit;
+        window._editor = null;
+
+        var compiler = {"grid": [], "blade": []};
+        if (config.cfg.hasOwnProperty('compiler')) {
+            compiler = $.extend(compiler, config.cfg.compiler);
+            if (!compiler.grid.push) {
+                compiler.grid = Object.values(compiler.grid);
+            }
+            if (!compiler.blade.push) {
+                compiler.blade = Object.values(compiler.blade);
+            }
         }
-        if (!compiler.blade.push) {
-            compiler.blade = Object.values(compiler.blade);
-        }
-    }
-    $.ajax({
-        url: $("#layout").attr('uriconfig'),
-        type: "POST",
-        data: {
-            config: config
-        },
-        success: function (data) {
-            var a = bootpopup({
-                title: "Custom HTML",
-                size: "large",
-                content: [
-                    data
-                ],
-                cancel: function (data, array, event) {
+        $.ajax({
+            url: $("#layout").attr('uriconfig'),
+            type: "POST",
+            data: {
+                config: config
+            },
+            success: function (data) {
+                var a = bootpopup({
+                    title: "Custom HTML",
+                    size: "large",
+                    content: [
+                        data
+                    ],
+                    cancel: function (data, array, event) {
 
-                },
-                ok: function (data, array, event) {
+                    },
+                    ok: function (data, array, event) {
 
-                    // if (data.hasOwnProperty('cfg')) {
-                    //    // config.cfg = $.extend(config.cfg, data.cfg);
-                    // }
-                    // if (data.hasOwnProperty('opt')) {
-                    //   //  config.opt = $.extend(config.opt, data.opt);
-                    //     //console.log(JSON.stringify(data.opt));
-                    // }
-                    compiler = {"grid": [], "blade": []};
-                    $("#ms-optgroup .ms-selection .ms-optgroup-container").each(function () {
+                        // if (data.hasOwnProperty('cfg')) {
+                        //    // config.cfg = $.extend(config.cfg, data.cfg);
+                        // }
+                        // if (data.hasOwnProperty('opt')) {
+                        //   //  config.opt = $.extend(config.opt, data.opt);
+                        //     //console.log(JSON.stringify(data.opt));
+                        // }
+                        compiler = {"grid": [], "blade": []};
+                        $("#ms-optgroup .ms-selection .ms-optgroup-container").each(function () {
 
-                        $(this).find(".ms-selected").each(function (i, v) {
-                            var obj = $(v);
-                            var val = obj.attr("data-group").split("-");
-                            if (!compiler.hasOwnProperty(val[0])) {
-                                compiler[val[0]] = [];
-                            }
-                            compiler[val[0]][parseInt(i)] = val[1];
+                            $(this).find(".ms-selected").each(function (i, v) {
+                                var obj = $(v);
+                                var val = obj.attr("data-group").split("-");
+                                if (!compiler.hasOwnProperty(val[0])) {
+                                    compiler[val[0]] = [];
+                                }
+                                compiler[val[0]][parseInt(i)] = val[1];
+                            });
                         });
-                    });
-                    var _config = $.extend(config, data);
-                    _config.cfg.compiler = compiler;
-                    _config.cfg.id = self.attr('data-id');
-                    option.html(JSON.stringify(_config));
-                    $.ajax({
-                        type: 'POST',
-                        url: $("#layout").attr('uricom'),
-                        data: {
-                            widget: _config
-                        },
-                        success: function (data) {
-                            console.log(data);
+                        var _config = $.extend(config, data);
+                        _config.cfg.compiler = compiler;
+
+                        _config.cfg.id = self.attr('data-id');
+
+                        option.html(JSON.stringify(_config));
+                        if(_config.cfg.hasOwnProperty('public') && _config.cfg.public === "1"){
+                            $.ajax({
+                                type: 'POST',
+                                url: $("#layout").attr('uricom'),
+                                data: {
+                                    widget: _config,
+                                    id:$("#formInfo #id").val(),
+                                    type:"create"
+                                },
+                                success: function (data) {
+                                    console.log(data);
+                                }
+                            });
                         }
-                    });
-                },
-                before: function (_this) {
-                    console.log(config);
-                    console.log(_this.form.zoe_inputs("set", config));
 
-                    _this.form.find("#data_config").val(JSON.stringify(config));
-                    var _multiSelect = $('#optgroup').multiSelect({
-                        selectableOptgroup: true,
-                        afterInit: function (container) {
-                            this.$selectionContainer.find(".ms-optgroup").each(function () {
-                                console.log("#" + $(this).parent().attr("id") + ">.ms-elem-selection");
-                                $(this).sortable({
-                                    items: 'li:not(.ms-optgroup-label)',
-                                    stop: function (ev, ui) {
-                                        $(this).find(".ms-selected").each(function (i, v) {
-                                            var obj = $(v);
-                                            obj.attr('data-order', i + 1);
+                    },
+                    before: function (_this) {
+                        console.log(config);
+                        console.log(_this.form.zoe_inputs("set", config));
 
-                                            var val = obj.attr("data-group").split("-");
-                                            if (compiler.hasOwnProperty(val[0])) {
-                                                compiler[val[0]][i] = val[1];
-                                            }
-                                        });
-                                        console.log(compiler);
-                                    }
+                        _this.form.find("#data_config").val(JSON.stringify(config));
+                        var _multiSelect = $('#optgroup').multiSelect({
+                            selectableOptgroup: true,
+                            afterInit: function (container) {
+                                this.$selectionContainer.find(".ms-optgroup").each(function () {
+                                    console.log("#" + $(this).parent().attr("id") + ">.ms-elem-selection");
+                                    $(this).sortable({
+                                        items: 'li:not(.ms-optgroup-label)',
+                                        stop: function (ev, ui) {
+                                            $(this).find(".ms-selected").each(function (i, v) {
+                                                var obj = $(v);
+                                                obj.attr('data-order', i + 1);
+
+                                                var val = obj.attr("data-group").split("-");
+                                                if (compiler.hasOwnProperty(val[0])) {
+                                                    compiler[val[0]][i] = val[1];
+                                                }
+                                            });
+                                            console.log(compiler);
+                                        }
+                                    });
+                                    $(this).disableSelection();
+                                    getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
                                 });
-                                $(this).disableSelection();
-                                getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
-                            });
-                            // getSorted(this.$selectionContainer.find(".ms-selected"),"data-order").detach().appendTo(this.$selectionContainer);
-                        },
-                        afterSelect: function (values, index) {
-                            var val = values[0].split("-");
-                            console.log(val[0]);
-                            if (!compiler.hasOwnProperty(val[0])) {
-                                compiler[val[0]] = [];
-                            }
-                            compiler[val[0]].push(val[1]);
-                            this.$selectionContainer.find(".ms-optgroup [data-group='" + val[0] + "-" + val[1] + "']").attr("data-order", compiler[val[0]].length);
-                            this.$selectionContainer.find(".ms-optgroup").each(function () {
-                                getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
-                            });
-                            console.log(compiler);
-                        },
-                        afterDeselect: function (values, index) {
-
-                            var val = values[0].split("-");
-                            if (compiler.hasOwnProperty(val[0])) {
-                                console.log(compiler[val[0]]);
-                                var _index = compiler[val[0]].indexOf(val[1]);
-                                if (_index !== -1) {
-                                    compiler[val[0]].splice(_index, 1);
+                                // getSorted(this.$selectionContainer.find(".ms-selected"),"data-order").detach().appendTo(this.$selectionContainer);
+                            },
+                            afterSelect: function (values, index) {
+                                var val = values[0].split("-");
+                                console.log(val[0]);
+                                if (!compiler.hasOwnProperty(val[0])) {
+                                    compiler[val[0]] = [];
                                 }
-                            }
-                            for (var key in compiler) {
-                                if (compiler.hasOwnProperty(key)) {
-                                    for (var _key in compiler[key]) {
-                                        this.$selectionContainer.find(".ms-optgroup [data-group='" + key + "-" + compiler[key][_key] + "']").attr("data-order", _key + 1);
-                                    }
-                                }
-                            }
-                            console.log(compiler);
-                            this.$selectionContainer.find(".ms-optgroup").each(function () {
-                                getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
-                            });
-                        }
-                    });
-                    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                        var target = $(e.target).attr("href");
-                        var editor = $(target + " #editor");
-                        var d = $(this).data();
-
-                        if (window.hasOwnProperty("func_" + d.name)) {
-                            window["func_" + d.name]();
-                        }
-                        if (editor.length > 0) {
-                            var editorDom = document.getElementById('editor');
-                            if (editorDom.style.display !== "none") {
-                                edit = CodeMirror.fromTextArea(editorDom, {
-                                    lineNumbers: true,
-                                    mode: "mustache"
+                                compiler[val[0]].push(val[1]);
+                                this.$selectionContainer.find(".ms-optgroup [data-group='" + val[0] + "-" + val[1] + "']").attr("data-order", compiler[val[0]].length);
+                                this.$selectionContainer.find(".ms-optgroup").each(function () {
+                                    getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
                                 });
-                                try {
-                                    if (config.cfg.template.data.hasOwnProperty(config.cfg.template.view)) {
-                                        edit.setValue(config.cfg.template.data[config.cfg.template.view]);
+                                console.log(compiler);
+                            },
+                            afterDeselect: function (values, index) {
+
+                                var val = values[0].split("-");
+                                if (compiler.hasOwnProperty(val[0])) {
+                                    console.log(compiler[val[0]]);
+                                    var _index = compiler[val[0]].indexOf(val[1]);
+                                    if (_index !== -1) {
+                                        compiler[val[0]].splice(_index, 1);
                                     }
-                                } catch (eeee) {
-
                                 }
-                                window._editor = edit;
+                                for (var key in compiler) {
+                                    if (compiler.hasOwnProperty(key)) {
+                                        for (var _key in compiler[key]) {
+                                            this.$selectionContainer.find(".ms-optgroup [data-group='" + key + "-" + compiler[key][_key] + "']").attr("data-order", _key + 1);
+                                        }
+                                    }
+                                }
+                                console.log(compiler);
+                                this.$selectionContainer.find(".ms-optgroup").each(function () {
+                                    getSorted($(this).find(".ms-selected"), "data-order").detach().appendTo($(this));
+                                });
                             }
-                        }
+                        });
+                        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                            var target = $(e.target).attr("href");
+                            var editor = $(target + " #editor");
+                            var d = $(this).data();
 
-                    });
-                    // document.addEventListener("submit", function () {
-                    //     var value = edit.getValue();
-                    //     editor.value = value;
-                    //     console.log(value);
-                    // });
-                    // CodeMirror.runMode(editor.value, "mustache", function (text, style) {
-                    //     console.log('text: ' + text + "-- style: " + style);
-                    // });
+                            if (window.hasOwnProperty("func_" + d.name)) {
+                                window["func_" + d.name]();
+                            }
+                            if (editor.length > 0) {
+                                var editorDom = document.getElementById('editor');
+                                if (editorDom.style.display !== "none") {
+                                    edit = CodeMirror.fromTextArea(editorDom, {
+                                        lineNumbers: true,
+                                        mode: "mustache"
+                                    });
+                                    try {
+                                        if (config.cfg.template.data.hasOwnProperty(config.cfg.template.view)) {
+                                            edit.setValue(config.cfg.template.data[config.cfg.template.view]);
+                                        }
+                                    } catch (eeee) {
 
-                },
-                complete: function () {
+                                    }
+                                    window._editor = edit;
+                                }
+                            }
 
-                },
-            });
-            a.data = function () {
-                if (edit) {
-                    var value = edit.getValue();
-                    this.form.find("#editor").val(value);
-                }
-                return this.form.zoe_inputs("get");
-            };
+                        });
+                        // document.addEventListener("submit", function () {
+                        //     var value = edit.getValue();
+                        //     editor.value = value;
+                        //     console.log(value);
+                        // });
+                        // CodeMirror.runMode(editor.value, "mustache", function (text, style) {
+                        //     console.log('text: ' + text + "-- style: " + style);
+                        // });
+
+                    },
+                    complete: function () {
+
+                    },
+                });
+                a.data = function () {
+                    if (edit) {
+                        var value = edit.getValue();
+                        this.form.find("#editor").val(value);
+                    }
+                    return this.form.zoe_inputs("get");
+                };
+            }
+        });
+
+        if (self.hasClass('box-pluign')) {
+            // layout.formSettingWidget(self.attr('data-id'),function(data,self){
+            //     if(!data.opt.title.push){
+            //         if(data.opt.title.length)
+            //             self.find(".view >.plugin").html(data.opt.title);
+            //
+            //         $.post($("#UrlSaveWidget").attr("data-url"),{act:'saveWidget',data:data},function(data){
+            //
+            //         });
+            //     }else{
+            //         alertify.error("Đã có lỗi xảy ra");
+            //         location.reload();
+            //     }
+            // });
+        } else {
+            // layout.formSettingGrid(self.attr('data-id'));
         }
-    });
+    };
+    if(config.cfg.hasOwnProperty('public') && config.cfg.public === "1"){
 
-    if (self.hasClass('box-pluign')) {
-        // layout.formSettingWidget(self.attr('data-id'),function(data,self){
-        //     if(!data.opt.title.push){
-        //         if(data.opt.title.length)
-        //             self.find(".view >.plugin").html(data.opt.title);
-        //
-        //         $.post($("#UrlSaveWidget").attr("data-url"),{act:'saveWidget',data:data},function(data){
-        //
-        //         });
-        //     }else{
-        //         alertify.error("Đã có lỗi xảy ra");
-        //         location.reload();
-        //     }
-        // });
-    } else {
-        // layout.formSettingGrid(self.attr('data-id'));
+        $.ajax({
+            type: 'POST',
+            url: $("#layout").attr('uricom'),
+            data: {
+                widget: config,
+                type:"get",
+                id:config.cfg.id
+            },
+            success:function (data) {
+                try{
+                    self.children('.option').find('.value textarea').html(data);
+                    data  = _parseJSON(data);
+
+                    success(data);
+                }catch (e) {
+                    success(config);
+                }
+            }
+        });
+
+    }else{
+        success(config);
     }
+
 });
 demo.delegate(".status", "click", function (e) {
     var classOn = 'fa-check-square';
@@ -436,15 +508,44 @@ demo.delegate(".status", "click", function (e) {
     //     }
     // });
 });
+
 demo.delegate(".remove", "click", function (e) {
-    var classOn = 'fa-check-square';
-    var classOff = 'fa-square';
-    e.preventDefault();
-    var parent = $(this).parent().parent().parent();
-    console.log(parent);
-    $(this).parent().parent().remove();
-    //resetColumn( $(ui.target).parent());
+    var self = this;
+    bootpopup.confirm(
+        "Do you confirm this message?",
+        "Confirm this message",
+        function(ans) {
+           if(ans){
+               var _self = $(self).closest('.tool').parent();
+                var success = function (data) {
+                    var classOn = 'fa-check-square';
+                    var classOff = 'fa-square';
+                    e.preventDefault();
+                    var parent = $(this).parent().parent().parent();
+                    $(self).parent().parent().remove();
+                };
+               var option = _self.children('.option').find('.value textarea');
+               var _conf = option.val();
+               var config = _parseJSON(_conf);
+               if(config.cfg.hasOwnProperty('public') && config.cfg.public === "1"){
+                   $.ajax({
+                       type: 'POST',
+                       url: $("#layout").attr('uricom'),
+                       data: {
+                           widget: config,
+                           id:$("#formInfo #id").val(),
+                           type:"remove"
+                       },
+                       success:success
+                   });
+               }else{
+                   success({});
+               }
+           }
+        }
+    );
 });
+
 var DataLayout = [];
 var _parseJSON = function (json) {
     try {

@@ -57,16 +57,10 @@ class AppServiceProvider extends ServiceProvider
         $this->InitModules();
         $this->InitPlugins();
         $this->InitTheme();
-
         $this->autoLoad();
-
         $this->providers();
-
         $this->InitViews();
-
         $this->InitComponents();
-
-
     }
 
     public function blade()
@@ -79,6 +73,13 @@ class AppServiceProvider extends ServiceProvider
         });
         Blade::directive('z_language', function ($parameters) {
             return 'call_user_func_array("z_language",' . $parameters . ')';
+        });
+        Blade::directive('run_component', function ($parameters) {
+            return 'run_component(' . $parameters . ')';
+        });
+
+        Blade::directive('z_include', function ($parameters) {
+            return '<?php require_once(base_path("'.$parameters . '")); ?>';
         });
         Blade::directive('function', function ($expression) {
             /**
@@ -218,10 +219,12 @@ class AppServiceProvider extends ServiceProvider
                             $_paths = [];
 
                             foreach ($data["views"]["paths"] as $alise => $paths) {
+
                                 $_paths[$module][$type] = [
                                     "alias" => $alise,
                                     "path" => $absolute_path . "/" . $paths . '/resource/views',
                                 ];
+
                             }
 
                             $data["views"]["paths"] = $_paths;
@@ -322,7 +325,7 @@ class AppServiceProvider extends ServiceProvider
                         $views = $data["views"];
                         if (isset($views["path"])) {
                             $views["paths"]["plugin"][$plugin] = [
-                                "path" => $views["path"],
+                                "path" => $absolute_path .$views["path"],
                                 "alias" => "plugin" . $plugin
                             ];
                         }
@@ -420,9 +423,12 @@ class AppServiceProvider extends ServiceProvider
                     if (file_exists($_file)) {
                         $info_component = include $_file;
                         $info_component['name'] = $component;
+
+                        $info_component['option']['cfg']["id"] = gen_uuid();
                         $info_component['option']['stg']["system"] = $opt["m"];
                         $info_component['option']['stg']["module"] = $module;
                         $info_component['option']['stg']["pos"] = $opt["t"];
+
                         $this->app->getComponents()->info->add([$component => $info_component]);
                     }
                     $_view = "";
@@ -450,11 +456,13 @@ class AppServiceProvider extends ServiceProvider
                                 foreach ($config_component['views'] as $___key => $____view) {
                                     if (is_array($____view)) {
                                         if (isset($____view['view'])) {
+
                                             if (view()->exists($_alias . "::component." . $component . ".views." . $____view['view'], [])) {
+//                                                dump($_alias . "::component." . $component . ".views." . $____view['view']);
                                                 $_arr_view[$___key] = $____view;
                                                 $_arr_view[$___key]["view"] = $_alias . "::component." . $component . ".views." . $____view['view'];
                                             } else {
-                                                // echo $_alias . "::component." . $component . ".views." . $____view['view']."<BR>";
+//                                                dump("-".$_alias . "::component." . $component . ".views." . $____view['view']);
                                             }
                                         }
                                     }
@@ -495,6 +503,7 @@ class AppServiceProvider extends ServiceProvider
     {
         foreach ($this->app->getConfig()->views['paths'] as $alise => $modules) {
             foreach ($modules as $_view) {
+
                 $this->loadViewsFrom(base_path($_view['path']), $_view['alias']);
             }
         }

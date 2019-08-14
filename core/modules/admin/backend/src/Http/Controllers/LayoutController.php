@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
+use PragmaRX\Countries\Update\Config;
 
 class LayoutController extends \Zoe\Http\ControllerBackend
 {
@@ -57,10 +58,10 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $items = $request->all();
 
         $theme = config('zoe.theme');
-        $data = ["views" => []];
+        $data = ["views" => [],"func"=>["No Action"=>"0"]];
 
         $components_conf = app()->getComponents()->config;
-
+        $components_info = app()->getComponents()->info;
 
 //        dump(app()->getConfig()['views']["paths"]);
 //        dump(app()->getComponents());
@@ -68,6 +69,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 //        dump($items);
 //        $components_config =  app()->getComponents()->config;
 //        dd($items);
+
         if (isset($items['config']['stg'])) {
             if (isset($items['config']['stg']['system'])) {
                 $stg = $items['config']['stg'];
@@ -79,6 +81,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     "compiler" => isset($items["config"]['cfg']['compiler']) ? $items["config"]['cfg']['compiler'] : []
                 ];
                 $data['tags'] = [];
+
                 $path = "";
                 $view_config = "";
                 $view_view = "";
@@ -103,61 +106,64 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                         break;
                     case "plugin":
                         if ($stg['type'] == "component") {
-
                             $path = base_path('core/plugins/' . $stg['module'] . '/resource/views/component/' . $stg['name']);
                         } else {
 
                         }
                         break;
-
                 }
-
-                if (isset($items['config']['stg']['name']) && isset($components_conf[$items['config']['stg']['name']])) {
-
-                    $config = $components_conf[$items['config']['stg']['name']];
-//                    dump("config", $config);
-
-                    $is_template_dynamic = false;
-                    if (isset($config['configs'])) {
-                        $config['configs']['lang'] = ["template" => "language"];
-                        foreach ($config['configs'] as $label => $_view) {
+                if (isset($items['config']['stg']['name'])) {
+                    if(isset($components_info[$items['config']['stg']['name']]['main']) && is_array($components_info[$items['config']['stg']['name']]['main'])){
+                        $data["func"] = array_merge($data["func"],$components_info[$items['config']['stg']['name']]['main']);
+                    }
+                    if(isset($components_conf[$items['config']['stg']['name']])){
+                        $config = $components_conf[$items['config']['stg']['name']];
+                        $is_template_dynamic = false;
+                        if (isset($config['configs'])) {
+                            $config['configs']['lang'] = ["template" => "language"];
+                            foreach ($config['configs'] as $label => $_view) {
 //                            dump($_view);
-                            if (isset($_view['view']) && isset($_view['label'])) {
-                                $data['views'][$label] = [
-                                    'label' => $_view['label'],
-                                    'view' => $_view['view'],
-                                    'data' => $_view['data']
-                                ];
-                            } else if (isset($_view['template']) && isset(app()->getComponents()->template[$_view['template']])) {
-                                if (isset($_view['data'])) {
-                                    $__data = $_view["data"];
-                                } else {
-                                    $__data = [];
+                                if (isset($_view['view']) && isset($_view['label'])) {
+                                    $data['views'][$label] = [
+                                        'label' => $_view['label'],
+                                        'view' => $_view['view'],
+                                        'data' => $_view['data']
+                                    ];
+                                } else if (isset($_view['template']) && isset(app()->getComponents()->template[$_view['template']])) {
+                                    if (isset($_view['data'])) {
+                                        $__data = $_view["data"];
+                                    } else {
+                                        $__data = [];
+                                    }
+                                    $_view = app()->getComponents()->template[$_view['template']];
+                                    $is_template_dynamic = true;
+                                    $_tmp = [
+                                        'label' => $_view['label'],
+                                        'view' => $_view['view'],
+                                        "data" => array_merge($_view['data'], $__data),
+                                    ];
+                                    $data['views'][$label] = $_tmp;
                                 }
-                                $_view = app()->getComponents()->template[$_view['template']];
-                                $is_template_dynamic = true;
-                                $_tmp = [
-                                    'label' => $_view['label'],
-                                    'view' => $_view['view'],
-                                    "data" => array_merge($_view['data'], $__data),
-                                ];
-                                $data['views'][$label] = $_tmp;
+                                $data['views'][$label]['key'] = $label;
                             }
-                            $data['views'][$label]['key'] = $label;
                         }
-                    }
-                    $data["list_views"] = [
-                        "default" => ["label" => "Select View", "view" => ""]
-                    ];
-                    if ($is_template_dynamic) {
-                        $data["list_views"]["dynamic"] = ["label" => "Dynamic", "view" => "dynamic"];
-                    }
-                    if (isset($config["views"])) {
-                        foreach ($config["views"] as $_k => $_view) {
-                            $data["list_views"][$view_view . $_k] = $_view;
+                        $data["list_views"] = [
+                            "default" => ["label" => "Select View", "view" => "0"]
+                        ];
+
+                        if ($is_template_dynamic) {
+                            $data["list_views"]["dynamic"] = ["label" => "Dynamic", "view" => "dynamic"];
                         }
+                        if (isset($config["views"])) {
+                            foreach ($config["views"] as $_k => $_view) {
+                                $data["list_views"][$view_view . $_k] = $_view;
+                            }
+                        }
+
+                        $data['items'] = $items['config'];
+                    }else{
+                        $data["list_views"] = [];
                     }
-                    $data['items'] = $items['config'];
                     return $this->render('layout.ajax.config', $data);
                 } else {
 
@@ -207,10 +213,12 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function ajaxReviewBlade(Request $request)
     {
         $items = $request->all();
+        $obj_layout =new \Admin\Lib\LayoutBlade();
         if (isset($items["cfg"]['template'])) {
             if ($items['stg']['type'] == "component") {
-                \Admin\Lib\LayoutBlade::$ViewHelper = $this->GetViewHelperBlade();
-                $php = Blade::compileString(\Admin\Lib\LayoutBlade::InitBuild() . \Admin\Lib\LayoutBlade::InitFuc() . \Admin\Lib\LayoutBlade::plugin($items));
+                $obj_layout->ViewHelper = $this->GetViewHelperBlade();
+                $obj_layout->GridHelper = $this->GetGridBlade();
+                $php = Blade::compileString($obj_layout->InitBuild() . $obj_layout->InitFuc() . $obj_layout->plugin($items));
                 $__env = app(\Illuminate\View\Factory::class);
                 $obLevel = ob_get_level();
                 ob_start();
@@ -229,7 +237,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                 }
                 echo json_encode($repon);
             } else {
-                $repon = ['content' => $items["cfg"]['template'], 'status' => 1, 'php' => \Admin\Lib\LayoutBlade::rows(['option' => $items])];
+                $repon = ['content' => $items["cfg"]['template'], 'status' => 1, 'php' => $obj_layout->rows(['option' => $items])];
                 echo json_encode($repon);
             }
         }
@@ -238,10 +246,12 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function ajaxGetLang(Request $request)
     {
         $items = $request->all();
+        $obj_layout =new \Admin\Lib\LayoutBlade();
         if (isset($items["cfg"]['template'])) {
             // var_export($items);
 
-            \Admin\Lib\LayoutBlade::$ViewHelper = $this->GetViewHelperBlade();
+            $obj_layout->ViewHelper = $this->GetViewHelperBlade();
+            $obj_layout->GridHelper = $this->GetGridBlade();
 
 //            Blade::directive('zlang', function ($expr) {
 //
@@ -253,7 +263,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     return "<div class=\"___lang___\">".$key."</div>";
                 @endphp
             @endfunction';
-            $string_blade = $func . \Admin\Lib\LayoutBlade::plugin($items);
+            $string_blade = $func . $obj_layout->plugin($items);
 
 
             $php = Blade::compileString($string_blade);
@@ -322,32 +332,73 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 //            }
 //        }
     }
-
+    public function ajaxGetConfigPost(Request $request){
+        $items = $request->all();
+    }
     public function ajaxPostCom(Request $request)
     {
         $items = $request->all();
-        DB::table('component')->updateOrInsert(
-            [
-                'id' => $items['widget']['cfg']['id'],
-            ],
-            ['data' => serialize($items['widget']), 'type' => $items['widget']['stg']['type'], 'update_at' => date('Y-m-d H:i:s')]
-        );
+        $rs = DB::table('component')->find($items['widget']['cfg']['id']);
+        $isExtit = false;
+        if($rs){
+            try{
+                $data = new \Zoe\Config(unserialize($rs->layout));
+                $isExtit = true;
+            }catch (\Exception $ex){
+                $data = new \Zoe\Config([]);
+            }
+        }else{
+            $data = new \Zoe\Config([]);
+        }
+        if(isset($items['type']) && $items['type'] == "get"){
+            if($isExtit){
+                echo json_encode(unserialize($rs->data));
+            }else{
+                $items['widget']["cfg"]['public'] = "0";
+                $items['widget']["cfg"]['dynamic'] = "0";
+                echo json_encode($items['widget']);
+            }
+        }else{
+            if(isset($items['type']) && $items['type'] == "remove" && $isExtit){
+                $data->offsetUnset($items['id']);
+            }else{
+                $data->add([$items['id']=>date('Y-d-m H:i:s')]);
+            }
+            if($isExtit){
+                if($data->count()==0){
+                    return DB::table('component')->delete($items['widget']['cfg']['id']);
+                }
+            }
+            if($isExtit || $items['type'] == "create"){
+                DB::table('component')->updateOrInsert(
+                    [
+                        'id' => $items['widget']['cfg']['id'],
+                    ],
+                    [
+                        'data' => serialize($items['widget']),
+                        'type' => $items['widget']['stg']['type'],
+                        'layout_id' => isset($items['widget']['stg']['id'])?$items['widget']['stg']['id']:0,
+                        'layout' => serialize($data->getArrayCopy()),
+                        'update_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+            }
+        }
     }
 
     public function ajaxPost(Request $request)
     {
         $theme = config('zoe.theme');
         $items = $request->all();
-
         if (isset($items["info"]['id']) && $items["info"]['id'] != 0) {
             $model = \Admin\Http\Models\Layout::find($items["info"]['id']);
-        } else {
+        }
+        if($model == null){
             $model = new \Admin\Http\Models\Layout();
         }
-
-
         $model->name = $items["info"]['name'];
         $slug = Str::slug($items["info"]['name'], '-');
+        $model->token = $items["info"]['token'];
         $model->slug = $slug;
         $model->theme = $theme;
         $model->type = $items["info"]['type'];
@@ -356,12 +407,12 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
         $model->content = base64_encode(serialize($layout));
         $model->save();
+        $obj_layout =new \Admin\Lib\LayoutBlade();
+        $obj_layout->ViewHelper = $this->GetViewHelperBlade();
+        $obj_layout->GridHelper = $this->GetGridBlade();
+        $obj_layout->TagHelper = $obj_layout->GridHelper->CallBackTag();
 
-        \Admin\Lib\LayoutBlade::$ViewHelper = $this->GetViewHelperBlade();
-        \Admin\Lib\LayoutBlade::$GridHelper = $this->GetGridBlade();
-        \Admin\Lib\LayoutBlade::$TagHelper = \Admin\Lib\LayoutBlade::$GridHelper->CallBackTag();
-
-        \Admin\Lib\LayoutBlade::render($layout, $model->id, $model->type);
+        $obj_layout->render($layout, $model->id, $model->token,$model->type);
 
         echo json_encode(['id' => $model->id]);
 //        if (isset($layout['widget'])) {
@@ -385,41 +436,46 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             if ($id == $val->id) {
                 continue;
             }
-            $item = [
-                "name" => $val->name,
-                "option" => array(
-                    'cfg' => array(
-                        'compiler' => [],
-
-                    ),
-                    'stg' => array(
-                        'system' => "theme",
-                        'module' => 'zoe',
-                        'type' => 'partial',
-                        'id' => $val->id
-                    ),
-                    'opt' => array()
-                )
-            ];
+            $item = component_create('zoe',[],[],[],'partial');
+            $item["name"] =  $val->name;
+            $item["option"]['stg']['id'] = $val->id;
+            $item["option"]['stg']['token'] = $val->token;
+            $item["option"]['stg']['system'] = "theme";
             $array[$val->id] = $item;
         }
 
         return $array;
     }
-
+    function getComponent()
+    {
+        $rs = DB::table('component')->select()->get()->toArray();
+        $array = [];
+        if($rs){
+            foreach ($rs as $val) {
+                $item = [
+                    "type" => $val->type,
+                    "option" =>unserialize($val->data)
+                ];
+                $array[$val->id] = $item;
+            }
+        }
+        return $array;
+    }
     public function create()
     {
         $model = new \Admin\Http\Models\Layout();
         $content = [
             "data" => [],
-            "widget" => []
+            "widget" => [],
         ];
         $model->id = 0;
+        $model->token = gen_uuid();
         return $this->render("layout.edit", [
             'model' => $model,
             "content" => $content,
             "info" => [],
-            "partials" => $this->getPartial($model->id)
+            "partials" => $this->getPartial($model->id),
+            "db_components" => $this->getComponent(),
         ]);
     }
 
@@ -447,7 +503,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             'model' => $model,
             "content" => $content,
             "info" => $info,
-            "partials" => $this->getPartial($model->id)
+            "partials" => $this->getPartial($model->id),
+            "db_components" => $this->getComponent(),
         ]);
     }
 }

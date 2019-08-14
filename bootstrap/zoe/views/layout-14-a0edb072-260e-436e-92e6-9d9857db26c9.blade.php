@@ -35,43 +35,19 @@
                     }
                     return $html;
                 @endphp
-            @endfunction<div class='py-4'><div>@ZoeWidget(array (
-  'cfg' => 
-  array (
-    'title' => '',
-    'view' => '',
-    'status' => '1',
-    'template' => 
-    array (
-      'view' => '0',
-      'data' => 
-      array (
-        0 => '',
-        1 => '',
-        2 => '',
-      ),
-    ),
-    'compiler' => 
-    array (
-      'grid' => 
-      array (
-        0 => 'main',
-      ),
-      'blade' => 
-      array (
-      ),
-    ),
-    'id' => 'ced989bc-a0e0-29b2-ea6b-8e11d923d465',
-  ),
-  'stg' => 
-  array (
-    'system' => 'theme',
-    'module' => 'zoe',
-    'type' => 'component',
-    'pos' => 'frontend',
-    'name' => 'thumbnail-image',
-  ),
-  'opt' => 
+            @endfunction
+
+@z_include(core/plugins/Comment/resource/views/component/comment/main.php)
+
+
+        @function(func_1565778167_3057_8048 ($option))
+            @php $option = get_config_component('5ce4aad3-1237-7177-f81f-02a33fd255ff',$option) @endphp
+@php $data = run_component('Comments\main',$option) @endphp
+@includeIf('pluginComment::component.comment.views.main', ['data'=>$data])
+        @endfunction
+
+@func_1565778167_3057_8048(array (
+  'data' => 
   array (
     'lists' => 
     array (
@@ -101,14 +77,8 @@
       ),
     ),
   ),
-))</div>
-</div>
-@includeIf('theme::component.content.views.view', array (
-  'data' => 
-  array (
-    'name' => 'Content Theme',
-    'count' => 5,
-  ),
-))@includeIf('zoe::layout-partial-10-d3d9446802a44259755d38e6d163e820', [])
+))
+
+@includeIf('zoe::layout-partial-7-094bde12-ffeb-4fdc-ae8e-a5c1a80e2d9f', [])
 </body>
 </html>

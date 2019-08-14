@@ -4,7 +4,7 @@ namespace Admin\Lib;
 class Layout
 {
     public $stringFunction = "";
-
+    public $stringInclude = [];
     protected function func($content, $arr_par = [])
     {
 
@@ -24,7 +24,7 @@ class Layout
             ' . $content . '
         @endfunction';
         $this->addFunc($html);
-        return '@func_' . $t . '_' . $func . '(' . $val . ')';
+        return '@func_' . $t . '_' . $func . '(' . $val . ')'.PHP_EOL;
     }
 
     public function addFunc($func)
@@ -36,4 +36,18 @@ class Layout
     {
         return $this->stringFunction;
     }
+    public function addInclude($inc)
+    {
+        if(empty($inc)) return;
+        $this->stringInclude[$inc]= $inc;
+    }
+    public function GetStringInclude(){
+        $string = PHP_EOL;
+        foreach ($this->stringInclude as $inc){
+            $string.="@z_include(".$inc.")".PHP_EOL;
+        }
+        $string.=PHP_EOL;
+        return $string;
+    }
+
 }

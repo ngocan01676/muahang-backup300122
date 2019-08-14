@@ -14,7 +14,8 @@ return component_config($_opt_,
         ]
     ),
     component_config_views([
-        'view' => ["label" => "View", "view" => "view"]
+        'main' => ["label" => "Main", "view" => "main"],
+        'list-new' => ["label" => "ListNew", "view" => "list-new"],
     ]),
-    ["name" => "Thumbnail Image","view"=>"view"]
+    ["name" => "Comment","view"=>""]
 );

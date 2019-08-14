@@ -79,7 +79,8 @@
     <div class="box-body">
         <div class="row">
             <div class="col-xs-2">
-                <div id="pluginwrap">
+
+
                     <div class="panel-group accordion sidebar-nav clearfix" id="accordion-grid">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -101,102 +102,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <?php
-                $widgets = [
-                    "system" => [
-                        [
-                            "name" => "content",
-                            "option" => array(
-                                'cfg' => array(),
-                                'stg' => array(
-                                    'system' => "module",
-                                    'module' => 'admin',
-                                    'type' => 'component',
-                                    'status' => 1,
-                                    'blade' => 'content',
-                                    'view' => 'admin_front'
-                                ),
-                                'opt' => array()
-                            )
-                        ],
-                        ["name" => "Login",
-                            "option" => array(
-                                'cfg' => array(
-                                    'view' => 'theme::widget.login.form',
-                                ),
-                                'stg' => array(
-                                    'system' => "theme",
-                                    'module' => 'zoe',
-                                    'type' => 'widget',
-                                    'status' => 1,
-//                                    'blade' => 'login_form',
-                                    "gird" => "main"
-                                ),
-                                'opt' => array()
-                            )],
-                        ["name" => "Navbar",
-                            "option" => array(
-                                'cfg' => array(
-                                    'view' => 'theme::widget.navbar.navbar'
-                                ),
-                                'stg' => array(
-                                    'system' => "theme",
-                                    'module' => 'zoe',
-                                    'type' => 'widget',
-                                    'status' => 1
-                                ),
-                                'opt' => array()
-                            )],
-                        [
-                            "name" => "thumbnail-image",
-                            "option" => array(
-                                'cfg' => array(
-                                    'view' => 'theme::component.thumbnail-image.views.view'
-                                ),
-                                'stg' => array(
-                                    'system' => "theme",
-                                    'module' => 'zoe',
-                                    'type' => 'component',
-                                    'status' => 1,
-//                                    'blade' => 'commposer',
-                                    'gird' => ['card', 'container'],
-                                    'compiler' => []
-                                ),
-                                'opt' => array()
-                            )
-                        ]
-                    ],
-                ];
-                foreach ($widgets as $module=>$widget):
-                ?>
-                <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a class="menu-item"
-                                   data-toggle="collapse"
-                                   data-parent="#accordion-<?php echo $module; ?>"
-                                   href="#menu-accordion-<?php echo $module; ?>"><?php echo $module; ?></a>
-                            </h4>
-                        </div>
 
-                        <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
 
-                            <?php
-                            foreach ($widget as $_widget) {
-                                $option = $_widget['option'];
-//                                $option['stg']['system'] = $module;
-                                // $option['stg']['module'] = $module;
-                                $option['stg']['name'] = $_widget['name'];
-//                                $option['stg']['type'] = 'widget';
-                                echo \Admin\Lib\LayoutRender::plugin($option, false);
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <?php endforeach; ?>
+
 
                 <?php
                 $components = app()->getComponents()->info;
@@ -216,15 +124,21 @@
                         <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
 
                             <?php
+
                             foreach ($components as $name => $component) {
                                 $option = $component['option'];
+
+                                $_cfg = new Zoe\Config($option["cfg"]);
                                 $option["stg"]['name'] = $component['name'];
+                                if(is_array($component['main'])){
+                                    $option["stg"]['main'] = $component['main'];
+                                }
 //                                $option["stg"]['system'] = $module;
                                 if (isset($components_config[$name])) {
                                     //$option['cfg'] = array_merge();
                                     $_config = $components_config[$name]["configs"];
 //                                    dump( $components_config[$name]);
-                                    $_cfg = new Zoe\Config($components_config[$name]["cfg"]);
+                                    $_cfg->add($components_config[$name]["cfg"]);
                                     foreach ($_config as $__config) {
                                         $_prefix = "";
                                         if (isset($__config["prefix"])) {
@@ -252,35 +166,10 @@
                         </div>
                     </div>
                 </div>
-                <?php
 
-                $module = "Partial";
-                ?>
-                <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a class="menu-item"
-                                   data-toggle="collapse"
-                                   data-parent="#accordion-<?php echo $module; ?>"
-                                   href="#menu-accordion-<?php echo $module; ?>"><?php echo $module; ?></a>
-                            </h4>
-                        </div>
-                        <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
-
-                            <?php
-                            foreach ($partials as $name => $partial) {
-                                $option = $partial['option'];
-                                $option["stg"]['name'] = $partial['name'];
-                                echo \Admin\Lib\LayoutRender::plugin($option, false);
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
 
             </div>
-            <div class="col-xs-10 no-padding">
+            <div class="col-xs-8 no-padding">
                 <div class="col-xs-12" style="min-height: 500px;margin-top: 10px">
                     <div class="screen">
                         <div class="toolbar">
@@ -296,6 +185,7 @@
 ">
                         <form id="formInfo">
                             <input type="hidden" name="id" id="id" value="{{$model->id}}">
+                            <input type="hidden" name="token" id="token" value="{{$model->token}}">
                             <table class="table table-bordered table-responsive">
                                 <tr>
                                     <td class="text-center"><label for="layout name" class="control-label">Name</label>
@@ -322,6 +212,58 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <?php
+                $module = "Partial";
+                ?>
+                <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="menu-item"
+                                   data-toggle="collapse"
+                                   data-parent="#accordion-<?php echo $module; ?>"
+                                   href="#menu-accordion-<?php echo $module; ?>"><?php echo $module; ?></a>
+                            </h4>
+                        </div>
+                        <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
+
+                            <?php
+                            foreach ($partials as $name => $partial) {
+                                $option = $partial['option'];
+                                $option["stg"]['name'] = $partial['name'];
+                                echo \Admin\Lib\LayoutRender::plugin($option, false);
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                $module = "Component Cache";
+                $key = md5($module);
+                ?>
+                <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $key; ?>">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="menu-item"
+                                   data-toggle="collapse"
+                                   data-parent="#accordion-<?php echo $key; ?>"
+                                   href="#menu-accordion-<?php echo $key; ?>"><?php echo $module; ?></a>
+                            </h4>
+                        </div>
+                        <div id="menu-accordion-<?php echo $key; ?>" class="panel-collapse collapse">
+                            <?php
+                            foreach ($db_components as $name => $partial) {
+                                $option = $partial['option'];
+                                echo \Admin\Lib\LayoutRender::plugin($option, true);
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

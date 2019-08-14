@@ -15,13 +15,25 @@
         <div id="config" class="tab-pane fade in active">
             <table class="table table-bordered">
                 <tbody>
-                <tr>
-                    <td><label for="text">Title</label></td>
+                <tr class="text-center">
+                    <td width="150"><label for="text">Title</label></td>
                     <td><input type="text" name="cfg.title" class="form-control" id="title" placeholder="Tên"></td>
                 </tr>
-                @if(count($list_views)>1)
+                @if(count($func)>0)
+                    <tr>
+                        <td class="text-center"><label for="text">Action</label></td>
+                        <td>
+                            <select name="cfg.func" class="form-control">
+                                @foreach($func as $_func=>$_view)
+                                    <option data-view="{!! $_view !!}" value="{!! $_func !!}">{!! $_func !!}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                @endif
+                @if(count($list_views)>0)
                 <tr>
-                    <td><label for="text">View</label></td>
+                    <td class="text-center"><label for="text">View</label></td>
                     <td>
 
                         <select name="cfg.view" class="form-control">
@@ -33,15 +45,31 @@
                 </tr>
                 @endif
                 <tr>
-                    <td><label for="text">Stats</label></td>
+                    <td class="text-center"><label for="text">Stats</label></td>
                     <td>
-                        <input type="radio" name="cfg.status" value="1"> Yes
-                        <input type="radio" name="cfg.status" value="0"> No
+                        <input type="radio" name="cfg.status" value="1">  <i>Yes</i>&nbsp;
+                        <input type="radio" name="cfg.status" value="0">  <i>No</i> &nbsp;
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-center"><label for="text">Public</label></td>
+                    <td>
+                        <input data-target=".wrap-dynamic" type="radio" name="cfg.public" value="1"> <i>Database</i> &nbsp;
+                        <input data-target=".wrap-dynamic" type="radio" name="cfg.public" value="0"> <i>Local</i> &nbsp;
+                    </td>
+                </tr>
+
+                <tr class="wrap-dynamic" style="{{isset($items["cfg"]['public']) && $items["cfg"]['public']==1 ?"display:table-row;":"display:none;"}}">
+                    <td class="text-center"><label for="text">Dynamic</label></td>
+                    <td>
+                        <input type="radio" name="cfg.dynamic" value="1"> Yes
+                        <input type="radio" name="cfg.dynamic" value="0"> No
                     </td>
                 </tr>
                 @if(isset($tags[0]))
                 <tr>
-                    <td><label for="text">Tag</label></td>
+                    <td class="text-center"><label for="text">Tag</label></td>
                     <td>
                         <input type="radio" name="cfg.tag" value="none"> None
                         <input type="radio" name="cfg.tag" value="block"> Tag
@@ -54,11 +82,10 @@
                 <tr>
                     <td></td>
                     <td>
-
                         <select id='optgroup' multiple='multiple'>
                             @php
                                 $i = 0;
-                            var_dump($items);
+
                             @endphp
                             @foreach($compiler as $_label=>$_hook)
                                 <optgroup data-name="{{$_label}}" label='{{$_label}}'>
@@ -92,4 +119,13 @@
         @endforeach
     </div>
     <div style="display: none"><textarea id="data_config"></textarea></div>
+    <script>
+        $('input[type=radio][name="cfg.public"]').change(function() {
+            if(this.value === "1"){
+                $($(this).attr('data-target')).show();
+            }else{
+                $($(this).attr('data-target')).hide();
+            }
+        });
+    </script>
 </div>
