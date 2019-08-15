@@ -32,13 +32,13 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     @stack('links')
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-black-light sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="../../index2.html" class="logo">
+        <a href="/" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>Z</b>OE</span>
             <!-- logo for regular state and mobile devices -->
@@ -221,14 +221,14 @@
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 2.4.13
+            <b>Version</b> 1.0.0
         </div>
-        <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+        <strong>Copyright &copy; 2019 <a href="http://naisoft.com">ZoeCMS</a>.</strong> All rights
         reserved. {{$time_exe}}
     </footer>
 
     <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
+    <aside class="control-sidebar control-sidebar-light">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
             <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
@@ -423,7 +423,7 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
+@stack('extra-content')
 <!-- jQuery 3 -->
 <script src="{{asset('module/admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -441,6 +441,7 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('module/admin/dist/js/demo.js')}}"></script>
+<script src="{{asset('module/admin/asset/main.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajaxSetup({
@@ -453,36 +454,27 @@
 <script>
     $(document).ready(function () {
         $('.sidebar-menu').tree();
-        // document.onscroll = function(){
-        //     console.log(o.offsetHeight + o.scrollTop == o.scrollHeight);
-        // };
-        var offset = $(".content-header").offset();
-        var fixed = $(this).scrollTop() > offset.top;
-        if (fixed === true) {
-            $(".content-header").addClass('content-header-prefix');
-        }
-        $(window).scroll(function (a) {
-//            console.log(offset);
-            if ($(this).scrollTop() > (offset.top + 25) && fixed === false) {
+        var content_header = $(".content-header");
+        if(content_header && !content_header.is(':empty')){
+            var offset = $(".content-header").offset();
+            var fixed = $(this).scrollTop() > offset.top*2;
+            if (fixed === true) {
                 $(".content-header").addClass('content-header-prefix');
-                // $( ".content-header" ).css({
-                //     // "width":"100%",
-                //     // "height":"50px",
-                //     // "background":"red",
-                //     // "z-index":"999",
-                //     // "padding":"10px",
-                //     // "top":"0",
-                // });
-                console.log("fixed");
-                fixed = true;
-            } else if ($(this).scrollTop() < offset.top && fixed === true) {
-                console.log("no fixed");
-                fixed = false;
-                $(".content-header").removeClass('content-header-prefix');
             }
-        });
+            $(window).scroll(function (a) {
+                if ($(this).scrollTop() > (offset.top*2) && fixed === false) {
+                    $(".content-header").addClass('content-header-prefix');
+                    console.log("fixed");
+                    fixed = true;
+                } else if ($(this).scrollTop() < offset.top && fixed === true) {
+                    console.log("no fixed");
+                    console.log($(".content"));
+                    fixed = false;
+                    $(".content-header").removeClass('content-header-prefix');
+                }
+            });
+        }
     });
-
 </script>
 @stack('scripts')
 @section('extra-script')

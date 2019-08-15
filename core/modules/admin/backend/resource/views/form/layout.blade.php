@@ -79,8 +79,6 @@
     <div class="box-body">
         <div class="row">
             <div class="col-xs-2">
-
-
                     <div class="panel-group accordion sidebar-nav clearfix" id="accordion-grid">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -102,10 +100,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
                 <?php
                 $components = app()->getComponents()->info;
                 $components_config = app()->getComponents()->config;

@@ -19,7 +19,7 @@ return [
         "page" => [
             "name" => z_language("Page"),
             "pos" => 1,
-            "url" => "backend:layout:list"
+            "url" => "backend:page:list"
         ],
 //        "page"=>[
 //            "name"=>"Page",

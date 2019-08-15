@@ -13,6 +13,17 @@ return [
                     ]
                 ]
             ],
+            'page' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "PageController",
+                "prefix" => "admin",
+                "guard" => "backend",// pải login
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ]
+                ]
+            ],
             'language' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "LanguageController",

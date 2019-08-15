@@ -11,11 +11,13 @@ use PragmaRX\Countries\Update\Config;
 
 class LayoutController extends \Zoe\Http\ControllerBackend
 {
-    public function list()
+    public function list(Request $request)
     {
-        return view('backend::controller.layout.list');
+        $models = DB::table('layout')->orderBy('id','desc')->paginate(20);
+        return view('backend::controller.layout.list',[
+            'models'=>$models
+        ]);
     }
-
     private function GetViewHelperBlade()
     {
 
@@ -226,10 +228,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                 try {
                     eval('?' . '>' . $php);
                     $repon['content'] = trim(ob_get_clean());
-
                     $repon['status'] = 0;
                 } catch (\Exception $e) {
-
                     while (ob_get_level() > $obLevel) ob_end_clean();
                     $repon['content'] = $e->getMessage() . " " . $e->getLine();
                 } catch (\Throwable $e) {
@@ -264,11 +264,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                 @endphp
             @endfunction';
             $string_blade = $func . $obj_layout->plugin($items);
-
-
             $php = Blade::compileString($string_blade);
-
-
             $__env = app(\Illuminate\View\Factory::class);
 
             $obLevel = ob_get_level();

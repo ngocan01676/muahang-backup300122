@@ -166,7 +166,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function providers()
     {
-        foreach ($this->app->getConfig()->providers as $class => $provider) {
+
+        foreach ($this->app->getConfig()->packages["providers"] as $class => $provider) {
             if (class_exists($provider)) {
                 $this->app->register($provider);
             }
