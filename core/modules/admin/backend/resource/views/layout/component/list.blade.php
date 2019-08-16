@@ -10,7 +10,6 @@
 
     <div class="box box box-zoe">
         <div class="box-header with-border">
-
             <div class="box-tools">
                 <form action="">
                     <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
@@ -21,7 +20,7 @@
                     </div>
                 </form>
             </div>
-            <div style="padding: 5px"> <a href="#">All</a> | <a href="#">Public</a> | <a href="#">UnPublic</a> </div>
+            <div style="padding: 5px"> <a href="">All</a> | <a href="?status=1">Public</a> | <a href="?status=0">UnPublic</a> </div>
         </div>
         <div class="box-body listMain">
             <table class="table table-bordered">
