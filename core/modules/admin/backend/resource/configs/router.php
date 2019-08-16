@@ -10,6 +10,10 @@ return [
                 "router" => [
                     "list" => [
                         "url" => "/",
+                    ],
+                    "option" => [
+                        "url" => "/option",
+                        "method" => ['post'],
                     ]
                 ]
             ],
@@ -54,6 +58,10 @@ return [
                     ],
                     "edit" => [
                         "url" => "/edit/{id}",
+                    ],
+                    "delete" => [
+                        "url" => "/delete/{id}",
+                        "method" => ['post'],
                     ],
                     "ajax" => [
                         "url" => "/ajax",

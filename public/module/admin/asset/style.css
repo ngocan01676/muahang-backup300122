@@ -173,8 +173,14 @@ body{
 .listMain .column-id{
     width: 5%;
 }
-.listMain .column-categories{
+.listMain .column-text{
     width: 10%;
+}
+.listMain .column-type{
+    width: 5%;
+}
+.listMain .column-status{
+    width: 2%;
 }
 .listMain .table tbody > tr >td {
     vertical-align: top;

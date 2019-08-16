@@ -426,6 +426,8 @@
 @stack('extra-content')
 <!-- jQuery 3 -->
 <script src="{{asset('module/admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
+
+<script src="{{asset('module/admin/asset/zoe.jquery.inputs.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('module/admin/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- SlimScroll -->

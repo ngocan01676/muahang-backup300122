@@ -1,7 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Cache;
+
+
 use Illuminate\Support\Facades\DB;
+
+function get_config($type,$name){
+    $rs = DB::table('config')->where(['type'=>$type,'name'=>$name])->first();
+    if(!$rs) return [];
+    $rs = unserialize($rs->data);
+    return isset($rs['data'])?$rs['data']:[];
+}
+
+
 function gen_uuid() {
     return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
         // 32 bits for "time_low"
@@ -25,16 +36,18 @@ function gen_uuid() {
 }
 function z_language($key, $par = [], $__env = null)
 {
-    $_lang_name_ = app()->getLocale();
-
-    $_langs_ = app()->getLanguage();
-    $html = isset($_langs_[$_lang_name_][$key]) ? $_langs_[$_lang_name_][$key] : $key;
-    if (is_array($par)) {
-        foreach ($par as $k => $v) {
-            $html = str_replace(":" . $k, $v, $html);
+    if(is_array($par)){
+        $_lang_name_ = app()->getLocale();
+        $_langs_ = app()->getLanguage();
+        $html = isset($_langs_[$_lang_name_][$key]) ? $_langs_[$_lang_name_][$key] : $key;
+        if (is_array($par)) {
+            foreach ($par as $k => $v) {
+                $html = str_replace(":" . $k, $v, $html);
+            }
         }
+        return $html;
     }
-    return $html;
+    return $key;
 }
 function get_config_component($id,$config = []){
     return [];

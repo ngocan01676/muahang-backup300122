@@ -13,10 +13,14 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 {
     public function list(Request $request)
     {
-        $models = DB::table('layout')->orderBy('id','desc')->paginate(20);
+
+        $models = DB::table('layout')->orderBy('id','desc')->paginate(1);
         return view('backend::controller.layout.list',[
             'models'=>$models
         ]);
+    }
+    public function delete(){
+
     }
     private function GetViewHelperBlade()
     {
