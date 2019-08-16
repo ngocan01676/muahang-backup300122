@@ -7,4 +7,7 @@ class ControllerBackend extends Controller
     {
         return $this->_render($view, $data, "backend");
     }
+    protected function list_paginate($table,$option){
+
+    }
 }

@@ -13,10 +13,25 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 {
     public function list(Request $request)
     {
+        $search = $request->query('search',"");
+        $status = $request->query('status',"");
+        $date = $request->query('date',"");
 
-        $models = DB::table('layout')->orderBy('id','desc')->paginate(1);
+        $config = get_config('option',"core:layout");
+        $item = isset($config['pagination']['item'])?$config['pagination']['item']:20;
+        $models = DB::table('layout');
+
+        if(!empty($search)){
+            $models->where('name', 'like', '%'.$search);
+        }
+        if(!empty($status) || $status == 0){
+            $models->where('status',$status);
+        }
+
+        $models->orderBy('id','desc');
+
         return view('backend::controller.layout.list',[
-            'models'=>$models
+            'models'=>$models->paginate($item)
         ]);
     }
     public function delete(){

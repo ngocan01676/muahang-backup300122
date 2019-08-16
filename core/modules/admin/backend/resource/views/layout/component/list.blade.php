@@ -7,17 +7,21 @@
 
     @endphp
     @isset($data['config']['columns'])
+
     <div class="box box box-zoe">
         <div class="box-header with-border">
-            <h3 class="box-title">{!! @z_language(["List"]) !!}</h3>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                    <i class="fa fa-minus"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                        title="Remove">
-                    <i class="fa fa-times"></i></button>
+
+            <div class="box-tools">
+                <form action="">
+                    <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
+                        <input type="text" name="search" class="form-control pull-right" value="{{old('search')}}" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
             </div>
+            <div style="padding: 5px"> <a href="#">All</a> | <a href="#">Public</a> | <a href="#">UnPublic</a> </div>
         </div>
         <div class="box-body listMain">
             <table class="table table-bordered">

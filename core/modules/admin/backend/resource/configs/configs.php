@@ -36,7 +36,11 @@ return [
                         'trash'=>['method'=>'post','label'=>z_language('Trash',false),'name'=>"backend:layout:delete",'par'=>['id'=>'id']],
                     ]
                 ],
-                'confg'=>[
+                'filter'=>[
+                    'search'=>'name',
+                    'status'=>'status'
+                ],
+                'conf'=>[
                     'header'=>['text'=>'center'],
                     'body'=>['text'=>'center']
                 ]
