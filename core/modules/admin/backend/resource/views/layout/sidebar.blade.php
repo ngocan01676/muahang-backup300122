@@ -1,6 +1,6 @@
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
-    @php $urlCurrentName = request()->route()->getName() @endphp
+    @php $urlCurrentName = request()->route()->getName();@endphp
     <section class="sidebar">
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>

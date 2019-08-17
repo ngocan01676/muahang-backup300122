@@ -59,19 +59,15 @@
         )
     );
 @endphp
+
 @section('content-header')
     <h1>
         {!! @z_language(["Manager Layout"]) !!}
-        {{--<small>it all starts here</small>--}}
         <button url="{{route('backend:layout:ajax')}}" id="saveLayout" type="button"
                 class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
     </h1>
-    <ol class="breadcrumb float-right">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
-    </ol>
 @endsection
+
 <div class="box box-solid box-primary">
     <div class="box-header">
         <h3 class="box-title"> {!! @z_language(["Layouts"]) !!}</h3>

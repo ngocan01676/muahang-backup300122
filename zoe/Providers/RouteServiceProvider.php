@@ -117,6 +117,7 @@ class RouteServiceProvider extends ServiceProvider
                 }
                 $r = Route::match($method, $link, $action);
                 $r->name($alias);
+
                 if (isset($_route['cache'])) {
                     $middleware[] = 'cache.response:' . $alias . "," . $_route['cache'];
                 }

@@ -61,6 +61,7 @@ class AppServiceProvider extends ServiceProvider
         $this->providers();
         $this->InitViews();
         $this->InitComponents();
+
     }
 
     public function blade()

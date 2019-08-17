@@ -11,8 +11,16 @@ use PragmaRX\Countries\Update\Config;
 
 class LayoutController extends \Zoe\Http\ControllerBackend
 {
+
+    public function getCrumb()
+    {
+       $this->breadcrumb("Layout", route('backend:layout:list'));
+       return $this;
+    }
+
     public function list(Request $request)
     {
+        $this->getcrumb();
         $search = $request->query('search',"");
         $status = $request->query('status',"");
         $date = $request->query('date',"");
@@ -27,10 +35,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         if(!empty($status) || $status == 0){
             $models->where('status',$status);
         }
-
         $models->orderBy('id','desc');
-
-        return view('backend::controller.layout.list',[
+        return $this->render('layout.list',[
             'models'=>$models->paginate($item)
         ]);
     }
@@ -478,6 +484,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     }
     public function create()
     {
+        $this->getcrumb()->breadcrumb("Create Layout",false);
         $model = new \Admin\Http\Models\Layout();
         $content = [
             "data" => [],
@@ -485,7 +492,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         ];
         $model->id = 0;
         $model->token = gen_uuid();
-        return $this->render("layout.edit", [
+        return $this->render("layout.create", [
             'model' => $model,
             "content" => $content,
             "info" => [],
@@ -498,7 +505,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     {
         $info = [];
         $model = \Admin\Http\Models\Layout::find($id);
-
+        $this->getcrumb()->breadcrumb(z_language('Edit Layout :name',["name"=>$model->name]),false);
         try {
             $content = unserialize(base64_decode($model->content));
             $info = $model->toArray();

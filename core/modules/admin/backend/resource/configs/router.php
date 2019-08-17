@@ -20,11 +20,25 @@ return [
             'page' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "PageController",
-                "prefix" => "admin",
+                "prefix" => "admin/page",
                 "guard" => "backend",// pải login
                 "router" => [
                     "list" => [
                         "url" => "/",
+                    ],
+                    "create" => [
+                        "url" => "/create",
+                    ],
+                    "edit" => [
+                        "url" => "/edit/{id}",
+                    ],
+                    "delete" => [
+                        "url" => "/delete/{id}",
+                        "method" => ['post'],
+                    ],
+                    "store"=>[
+                        "url" => "/store",
+                        "method" => ['post'],
                     ]
                 ]
             ],

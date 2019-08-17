@@ -6,9 +6,9 @@
     $_data = get_config('option',$config['name']);
     $data['data'] = isset($data['data'])?array_merge($data['data'],$_data):$_data;
 @endphp
-<a href="javascript:void(0);"
+&nbsp;<a href="javascript:void(0);"
    class="btn btn-default btn-md btnOption" data-id="layout"><i class="fa fa-fw fa-cogs"></i> {{ $label }}
-</a>
+</a>&nbsp;
 @push('extra-content')
     <div class="modal fade" id="myModalOption" role="dialog">
         <form action="">

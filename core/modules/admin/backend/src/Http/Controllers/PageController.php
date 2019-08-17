@@ -1,7 +1,68 @@
 <?php
 namespace Admin\Http\Controllers;
+use Admin\Http\Models\PageModel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 class PageController extends \Zoe\Http\ControllerBackend {
-    public function list(){
-       return view('backend::controller.dashboard.list');
+    public function getCrumb()
+    {
+        $this->breadcrumb("Page", route('backend:page:list'));
+        return $this;
+    }
+    public function list(Request $request)
+    {
+        $this->getcrumb();
+        $search = $request->query('search',"");
+        $status = $request->query('status',"");
+        $date = $request->query('date',"");
+
+        $config = get_config('option',"core:page");
+        $item = isset($config['pagination']['item'])?$config['pagination']['item']:20;
+
+        $models = DB::table('page');
+        if(!empty($search)){
+            $models->where('title', 'like', '%'.$search);
+        }
+        if(!empty($status) || $status != ""){
+            $models->where('status',$status);
+        }
+        $models->orderBy('id','desc');
+
+
+        return $this->render('page.list',[
+            'models'=>$models->paginate($item)
+        ]);
+    }
+    public function create(Request $request){
+        $this->getcrumb()->breadcrumb("Create Page",false);
+        return $this->render('page.create',[]);
+    }
+    public function edit($id){
+        $this->getcrumb()->breadcrumb("Edit Page",false);
+        $page = PageModel::find($id);
+        return $this->render('page.edit',["page"=>$page]);
+    }
+    public function delete(){
+
+    }
+    public function status(){
+        
+    }
+    public function store (Request $request){
+        $items = $request->all();
+        if(isset($items)){
+            $page = PageModel::find($items['id']);
+        }else{
+            $page = new PageModel();
+        }
+        $slug = Str::slug($items['title'], '-');
+        $page->title=$items['title'];
+        $page->slug = $slug;
+        $page->description = $items['description'];
+        $page->content = $items['content'];
+        $page->status = $items['status'];
+        $page->save();
+        return back();
     }
 }

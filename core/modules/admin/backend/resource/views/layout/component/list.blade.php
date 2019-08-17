@@ -4,10 +4,8 @@
         $data = $option[$name];
         $_data = get_config('option',$name);
         $data['data'] = isset($data['data'])?array_merge($data['data'],$_data):$_data;
-
     @endphp
     @isset($data['config']['columns'])
-
     <div class="box box box-zoe">
         <div class="box-header with-border">
             <div class="box-tools">
@@ -37,15 +35,15 @@
                         @endisset
                     @endforeach
                 </tr>
+                @if(count($models)>0)
                 @foreach ($models as $k=>$model)
                     <tr>
                         <td>{{$k+1}}</td>
-
                         @foreach($data['config']['columns']['lists'] as $key=>$columns)
                             @isset($data['data']['columns'][$key])
                                 @if('title'== $columns['type'])
                                     <td scope="col" class="column-primary column-name">
-                                        <strong><a class="row-title" href="#">{{$model->name}}</a></strong>
+                                        <strong><a class="row-title" href="#">{{ $model->{$key} }}</a></strong>
                                         <div class="row-actions">
                                             @isset($data['config']['pagination']['router'])
                                                 @php  $n = count($data['config']['pagination']['router'])-1; $i=0; @endphp
@@ -85,6 +83,11 @@
                         @endforeach
                     </tr>
                 @endforeach
+                @else
+                    <tr>
+                        <td colspan="@php echo count($data['config']['columns']['lists'])+2 @endphp"> <strong>{{z_language('List Empty')}}</strong> </td>
+                    </tr>
+                @endif
                 </tbody></table>
         </div>
         <!-- /.box-body -->
