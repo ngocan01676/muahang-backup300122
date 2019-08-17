@@ -14,7 +14,7 @@
                 {!! Form::model($page, ['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
                 {!! Form::hidden('id') !!}
             @else
-                {!! Form::open(['method' => 'POST','route' => ['backend:page:store']]) !!}
+                {!! Form::open(['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
             @endif
 
             <table class="table table-borderless">

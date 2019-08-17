@@ -47,11 +47,11 @@ class PageController extends \Zoe\Http\ControllerBackend {
 
     }
     public function status(){
-        
+
     }
     public function store (Request $request){
         $items = $request->all();
-        if(isset($items)){
+        if(isset($items) && isset($items['id'])){
             $page = PageModel::find($items['id']);
         }else{
             $page = new PageModel();
