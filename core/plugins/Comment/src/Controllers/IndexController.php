@@ -1,8 +1,10 @@
 <?php
+
 namespace PluginComment\Controllers;
 class IndexController extends \Zoe\Http\ControllerBackend
 {
-    public function lists(){
-//        view($this->layout);
+    public function list()
+    {
+        return $this->render('controller.index.list', [], 'pluginComment');
     }
 }

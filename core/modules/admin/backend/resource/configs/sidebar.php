@@ -21,6 +21,15 @@ return [
             "pos" => 1,
             "url" => "backend:page:list"
         ],
+        "plugin" => [
+            "name" => z_language('Plugin'),
+            "pos" => 2,
+            "url" => "",
+            "header" => true,
+            "items" => [
+
+            ]
+        ]
 //        "page"=>[
 //            "name"=>"Page",
 //            "pos"=>1,

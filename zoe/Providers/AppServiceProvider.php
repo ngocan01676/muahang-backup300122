@@ -61,6 +61,8 @@ class AppServiceProvider extends ServiceProvider
         $this->providers();
         $this->InitViews();
         $this->InitComponents();
+//        dump($this->app->getConfig());
+//        die;
 
     }
 
@@ -191,8 +193,11 @@ class AppServiceProvider extends ServiceProvider
             $loader->addPsr4($namespace . '\\', base_path($path));
         }
         if (is_array($this->app->getConfig()->class_maps)) {
+
             foreach ($this->app->getConfig()->class_maps as $class_map) {
-                $loader->addClassMap($class_map);
+                foreach ($class_map as $namespace => $path) {
+                    $loader->addClassMap([$namespace => base_path($path)]);
+                }
             }
         }
 
@@ -323,8 +328,11 @@ class AppServiceProvider extends ServiceProvider
                         }
 
                     }
-                    $data["class_maps"] = [];
-                    $data["class_maps"][$plugin] = $class_maps;
+                    if (count($class_maps) > 0) {
+                        $data["class_maps"] = [];
+                        $data["class_maps"][$plugin] = $class_maps;
+                    }
+
                     $routers = [];
                     if (isset($data["routers"])) {
                         foreach ($data["routers"] as $key => $router) {

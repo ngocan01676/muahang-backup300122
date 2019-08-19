@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Zoe\Config;
 use Illuminate\Support\Facades\View;
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -21,9 +22,9 @@ class Controller extends BaseController
         $this->asset = app()->make('asset-manager');
         $this->view = view();
 
-        $this->breadcrumb =new \stdClass();
-        $this->breadcrumb->home =  ['name'=>z_language('Home'),'uri'=>route('backend:dashboard:list')];
-        $this->breadcrumb->child =  new Config();
+        $this->breadcrumb = new \stdClass();
+        $this->breadcrumb->home = ['name' => z_language('Home'), 'uri' => route('backend:dashboard:list')];
+        $this->breadcrumb->child = new Config();
 
     }
 
@@ -31,9 +32,8 @@ class Controller extends BaseController
     {
         $alias = app()->getConfig()['views']['alias'];
         $data = array_merge($this->data, $data);
-        View::share('_breadcrumb',  $this->breadcrumb);
+        View::share('_breadcrumb', $this->breadcrumb);
         if (isset($alias[$key][$view])) {
-
             return $this->view->make($alias[$key][$view], $data);
         } else {
             return $this->view->make($key . '::controller.' . $view, $data);
