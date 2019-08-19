@@ -5,18 +5,28 @@ return [
             'blog:post' => [
                 "namespace" => "Blog\Http\Controllers",
                 "controller" => "PostController",
-                "prefix" => "admin/module/blog/post",
+                "sub_prefix" => "/blog/post",
                 "guard" => "backend",
                 "router" => [
                     "list" => [
                         "url" => "/",
+                    ],
+                    "create"=>[
+                        'url'=>'/create'
+                    ],
+                    "edit"=>[
+                        'url'=>'/edit/{id}'
+                    ],
+                    'store'=>[
+                        'url'=>'/store',
+                        'method'=>['post']
                     ]
                 ]
             ],
             'blog:category' => [
                 "namespace" => "Blog\Http\Controllers",
                 "controller" => "CategoryController",
-                "prefix" => "admin/module/blog/category",
+                "sub_prefix" => "/blog/post/category",
                 "guard" => "backend",
                 "router" => [
                     "list" => [

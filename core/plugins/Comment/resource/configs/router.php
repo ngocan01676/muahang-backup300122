@@ -4,10 +4,10 @@ return [
         'comment' => [
             "namespace" => "PluginComment\Controllers",
             "controller" => "IndexController",
-            "prefix" => "admin",
+            "sub_prefix" => "/comment",
             "router" => [
                 "list" => [
-                    "url" => "/comment"
+                    "url" => "/"
                 ],
             ]
         ]

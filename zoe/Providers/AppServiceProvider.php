@@ -55,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         $this->InitModules();
+
         $this->InitPlugins();
         $this->InitTheme();
         $this->autoLoad();
@@ -234,6 +235,26 @@ class AppServiceProvider extends ServiceProvider
                 if (file_exists($_file)) {
                     $data = include $_file;
                     if (is_array($data)) {
+
+                        if (isset($data["routers"])) {
+                            $routers = [];
+                            foreach ($data["routers"] as $keys => $_routers) {
+                                $routers[$keys] = [];
+                                foreach ($_routers as  $key=>$router){
+                                    $routers[$keys][$key] = $router;
+                                    if(isset($routers[$keys][$key]["sub_prefix"])){
+                                        if($system == false){
+                                            $routers[$keys][$key]["sub_prefix"] = "/module".$routers[$keys][$key]["sub_prefix"];
+                                        }
+                                    }
+
+                                }
+                            }
+
+
+                            $data["routers"] = $routers;
+                        }
+
                         if (isset($data["views"])) {
                             $_paths = [];
 
@@ -336,7 +357,9 @@ class AppServiceProvider extends ServiceProvider
                     if (isset($data["routers"])) {
                         foreach ($data["routers"] as $key => $router) {
                             $routers["backend"]["plugin:" . $key] = $router;
-                            $routers["backend"]["plugin:" . $key]["prefix"] = "admin/plugin";
+                            if(isset($routers["backend"]["plugin:" . $key]["sub_prefix"])){
+                                $routers["backend"]["plugin:" . $key]["sub_prefix"] = "/plugin".$routers["backend"]["plugin:" . $key]["sub_prefix"];
+                            }
                         }
                     }
                     $data["routers"] = $routers;

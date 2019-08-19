@@ -459,12 +459,12 @@
         var content_header = $(".content-header");
         if(content_header && !content_header.is(':empty')){
             var offset = $(".content-header").offset();
-            var fixed = $(this).scrollTop() > offset.top*2;
+            var fixed = $(this).scrollTop() > offset.top*1.6;
             if (fixed === true) {
                 $(".content-header").addClass('content-header-prefix');
             }
             $(window).scroll(function (a) {
-                if ($(this).scrollTop() > (offset.top*2) && fixed === false) {
+                if ($(this).scrollTop() > (offset.top*1.6) && fixed === false) {
                     $(".content-header").addClass('content-header-prefix');
                     console.log("fixed");
                     fixed = true;

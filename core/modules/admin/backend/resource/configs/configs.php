@@ -15,7 +15,6 @@ return [
             "Admin\Providers\AppServiceProvider" => "Admin\Providers\AppServiceProvider"
         ]
     ],
-
     'options' => [
         'core:layout' => [
             'config' => [

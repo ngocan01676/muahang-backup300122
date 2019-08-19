@@ -25,9 +25,12 @@ class Controller extends BaseController
         $this->breadcrumb = new \stdClass();
         $this->breadcrumb->home = ['name' => z_language('Home'), 'uri' => route('backend:dashboard:list')];
         $this->breadcrumb->child = new Config();
+        $this->init();
 
     }
+    public function init(){
 
+    }
     protected function _render($view, $data, $key)
     {
         $alias = app()->getConfig()['views']['alias'];

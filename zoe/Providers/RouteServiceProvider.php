@@ -55,7 +55,9 @@ class RouteServiceProvider extends ServiceProvider
         foreach ($routers as $name => $route) {
             if (isset($route['prefix'])) {
                 $prefix = $route['prefix'];
-            } else {
+            } else if(isset($route['sub_prefix'])){
+                $prefix = $config['prefix'].$route['sub_prefix'];
+            }else{
                 $prefix = $config['prefix'];
             }
             $namespace = isset($route['namespace']) ? $route['namespace'] . '\\' : '';
@@ -115,6 +117,7 @@ class RouteServiceProvider extends ServiceProvider
                     $r->name($alias . ":post");
                     $r->middleware($middleware);
                 }
+
                 $r = Route::match($method, $link, $action);
                 $r->name($alias);
 

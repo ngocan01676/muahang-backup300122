@@ -5,7 +5,7 @@ return [
             'dashboard' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "DashboardController",
-                "prefix" => "admin",
+                "prefix" => "/admin",
                 "guard" => "backend",// pải login
                 "router" => [
                     "list" => [
@@ -20,7 +20,7 @@ return [
             'elfinder' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "ElfinderController",
-                "prefix" => "admin/elfinder",
+                "sub_prefix" => "/elfinder",
                 "guard" => "backend",// pải login
                 "router" => [
                     "list" => [
@@ -39,7 +39,7 @@ return [
             'page' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "PageController",
-                "prefix" => "admin/page",
+                "sub_prefix" => "/page",
                 "guard" => "backend",// pải login
                 "router" => [
                     "list" => [
@@ -64,7 +64,7 @@ return [
             'language' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "LanguageController",
-                "prefix" => "admin/language",
+                "sub_prefix" => "/language",
                 "guard" => "backend",// pải login
                 "router" => [
                     "list" => [
@@ -80,7 +80,7 @@ return [
             'layout' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "LayoutController",
-                "prefix" => "admin/layout",
+                "sub_prefix" => "/layout",
                 "guard" => "backend",// pải login
                 "router" => [
                     "list" => [
@@ -122,7 +122,18 @@ return [
                         "action" => "ajaxPostCom"
                     ],
                 ]
-            ]
+            ],
+            'component' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "ComponentController",
+                "sub_prefix" => "/component",
+                "guard" => "backend",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                ]
+            ],
         ]
     ]
 ];

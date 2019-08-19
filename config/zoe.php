@@ -12,7 +12,7 @@ return [
     ],
     'router' => [
         'backend' => [
-            'prefix' => 'admin',
+            'prefix' => '/admin',
             'guard' => 'admin'
         ],
         'frontend' => [

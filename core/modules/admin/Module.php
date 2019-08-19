@@ -8,6 +8,10 @@ class Module extends ZModule{
     {
         // TODO: Implement Init() method.
         $this->path = __DIR__;
+//        \Actions::add_action("demo",function ($a,$b,$c){
+//            echo "demo:".$a."-".$b."-".$c;
+//        });
+//        \Actions::do_action("demo","1","2","3");
     }
 
 }

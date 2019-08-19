@@ -94,7 +94,7 @@
                 soundPath: '{{ asset('module/admin/assets/elfinder/sounds') }}',
                 getFileCallback: function (file) {
                     console.log(file);
-                    //$($(self).data().input).val(file.url);
+                    $($(self).data().input).val(file.url);
                     $('#elfinderShow').modal('hide');
                 },
                 resizable: false,
