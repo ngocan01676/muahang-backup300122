@@ -5,6 +5,6 @@ class IndexController extends \Zoe\Http\ControllerBackend
 {
     public function list()
     {
-        return $this->render('controller.index.list', [], 'pluginComment');
+        return $this->render('index.list', [], 'pluginComment');
     }
 }

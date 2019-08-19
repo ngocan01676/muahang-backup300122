@@ -8,6 +8,7 @@ class ControllerBackend extends Controller
 
     public function render($view, $data = [], $key = "backend")
     {
+
         return $this->_render($view, $data, $key);
     }
 

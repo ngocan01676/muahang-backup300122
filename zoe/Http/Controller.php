@@ -34,8 +34,10 @@ class Controller extends BaseController
         $data = array_merge($this->data, $data);
         View::share('_breadcrumb', $this->breadcrumb);
         if (isset($alias[$key][$view])) {
+
             return $this->view->make($alias[$key][$view], $data);
         } else {
+
             return $this->view->make($key . '::controller.' . $view, $data);
         }
     }
