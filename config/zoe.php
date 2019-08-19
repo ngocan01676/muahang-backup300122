@@ -6,7 +6,7 @@ return [
         'theme' => 'core/themes'
     ],
     'modules' => ['admin', 'user'],
-    'plugins' => ['Comment'],
+    'plugins' => ['Comment', 'MegaMenu'],
     'providers' => [
 
     ],
@@ -33,10 +33,10 @@ return [
         "status" => false
     ],
     'language' => [
-        'en' => ['flag' => 'gb','lang'=>'en'],
-        'vi' => ['flag' => 'vn','lang'=>'vi'],
-        'jp' => ['flag' => 'jp','lang'=>'jp'],
-        'cn' => ['flag' => 'cn','lang'=>'cn'],
+        'en' => ['flag' => 'gb', 'lang' => 'en'],
+        'vi' => ['flag' => 'vn', 'lang' => 'vi'],
+        'jp' => ['flag' => 'jp', 'lang' => 'jp'],
+        'cn' => ['flag' => 'cn', 'lang' => 'cn'],
     ],
-    'language_data'=>include base_path('tmp/lang.php')
+    'language_data' => include base_path('tmp/lang.php')
 ];

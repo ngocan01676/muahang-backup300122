@@ -5,6 +5,7 @@ return [
             "name" => z_language('User'),
             "pos" => 2,
             "url" => "",
+            "header" => true,
             "items" => [
                 [
                     "name" => z_language("List User"),

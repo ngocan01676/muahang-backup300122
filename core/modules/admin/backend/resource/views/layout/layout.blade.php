@@ -18,8 +18,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('module/admin/dist/css/skins/_all-skins.min.css')}}">
-    <link rel="stylesheet" href="{{asset('module/admin/asset/style.css')}}">
-    <link rel="stylesheet" href="{{asset('module/admin/asset/loadding/css/jquery-loading.css')}}">
+    <link rel="stylesheet" href="{{asset('module/admin/assets/style.css')}}">
+    <link rel="stylesheet" href="{{asset('module/admin/assets/loadding/css/jquery-loading.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -427,7 +427,7 @@
 <!-- jQuery 3 -->
 <script src="{{asset('module/admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
 
-<script src="{{asset('module/admin/asset/zoe.jquery.inputs.js')}}"></script>
+<script src="{{asset('module/admin/assets/zoe.jquery.inputs.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('module/admin/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- SlimScroll -->
@@ -435,7 +435,7 @@
 <!-- FastClick -->
 <script src="{{asset('module/admin/bower_components/fastclick/lib/fastclick.js')}}"></script>
 
-<script src="{{asset('module/admin/asset/loadding/js/jquery-loading.js')}}"></script>
+<script src="{{asset('module/admin/assets/loadding/js/jquery-loading.js')}}"></script>
 
 <!-- AdminLTE App -->
 <script src="{{asset('module/admin/dist/js/adminlte.min.js')}}"></script>
@@ -443,7 +443,7 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('module/admin/dist/js/demo.js')}}"></script>
-<script src="{{asset('module/admin/asset/main.js')}}"></script>
+<script src="{{asset('module/admin/assets/main.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajaxSetup({

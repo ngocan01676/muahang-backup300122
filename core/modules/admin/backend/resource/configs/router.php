@@ -17,6 +17,25 @@ return [
                     ]
                 ]
             ],
+            'elfinder' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "ElfinderController",
+                "prefix" => "admin/elfinder",
+                "guard" => "backend",// pải login
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "showConnector" => [
+                        "url" => '/show-connector',
+                        "method" => ['get', 'post'],
+                    ],
+                    "tinymce4" => [
+                        "url" => '/show-tinymce4',
+                        "method" => ['get', 'post'],
+                    ]
+                ]
+            ],
             'page' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "PageController",
@@ -36,7 +55,7 @@ return [
                         "url" => "/delete/{id}",
                         "method" => ['post'],
                     ],
-                    "store"=>[
+                    "store" => [
                         "url" => "/store",
                         "method" => ['post'],
                     ]

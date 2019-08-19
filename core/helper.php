@@ -5,38 +5,50 @@ use Illuminate\Support\Facades\Cache;
 
 use Illuminate\Support\Facades\DB;
 
-function get_config($type,$name){
-    $rs = DB::table('config')->where(['type'=>$type,'name'=>$name])->first();
-    if(!$rs) return [];
+function get_config($type, $name)
+{
+    $rs = DB::table('config')->where(['type' => $type, 'name' => $name])->first();
+    if (!$rs) return [];
     $rs = unserialize($rs->data);
-    return isset($rs['data'])?$rs['data']:[];
+    return isset($rs['data']) ? $rs['data'] : [];
 }
 
+function views_alise($view, $key = "backend")
+{
+    $alias = app()->getConfig()['views']['alias'];
+    if (isset($alias[$key][$view])) {
+        return $alias[$key][$view];
+    } else {
+        return $view;
+    }
+}
 
-function gen_uuid() {
-    return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+function gen_uuid()
+{
+    return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
         // 32 bits for "time_low"
-        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+        mt_rand(0, 0xffff), mt_rand(0, 0xffff),
 
         // 16 bits for "time_mid"
-        mt_rand( 0, 0xffff ),
+        mt_rand(0, 0xffff),
 
         // 16 bits for "time_hi_and_version",
         // four most significant bits holds version number 4
-        mt_rand( 0, 0x0fff ) | 0x4000,
+        mt_rand(0, 0x0fff) | 0x4000,
 
         // 16 bits, 8 bits for "clk_seq_hi_res",
         // 8 bits for "clk_seq_low",
         // two most significant bits holds zero and one for variant DCE1.1
-        mt_rand( 0, 0x3fff ) | 0x8000,
+        mt_rand(0, 0x3fff) | 0x8000,
 
         // 48 bits for "node"
-        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+        mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
     );
 }
+
 function z_language($key, $par = [], $__env = null)
 {
-    if(is_array($par)){
+    if (is_array($par)) {
         $_lang_name_ = app()->getLocale();
         $_langs_ = app()->getLanguage();
         $html = isset($_langs_[$_lang_name_][$key]) ? $_langs_[$_lang_name_][$key] : $key;
@@ -49,20 +61,27 @@ function z_language($key, $par = [], $__env = null)
     }
     return $key;
 }
-function get_config_component($id,$config = []){
+
+function get_config_component($id, $config = [])
+{
     return [];
 }
-function run_component($function,$config = []){
-   return call_user_func($function,[$config]);
+
+function run_component($function, $config = [])
+{
+    return call_user_func($function, [$config]);
 }
+
 function create_router_group()
 {
     return [];
 }
+
 function create_router_item()
 {
     return [];
 }
+
 function component_create($module, $main = [], $cfg = [], $opt = [], $type = "component")
 {
     $stg = array(
@@ -70,16 +89,16 @@ function component_create($module, $main = [], $cfg = [], $opt = [], $type = "co
         'module' => $module,
         'type' => $type,
     );
-    if(!isset($cfg['public'])){
+    if (!isset($cfg['public'])) {
         $cfg['public'] = "0";
     }
-    if(!isset($cfg['dynamic'])){
+    if (!isset($cfg['dynamic'])) {
         $cfg['dynamic'] = "0";
     }
-    if(!isset($cfg['status'])){
+    if (!isset($cfg['status'])) {
         $cfg['status'] = "1";
     }
-    if(!isset($cfg['view'])){
+    if (!isset($cfg['view'])) {
         $cfg['view'] = "";
     }
     if (is_null($module)) {

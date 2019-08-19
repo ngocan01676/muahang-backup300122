@@ -6,7 +6,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\Blade;
-
+use Illuminate\Support\Facades\DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -80,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Blade::directive('z_include', function ($parameters) {
-            return '<?php require_once(base_path("'.$parameters . '")); ?>';
+            return '<?php require_once(base_path("' . $parameters . '")); ?>';
         });
         Blade::directive('function', function ($expression) {
             /**
@@ -159,9 +159,17 @@ class AppServiceProvider extends ServiceProvider
     {
         if (isset($this->config_zoe ['modules'])) {
             $modules = $this->config_zoe['modules'];
+
             foreach ($modules as $module) {
                 $this->InitModule($module);
             }
+            $modules = DB::table('module')
+                ->select()->where('status', 1)->get();
+
+            foreach ($modules as $module) {
+                $this->InitModule($module->name, false);
+            }
+
         }
     }
 
@@ -191,22 +199,27 @@ class AppServiceProvider extends ServiceProvider
         $loader->register();
     }
 
-    public function InitModule($module)
+    public function InitModule($module, $system = true)
     {
         $absolute_path = ($this->config_zoe['structure']['module'] . '/' . $module);
         $relativePath = base_path($absolute_path);
         if (file_exists($relativePath . '/Module.php')) {
             require_once $relativePath . '/Module.php';
-            $class = '\\' . ucwords($module) . '\\Module';
+            if ($system) {
+                $name = ucwords($module);
+            } else {
+                $name = 'Module' . ucwords($module);
+            }
+            $class = '\\' . $name . '\\Module';
             $object = new $class();
             if ($this->app->getConfig(true)->cache == 0) {
-                $this->module($module, $object, $absolute_path, "module");
+                $this->module($module, $object, $absolute_path, "module", $system);
             }
-            $this->app->_modules[$module] = $object;
+            $this->app->_modules[$name] = $object;
         }
     }
 
-    public function module($module, $object, $absolute_path, $typeModule)
+    public function module($module, $object, $absolute_path, $typeModule, $system)
     {
         $fileConfig = $object->FileConfig();
         $relativePath = base_path($absolute_path);
@@ -252,13 +265,10 @@ class AppServiceProvider extends ServiceProvider
                             }
                         }
                         if (isset($data["packages"])) {
-
                             $data["packages"]["paths"][$typeModule . ":" . $module] = $absolute_path;
-
                             foreach ($data["packages"]["namespaces"] as $namespaces => $_path) {
                                 $data["packages"]["namespaces"][$namespaces] = $absolute_path . "/" . $_path . "/src";
                             }
-
                         }
                         $this->app->getConfig()->add($data);
                     }
@@ -327,7 +337,7 @@ class AppServiceProvider extends ServiceProvider
                         $views = $data["views"];
                         if (isset($views["path"])) {
                             $views["paths"]["plugin"][$plugin] = [
-                                "path" => $absolute_path .$views["path"],
+                                "path" => $absolute_path . $views["path"],
                                 "alias" => "plugin" . $plugin
                             ];
                         }
@@ -369,7 +379,7 @@ class AppServiceProvider extends ServiceProvider
             require_once $relativePath . '/Theme.php';
             $class = '\\' . ucwords($theme) . 'Theme\\Theme';
             $object = new $class();
-            $this->module($theme, $object, $absolute_path, "theme");
+            $this->module($theme, $object, $absolute_path, "theme", false);
         }
     }
 

@@ -5,11 +5,7 @@
         {{--<small>it all starts here</small>--}}
         <button type="button" onclick="Save()" class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
     </h1>
-    <ol class="breadcrumb float-right">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
-    </ol>
+
 @endsection
 @section('content')
 
@@ -92,8 +88,8 @@
     </form>
 @endsection
 @push('scripts')
-    <script src="{{asset('module/admin/asset/zoe.jquery.inputs.js')}}"></script>
-    <script src="{{asset('module/admin/asset/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
+    <script src="{{asset('module/admin/assets/zoe.jquery.inputs.js')}}"></script>
+    <script src="{{asset('module/admin/assets/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
     <script>
         $("#formAction").zoe_inputs("set", @json($data));
 
@@ -133,6 +129,6 @@
     </script>
 @endpush
 @push('links')
-    <link rel="stylesheet" href="{{asset("module/admin/asset/flag/css/flag-icon.min.css")}}">
-    <link rel="stylesheet" href="{{asset("module/admin/asset/bootstrap3-editable/css/bootstrap-editable.css")}}">
+    <link rel="stylesheet" href="{{asset("module/admin/assets/flag/css/flag-icon.min.css")}}">
+    <link rel="stylesheet" href="{{asset("module/admin/assets/bootstrap3-editable/css/bootstrap-editable.css")}}">
 @endpush

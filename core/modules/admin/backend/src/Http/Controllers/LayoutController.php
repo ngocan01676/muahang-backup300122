@@ -11,38 +11,42 @@ use PragmaRX\Countries\Update\Config;
 
 class LayoutController extends \Zoe\Http\ControllerBackend
 {
+    protected $listsType = ['layout' => 'Layout', 'partial' => 'Partial'];
 
     public function getCrumb()
     {
-       $this->breadcrumb("Layout", route('backend:layout:list'));
-       return $this;
+        $this->breadcrumb("Layout", route('backend:layout:list'));
+        return $this;
     }
 
     public function list(Request $request)
     {
         $this->getcrumb();
-        $search = $request->query('search',"");
-        $status = $request->query('status',"");
-        $date = $request->query('date',"");
+        $search = $request->query('search', "");
+        $status = $request->query('status', "");
+        $date = $request->query('date', "");
 
-        $config = get_config('option',"core:layout");
-        $item = isset($config['pagination']['item'])?$config['pagination']['item']:20;
+        $config = get_config('option', "core:layout");
+        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
         $models = DB::table('layout');
 
-        if(!empty($search)){
-            $models->where('name', 'like', '%'.$search);
+        if (!empty($search)) {
+            $models->where('name', 'like', '%' . $search);
         }
-        if(!empty($status) || $status == 0){
-            $models->where('status',$status);
+        if (!empty($status) || $status != "") {
+            $models->where('status', $status);
         }
-        $models->orderBy('id','desc');
-        return $this->render('layout.list',[
-            'models'=>$models->paginate($item)
+        $models->orderBy('id', 'desc');
+        return $this->render('layout.list', [
+            'models' => $models->paginate($item)
         ]);
     }
-    public function delete(){
+
+    public function delete()
+    {
 
     }
+
     private function GetViewHelperBlade()
     {
 
@@ -85,7 +89,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $items = $request->all();
 
         $theme = config('zoe.theme');
-        $data = ["views" => [],"func"=>["No Action"=>"0"]];
+        $data = ["views" => [], "func" => ["No Action" => "0"]];
 
         $components_conf = app()->getComponents()->config;
         $components_info = app()->getComponents()->info;
@@ -140,10 +144,10 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                         break;
                 }
                 if (isset($items['config']['stg']['name'])) {
-                    if(isset($components_info[$items['config']['stg']['name']]['main']) && is_array($components_info[$items['config']['stg']['name']]['main'])){
-                        $data["func"] = array_merge($data["func"],$components_info[$items['config']['stg']['name']]['main']);
+                    if (isset($components_info[$items['config']['stg']['name']]['main']) && is_array($components_info[$items['config']['stg']['name']]['main'])) {
+                        $data["func"] = array_merge($data["func"], $components_info[$items['config']['stg']['name']]['main']);
                     }
-                    if(isset($components_conf[$items['config']['stg']['name']])){
+                    if (isset($components_conf[$items['config']['stg']['name']])) {
                         $config = $components_conf[$items['config']['stg']['name']];
                         $is_template_dynamic = false;
                         if (isset($config['configs'])) {
@@ -188,7 +192,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                         }
 
                         $data['items'] = $items['config'];
-                    }else{
+                    } else {
                         $data["list_views"] = [];
                     }
                     return $this->render('layout.ajax.config', $data);
@@ -240,7 +244,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function ajaxReviewBlade(Request $request)
     {
         $items = $request->all();
-        $obj_layout =new \Admin\Lib\LayoutBlade();
+        $obj_layout = new \Admin\Lib\LayoutBlade();
         if (isset($items["cfg"]['template'])) {
             if ($items['stg']['type'] == "component") {
                 $obj_layout->ViewHelper = $this->GetViewHelperBlade();
@@ -271,7 +275,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function ajaxGetLang(Request $request)
     {
         $items = $request->all();
-        $obj_layout =new \Admin\Lib\LayoutBlade();
+        $obj_layout = new \Admin\Lib\LayoutBlade();
         if (isset($items["cfg"]['template'])) {
             // var_export($items);
 
@@ -353,44 +357,47 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 //            }
 //        }
     }
-    public function ajaxGetConfigPost(Request $request){
+
+    public function ajaxGetConfigPost(Request $request)
+    {
         $items = $request->all();
     }
+
     public function ajaxPostCom(Request $request)
     {
         $items = $request->all();
         $rs = DB::table('component')->find($items['widget']['cfg']['id']);
         $isExtit = false;
-        if($rs){
-            try{
+        if ($rs) {
+            try {
                 $data = new \Zoe\Config(unserialize($rs->layout));
                 $isExtit = true;
-            }catch (\Exception $ex){
+            } catch (\Exception $ex) {
                 $data = new \Zoe\Config([]);
             }
-        }else{
+        } else {
             $data = new \Zoe\Config([]);
         }
-        if(isset($items['type']) && $items['type'] == "get"){
-            if($isExtit){
+        if (isset($items['type']) && $items['type'] == "get") {
+            if ($isExtit) {
                 echo json_encode(unserialize($rs->data));
-            }else{
+            } else {
                 $items['widget']["cfg"]['public'] = "0";
                 $items['widget']["cfg"]['dynamic'] = "0";
                 echo json_encode($items['widget']);
             }
-        }else{
-            if(isset($items['type']) && $items['type'] == "remove" && $isExtit){
+        } else {
+            if (isset($items['type']) && $items['type'] == "remove" && $isExtit) {
                 $data->offsetUnset($items['id']);
-            }else{
-                $data->add([$items['id']=>date('Y-d-m H:i:s')]);
+            } else {
+                $data->add([$items['id'] => date('Y-d-m H:i:s')]);
             }
-            if($isExtit){
-                if($data->count()==0){
+            if ($isExtit) {
+                if ($data->count() == 0) {
                     return DB::table('component')->delete($items['widget']['cfg']['id']);
                 }
             }
-            if($isExtit || $items['type'] == "create"){
+            if ($isExtit || $items['type'] == "create") {
                 DB::table('component')->updateOrInsert(
                     [
                         'id' => $items['widget']['cfg']['id'],
@@ -398,7 +405,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     [
                         'data' => serialize($items['widget']),
                         'type' => $items['widget']['stg']['type'],
-                        'layout_id' => isset($items['widget']['stg']['id'])?$items['widget']['stg']['id']:0,
+                        'layout_id' => isset($items['widget']['stg']['id']) ? $items['widget']['stg']['id'] : 0,
                         'layout' => serialize($data->getArrayCopy()),
                         'update_at' => date('Y-m-d H:i:s')
                     ]
@@ -414,7 +421,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         if (isset($items["info"]['id']) && $items["info"]['id'] != 0) {
             $model = \Admin\Http\Models\Layout::find($items["info"]['id']);
         }
-        if($model == null){
+        if ($model == null) {
             $model = new \Admin\Http\Models\Layout();
         }
         $model->name = $items["info"]['name'];
@@ -428,12 +435,12 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
         $model->content = base64_encode(serialize($layout));
         $model->save();
-        $obj_layout =new \Admin\Lib\LayoutBlade();
+        $obj_layout = new \Admin\Lib\LayoutBlade();
         $obj_layout->ViewHelper = $this->GetViewHelperBlade();
         $obj_layout->GridHelper = $this->GetGridBlade();
         $obj_layout->TagHelper = $obj_layout->GridHelper->CallBackTag();
 
-        $obj_layout->render($layout, $model->id, $model->token,$model->type);
+        $obj_layout->render($layout, $model->id, $model->token, $model->type);
 
         echo json_encode(['id' => $model->id]);
 //        if (isset($layout['widget'])) {
@@ -457,8 +464,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             if ($id == $val->id) {
                 continue;
             }
-            $item = component_create('zoe',[],[],[],'partial');
-            $item["name"] =  $val->name;
+            $item = component_create('zoe', [], [], [], 'partial');
+            $item["name"] = $val->name;
             $item["option"]['stg']['id'] = $val->id;
             $item["option"]['stg']['token'] = $val->token;
             $item["option"]['stg']['system'] = "theme";
@@ -467,24 +474,27 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
         return $array;
     }
+
     function getComponent()
     {
         $rs = DB::table('component')->select()->get()->toArray();
         $array = [];
-        if($rs){
+        if ($rs) {
             foreach ($rs as $val) {
                 $item = [
                     "type" => $val->type,
-                    "option" =>unserialize($val->data)
+                    "option" => unserialize($val->data)
                 ];
                 $array[$val->id] = $item;
             }
         }
         return $array;
     }
+
     public function create()
     {
-        $this->getcrumb()->breadcrumb("Create Layout",false);
+
+        $this->getcrumb()->breadcrumb("Create Layout", false);
         $model = new \Admin\Http\Models\Layout();
         $content = [
             "data" => [],
@@ -498,6 +508,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "info" => [],
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
+            "listsType" => array_merge($this->listsType, app()->getConfig()['modules']['layout']['types'])
         ]);
     }
 
@@ -505,7 +516,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     {
         $info = [];
         $model = \Admin\Http\Models\Layout::find($id);
-        $this->getcrumb()->breadcrumb(z_language('Edit Layout :name',["name"=>$model->name]),false);
+        $this->getcrumb()->breadcrumb(z_language('Edit Layout :name', ["name" => $model->name]), false);
         try {
             $content = unserialize(base64_decode($model->content));
             $info = $model->toArray();
@@ -527,6 +538,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "info" => $info,
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
+            "listsType" => array_merge($this->listsType, app()->getConfig()['modules']['layout']['types'])
         ]);
     }
 }

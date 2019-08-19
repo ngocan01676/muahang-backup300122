@@ -75,27 +75,27 @@
     <div class="box-body">
         <div class="row">
             <div class="col-xs-2">
-                    <div class="panel-group accordion sidebar-nav clearfix" id="accordion-grid">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="menu-item"
-                                       data-toggle="collapse"
-                                       data-parent="#accordion-grid"
-                                       href="#menu-grid-accordion-grid">Grid</a>
-                                </h4>
-                            </div>
-                            <div id="menu-grid-accordion-grid" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <?php  foreach ($girds as $gird): ?>
+                <div class="panel-group accordion sidebar-nav clearfix" id="accordion-grid">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="menu-item"
+                                   data-toggle="collapse"
+                                   data-parent="#accordion-grid"
+                                   href="#menu-grid-accordion-grid">Grid</a>
+                            </h4>
+                        </div>
+                        <div id="menu-grid-accordion-grid" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <?php  foreach ($girds as $gird): ?>
                                             <?php echo Admin\Lib\LayoutRender::rows($gird, false); ?>
                                         <?php
-                                    endforeach;
-                                    ?>
-                                </div>
+                                endforeach;
+                                ?>
                             </div>
                         </div>
                     </div>
+                </div>
                 <?php
                 $components = app()->getComponents()->info;
                 $components_config = app()->getComponents()->config;
@@ -120,7 +120,7 @@
 
                                 $_cfg = new Zoe\Config($option["cfg"]);
                                 $option["stg"]['name'] = $component['name'];
-                                if(is_array($component['main'])){
+                                if (is_array($component['main'])) {
                                     $option["stg"]['main'] = $component['main'];
                                 }
 //                                $option["stg"]['system'] = $module;
@@ -188,8 +188,11 @@
                                     <td class="text-center"><label for="layout name" class="control-label">Type</label>
                                     </td>
                                     <td>
-                                        <input type="radio" name="type" value="layout"> <strong> Layout </strong>
-                                        <input type="radio" name="type" value="partial"> <strong> Partial </strong>
+                                        @php $curent = "layout"; @endphp
+                                        @foreach($listsType as $v=>$b)
+                                            <input {{$curent == $v?"checked":""}} type="radio" name="type"
+                                                   value="{{$v}}"> <strong> {{$b}} </strong>
+                                        @endforeach
                                     </td>
                                 </tr>
                             </table>
@@ -331,7 +334,7 @@
 </style>
 @push('scripts')
     <script src="{{asset('module/admin/bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('module/admin/asset/bootpopup/bootpopup.js')}}"></script>
+    <script src="{{asset('module/admin/assets/bootpopup/bootpopup.js')}}"></script>
 
     <script src="{{asset('module/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
 
@@ -341,8 +344,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/addon/runmode/runmode.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/mode/php/php.js"></script>
 
-    <script src="{{asset("module/admin/asset/codemirror/mustache.js")}}"></script>
-    <script src="{{asset("module/admin/asset/multi-select/js/jquery.multi-select.js")}}"></script>
+    <script src="{{asset("module/admin/assets/codemirror/mustache.js")}}"></script>
+    <script src="{{asset("module/admin/assets/multi-select/js/jquery.multi-select.js")}}"></script>
     <script src="{{asset('module/admin/controller/layout/layout.js')}}"></script>
     <script>
         $(document).ready(function () {
@@ -353,7 +356,7 @@
 @push('links')
     <link rel="stylesheet" href="{{asset('module/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/controller/layout/style.css')}}">
-    <link rel="stylesheet" href="{{asset("module/admin/asset/multi-select/css/multi-select.css")}}">
+    <link rel="stylesheet" href="{{asset("module/admin/assets/multi-select/css/multi-select.css")}}">
     <style>
         .CodeMirror {
             border: 1px solid black;
