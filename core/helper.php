@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Cache;
 
 
 use Illuminate\Support\Facades\DB;
-
 function get_config($type, $name)
 {
     $rs = DB::table('config')->where(['type' => $type, 'name' => $name])->first();
@@ -12,7 +11,71 @@ function get_config($type, $name)
     $rs = unserialize($rs->data);
     return isset($rs['data']) ? $rs['data'] : [];
 }
+function config_set($type,$name,$data){
+    return DB::table('config')->updateOrInsert(
+        [
+            'name' => $name,
+            'type' => $type
+        ],
+        ['data' => serialize($data)]);
+}
+function get_category_type($type){
+    return DB::table('categories')->where(['type' => $type])->get();
+}
+function show_categories($categories, $parent_id = 0, $char = '')
+{
+    foreach ($categories as $key => $item)
+    {
+        // Nếu là chuyên mục con thì hiển thị
+        if ($item->parent_id == $parent_id)
+        {
 
+            echo '<option value="'.$item->id.'">';
+            echo $char . $item->name;
+            echo '</option>';
+
+            // Xóa chuyên mục đã lặp
+//            unset($categories[$key]);
+
+            // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+            show_categories($categories, $item->id, $char.'|---');
+        }
+    }
+}
+function show_categories_ul_li($categories, $parent_id = 0, $char = '')
+{
+    // BƯỚC 2.1: LẤY DANH SÁCH CATE CON
+    $cate_child = array();
+    foreach ($categories as $key => $item)
+    {
+        // Nếu là chuyên mục con thì hiển thị
+        if ($item->parent_id == $parent_id)
+        {
+            $cate_child[] = $item;
+//            unset($categories[$key]);
+        }
+    }
+
+    // BƯỚC 2.2: HIỂN THỊ DANH SÁCH CHUYÊN MỤC CON NẾU CÓ
+    if ($cate_child)
+    {
+        if($parent_id == 0)
+             echo '<ol class="dd-list">';
+        else
+            echo '<ol class="dd-list">';
+        foreach ($cate_child as $key => $item)
+        {
+            // Hiển thị tiêu đề chuyên mục
+            echo '<li class="dd-item dd3-item" data-id="'.$item->id.'">';
+            echo '<div class="dd-handle dd3-handle"></div>
+		        <div class="dd3-content">'.$item->name.'</div>';
+            echo "<div class='dd3-tool'><button class='btn btn-primary btn-xs edit'>"."<i class='fa fa-edit'></i>"."</button><button class='btn  btn-default btn-xs delete'>"."<i class='fa fa-remove'></i>"."</button></div>";
+            show_categories_ul_li($categories, $item->id, $char.'|---');
+            echo '</li>';
+        }
+        echo '</ol>';
+    }
+}
 function views_alise($view, $key = "backend")
 {
     $alias = app()->getConfig()['views']['alias'];

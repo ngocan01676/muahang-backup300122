@@ -134,6 +134,20 @@ return [
                     ],
                 ]
             ],
+            'category' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "CategoryController",
+                "sub_prefix" => "/category",
+                "guard" => "backend",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "ajax"=> [
+                        "url" => "/ajax","method" => ['post'],
+                    ],
+                ]
+            ],
         ]
     ]
 ];

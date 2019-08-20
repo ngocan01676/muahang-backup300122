@@ -31,10 +31,10 @@ class PostModel extends Model
 
     public function getTag()
     {
-        $lists = $this->table_tag()->where("post_id", $this->id);
-        $tag = "";
+        $lists = $this->table_tag()->join('tag','tag.id','=','tag_item.tag_id')->where("item_id", $this->id)->get(['name','slug']);
+        $tag = [];
         foreach ($lists as $list) {
-
+            $tag[$list->slug] = $list->name;
         }
         return $tag;
     }

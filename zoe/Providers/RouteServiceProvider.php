@@ -119,6 +119,13 @@ class RouteServiceProvider extends ServiceProvider
                 }
 
                 $r = Route::match($method, $link, $action);
+                if(isset($_route['defaults'])){
+                    foreach ($_route['defaults'] as $_key=> $_default){
+
+                        $r->defaults($_key,$_default);
+                    }
+
+                }
                 $r->name($alias);
 
                 if (isset($_route['cache'])) {

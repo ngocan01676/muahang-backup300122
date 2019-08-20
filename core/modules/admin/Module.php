@@ -46,6 +46,7 @@ class Module extends ZModule
                 }
                 foreach ($tags as $slug => $_tags) {
                     $model = DB::table("tag")->where(['slug' => $slug, 'type' => $type])->first('id');
+                    var_dump($model);
                     if ($model) {
                         DB::table('tag_item')->where(['tag_id' => $model->id, 'item_id' => $id_item])->delete();
                     }

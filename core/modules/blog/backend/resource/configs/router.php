@@ -24,13 +24,14 @@ return [
                 ]
             ],
             'blog:category' => [
-                "namespace" => "Blog\Http\Controllers",
+                "namespace" => "Admin\Http\Controllers",
                 "controller" => "CategoryController",
                 "sub_prefix" => "/blog/post/category",
                 "guard" => "backend",
                 "router" => [
                     "list" => [
                         "url" => "/",
+                        'defaults'=>["type"=>"blog:category"]
                     ]
                 ]
             ],
