@@ -4,13 +4,14 @@
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store']) !!}
 @endif
+
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <div class="col-md-9">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
             @foreach($language as $lang=>$_language)
-            <li {{$lang == $current_language?"class=active":""}}> <a href="#tab_{{$lang}}" data-toggle="tab"><span
-                            class="flag-icon flag-icon-{{$_language['flag']}}"></span></a></li>
+                <li {{$lang == $current_language?"class=active":""}}><a href="#tab_{{$lang}}" data-toggle="tab"><span
+                                class="flag-icon flag-icon-{{$_language['flag']}}"></span></a></li>
             @endforeach
         </ul>
         <div class="tab-content">
@@ -103,6 +104,7 @@
 <div class="col-md-3">
     <div class="box box box-zoe">
         <div class="box-body">
+
             {!! Form::label('id_tag', 'Tag', ['class' => 'tag']) !!} *
             {!! Form::text('tag',null, ['class' => 'form-control','placeholder'=>'Tag']) !!}
         </div>
@@ -141,6 +143,7 @@
         </div>
     </div>
 </div>
+
 {!! Form::close() !!}
 <div class="modal fade" id="elfinderShow">
     <div class="modal-dialog modal-lg">
@@ -161,12 +164,13 @@
 @endpush
 @push('scripts')
     <style>
-        .preview-image-wrapper{
+        .preview-image-wrapper {
             position: relative;
         }
-        .btn_remove_image{
+
+        .btn_remove_image {
             position: absolute;
-            top:10px;
+            top: 10px;
             width: 50px;
             font-size: 15px;
         }
@@ -184,23 +188,25 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-
+            var tags = [];
             $('input[name="tag"]').amsifySuggestags({
-                type : 'bootstrap',
+                type: 'bootstrap',
                 suggestions: ['Black', 'White', 'Red', 'Blue', 'Green', 'Orange'],
-                afterAdd: function(value) {
-                    // after add
+                afterAdd: function (value) {
+                    console.log()
                 },
-                afterRemove: function(value) {
+                afterRemove: function (value) {
                     // after remove
                 },
 
             });
 
         });
+
         function btn_remove_image(self) {
-            console.log($(self).closest('.preview-image-wrapper').find('img').attr('src','http://placehold.jp/150x150.png'));
+            console.log($(self).closest('.preview-image-wrapper').find('img').attr('src', 'http://placehold.jp/150x150.png'));
         }
+
         function openElfinder(self) {
             $('#elfinderShow').modal();
             $('#elfinder').elfinder({
@@ -238,7 +244,7 @@
                     preview_image_wrapper.show();
                     console.log(file.url);
 
-                    preview_image_wrapper.find("img").attr('src',file.url);
+                    preview_image_wrapper.find("img").attr('src', file.url);
                     preview_image_wrapper.find("[name='image']").val(file.url);
 
                     $('#elfinderShow').modal('hide');
