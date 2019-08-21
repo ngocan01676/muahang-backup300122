@@ -210,7 +210,8 @@
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
         }
-        .dd3-handle:before { content: '≡'; display: block; position: absolute; left: 0; top: 3px; width: 100%; text-align: center; text-indent: 0; color: #fff; font-size: 20px; font-weight: normal; }
+        .dd3-handle:before { content: '≡'; display: block; position: absolute; left: 0;  width: 100%; text-align: center; text-indent: 0; color: #fff; font-size: 20px; font-weight: normal;     top: 46%;
+            transform: translateY(-60%);}
         .dd3-handle:hover { background: #ddd; }
         .dd3-handle {
 
