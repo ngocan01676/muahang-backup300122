@@ -3,7 +3,7 @@
 @php
     $data = $option[$config['name']];
     $rs = \Illuminate\Support\Facades\DB::table('config')->where(['type'=>'option','name'=>$config['name']])->first();
-    $_data = get_config('option',$config['name']);
+    $_data = config_get('option',$config['name']);
     $data['data'] = isset($data['data'])?array_merge($data['data'],$_data):$_data;
 @endphp
 &nbsp;<a href="javascript:void(0);"

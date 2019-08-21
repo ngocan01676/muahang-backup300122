@@ -17,7 +17,7 @@ class PageController extends \Zoe\Http\ControllerBackend {
         $status = $request->query('status',"");
         $date = $request->query('date',"");
 
-        $config = get_config('option',"core:page");
+        $config = config_get('option',"core:page");
         $item = isset($config['pagination']['item'])?$config['pagination']['item']:20;
 
         $models = DB::table('page');

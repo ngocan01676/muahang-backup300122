@@ -3,7 +3,10 @@
     <h1>
         &starf; {!! @z_language(["Manager Blog Category"]) !!}
         <small>it all starts here</small>
+        <a href="#" id="btnCreate"
+           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
     </h1>
+
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
@@ -12,6 +15,7 @@
         <div class="box box-zoe">
             <div class="box-header with-border">
                 <h3 class="box-title">{!! @z_language(["Category"]) !!}</h3>
+
             </div>
             <div class="box-body">
                     <menu id="nestable-menu">
@@ -20,7 +24,7 @@
                     </menu>
                     <div class="cf nestable-lists">
                         <div class="dd" id="nestable">
-                            {!! show_categories_ul_li($category)  !!}
+                            {!! $nestable  !!}
                             {{--<ol class="dd-list">--}}
                                 {{--@foreach($category as $_category)--}}
                                 {{--<li class="dd-item dd3-item" data-id="{{$_category->id}}">--}}
@@ -52,7 +56,7 @@
 
             </div>
             <div class="box-footer">
-                <button class="btn btn-default" onclick="SavePosition(this)"><i class="fa fa-plus"></i> Save</button>
+                <button class="btn btn-default" id="btnSavePosition" ><i class="fa fa-plus"></i> Save</button>
             </div>
         </div>
     </div>
@@ -63,11 +67,13 @@
 
         <div class="box box-zoe">
             <div class="box-header with-border">
-                <h3 class="box-title">{!! @z_language(["Category"]) !!}</h3>
+                <h3 class="box-title" id="form-title">{{ z_language('Category Create')}}</h3>
+
             </div>
             <div class="box-body">
                 {!! Form::open(['method' => 'POST','id'=>'form_store']) !!}
                 {!! Form::hidden('type',$type) !!}
+                {!! Form::hidden('id',0) !!}
         <table class="table table-borderless">
             <tbody>
             <tr>
@@ -77,15 +83,7 @@
                     <span class="error help-block"></span>
                 </td>
             </tr>
-            <tr>
-                <td>
 
-                    {!! Form::label('name', 'Tiêu đề', ['class' => 'name']) !!}
-                    <select name="parent_id" class="form-control">
-                        {!! show_categories($category) !!}
-                    </select>
-                </td>
-            </tr>
 
             <tr>
                 <td>
@@ -116,7 +114,7 @@
         {!! Form::close() !!}
             </div>
             <div class="box-footer">
-                <button type="button" onclick="SaveInfo();" class="btn btn-default">Save</button>
+                <button type="button" id="btnSave" class="btn btn-default ">Save</button>
             </div>
         </div>
     </div>
@@ -242,66 +240,81 @@
 @push('scripts')
     <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
     <script>
-        function SaveInfo(){
-            console.log('save');
-            $.ajax({
-                url: '{{@route('backend:category:ajax')}}',
-                type: "POST",
-                data: {"act":"info",data:$("#form_store").zoe_inputs('get')},
-                success: function (data) {
-                    $("#form_store").find('.has-error').removeClass('has-error').find('.help-block').hide();
-                    if(data.hasOwnProperty('error')){
-                        for(error in data.error){
-                            console.log(error);
-                           var parent = $("#"+error).parent();
-                           parent.addClass('has-error');
-                           parent.find('.error').html(data.error[error].join("\n"));
 
-                        }
-                    }else{
-
-                    }
-                }
-            });
-        }
-        function SavePosition(){
-            var e = $('#nestable').data('output', $('#nestable-output'));
-            var list = e.length ? e : $(e.target), output = list.data('output');
-
-            $.ajax({
-                url: '{{@route('backend:category:ajax')}}',
-                type: "POST",
-                data:{act:"position",data: {pos:list.nestable('serialize'),type:'{!! $type !!}'}},
-                success: function (data) {
-                    $("#form_store").find('.has-error').removeClass('has-error').find('.help-block').hide();
-                    if(data.hasOwnProperty('error')){
-                        for(error in data.error){
-                            console.log(error);
-                            var parent = $("#"+error).parent();
-                            parent.addClass('has-error');
-                            parent.find('.error').html(data.error[error].join("\n"));
-
-                        }
-                    }else{
-
-                    }
-                }
-            });
-        }
         $(document).ready(function()
         {
-            $("#nestable .edit").click(function () {
+            function SavePosition(id,cb){
+                var e = $('#nestable').data('output', $('#nestable-output'));
+                var list = e.length ? e : $(e.target), output = list.data('output');
+                $("#nestable").loading({circles: 3, overlay: true, width: "5em", top: "20%", left: "50%"});
                 $.ajax({
                     url: '{{@route('backend:category:ajax')}}',
                     type: "POST",
-                    data:{act:"edit",data: {id:1,type:'{!! $type !!}'}},
+                    data:{act:"position",data: {id:id,pos:list.nestable('serialize'),type:'{!! $type !!}'}},
                     success: function (data) {
-                        console.log(data);
+                        $("#nestable").loading({destroy: true});
+                        cb(data);
+                    }
+                });
+            }
+            function ResetNestable(){
+                $("#nestable").loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+                $.ajax({
+                    url: '{{@route('backend:category:ajax')}}',
+                    type: "POST",
+                    data:{act:"nestable",data: {type:'{!! $type !!}'}},
+                    success: function (html) {
+                        console.log(html);
+                        $("#nestable").html(html);
+                        $("#nestable").loading({destroy: true});
+                    }
+                });
+            }
+            $("#btnCreate").click(function () {
+                document.getElementById("form_store").reset();
+                var label = "{{ z_language('Category Create')}}";
+                $("#form-title").html(label);
+            });
+            $("#nestable").on("click",".edit",function () {
+                var data_item = $(this).closest('.dd-item').data();
+                var form_store = $("#form_store");
+                form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+                $.ajax({
+                    url: '{{@route('backend:category:ajax')}}',
+                    type: "POST",
+                    data:{act:"edit",data: {id:data_item.id,type:'{!! $type !!}'}},
+                    success: function (data) {
+                        console.log(JSON.stringify(data));
+                        document.getElementById("form_store").reset();
+                        if(data.hasOwnProperty("data")){
+                            var label = "{{ z_language('Category Edit : :Name')  }}";
+                            $("#form-title").html(label.replace(":Name", data.data.name));
+                            form_store.zoe_inputs('set',data.data);
+                        }else{
+
+                        }
+                        form_store.loading({destroy: true});
                     }
                 });
             });
-            $("#nestable .delete").click(function () {
-                console.log(2);
+            $("#nestable").on("click",'.delete',function () {
+                var dd_item = $(this).closest('.dd-item');
+                var children = dd_item.children('ol.dd-list');
+
+                if(children.length>0){
+                    var parent = dd_item.parent();
+                    parent.append(children.html());
+                    dd_item.remove();
+                }else{
+                    dd_item.remove();
+                }
+                SavePosition(dd_item.data('id'),function (data) {
+                    if(data.error == 0){
+
+                    }else{
+                        ResetNestable();
+                    }
+                });
             });
             var updateOutput = function(e)
             {
@@ -324,6 +337,35 @@
                 if (action === 'collapse-all') {
                     $('.dd').nestable('collapseAll');
                 }
+            });
+            $("#btnSave").click(function(){
+                var form_store = $("#form_store");
+                form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+                console.log('save');
+                $.ajax({
+                    url: '{{@route('backend:category:ajax')}}',
+                    type: "POST",
+                    data: {"act":"info",data:form_store.zoe_inputs('get')},
+                    success: function (data) {
+                        form_store.find('.has-error').removeClass('has-error').find('.help-block').hide();
+                        form_store.loading({destroy: true});
+                        if(data.hasOwnProperty('error')){
+                            for(error in data.error){
+                                console.log(error);
+                                var parent = $("#"+error).parent();
+                                parent.addClass('has-error');
+                                parent.find('.error').html(data.error[error].join("\n"));
+                            }
+                        }else{
+                            ResetNestable();
+                        }
+                    }
+                });
+            });
+            $("#btnSavePosition").click(function(){
+                SavePosition(0,function (data) {
+                    
+                });
             });
         });
     </script>

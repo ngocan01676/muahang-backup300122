@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Cache;
 
 
 use Illuminate\Support\Facades\DB;
-function get_config($type, $name)
+function config_get($type, $name)
 {
     $rs = DB::table('config')->where(['type' => $type, 'name' => $name])->first();
     if (!$rs) return [];
@@ -20,7 +20,12 @@ function config_set($type,$name,$data){
         ['data' => serialize($data)]);
 }
 function get_category_type($type){
-    return DB::table('categories')->where(['type' => $type])->get();
+    $rs = DB::table('categories')->where(['type' => $type])->get();
+    $arr = [];
+    foreach ($rs as $k=>$v){
+        $arr[$v->id] = $v;
+    }
+    return $arr;
 }
 function show_categories($categories, $parent_id = 0, $char = '')
 {

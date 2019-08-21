@@ -2,7 +2,7 @@
 @if(isset($name) && isset($option[$name]))
     @php
         $data = $option[$name];
-        $_data = get_config('option',$name);
+        $_data = config_get('option',$name);
         $data['data'] = isset($data['data'])?array_merge($data['data'],$_data):$_data;
     @endphp
     @isset($data['config']['columns'])
