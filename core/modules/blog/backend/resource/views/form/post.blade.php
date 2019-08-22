@@ -111,6 +111,13 @@
     </div>
     <div class="box box box-zoe">
         <div class="box-body">
+            {!! Form::label('id_tag', 'Category', ['class' => 'Category']) !!} *
+            {!! Form::CategoriesNestable($nestables,$item?$item->category:[],"category") !!}
+
+        </div>
+    </div>
+    <div class="box box box-zoe">
+        <div class="box-body">
             {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
             {!! Form::radio('status', '1' , true) !!} Yes
             {!! Form::radio('status', '0',false) !!} No
@@ -180,7 +187,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/elfinder.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/theme.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/boostrap-multi-select/css/bootstrap-multiselect.css') }}">
+
+
     <script src="{{ asset('module/admin/assets/elfinder/js/elfinder.min.js') }}"></script>
+    <script src="{{ asset('module/admin/assets/boostrap-multi-select/js/bootstrap-multiselect.js') }}"></script>
 
 
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/tagging/css/amsify.suggestags.css') }}">
@@ -188,6 +199,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            // $('#category-select').multiselect();
             var tags = [];
             $('input[name="tag"]').amsifySuggestags({
                 type: 'bootstrap',

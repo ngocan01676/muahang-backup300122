@@ -41,14 +41,21 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                     'type' => 'data'
                 ],
                 ['data' => serialize($items)]);
-        $data = [];
-        foreach ($items['lang'] as $lang => $item) {
-            foreach ($item as $_item) {
-                $data[$lang][$_item['name']] = $_item['value'];
-            }
 
+        if(isset($items['lang'])){
+            $data = [];
+            foreach ($items['lang'] as $lang => $item) {
+                foreach ($item as $_item) {
+                    if(!isset( $data[$lang])){
+                        $data[$lang] = [];
+                    }
+                    $v = $_item['value'];
+                    $data[$lang][$_item['name']] = $v;
+                }
+
+            }
+            Cache::forever("language:data", $data);
         }
-        Cache::forever("language:data", $data);
     }
 
     public function list()
@@ -57,15 +64,24 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         $language_data = config('zoe.language_data');
         $file = new \Illuminate\Filesystem\Filesystem();
         $array = [
-
+            "core"=>[
+                "list" => [],
+                "label" => z_language("Core")
+            ]
         ];
+
         foreach ($results as $_file) {
             $string_blade = ($file->get($_file));
             $name = str_replace(base_path(), "", $_file);
             $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
 
-            preg_match_all('/z_language\((.*)\)/', $string_blade, $match);
+            preg_match_all('/z_language\((.*?)\)/', $string_blade, $match);
+
+
+
+
             if (isset($match[1])) {
+
                 foreach ($match[1] as $val) {
                     // if (isset($match[1][0])) {
 //                $val = $match[1][0];
@@ -74,13 +90,16 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                     $keywords = preg_split("/[,]+/", $val);
 
                     $key_val = trim($keywords[0], '"\'');
+                    $key_val = trim($key_val);
+                    if(substr($key_val, 0, 1) == "$"){
+                        continue;
+                    }
                     $key = md5($keywords[0]);
                     $value = [
                         "value" => "",
                         "path" => $sub_path,
                         "name" => $key_val
                     ];
-
                     if ($sub_path[1] == "modules") {
                         if (!isset($array["modules"])) {
                             $array["modules"]['frontend'] = [
@@ -93,9 +112,11 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                             ];
                         }
                         if ($sub_path[3] == "backend") {
-                            $array["modules"]['backend']["list"][$key] = $value;
+                            $array["modules"]['backend']["list"][md5("m_backend_".$key)] = $value;
                         } else if ($sub_path[3] == "frontend") {
-                            $array["modules"]['frontend']["list"][$key] = $value;
+                            $array["modules"]['frontend']["list"][md5("m_frontend_".$key)] = $value;
+                        }else{
+                            $array["core"]["list"][md5("core_".$key)] = $value;
                         }
                     } else if ($sub_path[1] == "plugins") {
                         if (!isset($array["plugins"])) {
@@ -104,7 +125,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                                 "label" => z_language("Plugins")
                             ];
                         }
-                        $array["plugins"]["list"][$key] = $value;
+                        $array["plugins"]["list"][md5("plugins_".$key)] = $value;
                     } else if ($sub_path[1] == "themes") {
                         if (!isset($array["themes"])) {
                             $array["themes"]['frontend'] = [
@@ -117,15 +138,20 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                             ];
                         }
                         if ($sub_path[3] == "backend") {
-                            $array["themes"]['backend']["list"][$key] = $value;
+                            $array["themes"]['backend']["list"][md5("t_backend_".$key)] = $value;
                         } else if ($sub_path[3] == "frontend") {
-                            $array["themes"]['frontend']["list"][$key] = $value;
+                            $array["themes"]['frontend']["list"][md5("t_frontend_".$key)] = $value;
+                        }else{
+                            $array["core"]["list"][md5("core_".$key)] = $value;
                         }
+                    }else{
+                        $array["core"]["list"][md5("core_".$key)] = $value;
                     }
 
                 }
             }
         }
+
         $rs = $this->table()->where([
             'name' => 'language',
             'type' => 'data'

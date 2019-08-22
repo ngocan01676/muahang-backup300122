@@ -27,25 +27,19 @@ function get_category_type($type){
     }
     return $arr;
 }
-function show_categories($categories, $parent_id = 0, $char = '')
+function show_categories_nestable($nestable,$category, $parent_id = 0, $char = '')
 {
-    foreach ($categories as $key => $item)
+    $html = "";
+    foreach ($nestable as $key => $item)
     {
-        // Nếu là chuyên mục con thì hiển thị
-        if ($item->parent_id == $parent_id)
-        {
-
-            echo '<option value="'.$item->id.'">';
-            echo $char . $item->name;
-            echo '</option>';
-
-            // Xóa chuyên mục đã lặp
-//            unset($categories[$key]);
-
-            // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-            show_categories($categories, $item->id, $char.'|---');
+        $html.='<option '.(isset($category[$item["id"]])?"selected ":"").'value="'.$item["id"].'">';
+        $html.=$char . $item['name'];
+        $html.='</option>';
+        if (isset($item["children"])) {
+            $html.=show_categories_nestable($item["children"],$category, $item['id'], $char.'|---');
         }
     }
+    return $html;
 }
 function show_categories_ul_li($categories, $parent_id = 0, $char = '')
 {

@@ -20,12 +20,14 @@
             </ul>
             <div class="tab-content">
 
-                @php $languages = config('zoe.language');@endphp
+                @php $languages = config('zoe.language');
+                    $i = 0; $maxPage = 15;
+                @endphp
                 @foreach($lists as $key=>$values)
                     <div id="tab_{!! $key !!}" class="tab-pane{!!$active == $key?' active':'' !!}">
 
                         <table class="table table-bordered">
-                            <tbody>
+                            <thead>
                             <tr>
                                 <th class="text-center" width="250px">{!! @z_language(["Key"]) !!}</th>
 
@@ -35,9 +37,11 @@
                                                 class="flag-icon flag-icon-{{$language['flag']}}"></span></th>
                                 @endforeach
                             </tr>
-                            @if($key == "plugins")
+                            </thead>
+                            <tbody>
+                            @if($key == "plugins" || $key == "core")
                                 @foreach($values['list'] as $key=>$_value)
-                                    <tr>
+                                    <tr style="{{$i++<$maxPage?"":'display: none'}}">
                                         <td class="text-center"> {!! $_value['name'] !!} </td>
 
                                         @foreach ($languages as $language)
@@ -60,7 +64,7 @@
                                 @foreach($values as $value)
 
                                     @foreach($value['list'] as $key=>$_value)
-                                        <tr>
+                                        <tr style="{{$i++<$maxPage?"":'display: none'}}">
                                             <td class="text-center"> {!! $_value['name'] !!} </td>
                                             @foreach ($languages as $language)
                                                 <td class="text-center">
@@ -79,7 +83,9 @@
                                 @endforeach
                             @endif
                             </tbody>
+
                         </table>
+                        <div class="panel-footer"></div>
                     </div>
                 @endforeach
 
@@ -90,6 +96,7 @@
 @push('scripts')
     <script src="{{asset('module/admin/assets/zoe.jquery.inputs.js')}}"></script>
     <script src="{{asset('module/admin/assets/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
+    <script src="{{asset('module/admin/assets/paginate-large-list-paging/paginathing.min.js')}}"></script>
     <script>
         $("#formAction").zoe_inputs("set", @json($data));
 
@@ -110,9 +117,17 @@
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 var target = $(e.target).attr("href");
                 InitEditable($(target).find('.lang:not(.editable)'));
-            })
+            });
+            @foreach($lists as $key=>$values)
+                $("#tab_{!! $key !!} table tbody").paginathing({
+                    perPage:'{!! $maxPage !!}',
+                    insertAfter:"#tab_{!! $key !!} .panel-footer",
+                    ulClass: 'pagination pagination-sm',
+                    firstText: "{!! z_language('First') !!}", // "First button" text
+                    lastText: "{!! z_language('Last') !!}", // "Last button" text
+                });
+            @endforeach
         });
-
         function Save() {
             var data = $("#formAction").zoe_inputs("get");
             $('#formAction').loading({circles: 3, overlay: true, width: "5em", top: "35%", left: "50%"});
@@ -121,7 +136,6 @@
                 url: '{!! route('backend:language:ajax:save') !!}',
                 data: data,
                 success: function (data) {
-
                     $('#formAction').loading({destroy: true});
                 }
             });

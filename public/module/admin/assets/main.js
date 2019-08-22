@@ -27,3 +27,6 @@ $('#check-all').on('ifUnchecked', function(event){
       //  $('#bulk-action-container').hide();
 });
 
+function notice(){
+
+}

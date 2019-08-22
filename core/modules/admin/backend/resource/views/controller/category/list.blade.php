@@ -14,7 +14,7 @@
     <div class="col-md-6">
         <div class="box box-zoe">
             <div class="box-header with-border">
-                <h3 class="box-title">{!! @z_language(["Category"]) !!}</h3>
+                <h3 class="box-title">{!! @z_language(["Category List"]) !!}</h3>
 
             </div>
             <div class="box-body">
@@ -78,7 +78,7 @@
                     <tbody>
                     <tr>
                         <td>
-                            {!! Form::label('name', 'Tiêu đề', ['class' => 'name']) !!}
+                            {!! Form::label('name', z_language('Name'), ['class' => 'name']) !!}
                             {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>'Tiêu đề']) !!}
                             <span class="error help-block"></span>
                         </td>
@@ -87,7 +87,7 @@
 
                     <tr>
                         <td>
-                            {!! Form::label('description', 'Mô tả', ['class' => 'description']) !!}
+                            {!! Form::label('description', z_language('Description'), ['class' => 'description']) !!}
                             {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Mô tả','cols'=>5,'rows'=>5]) !!}
                             <span class="error help-block"></span>
                         </td>
@@ -95,7 +95,7 @@
 
                     <tr>
                         <td>
-                            {!! Form::label('id_status', 'Status', ['class' => 'description']) !!}
+                            {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
                             {!! Form::radio('status', '1' , true) !!} Yes
                             {!! Form::radio('status', '0',false) !!} No
 
@@ -109,7 +109,11 @@
 
                         </td>
                     </tr>
-                    @includeIf($views)
+                    <tr>
+                        <td>
+                            @includeIf($views)
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
                 {!! Form::close() !!}
@@ -367,13 +371,13 @@
             text-indent: 100%;
             white-space: nowrap;
             overflow: hidden;
-            border: 1px solid #aaa;
-            background: #ddd;
-            background: -webkit-linear-gradient(top, #ddd 0%, #bbb 100%);
-            background: -moz-linear-gradient(top, #ddd 0%, #bbb 100%);
-            background: linear-gradient(top, #ddd 0%, #bbb 100%);
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
+            /*border: 1px solid #aaa;*/
+            background: #444;
+            /*background: -webkit-linear-gradient(top, #ddd 0%, #bbb 100%);*/
+            /*background: -moz-linear-gradient(top, #ddd 0%, #bbb 100%);*/
+            /*background: linear-gradient(top, #ddd 0%, #bbb 100%);*/
+            /*border-top-right-radius: 0;*/
+            /*border-bottom-right-radius: 0;*/
         }
 
         .dd3-handle:before {
@@ -389,10 +393,12 @@
             font-weight: normal;
             top: 46%;
             transform: translateY(-60%);
+
         }
 
         .dd3-handle:hover {
-            background: #ddd;
+            background: #444;
+            color: red;
         }
 
         .dd3-handle {
@@ -437,11 +443,11 @@
                     data: {act: "position", data: {id: id, pos: list.nestable('serialize'), type: '{!! $type !!}'}},
                     success: function (data) {
                         $("#nestable").loading({destroy: true});
+                        $.growl.notice({ message: '{!! z_language("Update Position Successfully") !!}' });
                         cb(data);
                     }
                 });
             }
-
             function ResetNestable() {
                 $("#nestable").loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 $.ajax({
@@ -449,13 +455,12 @@
                     type: "POST",
                     data: {act: "nestable", data: {type: '{!! $type !!}'}},
                     success: function (html) {
-                        console.log(html);
+                        $.growl.notice({ message: '{!! z_language("Reset Position Successfully") !!}' });
                         $("#nestable").html(html);
                         $("#nestable").loading({destroy: true});
                     }
                 });
             }
-
             $("#btnCreate").click(function () {
                 document.getElementById("form_store").reset();
                 var label = "{{ z_language('Category Create')}}";
@@ -484,21 +489,37 @@
                 });
             });
             $("#nestable").on("click", '.delete', function () {
+
+
+
+
+
                 var dd_item = $(this).closest('.dd-item');
                 var children = dd_item.children('ol.dd-list');
 
-                if (children.length > 0) {
-                    var parent = dd_item.parent();
-                    parent.append(children.html());
-                    dd_item.remove();
-                } else {
-                    dd_item.remove();
-                }
-                SavePosition(dd_item.data('id'), function (data) {
-                    if (data.error == 0) {
+                $.confirm({
+                    title: '{!! z_language("Confirm") !!}',
+                    content: '{!! z_language("Are you sure to delete this item?") !!}',
+                    confirmButton: 'Proceed',
+                    confirmButtonClass: 'btn-info',
+                    icon: 'fa fa-question-circle',
+                    animation: 'scale',
+                    top:0,
+                    confirm: function () {
+                        if (children.length > 0) {
+                            var parent = dd_item.parent();
+                            parent.append(children.html());
+                            dd_item.remove();
+                        } else {
+                            dd_item.remove();
+                        }
+                        SavePosition(dd_item.data('id'), function (data) {
+                            if (data.error == 0) {
 
-                    } else {
-                        ResetNestable();
+                            } else {
+                                ResetNestable();
+                            }
+                        });
                     }
                 });
             });
@@ -535,7 +556,6 @@
                         form_store.loading({destroy: true});
                         if (data.hasOwnProperty('error')) {
                             for (k in data.error) {
-
                                 var parent;
                                 if (data.hasOwnProperty('data_rules') && data.data_rules.hasOwnProperty(k)) {
                                     parent = $("#data-" + k).parent();
@@ -545,7 +565,9 @@
                                 parent.addClass('has-error');
                                 parent.find('.error').html(data.error[k].join("\n"));
                             }
+                            $.growl.error({ message:"{!! z_language('Error update failed') !!}" });
                         } else {
+                            $.growl.notice({ message: "{!! z_language('Update Successfully') !!}" });
                             ResetNestable();
                         }
                     }

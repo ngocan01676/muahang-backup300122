@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{asset('module/admin/dist/css/skins/_all-skins.min.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/style.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/loadding/css/jquery-loading.css')}}">
+    <link rel="stylesheet" href="{{asset('module/admin/assets/jquery.growl/stylesheets/jquery.growl.css')}}">
+    <link rel="stylesheet" href="{{asset('module/admin/assets/jquery-confirm/dist/jquery-confirm.min.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -212,7 +214,7 @@
             @yield('content-header')
         </section>
         <!-- Main content -->
-        <section class="content">
+        <section class="content clearfix">
             @yield('content')
         </section>
         <!-- /.content -->
@@ -436,7 +438,8 @@
 <script src="{{asset('module/admin/bower_components/fastclick/lib/fastclick.js')}}"></script>
 
 <script src="{{asset('module/admin/assets/loadding/js/jquery-loading.js')}}"></script>
-
+<script src="{{asset('module/admin/assets/jquery.growl/javascripts/jquery.growl.js')}}"></script>
+<script src="{{asset('module/admin/assets/jquery-confirm/dist/jquery-confirm.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('module/admin/dist/js/adminlte.min.js')}}"></script>
 
@@ -459,12 +462,14 @@
         var content_header = $(".content-header");
         if(content_header && !content_header.is(':empty')){
             var offset = $(".content-header").offset();
-            var fixed = $(this).scrollTop() > offset.top*1.6;
+            var fixed = $(this).scrollTop() > offset.top*1.8;
             if (fixed === true) {
                 $(".content-header").addClass('content-header-prefix');
             }
+            var time = Date.now();
             $(window).scroll(function (a) {
-                if ($(this).scrollTop() > (offset.top*1.6) && fixed === false) {
+
+                if ($(this).scrollTop() > (offset.top*1.8) && fixed === false) {
                     $(".content-header").addClass('content-header-prefix');
                     console.log("fixed");
                     fixed = true;

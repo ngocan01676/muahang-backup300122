@@ -38,4 +38,12 @@ class PostModel extends Model
         }
         return $tag;
     }
+    function getCategory(){
+        $categorys = DB::table('blog_post_category')->where(['post_id'=>$this->id])->get();
+        $arr = [];
+        foreach ($categorys as $list) {
+            $arr[$list->category_id] = 1;
+        }
+        return $arr;
+    }
 }
