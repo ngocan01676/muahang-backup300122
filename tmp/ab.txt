@@ -1,0 +1,1 @@
+{amount=20000, cardSerial=10003751710003, cardCode=718165674345056, id=10000500143, uuid=9d7d6381-c6ac-40e7-9391-727e788d1c39, url=http://thanhtoan.sjsway.com/api/izisoft-verify-card?cardCode=718165674345056&cardSerial=10003751710003&status=1&amount=20000&id=10000500143&uuid=9d7d6381-c6ac-40e7-9391-727e788d1c39, status=1}

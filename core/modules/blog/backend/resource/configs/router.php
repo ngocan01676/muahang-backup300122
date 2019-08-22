@@ -11,15 +11,15 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
-                    "create"=>[
-                        'url'=>'/create'
+                    "create" => [
+                        'url' => '/create'
                     ],
-                    "edit"=>[
-                        'url'=>'/edit/{id}'
+                    "edit" => [
+                        'url' => '/edit/{id}'
                     ],
-                    'store'=>[
-                        'url'=>'/store',
-                        'method'=>['post']
+                    'store' => [
+                        'url' => '/store',
+                        'method' => ['post']
                     ]
                 ]
             ],
@@ -31,7 +31,7 @@ return [
                 "router" => [
                     "list" => [
                         "url" => "/",
-                        'defaults'=>["type"=>"blog:category"]
+                        'defaults' => ["type" => "blog:category", "views" => "blog::module.admin.category"]
                     ]
                 ]
             ],

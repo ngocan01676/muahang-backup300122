@@ -16,10 +16,14 @@ return [
         ]
     ],
     'modules' => [
-        'dashboard' => [
-            'views' => [
-
+        'admin.category' => [
+            'blog:category' => [
+                'views' => 'blog::module.admin.category',
+                'rules' => [
+                    'meta_key' => 'required',
+                    'meta_des' => 'required',
+                ]
             ]
-        ]
+        ],
     ],
 ];
