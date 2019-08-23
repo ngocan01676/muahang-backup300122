@@ -6,7 +6,7 @@
         $data['data'] = isset($data['data'])?array_merge($data['data'],$_data):$_data;
     @endphp
     @isset($data['config']['columns'])
-    <div class="box box box-zoe">
+    <div class="box box box-zoe" id="sectionList">
         <div class="box-header with-border">
             <div class="box-tools">
                 <form action="">
@@ -27,7 +27,7 @@
                     @foreach($data['config']['columns']['lists'] as $k=>$columns)
                         @isset($data['data']['columns'][$k])
                             @if('id'== $columns['type'])
-                                <th class="column-primary" width="39px"><input style="display: none" id="check-all" type="checkbox" class="minimal"></th>
+                                <th width="39px" class="column-primary"><input style="display: none" id="check-all" type="checkbox" class="minimal"></th>
                                 <th scope="col" class=" column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}">{{$columns['label']}}</th>
                             @else
                                 <th scope="col" class=" column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}">{{$columns['label']}}</th>
@@ -37,12 +37,12 @@
                 </tr>
                 @if(count($models)>0)
                 @foreach ($models as $k=>$model)
-                    <tr>
+                    <tr class="list-row">
                         <td>{{$k+1}}</td>
                         @foreach($data['config']['columns']['lists'] as $key=>$columns)
                             @isset($data['data']['columns'][$key])
                                 @if('title'== $columns['type'])
-                                    <td scope="col" class="column-primary column-name">
+                                    <td scope="col" class="column column-primary column-name">
                                         <strong><a class="row-title" href="#">{{ $model->{$key} }}</a></strong>
                                         <div class="row-actions">
                                             @isset($data['config']['pagination']['router'])
@@ -75,7 +75,7 @@
                                     </td>
                                 @elseif($columns['type'] == 'id')
                                     <td class="column-primary"><input style="display: none" type="checkbox" class="minimal" value="{!! $model->id !!}" name="post[]"></td>
-                                    <td scope="col" class="column">@php echo $model->{$key} @endphp</td>
+                                    <td scope="col" class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}">@php echo $model->{$key} @endphp</td>
                                 @else
                                     <td scope="col" class="column">@php echo $model->{$key} @endphp</td>
                                 @endif
@@ -90,11 +90,52 @@
                 @endif
                 </tbody></table>
         </div>
-        <!-- /.box-body -->
         <div class="box-footer clearfix">
             {{ $models->links('backend::layout.pagination.pagination', []) }}
         </div>
-        <!-- /.box-footer-->
     </div>
     @endisset
 @endif
+@push('scripts')
+    <script>
+       $(document).ready(function () {
+
+           $("#sectionList .listMain").on('mouseenter', '.list-row', function() {
+               $(this).find('.row-actions').css({position:"static"});
+           }).on('mouseleave', '.list-row', function() {
+               $(this).find('.row-actions').css({position:"relative"});
+           }).on('click', ".btn-box-tool",function () {
+               var i = $(this).find('i');
+               if($(this).find('i').hasClass('fa-plus')){
+                   i.removeClass('fa-plus');
+                   i.addClass('fa-minus');
+                   $(this).closest('tr').find('.row-actions').css({position:"static"});
+               }else{
+                   i.addClass('fa-plus');
+                   i.removeClass('fa-minus');
+                   $(this).closest('tr').find('.row-actions').css({position:"relative"});
+               }
+           });
+
+          $("#sectionList .pagination ul").on('click','.link',function (e) {
+              e.preventDefault();
+              var href = $(this).attr('href');
+              $.ajax({
+                  type:"GET",
+                  url:href,
+                  success:function (data) {
+                      var listMain = $(data.views.content).find(".listMain table");
+                      var pagination = $(data.views.content).find(".pagination ul li");
+                      $("#sectionList .listMain").html(listMain);
+                      $("#sectionList .pagination ul").html(pagination);
+                  },
+                  error:function (xhr, error) {
+                      if(xhr.status === 401){
+                          location.reload();
+                      }
+                  }
+              });
+          });
+       });
+    </script>
+@endpush

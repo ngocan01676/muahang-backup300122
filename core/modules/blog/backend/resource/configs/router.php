@@ -26,12 +26,24 @@ return [
             'blog:category' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "CategoryController",
-                "sub_prefix" => "/blog/post/category",
+                "sub_prefix" => "/blog/category",
+                "guard" => "backend",
+                "router" => [
+                    "show" => [
+                        "url" => "/",
+                        'defaults' => ["type" => "blog:category", "views" => "blog::module.admin.category"]
+                    ]
+                ]
+            ],
+            'blog:comment' => [
+                "namespace" => "PluginComment\Controllers",
+                "controller" => "IndexController",
+                "sub_prefix" => "/blog/comment",
                 "guard" => "backend",
                 "router" => [
                     "list" => [
                         "url" => "/",
-                        'defaults' => ["type" => "blog:category", "views" => "blog::module.admin.category"]
+                        'defaults' => ["type" => "blog:comment", "views" => "blog::module.admin.comment"]
                     ]
                 ]
             ],

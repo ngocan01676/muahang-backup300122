@@ -1,4 +1,3 @@
-@extends('backend::layout.layout')
 @section('content')
     <!-- Default box -->
     <div class="box">

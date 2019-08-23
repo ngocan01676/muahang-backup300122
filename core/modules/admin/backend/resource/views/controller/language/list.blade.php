@@ -1,11 +1,9 @@
-@extends('backend::layout.layout')
 @section('content-header')
     <h1>
         {!! @z_language(["Manager Language"]) !!}
         {{--<small>it all starts here</small>--}}
         <button type="button" onclick="Save()" class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
     </h1>
-
 @endsection
 @section('content')
 

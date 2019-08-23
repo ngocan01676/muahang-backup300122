@@ -140,6 +140,9 @@ return [
                 "sub_prefix" => "/category",
                 "guard" => "backend",
                 "router" => [
+                    "show" => [
+                        "url" => "/show",
+                    ],
                     "list" => [
                         "url" => "/",
                     ],

@@ -147,15 +147,14 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                     }else{
                         $array["core"]["list"][md5("core_".$key)] = $value;
                     }
-
                 }
             }
         }
-
         $rs = $this->table()->where([
             'name' => 'language',
             'type' => 'data'
         ])->first();
+
         $data = [];
         if ($rs && !empty($rs->data)) {
             $data = unserialize($rs->data);

@@ -132,10 +132,8 @@ class CategoryController extends \Zoe\Http\ControllerBackend
         $html .= '</ol>';
         return $html;
     }
-
-    public function list(Request $request)
+    public function show(Request $request)
     {
-
         $type = isset($request->route()->defaults['type']) ? $request->route()->defaults['type'] : 'category';
         $views = "";
         if (isset(app()->getConfig()['modules']['admin.category'][$type]['views'])) {
@@ -145,6 +143,9 @@ class CategoryController extends \Zoe\Http\ControllerBackend
         $this->data['nestable'] = $this->nestable(config_get("category", $type), 0, true);
         $this->data['type'] = $type;
         $this->data['views'] = $views;
+        return $this->render('category.show');
+    }
+    public function list(){
         return $this->render('category.list');
     }
 }

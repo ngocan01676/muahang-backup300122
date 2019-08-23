@@ -9,7 +9,7 @@
                 </li>
             @else
                 <li>
-                    <a href="{{ $paginator->previousPageUrl() }}">
+                    <a class="link" href="{{ $paginator->previousPageUrl() }}">
                         <span><i class="fa fa-angle-double-left"></i></span>
                     </a>
                 </li>
@@ -23,7 +23,7 @@
                         @if ($page == $paginator->currentPage())
                             <li class="active"><span>{{ $page }}</span></li>
                         @elseif (($page == $paginator->currentPage() + 1 || $page == $paginator->currentPage() + 2) || $page == $paginator->lastPage())
-                            <li><a href="{{ $url }}">{{ $page }}</a></li>
+                            <li><a class="link" href="{{ $url }}">{{ $page }}</a></li>
                         @elseif ($page == $paginator->lastPage() - 1)
                             <li class="disabled"><span><i class="fa fa-ellipsis-h"></i></span></li>
                         @endif
@@ -34,7 +34,7 @@
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li>
-                    <a href="{{ $paginator->nextPageUrl() }}">
+                    <a href="{{ $paginator->nextPageUrl() }}" class="link">
                         <span><i class="fa fa-angle-double-right"></i></span>
                     </a>
                 </li>

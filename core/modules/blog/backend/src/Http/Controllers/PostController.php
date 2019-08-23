@@ -25,22 +25,24 @@ class PostController extends \Zoe\Http\ControllerBackend
         return $this;
     }
 
-    public function list()
+    public function list(Request $request)
     {
+        if($request->ajax()){
+            return response()->json(['ajax']);
+        }
         $this->getCrumb();
         return $this->render('post.list', [], "blog");
     }
-
     public function create()
     {
-        $this->getCrumb()->breadcrumb('Create post', route('backend:blog:post:create'));
+        $this->getCrumb()->breadcrumb('Post Create', route('backend:blog:post:create'));
         return $this->render('post.create', ['item' => []], 'blog');
     }
 
     public function edit($id)
     {
-        $this->getCrumb();
 
+        $this->getCrumb()->breadcrumb('Post Edit', route('backend:blog:post:create'));
         $item = PostModel::find($id);
 
         $trans = PostTranslationModel::where(['post_id' => $id])->get();

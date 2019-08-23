@@ -1,4 +1,3 @@
-@extends('backend::layout.layout')
 @section('content-header')
     <h1>
         &starf; {!! @z_language(["Manager Layout"]) !!}

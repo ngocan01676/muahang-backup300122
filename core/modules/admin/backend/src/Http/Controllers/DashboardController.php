@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class DashboardController extends \Zoe\Http\ControllerBackend {
     public function list(){
-       return view('backend::controller.dashboard.list');
+       return $this->render('dashboard.list');
     }
     public function option(Request $request){
         $items = $request->all();

@@ -1,4 +1,3 @@
-@extends('backend::layout.layout')
 @section('content-header')
     <h1>
         &starf; {!! @z_language(["Manager Blog Post"]) !!}
@@ -15,6 +14,7 @@
         @endbtn_option
     </h1>
 @endsection
+
 @section('content')
     <!-- Default box -->
     <div class="box">
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="box-body">
-            Start creating your amazing application!
+            Start creating your amazing application! Post
         </div>
         <!-- /.box-body -->
         <div class="box-footer">

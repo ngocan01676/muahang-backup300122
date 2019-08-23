@@ -28,6 +28,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
         $config = config_get('option', "core:layout");
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+        $item = 1;
         $models = DB::table('layout');
 
         if (!empty($search)) {

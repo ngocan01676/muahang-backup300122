@@ -13,7 +13,11 @@ return [
                 ],
                 [
                     "name" => z_language("Category"),
-                    "url" => "backend:blog:category:list",
+                    "url" => "backend:blog:category:show",
+                ],
+                [
+                    "name" => z_language("Comment"),
+                    "url" => "backend:blog:comment:list",
                 ]
             ]
         ]
