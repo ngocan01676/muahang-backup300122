@@ -22,25 +22,78 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function list(Request $request)
     {
         $this->getcrumb();
+        $filter = $request->query('filter', "");
         $search = $request->query('search', "");
         $status = $request->query('status', "");
         $date = $request->query('date', "");
 
         $config = config_get('option', "core:layout");
+        $data = $request->query();
+
+        $page = null;
+        if (isset($data['form'])) {
+            $parameter = $data['form'];
+            $page = 1;
+        } else {
+            $parameter = $data;
+        }
+
+
+        $type = isset($request->route()->defaults['type']) ? $request->route()->defaults['type'] : '';
+
+        $use = $this->getListType($type);
+        $listsType = [];
+        $route = [];
+        if (count($use) > 0) {
+            if ($type != "") {
+                $listsType = [$use['value'] => $use['label']];
+                $route['type'] = $type;
+                $parameter['filter']['type'] = $use['value'];
+            } else {
+                $listsType = array_merge($this->listsType, $use);
+            }
+        }
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
         $item = 1;
         $models = DB::table('layout');
 
-        if (!empty($search)) {
-            $models->where('name', 'like', '%' . $search);
+        if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
+            $models->where('name', 'like', '%' . $search . '%');
+
+        }
+        if (isset($parameter["filter"]['type']) && !empty($parameter['filter']['type'])) {
+            $models->where('type', $parameter['filter']['type']);
         }
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
         $models->orderBy('id', 'desc');
+        $models = $models->paginate($item, ['*'], 'page', $page);
+        $models->appends($parameter);
+
+
         return $this->render('layout.list', [
-            'models' => $models->paginate($item)
+            'models' => $models,
+            "listsType" => $listsType,
+            "use" => $use,
+            "route" => $route
         ]);
+    }
+
+    public function getListType($type)
+    {
+        if (isset(app()->getConfig()['modules']['admin.layout'][$type])) {
+            $data_type = (app()->getConfig()['modules']['admin.layout'][$type]);
+            return $data_type;
+        } else {
+            $this->getCrumb();
+            $arr = [];
+            $lists = app()->getConfig()['modules']['admin.layout'];
+            foreach ($lists as $row) {
+                $arr[$row['value']] = $row['label'];
+            }
+            return $arr;
+        }
     }
 
     public function delete()
@@ -419,6 +472,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     {
         $theme = config('zoe.theme');
         $items = $request->all();
+        $model = null;
         if (isset($items["info"]['id']) && $items["info"]['id'] != 0) {
             $model = \Admin\Http\Models\Layout::find($items["info"]['id']);
         }
@@ -492,7 +546,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         return $array;
     }
 
-    public function create()
+    public function create($type = "")
     {
 
         $this->getcrumb()->breadcrumb("Create Layout", false);
@@ -503,17 +557,18 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         ];
         $model->id = 0;
         $model->token = gen_uuid();
+        $use = $this->getListType($type);
         return $this->render("layout.create", [
             'model' => $model,
             "content" => $content,
             "info" => [],
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
-            "listsType" => array_merge($this->listsType, app()->getConfig()['modules']['layout']['types'])
+            "listsType" => array_merge($this->listsType, count($use) > 0 ? [$use['value'] => $use['label']] : [])
         ]);
     }
 
-    public function edit($id)
+    public function edit($id, $type = "")
     {
         $info = [];
         $model = \Admin\Http\Models\Layout::find($id);
@@ -533,13 +588,14 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         if (!isset($content['widget'])) {
             $content["widget"] = [];
         }
+        $use = $this->getListType($type);
         return $this->render("layout.edit", [
             'model' => $model,
             "content" => $content,
             "info" => $info,
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
-            "listsType" => array_merge($this->listsType, app()->getConfig()['modules']['layout']['types'])
+            "listsType" => array_merge($this->listsType, count($use) > 0 ? [$use['value'] => $use['label']] : [])
         ]);
     }
 }

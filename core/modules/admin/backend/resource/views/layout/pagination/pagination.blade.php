@@ -21,7 +21,7 @@
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
-                            <li class="active"><span>{{ $page }}</span></li>
+                            <li class="active" data-url="{{ $url }}"><span>{{ $page }}</span></li>
                         @elseif (($page == $paginator->currentPage() + 1 || $page == $paginator->currentPage() + 2) || $page == $paginator->lastPage())
                             <li><a class="link" href="{{ $url }}">{{ $page }}</a></li>
                         @elseif ($page == $paginator->lastPage() - 1)

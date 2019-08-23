@@ -55,9 +55,9 @@ class RouteServiceProvider extends ServiceProvider
         foreach ($routers as $name => $route) {
             if (isset($route['prefix'])) {
                 $prefix = $route['prefix'];
-            } else if(isset($route['sub_prefix'])){
-                $prefix = $config['prefix'].$route['sub_prefix'];
-            }else{
+            } else if (isset($route['sub_prefix'])) {
+                $prefix = $config['prefix'] . $route['sub_prefix'];
+            } else {
                 $prefix = $config['prefix'];
             }
             $namespace = isset($route['namespace']) ? $route['namespace'] . '\\' : '';
@@ -119,13 +119,14 @@ class RouteServiceProvider extends ServiceProvider
                 }
 
                 $r = Route::match($method, $link, $action);
-                if(isset($_route['defaults'])){
-                    foreach ($_route['defaults'] as $_key=> $_default){
+                if (isset($_route['defaults'])) {
+                    foreach ($_route['defaults'] as $_key => $_default) {
 
-                        $r->defaults($_key,$_default);
+                        $r->defaults($_key, $_default);
                     }
 
                 }
+
                 $r->name($alias);
 
                 if (isset($_route['cache'])) {

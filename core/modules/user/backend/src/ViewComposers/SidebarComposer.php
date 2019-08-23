@@ -63,7 +63,6 @@ class SidebarComposer
             return $sidebar_new;
         });
 
-
         $view->with('lists_sidebar', $sidebars);
     }
 }

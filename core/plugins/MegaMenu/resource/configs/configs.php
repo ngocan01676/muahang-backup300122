@@ -4,10 +4,8 @@ return [
         'path' => '/resource/views',
     ],
     'modules' => [
-        'layout' => [
-            'types' => [
-                'mega-menu' => ' Mega Menu'
-            ]
+        'admin.layout' => [
+            'plugin:mega-menu:layout' => ['value' => 'mega-menu', 'label' => 'Mega Menu']
         ]
     ],
 ];

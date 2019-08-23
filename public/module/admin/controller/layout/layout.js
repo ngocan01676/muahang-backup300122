@@ -66,7 +66,7 @@ $(".demo").sortable({
         if (!(typeof attr !== typeof undefined && attr !== false)) {
             $(dom.item).attr('data-id', id());
         }
-        if($(ui.target).hasClass('demo')){
+        if ($(ui.target).hasClass('demo')) {
             $(dom.item).children('.tool').find('.configuration').trigger('click');
         }
 
@@ -95,14 +95,14 @@ $(".demo .column").sortable({
     handle: ".drag",
     cursorAt: {top: 0, left: 0},
     stop: function (ui, dom) {
-           var attr = $(dom.item).attr('data-id');
-           console.log(".demo .column");
-           console.log(attr);
-            if (!(typeof attr !== typeof undefined && attr !== false)) {
-                $(dom.item).attr('data-id', id());
-                console.log("create id");
-            }
-            console.log(ui);
+        var attr = $(dom.item).attr('data-id');
+        console.log(".demo .column");
+        console.log(attr);
+        if (!(typeof attr !== typeof undefined && attr !== false)) {
+            $(dom.item).attr('data-id', id());
+            console.log("create id");
+        }
+        console.log(ui);
         // if(!$(dom.item).hasAttribute('data-id') || $(dom.item).attr('data-id').length === 0){
         //     $(dom.item).attr('data-id', id());
         // }
@@ -131,8 +131,8 @@ $(".demo .column").sortable({
         //     }
         // }
     },
-    start: function (ui,dom) {
-        $(dom.item).css('width',250);
+    start: function (ui, dom) {
+        $(dom.item).css('width', 250);
     }
 });
 $(".sidebar-nav .grid").draggable({
@@ -204,7 +204,7 @@ $(".sidebar-nav .grid").draggable({
             left: 0,
             top: 0
         });
-       // $(this).attr('data-id', id());
+        // $(this).attr('data-id', id());
     }
 });
 $(".sidebar-nav .box-pluign").draggable({
@@ -220,13 +220,13 @@ $(".sidebar-nav .box-pluign").draggable({
     },
     stop: function (e, ui) {
         console.log("sidebar-nav .box-pluign");
-        var attr =  ui.helper.attr('data-id');
+        var attr = ui.helper.attr('data-id');
         if (!(typeof attr !== typeof undefined && attr !== false)) {
             ui.helper.attr("data-id", id());
             console.log("create id");
         }
         ui.helper.removeAttr("style");
-       // if (ui.helper.parent().length === 0)
+        // if (ui.helper.parent().length === 0)
         {
             ui.helper.children('.tool').find('.configuration').trigger('click');
         }
@@ -236,13 +236,11 @@ $(".sidebar-nav .box-pluign").draggable({
             left: 0,
             top: 0
         });
-       // $(this).attr('data-id', id());
+        // $(this).attr('data-id', id());
     }
 });
 demo.delegate(".configuration", "click", function (e) {
     e.preventDefault();
-
-
 
 
     var self = $(this).closest('.tool').parent();
@@ -275,7 +273,7 @@ demo.delegate(".configuration", "click", function (e) {
                     title: "Custom HTML",
                     size: "large",
                     content: [
-                        data
+                        data.views.content
                     ],
                     cancel: function (data, array, event) {
 
@@ -307,14 +305,14 @@ demo.delegate(".configuration", "click", function (e) {
                         _config.cfg.id = self.attr('data-id');
 
                         option.html(JSON.stringify(_config));
-                        if(_config.cfg.hasOwnProperty('public') && _config.cfg.public === "1"){
+                        if (_config.cfg.hasOwnProperty('public') && _config.cfg.public === "1") {
                             $.ajax({
                                 type: 'POST',
                                 url: $("#layout").attr('uricom'),
                                 data: {
                                     widget: _config,
-                                    id:$("#formInfo #id").val(),
-                                    type:"create"
+                                    id: $("#formInfo #id").val(),
+                                    type: "create"
                                 },
                                 success: function (data) {
                                     console.log(data);
@@ -458,29 +456,29 @@ demo.delegate(".configuration", "click", function (e) {
             // layout.formSettingGrid(self.attr('data-id'));
         }
     };
-    if(config.cfg.hasOwnProperty('public') && config.cfg.public === "1"){
+    if (config.cfg.hasOwnProperty('public') && config.cfg.public === "1") {
 
         $.ajax({
             type: 'POST',
             url: $("#layout").attr('uricom'),
             data: {
                 widget: config,
-                type:"get",
-                id:config.cfg.id
+                type: "get",
+                id: config.cfg.id
             },
-            success:function (data) {
-                try{
+            success: function (data) {
+                try {
                     self.children('.option').find('.value textarea').html(data);
-                    data  = _parseJSON(data);
+                    data = _parseJSON(data);
 
                     success(data);
-                }catch (e) {
+                } catch (e) {
                     success(config);
                 }
             }
         });
 
-    }else{
+    } else {
         success(config);
     }
 
@@ -514,9 +512,9 @@ demo.delegate(".remove", "click", function (e) {
     bootpopup.confirm(
         "Do you confirm this message?",
         "Confirm this message",
-        function(ans) {
-           if(ans){
-               var _self = $(self).closest('.tool').parent();
+        function (ans) {
+            if (ans) {
+                var _self = $(self).closest('.tool').parent();
                 var success = function (data) {
                     var classOn = 'fa-check-square';
                     var classOff = 'fa-square';
@@ -524,24 +522,24 @@ demo.delegate(".remove", "click", function (e) {
                     var parent = $(this).parent().parent().parent();
                     $(self).parent().parent().remove();
                 };
-               var option = _self.children('.option').find('.value textarea');
-               var _conf = option.val();
-               var config = _parseJSON(_conf);
-               if(config.cfg.hasOwnProperty('public') && config.cfg.public === "1"){
-                   $.ajax({
-                       type: 'POST',
-                       url: $("#layout").attr('uricom'),
-                       data: {
-                           widget: config,
-                           id:$("#formInfo #id").val(),
-                           type:"remove"
-                       },
-                       success:success
-                   });
-               }else{
-                   success({});
-               }
-           }
+                var option = _self.children('.option').find('.value textarea');
+                var _conf = option.val();
+                var config = _parseJSON(_conf);
+                if (config.cfg.hasOwnProperty('public') && config.cfg.public === "1") {
+                    $.ajax({
+                        type: 'POST',
+                        url: $("#layout").attr('uricom'),
+                        data: {
+                            widget: config,
+                            id: $("#formInfo #id").val(),
+                            type: "remove"
+                        },
+                        success: success
+                    });
+                } else {
+                    success({});
+                }
+            }
         }
     );
 });

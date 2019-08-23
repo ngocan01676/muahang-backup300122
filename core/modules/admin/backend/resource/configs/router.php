@@ -87,10 +87,10 @@ return [
                         "url" => "/",
                     ],
                     "create" => [
-                        "url" => "/create",
+                        "url" => "/create/{type?}",
                     ],
                     "edit" => [
-                        "url" => "/edit/{id}",
+                        "url" => "/edit/{id}/{type?}",
                     ],
                     "delete" => [
                         "url" => "/delete/{id}",
@@ -146,8 +146,8 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
-                    "ajax"=> [
-                        "url" => "/ajax","method" => ['post'],
+                    "ajax" => [
+                        "url" => "/ajax", "method" => ['post'],
                     ],
                 ]
             ],

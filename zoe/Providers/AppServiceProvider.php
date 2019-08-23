@@ -63,7 +63,6 @@ class AppServiceProvider extends ServiceProvider
         $this->InitViews();
         $this->InitComponents();
 
-
     }
 
     public function blade()
@@ -240,11 +239,11 @@ class AppServiceProvider extends ServiceProvider
                             $routers = [];
                             foreach ($data["routers"] as $keys => $_routers) {
                                 $routers[$keys] = [];
-                                foreach ($_routers as  $key=>$router){
+                                foreach ($_routers as $key => $router) {
                                     $routers[$keys][$key] = $router;
-                                    if(isset($routers[$keys][$key]["sub_prefix"])){
-                                        if($system == false){
-                                            $routers[$keys][$key]["sub_prefix"] = "/module".$routers[$keys][$key]["sub_prefix"];
+                                    if (isset($routers[$keys][$key]["sub_prefix"])) {
+                                        if ($system == false) {
+                                            $routers[$keys][$key]["sub_prefix"] = "/module" . $routers[$keys][$key]["sub_prefix"];
                                         }
                                     }
 
@@ -357,8 +356,8 @@ class AppServiceProvider extends ServiceProvider
                     if (isset($data["routers"])) {
                         foreach ($data["routers"] as $key => $router) {
                             $routers["backend"]["plugin:" . $key] = $router;
-                            if(isset($routers["backend"]["plugin:" . $key]["sub_prefix"])){
-                                $routers["backend"]["plugin:" . $key]["sub_prefix"] = "/plugin".$routers["backend"]["plugin:" . $key]["sub_prefix"];
+                            if (isset($routers["backend"]["plugin:" . $key]["sub_prefix"])) {
+                                $routers["backend"]["plugin:" . $key]["sub_prefix"] = "/plugin" . $routers["backend"]["plugin:" . $key]["sub_prefix"];
                             }
                         }
                     }

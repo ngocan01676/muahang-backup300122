@@ -22,7 +22,8 @@ return [
                 'rules' => [
                     'meta_key' => 'required',
                     'meta_des' => 'required',
-                ]
+                ],
+                'breadcrumb' => ['name' => 'Blog', 'route' => 'backend:blog:post:list']
             ]
         ],
     ],
