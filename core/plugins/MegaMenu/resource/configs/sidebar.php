@@ -24,6 +24,7 @@ return [
                         [
                             "name" => z_language("Layout"),
                             "url" => "backend:plugin:mega-menu:layout:list",
+                            "icon"=>"fa fa-navicon"
                         ]
                     ]
                 ]

@@ -52,6 +52,8 @@ class RouteServiceProvider extends ServiceProvider
 
     public function InitRouter($guard, $routers, $config)
     {
+        $views_paths = $this->app->getConfig()->views['paths'];
+        $keyPrivate = $this->app->key;
         foreach ($routers as $name => $route) {
             if (isset($route['prefix'])) {
                 $prefix = $route['prefix'];
@@ -63,6 +65,16 @@ class RouteServiceProvider extends ServiceProvider
             $namespace = isset($route['namespace']) ? $route['namespace'] . '\\' : '';
             $controller = isset($route['controller']) ? $route['controller'] . '@' : '';
 //            var_dump($route);
+
+            $_module = $route['module']['name'];
+
+            if($route['module']['type'] == "plugin"){
+                $_view_alias = isset($views_paths["plugin"][$_module]['alias'])?$views_paths["plugin"][$_module]['alias']:"";
+
+
+            }else{
+                $_view_alias = isset($views_paths[$_module][$guard]['alias'])?$views_paths[$_module][$guard]['alias']:"";
+            }
             $permissions = $this->app->getPermissions();
             foreach ($route['router'] as $key => $_route) {
 
@@ -121,11 +133,11 @@ class RouteServiceProvider extends ServiceProvider
                 $r = Route::match($method, $link, $action);
                 if (isset($_route['defaults'])) {
                     foreach ($_route['defaults'] as $_key => $_default) {
-
                         $r->defaults($_key, $_default);
                     }
-
                 }
+                $r->defaults($keyPrivate."_module", $_module);
+                $r->defaults($keyPrivate."_view_alias",$_view_alias);
 
                 $r->name($alias);
 
@@ -133,7 +145,6 @@ class RouteServiceProvider extends ServiceProvider
                     $middleware[] = 'cache.response:' . $alias . "," . $_route['cache'];
                 }
                 $r->middleware($middleware);
-
             }
         }
 

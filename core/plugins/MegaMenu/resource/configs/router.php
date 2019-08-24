@@ -6,6 +6,10 @@ return [
             "controller" => "LayoutController",
             "sub_prefix" => "/mega-menu/layout",
             "guard" => "backend",
+            "module"=>[
+                "name"=>"admin",
+                "type"=>"module"
+            ],
             "router" => [
                 "list" => [
                     "url" => "/",

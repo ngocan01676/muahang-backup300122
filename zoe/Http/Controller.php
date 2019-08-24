@@ -46,16 +46,10 @@ class Controller extends BaseController
         $this->view->content = $content;
         return $this->view;
     }
-    protected function _render($view, $data, $key)
+    protected function _render($keyView, $data, $key)
     {
-        $alias = app()->getConfig()['views']['alias'];
-        $data = array_merge($this->data, $data);
-        if (isset($alias[$key][$view])) {
-            $keyView = $alias[$key][$view];
-        } else {
-            $keyView =  $key . '::controller.' . $view;
-        }
-        if(request()->ajax()){
+        $request = request();
+        if($request->ajax()){
             $this->view = view()->make($keyView,$data);
             return response()->json(['views'=>$this->view->renderSections()]);
         }else{

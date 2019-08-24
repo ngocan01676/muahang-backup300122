@@ -6,6 +6,7 @@ return [
             "pos" => 2,
             "url" => "",
             "header" => true,
+            "icon"=>"fa fa-newspaper-o",
             "items" => [
                 [
                     "name" => z_language("Post"),

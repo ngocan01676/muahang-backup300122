@@ -186,7 +186,15 @@ body {
 .skin-black-light .sidebar-menu > li.active.treeview::after {
     top: 18px;
 }
-
+.sidebar-menu > li > a {
+    padding: 8px 1px 8px 5px;
+}
+.treeview-menu{
+    padding-left: 0px;
+}
+.treeview-menu>li>a{
+    padding: 5px 5px 5px 8px;
+}
 .nav-tabs-custom > .nav-tabs > li.active {
     border-top-color: #0073aa;
 }
@@ -194,7 +202,17 @@ body {
 .listMain table a {
     color: #0073aa;
 }
-
+.listMain .table thead tr{
+    border-bottom-color: #c5c5c5;
+    background-image: -moz-linear-gradient(top, #f7f7f7, #e3e4e6);
+    background-image: -ms-linear-gradient(top, #f7f7f7, #e3e4e6);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f7f7f7), to(#e3e4e6));
+    background-image: -webkit-linear-gradient(top, #f7f7f7, #e3e4e6);
+    background-image: -o-linear-gradient(top, #f7f7f7, #e3e4e6);
+    background-image: linear-gradient(top, #f7f7f7, #e3e4e6);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e3e4e6', GradientType=0);
+}
 .listMain .row-title {
     font-size: 14px !important;
     font-weight: 600;
@@ -217,7 +235,7 @@ body {
 }
 
 .listMain .column-id {
-    width: 5%;
+    width:6%;
 }
 
 .listMain .column-text {
@@ -225,11 +243,11 @@ body {
 }
 
 .listMain .column-type {
-    width: 5%;
+    width: 6%;
 }
 
 .listMain .column-status {
-    width: 2%;
+    width: 3%;
 }
 
 .listMain .table tbody > tr > td {

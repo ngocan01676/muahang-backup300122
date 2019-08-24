@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->key = md5(config('app.key'));
         $this->app->ReadCache();
 
         $this->app->InitLanguage();
@@ -234,7 +235,6 @@ class AppServiceProvider extends ServiceProvider
                 if (file_exists($_file)) {
                     $data = include $_file;
                     if (is_array($data)) {
-
                         if (isset($data["routers"])) {
                             $routers = [];
                             foreach ($data["routers"] as $keys => $_routers) {
@@ -246,17 +246,15 @@ class AppServiceProvider extends ServiceProvider
                                             $routers[$keys][$key]["sub_prefix"] = "/module" . $routers[$keys][$key]["sub_prefix"];
                                         }
                                     }
-
+                                    if(!isset($routers[$keys][$key]['module'])){
+                                        $routers[$keys][$key]['module'] =["name"=>$module,"type"=>$typeModule];
+                                    }
                                 }
                             }
-
-
                             $data["routers"] = $routers;
                         }
-
                         if (isset($data["views"])) {
                             $_paths = [];
-
                             foreach ($data["views"]["paths"] as $alise => $paths) {
 
                                 $_paths[$module][$type] = [
@@ -265,7 +263,6 @@ class AppServiceProvider extends ServiceProvider
                                 ];
 
                             }
-
                             $data["views"]["paths"] = $_paths;
                             if (isset($data["views"]["alias"])) {
                                 $data["views"]["alias"] = [$type => $data["views"]["alias"]];
@@ -280,7 +277,6 @@ class AppServiceProvider extends ServiceProvider
                                 }
                             }
                             if (isset($data["components"]["configs"])) {
-
                                 $components = $data["components"]["configs"];
                                 foreach ($components as $k => $value) {
                                     $data["components"]["configs"][$k] = $value;
@@ -358,6 +354,9 @@ class AppServiceProvider extends ServiceProvider
                             $routers["backend"]["plugin:" . $key] = $router;
                             if (isset($routers["backend"]["plugin:" . $key]["sub_prefix"])) {
                                 $routers["backend"]["plugin:" . $key]["sub_prefix"] = "/plugin" . $routers["backend"]["plugin:" . $key]["sub_prefix"];
+                            }
+                            if(!isset($routers["backend"]["plugin:" . $key]['module'])){
+                                $routers["backend"]["plugin:" . $key]['module']=["name"=>$plugin,"type"=>"plugin"];
                             }
                         }
                     }

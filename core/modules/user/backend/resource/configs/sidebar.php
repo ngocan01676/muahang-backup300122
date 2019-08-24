@@ -6,6 +6,7 @@ return [
             "pos" => 2,
             "url" => "",
             "header" => true,
+            "icon"=>"fa fa-users",
             "items" => [
                 [
                     "name" => z_language("List User"),

@@ -27,6 +27,7 @@ class Application extends App
     private $cache = false;
     public $time_start = 0;
 
+    public $key = "";
     public function __construct(?string $basePath = null)
     {
 
@@ -49,6 +50,7 @@ class Application extends App
         $this->_permissions->data = new \stdClass();
         $this->_permissions->data->aliases = [];
         $this->_permissions->data->data = [];
+
 
 
         parent::__construct($basePath);
@@ -157,5 +159,8 @@ class Application extends App
     {
         $data->cache = time();
         return $data;
+    }
+    public function getKey($name = ""){
+        return $this->key.$name;
     }
 }

@@ -77,7 +77,7 @@
                         <li{!! !empty($clazz)?" class='".$clazz."' ":"" !!}  {{$sub_bool_actvie?1:0}} >
                             @if(isset($items['items']))
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-circle-o"></i>
+                                    <i class="{{ isset($items['icon'])?$items['icon']:"fa fa-circle-o" }}"></i>
                                     <span>
                                                         {{ $items['name'] }}
                                                     </span>
@@ -106,7 +106,7 @@
                             {{--                    @yield('treeview'.$key)--}}
                             {{--@else--}}
                             <a href="javascript:void(0)">
-                                <i class="fa fa-dashboard"></i>
+                                <i class="{{ isset($sidebar['icon'])?$sidebar['icon']:"fa fa-th-large" }}"></i>
                                 <span>
                                         {{ $sidebar['name'] }}
                                     </span>
@@ -124,7 +124,7 @@
                                 <li class="{{$urlCurrentName == $sidebar['url'] || $urlCurrentNameTemp== $sidebar['url'] ?" active":""}}">
                                     <a name-router="{{$sidebar['url']}}"
                                        href="{{route($sidebar['url'])}}">
-                                        <i class="fa fa-dashboard"></i>
+                                        <i class="{{ isset($sidebar['icon'])?$sidebar['icon']:"fa fa-th-large" }}"></i>
                                         <span>
                                         {{ $sidebar['name'] }}
                                     </span>

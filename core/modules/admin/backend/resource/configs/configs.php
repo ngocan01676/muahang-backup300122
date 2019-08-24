@@ -20,12 +20,12 @@ return [
             'config' => [
                 'columns' => [
                     'lists' => [
-                        'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
-                        'name' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true],
-                        'type' => ['label' => z_language('Type', false), 'type' => 'type'],
+                        'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true,'order_by'=>true],
+                        'name' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true,'order_by'=>true],
+                        'type' => ['label' => z_language('Type', false), 'type' => 'type','order_by'=>true],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status'],
                         'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
-                        'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date']
+                        'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date','order_by'=>true]
                     ],
                 ],
                 'pagination' => [

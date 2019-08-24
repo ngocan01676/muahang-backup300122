@@ -36,7 +36,7 @@
             </div>
             <div class="box-body listMain">
                 <table class="table table-bordered">
-                    <tbody>
+                    <thead>
                     <tr>
                         <th width="3">#</th>
                         @foreach($data['config']['columns']['lists'] as $k=>$columns)
@@ -54,6 +54,8 @@
                             @endisset
                         @endforeach
                     </tr>
+                    </thead>
+                    <tbody>
                     @if(count($models)>0)
                         @foreach ($models as $k=>$model)
                             <tr class="list-row">

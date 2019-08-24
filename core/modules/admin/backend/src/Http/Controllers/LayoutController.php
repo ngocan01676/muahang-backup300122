@@ -54,7 +54,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             }
         }
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
-        $item = 1;
+        $item = 2;
         $models = DB::table('layout');
 
         if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
@@ -564,7 +564,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "info" => [],
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
-            "listsType" => array_merge($this->listsType, count($use) > 0 ? [$use['value'] => $use['label']] : [])
+            "listsType" => array_merge($this->listsType, $use)
         ]);
     }
 
@@ -595,7 +595,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "info" => $info,
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
-            "listsType" => array_merge($this->listsType, count($use) > 0 ? [$use['value'] => $use['label']] : [])
+            "listsType" => array_merge($this->listsType, $use)
         ]);
     }
 }

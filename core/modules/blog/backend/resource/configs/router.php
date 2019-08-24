@@ -28,6 +28,10 @@ return [
                 "controller" => "CategoryController",
                 "sub_prefix" => "/blog/category",
                 "guard" => "backend",
+                "module"=>[
+                    "name"=>"admin",
+                    "type"=>"module"
+                ],
                 "router" => [
                     "show" => [
                         "url" => "/",
@@ -40,6 +44,10 @@ return [
                 "controller" => "IndexController",
                 "sub_prefix" => "/blog/comment",
                 "guard" => "backend",
+                "module"=>[
+                    "name"=>"Comment",
+                    "type"=>"plugin"
+                ],
                 "router" => [
                     "list" => [
                         "url" => "/",
