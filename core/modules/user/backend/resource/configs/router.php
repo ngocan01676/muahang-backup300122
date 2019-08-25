@@ -31,9 +31,19 @@ return [
                 "namespace" => "User\Http\Controllers",
                 "controller" => "UserController",
                 "acl" => "user",
+                "sub_prefix" => "/user",
                 "router" => [
                     "list" => [
-                        "url" => "/user"
+                        "url" => "/"
+                    ],
+                    "create" => [
+                        "url" => "/create"
+                    ],
+                    "edit" => [
+                        "url" => "/edit/{id}"
+                    ],
+                    "delete" => [
+                        "url" => "/delete"
                     ],
                 ]
             ],

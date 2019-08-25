@@ -1,9 +1,12 @@
 <?php
+
 namespace Zoe;
-abstract class Module{
+abstract class Module
+{
     public $path = "";
     public static $name = "Admin";
     public static $description = "Admin module";
+
     public function __construct()
     {
         $this->Init();
@@ -12,21 +15,30 @@ abstract class Module{
         $this->GetResource("frontend");
     }
 
-    public abstract function  Init();
-    private function LoadModule(){
+    public abstract function Init();
+
+    private function LoadModule()
+    {
 
     }
-    public function FileConfig(){
-        return ["configs","router","sidebar","providers","component"];
+
+    public function FileConfig()
+    {
+        return ["configs", "router", "sidebar", "providers", "component", "language"];
     }
-    public function GetClassMap(){
+
+    public function GetClassMap()
+    {
         return [];
     }
-    public function Helper(){
+
+    public function Helper()
+    {
 
     }
 
-    public function GetResource($prefix){
+    public function GetResource($prefix)
+    {
 //        $_path = $this->path.'/'.$prefix."/resource/configs";
 //        $this->loadResource($_path."/configs.php");
 //        $this->loadResource($_path."/router.php");
@@ -34,10 +46,12 @@ abstract class Module{
 //        $this->loadResource($_path."/providers.php");
 //        $this->loadResource($_path."/component.php");
     }
-    public function loadResource($path){
-        if(file_exists($path)){
+
+    public function loadResource($path)
+    {
+        if (file_exists($path)) {
             $data = include $path;
-            if(is_array($data)){
+            if (is_array($data)) {
                 app()->getConfig()->add($data);
             }
         }

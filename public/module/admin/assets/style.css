@@ -186,15 +186,19 @@ body {
 .skin-black-light .sidebar-menu > li.active.treeview::after {
     top: 18px;
 }
+
 .sidebar-menu > li > a {
     padding: 8px 1px 8px 5px;
 }
-.treeview-menu{
+
+.treeview-menu {
     padding-left: 0px;
 }
-.treeview-menu>li>a{
+
+.treeview-menu > li > a {
     padding: 5px 5px 5px 8px;
 }
+
 .nav-tabs-custom > .nav-tabs > li.active {
     border-top-color: #0073aa;
 }
@@ -202,7 +206,8 @@ body {
 .listMain table a {
     color: #0073aa;
 }
-.listMain .table thead tr{
+
+.listMain .table thead tr {
     border-bottom-color: #c5c5c5;
     background-image: -moz-linear-gradient(top, #f7f7f7, #e3e4e6);
     background-image: -ms-linear-gradient(top, #f7f7f7, #e3e4e6);
@@ -213,6 +218,7 @@ body {
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e3e4e6', GradientType=0);
 }
+
 .listMain .row-title {
     font-size: 14px !important;
     font-weight: 600;
@@ -222,8 +228,11 @@ body {
     color: #ddd;
     font-size: 13px;
     padding: 2px 0 0;
-    position: relative;
-    left: -9999em;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: none;
+
 }
 
 .listMain .row-actions .trash a {
@@ -235,7 +244,7 @@ body {
 }
 
 .listMain .column-id {
-    width:6%;
+    width: 8%;
 }
 
 .listMain .column-text {
@@ -243,11 +252,15 @@ body {
 }
 
 .listMain .column-type {
-    width: 6%;
+    width: 10%;
+}
+
+.listMain .column-image {
+    width: 10%;
 }
 
 .listMain .column-status {
-    width: 3%;
+    width: 10%;
 }
 
 .listMain .table tbody > tr > td {
@@ -256,6 +269,28 @@ body {
 
 .listMain .table tbody > tr > td, .listMain .table tbody > tr > th {
     color: #32373c;
+}
+
+.listMain .table thead > tr > th.column-order_by {
+    position: relative;
+}
+
+.listMain .table thead > tr > th.column-order_by .fa {
+    /*position: absolute;*/
+    /*left: 0px;*/
+    /*top: 55%;*/
+    /*transform: translateY(-60%);*/
+}
+
+.listMain .table tbody tr td.column {
+    position: relative;
+}
+
+.listMain .table tbody tr td span.label-text {
+    /*top: 48%;*/
+    /*transform: translateY(-50%);*/
+    /*position: absolute;*/
+    /*display: inline-block;*/
 }
 
 .listMain .column-primary {
@@ -355,5 +390,23 @@ body {
 
     .listMain .column-primary .tool {
         display: block;
+    }
+
+    .listMain .row-actions {
+        position: relative;
+        display: none;
+    }
+
+    .listMain .table tbody tr td span.label-text {
+        position: relative;
+        transform: translateY(-0%);
+    }
+
+    .listMain .column-primary.column-id {
+        width: 15%;
+    }
+
+    .listMain .column-primary.column-text {
+        width: 25%;
     }
 }

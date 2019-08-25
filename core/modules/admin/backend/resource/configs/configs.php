@@ -15,17 +15,26 @@ return [
             "Admin\Providers\AppServiceProvider" => "Admin\Providers\AppServiceProvider"
         ]
     ],
+    'configs' => [
+        'system' => [
+            'view' => 'backend::configs.config',
+            'label' => z_language("System", false),
+            'data' => [
+
+            ]
+        ]
+    ],
     'options' => [
         'core:layout' => [
             'config' => [
                 'columns' => [
                     'lists' => [
-                        'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true,'order_by'=>true],
-                        'name' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true,'order_by'=>true],
-                        'type' => ['label' => z_language('Type', false), 'type' => 'type','order_by'=>true],
-                        'status' => ['label' => z_language('Status', false), 'type' => 'status'],
+                        'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
+                        'name' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha'],
+                        'type' => ['label' => z_language('Type', false), 'type' => 'type', 'order_by' => 'amount'],
+                        'status' => ['label' => z_language('Status', false), 'type' => 'status', 'order_by' => 'amount'],
                         'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
-                        'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date','order_by'=>true]
+                        'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date']
                     ],
                 ],
                 'pagination' => [
@@ -36,15 +45,23 @@ return [
                         'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:layout:delete", 'par' => ['id' => 'id']],
                     ]
                 ],
-                'filter' => [
-                    'search' => 'name',
-                    'status' => 'status'
-                ],
-                'conf' => [
-                    'header' => ['text' => 'center'],
-                    'body' => ['text' => 'center'],
-                ],
-                ''
+                'config' => [
+                    "type" => [
+                        'status' => [
+                            'label' => [
+                                '1' => z_language('Public', false),
+                                '0' => z_language('UnPublic', false),
+                            ],
+                            'type' => [
+                                'name' => 'label',
+                                'color' => [
+                                    '1' => 'primary',
+                                    '0' => 'danger'
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
             ],
             'data' => [
                 'pagination' => ['item' => 20],
@@ -74,14 +91,23 @@ return [
                         'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:page:delete", 'par' => ['id' => 'id']],
                     ]
                 ],
-                'filter' => [
-                    'search' => 'title',
-                    'status' => 'status'
-                ],
-                'conf' => [
-                    'header' => ['text' => 'center'],
-                    'body' => ['text' => 'center'],
-                ],
+                'config' => [
+                    "type" => [
+                        'status' => [
+                            'label' => [
+                                '1' => z_language('Public', false),
+                                '0' => z_language('UnPublic', false),
+                            ],
+                            'type' => [
+                                'name' => 'label',
+                                'color' => [
+                                    '1' => 'primary',
+                                    '0' => 'danger'
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
             ],
             'data' => [
                 'pagination' => ['item' => 20],

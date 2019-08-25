@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
-use PragmaRX\Countries\Update\Config;
 
 class LayoutController extends \Zoe\Http\ControllerBackend
 {
@@ -15,7 +14,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     public function getCrumb()
     {
-        $this->breadcrumb("Layout", route('backend:layout:list'));
+        $this->breadcrumb(z_language("Layout"), route('backend:layout:list'));
         return $this;
     }
 
@@ -31,13 +30,13 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $data = $request->query();
 
         $page = null;
-        if (isset($data['form'])) {
-            $parameter = $data['form'];
+        if (isset($data['action'])) {
+            //$parameter = $data['form'];
             $page = 1;
         } else {
-            $parameter = $data;
+            //$parameter = $data;
         }
-
+        $parameter = $data;
 
         $type = isset($request->route()->defaults['type']) ? $request->route()->defaults['type'] : '';
 
@@ -54,7 +53,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             }
         }
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
-        $item = 2;
+        $item = 1;
         $models = DB::table('layout');
 
         if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
@@ -67,7 +66,20 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
-        $models->orderBy('id', 'desc');
+        if (!isset($parameter['order_by'])) {
+            $parameter['order_by']['col'] = 'id';
+            $parameter['order_by']['type'] = 'desc';
+        } else {
+            if (isset($parameter['action'])) {
+                $parameter['order_by']['type'] = isset($parameter['order_by']['type']) && $parameter['order_by']['type'] == "desc" ? "asc" : "desc";
+
+            }
+        }
+        if (isset($parameter['action'])) {
+            unset($parameter['action']);
+        }
+        $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
+
         $models = $models->paginate($item, ['*'], 'page', $page);
         $models->appends($parameter);
 
@@ -76,7 +88,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             'models' => $models,
             "listsType" => $listsType,
             "use" => $use,
-            "route" => $route
+            "route" => $route,
+            'parameter' => $parameter
         ]);
     }
 

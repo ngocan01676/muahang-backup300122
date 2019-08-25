@@ -33,10 +33,10 @@ return [
         "status" => false
     ],
     'language' => [
-        'en' => ['flag' => 'gb', 'lang' => 'en'],
-        'vi' => ['flag' => 'vn', 'lang' => 'vi'],
-        'jp' => ['flag' => 'jp', 'lang' => 'jp'],
-        'cn' => ['flag' => 'cn', 'lang' => 'cn'],
+        'en_us' => ['flag' => 'gb', 'lang' => 'en-US', 'label' => 'English (United States)'],
+        'vi' => ['flag' => 'vn', 'lang' => 'vi', 'label' => 'Viet Nam'],
+        'ja' => ['flag' => 'jp', 'lang' => 'ja', 'label' => 'Japanese'],
+        'zh_cn' => ['flag' => 'cn', 'lang' => 'zh-cn', 'label' => 'Chinese (PRC)'],
     ],
     'language_data' => include base_path('tmp/lang.php')
 ];

@@ -34,6 +34,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
     public function ajaxFormSave(Request $request)
     {
         $items = $request->all();
+
         $this->table()
             ->updateOrInsert(
                 [
@@ -42,32 +43,34 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                 ],
                 ['data' => serialize($items)]);
 
-        if(isset($items['lang'])){
+        if (isset($items['lang'])) {
             $data = [];
             foreach ($items['lang'] as $lang => $item) {
                 foreach ($item as $_item) {
-                    if(!isset( $data[$lang])){
+
+                    if (!isset($data[$lang])) {
                         $data[$lang] = [];
                     }
                     $v = $_item['value'];
-                    $data[$lang][$_item['name']] = $v;
+                    $k = $_item['name'];
+                    $data[$lang][$k] = $v;
                 }
 
             }
+            echo json_encode($data);
             Cache::forever("language:data", $data);
         }
     }
 
     public function list()
     {
+
+
         $results = $this->getDirContents(base_path('core'), '/\.php$/', $results);
         $language_data = config('zoe.language_data');
         $file = new \Illuminate\Filesystem\Filesystem();
         $array = [
-            "core"=>[
-                "list" => [],
-                "label" => z_language("Core")
-            ]
+
         ];
 
         foreach ($results as $_file) {
@@ -76,8 +79,6 @@ class LanguageController extends \Zoe\Http\ControllerBackend
             $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
 
             preg_match_all('/z_language\((.*?)\)/', $string_blade, $match);
-
-
 
 
             if (isset($match[1])) {
@@ -91,62 +92,63 @@ class LanguageController extends \Zoe\Http\ControllerBackend
 
                     $key_val = trim($keywords[0], '"\'');
                     $key_val = trim($key_val);
-                    if(substr($key_val, 0, 1) == "$"){
+                    if (substr($key_val, 0, 1) == "$") {
                         continue;
                     }
-                    $key = md5($keywords[0]);
+                    $key = md5($key_val);
                     $value = [
                         "value" => "",
                         "path" => $sub_path,
                         "name" => $key_val
                     ];
-                    if ($sub_path[1] == "modules") {
-                        if (!isset($array["modules"])) {
-                            $array["modules"]['frontend'] = [
-                                "list" => [],
-                                "label" => z_language("Modules")
-                            ];
-                            $array["modules"]['backend'] = [
-                                "list" => [],
-                                "label" => z_language("Modules")
-                            ];
-                        }
-                        if ($sub_path[3] == "backend") {
-                            $array["modules"]['backend']["list"][md5("m_backend_".$key)] = $value;
-                        } else if ($sub_path[3] == "frontend") {
-                            $array["modules"]['frontend']["list"][md5("m_frontend_".$key)] = $value;
-                        }else{
-                            $array["core"]["list"][md5("core_".$key)] = $value;
-                        }
-                    } else if ($sub_path[1] == "plugins") {
-                        if (!isset($array["plugins"])) {
-                            $array["plugins"] = [
-                                "list" => [],
-                                "label" => z_language("Plugins")
-                            ];
-                        }
-                        $array["plugins"]["list"][md5("plugins_".$key)] = $value;
-                    } else if ($sub_path[1] == "themes") {
-                        if (!isset($array["themes"])) {
-                            $array["themes"]['frontend'] = [
-                                "list" => [],
-                                "label" => z_language("Themes")
-                            ];
-                            $array["themes"]['backend'] = [
-                                "list" => [],
-                                "label" => z_language("Themes")
-                            ];
-                        }
-                        if ($sub_path[3] == "backend") {
-                            $array["themes"]['backend']["list"][md5("t_backend_".$key)] = $value;
-                        } else if ($sub_path[3] == "frontend") {
-                            $array["themes"]['frontend']["list"][md5("t_frontend_".$key)] = $value;
-                        }else{
-                            $array["core"]["list"][md5("core_".$key)] = $value;
-                        }
-                    }else{
-                        $array["core"]["list"][md5("core_".$key)] = $value;
-                    }
+                    $array[md5($key)] = $value;
+//                    if ($sub_path[1] == "modules") {
+//                        if (!isset($array["modules"])) {
+//                            $array["modules"]['frontend'] = [
+//                                "list" => [],
+//                                "label" => z_language("Modules")
+//                            ];
+//                            $array["modules"]['backend'] = [
+//                                "list" => [],
+//                                "label" => z_language("Modules")
+//                            ];
+//                        }
+//                        if ($sub_path[3] == "backend") {
+//                            $array["modules"]['backend']["list"][md5("m_backend_" . $key)] = $value;
+//                        } else if ($sub_path[3] == "frontend") {
+//                            $array["modules"]['frontend']["list"][md5("m_frontend_" . $key)] = $value;
+//                        } else {
+//                            $array["core"]["list"][md5("core_" . $key)] = $value;
+//                        }
+//                    } else if ($sub_path[1] == "plugins") {
+//                        if (!isset($array["plugins"])) {
+//                            $array["plugins"] = [
+//                                "list" => [],
+//                                "label" => z_language("Plugins")
+//                            ];
+//                        }
+//                        $array["plugins"]["list"][md5("plugins_" . $key)] = $value;
+//                    } else if ($sub_path[1] == "themes") {
+//                        if (!isset($array["themes"])) {
+//                            $array["themes"]['frontend'] = [
+//                                "list" => [],
+//                                "label" => z_language("Themes")
+//                            ];
+//                            $array["themes"]['backend'] = [
+//                                "list" => [],
+//                                "label" => z_language("Themes")
+//                            ];
+//                        }
+//                        if ($sub_path[3] == "backend") {
+//                            $array["themes"]['backend']["list"][md5("t_backend_" . $key)] = $value;
+//                        } else if ($sub_path[3] == "frontend") {
+//                            $array["themes"]['frontend']["list"][md5("t_frontend_" . $key)] = $value;
+//                        } else {
+//                            $array["core"]["list"][md5("core_" . $key)] = $value;
+//                        }
+//                    } else {
+//                        $array["core"]["list"][md5("core_" . $key)] = $value;
+//                    }
                 }
             }
         }

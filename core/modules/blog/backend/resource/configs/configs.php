@@ -5,7 +5,7 @@ return [
         'alias' => [
             'blog.post.create' => 'blog::controller.post.create',
             'blog.post.edit' => 'blog::controller.post.edit',
-            'pluginComment:index.list'=>'pluginComment::controller.index.list'
+            'pluginComment:index.list' => 'pluginComment::controller.index.list'
         ],
     ],
     'packages' => [
@@ -27,5 +27,17 @@ return [
                 'breadcrumb' => ['name' => 'Blog', 'route' => 'backend:blog:post:list']
             ]
         ],
+    ],
+    'configs' => [
+        'blog' => [
+            'view' => ['post' => [
+                'view' => 'blog::configs.post', 'label' => z_language('Post')],
+//                'category' => ['view' => 'blog::configs.post', 'label' => z_language('Category')]
+            ],
+            'label' => z_language("Blog", false),
+            'data' => [
+
+            ]
+        ]
     ],
 ];

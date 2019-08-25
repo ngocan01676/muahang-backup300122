@@ -151,6 +151,21 @@ return [
                     ],
                 ]
             ],
+            'config' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "ConfigController",
+                "sub_prefix" => "/config",
+                "guard" => "backend",
+                "router" => [
+
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "ajax" => [
+                        "url" => "/ajax", "method" => ['post'],
+                    ],
+                ]
+            ],
         ]
     ]
 ];

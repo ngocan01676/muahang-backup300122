@@ -1,1 +1,18 @@
-{amount=20000, cardSerial=10003751710003, cardCode=718165674345056, id=10000500143, uuid=9d7d6381-c6ac-40e7-9391-727e788d1c39, url=http://thanhtoan.sjsway.com/api/izisoft-verify-card?cardCode=718165674345056&cardSerial=10003751710003&status=1&amount=20000&id=10000500143&uuid=9d7d6381-c6ac-40e7-9391-727e788d1c39, status=1}
+<div class="col-md-3">--}}
+                                {{--<ul class="nav nav-pills nav-stacked">--}}
+                                {{--@foreach($list['view'] as $_key=>$view)--}}
+                                {{--<li><a href="#tab_{!! $key !!}_{!! $_key !!}"--}}
+                                {{--data-toggle="tab">{!! $view['label'] !!}</a></li>--}}
+                                {{--@endforeach--}}
+                                {{--</ul>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-9">--}}
+                                {{--<div class="tab-content clearfix">--}}
+                                {{--@foreach($list['view'] as $view)--}}
+                                {{--<div class="tab-pane active clearfix"--}}
+                                {{--id="tab_{!! $key !!}_{!! $_key !!}">--}}
+                                {{--@include($view['view'],['config'=>$_config,'key'=>$key])--}}
+                                {{--</div>--}}
+                                {{--@endforeach--}}
+                                {{--</div>--}}
+                                {{--</div>

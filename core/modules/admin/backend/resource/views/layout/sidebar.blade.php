@@ -32,7 +32,6 @@
                     @php
                         $sub_bool_actvie = false;
                     @endphp
-
                     @if(isset($items['items']))
             @section('treeview'.$key."_".$_key)
                 @foreach ($items['items'] as $__key=>$_items)
@@ -49,7 +48,7 @@
                     <li{!! !empty($clazz)?" class='".$clazz."' ":"" !!} jj>
                         <a href="{{route::has($_items['url'])?route($_items['url']):"#"}}">
                             {{--<i class="fa fa-circle-o"></i>--}}
-                            + <span>{{$_items["name"]}}</span>
+                            + <span>{{ z_language($_items["name"]) }}</span>
                         </a>
                         </li>
                         @endforeach
@@ -91,7 +90,7 @@
                             @else
                                 <a href="{{route::has($items['url'])?route($items['url']):"#"}}">
                                     <i class="fa fa-circle-o"></i>
-                                    <span>{{$items["name"]}}</span>
+                                    <span>{{ z_language($items["name"]) }}</span>
                                 </a>
                             @endif
                         </li>
@@ -108,7 +107,7 @@
                             <a href="javascript:void(0)">
                                 <i class="{{ isset($sidebar['icon'])?$sidebar['icon']:"fa fa-th-large" }}"></i>
                                 <span>
-                                        {{ $sidebar['name'] }}
+                                        {{ z_language($sidebar['name']) }}
                                     </span>
                                 <span class="pull-right-container">
                                       <i class="fa fa-angle-left pull-right"></i>
@@ -126,7 +125,7 @@
                                        href="{{route($sidebar['url'])}}">
                                         <i class="{{ isset($sidebar['icon'])?$sidebar['icon']:"fa fa-th-large" }}"></i>
                                         <span>
-                                        {{ $sidebar['name'] }}
+                                        {{ z_language($sidebar['name']) }}
                                     </span>
                                     </a>
                                 </li>

@@ -6,126 +6,143 @@
     </h1>
 @endsection
 @section('content')
+    <div class="box box box-zoe">
 
-    <form action="" id="formAction">
-        <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-                @php $active = "modules"; @endphp
-                @foreach($lists as $key=>$value)
-                    <li {!!$active == $key?'class="active"':'' !!}><a name="config" data-toggle="tab"
-                                                                      href="#tab_{!! $key !!}">{!! @z_language([":name",["name"=>$key]]) !!}</a>
-                @endforeach
-            </ul>
-            <div class="tab-content">
+        <div class="box-header clearfix">
+
+            <div class="input-group input-group-sm">
+
+                <input type="text" name="search" class="search-value form-control pull-right"
+                       value="{{old('search')}}"
+                       placeholder="Text">
+                <div class="input-group-btn">
+                    <button type="button" id="BtnSearch" class="btn btn-default"><i
+                                class="fa fa-search"></i></button>
+                </div>
+            </div>
+
+        </div>
+        <div class="box-body clearfix">
+            <form action="" id="formAction">
 
                 @php $languages = config('zoe.language');
-                    $i = 0; $maxPage = 15;
+                    $i = 0; $maxPage = 10;
+                    $lang_default = "en_us";
+                            $config = app()->getConfig();
+                    $langStatic = app()->getConfig()->languages;
+
                 @endphp
-                @foreach($lists as $key=>$values)
-                    <div id="tab_{!! $key !!}" class="tab-pane{!!$active == $key?' active':'' !!}">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="text-center" width="250px"><span
+                                    class="flag-icon flag-icon-{{$languages[$lang_default]['flag']}}"></span>
+                        </th>
 
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th class="text-center" width="250px">{!! @z_language(["Key"]) !!}</th>
+                        @foreach ($languages as $lang=>$language)
+                            @continue($lang == $lang_default)
+                            <th class="text-center"><span
+                                        class="flag-icon flag-icon-{{$language['flag']}}"></span></th>
+                        @endforeach
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                                @foreach ($languages as $language)
-
-                                    <th class="text-center"><span
-                                                class="flag-icon flag-icon-{{$language['flag']}}"></span></th>
-                                @endforeach
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @if($key == "plugins" || $key == "core")
-                                @foreach($values['list'] as $key=>$_value)
-                                    <tr style="{{$i++<$maxPage?"":'display: none'}}">
-                                        <td class="text-center"> {!! $_value['name'] !!} </td>
-
-                                        @foreach ($languages as $language)
-                                            <td class="text-center"><a href="#" class="lang"
-                                                                       data-lang="{{$language["lang"]}}"
-                                                                       data-id="{!! $key !!}"
-                                                                       data-title="{!! @z_language(["Please enter at least 1 character"]) !!}"></a>
-
-                                                <input type="hidden"
-                                                       name="lang[{!! $language["lang"] !!}][{!! $key !!}].name"
-                                                       value="{!! $_value['name'] !!}">
-                                                <input type="hidden" class="val"
-                                                       name="lang[{!! $language["lang"] !!}][{!! $key !!}].value"
-                                                       value="{!! $_value['value'] !!}">
-                                            </td>
-                                        @endforeach
-                                    </tr>
-                                @endforeach
-                            @else
-                                @foreach($values as $value)
-
-                                    @foreach($value['list'] as $key=>$_value)
-                                        <tr style="{{$i++<$maxPage?"":'display: none'}}">
-                                            <td class="text-center"> {!! $_value['name'] !!} </td>
-                                            @foreach ($languages as $language)
-                                                <td class="text-center">
-                                                    <a href="#" class="lang"
-                                                       data-title="{!! @z_language(["Please enter at least 1 character"]) !!}"></a>
-                                                    <input type="hidden"
-                                                           name="lang[{!! $language["lang"] !!}][{!! $key !!}].name"
-                                                           value="{!! $_value['name'] !!}">
-                                                    <input type="hidden" class="val"
-                                                           name="lang[{!! $language["lang"] !!}][{!! $key !!}].value"
-                                                           value="{!! $_value['value'] !!}">
-                                                </td>
-                                            @endforeach
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                            @endif
-                            </tbody>
-
-                        </table>
-                        <div class="panel-footer"></div>
-                    </div>
-                @endforeach
-
-            </div>
+                    @foreach($lists as $key=>$values)
+                        @php isset($langStatic[$values['name']][$language["lang"]])?$langStatic[$values['name']][$language["lang"]]:"";  @endphp
+                        <tr class="row-lang" style="{{$i++<$maxPage?"":'display: none'}}"
+                            data-name="{!! $values['name'] !!}">
+                            <td data-path="{!! implode('-',$values['path']) !!}"
+                                class="text-center"> {!! $values['name'] !!} </td>
+                            @foreach ($languages as $lang=>$language)
+                                @continue($lang == $lang_default)
+                                @php
+                                    $langValue =  isset($data['lang'][$language["lang"]][$key]["value"]) && !empty($data['lang'][$language["lang"]][$key]["value"])?$data['lang'][$language["lang"]][$key]["value"]:(isset($langStatic[$values['name']][$language["lang"]])?$langStatic[$values['name']][$language["lang"]]:"");
+                                @endphp
+                                <td class="text-center">
+                                    <a href="#" class="lang"
+                                       data-title="{!! @z_language(["Please enter at least 1 character"]) !!}">{!! $langValue !!}</a>
+                                    <input type="hidden"
+                                           name="lang[{!! $language["lang"] !!}][{!! $key !!}].name"
+                                           value="{!! $values['name'] !!}">
+                                    <input type="hidden" class="val"
+                                           name="lang[{!! $language["lang"] !!}][{!! $key !!}].value"
+                                           value="{!! $langValue !!}">
+                                </td>
+                            @endforeach
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                <div class="panel-footer"></div>
+            </form>
         </div>
-    </form>
+    </div>
+
 @endsection
 @push('scripts')
     <script src="{{asset('module/admin/assets/zoe.jquery.inputs.js')}}"></script>
     <script src="{{asset('module/admin/assets/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
     <script src="{{asset('module/admin/assets/paginate-large-list-paging/paginathing.min.js')}}"></script>
     <script>
-        $("#formAction").zoe_inputs("set", @json($data));
+        //        $("#formAction").zoe_inputs("set", @json($data));
+        $("#BtnSearch").click(function () {
+            console.log(1);
+            var val = $('.search-value').val();
+            console.log(val);
+            $("#formAction .row-lang").each(function () {
+                var data = $(this).data();
+
+                if (data.name.indexOf(val) !== -1) {
+                    console.log(data.name);
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
 
         function InitEditable(obj) {
             obj.each(function () {
-                console.log('1');
-                $(this).html($(this).parent().find('input.val').val());
+//                $(this).html($(this).parent().find('input.val').val());
                 $(this).editable({}).on('save', function (e, params) {
-                    console.log('Saved value: ' + params.newValue);
-                    console.log(e.target);
                     $(e.target).parent().find('input.val').val(params.newValue);
                 });
             });
         }
 
         $(document).ready(function () {
-            InitEditable($('#tab_modules .lang'));
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                var target = $(e.target).attr("href");
-                InitEditable($(target).find('.lang:not(.editable)'));
+            InitEditable($('#formAction  tr .lang'));
+
+
+//            var $table = $('#formAction .table');
+//            var $rows = $('tbody > tr', $table);
+//            $rows.sort(function (a, b) {
+//                var keyA = $(a).data('name');
+//                var keyB = $(b).data('name');
+//                return (keyA > keyB) ? 1 : 0;
+//            });
+//            $.each($rows, function (index, row) {
+//                $table.append(row);
+//            });
+
+
+//            $('#formAction tbody .row-lang').sort(function (a, b) {
+//                return $(a).data('name') < $(b).data('name');
+//            }).appendTo('#formAction tbody');
+
+            $("#formAction table tbody").paginathing({
+                perPage: '{!! $maxPage !!}',
+                insertAfter: "#formAction .panel-footer",
+                ulClass: 'pagination pagination-sm',
+                firstText: "{!! z_language('First') !!}", // "First button" text
+                lastText: "{!! z_language('Last') !!}", // "Last button" text
             });
-            @foreach($lists as $key=>$values)
-                $("#tab_{!! $key !!} table tbody").paginathing({
-                    perPage:'{!! $maxPage !!}',
-                    insertAfter:"#tab_{!! $key !!} .panel-footer",
-                    ulClass: 'pagination pagination-sm',
-                    firstText: "{!! z_language('First') !!}", // "First button" text
-                    lastText: "{!! z_language('Last') !!}", // "Last button" text
-                });
-            @endforeach
+            $("#formAction").on('click', '.page a', function () {
+                console.log(1);
+            });
         });
+
         function Save() {
             var data = $("#formAction").zoe_inputs("get");
             $('#formAction').loading({circles: 3, overlay: true, width: "5em", top: "35%", left: "50%"});

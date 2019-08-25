@@ -21,8 +21,6 @@ class Controller extends BaseController
     {
         $this->asset = app()->make('asset-manager');
         $this->breadcrumb = new \stdClass();
-        $this->breadcrumb->home = ['name' => z_language('Home'), 'uri' => route('backend:dashboard:list')];
-        $this->breadcrumb->child = new Config();
         $this->init();
     }
     public function init(){

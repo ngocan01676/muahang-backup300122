@@ -2,11 +2,11 @@
 return [
     "sidebars" => [
         "user" => [
-            "name" => z_language('User'),
+            "name" => z_language('Users'),
             "pos" => 2,
             "url" => "",
             "header" => true,
-            "icon"=>"fa fa-users",
+            "icon" => "fa fa-users",
             "items" => [
                 [
                     "name" => z_language("List User"),

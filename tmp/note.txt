@@ -6,3 +6,6 @@ https://www.jqueryscript.net/form/jQuery-Plugin-For-Online-Drag-Drop-Form-Builde
 https://www.jqueryscript.net/demo/Responsive-Pinterest-style-Layout-Plugin-Bootstrap-waterfall/
 
 https://dimsemenov.com/plugins/magnific-popup/
+
+
+http://www.bestjquery.com/2016/02/mobility-framework-for-developing-mobile-applications/
