@@ -13,7 +13,7 @@ return [
 //                ]
 //            ]
 //        ],
-        "plugin" => [
+        "plugin:item" => [
             "items" => [
 
                 "plugin:mega-menu" => [

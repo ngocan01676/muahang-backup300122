@@ -4,9 +4,10 @@ namespace Zoe;
 abstract class Module
 {
     public $path = "";
-    public static $name = "Admin";
-    public static $description = "Admin module";
-
+    public static $name = "";
+    public static $description = "";
+    public static $version = "1.0.0";
+    public static $author = "Manh Trung";
     public function __construct()
     {
         $this->Init();
@@ -55,5 +56,11 @@ abstract class Module
                 app()->getConfig()->add($data);
             }
         }
+    }
+    public function install(){
+        return false;
+    }
+    public function uninstall(){
+        return false;
     }
 }

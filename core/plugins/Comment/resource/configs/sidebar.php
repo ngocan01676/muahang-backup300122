@@ -2,7 +2,7 @@
 
 return [
     "sidebars" => [
-        "plugin" => [
+        "plugin:item" => [
             "items" => [
                 "comment" => [
                     "name" => z_language("Comment"),

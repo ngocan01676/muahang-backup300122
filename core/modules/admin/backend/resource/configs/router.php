@@ -166,6 +166,34 @@ return [
                     ],
                 ]
             ],
+            'plugin' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "PluginController",
+                "sub_prefix" => "/plugin",
+                "guard" => "backend",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "ajax" => [
+                        "url" => "/ajax", "method" => ['post'],
+                    ],
+                ]
+            ],
+            'module' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "ModuleController",
+                "sub_prefix" => "/module",
+                "guard" => "backend",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "ajax" => [
+                        "url" => "/ajax", "method" => ['post'],
+                    ],
+                ]
+            ],
         ]
     ]
 ];

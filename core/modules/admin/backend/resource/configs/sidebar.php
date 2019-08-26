@@ -26,7 +26,14 @@ return [
             "icon" => "fa fa-file-text"
         ],
         "plugin" => [
-            "name" => z_language('Plugin', false),
+            "name" => z_language('Plugins', false),
+            "pos" => 2,
+            "url" => "backend:plugin:list",
+            "header" => true,
+
+        ],
+        "plugin:item" => [
+            "name" => z_language('Plugins', false),
             "pos" => 2,
             "url" => "",
             "header" => true,
