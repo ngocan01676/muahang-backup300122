@@ -27,6 +27,26 @@ return [
                     ],
                 ]
             ],
+            'member' => [
+                "namespace" => "User\Http\Controllers",
+                "controller" => "MemberController",
+                "acl" => "user",
+                "sub_prefix" => "/member",
+                "router" => [
+                    "list" => [
+                        "url" => "/"
+                    ],
+                    "create" => [
+                        "url" => "/create"
+                    ],
+                    "edit" => [
+                        "url" => "/edit/{id}"
+                    ],
+                    "delete" => [
+                        "url" => "/delete"
+                    ],
+                ]
+            ],
             'user' => [
                 "namespace" => "User\Http\Controllers",
                 "controller" => "UserController",

@@ -71,7 +71,7 @@ return [
     'configs' => [
         'user' => [
             'view' => 'user::configs.config',
-            'label' => z_language("Users", false),
+            'label' => z_language("Members", false),
             'data' => [
 
             ]

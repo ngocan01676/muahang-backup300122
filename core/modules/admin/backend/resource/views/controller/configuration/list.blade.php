@@ -1,6 +1,6 @@
 @section('content-header')
     <h1>
-        {!! @z_language(["Manager Config"]) !!}
+        {!! @z_language(["Manager Configuration"]) !!}
         {{--<small>it all starts here</small>--}}
         <button type="button" onclick="Save()" class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
     </h1>
@@ -273,7 +273,7 @@
             form.loading({circles: 3, overlay: true, width: "5em", top: "35%", left: "50%"});
             $.ajax({
                 type: 'POST',
-                url: '{!! route('backend:config:ajax') !!}',
+                url: '{!! route('backend:configuration:ajax') !!}',
                 data: {
                     data: data,
                     key: form.data('key')

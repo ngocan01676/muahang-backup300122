@@ -518,6 +518,14 @@
             </div>
         </td>
     </tr>
+    <tr>
+        <th><label for="site_meta_description" class="control-label">Google site verification</label></th>
+        <td>
+            <div class="col-xs-12">
+                <input type="text" id="site_meta_keywords" class="form-control" name="core.google_site_verification">
+            </div>
+        </td>
+    </tr>
     </tbody>
 </table>
 

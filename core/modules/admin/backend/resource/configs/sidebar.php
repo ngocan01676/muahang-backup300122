@@ -25,10 +25,24 @@ return [
             "url" => "backend:page:list",
             "icon" => "fa fa-file-text"
         ],
+        "component" => [
+            "name" => z_language('Component', false),
+            "pos" => 2,
+            "url" => "backend:component:list",
+            "header" => true,
+
+        ],
         "plugin" => [
             "name" => z_language('Plugins', false),
             "pos" => 2,
             "url" => "backend:plugin:list",
+            "header" => true,
+
+        ],
+        "module" => [
+            "name" => z_language('Modules', false),
+            "pos" => 2,
+            "url" => "backend:module:list",
             "header" => true,
 
         ],
@@ -41,18 +55,11 @@ return [
 
             ]
         ],
-        "config" => [
-            "name" => z_language(' Configuration', false),
+        "configuration" => [
+            "name" => z_language('Configuration', false),
             "pos" => 2,
-            "url" => "",
-            "header" => true,
-            "items" => [
-                'system' => [
-                    "name" => z_language('Settings', false),
-                    "pos" => 2,
-                    "url" => "backend:config:list",
-                ]
-            ]
+            "url" => "backend:configuration:list",
+            "header" => true
         ]
 //        "page"=>[
 //            "name"=>"Page",

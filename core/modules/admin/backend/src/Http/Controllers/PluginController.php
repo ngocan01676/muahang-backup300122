@@ -23,41 +23,56 @@ class PluginController extends \Zoe\Http\ControllerBackend
         }
         return $results;
     }
+
     public function getCrumb()
     {
         $this->breadcrumb(z_language("Plugin"), route('backend:plugin:list'));
         return $this;
     }
-    private function CreatePluginObject($plugin){
+
+    private function CreatePluginObject($plugin)
+    {
         $config_zoe = config('zoe');
-        $relativePath = base_path($config_zoe['structure']['plugin']).DIRECTORY_SEPARATOR.$plugin;
+        $relativePath = base_path($config_zoe['structure']['plugin']) . DIRECTORY_SEPARATOR . $plugin;
         require_once $relativePath . '/Plugin.php';
         $class = '\\' . $plugin . '\\Plugin';
-        return  new $class();
+        return new $class();
     }
+
     public function ajax(Request $request)
     {
-        $data  = $request->all();
-        $response = ["status"=>false];
-        if(isset($data["act"])){
-            switch ($data["act"]){
+        $data = $request->all();
+        $response = ["status" => false];
+        if (isset($data["act"])) {
+            switch ($data["act"]) {
                 case "install":
-                    $plugin = $data['plugin'];
-                    $object = $this->CreatePluginObject($data['plugin']);
-                    $response['status'] = $object->install(function () use ($plugin){
-                        $plugins = config_get('plugin',"lists");
+                    try {
+                        DB::beginTransaction();
+                        $plugin = $data['plugin'];
+                        $object = $this->CreatePluginObject($data['plugin']);
+                        $response['status'] = $object->install();
+                        $plugins = config_get('plugin', "lists");
                         $plugins[$plugin] = time();
-                        config_set('plugin',"lists",['data'=>$plugins]);
-                    });
+                        config_set('plugin', "lists", ['data' => $plugins]);
+                        DB::commit();
+                    } catch (\Exception $ex) {
+                        $response['status'] = $ex->getMessage();
+                        DB::rollBack();
+                    }
                     break;
                 case "uninstall":
-                    $plugin = $data['plugin'];
-                    $object = $this->CreatePluginObject($data['plugin']);
-                    $response['status'] = $object->uninstall(function () use ($plugin){
-                        $plugins = config_get('plugin',"lists");
-                        unset( $plugins[$plugin] );
-                        config_set('plugin',"lists",['data'=>$plugins]);
-                    });
+                    try {
+                        $plugin = $data['plugin'];
+                        $object = $this->CreatePluginObject($data['plugin']);
+                        $response['status'] = $object->uninstall();
+                        $plugins = config_get('plugin', "lists");
+                        unset($plugins[$plugin]);
+                        config_set('plugin', "lists", ['data' => $plugins]);
+                        DB::commit();
+                    } catch (\Exception $ex) {
+                        $response['status'] = $ex->getMessage();
+                        DB::rollBack();
+                    }
                     break;
                 case "remove":
 
@@ -66,6 +81,7 @@ class PluginController extends \Zoe\Http\ControllerBackend
         }
         return response()->json($response);
     }
+
     public function list()
     {
 
@@ -74,25 +90,25 @@ class PluginController extends \Zoe\Http\ControllerBackend
         $lists_folder = scandir($relativePath);
         $array = [];
 
-        foreach ($lists_folder as $plugin){
-            if($plugin=="." || $plugin==".."){
+        foreach ($lists_folder as $plugin) {
+            if ($plugin == "." || $plugin == "..") {
                 continue;
             }
-            if(file_exists($relativePath.DIRECTORY_SEPARATOR.$plugin.DIRECTORY_SEPARATOR."Plugin.php")){
+            if (file_exists($relativePath . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "Plugin.php")) {
                 $class = '\\' . $plugin . '\\Plugin';
-                if(!class_exists($class)){
-                    require_once $relativePath.DIRECTORY_SEPARATOR.$plugin.DIRECTORY_SEPARATOR."Plugin.php";
+                if (!class_exists($class)) {
+                    require_once $relativePath . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "Plugin.php";
                 }
-                $array[$plugin] =[
-                    "name"=>$class::$name?$class::$name:$plugin,
-                    "description"=>$class::$description?$class::$description:$plugin,
-                    "version"=>$class::$version,
-                    "author"=>$class::$author,
+                $array[$plugin] = [
+                    "name" => $class::$name ? $class::$name : $plugin,
+                    "description" => $class::$description ? $class::$description : $plugin,
+                    "version" => $class::$version,
+                    "author" => $class::$author,
                 ];
             }
         }
         $this->data['lists'] = $array;
-        $this->data['lists_install'] =  config_get('plugin',"lists");;
+        $this->data['lists_install'] = config_get('plugin', "lists");;
         return $this->render('plugin.list');
     }
 }

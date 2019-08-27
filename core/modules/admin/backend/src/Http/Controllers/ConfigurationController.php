@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class ConfigController extends \Zoe\Http\ControllerBackend
+class ConfigurationController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Config"), route('backend:config:list'));
+        $this->breadcrumb(z_language("Configuration"), route('backend:configuration:list'));
         return $this;
     }
 
@@ -26,6 +26,6 @@ class ConfigController extends \Zoe\Http\ControllerBackend
     {
         $this->data['lists'] = app()->getConfig()->configs;
         $this->data['active'] = 'system';
-        return $this->render('config.list');
+        return $this->render('configuration.list');
     }
 }

@@ -8,6 +8,7 @@ abstract class Module
     public static $description = "";
     public static $version = "1.0.0";
     public static $author = "Manh Trung";
+
     public function __construct()
     {
         $this->Init();
@@ -57,12 +58,16 @@ abstract class Module
             }
         }
     }
-    public function install($func = null,$data = []){
-        if(is_callable($func)) call_user_func($func);
+
+    public function install()
+    {
+
         return true;
     }
-    public function uninstall($func = null,$data = []){
-        if(is_callable($func)) call_user_func($func);
+
+    public function uninstall()
+    {
+
         return true;
     }
 }

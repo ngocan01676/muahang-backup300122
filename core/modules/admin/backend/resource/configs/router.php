@@ -151,10 +151,10 @@ return [
                     ],
                 ]
             ],
-            'config' => [
+            'configuration' => [
                 "namespace" => "Admin\Http\Controllers",
-                "controller" => "ConfigController",
-                "sub_prefix" => "/config",
+                "controller" => "ConfigurationController",
+                "sub_prefix" => "/configuration",
                 "guard" => "backend",
                 "router" => [
 

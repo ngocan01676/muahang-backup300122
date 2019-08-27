@@ -453,7 +453,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            error: function(jqXHR, exception) {
+            error: function (jqXHR, exception) {
                 // if (jqXHR.status === 0) {
                 //     alert('Not connect.\n Verify Network.');
                 // } else if (jqXHR.status == 404) {
@@ -477,24 +477,24 @@
     $(document).ready(function () {
         $('.sidebar-menu').tree();
         var content_header = $(".content-header");
-        if(content_header && !content_header.is(':empty')){
+        if (content_header && !content_header.is(':empty')) {
             var offset = $(".content-header").offset();
-            var fixed = $(this).scrollTop() > offset.top*1.8;
+            var fixed = $(this).scrollTop() > offset.top * 2.2;
             if (fixed === true) {
-                $(".content-header").addClass('content-header-prefix');
+                $(".content-header").clone().appendTo('.content-wrapper').addClass('content-header-prefix');
             }
             var time = Date.now();
             $(window).scroll(function (a) {
 
-                if ($(this).scrollTop() > (offset.top*1.8) && fixed === false) {
-                    $(".content-header").addClass('content-header-prefix');
+                if ($(this).scrollTop() > (offset.top * 2.2) && fixed === false) {
+                    $(".content-header").clone().appendTo('.content-wrapper').addClass('content-header-prefix');
                     console.log("fixed");
                     fixed = true;
                 } else if ($(this).scrollTop() < offset.top && fixed === true) {
                     console.log("no fixed");
                     console.log($(".content"));
                     fixed = false;
-                    $(".content-header").removeClass('content-header-prefix');
+                    $(".content-header-prefix").remove();
                 }
             });
         }
