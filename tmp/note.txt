@@ -9,3 +9,9 @@ https://dimsemenov.com/plugins/magnific-popup/
 
 
 http://www.bestjquery.com/2016/02/mobility-framework-for-developing-mobile-applications/
+
+http://codeignitertutoriales.com/demos/jqmenueditor/
+
+http://bootsnav.danurstrap.com/
+http://geedmo.github.io/yamm3/
+http://social-likes.js.org/

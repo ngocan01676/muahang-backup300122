@@ -103,7 +103,12 @@ function config_set($type, $name, $data)
         ],
         ['data' => serialize($data)]);
 }
-
+function config_delete($type, $name)
+{
+    return DB::table('config')->where(
+        [ 'name' => $name,'type' => $type]
+    )->delete();
+}
 function get_category_type($type)
 {
     $rs = DB::table('categories')->where(['type' => $type])->get();

@@ -28,19 +28,52 @@ class PluginController extends \Zoe\Http\ControllerBackend
         $this->breadcrumb(z_language("Plugin"), route('backend:plugin:list'));
         return $this;
     }
-
+    private function CreatePluginObject($plugin){
+        $config_zoe = config('zoe');
+        $relativePath = base_path($config_zoe['structure']['plugin']).DIRECTORY_SEPARATOR.$plugin;
+        require_once $relativePath . '/Plugin.php';
+        $class = '\\' . $plugin . '\\Plugin';
+        return  new $class();
+    }
     public function ajax(Request $request)
     {
-        $datas = $request->all();
-        config_set("config", $datas['key'], ['data' => $datas['data']]);
-    }
+        $data  = $request->all();
+        $response = ["status"=>false];
+        if(isset($data["act"])){
+            switch ($data["act"]){
+                case "install":
+                    $plugin = $data['plugin'];
+                    $object = $this->CreatePluginObject($data['plugin']);
+                    $response['status'] = $object->install(function () use ($plugin){
+                        $plugins = config_get('plugin',"lists");
+                        $plugins[$plugin] = time();
+                        config_set('plugin',"lists",['data'=>$plugins]);
+                    });
+                    break;
+                case "uninstall":
+                    $plugin = $data['plugin'];
+                    $object = $this->CreatePluginObject($data['plugin']);
+                    $response['status'] = $object->uninstall(function () use ($plugin){
+                        $plugins = config_get('plugin',"lists");
+                        unset( $plugins[$plugin] );
+                        config_set('plugin',"lists",['data'=>$plugins]);
+                    });
+                    break;
+                case "remove":
 
+                    break;
+            }
+        }
+        return response()->json($response);
+    }
     public function list()
     {
+
         $config_zoe = config('zoe');
         $relativePath = base_path($config_zoe['structure']['plugin']);
         $lists_folder = scandir($relativePath);
         $array = [];
+
         foreach ($lists_folder as $plugin){
             if($plugin=="." || $plugin==".."){
                 continue;
@@ -59,6 +92,7 @@ class PluginController extends \Zoe\Http\ControllerBackend
             }
         }
         $this->data['lists'] = $array;
+        $this->data['lists_install'] =  config_get('plugin',"lists");;
         return $this->render('plugin.list');
     }
 }

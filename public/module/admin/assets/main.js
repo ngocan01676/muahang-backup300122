@@ -12,3 +12,16 @@ $('#check-all').on('ifUnchecked', function(event){
 function notice(){
 
 }
+function ajax(url,success,data,type = "POST") {
+        $.ajax({
+                url:url,
+                type:type,
+                data:data,
+                success: success,
+                error: function (xhr, error) {
+                        if (xhr.status === 401) {
+                                location.reload();
+                        }
+                }
+        });
+}

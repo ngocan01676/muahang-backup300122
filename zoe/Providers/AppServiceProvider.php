@@ -167,11 +167,9 @@ class AppServiceProvider extends ServiceProvider
             }
             $modules = DB::table('module')
                 ->select()->where('status', 1)->get();
-
             foreach ($modules as $module) {
                 $this->InitModule($module->name, false);
             }
-
         }
     }
 
@@ -220,7 +218,7 @@ class AppServiceProvider extends ServiceProvider
             if ($this->app->getConfig(true)->cache == 0) {
                 $this->module($module, $object, $absolute_path, "module", $system);
             }
-            $this->app->_modules[$name] = $object;
+            $this->app->_modules[$module] = $object;
         }
     }
 
@@ -300,8 +298,11 @@ class AppServiceProvider extends ServiceProvider
     public function InitPlugins()
     {
         if (isset($this->config_zoe ['plugins'])) {
-            $plugins = $this->config_zoe['plugins'];
-            foreach ($plugins as $plugin) {
+
+          //  $plugins = $this->config_zoe['plugins'];
+            $plugins = config_get('plugin','lists');
+
+            foreach ($plugins as $plugin=>$time) {
                 $this->InitPlugin($plugin);
             }
         }

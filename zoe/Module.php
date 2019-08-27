@@ -57,10 +57,12 @@ abstract class Module
             }
         }
     }
-    public function install(){
-        return false;
+    public function install($func = null,$data = []){
+        if(is_callable($func)) call_user_func($func);
+        return true;
     }
-    public function uninstall(){
-        return false;
+    public function uninstall($func = null,$data = []){
+        if(is_callable($func)) call_user_func($func);
+        return true;
     }
 }
