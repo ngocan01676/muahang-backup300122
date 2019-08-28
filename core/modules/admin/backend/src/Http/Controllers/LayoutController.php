@@ -101,7 +101,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         } else {
             $this->getCrumb();
             $arr = [];
-            $lists = app()->getConfig()['modules']['admin.layout'];
+            $lists = isset(app()->getConfig()['modules']['admin.layout'])?app()->getConfig()['modules']['admin.layout']:[];
             foreach ($lists as $row) {
                 $arr[$row['value']] = $row['label'];
             }

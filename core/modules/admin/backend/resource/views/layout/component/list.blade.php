@@ -39,13 +39,17 @@
                 </div>
             </div>
             <div class="box-body listMain">
-                <table class="table table-bordered">
+
+                    <table class="table table-bordered">
                     <thead>
                     <tr>
                         <th width="3">#</th>
+                        @php $model =(count($models)>0)?$models[0]:null;  @endphp
                         @foreach($data['config']['columns']['lists'] as $k=>$columns)
                             @isset($data['data']['columns'][$k])
                                 @continue(isset($route[$k]))
+
+                                @if(property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) )
                                 @if('id'== $columns['type'])
                                     <th width="39px" class="column-primary">
                                         <input style="display: none" id="check-all"
@@ -56,18 +60,18 @@
                                         {!! sort_type(isset($columns['order_by'])?$columns['order_by']:"",$k,$parameter) !!}
                                     </th>
                                 @else
-                                    <th
-                                            class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!} @isset($columns['order_by']) column-order_by @endisset {{list_text_aligin($columns)}}">
+                                    <th class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!} @isset($columns['order_by']) column-order_by @endisset {{list_text_aligin($columns)}}">
                                         {{z_language($columns['label'])}}
                                         @isset($columns['order_by'])
                                             {!! sort_type(isset($columns['order_by'])?$columns['order_by']:"",$k,$parameter) !!}
                                         @endisset
                                     </th>
                                 @endif
+                                @endif
                             @endisset
                         @endforeach
                     </tr>
-                    </thead>
+                     </thead>
                     <tbody>
                     @if(count($models)>0)
                         @foreach ($models as $k=>$model)
@@ -76,6 +80,11 @@
                                 @foreach($data['config']['columns']['lists'] as $key=>$columns)
                                     @isset($data['data']['columns'][$key])
                                         @continue(isset($route[$key]))
+                                        @if(!property_exists($model,$key) && isset($columns['callback']) && isset($callback[$columns['callback']]))
+                                            @php
+                                              $model->{$key} = call_user_func_array($callback[$columns['callback']],[$model]);
+                                            @endphp
+                                        @endif
                                         @if('title'== $columns['type'])
                                             <td scope="col"
                                                 class="column column-primary column-name {{list_text_aligin($columns)}}">
@@ -101,9 +110,9 @@
                                                     </form>
                                                                     <a href="#"
                                                                        onclick="event.preventDefault(); document.getElementById('{{$id}}-form').submit();"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
-                                                                    @else
-                                                                        <a href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"|":""}}
-                                                                    @endif
+                                                                @else
+                                                                    <a href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"|":""}}
+                                                                @endif
                                                 </span>
                                                         @endforeach
                                                     @endisset

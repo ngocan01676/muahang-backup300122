@@ -17,6 +17,7 @@ class PostController extends \Zoe\Http\ControllerBackend
         $this->data['language'] = config('zoe.language');
         $this->data['current_language'] = 'en';
         $this->data['nestables'] = config_get("category", "blog:category");
+        $this->data['configs'] = config_get("config", "blog");
     }
 
     public function getCrumb()
@@ -27,11 +28,61 @@ class PostController extends \Zoe\Http\ControllerBackend
 
     public function list(Request $request)
     {
-        if($request->ajax()){
-            return response()->json(['ajax']);
+
+        $search = $request->query('search', "");
+        $status = $request->query('status', "");
+
+        $config = config_get('option', "core:user:list");
+        $data = $request->query();
+
+        $page = null;
+        if (isset($data['action'])) {
+            $page = 1;
         }
-        $this->getCrumb();
-        return $this->render('post.list', [], "blog");
+        $parameter = $data;
+
+        $route = [];
+
+        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+        $item = 1;
+        $models = DB::table('blog_post as post')->select(['post.id','post.image','post.status','post.views','post.created_at','post.updated_at']);
+        if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
+            $models->where('name', 'like', '%' . $search . '%');
+        }
+        if (isset($parameter["filter"]['type']) && !empty($parameter['filter']['type'])) {
+            $models->where('type', $parameter['filter']['type']);
+        }
+        if (!empty($status) || $status != "") {
+            $models->where('status', $status);
+        }
+        if (!isset($parameter['order_by'])) {
+            $parameter['order_by']['col'] = 'id';
+            $parameter['order_by']['type'] = 'desc';
+        } else {
+            if (isset($parameter['action'])) {
+                $parameter['order_by']['type'] = isset($parameter['order_by']['type']) && $parameter['order_by']['type'] == "desc" ? "asc" : "desc";
+            }
+        }
+        if (isset($parameter['action'])) {
+            unset($parameter['action']);
+        }
+        $lang = $this->data['configs']['post']['language'];
+        $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
+        $models = $models->paginate($item, ['*'], 'page', $page);
+        $models->appends($parameter);
+       
+        return $this->render('post.list', [
+            'models' => $models,
+            "route" => $route,
+            'parameter' => $parameter,
+            'callback'=>[
+                "GetTitle"=>function ($model) use($lang){
+                    $rs = DB::table('blog_post_translation as t')->where('post_id',$model->id)->where('lang_code',$lang)->get('title');
+                    return $rs && count($rs)>0?$rs[0]->title:"Empty";
+                }
+            ]
+        ]);
+
     }
     public function create()
     {
@@ -44,7 +95,6 @@ class PostController extends \Zoe\Http\ControllerBackend
 
         $this->getCrumb()->breadcrumb('Post Edit', route('backend:blog:post:create'));
         $item = PostModel::find($id);
-
         $trans = PostTranslationModel::where(['post_id' => $id])->get();
         foreach ($trans as $tran) {
             $item->offsetSet("title_" . $tran->lang_code, $tran->title);
@@ -54,7 +104,7 @@ class PostController extends \Zoe\Http\ControllerBackend
         $item->offsetSet("tag", implode($item->getTag(),','));
         $item->offsetSet("category", $item->getCategory());
 
-        return $this->render('post.edit', ["item" => $item], 'blog');
+        return $this->render('post.edit', ["item" => $item,"lang_active"=>$this->data['configs']['post']['language']], 'blog');
     }
 
     public function store(Request $request)
@@ -125,5 +175,8 @@ class PostController extends \Zoe\Http\ControllerBackend
             DB::rollBack();
         }
         return redirect(route('backend:blog:post:edit', ['id' => $model->id]));
+    }
+    public function delete(){
+
     }
 }

@@ -22,6 +22,7 @@ class ControllerBackend extends Controller
         $request = request();
         $keyName = app()->getKey("_view_alias");
         $_view_alias = isset($request->route()->defaults[$keyName]) ? $request->route()->defaults[$keyName] : "";
+
         if (isset($alias['backend'][$_view_alias . ":" . $view])) {
             $keyView = $alias['backend'][$_view_alias . ":" . $view];
         } else if (isset($_view_alias)) {

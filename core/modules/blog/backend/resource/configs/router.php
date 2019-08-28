@@ -20,6 +20,10 @@ return [
                     'store' => [
                         'url' => '/store',
                         'method' => ['post']
+                    ],
+                    'delete' => [
+                        'url' => '/delete',
+                        'method' => ['post']
                     ]
                 ]
             ],
