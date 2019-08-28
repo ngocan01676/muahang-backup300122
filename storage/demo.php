@@ -4,11 +4,36 @@
                     return "<div class=\"___lang___\">".$key."</div>";
                 ?>
             <?php } ?>
-@func_1566734460_9856_3899(array (
+@func_1566927429_4981_8806(array (
   'data' => 
   array (
-    'name' => 'Content Theme',
-    'count' => '5',
+    'lists' => 
+    array (
+      0 => 
+      array (
+        'name' => NULL,
+        'image' => NULL,
+        'link' => NULL,
+      ),
+      1 => 
+      array (
+        'name' => NULL,
+        'image' => NULL,
+        'link' => NULL,
+      ),
+      2 => 
+      array (
+        'name' => NULL,
+        'image' => NULL,
+        'link' => NULL,
+      ),
+      3 => 
+      array (
+        'name' => NULL,
+        'image' => NULL,
+        'link' => NULL,
+      ),
+    ),
   ),
 ))
 

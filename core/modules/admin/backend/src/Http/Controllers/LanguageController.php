@@ -53,12 +53,8 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                     }
                     $v = $_item['value'];
                     $k = $_item['name'];
-                    if ($k == "Configuration") {
-
-                    }
                     $data[$lang][$k] = $v;
                 }
-
             }
             echo json_encode($data);
             Cache::forever("language:data", $data);
