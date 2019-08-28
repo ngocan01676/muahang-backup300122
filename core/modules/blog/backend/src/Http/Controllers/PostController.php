@@ -70,7 +70,7 @@ class PostController extends \Zoe\Http\ControllerBackend
         $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
         $models = $models->paginate($item, ['*'], 'page', $page);
         $models->appends($parameter);
-       
+
         return $this->render('post.list', [
             'models' => $models,
             "route" => $route,
