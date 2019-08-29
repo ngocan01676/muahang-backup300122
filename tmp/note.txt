@@ -15,3 +15,5 @@ http://codeignitertutoriales.com/demos/jqmenueditor/
 http://bootsnav.danurstrap.com/
 http://geedmo.github.io/yamm3/
 http://social-likes.js.org/
+
+https://www.free-css.com/template-categories/multipurpose

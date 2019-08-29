@@ -167,6 +167,7 @@ class AppServiceProvider extends ServiceProvider
             }
             $modules = DB::table('module')
                 ->select()->where('status', 1)->get();
+
             foreach ($modules as $module) {
                 $this->InitModule($module->name, false);
             }
@@ -215,10 +216,12 @@ class AppServiceProvider extends ServiceProvider
             }
             $class = '\\' . $name . '\\Module';
             $object = new $class();
+
             if ($this->app->getConfig(true)->cache == 0) {
                 $this->module($module, $object, $absolute_path, "module", $system);
             }
             $this->app->_modules[$module] = $object;
+
         }
     }
 
@@ -340,15 +343,12 @@ class AppServiceProvider extends ServiceProvider
                         $class_maps = $data["class_maps"];
                         foreach ($data["class_maps"] as $n => $c) {
                             $class_maps[$n] = $absolute_path . "/src" . $c;
-
                         }
-
                     }
                     if (count($class_maps) > 0) {
                         $data["class_maps"] = [];
                         $data["class_maps"][$plugin] = $class_maps;
                     }
-
                     $routers = [];
                     if (isset($data["routers"])) {
                         foreach ($data["routers"] as $key => $router) {

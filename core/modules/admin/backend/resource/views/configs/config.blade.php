@@ -1,3 +1,4 @@
+
 <table class="table table-bordered">
     <tbody>
     <tr class="text-center">
@@ -10,7 +11,19 @@
             </div>
         </td>
     </tr>
-
+    <tr>
+        <th width="150">
+            <label for="text" class="control-label">{!! z_language('Logo') !!}</label>
+        </th>
+        <td>
+            <div class="col-md-6 col-xs-12">
+                @if(isset($config['core']['logo']))
+                <div style="padding: 5px"> <img src="{!! $config['core']['logo'] !!}" class="img-thumbnail img-responsive img-rounded"></div>
+                @endif
+                <input type="text" class="form-control" name="core.logo">
+            </div>
+        </td>
+    </tr>
     <tr class="text-center">
         <th width="150">
             <label for="text" class="control-label">{!! z_language('Language') !!}</label>
@@ -528,4 +541,3 @@
     </tr>
     </tbody>
 </table>
-

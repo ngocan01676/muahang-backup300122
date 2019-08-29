@@ -15,9 +15,9 @@ class PostController extends \Zoe\Http\ControllerBackend
     public function init()
     {
         $this->data['language'] = config('zoe.language');
-        $this->data['current_language'] = 'en';
         $this->data['nestables'] = config_get("category", "blog:category");
         $this->data['configs'] = config_get("config", "blog");
+        $this->data['current_language'] = isset($this->data['configs']['post']['language'])?$this->data['configs']['post']['language']:"en";
     }
 
     public function getCrumb()
@@ -46,8 +46,10 @@ class PostController extends \Zoe\Http\ControllerBackend
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
         $item = 1;
         $models = DB::table('blog_post as post')->select(['post.id','post.image','post.status','post.views','post.created_at','post.updated_at']);
+
         if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
-            $models->where('name', 'like', '%' . $search . '%');
+            $models->join('blog_post_translation as t','t.post_id','=','post.id');
+            $models->where('t.title', 'like', '%' . $search . '%');
         }
         if (isset($parameter["filter"]['type']) && !empty($parameter['filter']['type'])) {
             $models->where('type', $parameter['filter']['type']);
@@ -66,11 +68,10 @@ class PostController extends \Zoe\Http\ControllerBackend
         if (isset($parameter['action'])) {
             unset($parameter['action']);
         }
-        $lang = $this->data['configs']['post']['language'];
+        $lang = $this->data['current_language'];
         $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
         $models = $models->paginate($item, ['*'], 'page', $page);
         $models->appends($parameter);
-
         return $this->render('post.list', [
             'models' => $models,
             "route" => $route,
@@ -171,10 +172,12 @@ class PostController extends \Zoe\Http\ControllerBackend
                 }
             }
             DB::commit();
+            return redirect(route('backend:blog:post:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
+            $validator->getMessageBag()->add('id', $ex->getMessage());
             DB::rollBack();
         }
-        return redirect(route('backend:blog:post:edit', ['id' => $model->id]));
+        return back();
     }
     public function delete(){
 

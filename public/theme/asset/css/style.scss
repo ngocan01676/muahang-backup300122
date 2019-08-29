@@ -1,0 +1,121 @@
+$font-stack:'Open Sans', Arial, sans-serif;
+$primary-color: #3e4d5c;
+body {
+  font: 400 13px $font-stack;
+  color: $primary-color;
+  background: #fff;
+  direction: ltr;
+}
+.site-logo{
+  float: left;
+  margin-right: 67px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+.megamenu-li {
+  position: static;
+}
+
+.megamenu {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  padding: 15px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu a::after {
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 6px;
+  top: .8em;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-left: .1rem;
+  margin-right: .1rem;
+}
+.header{
+  .nav{
+    .nav-item{
+      &>a{
+        color: #333;
+        display: block;
+        padding: 29px 12px 30px;
+      }
+    }
+  }
+}
+.carousel-inner img {
+  width: 100%;
+  height: 100%;
+}
+.carousel .carousel-control .fa {
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  color: #fff;
+  background: rgba(0,0,0,.7);
+  text-shadow: none;
+  padding: 5px;
+}
+
+.carousel-control  .fa {
+  border-radius: 50px;
+  background: rgba(0,0,0,.7);
+}
+.carousel-control .fa:hover {
+  background: rgba(0,0,0,.9);
+}
+.carousel-indicators li.active{
+  background: rgba(0,0,0,.6);
+}
+  //.header-navigation{
+//  font: 15px "Open Sans", sans-serif;
+//  margin: 0 10px 0 0;
+//  padding: 0;
+//  text-transform: uppercase;
+//  & > ul > li {
+//    float: left;
+//    a{
+//      color: #333;
+//      display: block;
+//      padding: 29px 12px 30px;
+//    }
+//    &.menu-search{
+//        .search-box{
+//          display: none;
+//        }
+//    }
+//    >.dropdown-menu{
+//      margin-top: -5px;
+//      border-top: solid 3px transparent;
+//      z-index: 1001;
+//    }
+//  }
+//   .dropdown-menu {
+//    //left: auto;
+//    //top: 100%;
+//    //padding: 0;
+//    //background: #fff;
+//    //position: absolute;
+//    //border: none;
+//    //box-shadow: 5px 5px rgba(91, 91, 91, 0.2);
+//    //text-transform: none;
+//    //font: 13px "Open Sans", sans-serif;
+//    //letter-spacing: 0;
+//    //border-radius: 0;
+//    //z-index: 9999;
+//  }
+//}
+//.header-navigation ,.header-navigation .dropdown{
+//    position: static;
+//}
+.font-transform-inherit {
+  text-transform: inherit !important;
+}

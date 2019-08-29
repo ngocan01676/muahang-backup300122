@@ -109,7 +109,8 @@ class ModuleController extends \Zoe\Http\ControllerBackend
         $lists_folder = scandir($relativePath);
         $array = [];
         $modules = $config_zoe['modules'];
-
+        $this->data['plugins'] = config_get('plugin', "lists");
+        $relativePluginPath = base_path($config_zoe['structure']['plugin']);
         foreach ($lists_folder as $module) {
             if ($module == "." || $module == "..") {
                 continue;
@@ -125,17 +126,25 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                 }
                 $class = '\\' . $name . '\\Module';
                 if (class_exists($class)) {
+
                     $array[$module] = [
                         "name" => $class::$name ? $class::$name : $module,
                         "description" => $class::$description ? $class::$description : $module,
                         "version" => $class::$version,
                         "author" => $class::$author,
-                        "system" => $system
+                        "system" => $system,
+                        "require" =>[]
                     ];
+                    foreach ($class::$require as $plugin){
+                        if (file_exists($relativePluginPath . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "Plugin.php")) {
+                            $array[$module]["require"][$plugin] = isset($this->data['plugins'][$plugin])?1:0;
+                        }else{
+                            $array[$module]["require"][$plugin] = 2;
+                        }
+                    }
                 }
             }
         }
-
         $this->data['lists'] = $array;
         $this->data['lists_install'] = collect(DB::table('module')->select()->where('status', 1)->get())->keyBy('name');
         return $this->render('module.list');

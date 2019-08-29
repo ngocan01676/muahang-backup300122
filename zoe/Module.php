@@ -8,7 +8,7 @@ abstract class Module
     public static $description = "";
     public static $version = "1.0.0";
     public static $author = "Manh Trung";
-
+    public static $require = [];
     public function __construct()
     {
         $this->Init();

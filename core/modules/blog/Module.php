@@ -11,6 +11,7 @@ use Illuminate\Database\Schema\Blueprint;
 class Module extends ZModule{
     public static $name = "Blog";
     public static $description = "Blog module";
+    public static $require = ['Comment'];
     public function Init()
     {
         // TODO: Implement Init() method.

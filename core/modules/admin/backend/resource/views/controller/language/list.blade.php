@@ -59,7 +59,7 @@
                                 @php
                                     $langValue =  isset($data['lang'][$language["lang"]][$key]["value"]) && !empty($data['lang'][$language["lang"]][$key]["value"])?$data['lang'][$language["lang"]][$key]["value"]:(isset($langStatic[$values['name']][$language["lang"]])?$langStatic[$values['name']][$language["lang"]]:"");
                                 @endphp
-                                <td class="text-center">
+                                <td class="text-center" style="width: {!! 100/count($languages) !!}%">
                                     <a href="#" class="lang"
                                        data-title="{!! @z_language(["Please enter at least 1 character"]) !!}">{!! $langValue !!}</a>
                                     <input type="hidden"
@@ -85,7 +85,7 @@
     <script src="{{asset('module/admin/assets/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
     <script src="{{asset('module/admin/assets/paginate-large-list-paging/paginathing.min.js')}}"></script>
     <script>
-        //        $("#formAction").zoe_inputs("set", @json($data));
+        $.fn.editable.defaults.mode = 'inline';
         $("#BtnSearch").click(function () {
             console.log(1);
             var val = $('.search-value').val();

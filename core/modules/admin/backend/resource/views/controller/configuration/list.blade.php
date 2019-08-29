@@ -266,6 +266,7 @@
 @endsection
 @push('scripts')
     <script>
+
         function Save() {
             var form = $("#configWrap .active form");
             var data = form.zoe_inputs('get');

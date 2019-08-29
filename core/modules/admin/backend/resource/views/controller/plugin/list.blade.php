@@ -10,8 +10,8 @@
         <div class="item col-lg-4 col-sm-6 col-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <i class="fa fa-bookmark" @if(isset($lists_install[$list['name']])) style="color: green" @endif></i>
-                    <h3 class="box-title">{!! $list['name'] !!}</h3>
+                    <i class="fa fa-bookmark" @if(isset($lists_install[$plugin])) style="color: green" @endif></i>
+                    <h3 class="box-title">{!! $plugin !!}</h3>
                     <div class="pull-right">v<strong>{!! $list['version'] !!}</strong></div>
                 </div>
                 <div class="box-body">
@@ -25,8 +25,18 @@
                         <div class="description">
                             {!! $list['description'] !!}
                         </div>
-                    </div>
+                        @if(count($list['require']))
+                            <div class="plugins">
+                                    @php $i = 0 @endphp
+                                    @foreach($list['require'] as $_plugin=>$require)
+                                        <div>
+                                            <td><strong>{{ ++$i }}</strong> {!! $require==1?'<span class="plugin label label-success" data-plugin="'.$_plugin.'" data-status="1">'.$_plugin.'</span>':($require==2?'<span class="plugin label label-default" data-plugin="'.$_plugin.'" data-status="2">'.$_plugin.'</span>':'<span class="plugin label label-warning" data-plugin="'.$_plugin.'" data-status="0">'.$_plugin.'</span>') !!}</td>
+                                        </div>
+                                    @endforeach
 
+                            </div>
+                        @endif
+                    </div>
                 </div>
                 <div class="box-footer">
                     <div class="step col-lg-5">
@@ -84,30 +94,56 @@
         $(document).ready(function () {
             $(".btnAction").click(function () {
                 var self = this;
+                var box = $(this).closest('.box');
                 if ($(self).attr('process') === 1) {
                     return;
                 }
-                $(self).attr('process', 1);
-                var box = $(this).closest('.box');
-                box.find('.icon').loading({circles: 3, overlay: true, width: "5em", top: "13%", left: "11%"});
+                var plugin = box.find('.plugin');
                 var data = $(this).data();
-                var status = true;
-                ajax("{!! route('backend:plugin:ajax') !!}", function (json) {
-                    box.find('.icon').loading({destroy: true});
-                    console.log(json);
-                    if (json.status === true) {
-                        if ((data.act === "uninstall") === status) {
-                            box.find('.app-install').fadeIn(3000);
-                            box.find('.app-uninstall').hide();
-                        } else {
-                            box.find('.app-install').hide();
-                            box.find('.app-uninstall').fadeIn(3000);
+                var error = [];
+                if(data.act === "uninstall"){
+
+                }else{
+                    $.each(plugin,function () {
+                        var data = $(this).data();
+                        var msg = "";
+
+                        if(data.status === 0){
+                            msg = "{!! z_language('Plugin :plugin not install!'); !!}";
+                        }else  if(data.status === 2){
+                            msg = "{!! z_language('Plugin :plugin not exits!'); !!}";
                         }
-                    } else {
-                        $.growl.error({message: json.status});
-                    }
-                    $(self).attr('process', 0);
-                }, data);
+                        if(msg.length>0){
+                            error.push(msg.replace(":plugin",data.plugin));
+                        }
+                    });
+                }
+
+                if(error.length === 0){
+                    $(self).attr('process', 1);
+                    box.find('.icon').loading({circles: 3, overlay: true, width: "5em", top: "13%", left: "11%"});
+
+                    var status = true;
+                    ajax("{!! route('backend:plugin:ajax') !!}", function (json) {
+                        box.find('.icon').loading({destroy: true});
+                        if (json.status === true) {
+                                if ((data.act === "uninstall") === status) {
+                                    box.find('.app-install').fadeIn(3000);
+                                    box.find('.app-uninstall').hide();
+                                } else {
+                                    box.find('.app-install').hide();
+                                    box.find('.app-uninstall').fadeIn(3000);
+                                }
+                         } else {
+                                $.growl.error({message: json.status});
+                        }
+                        $(self).attr('process', 0);
+                    }, data);
+
+                }else{
+                    $(self).notify(error.join("\n"));
+                    $.growl.error({message: error.join("\n")});
+                }
             });
 
         });
