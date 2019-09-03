@@ -95,6 +95,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     public function getListType($type)
     {
+
         if (isset(app()->getConfig()['modules']['admin.layout'][$type])) {
             $data_type = (app()->getConfig()['modules']['admin.layout'][$type]);
             return $data_type;
@@ -493,6 +494,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             $model = new \Admin\Http\Models\Layout();
         }
         $model->name = $items["info"]['name'];
+        $model->type_group = $items["info"]['type_group'];
         $slug = Str::slug($items["info"]['name'], '-');
         $model->token = $items["info"]['token'];
         $model->slug = $slug;
@@ -504,8 +506,10 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $model->content = base64_encode(serialize($layout));
         $model->save();
         $obj_layout = new \Admin\Lib\LayoutBlade();
+
         $obj_layout->ViewHelper = $this->GetViewHelperBlade();
         $obj_layout->GridHelper = $this->GetGridBlade();
+
         $obj_layout->TagHelper = $obj_layout->GridHelper->CallBackTag();
 
         $obj_layout->render($layout, $model->id, $model->token, $model->type);
@@ -577,7 +581,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "info" => [],
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
-            "listsType" => array_merge($this->listsType, $use)
+            "group" => $use,
+            "listsType" => $this->listsType
         ]);
     }
 
@@ -608,7 +613,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "info" => $info,
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
-            "listsType" => array_merge($this->listsType, $use)
+            'group'=>$use,
+            "listsType" => $this->listsType
         ]);
     }
 }

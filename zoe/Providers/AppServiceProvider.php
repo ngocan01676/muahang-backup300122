@@ -227,14 +227,17 @@ class AppServiceProvider extends ServiceProvider
 
     public function module($module, $object, $absolute_path, $typeModule, $system)
     {
+
         $fileConfig = $object->FileConfig();
         $relativePath = base_path($absolute_path);
         $folders = ["backend", "frontend"];
         foreach ($folders as $type) {
             foreach ($fileConfig as $file) {
                 $_file = $relativePath . "/" . $type . "/resource/configs/" . $file . ".php";
+
                 if (file_exists($_file)) {
                     $data = include $_file;
+
                     if (is_array($data)) {
                         if (isset($data["routers"])) {
                             $routers = [];
@@ -242,9 +245,13 @@ class AppServiceProvider extends ServiceProvider
                                 $routers[$keys] = [];
                                 foreach ($_routers as $key => $router) {
                                     $routers[$keys][$key] = $router;
-                                    if (isset($routers[$keys][$key]["sub_prefix"])) {
-                                        if ($system == false) {
-                                            $routers[$keys][$key]["sub_prefix"] = "/module" . $routers[$keys][$key]["sub_prefix"];
+                                    if($typeModule == "theme"){
+                                        $routers[$keys][$key]["sub_prefix"] = "/";
+                                    }else{
+                                        if (isset($routers[$keys][$key]["sub_prefix"])) {
+                                            if ($system == false) {
+                                                $routers[$keys][$key]["sub_prefix"] = "/module" . $routers[$keys][$key]["sub_prefix"];
+                                            }
                                         }
                                     }
                                     if (!isset($routers[$keys][$key]['module'])) {
@@ -296,6 +303,7 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         }
+
     }
 
     public function InitPlugins()
@@ -401,14 +409,19 @@ class AppServiceProvider extends ServiceProvider
 
     public function InitTheme()
     {
-        $theme = config_get('theme', "active");
+        $theme = config_get('theme', "active","");
 
         $absolute_path = ($this->config_zoe['structure']['theme'] . '/' . $theme);
         $relativePath = base_path($absolute_path);
+
         if (file_exists($relativePath . '/Theme.php')) {
+
             require_once $relativePath . '/Theme.php';
+
             $class = '\\' . ucwords($theme) . 'Theme\\Theme';
+
             $object = new $class();
+
             $this->module($theme, $object, $absolute_path, "theme", false);
         }
     }

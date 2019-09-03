@@ -185,6 +185,17 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td class="text-center"><label for="layout group" class="control-label">Group</label>
+                                    </td>
+                                    <td>
+                                        @php $curent = "theme"; @endphp
+                                        @foreach($group as $v=>$b)
+                                            <input {{$curent == $v?"checked":""}} type="radio" name="type_group"
+                                                   value="{{$v}}"> <strong> {{$b}} </strong>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td class="text-center"><label for="layout name" class="control-label">Type</label>
                                     </td>
                                     <td>

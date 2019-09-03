@@ -86,12 +86,12 @@ function list_text_aligin($columns)
     return "";
 }
 
-function config_get($type, $name)
+function config_get($type, $name,$default = [])
 {
     $rs = DB::table('config')->where(['type' => $type, 'name' => $name])->first();
-    if (!$rs) return [];
+    if (!$rs) return $default;
     $rs = unserialize($rs->data);
-    return isset($rs['data']) ? $rs['data'] : [];
+    return isset($rs['data']) ? $rs['data'] : $default;
 }
 
 function config_set($type, $name, $data)

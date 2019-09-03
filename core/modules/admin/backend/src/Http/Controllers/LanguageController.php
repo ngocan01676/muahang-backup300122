@@ -73,7 +73,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         ];
 
         foreach ($results as $_file) {
-            $string_blade = ($file->get($_file));
+            $string_blade = $file->get($_file);
             $name = str_replace(base_path(), "", $_file);
             $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
 

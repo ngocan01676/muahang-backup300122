@@ -1,5 +1,4 @@
 <?php
-
 namespace UserFront\Http\Controllers;
 class UserController extends \Zoe\Http\ControllerFront
 {

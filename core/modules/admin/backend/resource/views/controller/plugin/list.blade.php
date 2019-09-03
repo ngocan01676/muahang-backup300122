@@ -36,7 +36,6 @@
                                             </td>
                                         </div>
                                     @endforeach
-
                                 </div>
                             @endif
                         </div>
@@ -72,9 +71,11 @@
     <div class="modules">
 
         @foreach($modules_install as $mod=>$item)
-            @foreach($item->data['require'] as $plugin)
-                <div class="mod_{!! $plugin !!}" data-module="{!! $mod !!}"></div>
-            @endforeach
+            @if(isset($item->data['require']))
+                @foreach($item->data['require'] as $plugin)
+                    <div class="mod_{!! $plugin !!}" data-module="{!! $mod !!}"></div>
+                @endforeach
+            @endif
         @endforeach
     </div>
 @endsection
