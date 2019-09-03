@@ -101,7 +101,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         } else {
             $this->getCrumb();
             $arr = [];
-            $lists = isset(app()->getConfig()['modules']['admin.layout'])?app()->getConfig()['modules']['admin.layout']:[];
+            $lists = isset(app()->getConfig()['modules']['admin.layout']) ? app()->getConfig()['modules']['admin.layout'] : [];
             foreach ($lists as $row) {
                 $arr[$row['value']] = $row['label'];
             }
@@ -155,7 +155,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         ];
         $items = $request->all();
 
-        $theme = config('zoe.theme');
+        $theme = config_get('theme', "active");
         $data = ["views" => [], "func" => ["No Action" => "0"]];
 
         $components_conf = app()->getComponents()->config;
@@ -483,7 +483,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     public function ajaxPost(Request $request)
     {
-        $theme = config('zoe.theme');
+        $theme = config_get('theme', "active");
         $items = $request->all();
         $model = null;
         if (isset($items["info"]['id']) && $items["info"]['id'] != 0) {
@@ -525,7 +525,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     function getPartial($id)
     {
-        $theme = config('zoe.theme');
+        $theme = config_get('theme', "active");
         $rs = DB::table('layout')->select()->where(['type' => 'partial', 'theme' => $theme])->get()->toArray();
         $array = [];
         foreach ($rs as $val) {

@@ -247,8 +247,8 @@ class AppServiceProvider extends ServiceProvider
                                             $routers[$keys][$key]["sub_prefix"] = "/module" . $routers[$keys][$key]["sub_prefix"];
                                         }
                                     }
-                                    if(!isset($routers[$keys][$key]['module'])){
-                                        $routers[$keys][$key]['module'] =["name"=>$module,"type"=>$typeModule];
+                                    if (!isset($routers[$keys][$key]['module'])) {
+                                        $routers[$keys][$key]['module'] = ["name" => $module, "type" => $typeModule];
                                     }
                                 }
                             }
@@ -302,10 +302,10 @@ class AppServiceProvider extends ServiceProvider
     {
         if (isset($this->config_zoe ['plugins'])) {
 
-          //  $plugins = $this->config_zoe['plugins'];
-            $plugins = config_get('plugin','lists');
+            //  $plugins = $this->config_zoe['plugins'];
+            $plugins = config_get('plugin', 'lists');
 
-            foreach ($plugins as $plugin=>$time) {
+            foreach ($plugins as $plugin => $time) {
                 $this->InitPlugin($plugin);
             }
         }
@@ -356,8 +356,8 @@ class AppServiceProvider extends ServiceProvider
                             if (isset($routers["backend"]["plugin:" . $key]["sub_prefix"])) {
                                 $routers["backend"]["plugin:" . $key]["sub_prefix"] = "/plugin" . $routers["backend"]["plugin:" . $key]["sub_prefix"];
                             }
-                            if(!isset($routers["backend"]["plugin:" . $key]['module'])){
-                                $routers["backend"]["plugin:" . $key]['module']=["name"=>$plugin,"type"=>"plugin"];
+                            if (!isset($routers["backend"]["plugin:" . $key]['module'])) {
+                                $routers["backend"]["plugin:" . $key]['module'] = ["name" => $plugin, "type" => "plugin"];
                             }
                         }
                     }
@@ -401,7 +401,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function InitTheme()
     {
-        $theme = "zoe";
+        $theme = config_get('theme', "active");
+
         $absolute_path = ($this->config_zoe['structure']['theme'] . '/' . $theme);
         $relativePath = base_path($absolute_path);
         if (file_exists($relativePath . '/Theme.php')) {

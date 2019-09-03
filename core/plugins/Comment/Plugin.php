@@ -10,6 +10,7 @@ use Illuminate\Database\Schema\Blueprint;
 
 class Plugin extends ZModule
 {
+    public static $require = ["Builder" => 'plugin'];
 
     public function Init()
     {

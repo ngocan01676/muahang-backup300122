@@ -1,4 +1,5 @@
 @section('content-header')
+
     <h1>
         &starf; {!! @z_language(["Manager Blog Post"]) !!}
         <small>it all starts here</small>
@@ -19,6 +20,7 @@
     @component('backend::layout.component.list',['name'=>'core:blog:post','models'=>$models,'route'=>$route,'parameter'=>$parameter,'callback'=>$callback])
         @slot("tool")
             <div class="box-body">
+
                 <div class="col-md-12" style="padding:0">
                     <div class="row">
                         <div class="col-sm-4" style="padding:0">
@@ -42,11 +44,12 @@
 
                         <div class="col-sm-4" style="padding:0">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
-                                <label>Username</label>
+                                <label>Lang</label>
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;">
-                                <input type="text" name="filter.username" class="form-control" id="username"
-                                       placeholder="Name">
+                                <select name="lang" class="form-control">
+                                    <option value="1">d</option>
+                                </select>
                             </div>
                         </div>
 

@@ -104,18 +104,24 @@ class PluginController extends \Zoe\Http\ControllerBackend
                     "description" => $class::$description ? $class::$description : $plugin,
                     "version" => $class::$version,
                     "author" => $class::$author,
-                    "require"=>[]
+                    "require" => []
                 ];
-                foreach ($class::$require as $_plugin){
+                foreach ($class::$require as $_plugin=> $_type) {
                     if (file_exists($relativePath . DIRECTORY_SEPARATOR . $_plugin . DIRECTORY_SEPARATOR . "Plugin.php")) {
-                        $array[$plugin]["require"][$_plugin] = isset($this->data['lists_install'][$_plugin])?1:0;
-                    }else{
+                        $array[$plugin]["require"][$_plugin] = isset($this->data['lists_install'][$_plugin]) ? 1 : 0;
+                    } else {
                         $array[$plugin]["require"][$_plugin] = 2;
                     }
                 }
             }
         }
         $this->data['lists'] = $array;
+        $modules = collect(DB::table('module')->select()->where('status', 1)->get())->keyBy('name');
+        $modules = $modules->map(function ($i) {
+            $i->data = unserialize($i->data);
+            return $i;
+        });
+        $this->data['modules_install'] = $modules->toArray();
 
         return $this->render('plugin.list');
     }

@@ -10,5 +10,9 @@ return [
         'providers' => [
 
         ]
+    ],
+    'layouts' => [
+        'GirdBladeHelper' => '\ZoeTheme\Helper\GirdBladeHelper"',
+        'ViewHelper' => '\ZoeTheme\Helper\ViewHelper'
     ]
 ];

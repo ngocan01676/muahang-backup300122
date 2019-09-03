@@ -34,10 +34,15 @@
                         </div>
                         @if(count($list['require']))
                             <div class="plugins">
-                                @php $i = 0 @endphp
+                                @php
+                                    $i = 0;
+
+                                @endphp
                                 @foreach($list['require'] as $_plugin=>$require)
                                     <div>
-                                        <td><strong>{{ ++$i }}</strong> {!! $require==1?'<span class="plugin label label-success" data-plugin="'.$_plugin.'" data-status="1">'.$_plugin.'</span>':($require==2?'<span class="plugin label label-default" data-plugin="'.$_plugin.'" data-status="2">'.$_plugin.'</span>':'<span class="plugin label label-warning" data-plugin="'.$_plugin.'" data-status="0">'.$_plugin.'</span>') !!}</td>
+                                        <td>
+                                            <strong>{{ ++$i }}</strong> {!! $require==1?'<span class="plugin label label-success" data-plugin="'.$_plugin.'" data-status="1">'.$_plugin.'</span>':($require==2?'<span class="plugin label label-default" data-plugin="'.$_plugin.'" data-status="2">'.$_plugin.'</span>':'<span class="plugin label label-warning" data-plugin="'.$_plugin.'" data-status="0">'.$_plugin.'</span>') !!}
+                                        </td>
                                     </div>
                                 @endforeach
 
@@ -109,7 +114,6 @@
                 var self = this;
 
 
-
                 var box = $(this).closest('.box');
 
                 if ($(self).attr('process') === 1) {
@@ -119,23 +123,23 @@
                 var data = $(this).data();
                 var error = [];
 
-                if(data.act === "uninstall"){
+                if (data.act === "uninstall") {
 
-                }else{
-                    $.each(plugin,function () {
+                } else {
+                    $.each(plugin, function () {
                         var data = $(this).data();
                         var msg = "";
-                        if(data.status === 0){
+                        if (data.status === 0) {
                             msg = "{!! z_language('Plugin :plugin not install!'); !!}";
-                        }else  if(data.status === 2){
+                        } else if (data.status === 2) {
                             msg = "{!! z_language('Plugin :plugin not exits!'); !!}";
                         }
-                        if(msg.length>0){
-                            error.push(msg.replace(":plugin",data.plugin));
+                        if (msg.length > 0) {
+                            error.push(msg.replace(":plugin", data.plugin));
                         }
                     });
                 }
-                if(error.length === 0){
+                if (error.length === 0) {
                     $(self).attr('process', 1);
 
                     box.find('.icon').loading({circles: 3, overlay: true, width: "5em", top: "13%", left: "11%"});
@@ -156,7 +160,7 @@
                         }
                         $(self).attr('process', 0);
                     }, data);
-                }else{
+                } else {
                     $(self).notify(error.join("\n"));
                     $.growl.error({message: error.join("\n")});
                 }

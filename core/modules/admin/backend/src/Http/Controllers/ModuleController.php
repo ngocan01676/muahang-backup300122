@@ -57,7 +57,7 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                             $object->install();
                             DB::table('module')->updateOrInsert(['name' => $module], [
                                 'version' => $class::$version,
-                                'data' => serialize($data ? $data : []),
+                                'data' => serialize(['require' => $class::$require]),
                                 'status' => 1,
                                 'create_at' => date('Y-m-d H:i:s')
                             ]);
@@ -133,12 +133,12 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                         "version" => $class::$version,
                         "author" => $class::$author,
                         "system" => $system,
-                        "require" =>[]
+                        "require" => []
                     ];
-                    foreach ($class::$require as $plugin){
+                    foreach ($class::$require as  $plugin) {
                         if (file_exists($relativePluginPath . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "Plugin.php")) {
-                            $array[$module]["require"][$plugin] = isset($this->data['plugins'][$plugin])?1:0;
-                        }else{
+                            $array[$module]["require"][$plugin] = isset($this->data['plugins'][$plugin]) ? 1 : 0;
+                        } else {
                             $array[$module]["require"][$plugin] = 2;
                         }
                     }
@@ -146,6 +146,7 @@ class ModuleController extends \Zoe\Http\ControllerBackend
             }
         }
         $this->data['lists'] = $array;
+
         $this->data['lists_install'] = collect(DB::table('module')->select()->where('status', 1)->get())->keyBy('name');
         return $this->render('module.list');
     }

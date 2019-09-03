@@ -194,6 +194,20 @@ return [
                     ],
                 ]
             ],
+            'theme' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "ThemeController",
+                "sub_prefix" => "/theme",
+                "guard" => "backend",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "ajax" => [
+                        "url" => "/ajax", "method" => ['post'],
+                    ],
+                ]
+            ],
         ]
     ]
 ];

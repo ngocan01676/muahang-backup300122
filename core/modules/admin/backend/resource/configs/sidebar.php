@@ -46,6 +46,13 @@ return [
             "header" => true,
 
         ],
+        "theme" => [
+            "name" => z_language('Themes', false),
+            "pos" => 2,
+            "url" => "backend:theme:list",
+            "header" => true,
+
+        ],
         "plugin:item" => [
             "name" => z_language('Plugins', false),
             "pos" => 2,
