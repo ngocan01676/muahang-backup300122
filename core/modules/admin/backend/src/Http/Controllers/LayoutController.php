@@ -103,7 +103,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             $this->getCrumb();
             $arr = [];
             $lists = isset(app()->getConfig()['modules']['admin.layout']) ? app()->getConfig()['modules']['admin.layout'] : [];
-            foreach ($lists as $k=>$row) {
+            foreach ($lists as $k => $row) {
                 $arr[$k] = $row['label'];
             }
             return $arr;
@@ -166,7 +166,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 //        dump(app()->getComponents());
 
 
-//        $components_config =  app()->getComponents()->config;
+//        $components_config = app()->getComponents()->config;
 //        dd($items);
 
         if (isset($items['config']['stg'])) {
@@ -187,37 +187,39 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                 switch ($stg['system']) {
                     case "theme":
                         if ($stg['module'] == $theme) {
-                            if ($stg['type'] == "component") {
-                                $view_config = "theme::component." . $stg['name'] . ".config.";
-                                $view_view = "theme::component." . $stg['name'] . ".views.";
-                                $path = base_path('core/themes/' . $stg['module'] . '/frontend/resource/views/component/' . $stg['name']);
+                            if ($stg['type'] == "components") {
+                                $view_config = "theme::components." . $stg['name'] . ".config.";
+                                $view_view = "theme::components." . $stg['name'] . ".views.";
+                                $path = base_path('core/themes/' . $stg['module'] . '/frontend/resource/views/components/' . $stg['name']);
                             }
                         }
                         break;
                     case "module":
-                        if ($stg['type'] == "component") {
-                            $view_config = $stg['module'] . "::component." . $stg['name'] . ".config.";
-                            $view_view = $stg['module'] . "::component." . $stg['name'] . ".views.";
-                            $path = base_path('core/modules/' . $stg['module'] . '/frontend/resource/views/component/' . $stg['name']);
+                        if ($stg['type'] == "components") {
+                            $view_config = $stg['module'] . "::components." . $stg['name'] . ".config.";
+                            $view_view = $stg['module'] . "::components." . $stg['name'] . ".views.";
+                            $path = base_path('core/modules/' . $stg['module'] . '/frontend/resource/views/components/' . $stg['name']);
                         } else {
 
                         }
                         break;
                     case "plugin":
-                        if ($stg['type'] == "component") {
-                            $path = base_path('core/plugins/' . $stg['module'] . '/resource/views/component/' . $stg['name']);
+                        if ($stg['type'] == "components") {
+                            $path = base_path('core/plugins/' . $stg['module'] . '/resource/views/components/' . $stg['name']);
                         } else {
 
                         }
                         break;
                 }
-                $prefix = $stg['system'].":";
+                $prefix = $stg['system'] . ":" . $stg['type'] . ":";
+
                 if (isset($items['config']['stg']['name'])) {
-                    if (isset($components_info[$prefix.$items['config']['stg']['name']]['main']) && is_array($components_info[$prefix.$items['config']['stg']['name']]['main'])) {
-                        $data["func"] = array_merge($data["func"], $components_info[$prefix.$items['config']['stg']['name']]['main']);
+
+                    if (isset($components_info[$prefix . $items['config']['stg']['name']]['main']) && is_array($components_info[$prefix . $items['config']['stg']['name']]['main'])) {
+                        $data["func"] = array_merge($data["func"], $components_info[$prefix . $items['config']['stg']['name']]['main']);
                     }
-                    if (isset($components_conf[$prefix.$items['config']['stg']['name']])) {
-                        $config = $components_conf[$prefix.$items['config']['stg']['name']];
+                    if (isset($components_conf[$prefix . $items['config']['stg']['name']])) {
+                        $config = $components_conf[$prefix . $items['config']['stg']['name']];
                         $is_template_dynamic = false;
                         if (isset($config['configs'])) {
                             $config['configs']['lang'] = ["template" => "language"];
@@ -303,6 +305,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     'view' => "backend::controller.layout.ajax.grid",
                     'data' => []
                 ];
+
 //                $data['views']["temp"] = app()->getComponents()->template["template"];;
                 return $this->render('layout.ajax.config', $data);
             }
@@ -315,7 +318,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $items = $request->all();
         $obj_layout = new \Admin\Lib\LayoutBlade();
         if (isset($items["cfg"]['template'])) {
-            if ($items['stg']['type'] == "component") {
+            if ($items['stg']['type'] == "components") {
                 $obj_layout->ViewHelper = $this->GetViewHelperBlade();
                 $obj_layout->GridHelper = $this->GetGridBlade();
                 $php = Blade::compileString($obj_layout->InitBuild() . $obj_layout->InitFuc() . $obj_layout->plugin($items));
@@ -508,14 +511,15 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $obj_layout->GridHelper = $this->GetGridBlade();
         $obj_layout->TagHelper = $obj_layout->GridHelper->CallBackTag();
         $use = $this->getListType($model->type_group);
-        if(isset($use['template'])){
+        if (isset($use['template'])) {
             $template = base_path($use['template']);
-        }else{
+        } else {
             $template = base_path('core/modules/admin/backend/resource/stubs/layout.stubs');
         }
-        $obj_layout->render($template,$layout, $model->id, $model->token, $model->type);
-        echo json_encode(['id' => $model->id,'template'=>$template,''=>$use]);
+        $obj_layout->render($template, $layout, $model->id, $model->token, $model->type);
+        echo json_encode(['id' => $model->id, 'template' => $template, '' => $use]);
     }
+
     function getPartial($id)
     {
         $theme = config_get('theme', "active");
@@ -606,7 +610,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "info" => $info,
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
-            'group'=>$use,
+            'group' => $use,
             "listsType" => $this->listsType
         ]);
     }

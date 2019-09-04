@@ -624,13 +624,42 @@ var saveLayout = function (element) {
     data = step($(element), depth);
     return {data: data, widget: widget};
 }
-$("#saveLayout").click(function () {
+console.log($("#saveLayout"));
+
+function SaveLayout(self) {
+    console.log('0');
     DataLayout = [];
     var grids = $("#layout_demo>.grid");
+    console.log('1');
     var layout = saveLayout("#layout_demo");
-
+    console.log('2');
     console.log((layout));
+    $('#layout_demo').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+    $.ajax({
+        type: 'POST',
+        url: $(self).attr('url'),
+        data: {
+            layout: JSON.stringify(layout),
+            info: $("#formInfo").zoe_inputs("get")
+        },
+        success: function (data) {
+            var json = JSON.parse(data);
+            if (json.hasOwnProperty('id')) {
+                $("#id").val(json.id);
+            }
+            $('#layout_demo').loading({destroy: true});
+        }
+    });
+}
 
+$("#saveLayout").click(function () {
+    console.log('0');
+    DataLayout = [];
+    var grids = $("#layout_demo>.grid");
+    console.log('1');
+    var layout = saveLayout("#layout_demo");
+    console.log('2');
+    console.log((layout));
     $('#layout_demo').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
     $.ajax({
         type: 'POST',

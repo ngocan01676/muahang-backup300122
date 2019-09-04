@@ -146,7 +146,7 @@ class LayoutRender
                         if (isset(static::$widgets[$_row])) {
 
                             if (isset(static::$widgets[$_row]['stg']['type'])) {
-                                if (static::$widgets[$_row]['stg']['type'] == "component") {
+                                if (static::$widgets[$_row]['stg']['type'] == "components") {
                                     $_content .= static::plugin(static::$widgets[$_row], true);
                                 } else {
                                     $_content .= static::partial(static::$widgets[$_row], true);

@@ -37,13 +37,13 @@
                 @endphp
             @endfunction
 
-@z_include(core/plugins/Comment/resource/views/component/comment/main.php)
+@z_include(core/plugins/Comment/resource/views/components/comment/main.php)
 
 
         @function(func_1565778167_3057_8048 ($option))
             @php $option = get_config_component('5ce4aad3-1237-7177-f81f-02a33fd255ff',$option) @endphp
 @php $data = run_component('Comments\main',$option) @endphp
-@includeIf('pluginComment::component.comment.views.main', ['data'=>$data])
+@includeIf('pluginComment::components.comment.views.main', ['data'=>$data])
         @endfunction
 
 @func_1565778167_3057_8048(array (

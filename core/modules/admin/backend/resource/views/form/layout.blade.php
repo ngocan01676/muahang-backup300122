@@ -63,7 +63,7 @@
 @section('content-header')
     <h1>
         {!! @z_language(["Manager Layout"]) !!}
-        <button url="{{route('backend:layout:ajax')}}" id="saveLayout" type="button"
+        <button onclick="SaveLayout(this)" url="{{route('backend:layout:ajax')}}" id="saveLayout" type="button"
                 class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
     </h1>
 @endsection
@@ -101,7 +101,7 @@
 
                 $components_config = app()->getComponents()->config;
 
-                foreach (['layout'=>'Layout','theme'=>'Theme'] as $module=>$label):
+                foreach (['layout' => 'Layout', 'theme' => 'Theme', 'widget' => 'Widget'] as $module=>$label):
 
                 ?>
                 <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
@@ -150,7 +150,8 @@
                                     $option["cfg"] = $_cfg->getArrayCopy();
                                     $option["opt"] = $components_config[$name]["data"];
                                 }
-                                if($option['stg']["layout"] == $module){
+                                if ($option['stg']["layout"] == $module) {
+
                                     echo \Admin\Lib\LayoutRender::plugin($option, false);
                                 }
 
@@ -187,7 +188,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><label for="layout group" class="control-label">Group</label>
+                                    <td class="text-center"><label for="layout group"
+                                                                   class="control-label">Group</label>
                                     </td>
                                     <td>
                                         @php $curent = "theme"; @endphp

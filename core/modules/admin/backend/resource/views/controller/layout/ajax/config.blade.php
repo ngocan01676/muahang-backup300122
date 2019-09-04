@@ -4,10 +4,13 @@
             <li class="active"><a name="config" data-toggle="tab" href="#config">Config</a></li>
             @php
                 $dataConfigAll = [];
+
             @endphp
             @foreach($views as $key=>$view)
+                @continue(!isset($view['view']))
                 @php
-                    $dataConfigAll[$key] = $view['data'];
+
+                    $dataConfigAll[$key] = isset($view['data'])?$view['data']:[];
                 @endphp
                 <li><a data-toggle="tab" data-name="{!! $key !!}" href="#{{md5($view['view'])}}">{{$view['label']}}</a>
                 </li>
@@ -120,6 +123,7 @@
                 </table>
             </div>
             @foreach($views as $view)
+                @continue(!isset($view['view']))
                 <div id="{{md5($view['view'])}}" class="tab-pane fade">
                     @include($view['view'],["config"=>$items,"data"=>$view['data'],"all"=>$dataConfigAll,'list_views'=>$list_views])
                 </div>

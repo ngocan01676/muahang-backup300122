@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -42,6 +38,43 @@
             @endfunction
 
 
+
+        @function(func_1567620073_5739_9784 ($option))
+            @php $data = $option; @endphp
+@includeIf('theme::widgets.menu-extras.views.main', ['data'=>$data])
+        @endfunction
+
+        @function(func_1567620073_4622_2570 ($option))
+            @php $data = $option; @endphp
+@includeIf('theme::components.mega-menu.views.main', ['data'=>$data])
+        @endfunction
+
+        @function(func_1567620073_1342_1377 ($option))
+            @php $data = $option; @endphp
+@includeIf('theme::widgets.slider.views.main', ['data'=>$data])
+        @endfunction
+<div class="mainmenu-wrapper"><div class="container">
+@func_1567620073_5739_9784(array (
+  'data' => 
+  array (
+  ),
+))
+
+
+@func_1567620073_4622_2570(array (
+  'data' => 
+  array (
+  ),
+))
+
+</div></div><div class='homepage-slider'>
+@func_1567620073_1342_1377(array (
+  'data' => 
+  array (
+  ),
+))
+
+</div>
 
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

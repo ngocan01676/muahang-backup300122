@@ -59,6 +59,7 @@ class LayoutBlade extends Layout
     public $ViewHelper = null;
     public $GridHelper = null;
     public $TagHelper = null;
+
     public function addInclude($stg)
     {
         $theme = config('zoe.theme');
@@ -66,23 +67,29 @@ class LayoutBlade extends Layout
         switch ($stg['system']) {
             case "theme":
                 if ($stg['module'] == $theme) {
-                    if ($stg['type'] == "component") {
-                        $path = ('core/themes/' . $stg['module'] . '/frontend/resource/views/component/' . $stg['name']);
+                    if ($stg['type'] == "components") {
+                        $path = ('core/themes/' . $stg['module'] . '/frontend/resource/views/components/' . $stg['name']);
+                    } else if ($stg['type'] == "widgets") {
+                        $path = ('core/themes/' . $stg['module'] . '/frontend/resource/views/widgets/' . $stg['name']);
                     }
                 }
                 break;
             case "module":
-                if ($stg['type'] == "component") {
-                    $path = ('core/modules/' . $stg['module'] . '/frontend/resource/views/component/' . $stg['name']);
+                if ($stg['type'] == "components") {
+                    $path = ('core/modules/' . $stg['module'] . '/frontend/resource/views/components/' . $stg['name']);
+                } else if ($stg['type'] == "widgets") {
+                    $path = ('core/modules/' . $stg['module'] . '/frontend/resource/views/widgets/' . $stg['name']);
                 }
                 break;
             case "plugin":
-                if ($stg['type'] == "component") {
-                    $path = ('core/plugins/' . $stg['module'] . '/resource/views/component/' . $stg['name']);
+                if ($stg['type'] == "components") {
+                    $path = ('core/plugins/' . $stg['module'] . '/resource/views/components/' . $stg['name']);
+                } else if ($stg['type'] == "widgets") {
+                    $path = ('core/plugins/' . $stg['module'] . '/resource/views/components/' . $stg['name']);
                 }
-             break;
+                break;
         }
-        parent::addInclude($path.'/main.php');
+        parent::addInclude($path . '/main.php');
     }
 
     public function plugin($option, $index = '')
@@ -98,43 +105,43 @@ class LayoutBlade extends Layout
         }
         $content = "";
         $_par = (var_export(isset($option['opt']) ? ["data" => $option['opt']] : ["data" => []], true));
-         if (isset($option['cfg']['view'])) {
+        if (isset($option['cfg']['view'])) {
             if ($option['cfg']['view'] == "dynamic") {
 //                if (method_exists($this->ViewHelper, "commposer")) {
 //                    $content = call_user_func_array(array($this->ViewHelper, "commposer"), array($option));
 //                }else{
-                    $content = isset($option['cfg']['template']['view']) && isset($option['cfg']['template']['data']) && isset($option['cfg']['template']['data'][$option['cfg']['template']['view']])?$option['cfg']['template']['data'][$option['cfg']['template']['view']]:"";
+                $content = isset($option['cfg']['template']['view']) && isset($option['cfg']['template']['data']) && isset($option['cfg']['template']['data'][$option['cfg']['template']['view']]) ? $option['cfg']['template']['data'][$option['cfg']['template']['view']] : "";
 //                }
-            } else if ($option['cfg']['view'] && $option['cfg']['view']!="0") {
+            } else if ($option['cfg']['view'] && $option['cfg']['view'] != "0") {
                 $content = "@includeIf('" . $option['cfg']['view'] . "', ['data'=>\$data])";
             } else {
                 $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>";
             }
         } else {
-            $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>".PHP_EOL;
+            $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>" . PHP_EOL;
         }
 
-        if(isset($option['cfg']['func'])){
+        if (isset($option['cfg']['func'])) {
             $stringFunc = "";
-            if($option['cfg']['public'] == "1" && $option['cfg']['dynamic'] == "1"){
-                $stringFunc.="@php \$option = get_config_component('".$option['cfg']['id']."',\$option) @endphp".PHP_EOL;
+            if ($option['cfg']['public'] == "1" && $option['cfg']['dynamic'] == "1") {
+                $stringFunc .= "@php \$option = get_config_component('" . $option['cfg']['id'] . "',\$option) @endphp" . PHP_EOL;
             }
-            if($option['cfg']['func'] != "No Action"){
+            if ($option['cfg']['func'] != "No Action") {
                 $this->addInclude($option['stg']);
-                $stringFunc.="@php \$data = run_component('".$option['cfg']['func']."',\$option) @endphp".PHP_EOL;
+                $stringFunc .= "@php \$data = run_component('" . $option['cfg']['func'] . "',\$option) @endphp" . PHP_EOL;
 
-            }else{
-                $stringFunc.="@php \$data = \$option; @endphp".PHP_EOL;
+            } else {
+                $stringFunc .= "@php \$data = \$option; @endphp" . PHP_EOL;
             }
-            $content = $this->func($stringFunc.$content,['$option'=>$_par]);
+            $content = $this->func($stringFunc . $content, ['$option' => $_par]);
         }
 
-        return $this->girds(PHP_EOL.$content.PHP_EOL, $option);
+        return $this->girds(PHP_EOL . $content . PHP_EOL, $option);
     }
 
     public function partial($option, $index = '')
     {
-        $content = "@includeIf('zoe::" . $this->FilenamePartial($option['stg']['id'],$option['stg']['token']) . "', [])";
+        $content = "@includeIf('zoe::" . $this->FilenamePartial($option['stg']['id'], $option['stg']['token']) . "', [])";
         return $this->girds($content, $option);
     }
 
@@ -168,7 +175,7 @@ class LayoutBlade extends Layout
                             if (isset($_row[0]['row'])) {
                                 $html .= $this->rows($_row[0]['row'], $layout, $lever++);
                             } else if (isset($this->widget[$_row])) {
-                                if ($this->widget[$_row]['stg']['type'] == "component") {
+                                if ($this->widget[$_row]['stg']['type'] == "components" || $this->widget[$_row]['stg']['type'] == "widgets") {
                                     $html .= $this->plugin($this->widget[$_row], $lever . '-' . $key . '-' . $_k);
                                 } else if ($this->widget[$_row]['stg']['type'] == "partial") {
                                     $html .= $this->partial($this->widget[$_row], $lever . '-' . $key . '-' . $_k);
@@ -179,7 +186,7 @@ class LayoutBlade extends Layout
                     if (isset($option['cfg']['tag']) && isset($this->TagHelper[$option['cfg']['tag']])) {
                         $html .= call_user_func_array($this->TagHelper[$option['cfg']['tag']], array("end", $option));
                     } else if ($block) {
-                        $html .= "</div>".PHP_EOL;
+                        $html .= "</div>" . PHP_EOL;
                     }
                 }
             }
@@ -203,25 +210,25 @@ class LayoutBlade extends Layout
                     }
                     return $html;
                 @endphp
-            @endfunction'.PHP_EOL;
+            @endfunction' . PHP_EOL;
     }
 
-     function FilenamePartial($id,$token)
+    function FilenamePartial($id, $token)
     {
         return 'layout-partial-' . $id . '-' . $token;
     }
 
-     function FilenameLayout($id,$token)
+    function FilenameLayout($id, $token)
     {
-        return 'layout-'.$id."-".$token;
+        return 'layout-' . $id . "-" . $token;
     }
 
-     function InitFuc()
+    function InitFuc()
     {
-        return $this->GetStringInclude().$this->ViewHelper->GetFunc() . $this->GridHelper->GetFunc(). $this->GetFunc();
+        return $this->GetStringInclude() . $this->ViewHelper->GetFunc() . $this->GridHelper->GetFunc() . $this->GetFunc();
     }
 
-     function render($template,$data, $id,$token, $type = "layout")
+    function render($template, $data, $id, $token, $type = "layout")
     {
         $this->datas = isset($data['data']) ? $data['data'] : [];
         $this->widget = isset($data['widget']) ? $data['widget'] : [];
@@ -236,11 +243,12 @@ class LayoutBlade extends Layout
 
         $file = new \Illuminate\Filesystem\Filesystem();
         $this->html = $this->InitFuc() . $this->html;
+
         if ($type == "layout") {
             $template = $file->get($template);
-            $file->put(base_path('bootstrap/zoe/views/'.$this->FilenameLayout($id,$token) . ".blade.php"), str_replace_first("{{CONTENT}}", $this->InitBuild() . $this->html, $template));
+            $file->put(base_path('bootstrap/zoe/views/' . $this->FilenameLayout($id, $token) . ".blade.php"), str_replace_first("{{CONTENT}}", $this->InitBuild() . $this->html, $template));
         } else {
-            $file->put(base_path('bootstrap/zoe/views/' . $this->FilenamePartial($id,$token) . ".blade.php"), $this->html);
+            $file->put(base_path('bootstrap/zoe/views/' . $this->FilenamePartial($id, $token) . ".blade.php"), $this->html);
         }
     }
 

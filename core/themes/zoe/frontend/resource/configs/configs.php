@@ -16,18 +16,18 @@ return [
             'theme' => [
                 'value' => 'theme',
                 'label' => 'theme',
-                'layout'=>[
+                'layout' => [
                     'GirdBladeHelper' => '\ZoeTheme\Helper\GirdBladeHelper',
                     'ViewHelper' => '\ZoeTheme\Helper\ViewHelper'
                 ],
-                'template'=>'core/themes/zoe/frontend/resource/stubs/layout.stubs',
-                'module'=>'zoe',
-                'conf'=>[
-                    't'=>'frontend',
-                    'm'=>'theme'
+                'template' => 'core/themes/zoe/frontend/resource/stubs/layout.stubs',
+                'module' => 'zoe',
+                'conf' => [
+                    't' => 'frontend',
+                    'm' => 'theme'
                 ],
-                'components'=>[
-                    "thumbnail-image"=>[],
+                'widgets' => [
+//                    "menu-extras" => ["layout" => "theme"],
                 ]
             ]
         ]
