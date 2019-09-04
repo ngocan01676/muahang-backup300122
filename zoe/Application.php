@@ -42,16 +42,14 @@ class Application extends App
         $this->_components->data = new \stdClass();
         $this->_components->data->info = new Config();
         $this->_components->data->config = new Config();
+        $this->_components->data->theme = new Config();
         $this->_components->data->template = new Config();
-
 
         $this->_permissions = new \stdClass();
         $this->_permissions->cache = 0;
         $this->_permissions->data = new \stdClass();
         $this->_permissions->data->aliases = [];
         $this->_permissions->data->data = [];
-
-
 
         parent::__construct($basePath);
 

@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{asset('module/admin/assets/loadding/css/jquery-loading.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/jquery.growl/stylesheets/jquery.growl.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/jquery-confirm/dist/jquery-confirm.min.css')}}">
+    <link rel="stylesheet" href="{{asset('module/admin/developer-tools/toolbar.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -428,6 +429,7 @@
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
+@includeIf('backend::developer-tools.toolbar')
 <!-- ./wrapper -->
 @stack('extra-content')
 <!-- jQuery 3 -->
@@ -454,6 +456,9 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('module/admin/dist/js/demo.js')}}"></script>
 <script src="{{asset('module/admin/assets/main.js')}}"></script>
+
+<script src="{{asset('module/admin/developer-tools/toolbar.js')}}"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajaxSetup({

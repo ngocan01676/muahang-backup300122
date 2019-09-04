@@ -1,6 +1,6 @@
 <?php
 return [
     "components" => [
-       "components"=>["comment"]
+       "components"=>["comment"=>['layout'=>'layout']]
     ]
 ];

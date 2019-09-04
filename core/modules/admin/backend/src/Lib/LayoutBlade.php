@@ -221,7 +221,7 @@ class LayoutBlade extends Layout
         return $this->GetStringInclude().$this->ViewHelper->GetFunc() . $this->GridHelper->GetFunc(). $this->GetFunc();
     }
 
-     function render($data, $id,$token, $type = "layout")
+     function render($template,$data, $id,$token, $type = "layout")
     {
         $this->datas = isset($data['data']) ? $data['data'] : [];
         $this->widget = isset($data['widget']) ? $data['widget'] : [];
@@ -233,10 +233,11 @@ class LayoutBlade extends Layout
                 }
             }
         }
+
         $file = new \Illuminate\Filesystem\Filesystem();
         $this->html = $this->InitFuc() . $this->html;
         if ($type == "layout") {
-            $template = $file->get(base_path('core/modules/admin/backend/resource/stubs/layout.stubs'));
+            $template = $file->get($template);
             $file->put(base_path('bootstrap/zoe/views/'.$this->FilenameLayout($id,$token) . ".blade.php"), str_replace_first("{{CONTENT}}", $this->InitBuild() . $this->html, $template));
         } else {
             $file->put(base_path('bootstrap/zoe/views/' . $this->FilenamePartial($id,$token) . ".blade.php"), $this->html);

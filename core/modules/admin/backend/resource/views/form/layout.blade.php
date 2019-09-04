@@ -98,8 +98,11 @@
                 </div>
                 <?php
                 $components = app()->getComponents()->info;
+
                 $components_config = app()->getComponents()->config;
-                $module = "Component";
+
+                foreach (['layout'=>'Layout','theme'=>'Theme'] as $module=>$label):
+
                 ?>
                 <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
                     <div class="panel panel-default">
@@ -108,16 +111,14 @@
                                 <a class="menu-item"
                                    data-toggle="collapse"
                                    data-parent="#accordion-<?php echo $module; ?>"
-                                   href="#menu-accordion-<?php echo $module; ?>"><?php echo $module; ?></a>
+                                   href="#menu-accordion-<?php echo $module; ?>"><?php echo $label; ?></a>
                             </h4>
                         </div>
                         <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
-
                             <?php
-
                             foreach ($components as $name => $component) {
-                                $option = $component['option'];
 
+                                $option = $component['option'];
                                 $_cfg = new Zoe\Config($option["cfg"]);
                                 $option["stg"]['name'] = $component['name'];
                                 if (is_array($component['main'])) {
@@ -149,15 +150,16 @@
                                     $option["cfg"] = $_cfg->getArrayCopy();
                                     $option["opt"] = $components_config[$name]["data"];
                                 }
-//                                dump($option);
-                                echo \Admin\Lib\LayoutRender::plugin($option, false);
+                                if($option['stg']["layout"] == $module){
+                                    echo \Admin\Lib\LayoutRender::plugin($option, false);
+                                }
+
                             }
                             ?>
                         </div>
                     </div>
                 </div>
-
-
+                <?php endforeach; ?>
             </div>
             <div class="col-xs-8 no-padding">
                 <div class="col-xs-12" style="min-height: 500px;margin-top: 10px">

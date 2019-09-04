@@ -103,8 +103,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             $this->getCrumb();
             $arr = [];
             $lists = isset(app()->getConfig()['modules']['admin.layout']) ? app()->getConfig()['modules']['admin.layout'] : [];
-            foreach ($lists as $row) {
-                $arr[$row['value']] = $row['label'];
+            foreach ($lists as $k=>$row) {
+                $arr[$k] = $row['label'];
             }
             return $arr;
         }
@@ -165,7 +165,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 //        dump(app()->getConfig()['views']["paths"]);
 //        dump(app()->getComponents());
 
-//        dump($items);
+
 //        $components_config =  app()->getComponents()->config;
 //        dd($items);
 
@@ -211,12 +211,13 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                         }
                         break;
                 }
+                $prefix = $stg['system'].":";
                 if (isset($items['config']['stg']['name'])) {
-                    if (isset($components_info[$items['config']['stg']['name']]['main']) && is_array($components_info[$items['config']['stg']['name']]['main'])) {
-                        $data["func"] = array_merge($data["func"], $components_info[$items['config']['stg']['name']]['main']);
+                    if (isset($components_info[$prefix.$items['config']['stg']['name']]['main']) && is_array($components_info[$prefix.$items['config']['stg']['name']]['main'])) {
+                        $data["func"] = array_merge($data["func"], $components_info[$prefix.$items['config']['stg']['name']]['main']);
                     }
-                    if (isset($components_conf[$items['config']['stg']['name']])) {
-                        $config = $components_conf[$items['config']['stg']['name']];
+                    if (isset($components_conf[$prefix.$items['config']['stg']['name']])) {
+                        $config = $components_conf[$prefix.$items['config']['stg']['name']];
                         $is_template_dynamic = false;
                         if (isset($config['configs'])) {
                             $config['configs']['lang'] = ["template" => "language"];
@@ -498,39 +499,27 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $slug = Str::slug($items["info"]['name'], '-');
         $model->token = $items["info"]['token'];
         $model->slug = $slug;
-        $model->theme = $theme;
         $model->type = $items["info"]['type'];
         $layout = isset($items['layout']) ? json_decode($items['layout'], true) : [];
-
-
         $model->content = base64_encode(serialize($layout));
         $model->save();
         $obj_layout = new \Admin\Lib\LayoutBlade();
-
         $obj_layout->ViewHelper = $this->GetViewHelperBlade();
         $obj_layout->GridHelper = $this->GetGridBlade();
-
         $obj_layout->TagHelper = $obj_layout->GridHelper->CallBackTag();
-
-        $obj_layout->render($layout, $model->id, $model->token, $model->type);
-
-        echo json_encode(['id' => $model->id]);
-//        if (isset($layout['widget'])) {
-//            foreach ($layout['widget'] as $id => $widget) {
-//                DB::table('component')->updateOrInsert(
-//                    [
-//                        'id' => $id,
-//                    ],
-//                    ['data' => serialize($widget), 'layout' => $model->id]
-//                );
-//            }
-//        }
+        $use = $this->getListType($model->type_group);
+        if(isset($use['template'])){
+            $template = base_path($use['template']);
+        }else{
+            $template = base_path('core/modules/admin/backend/resource/stubs/layout.stubs');
+        }
+        $obj_layout->render($template,$layout, $model->id, $model->token, $model->type);
+        echo json_encode(['id' => $model->id,'template'=>$template,''=>$use]);
     }
-
     function getPartial($id)
     {
         $theme = config_get('theme', "active");
-        $rs = DB::table('layout')->select()->where(['type' => 'partial', 'theme' => $theme])->get()->toArray();
+        $rs = DB::table('layout')->select()->where(['type' => 'partial'])->get()->toArray();
         $array = [];
         foreach ($rs as $val) {
             if ($id == $val->id) {
@@ -588,6 +577,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     public function edit($id, $type = "")
     {
+        $arr = $this->getListType('theme');
+
         $info = [];
         $model = \Admin\Http\Models\Layout::find($id);
         $this->getcrumb()->breadcrumb(z_language('Edit Layout :name', ["name" => $model->name]), false);
@@ -606,7 +597,9 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         if (!isset($content['widget'])) {
             $content["widget"] = [];
         }
+
         $use = $this->getListType($type);
+
         return $this->render("layout.edit", [
             'model' => $model,
             "content" => $content,

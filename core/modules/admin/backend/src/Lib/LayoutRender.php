@@ -158,7 +158,7 @@ class LayoutRender
             }
             $rowHtml .= '<div class="' . $clazz . ' column" place="' . $pace . '">' . $_content . '</div>';
         }
-        return static::row($row['option'], $preview . "</span>", $rowHtml, $layout);
+        return static::row($row['option'], trim($preview,'-') . "</span>", $rowHtml, $layout);
     }
 
     public static function plugins($plugins)

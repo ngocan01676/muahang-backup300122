@@ -15,7 +15,6 @@ return [
 //        ],
         "plugin:item" => [
             "items" => [
-
                 "plugin:mega-menu" => [
                     "name" => z_language('Mega Menu'),
                     "pos" => 2,

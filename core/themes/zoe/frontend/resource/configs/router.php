@@ -6,7 +6,7 @@ return [
                 "namespace" => "ZoeTheme\Http\Controllers",
                 "controller" => "HomeController",
                 "router" => [
-                    "home" => [
+                    "list" => [
                         "url" => "/",
                         "guard" => ""
                     ],
