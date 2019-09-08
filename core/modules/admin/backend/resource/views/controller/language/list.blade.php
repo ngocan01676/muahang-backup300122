@@ -30,17 +30,17 @@
                     $lang_default = "en_us";
                             $config = app()->getConfig();
                     $langStatic = app()->getConfig()->languages;
+                    $w = 100/(count($languages)+1);
 
                 @endphp
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th class="text-center" width="250px"><span
-                                    class="flag-icon flag-icon-{{$languages[$lang_default]['flag']}}"></span>
+                        <th class="text-center" width="250px"></span>
                         </th>
 
                         @foreach ($languages as $lang=>$language)
-                            @continue($lang == $lang_default)
+                            {{--@continue($lang == $lang_default)--}}
                             <th class="text-center"><span
                                         class="flag-icon flag-icon-{{$language['flag']}}"></span></th>
                         @endforeach
@@ -55,11 +55,11 @@
                             <td data-path="{!! implode('-',$values['path']) !!}"
                                 class="text-center"> {!! $values['name'] !!} </td>
                             @foreach ($languages as $lang=>$language)
-                                @continue($lang == $lang_default)
+                                {{--                                @continue($lang == $lang_default)--}}
                                 @php
                                     $langValue =  isset($data['lang'][$language["lang"]][$key]["value"]) && !empty($data['lang'][$language["lang"]][$key]["value"])?$data['lang'][$language["lang"]][$key]["value"]:(isset($langStatic[$values['name']][$language["lang"]])?$langStatic[$values['name']][$language["lang"]]:"");
                                 @endphp
-                                <td class="text-center" style="width: {!! 100/count($languages) !!}%">
+                                <td class="text-center" style="width: {!! $w !!}%">
                                     <a href="#" class="lang"
                                        data-title="{!! @z_language(["Please enter at least 1 character"]) !!}">{!! $langValue !!}</a>
                                     <input type="hidden"

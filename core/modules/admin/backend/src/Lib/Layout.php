@@ -5,7 +5,8 @@ class Layout
 {
     public $stringFunction = "";
     public $stringInclude = [];
-    protected function func($content, $arr_par = [])
+
+    protected function func($content, $arr_par = [], $group = true)
     {
 
         $par = '';
@@ -23,8 +24,12 @@ class Layout
         @function(func_' . $t . '_' . $func . ' (' . $par . '))
             ' . $content . '
         @endfunction';
-        $this->addFunc($html);
-        return '@func_' . $t . '_' . $func . '(' . $val . ')'.PHP_EOL;
+        if ($group) {
+            $this->addFunc($html);
+            return '@func_' . $t . '_' . $func . '(' . $val . ')' . PHP_EOL;
+        } else {
+            return $html . PHP_EOL . '@func_' . $t . '_' . $func . '(' . $val . ')' . PHP_EOL;
+        }
     }
 
     public function addFunc($func)
@@ -34,19 +39,23 @@ class Layout
 
     public function GetFunc()
     {
+
         return $this->stringFunction;
     }
+
     public function addInclude($inc)
     {
-        if(empty($inc)) return;
-        $this->stringInclude[$inc]= $inc;
+        if (empty($inc)) return;
+        $this->stringInclude[$inc] = $inc;
     }
-    public function GetStringInclude(){
+
+    public function GetStringInclude()
+    {
         $string = PHP_EOL;
-        foreach ($this->stringInclude as $inc){
-            $string.="@z_include(".$inc.")".PHP_EOL;
+        foreach ($this->stringInclude as $inc) {
+            $string .= "@z_include(" . $inc . ")" . PHP_EOL;
         }
-        $string.=PHP_EOL;
+        $string .= PHP_EOL;
         return $string;
     }
 

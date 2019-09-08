@@ -4,36 +4,9 @@
                     return "<div class=\"___lang___\">".$key."</div>";
                 ?>
             <?php } ?>
-@func_1567602925_1119_6834(array (
+@func_1567869214_3575_8820(array (
   'data' => 
   array (
-    'lists' => 
-    array (
-      0 => 
-      array (
-        'name' => NULL,
-        'image' => NULL,
-        'link' => NULL,
-      ),
-      1 => 
-      array (
-        'name' => NULL,
-        'image' => NULL,
-        'link' => NULL,
-      ),
-      2 => 
-      array (
-        'name' => NULL,
-        'image' => NULL,
-        'link' => NULL,
-      ),
-      3 => 
-      array (
-        'name' => NULL,
-        'image' => NULL,
-        'link' => NULL,
-      ),
-    ),
   ),
 ))
 

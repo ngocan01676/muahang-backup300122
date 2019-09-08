@@ -139,7 +139,7 @@
                                                 $__data = [$__config["prefix"] => $__config["data"]];
                                             }
                                         } else {
-                                            $__data = $__config["data"];
+                                            $__data = isset($__config["data"]) ? $__config["data"] : [];
                                         }
                                         $_cfg->add(["config" => $__data]);
                                     }

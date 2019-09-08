@@ -76,6 +76,20 @@
                             <input type="radio" name="cfg.dynamic" value="0"> No
                         </td>
                     </tr>
+                    <tr>
+                        <td class="text-center"><label for="text">Render</label></td>
+                        <td>
+                            @php
+                                $currentRender = isset($items["cfg"]['render'])?$items["cfg"]['render']:"blade";
+
+                            @endphp
+                            <input {!! $currentRender =="html" ?"checked":"" !!} type="radio"
+                                   name="cfg.render"
+                                   value="html"> Html
+                            <input {!! $currentRender =="blade" ?"checked":"" !!} type="radio"
+                                   name="cfg.render" value="blade"> Blade
+                        </td>
+                    </tr>
                     @if(isset($tags[0]))
                         <tr>
                             <td class="text-center"><label for="text">Tag</label></td>

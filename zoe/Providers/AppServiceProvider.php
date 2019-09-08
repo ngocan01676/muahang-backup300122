@@ -68,11 +68,15 @@ class AppServiceProvider extends ServiceProvider
 
     public function blade()
     {
+
+        Blade::directive('Zoe_Asset', function ($expr) {
+            return '<?php echo asset("' . $expr . '") ?>';
+        });
         Blade::directive('ZoeWidget', function ($expr) {
             return "<?php print_r({$expr}); ?>";
         });
         Blade::directive('zlang', function ($parameters) {
-            return 'zoe_lang(' . $parameters . ',$__env)';
+            return '<?php echo zoe_lang(' . $parameters . ') ?>';
         });
         Blade::directive('z_language', function ($parameters) {
             return 'call_user_func_array("z_language",' . $parameters . ')';
@@ -80,7 +84,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('run_component', function ($parameters) {
             return 'run_component(' . $parameters . ')';
         });
-
         Blade::directive('z_include', function ($parameters) {
             return '<?php require_once(base_path("' . $parameters . '")); ?>';
         });

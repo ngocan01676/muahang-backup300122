@@ -77,7 +77,7 @@
             success: function (data) {
                 try {
                     var json = JSON.parse(data);
-                    console.log(json);
+                    console.log(json.php);
 
                     if (json.hasOwnProperty("content")) {
 
@@ -95,11 +95,7 @@
                             $("#iframe-review").hide();
                             $("#show_code").show();
                             $(".error").html(json.content);
-                            cmeditor = CodeMirror.fromTextArea(
-                                document.getElementById('code_editer'), {
-                                    lineNumbers: true,
-                                    mode: "mustache"
-                                }).setValue(json.php);
+
                         }
                     }
                 } catch

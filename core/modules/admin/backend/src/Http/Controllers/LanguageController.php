@@ -61,6 +61,52 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         }
     }
 
+    public static function lang($string_blade, $sub_path, $string_find = "z_language")
+    {
+        $array = [];
+
+        preg_match_all('/' . $string_find . '\((.*?)\)/', $string_blade, $match);
+
+        if (isset($match[1])) {
+            foreach ($match[1] as $val) {
+                $key_val = trim($val, "]");
+                $key_val = trim($key_val, "[");
+                $key_val = trim($key_val, '"\'');
+//                $val = trim($val, '[false');
+                $key_val = trim($key_val, '"\', ');
+
+                if (substr($key_val, -5) == "false") {
+                    $key_val = substr($key_val, 0, strlen($key_val) - 5);
+                    $key_val = trim($key_val, '"\', ');
+                }
+                $key_val = trim($key_val);
+                if (substr($key_val, 0, 1) == "$") {
+                    continue;
+                }
+                $Arr = explode("',", $key_val);
+                if (count($Arr) == 2) {
+                    $key_val = $Arr[0];
+                } else {
+                    $Arr = explode("\",", $key_val);
+                    if (count($Arr) == 2) {
+                        $key_val = $Arr[0];
+                    }
+                }
+                $key_val = trim($key_val, '"\', ');
+
+                $key = md5($key_val);
+                $value = [
+                    "value" => "",
+                    "path" => $sub_path,
+                    "name" => $key_val
+                ];
+                $array[md5($key)] = $value;
+            }
+        }
+
+        return $array;
+    }
+
     public function list()
     {
 
@@ -71,85 +117,34 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         $array = [
 
         ];
-
         foreach ($results as $_file) {
             $string_blade = $file->get($_file);
+
             $name = str_replace(base_path(), "", $_file);
             $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
 
-            preg_match_all('/z_language\((.*?)\)/', $string_blade, $match);
-
-
-            if (isset($match[1])) {
-
-                foreach ($match[1] as $val) {
-                    // if (isset($match[1][0])) {
-//                $val = $match[1][0];
-                    $val = trim($val, "]");
-                    $val = trim($val, "[");
-                    $keywords = preg_split("/[,]+/", $val);
-
-                    $key_val = trim($keywords[0], '"\'');
-                    $key_val = trim($key_val);
-                    if (substr($key_val, 0, 1) == "$") {
-                        continue;
-                    }
-                    $key = md5($key_val);
-                    $value = [
-                        "value" => "",
-                        "path" => $sub_path,
-                        "name" => $key_val
-                    ];
-                    $array[md5($key)] = $value;
-//                    if ($sub_path[1] == "modules") {
-//                        if (!isset($array["modules"])) {
-//                            $array["modules"]['frontend'] = [
-//                                "list" => [],
-//                                "label" => z_language("Modules")
-//                            ];
-//                            $array["modules"]['backend'] = [
-//                                "list" => [],
-//                                "label" => z_language("Modules")
-//                            ];
-//                        }
-//                        if ($sub_path[3] == "backend") {
-//                            $array["modules"]['backend']["list"][md5("m_backend_" . $key)] = $value;
-//                        } else if ($sub_path[3] == "frontend") {
-//                            $array["modules"]['frontend']["list"][md5("m_frontend_" . $key)] = $value;
-//                        } else {
-//                            $array["core"]["list"][md5("core_" . $key)] = $value;
-//                        }
-//                    } else if ($sub_path[1] == "plugins") {
-//                        if (!isset($array["plugins"])) {
-//                            $array["plugins"] = [
-//                                "list" => [],
-//                                "label" => z_language("Plugins")
-//                            ];
-//                        }
-//                        $array["plugins"]["list"][md5("plugins_" . $key)] = $value;
-//                    } else if ($sub_path[1] == "themes") {
-//                        if (!isset($array["themes"])) {
-//                            $array["themes"]['frontend'] = [
-//                                "list" => [],
-//                                "label" => z_language("Themes")
-//                            ];
-//                            $array["themes"]['backend'] = [
-//                                "list" => [],
-//                                "label" => z_language("Themes")
-//                            ];
-//                        }
-//                        if ($sub_path[3] == "backend") {
-//                            $array["themes"]['backend']["list"][md5("t_backend_" . $key)] = $value;
-//                        } else if ($sub_path[3] == "frontend") {
-//                            $array["themes"]['frontend']["list"][md5("t_frontend_" . $key)] = $value;
-//                        } else {
-//                            $array["core"]["list"][md5("core_" . $key)] = $value;
-//                        }
-//                    } else {
-//                        $array["core"]["list"][md5("core_" . $key)] = $value;
+            $array = array_merge($array, static::lang($string_blade, $sub_path));
+//            preg_match_all('/z_language\((.*?)\)/', $string_blade, $match);
+//            if (isset($match[1])) {
+//                foreach ($match[1] as $val) {
+//                    $val = trim($val, "]");
+//                    $val = trim($val, "[");
+//                    $keywords = preg_split("/[,]+/", $val);
+//
+//                    $key_val = trim($keywords[0], '"\'');
+//                    $key_val = trim($key_val);
+//                    if (substr($key_val, 0, 1) == "$") {
+//                        continue;
 //                    }
-                }
-            }
+//                    $key = md5($key_val);
+//                    $value = [
+//                        "value" => "",
+//                        "path" => $sub_path,
+//                        "name" => $key_val
+//                    ];
+//                    $array[md5($key)] = $value;
+//                }
+//            }
         }
         $rs = $this->table()->where([
             'name' => 'language',

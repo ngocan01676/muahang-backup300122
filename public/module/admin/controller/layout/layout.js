@@ -648,6 +648,21 @@ function SaveLayout(self) {
                 $("#id").val(json.id);
             }
             $('#layout_demo').loading({destroy: true});
+        },
+        error: function (data) {
+            console.log(data.responseJSON);
+            var content = [];
+            for (var v in data.responseJSON) {
+                content.push("<div style='word-break: break-all;'><strong>" + v + "</strong> : " + data.responseJSON[v] + "</div>");
+            }
+            bootpopup({
+                title: "Error",
+                content: content,
+                ok: function (data, array, event) {
+
+                },
+            });
+            $('#layout_demo').loading({destroy: true});
         }
     });
 }

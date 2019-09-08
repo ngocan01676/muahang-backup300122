@@ -5,6 +5,16 @@ use Illuminate\Support\Facades\Cache;
 
 use Illuminate\Support\Facades\DB;
 
+function ZoeAsset($url)
+{
+    return '@Zoe_Asset(' . $url . ')';
+}
+
+function ZoeLang($text)
+{
+    return '@zlang("' . e($text) . '")';
+}
+
 function sort_type($sort, $col = "", $parameter = [])
 {
 
@@ -86,7 +96,7 @@ function list_text_aligin($columns)
     return "";
 }
 
-function config_get($type, $name,$default = [])
+function config_get($type, $name, $default = [])
 {
     $rs = DB::table('config')->where(['type' => $type, 'name' => $name])->first();
     if (!$rs) return $default;
@@ -250,6 +260,11 @@ function component_create($module, $main = [], $cfg = [], $opt = [], $type = "co
     if (!isset($cfg['dynamic'])) {
         $cfg['dynamic'] = "0";
     }
+
+    if (!isset($cfg['render'])) {
+        $cfg['render'] = "blade";
+    }
+
     if (!isset($cfg['status'])) {
         $cfg['status'] = "1";
     }
@@ -291,6 +306,10 @@ function component_config_data($data)
 
 function component_config_configs($data)
 {
+
+    if (!isset($data['temp'])) {
+        $data['temp'] = ["template" => "template", "data" => ["count" => 3]];
+    }
     return $data;
 }
 

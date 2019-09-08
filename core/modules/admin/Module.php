@@ -17,11 +17,10 @@ class Module extends ZModule
         $this->path = __DIR__;
 
 
-        \Form::macro('CategoriesNestable', function($nestables,$category,$name = "category")
-        {
-            return '<select id="'.$name.'-select" class="form-control" name="'.$name.'[]" multiple>
-                <option value="">'.z_language('No Category').'</option>
-               '.show_categories_nestable($nestables,$category,0).'
+        \Form::macro('CategoriesNestable', function ($nestables, $category, $name = "category") {
+            return '<select id="' . $name . '-select" class="form-control" name="' . $name . '[]" multiple>
+                <option value="">' . z_language('No Category false , abc') . '</option>
+               ' . show_categories_nestable($nestables, $category, 0) . '
             </select>';
         });
 

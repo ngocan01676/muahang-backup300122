@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
+use function Sodium\add;
 
 class LayoutController extends \Zoe\Http\ControllerBackend
 {
@@ -229,7 +230,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                                     $data['views'][$label] = [
                                         'label' => $_view['label'],
                                         'view' => $_view['view'],
-                                        'data' => $_view['data']
+                                        'data' => new \Zoe\Config($_view['data'])
                                     ];
                                 } else if (isset($_view['template']) && isset(app()->getComponents()->template[$_view['template']])) {
                                     if (isset($_view['data'])) {
@@ -239,11 +240,13 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                                     }
                                     $_view = app()->getComponents()->template[$_view['template']];
                                     $is_template_dynamic = true;
+
                                     $_tmp = [
                                         'label' => $_view['label'],
                                         'view' => $_view['view'],
-                                        "data" => array_merge($_view['data'], $__data),
+                                        "data" => new \Zoe\Config($_view['data']),
                                     ];
+                                    $_tmp['data']->add($__data);
                                     $data['views'][$label] = $_tmp;
                                 }
                                 $data['views'][$label]['key'] = $label;
@@ -266,6 +269,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     } else {
                         $data["list_views"] = [];
                     }
+
                     return $this->render('layout.ajax.config', $data);
                 } else {
 
@@ -318,12 +322,19 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $items = $request->all();
         $obj_layout = new \Admin\Lib\LayoutBlade();
         if (isset($items["cfg"]['template'])) {
-            if ($items['stg']['type'] == "components") {
+            if ($items['stg']['type'] == "components" || $items['stg']['type'] == "widgets") {
                 $obj_layout->ViewHelper = $this->GetViewHelperBlade();
                 $obj_layout->GridHelper = $this->GetGridBlade();
-                $php = Blade::compileString($obj_layout->InitBuild() . $obj_layout->InitFuc() . $obj_layout->plugin($items));
+
+
+                $plugin = $obj_layout->plugin($items);
+                $phpContent = Blade::compileString($obj_layout->InitBuild() . $obj_layout->InitFuc());
+                $php = $phpContent . Blade::compileString($plugin);
+
                 $__env = app(\Illuminate\View\Factory::class);
+
                 $obLevel = ob_get_level();
+
                 ob_start();
                 $repon = ['content' => "", 'status' => 1, 'php' => $php];
                 try {
@@ -334,8 +345,10 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     while (ob_get_level() > $obLevel) ob_end_clean();
                     $repon['content'] = $e->getMessage() . " " . $e->getLine();
                 } catch (\Throwable $e) {
+                    $repon['content'] = $e->getMessage() . " " . $e->getLine();
                     while (ob_get_level() > $obLevel) ob_end_clean();
                 }
+
                 echo json_encode($repon);
             } else {
                 $repon = ['content' => $items["cfg"]['template'], 'status' => 1, 'php' => $obj_layout->rows(['option' => $items])];
@@ -349,40 +362,39 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $items = $request->all();
         $obj_layout = new \Admin\Lib\LayoutBlade();
         if (isset($items["cfg"]['template'])) {
-            // var_export($items);
-
             $obj_layout->ViewHelper = $this->GetViewHelperBlade();
             $obj_layout->GridHelper = $this->GetGridBlade();
 
-//            Blade::directive('zlang', function ($expr) {
-//
-//                return 'tag_zlang(' . $expr . ',$__env)';
-//            });
-            $func = '
-            @function(zoe_lang($key))
-                @php 
-                    return "<div class=\"___lang___\">".$key."</div>";
-                @endphp
-            @endfunction';
-            $string_blade = $func . $obj_layout->plugin($items);
-            $php = Blade::compileString($string_blade);
+
+            $InitBuild = '
+            @php 
+                function zoe_lang($key,$par = []){
+                    return "@zlang(\"".$key."\")";
+                } 
+            @endphp' . PHP_EOL;
+            $stringBlade = $obj_layout->plugin($items, "", $InitBuild);
+            $stringBlade = $obj_layout->InitFuc() . $stringBlade;
+            // $php = Blade::compileString($obj_layout->InitBuild() . $obj_layout->InitFuc() . $obj_layout->plugin($items));
             $__env = app(\Illuminate\View\Factory::class);
 
             $obLevel = ob_get_level();
             ob_start();
-            $repon = ['content' => "", 'status' => 1, 'php' => $php];
+            $repon = ['content' => $stringBlade, 'status' => 1, 'php' => $stringBlade];
             try {
-                file_put_contents(base_path('storage/demo.php'), $php);
-//                include base_path('storage/demo.php');
-                eval('?' . '>' . $php);
-                $repon['content'] = htmlspecialchars_decode((trim(ob_get_clean())));
-                //                preg_match_all('/@zlang\(\s*([\"\'])(.*?)\\1\s*\)/', $string_blade, $match);
-                preg_match_all('/<div class=\"___lang___\">(.*?)<\/div>/', $repon['content'], $match);
-                $repon['data'] = [];
-                foreach ($match[1] as $value) {
-                    $repon['data'][md5(trim($value, "\""))] = trim($value, "\"");
-                }
 
+                $repon['data'] = \Admin\Http\Controllers\LanguageController::lang($stringBlade, "", 'zlang');
+
+
+                $langs = app()->getLanguage();
+                $repon['langs'] = [];
+
+                foreach ($repon['data'] as $val_lang) {
+                    foreach ($langs as $lang => $value) {
+                        if (isset($value[$val_lang["name"]])) {
+                            $repon['langs'][$lang][$val_lang["name"]] = $value[$val_lang["name"]];
+                        }
+                    }
+                }
                 $repon['status'] = 0;
             } catch (\Exception $e) {
 
@@ -488,6 +500,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     public function ajaxPost(Request $request)
     {
+
         $theme = config_get('theme', "active");
         $items = $request->all();
         $model = null;
@@ -505,19 +518,34 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $model->type = $items["info"]['type'];
         $layout = isset($items['layout']) ? json_decode($items['layout'], true) : [];
         $model->content = base64_encode(serialize($layout));
-        $model->save();
+
+
         $obj_layout = new \Admin\Lib\LayoutBlade();
         $obj_layout->ViewHelper = $this->GetViewHelperBlade();
         $obj_layout->GridHelper = $this->GetGridBlade();
         $obj_layout->TagHelper = $obj_layout->GridHelper->CallBackTag();
         $use = $this->getListType($model->type_group);
+
         if (isset($use['template'])) {
             $template = base_path($use['template']);
         } else {
             $template = base_path('core/modules/admin/backend/resource/stubs/layout.stubs');
         }
-        $obj_layout->render($template, $layout, $model->id, $model->token, $model->type);
-        echo json_encode(['id' => $model->id, 'template' => $template, '' => $use]);
+        $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type, "test");
+        $obLevel = ob_get_level();
+        try {
+            ob_start();
+            echo view('zoe::' . $filename);
+            $content = ob_get_contents();
+            ob_clean();
+            $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type);
+            $model->save();
+            echo json_encode(['error' => "", 'content' => $content, 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
+        } catch (\Exception $ex) {
+
+            while (ob_get_level() > $obLevel) ob_end_clean();
+            echo json_encode(['error' => $ex->getMessage(), 'content' => '', 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
+        }
     }
 
     function getPartial($id)

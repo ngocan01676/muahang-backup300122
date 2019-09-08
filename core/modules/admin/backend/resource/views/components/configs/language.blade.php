@@ -29,16 +29,22 @@
                         <div class="col-xs-9">
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                @php $langcurent = "vi";@endphp
-                                @foreach($data['lang'] as $lang)
-                                    @php $htmlLang='<table class="table table-bordered">'; @endphp
+                                @php $langcurent = "vi";
+                                $languages = config('zoe.language');
+
+                                @endphp
+                                @foreach($languages as $language)
+                                    @php
+                                        $htmlLang='<table class="table table-bordered"><tbody>';
+                                        $lang =$language['lang'];
+                                    @endphp
                                     @isset($config['lang'][$lang])
 
                                         @foreach($config['lang'][$lang] as $key=>$_langs)
                                             @php
                                                 $htmlLang.='<tr id="'.$lang.'_'.$key.'">';
                                                 $htmlLang.='<td width="50%">'.$_langs['key'].'</td>';
-                                                $htmlLang.='<td>';
+                                                $htmlLang.='<td class="input">';
                                                     $htmlLang.="<input class='form-control' type='hidden' name='lang[" . $lang . "][" . $key . "].key' value='" . $_langs['key'] . "'>";
                                                     $htmlLang.="<input class='form-control' type='text' value='".$_langs['val']."' name='lang[" .$lang. "][".$key."].val'>";
                                                 $htmlLang.='</td>';
@@ -46,7 +52,7 @@
                                             @endphp
                                         @endforeach
                                     @endisset
-                                    @php $htmlLang.='</table>'; @endphp
+                                    @php $htmlLang.='</tbody></table>'; @endphp
                                     @if($langcurent == $lang)
                                         <div class="tab-pane active" data-lang="{!! $lang !!}" id="home-{!! $lang !!}">
                                             {!! $htmlLang !!}
@@ -64,7 +70,8 @@
                         <div class="col-xs-3"> <!-- required for floating -->
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs tabs-right sideways">
-                                @foreach($data['lang'] as $lang)
+                                @foreach($languages as $language)
+                                    @php  $lang =$language['lang']; @endphp
                                     @if($langcurent == $lang)
                                         <li class="active"><a href="#home-{!! $lang !!}"
                                                               data-toggle="tab">{{$lang}}</a></li>
@@ -163,7 +170,7 @@
                 success: function (data) {
                     try {
                         var data = JSON.parse(data);
-                        console.log(JSON.stringify(data));
+                        console.log(data.langs);
                         if (data.status === 0) {
                             $("#langConfig .tab-content .tab-pane").each(function () {
                                 $html = "";
@@ -172,15 +179,24 @@
                                 console.log("n:" + n);
                                 for (var key in data.data) {
                                     var tr = $("table tr#" + lang + "_" + key);
-                                    console.log(lang + ":" + (tr.length === 0));
+                                    console.log(tr);
                                     if (tr.length === 0) {
+
                                         $html += '<tr id="' + lang + "_" + key + '" update="' + n + '">';
-                                        $html += "<td width='50%'>" + data.data[key] + " </td>";
-                                        $html += "<td><input class='form-control' type='hidden' name='lang[" + lang + "][" + key + "].key' value='" + data.data[key] + "'><input class='form-control' type='text' value='' name='lang[" + lang + "][" + key + "].val'></td>";
+                                        $html += "<td width='50%'>" + data.data[key].name + " </td>";
+
+                                        if (data.langs.hasOwnProperty(lang) && data.langs[lang].hasOwnProperty(data.data[key].name)) {
+                                            $html += '<td class="input"><strong>' + (data.langs[lang][data.data[key].name]) + '</strong></td>';
+                                        } else {
+
+                                            $html += "<td class='input'><input class='form-control' type='hidden' name='lang[" + lang + "][" + key + "].key' value='" + data.data[key].name + "'><input class='form-control' type='text' value='' name='lang[" + lang + "][" + key + "].val'></td>";
+                                        }
                                         $html += '</tr>';
                                     } else {
                                         tr.attr("update", n);
-                                        // tr.closest('tr').attr('data-update', n);
+                                        if (data.langs.hasOwnProperty(lang) && data.langs[lang].hasOwnProperty(data.data[key].name)) {
+                                            tr.find('input').html('<strong>' + (data.langs[lang][data.data[key].name]) + '</strong>');
+                                        }
                                     }
                                 }
                                 $(this).find('table tr').each(function () {
@@ -191,7 +207,7 @@
                                 });
                                 $(this).find('table').append($html);
 
-                                console.log(form.zoe_inputs("get"));
+
                             });
                         } else {
 

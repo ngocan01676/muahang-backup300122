@@ -1,6 +1,9 @@
 <?php
 
 namespace Admin\Lib;
+
+use Illuminate\Support\Facades\Blade;
+
 class LayoutBlade extends Layout
 {
     public $datas;
@@ -92,13 +95,31 @@ class LayoutBlade extends Layout
         parent::addInclude($path . '/main.php');
     }
 
-    public function plugin($option, $index = '')
+    private function RenderHtml($php)
+    {
+        $__env = app(\Illuminate\View\Factory::class);
+        $obLevel = ob_get_level();
+        ob_start();
+        $content = "";
+        try {
+            eval('?' . '>' . $php);
+            $content = trim(ob_get_clean());
+        } catch (\Exception $e) {
+            while (ob_get_level() > $obLevel) ob_end_clean();
+            $content = $e->getMessage() . " " . $e->getLine();
+        } catch (\Throwable $e) {
+            while (ob_get_level() > $obLevel) ob_end_clean();
+        }
+        return $content;
+    }
+
+    public function plugin($option, $index = "", $phpRun = "")
     {
         if (isset($option['lang'])) {
             foreach ($option['lang'] as $langname => $langs) {
                 foreach ($langs as $lang) {
                     if (!empty($lang['val'])) {
-                        $this->langs[$langname][$lang['key']] = $lang['val'];
+                        $this->langs[$langname][e($lang['key'])] = $lang['val'];
                     }
                 }
             }
@@ -107,13 +128,17 @@ class LayoutBlade extends Layout
         $_par = (var_export(isset($option['opt']) ? ["data" => $option['opt']] : ["data" => []], true));
         if (isset($option['cfg']['view'])) {
             if ($option['cfg']['view'] == "dynamic") {
+
 //                if (method_exists($this->ViewHelper, "commposer")) {
 //                    $content = call_user_func_array(array($this->ViewHelper, "commposer"), array($option));
 //                }else{
-                $content = isset($option['cfg']['template']['view']) && isset($option['cfg']['template']['data']) && isset($option['cfg']['template']['data'][$option['cfg']['template']['view']]) ? $option['cfg']['template']['data'][$option['cfg']['template']['view']] : "";
+
+                $content = htmlspecialchars_decode(isset($option['cfg']['template']['view']) && isset($option['cfg']['template']['data']) && isset($option['cfg']['template']['data'][$option['cfg']['template']['view']]) ? $option['cfg']['template']['data'][$option['cfg']['template']['view']] : "");
 //                }
+
             } else if ($option['cfg']['view'] && $option['cfg']['view'] != "0") {
                 $content = "@includeIf('" . $option['cfg']['view'] . "', ['data'=>\$data])";
+
             } else {
                 $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>";
             }
@@ -133,7 +158,13 @@ class LayoutBlade extends Layout
             } else {
                 $stringFunc .= "@php \$data = \$option; @endphp" . PHP_EOL;
             }
-            $content = $this->func($stringFunc . $content, ['$option' => $_par]);
+            if (isset($option['cfg']['render']) && $option['cfg']['render'] == 'html' || $phpRun != "") {
+                $content = $this->func($stringFunc . $content, ['$option' => $_par], false);
+                $php = Blade::compileString($phpRun . $content);
+                $content = $this->RenderHtml($php);
+            } else {
+                $content = $this->func($stringFunc . $content, ['$option' => $_par]);
+            }
         }
 
         return $this->girds(PHP_EOL . $content . PHP_EOL, $option);
@@ -197,24 +228,27 @@ class LayoutBlade extends Layout
     function InitBuild()
     {
         return '
-            @function(zoe_lang($par))
-                @php 
-                    $key =  $par[0];
-                    $_lang_name_ = app()->getLocale();
-                    $_langs_ = ' . (var_export($this->langs, true)) . '; 
-                    $html = isset($_langs_[$_lang_name_][$key])?$_langs_[$_lang_name_][$key]:$key;
-                    if(isset($par[1])){
-                        foreach($par[1] as $k=>$v){
-                            $html  = str_replace(":".$k,$v,$html);
-                        } 
-                    }
-                    return $html;
-                @endphp
-            @endfunction' . PHP_EOL;
+            @php 
+                function zoe_lang($key,$par = []){
+                    
+                        
+                        $_lang_name_ = app()->getLocale();
+                        $_langs_ = ' . (var_export($this->langs, true)) . '; 
+                        $html = isset($_langs_[$_lang_name_][$key])?$_langs_[$_lang_name_][$key]: z_language($key,$par);
+                        if(isset($par)){
+                            foreach($par as $k=>$v){
+                                $html  = str_replace(":".$k,$v,$html);
+                            } 
+                        }
+                        return $html;
+                    
+                } 
+            @endphp' . PHP_EOL;
     }
 
     function FilenamePartial($id, $token)
     {
+
         return 'layout-partial-' . $id . '-' . $token;
     }
 
@@ -228,28 +262,35 @@ class LayoutBlade extends Layout
         return $this->GetStringInclude() . $this->ViewHelper->GetFunc() . $this->GridHelper->GetFunc() . $this->GetFunc();
     }
 
-    function render($template, $data, $id, $token, $type = "layout")
+    function render($template, $data, $id, $token, $type = "layout", $fileName = "")
     {
         $this->datas = isset($data['data']) ? $data['data'] : [];
         $this->widget = isset($data['widget']) ? $data['widget'] : [];
         $lever = 0;
-        if (isset($this->datas[0])) {
-            foreach ($this->datas as $rows) {
-                if (isset($rows['row'])) {
-                    $this->html .= $this->rows($rows['row'], true, $lever);
+        if ($this->html == "") {
+            if (isset($this->datas[0])) {
+                foreach ($this->datas as $rows) {
+                    if (isset($rows['row'])) {
+                        $this->html .= $this->rows($rows['row'], true, $lever);
+                    }
                 }
             }
         }
-
         $file = new \Illuminate\Filesystem\Filesystem();
-        $this->html = $this->InitFuc() . $this->html;
-
+        $html = $this->InitFuc() . $this->html;
         if ($type == "layout") {
             $template = $file->get($template);
-            $file->put(base_path('bootstrap/zoe/views/' . $this->FilenameLayout($id, $token) . ".blade.php"), str_replace_first("{{CONTENT}}", $this->InitBuild() . $this->html, $template));
+            if ($fileName == "") {
+                $fileName = $this->FilenameLayout($id, $token);
+            }
+            $file->put(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"), str_replace_first("{{CONTENT}}", $this->InitBuild() . $html, $template));
         } else {
-            $file->put(base_path('bootstrap/zoe/views/' . $this->FilenamePartial($id, $token) . ".blade.php"), $this->html);
+            if ($fileName == "") {
+                $fileName = $this->FilenamePartial($id, $token);
+            }
+            $file->put(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"), $html);
         }
+        return $fileName;
     }
 
 }

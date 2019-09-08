@@ -24,7 +24,13 @@ return [
             ],
             'slider' => [
                 'layout' => 'widget'
-            ]
+            ],
+            'coverage' => [
+                'layout' => 'widget'
+            ],
+            'services' => [
+                'layout' => 'widget'
+            ],
         ]
     ]
 ];

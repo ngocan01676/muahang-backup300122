@@ -13,7 +13,24 @@ return [
                 "label" => "Language",
                 "view" => "language",
                 "data" => [
-                    "lang" => ["vi", "en"]
+
+                ]
+            ],
+            'data-builder' => [
+                "label" => "Builder",
+                "view" => "data-builder",
+                "data" => [
+                    "count" => 2,
+                    "action" => [
+                        "create" => true,
+                        "delete" => true,
+                        "sort" => true
+                    ],
+                    'items' => [
+                        'name' => ['type' => 'text', 'label' => z_language('Name', false)],
+                        'link' => ['type' => 'route', 'label' => z_language('Link', false)],
+                        'image' => ['type' => 'img', 'label' => z_language('Image', false)]
+                    ]
                 ]
             ]
         ]
