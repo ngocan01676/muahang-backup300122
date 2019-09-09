@@ -30,6 +30,9 @@ return [
                         'name' => ['type' => 'text', 'label' => z_language('Name', false)],
                         'link' => ['type' => 'route', 'label' => z_language('Link', false)],
                         'image' => ['type' => 'img', 'label' => z_language('Image', false)]
+                    ],
+                    'attrs' => [
+                        'route' => 'all'
                     ]
                 ]
             ]

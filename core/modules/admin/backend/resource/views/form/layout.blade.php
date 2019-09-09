@@ -172,16 +172,27 @@
                                 <span class="left green"></span>
                             </div>
                         </div>
+                        <div class="pull-right"
+                             style="position: absolute;right: 20px;top: 6px;font-weight: bold;color: #000000;">
+
+                            <button class="btn btn-xs"
+                                    data-active="builder"
+                                    data-source-label="{!! z_language("Source") !!}"
+                                    data-builder-label="{!! z_language("Builder") !!}"
+                                    type="button"
+                                    onclick="SaveTogger(this)"
+                            >{!! z_language("Builder") !!}</button>
+
+                        </div>
                     </div>
-                    <div style="
-    margin-top: 7px;
-">
+                    <div style="margin-top: 7px;">
                         <form id="formInfo">
                             <input type="hidden" name="id" id="id" value="{{$model->id}}">
                             <input type="hidden" name="token" id="token" value="{{$model->token}}">
                             <table class="table table-bordered table-responsive">
                                 <tr>
-                                    <td class="text-center"><label for="layout name" class="control-label">Name</label>
+                                    <td class="text-center"><label for="layout name"
+                                                                   class="control-label">Name</label>
                                     </td>
                                     <td>
                                         <input type="text" class="form-control" name="name">
@@ -200,7 +211,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><label for="layout name" class="control-label">Type</label>
+                                    <td class="text-center"><label for="layout name"
+                                                                   class="control-label">Type</label>
                                     </td>
                                     <td>
                                         @php $curent = "layout"; @endphp
@@ -213,13 +225,18 @@
                             </table>
                         </form>
                     </div>
-                    <div id="layout" UriConfig="{{route('backend:layout:ajax:form_config')}}"
-                         UriCom="{{route('backend:layout:ajax:get_com')}}">
-                        <div class="demo" id="layout_demo" UrlSettingWidget="">
-                            <?php echo \Admin\Lib\LayoutRender::render($content['data'], $content['widget']); ?>
+                    <div class="builder">
+                        <div id="layout" UriConfig="{{route('backend:layout:ajax:form_config')}}"
+                             UriCom="{{route('backend:layout:ajax:get_com')}}">
+                            <div class="demo" id="layout_demo" UrlSettingWidget="">
+                                <?php echo \Admin\Lib\LayoutRender::render($content['data'], $content['widget']); ?>
+                            </div>
                         </div>
                     </div>
-
+                    <div class="source" style="display: none">
+                        <div class="demo"><textarea class="form-control" id="editorSource">{!! $sources !!}</textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-2">
@@ -363,6 +380,39 @@
     <script src="{{asset("module/admin/assets/multi-select/js/jquery.multi-select.js")}}"></script>
     <script src="{{asset('module/admin/controller/layout/layout.js')}}"></script>
     <script>
+        var editorSource;
+
+        function SaveTogger(self) {
+            var Jthis = $(self);
+            var data = Jthis.data();
+            if (data.active === "builder") {
+                console.log(data.active);
+
+                Jthis.text(data.sourceLabel);
+                Jthis.data('active', 'source');
+
+                $(".builder").hide();
+
+                $(".source").show().find('.demo textarea').height($('.builder').height() + "px");
+
+//                var editorDom = document.getElementById('editorSource');
+//                editorSource = CodeMirror.fromTextArea(editorDom, {
+//                    lineNumbers: true,
+//                    mode: "mustache"
+//                });
+//                editorSource.setSize("100%", "100%");
+            } else {
+                console.log(data.active);
+                Jthis.data('active', 'builder');
+
+                Jthis.text(data.builderLabel);
+                $(".builder").show();
+                $(".source").hide();
+//                editorSource.toTextArea();
+//                editorSource = null;
+            }
+        }
+
         $(document).ready(function () {
             $("#formInfo").zoe_inputs("set", @json($info));
         });

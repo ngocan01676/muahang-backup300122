@@ -64,6 +64,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
     public static function lang($string_blade, $sub_path, $string_find = "z_language")
     {
         $array = [];
+
         preg_match_all('/' . $string_find . '\((.*?)\)/', $string_blade, $match);
         if (isset($match[1])) {
             foreach ($match[1] as $val) {

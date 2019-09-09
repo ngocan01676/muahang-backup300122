@@ -37,7 +37,7 @@
     'Comes with 5 color schemes and it&#039;s easy to make your own!' => ' Đi kèm với 5 cách phối màu và thật dễ dàng để làm cho riêng bạn!',
     'Morbi eleifend congue elit nec sagittis. Praesent aliquam lobortis tellus, nec consequat vitae 1' => 'abc',
     'Morbi eleifend congue elit nec sagittis. Praesent aliquam lobortis tellus, nec consequat vitae 2' => 'def',
-    'Morbi eleifend congue elit nec sagittis. Praesent aliquam lobortis tellus, nec consequat vitae' => 'ghi',
+    'Morbi eleifend congue elit nec sagittis. Praesent aliquam lobortis tellus, nec consequat vitae' => 'sdfsdf',
     'Aliquam in adipiscing' => 'Trong một số đại học',
     'Curabitur mollis' => 'Trò chuyện mềm',
     'Vivamus mattis' => 'bất động sản sống',

@@ -11,6 +11,7 @@ class LayoutBlade extends Layout
     public $html = "";
     public $langs = [];
     public $file;
+
     public function __construct()
     {
         $this->file = new \Illuminate\Filesystem\Filesystem();
@@ -144,10 +145,10 @@ class LayoutBlade extends Layout
             } else if ($option['cfg']['view'] && $option['cfg']['view'] != "0") {
 
                 $path = view()->getFinder()->find(
-                    $view =\Illuminate\View\ViewName::normalize($option['cfg']['view'])
+                    $view = \Illuminate\View\ViewName::normalize($option['cfg']['view'])
                 );
-                $content = $this->file->get($path) ."{{--".$path.'--}}';
-               // $content = "@includeIf('" . $option['cfg']['view'] . "', ['data'=>\$data]) \n{{--".$path.'--}}';
+                $content = $this->file->get($path) . "{{--" . $path . '--}}';
+                // $content = "@includeIf('" . $option['cfg']['view'] . "', ['data'=>\$data]) \n{{--".$path.'--}}';
 
             } else {
                 $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>";
@@ -171,26 +172,29 @@ class LayoutBlade extends Layout
             }
             if (isset($option['cfg']['render']) && $option['cfg']['render'] == 'html' || $phpRun != "") {
                 global $is_base64;
-
-                $is_base64= false;
-                if(isset($option['cfg']['image_base64']) && $option['cfg']['image_base64'] == "1"){
+                $is_base64 = false;
+                if (isset($option['cfg']['image_base64']) && $option['cfg']['image_base64'] == "1") {
                     $is_base64 = true;
                 }
                 $content = $this->func($stringFunc . $content, ['$option' => $_par], false);
-                $php = Blade::compileString($phpRun!=""?$phpRun:$this->InitBuild(true). $content);
+                $content = $phpRun != "" ? $phpRun . $content : $this->InitBuild(true) . $content;
+                $php = Blade::compileString($content);
+
                 $content = $this->RenderHtml($php);
 
                 Blade::directive('Zoe_ImageBase64', function ($expr) {
                     $path = public_path($expr);
                     $imageData = base64_encode(file_get_contents($path));
-                    $src = 'data: '.mime_content_type($path).';base64,'.$imageData;
+                    $src = 'data: ' . mime_content_type($path) . ';base64,' . $imageData;
                     return $src;
                 });
 
-                if(isset($option['cfg']['image_base64']) && $option['cfg']['image_base64'] == "1"){
-                   $is_base64 = true;
-                    $content =  Blade::compileString($content);
+                if (isset($option['cfg']['image_base64']) && $option['cfg']['image_base64'] == "1") {
+                    $is_base64 = true;
+                    $content = Blade::compileString($content);
                 }
+                // }
+
             } else {
 
                 $content = $this->func($stringFunc . $content, ['$option' => $_par]);
@@ -257,7 +261,7 @@ class LayoutBlade extends Layout
 
     function InitBuild($exits = false)
     {
-        if($exits) {
+        if ($exits) {
             return '
             @php 
                 if(!function_exists("zoe_lang")){
@@ -266,9 +270,9 @@ class LayoutBlade extends Layout
                     } 
                  }
             @endphp' . PHP_EOL;
-        }else{
+        } else {
 
-        return '
+            return '
             @php 
                 if(!function_exists("zoe_lang")){
                     function zoe_lang($key,$par = []){
@@ -333,6 +337,16 @@ class LayoutBlade extends Layout
             $this->file->put(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"), $html);
         }
         return $fileName;
+    }
+
+    public function getContent($id, $token, $type = "layout")
+    {
+        if ($type == "layout") {
+            $fileName = $this->FilenameLayout($id, $token);
+        } else {
+            $fileName = $this->FilenamePartial($id, $token);
+        }
+        return $this->file->get(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"));
     }
 
 }

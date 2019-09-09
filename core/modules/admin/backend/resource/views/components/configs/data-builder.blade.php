@@ -1,6 +1,13 @@
 <div class="table-responsive" id="Data-Builder-Config">
+    @if(isset($data["views"]['top']))
+        @foreach($data["views"]['top'] as $top)
+            @includeIf($top,['data'=>$data,'config'=>$config])
+        @endforeach
+    @endif
     @if($data['action']['create'])
-        <button type="button" class="btn btn-info btn-xs pull-right">Add</button>
+        <div style="padding: 10px" class="clearfix">
+            <button type="button" class="btn btn-info btn-xs pull-right">Add</button>
+        </div>
     @endif
     @function(renderTemplate ($config,$data,$i,$tag,$template))
     @if($data['action']['sort'])
@@ -18,7 +25,14 @@
             <div class="input-group">
                 <select class="selectChange form-control" data-name="opt.lists[%INDEX%].{!! $name !!}"
                         @if($template ==  false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif>
+
                     @foreach($routes as $route)
+                        @if(isset($data['attrs']['route']))
+                            @if($data['attrs']['route'] != "all")
+                                @php $arr_name =  explode(':',$route['name']); @endphp
+                                @continue($data['attrs']['route']!=$arr_name[0])
+                            @endif
+                        @endif
                         <option value="{!! $route['name'] !!}" data-uri="{!! $route['uri'] !!}">
                             @php
                                 if(isset($config['opt']['lists'][$i][$name]) && $config['opt']['lists'][$i][$name] == $route['name']){
@@ -35,7 +49,9 @@
                                 }
                             @endphp
                         </option>
+
                     @endforeach
+
                 </select>
                 <span class="input-group-addon">
                                      <button type="button" class="btn btn-info btn-xs pull-right"
@@ -46,7 +62,10 @@
                        @endif
                        data-name="opt.param[%INDEX%][{!! $name !!}]" value="{}">
             </div>
-
+        @elseif($items['type'] == 'category' && isset($items['keyname']))
+            @php
+                get_category_type($items['keyname']);
+            @endphp
         @elseif($items['type'] == 'select' && isset($items['select']))
             <select class="selectChange form-control" data-name="opt.lists[%INDEX%].{!! $name !!}"
                     @if($template == false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif>
@@ -73,18 +92,27 @@
     </td>
 @endif
 @endfunction
-<table class="table table-bordered sortable">
-    <tbody>
-    @for($i=0;$i<$data["count"];$i++)
-        <tr class="@if($data['action']['sort']) sort @endif">
-            @section('View_'.$i)
-                @renderTemplate($config,$data,$i,"td",false)
-            @endsection
-            @yield('View_'.$i)
-        </tr>
-    @endfor
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered sortable">
+            <tbody>
+            @for($i=0;$i<$data["count"];$i++)
+                <tr class="@if($data['action']['sort']) sort @endif">
+                    @section('View_'.$i)
+                        @renderTemplate($config,$data,$i,"td",false)
+                    @endsection
+                    @yield('View_'.$i)
+                </tr>
+            @endfor
+            </tbody>
+        </table>
+    </div>
+</div>
+@if(isset($data["views"]['bottom']))
+    @foreach($data["views"]['bottom'] as $bottom)
+        @includeIf($bottom);
+    @endforeach
+@endif
 @section('View_Template')
     <table class="table table-bordered">
         <tbody>

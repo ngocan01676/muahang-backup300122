@@ -36,6 +36,13 @@ return component_config($_opt_,
                                 'bg14' => 'bg14',
                             ]
                         ]
+                    ],
+                    'attrs' => [
+                        'route' => 'backend',
+                        'config' => 'frontend'
+                    ],
+                    'views' => [
+                        'top' => ["config" => 'theme::widgets.slider.config']
                     ]
                 ]
             ]

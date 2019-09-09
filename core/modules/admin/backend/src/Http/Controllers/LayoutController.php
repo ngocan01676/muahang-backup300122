@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
+
 class LayoutController extends \Zoe\Http\ControllerBackend
 {
     protected $listsType = ['layout' => 'Layout', 'partial' => 'Partial'];
@@ -367,12 +368,13 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             $InitBuild = '
             @php 
                 function zoe_lang($key,$par = []){
-                    
                     return "@zlang(\"".preg_replace(\'/\s+/\', \' \',str_replace("\r\n","",$key))."\")";
                 } 
             @endphp' . PHP_EOL;
+
             $stringBlade = $obj_layout->plugin($items, "", $InitBuild);
             $stringBlade = $obj_layout->InitFuc() . $stringBlade;
+
             // $php = Blade::compileString($obj_layout->InitBuild() . $obj_layout->InitFuc() . $obj_layout->plugin($items));
             $__env = app(\Illuminate\View\Factory::class);
 
@@ -611,8 +613,6 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $arr = $this->getListType('theme');
 
 
-
-
         $info = [];
         $model = \Admin\Http\Models\Layout::find($id);
         $this->getcrumb()->breadcrumb(z_language('Edit Layout :name', ["name" => $model->name]), false);
@@ -633,7 +633,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         }
 
         $use = $this->getListType($type);
-
+        $obj_layout = new \Admin\Lib\LayoutBlade();
         return $this->render("layout.edit", [
             'model' => $model,
             "content" => $content,
@@ -641,7 +641,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
             'group' => $use,
-            "listsType" => $this->listsType
+            "listsType" => $this->listsType,
+            "sources" => $obj_layout->getContent($model->id, $model->token, $model->type)
         ]);
     }
 }
