@@ -4,12 +4,15 @@ use Illuminate\Support\Facades\Cache;
 
 
 use Illuminate\Support\Facades\DB;
-
 function ZoeAsset($url)
 {
     return '@Zoe_Asset(' . $url . ')';
 }
 
+function ZoeImageBase64($url){
+    global $is_base64;
+    return $is_base64 == true?'@Zoe_ImageBase64(' . $url . ')':ZoeAsset($url);
+}
 function ZoeLang($text)
 {
     return '@zlang("' . e($text) . '")';

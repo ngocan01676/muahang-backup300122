@@ -31,6 +31,9 @@ return [
             'services' => [
                 'layout' => 'widget'
             ],
+            'our-clients' => [
+                'layout' => 'widget'
+            ],
         ]
     ]
 ];

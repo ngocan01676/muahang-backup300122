@@ -1,13 +1,12 @@
 <div id="sequence">
     <ul class="sequence-canvas">
-
         @foreach($data['data']['lists'] as $k=>$v)
             <li class="{!! $v['bg'] !!}">
                 <h2 class="title">{!! ZoeLang($v['name']) !!}</h2>
                 <!-- Slide Text -->
                 <h3 class="subtitle">{!! ZoeLang($v['info']) !!}</h3>
                 <!-- Slide Image -->
-                <img class="slide-img" src="{{asset($v['image'])}}" alt="{!! $v['info'] !!}"/>
+                <img class="slide-img" src="{!! ZoeAsset($v['image']) !!}" alt="{!! $v['info'] !!}"/>
             </li>
         @endforeach
     </ul>

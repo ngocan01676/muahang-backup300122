@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
-use function Sodium\add;
-
 class LayoutController extends \Zoe\Http\ControllerBackend
 {
     protected $listsType = ['layout' => 'Layout', 'partial' => 'Partial'];
+
 
     public function getCrumb()
     {
@@ -359,17 +358,17 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     public function ajaxGetLang(Request $request)
     {
+
         $items = $request->all();
         $obj_layout = new \Admin\Lib\LayoutBlade();
         if (isset($items["cfg"]['template'])) {
             $obj_layout->ViewHelper = $this->GetViewHelperBlade();
             $obj_layout->GridHelper = $this->GetGridBlade();
-
-
             $InitBuild = '
             @php 
                 function zoe_lang($key,$par = []){
-                    return "@zlang(\"".$key."\")";
+                    
+                    return "@zlang(\"".preg_replace(\'/\s+/\', \' \',str_replace("\r\n","",$key))."\")";
                 } 
             @endphp' . PHP_EOL;
             $stringBlade = $obj_layout->plugin($items, "", $InitBuild);
@@ -610,6 +609,9 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function edit($id, $type = "")
     {
         $arr = $this->getListType('theme');
+
+
+
 
         $info = [];
         $model = \Admin\Http\Models\Layout::find($id);

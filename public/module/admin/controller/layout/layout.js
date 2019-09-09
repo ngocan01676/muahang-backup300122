@@ -675,7 +675,7 @@ $("#saveLayout").click(function () {
     var layout = saveLayout("#layout_demo");
     console.log('2');
     console.log((layout));
-    $('#layout_demo').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+    $('#layout').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
     $.ajax({
         type: 'POST',
         url: $(this).attr('url'),
@@ -688,7 +688,11 @@ $("#saveLayout").click(function () {
             if (json.hasOwnProperty('id')) {
                 $("#id").val(json.id);
             }
-            $('#layout_demo').loading({destroy: true});
+            $('#layout').loading({destroy: true});
+        },
+        error:function (err) {
+            console.log(err);
+            $('#layout').loading({destroy: true});
         }
     });
 });

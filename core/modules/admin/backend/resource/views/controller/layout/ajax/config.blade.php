@@ -76,18 +76,27 @@
                             <input type="radio" name="cfg.dynamic" value="0"> No
                         </td>
                     </tr>
+
                     <tr>
                         <td class="text-center"><label for="text">Render</label></td>
                         <td>
                             @php
                                 $currentRender = isset($items["cfg"]['render'])?$items["cfg"]['render']:"blade";
-
                             @endphp
-                            <input {!! $currentRender =="html" ?"checked":"" !!} type="radio"
+                            <input data-target=".wrap-image_base64" {!! $currentRender =="html" ?"checked":"" !!} type="radio"
                                    name="cfg.render"
                                    value="html"> Html
-                            <input {!! $currentRender =="blade" ?"checked":"" !!} type="radio"
+                            <input data-target=".wrap-image_base64" {!! $currentRender =="blade" ?"checked":"" !!} type="radio"
                                    name="cfg.render" value="blade"> Blade
+                        </td>
+                    </tr>
+
+                    <tr class="wrap-image_base64"
+                        style="{{isset($items["cfg"]['render']) && $items["cfg"]['render']=="html" ?"display:table-row;":"display:none;"}}">
+                        <td class="text-center"><label for="text">Image base64</label></td>
+                        <td>
+                            <input  type="radio" name="cfg.image_base64"  value="1"> Yes
+                            <input type="radio" name="cfg.image_base64" value="0"> No
                         </td>
                     </tr>
                     @if(isset($tags[0]))
@@ -145,7 +154,7 @@
         </div>
         <div style="display: none"><textarea id="data_config"></textarea></div>
         <script>
-            $('input[type=radio][name="cfg.public"]').change(function () {
+            $('input[type=radio][name="cfg.public"]','input[type=radio][name="cfg.render"]').change(function () {
                 if (this.value === "1") {
                     $($(this).attr('data-target')).show();
                 } else {
