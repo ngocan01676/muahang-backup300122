@@ -211,9 +211,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center"><label for="layout name"
-                                                                   class="control-label">Type</label>
-                                    </td>
+                                    <td class="text-center"><label for="layout name" class="control-label">Type</label></td>
                                     <td>
                                         @php $curent = "layout"; @endphp
                                         @foreach($listsType as $v=>$b)
@@ -234,7 +232,12 @@
                         </div>
                     </div>
                     <div class="source" style="display: none">
-                        <div class="demo"><textarea class="form-control" id="editorSource">{!! $sources !!}</textarea>
+                        <div class="demo" style="overflow-y: scroll;padding: 2px 3px 0px;min-height: 550px">
+                            <div id="snippet">
+                                <pre>
+                                    <code class="html">{{ $sources }}</code>
+                                </pre>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -365,6 +368,10 @@
 
 </style>
 @push('scripts')
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+
     <script src="{{asset('module/admin/bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
     <script src="{{asset('module/admin/assets/bootpopup/bootpopup.js')}}"></script>
 
@@ -393,7 +400,7 @@
 
                 $(".builder").hide();
 
-                $(".source").show().find('.demo textarea').height($('.builder').height() + "px");
+                $(".source").show().find('.demo').height(($('.builder').height()*1.5) + "px");
 
 //                var editorDom = document.getElementById('editorSource');
 //                editorSource = CodeMirror.fromTextArea(editorDom, {
@@ -415,6 +422,7 @@
 
         $(document).ready(function () {
             $("#formInfo").zoe_inputs("set", @json($info));
+
         });
     </script>
 @endpush

@@ -45,3 +45,11 @@ $.notify.addStyle('htmlContent', {
         }
     }
 });
+var _parseJSON = function (json) {
+    try {
+        var data = $.parseJSON(json);
+        return data;
+    } catch (e) {
+        return {};
+    }
+}

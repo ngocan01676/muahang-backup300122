@@ -269,7 +269,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     } else {
                         $data["list_views"] = [];
                     }
-
+                    $data['type'] = 'components';
                     return $this->render('layout.ajax.config', $data);
                 } else {
 
@@ -309,7 +309,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     'view' => "backend::controller.layout.ajax.grid",
                     'data' => []
                 ];
-
+                $data['type'] = 'grid';
 //                $data['views']["temp"] = app()->getComponents()->template["template"];;
                 return $this->render('layout.ajax.config', $data);
             }
@@ -367,7 +367,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             $obj_layout->GridHelper = $this->GetGridBlade();
             $InitBuild = '
             @php 
-                function zoe_lang($key,$par = []){
+                function zlang($key,$par = []){
                     return "@zlang(\"".preg_replace(\'/\s+/\', \' \',str_replace("\r\n","",$key))."\")";
                 } 
             @endphp' . PHP_EOL;
@@ -540,8 +540,11 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             $content = ob_get_contents();
             ob_clean();
             $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type);
+
+            $model->data =$obj_layout->getData();
             $model->save();
-            echo json_encode(['error' => "", 'content' => $content, 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
+
+            echo json_encode(['data'=>$obj_layout->getData(),'error' => "", 'content' => e($content), 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
         } catch (\Exception $ex) {
 
             while (ob_get_level() > $obLevel) ob_end_clean();
@@ -619,6 +622,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         try {
             $content = unserialize(base64_decode($model->content));
             $info = $model->toArray();
+            unset($info['content']);
+            unset($info['data']);
         } catch (\Exception $ex) {
             $content = [
                 "data" => [],

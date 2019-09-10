@@ -6,7 +6,7 @@
                 <!-- Slide Text -->
                 <h3 class="subtitle">{!! ZoeLang($v['info']) !!}</h3>
                 <!-- Slide Image -->
-                <img class="slide-img" src="{!! ZoeAsset($v['image']) !!}" alt="{!! $v['info'] !!}"/>
+                <img class="slide-img" src="{!! ZoeImageBase64($v['image']) !!}" alt="{!! $v['info'] !!}"/>
             </li>
         @endforeach
     </ul>

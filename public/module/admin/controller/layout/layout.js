@@ -6,50 +6,6 @@ function id() {
     return (guidGenerator() + guidGenerator() + "-" + guidGenerator() + "-" + guidGenerator() + "-" + guidGenerator() + "-" + guidGenerator() + guidGenerator() + guidGenerator());
 }
 
-function resetColumn(parent) {
-    // var lists_column = parent.children('.column');
-    // if(lists_column.length>1){
-    //     var list = [];
-    //     for (var v = 0; v < lists_column.length; v++) {
-    //         list.push($(lists_column[v]).height() + 20);
-    //     }
-    //     console.log(list);
-    //     var max = Math.max(...list);
-    //     var index = list.indexOf(max);
-    //     console.log("max:" + max);
-    //     console.log(index);
-    //
-    //     for (var v = 0; v < lists_column.length; v++) {
-    //         if (index !== v) {
-    //             console.log(max);
-    //             $(lists_column[v]).height(max);
-    //         }
-    //     }
-    // }
-
-    // var arrColumn = parent.find(">.column");
-    // var list = [];
-    // for (var v = 0; v < arrColumn.length; v++) {
-    //     list.push($(arrColumn[v]).height());
-    // }
-    // var max = Math.max(...list);
-    // var index = list.indexOf(max);
-    // for (var v = 0; v < arrColumn.length; v++) {
-    //     if (index != v) {
-    //         list.push($(arrColumn[v]).height((max) + "px"));
-    //     }
-    // }
-}
-
-function getSorted(selector, attrName) {
-    return $(selector.toArray().sort(function (a, b) {
-        var aVal = parseInt(a.getAttribute(attrName)),
-            bVal = parseInt(b.getAttribute(attrName));
-        console.log(aVal);
-        console.log(bVal);
-        return aVal - bVal;
-    }));
-}
 
 var demo = $(".demo");
 $(".demo").sortable({
@@ -239,15 +195,20 @@ $(".sidebar-nav .box-pluign").draggable({
         // $(this).attr('data-id', id());
     }
 });
-demo.delegate(".configuration", "click", function (e) {
-    e.preventDefault();
 
-
-    var self = $(this).closest('.tool').parent();
+function getSorted(selector, attrName) {
+    return $(selector.toArray().sort(function (a, b) {
+        var aVal = parseInt(a.getAttribute(attrName)),
+            bVal = parseInt(b.getAttribute(attrName));
+        console.log(aVal);
+        console.log(bVal);
+        return aVal - bVal;
+    }));
+}
+function configuration(self){
     var option = self.children('.option').find('.value textarea');
     var _conf = option.val();
     var config = _parseJSON(_conf);
-    console.log(config);
     var success = function (config) {
         var edit;
         window._editor = null;
@@ -457,7 +418,6 @@ demo.delegate(".configuration", "click", function (e) {
         }
     };
     if (config.cfg.hasOwnProperty('public') && config.cfg.public === "1") {
-
         $.ajax({
             type: 'POST',
             url: $("#layout").attr('uricom'),
@@ -481,7 +441,11 @@ demo.delegate(".configuration", "click", function (e) {
     } else {
         success(config);
     }
-
+}
+demo.delegate(".configuration", "click", function (e) {
+    e.preventDefault();
+    var self = $(this).closest('.tool').parent();
+    configuration(self);
 });
 demo.delegate(".status", "click", function (e) {
     var classOn = 'fa-check-square';
@@ -543,27 +507,14 @@ demo.delegate(".remove", "click", function (e) {
         }
     );
 });
-
 var DataLayout = [];
-var _parseJSON = function (json) {
-    try {
-        var data = $.parseJSON(json);
-        return data;
-    } catch (e) {
-        return {};
-    }
-}
-
 function getOption(parent) {
-    console.log(parent.attr('data-id'));
     return _parseJSON(parent.children('.option').find('.value textarea').html());
 }
-
 function setOption(parent, Object) {
     parent.children('.option').find('.value textarea').html(JSON.stringify(Object));
 }
-
-var saveLayout = function (element) {
+var saveLayoutJson = function (element) {
     var data,
         widget = {},
         depth = 0;
@@ -624,14 +575,20 @@ var saveLayout = function (element) {
     data = step($(element), depth);
     return {data: data, widget: widget};
 }
-console.log($("#saveLayout"));
-
+function initSnippet(html) {
+    let snippet = document.querySelector('#snippet pre code');
+    if(html){
+        snippet.innerHTML = html;
+    }
+    hljs.highlightBlock(snippet);
+    $('.source').loading({destroy: true});
+}
 function SaveLayout(self) {
     console.log('0');
     DataLayout = [];
     var grids = $("#layout_demo>.grid");
     console.log('1');
-    var layout = saveLayout("#layout_demo");
+    var layout = saveLayoutJson("#layout_demo");
     console.log('2');
     console.log((layout));
     $('#layout_demo').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
@@ -648,6 +605,8 @@ function SaveLayout(self) {
                 $("#id").val(json.id);
             }
             $('#layout_demo').loading({destroy: true});
+            $('.source').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+            initSnippet(json.content);
         },
         error: function (data) {
             console.log(data.responseJSON);
@@ -666,33 +625,43 @@ function SaveLayout(self) {
         }
     });
 }
+$(document).ready(function () {
 
-$("#saveLayout").click(function () {
-    console.log('0');
-    DataLayout = [];
-    var grids = $("#layout_demo>.grid");
-    console.log('1');
-    var layout = saveLayout("#layout_demo");
-    console.log('2');
-    console.log((layout));
-    $('#layout').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
-    $.ajax({
-        type: 'POST',
-        url: $(this).attr('url'),
-        data: {
-            layout: JSON.stringify(layout),
-            info: $("#formInfo").zoe_inputs("get")
-        },
-        success: function (data) {
-            var json = JSON.parse(data);
-            if (json.hasOwnProperty('id')) {
-                $("#id").val(json.id);
-            }
-            $('#layout').loading({destroy: true});
-        },
-        error:function (err) {
-            console.log(err);
-            $('#layout').loading({destroy: true});
-        }
-    });
+
+    $('.source').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+
+    setTimeout(function () {
+        initSnippet();
+    },1000);
+
+    // $("#saveLayout").click(function () {
+    //     console.log('0');
+    //     DataLayout = [];
+    //     var grids = $("#layout_demo>.grid");
+    //     console.log('1');
+    //     var layout = saveLayout("#layout_demo");
+    //     console.log('2');
+    //     console.log((layout));
+    //     $('#layout').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: $(this).attr('url'),
+    //         data: {
+    //             layout: JSON.stringify(layout),
+    //             info: $("#formInfo").zoe_inputs("get")
+    //         },
+    //         success: function (data) {
+    //             var json = JSON.parse(data);
+    //             if (json.hasOwnProperty('id')) {
+    //                 $("#id").val(json.id);
+    //             }
+    //             $('#layout').loading({destroy: true});
+    //         },
+    //         error:function (err) {
+    //             console.log(err);
+    //             $('#layout').loading({destroy: true});
+    //         }
+    //     });
+    // });
 });
+

@@ -9,12 +9,13 @@ class LayoutBlade extends Layout
     public $datas;
     public $widget = [];
     public $html = "";
-    public $langs = [];
+    public $langs = ['layout'=>[]];
     public $file;
 
     public function __construct()
     {
         $this->file = new \Illuminate\Filesystem\Filesystem();
+        define('build',true);
     }
 
     private function attrClass(& $attrs, $class)
@@ -125,7 +126,7 @@ class LayoutBlade extends Layout
             foreach ($option['lang'] as $langname => $langs) {
                 foreach ($langs as $lang) {
                     if (!empty($lang['val'])) {
-                        $this->langs[$langname][e($lang['key'])] = $lang['val'];
+                        $this->langs["layout"][$langname][e($lang['key'])] = $lang['val'];
                     }
                 }
             }
@@ -143,13 +144,14 @@ class LayoutBlade extends Layout
 //                }
 
             } else if ($option['cfg']['view'] && $option['cfg']['view'] != "0") {
-
-                $path = view()->getFinder()->find(
-                    $view = \Illuminate\View\ViewName::normalize($option['cfg']['view'])
-                );
-                $content = $this->file->get($path) . "{{--" . $path . '--}}';
-                // $content = "@includeIf('" . $option['cfg']['view'] . "', ['data'=>\$data]) \n{{--".$path.'--}}';
-
+                if(isset($option['cfg']['loadview']) && $option['cfg']['loadview'] == "copy" ){
+                    $path = view()->getFinder()->find(
+                        $view = \Illuminate\View\ViewName::normalize($option['cfg']['view'])
+                    );
+                    $content = $this->file->get($path) . "{{--" . $path . '--}}';
+                }else{
+                      $content = "@includeIf('" . $option['cfg']['view'] . "', ['data'=>\$data])";
+                }
             } else {
                 $content = "<div>@ZoeWidget(" . (var_export($option, true)) . ")</div>";
             }
@@ -159,11 +161,9 @@ class LayoutBlade extends Layout
 
         if (isset($option['cfg']['func'])) {
             $stringFunc = "";
-
             if ($option['cfg']['public'] == "1" && $option['cfg']['dynamic'] == "1") {
                 $stringFunc .= "@php \$option = get_config_component('" . $option['cfg']['id'] . "',\$option) @endphp" . PHP_EOL;
             }
-
             if ($option['cfg']['func'] != "No Action") {
                 $this->addInclude($option['stg']);
                 $stringFunc .= "@php \$data = run_component('" . $option['cfg']['func'] . "',\$option) @endphp" . PHP_EOL;
@@ -179,24 +179,18 @@ class LayoutBlade extends Layout
                 $content = $this->func($stringFunc . $content, ['$option' => $_par], false);
                 $content = $phpRun != "" ? $phpRun . $content : $this->InitBuild(true) . $content;
                 $php = Blade::compileString($content);
-
                 $content = $this->RenderHtml($php);
-
                 Blade::directive('Zoe_ImageBase64', function ($expr) {
                     $path = public_path($expr);
                     $imageData = base64_encode(file_get_contents($path));
                     $src = 'data: ' . mime_content_type($path) . ';base64,' . $imageData;
                     return $src;
                 });
-
                 if (isset($option['cfg']['image_base64']) && $option['cfg']['image_base64'] == "1") {
                     $is_base64 = true;
                     $content = Blade::compileString($content);
                 }
-                // }
-
             } else {
-
                 $content = $this->func($stringFunc . $content, ['$option' => $_par]);
             }
         }
@@ -206,6 +200,7 @@ class LayoutBlade extends Layout
 
     public function partial($option, $index = '')
     {
+        $this->BuilData(layout_data($option['stg']['id']),$option['stg']['id']);
         $content = "@includeIf('zoe::" . $this->FilenamePartial($option['stg']['id'], $option['stg']['token']) . "', [])";
         return $this->girds($content, $option);
     }
@@ -264,22 +259,36 @@ class LayoutBlade extends Layout
         if ($exits) {
             return '
             @php 
-                if(!function_exists("zoe_lang")){
-                    function zoe_lang($key,$par = []){
+                if(!function_exists("zlang")){
+                    function zlang($key,$par = []){
                         return "@zlang(\"".preg_replace(\'/\s+/\', \' \',str_replace("\r\n","",$key))."\")";
                     } 
                  }
             @endphp' . PHP_EOL;
         } else {
-
+            $string_if = '';
+            $string_var = '';
+            foreach ($this->langs as $key=>$value){
+                $string_var.='$_'.md5($key).'_ = ' . (var_export($value, true)) . ';'.PHP_EOL;
+                $string_if.='if(isset($_'.md5($key).'_[$_lang_name_][$key])){'.PHP_EOL;
+                $string_if.=' $html = $_'.md5($key).'_[$_lang_name_][$key];'.PHP_EOL;
+                $string_if.='}else';
+            }
+            if(empty($string_if)){
+                $string_lang='$html = z_language($key,$par);'.PHP_EOL;
+            }else{
+                $string_lang = $string_var;
+                $string_lang.= $string_if;
+                $string_lang.= '{$html = z_language($key,$par);}';
+            }
             return '
             @php 
-                if(!function_exists("zoe_lang")){
-                    function zoe_lang($key,$par = []){
+                define("FrontEndView", true);
+                if(!function_exists("zlang")){
+                    function zlang($key,$par = []){
                             $key = preg_replace(\'/\s+/\', \' \',str_replace("\r\n","",$key));
                             $_lang_name_ = app()->getLocale();
-                            $_langs_ = ' . (var_export($this->langs, true)) . '; 
-                            $html = isset($_langs_[$_lang_name_][$key])?$_langs_[$_lang_name_][$key]: z_language($key,$par);
+                             ' . $string_lang . '
                             if(isset($par)){
                                 foreach($par as $k=>$v){
                                     $html  = str_replace(":".$k,$v,$html);
@@ -294,7 +303,6 @@ class LayoutBlade extends Layout
 
     function FilenamePartial($id, $token)
     {
-
         return 'layout-partial-' . $id . '-' . $token;
     }
 
@@ -308,6 +316,26 @@ class LayoutBlade extends Layout
         return $this->GetStringInclude() . $this->ViewHelper->GetFunc() . $this->GridHelper->GetFunc() . $this->GetFunc();
     }
 
+    function BuilData($data,$key){
+
+        if(isset($data['langs'])){
+            foreach ($data['langs'] as $i=>$langs){
+                if(!isset($this->langs[$i.$key])){
+                    $this->langs[$i.$key] = [];
+                }
+                foreach ($langs as $lang=>$vals) {
+                    foreach ($vals as $k=>$v){
+                        $this->langs[$i.$key][$lang][$k] = $v;
+                    }
+                }
+            }
+        }
+    }
+    function getData(){
+        return base64_encode(serialize(
+            ['langs'=>$this->langs]
+        ));
+    }
     function render($template, $data, $id, $token, $type = "layout", $fileName = "")
     {
         $this->datas = isset($data['data']) ? $data['data'] : [];
@@ -322,7 +350,6 @@ class LayoutBlade extends Layout
                 }
             }
         }
-
         $html = $this->InitFuc() . $this->html;
         if ($type == "layout") {
             $template = $this->file->get($template);
@@ -334,11 +361,14 @@ class LayoutBlade extends Layout
             if ($fileName == "") {
                 $fileName = $this->FilenamePartial($id, $token);
             }
-            $this->file->put(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"), $html);
+            if($fileName == "test"){
+                $this->file->put(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"), trim($this->InitBuild().$html));
+            }else{
+                $this->file->put(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"), trim($html));
+            }
         }
         return $fileName;
     }
-
     public function getContent($id, $token, $type = "layout")
     {
         if ($type == "layout") {

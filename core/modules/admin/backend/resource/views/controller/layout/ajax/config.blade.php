@@ -22,7 +22,7 @@
                     <tbody>
                     <tr class="text-center">
                         <td width="150"><label for="text">Title</label></td>
-                        <td><input type="text" name="cfg.title" class="form-control" id="title" placeholder="Tên"></td>
+                        <td><input type="text" name="opt.title" class="form-control" id="title" placeholder="Tên"></td>
                     </tr>
                     @if(count($func)>0)
                         <tr>
@@ -55,6 +55,15 @@
                         <td>
                             <input type="radio" name="cfg.status" value="1"> <i>Yes</i>&nbsp;
                             <input type="radio" name="cfg.status" value="0"> <i>No</i> &nbsp;
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-center"><label for="text">Load View</label></td>
+                        <td>
+                            <input type="radio" name="cfg.loadview" value="include"> <i> Include </i>
+                            &nbsp;
+                            <input type="radio" name="cfg.loadview" value="copy"> <i> Copy </i>
                         </td>
                     </tr>
 
