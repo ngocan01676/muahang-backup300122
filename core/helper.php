@@ -4,27 +4,33 @@ use Illuminate\Support\Facades\Cache;
 
 
 use Illuminate\Support\Facades\DB;
+
 function ZoeAsset($url)
 {
-    return defined('build')?'@Zoe_Asset(' . $url . ')':asset($url);
+    return defined('build') ? '@Zoe_Asset(' . $url . ')' : asset($url);
 }
 
-function ZoeImageBase64($url){
+function ZoeImageBase64($url)
+{
     global $is_base64;
-    return $is_base64 == true?'@Zoe_ImageBase64(' . $url . ')':ZoeAsset($url);
+    return $is_base64 == true ? '@Zoe_ImageBase64(' . $url . ')' : ZoeAsset($url);
 }
+
 function ZoeLang($text)
 {
-    $text = e(preg_replace('/\s+/', ' ',str_replace("\r\n","",$text)));
-    return defined('build')?'@zlang("' . $text . '")':$text;
+    $text = e(preg_replace('/\s+/', ' ', str_replace("\r\n", "", $text)));
+    return defined('build') ? '@zlang("' . $text . '")' : zlang($text);
 }
-function layout_data($id){
-   $rs =  DB::table('layout')->where('id',$id)->first();
-   if($rs){
-       return unserialize(base64_decode($rs->data));
-   }
-   return [];
+
+function layout_data($id)
+{
+    $rs = DB::table('layout')->where('id', $id)->first();
+    if ($rs) {
+        return unserialize(base64_decode($rs->data));
+    }
+    return [];
 }
+
 function sort_type($sort, $col = "", $parameter = [])
 {
 
