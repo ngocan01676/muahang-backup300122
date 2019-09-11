@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\View\Compilers\BladeCompiler;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,10 +30,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+
         $this->app->key = md5(config('app.key'));
         $this->app->ReadCache();
 
         $this->app->InitLanguage();
+
+        $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
+
+        });
 
         $this->file = new \Illuminate\Filesystem\Filesystem();
         $time_start = microtime(true);
@@ -578,7 +584,7 @@ class AppServiceProvider extends ServiceProvider
                 $this->loadViewsFrom(base_path($_view['path']), $_view['alias']);
             }
         }
-        $this->loadViewsFrom(base_path('bootstrap/zoe/views'), "zoe");
+        $this->loadViewsFrom(storage_path('app/views'), "zoe");
     }
 
 }

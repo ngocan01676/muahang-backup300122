@@ -1,18 +1,1 @@
-<div class="col-md-3">--}}
-                                {{--<ul class="nav nav-pills nav-stacked">--}}
-                                {{--@foreach($list['view'] as $_key=>$view)--}}
-                                {{--<li><a href="#tab_{!! $key !!}_{!! $_key !!}"--}}
-                                {{--data-toggle="tab">{!! $view['label'] !!}</a></li>--}}
-                                {{--@endforeach--}}
-                                {{--</ul>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-md-9">--}}
-                                {{--<div class="tab-content clearfix">--}}
-                                {{--@foreach($list['view'] as $view)--}}
-                                {{--<div class="tab-pane active clearfix"--}}
-                                {{--id="tab_{!! $key !!}_{!! $_key !!}">--}}
-                                {{--@include($view['view'],['config'=>$_config,'key'=>$key])--}}
-                                {{--</div>--}}
-                                {{--@endforeach--}}
-                                {{--</div>--}}
-                                {{--</div>
+$this->cachePath.'/'.sha1($path).'.php';

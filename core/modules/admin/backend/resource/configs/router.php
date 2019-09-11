@@ -96,6 +96,14 @@ return [
                         "url" => "/delete/{id}",
                         "method" => ['post'],
                     ],
+                    "build" => [
+                        "url" => "/build/{type?}",
+                    ],
+                    "ajax:build" => [
+                        "url" => "/ajax-build",
+                        "method" => ['post'],
+                        "action" => "ajaxBuild"
+                    ],
                     "ajax" => [
                         "url" => "/ajax",
                         "method" => ['post'],
@@ -208,6 +216,7 @@ return [
                     ],
                 ]
             ],
+
         ]
     ]
 ];

@@ -19,80 +19,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         return $this;
     }
 
-    public function list(Request $request)
-    {
-        $this->getcrumb();
-        $filter = $request->query('filter', "");
-        $search = $request->query('search', "");
-        $status = $request->query('status', "");
-        $date = $request->query('date', "");
 
-        $config = config_get('option', "core:layout");
-        $data = $request->query();
-
-        $page = null;
-        if (isset($data['action'])) {
-            //$parameter = $data['form'];
-            $page = 1;
-        } else {
-            //$parameter = $data;
-        }
-        $parameter = $data;
-
-        $type = isset($request->route()->defaults['type']) ? $request->route()->defaults['type'] : '';
-
-        $use = $this->getListType($type);
-        $listsType = [];
-        $route = [];
-        if (count($use) > 0) {
-            if ($type != "") {
-                $listsType = [$use['value'] => $use['label']];
-                $route['type'] = $type;
-                $parameter['filter']['type'] = $use['value'];
-            } else {
-                $listsType = array_merge($this->listsType, $use);
-            }
-        }
-        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
-        $item = 1;
-        $models = DB::table('layout');
-
-        if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
-            $models->where('name', 'like', '%' . $search . '%');
-
-        }
-        if (isset($parameter["filter"]['type']) && !empty($parameter['filter']['type'])) {
-            $models->where('type', $parameter['filter']['type']);
-        }
-        if (!empty($status) || $status != "") {
-            $models->where('status', $status);
-        }
-        if (!isset($parameter['order_by'])) {
-            $parameter['order_by']['col'] = 'id';
-            $parameter['order_by']['type'] = 'desc';
-        } else {
-            if (isset($parameter['action'])) {
-                $parameter['order_by']['type'] = isset($parameter['order_by']['type']) && $parameter['order_by']['type'] == "desc" ? "asc" : "desc";
-
-            }
-        }
-        if (isset($parameter['action'])) {
-            unset($parameter['action']);
-        }
-        $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
-
-        $models = $models->paginate($item, ['*'], 'page', $page);
-        $models->appends($parameter);
-
-
-        return $this->render('layout.list', [
-            'models' => $models,
-            "listsType" => $listsType,
-            "use" => $use,
-            "route" => $route,
-            'parameter' => $parameter
-        ]);
-    }
 
     public function getListType($type)
     {
@@ -498,7 +425,64 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             }
         }
     }
+    public function ajaxBuild(Request $request){
+        $items = $request->all();
+        if(isset($items['act']) && isset($items['id'])){
+            $model = \Admin\Http\Models\Layout::find($items['id']);
+            if($model){
+                switch ($items['act']){
+                    case 'build':
+                        $layout = unserialize(base64_decode($model->content));
+                        echo json_encode($this->saveFile($model,$layout));
+                        break;
+                    case 'delete':
+                        $obj_layout = new \Admin\Lib\LayoutBlade();
+                        if($model->type == "partial"){
+                            $fileName = $obj_layout->FilenamePartial($model->id, $model->token);
+                        }else{
+                            $fileName = $obj_layout->FilenameLayout($model->id, $model->token);
+                        }
+                        $FileNameBlade = view()->exists("zoe::".$fileName)?view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::".$fileName)):"";
 
+                        if(!empty($FileNameBlade)){
+                            $FileNamePhp = config('view.compiled')."/".sha1($FileNameBlade).".php";
+                            echo $FileNamePhp;
+                            if($obj_layout->file->exists($FileNamePhp)){
+                                $obj_layout->file->delete($FileNamePhp);
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+    }
+    public function saveFile($model,$layout){
+        $obj_layout = new \Admin\Lib\LayoutBlade();
+        $obj_layout->ViewHelper = $this->GetViewHelperBlade();
+        $obj_layout->GridHelper = $this->GetGridBlade();
+        $obj_layout->TagHelper = $obj_layout->GridHelper->CallBackTag();
+        $use = $this->getListType($model->type_group);
+        if (isset($use['template'])) {
+            $template = base_path($use['template']);
+        } else {
+            $template = base_path('core/modules/admin/backend/resource/stubs/layout.stubs');
+        }
+        $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type, "test");
+        $obLevel = ob_get_level();
+        try {
+            ob_start();
+            echo view('zoe::' . $filename);
+            $content = ob_get_contents();
+            ob_clean();
+            $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type);
+            $model->data =$obj_layout->getData();
+            $model->save();
+            return (['data'=>$obj_layout->getData(),'error' => "", 'content' => e($content), 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
+        } catch (\Exception $ex) {
+            while (ob_get_level() > $obLevel) ob_end_clean();
+            return (['error' => $ex->getMessage(), 'content' => '', 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
+        }
+    }
     public function ajaxPost(Request $request)
     {
 
@@ -519,37 +503,36 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $model->type = $items["info"]['type'];
         $layout = isset($items['layout']) ? json_decode($items['layout'], true) : [];
         $model->content = base64_encode(serialize($layout));
-
-
-        $obj_layout = new \Admin\Lib\LayoutBlade();
-        $obj_layout->ViewHelper = $this->GetViewHelperBlade();
-        $obj_layout->GridHelper = $this->GetGridBlade();
-        $obj_layout->TagHelper = $obj_layout->GridHelper->CallBackTag();
-        $use = $this->getListType($model->type_group);
-
-        if (isset($use['template'])) {
-            $template = base_path($use['template']);
-        } else {
-            $template = base_path('core/modules/admin/backend/resource/stubs/layout.stubs');
-        }
-        $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type, "test");
-        $obLevel = ob_get_level();
-        try {
-            ob_start();
-            echo view('zoe::' . $filename);
-            $content = ob_get_contents();
-            ob_clean();
-            $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type);
-
-            $model->data =$obj_layout->getData();
-            $model->save();
-
-            echo json_encode(['data'=>$obj_layout->getData(),'error' => "", 'content' => e($content), 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
-        } catch (\Exception $ex) {
-
-            while (ob_get_level() > $obLevel) ob_end_clean();
-            echo json_encode(['error' => $ex->getMessage(), 'content' => '', 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
-        }
+        echo json_encode($this->saveFile($model,$layout));
+//        $obj_layout = new \Admin\Lib\LayoutBlade();
+//        $obj_layout->ViewHelper = $this->GetViewHelperBlade();
+//        $obj_layout->GridHelper = $this->GetGridBlade();
+//        $obj_layout->TagHelper = $obj_layout->GridHelper->CallBackTag();
+//        $use = $this->getListType($model->type_group);
+//
+//        if (isset($use['template'])) {
+//            $template = base_path($use['template']);
+//        } else {
+//            $template = base_path('core/modules/admin/backend/resource/stubs/layout.stubs');
+//        }
+//        $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type, "test");
+//        $obLevel = ob_get_level();
+//        try {
+//            ob_start();
+//            echo view('zoe::' . $filename);
+//            $content = ob_get_contents();
+//            ob_clean();
+//            $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type);
+//
+//            $model->data =$obj_layout->getData();
+//            $model->save();
+//
+//            echo json_encode(['data'=>$obj_layout->getData(),'error' => "", 'content' => e($content), 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
+//        } catch (\Exception $ex) {
+//
+//            while (ob_get_level() > $obLevel) ob_end_clean();
+//            echo json_encode(['error' => $ex->getMessage(), 'content' => '', 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
+//        }
     }
 
     function getPartial($id)
@@ -587,7 +570,80 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         }
         return $array;
     }
+    public function list(Request $request)
+    {
+        $this->getcrumb();
+        $filter = $request->query('filter', "");
+        $search = $request->query('search', "");
+        $status = $request->query('status', "");
+        $date = $request->query('date', "");
 
+        $config = config_get('option', "core:layout");
+        $data = $request->query();
+
+        $page = null;
+        if (isset($data['action'])) {
+            //$parameter = $data['form'];
+            $page = 1;
+        } else {
+            //$parameter = $data;
+        }
+        $parameter = $data;
+
+        $type = isset($request->route()->defaults['type']) ? $request->route()->defaults['type'] : '';
+
+        $use = $this->getListType($type);
+        $listsType = [];
+        $route = [];
+        if (count($use) > 0) {
+            if ($type != "") {
+                $listsType = [$use['value'] => $use['label']];
+                $route['type'] = $type;
+                $parameter['filter']['type'] = $use['value'];
+            } else {
+                $listsType = array_merge($this->listsType, $use);
+            }
+        }
+        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+        $item = 1;
+        $models = DB::table('layout');
+
+        if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
+            $models->where('name', 'like', '%' . $search . '%');
+
+        }
+        if (isset($parameter["filter"]['type']) && !empty($parameter['filter']['type'])) {
+            $models->where('type', $parameter['filter']['type']);
+        }
+        if (!empty($status) || $status != "") {
+            $models->where('status', $status);
+        }
+        if (!isset($parameter['order_by'])) {
+            $parameter['order_by']['col'] = 'id';
+            $parameter['order_by']['type'] = 'desc';
+        } else {
+            if (isset($parameter['action'])) {
+                $parameter['order_by']['type'] = isset($parameter['order_by']['type']) && $parameter['order_by']['type'] == "desc" ? "asc" : "desc";
+
+            }
+        }
+        if (isset($parameter['action'])) {
+            unset($parameter['action']);
+        }
+        $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
+
+        $models = $models->paginate($item, ['*'], 'page', $page);
+        $models->appends($parameter);
+
+
+        return $this->render('layout.list', [
+            'models' => $models,
+            "listsType" => $listsType,
+            "use" => $use,
+            "route" => $route,
+            'parameter' => $parameter
+        ]);
+    }
     public function create($type = "")
     {
 
@@ -650,4 +706,11 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "sources" => $obj_layout->getContent($model->id, $model->token, $model->type)
         ]);
     }
+
+    public function build(){
+        $this->getcrumb()->breadcrumb("Build Layout", false);
+        $lists =\Admin\Http\Models\Layout::where('type_group','theme')->orderBy("updated_at","desc")->get();
+        return $this->render('layout.build',['lists'=>$lists]);
+    }
+
 }

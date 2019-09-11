@@ -201,7 +201,8 @@ class LayoutBlade extends Layout
     public function partial($option, $index = '')
     {
         $this->BuilData(layout_data($option['stg']['id']), $option['stg']['id']);
-        $content = "@includeIf('zoe::" . $this->FilenamePartial($option['stg']['id'], $option['stg']['token']) . "', [])";
+        $content = "@includeIf('zoe::" . $this->FilenamePartial($option['stg']['id'], $option['stg']['token']) . "', [])".PHP_EOL;
+        $content.='@php $zlang = "zlang"; @endphp'.PHP_EOL;
         return $this->girds($content, $option);
     }
 
@@ -357,20 +358,21 @@ class LayoutBlade extends Layout
             }
         }
         $html = $this->InitFuc() . $this->html;
+
         if ($type == "layout") {
             $template = $this->file->get($template);
             if ($fileName == "") {
                 $fileName = $this->FilenameLayout($id, $token);
             }
-            $this->file->put(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"), str_replace_first("{{CONTENT}}", $this->InitBuild() . $html, $template));
+            $this->file->put(storage_path('app/views/' . $fileName . ".blade.php"), str_replace_first("{{CONTENT}}", $this->InitBuild() . $html, $template));
         } else {
             if ($fileName == "") {
                 $fileName = $this->FilenamePartial($id, $token);
             }
             if ($fileName == "test") {
-                $this->file->put(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"), trim($this->InitBuild(false, $type . "_" . md5($token)) . $html));
+                $this->file->put(storage_path('app/views/' . $fileName . ".blade.php"), trim($this->InitBuild(false, $type . "_" . md5($token)) . $html));
             } else {
-                $this->file->put(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"), trim($this->InitBuild(false, $type . "_" . md5($token)) . $html));
+                $this->file->put(storage_path('app/views/' . $fileName . ".blade.php"), trim($this->InitBuild(false, $type . "_" . md5($token)) . $html));
             }
         }
         return $fileName;
@@ -383,8 +385,8 @@ class LayoutBlade extends Layout
         } else {
             $fileName = $this->FilenamePartial($id, $token);
         }
-        if ($this->file->exists(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"))) {
-            return $this->file->get(base_path('bootstrap/zoe/views/' . $fileName . ".blade.php"));
+        if ($this->file->exists(storage_path('app/views/' . $fileName . ".blade.php"))) {
+            return $this->file->get(storage_path('app/views/' . $fileName . ".blade.php"));
         } else {
             return "";
         }
