@@ -22,6 +22,7 @@ class Layout
         $t = time();
         $html = '
         @function(func_' . $t . '_' . $func . ' (' . $par . '))
+            @php global $zlang; @endphp
             ' . $content . '
         @endfunction';
         if ($group) {

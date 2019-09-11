@@ -18,8 +18,9 @@ function ZoeImageBase64($url)
 
 function ZoeLang($text)
 {
+    global $zlang;
     $text = e(preg_replace('/\s+/', ' ', str_replace("\r\n", "", $text)));
-    return defined('build') ? '@zlang("' . $text . '")' : zlang($text);
+    return defined('build') ? '@zlang("' . $text . '")' : $zlang($text);
 }
 
 function layout_data($id)

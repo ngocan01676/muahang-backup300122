@@ -23,6 +23,8 @@
   
             @php 
                 define("FrontEndView", true);
+                global $zlang;
+                $zlang = "zlang";
                 if(!function_exists("zlang")){
                     function zlang($key,$par = []){
                             $key = preg_replace('/\s+/', ' ',str_replace("\r\n","",$key));
@@ -30,12 +32,12 @@
                              $_c61404957758dfda283709e89376ab3e_ = array (
   'vi' => 
   array (
-    'Responsive' => 'đáp ứng',
+    'Responsive' => 'đáp ứng 1',
     'Color Schemes' => 'Phối màu',
     'Feature Rich' => 'Tính năng phong phú',
     'Huge amount of components and over 30 sample pages!' => 'Số lượng lớn các thành phần và hơn 30 trang mẫu!',
-    'It looks great on desktops, laptops, tablets and smartphones' => ' Nó trông tuyệt vời trên máy tính để bàn, máy tính xách tay, máy tính bảng và điện thoại thông minh',
-    'Comes with 5 color schemes and it&#039;s easy to make your own!' => ' Đi kèm với 5 cách phối màu và thật dễ dàng để làm cho riêng bạn!',
+    'It looks great on desktops, laptops, tablets and smartphones' => 'Nó trông tuyệt vời trên máy tính để bàn, máy tính xách tay, máy tính bảng và điện thoại thông minh',
+    'Comes with 5 color schemes and it&#039;s easy to make your own!' => 'Đi kèm với 5 cách phối màu và thật dễ dàng để làm cho riêng bạn!',
     'Morbi eleifend congue elit nec sagittis. Praesent aliquam lobortis tellus, nec consequat vitae' => 'abc',
     'Morbi eleifend congue elit nec sagittis. Praesent aliquam lobortis tellus, nec consequat vitae 1' => 'def',
     'Morbi eleifend congue elit nec sagittis. Praesent aliquam lobortis tellus, nec consequat vitae 2' => 'ghgh678876',
@@ -55,7 +57,7 @@
 $_0266372044c78247e24f23dde833a9ec_ = array (
   'vi' => 
   array (
-    'Our Clients' => 'Khách hàng của chúng tôi!',
+    'Our Clients' => 'Khách hàng của chúng tôi abc !',
   ),
 );
 if(isset($_c61404957758dfda283709e89376ab3e_[$_lang_name_][$key])){
@@ -74,11 +76,6 @@ if(isset($_c61404957758dfda283709e89376ab3e_[$_lang_name_][$key])){
             @endphp
 
 
-
-        @function(func_1568108485_7986_1849 ($option))
-            @php $data = $option; @endphp
-@includeIf('theme::widgets.slider.views.main', ['data'=>$data])
-        @endfunction
 <div class="mainmenu-wrapper"><div class="container">
 <div class="menuextras">
     <div class="extras">
@@ -193,56 +190,38 @@ if(isset($_c61404957758dfda283709e89376ab3e_[$_lang_name_][$key])){
     </ul>
 </nav>
 </div></div><div class='homepage-slider'>
-@func_1568108485_7986_1849(array (
-  'data' => 
-  array (
-    'title' => '',
-    'router' => 'frontend:home:list',
-    'lists' => 
-    array (
-      0 => 
-      array (
-        'name' => 'Responsive',
-        'link' => 'backend:page:list',
-        'image' => 'theme/zoe/img/homepage-slider/slide1.png',
-        'info' => 'It looks great on desktops, laptops, tablets and smartphones',
-        'bg' => 'bg1',
-      ),
-      1 => 
-      array (
-        'name' => 'Color Schemes',
-        'link' => 'backend:page:edit',
-        'image' => 'theme/zoe/img/homepage-slider/slide2.png',
-        'info' => 'Comes with 5 color schemes and it\'s easy to make your own!',
-        'bg' => 'bg2',
-      ),
-      2 => 
-      array (
-        'name' => 'Feature Rich',
-        'link' => 'backend:plugin:list',
-        'image' => 'theme/zoe/img/homepage-slider/slide3.png',
-        'info' => 'Huge amount of components and over 30 sample pages!',
-        'bg' => 'bg3',
-      ),
-    ),
-    'param' => 
-    array (
-      0 => 
-      array (
-        'link' => '{"id":"5"}',
-      ),
-      1 => 
-      array (
-        'link' => '{"id":"10"}',
-      ),
-      2 => 
-      array (
-        'link' => '{}',
-      ),
-    ),
-  ),
-))
-
+<div id="sequence">
+    <ul class="sequence-canvas">
+                    <li class="bg1">
+                <h2 class="title">@zlang("Responsive")</h2>
+                <!-- Slide Text -->
+                <h3 class="subtitle">@zlang("It looks great on desktops, laptops, tablets and smartphones")</h3>
+                <!-- Slide Image -->
+                <img class="slide-img" src="@Zoe_Asset(theme/zoe/img/homepage-slider/slide1.png)" alt="It looks great on desktops, laptops, tablets and smartphones"/>
+            </li>
+                    <li class="bg2">
+                <h2 class="title">@zlang("Color Schemes")</h2>
+                <!-- Slide Text -->
+                <h3 class="subtitle">@zlang("Comes with 5 color schemes and it&#039;s easy to make your own!")</h3>
+                <!-- Slide Image -->
+                <img class="slide-img" src="@Zoe_Asset(theme/zoe/img/homepage-slider/slide2.png)" alt="Comes with 5 color schemes and it's easy to make your own!"/>
+            </li>
+                    <li class="bg3">
+                <h2 class="title">@zlang("Feature Rich")</h2>
+                <!-- Slide Text -->
+                <h3 class="subtitle">@zlang("Huge amount of components and over 30 sample pages!")</h3>
+                <!-- Slide Image -->
+                <img class="slide-img" src="@Zoe_Asset(theme/zoe/img/homepage-slider/slide3.png)" alt="Huge amount of components and over 30 sample pages!"/>
+            </li>
+            </ul>
+    <div class="sequence-pagination-wrapper">
+        <ul class="sequence-pagination">
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                    </ul>
+    </div>
+</div>
 
 <div class="section">
     <div class="container">

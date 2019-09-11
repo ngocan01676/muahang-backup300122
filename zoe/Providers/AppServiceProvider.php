@@ -65,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
         $this->InitComponents();
 
     }
+
     public function blade()
     {
         Blade::directive('Zoe_Asset', function ($expr) {
@@ -74,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
             return "<?php print_r({$expr}); ?>";
         });
         Blade::directive('zlang', function ($parameters) {
-            return defined('build')?'@zlang('.$parameters.')':'<?php echo zlang(' . $parameters . ') ?>';
+            return defined('build') ? '@zlang(' . $parameters . ')' : '<?php echo $zlang(' . $parameters . ') ?>';
         });
         Blade::directive('z_language', function ($parameters) {
             return 'call_user_func_array("z_language",' . $parameters . ')';
