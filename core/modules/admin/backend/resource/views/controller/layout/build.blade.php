@@ -7,6 +7,7 @@
     @breadcrumb()@endbreadcrumb
     @php
         $obj_layout = new \Admin\Lib\LayoutBlade();
+
     @endphp
     <div class="box box box-zoe">
         <div class="box-body clearfix">
@@ -26,12 +27,15 @@
                         $FileNameBlade = view()->exists("zoe::".$fileName)?view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::".$fileName)):"";
                         $boolFilePhp = false;
                         $FileNamePhp= "";
+                        $sources= "";
                         if(!empty($FileNameBlade)){
                             $FileNamePhp = config('view.compiled')."/".sha1($FileNameBlade).".php";
                             if(file_exists($FileNamePhp)){
                                 $boolFilePhp = true;
+
                             }
                         }
+
                     @endphp
                     <li data-id="{!! $list->id !!}">
                         <i class="fa fa-refresh"></i>
@@ -49,13 +53,21 @@
                             </div>
                             <div class="timeline-footer">
                                 <a href="{!! route('backend:layout:edit',["id"=>$list->id]) !!}"
-                                   class="btn btn-primary btn-xs">{!! z_language('Edit') !!}</a> &nbsp;
-                                <a onclick="Action(this)" class="btn btn-primary btn-xs build" data-act="build"
-                                   data-id="{!! $list->id !!}">{!! z_language('Build') !!}</a> &nbsp;
-                                <a onclick="Action(this)" class="btn btn-default btn-xs delete" data-act="delete"
-                                   data-id="{!! $list->id !!}">{!! z_language('Delete') !!}</a> &nbsp;
-                                <a onclick="Action(this)" class="btn btn-default btn-xs view" data-act="view"
-                                   data-id="{!! $list->id !!}">{!! z_language('ViewSource') !!}</a>
+                                   class="btn btn-default btn-xs">{!! z_language('Edit') !!}</a>&nbsp;
+                                <a onclick="Action(this)" class="btn btn-default btn-xs build" data-act="build"
+                                   data-id="{!! $list->id !!}">{!! z_language('Build') !!}</a>&nbsp;
+                                @if($boolFilePhp)
+                                    <a onclick="Action(this)" class="btn btn-default btn-xs delete" data-act="delete"
+                                       data-id="{!! $list->id !!}">{!! z_language('Delete') !!}</a> &nbsp;
+                                    <a onclick="OpenSource(this)" class="btn btn-default btn-xs view"
+                                       data-act="view-php"
+                                       data-id="{!! $list->id !!}">{!! z_language('View Php') !!}</a>&nbsp;
+                                @endif
+                                @if(!empty($FileNameBlade))
+                                    <a onclick="OpenSource(this)" class="btn btn-default btn-xs view"
+                                       data-act="view-blade"
+                                       data-id="{!! $list->id !!}">{!! z_language('View Blade') !!}</a>&nbsp;
+                                @endif
                             </div>
                         </div>
                     </li>
@@ -70,8 +82,47 @@
     </div>
 @endsection
 @push('scripts')
-
+    <script src="{{asset('module/admin/assets/bootpopup/bootpopup.js')}}"></script>
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
     <script>
+        function initSnippet(html) {
+            let snippet = document.querySelector('#snippet pre code');
+            if (html) {
+                snippet.innerHTML = html;
+            }
+            hljs.highlightBlock(snippet);
+            $('.source').loading({destroy: true});
+        }
+
+        function OpenSource(self) {
+            var data = $(self).data();
+            $.ajax({
+                type: 'POST',
+                url: '{{route('backend:layout:ajax:build')}}',
+                data: data,
+                success: function (json) {
+                    bootpopup({
+                        title: "Custom HTML",
+                        size: "large",
+                        content: ['<div id="snippet">\n' +
+                        '                                <pre>\n' +
+                        '                                    <code class="html">' + json.content + '</code>\n' +
+                        '                                </pre>\n' +
+                        '                            </div>'],
+                        cancel: function (data, array, event) {
+
+                        },
+                        before: function (_this) {
+                            var snippet = _this.form.find('#snippet');
+                            hljs.highlightBlock(snippet[0]);
+                        }
+                    });
+                }
+            });
+        }
+
         function Action(self, cb) {
             var data = $(self).data();
             console.log(data);

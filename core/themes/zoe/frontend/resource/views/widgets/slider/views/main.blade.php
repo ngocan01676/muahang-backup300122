@@ -1,5 +1,7 @@
 <div id="sequence">
+
     <ul class="sequence-canvas">
+
         @foreach($data['data']['lists'] as $k=>$v)
             <li class="{!! $v['bg'] !!}">
                 <h2 class="title">{!! $zlang($v['name']) !!}</h2>

@@ -132,7 +132,8 @@ class LayoutBlade extends Layout
             }
         }
         $content = "";
-        $_par = (var_export(isset($option['opt']) ? ["data" => $option['opt']] : ["data" => []], true));
+        $_par = isset($option['opt']) ? ["data" => $option['opt']] : ["data" => []];
+        $_par = (var_export($_par, true));
         if (isset($option['cfg']['view'])) {
             if ($option['cfg']['view'] == "dynamic") {
 
@@ -201,8 +202,8 @@ class LayoutBlade extends Layout
     public function partial($option, $index = '')
     {
         $this->BuilData(layout_data($option['stg']['id']), $option['stg']['id']);
-        $content = "@includeIf('zoe::" . $this->FilenamePartial($option['stg']['id'], $option['stg']['token']) . "', [])".PHP_EOL;
-        $content.='@php $zlang = "zlang"; @endphp'.PHP_EOL;
+        $content = "@includeIf('zoe::" . $this->FilenamePartial($option['stg']['id'], $option['stg']['token']) . "', [])" . PHP_EOL;
+        $content .= '@php $zlang = "zlang"; @endphp' . PHP_EOL;
         return $this->girds($content, $option);
     }
 
@@ -260,8 +261,11 @@ class LayoutBlade extends Layout
         if ($exits) {
             return '
             @php 
+                global $zlang;
+                $zlang = "' . $nameLang . '";
                 if(!function_exists("zlang")){
                     function zlang($key,$par = []){
+                        $key = e($key);
                         return "@zlang(\"".preg_replace(\'/\s+/\', \' \',str_replace("\r\n","",$key))."\")";
                     } 
                  }
@@ -290,6 +294,7 @@ class LayoutBlade extends Layout
                 if(!function_exists("' . $nameLang . '")){
                     function ' . $nameLang . '($key,$par = []){
                             $key = preg_replace(\'/\s+/\', \' \',str_replace("\r\n","",$key));
+                            $key = e($key);
                             $_lang_name_ = app()->getLocale();
                              ' . $string_lang . '
                             if(isset($par)){
