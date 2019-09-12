@@ -4,9 +4,9 @@
 
         @foreach($data['data']['lists'] as $k=>$v)
             <li class="{!! $v['bg'] !!}">
-                <h2 class="title">{!! $zlang($v['name']) !!}</h2>
+                <h2 class="title">{!! ZoeLang($v['name']) !!}</h2>
                 <!-- Slide Text -->
-                <h3 class="subtitle">{!! $zlang($v['info']) !!}</h3>
+                <h3 class="subtitle">{!! ZoeLang($v['info']) !!}</h3>
                 <!-- Slide Image -->
                 <img class="slide-img" src="{!! ZoeImageBase64($v['image']) !!}" alt="{!! $v['info'] !!}"/>
             </li>
