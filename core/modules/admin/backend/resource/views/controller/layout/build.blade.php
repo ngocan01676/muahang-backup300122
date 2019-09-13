@@ -49,8 +49,8 @@
                             </div>
                             <div class="timeline-footer">
                                 <a href="{!! route('backend:layout:edit',["id"=>$list->id]) !!}"
-                                   class="btn btn-primary btn-xs">{!! z_language('Edit') !!}</a> &nbsp;
-                                <a onclick="Action(this)" class="btn btn-primary btn-xs build" data-act="build"
+                                   class="btn btn-default btn-xs">{!! z_language('Edit') !!}</a> &nbsp;
+                                <a onclick="Action(this)" class="btn btn-default btn-xs build" data-act="build"
                                    data-id="{!! $list->id !!}">{!! z_language('Build') !!}</a> &nbsp;
                                 <a onclick="Action(this)" class="btn btn-default btn-xs delete" data-act="delete"
                                    data-id="{!! $list->id !!}">{!! z_language('Delete') !!}</a> &nbsp;
