@@ -52,9 +52,12 @@ class RouteServiceProvider extends ServiceProvider
 
     public function InitRouter($guard, $routers, $config)
     {
+        $configRouter = config_get('router', $guard);
+
         $views_paths = $this->app->getConfig()->views['paths'];
         $keyPrivate = $this->app->key;
         foreach ($routers as $name => $route) {
+
             if (isset($route['prefix'])) {
                 $prefix = $route['prefix'];
             } else if (isset($route['sub_prefix'])) {
@@ -67,14 +70,15 @@ class RouteServiceProvider extends ServiceProvider
 //            var_dump($route);
 
             $_module = $route['module']['name'];
-            if($route['module']['type'] == "plugin"){
-                $_view_alias = isset($views_paths["plugin"][$_module]['alias'])?$views_paths["plugin"][$_module]['alias']:"";
-            }else{
-                $_view_alias = isset($views_paths[$_module][$guard]['alias'])?$views_paths[$_module][$guard]['alias']:"";
+            if ($route['module']['type'] == "plugin") {
+                $_view_alias = isset($views_paths["plugin"][$_module]['alias']) ? $views_paths["plugin"][$_module]['alias'] : "";
+            } else {
+                $_view_alias = isset($views_paths[$_module][$guard]['alias']) ? $views_paths[$_module][$guard]['alias'] : "";
             }
 
             $permissions = $this->app->getPermissions();
             foreach ($route['router'] as $key => $_route) {
+
 
                 $method = ['get'];
                 if (isset($_route['method'])) {
@@ -97,12 +101,25 @@ class RouteServiceProvider extends ServiceProvider
                     continue;
                 }
                 $middleware = ["web"];
+                $acl = "";
                 $auth_guard = isset($_route["guard"]) ? $_route["guard"] : (isset($route["guard"]) ? $route["guard"] : $guard);
-
+                if (isset($configRouter['data'][$alias]['acl'])) {
+                    if ($configRouter['data'][$alias]['acl'] == 'no-login') {
+                        $auth_guard = "";
+                    } else {
+                        if ($configRouter['data'][$alias]['acl'] != 'login') {
+                            $auth_guard = $guard;
+                            $acl = $configRouter['data'][$alias]['acl'];
+                        } else {
+                            $auth_guard = $guard;
+                        }
+                    }
+                }
                 if (!empty($auth_guard)) {
                     $middleware[] = 'auth:' . $auth_guard;
-                    $acl = isset($_route["acl"]) ? ($_route["acl"] == true ? $permission : $_route["acl"]) : (isset($route["acl"]) ? $route["acl"] : "");
-
+                    if (empty($acl)) {
+                        $acl = isset($_route["acl"]) ? ($_route["acl"] == true ? $permission : $_route["acl"]) : (isset($route["acl"]) ? $route["acl"] : "");
+                    }
                     if (!empty($acl)) {
                         $middleware[] = "permission:" . $auth_guard . "-" . $acl;
                     }
@@ -114,13 +131,11 @@ class RouteServiceProvider extends ServiceProvider
                         $this->app->getPermissions()->aliases[$alias] = $acl;
                     }
                 }
-//                var_dump($method);
-//                var_dump($auth_guard);
-//                var_dump($link);
-//                var_dump($action);
-//                var_dump($alias);
-//                echo "<BR>";
-//                var_dump($middleware);
+
+                if (isset($configRouter['data'][$alias]['status']) && $configRouter['data'][$alias]['status'] == 2) {
+                    continue;
+                }
+
 
                 if (isset($_route['form'])) {
                     $r = Route::match(['post'], $link . '-form', $namespace . $controller . "postCreate");
@@ -134,13 +149,18 @@ class RouteServiceProvider extends ServiceProvider
                         $r->defaults($_key, $_default);
                     }
                 }
-                $r->defaults($keyPrivate."_module", $_module);
-                $r->defaults($keyPrivate."_view_alias",$_view_alias);
+                $r->defaults($keyPrivate . "_module", $_module);
+                $r->defaults($keyPrivate . "_view_alias", $_view_alias);
+                if (isset($configRouter['data'][$alias]['layout'])) {
+                    $r->defaults($keyPrivate . "_layout", $configRouter['data'][$alias]['layout']);
+
+                }
+
 
                 $r->name($alias);
 
-                if (isset($_route['cache'])) {
-                    $middleware[] = 'cache.response:' . $alias . "," . $_route['cache'];
+                if (isset($configRouter['data'][$alias]['cache']) && $configRouter['data'][$alias]['cache'] != 0) {
+                    $middleware[] = 'cache.response:' . $alias . "," . $configRouter['data'][$alias]['cache'];
                 }
                 $r->middleware($middleware);
             }

@@ -201,10 +201,15 @@ class LayoutBlade extends Layout
 
     public function partial($option, $index = '')
     {
-        $this->BuilData(layout_data($option['stg']['id']), $option['stg']['id']);
-        $content = "@includeIf('zoe::" . $this->FilenamePartial($option['stg']['id'], $option['stg']['token']) . "', [])" . PHP_EOL;
-        $content .= '@php $zlang = "zlang"; @endphp' . PHP_EOL;
-        return $this->girds($content, $option);
+
+        $rs = layout_get($option['stg']['id']);
+        if ($rs != null) {
+            $this->BuilData($rs->content, $option['stg']['id']);
+            $content = "@includeIf('zoe::layouts.theme." . config_get('theme', "active") . '.' . $this->FilenamePartial($rs->slug, $option['stg']['token']) . "', [])" . PHP_EOL;
+            $content .= '@php $zlang = "zlang"; @endphp' . PHP_EOL;
+            return $this->girds($content, $option);
+        }
+        return '';
     }
 
     public function rows($row, $layout = true, $lever = 0)
@@ -309,14 +314,14 @@ class LayoutBlade extends Layout
         }
     }
 
-    function FilenamePartial($id, $token)
+    function FilenamePartial($id)
     {
-        return 'layout-partial-' . $id . '-' . $token;
+        return 'layout-partial-' . $id;
     }
 
-    function FilenameLayout($id, $token)
+    function FilenameLayout($id)
     {
-        return 'layout-' . $id . "-" . $token;
+        return 'layout-' . $id;
     }
 
     function InitFuc()
@@ -348,7 +353,32 @@ class LayoutBlade extends Layout
         ));
     }
 
-    function render($template, $data, $id, $token, $type = "layout", $fileName = "")
+    function initPath($type_group)
+    {
+        $theme = config_get('theme', "active");
+        $prefix = "";
+        if ($type_group == "theme") {
+            $path = storage_path('app/views/layouts/' . $type_group);
+            if (!$this->file->isDirectory($path)) {
+                $this->file->makeDirectory($path);
+            }
+            $prefix .= "layouts.theme." . $theme . ".";
+            $path = $path . '/' . config_get('theme', "active") . '/';
+        } else {
+            $path = storage_path('app/views/layouts/' . $type_group . '/');
+            $prefix .= "layouts." . $type_group . ".";
+        }
+
+        if (!$this->file->isDirectory($path)) {
+            $this->file->makeDirectory($path);
+        }
+        return [
+            'prefix' => $prefix,
+            'path' => $path,
+        ];
+    }
+
+    function render($type_group, $template, $data, $id, $token, $type = "layout", $fileName = "")
     {
         $this->datas = isset($data['data']) ? $data['data'] : [];
         $this->widget = isset($data['widget']) ? $data['widget'] : [];
@@ -362,6 +392,11 @@ class LayoutBlade extends Layout
                 }
             }
         }
+        $data_path = $this->initPath($type_group);
+        $path = $data_path['path'];
+        $prefix = $data_path['prefix'];
+
+
         $html = $this->InitFuc() . $this->html;
 
         if ($type == "layout") {
@@ -369,18 +404,23 @@ class LayoutBlade extends Layout
             if ($fileName == "") {
                 $fileName = $this->FilenameLayout($id, $token);
             }
-            $this->file->put(storage_path('app/views/' . $fileName . ".blade.php"), str_replace_first("{{CONTENT}}", $this->InitBuild() . $html, $template));
+            if ($fileName == "test") {
+                $fileName = $fileName . "-" . $type;
+            }
+            $this->file->put($path . $fileName . ".blade.php", str_replace_first("{{CONTENT}}", $this->InitBuild() . $html, $template));
         } else {
             if ($fileName == "") {
                 $fileName = $this->FilenamePartial($id, $token);
             }
             if ($fileName == "test") {
-                $this->file->put(storage_path('app/views/' . $fileName . ".blade.php"), trim($this->InitBuild(false, $type . "_" . md5($token)) . $html));
+                $fileName = $fileName . "-" . $type;
+                $this->file->put($path . $fileName . ".blade.php", trim($this->InitBuild(false, $type . "_" . md5($token)) . $html));
+
             } else {
-                $this->file->put(storage_path('app/views/' . $fileName . ".blade.php"), trim($this->InitBuild(false, $type . "_" . md5($token)) . $html));
+                $this->file->put($path . $fileName . ".blade.php", trim($this->InitBuild(false, $type . "_" . md5($token)) . $html));
             }
         }
-        return $fileName;
+        return $prefix . $fileName;
     }
 
     public function getContent($id, $token, $type = "layout")

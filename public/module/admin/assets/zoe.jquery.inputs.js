@@ -10,8 +10,9 @@
 (function ($, undefined) {
 
     var methods = {
-        set: function (values) {
-
+        set: function (values, def, override) {
+            def = (typeof def !== 'undefined') ? def : {};
+            override = (typeof override !== 'undefined') ? override : true;
             // jquery form (technically could be any element with nested inputs)
             var $form = $(this);
 
@@ -35,24 +36,30 @@
 
                 // array of keys representing fully qualified value in json tree
                 var keys = processInput($input.attr('name'), null, scope);
-
+                // console.log(keys);
                 // use keys for hierarchical lookup
                 for (var i = 0, len = keys.length; i < len; i++) {
                     var key = keys[i];
                     // no need to hunt further
                     if (!lookup[key]) {
                         // set update to false to indicate failed lookup
-                        update = false;
-                        break;
+                        if (def.hasOwnProperty(key)) {
+                            lookup = def[key];
+                        } else {
+                            update = false;
+                            break;
+                        }
+
+                    } else {
+                        // drill down into value structure
+                        lookup = lookup[key];
                     }
-                    // drill down into value structure
-                    lookup = lookup[key];
                 }
 
                 // lookup succeeded
                 if (update) {
 
-                    //console.log('setting value', keys.slice(0, i + 1).join('_'), lookup);
+                    console.log('setting value', keys.slice(0, i + 1).join('_'), lookup);
 
                     if ($input.is(':checkbox, :radio')) {
                         if ($.isArray(lookup)) {
@@ -65,8 +72,10 @@
                             $input.filter('[value=' + lookup + ']').prop('checked', true);
                         }
                     } else {
+                        if (override || override == false && $input.val().length === 0) {
+                            $input.val(lookup);
+                        }
 
-                        $input.val(lookup);
                     }
 
                 }

@@ -11,6 +11,10 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
+                    "router" => [
+                        "url" => "/router",
+                        "method" => ['post', 'get'],
+                    ],
                     "option" => [
                         "url" => "/option",
                         "method" => ['post'],
@@ -99,6 +103,7 @@ return [
                     "build" => [
                         "url" => "/build/{type?}",
                     ],
+
                     "ajax:build" => [
                         "url" => "/ajax-build",
                         "method" => ['post'],

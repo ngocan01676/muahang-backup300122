@@ -32,6 +32,15 @@ function layout_data($id)
     return [];
 }
 
+function layout_get($id)
+{
+    $rs = DB::table('layout')->where('id', $id)->first();
+    if ($rs) {
+        $rs->data = unserialize(base64_decode($rs->data));
+    }
+    return $rs;
+}
+
 function sort_type($sort, $col = "", $parameter = [])
 {
 

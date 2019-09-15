@@ -19,6 +19,7 @@ return [
                         "method" => ["post"],
                         "guard" => ""
                     ],
+
                     "logout" => [
                         "url" => "/logout",
                         "action" => "logout",

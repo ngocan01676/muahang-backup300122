@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'user',
     ],
 
     /*
@@ -45,7 +45,7 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-        'backend'=>[
+        'backend' => [
             'driver' => 'session',
             'provider' => 'backend',
         ],
@@ -54,7 +54,6 @@ return [
             'provider' => 'users',
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -104,7 +103,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'user',
             'table' => 'password_resets',
             'expire' => 60,
         ],

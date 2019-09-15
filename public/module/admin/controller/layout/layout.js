@@ -134,7 +134,7 @@ $(".sidebar-nav .grid").draggable({
             cursorAt: {top: 0, left: 0},
             stop: function (ui) {
                 console.log("stop sidebar-nav .grid");
-                resetColumn($(ui.target).parent());
+                //resetColumn($(ui.target).parent());
                 // var arrColumn =  $(ui.target).parent().find(">.column");
                 // var indexPos = arrColumn.index($(ui.target));
                 // var list = [];
@@ -205,7 +205,8 @@ function getSorted(selector, attrName) {
         return aVal - bVal;
     }));
 }
-function configuration(self){
+
+function configuration(self) {
     var option = self.children('.option').find('.value textarea');
     var _conf = option.val();
     var config = _parseJSON(_conf);
@@ -442,6 +443,7 @@ function configuration(self){
         success(config);
     }
 }
+
 demo.delegate(".configuration", "click", function (e) {
     e.preventDefault();
     var self = $(this).closest('.tool').parent();
@@ -508,12 +510,15 @@ demo.delegate(".remove", "click", function (e) {
     );
 });
 var DataLayout = [];
+
 function getOption(parent) {
     return _parseJSON(parent.children('.option').find('.value textarea').html());
 }
+
 function setOption(parent, Object) {
     parent.children('.option').find('.value textarea').html(JSON.stringify(Object));
 }
+
 var saveLayoutJson = function (element) {
     var data,
         widget = {},
@@ -575,14 +580,16 @@ var saveLayoutJson = function (element) {
     data = step($(element), depth);
     return {data: data, widget: widget};
 }
+
 function initSnippet(html) {
     let snippet = document.querySelector('#snippet pre code');
-    if(html){
+    if (html) {
         snippet.innerHTML = html;
     }
     hljs.highlightBlock(snippet);
     $('.source').loading({destroy: true});
 }
+
 function SaveLayout(self) {
     console.log('0');
     DataLayout = [];
@@ -625,6 +632,7 @@ function SaveLayout(self) {
         }
     });
 }
+
 $(document).ready(function () {
 
 
@@ -632,7 +640,7 @@ $(document).ready(function () {
 
     setTimeout(function () {
         initSnippet();
-    },1000);
+    }, 1000);
 
     // $("#saveLayout").click(function () {
     //     console.log('0');

@@ -7,19 +7,25 @@
             </li>
             <li>
                 <div class="dropdown choose-country">
-                    <a class="#" data-toggle="dropdown" href="#"><img src="{{ZoeImageBase64('theme/zoe/img/flags/gb.png')}}"
-                                                                      alt="Great Britain"> UK</a>
+                    <a class="#" data-toggle="dropdown" href="#"><img
+                                src="{{ZoeImageBase64('theme/zoe/img/flags/gb.png')}}"
+                                alt="Great Britain"> UK</a>
                     <ul class="dropdown-menu" role="menu">
                         <li role="menuitem"><a href="#"><img src="{{ZoeImageBase64('theme/zoe/img/flags/us.png')}}"
                                                              alt="United States"> US</a></li>
                         <li role="menuitem"><a href="#"><img src="{{ZoeImageBase64('theme/zoe/img/flags/de.png')}}"
                                                              alt="Germany"> DE</a></li>
-                        <li role="menuitem"><a href="#"><img src="{{ZoeImageBase64('theme/zoe/img/flags/es.png')}}" alt="Spain">
+                        <li role="menuitem"><a href="#"><img src="{{ZoeImageBase64('theme/zoe/img/flags/es.png')}}"
+                                                             alt="Spain">
                                 ES</a></li>
                     </ul>
                 </div>
             </li>
-            <li><a href="/login">Login</a></li>
+            @if(auth())
+                <li><a href="/logout">Logout</a></li>
+            @else
+                <li><a href="/login">Login</a></li>
+            @endif
         </ul>
     </div>
 </div>

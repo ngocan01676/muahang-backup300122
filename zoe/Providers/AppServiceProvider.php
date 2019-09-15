@@ -8,6 +8,7 @@ use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Compilers\BladeCompiler;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**

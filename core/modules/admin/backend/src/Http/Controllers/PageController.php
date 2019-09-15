@@ -75,7 +75,7 @@ class PageController extends \Zoe\Http\ControllerBackend
         $page->title = $items['title'];
         $page->slug = $slug;
         $page->description = $items['description'];
-        $page->content = $items['content'];
+        $page->content = htmlspecialchars_decode($items['content']);
         $page->status = $items['status'];
         $page->save();
         return back();

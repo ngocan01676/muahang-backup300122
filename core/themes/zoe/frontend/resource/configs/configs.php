@@ -1,7 +1,11 @@
 <?php
 return [
     'views' => [
-        'paths' => ['theme' => 'frontend']
+        'paths' => ['theme' => 'frontend'],
+        'alias' => [
+            'user_front:auth.register' => 'theme::controller.auth.register',
+            'user_front:auth.login' => 'theme::controller.auth.login',
+        ]
     ],
     'packages' => [
         'namespaces' => [

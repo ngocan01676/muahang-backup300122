@@ -433,11 +433,12 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                     case $items['act'] == 'delete':
                         $obj_layout = new \Admin\Lib\LayoutBlade();
                         if ($model->type == "partial") {
-                            $fileName = $obj_layout->FilenamePartial($model->id, $model->token);
+                            $fileName = $obj_layout->FilenamePartial($model->slug, $model);
                         } else {
-                            $fileName = $obj_layout->FilenameLayout($model->id, $model->token);
+                            $fileName = $obj_layout->FilenameLayout($model->slug, $model);
                         }
-                        $FileNameBlade = view()->exists("zoe::" . $fileName) ? view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::" . $fileName)) : "";
+                        $data_path = $obj_layout->initPath($model->type_group);
+                        $FileNameBlade = view()->exists("zoe::" . $data_path['prefix'] . $fileName) ? view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::" . $data_path['prefix'] . $fileName)) : "";
 
                         if (!empty($FileNameBlade)) {
                             $FileNamePhp = config('view.compiled') . "/" . sha1($FileNameBlade) . ".php";
@@ -451,16 +452,12 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                         $obj_layout = new \Admin\Lib\LayoutBlade();
 
                         if ($model->type == "partial") {
-                            $fileName = $obj_layout->FilenamePartial($model->id, $model->token);
+                            $fileName = $obj_layout->FilenamePartial($model->slug, $model);
                         } else {
-                            $fileName = $obj_layout->FilenameLayout($model->id, $model->token);
+                            $fileName = $obj_layout->FilenameLayout($model->slug, $model);
                         }
-
-                        $FileNameBlade = view()->exists("zoe::" . $fileName) ? view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::" . $fileName)) : "";
-
-                        $boolFilePhp = false;
-                        $FileNamePhp = "";
-                        $sources = "";
+                        $data_path = $obj_layout->initPath($model->type_group);
+                        $FileNameBlade = view()->exists("zoe::" . $data_path['prefix'] . $fileName) ? view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::" . $data_path['prefix'] . $fileName)) : "";
                         $data = ["content" => ""];
                         if (!empty($FileNameBlade)) {
                             if ($items['act'] == 'view-php') {
@@ -488,19 +485,21 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $obj_layout->GridHelper = $this->GetGridBlade();
         $obj_layout->TagHelper = $obj_layout->GridHelper->CallBackTag();
         $use = $this->getListType($model->type_group);
+
         if (isset($use['template'])) {
             $template = base_path($use['template']);
         } else {
             $template = base_path('core/modules/admin/backend/resource/stubs/layout.stubs');
         }
-        $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type, "test");
+
+        $filename = $obj_layout->render($model->type_group, $template, $layout, $model->slug, $model->token, $model->type, "test");
         $obLevel = ob_get_level();
         try {
             ob_start();
             echo view('zoe::' . $filename);
             $content = ob_get_contents();
             ob_clean();
-            $filename = $obj_layout->render($template, $layout, $model->id, $model->token, $model->type);
+            $filename = $obj_layout->render($model->type_group, $template, $layout, $model->slug, $model->token, $model->type);
             $model->data = $obj_layout->getData();
             $model->save();
             return (['data' => $obj_layout->getData(), 'error' => "", 'content' => e($content), 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
@@ -530,6 +529,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $model->type = $items["info"]['type'];
         $layout = isset($items['layout']) ? json_decode($items['layout'], true) : [];
         $model->content = base64_encode(serialize($layout));
+
         echo json_encode($this->saveFile($model, $layout));
 //        $obj_layout = new \Admin\Lib\LayoutBlade();
 //        $obj_layout->ViewHelper = $this->GetViewHelperBlade();
@@ -736,11 +736,12 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         ]);
     }
 
-    public function build()
+    public function build(Request $request)
     {
         $this->getcrumb()->breadcrumb("Build Layout", false);
         $lists = \Admin\Http\Models\Layout::where('type_group', 'theme')->orderBy("updated_at", "desc")->get();
         return $this->render('layout.build', ['lists' => $lists]);
     }
+
 
 }

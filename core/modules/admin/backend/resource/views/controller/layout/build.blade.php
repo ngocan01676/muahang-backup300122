@@ -19,22 +19,23 @@
                 </li>
                 @foreach($lists as $list)
                     @php
-                        if($list->type == "partial"){
-                            $fileName = $obj_layout->FilenamePartial($list->id, $list->token);
-                        }else{
-                            $fileName = $obj_layout->FilenameLayout($list->id, $list->token);
-                        }
-                        $FileNameBlade = view()->exists("zoe::".$fileName)?view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::".$fileName)):"";
-                        $boolFilePhp = false;
-                        $FileNamePhp= "";
-                        $sources= "";
-                        if(!empty($FileNameBlade)){
-                            $FileNamePhp = config('view.compiled')."/".sha1($FileNameBlade).".php";
-                            if(file_exists($FileNamePhp)){
-                                $boolFilePhp = true;
+                        $data_path = $obj_layout->initPath($list->type_group);
+                       if($list->type == "partial"){
+                           $fileName = $obj_layout->FilenamePartial($list->slug, $list);
+                       }else{
+                           $fileName = $obj_layout->FilenameLayout($list->slug, $list);
+                       }
+                       $FileNameBlade = view()->exists("zoe::".$data_path['prefix'].$fileName)?view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::".$data_path['prefix'].$fileName)):"";
+                       $boolFilePhp = false;
+                       $FileNamePhp= "";
+                       $sources= "";
+                       if(!empty($FileNameBlade)){
+                           $FileNamePhp = config('view.compiled')."/".sha1($FileNameBlade).".php";
+                           if(file_exists($FileNamePhp)){
+                               $boolFilePhp = true;
 
-                            }
-                        }
+                           }
+                       }
 
                     @endphp
                     <li data-id="{!! $list->id !!}">
