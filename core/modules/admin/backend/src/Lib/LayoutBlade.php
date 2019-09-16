@@ -357,6 +357,7 @@ class LayoutBlade extends Layout
     {
         $theme = config_get('theme', "active");
         $prefix = "";
+
         if ($type_group == "theme") {
             $path = storage_path('app/views/layouts/' . $type_group);
             if (!$this->file->isDirectory($path)) {

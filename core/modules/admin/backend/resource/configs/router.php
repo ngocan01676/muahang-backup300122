@@ -221,7 +221,23 @@ return [
                     ],
                 ]
             ],
-
+            'menu' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "MenuController",
+                "sub_prefix" => "/menu",
+                "guard" => "backend",
+                "router" => [
+                    "show" => [
+                        "url" => "/show",
+                    ],
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "ajax" => [
+                        "url" => "/ajax", "method" => ['post'],
+                    ],
+                ]
+            ],
         ]
     ]
 ];

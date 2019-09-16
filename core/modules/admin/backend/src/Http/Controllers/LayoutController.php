@@ -459,6 +459,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                         $data_path = $obj_layout->initPath($model->type_group);
                         $FileNameBlade = view()->exists("zoe::" . $data_path['prefix'] . $fileName) ? view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::" . $data_path['prefix'] . $fileName)) : "";
                         $data = ["content" => ""];
+
                         if (!empty($FileNameBlade)) {
                             if ($items['act'] == 'view-php') {
                                 $FileNamePhp = config('view.compiled') . "/" . sha1($FileNameBlade) . ".php";
@@ -468,6 +469,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                             } else if ($items['act'] == "view-blade") {
                                 if (file_exists($FileNameBlade)) {
                                     $data['content'] = e($obj_layout->file->get($FileNameBlade));
+
                                 }
                             }
 
