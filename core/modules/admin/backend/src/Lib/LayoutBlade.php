@@ -423,15 +423,20 @@ class LayoutBlade extends Layout
         return $prefix . $fileName;
     }
 
-    public function getContent($id, $token, $type = "layout")
+    public function getContent($slug, $token, $type_group, $type = "layout")
     {
+
+        $data_path = $this->initPath($type_group);
+        $path = $data_path['path'];
+
+        $prefix = $data_path['prefix'];
         if ($type == "layout") {
-            $fileName = $this->FilenameLayout($id, $token);
+            $fileName = $this->FilenameLayout($slug, $token);
         } else {
-            $fileName = $this->FilenamePartial($id, $token);
+            $fileName = $this->FilenamePartial($slug, $token);
         }
-        if ($this->file->exists(storage_path('app/views/' . $fileName . ".blade.php"))) {
-            return $this->file->get(storage_path('app/views/' . $fileName . ".blade.php"));
+        if ($this->file->exists($path . $fileName . ".blade.php")) {
+            return $this->file->get($path . $fileName . ".blade.php");
         } else {
             return "";
         }

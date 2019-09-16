@@ -732,7 +732,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "db_components" => $this->getComponent(),
             'group' => $use,
             "listsType" => $this->listsType,
-            "sources" => $obj_layout->getContent($model->id, $model->token, $model->type)
+            "sources" => $obj_layout->getContent($model->slug, $model->token, $model->type_group, $model->type)
         ]);
     }
 

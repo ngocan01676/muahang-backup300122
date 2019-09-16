@@ -78,6 +78,13 @@ class PageController extends \Zoe\Http\ControllerBackend
         $page->content = htmlspecialchars_decode($items['content']);
         $page->status = $items['status'];
         $page->save();
+
+        $file = new \Illuminate\Filesystem\Filesystem();
+        $path = storage_path('app/views/pages/');
+        if (!$file->isDirectory($path)) {
+            $file->makeDirectory($path);
+        }
+        $file->put($path . '/' . $slug . '.blade.php', $page->content);
         return back();
     }
 }

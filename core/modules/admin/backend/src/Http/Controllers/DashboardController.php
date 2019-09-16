@@ -46,6 +46,10 @@ class DashboardController extends \Zoe\Http\ControllerBackend
         }
 
         $layouts = \Admin\Http\Models\Layout::where('type_group', 'theme')->where('type', 'layout')->orderBy("updated_at", "desc")->get();
-        return $this->render('dashboard.router', ['listsRolePremission'=>$listsRolePremission,'layouts' => $layouts, 'datas' => config_get('router', 'frontend')]);
+        return $this->render('dashboard.router', [
+            'listsRolePremission' => $listsRolePremission,
+            'layouts' => $layouts,
+            'datas' => config_get('router', 'frontend')
+        ]);
     }
 }
