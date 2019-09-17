@@ -156,7 +156,15 @@ function get_category_type($type)
     }
     return $arr;
 }
-
+function get_menu_type($type)
+{
+    $rs = DB::table('menu')->where(['type' => $type])->get();
+    $arr = [];
+    foreach ($rs as $k => $v) {
+        $arr[$v->id] = $v;
+    }
+    return $arr;
+}
 function show_categories_nestable($nestable, $category, $parent_id = 0, $char = '')
 {
     $html = "";

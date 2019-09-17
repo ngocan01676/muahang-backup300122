@@ -36,7 +36,6 @@
 
                            }
                        }
-
                     @endphp
                     <li data-id="{!! $list->id !!}">
                         <i class="fa fa-refresh"></i>
@@ -68,6 +67,11 @@
                                     <a onclick="OpenSource(this)" class="btn btn-default btn-xs view"
                                        data-act="view-blade"
                                        data-id="{!! $list->id !!}">{!! z_language('View Blade') !!}</a>&nbsp;
+                                @endif
+                                @if(!empty($FileNameBlade))
+                                    <a onclick="OpenSource(this)" class="btn btn-default btn-xs view"
+                                       data-act="view-html"
+                                       data-id="{!! $list->id !!}">{!! z_language('View Html') !!}</a>&nbsp;
                                 @endif
                             </div>
                         </div>

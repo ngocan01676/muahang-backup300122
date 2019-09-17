@@ -23,35 +23,8 @@
                 <div class="cf nestable-lists">
                     <div class="dd" id="nestable">
                         {!! $nestable  !!}
-                        {{--<ol class="dd-list">--}}
-                        {{--@foreach($category as $_category)--}}
-                        {{--<li class="dd-item dd3-item" data-id="{{$_category->id}}">--}}
-                        {{--<div class="dd-handle dd3-handle"></div>--}}
-                        {{--<div class="dd3-content">{{$_category->name}}</div>--}}
-                        {{--</li>--}}
-                        {{--@endforeach--}}
-                        {{--<li class="dd-item dd3-item" data-id="14">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 14</div>--}}
-                        {{--</li>--}}
-                        {{--<li class="dd-item dd3-item" data-id="15">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 15</div>--}}
-                        {{--<ol class="dd-list">--}}
-                        {{--<li class="dd-item dd3-item" data-id="16">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 16</div>--}}
-                        {{--</li>--}}
-                        {{--<li class="dd-item dd3-item" data-id="17">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 17</div>--}}
-                        {{--</li>--}}
-                        {{--<li class="dd-item dd3-item" data-id="18">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 18</div>--}}
-                        {{--</li>--}}
-                        {{--</ol>--}}
-                        {{--</li>--}}
-                        {{--</ol>--}}
                     </div>
-
                 </div>
-
             </div>
             <div class="box-footer">
                 <button class="btn btn-default" id="btnSavePosition"><i class="fa fa-plus"></i> Save</button>
@@ -77,12 +50,80 @@
                     <tr>
                         <td>
                             {!! Form::label('name', z_language('Name'), ['class' => 'name']) !!}
-                            {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>'Tiêu đề']) !!}
+                            {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Name')]) !!}
                             <span class="error help-block"></span>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('Content Type', z_language('Content Type'), ['class' => 'name']) !!}
+                            {!! Form::select('type',
+                                array(
+                                     '' => z_language('Select Content Type'),
+                                     'page' => z_language('Content Page'),
+                                     'router' => z_language('Router'),
+                                     'link' => z_language('External Link'),
+                                 ),
+                                 '',['class'=>'form-control'])
+                            !!}
+                            <span class="error help-block"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('Page', z_language('Page'), ['class' => 'name']) !!}
+                            <select class="selectChange form-control">
+                                @foreach($pages as $page)
+                                    <option value="{!! $page['slug'] !!}">{!! $page['title'] !!}</option>
+                                @endforeach
+                            </select>
+                            <span class="error help-block"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('name', z_language('External Link'), ['class' => 'name']) !!}
+                            {!! Form::text('link',null, ['class' => 'form-control','placeholder'=>z_language('External Link')]) !!}
+                            <span class="error help-block"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('name', z_language('Router'), ['class' => 'name']) !!}
+                            @php
+                                $routes = collect(\Route::getRoutes())->map(function ($route) { return [
+                                    'uri'=> $route->uri(),
+                                    'name'=> $route->getName(),
+                                    'method'=> $route->methods
+                                    ];
+                                });
 
+                                $type = 'frontend';
+                            @endphp
+                            <div class="input-group">
+                                <select class="selectChange form-control">
+                                    @foreach($routes as $route)
+                                        @php
+                                            $arr_name =  explode(':',$route['name']);
+                                        @endphp
+                                        @continue($type!=$arr_name[0] && $arr_name[0]!="login" && $arr_name[0]!="register")
 
+                                        @continue(!in_array("GET",$route['method']))
+                                        <option value="{!! $route['name'] !!}" data-uri="{!! $route['uri'] !!}">
+                                            @php
+                                                echo $route['uri'];
+                                            @endphp
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <span class="input-group-addon">
+                                     <button type="button" class="btn btn-info btn-xs pull-right"
+                                             onclick="ChangePar(this);">Param
+                                    </button>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             {!! Form::label('description', z_language('Description'), ['class' => 'description']) !!}
@@ -90,13 +131,11 @@
                             <span class="error help-block"></span>
                         </td>
                     </tr>
-
                     <tr>
                         <td>
                             {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
                             {!! Form::radio('status', '1' , true) !!} Yes
                             {!! Form::radio('status', '0',false) !!} No
-
                         </td>
                     </tr>
                     <tr>

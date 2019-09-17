@@ -13,6 +13,12 @@ return [
             "url" => "backend:language:list",
             "icon" => "fa fa-language"
         ],
+        "menu" => [
+            "name" => z_language("Menu", false),
+            "pos" => 1,
+            "url" => "backend:menu:list",
+            "icon" => "fa fa-language"
+        ],
         "layout" => [
             "name" => z_language("Layout", false),
             "pos" => 1,

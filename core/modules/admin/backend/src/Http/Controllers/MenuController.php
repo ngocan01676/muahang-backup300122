@@ -47,7 +47,7 @@ class MenuController extends \Zoe\Http\ControllerBackend
                             $menu = Menu::find($data['id']);
                         } else {
 
-                            $menu = new Categories();
+                            $menu = new Menu();
                             $create = true;
                         }
                         $slug = Str::slug($data['name'], '-');
@@ -148,10 +148,13 @@ class MenuController extends \Zoe\Http\ControllerBackend
             $this->getCrumb();
         }
         $this->breadcrumb("Menu", route('backend:menu:list'));
-        $this->data['menu'] = get_category_type($type);
+        $this->data['menu'] = get_menu_type($type);
         $this->data['nestable'] = $this->nestable(config_get("menu", $type), 0, true);
+
         $this->data['type'] = $type;
         $this->data['views'] = $views;
+        $this->data['pages'] = \Admin\Http\Models\PageModel::where('status',1)->get();
+
         return $this->render('menu.show');
     }
     public function list(){
