@@ -285,7 +285,9 @@ function configuration(self) {
                     },
                     before: function (_this) {
                         console.log(config);
-                        console.log(_this.form.zoe_inputs("set", config));
+                        console.log(_this.form.zoe_inputs("set", config,{
+
+                        }));
 
                         _this.form.find("#data_config").val(JSON.stringify(config));
                         var _multiSelect = $('#optgroup').multiSelect({

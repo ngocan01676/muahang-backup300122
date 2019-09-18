@@ -31,7 +31,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             $arr = [];
             $lists = isset(app()->getConfig()['modules']['admin.layout']) ? app()->getConfig()['modules']['admin.layout'] : [];
             foreach ($lists as $k => $row) {
-                $arr[$k] = $row['label'];
+                $arr[$row['value']] = $row['label'];
             }
             return $arr;
         }

@@ -13,3 +13,22 @@
 <![endif]-->
 <link rel="stylesheet" href="{{ asset('theme/zoe/css/main.css') }}">
 <script src="{{ asset('theme/zoe/js/modernizr-2.6.2-respond-1.1.0.min.js') }}"></script>
+<style>
+    [lazy-load="true"]{
+        animation: timeline;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        /*background: linear-gradient(to right, #eeeeee 8%, transparent 18%, #eeeeee 33%);*/
+        background: transparent;
+        background-size: 800px auto;
+        background-position: 100px 0;
+    }
+    @keyframes timeline {
+        0% {
+            background-position: -350px 0;
+        }
+        100% {
+            background-position: 400px 0; }
+    }
+</style>

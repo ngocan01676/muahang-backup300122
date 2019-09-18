@@ -8,14 +8,14 @@
             <li>
                 <div class="dropdown choose-country">
                     <a class="#" data-toggle="dropdown" href="#"><img
-                                src="{{ZoeImageBase64('theme/zoe/img/flags/gb.png')}}"
+                                {{ZoeImage('theme/zoe/img/flags/gb.png')}}
                                 alt="Great Britain"> UK</a>
                     <ul class="dropdown-menu" role="menu">
-                        <li role="menuitem"><a href="#"><img src="{{ZoeImageBase64('theme/zoe/img/flags/us.png')}}"
+                        <li role="menuitem"><a href="#"><img {{ZoeImage('theme/zoe/img/flags/us.png')}}
                                                              alt="United States"> US</a></li>
-                        <li role="menuitem"><a href="#"><img src="{{ZoeImageBase64('theme/zoe/img/flags/de.png')}}"
+                        <li role="menuitem"><a href="#"><img {{ZoeImage('theme/zoe/img/flags/de.png')}}
                                                              alt="Germany"> DE</a></li>
-                        <li role="menuitem"><a href="#"><img src="{{ZoeImageBase64('theme/zoe/img/flags/es.png')}}"
+                        <li role="menuitem"><a href="#"><img {{ZoeImage('theme/zoe/img/flags/es.png')}}
                                                              alt="Spain">
                                 ES</a></li>
                     </ul>
