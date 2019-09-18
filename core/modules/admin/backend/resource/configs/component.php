@@ -35,6 +35,11 @@ return [
                         'route' => 'all'
                     ]
                 ]
+            ],
+            'image' => [
+                "label" => "Image",
+                "view" => "image",
+
             ]
         ]
     ]

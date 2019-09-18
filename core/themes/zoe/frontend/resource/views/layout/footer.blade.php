@@ -13,13 +13,13 @@
 <script>
     var md = new MobileDetect(window.navigator.userAgent);
     var platform;
-    if(md.tablet()){
+    if (md.tablet()) {
         console.log('tablet');
         platform = 'tablet';
-    }else if(md.mobile()){
+    } else if (md.mobile()) {
         console.log('mobile');
         platform = 'mobile';
-    }else{
+    } else {
         console.log('pc');
         platform = 'pc';
     }
@@ -28,22 +28,34 @@
         root: document.querySelector('body'),
         rootMargin: '0px 0px 200px 0px'
     };
+
     function onIntersection(imageEntites) {
         imageEntites.forEach(image => {
 
             if (image.isIntersecting) {
                 observer.unobserve(image.target);
-                console.log(platform);
+
                 console.log(image.target.dataset);
-                var src;
-                if(platform == "tablet"){
-                    src = image.target.dataset.wtablet;
-                }else if(platform == "mobile"){
-                    src = image.target.dataset.wmobile;
-                }else{
-                    src = image.target.dataset.src;
+                let src = "";
+                let _platform = platform;
+                if (_platform === 'mobile') {
+                    if (image.target.dataset.hasOwnProperty('wmobile')) {
+                        src = image.target.dataset.wmobile;
+                    } else {
+                        _platform = 'tablet';
+                    }
                 }
-               image.target.src = src;
+                if (_platform === 'tablet') {
+                    if (image.target.dataset.hasOwnProperty('wtablet')) {
+                        src = image.target.dataset.wtablet;
+                    } else {
+                        _platform = 'pc';
+                    }
+                }
+                if (_platform === 'pc') {
+                    src = image.target.dataset.src
+                }
+                image.target.src = src;
                 image.target.onload = () => {
                     image.target.classList.add('loaded');
                     image.target.removeAttribute('lazy-load');
@@ -53,6 +65,7 @@
             }
         })
     }
+
     let observer = new IntersectionObserver(onIntersection, interactSettings);
     images.forEach(image => observer.observe(image))
 </script>

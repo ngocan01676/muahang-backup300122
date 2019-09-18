@@ -6,53 +6,103 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 
-function ZoeExtension($file) {
+function ZoeExtension($file)
+{
     $tmp = explode('.', $file);
     $file_extension = end($tmp);
     return $file_extension;
 }
-function ZoeImageResize($url , $resize_config = []){
-    try{
-        if(isset($resize_config['w']) && $resize_config['h']){
+
+function ZoeImageResize($url, $resize_config = [])
+{
+    try {
+        if (isset($resize_config['resize'])) {
             $filename = basename(public_path($url));
             $arr_img = [];
-            $arr_img['data-src'] = $url;
-
             $imgs = [
-                'tablet'=>90,'mobile'=>70
+
             ];
+            if (isset($resize_config['platforms'])) {
+                $platforms = is_array($resize_config['platforms']) ? $resize_config['platforms'] : [$resize_config['platforms']];
+                foreach ($platforms as $platform) {
+                    if (isset($resize_config[$platform])) {
+                        $size = (int)$resize_config[$platform];
+                        if ($size > 0) {
+                            $imgs[$platform] = $size;
+                        }
+                    }
+                }
+            }
+
             list($width_old, $height_old) = getimagesize(public_path($url));
-            $arr_img['width'] = $width_old.'px';
-            $arr_img['height'] = $height_old.'px';
-            foreach ($imgs as $name=>$v){
-                $_v = ($v/100);
-                $w = $width_old*$_v;
-                $path = storage_path('app/public'.'/'.$name);
-                if(!File::exists($path)){
+            $arrImg = [];
+            if (isset($resize_config['action'])) {
+                if ($resize_config['action'] == 'lazy') {
+                    if (isset($resize_config['pc']) && (int)$resize_config['pc'] < 100) {
+                        $imgs['pc'] = $resize_config['pc'];
+                    } else {
+                        $arr_img['data-src'] = $url;
+                    }
+                    $arr_img['lazy-load'] = 'true';
+                    $arr_img['width'] = $width_old . 'px';
+                    $arr_img['height'] = $height_old . 'px';
+                } else if ($resize_config['action'] == 'php') {
+                    $arrImg['src'] = $url;
+                } else {
+                    $arr_img['src'] = $url;
+                }
+            } else {
+                $arr_img['src'] = $url;
+            }
+
+            foreach ($imgs as $name => $v) {
+                $_v = ($v / 100);
+                $w = $width_old * $_v;
+                $path = storage_path('app/public' . '/' . $name);
+                if (!File::exists($path)) {
                     File::makeDirectory($path);
                 }
-                $pathFull = $path.'/'.$filename;
+                $pathFull = $path . '/' . $filename;
 
-                if(!file_exists($pathFull)){
+                if (!file_exists($pathFull)) {
                     $img = Image::make(public_path($url))->resize($w, null, function ($constraint) {
                         $constraint->aspectRatio();
                     });
                     $img->save($pathFull);
                 }
-                $arr_img['data-w'.$name] = '/storage/'.$name.'/'.$filename;
+                if (isset($resize_config['action'])) {
+                    if ($resize_config['action'] == 'lazy') {
+                        $arr_img[$name == 'pc' ? 'data-src' : 'data-w' . $name] = '/storage/' . $name . '/' . $filename;
+                    } else {
+                        $arrImg[$name == 'pc' ? 'data-src' : 'data-w' . $name] = '/storage/' . $name . '/' . $filename;
+                    }
+                }
             }
+            if (count($arrImg) > 1) {
+                if (defined('build')) {
+                    $arr_img['blade'] = '@src_img_platform(' . json_encode($arrImg) . ')';
+                } else {
+                    $arr_img['src'] = ZoeSrcImgMobile($arrImg, false);
+                }
+            } else {
+                $arr_img['src'] = $url;
+            }
+            $arr_img['log'] = json_encode($arr_img);
+            $arr_img['arrImg'] = json_encode($arrImg);
             return $arr_img;
         }
-        return ["src"=>$url];
-    }catch(\Exception $ex){
-        return $ex->getMessage();
+        return ["src" => $url];
+    } catch (\Exception $ex) {
+        return ["src" => $url, 'error' => $ex->getMessage()];
     }
 }
-function ConvertBase64($url){
-    if(!empty($url)){
-        if(substr($url,0,9) == '/storage/'){
-            $path  = storage_path('/app/public/'.substr($url,9));
-        }else{
+
+function ConvertBase64($url)
+{
+    if (!empty($url)) {
+        if (substr($url, 0, 9) == '/storage/') {
+            $path = storage_path('/app/public/' . substr($url, 9));
+        } else {
             $path = public_path($url);
         }
         $imageData = base64_encode(file_get_contents($path));
@@ -60,55 +110,100 @@ function ConvertBase64($url){
     }
     return '';
 }
-function ZoeImageConvertBase64($expr){
+
+function ZoeImageConvertBase64($expr)
+{
     $url = "";
-    if(is_array($expr) && isset($expr['data-src'])){
+    if (is_array($expr) && isset($expr['data-src'])) {
         $url = $expr['data-src'];
-    }else if(substr($expr,0,1)=='{'){
-        $expr = json_decode($expr,true);
-        if(isset($expr['data-src'])){
+    } else if (substr($expr, 0, 1) == '{') {
+        $expr = json_decode($expr, true);
+        if (isset($expr['data-src'])) {
             $url = $expr['data-src'];
         }
-    }else{
+    } else {
         $url = $expr;
     }
-    if(!empty($url)){
-        $src = ' data-src="'.$url.'" src="' .ConvertBase64($url) . '" ';
+    if (!empty($url)) {
+        $src = ' data-src="' . $url . '" src="' . ConvertBase64($url) . '" ';
         return $src;
     }
     return '';
 }
-function ZoeSrcImg($src,$attr = []){
-    if(is_array($src)){
-        $html = " lazy-load=true ";
-        if(!isset($src['src'])){
+
+function ZoeSrcImgMobile($arr, $isSrc = true)
+{
+    $_platform = 'pc';
+    $src = "";
+    $detect = app()->getAgent();
+    if ($detect->isTablet()) {
+        $_platform = 'tablet';
+    } else if ($detect->isMobile()) {
+        $_platform = 'mobile';
+    }
+    if ($_platform === 'mobile') {
+        if (isset($arr['data-wmobile'])) {
+            $src = $arr['data-wmobile'];
+        } else {
+            $_platform = 'tablet';
+        }
+    }
+    if ($_platform === 'tablet') {
+        if (isset($arr['data-wtablet'])) {
+            $src = $arr['data-wtablet'];
+        } else {
+            $_platform = 'pc';
+        }
+    }
+    if ($_platform === 'pc') {
+        if (isset($arr['data-src'])) {
+            $src = $arr['data-src'];
+        } else {
+            $src = $arr['src'];
+        }
+    }
+    return $isSrc ? ' src=' . $src . ' php=true ' : $src;
+}
+
+function ZoeSrcImg($src, $attr = [])
+{
+    if (is_array($src)) {
+        $html = '';
+        if (!isset($src['src']) && !isset($src['blade'])) {
             $src['src'] = asset('assets/image-blank.png');
         }
-        foreach ($src as $k=>$_src){
-            $html.= ' '.$k.' ='.$_src.' ';
+        foreach ($src as $k => $_src) {
+            if ($k == 'blade') {
+                $html .= ' ' . $_src . ' ';
+            } else {
+                $html .= ' ' . $k . ' =' . $_src . ' ';
+            }
         }
         return $html;
     }
-    return 'src='.$src;
+    return 'src=' . $src;
 }
-function ZoeAssetImg($url , $option = [])
+
+function ZoeAssetImg($url, $option = [])
 {
-    return defined('build') ? isset($option['image']['base64']) && $option['image']['base64']==1? '@Zoe_ImageBase64(' . $url . ')': is_array($url)?ZoeSrcImg($url):ZoeSrcImg(asset($url)):(is_array($url)?ZoeSrcImg($url):ZoeSrcImg(asset($url)));
+    return defined('build') ?
+        isset($option['image']['base64']) && $option['image']['base64'] == 1 ? '@Zoe_ImageBase64(' . $url . ')' :
+            is_array($url) ? ZoeSrcImg($url) : ZoeSrcImg(asset($url)) : (is_array($url) ? ZoeSrcImg($url) : ZoeSrcImg(asset($url)));
 }
-function ZoeImage($url , $option = [],$attr = [])
+
+function ZoeImage($url, $option = [], $attr = [])
 {
     global $is_base64;
 
-    $resize_config = isset($option['image'])?$option['image']:[];
-    if($is_base64 == 3){
-        return defined('build') ?'@Zoe_ImageBase64(' . json_encode(ZoeImageResize($url,$resize_config)) . ')':ZoeImageConvertBase64(ZoeImageResize($url,$resize_config));
-    }else if($is_base64 == 1 || isset($resize_config['base64']) && $resize_config['base64'] == 1){
-        return defined('build') ?'@Zoe_ImageBase64(' . $url . ')':ZoeImageConvertBase64($url);
-    } else if(isset($option['image']['resize']) && $option['image']['resize'] == 1){
-
-        return ZoeAssetImg(ZoeImageResize($url,$resize_config),$option,$attr);
-    }else {
-        return ZoeAssetImg($url,$option,$attr);
+    $resize_config = isset($option['image']) ? $option['image'] : [];
+    if ($is_base64 == 3) {
+        return defined('build') ? '@Zoe_ImageBase64(' . json_encode(ZoeImageResize($url, $resize_config)) . ')' : ZoeImageConvertBase64(ZoeImageResize($url, $resize_config));
+    } else if ($is_base64 == 1 || isset($resize_config['base64'])) {
+        return defined('build') ? '@Zoe_ImageBase64(' . $url . ')' : ZoeImageConvertBase64($url);
+    } else if (isset($option['image']['resize']) && $option['image']['resize'] == 1) {
+        return ZoeAssetImg(ZoeImageResize($url, $resize_config), $option, $attr);
+    } else {
+        return ZoeAssetImg($url, $option, $attr);
     }
 }
 
@@ -253,6 +348,7 @@ function get_category_type($type)
     }
     return $arr;
 }
+
 function get_menu_type($type)
 {
     $rs = DB::table('menu')->where(['type' => $type])->get();
@@ -262,6 +358,7 @@ function get_menu_type($type)
     }
     return $arr;
 }
+
 function show_categories_nestable($nestable, $category, $parent_id = 0, $char = '')
 {
     $html = "";
