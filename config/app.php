@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         Collective\Html\HtmlServiceProvider::class,
-
+        Jenssegers\Agent\AgentServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -233,5 +233,6 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Filters' => Zoe\Facades\Actions::class,
         'Actions' => Zoe\Facades\Filters::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
     ],
 ];

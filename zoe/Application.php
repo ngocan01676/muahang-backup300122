@@ -5,6 +5,7 @@ namespace Zoe;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Foundation\Application as App;
 use Illuminate\Support\Facades\DB;
+use Jenssegers\Agent\Agent;
 
 class Application extends App
 {
@@ -28,8 +29,11 @@ class Application extends App
     public $time_start = 0;
 
     public $key = "";
+    private $_agent;
+
     public function __construct(?string $basePath = null)
     {
+        $this->_agent = new Agent();
 
         $this->time_start = microtime(true);
         $this->file = new \Illuminate\Filesystem\Filesystem();
@@ -68,6 +72,11 @@ class Application extends App
             }
             return $data;
         });
+    }
+
+    public function getAgent()
+    {
+        return $this->_agent;
     }
 
     public function getLanguage()
@@ -158,7 +167,9 @@ class Application extends App
         $data->cache = time();
         return $data;
     }
-    public function getKey($name = ""){
-        return $this->key.$name;
+
+    public function getKey($name = "")
+    {
+        return $this->key . $name;
     }
 }
