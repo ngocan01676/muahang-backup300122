@@ -134,6 +134,10 @@ class LayoutBlade extends Layout
         $content = "";
         $_par = isset($option['opt']) ? ["data" => $option['opt']] : ["data" => []];
         $_par = (var_export($_par, true));
+        $_config = isset($option['cfg']['config']) ? $option['cfg']['config'] : [];
+
+        $_config = (var_export($_config, true));
+
         if (isset($option['cfg']['view'])) {
             if ($option['cfg']['view'] == "dynamic") {
 
@@ -171,28 +175,41 @@ class LayoutBlade extends Layout
             } else {
                 $stringFunc .= "@php \$data = \$option; @endphp" . PHP_EOL;
             }
-            if (isset($option['cfg']['render']) && $option['cfg']['render'] == 'html' || $phpRun != "") {
+            if (isset($option['cfg']['render']) && $option['cfg']['render'] == 'php' || $phpRun != "") {
                 global $is_base64;
-                $is_base64 = false;
-                if (isset($option['cfg']['image_base64']) && $option['cfg']['image_base64'] == "1") {
-                    $is_base64 = true;
+                $is_base64 = 0;
+                if (isset($option['cfg']['config']['image']['base64']) &&$option['cfg']['config']['image']['base64'] == "1") {
+                    $is_base64 = 1;
+                    if (isset($option['cfg']['config']['image']['resize']) && $option['cfg']['config']['image']['resize'] == "1") {
+                        $is_base64 = 3;
+                    }
                 }
-                $content = $this->func($stringFunc . $content, ['$option' => $_par], false);
+
+                $content = $this->func($stringFunc . $content, ['$option' => $_par,'$config'=>$_config], false);
+
                 $content = $phpRun != "" ? $phpRun . $content : $this->InitBuild(true) . $content;
                 $php = Blade::compileString($content);
                 $content = $this->RenderHtml($php);
                 Blade::directive('Zoe_ImageBase64', function ($expr) {
-                    $path = public_path($expr);
-                    $imageData = base64_encode(file_get_contents($path));
-                    $src = 'data: ' . mime_content_type($path) . ';base64,' . $imageData;
-                    return $src;
+                    return ZoeImageConvertBase64($expr);
+//                    if(substr($expr,0,9) == '/storage/'){
+//                        $path  = storage_path('/app/public/'.substr($expr,9));
+//                    }else{
+//                        $path = public_path($expr);
+//                    }
+//                    $imageData = base64_encode(file_get_contents($path));
+//                    $src = 'src="data: ' . mime_content_type($path) . ';base64,' . $imageData.'"';
+//                    return $src;
                 });
-                if (isset($option['cfg']['image_base64']) && $option['cfg']['image_base64'] == "1") {
-                    $is_base64 = true;
+                if (isset($option['cfg']['config']['image']['base64']) &&$option['cfg']['config']['image']['base64'] == "1") {
+
                     $content = Blade::compileString($content);
+
                 }
+
+                $content = $this->func($stringFunc . $content, ['$option' => $_par,'$config'=>$_config]);
             } else {
-                $content = $this->func($stringFunc . $content, ['$option' => $_par]);
+                $content = $this->func($stringFunc . $content, ['$option' => $_par,'$config'=>$_config]);
             }
         }
 
@@ -299,7 +316,7 @@ class LayoutBlade extends Layout
                 if(!function_exists("' . $nameLang . '")){
                     function ' . $nameLang . '($key,$par = []){
                             $key = preg_replace(\'/\s+/\', \' \',str_replace("\r\n","",$key));
-                            $key = e($key);
+                         
                             $_lang_name_ = app()->getLocale();
                              ' . $string_lang . '
                             if(isset($par)){
@@ -371,7 +388,10 @@ class LayoutBlade extends Layout
         }
 
         if (!$this->file->isDirectory($path)) {
+
             $this->file->makeDirectory($path);
+
+
         }
         return [
             'prefix' => $prefix,
