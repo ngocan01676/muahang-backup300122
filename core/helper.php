@@ -58,7 +58,12 @@ function ZoeImageResize($url, $resize_config = [])
             foreach ($imgs as $name => $v) {
                 $_v = ($v / 100);
                 $w = $width_old * $_v;
-                $path = storage_path('app/public' . '/' . $name);
+                $theme = config_get('theme', "active");
+                $path = storage_path('app/public' . '/assets/' . $theme);
+                if (!File::exists($path)) {
+                    File::makeDirectory($path);
+                }
+                $path =  $path .'/'. $name;
                 if (!File::exists($path)) {
                     File::makeDirectory($path);
                 }
@@ -72,9 +77,9 @@ function ZoeImageResize($url, $resize_config = [])
                 }
                 if (isset($resize_config['action'])) {
                     if ($resize_config['action'] == 'lazy') {
-                        $arr_img[$name == 'pc' ? 'data-src' : 'data-w' . $name] = '/storage/' . $name . '/' . $filename;
+                        $arr_img[$name == 'pc' ? 'data-src' : 'data-w' . $name] = '/storage/assets/'. $theme.'/'. $name . '/' . $filename;
                     } else {
-                        $arrImg[$name == 'pc' ? 'data-src' : 'data-w' . $name] = '/storage/' . $name . '/' . $filename;
+                        $arrImg[$name == 'pc' ? 'data-src' : 'data-w' . $name] = '/storage/assets/'. $theme.'/'. $name . '/' . $filename;
                     }
                 }
             }
@@ -87,8 +92,8 @@ function ZoeImageResize($url, $resize_config = [])
             } else {
                 $arr_img['src'] = $url;
             }
-            $arr_img['log'] = json_encode($arr_img);
-            $arr_img['arrImg'] = json_encode($arrImg);
+            //$arr_img['log'] = json_encode($arr_img);
+          //  $arr_img['arrImg'] = json_encode($arrImg);
             return $arr_img;
         }
         return ["src" => $url];
