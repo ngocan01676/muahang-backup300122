@@ -346,7 +346,7 @@ function z_language($key, $par = [], $__env = null)
         $_lang_name_ = app()->getLocale();
         $_langs_ = app()->getLanguage();
 
-        $html = isset($_langs_[$_lang_name_][$key]) ? $_langs_[$_lang_name_][$key] : $key;
+        $html = isset($_langs_[$_lang_name_][$key]) && !empty($_langs_[$_lang_name_][$key]) ? $_langs_[$_lang_name_][$key] : $key;
         if (is_array($par)) {
             foreach ($par as $k => $v) {
                 $html = str_replace(":" . $k, $v, $html);

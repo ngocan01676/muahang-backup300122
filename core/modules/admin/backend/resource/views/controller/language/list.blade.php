@@ -149,7 +149,7 @@
             $.ajax({
                 type: 'POST',
                 url: '{!! route('backend:language:ajax:save') !!}',
-                data: data,
+                data: {'data':JSON.stringify(data)},
                 success: function (data) {
                     $('#formAction').loading({destroy: true});
                 }

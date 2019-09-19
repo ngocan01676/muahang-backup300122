@@ -34,6 +34,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
     public function ajaxFormSave(Request $request)
     {
         $items = $request->all();
+        $items = isset($items['data'])?json_decode($items['data'],true):[];
 
         $this->table()
             ->updateOrInsert(
