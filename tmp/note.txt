@@ -24,3 +24,5 @@ https://bootsnipp.com/
 
 
 https://app.cssmenumaker.com/
+
+https://www.jqueryscript.net/other/jQuery-Based-Content-Editor-and-Layout-Builder-KEditor.html

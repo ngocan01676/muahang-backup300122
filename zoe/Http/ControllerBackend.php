@@ -30,6 +30,7 @@ class ControllerBackend extends Controller
         } else {
             $keyView = $view;
         }
+
         return $this->_render($keyView, $data, $key);
     }
 

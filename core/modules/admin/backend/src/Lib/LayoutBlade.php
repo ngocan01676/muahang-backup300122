@@ -184,9 +184,7 @@ class LayoutBlade extends Layout
                         $is_base64 = 3;
                     }
                 }
-
                 $content = $this->func($stringFunc . $content, ['$option' => $_par, '$config' => $_config], false);
-
                 $content = $phpRun != "" ? $phpRun . $content : $this->InitBuild(true) . $content;
                 $php = Blade::compileString($content);
                 $content = $this->RenderHtml($php);

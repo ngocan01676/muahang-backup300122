@@ -32,7 +32,11 @@ class Controller extends BaseController
         $data = array_merge($this->data, $data);
         View::share('_breadcrumb', $this->breadcrumb);
         if(request()->ajax()){
-            $this->view = view($this->layout);
+            if(!empty($this->layout)){
+                $this->view = view($this->layout);
+            }else{
+                $this->view = view();
+            }
         }else{
             $this->view = view();
         }

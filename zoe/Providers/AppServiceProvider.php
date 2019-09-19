@@ -429,6 +429,7 @@ class AppServiceProvider extends ServiceProvider
     public function InitTheme()
     {
         $theme = config_get('theme', "active", "");
+        $this->app->_theme = $theme;
 
         $absolute_path = ($this->config_zoe['structure']['theme'] . '/' . $theme);
         $relativePath = base_path($absolute_path);

@@ -13,7 +13,12 @@
                 <input type="checkbox" name="cfg.config.image.resize" value="1">
             </td>
         </tr>
-
+        <tr>
+            <td class="text-center"><label for="text">Type</label></td>
+            <td>
+                <input type="checkbox" name="cfg.config.image.lazy" value="lazy"> Load
+            </td>
+        </tr>
         <tr>
             <td class="text-center"><label for="text">Lazy Load</label></td>
             <td>
@@ -29,9 +34,10 @@
                     <tr>
                         <td style="width: 20%;vertical-align: center;"><strong>Screen</strong></td>
                         <td>
-                            <input type="checkbox" name="cfg.config.image.platforms" value="tablet"> Tablet
+
                             <input type="checkbox" name="cfg.config.image.platforms" value="mobile"> Mobile
-                            <input type="hidden" name="cfg.config.image.platforms" value="pc">
+                            <input type="checkbox" name="cfg.config.image.platforms" value="tablet"> Tablet
+
                         </td>
                     </tr>
                     <tr>
