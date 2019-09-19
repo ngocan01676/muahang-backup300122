@@ -170,9 +170,14 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                                     $_tmp = [
                                         'label' => $_view['label'],
                                         'view' => $_view['view'],
-                                        "data" => new \Zoe\Config($_view['data']),
+                                        "data" => new \Zoe\Config(isset($_view['data']) ? $_view['data'] : []),
                                     ];
-                                    $_tmp['data']->add($__data);
+                                    if (is_array($__data)) {
+                                        $_tmp['data']->add($__data);
+                                    } else {
+                                        $_tmp['data'] = [];
+                                    }
+
                                     $data['views'][$label] = $_tmp;
                                 }
                                 $data['views'][$label]['key'] = $label;

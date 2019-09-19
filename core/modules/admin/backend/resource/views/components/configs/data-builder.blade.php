@@ -1,113 +1,137 @@
 <div class="table-responsive" id="Data-Builder-Config">
+
     @if(isset($data["views"]['top']))
         @foreach($data["views"]['top'] as $top)
             @includeIf($top,['data'=>$data,'config'=>$config])
         @endforeach
     @endif
-    @if($data['action']['create'])
+
+
+
+    @if(isset($data['action']['create']) && $data['action']['create'])
         <div style="padding: 10px" class="clearfix">
             <button type="button" class="btn btn-info btn-xs pull-right">Add</button>
         </div>
     @endif
     @function(renderTemplate ($config,$data,$i,$tag,$template))
-    @if($data['action']['sort'])
+    @if(isset($data['action']['sort']) && $data['action']['sort'])
         <td class="drags" style="vertical-align: middle;">
             Drag
         </td>
     @endif
-    @foreach($data["items"] as $name=>$items)
-        @continue(!is_array($items))
-        <{!! $tag !!}>
-        @if($items['type'] == 'route')
-            @php
-                $routes = collect(\Route::getRoutes())->map(function ($route) { return ['uri'=> $route->uri(),'name'=> $route->getName()]; });
-            @endphp
-            <div class="input-group">
-                <select class="selectChange form-control" data-name="opt.lists[%INDEX%].{!! $name !!}"
-                        @if($template ==  false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif>
+    @isset($data["items"])
+        @foreach($data["items"] as $name=>$items)
+            @continue(!is_array($items))
+            <{!! $tag !!}>
+            @if($items['type'] == 'route')
+                @php
+                    $routes = collect(\Route::getRoutes())->map(function ($route) { return ['uri'=> $route->uri(),'name'=> $route->getName()]; });
+                @endphp
+                <div class="input-group">
+                    <select class="selectChange form-control" data-name="opt.lists[%INDEX%].{!! $name !!}"
+                            @if($template ==  false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif>
 
-                    @foreach($routes as $route)
-                        @if(isset($data['attrs']['route']))
-                            @if($data['attrs']['route'] != "all")
-                                @php $arr_name =  explode(':',$route['name']); @endphp
-                                @continue($data['attrs']['route']!=$arr_name[0])
+                        @foreach($routes as $route)
+                            @if(isset($data['attrs']['route']))
+                                @if($data['attrs']['route'] != "all")
+                                    @php $arr_name =  explode(':',$route['name']); @endphp
+                                    @continue($data['attrs']['route']!=$arr_name[0])
+                                @endif
                             @endif
-                        @endif
-                        <option value="{!! $route['name'] !!}" data-uri="{!! $route['uri'] !!}">
-                            @php
-                                if(isset($config['opt']['lists'][$i][$name]) && $config['opt']['lists'][$i][$name] == $route['name']){
-                                    $_json = json_decode(isset($config['opt']['param'][$i][$name])?$config['opt']['param'][$i][$name]:"{}",true);
-                                    $_search = [];
-                                    $_val = [];
-                                    foreach ($_json as $k=>$_v) {
-                                        $_search[] = '{'.$k.'}';
-                                        $_val[] = $_v;
+                            <option value="{!! $route['name'] !!}" data-uri="{!! $route['uri'] !!}">
+                                @php
+                                    if(isset($config['opt']['lists'][$i][$name]) && $config['opt']['lists'][$i][$name] == $route['name']){
+                                        $_json = json_decode(isset($config['opt']['param'][$i][$name])?$config['opt']['param'][$i][$name]:"{}",true);
+                                        $_search = [];
+                                        $_val = [];
+                                        foreach ($_json as $k=>$_v) {
+                                            $_search[] = '{'.$k.'}';
+                                            $_val[] = $_v;
+                                        }
+                                        echo str_replace($_search,$_val, $route['uri']);
+                                    }else{
+                                        echo $route['uri'];
                                     }
-                                    echo str_replace($_search,$_val, $route['uri']);
-                                }else{
-                                    echo $route['uri'];
-                                }
-                            @endphp
-                        </option>
+                                @endphp
+                            </option>
 
-                    @endforeach
+                        @endforeach
 
-                </select>
-                <span class="input-group-addon">
+                    </select>
+                    <span class="input-group-addon">
                                      <button type="button" class="btn btn-info btn-xs pull-right"
                                              onclick="ChangePar(this);">Param
                                     </button>
                                 </span>
-                <input type="hidden" class="val" @if($template == false) name="opt.param[{!! $i !!}][{!! $name !!}]"
-                       @endif
-                       data-name="opt.param[%INDEX%][{!! $name !!}]" value="{}">
-            </div>
-        @elseif($items['type'] == 'category' && isset($items['keyname']))
-            @php
-                get_category_type($items['keyname']);
-            @endphp
-        @elseif($items['type'] == 'select' && isset($items['select']))
-            <select class="selectChange form-control" data-name="opt.lists[%INDEX%].{!! $name !!}"
-                    @if($template == false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif>
-                @foreach($items['select'] as $k=>$v)
-                    <option value="{!! $k !!}">{!! $v !!}</option>
-                @endforeach
-            </select>
-        @elseif($items['type'] == 'textarea')
-            <textarea class="form-control" @if($template == false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif
-            data-name="opt.lists[%INDEX%].{!! $name !!}"></textarea>
-        @else
-            <input @if($template == false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif
-            type="text"
-                   data-name="opt.lists[%INDEX%].{!! $name !!}"
-                   class="form-control"
-                   placeholder="{!! $items['label'] !!}">
-        @endif
+                    <input type="hidden" class="val" @if($template == false) name="opt.param[{!! $i !!}][{!! $name !!}]"
+                           @endif
+                           data-name="opt.param[%INDEX%][{!! $name !!}]" value="{}">
+                </div>
+            @elseif($items['type'] == 'category' && isset($items['keyname']))
+                @php
+                    get_category_type($items['keyname']);
+                @endphp
+            @elseif($items['type'] == 'select' && isset($items['select']))
+                <select class="selectChange form-control" data-name="opt.lists[%INDEX%].{!! $name !!}"
+                        @if($template == false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif>
+                    @foreach($items['select'] as $k=>$v)
+                        <option value="{!! $k !!}">{!! $v !!}</option>
+                    @endforeach
+                </select>
+            @elseif($items['type'] == 'textarea')
+                <textarea class="form-control" @if($template == false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif
+                data-name="opt.lists[%INDEX%].{!! $name !!}"></textarea>
+            @elseif($items['type'] == 'img')
+                <div class="input-group">
+                    <input @if($template == false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif
+                    type="text"
+                           data-name="opt.lists[%INDEX%].{!! $name !!}"
+                           class="form-control"
+                           placeholder="{!! $items['label'] !!}">
+                    <span class="input-group-addon">
+                                     <button type="button" class="btn btn-info btn-xs pull-right"
+                                             onclick="ImageConfig(this);">Param
+                                    </button>
+                                </span>
+                    <input type="hidden" class="val" @if($template == false) name="opt.param[{!! $i !!}][{!! $name !!}]"
+                           @endif
+                           data-name="opt.param[%INDEX%][{!! $name !!}]" value="{}">
+                </div>
+            @else
+                <input @if($template == false) name="opt.lists[{!! $i !!}].{!! $name !!}" @endif
+                type="text"
+                       data-name="opt.lists[%INDEX%].{!! $name !!}"
+                       class="form-control"
+                       placeholder="{!! $items['label'] !!}">
+            @endif
 </{!! $tag !!}>
 @endforeach
-@if($data['action']['delete'])
+@endisset
+@if(isset($data['action']['delete']) && $data['action']['delete'])
     <td style="vertical-align: middle;">
         <button type="button" class="btn btn-info btn-xs pull-right" onclick="deleteEle(this);">Delete
         </button>
     </td>
 @endif
 @endfunction
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-bordered sortable">
-            <tbody>
-            @for($i=0;$i<$data["count"];$i++)
-                <tr class="@if($data['action']['sort']) sort @endif">
-                    @section('View_'.$i)
-                        @renderTemplate($config,$data,$i,"td",false)
-                    @endsection
-                    @yield('View_'.$i)
-                </tr>
-            @endfor
-            </tbody>
-        </table>
+@isset($data["count"])
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered sortable">
+                <tbody>
+                @for($i=0;$i<$data["count"];$i++)
+                    <tr class="@if($data['action']['sort']) sort @endif">
+                        @section('View_'.$i)
+                            @renderTemplate($config,$data,$i,"td",false)
+                        @endsection
+                        @yield('View_'.$i)
+                    </tr>
+                @endfor
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+@endisset
 @if(isset($data["views"]['bottom']))
     @foreach($data["views"]['bottom'] as $bottom)
         @includeIf($bottom);
@@ -159,6 +183,10 @@
         console.log(tr);
         tr.remove();
         ResetPos();
+    }
+
+    function ImageConfig(self) {
+
     }
 
     function ChangePar(self) {

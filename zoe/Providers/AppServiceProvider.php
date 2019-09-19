@@ -81,6 +81,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('ZoeImage', function ($expr) {
             return '<?php echo ZoeImage("' . $expr . '",$config) ?>';
         });
+        Blade::directive('src_img_platform', function ($expr) {
+            return '<?php echo ZoeSrcImgMobile(' . var_export(json_decode($expr, true), true) . ') ?>';
+        });
         Blade::directive('ZoeWidget', function ($expr) {
             return "<?php print_r({$expr}); ?>";
         });

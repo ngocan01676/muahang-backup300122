@@ -7,6 +7,9 @@ return component_config($_opt_,
     ),
     component_config_configs(
         [
+            'image' => [
+                "template" => "image"
+            ],
             'data-builder' => [
                 'template' => 'data-builder',
                 'data' => [

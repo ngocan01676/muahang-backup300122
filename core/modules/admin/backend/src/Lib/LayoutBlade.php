@@ -178,18 +178,21 @@ class LayoutBlade extends Layout
             if (isset($option['cfg']['render']) && $option['cfg']['render'] == 'php' || $phpRun != "") {
                 global $is_base64;
                 $is_base64 = 0;
-                if (isset($option['cfg']['config']['image']['base64']) &&$option['cfg']['config']['image']['base64'] == "1") {
+                if (isset($option['cfg']['config']['image']['base64']) && $option['cfg']['config']['image']['base64'] == "1") {
                     $is_base64 = 1;
                     if (isset($option['cfg']['config']['image']['resize']) && $option['cfg']['config']['image']['resize'] == "1") {
                         $is_base64 = 3;
                     }
                 }
 
-                $content = $this->func($stringFunc . $content, ['$option' => $_par,'$config'=>$_config], false);
+                $content = $this->func($stringFunc . $content, ['$option' => $_par, '$config' => $_config], false);
 
                 $content = $phpRun != "" ? $phpRun . $content : $this->InitBuild(true) . $content;
                 $php = Blade::compileString($content);
                 $content = $this->RenderHtml($php);
+                Blade::directive('src_img_platform', function ($expr) {
+                    return '@src_img_platform(' . json_encode(json_decode($expr, true)) . ')';
+                });
                 Blade::directive('Zoe_ImageBase64', function ($expr) {
                     return ZoeImageConvertBase64($expr);
 //                    if(substr($expr,0,9) == '/storage/'){
@@ -201,15 +204,15 @@ class LayoutBlade extends Layout
 //                    $src = 'src="data: ' . mime_content_type($path) . ';base64,' . $imageData.'"';
 //                    return $src;
                 });
-                if (isset($option['cfg']['config']['image']['base64']) &&$option['cfg']['config']['image']['base64'] == "1") {
+                if (isset($option['cfg']['config']['image']['base64'])) {
 
                     $content = Blade::compileString($content);
 
                 }
 
-                $content = $this->func($stringFunc . $content, ['$option' => $_par,'$config'=>$_config]);
+                $content = $this->func($stringFunc . $content, ['$option' => $_par, '$config' => $_config]);
             } else {
-                $content = $this->func($stringFunc . $content, ['$option' => $_par,'$config'=>$_config]);
+                $content = $this->func($stringFunc . $content, ['$option' => $_par, '$config' => $_config]);
             }
         }
 

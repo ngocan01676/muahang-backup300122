@@ -98,14 +98,7 @@
                                            name="cfg.render" value="blade"> Blade
                                 </td>
                             </tr>
-                            <tr class="wrap-image_base64"
-                                style="{{isset($items["cfg"]['render']) && $items["cfg"]['render']=="php" ?"display:table-row;":"display:none;"}}">
-                                <td class="text-center"><label for="text">Image base64</label></td>
-                                <td>
-                                    <input  type="radio" name="cfg.config.image.base64"  value="1"> Yes
-                                    <input type="radio" name="cfg.config.image.base64" value="0"> No
-                                </td>
-                            </tr>
+
                             <tr  style="{{isset($items["cfg"]['render']) && $items["cfg"]['render']=="php" ?"display:table-row;":"display:none;"}}">
                                 <td class="text-center"><label for="text">Refresh</label></td>
                                 <td>
@@ -116,31 +109,6 @@
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td class="text-center"><label for="text">Resize Image</label></td>
-                                <td>
-                                    <input  type="radio" name="cfg.config.image.resize" value="1"> <i>Yes</i>
-                                    &nbsp;
-                                    <input  type="radio" name="cfg.config.image.resize" value="0"> <i>No</i>
-                                    &nbsp;
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><label for="text">Resize</label></td>
-                                <td>
-                                    <input class="form-control" type="text" name="cfg.config.image.w" value="">
-                                    <input class="form-control" type="text" name="cfg.config.image.h" value="">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><label for="text">Lazy Load</label></td>
-                                <td>
-                                    <input data-target=".wrap-dynamic" type="radio" name="cfg.config.image.lazy_load" value="1"> <i>Yes</i>
-                                    &nbsp;
-                                    <input data-target=".wrap-dynamic" type="radio" name="cfg.config.image.lazy_load" value="0"> <i>No</i>
-
-                                </td>
-                            </tr>
 
                             @if(isset($tags[0]))
                                 <tr>

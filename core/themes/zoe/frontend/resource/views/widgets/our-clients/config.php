@@ -7,7 +7,9 @@ return component_config($_opt_,
     ),
     component_config_configs(
         [
-
+            'image' => [
+                'template' => 'image',
+            ]
         ]
     ),
     component_config_views([
