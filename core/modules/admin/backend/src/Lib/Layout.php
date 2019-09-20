@@ -15,14 +15,15 @@ class Layout
             $par .= $k . ',';
             $val .= $v . ',';
         }
-        $par = trim($par, ',');
-        $val = trim($val, ',');
+        $par .=  '$zlang';
+        $val .=  '$zlang';
+//        $par = trim($par, ',');
+//        $val = trim($val, ',');
 
         $func = rand(1000, 9999) . "_" . rand(1000, 9999);
         $t = time();
         $html = '
         @function(func_' . $t . '_' . $func . ' (' . $par . '))
-            @php global $zlang; @endphp
             ' . $content . '
         @endfunction';
         if ($group) {

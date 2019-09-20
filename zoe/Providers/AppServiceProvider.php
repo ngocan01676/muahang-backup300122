@@ -8,7 +8,7 @@ use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Compilers\BladeCompiler;
-
+use Appstract\BladeDirectives\DirectivesRepository;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -78,8 +78,14 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('Zoe_Asset', function ($expr) {
             return '<?php echo asset("' . $expr . '") ?>';
         });
+        Blade::directive('ImgZoeImage', function ($expr) {
+           return Blade_ImgZoeImage($expr);
+        });
         Blade::directive('ZoeImage', function ($expr) {
-            return '<?php echo ZoeImage("' . $expr . '",$config) ?>';
+            $isBool = 'true';
+            $par = $expr.',$config,'.$isBool;
+            //$url,[],$action,false,$option
+            return '<?php echo ZoeImage(' . $par . ') ?>';
         });
         Blade::directive('src_img_platform', function ($expr) {
             return '<?php echo ZoeSrcImgMobile(' . var_export(json_decode($expr, true), true) . ') ?>';
@@ -88,7 +94,7 @@ class AppServiceProvider extends ServiceProvider
             return "<?php print_r({$expr}); ?>";
         });
         Blade::directive('zlang', function ($parameters) {
-            return defined('build') ? '@zlang(' . $parameters . ')' : '<?php echo $zlang(' . $parameters . ') ?>';
+            return '<?php echo $zlang(' . $parameters . ') ?>';
         });
         Blade::directive('z_language', function ($parameters) {
             return 'call_user_func_array("z_language",' . $parameters . ')';
@@ -99,79 +105,40 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('z_include', function ($parameters) {
             return '<?php require_once(base_path("' . $parameters . '")); ?>';
         });
-        Blade::directive('function', function ($expression) {
-            /**
-             * Remove () wrapper in 5.1 and 5.2
-             * @link https://github.com/laravel/docs/blob/5.3/upgrade.md#custom-directives
-             */
 
-//            if (LaravelVersion::max(5.2)) {
-//                $expression = substr($expression, 1, -1);
-//            }
-            /**
-             * Get the function name
-             *
-             * The regex pattern below is from php.net.
-             * It's the rule for valid function names in PHP
-             *
-             * @link http://php.net/manual/en/functions.user-defined.php
-             */
+
+
+        Blade::directive('function', function ($expression) {
             if (!preg_match("/^\s*([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)/", $expression, $matches)) {
                 throw new \Exception("Invalid function name given in blade template: '$expression' is invalid");
             }
             $name = $matches[1];
-            /**
-             * Get the parameter list
-             */
             if (preg_match("/\((.*)\)/", $expression, $matches)) {
                 $params = $matches[1];
             } else {
                 $params = "";
             }
-            /**
-             * Define new directive named as the function
-             * Call this like: @foo('bar')
-             */
             Blade::directive($name, function ($expression) use ($name) {
-                /**
-                 * Remove () wrapper in 5.1 and 5.2
-                 * @link https://github.com/laravel/docs/blob/5.3/upgrade.md#custom-directives
-                 */
-
-//                if (LaravelVersion::max(5.2)) {
-//                    $expression = substr($expression, 1, -1);
-//                }
-                /**
-                 * We only need a comma if there are arguments passed
-                 */
                 $expression = trim($expression);
                 if ($expression) {
                     $expression .= " , ";
                 }
                 return "<?php $name ($expression \$__env); ?>";
             });
-            /**
-             * We only need a comma if there are arguments
-             */
             $params = trim($params);
             if ($params) {
                 $params .= " , ";
             }
-            /**
-             * Define the global function
-             * Call this like: foo('bar', $__env)
-             */
             return "<?php function $name ( $params  \$__env ) { ?>";
         });
+
         Blade::directive('return', function ($expression) {
             return "<?php return ($expression); ?>";
         });
         Blade::directive('endfunction', function () {
             return "<?php } ?>";
         });
-
     }
-
     public function InitModules()
     {
         if (isset($this->config_zoe ['modules'])) {

@@ -105,6 +105,7 @@ class LayoutBlade extends Layout
     private function RenderHtml($php)
     {
         $__env = app(\Illuminate\View\Factory::class);
+
         $obLevel = ob_get_level();
         ob_start();
         $content = "";
@@ -188,6 +189,11 @@ class LayoutBlade extends Layout
                 $content = $phpRun != "" ? $phpRun . $content : $this->InitBuild(true) . $content;
                 $php = Blade::compileString($content);
                 $content = $this->RenderHtml($php);
+
+                Blade::directive('zlang', function ($parameters) use($option) {
+                    return '<?php echo $zlang(' . $parameters . ') ?>';
+/*                    return defined('build')  ? '@zlang(' . $parameters . ')' : '<?php echo $zlang(' . $parameters . ') ?>';*/
+                });
                 Blade::directive('src_img_platform', function ($expr) {
                     return '@src_img_platform(' . json_encode(json_decode($expr, true)) . ')';
                 });
