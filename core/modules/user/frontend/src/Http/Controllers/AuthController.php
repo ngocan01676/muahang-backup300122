@@ -59,7 +59,6 @@ class AuthController extends \Zoe\Http\ControllerFront
 
     public function login()
     {
-
         return $this->render('auth.login', [], 'user');
     }
 

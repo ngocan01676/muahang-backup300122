@@ -54,7 +54,6 @@ class Application extends App
         $this->_permissions->data = new \stdClass();
         $this->_permissions->data->aliases = [];
         $this->_permissions->data->data = [];
-
         parent::__construct($basePath);
 
     }
