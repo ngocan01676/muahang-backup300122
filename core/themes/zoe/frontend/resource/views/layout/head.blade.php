@@ -13,6 +13,7 @@
 <![endif]-->
 <link rel="stylesheet" href="{{ asset('theme/zoe/css/main.css') }}">
 <script src="{{ asset('theme/zoe/js/modernizr-2.6.2-respond-1.1.0.min.js') }}"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     [lazy-load="true"]{
         animation: timeline;

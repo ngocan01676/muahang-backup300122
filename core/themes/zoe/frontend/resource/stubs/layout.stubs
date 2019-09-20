@@ -3,7 +3,10 @@
     @includeIf('theme::layout.head')
 </head>
 <body>
+
 {{CONTENT}}
+
 @includeIf('theme::layout.footer')
+
 </body>
 </html>
