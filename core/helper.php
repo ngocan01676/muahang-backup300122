@@ -15,6 +15,7 @@ function ZoeExtension($file)
 function ZoeImageResize($url, $resize_config = [],$action = true)
 {
     $is_storage = false;
+    $path = "";
     try {
         if (isset($resize_config['resize'])) {
             if(isset($resize_config['action']) && $resize_config['action']!="src"){
@@ -66,14 +67,29 @@ function ZoeImageResize($url, $resize_config = [],$action = true)
                     $_v = ($v / 100);
                     $i++;
                     $w = $width_old * $_v;
-                    $theme = config_get('theme', "active");
 
-                    if($is_storage){
-                        $path = storage_path('app/public' . '/assets/' . $theme);
+                    if (substr($url, 0, 7) == '/theme/') {
+                        $theme = config_get('theme', "active");
+                        if($is_storage){
+                            $path = storage_path('app/public' . '/themes/' . $theme);
+                            $uri = '/storage/themes/'. $theme.'/thumb/'. $name . '/'.$v.'/' . $filename;
+                        }else{
+                            $path = public_path('resource' . '/themes/' . $theme);
+                            $uri = '/resource/themes/'. $theme.'/thumb/'. $name .'/'. $v . '/' . $filename;
+                        }
                     }else{
-                        $path = public_path('resource' . '/assets/themes/' . $theme);
+                        if($is_storage){
+                            $path = storage_path('app/public/uploads' );
+                            $uri = '/storage/uploads/thumb/'. $name . '/'.$v.'/' . $filename;
+                        }else{
+                            $path = public_path('resource/uploads/');
+                            $uri = '/resource/uploads/thumb/'. $name .'/'. $v . '/' . $filename;
+                        }
                     }
-
+                    if (!File::exists($path)) {
+                        File::makeDirectory($path);
+                    }
+                    $path =  $path .'/thumb';
                     if (!File::exists($path)) {
                         File::makeDirectory($path);
                     }
@@ -86,19 +102,12 @@ function ZoeImageResize($url, $resize_config = [],$action = true)
                         File::makeDirectory($path);
                     }
                     $pathFull = $path . '/' . $filename;
-
                     if (!file_exists($pathFull)) {
-                        $img = Image::make(public_path($url))->resize($w, null, function ($constraint) {
+                        Image::make(public_path($url))->resize($w, null, function ($constraint) {
                             $constraint->aspectRatio();
-                        });
-                        $img->save($pathFull);
+                        })->save($pathFull);
                     }
                     if (isset($resize_config['action'])) {
-                        if($is_storage){
-                            $uri = '/storage/assets/'. $theme.'/'. $name . '/'.$v.'/' . $filename;
-                        }else{
-                            $uri = '/resource/assets/themes/'. $theme.'/'. $name .'/'. $v . '/' . $filename;
-                        }
                         if ($resize_config['action'] == 'lazy') {
                             $arr_img[$name == 'pc' ? 'data-src' : 'data-' . $name] = $uri;
                         } else {
@@ -114,7 +123,6 @@ function ZoeImageResize($url, $resize_config = [],$action = true)
                         $arr_img['data-srcset'] =$srcset;
                     }
                 }
-
                 if (count($arrImg) > 1) {
                     if (defined('build')) {
                         $arr_img['blade'] = '@src_img_platform(' . json_encode($arrImg) . ')';
@@ -131,7 +139,7 @@ function ZoeImageResize($url, $resize_config = [],$action = true)
         }
         return ["src" => $url];
     } catch (\Exception $ex) {
-        return ["src" => $url, 'error' => $ex->getMessage(),'line'=>$ex->getLine()];
+        return ["src" => $url, 'error' => $ex->getMessage() . ' '.$path,'line'=>$ex->getLine()];
     }
 }
 

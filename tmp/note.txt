@@ -26,3 +26,5 @@ https://bootsnipp.com/
 https://app.cssmenumaker.com/
 
 https://www.jqueryscript.net/other/jQuery-Based-Content-Editor-and-Layout-Builder-KEditor.html
+
+https://alex-d.github.io/Trumbowyg/documentation/plugins/#plugin-resizimg
