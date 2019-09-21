@@ -190,9 +190,9 @@ class LayoutBlade extends Layout
                 $php = Blade::compileString($content);
                 $content = $this->RenderHtml($php);
 
-                Blade::directive('zlang', function ($parameters) use($option) {
+                Blade::directive('zlang', function ($parameters) use ($option) {
                     return '<?php echo $zlang(' . $parameters . ') ?>';
-/*                    return defined('build')  ? '@zlang(' . $parameters . ')' : '<?php echo $zlang(' . $parameters . ') ?>';*/
+                    /*                    return defined('build')  ? '@zlang(' . $parameters . ')' : '<?php echo $zlang(' . $parameters . ') ?>';*/
                 });
                 Blade::directive('src_img_platform', function ($expr) {
                     return '@src_img_platform(' . json_encode(json_decode($expr, true)) . ')';
@@ -230,7 +230,6 @@ class LayoutBlade extends Layout
         if ($rs != null) {
             $this->BuilData($rs->content, $option['stg']['id']);
             $content = "@includeIf('zoe::layouts.theme." . config_get('theme', "active") . '.' . $this->FilenamePartial($rs->slug, $option['stg']['token']) . "', [])" . PHP_EOL;
-            $content .= '@php $zlang = "zlang"; @endphp' . PHP_EOL;
             return $this->girds($content, $option);
         }
         return '';
@@ -290,7 +289,7 @@ class LayoutBlade extends Layout
         if ($exits) {
             return '
             @php 
-                global $zlang;
+               
                 $zlang = "' . $nameLang . '";
                 if(!function_exists("zlang")){
                     function zlang($key,$par = []){
@@ -318,7 +317,7 @@ class LayoutBlade extends Layout
             return '
             @php 
                 ' . ($nameLang == "zlang" ? 'define("FrontEndView", true);' : '') . '
-                global $zlang;
+               
                 $zlang = "' . $nameLang . '";
                 if(!function_exists("' . $nameLang . '")){
                     function ' . $nameLang . '($key,$par = []){
