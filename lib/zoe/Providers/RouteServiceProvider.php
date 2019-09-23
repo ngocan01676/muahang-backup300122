@@ -75,16 +75,12 @@ class RouteServiceProvider extends ServiceProvider
             } else {
                 $_view_alias = isset($views_paths[$_module][$guard]['alias']) ? $views_paths[$_module][$guard]['alias'] : "";
             }
-
             $permissions = $this->app->getPermissions();
             foreach ($route['router'] as $key => $_route) {
-
-
                 $method = ['get'];
                 if (isset($_route['method'])) {
                     $method = $_route['method'];
                 }
-
                 $permission = $name . ':' . $key;
                 if (isset($_route['name'])) {
                     $alias = $_route['name'];
@@ -96,7 +92,11 @@ class RouteServiceProvider extends ServiceProvider
                 } else {
                     $action = $namespace . $controller . $key;
                 }
-                $link = isset($_route['link']) ? $_route['link'] : (isset($_route['url']) ? $prefix . $_route['url'] : "");
+                if (isset($configRouter['data'][$alias]['uri'])) {
+                    $link = $configRouter['data'][$alias]['uri'];
+                } else {
+                    $link = isset($_route['link']) ? $_route['link'] : (isset($_route['url']) ? $prefix . $_route['url'] : "");
+                }
                 if (empty($link)) {
                     continue;
                 }
@@ -135,8 +135,6 @@ class RouteServiceProvider extends ServiceProvider
                 if (isset($configRouter['data'][$alias]['status']) && $configRouter['data'][$alias]['status'] == 2) {
                     continue;
                 }
-
-
                 if (isset($_route['form'])) {
                     $r = Route::match(['post'], $link . '-form', $namespace . $controller . "postCreate");
                     $r->name($alias . ":post");
@@ -155,10 +153,7 @@ class RouteServiceProvider extends ServiceProvider
                     $r->defaults($keyPrivate . "_layout", $configRouter['data'][$alias]['layout']);
 
                 }
-
-
                 $r->name($alias);
-
                 if (isset($configRouter['data'][$alias]['cache']) && $configRouter['data'][$alias]['cache'] != 0) {
                     $middleware[] = 'cache.response:' . $alias . "," . $configRouter['data'][$alias]['cache'];
                 }

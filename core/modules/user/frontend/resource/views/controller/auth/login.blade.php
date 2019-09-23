@@ -8,8 +8,10 @@
             </div>
         </div>
     </div>
+
     <div class="section">
         <div class="container">
+
             <div class="row">
                 <div class="col-sm-5">
                     <div class="basic-login">
@@ -19,21 +21,17 @@
                                 <label for="login-username"><i class="icon-user"></i> <b>Username or Email</b></label>
                                 <input class="form-control" id="login-username" type="text" placeholder=""
                                        name="username">
-                                @error('username')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+
                             </div>
+                            @error("username")
+                            <span class="invalid-feedback" role="alert">
+                               <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                             <div class="form-group">
                                 <label for="login-password"><i class="icon-lock"></i> <b>Password</b></label>
                                 <input class="form-control" id="login-password" type="password" placeholder=""
                                        name="password">
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                             <div class="form-group">
                                 <label class="checkbox">

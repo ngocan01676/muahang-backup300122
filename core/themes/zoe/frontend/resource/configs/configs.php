@@ -3,8 +3,8 @@ return [
     'views' => [
         'paths' => ['theme' => 'frontend'],
         'alias' => [
-            'user_front:auth.register' => 'theme::controller.auth.register',
-            'user_front:auth.login' => 'theme::controller.auth.login',
+//            'user_front:auth.register' => 'theme::controller.user.auth.register',
+//            'user_front:auth.login' => 'theme::controller.user.auth.login',
             'blog_front:post.lists' => 'theme::controller.blog.post.lists',
         ]
     ],

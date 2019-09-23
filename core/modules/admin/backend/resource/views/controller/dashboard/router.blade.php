@@ -10,30 +10,43 @@
     @breadcrumb()@endbreadcrumb
     @function(view_item ($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,$status))
     <li>
-        <i class="fa fa-external-link @if($status) bg-blue @else @endif"></i>
+        <i class="fa fa-gears @if($status) bg-blue @else @endif"></i>
 
-        <div class="timeline-item">
+        <div class="timeline-item routers">
             <span class="time">
-                <button type="button" class="btn btn-box-tool">
-                    <i class="fa fa-plus"></i>
-                </button>
+
             </span>
 
             <h3 class="timeline-header"><a href="#">{!! $name !!}</a>
             </h3>
             <div class="timeline-body">
+                @php
+                    $url = $uri;
+                    if(isset($datas['data'][$name]['uri'])){
+                        $url = $datas['data'][$name]['uri'];
+                    }
+                @endphp
                 <input type="hidden" name="data[{!! $name !!}].data.name" value="{!! $name !!}">
-                <input type="hidden" name="data[{!! $name !!}].data.uri"
-                       value="{!! $uri !!}">
-                <div class="row">
+                <input type="hidden" name="data[{!! $name !!}].data.uri" value="{!! $uri !!}">
+
+                <div class="row router">
                     <div class="col-md-1"><span class="label label-default">uri</span></div>
                     <div class="col-md-11">
-                        <strong>{!! asset($uri) !!}</strong>
+
+                        <strong class="view">{!! asset('/') !!}
+                            <span
+                                    data-uri="{!! $uri !!}">{!! $url !!}</span></strong>
+                        <span class="input" style="display: none">
+                            <input type="text"
+                                   @if($url == $uri) data-name="data[{!! $name !!}].uri"
+                                   @else name="data[{!! $name !!}].uri" @endif
+                                   value="{!! $url !!}"></span>
+                        &nbsp;
+                        <button type="button" onclick="changeUri(this)">edit</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-1"><span class="label label-default"> middleware </span>
-
                     </div>
                     <div class="col-md-11">
                         @php
@@ -48,7 +61,7 @@
                                 }else{
                                     foreach ($middlewares as $k=>$middleware){
                                         if( \Illuminate\Support\Str::startsWith($middleware,'cache.response:')){
-                                            unset($middleware[$k]);
+                                            unset($middlewares[$k]);
                                         }
                                     }
                                 }
@@ -61,11 +74,13 @@
                                value='{!! json_encode($middlewares) !!}'>
                     </div>
                 </div>
-
-                <table class="table table-borderless">
+                <table class="table table-borderless" style="display: table;margin-bottom: 0">
                     <tr>
-                        <td>
+                        <td style="width: 10%">
                             <label for="id_title" class="title">Layout</label>
+                        </td>
+                        <td>
+
                             <select name="data[{!! $name !!}].layout"
                                     class="form-control">
                                 @foreach($layouts as $layout)
@@ -82,6 +97,9 @@
                     <tr>
                         <td>
                             <label for="id_title" class="title">Cache</label>
+                        </td>
+                        <td>
+
                             <div class="input-group">
                                 <input type="text" class="form-control"
                                        name="data[{!! $name !!}].cache"
@@ -92,8 +110,11 @@
                     </tr>
                     <tr>
                         <td>
-
                             <label for="id_title" class="title">Acl</label>
+                        </td>
+                        <td>
+
+
                             <select name="data[{!! $name !!}].acl"
                                     class="form-control">
                                 <option value="login">Login</option>
@@ -113,6 +134,9 @@
                     <tr>
                         <td>
                             <label for="id_title" class="title">Status</label>
+                        </td>
+                        <td>
+
                             <div>
                                 <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "1") checked
                                        @endif type="radio" name="data[{!! $name !!}].status"
@@ -128,9 +152,7 @@
                 </table>
 
             </div>
-            <div class="timeline-footer">
 
-            </div>
         </div>
     </li>
     @endfunction
@@ -148,35 +170,46 @@
                     </li>
                     @php
                         $routes = collect(\Route::getRoutes())->mapWithKeys(function ($route) {
-                         return [$route->getName()=>[
+                         return [
+                            $route->getName()=>[
                             'action'=>$route->getAction(),
                             'uri'=> $route->uri(),
                             'name'=> $route->getName(),
-                            'default'=>$route->defaults
-                            ]]; });
+                            'default'=>$route->defaults,
+                            'methods'=>$route->methods
+                            ]];
+                         });
                          $keyName = app()->getKey("_alias");
-                    $lists = [];
+                        $lists = [];
+                        $urls = [];
+
                     @endphp
                     @foreach($routes as $name=>$route)
                         @php  $arr_name =  explode(':',$route['name']);
                         @endphp
                         @continue(empty($route['name']))
-                        @if( "frontend"==$arr_name[0] || "frontend"!=$arr_name[0] && $arr_name[0]!="backend" )
+                        @if( ("frontend"==$arr_name[0] || "frontend"!=$arr_name[0] && $arr_name[0]!="backend") && in_array('GET',$route['methods']) )
                             @php
                                 $middlewares = $route['action']['middleware'];
-                                $uri = $route['uri'];
+                                $uri = isset($datas['data'][$name]['data']['uri']) ?$datas['data'][$name]['data']['uri']:$route['uri'];
                                 $lists[$name] = 1;
+                                $urls[$uri] = $name;
                             @endphp
                             @view_item($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,true)
                         @endif
                     @endforeach
+                    @if(isset($datas['data']))
+                        @foreach($datas['data'] as $name=>$route)
 
-                    @foreach($datas['data'] as $name=>$route)
-                        @if(!isset($lists[$name]))
-                            @php $middlewares = json_decode($route['data']['middleware'],true); @endphp
-                            @view_item($name,$middlewares,$route['data']['uri'],$layouts,$listsRolePremission,$datas,false)
-                        @endif
-                    @endforeach
+                            @if(!isset($urls[$route['data']['uri']]))
+                                @php
+                                    $middlewares = json_decode($route['data']['middleware'],true);
+                                    $middlewares  = is_array($middlewares)?$middlewares:[];
+                                @endphp
+                                @view_item($name,$middlewares,$route['data']['uri'],$layouts,$listsRolePremission,$datas,false)
+                            @endif
+                        @endforeach
+                    @endif
                     <li>
                         <i class="fa fa-clock-o bg-gray"></i>
                     </li>
@@ -195,6 +228,41 @@
                     console.log($("#saveForm").html($(data.views['content']).find('#saveForm ul')));
                 }
             });
+        }
+
+        function changeUri(_this) {
+            var parent = $(_this).parent();
+            var input = parent.find('.input');
+            var view = parent.find('.view');
+            if (input.is(":hidden")) {
+                view.find('span').hide();
+                input.val(view.find('span').text()).show();
+            } else {
+                var views = $('.routers .router .view span');
+                var span = view.find("span");
+                var oke = true;
+                var _input = input.find('input');
+                var val = _input.val();
+                views.each(function () {
+                    if ($(this).text() === val && span.attr('data-uri') !== $(this).attr('data-uri')) {
+                        oke = false;
+                    }
+                });
+                if (oke) {
+                    _input.css('border', '1px solid #dedede');
+                    if (span.attr('data-uri') !== val) {
+                        _input.attr('name', _input.attr('data-name'));
+                    } else {
+                        _input.attr('data-name', _input.attr('name'));
+                        _input.removeAttr('name');
+                    }
+                    span.text(val);
+                    span.show();
+                    input.hide();
+                } else {
+                    _input.css('border', '1px solid red');
+                }
+            }
         }
 
         $(document).ready(function () {
