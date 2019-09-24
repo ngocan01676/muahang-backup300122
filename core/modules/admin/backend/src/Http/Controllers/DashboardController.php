@@ -31,8 +31,25 @@ class DashboardController extends \Zoe\Http\ControllerBackend
         }
     }
 
+
     public function router(Request $request)
     {
+        $controllers = [];
+        $results = getDirContents(base_path('core'), '/frontend(.*?)Controller\.php$/', $results);
+        foreach ($results as $value) {
+            $pathinfo = pathinfo($value);
+            $namespace = extract_namespace($value);
+            $clazz = $namespace . '\\' . $pathinfo['filename'];
+            $controllers[$clazz] = [
+                'class' => $pathinfo['filename'],
+                'namespace' => $namespace,
+                'methods' => get_class_methods($clazz),
+                'a'=>get_parent_class($clazz)
+            ];
+
+        }
+
+        die;
         $data = $request->all();
         if ($request->isMethod('post')) {
 
@@ -44,12 +61,12 @@ class DashboardController extends \Zoe\Http\ControllerBackend
         foreach ($listsRole as $item) {
             $listsRolePremission[$item->id] = Permission::where('role_id', $item->id)->get();
         }
-
         $layouts = \Admin\Http\Models\Layout::where('type_group', 'theme')->where('type', 'layout')->orderBy("updated_at", "desc")->get();
         return $this->render('dashboard.router', [
             'listsRolePremission' => $listsRolePremission,
             'layouts' => $layouts,
-            'datas' => config_get('router', 'frontend')
+            'datas' => config_get('router', 'frontend'),
+            'controllers' => $controllers
         ]);
     }
 }

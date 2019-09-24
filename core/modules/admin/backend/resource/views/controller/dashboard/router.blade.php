@@ -99,7 +99,6 @@
                             <label for="id_title" class="title">Cache</label>
                         </td>
                         <td>
-
                             <div class="input-group">
                                 <input type="text" class="form-control"
                                        name="data[{!! $name !!}].cache"
@@ -113,9 +112,28 @@
                             <label for="id_title" class="title">Acl</label>
                         </td>
                         <td>
-
-
                             <select name="data[{!! $name !!}].acl"
+                                    class="form-control">
+                                <option value="login">Login</option>
+
+                                @foreach($listsRolePremission as $premissions)
+                                    @foreach($premissions as $premission)
+                                        <option @if(isset($datas['data'][$name]['acl']) && $datas['data'][$name]['acl'] == $premission->name) selected
+                                                @endif value="{!! $premission->name !!}">{!! $premission->name !!}</option>
+                                    @endforeach
+                                @endforeach
+                                <option @if(isset($datas['data'][$name]['acl']) && $datas['data'][$name]['acl'] == "no-login") selected
+                                        @endif value="no-login">No Login
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="id_title" class="title">As</label>
+                        </td>
+                        <td>
+                            <select name="data[{!! $name !!}].as"
                                     class="form-control">
                                 <option value="login">Login</option>
 
@@ -169,7 +187,9 @@
 
                     </li>
                     @php
+
                         $routes = collect(\Route::getRoutes())->mapWithKeys(function ($route) {
+
                          return [
                             $route->getName()=>[
                             'action'=>$route->getAction(),
@@ -190,6 +210,7 @@
                         @continue(empty($route['name']))
                         @if( ("frontend"==$arr_name[0] || "frontend"!=$arr_name[0] && $arr_name[0]!="backend") && in_array('GET',$route['methods']) )
                             @php
+
                                 $middlewares = $route['action']['middleware'];
                                 $uri = isset($datas['data'][$name]['data']['uri']) ?$datas['data'][$name]['data']['uri']:$route['uri'];
                                 $lists[$name] = 1;

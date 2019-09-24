@@ -12,14 +12,15 @@ function ZoeExtension($file)
     $file_extension = end($tmp);
     return $file_extension;
 }
-function ZoeImageResize($url, $resize_config = [],$action = true)
+
+function ZoeImageResize($url, $resize_config = [], $action = true)
 {
     $is_storage = false;
     $path = "";
     try {
         if (isset($resize_config['resize'])) {
-            if(isset($resize_config['action']) && $resize_config['action']!="src"){
-                $filename =str_replace("/","_",$url);
+            if (isset($resize_config['action']) && $resize_config['action'] != "src") {
+                $filename = str_replace("/", "_", $url);
                 $arr_img = [];
                 $imgs = [
 
@@ -46,9 +47,9 @@ function ZoeImageResize($url, $resize_config = [],$action = true)
                         }
                         $arr_img['lazyload'] = 'on';
 
-                        if(isset($resize_config['lazy'])){
+                        if (isset($resize_config['lazy'])) {
                             $arr_img['lazytype'] = 'load';
-                        }else{
+                        } else {
                             $arr_img['lazytype'] = 'scroll';
                         }
                         $arr_img['src'] = ('/assets/image-blank.png');
@@ -70,34 +71,34 @@ function ZoeImageResize($url, $resize_config = [],$action = true)
 
                     if (substr($url, 0, 7) == '/theme/') {
                         $theme = config_get('theme', "active");
-                        if($is_storage){
+                        if ($is_storage) {
                             $path = storage_path('app/public' . '/themes/' . $theme);
-                            $uri = '/storage/themes/'. $theme.'/thumb/'. $name . '/'.$v.'/' . $filename;
-                        }else{
+                            $uri = '/storage/themes/' . $theme . '/thumb/' . $name . '/' . $v . '/' . $filename;
+                        } else {
                             $path = public_path('resource' . '/themes/' . $theme);
-                            $uri = '/resource/themes/'. $theme.'/thumb/'. $name .'/'. $v . '/' . $filename;
+                            $uri = '/resource/themes/' . $theme . '/thumb/' . $name . '/' . $v . '/' . $filename;
                         }
-                    }else{
-                        if($is_storage){
-                            $path = storage_path('app/public/uploads' );
-                            $uri = '/storage/uploads/thumb/'. $name . '/'.$v.'/' . $filename;
-                        }else{
+                    } else {
+                        if ($is_storage) {
+                            $path = storage_path('app/public/uploads');
+                            $uri = '/storage/uploads/thumb/' . $name . '/' . $v . '/' . $filename;
+                        } else {
                             $path = public_path('resource/uploads/');
-                            $uri = '/resource/uploads/thumb/'. $name .'/'. $v . '/' . $filename;
+                            $uri = '/resource/uploads/thumb/' . $name . '/' . $v . '/' . $filename;
                         }
                     }
                     if (!File::exists($path)) {
                         File::makeDirectory($path);
                     }
-                    $path =  $path .'/thumb';
+                    $path = $path . '/thumb';
                     if (!File::exists($path)) {
                         File::makeDirectory($path);
                     }
-                    $path =  $path .'/'. $name;
+                    $path = $path . '/' . $name;
                     if (!File::exists($path)) {
                         File::makeDirectory($path);
                     }
-                    $path =  $path .'/'. $v;
+                    $path = $path . '/' . $v;
                     if (!File::exists($path)) {
                         File::makeDirectory($path);
                     }
@@ -113,14 +114,14 @@ function ZoeImageResize($url, $resize_config = [],$action = true)
                         } else {
                             $arrImg[$name == 'pc' ? 'data-src' : 'data-' . $name] = $uri;
                         }
-                        if($name != 'pc')
+                        if ($name != 'pc')
                             $srcset[] = $uri;
-                        $srcset[] = ($name =='mobile'?' 450w':' 750w').(($i<$n)?", ":"");
+                        $srcset[] = ($name == 'mobile' ? ' 450w' : ' 750w') . (($i < $n) ? ", " : "");
                     }
                 }
-                if($resize_config['action']=="lazy"){
-                    if(count($srcset)){
-                        $arr_img['data-srcset'] =$srcset;
+                if ($resize_config['action'] == "lazy") {
+                    if (count($srcset)) {
+                        $arr_img['data-srcset'] = $srcset;
                     }
                 }
                 if (count($arrImg) > 1) {
@@ -130,7 +131,7 @@ function ZoeImageResize($url, $resize_config = [],$action = true)
                         $arr_img['src'] = ZoeSrcImgMobile($arrImg, false);
                     }
                 } else {
-                    if(!isset($arr_img['src'])){
+                    if (!isset($arr_img['src'])) {
                         $arr_img['src'] = $url;
                     }
                 }
@@ -139,7 +140,7 @@ function ZoeImageResize($url, $resize_config = [],$action = true)
         }
         return ["src" => $url];
     } catch (\Exception $ex) {
-        return ["src" => $url, 'error' => $ex->getMessage() . ' '.$path,'line'=>$ex->getLine()];
+        return ["src" => $url, 'error' => $ex->getMessage() . ' ' . $path, 'line' => $ex->getLine()];
     }
 }
 
@@ -210,6 +211,7 @@ function ZoeSrcImgMobile($arr, $isSrc = true)
     }
     return $isSrc ? ' src=' . $src . ' php=true ' : $src;
 }
+
 function ZoeSrcImg($src, $option = [])
 {
     $html = '';
@@ -217,34 +219,35 @@ function ZoeSrcImg($src, $option = [])
         foreach ($src as $k => $_src) {
             if ($k == 'blade') {
                 $html .= ' ' . $_src . ' ';
-            }else   if ($k == 'data-srcset' && is_array($_src)) {
-                $html .= ' ' . $k . ' = "' . implode('',$_src) . '" ';
+            } else if ($k == 'data-srcset' && is_array($_src)) {
+                $html .= ' ' . $k . ' = "' . implode('', $_src) . '" ';
             } else {
                 $html .= ' ' . $k . ' ="' . $_src . '" ';
             }
         }
-    }else{
-        $html = 'src="' . $src.'"';
+    } else {
+        $html = 'src="' . $src . '"';
     }
-    if(isset($option['istag']) && $option['istag']){
-        return '<img ' . $html.' '.(isset($option['attrs'])?attrs($option['attrs']):"").' />';
-    }else{
+    if (isset($option['istag']) && $option['istag']) {
+        return '<img ' . $html . ' ' . (isset($option['attrs']) ? attrs($option['attrs']) : "") . ' />';
+    } else {
         return $html;
     }
 }
+
 function ZoeAssetImg($url, $option = [])
 {
     return defined('build') ?
-        isset($option['image']['base64']) ? '@Zoe_ImageBase64(' . (is_array($url)?json_encode($url):$url) . ')' :
-            is_array($url) ? ZoeSrcImg($url,$option) : ZoeSrcImg(($url),$option) : (is_array($url) ? ZoeSrcImg($url,$option) : ZoeSrcImg(($url),$option));
+        isset($option['image']['base64']) ? '@Zoe_ImageBase64(' . (is_array($url) ? json_encode($url) : $url) . ')' :
+            is_array($url) ? ZoeSrcImg($url, $option) : ZoeSrcImg(($url), $option) : (is_array($url) ? ZoeSrcImg($url, $option) : ZoeSrcImg(($url), $option));
 }
 
-function _ZoeImage($url,$attrs = [],$action = true,$istag = false,$option = [])
+function _ZoeImage($url, $attrs = [], $action = true, $istag = false, $option = [])
 {
     $is_base64 = 0;
 
     $option['action'] = $action;
-    if(!isset($option['attrs'])){
+    if (!isset($option['attrs'])) {
         $option['attrs'] = $attrs;
     }
     $option['istag'] = $istag;
@@ -260,10 +263,12 @@ function _ZoeImage($url,$attrs = [],$action = true,$istag = false,$option = [])
         return ZoeAssetImg($url, $option);
     }
 }
-function ZoeImage($url, $option = [] , $action = true)
+
+function ZoeImage($url, $option = [], $action = true)
 {
-    return _ZoeImage($url,[],$action,false,$option);
+    return _ZoeImage($url, [], $action, false, $option);
 }
+
 function ZoeLang($text)
 {
     global $zlang;
@@ -601,7 +606,8 @@ function component_config_views($data)
 {
     return $data;
 }
- function parseMultipleArgs($expression)
+
+function parseMultipleArgs($expression)
 {
     return collect(explode(',', $expression))->map(function ($item) {
         return trim($item);
@@ -614,25 +620,61 @@ function component_config_views($data)
  * @param  string $expression
  * @return string
  */
- function stripQuotes($expression)
+function stripQuotes($expression)
 {
     return str_replace(["'", '"'], '', $expression);
 }
-function attrs($attrs){
+
+function attrs($attrs)
+{
     $html = " ";
-    foreach ($attrs as $name=>$value){
-        $html.=$name.'="'.$value.'"';
+    foreach ($attrs as $name => $value) {
+        $html .= $name . '="' . $value . '"';
     }
     return $html;
 }
-function Blade_ImgZoeImage($expr,$isAction = true,$option = []) {
+
+function Blade_ImgZoeImage($expr, $isAction = true, $option = [])
+{
     $expression = parseMultipleArgs($expr);
-    $isAction = $isAction?'true':'false';
+    $isAction = $isAction ? 'true' : 'false';
     $isTag = 'true';
-    if($expression->count() == 1){
-        $par = $expr.',[],'.$isAction.','.$isTag.',$config';
-    }else{
-        $par = $expr.','.$isAction.','.$isTag.',$config';
+    if ($expression->count() == 1) {
+        $par = $expr . ',[],' . $isAction . ',' . $isTag . ',$config';
+    } else {
+        $par = $expr . ',' . $isAction . ',' . $isTag . ',$config';
     }
     return '<?php  echo _ZoeImage(' . $par . ') ?>';
+}
+
+function getDirContents($dir, $filter = '', &$results = array())
+{
+    $files = scandir($dir);
+
+    foreach ($files as $key => $value) {
+        $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
+        if (!is_dir($path)) {
+            if (empty($filter) || preg_match($filter, $path)) $results[] = $path;
+        } elseif ($value != "." && $value != "..") {
+            getDirContents($path, $filter, $results);
+        }
+    }
+    return $results;
+}
+
+function extract_namespace($file)
+{
+    $ns = NULL;
+    $handle = fopen($file, "r");
+    if ($handle) {
+        while (($line = fgets($handle)) !== false) {
+            if (strpos($line, 'namespace') === 0) {
+                $parts = explode(' ', $line);
+                $ns = rtrim(trim($parts[1]), ';');
+                break;
+            }
+        }
+        fclose($handle);
+    }
+    return $ns;
 }
