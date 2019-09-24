@@ -81,8 +81,19 @@ return [
         "configuration" => [
             "name" => z_language('Configuration', false),
             "pos" => 2,
-            "url" => "backend:configuration:list",
-            "header" => true
+            "url" => "",
+            'items'=>[
+               [
+                   "name" => z_language('Configuration', false),
+                   "pos" => 2,
+                   "url" => "backend:configuration:list",
+                   "header" => true
+               ],
+                [
+                    "name" => z_language('Router', false),
+                    "url" => "backend:dashboard:router",
+                ],
+            ]
         ]
 //        "page"=>[
 //            "name"=>"Page",

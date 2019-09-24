@@ -8,6 +8,7 @@ return [
                 "router" => [
                     "lists" => [
                         "url" => "blog/post",
+                        "action"=>'getLists'
                     ],
                 ]
             ]

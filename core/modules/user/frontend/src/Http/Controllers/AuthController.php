@@ -46,7 +46,7 @@ class AuthController extends \Zoe\Http\ControllerFront
 
     public function getRegister()
     {
-        return view('fuser::controller.auth.register');
+        return view('auth.register');
     }
 
     protected function validator(array $data)
@@ -56,23 +56,15 @@ class AuthController extends \Zoe\Http\ControllerFront
             'password' => 'required|min:6|confirmed',
         ]);
     }
-
-    public function login()
+    public function getLogin()
     {
         return $this->render('auth.login', [], 'user');
     }
-
     public function postRegister()
     {
         return back();
     }
-
-    public function register()
-    {
-        return $this->render('auth.register');
-    }
-
-    public function logout(Request $request)
+    public function postLogout(Request $request)
     {
         $this->guard("frontend")->logout();
         $request->session()->invalidate();

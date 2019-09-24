@@ -6,9 +6,12 @@
 
     </h1>
 @endsection
+
 @section('content')
+
     @breadcrumb()@endbreadcrumb
-    @function(view_item ($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,$status))
+
+    @function(view_item ($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,$status,$controllers,$controller))
     <li>
         <i class="fa fa-gears @if($status) bg-blue @else @endif"></i>
 
@@ -25,9 +28,15 @@
                     if(isset($datas['data'][$name]['uri'])){
                         $url = $datas['data'][$name]['uri'];
                     }
+                    $_controller = $controller;
+                    if(isset($datas['data'][$name]['controller'])){
+                        $_controller = $datas['data'][$name]['controller'];
+                    }
+
                 @endphp
                 <input type="hidden" name="data[{!! $name !!}].data.name" value="{!! $name !!}">
                 <input type="hidden" name="data[{!! $name !!}].data.uri" value="{!! $uri !!}">
+                <input type="hidden" name="data[{!! $name !!}].data.controller" value="{!! $controller !!}">
 
                 <div class="row router">
                     <div class="col-md-1"><span class="label label-default">uri</span></div>
@@ -75,6 +84,7 @@
                     </div>
                 </div>
                 <table class="table table-borderless" style="display: table;margin-bottom: 0">
+
                     <tr>
                         <td style="width: 10%">
                             <label for="id_title" class="title">Layout</label>
@@ -89,6 +99,24 @@
                                                 value="{!! $layout['slug'] !!}">{!! $layout['name'] !!}</option>
                                     @else
                                         <option value="{!! $layout['slug'] !!}">{!! $layout['name'] !!}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10%">
+                            <label for="id_title" class="title">Controller</label>
+                        </td>
+                        <td>
+                            <select name="data[{!! $name !!}].controller"
+                                    class="form-control">
+                                @foreach($controllers as $controller=>$namespace)
+                                    @if( $controller == $_controller )
+                                        <option selected
+                                                value="{!! $controller !!}">{!! $controller !!}</option>
+                                    @else
+                                        <option value="{!! $controller !!}">{!!$controller !!}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -128,27 +156,7 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <label for="id_title" class="title">As</label>
-                        </td>
-                        <td>
-                            <select name="data[{!! $name !!}].as"
-                                    class="form-control">
-                                <option value="login">Login</option>
 
-                                @foreach($listsRolePremission as $premissions)
-                                    @foreach($premissions as $premission)
-                                        <option @if(isset($datas['data'][$name]['acl']) && $datas['data'][$name]['acl'] == $premission->name) selected
-                                                @endif value="{!! $premission->name !!}">{!! $premission->name !!}</option>
-                                    @endforeach
-                                @endforeach
-                                <option @if(isset($datas['data'][$name]['acl']) && $datas['data'][$name]['acl'] == "no-login") selected
-                                        @endif value="no-login">No Login
-                                </option>
-                            </select>
-                        </td>
-                    </tr>
                     <tr>
                         <td>
                             <label for="id_title" class="title">Status</label>
@@ -187,9 +195,7 @@
 
                     </li>
                     @php
-
                         $routes = collect(\Route::getRoutes())->mapWithKeys(function ($route) {
-
                          return [
                             $route->getName()=>[
                             'action'=>$route->getAction(),
@@ -200,34 +206,39 @@
                             ]];
                          });
                          $keyName = app()->getKey("_alias");
-                        $lists = [];
-                        $urls = [];
+                         $lists = [];
+                         $urls = [];
 
                     @endphp
                     @foreach($routes as $name=>$route)
                         @php  $arr_name =  explode(':',$route['name']);
                         @endphp
                         @continue(empty($route['name']))
-                        @if( ("frontend"==$arr_name[0] || "frontend"!=$arr_name[0] && $arr_name[0]!="backend") && in_array('GET',$route['methods']) )
-                            @php
 
-                                $middlewares = $route['action']['middleware'];
-                                $uri = isset($datas['data'][$name]['data']['uri']) ?$datas['data'][$name]['data']['uri']:$route['uri'];
-                                $lists[$name] = 1;
-                                $urls[$uri] = $name;
-                            @endphp
-                            @view_item($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,true)
+                        @if( ("frontend"==$arr_name[0] || "frontend"!=$arr_name[0] && $arr_name[0]!="backend") )
+                            @if(in_array('GET',$route['methods']))
+                                @php
+                                    $middlewares = $route['action']['middleware'];
+                                    $uri = isset($datas['data'][$name]['data']['uri']) ?$datas['data'][$name]['data']['uri']:$route['uri'];
+                                    $lists[$name] = 1;
+                                    $urls[$name] = $name;
+                                @endphp
+                                @view_item($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,true,$controllers,$route['action']['controller'])
+                            @else
+                               @php  $urls[$name] = $name; @endphp
+                            @endif
                         @endif
                     @endforeach
                     @if(isset($datas['data']))
                         @foreach($datas['data'] as $name=>$route)
 
-                            @if(!isset($urls[$route['data']['uri']]))
+                            @if(!isset($urls[$route['data']['name']]))
                                 @php
                                     $middlewares = json_decode($route['data']['middleware'],true);
                                     $middlewares  = is_array($middlewares)?$middlewares:[];
+                                    $controller = isset($route['data']['controller'])?$route['data']['controller']:isset($routes[$name]['action']['controller'])?$routes[$name]['action']['controller']:"";
                                 @endphp
-                                @view_item($name,$middlewares,$route['data']['uri'],$layouts,$listsRolePremission,$datas,false)
+                                @view_item($name,$middlewares,$route['data']['uri'],$layouts,$listsRolePremission,$datas,false,$controllers,$controller)
                             @endif
                         @endforeach
                     @endif

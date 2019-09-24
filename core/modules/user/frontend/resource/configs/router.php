@@ -9,7 +9,8 @@ return [
                     "info" => [
                         "url" => "user/info",
                         "guard" => "",
-                        "cache" => 5
+                        "cache" => 5,
+                        'action' =>'getInfo'
                     ],
                 ]
             ],
@@ -19,14 +20,14 @@ return [
                 "router" => [
                     "login" => [
                         "url" => "/login",
-                        "action" => "login",
+                        "action" => "getLogin",
                         "name" => "login",
                         "guard" => "",
 //                        "cache" => 60
                     ],
                     "register" => [
                         "url" => "/register",
-                        "action" => "register",
+                        "action" => "getRegister",
                         "name" => "register",
                         "guard" => "",
 //                        "cache" => 60
@@ -45,7 +46,7 @@ return [
                     ],
                     "logout" => [
                         "url" => "/logout",
-                        "action" => "logout",
+                        "action" => "postLogout",
                         "method" => ["post", "get"],
                         "name" => "logout"
                     ],
