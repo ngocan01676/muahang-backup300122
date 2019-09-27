@@ -30,8 +30,11 @@ return [
     ],
     'configs' => [
         'blog' => [
-            'view' => ['post' => [
-                'view' => 'blog::configs.post', 'label' => z_language('Post')],
+            'view' => [
+                'post' => [
+                    'view' => 'blog::configs.post', 'label' => z_language('Post'),
+                    'template' => 'category'
+                ]
             ],
             'label' => z_language("Blog", false),
             'data' => [
@@ -45,7 +48,7 @@ return [
                 'columns' => [
                     'lists' => [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
-                        'title' => ['label' => z_language('Title', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha','callback'=>"GetTitle"],
+                        'title' => ['label' => z_language('Title', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha', 'callback' => "GetTitle"],
                         'image' => ['label' => z_language('Avatar', false), 'type' => 'image'],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status', 'order_by' => 'amount'],
                         'views' => ['label' => z_language('Views', false), 'type' => 'number', 'order_by' => "numeric"],
@@ -89,8 +92,8 @@ return [
                 'search' => ['name'],
             ],
             'options' => [
-                "post"=>"blog::configs.post-option"
+                "post" => "blog::configs.post-option"
             ]
         ]
-     ]
+    ]
 ];

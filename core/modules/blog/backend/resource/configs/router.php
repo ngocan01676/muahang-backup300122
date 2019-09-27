@@ -27,14 +27,39 @@ return [
                     ]
                 ]
             ],
+            'blog:post:lang' => [
+                "namespace" => "Blog\Http\Controllers",
+                "controller" => "PostLangController",
+                "sub_prefix" => "/blog/post-lang",
+                "guard" => "backend",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "create" => [
+                        'url' => '/create'
+                    ],
+                    "edit" => [
+                        'url' => '/edit/{id}'
+                    ],
+                    'store' => [
+                        'url' => '/store',
+                        'method' => ['post']
+                    ],
+                    'delete' => [
+                        'url' => '/delete',
+                        'method' => ['post']
+                    ]
+                ]
+            ],
             'blog:category' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "CategoryController",
                 "sub_prefix" => "/blog/category",
                 "guard" => "backend",
-                "module"=>[
-                    "name"=>"admin",
-                    "type"=>"module"
+                "module" => [
+                    "name" => "admin",
+                    "type" => "module"
                 ],
                 "router" => [
                     "show" => [
@@ -48,9 +73,9 @@ return [
                 "controller" => "IndexController",
                 "sub_prefix" => "/blog/comment",
                 "guard" => "backend",
-                "module"=>[
-                    "name"=>"Comment",
-                    "type"=>"plugin"
+                "module" => [
+                    "name" => "Comment",
+                    "type" => "plugin"
                 ],
                 "router" => [
                     "list" => [

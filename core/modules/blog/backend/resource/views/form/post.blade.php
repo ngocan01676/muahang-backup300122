@@ -8,97 +8,194 @@
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <div class="col-md-9">
     <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-            @foreach($language as $lang=>$_language)
-                <li {{$lang == $current_language?"class=active":""}}><a href="#tab_{{$lang}}" data-toggle="tab"><span
-                                class="flag-icon flag-icon-{{$_language['flag']}}"></span></a></li>
-            @endforeach
-        </ul>
-        <div class="tab-content">
-            @foreach($language as $lang=>$_language)
-                <div class="tab-pane {{$lang == $current_language?" active":""}}" id="tab_{{$lang}}">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div><br/>
+        @if(isset($configs['post']['language']['multiple']))
+            <ul class="nav nav-tabs">
+                @foreach($language as $lang=>$_language)
+                    @if(!isset($configs['post']['language']['lists']) || in_array($lang,$configs['post']['language']['lists']))
+                        <li {{$lang == $current_language?"class=active":""}}><a href="#tab_{{$lang}}"
+                                                                                data-toggle="tab"><span
+                                        class="flag-icon flag-icon-{{$_language['flag']}}"></span></a></li>
                     @endif
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <td>
-                                {!! Form::label('id_title', 'Name', ['class' => 'title']) !!}
-                                {!! Form::text('title_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {!! Form::label('id_description', 'Description', ['class' => 'description']) !!}
-                                {!! Form::textarea('description_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
+                @endforeach
+            </ul>
+            <div class="tab-content">
+                @foreach($language as $lang=>$_language)
+                    @if(!isset($configs['post']['language']['lists']) || in_array($lang,$configs['post']['language']['lists']))
+                        <div class="tab-pane {{$lang == $current_language?" active":""}}" id="tab_{{$lang}}">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div><br/>
+                            @endif
+                            <table class="table table-borderless">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        {!! Form::label('id_title', 'Name', ['class' => 'title']) !!}
+                                        @if($current_language == $lang)
+                                            {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
+                                        @else
+                                            {!! Form::text('title_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {!! Form::label('id_description', 'Description', ['class' => 'description']) !!}
+                                        @if($current_language == $lang)
+                                            {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
+                                        @else
+                                            {!! Form::textarea('description_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @if($current_language == $lang)
+                                            {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
+                                        @else
+                                            {!! Form::textarea('content_'.$lang.'', null, ['class' => 'form-control my-editor']) !!}
+                                        @endif
+                                        <script>
+                                            var editor_config = {
+                                                    path_absolute: "/",
+                                                    selector: "textarea.my-editor",
+                                                    plugins: [
+                                                        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                                                        "searchreplace wordcount visualblocks visualchars code fullscreen",
+                                                        "insertdatetime media nonbreaking save table contextmenu directionality",
+                                                        "emoticons template paste textcolor colorpicker textpattern"
+                                                    ],
+                                                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+                                                    relative_urls: false,
+                                                    file_browser_callback: function (field_name, url, type, win) {
 
-                                {!! Form::textarea('content_'.$lang.'', null, ['class' => 'form-control my-editor']) !!}
-                                <script>
-                                    var editor_config = {
-                                            path_absolute: "/",
-                                            selector: "textarea.my-editor",
-                                            plugins: [
-                                                "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                                                "searchreplace wordcount visualblocks visualchars code fullscreen",
-                                                "insertdatetime media nonbreaking save table contextmenu directionality",
-                                                "emoticons template paste textcolor colorpicker textpattern"
-                                            ],
-                                            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
-                                            relative_urls: false,
-                                            file_browser_callback: function (field_name, url, type, win) {
+                                                        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+                                                        var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
 
-                                                var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-                                                var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+                                                        var cmsURL = '{{route('backend:elfinder:tinymce4')}}' + '?field_name=' + field_name;
+                                                        console.log(cmsURL);
+                                                        if (type === 'image') {
+                                                            cmsURL = cmsURL + "&type=Images";
+                                                        } else {
+                                                            cmsURL = cmsURL + "&type=Files";
+                                                        }
+                                                        tinyMCE.activeEditor.windowManager.open({
+                                                            file: cmsURL,
+                                                            title: 'Filemanager',
+                                                            width: x * 0.8,
+                                                            height: y * 0.8,
+                                                            resizable: "yes",
+                                                            close_previous: "no",
+                                                        }, {
+                                                            oninsert: function (file, fm) {
+                                                                var url, reg, info;
+                                                                console.log(file);
+                                                                win.document.getElementById(field_name).value = file.url;
+                                                                // URL normalization
+                                                                url = fm.convAbsUrl(file.url);
+                                                                console.log(url);
+                                                            }
+                                                        });
 
-                                                var cmsURL = '{{route('backend:elfinder:tinymce4')}}' + '?field_name=' + field_name;
-                                                console.log(cmsURL);
-                                                if (type === 'image') {
-                                                    cmsURL = cmsURL + "&type=Images";
-                                                } else {
-                                                    cmsURL = cmsURL + "&type=Files";
-                                                }
-                                                tinyMCE.activeEditor.windowManager.open({
-                                                    file: cmsURL,
-                                                    title: 'Filemanager',
-                                                    width: x * 0.8,
-                                                    height: y * 0.8,
-                                                    resizable: "yes",
-                                                    close_previous: "no",
-                                                }, {
-                                                    oninsert: function (file, fm) {
-                                                        var url, reg, info;
-                                                        console.log(file);
-                                                        win.document.getElementById(field_name).value = file.url;
-                                                        // URL normalization
-                                                        url = fm.convAbsUrl(file.url);
-                                                        console.log(url);
                                                     }
-                                                });
+                                                }
+                                            ;
 
-                                            }
+                                            tinymce.init(editor_config);
+                                        </script>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        @else
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br/>
+            @endif
+            <table class="table table-borderless">
+                <tbody>
+                <tr>
+                    <td>
+                        {!! Form::label('id_title', 'Name', ['class' => 'title']) !!}
+                        {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {!! Form::label('id_description', 'Description', ['class' => 'description']) !!}
+                        {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
+                        <script>
+                            var editor_config = {
+                                    path_absolute: "/",
+                                    selector: "textarea.my-editor",
+                                    plugins: [
+                                        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                                        "searchreplace wordcount visualblocks visualchars code fullscreen",
+                                        "insertdatetime media nonbreaking save table contextmenu directionality",
+                                        "emoticons template paste textcolor colorpicker textpattern"
+                                    ],
+                                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+                                    relative_urls: false,
+                                    file_browser_callback: function (field_name, url, type, win) {
+
+                                        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+                                        var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+
+                                        var cmsURL = '{{route('backend:elfinder:tinymce4')}}' + '?field_name=' + field_name;
+                                        console.log(cmsURL);
+                                        if (type === 'image') {
+                                            cmsURL = cmsURL + "&type=Images";
+                                        } else {
+                                            cmsURL = cmsURL + "&type=Files";
                                         }
-                                    ;
+                                        tinyMCE.activeEditor.windowManager.open({
+                                            file: cmsURL,
+                                            title: 'Filemanager',
+                                            width: x * 0.8,
+                                            height: y * 0.8,
+                                            resizable: "yes",
+                                            close_previous: "no",
+                                        }, {
+                                            oninsert: function (file, fm) {
+                                                var url, reg, info;
+                                                console.log(file);
+                                                win.document.getElementById(field_name).value = file.url;
+                                                // URL normalization
+                                                url = fm.convAbsUrl(file.url);
+                                                console.log(url);
+                                            }
+                                        });
 
-                                    tinymce.init(editor_config);
-                                </script>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            @endforeach
-        </div>
+                                    }
+                                }
+                            ;
+
+                            tinymce.init(editor_config);
+                        </script>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        @endif
     </div>
 </div>
 <div class="col-md-3">
@@ -187,7 +284,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/elfinder.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/theme.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/boostrap-multi-select/css/bootstrap-multiselect.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('module/admin/assets/boostrap-multi-select/css/bootstrap-multiselect.css') }}">
 
 
     <script src="{{ asset('module/admin/assets/elfinder/js/elfinder.min.js') }}"></script>

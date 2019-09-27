@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 
-class PostController extends \Zoe\Http\ControllerBackend
+class PostLangController extends \Zoe\Http\ControllerBackend
 {
 
     public function init()
@@ -18,7 +18,7 @@ class PostController extends \Zoe\Http\ControllerBackend
         $this->data['language'] = config('zoe.language');
         $this->data['nestables'] = config_get("category", "blog:category");
         $this->data['configs'] = config_get("config", "blog");
-        $this->data['current_language'] = isset($this->data['configs']['post']['language']['default']) ? $this->data['configs']['post']['language']['default'] : "en";
+        $this->data['current_language'] = isset($this->data['configs']['post']['language']) ? $this->data['configs']['post']['language'] : "en";
     }
 
     public function getCrumb()
@@ -46,7 +46,7 @@ class PostController extends \Zoe\Http\ControllerBackend
 
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
         $item = 1;
-        $select = ['post.title', 'post.id', 'post.image', 'post.status', 'post.views', 'post.created_at', 'post.updated_at'];
+        $select = ['post.id', 'post.image', 'post.status', 'post.views', 'post.created_at', 'post.updated_at'];
         $models = DB::table('blog_post as post');
 
         if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
@@ -83,8 +83,8 @@ class PostController extends \Zoe\Http\ControllerBackend
         } else {
             $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
         }
-        // $models->join('blog_post_translation as t', 't.post_id', '=', 'post.id');
-        // $models->where('t.lang_code', $lang);
+        $models->join('blog_post_translation as t', 't.post_id', '=', 'post.id');
+        $models->where('t.lang_code', $lang);
 
         $models->select($select);
         $models = $models->paginate($item, ['*'], 'page', $page);
@@ -95,10 +95,10 @@ class PostController extends \Zoe\Http\ControllerBackend
             "route" => $route,
             'parameter' => $parameter,
             'callback' => [
-//                "GetTitle" => function ($model) use ($lang) {
-//                    $rs = DB::table('blog_post_translation as t')->where('post_id', $model->id)->where('lang_code', $lang)->get('title');
-//                    return $rs && count($rs) > 0 ? $rs[0]->title : "Empty";
-//                }
+                "GetTitle" => function ($model) use ($lang) {
+                    $rs = DB::table('blog_post_translation as t')->where('post_id', $model->id)->where('lang_code', $lang)->get('title');
+                    return $rs && count($rs) > 0 ? $rs[0]->title : "Empty";
+                }
             ],
         ]);
 
@@ -115,19 +115,16 @@ class PostController extends \Zoe\Http\ControllerBackend
 
         $this->getCrumb()->breadcrumb('Post Edit', route('backend:blog:post:create'));
         $item = PostModel::find($id);
-        if (isset($this->data['configs']['post']['language']['multiple'])) {
-            $trans = PostTranslationModel::where(['post_id' => $id])->get();
-
-            foreach ($trans as $tran) {
-                $item->offsetSet("title_" . $tran->lang_code, $tran->title);
-                $item->offsetSet("description_" . $tran->lang_code, $tran->description);
-                $item->offsetSet("content_" . $tran->lang_code, $tran->content);
-            }
+        $trans = PostTranslationModel::where(['post_id' => $id])->get();
+        foreach ($trans as $tran) {
+            $item->offsetSet("title_" . $tran->lang_code, $tran->title);
+            $item->offsetSet("description_" . $tran->lang_code, $tran->description);
+            $item->offsetSet("content_" . $tran->lang_code, $tran->content);
         }
         $item->offsetSet("tag", implode($item->getTag(), ','));
         $item->offsetSet("category", $item->getCategory());
 
-        return $this->render('post.edit', ["item" => $item, "lang_active" => $this->data['current_language']], 'blog');
+        return $this->render('post.edit', ["item" => $item, "lang_active" => $this->data['configs']['post']['language']], 'blog');
     }
 
     public function store(Request $request)
@@ -154,17 +151,10 @@ class PostController extends \Zoe\Http\ControllerBackend
         $model->status = $data['status'];
         $model->user_id = 1;
         $model->featured = $data['featured'];
-        $model->title = $data['title'];
-        $model->description = $data['description'];
-        $model->content = $data['content'];
-
 
         DB::beginTransaction();
-
-
         try {
             $model->save();
-
             foreach ($this->data['language'] as $lang => $_language) {
                 if (isset($data['title_' . $lang])) {
                     $model->table_translation()->updateOrInsert(
@@ -181,6 +171,7 @@ class PostController extends \Zoe\Http\ControllerBackend
                 }
             }
             \Actions::do_action("tag_add", "blog:post", $model->id, $data['tag'], $model->getTag());
+
             $category_old = $model->getCategory();
             if (isset($data['category'])) {
                 foreach ($data['category'] as $cate) {

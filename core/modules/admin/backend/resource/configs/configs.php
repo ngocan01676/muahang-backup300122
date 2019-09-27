@@ -22,6 +22,13 @@ return [
             'data' => [
 
             ]
+        ],
+        'category' => [
+            'view' => 'backend::configs.category',
+            'label' => z_language("Category", false),
+            'data' => [
+
+            ]
         ]
     ],
     'options' => [
