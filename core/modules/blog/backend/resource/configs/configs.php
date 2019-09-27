@@ -29,18 +29,23 @@ return [
         ],
     ],
     'configs' => [
-        'blog' => [
-            'view' => [
-                'post' => [
-                    'view' => 'blog::configs.post', 'label' => z_language('Post'),
-                    'template' => 'category'
-                ]
-            ],
-            'label' => z_language("Blog", false),
-            'data' => [
+       'lists'=>[
+           'blog' => [
+               'view' => [
+                   'post' => [
+                       'view' => 'blog::configs.post',
+                       'label' => z_language('Post'),
+                   ],
+                   'category'=>[
+                       'template'=>'category'
+                   ]
+               ],
+               'label' => z_language("Blog", false),
+               'data' => [
 
-            ]
-        ]
+               ]
+           ]
+       ]
     ],
     'options' => [
         'core:blog:post' => [

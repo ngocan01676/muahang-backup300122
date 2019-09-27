@@ -19,6 +19,13 @@ return [
                 [
                     "name" => z_language("Comment"),
                     "url" => "backend:blog:comment:list",
+                ],
+                [
+                    "name" => z_language("Configuration"),
+                    "url" => "backend:configuration:list",
+                    "parameter"=>[
+                        'type'=>'blog'
+                    ]
                 ]
             ]
         ]

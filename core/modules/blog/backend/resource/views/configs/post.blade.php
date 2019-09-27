@@ -1,5 +1,4 @@
 <table class="table table-bordered">
-
     <tbody>
     <tr>
         <th width="150">
@@ -27,7 +26,6 @@
                         @endif
                     @endforeach
                 </select>
-
             </div>
         </td>
     </tr>

@@ -172,7 +172,7 @@ return [
                 "router" => [
 
                     "list" => [
-                        "url" => "/",
+                        "url" => "/{type?}",
                     ],
                     "ajax" => [
                         "url" => "/ajax", "method" => ['post'],

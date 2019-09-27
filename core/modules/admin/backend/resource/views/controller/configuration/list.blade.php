@@ -7,25 +7,30 @@
 @endsection
 @section('content')
     <div id="configWrap" class="nav-tabs-custom clearfix">
-        <ul class="nav nav-tabs">
-            @foreach($lists as $key=>$list)
-                @if(is_array($list['view']) || isset($list['view']) && view()->exists($list['view']))
-                    <li @if($key == $active) class="active" @endif>
-                        <a href="#tab_{!! $key !!}" data-toggle="tab">
-                            <strong>{!! z_language($list['label']) !!}</strong>
-                        </a>
-                    </li>
-                @endif
-            @endforeach
-        </ul>
+        @if($active == 'system')
+            <ul class="nav nav-tabs">
+                @foreach($lists as $key=>$list)
+                    @if(is_array($list['view']) || isset($list['view']) && view()->exists($list['view']))
+                        <li @if($key == $active) class="active" @endif>
+                            <a href="#tab_{!! $key !!}" data-toggle="tab">
+                                <strong>{!! z_language($list['label']) !!}</strong>
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+        @else
+          <h3>
+             <div> <strong>{!! z_language($lists[$active]['label']) !!}</strong></div>
+          </h3>
+        @endif
         <div class="tab-content clearfix">
             @foreach($lists as $key=>$list)
-                @if(is_array($list['view']) || isset($list['view']) && view()->exists($list['view']))
+                @if( isset($list['view']) &&( is_array($list['view']) ||  view()->exists($list['view']) ))
                     @php
                         $_config = config_get('config',$key);
                     @endphp
                     <div class="tab-pane @if($key == $active) active @endif clearfix" id="tab_{!! $key !!}">
-
                         <form action="" data-key="{!! $key !!}">
                         @if(is_array($list['view']))
                             <!-- tabs -->
@@ -49,10 +54,14 @@
                                                 <!-- Tab panes -->
                                                 <div class="tab-content tabs">
                                                     @foreach($list['view'] as $_key=>$view)
+                                                        @php
+                                                            $keyName = isset($view['name'])?$view['name']:$key;
+
+                                                        @endphp
                                                         <div role="tabpanel"
                                                              class="tab-pane fade in @if($_key == $iactive) active @endif"
                                                              id="tab_{!! $key !!}_{!! $_key !!}">
-                                                            @include($view['view'],['config'=>$_config,'key'=>$key."_".$_key])
+                                                            @include($view['view'],['keyName'=>empty($keyName)?"":$keyName.".",'config'=>empty($keyName) || !isset($_config[$keyName])?$_config:$_config[$keyName],'key'=>$key."_".$_key,'option'=>$view])
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -60,39 +69,15 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <!-- /tabs -->
-                                {{--<div class="row">--}}
-                                {{--<div class="col-xs-9">--}}
-
-                                {{--<div class="tab-content">--}}
-                                {{--@foreach($list['view'] as $_key=>$view)--}}
-                                {{--<div class="tab-pane active" data-lang="vi"--}}
-                                {{--id="tab_{!! $key !!}_{!! $_key !!}">--}}
-                                {{--<table class="table table-bordered"></table>--}}
-                                {{--</div>--}}
-                                {{--@endforeach--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-
-                                {{--<div class="col-xs-3">--}}
-
-                                {{--<ul class="nav nav-tabs tabs-right">--}}
-                                {{--@foreach($list['view'] as $_key=>$view)--}}
-                                {{--<li class="active">--}}
-                                {{--<a href="#tab_{!! $key !!}_{!! $_key !!}" data-toggle="tab"--}}
-                                {{--aria-expanded="true">{!! $view['label'] !!}</a>--}}
-                                {{--</li>--}}
-                                {{--@endforeach--}}
-                                {{--</ul>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-
                             @else
-                                @include($list['view'],['config'=>$_config,'key'=>$key])
+                                @php
+                                    $keyName = isset($list['name'])?$list['name']:$key;
+
+                                @endphp
+                                @include($list['view'],['keyName'=>empty($keyName)?"":$keyName.".",'config'=>empty($keyName) || !isset($_config[$keyName])?$_config:$_config[$keyName],'key'=>$key,'option'=>$list])
                             @endif
                         </form>
                     </div>
-
                     @push('scripts')
                         <script>
                             $("#tab_{!! $key !!} form").zoe_inputs('set', @json($_config));

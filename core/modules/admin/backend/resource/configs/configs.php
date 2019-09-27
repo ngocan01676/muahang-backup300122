@@ -16,18 +16,26 @@ return [
         ]
     ],
     'configs' => [
-        'system' => [
-            'view' => 'backend::configs.config',
-            'label' => z_language("System", false),
-            'data' => [
+        'templates'=>[
+            'category' => [
+                'view' => 'backend::configs.category',
+                'label' => z_language("Category", false),
+                'data' => [
 
+                ]
             ]
         ],
-        'category' => [
-            'view' => 'backend::configs.category',
-            'label' => z_language("Category", false),
-            'data' => [
+        'lists'=>[
+            'system' => [
+                'view' => 'backend::configs.config',
+                'label' => z_language("System", false),
+                'data' => [
 
+                ]
+            ],
+            'category'=>[
+                'template'=>'category',
+                'name'=>false
             ]
         ]
     ],

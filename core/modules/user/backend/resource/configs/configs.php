@@ -69,12 +69,14 @@ return [
         ]
     ],
     'configs' => [
-        'user' => [
-            'view' => 'user::configs.config',
-            'label' => z_language("Members", false),
-            'data' => [
+       'lists'=>[
+           'user' => [
+               'view' => 'user::configs.config',
+               'label' => z_language("Members", false),
+               'data' => [
 
-            ]
-        ]
+               ]
+           ]
+       ]
     ],
 ];
