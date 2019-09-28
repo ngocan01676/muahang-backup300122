@@ -54,7 +54,6 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                         $name = 'Module' . ucwords($module);
                         $class = '\\' . $name . '\\Module';
                         if ($object) {
-                            $object->install();
                             DB::table('module')->updateOrInsert(['name' => $module], [
                                 'version' => $class::$version,
                                 'data' => serialize(['require' => $class::$require]),
@@ -95,6 +94,20 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                     break;
                 case "remove":
 
+                    break;
+                case "export":
+                    $module = $data['module'];
+                    $object = $this->CreateModuleObject($module);
+                    if ($object) {
+                        $response['status'] = $object->export($data['step'],isset($data['data'])?$data['data']:[]);
+                    }
+                    break;
+                case "import":
+                    $module = $data['module'];
+                    $object = $this->CreateModuleObject($module);
+                    if ($object) {
+                        $response['status'] = $object->import($data['step']);
+                    }
                     break;
             }
         }

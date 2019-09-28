@@ -94,6 +94,7 @@ function ZoeImageResize($url, $resize_config = [], $action = true)
                     if (!File::exists($path)) {
                         File::makeDirectory($path);
                     }
+
                     $path = $path . '/' . $name;
                     if (!File::exists($path)) {
                         File::makeDirectory($path);
@@ -677,4 +678,10 @@ function extract_namespace($file)
         fclose($handle);
     }
     return $ns;
+}
+function saveFile($path, $contents, $lock = false){
+    if(empty($contents)){
+        return false;
+    }
+   return \File::put($path, $contents,$lock);
 }

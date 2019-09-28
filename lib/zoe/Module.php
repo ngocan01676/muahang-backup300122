@@ -58,10 +58,8 @@ abstract class Module
             }
         }
     }
-
-    public function install()
+    public function import($step = true,$data = [])
     {
-
         return true;
     }
 
@@ -69,5 +67,11 @@ abstract class Module
     {
 
         return true;
+    }
+    public function export($step = true,$data = []){
+        return true;
+    }
+    public function saveContent($content){
+
     }
 }

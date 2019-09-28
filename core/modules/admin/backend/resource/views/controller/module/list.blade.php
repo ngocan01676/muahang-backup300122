@@ -62,6 +62,21 @@
                                    data-module="{!! $module !!}">
                                     <i class="fa fa-remove"></i> {!! z_language('UnInstall') !!}
                                 </a>
+
+                                <a href="javascript:void(0);" class="btn btn-xs bg-orange btnAction"
+                                   data-act="export"
+                                   step="0"
+                                   data-module="{!! $module !!}">
+                                    <i class="fa fa-remove"></i> {!! z_language('Export') !!} (<strong>0</strong>)
+                                </a>
+
+                                <a href="javascript:void(0);" class="btn btn-xs bg-navy btnAction"
+                                   data-act="import"
+                                   step="0"
+                                   data-module="{!! $module !!}">
+                                    <i class="fa fa-remove"></i> {!! z_language('Import') !!} (<strong>0</strong>)
+                                </a>
+
                             </div>
                             <div class="app-install" @if(isset($lists_install[$module])) style="display:none" @endif>
                                 <a href="javascript:void(0);" class="btn bg-orange btn-xs  btnAction" data-act="remove"
@@ -110,19 +125,19 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
+            var countStep = 5;
             $(".btnAction").click(function () {
                 var self = this;
-
-
                 var box = $(this).closest('.box');
-
                 if ($(self).attr('process') === 1) {
                     return;
                 }
                 var plugin = box.find('.plugin');
                 var data = $(this).data();
                 var error = [];
-
+                if($(this).attr('step')){
+                    data.step = parseInt($(this).attr('step'));
+                }
                 if (data.act === "uninstall") {
 
                 } else {
@@ -139,9 +154,9 @@
                         }
                     });
                 }
+                console.log(data);
                 if (error.length === 0) {
                     $(self).attr('process', 1);
-
                     box.find('.icon').loading({circles: 3, overlay: true, width: "5em", top: "13%", left: "11%"});
                     var status = true;
                     ajax("{!! route('backend:module:ajax') !!}", function (json) {
@@ -151,15 +166,31 @@
                             if ((data.act === "uninstall") === status) {
                                 box.find('.app-install').fadeIn(3000);
                                 box.find('.app-uninstall').hide();
-                            } else {
+                            } else if((data.act === "export") === status){
+                                $(self).attr("step",0);
+                                $(self).find('strong').html(0);
+                            }else {
                                 box.find('.app-install').hide();
                                 box.find('.app-uninstall').fadeIn(3000);
                             }
                         } else {
-                            $.growl.error({message: json.status});
+                            if(data.hasOwnProperty('step')){
+                                if(json.status === false){
+                                    $.growl.error({message: json.status});
+                                }else if(json.status.hasOwnProperty){
+                                    $(self).attr("step",data.step+1);
+                                    $(self).data("data",json.status);
+                                    $(self).find('strong').html(data.step+1);
+
+                                    $(self).trigger('click');
+                                }
+                            }else{
+                                $.growl.error({message: json.status});
+                            }
                         }
                         $(self).attr('process', 0);
                     }, data);
+
                 } else {
                     $(self).notify(error.join("\n"));
                     $.growl.error({message: error.join("\n")});
