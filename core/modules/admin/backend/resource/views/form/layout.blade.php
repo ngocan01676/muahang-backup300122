@@ -373,7 +373,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
 
     <script src="{{asset('module/admin/bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('module/admin/assets/bootpopup/bootpopup.js')}}"></script>
+
 
     <script src="{{asset('module/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
 

@@ -77,6 +77,14 @@ class PluginController extends \Zoe\Http\ControllerBackend
                 case "remove":
 
                     break;
+                case "export":
+                    $object = $this->CreatePluginObject($data['plugin']);
+                    $response['status'] = $object->export($data['step'], isset($data['data']) ? $data['data'] : []);
+                    break;
+                case "import":
+                    $object = $this->CreatePluginObject($data['plugin']);
+                    $response['status'] = $object->import($data['step']);
+                    break;
             }
         }
         return response()->json($response);
@@ -106,7 +114,7 @@ class PluginController extends \Zoe\Http\ControllerBackend
                     "author" => $class::$author,
                     "require" => []
                 ];
-                foreach ($class::$require as $_plugin=> $_type) {
+                foreach ($class::$require as $_plugin => $_type) {
                     if (file_exists($relativePath . DIRECTORY_SEPARATOR . $_plugin . DIRECTORY_SEPARATOR . "Plugin.php")) {
                         $array[$plugin]["require"][$_plugin] = isset($this->data['lists_install'][$_plugin]) ? 1 : 0;
                     } else {

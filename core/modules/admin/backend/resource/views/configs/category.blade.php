@@ -20,7 +20,7 @@
                 @endphp
                 <select name="{!! $keyName !!}language.default" class="form-control">
                     @foreach($language as $k=>$_language)
-                        @if(!isset($config['language']['lists']) || in_array($k,$config['language']['lists']))
+                        @if(!isset($config['language']['lists']) || is_array($config['language']['lists']   )&&in_array($k,$config['language']['lists']))
                             <option value="{!! $_language['lang'] !!}">{!! $_language['label'] !!}</option>
                         @endif
                     @endforeach

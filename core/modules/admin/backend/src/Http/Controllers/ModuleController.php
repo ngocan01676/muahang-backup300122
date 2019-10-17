@@ -99,14 +99,20 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                     $module = $data['module'];
                     $object = $this->CreateModuleObject($module);
                     if ($object) {
-                        $response['status'] = $object->export($data['step'],isset($data['data'])?$data['data']:[]);
+                        $response['status'] = $object->export($data['step'], isset($data['data']) ? $data['data'] : []);
                     }
                     break;
                 case "import":
                     $module = $data['module'];
                     $object = $this->CreateModuleObject($module);
+                    DB::beginTransaction();
                     if ($object) {
                         $response['status'] = $object->import($data['step']);
+                    }
+                    if (isset($response['status']['error'])) {
+                        DB::rollBack();
+                    } else {
+                        DB::commit();
                     }
                     break;
             }
@@ -148,7 +154,7 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                         "system" => $system,
                         "require" => []
                     ];
-                    foreach ($class::$require as  $plugin) {
+                    foreach ($class::$require as $plugin) {
                         if (file_exists($relativePluginPath . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "Plugin.php")) {
                             $array[$module]["require"][$plugin] = isset($this->data['plugins'][$plugin]) ? 1 : 0;
                         } else {

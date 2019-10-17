@@ -8,21 +8,22 @@
     @breadcrumb()@endbreadcrumb
     <div class="plugins">
         @foreach($lists as $plugin=>$list)
-            <div class="item col-lg-4 col-sm-6 col-12">
+            <div class="item col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="box {!! $plugin !!}">
                     <div class="box-header with-border">
                         <i class="fa fa-bookmark" @if(isset($lists_install[$plugin])) style="color: green" @endif></i>
                         <h3 class="box-title">{!! $plugin !!}</h3>
-                        <div class="pull-right">v<strong>{!! $list['version'] !!}</strong></div>
+                        <div class="pull-right"> {!! $list['author'] !!}</div>
                     </div>
                     <div class="box-body">
-                        <div class="icon col-lg-3">
+                        <div class="icon col-lg-4">
                             <div style="position: relative">
                                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAMAAAAL34HQAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAEtQTFRFMjIypqamfn5+cnJy////5eXlZWVlPz8/8vLys7OzWVlZpaWlzMzM2NjYi4uLTExMmZmZ2dnZmJiY8/PzjIyMf39/v7+/5ubmsrKykB+XXAAAAwhJREFUeJztmNGCmyAQRaUSEZYUXEXz/19aZka0Nd3Y3eomD/c8JAtBuc5cBtyqAgAAAAAAAAAAAAAAAAAAAAAAAAAAr4z68WwFf6PW+tI8W8QdptVa2+dqcD/evL/oq/8ZSlfMqjrzTE1vF73yLp0h/9m7xxeemWLnF0U2xui14m6b28PjK4O+1KfJGkhQ39EnByfxFwXL/8OV6ixZptf9YOzqb0tTxaLyAeN+mv+DWmVjT3mK2e3RyzLcXYX+TFWMy8GJ1Sor5XZ4eEVG6XSuKjJ4X4rBlJPYfRysZolQzUPCeUWEclbMa7On3Bwsc9WeVCxKGv9bWJnQXk/TteYseD1SeuhTTG1Iacu1woy0XkepG07UjGXF1sfvoHPOTH0THb3WVJGoAtS8OXKEcuxy4Q8myJO05KyGhNJ3rsjXg1XRvW83T7PyfpN1TJWkliIxiVZWZSl2I+UuNxpajdyXyqVHYteth4oFtUvtakQ0BWtWEPhHK+WWfsuFhW/QH6zKkBy6sR9Cabs1WGQoIxnt2Ghkw17caFmyPNbOVvVpIk1vmuVh5xwOa7CsiKSC65YoRXmAKWdwjHLJoWTv/FEX5xzm7q7i5UBxme1PzST5LZ0px2l7iwPIdu23Mhsp/IlrBaeyky8rg0epINTp8opsJM+H4jfngCAzDzxVXVwjfkt6iWSSY0Zq1VrnDsRtzwpJ5hgph6FV4rCKM5rK8UfWHTWvVp7saMNbsdBKXOqBqjrl5vz0uXPoZ781Un5tKVZepB9I2G5yJIvmyNFSt45LAc2s9PvYuTmjTuzvy2kojx3c7onjM6i7894gHa6XTLmJJRjfR3YaW7vjIV7UyfbUHxqvYbsOKX7yrUbRm5a1b8t5x3CA47JWQkoHr0R1t4iS/mCo0RsPnXkMbO6i/9FROO6/djwB2n/OewP7Mq8ZLLd11ktgLie+rH4ZOpt2+8O+D05c3a7vt6/BcHkf6V8608mv0J+loWPzFPcHfjsvlT4AAAAAAAAAAAAAAAAAAAAAAAAAgNfgF3lnHa/qgc/3AAAAAElFTkSuQmCC"
                                      class="img-thumbnail img-responsive img-rounded" alt="Responsive Image"/>
+                                <span style="position: absolute;bottom: 5px;right: 10px;color: #ffffff">v<strong>{!! $list['version'] !!}</strong></span>
                             </div>
                         </div>
-                        <div class="info col-lg-9" style="position: relative">
+                        <div class="info col-lg-8" style="position: relative">
                             <div class="description">
                                 {!! $list['description'] !!}
                             </div>
@@ -41,12 +42,22 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        <div class="step col-lg-5">
-                            <div class="author"><i>{!! $list['author'] !!}</i></div>
-                        </div>
-                        <div class="actions col-lg-7 text-right">
+                        <div class="actions col-lg-12 text-right">
                             <div class="app-uninstall" @if(!isset($lists_install[$plugin])) style="display:none" @endif>
-                                <a href="javascript:void(0);" class="btn btn-xs btn-danger btnAction"
+                                <a href="javascript:void(0);" class="btn btn-xs bg-orange btnAction pull-left"
+                                   data-act="export"
+                                   step="0"
+                                   data-plugin="{!! $plugin !!}">
+                                    <i class="fa fa-cloud-download"></i> {!! z_language('Export') !!}
+                                    (<strong>0</strong>)
+                                </a>
+                                <a href="javascript:void(0);" class="btn btn-xs bg-navy btnAction pull-left"
+                                   data-act="import"
+                                   step="0"
+                                   data-plugin="{!! $plugin !!}">
+                                    <i class="fa fa-cloud-upload"></i> {!! z_language('Import') !!} (<strong>0</strong>)
+                                </a>
+                                <a href="javascript:void(0);" class="btn btn-xs btn-danger btnAction pull-right"
                                    data-act="uninstall"
                                    data-plugin="{!! $plugin !!}">
                                     <i class="fa fa-remove"></i> {!! z_language('UnInstall') !!}
@@ -119,6 +130,10 @@
                 console.log(plugin);
                 var data = $(this).data();
                 var error = [];
+
+                if ($(this).attr('step')) {
+                    data.step = parseInt($(this).attr('step'));
+                }
                 if (data.act === "uninstall") {
                     var listPlugin = $(".plu_" + data.plugin);
                     var msg = "";
@@ -169,24 +184,38 @@
                 if (error.length === 0) {
                     $(self).attr('process', 1);
                     box.find('.icon').loading({circles: 3, overlay: true, width: "5em", top: "13%", left: "11%"});
-
                     var status = true;
-
                     ajax("{!! route('backend:plugin:ajax') !!}", function (json) {
                         box.find('.icon').loading({destroy: true});
                         if (json.status === true) {
                             if ((data.act === "uninstall") === status) {
                                 box.find('.app-install').fadeIn(3000);
                                 box.find('.app-uninstall').hide();
+                            } else if ($(self).attr("step")) {
+                                $(self).attr("step", 0);
+                                $(self).find('strong').html(0);
                             } else {
                                 box.find('.app-install').hide();
                                 box.find('.app-uninstall').fadeIn(3000);
                             }
                         } else {
-                            $(self).notify(json.status, {position: "left"});
+                            if (data.hasOwnProperty('step')) {
+                                if (json.status.hasOwnProperty) {
+                                    if (json.status.hasOwnProperty('error')) {
+                                        $(self).notify(json.status.error, {position: "left"});
+                                    } else {
+                                        $(self).attr("step", data.step + 1);
+                                        $(self).data("data", json.status);
+                                        $(self).find('strong').html(data.step + 1);
+                                        $(self).trigger('click');
+                                    }
+                                }
+                            } else {
+                                $(self).notify(json.status, {position: "left"});
+                            }
                         }
                         $(self).attr('process', 0);
-                    }, {act: data.act, plugin: data.plugin});
+                    }, data);
 
                 } else {
 

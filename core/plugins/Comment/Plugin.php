@@ -7,6 +7,7 @@ use Zoe\Module as ZModule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Admin\Lib\Database;
 
 class Plugin extends ZModule
 {
@@ -19,7 +20,6 @@ class Plugin extends ZModule
 
     public function install()
     {
-
         try {
             Schema::create('comments', function (Blueprint $table) {
                 $table->increments('id');
@@ -40,10 +40,85 @@ class Plugin extends ZModule
     public function uninstall()
     {
         try {
-            Schema::dropIfExists('comments');
+
+            $tables = ['plugin_comments'];
+            foreach ($tables as $table) {
+                Schema::dropIfExists($table);
+            }
+            DB::table('config')->where('name', 'Comment')->delete();
             return true;
         } catch (\Exception $ex) {
             return $ex->getMessage();
         }
     }
+
+    public function import($step = true, $data = [])
+    {
+        $action = [];
+        try {
+
+            $path = storage_path('zoe/export/plugins/Comment');
+            $pathSql = $path . '/sql';
+
+            if ($step == 0) {
+
+                Database::addFileRow($pathSql . '/config.sql', 'config');
+                return ["step" => $step + 1, 'status' => true];
+            } else if ($step == 1) {
+                $datas = include $path . '/create_table.php';
+                return ["step" => $step + 1, 'action' => $action, 'status' => Database::createTable($datas)];
+            }
+            return true;
+        } catch (\Exception $ex) {
+            return ['error' => $ex->getMessage(), 'action' => $action];
+        }
+    }
+
+    public function export($step = true, $data = [])
+    {
+        $path = storage_path('zoe/export/plugins/Comment');
+        $pathSql = $path . '/sql';
+        $import = [
+            "sql" => [],
+            "table" => []
+        ];
+        if (\File::exists($path . '/import.json')) {
+            $import = json_decode(\File::get($path . '/import.json'), true);
+        }
+        $return = true;
+        $errors = "";
+        if ($step == 0) {
+            $import = [
+                "sql" => [],
+                "table" => []
+            ];
+            if (!\File::exists($path)) {
+                \File::makeDirectory($path);
+            }
+            if (!\File::exists($pathSql)) {
+                \File::makeDirectory($pathSql);
+            }
+            $config[] = DB::table('config')->where('name', 'Comment')->get();
+            saveFile($pathSql . '/config.sql', \Admin\Lib\Database::rows($config, ['id']));
+            $return = [
+                "step" => $step + 1,
+                "data" => [
+
+                ]
+            ];
+        } else if ($step == 1) {
+            Database::createFileTable($path, ['plugin_comments']);
+            $return = [
+                "step" => $step + 1,
+                "data" => [
+
+                ]
+            ];
+        }
+        if (is_array($return) && !empty($errors)) {
+            $return['error'] = $errors;
+        }
+        return $return;
+    }
+
 }

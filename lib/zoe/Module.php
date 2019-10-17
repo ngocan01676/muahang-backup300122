@@ -9,6 +9,8 @@ abstract class Module
     public static $version = "1.0.0";
     public static $author = "Manh Trung";
     public static $require = [];
+    public static $dev = false;
+
     public function __construct()
     {
         $this->Init();
@@ -58,7 +60,13 @@ abstract class Module
             }
         }
     }
-    public function import($step = true,$data = [])
+
+    public function install()
+    {
+        return true;
+    }
+
+    public function import($step = true, $data = [])
     {
         return true;
     }
@@ -68,10 +76,14 @@ abstract class Module
 
         return true;
     }
-    public function export($step = true,$data = []){
+
+    public function export($step = true, $data = [])
+    {
         return true;
     }
-    public function saveContent($content){
+
+    public function saveContent($content)
+    {
 
     }
 }

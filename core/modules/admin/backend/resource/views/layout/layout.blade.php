@@ -443,7 +443,7 @@
 <script src="{{asset('module/admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 <!-- FastClick -->
 <script src="{{asset('module/admin/bower_components/fastclick/lib/fastclick.js')}}"></script>
-
+<script src="{{asset('module/admin/assets/bootpopup/bootpopup.js')}}"></script>
 <script src="{{asset('module/admin/assets/loadding/js/jquery-loading.js')}}"></script>
 
 <script src="{{asset('module/admin/assets/jquery.growl/javascripts/jquery.growl.js')}}"></script>
