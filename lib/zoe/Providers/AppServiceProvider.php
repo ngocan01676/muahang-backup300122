@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Compilers\BladeCompiler;
 use Appstract\BladeDirectives\DirectivesRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -31,8 +32,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-
+//        \Debugbar::enable();
+//        DB::listen(function ($query) {
+//           // echo $query->sql;
+//            // $query->sql
+//            // $query->bindings
+//            // $query->time
+//        });
         $this->app->key = md5(config('app.key'));
         $this->app->ReadCache();
 
@@ -79,11 +85,11 @@ class AppServiceProvider extends ServiceProvider
             return '<?php echo asset("' . $expr . '") ?>';
         });
         Blade::directive('ImgZoeImage', function ($expr) {
-           return Blade_ImgZoeImage($expr);
+            return Blade_ImgZoeImage($expr);
         });
         Blade::directive('ZoeImage', function ($expr) {
             $isBool = 'true';
-            $par = $expr.',$config,'.$isBool;
+            $par = $expr . ',$config,' . $isBool;
             //$url,[],$action,false,$option
             return '<?php echo ZoeImage(' . $par . ') ?>';
         });
@@ -105,7 +111,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('z_include', function ($parameters) {
             return '<?php require_once(base_path("' . $parameters . '")); ?>';
         });
-
 
 
         Blade::directive('function', function ($expression) {
@@ -139,6 +144,7 @@ class AppServiceProvider extends ServiceProvider
             return "<?php } ?>";
         });
     }
+
     public function InitModules()
     {
         if (isset($this->config_zoe ['modules'])) {

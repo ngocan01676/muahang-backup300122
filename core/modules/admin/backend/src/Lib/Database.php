@@ -7,6 +7,18 @@ use Illuminate\Support\Facades\Schema;
 
 class Database
 {
+    public static function lists_table()
+    {
+        $tables = [];
+        $db_tables = DB::select('SHOW TABLES');
+        foreach ($db_tables as $table) {
+            foreach ($table as $_table) {
+                $tables[$_table] = 1;
+            }
+        }
+        return $tables;
+    }
+
     public static function row($table, $datas, $cols = ['id'])
     {
         $StrValue = "(";
@@ -82,8 +94,9 @@ class Database
     public static function createTable($datas)
     {
         if (is_array($datas)) {
+            $lists_table = static::lists_table();
             foreach ($datas as $table => $sql) {
-                if (!Schema::hasTable(DB::getTablePrefix() . $table)) {
+                if (!isset($lists_table[DB::getTablePrefix() . $table])) {
                     $action[$table] = str_replace("@TABLE@", ' IF NOT EXISTS `' . DB::getTablePrefix() . $table . '`', $sql);
                     DB::statement($action[$table]);
                 }
@@ -98,9 +111,10 @@ class Database
         $sql = [];
         $errors = "";
 
+        $lists_table = static::lists_table();
         foreach ($tables as $table) {
             $_table = DB::getTablePrefix() . $table;
-            if (Schema::hasTable($_table)) {
+            if (isset($lists_table[$_table])) {
                 $rs = DB::select("SHOW CREATE TABLE " . $_table);
                 foreach ($rs[0] as $key => $value) {
                     if ($key != "Table") {
@@ -116,6 +130,24 @@ class Database
         return $errors;
     }
 
+    public static function createRowTable($path, $tables)
+    {
+        $lists_table = static::lists_table();
+        $data = ['errors' => '', 'sqls' => []];
+        foreach ($tables as $table) {
+            $_table = DB::getTablePrefix() . $table;
+            if (isset($lists_table[$_table])) {
+                $rs = DB::table($table)->get();
+                $data['sqls'][$table] = "insert";
+                saveFile($path . '/' . $table . '.sql', \Admin\Lib\Database::rows([$rs]));
+            } else {
+                $data['errors'] .= "table " . $table . ' not exits!';
+                break;
+            }
+        }
+        return $data;
+    }
+
     public static function addFileRow($fileSql, $table, $typeInsert = "REPLACE")
     {
         if (\File::exists($fileSql)) {
@@ -129,5 +161,15 @@ class Database
         return false;
     }
 
+    public static function dropIfExists($tables)
+    {
+        $lists_table = static::lists_table();
+        foreach ($tables as $table) {
+            $_table = DB::getTablePrefix() . $table;
+            if (isset($lists_table[$_table])) {
+                Schema::dropIfExists($_table);
+            }
+        }
+    }
 
 }

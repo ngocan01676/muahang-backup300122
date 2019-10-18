@@ -31,6 +31,7 @@ class Application extends App
     public $key = "";
     private $_agent;
     public $_theme;
+
     public function __construct(?string $basePath = null)
     {
         $this->_agent = new Agent();
@@ -72,9 +73,12 @@ class Application extends App
             return $data;
         });
     }
-    public  function getTheme(){
+
+    public function getTheme()
+    {
         return $this->_theme;
     }
+
     public function getAgent()
     {
         return $this->_agent;
