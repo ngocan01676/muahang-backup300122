@@ -293,7 +293,7 @@ class LayoutBlade extends Layout
                 $zlang = "' . $nameLang . '";
                 if(!function_exists("zlang")){
                     function zlang($key,$par = []){
-                        $key = e($key);
+                       // $key = e($key);
                         return "@zlang(\"".preg_replace(\'/\s+/\', \' \',str_replace("\r\n","",$key))."\")";
                     } 
                  }
@@ -302,9 +302,9 @@ class LayoutBlade extends Layout
             $string_if = '';
             $string_var = '';
             foreach ($this->langs as $key => $value) {
-                $string_var .= '$_' . md5($key) . '_ = ' . (var_export($value, true)) . ';' . PHP_EOL;
-                $string_if .= 'if(isset($_' . md5($key) . '_[$_lang_name_][$key])){' . PHP_EOL;
-                $string_if .= ' $html = $_' . md5($key) . '_[$_lang_name_][$key];' . PHP_EOL;
+                $string_var .= '$_' . md5($key) . '_ = ' . (var_export(convertArrayToDot($value), true)) . ';' . PHP_EOL;
+                $string_if .= 'if(isset($_' . md5($key) . '_[$_lang_name_.".".$key])){' . PHP_EOL;
+                $string_if .= ' $html = $_' . md5($key) . '_[$_lang_name_.".".$key];' . PHP_EOL;
                 $string_if .= '}else';
             }
             if (empty($string_if)) {
@@ -322,7 +322,7 @@ class LayoutBlade extends Layout
                 if(!function_exists("' . $nameLang . '")){
                     function ' . $nameLang . '($key,$par = []){
                             $key = preg_replace(\'/\s+/\', \' \',str_replace("\r\n","",$key));
-                         
+                            $key = e($key);
                             $_lang_name_ = app()->getLocale();
                              ' . $string_lang . '
                             if(isset($par)){
@@ -360,6 +360,7 @@ class LayoutBlade extends Layout
                 if (!isset($this->langs[$i . $key])) {
                     $this->langs[$i . $key] = [];
                 }
+
                 foreach ($langs as $lang => $vals) {
                     foreach ($vals as $k => $v) {
                         $this->langs[$i . $key][$lang][$k] = $v;

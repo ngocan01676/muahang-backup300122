@@ -22,3 +22,8 @@ function tag_zlang($key, $__env)
     ↵<?php endfor; ?>↵        <?php } ?>↵
 <?php func_1565491817_9783_9788(array('name' => 'Content Theme', 'count' => '5'), $__env); ?>
 "
+$str =  ("Comes with 5 color schemes and it's easy to make your own!");
+$a = htmlspecialchars($str,ENT_QUOTES);
+var_dump($str);
+var_dump($a);
+var_dump(htmlspecialchars_decode($a,ENT_QUOTES));

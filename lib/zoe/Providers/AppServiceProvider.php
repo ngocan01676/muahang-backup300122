@@ -100,7 +100,10 @@ class AppServiceProvider extends ServiceProvider
             return "<?php print_r({$expr}); ?>";
         });
         Blade::directive('zlang', function ($parameters) {
-            return '<?php echo $zlang(' . $parameters . ') ?>';
+            return '<?php echo $zlang(' . ($parameters) . '); ?>';
+        });
+        Blade::directive('zlang_e', function ($parameters) {
+            return '<?php echo $zlang(' . e($parameters) . ') ?>';
         });
         Blade::directive('z_language', function ($parameters) {
             return 'call_user_func_array("z_language",' . $parameters . ')';
@@ -291,6 +294,7 @@ class AppServiceProvider extends ServiceProvider
                                 $data["packages"]["namespaces"][$namespaces] = $absolute_path . "/" . $_path . "/src";
                             }
                         }
+
                         $this->app->getConfig()->add($data);
                     }
                 }

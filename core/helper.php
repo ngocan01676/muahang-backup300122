@@ -685,3 +685,51 @@ function saveFile($path, $contents, $lock = false){
     }
    return \File::put($path, $contents,$lock);
 }
+/*
+$myArray = array(
+    'key1' => 'value1',
+    'key2' => array(
+        'subkey' => 'subkeyval'
+    ),
+    'key3' => 'value3',
+    'key4' => array(
+        'subkey4' => array(
+            'subsubkey4' => 'subsubkeyval4',
+            'subsubkey5' => 'subsubkeyval5',
+        ),
+        'subkey5' => 'subkeyval5'
+    ),
+    'key5'=>[
+        1,2,3,4,["abc"=>["def"=>"ghj"]]
+    ]
+);
+*/
+function convertArrayToDot($myArray = []){
+    $ritit = new RecursiveIteratorIterator(new RecursiveArrayIterator($myArray));
+    $result = array();
+    foreach ($ritit as $leafValue) {
+        $keys = array();
+        foreach (range(0, $ritit->getDepth()) as $depth) {
+            $keys[] = $ritit->getSubIterator($depth)->key();
+        }
+        $result[ join('.', $keys) ] = $leafValue;
+    }
+    return $result;
+}
+function convertDotToArray($array) {
+    $newArray = array();
+    foreach($array as $key => $value) {
+        $dots = explode(".", $key);
+        if(count($dots) > 1) {
+            $last = &$newArray[ $dots[0] ];
+            foreach($dots as $k => $dot) {
+                if($k == 0) continue;
+                $last = &$last[$dot];
+            }
+            $last = $value;
+        } else {
+            $newArray[$key] = $value;
+        }
+    }
+    return $newArray;
+}
