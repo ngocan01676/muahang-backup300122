@@ -34,7 +34,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
     public function ajaxFormSave(Request $request)
     {
         $items = $request->all();
-        $items = isset($items['data'])?json_decode($items['data'],true):[];
+        $items = isset($items['data']) ? json_decode($items['data'], true) : [];
 
         $this->table()
             ->updateOrInsert(
@@ -46,18 +46,34 @@ class LanguageController extends \Zoe\Http\ControllerBackend
 
         if (isset($items['lang'])) {
             $data = [];
+            $dataLangs = [];
             foreach ($items['lang'] as $lang => $item) {
-                foreach ($item as $_item) {
-
+                foreach ($item as $key => $_item) {
                     if (!isset($data[$lang])) {
                         $data[$lang] = [];
                     }
                     $v = $_item['value'];
                     $k = $_item['name'];
                     $data[$lang][$k] = $v;
+                    if (!isset($dataLangs[$_item['key']])) {
+                        $dataLangs[$_item['key']] = [];
+                    }
+                    if (!isset($dataLangs[$_item['key']][$lang])) {
+                        $dataLangs[$_item['key']][$lang] = [];
+                    }
+                    $dataLangs[$_item['key']][$lang][$key] = $_item;
                 }
             }
-            echo json_encode($data);
+            foreach ($dataLangs as $key => $item) {
+                $this->table()
+                    ->updateOrInsert(
+                        [
+                            'name' => $key,
+                            'type' => 'language'
+                        ],
+                        ['data' => serialize($items)]);
+            }
+            echo json_encode($dataLangs);
             Cache::forever("language:data", $data);
         }
     }
@@ -116,13 +132,25 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         $array = [
 
         ];
-        foreach ($results as $_file) {
-            $string_blade = $file->get($_file);
+        $system_modules = config('zoe.modules');
+        $modules = DB::table('module')
+            ->select()->where('status', 1)->pluck('name')->all();
+        $plugins = config_get('plugin', 'lists');
 
+        foreach ($results as $_file) {
             $name = str_replace(base_path(), "", $_file);
             $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
-
+            if (count($sub_path) > 2) {
+                if (
+                    $sub_path[1] == "modules" && !in_array($sub_path[2], $system_modules) && !in_array($sub_path[2], $modules) ||
+                    $sub_path[1] == "plugins" && !isset($plugins[$sub_path[2]])
+                ) {
+                    continue;
+                }
+            }
+            $string_blade = $file->get($_file);
             $array = array_merge($array, static::lang($string_blade, $sub_path));
+
 //            preg_match_all('/z_language\((.*?)\)/', $string_blade, $match);
 //            if (isset($match[1])) {
 //                foreach ($match[1] as $val) {
@@ -145,15 +173,51 @@ class LanguageController extends \Zoe\Http\ControllerBackend
 //                }
 //            }
         }
-        $rs = $this->table()->where([
-            'name' => 'language',
-            'type' => 'data'
-        ])->first();
 
-        $data = [];
-        if ($rs && !empty($rs->data)) {
-            $data = unserialize($rs->data);
+//        $rs = $this->table()->where([
+//            'name' => 'language',
+//            'type' => 'data'
+//        ])->first();
+//
+//        $data = [];
+//        if ($rs && !empty($rs->data)) {
+//            $data = unserialize($rs->data);
+//        }
+
+
+        $rs = $this->table()->where([
+            'type' => 'language'
+        ])->get();
+
+        $langs = new \Zoe\Config();
+        foreach ($rs as $k => $v) {
+            $langs->add(unserialize($v->data));
         }
-        return $this->render('language.list', ['lists' => $array, 'language_data' => $language_data, 'data' => $data]);
+        $data = $langs->getArrayCopy();
+//        $datas = [];
+//        foreach ($langs->lang as $lang => $langs) {
+//            if (!isset($datas[$lang])) {
+//                $datas[$lang] = [];
+//            }
+//            foreach ($langs as $val) {
+//                if (!isset($datas[$lang][$val['key']])) {
+//                    $datas[$lang][$val['key']] = [];
+//                }
+//                $datas[$lang][$val['key']] = $val;
+//            }
+//        }
+
+        $lists = [];
+        foreach ($array as $k => $value) {
+            $key = $value['path'][1] . "." . $value['path'][2];
+            if (!isset($lists[$value['path'][1]])) {
+                $lists[$value['path'][1]] = [];
+            }
+            if (!isset($lists[$value['path'][1]][$value['path'][2]])) {
+                $lists[$value['path'][1]][$value['path'][2]] = [];
+            }
+            $lists[$value['path'][1]][$value['path'][2]] [$k] = $value;
+        }
+        return $this->render('language.list', ['langs' => $lists, 'lists' => $array, 'language_data' => $language_data, 'data' => $data]);
     }
 }

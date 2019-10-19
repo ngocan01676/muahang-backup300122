@@ -107,7 +107,7 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                     $object = $this->CreateModuleObject($module);
                     DB::beginTransaction();
                     if ($object) {
-                        $response['status'] = $object->import($data['step']);
+                        $response['status'] = $object->import($data['step'], isset($data['configs']) ? $data['configs'] : []);
                     }
                     if (isset($response['status']['error'])) {
                         DB::rollBack();
@@ -144,15 +144,21 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                     $name = 'Module' . ucwords($module);
                 }
                 $class = '\\' . $name . '\\Module';
-                if (class_exists($class)) {
 
+                if (class_exists($class)) {
+                    $pathModule = storage_path('zoe/export/modules/' . $module);
+                    $configs = [];
+                    if (\File::exists($pathModule . '/configs.json')) {
+                        $configs = json_decode(\File::get($pathModule . '/configs.json'), true);
+                    }
                     $array[$module] = [
                         "name" => $class::$name ? $class::$name : $module,
                         "description" => $class::$description ? $class::$description : $module,
                         "version" => $class::$version,
                         "author" => $class::$author,
                         "system" => $system,
-                        "require" => []
+                        "require" => [],
+                        "configs" => $configs
                     ];
                     foreach ($class::$require as $plugin) {
                         if (file_exists($relativePluginPath . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "Plugin.php")) {

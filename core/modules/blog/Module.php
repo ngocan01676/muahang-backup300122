@@ -26,10 +26,16 @@ class Module extends ZModule
     {
         $action = [];
         try {
-
-            $path = storage_path('zoe/export/modules/blog');
+            $pathModule = storage_path('zoe/export/modules/blog');
+            $configs = [];
+            if (\File::exists($pathModule . '/configs.json')) {
+                $configs = json_decode(\File::get($pathModule . '/configs.json'), true);
+            }
+            if (!isset($data['name'])) {
+                return ['error' => '100', 'data' => $data];
+            }
+            $path = $pathModule . "/" . $data['name'];
             $pathSql = $path . '/sql';
-
             if ($step == 0) {
                 Database::addFileRow($pathSql . '/config.sql', 'config');
                 Database::addFileRow($pathSql . '/categories.sql', 'categories');
@@ -55,11 +61,14 @@ class Module extends ZModule
     {
         try {
             $tables = ['blog_post', 'blog_post_category', 'blog_post_translation'];
-            foreach ($tables as $table) {
-                Schema::dropIfExists($table);
-            }
+
+            Database::dropIfExists($tables);
 
             DB::table('config')->where('name', 'blog')->delete();
+            DB::table('config')->where('name', 'core-modules-blog')
+                ->where('type', 'language')
+                ->delete();
+
             DB::table("categories")->where('type', 'blog:category')->delete();
             DB::table('layout')->where('type_group', 'blog')->delete();
             DB::table("tag")->where('type', 'blog:post')->delete();
@@ -72,22 +81,39 @@ class Module extends ZModule
 
     public function export($step = true, $data = [])
     {
-        $path = storage_path('zoe/export/modules/blog');
+        $pathModule = storage_path('zoe/export/modules/blog');
+
+        if (!\File::exists($pathModule)) {
+            \File::makeDirectory($pathModule);
+        }
+        $configs = ['dates' => []];
+        if (\File::exists($pathModule . '/configs.json')) {
+            $configs = json_decode(\File::get($pathModule . '/configs.json'), true);
+        }
+        $date = date('Y-m-d') . "-" . (date('h')) . "h";
+        $configs['date'] = $date;
+        $configs['dates'][$date] = $date;
+        $path = $pathModule . '/' . $date;
+
         $pathSql = $path . '/sql';
         $import = [
             "sql" => [],
             "table" => []
         ];
+
         if (\File::exists($path . '/import.json')) {
             $import = json_decode(\File::get($path . '/import.json'), true);
         }
+
         $return = true;
         $errors = "";
         if ($step == 0) {
+
             $import = [
                 "sql" => [],
                 "table" => []
             ];
+
             if (!\File::exists($path)) {
                 \File::makeDirectory($path);
             }
@@ -97,17 +123,25 @@ class Module extends ZModule
             $import['sql']['1'] = [];
 
             $config[] = DB::table('config')->where('name', 'blog')->get();
+
             $config[] = DB::table('config')->where('name', 'blog:category')->get();
+            $config[] = DB::table('config')
+                ->where('name', 'core-modules-blog')
+                ->where('type', 'language')
+                ->get();
+
 
             saveFile($pathSql . '/config.sql', \Admin\Lib\Database::rows($config, ['id']));
             $import['sql']["1"]['config'] = "REPLACE";
 
             $categories = DB::table("categories")->where('type', 'blog:category')->get();
             saveFile($pathSql . '/categories.sql', \Admin\Lib\Database::rows([$categories]));
+
             $import['sql']["1"]['categories'] = "REPLACE";
 
             $config = DB::table('layout')->where('type_group', 'blog')->get();
             saveFile($pathSql . '/layout.sql', \Admin\Lib\Database::rows([$config]));
+
             $import['sql']["1"]['layout'] = "REPLACE";
 
             $tag = DB::table("tag")->where('type', 'blog:post')->get();
@@ -127,20 +161,9 @@ class Module extends ZModule
             ];
         } else if ($step == 2) {
             $tables = ['blog_post', 'blog_post_category', 'blog_post_translation'];
-
-            $import['sql']['2'] = [];
-
-            foreach ($tables as $table) {
-                $_table = DB::getTablePrefix() . $table;
-                if (Schema::hasTable($_table)) {
-                    $rs = DB::table($table)->get();
-                    $import['sql']['2'][$table] = "insert";
-                    saveFile($pathSql . '/' . $table . '.sql', \Admin\Lib\Database::rows([$rs]));
-                } else {
-                    $errors = "table " . $table . ' not exits!';
-                    break;
-                }
-            }
+            $data = Database::createRowTable($pathSql, $tables);
+            $import['sql']['2'] = $data['sqls'];
+            $errors = $data['errors'];
             $return = [
                 "step" => $step + 1,
                 "data" => [
@@ -149,6 +172,7 @@ class Module extends ZModule
             ];
         }
         saveFile($path . '/import.json', json_encode($import));
+        saveFile($pathModule . '/configs.json', json_encode($configs));
         if (is_array($return) && !empty($errors)) {
             $return['error'] = $errors;
         }
