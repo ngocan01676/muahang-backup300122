@@ -26,7 +26,15 @@ class Module extends ZModule
     {
         $action = [];
         try {
-            $path = storage_path('zoe/export/modules/blog');
+            $pathModule = storage_path('zoe/export/modules/blog');
+            $configs = [];
+            if (\File::exists($pathModule . '/configs.json')) {
+                $configs = json_decode(\File::get($pathModule . '/configs.json'), true);
+            }
+            if (!isset($data['name'])) {
+                return ['error' => '100', 'data' => $data];
+            }
+            $path = $pathModule . "/" . $data['name'];
             $pathSql = $path . '/sql';
             if ($step == 0) {
                 Database::addFileRow($pathSql . '/config.sql', 'config');

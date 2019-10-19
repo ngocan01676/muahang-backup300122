@@ -54,6 +54,7 @@
                 <div class="box-footer">
 
                     <div class="actions col-lg-12">
+
                         @if($list['system'] == false)
                             <div class="app-uninstall" @if(!isset($lists_install[$module])) style="display:none" @endif>
                                 <a href="javascript:void(0);" class="btn btn-xs btn-danger btnAction pull-right"
@@ -72,7 +73,9 @@
                                 <a href="javascript:void(0);" class="btn btn-xs bg-navy btnAction pull-left"
                                    data-act="import"
                                    step="0"
-                                   data-module="{!! $module !!}">
+                                   data-module="{!! $module !!}"
+                                   configs='@json($list["configs"])'
+                                >
                                     <i class="fa fa-cloud-upload"></i> {!! z_language('Import') !!} (<strong>0</strong>)
                                 </a>
                             </div>
@@ -142,6 +145,10 @@
                     data.step = parseInt($(this).attr('step'));
                 } else {
 
+                }
+                var configs = {};
+                if (typeof $(this).attr('configs') !== typeof undefined && $(this).attr('configs') !== false) {
+                    configs = JSON.parse($(this).attr('configs'));
                 }
 
                 var action = function (oke) {
@@ -214,13 +221,46 @@
                     }
                 };
                 if (data.hasOwnProperty('step') && data.step === 0) {
-                    bootpopup.confirm(
-                        "Do you confirm this message?",
-                        "Confirm this message",
-                        function (ans) {
-                            action(ans);
-                        }
-                    );
+                    var content = [];
+                    if (data.act === "import") {
+                        const ordered = {};
+                        Object.keys(configs.dates).sort(function (a, b) {
+                            return parseInt(b.replace(/[^0-9]/g, '')) - parseInt(a.replace(/[^0-9]/g, ''));
+                        }).forEach(function (key) {
+                            ordered[key] = configs.dates[key];
+                        });
+                        content.push({select: {label: "Lists Backup", name: "name", options: ordered}});
+                    } else if (data.act === "export") {
+                        content.push({p: {text: "Do you confirm this message?"}},)
+                    }
+                    if (content.length > 0) {
+                        bootpopup({
+                            title: data.act,
+                            content: content,
+                            cancel: function (data, array, event) {
+
+                            },
+                            ok: function (_data, array, event) {
+                                data.configs = _data;
+                                action(true);
+                            },
+                            complete: function () {
+
+                            },
+                        });
+                    } else {
+                        action(true);
+                    }
+
+//                    bootpopup(
+//                        [
+//                            {label: "A select", type: "select", name: "select", options: {a: "A", b: "B", c: "C"}},
+//                        ],
+//                        "Confirm this message",
+//                        function (ans) {
+//                            action(ans);
+//                        }
+//                    );
                 } else {
                     action(true);
                 }

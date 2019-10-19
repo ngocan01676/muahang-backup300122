@@ -132,12 +132,23 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         $array = [
 
         ];
-        foreach ($results as $_file) {
-            $string_blade = $file->get($_file);
+        $system_modules = config('zoe.modules');
+        $modules = DB::table('module')
+            ->select()->where('status', 1)->pluck('name')->all();
+        $plugins = config_get('plugin', 'lists');
 
+        foreach ($results as $_file) {
             $name = str_replace(base_path(), "", $_file);
             $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
-
+            if (count($sub_path) > 2) {
+                if (
+                    $sub_path[1] == "modules" && !in_array($sub_path[2], $system_modules) && !in_array($sub_path[2], $modules) ||
+                    $sub_path[1] == "plugins" && !isset($plugins[$sub_path[2]])
+                ) {
+                    continue;
+                }
+            }
+            $string_blade = $file->get($_file);
             $array = array_merge($array, static::lang($string_blade, $sub_path));
 
 //            preg_match_all('/z_language\((.*?)\)/', $string_blade, $match);
