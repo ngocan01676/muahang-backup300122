@@ -22,42 +22,55 @@ class Module extends ZModule
         $this->path = __DIR__;
     }
 
-    public function import($step = true, $data = [])
+    public function import($step = true, $settings = [], $datas = [])
     {
         $action = [];
+        $return = true;
+        $errors = "";
         try {
             $pathModule = storage_path('zoe/export/modules/blog');
             $configs = [];
-            if (\File::exists($pathModule . '/configs.json')) {
-                $configs = json_decode(\File::get($pathModule . '/configs.json'), true);
+            if (\File::exists($pathModule . '/import.json')) {
+                $configs = json_decode(\File::get($pathModule . '/import.json'), true);
             }
-            if (!isset($data['name'])) {
-                return ['error' => '100', 'data' => $data];
+            if (!isset($settings['name'])) {
+                return ['error' => '100', 'data' => $settings];
             }
-            $path = $pathModule . "/" . $data['name'];
+            $path = $pathModule . "/" . $settings["configs"]['name'];
             $pathSql = $path . '/sql';
             if ($step == 0) {
                 Database::addFileRow($pathSql . '/config.sql', 'config');
                 Database::addFileRow($pathSql . '/categories.sql', 'categories');
                 Database::addFileRow($pathSql . '/layout.sql', 'layout');
                 Database::addFileRow($pathSql . '/tag.sql', 'tag');
-                return ["step" => $step + 1, 'status' => true];
+                $return = ["step" => $step + 1, 'status' => true];
             } else if ($step == 1) {
                 $datas = include $path . '/create_table.php';
-                return ["step" => $step + 1, 'action' => $action, 'status' => Database::createTable($datas)];
+                $return = ["step" => $step + 1, 'action' => $action, 'status' => Database::createTable($datas)];
             } else if ($step == 2) {
                 $tables = ['blog_post', 'blog_post_category', 'blog_post_translation'];
-                foreach ($tables as $table) {
-                    Database::addFileRow($pathSql . '/' . $table . '.sql', $table);
-                }
+
+                $data = Database::addFileRows($pathSql, $tables, $datas, $settings);
+
+
+                $errors = $data['errors'];
+                $return = [
+                    "step" => $step + $data['step'],
+                    "data" => $data,
+                    "configs" => $datas,
+                    'settings' => $settings
+                ];
             }
-            return true;
+            if (is_array($return) && !empty($errors)) {
+                $return['error'] = $errors;
+            }
+            return $return;
         } catch (\Exception $ex) {
             return ['error' => $ex->getMessage(), 'action' => $action];
         }
     }
 
-    public function uninstall($func = null, $data = [])
+    public function uninstall($func = null, $posts = [])
     {
         try {
             $tables = ['blog_post', 'blog_post_category', 'blog_post_translation'];
@@ -79,7 +92,7 @@ class Module extends ZModule
         }
     }
 
-    public function export($step = true, $data = [])
+    public function export($step = true, $settings = [], $datas = [])
     {
         $pathModule = storage_path('zoe/export/modules/blog');
 
@@ -90,7 +103,9 @@ class Module extends ZModule
         if (\File::exists($pathModule . '/configs.json')) {
             $configs = json_decode(\File::get($pathModule . '/configs.json'), true);
         }
+
         $date = date('Y-m-d') . "-" . (date('h')) . "h";
+
         $configs['date'] = $date;
         $configs['dates'][$date] = $date;
         $path = $pathModule . '/' . $date;
@@ -161,14 +176,15 @@ class Module extends ZModule
             ];
         } else if ($step == 2) {
             $tables = ['blog_post', 'blog_post_category', 'blog_post_translation'];
-            $data = Database::createRowTable($pathSql, $tables);
+
+            $data = Database::createRowTable($pathSql, $tables, $datas, $settings);
             $import['sql']['2'] = $data['sqls'];
             $errors = $data['errors'];
             $return = [
-                "step" => $step + 1,
-                "data" => [
-                    'table' => ""
-                ],
+                "step" => $step + $data['step'],
+                "data" => $data,
+                "configs" => $datas,
+                'settings' => $settings
             ];
         }
         saveFile($path . '/import.json', json_encode($import));

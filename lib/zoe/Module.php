@@ -66,7 +66,7 @@ abstract class Module
         return true;
     }
 
-    public function import($step = true, $data = [])
+    public function import($step = true, $settings = [], $datas = [])
     {
         return true;
     }
@@ -77,7 +77,7 @@ abstract class Module
         return true;
     }
 
-    public function export($step = true, $data = [])
+    public function export($step = true, $settings = [], $datas = [])
     {
         return true;
     }

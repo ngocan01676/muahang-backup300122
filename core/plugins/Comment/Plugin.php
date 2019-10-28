@@ -52,7 +52,7 @@ class Plugin extends ZModule
         }
     }
 
-    public function import($step = true, $data = [])
+    public function import($step = true, $settings = [], $datas = [])
     {
         $action = [];
         try {
@@ -74,7 +74,7 @@ class Plugin extends ZModule
         }
     }
 
-    public function export($step = true, $data = [])
+    public function export($step = true, $settings = [], $datas = [])
     {
         $path = storage_path('zoe/export/plugins/Comment');
         $pathSql = $path . '/sql';

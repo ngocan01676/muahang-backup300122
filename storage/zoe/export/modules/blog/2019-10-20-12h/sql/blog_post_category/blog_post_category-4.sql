@@ -1,0 +1,1 @@
+(`category_id`,`post_id`) VALUES ("18","5");

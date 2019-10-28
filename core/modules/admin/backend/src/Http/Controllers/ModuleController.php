@@ -99,7 +99,10 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                     $module = $data['module'];
                     $object = $this->CreateModuleObject($module);
                     if ($object) {
-                        $response['status'] = $object->export($data['step'], isset($data['data']) ? $data['data'] : []);
+                        $response['status'] = $object->export($data['step'],
+                            isset($data['settings']) ? $data['settings'] : [],
+                            isset($data['datas']) ? $data['datas'] : []
+                        );
                     }
                     break;
                 case "import":
@@ -107,7 +110,10 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                     $object = $this->CreateModuleObject($module);
                     DB::beginTransaction();
                     if ($object) {
-                        $response['status'] = $object->import($data['step'], isset($data['configs']) ? $data['configs'] : []);
+                        $response['status'] = $object->import(
+                            $data['step'],
+                            isset($data['settings']) ? $data['settings'] : [],
+                            isset($data['datas']) ? $data['datas'] : []);
                     }
                     if (isset($response['status']['error'])) {
                         DB::rollBack();

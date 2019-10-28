@@ -130,25 +130,76 @@ class Database
         return $errors;
     }
 
-    public static function createRowTable($path, $tables)
+    public static function createRowTable($path, $tables, $configs = [], $settings = [])
     {
         $lists_table = static::lists_table();
-        $data = ['errors' => '', 'sqls' => []];
+        $data = ['errors' => '', 'sqls' => [], 'tables' => [], 'logs' => [], "total_records" => []];
+        $itemCount = 0;
         foreach ($tables as $table) {
             $_table = DB::getTablePrefix() . $table;
+
             if (isset($lists_table[$_table])) {
-                $rs = DB::table($table)->get();
-                $data['sqls'][$table] = "insert";
-                saveFile($path . '/' . $table . '.sql', \Admin\Lib\Database::rows([$rs]));
+
+                if (isset($configs['tables'][$table])) {
+                    $current_page = (int)$configs['tables'][$table];
+                } else {
+                    $current_page = 1;
+                }
+
+                if ($current_page > 0) {
+                    $limit = isset($settings['item']) ? (int)$settings['item'] : 1;
+                    if (isset($configs['total_pages'][$table])) {
+                        $total_records = $configs['total_records'][$table];
+                    } else {
+                        $total_records = DB::table($table)->count();
+                        $data['total_records'][$table] = $total_records;
+                    }
+
+                    $total_page = ceil($total_records / $limit);
+                    $start = ($current_page - 1) * $limit;
+                    $rs = DB::table($table)->skip($start)->take($limit)->get();
+
+                    $data['sqls'][$table] = "REPLACE";
+                    if (!\File::exists($path . '/' . $table)) {
+                        \File::makeDirectory($path . '/' . $table);
+                    }
+                    saveFile($path . '/' . $table . '/' . $table . '-' . $current_page . '.sql', \Admin\Lib\Database::rows([$rs]));
+                    if ($current_page <= $total_page) {
+                        $data['tables'][$table] = $current_page + 1;
+                        $itemCount++;
+                    } else {
+                        $data['tables'][$table] = 0;
+
+                        saveFile($path . '/' . $table . '/config.json', json_encode([
+                            'setting' => $settings,
+                            'config' => [
+                                'total_records' => $total_records,
+                                'limit' => $limit,
+                                'type' => isset($settings['type']) ? $settings['type'] : "REPLACE",
+                            ],
+                            'time' => date('Y-m-d H:i:s')
+                        ]));
+
+                    }
+                    $data['logs'][$table] = [
+                        'total_page' => $total_page,
+                        'current_page' => $current_page
+                    ];
+                } else {
+                    $data['tables'][$table] = 0;
+                }
             } else {
                 $data['errors'] .= "table " . $table . ' not exits!';
                 break;
             }
         }
+        $data['step'] = $itemCount == 0 ? 1 : 0;
+
         return $data;
     }
 
-    public static function addFileRow($fileSql, $table, $typeInsert = "REPLACE")
+    public
+    static function addFileRow($fileSql, $table, $typeInsert = "REPLACE")
     {
         if (\File::exists($fileSql)) {
             if ($typeInsert == 'REPLACE') {
@@ -156,12 +207,71 @@ class Database
             } else {
                 $typeInsert = "INSERT INTO ";
             }
-            return DB::statement($typeInsert . DB::getTablePrefix() . $table . \File::get($fileSql));
+            return DB::statement($typeInsert . $table . \File::get($fileSql));
         }
-        return false;
     }
 
-    public static function dropIfExists($tables)
+    public static function addFileRows($path, $tables, $configs = [], $settings = [])
+    {
+        $lists_table = static::lists_table();
+        $data = ['errors' => '', 'sqls' => [], 'tables' => [], 'logs' => [], "total_records" => []];
+        $itemCount = 0;
+        foreach ($tables as $table) {
+            $_table = DB::getTablePrefix() . $table;
+
+            if (isset($lists_table[$_table])) {
+
+                $FileConfigs = $path . '/' . $table . '/config.json';
+                if (isset($configs['tables'][$table])) {
+                    $current_page = (int)$configs['tables'][$table];
+                } else {
+                    $current_page = 1;
+                }
+
+                if ($current_page > 0) {
+                    $configData = [];
+                    if (!isset($configs['tables'][$table]['configs'])) {
+                        if (\File::exists($FileConfigs)) {
+                            $data['tables'][$table]['configs'] = json_decode(\File::get($FileConfigs), true);
+                            $configData = $data['tables'][$table]['configs'];
+                        }
+                    } else {
+                        $configData = $configs['tables'][$table]['configs'];
+                    }
+                    $limit = isset($configData["config"]['limit']) ? (int)$configData["config"]['limit'] : 1;
+                    if (isset($configData['config']['total_records'])) {
+                        $total_records = $configData['config']['total_records'];
+                        $total_page = ceil($total_records / $limit);
+                        if (\File::exists($path . '/' . $table . '-' . $current_page . '.json')) {
+                            static::addFileRow($path . '/' . $table . '-' . $current_page . '.json', $_table);
+                        }
+                        if ($current_page <= $total_page) {
+                            $data['tables'][$table] = $current_page + 1;
+                            $itemCount++;
+                        } else {
+                            $data['tables'][$table] = 0;
+                        }
+                        $data['logs'][$table] = [
+                            'total_page' => $total_page,
+                            'current_page' => $current_page
+                        ];
+                    } else {
+                        $data['errors'] .= "total_records exits!";
+                    }
+                } else {
+                    $data['tables'][$table] = 0;
+                }
+            } else {
+                $data['errors'] .= "table " . $table . ' not exits!';
+                break;
+            }
+        }
+        $data['step'] = $itemCount == 0 ? 1 : 0;
+
+        return $data;
+    }
+
+    static function dropIfExists($tables)
     {
         $lists_table = static::lists_table();
         foreach ($tables as $table) {

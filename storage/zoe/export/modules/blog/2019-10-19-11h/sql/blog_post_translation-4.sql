@@ -1,0 +1,1 @@
+(`post_id`,`lang_code`,`title`,`description`,`content`) VALUES ("1","vi","2","2","<p>2</p>");

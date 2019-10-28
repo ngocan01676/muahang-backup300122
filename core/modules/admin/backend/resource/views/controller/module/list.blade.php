@@ -66,6 +66,8 @@
                                 <a href="javascript:void(0);" class="btn btn-xs bg-orange btnAction pull-left"
                                    data-act="export"
                                    step="0"
+                                   datas='{}'
+                                   data-page="1"
                                    data-module="{!! $module !!}">
                                     <i class="fa fa-cloud-download"></i> {!! z_language('Export') !!}
                                     (<strong>0</strong>)
@@ -73,6 +75,8 @@
                                 <a href="javascript:void(0);" class="btn btn-xs bg-navy btnAction pull-left"
                                    data-act="import"
                                    step="0"
+                                   datas='{}'
+                                   data-page="1"
                                    data-module="{!! $module !!}"
                                    configs='@json($list["configs"])'
                                 >
@@ -128,7 +132,7 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            var countStep = 5;
+            var countStep = 10;
             $(".btnAction").click(function () {
 
 
@@ -146,11 +150,14 @@
                 } else {
 
                 }
+                data.datas = {};
+                if (typeof $(this).attr('datas') !== typeof undefined && $(this).attr('datas') !== false) {
+                    data.datas = JSON.parse($(this).attr('datas'));
+                }
                 var configs = {};
                 if (typeof $(this).attr('configs') !== typeof undefined && $(this).attr('configs') !== false) {
                     configs = JSON.parse($(this).attr('configs'));
                 }
-
                 var action = function (oke) {
                     if (oke) {
                         if (data.act === "uninstall") {
@@ -201,10 +208,26 @@
                                                 $.growl.error({message: json.status.error});
                                                 $(self).attr("step", 0);
                                             } else {
-                                                $(self).attr("step", data.step + 1);
-                                                $(self).data("data", json.status);
-                                                $(self).find('strong').html(data.step + 1);
-                                                $(self).trigger('click');
+
+                                                if (json.hasOwnProperty('data')) {
+                                                    if (json.data.hasOwnProperty('page')) {
+                                                        $(self).attr("page", json.data.page);
+                                                    }
+                                                }
+                                                console.log(json.status);
+                                                console.log(data.step + " - " + json.status.step);
+                                                if (data.step < json.status.step) {
+                                                    $(self).attr("datas", JSON.stringify({}));
+                                                    countStep = 20;
+                                                    $(self).attr("step", json.status.step);
+                                                    $(self).find('strong').html(json.status.step);
+                                                } else {
+                                                    $(self).attr("datas", JSON.stringify(json.status.data));
+                                                }
+                                                if (countStep-- > 0) {
+                                                    $(self).trigger('click');
+                                                }
+
                                             }
                                         }
                                     } else {
@@ -231,7 +254,15 @@
                         });
                         content.push({select: {label: "Lists Backup", name: "name", options: ordered}});
                     } else if (data.act === "export") {
-                        content.push({p: {text: "Do you confirm this message?"}},)
+                        content.push({input: {label: "Item", name: "item", type: "text", value: 5000}});
+                        content.push({
+                            radio: {
+                                label: "Type",
+                                name: "type",
+                                options: {INSERT: "INSERT", REPLACE: "REPLACE"},
+                                checked: "REPLACE"
+                            }
+                        });
                     }
                     if (content.length > 0) {
                         bootpopup({
@@ -241,7 +272,7 @@
 
                             },
                             ok: function (_data, array, event) {
-                                data.configs = _data;
+                                data.settings = _data;
                                 action(true);
                             },
                             complete: function () {

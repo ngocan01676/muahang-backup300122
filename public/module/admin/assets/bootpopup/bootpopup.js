@@ -186,15 +186,22 @@ function bootpopup(options) {
                                 case "radio":
                                     // Special case for radios
                                     input = [];
-                                    for (var option in attrs.options)
+                                    for (var option in attrs.options) {
+                                        var _radio = $("<input />", {
+                                            type: "radio",
+                                            name: attrs.name,
+                                            value: option
+                                        });
+
+                                        if (attrs.checked == attrs.options[option]) {
+                                            _radio.attr('checked', true);
+                                        }
                                         input.push($('<div class="radio"></div>', attrs)
                                             .append($('<label></label>')
-                                                .append($("<input />", {
-                                                    type: "radio",
-                                                    name: attrs.name,
-                                                    value: option
-                                                }))
+                                                .append(_radio)
                                                 .append(attrs.options[option])));
+                                    }
+
                                     break;
                                 default:
                                     input = $("<input />", attrs);
