@@ -36,7 +36,7 @@ class Module extends ZModule
             if (!isset($settings['name'])) {
                 return ['error' => '100', 'data' => $settings];
             }
-            $path = $pathModule . "/" . $settings["configs"]['name'];
+            $path = $pathModule . "/" . $settings['name'];
             $pathSql = $path . '/sql';
             if ($step == 0) {
                 Database::addFileRow($pathSql . '/config.sql', 'config');
@@ -49,10 +49,7 @@ class Module extends ZModule
                 $return = ["step" => $step + 1, 'action' => $action, 'status' => Database::createTable($datas)];
             } else if ($step == 2) {
                 $tables = ['blog_post', 'blog_post_category', 'blog_post_translation'];
-
                 $data = Database::addFileRows($pathSql, $tables, $datas, $settings);
-
-
                 $errors = $data['errors'];
                 $return = [
                     "step" => $step + $data['step'],
@@ -66,7 +63,7 @@ class Module extends ZModule
             }
             return $return;
         } catch (\Exception $ex) {
-            return ['error' => $ex->getMessage(), 'action' => $action];
+            return ['error' => $ex->getMessage() . ' ' . $ex->getLine(), 'action' => $action];
         }
     }
 

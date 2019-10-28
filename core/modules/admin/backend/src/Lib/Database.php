@@ -207,7 +207,8 @@ class Database
             } else {
                 $typeInsert = "INSERT INTO ";
             }
-            return DB::statement($typeInsert . $table . \File::get($fileSql));
+            $_table = DB::getTablePrefix() . $table;
+            return DB::statement($typeInsert . $_table . \File::get($fileSql));
         }
     }
 
@@ -242,10 +243,11 @@ class Database
                     if (isset($configData['config']['total_records'])) {
                         $total_records = $configData['config']['total_records'];
                         $total_page = ceil($total_records / $limit);
-                        if (\File::exists($path . '/' . $table . '-' . $current_page . '.json')) {
-                            static::addFileRow($path . '/' . $table . '-' . $current_page . '.json', $_table);
-                        }
                         if ($current_page <= $total_page) {
+                            $data['sqls'][] = $path . '/' . $table . '/' . $table . '-' . $current_page . '.json';
+                            if (\File::exists($path . '/' . $table . '/' . $table . '-' . $current_page . '.json')) {
+                                static::addFileRow($path . '/' . $table . '/' . $table . '-' . $current_page . '.json', $table);
+                            }
                             $data['tables'][$table] = $current_page + 1;
                             $itemCount++;
                         } else {

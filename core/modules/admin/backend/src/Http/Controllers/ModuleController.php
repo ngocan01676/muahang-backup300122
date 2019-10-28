@@ -78,11 +78,17 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                         $object = $this->CreateModuleObject($module);
                         $name = 'Module' . ucwords($module);
                         $class = '\\' . $name . '\\Module';
+
                         if ($object) {
-                            $object->uninstall();
-                            DB::table('module')->where('name', $module)->delete();
-                            $response['status'] = true;
-                            DB::commit();
+                            $rs = $object->uninstall();
+                            if ($rs == true) {
+                                DB::table('module')->where('name', $module)->delete();
+                                $response['status'] = true;
+                                DB::commit();
+                            } else {
+                                $response['status'] = $rs;
+                                DB::rollBack();
+                            }
                         } else {
                             DB::rollBack();
                             $response['status'] = z_language("Error :class", ['class' => $class]);
