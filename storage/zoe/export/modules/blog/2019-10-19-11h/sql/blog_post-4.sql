@@ -1,1 +1,0 @@
-(`id`,`title`,`description`,`content`,`slug`,`image`,`status`,`user_id`,`featured`,`views`,`created_at`,`updated_at`) VALUES ("7","Zoe Cms là gì","zoe cms","<p>sdfasd&nbsp;</p>\n<p>s</p>\n<p>df</p>\n<p>sadf</p>\n<p>sadf</p>\n<p>s</p>\n<p>&nbsp;</p>","demo","/uploads/bg_win.png","1","1","1","0","2019-09-27 07:09:41","2019-09-27 07:09:41");

@@ -1,1 +1,0 @@
-(`id`,`title`,`description`,`content`,`slug`,`image`,`status`,`user_id`,`featured`,`views`,`created_at`,`updated_at`) VALUES ("6","Giới thiệu","12222","<p>sdfsfd sdfdsfsdfd</p>\n<p>avdsf sadfed</p>","demo","/uploads/bg_win.png","1","1","1","0","2019-08-29 03:06:59","2019-09-27 07:07:40");

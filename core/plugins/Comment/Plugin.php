@@ -76,29 +76,32 @@ class Plugin extends ZModule
 
     public function export($step = true, $settings = [], $datas = [])
     {
-        $path = storage_path('zoe/export/plugins/Comment');
-        $pathSql = $path . '/sql';
-        $import = [
-            "sql" => [],
-            "table" => []
-        ];
-        if (\File::exists($path . '/import.json')) {
-            $import = json_decode(\File::get($path . '/import.json'), true);
+        $pathPlugin = storage_path('zoe/export/plugins/Comment');
+
+
+        $configs = ['dates' => []];
+        if (\File::exists($pathPlugin . '/configs.json')) {
+            $configs = json_decode(\File::get($pathPlugin . '/configs.json'), true);
         }
+        $date = date('Y-m-d') . "-" . (date('h')) . "h";
+        $configs['date'] = $date;
+        $configs['dates'][$date] = $date;
+        $path = $pathPlugin . '/' . $date;
+
+        $pathSql = $path . '/sql';
+
         $return = true;
         $errors = "";
+
         if ($step == 0) {
-            $import = [
-                "sql" => [],
-                "table" => []
-            ];
+
             if (!\File::exists($path)) {
                 \File::makeDirectory($path);
             }
             if (!\File::exists($pathSql)) {
                 \File::makeDirectory($pathSql);
             }
-            $config[] = DB::table('config')->where('name', 'Comment')->get();
+            $config[] = DB::table('config')->where('name', 'core-plugins-Comment')->get();
             saveFile($pathSql . '/config.sql', \Admin\Lib\Database::rows($config, ['id']));
             $return = [
                 "step" => $step + 1,
@@ -106,8 +109,16 @@ class Plugin extends ZModule
 
                 ]
             ];
+
         } else if ($step == 1) {
             Database::createFileTable($path, ['plugin_comments']);
+            $return = [
+                "step" => $step + 1,
+                "data" => [
+
+                ]
+            ];
+        } else if ($step == 2) {
             $return = [
                 "step" => $step + 1,
                 "data" => [
