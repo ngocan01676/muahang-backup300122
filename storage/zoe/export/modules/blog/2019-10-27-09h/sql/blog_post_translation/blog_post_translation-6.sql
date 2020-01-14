@@ -1,1 +1,0 @@
-(`post_id`,`lang_code`,`title`,`description`,`content`) VALUES ("5","en","Demo 12","Description 12","<p>Content</p>");

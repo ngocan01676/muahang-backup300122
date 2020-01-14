@@ -4,9 +4,49 @@ namespace Admin\Lib;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Mockery\Exception;
 
 class Database
 {
+    public static $pathSql = "";
+    public static $pathModule = "";
+    public static $path = "";
+
+    public static function Init($pathModule)
+    {
+        if (!\File::exists($pathModule)) {
+            \File::makeDirectory($pathModule);
+        }
+        $configs = ['folders' => []];
+        if (\File::exists($pathModule . '/configs.json')) {
+            $configs = json_decode(\File::get($pathModule . '/configs.json'), true);
+        }
+
+        $date = date('Y-m-d') . "-" . (date('H')) . "h";
+
+        $configs['folder'] = $date;
+        $configs['folders'][$date] = $date;
+
+        $path = $pathModule . '/' . $date;
+
+        static::$pathModule = $pathModule;
+        static::$path = $path;
+        static::$pathSql = $path . '/sql';
+
+        if (!\File::exists($path)) {
+            \File::makeDirectory($path);
+        }
+        if (!\File::exists(static::$pathSql)) {
+            \File::makeDirectory(static::$pathSql);
+        }
+        return $configs;
+    }
+
+    public static function SaveFile($fileName, $data)
+    {
+        saveFile(static::$pathSql . '/' . $fileName, $data);
+    }
+
     public static function lists_table()
     {
         $tables = [];
@@ -106,12 +146,13 @@ class Database
         return false;
     }
 
-    public static function createFileTable($path, $tables, $file = "create_table.php")
+    public static function createFileTable($tables, $file = "create_table.php")
     {
         $sql = [];
         $errors = "";
 
         $lists_table = static::lists_table();
+        $settings = [];
         foreach ($tables as $table) {
             $_table = DB::getTablePrefix() . $table;
             if (isset($lists_table[$_table])) {
@@ -125,17 +166,36 @@ class Database
                 $errors .= "<strong>" . $table . "</strong> not exits!<BR>";
             }
         }
-
-        saveFile($path . '/' . $file, '<?php return ' . var_export($sql, true) . ';');
-        return $errors;
+        saveFile(static::$path . '/' . $file, '<?php return ' . var_export($sql, true) . ';');
+        return [
+            'errors' => $errors,
+            'settings' => [
+                'fileName' => $file,
+                'Action' => __FUNCTION__
+            ]
+        ];
     }
 
-    public static function createRowTable($path, $tables, $configs = [], $settings = [])
+    public static function createRowTable($tables, $configs = [], $settings = [])
     {
         $lists_table = static::lists_table();
-        $data = ['errors' => '', 'sqls' => [], 'tables' => [], 'logs' => [], "total_records" => []];
+
+        $data = [
+            'errors' => '',
+            'sqls' => [],
+            'tables' => [],
+            'logs' => [],
+            "total_records" => [],
+            'settings' => [
+                "Action" => __FUNCTION__,
+                "Lists" => []
+            ]
+        ];
         $itemCount = 0;
-        foreach ($tables as $table) {
+        foreach ($tables as $table => $callback) {
+            if (is_numeric($table)) {
+                $table = $callback;
+            }
             $_table = DB::getTablePrefix() . $table;
 
             if (isset($lists_table[$_table])) {
@@ -147,30 +207,40 @@ class Database
                 }
 
                 if ($current_page > 0) {
-                    $limit = isset($settings['item']) ? (int)$settings['item'] : 1;
+                    $limit = isset($settings['item']) ? (int)$settings['item'] : 5000;
+
+                    if (is_callable($callback)) {
+                        $db = $callback(DB::table($table));
+                    } else {
+                        $db = DB::table($table);
+                    }
+
                     if (isset($configs['total_pages'][$table])) {
                         $total_records = $configs['total_records'][$table];
                     } else {
-                        $total_records = DB::table($table)->count();
+
+                        $total_records = $db->count();
                         $data['total_records'][$table] = $total_records;
                     }
 
                     $total_page = ceil($total_records / $limit);
                     $start = ($current_page - 1) * $limit;
-                    $rs = DB::table($table)->skip($start)->take($limit)->get();
+                    $rs = $db->skip($start)->take($limit)->get();
 
                     $data['sqls'][$table] = "REPLACE";
-                    if (!\File::exists($path . '/' . $table)) {
-                        \File::makeDirectory($path . '/' . $table);
+
+                    if (!\File::exists(static::$pathSql . '/' . $table)) {
+                        \File::makeDirectory(static::$pathSql . '/' . $table);
                     }
-                    saveFile($path . '/' . $table . '/' . $table . '-' . $current_page . '.sql', \Admin\Lib\Database::rows([$rs]));
+
+                    saveFile(static::$pathSql . '/' . $table . '/' . $table . '-' . $current_page . '.sql', \Admin\Lib\Database::rows([$rs]));
                     if ($current_page <= $total_page) {
                         $data['tables'][$table] = $current_page + 1;
                         $itemCount++;
                     } else {
                         $data['tables'][$table] = 0;
 
-                        saveFile($path . '/' . $table . '/config.json', json_encode([
+                        saveFile(static::$pathSql . '/' . $table . '/config.json', json_encode([
                             'setting' => $settings,
                             'config' => [
                                 'total_records' => $total_records,
@@ -179,7 +249,7 @@ class Database
                             ],
                             'time' => date('Y-m-d H:i:s')
                         ]));
-
+                        $data['settings']["Lists"][$table] = 1;
                     }
                     $data['logs'][$table] = [
                         'total_page' => $total_page,
@@ -240,13 +310,14 @@ class Database
                         $configData = $configs['tables'][$table]['configs'];
                     }
                     $limit = isset($configData["config"]['limit']) ? (int)$configData["config"]['limit'] : 1;
+                    $type = isset($configData["config"]['type']) ? (int)$configData["config"]['type'] : "REPLACE";
                     if (isset($configData['config']['total_records'])) {
                         $total_records = $configData['config']['total_records'];
                         $total_page = ceil($total_records / $limit);
                         if ($current_page <= $total_page) {
-                            $data['sqls'][] = $path . '/' . $table . '/' . $table . '-' . $current_page . '.json';
-                            if (\File::exists($path . '/' . $table . '/' . $table . '-' . $current_page . '.json')) {
-                                static::addFileRow($path . '/' . $table . '/' . $table . '-' . $current_page . '.json', $table);
+                            $data['sqls'][] = $path . '/' . $table . '/' . $table . '-' . $current_page . '.sql';
+                            if (\File::exists($path . '/' . $table . '/' . $table . '-' . $current_page . '.sql')) {
+                                static::addFileRow($path . '/' . $table . '/' . $table . '-' . $current_page . '.sql', $table, $type);
                             }
                             $data['tables'][$table] = $current_page + 1;
                             $itemCount++;
@@ -276,12 +347,47 @@ class Database
     static function dropIfExists($tables)
     {
         $lists_table = static::lists_table();
-        foreach ($tables as $table) {
-            $_table = DB::getTablePrefix() . $table;
-            if (isset($lists_table[$_table])) {
-                Schema::dropIfExists($_table);
+
+        try {
+            foreach ($tables as $table) {
+                $_table = DB::getTablePrefix() . $table;
+
+                if (isset($lists_table[$_table])) {
+                    DB::statement("DROP TABLE `" . $_table . "`;");
+                }
+            }
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
+
+    }
+
+    static function SaveRows($lists)
+    {
+        $setting = [
+            "Action" => __FUNCTION__,
+            "Lists" => []
+        ];
+        foreach ($lists as $filename => $config) {
+            if (isset($config['table'])) {
+                $db = DB::table($config['table']);
+                $rows = [];
+                if (isset($config['lists'])) {
+                    if (is_callable($config['lists'])) {
+                        $rows[] = $config['lists']($db);
+                    } else if (is_array($config['lists'])) {
+                        foreach ($config['lists'] as $callback) {
+                            $rows[] = $callback($db);
+                        }
+                    }
+                }
+                if (count($rows) > 0) {
+                    $setting["Lists"][$filename] = $filename . '.sql';
+                    static::SaveFile($filename . '.sql', static::rows($rows));
+                }
             }
         }
+        return $setting;
     }
 
 }

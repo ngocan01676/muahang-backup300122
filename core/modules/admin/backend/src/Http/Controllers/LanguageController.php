@@ -124,8 +124,6 @@ class LanguageController extends \Zoe\Http\ControllerBackend
 
     public function list()
     {
-
-
         $results = $this->getDirContents(base_path('core'), '/\.php$/', $results);
         $language_data = config('zoe.language_data');
         $file = new \Illuminate\Filesystem\Filesystem();

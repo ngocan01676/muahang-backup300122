@@ -1,1 +1,0 @@
-(`post_id`,`lang_code`,`title`,`description`,`content`) VALUES ("5","vi","Ví dụ 1","Mô tả 1","<p>Nội dung</p>");

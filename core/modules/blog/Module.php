@@ -8,6 +8,7 @@ use Zoe\Module as ZModule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use \Illuminate\Database\Query\Builder;
 
 class Module extends ZModule
 {
@@ -92,102 +93,108 @@ class Module extends ZModule
     public function export($step = true, $settings = [], $datas = [])
     {
         $pathModule = storage_path('zoe/export/modules/blog');
-
-        if (!\File::exists($pathModule)) {
-            \File::makeDirectory($pathModule);
-        }
-        $configs = ['dates' => []];
-        if (\File::exists($pathModule . '/configs.json')) {
-            $configs = json_decode(\File::get($pathModule . '/configs.json'), true);
-        }
-
-        $date = date('Y-m-d') . "-" . (date('h')) . "h";
-
-        $configs['date'] = $date;
-        $configs['dates'][$date] = $date;
-        $path = $pathModule . '/' . $date;
-
-        $pathSql = $path . '/sql';
-        $import = [
-            "sql" => [],
-            "table" => []
-        ];
-
-        if (\File::exists($path . '/import.json')) {
-            $import = json_decode(\File::get($path . '/import.json'), true);
-        }
-
         $return = true;
         $errors = "";
+
+        $configs = \Admin\Lib\Database::Init($pathModule);
+
         if ($step == 0) {
+            $configs['steps']["0"] = \Admin\Lib\Database::SaveRows(
+                [
+                    "config" => [
+                        "table" => "config",
+                        "lists" => [
+                            function (Builder $db) {
+                                return $db->where('name', 'blog')->get();
+                            },
+                            function (Builder $db) {
+                                return $db->where('name', 'blog:category')->get();
+                            }
+                        ]
+                    ],
+                    "language" => [
+                        "table" => "config",
+                        "lists" => function (Builder $db) {
+                            return $db->where('name', 'core-modules-blog')->where("type", "language")->get();
+                        }
 
-            $import = [
-                "sql" => [],
-                "table" => []
-            ];
-
-            if (!\File::exists($path)) {
-                \File::makeDirectory($path);
-            }
-            if (!\File::exists($pathSql)) {
-                \File::makeDirectory($pathSql);
-            }
-            $import['sql']['1'] = [];
-
-            $config[] = DB::table('config')->where('name', 'blog')->get();
-
-            $config[] = DB::table('config')->where('name', 'blog:category')->get();
-            $config[] = DB::table('config')
-                ->where('name', 'core-modules-blog')
-                ->where('type', 'language')
-                ->get();
-
-
-            saveFile($pathSql . '/config.sql', \Admin\Lib\Database::rows($config, ['id']));
-            $import['sql']["1"]['config'] = "REPLACE";
-
-            $categories = DB::table("categories")->where('type', 'blog:category')->get();
-            saveFile($pathSql . '/categories.sql', \Admin\Lib\Database::rows([$categories]));
-
-            $import['sql']["1"]['categories'] = "REPLACE";
-
-            $config = DB::table('layout')->where('type_group', 'blog')->get();
-            saveFile($pathSql . '/layout.sql', \Admin\Lib\Database::rows([$config]));
-
-            $import['sql']["1"]['layout'] = "REPLACE";
-
-            $tag = DB::table("tag")->where('type', 'blog:post')->get();
-            saveFile($pathSql . '/tag.sql', \Admin\Lib\Database::rows([$tag]));
-            $import['sql']["1"]['tag'] = "REPLACE";
-
+                    ],
+                    "categories" => [
+                        "table" => "categories",
+                        "lists" => function (Builder $db) {
+                            return $db->where('type', 'blog:category')->get();
+                        }
+                    ],
+                    'layout' => [
+                        "table" => "layout",
+                        "lists" => function (Builder $db) {
+                            return $db->where('type_group', 'blog')->get();
+                        }
+                    ],
+                    'tag' => [
+                        "table" => "tag",
+                        "lists" => function (Builder $db) {
+                            return $db->where('type', 'blog:post')->get();
+                        }
+                    ]
+                ]
+            );
             $return = [
-                "step" => $step + 1,
+                'result' => [
+                    "step" => $step + 1,
+                ],
+                'errors' => ""
             ];
         } else if ($step == 1) {
-            $errors = Database::createFileTable($path, ['blog_post', 'blog_post_category', 'blog_post_translation']);
-            $return = [
-                "step" => $step + 1,
-                "data" => [
 
-                ]
+            $result = Database::createFileTable(['blog_post', 'blog_post_category', 'blog_post_translation']);
+            $errors = $result['errors'];
+            $configs['steps']["1"] = $result['settings'];
+            $return = [
+                'result' => [
+                    "step" => $step + 1,
+                    "data" => [
+
+                    ]
+                ],
+                'errors' => $errors
             ];
-        } else if ($step == 2) {
-            $tables = ['blog_post', 'blog_post_category', 'blog_post_translation'];
 
-            $data = Database::createRowTable($pathSql, $tables, $datas, $settings);
-            $import['sql']['2'] = $data['sqls'];
+        } else if ($step == 2) {
+            $tables = [
+                'blog_post' => function (Builder $db) {
+                    return $db->where('featured', 0);
+                },
+                'blog_post_category' => function ($db) {
+                    return $db;
+                },
+                'blog_post_translation' => function ($db) {
+                    return $db;
+                }];
+
+            $data = Database::createRowTable($tables, $datas, $settings);
+
             $errors = $data['errors'];
+            $configs['steps']["2"] = $data['settings'];
             $return = [
-                "step" => $step + $data['step'],
-                "data" => $data,
-                "configs" => $datas,
-                'settings' => $settings
+                'result' => [
+                    "step" => $step + $data['step'],
+                    "data" => $data,
+                    "configs" => $datas,
+                    'settings' => $settings
+                ],
+                'errors' => $errors
             ];
         }
-        saveFile($path . '/import.json', json_encode($import));
+
         saveFile($pathModule . '/configs.json', json_encode($configs));
-        if (is_array($return) && !empty($errors)) {
-            $return['error'] = $errors;
+
+        if (isset($return['result'])) {
+            $return = $return['result'];
+            if (!empty($return['errors'])) {
+                $return['error'] = $return['errors'];
+            }
+            return $return['result'];
         }
         return $return;
     }

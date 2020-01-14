@@ -1,1 +1,0 @@
-(`category_id`,`post_id`) VALUES ("21","5");

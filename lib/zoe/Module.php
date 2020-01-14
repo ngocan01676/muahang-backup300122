@@ -86,4 +86,19 @@ abstract class Module
     {
 
     }
+
+    protected function CreateRow()
+    {
+
+    }
+
+    protected function CreateFileTable()
+    {
+
+    }
+
+    protected function CreateRowTable()
+    {
+
+    }
 }

@@ -1,1 +1,0 @@
-(`id`,`title`,`description`,`content`,`slug`,`image`,`status`,`user_id`,`featured`,`views`,`created_at`,`updated_at`) VALUES ("4","","","","demo","/uploads/bg_win.png","1","1","1","0","2019-08-19 01:50:18","2019-08-28 10:49:54");

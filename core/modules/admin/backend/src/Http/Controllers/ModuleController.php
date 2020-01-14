@@ -81,6 +81,7 @@ class ModuleController extends \Zoe\Http\ControllerBackend
 
                         if ($object) {
                             $rs = $object->uninstall();
+
                             if ($rs == true) {
                                 DB::table('module')->where('name', $module)->delete();
                                 $response['status'] = true;
