@@ -58,6 +58,7 @@ class DashboardController extends \Zoe\Http\ControllerBackend
             $listsRolePremission[$item->id] = Permission::where('role_id', $item->id)->get();
         }
         $layouts = \Admin\Http\Models\Layout::where('type_group', 'theme')->where('type', 'layout')->orderBy("updated_at", "desc")->get();
+        
         return $this->render('dashboard.router', [
             'listsRolePremission' => $listsRolePremission,
             'layouts' => $layouts,

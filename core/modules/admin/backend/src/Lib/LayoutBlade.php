@@ -3,7 +3,7 @@
 namespace Admin\Lib;
 
 use Illuminate\Support\Facades\Blade;
-
+use Illuminate\Support\Str;
 class LayoutBlade extends Layout
 {
     public $datas;
@@ -393,7 +393,7 @@ class LayoutBlade extends Layout
             $path = storage_path('app/views/layouts/' . $type_group . '/');
             $prefix .= "layouts." . $type_group . ".";
         }
-
+            
         if (!$this->file->isDirectory($path)) {
 
             $this->file->makeDirectory($path);
@@ -435,7 +435,7 @@ class LayoutBlade extends Layout
             if ($fileName == "test") {
                 $fileName = $fileName . "-" . $type;
             }
-            $this->file->put($path . $fileName . ".blade.php", str_replace_first("{{CONTENT}}", $this->InitBuild() . $html, $template));
+            $this->file->put($path . $fileName . ".blade.php",  Str::replaceFirst("{{CONTENT}}", $this->InitBuild() . $html, $template));
         } else {
             if ($fileName == "") {
                 $fileName = $this->FilenamePartial($id, $token);
@@ -456,7 +456,7 @@ class LayoutBlade extends Layout
 
         $data_path = $this->initPath($type_group);
         $path = $data_path['path'];
-
+            
         $prefix = $data_path['prefix'];
         if ($type == "layout") {
             $fileName = $this->FilenameLayout($slug, $token);

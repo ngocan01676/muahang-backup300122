@@ -230,13 +230,21 @@
                         @endif
                     @endforeach
                     @if(isset($datas['data']))
+                       
                         @foreach($datas['data'] as $name=>$route)
 
                             @if(!isset($urls[$route['data']['name']]))
                                 @php
-                                    $middlewares = json_decode($route['data']['middleware'],true);
+                                    
+                                   $middlewares = json_decode($route['data']['middleware'],true);
+
                                     $middlewares  = is_array($middlewares)?$middlewares:[];
-                                    $controller = isset($route['data']['controller'])?$route['data']['controller']:isset($routes[$name]['action']['controller'])?$routes[$name]['action']['controller']:"";
+                                    $controller = "";
+                                    if(isset($route['data']['controller'])){
+                                        $controller = $route['data']['controller'];
+                                    }else if( isset($routes[$name]['action']['controller'])){
+                                        $controller = $routes[$name]['action']['controller'];
+                                    }
                                 @endphp
                                 @view_item($name,$middlewares,$route['data']['uri'],$layouts,$listsRolePremission,$datas,false,$controllers,$controller)
                             @endif
