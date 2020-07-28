@@ -49,7 +49,7 @@
                             @isset($data['data']['columns'][$k])
                                 @continue(isset($route[$k]))
 
-                                @if(property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) )
+                                @if($model!=null && property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) )
                                 @if('id'== $columns['type'])
                                     <th width="39px" class="column-primary">
                                         <input style="display: none" id="check-all"

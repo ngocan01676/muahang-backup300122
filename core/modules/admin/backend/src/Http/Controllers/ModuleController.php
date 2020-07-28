@@ -151,10 +151,10 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                 require_once $relativePath . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR . "Module.php";
                 $system = false;
                 if (in_array($module, $modules)) {
-                    $name = ucwords($module);
+                    $name = Str::studly($module);
                     $system = true;
                 } else {
-                    $name = 'Module' . ucwords($module);
+                    $name = 'Module' . Str::studly($module);
                 }
                 $class = '\\' . $name . '\\Module';
 

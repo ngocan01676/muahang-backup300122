@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\View\Compilers\BladeCompiler;
 use Appstract\BladeDirectives\DirectivesRepository;
 
@@ -162,6 +163,7 @@ class AppServiceProvider extends ServiceProvider
             foreach ($modules as $module) {
                 $this->InitModule($module->name, false);
             }
+
         }
     }
 
@@ -192,6 +194,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         $loader->register();
+
     }
 
     public function InitModule($module, $system = true)
@@ -203,7 +206,7 @@ class AppServiceProvider extends ServiceProvider
             if ($system) {
                 $name = ucwords($module);
             } else {
-                $name = 'Module' . ucwords($module);
+                $name = 'Module' .Str::studly($module);
             }
             $class = '\\' . $name . '\\Module';
             $object = new $class();
