@@ -323,7 +323,15 @@ function sort_type($sort, $col = "", $parameter = [])
     }
     return '';
 }
-
+function attr_row($type, $columns){
+    $attrs = "";
+    if(isset($columns['column'][$type])){
+        foreach ($columns['column'][$type] as $name_attr => $value_attr) {
+            $attrs .= " " . $name_attr . " ='" . $value_attr . "'";
+        }
+    }
+    return $attrs;
+}
 function list_label($val, $columns, $option, $model = null)
 {
     $label = $val;

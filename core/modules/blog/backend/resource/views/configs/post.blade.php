@@ -40,7 +40,7 @@
                 @endphp
                 @foreach($language as $k=>$_language)
                     <input type="checkbox" name="post.language.lists"
-                           value="{!! $k !!}"> &nbsp; <span
+                           value="{!! $_language['lang'] !!}"> &nbsp; <span
                             class="flag-icon flag-icon-{{$_language['flag']}}"></span> &nbsp;
                 @endforeach
             </div>

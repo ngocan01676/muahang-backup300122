@@ -8,20 +8,22 @@
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <div class="col-md-9">
     <div class="nav-tabs-custom">
+
         @if(isset($configs['post']['language']['multiple']))
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs" {{$current_language}}>
                 @foreach($language as $lang=>$_language)
-                    @if(!isset($configs['post']['language']['lists']) || in_array($lang,$configs['post']['language']['lists']))
-                        <li {{$lang == $current_language?"class=active":""}}><a href="#tab_{{$lang}}"
+                    @if(isset($configs['post']['language']['lists']) &&(is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) && in_array($_language['lang'],$configs['post']['language']['lists'])))
+                        <li {{$lang}} {{$_language['lang'] == $current_language?"class=active":""}}><a href="#tab_{{$lang}}"
                                                                                 data-toggle="tab"><span
                                         class="flag-icon flag-icon-{{$_language['flag']}}"></span></a></li>
                     @endif
                 @endforeach
             </ul>
             <div class="tab-content">
+
                 @foreach($language as $lang=>$_language)
-                    @if(!isset($configs['post']['language']['lists']) || in_array($lang,$configs['post']['language']['lists']))
-                        <div class="tab-pane {{$lang == $current_language?" active":""}}" id="tab_{{$lang}}">
+                    @if(isset($configs['post']['language']['lists']) && (is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) &&  in_array($_language['lang'],$configs['post']['language']['lists'])) )
+                        <div class="tab-pane {{$_language['lang'] == $current_language?" active":""}}" id="tab_{{$lang}}">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -208,6 +210,7 @@
     </div>
     <div class="box box box-zoe">
         <div class="box-body">
+
             {!! Form::label('id_tag', 'Category', ['class' => 'Category']) !!} *
             {!! Form::CategoriesNestable($nestables,$item?$item->category:[],"category") !!}
 
@@ -282,13 +285,12 @@
 
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/elfinder.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/theme.css') }}">
-    <link rel="stylesheet" type="text/css"
-          href="{{ asset('module/admin/assets/boostrap-multi-select/css/bootstrap-multiselect.css') }}">
-
-
     <script src="{{ asset('module/admin/assets/elfinder/js/elfinder.min.js') }}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/boostrap-multi-select/css/bootstrap-multiselect.css') }}">
     <script src="{{ asset('module/admin/assets/boostrap-multi-select/js/bootstrap-multiselect.js') }}"></script>
 
 

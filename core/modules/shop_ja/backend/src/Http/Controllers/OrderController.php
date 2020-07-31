@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use \ShopJa\Http\Models\ProductModel;
-class ProductController extends \Zoe\Http\ControllerBackend
+class OrderController extends \Zoe\Http\ControllerBackend
 {
     public function init()
     {
@@ -17,7 +17,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
     }
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Quản lý sản phẩm"), route('backend:shop-ja:product:list'));
+        $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop-ja:product:list'));
         return $this;
     }
     public function list(Request $request)
@@ -48,14 +48,14 @@ class ProductController extends \Zoe\Http\ControllerBackend
         }
         $models->orderBy('id', 'desc');
 
-        return $this->render('product.list', [
+        return $this->render('order.list', [
             'models' => $models->paginate($item)
         ]);
     }
     public function create()
     {
-        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop-ja:product:create'));
-        return $this->render('product.create', ['item' => []], 'blog');
+        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop-ja:order:create'));
+        return $this->render('order.create', ['item' => []], 'blog');
     }
 
     public function edit($id)

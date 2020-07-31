@@ -4,9 +4,9 @@
         $data = $option[$name];
         $_data = config_get('option',$name);
         $data['data'] = isset($data['data'])?array_merge($data['data'],$_data):$_data;
-    $parameter = isset($parameter)?$parameter:[];
-
+        $parameter = isset($parameter)?$parameter:[];
     @endphp
+
     @isset($data['config']['columns'])
         @if(isset($tool))
             <div class="box box box-zoe">
@@ -40,12 +40,15 @@
             </div>
             <div class="box-body listMain">
 
+
                     <table class="table table-bordered">
                     <thead>
                     <tr>
                         <th width="3">#</th>
-                        @php $model =(count($models)>0)?$models[0]:null;  @endphp
+                        @php  $model =(!is_null($models) && count($models)>0)?$models[0]:null;  @endphp
+
                         @foreach($data['config']['columns']['lists'] as $k=>$columns)
+
                             @isset($data['data']['columns'][$k])
                                 @continue(isset($route[$k]))
 
@@ -70,6 +73,7 @@
                                 @endif
                             @endisset
                         @endforeach
+
                     </tr>
                      </thead>
                     <tbody>
@@ -132,10 +136,10 @@
                                                             name="post[]">
                                                 </span>
                                             </td>
-                                            <td class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}">@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
+                                            <td class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
                                         @else
                                             <td data="col"
-                                                class="column @isset($columns['primary']) column-primary @endisset {{list_text_aligin($columns)}}">@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
+                                                class="column @isset($columns['primary']) column-primary @endisset {{list_text_aligin($columns)}}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
                                         @endif
                                     @endisset
                                 @endforeach
@@ -223,7 +227,7 @@
                 $("#sectionList").loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 $.ajax({
                     type: "GET",
-                    url: data.url,
+                    url:data && data.hasOwnProperty('url')? data.url : window.location.href ,
                     data: $("#filter_search_form").zoe_inputs('get'),
                     success: function (data) {
                         renderContent(data);
