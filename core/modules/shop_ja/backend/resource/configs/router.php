@@ -52,7 +52,7 @@ return [
                         ]
                     ]
                 ],
-                'shop-ja:product:category' => [
+                'shop-ja:category' => [
                     "namespace" => "Admin\Http\Controllers",
                     "controller" => "CategoryController",
                     "sub_prefix" => "/shop-ja/product/category",
