@@ -26,6 +26,10 @@ class Actions extends AbstractHookEvent
     {
         return self::fire($hookName, $args);
     }
+    public static function has_action($name){
+        $listeners = self::getListeners();
+        return isset($listeners[$name]);
+    }
     function get_actions($name = null)
     {
         $listeners = self::getListeners();

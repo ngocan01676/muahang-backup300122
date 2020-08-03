@@ -414,6 +414,11 @@ function get_category_type($type)
     $rs = DB::table('categories')->where(['type' => $type])->get();
     $arr = [];
     foreach ($rs as $k => $v) {
+        if(!empty($v->data) && ($v->data == 'b:0;' || @unserialize($v->data) !== false)){
+            $v->data = unserialize($v->data);
+        }else{
+            $v->data = [];
+        }
         $arr[$v->id] = $v;
     }
     return $arr;

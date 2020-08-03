@@ -3,7 +3,7 @@
         'views' => [
             'paths' => ['shop_ja' => 'backend'],
             'alias' => [
-
+                'shop_ja.category.show' => 'shop_ja::controller.category.show',
             ],
         ],
         'packages' => [

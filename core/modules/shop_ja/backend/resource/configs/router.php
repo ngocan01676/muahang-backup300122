@@ -68,6 +68,27 @@ return [
                         ]
                     ]
                 ],
+                'shop-ja:city:category' => [
+                    "namespace" => "Admin\Http\Controllers",
+                    "controller" => "CategoryController",
+                    "sub_prefix" => "/shop-ja/city/category",
+                    "guard" => "backend",
+                    "module" => [
+                        "name" => "admin",
+                        "type" => "module"
+                    ],
+                    "router" => [
+                        "show" => [
+                            "url" => "/",
+                            'defaults' => [
+                                "type" => "shop-ja:city:category",
+                                "view_render" => "shop_ja.category.show",
+                                "slug" => false,
+                                'nestable'=>'\ShopJa\Libs\CategoryNestable'
+                            ]
+                        ]
+                    ]
+                ],
             ]
         ]
 ];

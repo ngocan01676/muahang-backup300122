@@ -18,12 +18,14 @@ class ControllerBackend extends Controller
     {
 
         $alias = app()->getConfig()['views']['alias'];
+
         $data = array_merge($this->data, $data);
         $request = request();
         $keyName = app()->getKey("_view_alias");
         $_view_alias = isset($request->route()->defaults[$keyName]) ? $request->route()->defaults[$keyName] : "";
-
-        if (isset($alias['backend'][$_view_alias . ":" . $view])) {
+        if (isset($alias['backend'][$view])) {
+            $keyView = $alias['backend'][$view];
+        }else if (isset($alias['backend'][$_view_alias . ":" . $view])) {
             $keyView = $alias['backend'][$_view_alias . ":" . $view];
         } else if (isset($_view_alias)) {
             $keyView = $_view_alias . '::controller.' . $view;

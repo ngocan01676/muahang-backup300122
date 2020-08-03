@@ -9,10 +9,10 @@
 @section('content')
     @breadcrumb()@endbreadcrumb
     <!-- Default box -->
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div class="box box-zoe">
             <div class="box-header with-border">
-                <h3 class="box-title">{!! @z_language(["Category List"]) !!}</h3>
+                <h3 class="box-title">{!! @z_language(["BẢNG CÁC TỈNH KÈM PHÍ SHIP"]) !!}</h3>
 
             </div>
             <div class="box-body">
@@ -61,19 +61,21 @@
 
 
 
-    <div class="col-md-6">
-
+    <div class="col-md-5">
         <div class="box box-zoe">
             <div class="box-header with-border">
-                <h3 class="box-title" id="form-title">{{ z_language('Category Create')}}</h3>
+                <h3 class="box-title" id="form-title">{{ z_language('Thêm mới')}}</h3>
 
             </div>
             <div class="box-body">
                 {!! Form::open(['method' => 'POST','id'=>'form_store']) !!}
                 {!! Form::hidden('type',$type) !!}
                 {!! Form::hidden('is_slug',$is_slug) !!}
-                {!! Form::hidden('id',0) !!}
                 {!! Form::hidden('class_nestable',$class_nestable) !!}
+                {!! Form::hidden('id',0) !!}
+                {!! Form::hidden('status',1) !!}
+                {!! Form::hidden('featured',1) !!}
+                {!! Form::hidden('description',"") !!}
                 <table class="table table-borderless">
                     <tbody>
                     <tr>
@@ -83,32 +85,28 @@
                             <span class="error help-block"></span>
                         </td>
                     </tr>
-
-
                     <tr>
                         <td>
-                            {!! Form::label('description', z_language('Description'), ['class' => 'description']) !!}
-                            {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Mô tả','cols'=>5,'rows'=>5]) !!}
+                            {!! Form::label('data.Yamato', z_language('Yamato'), ['class' => 'name']) !!}
+                            {!! Form::text('data.Yamato',null, ['class' => 'form-control','placeholder'=>'Yamato']) !!}
+                            <span class="error help-block"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('data.Sagawa', z_language('Sagawa'), ['class' => 'name']) !!}
+                            {!! Form::text('data.Sagawa',null, ['class' => 'form-control','placeholder'=>'Sagawa']) !!}
+                            <span class="error help-block"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('data.Japan_Post', z_language('Japan-Post'), ['class' => 'name']) !!}
+                            {!! Form::text('data.Japan_Post',null, ['class' => 'form-control','placeholder'=>'Japan-Post']) !!}
                             <span class="error help-block"></span>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>
-                            {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
-                            {!! Form::radio('status', '1' , true) !!} Yes
-                            {!! Form::radio('status', '0',false) !!} No
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('featured', 'Featured', ['class' => 'featured']) !!}
-                            {!! Form::radio('featured', '1' , false) !!} Yes
-                            {!! Form::radio('featured', '0',true) !!} No
-
-                        </td>
-                    </tr>
                     <tr>
                         <td>
                             @includeIf($views)
@@ -430,6 +428,11 @@
 @endpush
 @push('scripts')
     <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
+    <style>
+        .SelectEdit{
+            background: green;
+        }
+    </style>
     <script>
 
         $(document).ready(function () {
@@ -469,6 +472,10 @@
             $("#nestable").on("click", ".edit", function () {
                 var data_item = $(this).closest('.dd-item').data();
                 var form_store = $("#form_store");
+                $("#nestable").find('.SelectEdit').removeClass('SelectEdit');
+                $(this).parent().parent().children('.dd-handle').addClass('SelectEdit');
+
+                console.log( $(this).parent().find('.dd-handle'));
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 $.ajax({
                     url: '{{@route('backend:category:ajax')}}',
@@ -478,8 +485,9 @@
                         console.log(JSON.stringify(data));
                         document.getElementById("form_store").reset();
                         if (data.hasOwnProperty("data")) {
-                            var label = "{{ z_language('Category Edit : :Name')  }}";
+                            var label = "{{ z_language('Phí ship sửa : :Name')  }}";
                             $("#form-title").html(label.replace(":Name", data.data.name));
+
                             form_store.zoe_inputs('set', data.data);
                         } else {
 

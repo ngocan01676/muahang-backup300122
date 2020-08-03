@@ -31,6 +31,7 @@ class Module extends ZModule
                ' . show_categories_nestable($nestables, $category, 0) . '
             </select>';
         });
+
         \Actions::add_action("tag_add", function ($type, $id_item, $tag, $tags) {
             dump($type, $id_item, $tag);
             $_tags = explode(',', $tag);

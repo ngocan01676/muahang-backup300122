@@ -50,10 +50,15 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                             $category = new Categories();
                             $create = true;
                         }
-                        $slug = Str::slug($data['name'], '-');
+                        $slug = Str::slug($data['name'], '-','ja');
 
                         $category->name = $data['name'];
-                        $category->slug = $slug;
+                        if($data['is_slug']){
+                            $category->slug = $slug;
+                        }else{
+                            $category->slug = $data['name'];
+                        }
+
                         $category->parent_id = 0;
                         $category->description = $data['description'];
                         $category->status = $data['status'];
@@ -93,18 +98,27 @@ class CategoryController extends \Zoe\Http\ControllerBackend
             } else if ($post['act'] == "edit") {
                 $data = $post['data'];
                 $category = Categories::find($data['id']);
+                if(!empty($category['data']) && ($category['data'] == 'b:0;' || @unserialize($category['data']) !== false)){
+                    $category['data'] = unserialize($category['data']);
+                }else{
+                    $category['data'] = [];
+                }
                 return response()->json(['data' => $category]);
             } else if ($post['act'] == "nestable") {
                 $data = $post['data'];
                 $type = $data['type'];
                 $this->data['category'] = get_category_type($type);
-                echo $this->nestable(config_get("category", $type), 0, true);
+                $class_nestable = base64_decode($data['nestable']);
+                if(!empty($class_nestable) && class_exists($class_nestable)){
+                    $obj_nestable = new $class_nestable($this->data['category']);
+                    echo $obj_nestable->nestable(config_get("category", $type), 0, true,$data['id']);
+                }else{
+                    echo $this->nestable(config_get("category", $type), 0, true,$data['id']);
+                }
             }
         }
     }
-
     private $html = "";
-
     private function nestable($nestable, $parent_id = 0, $root = false)
     {
         $html = '<ol class="dd-list">';
@@ -133,10 +147,14 @@ class CategoryController extends \Zoe\Http\ControllerBackend
         $html .= '</ol>';
         return $html;
     }
-
     public function show(Request $request)
     {
         $type = isset($request->route()->defaults['type']) ? $request->route()->defaults['type'] : 'category';
+        $view_render = isset($request->route()->defaults['view_render']) ? $request->route()->defaults['view_render'] : 'category.show';
+        $is_slug = isset($request->route()->defaults['slug']) ? $request->route()->defaults['slug'] : true;
+        $class_nestable = isset($request->route()->defaults['nestable'])? ($request->route()->defaults['nestable']) : "Admin\Lib\CategoryNestable";
+
+
         $views = "";
         if (isset(app()->getConfig()['modules']['admin.category'][$type]['views'])) {
             if (isset(app()->getConfig()['modules']['admin.category'][$type]['views'])) {
@@ -151,10 +169,17 @@ class CategoryController extends \Zoe\Http\ControllerBackend
         }
         $this->breadcrumb("Category", route('backend:layout:list'));
         $this->data['category'] = get_category_type($type);
-        $this->data['nestable'] = $this->nestable(config_get("category", $type), 0, true);
+        $obj_nestable = null;
+        if(!empty($class_nestable) && class_exists($class_nestable)){
+            $obj_nestable = new $class_nestable($this->data['category']);
+        }
+        $this->data['nestable'] = $obj_nestable->nestable(config_get("category", $type), 0, true);
+
         $this->data['type'] = $type;
+        $this->data['is_slug'] = $is_slug;
         $this->data['views'] = $views;
-        return $this->render('category.show');
+        $this->data['class_nestable'] = base64_encode($class_nestable);
+        return $this->render($view_render);
     }
 
     public function list()
