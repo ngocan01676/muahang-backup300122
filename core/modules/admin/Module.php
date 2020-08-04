@@ -21,13 +21,13 @@ class Module extends ZModule
         });
         \Form::macro('CategoriesNestable', function ($nestables, $category, $name = "category") {
             return '<select id="' . $name . '-select" class="form-control" name="' . $name . '[]" multiple>
-                <option value="">' . z_language('No Category false , abc') . '</option>
+                <option value="">' . z_language('Select') . '</option>
                ' . show_categories_nestable($nestables, $category, 0) . '
             </select>';
         });
         \Form::macro('CategoriesNestableOne', function ($nestables, $category, $name = "category") {
             return '<select id="' . $name . '-select" class="form-control" name="' . $name . '">
-                <option value="">' . z_language('No Category false , abc') . '</option>
+                <option value="">' . z_language('Select') . '</option>
                ' . show_categories_nestable($nestables, $category, 0) . '
             </select>';
         });

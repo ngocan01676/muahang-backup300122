@@ -64,14 +64,19 @@ return [
                     "router" => [
                         "show" => [
                             "url" => "/",
-                            'defaults' => ["type" => "shop-ja:product:category", "views" => "blog::module.admin.category"]
+                            'defaults' => [
+                                "type" => "shop-ja:product:category",
+                                "view_render" => "shop_ja.category.ship",
+                                "views" => "blog::module.admin.category",
+                                'nestable'=>'\ShopJa\Libs\CategoryShipNestable'
+                            ]
                         ]
                     ]
                 ],
-                'shop-ja:city:category' => [
+                'shop-ja:japan:category' => [
                     "namespace" => "Admin\Http\Controllers",
                     "controller" => "CategoryController",
-                    "sub_prefix" => "/shop-ja/city/category",
+                    "sub_prefix" => "/shop-ja/category/japan",
                     "guard" => "backend",
                     "module" => [
                         "name" => "admin",
@@ -81,7 +86,7 @@ return [
                         "show" => [
                             "url" => "/",
                             'defaults' => [
-                                "type" => "shop-ja:city:category",
+                                "type" => "shop-ja:japan:category",
                                 "view_render" => "shop_ja.category.show",
                                 "slug" => false,
                                 'nestable'=>'\ShopJa\Libs\CategoryNestable'

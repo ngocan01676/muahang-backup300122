@@ -4,6 +4,7 @@
             'paths' => ['shop_ja' => 'backend'],
             'alias' => [
                 'shop_ja.category.show' => 'shop_ja::controller.category.show',
+                'shop_ja.category.ship' => 'shop_ja::controller.category.ship',
             ],
         ],
         'packages' => [
@@ -19,6 +20,7 @@
                             'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
                             'code' => ['label' => z_language('Code', false), 'type' => 'id', 'primary' => true],
                             'title' => ['label' => z_language('Title', false), 'type' => 'title'],
+                            'description' => ['label' => z_language('Description', false), 'type' => 'text'],
                             'image' => ['label' => z_language('Image', false), 'type' => 'image'],
                             'status' => ['label' => z_language('Status', false), 'type' => 'status'],
                             'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],

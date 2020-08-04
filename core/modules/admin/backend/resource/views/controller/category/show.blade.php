@@ -464,6 +464,7 @@
             $("#btnCreate").click(function () {
                 document.getElementById("form_store").reset();
                 var label = "{{ z_language('Category Create')}}";
+                $("#form_store input:hidden[name=id]").val(0);
                 $("#form-title").html(label);
             });
             $("#nestable").on("click", ".edit", function () {

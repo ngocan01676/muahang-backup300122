@@ -155,9 +155,15 @@
                         // save last scope
                         last = {scope: scope, key: key};
                         // push new scope if necessary
-                        if (scope[key] === undefined) {
+                        console.log('==Start== '+key);
+                        console.log(last);
+                        console.log(scope[key]);
+                        if ( scope[key]  === undefined || scope[key] === null) {
                             scope[key] = {};
+                            console.log('scope[key]='+key);
                         }
+                        console.log(scope);
+                        console.log('==end==');
                         // descend into scope
                         scope = scope[key];
                         // push key

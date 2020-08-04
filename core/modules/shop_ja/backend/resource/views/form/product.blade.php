@@ -33,6 +33,12 @@
                 </tr>
                 <tr>
                     <td>
+                        {!! Form::label('category_id',z_language('Công ty'), ['class' => 'Category']) !!} *
+                        {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"category_id") !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         {!! Form::label('id_description', z_language('Mô tả'), ['class' => 'description']) !!}
                         {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>z_language('Mô tả'),'cols'=>5,'rows'=>5]) !!}
                     </td>
@@ -52,7 +58,10 @@
                 <tr>
                     <td>
                         {!! Form::label('unit', z_language('Đơn vị'), ['class' => 'unit']) !!} &nbsp;
-                        @foreach( array('1' => 'Cái', '2' => 'Kg') as $key=>$value)
+                        @php
+                            $lists_uint = config('shop_ja.configs.lists_uint');
+                        @endphp
+                        @foreach( $lists_uint as $key=>$value)
                             {!! Form::radio('unit', $key , true) !!} {!! $value !!}
                         @endforeach
 
@@ -71,33 +80,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-3">
-    <div class="box box box-zoe">
-        <div class="box-body">
-            {!! Form::label('category_id', 'Chuyên mục', ['class' => 'Category']) !!} *
-            {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"category_id") !!}
-        </div>
-    </div>
 
-    <div class="box box box-zoe">
-        <div class="box-body">
-            {!! Form::label('image', 'Ảnh đại diện', ['class' => 'image']) !!}
-            <div class="image-wrapper">
-                <div class="preview-image-wrapper">
-                    <img id="preview-image" src="{{ Form::value('image')?Form::value('image'):'http://placehold.jp/150x150.png' }}" alt="" height="150px">
-                    <a onclick="btn_remove_image(this)" class="btn_remove_image" title="Remove image">
-                        <i class="fa fa-times"></i>
-                    </a>
-                    {!! Form::hidden('image',null, []) !!}
-                </div>
-                <a href="#" onclick="openElfinder(this);" class="btn_gallery">
-                    Choose image
-                </a>
-
-            </div>
-        </div>
-    </div>
-</div>
 {!! Form::close() !!}
 <div class="modal fade" id="elfinderShow">
     <div class="modal-dialog modal-lg">

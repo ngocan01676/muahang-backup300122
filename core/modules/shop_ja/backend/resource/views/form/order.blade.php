@@ -1,8 +1,8 @@
 @if(isset($model))
-    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop-ja:product:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
+    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop-ja:order:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
     {!! Form::hidden('id') !!}
 @else
-    {!! Form::open(['method' => 'POST','route' => ['backend:shop-ja:product:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
+    {!! Form::open(['method' => 'POST','route' => ['backend:shop-ja:order:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
 @endif
 <div class="col-md-5">
     <div class="box box box-zoe AutoWidthHeight">
@@ -42,39 +42,47 @@
                         @endif
                     </td>
                 </tr>
-
                 <tr>
                     <td colspan="3">
                         {!! Form::label('country', z_language('Quốc gia'), ['class' => '']) !!} (<span
                             class="req">*</span>):
-                        {!! Form::select('country', array_merge(["japan"=>"Nhật Bản"]),null,['class'=>'form-control','onchange="change()"']); !!}
+                        {!! Form::select('country', array_merge(["japan"=>"Nhật Bản"]),null,['class'=>'form-control']); !!}
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="3">
-                        @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp :
-                        {!! Form::label('type_order', z_language('Loại đơn hàng'), ['class' => '']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::select('type_order', array_merge([""=>z_language('..:  Chọn  :..')],$lists_ship),null,['class'=>'form-control','onchange="change()"']); !!}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp
-                        {!! Form::label('ship', z_language('Đơn vị giao hàng'), ['class' => '']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::select('ship', array('Yamato'=>'Công ty chuyển phát Yamato','Sagawa'=>'Công ty chuyển phát Sagawa','Japan-Post'=>'Công ty chuyển phát Japan Post'),null,['class'=>'form-control','onchange="change()"']); !!}
-                        @if ($errors->any())
-                            <p class="text-error">
-                                @if($errors->any() && $errors->getBag("default")->hasAny("ship"))
-                                    @foreach ($errors->getBag("default")->get("ship") as $error)
-                                        {{ $error }}
-                                    @endforeach
-                                @endif
-                            </p>
-                        @endif
-                    </td>
-                </tr>
+{{--                <tr>--}}
+{{--                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("type_order")) class="error" @endif>--}}
+{{--                        @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp :--}}
+{{--                        {!! Form::label('type_order', z_language('Loại đơn hàng'), ['class' => '']) !!} (<span--}}
+{{--                            class="req">*</span>):--}}
+{{--                        {!! Form::select('type_order', array_merge([""=>z_language('..:  Chọn  :..')],$lists_ship),null,['class'=>'form-control','onchange'=>"change_type_order(this)"]); !!}--}}
+{{--                        @if ($errors->any())--}}
+{{--                            <p class="text-error">--}}
+{{--                                @if($errors->any() && $errors->getBag("default")->hasAny("type_order"))--}}
+{{--                                    @foreach ($errors->getBag("default")->get("type_order") as $error)--}}
+{{--                                        {{ $error }}--}}
+{{--                                    @endforeach--}}
+{{--                                @endif--}}
+{{--                            </p>--}}
+{{--                        @endif--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
+{{--                <tr>--}}
+{{--                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("ship")) class="error" @endif>--}}
+{{--                        @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp--}}
+{{--                        {!! Form::label('ship', z_language('Đơn vị giao hàng'), ['class' => '']) !!} (<span--}}
+{{--                            class="req">*</span>):--}}
+{{--                        {!! Form::select('ship', array_merge([""=>z_language('..:  Chọn  :..')],['Yamato'=>'Công ty chuyển phát Yamato','Sagawa'=>'Công ty chuyển phát Sagawa','Japan-Post'=>'Công ty chuyển phát Japan Post']),null,['class'=>'form-control','onchange="change()"']); !!}--}}
+{{--                        @if ($errors->any())--}}
+{{--                            <p class="text-error">--}}
+{{--                                @if($errors->any() && $errors->getBag("default")->hasAny("ship"))--}}
+{{--                                    @foreach ($errors->getBag("default")->get("ship") as $error)--}}
+{{--                                        {{ $error }}--}}
+{{--                                    @endforeach--}}
+{{--                                @endif--}}
+{{--                            </p>--}}
+{{--                        @endif--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
                 <tr>
                     <td @if($errors->any() && $errors->getBag("default")->hasAny("city")) class="error" @endif>
                         @php
@@ -119,7 +127,7 @@
                 </tr>
 
                 <tr>
-                    <td colspan="3">
+                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("time_ship")) class="error" @endif>
                         {!! Form::label('day_ship', z_language('Ngày nhận hàng'), ['class' => 'day_ship']) !!} (<span
                             class="req">*</span>):
                         {!! Form::date('day_ship',null, ['class' => 'form-control','placeholder'=>z_language('Ngày nhận hàng')]) !!}
@@ -135,7 +143,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3">
+                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("time_ship")) class="error" @endif>
                         @php $lists_ship = config('shop_ja.configs.times_ship');  @endphp :
                         {!! Form::label('time_ship', z_language('Giờ nhận'), ['class' => 'time_ship']) !!} (<span
                             class="req">*</span>):
@@ -177,17 +185,26 @@
 <div class="col-md-7">
     <div class="box box box-zoe AutoWidthHeight">
         <div class="box-body">
-            <table class="table table-borderless">
+            <table class="table table-borderless @if ($errors->any())table-error @endif ">
 
 
                 <tr>
-                    <td>
+                    <td @if($errors->any() && $errors->getBag("default")->hasAny("pay_method")) class="error" @endif>
                         {!! Form::label('pay-method', z_language('Phương thức thanh toán'), ['class' => 'pay-method']) !!}
                         : <BR>
 
                         {!! Form::radio('pay_method', '1' , false) !!}  {!! @z_language(["Thanh toán khi giao hàng"]) !!}
                         {!! Form::radio('pay_method', '2',false) !!}  {!! @z_language(["Chuyển khoản ngân hàng"]) !!}
                         {!! Form::radio('pay_method', '3',false) !!}  {!! @z_language(["Không cần thanh toán"]) !!}
+                        @if ($errors->any())
+                            <p class="text-error">
+                                @if($errors->any() && $errors->getBag("default")->hasAny("pay_method"))
+                                    @foreach ($errors->getBag("default")->get("pay_method") as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                @endif
+                            </p>
+                        @endif
                     </td>
                 </tr>
                 <tr>
@@ -254,6 +271,8 @@
                                 <th class="text-center">STT</th>
                                 <th class="text-center">Mã sản phẩm</th>
                                 <th class="text-center">Tên Sản phẩm</th>
+                                <th class="text-center">Công ty</th>
+                                <th class="text-center">Vận chuyển</th>
                                 <th class="text-center">Số lượng</th>
                                 <th class="text-center">Giá nhập</th>
                                 <th class="text-center">Giá bán</th>
@@ -270,6 +289,8 @@
                                     <a class="code_product" href="#" data-type="typeaheadjs" data-pk="1" data-placement="right" data-title="Start typing State..">Demo</a>
                                 </td>
                                 <td class="text-center">Demo 1</td>
+                                <td class="text-center">YAMADA</td>
+                                <td class="text-center">Công ty chuyển phát Yamato</td>
                                 <td class="text-center"><a href="#" class="number_count" data-type="text" data-pk="1" data-title="Số lượng">1</a></td>
                                 <td class="text-center">1000</td>
                                 <td class="text-center">1200</td>
@@ -281,7 +302,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="7"></td>
+                                <td colspan="9"></td>
                                 <td class="text-center">0</td>
                                 <td class="text-center">0</td>
                                 <td></td>
@@ -356,6 +377,31 @@
     <script src="{{ asset('module/shop-ja/assets/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js') }}"></script>
 
     <script !src="">
+        function change_type_order(self) {
+           let _this = $(self);
+           let val = _this.val();
+
+           let data = {
+               YAMADA:"Yamato",
+               KOGYJA:"Yamato",
+               KURICHIKU:"Sagawa",
+               FUKUI:"Japan-Post",
+               OHGA:"Japan-Post",
+           };
+           if(!data.hasOwnProperty(val)){
+               data[val] = "";
+           }
+           console.log(data);
+            let selected = null;
+            $("#ship option").each(function () {
+                $(this).removeAttr('selected');
+                if($(this).attr('value') === data[val]){
+                    selected = $(this);
+                }
+            });
+            if(selected)
+                selected.attr('selected',true);
+        }
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();

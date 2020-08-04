@@ -9,19 +9,19 @@ return [
             "icon"=>"fa fa-newspaper-o",
             "items" => [
                 [
-                    "name" => z_language("Sản phẩm"),
+                    "name" => "QL ".z_language("Sản Shẩm"),
                     "url" => "backend:shop-ja:product:list",
                 ],
                 [
-                    "name" => z_language("Chuyên mục"),
+                    "name" => z_language("CT Sản Shẩm"),
                     "url" => "backend:shop-ja:category:show",
                 ],
                 [
-                    "name" => z_language("Quản lý ship"),
-                    "url" => "backend:shop-ja:city:category:show",
+                    "name" => z_language("CT Chuyển Phát"),
+                    "url" => "backend:shop-ja:japan:category:show",
                 ],
                 [
-                    "name" => z_language("Hóa đơn"),
+                    "name" => "QL ".z_language("Hóa Đơn"),
                     "url" => "backend:shop-ja:order:list",
                 ]
             ]

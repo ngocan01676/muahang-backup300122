@@ -76,24 +76,16 @@ class ProductController extends \Zoe\Http\ControllerBackend
     }
 
     public function store(Request $request){
+
         $data = $request->all();
         $validator = Validator::make($data, [
-            'fullname' => 'required',
-            'phone' => 'required',
-            'zipcode' => 'required|integer',
-            'city' => 'required',
-            'country' => 'required',
-            'district' => 'required',
-            'wards' => 'required',
-            'address' => 'required',
-            'ship' => 'required',
-            'day_ship' => 'required|date',
-            'time_ship' => 'required',
-            'type_order' => 'required',
-            'pay_method' => 'required',
-            'image' => 'mimes:jpeg,png|max:1014',
+//            'image' => 'required',
+            'title' => 'required',
+            'category_id' => 'required',
+            'price' => 'required|integer',
+            'price_buy' => 'required|integer',
         ], [
-            'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
+//            'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
             'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
             'category_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
             'price.required' => z_language('Giá nhập không được bỏ trống.'),
@@ -106,18 +98,6 @@ class ProductController extends \Zoe\Http\ControllerBackend
                 ->withErrors($validator)
                 ->withInput();
         }
-        $file = "";
-        if ($request->hasFile('image')) {
-            if ($request->file('image')->isValid()) {
-                $extension = $request->image->extension();
-                $request->image->storeAs('/public', $data['fullname'].".".$extension);
-                $url = Storage::url($data['fullname'].".".$extension);
-                $file = File::create([
-                    'name' => $data['fullname'],
-                    'url' => $url,
-                ]);
-            }
-        }
         if (isset($data['id']) && !empty($data['id'])) {
             $model = ProductModel::find($data['id']);
         } else {
@@ -125,10 +105,10 @@ class ProductController extends \Zoe\Http\ControllerBackend
         }
         try {
             $model->title = $data['title'];
-            $model->slug = \Illuminate\Support\Str::slug($data['title']) ;
+            $model->slug = $model->title ;
             $model->description = $data['description'];
             $model->category_id = $data['category_id'];
-            $model->image = $data['image'];
+            $model->image = "null";
             $model->price = $data['price'];
             $model->code = $data['code'];
             $model->status = $data['status'];
@@ -141,5 +121,8 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
 
         return back();
+
+
+
     }
 }

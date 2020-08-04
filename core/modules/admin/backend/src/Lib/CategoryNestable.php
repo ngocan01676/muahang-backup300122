@@ -12,7 +12,7 @@ class CategoryNestable{
             if (isset($this->data['category'][$item['id']])) {
                 $html .= '<li class="dd-item dd3-item" data-id="' . $item['id'] . '" data-name="' . $this->data['category'][$item['id']]->name . '" parent_id="' . $parent_id . '">';
                 $html .= '<div class="dd-handle dd3-handle"></div>
-		        <div class="dd3-content">' . $this->data['category'][$item['id']]->name.'-'.$this->data['category'][$item['id']]->description. '</div>';
+		        <div class="dd3-content">' . $this->data['category'][$item['id']]->name. '</div>';
                 $html .= "<div class='dd3-tool'><button class='btn btn-primary btn-xs edit'>" . "<i class='fa fa-edit'></i>" . "</button><button class='btn  btn-default btn-xs delete'>" . "<i class='fa fa-remove'></i>" . "</button></div>";
                 unset($this->data['category'][$item['id']]);
                 if (isset($item["children"])) {

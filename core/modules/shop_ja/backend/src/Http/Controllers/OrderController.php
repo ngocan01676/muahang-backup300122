@@ -78,11 +78,20 @@ class OrderController extends \Zoe\Http\ControllerBackend
     public function store(Request $request){
         $data = $request->all();
         $validator = Validator::make($data, [
-            'image' => 'required',
-            'title' => 'required',
-            'category_id' => 'required',
-            'price' => 'required|integer',
-            'price_buy' => 'required|integer',
+            'fullname' => 'required',
+            'phone' => 'required',
+            'zipcode' => 'required|integer',
+            'city' => 'required',
+            'country' => 'required',
+            'district' => 'required',
+            'wards' => 'required',
+            'address' => 'required',
+            'ship' => 'required',
+            'day_ship' => 'required|date',
+            'time_ship' => 'required',
+            'type_order' => 'required',
+            'pay_method' => 'required',
+            'image' => 'mimes:jpeg,png|max:1014',
         ], [
             'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
             'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
@@ -96,6 +105,18 @@ class OrderController extends \Zoe\Http\ControllerBackend
             return back()
                 ->withErrors($validator)
                 ->withInput();
+        }
+        $file = "";
+        if ($request->hasFile('image')) {
+            if ($request->file('image')->isValid()) {
+                $extension = $request->image->extension();
+                $request->image->storeAs('/public', $data['fullname'].".".$extension);
+                $url = Storage::url($data['fullname'].".".$extension);
+                $file = File::create([
+                    'name' => $data['fullname'],
+                    'url' => $url,
+                ]);
+            }
         }
         if (isset($data['id']) && !empty($data['id'])) {
             $model = ProductModel::find($data['id']);
