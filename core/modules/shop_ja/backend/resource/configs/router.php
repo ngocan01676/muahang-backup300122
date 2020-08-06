@@ -2,14 +2,16 @@
 return [
     'routers' => [
         'backend' => [
-            'shop-ja:product' => [
+            'shop_ja:product' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "ProductController",
                     "sub_prefix" => "/shop-ja/product",
                     "guard" => "backend",
+                    "acl"=> "shop_ja:product:store",
                     "router" => [
                         "list" => [
                             "url" => "/",
+                            'acl'=>true
                         ],
                         "create" => [
                             "url" => "/create",
@@ -27,14 +29,16 @@ return [
                         ]
                     ]
                 ],
-                'shop-ja:order' => [
+                'shop_ja:order' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "OrderController",
                     "sub_prefix" => "/shop-ja/order",
                     "guard" => "backend",
+                    "acl"=> "shop_ja:order:store",
                     "router" => [
                         "list" => [
                             "url" => "/",
+                            'acl'=>true
                         ],
                         "create" => [
                             "url" => "/create",
@@ -52,11 +56,12 @@ return [
                         ]
                     ]
                 ],
-                'shop-ja:category' => [
+                'shop_ja:category' => [
                     "namespace" => "Admin\Http\Controllers",
                     "controller" => "CategoryController",
                     "sub_prefix" => "/shop-ja/product/category",
                     "guard" => "backend",
+                    "acl"=> "shop_ja:category",
                     "module" => [
                         "name" => "admin",
                         "type" => "module"
@@ -73,11 +78,12 @@ return [
                         ]
                     ]
                 ],
-                'shop-ja:japan:category' => [
+                'shop_ja:japan:category' => [
                     "namespace" => "Admin\Http\Controllers",
                     "controller" => "CategoryController",
                     "sub_prefix" => "/shop-ja/category/japan",
                     "guard" => "backend",
+                    "acl"=> "shop_ja:category",
                     "module" => [
                         "name" => "admin",
                         "type" => "module"

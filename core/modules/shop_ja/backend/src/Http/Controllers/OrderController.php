@@ -17,7 +17,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
     }
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop-ja:product:list'));
+        $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop_ja:product:list'));
         return $this;
     }
     public function list(Request $request)
@@ -54,7 +54,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
     }
     public function create()
     {
-        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop-ja:order:create'));
+        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:create'));
         return $this->render('order.create', ['item' => []], 'blog');
     }
 
@@ -134,7 +134,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
             $model->status = $data['status'];
             $model->price_buy = $data['price_buy'];
             $model->save();
-            return redirect(route('backend:shop-ja:product:edit', ['id' => $model->id]));
+            return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
         }

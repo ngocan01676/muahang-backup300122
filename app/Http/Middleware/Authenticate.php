@@ -22,12 +22,13 @@ class Authenticate extends Middleware
         } else {
             $this->guards = $guards;
         }
-        foreach ($this->guards as $guard) {
 
+        foreach ($this->guards as $guard) {
             if ($this->auth->guard($guard)->check()) {
                 return $this->auth->shouldUse($guard);
             }
         }
+
         throw new AuthenticationException(
             'Unauthenticated.', $guards, $this->redirectTo($request)
         );

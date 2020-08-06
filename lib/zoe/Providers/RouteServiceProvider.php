@@ -117,8 +117,9 @@ class RouteServiceProvider extends ServiceProvider
                 }
                 if (!empty($auth_guard)) {
                     $middleware[] = 'auth:' . $auth_guard;
+
                     if (empty($acl)) {
-                        $acl = isset($_route["acl"]) ? ($_route["acl"] == true ? $permission : $_route["acl"]) : (isset($route["acl"]) ? $route["acl"] : "");
+                        $acl = isset($_route["acl"]) ? ($_route["acl"] == true ? $permission : $_route["acl"]) : (isset($route["acl"]) ? $route["acl"] :"");
                     }
                     if (!empty($acl)) {
                         $middleware[] = "permission:" . $auth_guard . "-" . $acl;
@@ -157,6 +158,9 @@ class RouteServiceProvider extends ServiceProvider
                 if (isset($configRouter['data'][$alias]['cache']) && $configRouter['data'][$alias]['cache'] != 0) {
                     $middleware[] = 'cache.response:' . $alias . "," . $configRouter['data'][$alias]['cache'];
                 }
+//                echo "<pre>";
+//                echo $alias;
+//                print_r($middleware);
                 $r->middleware($middleware);
             }
         }

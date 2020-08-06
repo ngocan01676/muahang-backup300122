@@ -37,6 +37,9 @@
                         <td>{{$list->guard_name}}</td>
                         <td>{{$list->created_at}}</td>
                         <td>{{$list->updated_at}}</td>
+                        <td>
+                            <a href="{!! route('backend:user:role:permission',["id"=>$list->id,'guard'=>$list->guard_name]) !!}" class="btn btn-primary">xét quyền</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

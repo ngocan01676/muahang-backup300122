@@ -1,8 +1,8 @@
 @if(isset($model))
-    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop-ja:order:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
+    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:order:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
     {!! Form::hidden('id') !!}
 @else
-    {!! Form::open(['method' => 'POST','route' => ['backend:shop-ja:order:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
+    {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:order:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
 @endif
 <div class="col-md-5">
     <div class="box box box-zoe AutoWidthHeight">
@@ -288,10 +288,46 @@
                                 <td class="text-center">
                                     <a class="code_product" href="#" data-type="typeaheadjs" data-pk="1" data-placement="right" data-title="Start typing State..">Demo</a>
                                 </td>
-                                <td class="text-center">Demo 1</td>
+                                <td class="text-center">Đùi gà</td>
                                 <td class="text-center">YAMADA</td>
                                 <td class="text-center">Công ty chuyển phát Yamato</td>
-                                <td class="text-center"><a href="#" class="number_count" data-type="text" data-pk="1" data-title="Số lượng">1</a></td>
+                                <td class="text-center"><a href="#" class="number_count" data-type="text" data-pk="1" data-title="Số lượng">5</a> kg</td>
+                                <td class="text-center">1000</td>
+                                <td class="text-center">1200</td>
+                                <td class="text-center">5</td>
+                                <td class="text-center">1000</td>
+                                <td class="text-center">1200</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-danger btn-xs" onclick="remove(this)">Remove</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td class="text-center">
+                                    <a class="code_product" href="#" data-type="typeaheadjs" data-pk="1" data-placement="right" data-title="Start typing State..">Demo</a>
+                                </td>
+                                <td class="text-center">ức gà</td>
+                                <td class="text-center">YAMADA</td>
+                                <td class="text-center">Công ty chuyển phát Yamato</td>
+                                <td class="text-center"><a href="#" class="number_count" data-type="text" data-pk="1" data-title="Số lượng">6</a> kg</td>
+                                <td class="text-center">1000</td>
+                                <td class="text-center">1200</td>
+                                <td class="text-center">5</td>
+                                <td class="text-center">1000</td>
+                                <td class="text-center">1200</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-danger btn-xs" onclick="remove(this)">Remove</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td class="text-center">
+                                    <a class="code_product" href="#" data-type="typeaheadjs" data-pk="1" data-placement="right" data-title="Start typing State..">Demo</a>
+                                </td>
+                                <td class="text-center">Con gà</td>
+                                <td class="text-center">YAMADA</td>
+                                <td class="text-center">Công ty chuyển phát Yamato</td>
+                                <td class="text-center"><a href="#" class="number_count" data-type="text" data-pk="1" data-title="Số lượng">1</a> kg</td>
                                 <td class="text-center">1000</td>
                                 <td class="text-center">1200</td>
                                 <td class="text-center">5</td>

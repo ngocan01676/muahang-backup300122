@@ -31,7 +31,7 @@ return [
             'member' => [
                 "namespace" => "User\Http\Controllers",
                 "controller" => "MemberController",
-                "acl" => "user",
+                "acl" => "member",
                 "sub_prefix" => "/member",
                 "router" => [
                     "list" => [
@@ -72,9 +72,14 @@ return [
                 "namespace" => "User\Http\Controllers",
                 "controller" => "RoleController",
                 "acl" => "user:role",
+                "guard" => "backend",
                 "router" => [
                     "list" => [
                         "url" => "/user/role"
+                    ],
+                    "permission" =>[
+                        'url' => '/user/permission/{id}/{guard}',
+                        "method" => ['get','post']
                     ],
 
                 ]

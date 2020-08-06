@@ -169,8 +169,8 @@ return [
                 "controller" => "ConfigurationController",
                 "sub_prefix" => "/configuration",
                 "guard" => "backend",
+                "acl"=>'configuration',
                 "router" => [
-
                     "list" => [
                         "url" => "/{type?}",
                     ],

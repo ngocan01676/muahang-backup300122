@@ -32,6 +32,7 @@ class Backend extends Authenticatable
         if(empty($permission) || $this->username =="admin"){
             return true;
         }
+
         Cache::remember('role:'.$this->guard, 60, function()
         {
             return DB::table('role')
@@ -63,5 +64,10 @@ class Backend extends Authenticatable
     }
     public function keyCache(){
         return $this->guard.":".$this->roleId;
+    }
+    public static function ResetCacheKey($guard,$role_id){
+        Cache::forget('role:'.$guard);
+        Cache::forget('permissions:'.$guard.":".$role_id);
+
     }
 }

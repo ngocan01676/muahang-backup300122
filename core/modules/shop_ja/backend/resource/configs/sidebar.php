@@ -10,19 +10,19 @@ return [
             "items" => [
                 [
                     "name" => "QL ".z_language("Sản Shẩm"),
-                    "url" => "backend:shop-ja:product:list",
-                ],
-                [
-                    "name" => z_language("CT Sản Shẩm"),
-                    "url" => "backend:shop-ja:category:show",
+                    "url" => "backend:shop_ja:product:list",
                 ],
                 [
                     "name" => z_language("CT Chuyển Phát"),
-                    "url" => "backend:shop-ja:japan:category:show",
+                    "url" => "backend:shop_ja:category:show",
+                ],
+                [
+                    "name" => z_language("CT Phí Ship"),
+                    "url" => "backend:shop_ja:japan:category:show",
                 ],
                 [
                     "name" => "QL ".z_language("Hóa Đơn"),
-                    "url" => "backend:shop-ja:order:list",
+                    "url" => "backend:shop_ja:order:list",
                 ]
             ]
         ],

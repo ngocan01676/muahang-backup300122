@@ -6,6 +6,12 @@ return [
 
         ]
     ],
+    'acls'=>[
+        'descriptions'=>[
+            'backend:shop_ja:category:show'=>'Chức năng chuyển phát',
+            'backend:shop_ja:japan:category:show'=>'Chức năng quản lý ship',
+        ]
+    ],
     'packages' => [
         'namespaces' => [
             'User' => 'backend'

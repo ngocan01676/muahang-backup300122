@@ -2,7 +2,7 @@
     <h1>
         &starf; {!! @z_language(["Chức năng quản lý đơn hàng"]) !!}
         <small>it all starts here</small>
-        <a href="{{route('backend:shop-ja:order:create')}}"
+        <a href="{{route('backend:shop_ja:order:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
         @btn_option(["config"=>['name'=>'module:shop_ja:product']])
         @slot('label')

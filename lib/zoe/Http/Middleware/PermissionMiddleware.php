@@ -15,9 +15,7 @@ class PermissionMiddleware
         $permissions = explode("-",$permission);
 
         if(isset($permissions[0]) && isset($permissions[1])){
-
             if (Auth::guard($permissions[0])->check()) {
-
                 if(!Auth::guard($permissions[0])->user()->IsAcl($permissions[1])){
                     if(isset($this->_permission[$permissions[0]]['error'])){
                         return redirect(route($this->_permission[$permissions[0]]['error']));
