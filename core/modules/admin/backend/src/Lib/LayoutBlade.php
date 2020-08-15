@@ -383,14 +383,26 @@ class LayoutBlade extends Layout
         $prefix = "";
 
         if ($type_group == "theme") {
-            $path = storage_path('app/views/layouts/' . $type_group);
+			$path = storage_path('app/views/');
+			if (!$this->file->isDirectory($path)) {
+                $this->file->makeDirectory($path);
+            }
+		 
+			$path = storage_path('app/views/layouts/');
+			if (!$this->file->isDirectory($path)) {
+                $this->file->makeDirectory($path);
+            }
+			
+            $path = $path . $type_group;
+			 
             if (!$this->file->isDirectory($path)) {
                 $this->file->makeDirectory($path);
             }
+			
             $prefix .= "layouts.theme." . $theme . ".";
             $path = $path . '/' . config_get('theme', "active") . '/';
         } else {
-            $path = storage_path('app/views/layouts/' . $type_group . '/');
+            $path = storage_path($path . $type_group . '/');
             $prefix .= "layouts." . $type_group . ".";
         }
             
