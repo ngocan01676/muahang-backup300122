@@ -8,6 +8,8 @@ use Illuminate\Filesystem\FilesystemAdapter;
 
 class ElfinderController extends \Zoe\Http\ControllerBackend
 {
+    protected $layout = 'backend::layout.elfinder';
+
     public function list()
     {
         return $this->render('elfinder.list', ['dir' => 'module/admin/assets/elfinder', 'locale' => app()->getLocale()]);

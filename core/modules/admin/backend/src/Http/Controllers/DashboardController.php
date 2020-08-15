@@ -13,7 +13,9 @@ class DashboardController extends \Zoe\Http\ControllerBackend
     {
         return $this->render('dashboard.list');
     }
-
+    public function media(){
+        return $this->render('dashboard.media');
+    }
     public function option(Request $request)
     {
         $items = $request->all();
@@ -58,7 +60,7 @@ class DashboardController extends \Zoe\Http\ControllerBackend
             $listsRolePremission[$item->id] = Permission::where('role_id', $item->id)->get();
         }
         $layouts = \Admin\Http\Models\Layout::where('type_group', 'theme')->where('type', 'layout')->orderBy("updated_at", "desc")->get();
-        
+
         return $this->render('dashboard.router', [
             'listsRolePremission' => $listsRolePremission,
             'layouts' => $layouts,

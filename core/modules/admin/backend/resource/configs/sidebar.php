@@ -69,6 +69,13 @@ return [
             "header" => true,
 
         ],
+        "media" => [
+            "name" => z_language('Media', false),
+            "pos" => 2,
+            "url" => "backend:dashboard:media",
+            "header" => true,
+
+        ],
         "plugin:item" => [
             "name" => z_language('Plugins', false),
             "pos" => 2,

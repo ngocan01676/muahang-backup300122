@@ -7,9 +7,14 @@ return [
                 "controller" => "DashboardController",
                 "prefix" => "/admin",
                 "guard" => "backend",// pải login
+                "acl"=> "dashboard",
                 "router" => [
                     "list" => [
                         "url" => "/",
+                    ],
+                    "media" => [
+                        "url" => "/media",
+                        "acl"=>"media"
                     ],
                     "router" => [
                         "url" => "/router",
@@ -26,6 +31,7 @@ return [
                 "controller" => "ElfinderController",
                 "sub_prefix" => "/elfinder",
                 "guard" => "backend",// pải login
+                "acl"=>"dashboard:media",
                 "router" => [
                     "list" => [
                         "url" => "/",
