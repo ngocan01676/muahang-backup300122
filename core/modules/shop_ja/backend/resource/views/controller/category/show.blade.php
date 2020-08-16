@@ -629,7 +629,7 @@
                 $.ajax({
                     url: '{{@route('backend:shop_ja:japan:category:ajax')}}',
                     type: "POST",
-                    data: {act: "edit", data: {id: data_item.id, type: '{!! $type !!}','pro_id':{!! $product_id !!}}},
+                    data: {act: "edit", data: {id: data_item.id, type: '{!! $type !!}','pro_id':{!! empty($product_id)?"1":$product_id !!}}},
                     success: function (data) {
                         console.log(JSON.stringify(data));
                         document.getElementById("form_store").reset();
