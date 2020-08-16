@@ -46,7 +46,6 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         if (isset($data) && isset($data['id']) && $data['id'] != 0) {
                             $category = Categories::find($data['id']);
                         } else {
-
                             $category = new Categories();
                             $create = true;
                         }
@@ -58,7 +57,6 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         }else{
                             $category->slug = $data['name'];
                         }
-
                         $category->parent_id = 0;
                         $category->description = $data['description'];
                         $category->status = $data['status'];
@@ -68,16 +66,14 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         $category->order = 0;
                         $category->is_default = 0;
                         $category->data = isset($data["data"]) && is_array($data["data"]) ? serialize($data["data"]) : serialize([]);
-
                         $category->save();
-                        return response()->json(['success' => $data]);
+                        return response()->json(['success' => $data,'status'=>true]);
                     } else {
                         return response()->json(['error' => $validator->errors(), 'data_rules' => $rules]);
                     }
                 } else {
                     return response()->json(['error' => $validator->errors(), 'data_rules' => $rules]);
                 }
-
             } else if ($post['act'] == "position") {
 
                 $data = $post['data'];
@@ -97,12 +93,15 @@ class CategoryController extends \Zoe\Http\ControllerBackend
 
             } else if ($post['act'] == "edit") {
                 $data = $post['data'];
+
                 $category = Categories::find($data['id']);
+
                 if(!empty($category['data']) && ($category['data'] == 'b:0;' || @unserialize($category['data']) !== false)){
                     $category['data'] = unserialize($category['data']);
                 }else{
                     $category['data'] = [];
                 }
+
                 return response()->json(['data' => $category]);
             } else if ($post['act'] == "nestable") {
                 $data = $post['data'];
@@ -173,6 +172,7 @@ class CategoryController extends \Zoe\Http\ControllerBackend
         if(!empty($class_nestable) && class_exists($class_nestable)){
             $obj_nestable = new $class_nestable($this->data['category']);
         }
+
         $this->data['nestable'] = $obj_nestable->nestable(config_get("category", $type), 0, true);
 
         $this->data['type'] = $type;
