@@ -116,12 +116,7 @@
                                             @endphp
                                             {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal','data-key'=>'equal','data-name'=>"data.".$key."[@INDEX@].equal"]); !!}
                                         </td>
-                                        <td>
-                                            @php
-                                                $lists_uint = config('shop_ja.configs.lists_uint');
-                                            @endphp
-                                            {!! Form::select(null, array_merge($lists_uint),null,['class'=>'data form-control uint','data-key'=>'uint','data-name'=>"data.".$key."[@INDEX@].uint"]); !!}
-                                        </td>
+
                                         <td><input  data-key="value" data-name="data.{!! $key !!}.[@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
                                         <td class="text-center">
                                             <button type="button" data-id="#wrap_{!! $key !!}" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
@@ -575,7 +570,7 @@
                 $(this).removeClass('Error');
             });
             let tr = parent.find('.template');
-            let vals = {"text":tr.find('.text').val(),"uint":tr.find('.uint').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val()};
+            let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val()};
             if((vals.text.length > 0 && vals.uint.length > 0 && vals.value.length > 0)){
                 template(parent,vals,trs.length);
             }else{
@@ -623,8 +618,6 @@
                 var form_store = $("#form_store");
                 $("#nestable").find('.SelectEdit').removeClass('SelectEdit');
                 $(this).parent().parent().children('.dd-handle').addClass('SelectEdit');
-
-
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 $.ajax({
                     url: '{{@route('backend:shop_ja:japan:category:ajax')}}',
@@ -639,6 +632,7 @@
                             console.log(data.data);
                             renderData(data.data);
                             form_store.zoe_inputs('set', data.data);
+
 
                         } else {
 
