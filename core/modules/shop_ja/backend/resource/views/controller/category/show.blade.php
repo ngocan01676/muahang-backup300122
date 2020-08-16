@@ -624,7 +624,7 @@
                 $("#nestable").find('.SelectEdit').removeClass('SelectEdit');
                 $(this).parent().parent().children('.dd-handle').addClass('SelectEdit');
 
-                console.log( $(this).parent().find('.dd-handle'));
+
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 $.ajax({
                     url: '{{@route('backend:shop_ja:japan:category:ajax')}}',
@@ -634,8 +634,8 @@
                         console.log(JSON.stringify(data));
                         document.getElementById("form_store").reset();
                         if (data.hasOwnProperty("data")) {
-                            var label = "{{ z_language('Phí ship sửa : :Name')  }}";
-                            $("#form-title").html(label.replace(":Name", data.data.name));
+                            var label = "{{ z_language('Sửa : :Name')  }}";
+                            $("#form-title").html(label.replace(":Name", data.data.info));
                             console.log(data.data);
                             renderData(data.data);
                             form_store.zoe_inputs('set', data.data);
