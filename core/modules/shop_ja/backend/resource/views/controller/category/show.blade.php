@@ -571,7 +571,7 @@
             });
             let tr = parent.find('.template');
             let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val()};
-            if((vals.text.length > 0 && vals.uint.length > 0 && vals.value.length > 0)){
+            if((vals.text.length > 0 && vals.value.length > 0)){
                 template(parent,vals,trs.length);
             }else{
                 tr.addClass('Error');
