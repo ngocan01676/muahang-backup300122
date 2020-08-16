@@ -87,7 +87,6 @@
                                     @isset($data['data']['columns'][$key])
 
                                         @continue(isset($route[$key]))
-
                                         @if(!property_exists($model,$key) && isset($columns['callback']) && isset($callback[$columns['callback']]))
                                             @php
                                               $model->{$key} = call_user_func_array($callback[$columns['callback']],[$model]);

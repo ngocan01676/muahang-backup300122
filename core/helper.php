@@ -383,6 +383,7 @@ function list_text_aligin($columns)
     }
     return "";
 }
+
 function render_attr($option,$model){
 
     $html = "";$tag = "";$attr = "";

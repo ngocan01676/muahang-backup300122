@@ -12,6 +12,7 @@
                 'ShopJa' => 'backend'
             ],
         ],
+
         'options'=>[
             'module:shop_ja:product' => [
                 'config' => [
