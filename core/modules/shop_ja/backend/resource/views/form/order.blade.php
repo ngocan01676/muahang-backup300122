@@ -84,29 +84,13 @@
 {{--                    </td>--}}
 {{--                </tr>--}}
                 <tr>
-                    <td @if($errors->any() && $errors->getBag("default")->hasAny("city")) class="error" @endif>
+                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("city")) class="error" @endif>
                         @php
                             $lists_ship = config('shop_ja.configs.lists_city');
                         @endphp
                         {!! Form::label('Tỉnh/Thành phố', z_language('Tỉnh/Thành phố'), ['class' => '']) !!} (<span
                             class="req">*</span>):
-                        {!! Form::select('city', array_merge([""=>z_language('..:  Chọn  :..')], array_combine($lists_ship,$lists_ship)),null,['class'=>'form-control','onchange="change()"']); !!}
-                    </td>
-                    <td @if($errors->any() && $errors->getBag("default")->hasAny("district")) class="error" @endif>
-                        {!! Form::label('district', z_language('Quận/Huyện'), ['class' => '']) !!} (<span
-                            class="req">*</span>):
-                        @php
-                            $lists_district = config('shop_ja.configs.lists_city');
-                        @endphp
-                        {!! Form::select('district', array_merge([""=>z_language('..:  Chọn  :..')],array_combine($lists_ship,$lists_ship)),null,['class'=>'form-control','onchange="change()"']); !!}
-                    </td>
-                    <td @if($errors->any() && $errors->getBag("default")->hasAny("wards")) class="error" @endif>
-                        {!! Form::label('wards', z_language('Phường/Xã'), ['class' => '']) !!} (<span
-                            class="req">*</span>):
-                        @php
-                            $lists_wards = config('shop_ja.configs.lists_city');
-                        @endphp
-                        {!! Form::select('wards', array_merge([""=>z_language('..:  Chọn  :..')],array_combine($lists_ship,$lists_ship)),null,['class'=>'form-control','onchange="change()"']); !!}
+                        {!! Form::CategoriesNestableOne($nestables,[Form::value('city')=>""],"city") !!}
                     </td>
                 </tr>
                 <tr>
@@ -126,39 +110,6 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("time_ship")) class="error" @endif>
-                        {!! Form::label('day_ship', z_language('Ngày nhận hàng'), ['class' => 'day_ship']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::date('day_ship',null, ['class' => 'form-control','placeholder'=>z_language('Ngày nhận hàng')]) !!}
-                        @if ($errors->any())
-                            <p class="text-error">
-                                @if($errors->any() && $errors->getBag("default")->hasAny("day_ship"))
-                                    @foreach ($errors->getBag("default")->get("day_ship") as $error)
-                                        {{ $error }}
-                                    @endforeach
-                                @endif
-                            </p>
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("time_ship")) class="error" @endif>
-                        @php $lists_ship = config('shop_ja.configs.times_ship');  @endphp :
-                        {!! Form::label('time_ship', z_language('Giờ nhận'), ['class' => 'time_ship']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::select('time_ship', array_merge([""=>z_language('..:  Chọn  :..')],$lists_ship),null,['class'=>'form-control','onchange="change()"']); !!}
-                        @if ($errors->any())
-                            <p class="text-error">
-                                @if($errors->any() && $errors->getBag("default")->hasAny("time_ship"))
-                                    @foreach ($errors->getBag("default")->get("time_ship") as $error)
-                                        {{ $error }}
-                                    @endforeach
-                                @endif
-                            </p>
-                        @endif
-                    </td>
-                </tr>
                 <tr>
                     <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("phone")) class="error" @endif>
                         {!! Form::label('Zipcode', z_language('Mã bưu chính'), ['class' => 'phone']) !!} (<span
@@ -208,27 +159,45 @@
                     </td>
                 </tr>
                 <tr>
+                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("time_ship")) class="error" @endif>
+                        {!! Form::label('day_ship', z_language('Ngày nhận hàng'), ['class' => 'day_ship']) !!} (<span
+                            class="req">*</span>):
+                        {!! Form::date('day_ship',null, ['class' => 'form-control','placeholder'=>z_language('Ngày nhận hàng')]) !!}
+                        @if ($errors->any())
+                            <p class="text-error">
+                                @if($errors->any() && $errors->getBag("default")->hasAny("day_ship"))
+                                    @foreach ($errors->getBag("default")->get("day_ship") as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                @endif
+                            </p>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("time_ship")) class="error" @endif>
+                        @php $lists_ship = config('shop_ja.configs.times_ship');  @endphp :
+                        {!! Form::label('time_ship', z_language('Giờ nhận'), ['class' => 'time_ship']) !!} (<span
+                            class="req">*</span>):
+                        {!! Form::select('time_ship', array_merge([""=>z_language('..:  Chọn  :..')],$lists_ship),null,['class'=>'form-control','onchange="change()"']); !!}
+                        @if ($errors->any())
+                            <p class="text-error">
+                                @if($errors->any() && $errors->getBag("default")->hasAny("time_ship"))
+                                    @foreach ($errors->getBag("default")->get("time_ship") as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                @endif
+                            </p>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         {!! Form::label('info', z_language('Thông tin chuyển khoản'), ['class' => 'info']) !!} :
                         {!! Form::text('zipcode',null, ['class' => 'form-control','placeholder'=>z_language('Thông tin chuyển khoản')]) !!}
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        {!! Form::label('image', 'Ảnh hóa đơn', ['class' => 'image']) !!}
-                        <div class="image-wrapper">
-                            <div class="preview-image-wrapper">
-                                <img
-                                    id="preview-image"
-                                    style="width: 100px;height: 150px"
-                                    src="{{ Form::value('image')?Form::value('image'):'http://placehold.jp/100x150.png' }}" alt="">
-                            </div>
-                            <BR>
-                            <input id="image" type="file"
-                                   name="image" accept="image/*" onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0])">
-                        </div>
-                    </td>
-                </tr>
+
                 <tr>
                     <td>
                         {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
@@ -258,14 +227,14 @@
         <div class="box-body">
             <table class="table table-bordered">
                 <tr>
-                    <td><p><strong>{!! @z_language(["Thông tin sản phẩm"]) !!}</strong></p></td>
-                    <td class="pull-right">
-                        <button type="button" id="AddProduct" class="btn btn-success btn-xs"> Thêm sản phẩm</button>
-                    </td>
+
+                    <td>{!! Form::text('name',null, ['id'=>"search_data",'class' => 'form-control','placeholder'=>z_language('Tên sản phẩm')]) !!}</td>
+                    <td>{!! Form::number('number',null, ['id'=>'number','class' => 'form-control','placeholder'=>z_language('Số lượng')]) !!}</td>
+
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="orderDetail">
                             <thead>
                             <tr>
                                 <th class="text-center">STT</th>
@@ -274,6 +243,7 @@
                                 <th class="text-center">Công ty</th>
                                 <th class="text-center">Vận chuyển</th>
                                 <th class="text-center">Số lượng</th>
+                                <th class="text-center">Hóa đơn</th>
                                 <th class="text-center">Giá nhập</th>
                                 <th class="text-center">Giá bán</th>
                                 <th class="text-center">Phí ship</th>
@@ -283,66 +253,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <a class="code_product" href="#" data-type="typeaheadjs" data-pk="1" data-placement="right" data-title="Start typing State..">Demo</a>
-                                </td>
-                                <td class="text-center">Đùi gà</td>
-                                <td class="text-center">YAMADA</td>
-                                <td class="text-center">Công ty chuyển phát Yamato</td>
-                                <td class="text-center"><a href="#" class="number_count" data-type="text" data-pk="1" data-title="Số lượng">5</a> kg</td>
-                                <td class="text-center">1000</td>
-                                <td class="text-center">1200</td>
-                                <td class="text-center">5</td>
-                                <td class="text-center">1000</td>
-                                <td class="text-center">1200</td>
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-danger btn-xs" onclick="remove(this)">Remove</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <a class="code_product" href="#" data-type="typeaheadjs" data-pk="1" data-placement="right" data-title="Start typing State..">Demo</a>
-                                </td>
-                                <td class="text-center">ức gà</td>
-                                <td class="text-center">YAMADA</td>
-                                <td class="text-center">Công ty chuyển phát Yamato</td>
-                                <td class="text-center"><a href="#" class="number_count" data-type="text" data-pk="1" data-title="Số lượng">6</a> kg</td>
-                                <td class="text-center">1000</td>
-                                <td class="text-center">1200</td>
-                                <td class="text-center">5</td>
-                                <td class="text-center">1000</td>
-                                <td class="text-center">1200</td>
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-danger btn-xs" onclick="remove(this)">Remove</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <a class="code_product" href="#" data-type="typeaheadjs" data-pk="1" data-placement="right" data-title="Start typing State..">Demo</a>
-                                </td>
-                                <td class="text-center">Con gà</td>
-                                <td class="text-center">YAMADA</td>
-                                <td class="text-center">Công ty chuyển phát Yamato</td>
-                                <td class="text-center"><a href="#" class="number_count" data-type="text" data-pk="1" data-title="Số lượng">1</a> kg</td>
-                                <td class="text-center">1000</td>
-                                <td class="text-center">1200</td>
-                                <td class="text-center">5</td>
-                                <td class="text-center">1000</td>
-                                <td class="text-center">1200</td>
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-danger btn-xs" onclick="remove(this)">Remove</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="9"></td>
-                                <td class="text-center">0</td>
-                                <td class="text-center">0</td>
-                                <td></td>
-                            </tr>
+
+
                             </tbody>
                         </table>
                     </td>
@@ -398,8 +310,13 @@
         .autocomplete-group { padding: 2px 5px; font-weight: bold; font-size: 16px; color: #000; display: block; border-bottom: 1px solid #000; }
 
     </style>
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+{{--    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>--}}
+{{--    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>--}}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+
 
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/elfinder.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/theme.css') }}">
@@ -464,19 +381,19 @@
                 });
             })();
             var myModalOption = $("#myModalOption");
-            $("#AddProduct").click(function () {
-                myModalOption.modal();
-                let countries = [
-                    { value: 'Andorra', data: 'AD' },
-                    { value: 'Zimbabwe', data: 'ZZ' }
-                ];
-                myModalOption.find('#autocomplete').devbridgeAutocomplete({
-                    lookup: countries,
-                    onSelect: function (suggestion) {
-                        console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
-                    }
-                });
-            });
+            // $("#AddProduct").click(function () {
+            //     myModalOption.modal();
+            //     let countries = [
+            //         { value: 'Andorra', data: 'AD' },
+            //         { value: 'Zimbabwe', data: 'ZZ' }
+            //     ];
+            //     myModalOption.find('#autocomplete').devbridgeAutocomplete({
+            //         lookup: countries,
+            //         onSelect: function (suggestion) {
+            //             console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            //         }
+            //     });
+            // });
 
             $(".btnSave").click(function () {
                 console.log(1);
@@ -564,5 +481,132 @@
                 }
             }).elfinder('instance');
         }
+    </script>
+    <script>
+        let dataImages = {};
+        function readURL(self) {
+            let k = $(self).attr('data-preview_image');
+            dataImages[k] = window.URL.createObjectURL(self.files[0]);
+            $("."+k).each(function () {
+                this.src =  window.URL.createObjectURL(self.files[0]);
+            })
+        }
+        $(document).ready(function(){
+            $("#search_data,#number").focus(function(){
+                $(this).val('');
+            });
+            function IF(val,equals) {
+                if(equals === "") return -1;
+                for(let k in equals){
+                    if(equals.hasOwnProperty(k)){
+                        let _val = equals[k];
+                        if( _val.equal === "<=" && val <= parseFloat(_val.text)){
+                            return _val.value;
+                            break;
+                        }else if( _val.equal === ">=" && val >= parseFloat(_val.text)){
+                            return _val.value;
+                            break;
+                        }else if( _val.equal === ">" && val > parseFloat(_val.text)){
+                            return _val.value;
+                            break;
+                        } else if( _val.equal === "<" && val < parseFloat(_val.text)){
+                            return _val.value;
+                            break;
+                        }else if( _val.equal === "=" && val === parseFloat(_val.text)){
+                            return _val.value;
+                            break;
+                        }
+                    }
+                }
+            }
+            function update(data) {
+                $.post("{!! route('backend:shop_ja:order:ajax') !!}" , data, function (response) {
+                    if(response.length > 0 ){
+                        let dom = $("#id_"+response[0].data.id);
+
+                        dom.find('.price_ship').text(IF(data.count,response[0].data.price_ship));
+                        dom.find('.total_price').text(data.count*response[0].data.price);
+                        dom.find('.total_price_buy').text(data.count*response[0].data.price_buy);
+                        dom.find('.number_count').text(data.count).editable('setValue',data.count);
+                    }else{
+                        dom.find('.price_ship').text("no");
+                    }
+                });
+            }
+
+            function insertRow(data,count){
+                let orderDetail = $("#orderDetail tbody");
+
+
+
+                let templateUpload = function(id,ship){
+                    let img = "http://placehold.jp/100x150.png";
+                    let k = "preview-image-"+ship;
+                    if(dataImages.hasOwnProperty(k)){
+                        img = dataImages[k];
+                    }
+                    let html = '<div class="image-wrapper"><div class="preview-image-wrapper"><img id="preview-image-'+id+'" class="preview-image-'+ship+'" style="width: 100px;height: 150px" src="'+img+'" alt="">  </div>\n' +
+                        '                  <BR>\n' +
+                        '                        <input class="image" type="file" name="image" accept="image/*" data-preview_image="preview-image-'+ship+'" onchange="readURL(this)">\n' +
+                        '                        </div>';
+                    return html;
+                };
+                let html = "<tr id='id_"+data.id+"' data-id='"+data.id+"'>";
+                html+="<td class=\"text-center\"><textarea class='data' style='display: none'>"+JSON.stringify(data)+"</textarea></td>";
+                html+="<td class=\"text-center\">"+data.code+"</td>";
+                html+="<td class=\"text-center\">"+data.title+"<BR><i>"+data.description+"</i></td>";
+                html+="<td class=\"text-center\">"+data.company+"</td>";
+                html+="<td class=\"text-center\">"+data.ship+"</td>";
+                html+="<td  class=\"text-center count\"><a href=\"#\" class=\"number_count\" data-type=\"text\" data-pk=\"1\" data-title=\"Số lượng\">"+data.count+"</a> kg"+"</td>";
+                html+="<td class=\"text-center\">"+templateUpload(data.id,data.ship)+"</td>";
+                html+="<td class=\"text-center price\">"+data.price+"</td>";
+                html+="<td class=\"text-center price_buy\">"+data.price_buy+"</td>";
+                html+="<td class=\"text-center price_ship\">"+IF(1,data.price_ship)+"</td>";
+                html+="<td class=\"text-center total_price\">"+data.total_price+"</td>";
+                html+="<td class=\"text-center total_price_buy\">"+data.total_price_buy+"</td>";
+                html+="</tr>";
+                html = $(html);
+
+                html.find('.number_count').editable({
+                    validate: function(value) {
+                        if($.trim(value) == '') return 'This field is required';
+                    },
+                    success: function(response, newValue) {
+                        update({count:newValue,id:data.id,city:$("#city-select").val()});
+                    }
+                });
+                orderDetail.prepend(html);
+            }
+            $("#number").change(function () {
+                update({count:$(this).val(),id:$(this).attr('data-id'),city:$("#city-select").val()});
+            });
+            $("#city-select").change(function () {
+                let city = $(this).val();
+                $("#orderDetail tbody tr").each(function () {
+                   let count = $(this).find('.number_count').text();
+                   let id = $(this).attr('data-id');
+                    update({count:count,id:id,city:city});
+                });
+            });
+            $('#search_data').autocomplete({
+                source: function (request, response) {
+                    request.city = $("#city-select").val();
+                    $.post("{!! route('backend:shop_ja:order:ajax') !!}" , request, response);
+                },
+                minLength: 1,
+                select: function(event, ui)
+                {
+                    $('#search_data').val(ui.item.value);
+                    $("#number").attr('data-id',ui.item.data.id);
+                    insertRow(ui.item.data);
+                }
+            }).data('ui-autocomplete')._renderItem = function(ul, item){
+                return $("<li class='ui-autocomplete-row'></li>")
+                    .data("item.autocomplete", item)
+                    .append(item.label)
+                    .appendTo(ul);
+            };
+
+        });
     </script>
 @endsection

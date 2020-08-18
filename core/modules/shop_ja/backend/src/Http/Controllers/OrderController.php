@@ -10,7 +10,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
     public function init()
     {
         $this->data['language'] = config('zoe.language');
-        $this->data['nestables'] = config_get("category", "shop-ja:product:category");
+        $this->data['nestables'] = config_get("category", "shop-ja:japan:category");
         $this->data['configs'] = config_get("config", "shopja");
         $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
 
@@ -19,6 +19,57 @@ class OrderController extends \Zoe\Http\ControllerBackend
     {
         $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop_ja:product:list'));
         return $this;
+    }
+    public function ajax(Request $request){
+        $output = [];
+        $data = $request->all();
+        if(isset($data['term']) || isset($data['id'])){
+          if(isset($data['term'])){
+              $results =  DB::table('shop_product')->where('description', 'like', '%' . $data['term'] . '%')->get()->all();
+          }else{
+              $results =  DB::table('shop_product')->where('id', $data['id'])->get()->all();
+          }
+          $category = get_category_type('shop-ja:product:category');
+          foreach ($results as $key=>$result){
+              $temp_array = array();
+              $temp_array['value'] = $result->description;
+
+              $ship_category = DB::table('shop_ship_category')->where('category_id', $data['city'])->where('product_id',$result->id)->get()->all();
+              $price_ship = "";
+              $ship = isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1";
+              if(isset($ship_category[0])){
+                $_info = unserialize($ship_category[0]->data);
+                if(isset($_info[$ship]) && count($_info[$ship]) > 0){
+                    $price_ship = $_info[$ship];
+                }
+
+              }
+              $temp_array['data'] = [
+                  'id'=>$result->id,
+                  'code'=>$result->code,
+                  'title'=>$result->title,
+                  'description'=>$result->description,
+                  'price'=>$result->price,
+                  'price_buy'=>$result->price_buy,
+                  'unit'=>$result->unit,
+                  'company'=>isset($category[$result->category_id])?$category[$result->category_id]->name:"empty",
+                  'ship'=>$ship,
+                  'count'=>'1',
+                  'image'=>'image',
+                  'price_ship'=> $price_ship,
+                  'total_price'=>$result->price,
+                  'total_price_buy'=>$result->price_buy,
+              ];
+              $temp_array['hidden'] = [
+                  'company'=>isset($category[$result->category_id])?$category[$result->category_id]->id:0,
+                  'ship'=>isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1",
+              ];
+              $temp_array['label'] = '<img src="http://placehold.jp/100x150.png" width="70" />&nbsp;&nbsp;&nbsp;'. $result->description.'';
+              $output[] = $temp_array;
+          }
+        }
+
+        return response()->json($output);
     }
     public function list(Request $request)
     {

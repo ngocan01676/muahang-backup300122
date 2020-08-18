@@ -53,7 +53,10 @@ return [
                         "store" => [
                             "url" => "/store",
                             "method" => ['post'],
-                        ]
+                        ],
+                        "ajax" => [
+                            "url" => "/ajax", "method" => ['post'],
+                        ],
                     ]
                 ],
                 'shop_ja:category' => [
