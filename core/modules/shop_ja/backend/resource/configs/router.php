@@ -53,7 +53,10 @@ return [
                         "store" => [
                             "url" => "/store",
                             "method" => ['post'],
-                        ]
+                        ],
+                        "ajax" => [
+                            "url" => "/ajax", "method" => ['post'],
+                        ],
                     ]
                 ],
                 'shop_ja:category' => [
@@ -79,9 +82,10 @@ return [
                     ]
                 ],
                 'shop_ja:japan:category' => [
-                    "namespace" => "Admin\Http\Controllers",
+                    "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "CategoryController",
                     "sub_prefix" => "/shop-ja/category/japan",
+
                     "guard" => "backend",
                     "acl"=> "shop_ja:category",
                     "module" => [
@@ -90,14 +94,18 @@ return [
                     ],
                     "router" => [
                         "show" => [
-                            "url" => "/",
+                            "url" => "/{product_id?}",
+                            "wheres"=>['product_id'=>'[0-9]+'],
                             'defaults' => [
                                 "type" => "shop-ja:japan:category",
                                 "view_render" => "shop_ja.category.show",
                                 "slug" => false,
                                 'nestable'=>'\ShopJa\Libs\CategoryNestable'
                             ]
-                        ]
+                        ],
+                        "ajax" => [
+                            "url" => "/ajax", "method" => ['post'],
+                        ],
                     ]
                 ],
             ]

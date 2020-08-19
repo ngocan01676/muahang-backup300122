@@ -113,6 +113,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->code = $data['code'];
             $model->status = $data['status'];
             $model->price_buy = $data['price_buy'];
+            $model->type_excel = $data['type_excel'];
             $model->save();
             return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){

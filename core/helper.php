@@ -384,6 +384,33 @@ function list_text_aligin($columns)
     return "";
 }
 
+function render_attr($option,$model){
+
+    $html = "";$tag = "";$attr = "";
+    if(isset($option['attr'])){
+        if($option['attr']['type'] == "link"){
+            $tag = 'a';
+        }else  if($option['attr']['type'] == "button"){
+            $tag = 'button';
+        }
+        $attr.= isset($option['attr']['class'])?' class="'.$option['attr']['class'].'"':"";
+        $attr.= isset($option['attr']['id'])?' id="'.$option['attr']['id'].'"':"";
+        $attr.= isset($option['attr']['style'])?' style="'.$option['attr']['style'].'"':"";
+    }
+    if(isset($option['label'])){
+        $html = $option['label'];
+    }
+    if(isset($option['router']['name'])){
+        $par = isset($option['router']['par'])?$option['router']['par']:[];
+        foreach ($par as $k=>$v){
+            $par[$k] = $model->{$v};
+        }
+        $attr.=' href="'.route($option['router']['name'],$par).'"';
+    }else{
+        $attr.=' href="#"';
+    }
+    return "<".$tag.$attr.">".$html."</".$tag.">";
+}
 function config_get($type, $name, $default = [])
 {
     $rs = DB::table('config')->where(['type' => $type, 'name' => $name])->first();

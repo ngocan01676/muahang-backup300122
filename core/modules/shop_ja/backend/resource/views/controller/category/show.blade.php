@@ -72,7 +72,9 @@
                 {!! Form::hidden('id',0) !!}
                 {!! Form::hidden('status',1) !!}
                 {!! Form::hidden('featured',1) !!}
-                {!! Form::hidden('description',"null") !!}
+
+                {!! Form::hidden('product_id',$product_id) !!}
+
                 <table class="table table-borderless">
                     <tbody>
                     <tr>
@@ -82,6 +84,14 @@
                             <span class="error help-block"></span>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('description', z_language('Description'), ['class' => 'name']) !!}
+                            {!! Form::text('description',null, ['class' => 'form-control','placeholder'=>'Description']) !!}
+                            <span class="error help-block"></span>
+                        </td>
+                    </tr>
+                    @if(!empty($product_id))
                     @php $lists_company_ship = config('shop_ja.configs.lists_company_ship');  @endphp
                     @foreach($lists_company_ship as $key=>$value)
                     <tr>
@@ -95,17 +105,18 @@
                                             {!! Form::label('data.'.$key, Illuminate\Support\Str::studly($key), ['class' => 'name']) !!}
                                         </td>
                                     </tr>
-                                    <tr class="template">
+                                    <tr class="template" data-index="@INDEX@">
                                         <td class="text-center">
                                             0
                                         </td>
-                                        <td><input data-key="text" data-index="true" data-name="data.{!! $key !!}.[@INDEX@].text"  class="data form-control text" placeholder="Loại" type="text"></td>
+                                        <td><input data-key="text" data-name="data.{!! $key !!}.[@INDEX@].text"  class="data form-control text" placeholder="Loại" type="text"></td>
                                         <td>
                                             @php
-                                                $lists_uint = config('shop_ja.configs.lists_uint');
+                                                $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
                                             @endphp
-                                            {!! Form::select(null, array_merge($lists_uint),null,['class'=>'data form-control uint','data-key'=>'uint','data-name'=>"data.".$key."[@INDEX@].uint"]); !!}
+                                            {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal','data-key'=>'equal','data-name'=>"data.".$key."[@INDEX@].equal"]); !!}
                                         </td>
+
                                         <td><input  data-key="value" data-name="data.{!! $key !!}.[@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
                                         <td class="text-center">
                                             <button type="button" data-id="#wrap_{!! $key !!}" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
@@ -121,6 +132,7 @@
                         </td>
                     </tr>
                     @endforeach
+                    @endif
                     <tr>
                         <td>
                             @includeIf($views)
@@ -473,13 +485,16 @@
             for(let k in data.data){
                 let index = 0;
                 for(let kk in data.data[k]){
-                    template($("#wrap_"+k),data.data[k][kk],index);
+                    template($("#wrap_"+k),data.data[k][kk],index++);
                 }
             }
         }
+
         function beforeSave(parent) {
-            let trs = parent.find('tr');
-            trs.each(function (index) {
+            let trs = parent.find('tr.Element');
+            let count = 1;
+            trs.each(function () {
+                console.log(this);
                 if(!$(this).hasClass('template')){
                     let elements = $(this).find('.data');
                     let _index = "";
@@ -489,9 +504,11 @@
                         }
                     });
                     if(_index.length === 0)
-                        _index = index;
+                        _index = count++;
                     else
                         _index = _index.trimRight("_");
+                    $(this).attr('data-index',_index);
+                    $(this).find("td").first().empty().html(_index);
                     elements.each(function () {
                         $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index))
                     });
@@ -503,23 +520,32 @@
             template.removeClass('template');
             template.find("td").first().empty().html(index+1);
             template.addClass('Element');
+
             template.find('.data').each(function () {
                 $(this).removeAttr('name');
                 let key = $(this).attr('data-key');
-                if($(this).hasClass('uint')){
-                    // $(this).find('option').first().attr('selected',true);
-                }else{
+                let tagName = ($(this).prop("tagName").toLowerCase());
+                if(tagName === 'select'){
+                    if(vals.hasOwnProperty(key)){
+                       $(this).find('option').each(function () {
+                           if($(this).attr('value') === vals[key])
+                            $(this).attr('selected','selected');
+                       });
+                    }
+
+                }else if(tagName === 'input'){
                     if(vals.hasOwnProperty(key)){
                         $(this).val(vals[key]);
                     }
                 }
             });
-
             tbody.append(template);
+
             beforeSave(tbody);
 
             tbody.find('.template').find('.data').each(function () {
                 $(this).removeAttr('name');
+
                 if($(this).hasClass('uint')){
                     // $(this).find('option').first().attr('selected',true);
                 }else{
@@ -530,7 +556,9 @@
         function remove(self) {
             let _this = $(self);
             let parent = _this.parent().parent();
+            let wrap = parent.closest(".wrap_rows").find('tbody');
             parent.remove();
+            beforeSave(wrap);
         }
         function add(self){
            let _this = $(self);
@@ -542,8 +570,8 @@
                 $(this).removeClass('Error');
             });
             let tr = parent.find('.template');
-            let vals = {"text":tr.find('.text').val(),"uint":tr.find('.uint').val(),"value":tr.find('.value').val()};
-            if((vals.text.length > 0 && vals.uint.length > 0 && vals.value.length > 0)){
+            let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val()};
+            if((vals.text.length > 0 && vals.value.length > 0)){
                 template(parent,vals,trs.length);
             }else{
                 tr.addClass('Error');
@@ -590,24 +618,21 @@
                 var form_store = $("#form_store");
                 $("#nestable").find('.SelectEdit').removeClass('SelectEdit');
                 $(this).parent().parent().children('.dd-handle').addClass('SelectEdit');
-
-                console.log( $(this).parent().find('.dd-handle'));
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 $.ajax({
-                    url: '{{@route('backend:category:ajax')}}',
+                    url: '{{@route('backend:shop_ja:japan:category:ajax')}}',
                     type: "POST",
-                    data: {act: "edit", data: {id: data_item.id, type: '{!! $type !!}'}},
+                    data: {act: "edit", data: {id: data_item.id, type: '{!! $type !!}','pro_id':{!! empty($product_id)?"1":$product_id !!}}},
                     success: function (data) {
                         console.log(JSON.stringify(data));
                         document.getElementById("form_store").reset();
                         if (data.hasOwnProperty("data")) {
-                            var label = "{{ z_language('Phí ship sửa : :Name')  }}";
-                            $("#form-title").html(label.replace(":Name", data.data.name));
+                            var label = "{{ z_language('Sửa : :Name')  }}";
+                            $("#form-title").html(label.replace(":Name", data.data.info));
                             console.log(data.data);
-
-
                             renderData(data.data);
                             form_store.zoe_inputs('set', data.data);
+
 
                         } else {
 
@@ -675,13 +700,11 @@
                 $(".wrap_rows tbody").each(function () {
                     beforeSave($(this));
                 });
-
-
                 var form_store = $("#form_store");
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 console.log('save');
                 $.ajax({
-                    url: '{{@route('backend:category:ajax')}}',
+                    url: '{{@route('backend:shop_ja:japan:category:ajax')}}',
                     type: "POST",
                     data: {"act": "info", data: form_store.zoe_inputs('get')},
                     success: function (data) {

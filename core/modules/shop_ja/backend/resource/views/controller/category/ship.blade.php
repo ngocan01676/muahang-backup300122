@@ -58,15 +58,10 @@
             </div>
         </div>
     </div>
-
-
-
     <div class="col-md-6">
-
         <div class="box box-zoe">
             <div class="box-header with-border">
                 <h3 class="box-title" id="form-title">{{ z_language('Category Create')}}</h3>
-
             </div>
             <div class="box-body">
                 {!! Form::open(['method' => 'POST','id'=>'form_store']) !!}
@@ -74,6 +69,7 @@
                 {!! Form::hidden('is_slug',$is_slug) !!}
                 {!! Form::hidden('id',0) !!}
                 {!! Form::hidden('class_nestable',$class_nestable) !!}
+
                 <table class="table table-borderless">
                     <tbody>
                     <tr>
@@ -84,8 +80,6 @@
                             <span class="error help-block"></span>
                         </td>
                     </tr>
-
-
                     <tr>
                         <td>
                             {!! Form::label('description', z_language('Description'), ['class' => 'description']) !!} (<span
@@ -117,7 +111,6 @@
                             {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
                             {!! Form::radio('status', '1' , true) !!} Yes
                             {!! Form::radio('status', '0',false) !!} No
-
                         </td>
                     </tr>
                     <tr>
@@ -125,9 +118,9 @@
                             {!! Form::label('featured', 'Featured', ['class' => 'featured']) !!}
                             {!! Form::radio('featured', '1' , false) !!} Yes
                             {!! Form::radio('featured', '0',true) !!} No
-
                         </td>
                     </tr>
+
                     <tr>
                         <td>
                             @includeIf($views)

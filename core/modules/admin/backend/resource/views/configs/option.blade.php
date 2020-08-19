@@ -7,7 +7,7 @@
             </td>
             <td>
                 @foreach($configs['config']["columns"]['lists'] as $val=>$columns)
-                    <input type="checkbox" name="data.columns[{!! $val !!}]" value="{!! $val !!}"> {!! $columns['label'] !!}
+                    <input type="checkbox" name="data.columns[{!! $val !!}]" value="{!! $val !!}"> {!! isset($columns['label'])?$columns['label']:"Empty" !!}
                 @endforeach
             </td>
         </tr>

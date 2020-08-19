@@ -143,6 +143,7 @@ class RouteServiceProvider extends ServiceProvider
                 }
 
                 $r = Route::match($method, $link, $action);
+
                 if (isset($_route['defaults'])) {
                     foreach ($_route['defaults'] as $_key => $_default) {
                         $r->defaults($_key, $_default);
@@ -152,9 +153,13 @@ class RouteServiceProvider extends ServiceProvider
                 $r->defaults($keyPrivate . "_view_alias", $_view_alias);
                 if (isset($configRouter['data'][$alias]['layout'])) {
                     $r->defaults($keyPrivate . "_layout", $configRouter['data'][$alias]['layout']);
-
                 }
                 $r->name($alias);
+                if(isset($_route['wheres'])){
+                    foreach ($_route['wheres'] as $_name=>$_exp){
+                        $r->where($_name, $_exp);
+                    }
+                }
                 if (isset($configRouter['data'][$alias]['cache']) && $configRouter['data'][$alias]['cache'] != 0) {
                     $middleware[] = 'cache.response:' . $alias . "," . $configRouter['data'][$alias]['cache'];
                 }

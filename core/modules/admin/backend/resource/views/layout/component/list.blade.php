@@ -50,9 +50,10 @@
                         @foreach($data['config']['columns']['lists'] as $k=>$columns)
 
                             @isset($data['data']['columns'][$k])
+
                                 @continue(isset($route[$k]))
 
-                                @if($model!=null && property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) )
+                                @if($model!=null && property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) || $k =="actions" )
                                 @if('id'== $columns['type'])
                                     <th width="39px" class="column-primary">
                                         <input style="display: none" id="check-all"
@@ -77,12 +78,14 @@
                     </tr>
                      </thead>
                     <tbody>
+
                     @if(count($models)>0)
                         @foreach ($models as $k=>$model)
                             <tr class="list-row">
                                 <td>@php echo list_label($k+1,$columns,$data,$model); @endphp</td>
                                 @foreach($data['config']['columns']['lists'] as $key=>$columns)
                                     @isset($data['data']['columns'][$key])
+
                                         @continue(isset($route[$key]))
                                         @if(!property_exists($model,$key) && isset($columns['callback']) && isset($callback[$columns['callback']]))
                                             @php
@@ -137,6 +140,12 @@
                                                 </span>
                                             </td>
                                             <td class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
+                                        @elseif($columns['type'] == 'action')
+                                            <td>
+                                                 @foreach($columns['lists'] as $lists)
+                                                        {!! render_attr($lists,$model)  !!}
+                                                 @endforeach
+                                            </td>
                                         @else
                                             <td data="col"
                                                 class="column @isset($columns['primary']) column-primary @endisset {{list_text_aligin($columns)}}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
