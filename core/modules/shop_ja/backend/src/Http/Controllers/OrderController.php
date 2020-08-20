@@ -115,10 +115,10 @@ class OrderController extends \Zoe\Http\ControllerBackend
                     foreach ($results as $result){
                         $ids[] = $result->product_id;
                     }
-                    $results_products =  DB::table('shop_product')->whereIn('id', $ids)->get('title')->all();
+                    $results_products =  DB::table('shop_product')->whereIn('id', $ids)->get(['title','description'])->all();
 
                     foreach ($results_products as $value){
-                        $html.='<li>'.$value->title.'</li>';
+                        $html.='<li>'.$value->title.'-'.$value->description.'</li>';
                     }
                     $html.= "</ul>";
 
