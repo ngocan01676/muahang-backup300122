@@ -19,7 +19,6 @@
     @component('backend::layout.component.list',['name'=>'module:shop_ja:product','models'=>$models])
         @slot("tool")
             <div class="box-body">
-
                 <div class="col-md-12" style="padding:0">
                     <div class="row">
                         <div class="col-sm-4" style="padding:0">

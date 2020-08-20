@@ -56,7 +56,7 @@
                                 @if($model!=null && property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) || $k =="actions" )
                                 @if('id'== $columns['type'])
                                     <th width="39px" class="column-primary">
-                                        <input style="display: none" id="check-all"
+                                        <input  id="check-all"
                                                type="checkbox" class="minimal">
                                     </th>
                                     <th class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!} @isset($columns['order_by']) column-order_by @endisset {{list_text_aligin($columns)}}">
@@ -134,7 +134,7 @@
                                             <td class="column-primary {{list_text_aligin($columns)}}">
                                                 <span class="label-text">
                                                     <input
-                                                            style="display: none" type="checkbox"
+                                                             type="checkbox"
                                                             class="minimal" value="{!! $model->id !!}"
                                                             name="post[]">
                                                 </span>

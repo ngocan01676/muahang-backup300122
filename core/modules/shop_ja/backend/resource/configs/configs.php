@@ -83,6 +83,61 @@
                 'views' => [
                     'configs.layout'
                 ]
+            ],
+            'module:shop_ja:order' => [
+                'config' => [
+                    'columns' => [
+                        'lists' => [
+                            'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
+                            'UserName' => ['label' => z_language('Người lập', false), 'type' => 'text','callback' => "GetUserName"],
+                            'fullname' => ['label' => z_language('Tên Khách Hàng', false), 'type' => 'title', 'primary' => true],
+                            'GetCountOrder' => ['label' => z_language('Sản phẩm', false), 'type' => 'number','callback' => "GetCountOrder"],
+                            'GetStatus' => ['label' => z_language('Status', false), 'type' => 'status','callback'=>'GetStatus'],
+                            'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
+                            'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date'],
+//                            'actions'=>[
+//                                'label'=>z_language('Action', false),
+//                                'type'=>'action',
+//                                'lists'=>[
+//                                    [
+//                                        'attr'=>['type'=>'link','class'=>"btn btn-primary btn-xs"],
+//                                        'label' => z_language('Cấu hình phí ship', false),
+//                                        'router'=>['name' => "backend:shop_ja:japan:category:show", 'par' => ['product_id' => 'id']]
+//                                    ]
+//                                ],
+//                            ]
+                        ],
+                    ],
+                    'pagination' => [
+                        'item' => 20,
+                        'router' => [
+                            'edit' => ['label' => z_language('Edit', false), 'name' => "backend:shop_ja:order:edit", 'par' => ['id' => 'id']],
+                            'preview' => ['label' => z_language('Preview', false), 'name' => "backend:shop_ja:order:edit", 'par' => ['id' => 'id']],
+                            'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:shop_ja:order:delete", 'par' => ['id' => 'id']],
+                        ]
+                    ],
+                    'config' => [
+                        "type" => [
+                            'status' => [
+                                'label' => [
+                                    '1' => z_language('Public', false),
+                                    '0' => z_language('UnPublic', false),
+                                ],
+                            ],
+                        ],
+                        "column"=>[
+
+                        ]
+                    ]
+                ],
+                'data' => [
+                    'pagination' => ['item' => 20],
+                    'columns' => ['id', 'title'],
+                    'search' => ['title'],
+                ],
+                'views' => [
+                    'configs.layout'
+                ]
             ]
         ],
             'configs' => [

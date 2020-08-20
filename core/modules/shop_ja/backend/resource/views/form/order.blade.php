@@ -1,236 +1,265 @@
-@if(isset($model))
-    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:order:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
-    {!! Form::hidden('id') !!}
-@else
-    {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:order:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
-@endif
-<div class="col-md-5">
-    <div class="box box box-zoe AutoWidthHeight">
-        <div class="box-body">
 
-            <table class="table table-borderless @if ($errors->any())table-error @endif ">
-                <tbody>
-                <tr>
-                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("phone")) class="error" @endif>
-                        {!! Form::label('fullname', z_language('Tên Khách hàng'), ['class' => 'fullname']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::text('fullname',null, ['class' => 'form-control','placeholder'=>z_language('Tên Khách hàng')]) !!}
-                        @if ($errors->any())
-                            <p class="text-error">
-                            @if($errors->any() && $errors->getBag("default")->hasAny("fullname"))
-                                @foreach ($errors->getBag("default")->get("fullname") as $error)
-                                   {{ $error }}
-                                @endforeach
+<div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"> {!! @z_language(["Thông tin hóa đơn"]) !!} </a></li>
+        <li><a href="#tab_2" data-toggle="tab" aria-expanded="true"> {!! @z_language(["Thông tin sản phẩm"]) !!} </a></li>
+
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active clearfix" id="tab_1">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br/>
+            @endif
+            @if(isset($model))
+                {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:order:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
+                {!! Form::hidden('id') !!}
+            @else
+                {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:order:store'],'id'=>'form_store',"enctype"=>"multipart/form-data"]) !!}
+            @endif
+            <div class="col-md-5">
+                <table class="table table-borderless @if ($errors->any())table-error @endif ">
+                    <tbody>
+                    <tr>
+                        <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("phone")) class="error" @endif>
+                            {!! Form::label('fullname', z_language('Tên Khách hàng'), ['class' => 'fullname']) !!} (<span
+                                class="req">*</span>):
+                            {!! Form::text('fullname',null, ['class' => 'form-control','placeholder'=>z_language('Tên Khách hàng')]) !!}
+                            @if ($errors->any())
+                                <p class="text-error">
+                                    @if($errors->any() && $errors->getBag("default")->hasAny("fullname"))
+                                        @foreach ($errors->getBag("default")->get("fullname") as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    @endif
+                                </p>
                             @endif
-                            </p>
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("phone")) class="error" @endif>
-                        {!! Form::label('phone', z_language('Số điện thoại'), ['class' => 'phone']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::text('phone',null, ['class' => 'form-control','placeholder'=>z_language('Số điện thoại')]) !!}
-                        @if ($errors->any())
-                            <p class="text-error">
-                                @if($errors->any() && $errors->getBag("default")->hasAny("phone"))
-                                    @foreach ($errors->getBag("default")->get("phone") as $error)
-                                       {{ $error }}<BR>
-                                    @endforeach
-                                @endif
-                            </p>
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        {!! Form::label('country', z_language('Quốc gia'), ['class' => '']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::select('country', array_merge(["japan"=>"Nhật Bản"]),null,['class'=>'form-control']); !!}
-                    </td>
-                </tr>
-{{--                <tr>--}}
-{{--                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("type_order")) class="error" @endif>--}}
-{{--                        @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp :--}}
-{{--                        {!! Form::label('type_order', z_language('Loại đơn hàng'), ['class' => '']) !!} (<span--}}
-{{--                            class="req">*</span>):--}}
-{{--                        {!! Form::select('type_order', array_merge([""=>z_language('..:  Chọn  :..')],$lists_ship),null,['class'=>'form-control','onchange'=>"change_type_order(this)"]); !!}--}}
-{{--                        @if ($errors->any())--}}
-{{--                            <p class="text-error">--}}
-{{--                                @if($errors->any() && $errors->getBag("default")->hasAny("type_order"))--}}
-{{--                                    @foreach ($errors->getBag("default")->get("type_order") as $error)--}}
-{{--                                        {{ $error }}--}}
-{{--                                    @endforeach--}}
-{{--                                @endif--}}
-{{--                            </p>--}}
-{{--                        @endif--}}
-{{--                    </td>--}}
-{{--                </tr>--}}
-{{--                <tr>--}}
-{{--                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("ship")) class="error" @endif>--}}
-{{--                        @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp--}}
-{{--                        {!! Form::label('ship', z_language('Đơn vị giao hàng'), ['class' => '']) !!} (<span--}}
-{{--                            class="req">*</span>):--}}
-{{--                        {!! Form::select('ship', array_merge([""=>z_language('..:  Chọn  :..')],['Yamato'=>'Công ty chuyển phát Yamato','Sagawa'=>'Công ty chuyển phát Sagawa','Japan-Post'=>'Công ty chuyển phát Japan Post']),null,['class'=>'form-control','onchange="change()"']); !!}--}}
-{{--                        @if ($errors->any())--}}
-{{--                            <p class="text-error">--}}
-{{--                                @if($errors->any() && $errors->getBag("default")->hasAny("ship"))--}}
-{{--                                    @foreach ($errors->getBag("default")->get("ship") as $error)--}}
-{{--                                        {{ $error }}--}}
-{{--                                    @endforeach--}}
-{{--                                @endif--}}
-{{--                            </p>--}}
-{{--                        @endif--}}
-{{--                    </td>--}}
-{{--                </tr>--}}
-                <tr>
-                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("city")) class="error" @endif>
-                        @php
-                            $lists_ship = config('shop_ja.configs.lists_city');
-                        @endphp
-                        {!! Form::label('Tỉnh/Thành phố', z_language('Tỉnh/Thành phố'), ['class' => '']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::CategoriesNestableOne($nestables,[Form::value('city')=>""],"city") !!}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("address")) class="error" @endif>
-                        {!! Form::label('address', z_language('Số nhà, đường'), ['class' => 'address']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::text('address',null, ['class' => 'form-control','placeholder'=>z_language('Số nhà, đường')]) !!}
-                        @if ($errors->any())
-                            <p class="text-error">
-                                @if($errors->any() && $errors->getBag("default")->hasAny("address"))
-                                    @foreach ($errors->getBag("default")->get("address") as $error)
-                                        {{ $error }}
-                                    @endforeach
-                                @endif
-                            </p>
-                        @endif
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("phone")) class="error" @endif>
+                            {!! Form::label('phone', z_language('Số điện thoại'), ['class' => 'phone']) !!} (<span
+                                class="req">*</span>):
+                            {!! Form::text('phone',null, ['class' => 'form-control','placeholder'=>z_language('Số điện thoại')]) !!}
+                            @if ($errors->any())
+                                <p class="text-error">
+                                    @if($errors->any() && $errors->getBag("default")->hasAny("phone"))
+                                        @foreach ($errors->getBag("default")->get("phone") as $error)
+                                            {{ $error }}<BR>
+                                        @endforeach
+                                    @endif
+                                </p>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            {!! Form::label('country', z_language('Quốc gia'), ['class' => '']) !!} (<span
+                                class="req">*</span>):
+                            {!! Form::select('country', array_merge(["japan"=>"Nhật Bản"]),null,['class'=>'form-control']); !!}
+                        </td>
+                    </tr>
+                    {{--                <tr>--}}
+                    {{--                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("type_order")) class="error" @endif>--}}
+                    {{--                        @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp :--}}
+                    {{--                        {!! Form::label('type_order', z_language('Loại đơn hàng'), ['class' => '']) !!} (<span--}}
+                    {{--                            class="req">*</span>):--}}
+                    {{--                        {!! Form::select('type_order', array_merge([""=>z_language('..:  Chọn  :..')],$lists_ship),null,['class'=>'form-control','onchange'=>"change_type_order(this)"]); !!}--}}
+                    {{--                        @if ($errors->any())--}}
+                    {{--                            <p class="text-error">--}}
+                    {{--                                @if($errors->any() && $errors->getBag("default")->hasAny("type_order"))--}}
+                    {{--                                    @foreach ($errors->getBag("default")->get("type_order") as $error)--}}
+                    {{--                                        {{ $error }}--}}
+                    {{--                                    @endforeach--}}
+                    {{--                                @endif--}}
+                    {{--                            </p>--}}
+                    {{--                        @endif--}}
+                    {{--                    </td>--}}
+                    {{--                </tr>--}}
+                    {{--                <tr>--}}
+                    {{--                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("ship")) class="error" @endif>--}}
+                    {{--                        @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp--}}
+                    {{--                        {!! Form::label('ship', z_language('Đơn vị giao hàng'), ['class' => '']) !!} (<span--}}
+                    {{--                            class="req">*</span>):--}}
+                    {{--                        {!! Form::select('ship', array_merge([""=>z_language('..:  Chọn  :..')],['Yamato'=>'Công ty chuyển phát Yamato','Sagawa'=>'Công ty chuyển phát Sagawa','Japan-Post'=>'Công ty chuyển phát Japan Post']),null,['class'=>'form-control','onchange="change()"']); !!}--}}
+                    {{--                        @if ($errors->any())--}}
+                    {{--                            <p class="text-error">--}}
+                    {{--                                @if($errors->any() && $errors->getBag("default")->hasAny("ship"))--}}
+                    {{--                                    @foreach ($errors->getBag("default")->get("ship") as $error)--}}
+                    {{--                                        {{ $error }}--}}
+                    {{--                                    @endforeach--}}
+                    {{--                                @endif--}}
+                    {{--                            </p>--}}
+                    {{--                        @endif--}}
+                    {{--                    </td>--}}
+                    {{--                </tr>--}}
+                    <tr>
+                        <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("city")) class="error" @endif>
+                            @php
+                                $lists_ship = config('shop_ja.configs.lists_city');
+                            @endphp
+                            {!! Form::label('Tỉnh/Thành phố', z_language('Tỉnh/Thành phố'), ['class' => '']) !!} (<span
+                                class="req">*</span>):
+                            {!! Form::CategoriesNestableOne($nestables,[Form::value('city')=>""],"city") !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("address")) class="error" @endif>
+                            {!! Form::label('address', z_language('Số nhà, đường'), ['class' => 'address']) !!} (<span
+                                class="req">*</span>):
+                            {!! Form::text('address',null, ['class' => 'form-control','placeholder'=>z_language('Số nhà, đường')]) !!}
+                            @if ($errors->any())
+                                <p class="text-error">
+                                    @if($errors->any() && $errors->getBag("default")->hasAny("address"))
+                                        @foreach ($errors->getBag("default")->get("address") as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    @endif
+                                </p>
+                            @endif
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("phone")) class="error" @endif>
-                        {!! Form::label('Zipcode', z_language('Mã bưu chính'), ['class' => 'phone']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::text('zipcode',null, ['class' => 'form-control','placeholder'=>z_language('Mã bưu chính')]) !!}
-                        @if ($errors->any())
-                            <p class="text-error">
-                                @if($errors->any() && $errors->getBag("default")->hasAny("zipcode"))
-                                    @foreach ($errors->getBag("default")->get("zipcode") as $error)
-                                        {{ $error }}
-                                    @endforeach
-                                @endif
-                            </p>
-                        @endif
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("postal_code")) class="error" @endif>
+                            {!! Form::label('postal_code', z_language('Mã bưu chính'), ['class' => 'postal_code']) !!} (<span
+                                class="req">*</span>):
+                            {!! Form::text('postal_code',null, ['class' => 'form-control','placeholder'=>z_language('Mã bưu chính')]) !!}
+                            @if ($errors->any())
+                                <p class="text-error">
+                                    @if($errors->any() && $errors->getBag("default")->hasAny("postal_code"))
+                                        @foreach ($errors->getBag("default")->get("postal_code") as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    @endif
+                                </p>
+                            @endif
+                        </td>
+                    </tr>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-7">
+                <table class="table table-borderless @if ($errors->any())table-error @endif ">
 
+
+                    <tr>
+                        <td @if($errors->any() && $errors->getBag("default")->hasAny("pay_method")) class="error" @endif>
+                            {!! Form::label('pay-method', z_language('Phương thức thanh toán'), ['class' => 'pay-method']) !!}
+                            : <BR>
+
+                            {!! Form::radio('pay_method', '1' , false) !!}  {!! @z_language(["Thanh toán khi giao hàng"]) !!}
+                            {!! Form::radio('pay_method', '2',false) !!}  {!! @z_language(["Chuyển khoản ngân hàng"]) !!}
+                            {!! Form::radio('pay_method', '3',false) !!}  {!! @z_language(["Không cần thanh toán"]) !!}
+                            @if ($errors->any())
+                                <p class="text-error">
+                                    @if($errors->any() && $errors->getBag("default")->hasAny("pay_method"))
+                                        @foreach ($errors->getBag("default")->get("pay_method") as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    @endif
+                                </p>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("time_ship")) class="error" @endif>
+                            {!! Form::label('day_ship', z_language('Ngày nhận hàng'), ['class' => 'day_ship']) !!} (<span
+                                class="req">*</span>):
+                            {!! Form::date('day_ship',null, ['class' => 'form-control','placeholder'=>z_language('Ngày nhận hàng')]) !!}
+                            @if ($errors->any())
+                                <p class="text-error">
+                                    @if($errors->any() && $errors->getBag("default")->hasAny("day_ship"))
+                                        @foreach ($errors->getBag("default")->get("day_ship") as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    @endif
+                                </p>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("time_ship")) class="error" @endif>
+                            @php $lists_ship = config('shop_ja.configs.times_ship');  @endphp :
+                            {!! Form::label('time_ship', z_language('Giờ nhận'), ['class' => 'time_ship']) !!} (<span
+                                class="req">*</span>):
+                            {!! Form::select('time_ship', array_merge([""=>z_language('..:  Chọn  :..')],$lists_ship),null,['class'=>'form-control','onchange="change()"']); !!}
+                            @if ($errors->any())
+                                <p class="text-error">
+                                    @if($errors->any() && $errors->getBag("default")->hasAny("time_ship"))
+                                        @foreach ($errors->getBag("default")->get("time_ship") as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    @endif
+                                </p>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('bankinfo', z_language('Thông tin chuyển khoản'), ['class' => 'info']) !!} :
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td style="line-height: 30px;">依頼人名.</td>
+                                    <td><input type="text" class="form-control bankinfo_1"></td>
+                                    <td style="line-height: 30px;">様</td>
+                                    <td><input type="text" class="form-control bankinfo_2"></td>
+                                    <td style="line-height: 30px;">日に</td>
+                                    <td><input type="text" class="form-control bankinfo_3"></td>
+                                    <td>円入金済み</td>
+                                </tr>
+                            </table>
+                            {!! Form::hidden('bank_info',null,['id'=>'bank_info']) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("link")) class="error" @endif>
+                            {!! Form::label('link', z_language('Link Facebook'), ['class' => 'link']) !!} (<span
+                                class="req">*</span>):
+                            {!! Form::text('link',null, ['class' => 'form-control','placeholder'=>z_language('Link Facebook')]) !!}
+                            @if ($errors->any())
+                                <p class="text-error">
+                                    @if($errors->any() && $errors->getBag("default")->hasAny("link"))
+                                        @foreach ($errors->getBag("default")->get("link") as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    @endif
+                                </p>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
+                            {!! Form::radio('status', '3' , true) !!} {!! z_language('Bản nháp') !!}
+                            {!! Form::radio('status', '2' , false) !!} {!! z_language('Lập đơn') !!}
+                            {!! Form::radio('status', '1',false) !!} {!! z_language('Đã hoàn thành') !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('info', z_language('Lưu ý'), ['class' => 'info']) !!} :
+                            {!! Form::textarea('info',null, ['class' => 'form-control','placeholder'=>z_language('Lưu ý'),'cols'=>5,'rows'=>5]) !!}
+                        </td>
+                    </tr>
+                </table>
+                <div style="display: none">{!! Form::textarea('dataDetailOrder',null, ['id'=>'dataDetailOrder','class' => 'form-control','placeholder'=>z_language('Lưu ý'),'cols'=>5,'rows'=>5]) !!}</div>
+
+            </div>
+            {!! Form::close() !!}
         </div>
-    </div>
-</div>
-<div class="col-md-7">
-    <div class="box box box-zoe AutoWidthHeight">
-        <div class="box-body">
-            <table class="table table-borderless @if ($errors->any())table-error @endif ">
-
-
-                <tr>
-                    <td @if($errors->any() && $errors->getBag("default")->hasAny("pay_method")) class="error" @endif>
-                        {!! Form::label('pay-method', z_language('Phương thức thanh toán'), ['class' => 'pay-method']) !!}
-                        : <BR>
-
-                        {!! Form::radio('pay_method', '1' , false) !!}  {!! @z_language(["Thanh toán khi giao hàng"]) !!}
-                        {!! Form::radio('pay_method', '2',false) !!}  {!! @z_language(["Chuyển khoản ngân hàng"]) !!}
-                        {!! Form::radio('pay_method', '3',false) !!}  {!! @z_language(["Không cần thanh toán"]) !!}
-                        @if ($errors->any())
-                            <p class="text-error">
-                                @if($errors->any() && $errors->getBag("default")->hasAny("pay_method"))
-                                    @foreach ($errors->getBag("default")->get("pay_method") as $error)
-                                        {{ $error }}
-                                    @endforeach
-                                @endif
-                            </p>
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("time_ship")) class="error" @endif>
-                        {!! Form::label('day_ship', z_language('Ngày nhận hàng'), ['class' => 'day_ship']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::date('day_ship',null, ['class' => 'form-control','placeholder'=>z_language('Ngày nhận hàng')]) !!}
-                        @if ($errors->any())
-                            <p class="text-error">
-                                @if($errors->any() && $errors->getBag("default")->hasAny("day_ship"))
-                                    @foreach ($errors->getBag("default")->get("day_ship") as $error)
-                                        {{ $error }}
-                                    @endforeach
-                                @endif
-                            </p>
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("time_ship")) class="error" @endif>
-                        @php $lists_ship = config('shop_ja.configs.times_ship');  @endphp :
-                        {!! Form::label('time_ship', z_language('Giờ nhận'), ['class' => 'time_ship']) !!} (<span
-                            class="req">*</span>):
-                        {!! Form::select('time_ship', array_merge([""=>z_language('..:  Chọn  :..')],$lists_ship),null,['class'=>'form-control','onchange="change()"']); !!}
-                        @if ($errors->any())
-                            <p class="text-error">
-                                @if($errors->any() && $errors->getBag("default")->hasAny("time_ship"))
-                                    @foreach ($errors->getBag("default")->get("time_ship") as $error)
-                                        {{ $error }}
-                                    @endforeach
-                                @endif
-                            </p>
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {!! Form::label('info', z_language('Thông tin chuyển khoản'), ['class' => 'info']) !!} :
-                        {!! Form::text('zipcode',null, ['class' => 'form-control','placeholder'=>z_language('Thông tin chuyển khoản')]) !!}
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
-                        {!! Form::radio('status', '3' , true) !!} {!! z_language('Lập đơn') !!}
-                        {!! Form::radio('status', '2' , false) !!} {!! z_language('Đang giao') !!}
-                        {!! Form::radio('status', '1',false) !!} {!! z_language('Đã hoàn thành') !!}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {!! Form::label('info', z_language('Lưu ý'), ['class' => 'info']) !!} :
-                        {!! Form::textarea('info',null, ['class' => 'form-control','placeholder'=>z_language('Lưu ý'),'cols'=>5,'rows'=>5]) !!}
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    {{--    <div class="box box box-zoe">--}}
-    {{--        <div class="box-body">--}}
-    {{--            {!! Form::label('category_id', 'Chuyên mục', ['class' => 'Category']) !!} *):--}}
-    {{--            {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"category_id") !!}--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
-</div>
-<div class="col-md-12">
-    <div class="box box box-zoe">
-        <div class="box-body">
+        <div class="tab-pane" id="tab_2">
+            <form id="FromOrderDetail">
             <table class="table table-bordered">
                 <tr>
-
                     <td>{!! Form::text('name',null, ['id'=>"search_data",'class' => 'form-control','placeholder'=>z_language('Tên sản phẩm')]) !!}</td>
                     <td>{!! Form::number('number',null, ['id'=>'number','class' => 'form-control','placeholder'=>z_language('Số lượng')]) !!}</td>
-
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -254,16 +283,18 @@
                             </thead>
                             <tbody>
 
-
                             </tbody>
                         </table>
                     </td>
                 </tr>
             </table>
+            </form>
         </div>
     </div>
 </div>
-{!! Form::close() !!}
+
+
+
 <div class="modal fade" id="elfinderShow">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -394,13 +425,6 @@
             //         }
             //     });
             // });
-
-            $(".btnSave").click(function () {
-                console.log(1);
-            });
-
-
-
             $('.number_count').editable({
                 validate: function(value) {
                     if($.trim(value) == '') return 'This field is required';
@@ -449,15 +473,9 @@
                 url: '{{ route("backend:elfinder:showConnector") }}?image=1',
                 soundPath: '{{ asset('module/admin/assets/elfinder/sounds') }}',
                 getFileCallback: function (file) {
-                    console.log(file);
-
-                    var preview_image_wrapper = $(".preview-image-wrapper");
-                    preview_image_wrapper.show();
-                    console.log(file.url);
-
-                    preview_image_wrapper.find("img").attr('src', file.url);
-                    preview_image_wrapper.find("[name='image']").val(file.url);
-
+                    $($(self).data().input).val(file.url);
+                    var preview_image_wrapper = $( $(self).data().preview);
+                    preview_image_wrapper.attr('src', file.url);
                     $('#elfinderShow').modal('hide');
                 },
                 resizable: false,
@@ -491,7 +509,11 @@
                 this.src =  window.URL.createObjectURL(self.files[0]);
             })
         }
+        function removeOrderDetail(self){
+            $(self).closest('.rowOrderDetail').remove();
+        }
         $(document).ready(function(){
+
             $("#search_data,#number").focus(function(){
                 $(this).val('');
             });
@@ -523,50 +545,51 @@
                 $.post("{!! route('backend:shop_ja:order:ajax') !!}" , data, function (response) {
                     if(response.length > 0 ){
                         let dom = $("#id_"+response[0].data.id);
-
                         dom.find('.price_ship').text(IF(data.count,response[0].data.price_ship));
                         dom.find('.total_price').text(data.count*response[0].data.price);
                         dom.find('.total_price_buy').text(data.count*response[0].data.price_buy);
-                        dom.find('.number_count').text(data.count).editable('setValue',data.count);
+                        let number_count = dom.find('.number_count');
+                        number_count.text(data.count);
+                        number_count.editable('setValue',data.count);
+                        number_count.parent().find('.itemVal').val(data.count);
                     }else{
                         dom.find('.price_ship').text("no");
                     }
                 });
             }
-
-            function insertRow(data,count){
+            function insertRow(data,hidden,currentData){
+                console.log(currentData);
                 let orderDetail = $("#orderDetail tbody");
-
-
-
                 let templateUpload = function(id,ship){
                     let img = "http://placehold.jp/100x150.png";
+                    let ValImg = "";
                     let k = "preview-image-"+ship;
-                    if(dataImages.hasOwnProperty(k)){
-                        img = dataImages[k];
+                    if(currentData.hasOwnProperty('image') && currentData.image.length > 0){
+                        img = currentData.image;
+                        ValImg = img;
                     }
                     let html = '<div class="image-wrapper"><div class="preview-image-wrapper"><img id="preview-image-'+id+'" class="preview-image-'+ship+'" style="width: 100px;height: 150px" src="'+img+'" alt="">  </div>\n' +
                         '                  <BR>\n' +
-                        '                        <input class="image" type="file" name="image" accept="image/*" data-preview_image="preview-image-'+ship+'" onchange="readURL(this)">\n' +
+                        '                        <input data-preview="#preview-image-'+id+'" data-input="#file_input_'+id+'" onfocus="openElfinder(this)" type="text" id="file_input_'+id+'" class="form-control itemVal" value="'+ValImg+'"><BR>' +
                         '                        </div>';
                     return html;
                 };
-                let html = "<tr id='id_"+data.id+"' data-id='"+data.id+"'>";
-                html+="<td class=\"text-center\"><textarea class='data' style='display: none'>"+JSON.stringify(data)+"</textarea></td>";
-                html+="<td class=\"text-center\">"+data.code+"</td>";
+                let html = "<tr class='rowOrderDetail' id='id_"+data.id+"' data-id='"+data.id+"'>";
+                html+="<td class=\"text-center\" data-key='id'><input type='hidden' class='itemVal' value='"+data.id+"'/><textarea class='data' style='display: none'>"+JSON.stringify(data)+"</textarea></td>";
+                html+="<td class=\"text-center\" data-key='code'>"+data.code+"</td>";
                 html+="<td class=\"text-center\">"+data.title+"<BR><i>"+data.description+"</i></td>";
-                html+="<td class=\"text-center\">"+data.company+"</td>";
-                html+="<td class=\"text-center\">"+data.ship+"</td>";
-                html+="<td  class=\"text-center count\"><a href=\"#\" class=\"number_count\" data-type=\"text\" data-pk=\"1\" data-title=\"Số lượng\">"+data.count+"</a> kg"+"</td>";
-                html+="<td class=\"text-center\">"+templateUpload(data.id,data.ship)+"</td>";
-                html+="<td class=\"text-center price\">"+data.price+"</td>";
-                html+="<td class=\"text-center price_buy\">"+data.price_buy+"</td>";
-                html+="<td class=\"text-center price_ship\">"+IF(1,data.price_ship)+"</td>";
-                html+="<td class=\"text-center total_price\">"+data.total_price+"</td>";
-                html+="<td class=\"text-center total_price_buy\">"+data.total_price_buy+"</td>";
+                html+="<td class=\"text-center\" data-key='company'>"+data.company+"<input type='hidden' class='itemVal' value='"+hidden.company+"'/> </td>";
+                html+="<td class=\"text-center\" data-key='ship'>"+data.ship+"<input type='hidden' class='itemVal' value='"+hidden.ship+"'/></td>";
+                html+="<td  class=\"text-center count\" data-key='count'><a href=\"#\" class=\"number_count\" data-type=\"text\" data-pk=\"1\" data-title=\"Số lượng\">"+(currentData.hasOwnProperty('count')?currentData.count:data.count)+"</a><input type='hidden' class='itemVal' value='"+(currentData.hasOwnProperty('count')?currentData.count:data.count)+"'/> kg"+"</td>";
+                html+="<td class=\"text-center\"  data-key='image'>"+templateUpload(data.id,data.ship)+"</td>";
+                html+="<td class=\"text-center price\" data-key='price'>"+data.price+"</td>";
+                html+="<td class=\"text-center price_buy\" data-key='price_buy'>"+data.price_buy+"</td>";
+                html+="<td class=\"text-center price_ship\" data-key='price_ship'>"+IF(currentData.hasOwnProperty('count')?currentData.count:data.count,data.price_ship)+"</td>";
+                html+="<td class=\"text-center total_price\" data-key='total_price'>"+(currentData.hasOwnProperty('total_price')?currentData.total_price:data.total_price)+"</td>";
+                html+="<td class=\"text-center total_price_buy\" data-key='total_price_buy'>"+(currentData.hasOwnProperty('total_price_buy')?currentData.total_price_buy:data.total_price_buy)+"</td>";
+                html+="<td class=\"text-center\"><button type=\"button\" class=\"remove btn btn-danger btn-xs\" onclick=\"removeOrderDetail(this)\">Xóa</button></td>";
                 html+="</tr>";
                 html = $(html);
-
                 html.find('.number_count').editable({
                     validate: function(value) {
                         if($.trim(value) == '') return 'This field is required';
@@ -577,9 +600,36 @@
                 });
                 orderDetail.prepend(html);
             }
+            $(document).on("click",".btnSave",function () {
+                let orderDetail = $("#orderDetail tbody tr");
+                let data = [];
+                $("#bank_info").val($(".bankinfo_1").val()+"|"+$(".bankinfo_2").val()+"|"+$(".bankinfo_3").val());
+                orderDetail.each(function () {
+                    let tds = $(this).find('td');
+                    let td = {};
+                    tds.each(function () {
+                        let key = $(this).attr('data-key');
+                        if(key !== undefined){
+                            if(key === 'image' || key === "company" || key === "ship" || key === "count" || key==="id"){
+                                td[key] = $(this).find('.itemVal').val();
+                            }else{
+                                td[key] = $(this).text();
+                            }
+                        }
+
+                    });
+                    data.push(td);
+                });
+
+
+
+                $("#dataDetailOrder").val(JSON.stringify(data));
+                document.getElementById('form_store').submit();
+            });
             $("#number").change(function () {
                 update({count:$(this).val(),id:$(this).attr('data-id'),city:$("#city-select").val()});
             });
+
             $("#city-select").change(function () {
                 let city = $(this).val();
                 $("#orderDetail tbody tr").each(function () {
@@ -588,6 +638,7 @@
                     update({count:count,id:id,city:city});
                 });
             });
+
             $('#search_data').autocomplete({
                 source: function (request, response) {
                     request.city = $("#city-select").val();
@@ -598,7 +649,7 @@
                 {
                     $('#search_data').val(ui.item.value);
                     $("#number").attr('data-id',ui.item.data.id);
-                    insertRow(ui.item.data);
+                    insertRow(ui.item.data,ui.item.hidden,{});
                 }
             }).data('ui-autocomplete')._renderItem = function(ul, item){
                 return $("<li class='ui-autocomplete-row'></li>")
@@ -606,7 +657,37 @@
                     .append(item.label)
                     .appendTo(ul);
             };
+            (function (data) {
+                console.log(data);
+                let par = {};
+                let sendData = {};
+                let counts = {};
+                for(let k in data){
+                    if(data.hasOwnProperty(k)){
+                        par[data[k].id] = ({id:data[k].id,count:data[k].count,index:k});
+                    }
+                }
+                sendData.city = $("#city-select").val();
+                sendData.lists = par;
+                $.post("{!! route('backend:shop_ja:order:ajax') !!}" , sendData , function (ReponDatas) {
+                    console.log(ReponDatas);
+                    for(let k in ReponDatas){
+                        if(ReponDatas.hasOwnProperty(k)){
+                            insertRow(ReponDatas[k].data,ReponDatas[k].hidden,data[par[ReponDatas[k].data.id].index]);
+                        }
+                    }
+                });
+            })({!! isset($model)?$model->detailOrder:'[]' !!});
+            (function (val) {
+                if(val){
+                    let _val =  val.split("|");
+                    console.log(_val);
+                    for(let k in _val){
+                        $('.bankinfo_'+(parseInt(k)+1)).val(_val[k]);
+                    }
+                }
 
+            })($("#bank_info").val())
         });
     </script>
 @endsection

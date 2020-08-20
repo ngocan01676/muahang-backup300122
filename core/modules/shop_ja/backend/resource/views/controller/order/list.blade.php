@@ -4,7 +4,7 @@
         <small>it all starts here</small>
         <a href="{{route('backend:shop_ja:order:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
-        @btn_option(["config"=>['name'=>'module:shop_ja:product']])
+        @btn_option(["config"=>['name'=>'module:shop_ja:order']])
         @slot('label')
             {{@z_language(["Option"])}}
         @endslot
@@ -16,7 +16,7 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
-    @component('backend::layout.component.list',['name'=>'module:shop_ja:product','models'=>$models])
+    @component('backend::layout.component.list',['name'=>'module:shop_ja:order','models'=>$models,'callback'=>$callback])
         @slot("tool")
             <div class="box-body">
                 <div class="col-md-12" style="padding:0">
