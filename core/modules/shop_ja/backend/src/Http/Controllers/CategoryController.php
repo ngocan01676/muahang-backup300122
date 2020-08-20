@@ -12,7 +12,7 @@ class CategoryController extends \Admin\Http\Controllers\CategoryController
         $respon = parent::ajax($request);
         if ($post['act'] == "edit") {
             $data = $respon->getData()->data;
-           // $data->data  = [];
+            $data->data  = [];
             $shop_product = DB::table('shop_product')->where('id',$post['data']['pro_id'])->get()->all();
             $category = DB::table('shop_ship_category')->where('category_id',$data->id)->where('product_id',$post['data']['pro_id'])->get()->all();
             $data->info = $data->name . " - Sản phẩm : " .$shop_product[0]->title . " - " .$shop_product[0]->description;
