@@ -16,7 +16,6 @@ $objPHPExcel->getProperties()->setCreator("Sigit prasetya n")
 $title1 = "株式会社ヤマダ 様 注文フォーマット";
 $title2 = "見本";
 
- 
 $default_border = array(
     'style' => PHPExcel_Style_Border::BORDER_THIN,
     'color' => array('rgb'=>'1006A3')
@@ -101,7 +100,7 @@ $objPHPExcel->getActiveSheet()->getStyle('P2')->applyFromArray(array(
 $i=0;
 foreach($colums as $key=>$value){
 	$ActiveSheetIndex->setCellValue($col[$i].'3', $colums[$i]);
-	 
+
 	$i++;
 }
 $objPHPExcel->getActiveSheet()->getStyle('P3')->applyFromArray(array(
@@ -109,8 +108,8 @@ $objPHPExcel->getActiveSheet()->getStyle('P3')->applyFromArray(array(
 		'color' => array('rgb' => 'FF0000'),
 )));
 $objPHPExcel->getActiveSheet()->getStyle('A3:V3')->applyFromArray( $style_header ); // give style to header
- 
- 
+
+
 $datas = [
 	[
 		"date"=>"23日",
@@ -156,7 +155,7 @@ $datas = [
 		"tracking"=>"",
 		"info"=>""
 	]
-]; 
+];
 $start=4;
 $i= $start;
 $lastIndex = "";
@@ -186,7 +185,7 @@ foreach($datas as $key=>$values)
 		}else{
 			$ActiveSheetIndex->setCellValue($col[$j].$i, $value);
 		}
-		
+
 		$j++;
 	}
 	$i++;
@@ -195,7 +194,7 @@ foreach($datas as $key=>$values)
 $ActiveSheetIndex->setCellValue("P".$end,'=SUM(P'.$start.':P'.($end-1).')');
 $ActiveSheetIndex->setCellValue("K".$end,'=SUM(K'.$start.':K'.($end-1).')');
 //$objPHPExcel->getActiveSheet()->getStyle($firststyle.':'.$laststyle)->applyFromArray( $style_content ); // give style to header
- 
+
 // Rename worksheet
 $objPHPExcel->getActiveSheet()->setTitle('Product');
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
@@ -211,7 +210,7 @@ header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
 header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header ('Pragma: public'); // HTTP/1.0
- 
+
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save('php://output');
 exit;

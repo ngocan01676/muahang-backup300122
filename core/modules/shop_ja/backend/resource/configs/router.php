@@ -108,6 +108,22 @@ return [
                         ],
                     ]
                 ],
+                'shop_ja:excel' => [
+                    "namespace" => "ShopJa\Http\Controllers",
+                    "controller" => "ExcelController",
+                    "sub_prefix" => "/shop-ja/order/excel",
+                    "guard" => "backend",
+                    "acl"=> "shop_ja:order:excel",
+                    "module" => [
+                        "name" => "admin",
+                        "type" => "module"
+                    ],
+                    "router" => [
+                        "list" => [
+                            "url" => "/"
+                        ],
+                    ]
+                ],
             ]
         ]
 ];
