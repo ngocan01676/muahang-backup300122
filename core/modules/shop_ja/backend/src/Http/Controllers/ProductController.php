@@ -49,7 +49,13 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $models->orderBy('id', 'desc');
 
         return $this->render('product.list', [
-            'models' => $models->paginate($item)
+            'models' => $models->paginate($item),
+            'callback' => [
+                "GetHtmlConfigShip" => function ($model){
+                    $html = "<a href='".route('backend:shop_ja:japan:category:show',['product_id' => $model->id])."'>Click</a>";
+                    return $html;
+                }
+            ]
         ]);
     }
     public function create()

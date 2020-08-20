@@ -16,7 +16,7 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
-    @component('backend::layout.component.list',['name'=>'module:shop_ja:product','models'=>$models])
+    @component('backend::layout.component.list',['name'=>'module:shop_ja:product','models'=>$models,'callback'=>$callback])
         @slot("tool")
             <div class="box-body">
                 <div class="col-md-12" style="padding:0">

@@ -26,17 +26,18 @@
                             'status' => ['label' => z_language('Status', false), 'type' => 'status'],
                             'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date'],
-                            'actions'=>[
-                                'label'=>z_language('Action', false),
-                                'type'=>'action',
-                                'lists'=>[
-                                   [
-                                     'attr'=>['type'=>'link','class'=>"btn btn-primary btn-xs"],
-                                     'label' => z_language('Cấu hình phí ship', false),
-                                     'router'=>['name' => "backend:shop_ja:japan:category:show", 'par' => ['product_id' => 'id'],'query'=>['ref'=>'currentUrl']]
-                                   ]
-                                ],
-                            ]
+                            'GetHtmlConfigShip' => ['label' => z_language('Config Ship', false), 'type' => 'number','callback' => "GetHtmlConfigShip"],
+//                            'actions'=>[
+//                                'label'=>z_language('Action', false),
+//                                'type'=>'action',
+//                                'lists'=>[
+//                                   [
+//                                     'attr'=>['type'=>'link','class'=>"btn btn-primary btn-xs"],
+//                                     'label' => z_language('Cấu hình phí ship', false),
+//                                     'router'=>['name' => "backend:shop_ja:japan:category:show", 'par' => ['product_id' => 'id'],'query'=>['ref'=>'currentUrl']]
+//                                   ]
+//                                ],
+//                            ]
                         ],
                     ],
                     'pagination' => [
