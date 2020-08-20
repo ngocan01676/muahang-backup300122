@@ -110,16 +110,15 @@ class OrderController extends \Zoe\Http\ControllerBackend
                 "GetCountOrder" => function ($model){
                     $count =  DB::table('shop_order_detail as t')->where('order_id', $model->id)->count('order_id');
                     $html = "<ul>";
-                    $results = DB::table('shop_order_detail as t')->where('order_id', $model->id)->get('product_id')->all();
+                    $results = DB::table('shop_order_detail as t')->where('order_id', $model->id)->get(['product_id','count'])->all();
                     $ids = [];
-                    foreach ($results as $result){
-                        $ids[] = $result->product_id;
+                    foreach ($results as $index=>$result){
+                        $results_products =  DB::table('shop_product')->where('id', $result['product_id'])->get(['title','description'])->all();
+                        foreach ($results_products as $value){
+                            $html.='<li>'.$result->count.':'.$value->title.'-'.$value->description.'</li>';
+                        }
                     }
-                    $results_products =  DB::table('shop_product')->whereIn('id', $ids)->get(['title','description'])->all();
 
-                    foreach ($results_products as $value){
-                        $html.='<li>'.$value->title.'-'.$value->description.'</li>';
-                    }
                     $html.= "</ul>";
 
                     return $html;
