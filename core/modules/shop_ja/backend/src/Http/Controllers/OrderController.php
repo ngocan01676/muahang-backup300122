@@ -79,7 +79,6 @@ class OrderController extends \Zoe\Http\ControllerBackend
               $output[] = $temp_array;
           }
         }
-
         return response()->json($output);
     }
     public function list(Request $request)
