@@ -17,7 +17,7 @@ return [
                     "url" => "backend:shop_ja:category:show",
                 ],
                 [
-                    "name" => z_language("CT Phí Ship"),
+                    "name" => z_language("QL Tỉnh"),
                     "url" => "backend:shop_ja:japan:category:show",
                 ],
                 [
