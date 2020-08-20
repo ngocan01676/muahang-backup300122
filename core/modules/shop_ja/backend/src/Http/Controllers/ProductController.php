@@ -52,7 +52,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             'models' => $models->paginate($item),
             'callback' => [
                 "GetHtmlConfigShip" => function ($model){
-                    $html = "<a href='".route('backend:shop_ja:japan:category:show',['product_id' => $model->id])."'>Click</a>";
+                    $html = "<a href='".route('backend:shop_ja:japan:category:show',['product_id' => $model->id])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">Click</button></a>";
                     return $html;
                 }
             ]
