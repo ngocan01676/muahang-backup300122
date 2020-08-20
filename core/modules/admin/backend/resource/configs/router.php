@@ -51,6 +51,7 @@ return [
                 "controller" => "PageController",
                 "sub_prefix" => "/page",
                 "guard" => "backend",// pải login
+                "acl"=> "page",
                 "router" => [
                     "list" => [
                         "url" => "/",
@@ -76,6 +77,7 @@ return [
                 "controller" => "LanguageController",
                 "sub_prefix" => "/language",
                 "guard" => "backend",// pải login
+                "acl"=> "language",
                 "router" => [
                     "list" => [
                         "url" => "/",
@@ -92,6 +94,7 @@ return [
                 "controller" => "LayoutController",
                 "sub_prefix" => "/layout",
                 "guard" => "backend",// pải login
+                "acl"=> "layout",
                 "router" => [
                     "list" => [
                         "url" => "/",
@@ -147,6 +150,7 @@ return [
                 "controller" => "ComponentController",
                 "sub_prefix" => "/component",
                 "guard" => "backend",
+                "acl"=> "component",
                 "router" => [
                     "list" => [
                         "url" => "/",
@@ -158,6 +162,7 @@ return [
                 "controller" => "CategoryController",
                 "sub_prefix" => "/category",
                 "guard" => "backend",
+                "acl"=> "category",
                 "router" => [
                     "show" => [
                         "url" => "/show",
@@ -190,6 +195,7 @@ return [
                 "controller" => "PluginController",
                 "sub_prefix" => "/plugin",
                 "guard" => "backend",
+                "acl"=> "plugin",
                 "router" => [
                     "list" => [
                         "url" => "/",
@@ -204,6 +210,7 @@ return [
                 "controller" => "ModuleController",
                 "sub_prefix" => "/module",
                 "guard" => "backend",
+                "acl"=> "module",
                 "router" => [
                     "list" => [
                         "url" => "/",
@@ -218,6 +225,7 @@ return [
                 "controller" => "ThemeController",
                 "sub_prefix" => "/theme",
                 "guard" => "backend",
+                "acl"=> "theme",
                 "router" => [
                     "list" => [
                         "url" => "/",
@@ -232,6 +240,7 @@ return [
                 "controller" => "MenuController",
                 "sub_prefix" => "/menu",
                 "guard" => "backend",
+                "acl"=> "menu",
                 "router" => [
                     "show" => [
                         "url" => "/show",
