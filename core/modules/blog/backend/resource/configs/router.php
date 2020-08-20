@@ -7,6 +7,7 @@ return [
                 "controller" => "PostController",
                 "sub_prefix" => "/blog/post",
                 "guard" => "backend",
+                'acl'=>'blog:post',
                 "router" => [
                     "list" => [
                         "url" => "/",
@@ -32,6 +33,7 @@ return [
                 "controller" => "PostLangController",
                 "sub_prefix" => "/blog/post-lang",
                 "guard" => "backend",
+                'acl'=>'blog:post:lang',
                 "router" => [
                     "list" => [
                         "url" => "/",
@@ -57,6 +59,7 @@ return [
                 "controller" => "CategoryController",
                 "sub_prefix" => "/blog/category",
                 "guard" => "backend",
+                'acl'=>'blog:category',
                 "module" => [
                     "name" => "admin",
                     "type" => "module"
@@ -73,6 +76,7 @@ return [
                 "controller" => "IndexController",
                 "sub_prefix" => "/blog/comment",
                 "guard" => "backend",
+                'acl'=>'blog:comment',
                 "module" => [
                     "name" => "Comment",
                     "type" => "plugin"
