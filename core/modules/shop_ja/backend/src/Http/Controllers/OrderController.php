@@ -123,7 +123,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
                                     if($result->status == 1){
                                         $html.='<li>('.$result->count.') <span class="label bg-green">'.$value->title.'-'.$value->description.'</span></li>';
                                     }else if($result->status == 3){
-                                        $html.='<li>('.$result->count.') <span class="label bg-info">'.$value->title.'-'.$value->description.'</span></li>';
+                                        $html.='<li>('.$result->count.') <span class="label bg-primary">'.$value->title.'-'.$value->description.'</span></li>';
                                     }else{
                                         $html.='<li>('.$result->count.') <span class="label bg-yellow">'.$value->title.'-'.$value->description.'</span></li>';
                                     }
