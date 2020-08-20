@@ -147,8 +147,6 @@
             </div>
             <div class="col-md-7">
                 <table class="table table-borderless @if ($errors->any())table-error @endif ">
-
-
                     <tr>
                         <td @if($errors->any() && $errors->getBag("default")->hasAny("pay_method")) class="error" @endif>
                             {!! Form::label('pay-method', z_language('Phương thức thanh toán'), ['class' => 'pay-method']) !!}

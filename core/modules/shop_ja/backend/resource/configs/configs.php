@@ -33,7 +33,7 @@
                                    [
                                      'attr'=>['type'=>'link','class'=>"btn btn-primary btn-xs"],
                                      'label' => z_language('Cấu hình phí ship', false),
-                                     'router'=>['name' => "backend:shop_ja:japan:category:show", 'par' => ['product_id' => 'id']]
+                                     'router'=>['name' => "backend:shop_ja:japan:category:show", 'par' => ['product_id' => 'id'],'query'=>['ref'=>'currentUrl']]
                                    ]
                                 ],
                             ]
