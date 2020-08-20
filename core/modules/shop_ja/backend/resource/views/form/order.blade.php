@@ -552,7 +552,7 @@
                     return html;
                 };
                 let html = "<tr id='id_"+data.id+"' data-id='"+data.id+"'>";
-                html+="<td class=\"text-center\"><textarea class='data' style='display: none'>"+JSON.stringify(data)+"</textarea></td>";
+                html+="<td class=\"text-center\">1<textarea class='data' style='display: none'>"+JSON.stringify(data)+"</textarea></td>";
                 html+="<td class=\"text-center\">"+data.code+"</td>";
                 html+="<td class=\"text-center\">"+data.title+"<BR><i>"+data.description+"</i></td>";
                 html+="<td class=\"text-center\">"+data.company+"</td>";

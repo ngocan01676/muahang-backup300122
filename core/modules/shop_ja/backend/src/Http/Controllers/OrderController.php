@@ -42,7 +42,6 @@ class OrderController extends \Zoe\Http\ControllerBackend
                 if(isset($_info[$ship]) && count($_info[$ship]) > 0){
                     $price_ship = $_info[$ship];
                 }
-
               }
               $temp_array['data'] = [
                   'id'=>$result->id,
@@ -68,7 +67,6 @@ class OrderController extends \Zoe\Http\ControllerBackend
               $output[] = $temp_array;
           }
         }
-
         return response()->json($output);
     }
     public function list(Request $request)
