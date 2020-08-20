@@ -31,10 +31,23 @@
                                         {!! Form::text('code',null, ['class' => 'form-control','placeholder'=>z_language('Mã sản phẩm')]) !!}
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td>
                                         {!! Form::label('id_title', z_language('Tên sản phẩm'), ['class' => 'title']) !!}
                                         {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>z_language('Tên sản phẩm')]) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {!! Form::label('Image', z_language('Ảnh sản phẩm'), ['class' => 'image']) !!}
+                                        <div class="image-wrapper">
+                                            <div class="preview-image-wrapper">
+                                                <img id="preview-image-2" class="preview-image" style="width: 100px;height: 150px" src="{!! isset($model)?$model->image:"http://placehold.jp/100x150.png" !!}" alt="">
+                                            </div>
+                                            <br>
+                                        <input data-preview="#preview-image" data-input="#file_input" onfocus="openElfinder(this)" name="image" type="text" id="file_input" class="form-control itemVal" value="{!! isset($model)?$model->image:"" !!}"><br>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -147,13 +160,21 @@
                 soundPath: '{{ asset('module/admin/assets/elfinder/sounds') }}',
                 getFileCallback: function (file) {
                     console.log(file);
+                    console.log($($(self).data().input).val(file.url));
+                    //$($(self).data().input).val(file.url);
 
                     var preview_image_wrapper = $(".preview-image-wrapper");
                     preview_image_wrapper.show();
-                    console.log(file.url);
 
                     preview_image_wrapper.find("img").attr('src', file.url);
                     preview_image_wrapper.find("[name='image']").val(file.url);
+
+                    //
+                    // var preview_image_wrapper = $( $(self).data().preview);
+                    // preview_image_wrapper.attr('src', file.url);
+                    // $('#elfinderShow').modal('hide');
+
+
 
                     $('#elfinderShow').modal('hide');
                 },
