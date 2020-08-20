@@ -235,9 +235,9 @@
                     <tr>
                         <td>
                             {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
-                            {!! Form::radio('status', '3' , true) !!} {!! z_language('Bản nháp') !!}
+                            {!! Form::radio('status', '1' , true) !!} {!! z_language('Bản nháp') !!}
                             {!! Form::radio('status', '2' , false) !!} {!! z_language('Lập đơn') !!}
-                            {!! Form::radio('status', '1',false) !!} {!! z_language('Đã hoàn thành') !!}
+                            {!! Form::radio('status', '3',false) !!} {!! z_language('Đã hoàn thành') !!}
                         </td>
                     </tr>
                     <tr>
