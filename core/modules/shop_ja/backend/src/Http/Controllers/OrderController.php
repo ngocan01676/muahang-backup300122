@@ -110,19 +110,28 @@ class OrderController extends \Zoe\Http\ControllerBackend
                 "GetCountOrder" => function ($model){
                     $count =  DB::table('shop_order_detail as t')->where('order_id', $model->id)->count('order_id');
                     $html = "<ul>";
-                    $results = DB::table('shop_order_detail as t')->where('order_id', $model->id)->get(['product_id','count','status'])->all();
+                    $results = DB::table('shop_order_detail as t')->where('order_id', $model->id)->get(['product_id','count','status','price_ship'])->all();
                     $ids = [];
-                    foreach ($results as $index=>$result){
-                        $results_products =  DB::table('shop_product')->where('id', $result->product_id)->get(['title','description'])->all();
-                        foreach ($results_products as $value){
-                            if($result->status == 1){
-                                $html.='<li>('.$result->count.') <span class="label bg-green">'.$value->title.'-'.$value->description.'</span></li>';
-                            }else if($result->status == 3){
-                                $html.='<li>('.$result->count.') <span class="label bg-red">'.$value->title.'-'.$value->description.'</span></li>';
-                            }else {
-                                $html.='<li>('.$result->count.') <span class="label bg-yellow">'.$value->title.'-'.$value->description.'</span></li>';
+                    if(count($results) > 0){
+                        foreach ($results as $index=>$result){
+                            $results_products =  DB::table('shop_product')->where('id', $result->product_id)->get(['title','description'])->all();
+
+                            foreach ($results_products as $value){
+                                if($result->price_ship < 0){
+                                    $html.='<li>('.$result->count.') <span class="label bg-red">'.$value->title.'-'.$value->description.'</span></li>';
+                                }else{
+                                    if($result->status == 1){
+                                        $html.='<li>('.$result->count.') <span class="label bg-green">'.$value->title.'-'.$value->description.'</span></li>';
+                                    }else if($result->status == 3){
+                                        $html.='<li>('.$result->count.') <span class="label bg-info">'.$value->title.'-'.$value->description.'</span></li>';
+                                    }else{
+                                        $html.='<li>('.$result->count.') <span class="label bg-yellow">'.$value->title.'-'.$value->description.'</span></li>';
+                                    }
+                                }
                             }
                         }
+                    }else{
+                        $html.='<li>Empty</li>';
                     }
                     $html.= "</ul>";
 
