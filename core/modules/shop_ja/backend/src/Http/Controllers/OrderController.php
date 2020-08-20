@@ -108,7 +108,21 @@ class OrderController extends \Zoe\Http\ControllerBackend
                     return $rs && count($rs) > 0 ? $rs[0]->username : "Empty";
                 },
                 "GetCountOrder" => function ($model){
-                    return  DB::table('shop_order_detail as t')->where('order_id', $model->id)->count('order_id');
+                    $count =  DB::table('shop_order_detail as t')->where('order_id', $model->id)->count('order_id');
+                    $html = "<ul>";
+                    $results = DB::table('shop_order_detail as t')->where('order_id', $model->id)->get('product_id')->all();
+                    $ids = [];
+                    foreach ($results as $result){
+                        $ids[] = $result->product_id;
+                    }
+                    $results_products =  DB::table('shop_product')->whereIn('id', $ids)->get('title')->all();
+
+                    foreach ($results_products as $value){
+                        $html.='<li>'.$value->title.'</li>';
+                    }
+                    $html.= "</ul>";
+
+                    return $html;
                 },
                 "GetStatus"=>function($model){
                     if($model->status == 1){
