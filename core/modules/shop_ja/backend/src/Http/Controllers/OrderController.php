@@ -197,7 +197,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
         try {
 
             $model->fullname = $data['fullname'];
-            $model->admin_id = 1;
+            $model->admin_id =\Illuminate\Support\Facades\Auth::user()->id;
             $model->postal_code = $data['postal_code'];
             $model->pay_method = $data['pay_method'];
             $model->phone = $data['phone'];
