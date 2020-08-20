@@ -108,7 +108,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->slug = $model->title ;
             $model->description = $data['description'];
             $model->category_id = $data['category_id'];
-            $model->image = "null";
+            $model->image =  $data['image'];
             $model->price = $data['price'];
             $model->code = $data['code'];
             $model->status = $data['status'];
