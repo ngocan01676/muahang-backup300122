@@ -14,8 +14,8 @@
             url: '{{ route("backend:elfinder:showConnector") }}',  // connector URL
             soundPath: '{{ asset('/module/admin/assets/elfinder/sounds') }}',
             cssAutoLoad: false,
-        });
+        }).elfinder('instance').exec('fullscreen');
     });
 </script>
-<div id="elfinder"></div>
+<div id="elfinder" style="width:100%; height:100%; border:none;"></div>
 @endsection

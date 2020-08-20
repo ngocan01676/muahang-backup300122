@@ -12,7 +12,7 @@
                     <i class="fa fa-times"></i></button>
             </div>
         </div>
-        <div class="box-body" style="height: 500px">
+        <div class="box-body" style="height: 800px">
             <iframe style="border: 0; width: 100%; height: 100%" src="{{ route('backend:elfinder:list') }}"></iframe>
         </div>
         <!-- /.box-body -->
