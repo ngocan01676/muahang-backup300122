@@ -116,11 +116,11 @@ class OrderController extends \Zoe\Http\ControllerBackend
                         $results_products =  DB::table('shop_product')->where('id', $result->product_id)->get(['title','description'])->all();
                         foreach ($results_products as $value){
                             if($result->status == 1){
-                                $html.='<li class="label bg-green">SL('.$result->count.') '.$value->title.'-'.$value->description.'</li>';
+                                $html.='<li> SL('.$result->count.') <span class="label bg-green">'.$value->title.'-'.$value->description.'</span></li>';
                             }else if($result->status == 3){
-                                $html.='<li class="label bg-red">SL('.$result->count.') '.$value->title.'-'.$value->description.'</li>';
+                                $html.='<li>SL('.$result->count.') <span class="label bg-red">'.$value->title.'-'.$value->description.'</span></li>';
                             }else {
-                                $html.='<li class="label bg-yellow">SL('.$result->count.') '.$value->title.'-'.$value->description.'</li>';
+                                $html.='<li>SL('.$result->count.') <span class="label bg-yellow">'.$value->title.'-'.$value->description.'</span></li>';
                             }
                         }
                     }
