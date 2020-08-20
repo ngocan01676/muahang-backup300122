@@ -113,7 +113,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
                     $results = DB::table('shop_order_detail as t')->where('order_id', $model->id)->get(['product_id','count'])->all();
                     $ids = [];
                     foreach ($results as $index=>$result){
-                        $results_products =  DB::table('shop_product')->where('id', $result['product_id'])->get(['title','description'])->all();
+                        $results_products =  DB::table('shop_product')->where('id', $result->product_id)->get(['title','description'])->all();
                         foreach ($results_products as $value){
                             $html.='<li>'.$result->count.':'.$value->title.'-'.$value->description.'</li>';
                         }
