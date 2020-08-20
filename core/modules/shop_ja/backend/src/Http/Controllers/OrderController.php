@@ -75,7 +75,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
                   'company'=>isset($category[$result->category_id])?$category[$result->category_id]->id:0,
                   'ship'=>isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1",
               ];
-              $temp_array['label'] = '<img src="'.(!empty($result->image) || $result->image != 'null'  ?$result->image:"http://placehold.jp/100x150.png").'" width="70" />&nbsp;&nbsp;&nbsp;'. $result->description.'';
+              $temp_array['label'] = '<img src="'.(!empty($result->image) || $result->image != 'null'  ?$result->image:"http://placehold.jp/100x150.png").'" width="70" />&nbsp;&nbsp;&nbsp;'. $result->description.'-'.$result->title;
               $output[] = $temp_array;
           }
         }
