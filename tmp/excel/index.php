@@ -157,7 +157,7 @@ $datas = [
 	]
 ];
 $start=4;
-$i= $start;
+$i = $start;
 $lastIndex = "";
 foreach($datas as $key=>$values)
 {
@@ -185,12 +185,12 @@ foreach($datas as $key=>$values)
 		}else{
 			$ActiveSheetIndex->setCellValue($col[$j].$i, $value);
 		}
-
 		$j++;
 	}
 	$i++;
 	$end = $i;
 }
+
 $ActiveSheetIndex->setCellValue("P".$end,'=SUM(P'.$start.':P'.($end-1).')');
 $ActiveSheetIndex->setCellValue("K".$end,'=SUM(K'.$start.':K'.($end-1).')');
 //$objPHPExcel->getActiveSheet()->getStyle($firststyle.':'.$laststyle)->applyFromArray( $style_content ); // give style to header
