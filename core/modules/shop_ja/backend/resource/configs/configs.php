@@ -64,13 +64,13 @@
                                 ]
                             ],
                             'image'=>[
-                                'width'  => '100px',
-                                'height' => '100px',
+                                'width'  => '50px',
+                                'height' => '50px',
                             ]
                         ],
                         "column"=>[
                             'image'=>[
-                                'style'=>'width="100px";height="100px"'
+                                'style'=>'width="50px";height="50px";text-align:center'
                             ]
                         ]
                     ]
