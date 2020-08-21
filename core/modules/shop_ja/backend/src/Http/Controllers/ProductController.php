@@ -117,6 +117,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->image =  $data['image'];
             $model->price = $data['price'];
             $model->code = $data['code'];
+            $model->unit = $data['unit'];
             $model->status = $data['status'];
             $model->price_buy = $data['price_buy'];
             $model->type_excel = $data['type_excel'];
