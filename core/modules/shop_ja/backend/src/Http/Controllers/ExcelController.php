@@ -84,9 +84,9 @@ class ExcelController extends \Zoe\Http\ControllerBackend
             ["数量",'count',15,9],
             ["到着希望日",'day_ship',15,9],
             ["配送希望時間帯",'time_ship',15,9],
-            ["別途送料",'phone',15,9],
-            ["仕入金額",'phone',15,9],
-            ["代引き請求金額",'phone',15,9],
+            ["別途送料",['product_id','price_buy'],15,9],
+            ["仕入金額",['product_id','price_buy'],15,9],
+            ["代引き請求金額",['product_id','price_buy'],15,9],
             ["代引き手数料",'phone',15,9],
             ["紹介料",'phone',15,9],
             ["追跡番号",'phone',15,9],
@@ -140,7 +140,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
         $category = config_get("category", "shop-ja:japan:category");
         print_r($category);
         foreach ($datas as $info){
-            $j = 1;
+
             $_tmpData = [
                 'dateCreate'=>date('d',strtotime($info['info']->created_at))."日",
                 'payMethod'=>$info['info']->pay_method,
@@ -154,7 +154,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
             ];
             if($info['info']->pay_method == 1){
                 $_tmpData['payMethod'] = '代金引換';
-            }else  if($info['info']->pay_method == 2){
+            }else if($info['info']->pay_method == 2){
                 $_tmpData['payMethod'] = '銀行振込';
             }else{
                 $_tmpData['payMethod'] = '決済不要';
@@ -167,7 +167,6 @@ class ExcelController extends \Zoe\Http\ControllerBackend
             foreach($info['detail'] as $_=>$_value){
                 foreach($colums as $key=>$value){
                     $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
-
                     if(is_array($value[1])){
                         if(property_exists($_value,$value[1][0])){
                             $_val  = "";
