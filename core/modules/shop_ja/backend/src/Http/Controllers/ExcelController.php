@@ -71,131 +71,170 @@ class ExcelController extends \Zoe\Http\ControllerBackend
         );
         $sheet->getStyle('A3:T3')->applyFromArray( $style_header );
         $colums = [
-            ["注文日",0,9],
-            ["支払区分",15,9],
-            ["配送先電話番号",15,9],
-            ["配送先郵便番号",15,9],
-            ["配送先都道府県",40,9],
-            ["配送先住所",18,9],
-            ["配送先氏名",18,9],
-            ["品番",15,9],
-            ["商品名",18,9],
-            ["単価",15,9],
-            ["数量",15,9],
-            ["到着希望日",15,9],
-            ["配送希望時間帯",15,9],
-            ["別途送料",15,9],
-            ["仕入金額",15,9],
-            ["代引き請求金額",15,9],
-            ["代引き手数料",15,9],
-            ["紹介料",15,9],
-            ["追跡番号",15,9],
-            ["振込み情報",15,9],
+            ["注文日",'dateCreate',10,9],
+            ["支払区分",'payMethod',10,9],
+            ["配送先電話番号",'phone',10,9],
+            ["配送先郵便番号",'postal_code',9,9],
+            ["配送先都道府県",'city',14,9],
+            ["配送先住所",'address',18,9],
+            ["配送先氏名",'fullname',18,9],
+            ["品番",['product_id','code'],10,9],
+            ["商品名",['product_id','title'],18,9],
+            ["単価",['product_id','price'],15,9],
+            ["数量",'count',15,9],
+            ["到着希望日",'day_ship',15,9],
+            ["配送希望時間帯",'time_ship',15,9],
+            ["別途送料",'phone',15,9],
+            ["仕入金額",'phone',15,9],
+            ["代引き請求金額",'phone',15,9],
+            ["代引き手数料",'phone',15,9],
+            ["紹介料",'phone',15,9],
+            ["追跡番号",'phone',15,9],
+            ["振込み情報",'phone',15,9],
         ];
+        $start=3;
         foreach($colums as $key=>$value){
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
 
-            $sheet->setCellValue($nameCol.'3', $value[0])->getStyle($nameCol.'3')->applyFromArray(array(
+            $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
-                        'size'  => $value[2]
+                        'size'  => $value[3]
                     ),
                 )
             );
-            if($value[1] > 0){
-                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[1]);
+
+            if($value[2] > 0){
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
             }
         }
-        $datas = [
-            [
-                "date"=>"23日",
-                "payment"=>"Thanh toán khi giao hàng",
-                "phone"=>"070-1398-2234",
-                "code"=>"733-0012",
-                "noun"=>"広島県",
-                "address"=>"広島市西区中広町３丁目１−４０-404号",
-                "fullname"=>"VUONG VAN NGHI",
-                "product_id"=>"ヤマダ 03",
-                "product_name"=>"新米入り業務用精白米近江ブレンド25 kg",
-                "price"=>7000,
-                "count"=>2,
-                "receive_date"=>"3/25/2020",
-                "receive_hour"=>"19:00～21:00",
-                "shipping_fee1"=>"",
-                "sum_price"=>"",
-                "sum_price_buy"=>"",
-                "shipping_fee2"=>"",
-                "cash_win"=>"",
-                "tracking"=>"",
-                "info"=>""
-            ],
-            [
-                "date"=>"23日",
-                "payment"=>"Thanh toán khi giao hàng",
-                "phone"=>"070-1398-2234",
-                "code"=>"733-0012",
-                "noun"=>"広島県",
-                "address"=>"広島市西区中広町３丁目１−４０-404号",
-                "fullname"=>"VUONG VAN NGHI",
-                "product_id"=>"ヤマダ 03",
-                "product_name"=>"新米入り業務用精白米近江ブレンド25 kg",
-                "price"=>7000,
-                "count"=>1,
-                "receive_date"=>"3/25/2020",
-                "receive_hour"=>"19:00～21:00",
-                "shipping_fee1"=>"",
-                "sum_price"=>"",
-                "sum_price_buy"=>"",
-                "shipping_fee2"=>"",
-                "cash_win"=>"",
-                "tracking"=>"",
-                "info"=>""
-            ]
-        ];
-
-        $start=4;
-        $i = $start;
+        $start++;
         $lastIndex = "";
+        $datas = [];
+        $ship = "Yamato";
+        $orders = [
 
-        foreach($datas as $key=>$values)
-        {
-            $j = 0;
-            foreach($values as $_key=>$value){
-                $j++;
-               $_key =  PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($j);
-                if($_key=="sum_price"){
-                    $sheet->setCellValue($_key.$i,$datas[$key]["price"] * $datas[$key]["count"]);
-                }else if($_key=="sum_price_buy"){
-                    $sheet->setCellValue($_key.$i,$datas[$key]["price"] * $datas[$key]["count"]);
-                }else if($_key=="shipping_fee2"){
-                    $_val = 0;
-                    if($datas[$key]["price"]<10000){
-                        $_val = 330;
-                    }else if($datas[$key]["price"]>=10000 && $datas[$key]["price"]<30000){
-                        $_val = 440;
-                    }else if( $datas[$key]["price"]>=30000){
-                        $_val = 660;
-                    }else if( $datas[$key]["price"]>=100000){
-                        $_val = 1080;
-                    }
-                    $sheet->setCellValue($_key.$i,$_val);
-                }else if($_key=="cash_win"){
-                    $cash_win = 0;
-                    $sheet->setCellValue($_key.$i,'=IF(J'.$i.'="","",P'.$i.'-J'.$i.'*K'.$i.'-N'.$i.'-Q'.$i.')');
-                }else{
-                    $sheet->setCellValue($_key.$i, $value);
+        ];
+        $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+        $results =  DB::table('shop_order')->where('status',2)->get()->all();
+            foreach ($results as $result){
+               $row = [
+                   'info'=>$result
+               ];
+               $row['detail'] =  DB::table('shop_order_detail')
+                   ->where('order_id',$result->id)->where('ship',$ship)->get()->toArray();
+               if(count($row['detail']) > 0 ){
+                   $datas[] = $row;
+                   $orders[$result->id] = count($row['detail']);
+               }
+            }
+        echo "<pre>";
+
+            print_r($products);
+        print_r($orders);
+        print_r($datas);
+
+        //支払い方法 Phương thức thanh toán
+        //代金引換 Thanh toán khi giao hàng 1
+        // 銀行振込 Chuyển khoản ngân hàng 2
+        // 決済不要 Không cần thanh toán 3
+        $category = config_get("category", "shop-ja:japan:category");
+        print_r($category);
+        foreach ($datas as $info){
+            $j = 1;
+            $_tmpData = [
+                'dateCreate'=>date('d',strtotime($info['info']->created_at))."日",
+                'payMethod'=>$info['info']->pay_method,
+                'phone'=>$info['info']->phone,
+                'postal_code'=>$info['info']->postal_code,
+                'city'=>$info['info']->city,
+                'address'=>$info['info']->address,
+                'fullname'=>$info['info']->fullname,
+                'day_ship'=>date('d/m/Y',strtotime($info['info']->day_ship)) ,
+                'time_ship'=>$info['info']->time_ship,
+            ];
+            if($info['info']->pay_method == 1){
+                $_tmpData['payMethod'] = '代金引換';
+            }else  if($info['info']->pay_method == 2){
+                $_tmpData['payMethod'] = '銀行振込';
+            }else{
+                $_tmpData['payMethod'] = '決済不要';
+            }
+            foreach ($category as $_category){
+                if($_category['id'] ==$info['info']->city ){
+                    $_tmpData['city'] =$_category['name']; break;
                 }
             }
-            $sheet->getStyle('A'.$i.':'.PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).$i)->applyFromArray(array(
-                    'font'  => array(
-                        'size'  => 9
-                    ),
-                )
-            );
-            $end = $i;
-            $i++;
-        }
+            foreach($info['detail'] as $_=>$_value){
+                foreach($colums as $key=>$value){
+                    $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                    if(is_array($value[1])){
+                        if(property_exists($_value,$value[1][0])){
+                            $_val  = "";
+                            if("product_id" == $value[1][0]){
+                                $_key = $_value->{$value[1][0]};
+                                if(isset($products[$_key]) && property_exists($products[$_key],$value[1][1])){
+                                    $_val =$products[$_key]->{$value[1][1]};
 
-        $writer = new Xlsx($spreadsheet);
-        $writer->save(public_path().'/uploads/exports/hello-world.xlsx');
+                                }
+                            }else{
+
+                            }
+                            $sheet->setCellValue($nameCol.$start,$_val);
+                        }
+                    }else{
+                        if(isset($_tmpData[$value[1]])){
+                            $sheet->setCellValue($nameCol.$start,$_tmpData[$value[1]]);
+                        }else{
+                            $val = $_value->{$value[1]};
+
+                            $sheet->setCellValue($nameCol.$start, $val);
+                        }
+                    }
+                }
+                $start++;
+            }
+        }
+//        foreach($datas as $key=>$values)
+//        {
+//            $j = 0;
+//            foreach($values as $_key=>$value){
+//                $j++;
+//                $_key =  PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($j);
+//
+////                if($_key=="sum_price"){
+////                    $sheet->setCellValue($_key.$i,$datas[$key]["price"] * $datas[$key]["count"]);
+////                }else if($_key=="sum_price_buy"){
+////                    $sheet->setCellValue($_key.$i,$datas[$key]["price"] * $datas[$key]["count"]);
+////                }else if($_key=="shipping_fee2"){
+////                    $_val = 0;
+////                    if($datas[$key]["price"]<10000){
+////                        $_val = 330;
+////                    }else if($datas[$key]["price"]>=10000 && $datas[$key]["price"]<30000){
+////                        $_val = 440;
+////                    }else if( $datas[$key]["price"]>=30000){
+////                        $_val = 660;
+////                    }else if( $datas[$key]["price"]>=100000){
+////                        $_val = 1080;
+////                    }
+////                    $sheet->setCellValue($_key.$i,$_val);
+////                }else if($_key=="cash_win"){
+////                    $cash_win = 0;
+////                    $sheet->setCellValue($_key.$i,'=IF(J'.$i.'="","",P'.$i.'-J'.$i.'*K'.$i.'-N'.$i.'-Q'.$i.')');
+////                }else{
+////                    $sheet->setCellValue($_key.$i, $value);
+////                }
+//            }
+//            $sheet->getStyle('A'.$i.':'.PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).$i)->applyFromArray(array(
+//                    'font'  => array(
+//                        'size'  => 9
+//                    ),
+//                )
+//            );
+//            $end = $i;
+//            $i++;
+//        }
+
+       $writer = new Xlsx($spreadsheet);
+       $writer->save(public_path().'/uploads/exports/hello-world.xlsx');
     }
 }
