@@ -167,6 +167,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
             foreach($info['detail'] as $_=>$_value){
                 foreach($colums as $key=>$value){
                     $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+
                     if(is_array($value[1])){
                         if(property_exists($_value,$value[1][0])){
                             $_val  = "";
@@ -174,10 +175,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
                                 $_key = $_value->{$value[1][0]};
                                 if(isset($products[$_key]) && property_exists($products[$_key],$value[1][1])){
                                     $_val =$products[$_key]->{$value[1][1]};
-
                                 }
-                            }else{
-
                             }
                             $sheet->setCellValue($nameCol.$start,$_val);
                         }
