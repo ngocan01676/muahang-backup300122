@@ -96,8 +96,6 @@
                     @foreach($lists_company_ship as $key=>$value)
                     <tr>
                         <td>
-
-
                             <table class="table table-bordered wrap_rows" id="wrap_{!! $key !!}">
                                 <thead>
                                     <tr>
@@ -439,16 +437,18 @@
 
             line-height: 1;
         }
-
         .dd3-tool {
             position: absolute;
             right: 4px;
-            width: 5em;
+            width: 7em;
             top: 4px;
         }
-
         .dd3-tool .btn {
             margin-left: 5px;
+        }
+        .dd3-tool .check{
+            display: inline-block;
+            padding: 0px 0px 0px 14px;
         }
     </style>
 @endpush
@@ -645,11 +645,10 @@
 
 
 
-
-
                 var dd_item = $(this).closest('.dd-item');
-                var children = dd_item.children('ol.dd-list');
-
+                console.log(dd_item);
+                var children = dd_item.children('.dd-list');
+                console.log(children);
                 $.confirm({
                     title: '{!! z_language("Confirm") !!}',
                     content: '{!! z_language("Are you sure to delete this item?") !!}',
@@ -658,7 +657,9 @@
                     icon: 'fa fa-question-circle',
                     animation: 'scale',
                     top:0,
+                    buttons: {
                     confirm: function () {
+                        console.log("remove");
                         if (children.length > 0) {
                             var parent = dd_item.parent();
                             parent.append(children.html());
@@ -666,20 +667,21 @@
                         } else {
                             dd_item.remove();
                         }
+
                         SavePosition(dd_item.data('id'), function (data) {
-                            if (data.error == 0) {
+                            if (data.error === 0) {
 
                             } else {
                                 ResetNestable();
                             }
                         });
-                    }
+                    }}
                 });
             });
             var updateOutput = function (e) {
                 var list = e.length ? e : $(e.target),
                     output = list.data('output');
-                console.log(window.JSON.stringify(list.nestable('serialize')));
+
             };
             $('#nestable').nestable({
                 group: 1
@@ -703,10 +705,16 @@
                 var form_store = $("#form_store");
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 console.log('save');
+                let cates = [];
+                $("#nestable .checkAction").each(function () {
+                    if(this.checked)
+                        cates.push(this.value);
+                });
+                console.log(cates);
                 $.ajax({
                     url: '{{@route('backend:shop_ja:japan:category:ajax')}}',
                     type: "POST",
-                    data: {"act": "info", data: form_store.zoe_inputs('get')},
+                    data: {"act": "info", data: form_store.zoe_inputs('get'),'cates':cates},
                     success: function (data) {
                         form_store.find('.has-error').removeClass('has-error').find('.help-block').hide();
                         form_store.loading({destroy: true});
@@ -733,6 +741,15 @@
                 SavePosition(0, function (data) {
 
                 });
+            });
+            $('.checkAction').change(function() {
+                let dd_item = $(this).closest('.dd-item');
+                let val = this.checked;
+                if(val){
+                    dd_item.find('.checkAction').each(function () {
+                        $(this).prop("checked", val);
+                    });
+                }
             });
         });
     </script>

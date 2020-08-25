@@ -62,35 +62,114 @@ class ExcelController extends \Zoe\Http\ControllerBackend
             ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
             ->setCreator('php-download.com')
             ->setLastModifiedBy('php-download.com');
-        $title = "株式会社コギ家　様 注文フォーマット";
-        $sheet->setCellValue('B1', $title);
+
+        $sheet->setCellValue('B1', '株式会社コギ家　様 注文フォーマット');
 
 
-        $colums = [
-            ["注文日",'dateCreate',10,9],//ngày đặt hàng
-            ["支払区分",'payMethod',10,9],//Phương thức thanh toán
-            ["配送先電話番号",'phone',10,9],//Số điện thoại
-            ["配送先郵便番号",'postal_code',9,9],//Mã bưu điện
-            ["配送先都道府県",'city',14,9],//Tỉnh/TP
-            ["配送先住所",'address',18,9],//Địa chỉ giao hàng
-            ["配送先氏名",'fullname',18,9],//Họ tên người nhận
-            ["品番",['product'=>['product_id','code']],10,9],//Mã SP
-            ["商品名",['product'=>['product_id','title']],18,9],//Tên SP
-            ["単価",['product'=>['product_id','price']],15,9],//Giá nhập
-            ["数量",'count',15,9],//SL
-            ["到着希望日",'day_ship',15,9],//Ngày nhận
-            ["配送希望時間帯",'time_ship',15,9],//Giờ nhận
-            ["別途送料",'price_ship',15,9],//Phí ship
-            ["仕入金額",['product'=>['product_id','price','totalPrice']],15,9],//Tổng giá nhập
-            ["代引き請求金額",['product'=>['product_id','price_buy','totalPriceBuy']],15,9],//Giá bán
-            ["代引き手数料",['product'=>['product_id','price_buy','totalCOU']],15,9],
-            ["紹介料",['callback'=>function($index){return '=IF(J'.$index.'="","",P'.$index.'-J'.$index.'*K'.$index.'-N'.$index.'-Q'.$index.')';}],15,9],
-            ["追跡番号",'tracking',15,9],
-            ["振込み情報",'info',25,9],
-            ["",'link',25,9],
-        ];
+        $styleArray = array(
+            'font'  => array(
+                'size'  => 9,
+                'name' => 'Times New Roman'
+            ));
+        $style_header = array(
+            'fill' => array(
+                'fillType' => Fill::FILL_SOLID,
+                'color' => array('rgb'=>'FFE100'),
+            ),
+            'borders' => [
+                'allBorders' => array(
+                    'borderStyle' => Border::BORDER_DOTTED,
+                    'color' => array('rgb'=>'000000')
+                ),
+            ],
+            'font' => array(
+                'size' => 10
+            )
+        );
+        $sheet->getStyle('B1')->applyFromArray($styleArray);
 
 
+
+        $start=2;
+        for($typeMethod = 0; $typeMethod< 2 ; $typeMethod++){
+            $colums = [
+                ["注文日",'dateCreate',10,9],//ngày đặt hàng
+                ["支払区分",'payMethod',10,9],//Phương thức thanh toán
+                ["配送先電話番号",'phone',10,9],//Số điện thoại
+                ["配送先郵便番号",'postal_code',9,9],//Mã bưu điện
+                ["配送先都道府県",'city',14,9],//Tỉnh/TP
+                ["配送先住所",'address',18,9],//Địa chỉ giao hàng
+                ["配送先氏名",'fullname',18,9],//Họ tên người nhận
+                ["品番",['product'=>['product_id','code']],10,9],//Mã SP
+                ["商品名",['product'=>['product_id','title']],18,9],//Tên SP
+                ["単価",['product'=>['product_id','price']],15,9],//Giá nhập
+                ["数量",'count',15,9],//SL
+                ["到着希望日",'day_ship',15,9],//Ngày nhận
+                ["配送希望時間帯",'time_ship',15,9],//Giờ nhận
+                ["別途送料",'price_ship',15,9],//Phí ship
+                ["仕入金額",['product'=>['product_id','price','totalPrice']],15,9],//Tổng giá nhập
+                ["代引き請求金額",['product'=>['product_id','price_buy','totalPriceBuy']],15,9],//Giá bán
+                ["代引き手数料",['product'=>['product_id','price_buy','totalCOU']],15,9],
+                ["紹介料",['callback'=>function($index){return '=IF(J'.$index.'="","",P'.$index.'-J'.$index.'*K'.$index.'-N'.$index.'-Q'.$index.')';}],15,9],
+                ["追跡番号",'tracking',15,9],
+                ["振込み情報",'info',25,9],
+            ];
+            foreach($colums as $key=>$value){
+                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
+                        'font'  => array(
+                            'size'  => $value[3]
+                        ),
+                    )
+                );
+                if($value[2] > 0){
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
+                }
+            }
+            $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).$start)->applyFromArray( $style_header );
+
+
+            if($typeMethod == 0){
+                $start+=2;
+                $sheet->setCellValue('N'.$start, '合計');
+                $sheet->setCellValue('P'.$start, '合計代引き金額：　19330');
+
+                $sheet->getStyle('N'.$start)->applyFromArray(array(
+                        'font'  => array(
+                            'size'  => 9,
+                            'name' => 'Times New Roman',
+                            'color' => array('rgb' => 'ff1100'),
+                        ),
+                    )
+                );
+                $sheet->getStyle('P'.$start)->applyFromArray(array(
+                        'font'  => array(
+                            'size'  => 9,
+                            'name' => 'Times New Roman',
+                            'color' => array('rgb' => 'ff1100'),
+                        ),
+                    )
+                );
+
+                $start++;
+                $sheet->setCellValue('I'.$start, '※1キロずつの小分けをお願いします。');
+                $sheet->getStyle('I'.$start)->applyFromArray(array(
+                        'font'  => array(
+                            'size'  => 9,
+                            'name' => 'Times New Roman',
+                            'color' => array('rgb' => 'ff1100'),
+                        ),
+                    )
+                );
+            }
+            $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+            $results =  DB::table('shop_order')->where('status',2)->get()->all();
+
+            echo "<pre>";
+
+            $start+=1;
+            $dataRow = [];
+        }
         $writer = new Xlsx($spreadsheet);
         $writer->save(public_path().'/uploads/exports/KOGYJA.xlsx');
     }
