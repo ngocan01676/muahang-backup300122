@@ -21,6 +21,10 @@ return [
                     "url" => "backend:shop_ja:japan:category:show",
                 ],
                 [
+                    "name" => z_language("QL COU"),
+                    "url" => "backend:shop_ja:japan:category:ship:show",
+                ],
+                [
                     "name" => "QL ".z_language("Hóa Đơn"),
                     "url" => "backend:shop_ja:order:list",
                 ]

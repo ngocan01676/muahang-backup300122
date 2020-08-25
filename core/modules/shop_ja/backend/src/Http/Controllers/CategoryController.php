@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Event;
 use \ShopJa\Http\Models\ProductModel;
 class CategoryController extends \Admin\Http\Controllers\CategoryController
 {
+
     public function ajax(Request $request){
         $post = $request->all();
         $respon = parent::ajax($request);
@@ -33,6 +34,9 @@ class CategoryController extends \Admin\Http\Controllers\CategoryController
             }
         }
         return $respon;
+    }
+    public function ajaxComShip(Request $request){
+        return $respon = parent::ajax($request);
     }
     public function show(Request $request)
     {

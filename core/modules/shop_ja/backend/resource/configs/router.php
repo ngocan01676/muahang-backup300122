@@ -59,6 +59,31 @@ return [
                         ],
                     ]
                 ],
+                'shop_ja:japan:category:ship' => [
+                    "namespace" => "ShopJa\Http\Controllers",
+                    "controller" => "CategoryController",
+                    "sub_prefix" => "/shop-ja/category/japan/com-ship",
+                    "guard" => "backend",
+                    "acl"=> "shop_ja:category:com-ship",
+                    "module" => [
+                        "name" => "admin",
+                        "type" => "module"
+                    ],
+                    "router" => [
+                        "show" => [
+                            "url" => "/",
+                            'defaults' => [
+                                "type" => "shop-ja:japan:category:com-ship",
+                                "view_render" => "shop_ja.category.com-ship",
+                                "slug" => false,
+                                'nestable'=>'\ShopJa\Libs\CategoryNestable'
+                            ]
+                        ],
+                        "ajaxComShip" => [
+                            "url" => "/ajax-com-ship", "method" => ['post'],
+                        ],
+                    ]
+                ],
                 'shop_ja:category' => [
                     "namespace" => "Admin\Http\Controllers",
                     "controller" => "CategoryController",
@@ -121,6 +146,12 @@ return [
                     "router" => [
                         "list" => [
                             "url" => "/"
+                        ],
+                        "YAMADA" => [
+                            "url" => "/YAMADA"
+                        ],
+                        "KOGYJA" => [
+                            "url" => "/KOGYJA"
                         ],
                     ]
                 ],

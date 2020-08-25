@@ -9,10 +9,10 @@
 @section('content')
     @breadcrumb()@endbreadcrumb
     <!-- Default box -->
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div class="box box-zoe">
             <div class="box-header with-border">
-                <h3 class="box-title">{!! @z_language(["Quản lý công ty"]) !!}</h3>
+                <h3 class="box-title">{!! @z_language(["Công ty SHIP"]) !!}</h3>
 
             </div>
             <div class="box-body">
@@ -23,107 +23,91 @@
                 <div class="cf nestable-lists">
                     <div class="dd" id="nestable">
                         {!! $nestable  !!}
-                        {{--<ol class="dd-list">--}}
-                        {{--@foreach($category as $_category)--}}
-                        {{--<li class="dd-item dd3-item" data-id="{{$_category->id}}">--}}
-                        {{--<div class="dd-handle dd3-handle"></div>--}}
-                        {{--<div class="dd3-content">{{$_category->name}}</div>--}}
-                        {{--</li>--}}
-                        {{--@endforeach--}}
-                        {{--<li class="dd-item dd3-item" data-id="14">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 14</div>--}}
-                        {{--</li>--}}
-                        {{--<li class="dd-item dd3-item" data-id="15">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 15</div>--}}
-                        {{--<ol class="dd-list">--}}
-                        {{--<li class="dd-item dd3-item" data-id="16">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 16</div>--}}
-                        {{--</li>--}}
-                        {{--<li class="dd-item dd3-item" data-id="17">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 17</div>--}}
-                        {{--</li>--}}
-                        {{--<li class="dd-item dd3-item" data-id="18">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 18</div>--}}
-                        {{--</li>--}}
-                        {{--</ol>--}}
-                        {{--</li>--}}
-                        {{--</ol>--}}
                     </div>
-
                 </div>
-
             </div>
             <div class="box-footer">
                 <button class="btn btn-default" id="btnSavePosition"><i class="fa fa-plus"></i> Save</button>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div class="box box-zoe">
             <div class="box-header with-border">
-                <h3 class="box-title" id="form-title">{{ z_language('Category Create')}}</h3>
+                <h3 class="box-title" id="form-title">{{ z_language('Thêm mới')}}</h3>
+
             </div>
             <div class="box-body">
                 {!! Form::open(['method' => 'POST','id'=>'form_store']) !!}
                 {!! Form::hidden('type',$type) !!}
                 {!! Form::hidden('is_slug',$is_slug) !!}
-                {!! Form::hidden('id',0) !!}
                 {!! Form::hidden('class_nestable',$class_nestable) !!}
+                {!! Form::hidden('id',0) !!}
+                {!! Form::hidden('status',1) !!}
+                {!! Form::hidden('featured',1) !!}
 
                 <table class="table table-borderless">
                     <tbody>
                     <tr>
                         <td>
-                            {!! Form::label('name', z_language('Name'), ['class' => 'name']) !!} (<span
-                                class="req">*</span>):
+                            {!! Form::label('name', z_language('Name'), ['class' => 'name']) !!}
                             {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>'Tiêu đề']) !!}
                             <span class="error help-block"></span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            {!! Form::label('description', z_language('Description'), ['class' => 'description']) !!} (<span
-                                class="req">*</span>):
-                            {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Mô tả','cols'=>5,'rows'=>5]) !!}
+                            {!! Form::label('description', z_language('Description'), ['class' => 'name']) !!}
+                            {!! Form::text('description',null, ['class' => 'form-control','placeholder'=>'Description']) !!}
                             <span class="error help-block"></span>
                         </td>
                     </tr>
-                    <tr>
-                        <td  @if($errors->any() && $errors->getBag("default")->hasAny("ship")) class="error" @endif>
-                            @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp
-                            {!! Form::label('ship', z_language('Đơn vị giao hàng'), ['class' => '']) !!} (<span
-                                class="req">*</span>):
-                            @php $category = get_category_type('shop-ja:japan:category:com-ship'); @endphp :
-                            <select name="data.ship" class="form-control">
-                                @foreach($category as $k=>$val)
-                                    <option value="{!! $val->id !!}">{!! $val->name !!}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->any())
-                                <p class="text-error">
-                                    @if($errors->any() && $errors->getBag("default")->hasAny("data_ship"))
-                                        @foreach ($errors->getBag("default")->get("data_ship") as $error)
-                                            {{ $error }}
-                                        @endforeach
-                                    @endif
-                                </p>
-                            @endif
-                        </td>
-                    </tr>
+
+                    @php
+                        $lists_uint = config('shop_ja.configs.lists_uint');
+                    @endphp
+                    @foreach($lists_uint as $key=>$value)
                     <tr>
                         <td>
-                            {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
-                            {!! Form::radio('status', '1' , true) !!} Yes
-                            {!! Form::radio('status', '0',false) !!} No
+                            <table class="table table-bordered wrap_rows" id="wrap_{!! $key !!}">
+                                <thead>
+                                    <tr>
+                                        <td colspan="4">
+                                            {!! Form::label('data.'.$key, Illuminate\Support\Str::studly($value), ['class' => 'name']) !!}
+                                        </td>
+                                    </tr>
+                                    <tr class="template" data-index="@INDEX@">
+                                        <td class="text-center">
+                                            0
+                                        </td>
+                                        <td><input data-key="text" data-name="data[{!! $key !!}][@INDEX@].text"  class="data form-control text" placeholder="Loại" type="text"></td>
+                                        <td>
+                                            @php
+                                                $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
+                                            @endphp
+                                            {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal','data-key'=>'equal','data-name'=>"data[".$key."][@INDEX@].equal"]); !!}
+                                        </td>
+                                        <td>
+                                            @php
+                                                $lists_equal = ['count'=>'Count','totalPrice'=>'totalPrice'];
+                                            @endphp
+                                            {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control col','data-key'=>'col','data-name'=>"data[".$key."][@INDEX@].col"]); !!}
+                                        </td>
+                                        <td><input  data-key="value" data-name="data[{!! $key !!}][@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
+                                        <td class="text-center">
+                                            <button type="button" data-id="#wrap_{!! $key !!}" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
+                                            <button style="display: none" type="button" data-id="#wrap_{!! $key !!}" class="remove btn btn-danger btn-xs" onclick="remove(this)">Xóa</button>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                </tbody>
+                            </table>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('featured', 'Featured', ['class' => 'featured']) !!}
-                            {!! Form::radio('featured', '1' , false) !!} Yes
-                            {!! Form::radio('featured', '0',true) !!} No
-                        </td>
-                    </tr>
+                    @endforeach
 
                     <tr>
                         <td>
@@ -445,21 +429,137 @@
     </style>
 @endpush
 @push('scripts')
+    <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
     <style>
         .SelectEdit{
             background: green;
         }
+        .Error .form-control{
+            border: 1px solid red;
+        }
+        .template .remove{
+            display: none  !important;
+        }
+        .Element .remove{
+            display: block  !important;
+        }
+        .template .add{
+            display: block  !important;
+        }
+        .Element .add{
+            display: none !important;
+        }
     </style>
-    <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
     <script>
+        String.prototype.trimRight = function(charlist) {
+            if (charlist === undefined)
+                charlist = "\s";
+            return this.replace(new RegExp("[" + charlist + "]+$"), "");
+        };
+        function renderData(data) {
+            $(".wrap_rows").find('tbody').empty();
+            for(let k in data.data){
+                let index = 0;
+                for(let kk in data.data[k]){
+                    template($("#wrap_"+k),data.data[k][kk],index++);
+                }
+            }
+        }
 
+        function beforeSave(parent) {
+            let trs = parent.find('tr.Element');
+            let count = 1;
+            trs.each(function () {
+                console.log(this);
+                if(!$(this).hasClass('template')){
+                    let elements = $(this).find('.data');
+                    let _index = "";
+                    elements.each(function (index) {
+                        if(this.hasAttribute('data-index')){
+                            _index+= $(this).val().trim()+"_";
+                        }
+                    });
+                    if(_index.length === 0)
+                        _index = count++;
+                    else
+                        _index = _index.trimRight("_");
+                    $(this).attr('data-index',_index);
+                    $(this).find("td").first().empty().html(_index);
+                    elements.each(function () {
+                        $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index))
+                    });
+                }
+            });
+        }
+        function template(tbody,vals,index) {
+            let template = tbody.find('.template').clone();
+            template.removeClass('template');
+            template.find("td").first().empty().html(index+1);
+            template.addClass('Element');
+
+            template.find('.data').each(function () {
+                $(this).removeAttr('name');
+                let key = $(this).attr('data-key');
+                let tagName = ($(this).prop("tagName").toLowerCase());
+                if(tagName === 'select'){
+                    if(vals.hasOwnProperty(key)){
+                       $(this).find('option').each(function () {
+                           if($(this).attr('value') === vals[key])
+                            $(this).attr('selected','selected');
+                       });
+                    }
+
+                }else if(tagName === 'input'){
+                    if(vals.hasOwnProperty(key)){
+                        $(this).val(vals[key]);
+                    }
+                }
+            });
+            tbody.append(template);
+
+            beforeSave(tbody);
+
+            tbody.find('.template').find('.data').each(function () {
+                $(this).removeAttr('name');
+
+                if($(this).hasClass('uint')){
+                    // $(this).find('option').first().attr('selected',true);
+                }else{
+                    $(this).val('');
+                }
+            });
+        }
+        function remove(self) {
+            let _this = $(self);
+            let parent = _this.parent().parent();
+            let wrap = parent.closest(".wrap_rows").find('tbody');
+            parent.remove();
+            beforeSave(wrap);
+        }
+        function add(self){
+           let _this = $(self);
+           let parent = _this.closest(_this.attr('data-id'));
+           let tbody = parent.find('tbody');
+           let trs = tbody.find("tr");
+
+            trs.each(function () {
+                $(this).removeClass('Error');
+            });
+            let tr = parent.find('.template');
+            let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val(),'col':tr.find('.col').val()};
+            if((vals.text.length > 0 && vals.value.length > 0)){
+                template(parent,vals,trs.length);
+            }else{
+                tr.addClass('Error');
+            }
+        }
         $(document).ready(function () {
             function SavePosition(id, cb) {
                 var e = $('#nestable').data('output', $('#nestable-output'));
                 var list = e.length ? e : $(e.target), output = list.data('output');
                 $("#nestable").loading({circles: 3, overlay: true, width: "5em", top: "20%", left: "50%"});
                 $.ajax({
-                    url: '{{@route('backend:category:ajax')}}',
+                    url: '{{@route('backend:shop_ja:japan:category:ship:ajaxComShip')}}',
                     type: "POST",
                     data: {act: "position", data: {id: id, pos: list.nestable('serialize'), type: '{!! $type !!}'}},
                     success: function (data) {
@@ -472,7 +572,7 @@
             function ResetNestable() {
                 $("#nestable").loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 $.ajax({
-                    url: '{{@route('backend:category:ajax')}}',
+                    url: '{{@route('backend:shop_ja:japan:category:ship:ajaxComShip')}}',
                     type: "POST",
                     data: {act: "nestable", data: {id:$("input:hidden[name=id]").val(),type: '{!! $type !!}',nestable:'{!! $class_nestable !!}' } },
                     success: function (html) {
@@ -486,6 +586,7 @@
                 document.getElementById("form_store").reset();
                 var label = "{{ z_language('Category Create')}}";
                 $("#form_store input:hidden[name=id]").val(0);
+                console.log( $("#form_store input:hidden[name=id]"));
                 $("#form-title").html(label);
             });
             $("#nestable").on("click", ".edit", function () {
@@ -495,16 +596,20 @@
                 $(this).parent().parent().children('.dd-handle').addClass('SelectEdit');
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 $.ajax({
-                    url: '{{@route('backend:category:ajax')}}',
+                    url: '{{@route('backend:shop_ja:japan:category:ship:ajaxComShip')}}',
                     type: "POST",
-                    data: {act: "edit", data: {id: data_item.id, type: '{!! $type !!}'}},
+                    data: {act: "edit", data: {id: data_item.id, type: '{!! $type !!}','pro_id':{!! empty($product_id)?"1":$product_id !!}}},
                     success: function (data) {
                         console.log(JSON.stringify(data));
                         document.getElementById("form_store").reset();
                         if (data.hasOwnProperty("data")) {
-                            var label = "{{ z_language('Category Edit : :Name')  }}";
-                            $("#form-title").html(label.replace(":Name", data.data.name));
+                            var label = "{{ z_language('Sửa : :Name')  }}";
+                            $("#form-title").html(label);
+
+                            renderData(data.data);
                             form_store.zoe_inputs('set', data.data);
+
+
                         } else {
 
                         }
@@ -568,11 +673,14 @@
                 }
             });
             $("#btnSave").click(function () {
+                $(".wrap_rows tbody").each(function () {
+                    beforeSave($(this));
+                });
                 var form_store = $("#form_store");
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 console.log('save');
                 $.ajax({
-                    url: '{{@route('backend:category:ajax')}}',
+                    url: '{{@route('backend:shop_ja:japan:category:ship:ajaxComShip')}}',
                     type: "POST",
                     data: {"act": "info", data: form_store.zoe_inputs('get')},
                     success: function (data) {

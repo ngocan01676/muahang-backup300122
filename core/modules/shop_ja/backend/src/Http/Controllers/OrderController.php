@@ -40,6 +40,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
               $results =  DB::table('shop_product')->whereIn('id',$ids )->get()->all();
           }
           $category = get_category_type('shop-ja:product:category');
+          $category_ship = get_category_type('shop-ja:japan:category:com-ship');
           foreach ($results as $key=>$result){
               $temp_array = array();
               $temp_array['value'] = $result->description;
@@ -47,6 +48,12 @@ class OrderController extends \Zoe\Http\ControllerBackend
               $ship_category = DB::table('shop_ship_category')->where('category_id', $data['city'])->where('product_id',$result->id)->get()->all();
               $price_ship = "";
               $ship = isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1";
+
+              foreach ($category_ship as $_val){
+                    if($ship == $_val->id){
+                        $ship =$_val->name;
+                    }
+              }
 
               if(isset($ship_category[0])){
                 $_info = unserialize($ship_category[0]->data);
