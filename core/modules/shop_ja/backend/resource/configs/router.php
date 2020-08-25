@@ -29,7 +29,7 @@ return [
                         ]
                     ]
                 ],
-            'shop_ja:order' => [
+                'shop_ja:order' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "OrderController",
                     "sub_prefix" => "/shop-ja/order",
@@ -59,7 +59,32 @@ return [
                         ],
                     ]
                 ],
-            'shop_ja:category' => [
+                'shop_ja:japan:category:ship' => [
+                    "namespace" => "ShopJa\Http\Controllers",
+                    "controller" => "CategoryController",
+                    "sub_prefix" => "/shop-ja/category/japan/com-ship",
+                    "guard" => "backend",
+                    "acl"=> "shop_ja:category:com-ship",
+                    "module" => [
+                        "name" => "admin",
+                        "type" => "module"
+                    ],
+                    "router" => [
+                        "show" => [
+                            "url" => "/",
+                            'defaults' => [
+                                "type" => "shop-ja:japan:category:com-ship",
+                                "view_render" => "shop_ja.category.com-ship",
+                                "slug" => false,
+                                'nestable'=>'\ShopJa\Libs\CategoryNestableShip'
+                            ]
+                        ],
+                        "ajaxComShip" => [
+                            "url" => "/ajax-com-ship", "method" => ['post'],
+                        ],
+                    ]
+                ],
+                'shop_ja:category' => [
                     "namespace" => "Admin\Http\Controllers",
                     "controller" => "CategoryController",
                     "sub_prefix" => "/shop-ja/product/category",
@@ -81,10 +106,11 @@ return [
                         ]
                     ]
                 ],
-            'shop_ja:japan:category' => [
+                'shop_ja:japan:category' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "CategoryController",
                     "sub_prefix" => "/shop-ja/category/japan",
+
                     "guard" => "backend",
                     "acl"=> "shop_ja:category",
                     "module" => [
@@ -107,18 +133,29 @@ return [
                         ],
                     ]
                 ],
-            'shop_ja:excel' => [
+                'shop_ja:excel' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "ExcelController",
                     "sub_prefix" => "/shop-ja/order/excel",
                     "guard" => "backend",
                     "acl"=> "shop_ja:order:excel",
+                    "module" => [
+                        "name" => "admin",
+                        "type" => "module"
+                    ],
                     "router" => [
                         "list" => [
                             "url" => "/"
                         ],
+                        "YAMADA" => [
+                            "url" => "/YAMADA"
+                        ],
+                        "KOGYJA" => [
+                            "url" => "/KOGYJA"
+                        ],
                     ]
-             ],
+                ],
+
             'shop_ja:ship' => [
                 "namespace" => "ShopJa\Http\Controllers",
                 "controller" => "ShipController",

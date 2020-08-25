@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Event;
 use \ShopJa\Http\Models\ProductModel;
 class CategoryController extends \Admin\Http\Controllers\CategoryController
 {
+
     public function ajax(Request $request){
         $post = $request->all();
         $respon = parent::ajax($request);
@@ -26,13 +27,24 @@ class CategoryController extends \Admin\Http\Controllers\CategoryController
         if ($post['act'] == "info") {
             $dataJson = $respon->getData();
 
-            if (property_exists($dataJson->success, 'product_id') && !is_null( $dataJson->success->product_id)) {
+            if (property_exists($dataJson, 'success') && property_exists($dataJson->success, 'product_id') && !is_null( $dataJson->success->product_id)) {
                 $data = isset($post["data"]['data']) && is_array($post["data"]['data']) ? serialize($post["data"]['data']) : serialize([]);
                 DB::table('shop_ship_category')->
                 updateOrInsert(['category_id' => $dataJson->success->id, 'product_id' => $dataJson->success->product_id], ['data' => $data, 'updated_at' => date('Y-m-d H:i:s')]);
+                if(isset($post['cates'])){
+                    foreach ($post['cates'] as $cate){
+                        if($cate != $dataJson->success->id){
+                            DB::table('shop_ship_category')->
+                            updateOrInsert(['category_id' =>$cate, 'product_id' => $dataJson->success->product_id], ['data' => $data, 'updated_at' => date('Y-m-d H:i:s')]);
+                        }
+                    }
+                }
             }
         }
         return $respon;
+    }
+    public function ajaxComShip(Request $request){
+        return $respon = parent::ajax($request);
     }
     public function show(Request $request)
     {
@@ -41,6 +53,7 @@ class CategoryController extends \Admin\Http\Controllers\CategoryController
         }else{
             $this->data["product_id"]  = "";
         }
+
        return parent::show($request);
     }
 }

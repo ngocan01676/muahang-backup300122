@@ -93,8 +93,12 @@
                             @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp
                             {!! Form::label('ship', z_language('Đơn vị giao hàng'), ['class' => '']) !!} (<span
                                 class="req">*</span>):
-                            @php $lists_company_ship = config('shop_ja.configs.lists_company_ship');  @endphp :
-                            {!! Form::select('data.ship', array_merge([""=>z_language('..:  Chọn  :..')],$lists_company_ship),null,['class'=>'form-control','onchange="change()"']); !!}
+                            @php $category = get_category_type('shop-ja:japan:category:com-ship'); @endphp :
+                            <select name="data.ship" class="form-control">
+                                @foreach($category as $k=>$val)
+                                    <option value="{!! $val->id !!}">{!! $val->name !!}</option>
+                                @endforeach
+                            </select>
                             @if ($errors->any())
                                 <p class="text-error">
                                     @if($errors->any() && $errors->getBag("default")->hasAny("data_ship"))

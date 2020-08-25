@@ -133,6 +133,15 @@
         function paste_region(){
 
         }
+        $("#region").bind('copy', function(event) {
+            var selectedText = window.getSelection().toString();
+            selectedText = selectedText.replace(/\u200B/g, "");
+
+            clipboardData = event.clipboardData || window.clipboardData || event.originalEvent.clipboardData;
+            clipboardData.setData('text/html', selectedText);
+            console.log(selectedText);
+            event.preventDefault();
+        });
         String.prototype.trimRight = function(charlist) {
             if (charlist === undefined)
                 charlist = "\s";

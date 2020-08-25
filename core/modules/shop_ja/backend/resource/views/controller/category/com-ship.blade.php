@@ -12,7 +12,7 @@
     <div class="col-md-5">
         <div class="box box-zoe">
             <div class="box-header with-border">
-                <h3 class="box-title">{!! @z_language(["BẢNG CÁC TỈNH KÈM PHÍ SHIP"]) !!}</h3>
+                <h3 class="box-title">{!! @z_language(["Công ty SHIP"]) !!}</h3>
 
             </div>
             <div class="box-body">
@@ -23,35 +23,8 @@
                 <div class="cf nestable-lists">
                     <div class="dd" id="nestable">
                         {!! $nestable  !!}
-                        {{--<ol class="dd-list">--}}
-                        {{--@foreach($category as $_category)--}}
-                        {{--<li class="dd-item dd3-item" data-id="{{$_category->id}}">--}}
-                        {{--<div class="dd-handle dd3-handle"></div>--}}
-                        {{--<div class="dd3-content">{{$_category->name}}</div>--}}
-                        {{--</li>--}}
-                        {{--@endforeach--}}
-                        {{--<li class="dd-item dd3-item" data-id="14">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 14</div>--}}
-                        {{--</li>--}}
-                        {{--<li class="dd-item dd3-item" data-id="15">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 15</div>--}}
-                        {{--<ol class="dd-list">--}}
-                        {{--<li class="dd-item dd3-item" data-id="16">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 16</div>--}}
-                        {{--</li>--}}
-                        {{--<li class="dd-item dd3-item" data-id="17">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 17</div>--}}
-                        {{--</li>--}}
-                        {{--<li class="dd-item dd3-item" data-id="18">--}}
-                        {{--<div class="dd-handle dd3-handle"></div><div class="dd3-content">Item 18</div>--}}
-                        {{--</li>--}}
-                        {{--</ol>--}}
-                        {{--</li>--}}
-                        {{--</ol>--}}
                     </div>
-
                 </div>
-
             </div>
             <div class="box-footer">
                 <button class="btn btn-default" id="btnSavePosition"><i class="fa fa-plus"></i> Save</button>
@@ -73,8 +46,6 @@
                 {!! Form::hidden('status',1) !!}
                 {!! Form::hidden('featured',1) !!}
 
-                {!! Form::hidden('product_id',$product_id) !!}
-
                 <table class="table table-borderless">
                     <tbody>
                     <tr>
@@ -91,31 +62,38 @@
                             <span class="error help-block"></span>
                         </td>
                     </tr>
-                    @if(!empty($product_id))
-                    @php $lists_company_ship = config('shop_ja.configs.lists_company_ship');  @endphp
-                    @foreach($lists_company_ship as $key=>$value)
+
+                    @php
+                        $lists_uint = config('shop_ja.configs.lists_uint');
+                    @endphp
+                    @foreach($lists_uint as $key=>$value)
                     <tr>
                         <td>
                             <table class="table table-bordered wrap_rows" id="wrap_{!! $key !!}">
                                 <thead>
                                     <tr>
                                         <td colspan="4">
-                                            {!! Form::label('data.'.$key, Illuminate\Support\Str::studly($key), ['class' => 'name']) !!}
+                                            {!! Form::label('data.'.$key, Illuminate\Support\Str::studly($value), ['class' => 'name']) !!}
                                         </td>
                                     </tr>
                                     <tr class="template" data-index="@INDEX@">
                                         <td class="text-center">
                                             0
                                         </td>
-                                        <td><input data-key="text" data-name="data.{!! $key !!}.[@INDEX@].text"  class="data form-control text" placeholder="Loại" type="text"></td>
+                                        <td><input data-key="text" data-name="data[{!! $key !!}][@INDEX@].text"  class="data form-control text" placeholder="Loại" type="text"></td>
                                         <td>
                                             @php
                                                 $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
                                             @endphp
-                                            {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal','data-key'=>'equal','data-name'=>"data.".$key."[@INDEX@].equal"]); !!}
+                                            {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal','data-key'=>'equal','data-name'=>"data[".$key."][@INDEX@].equal"]); !!}
                                         </td>
-
-                                        <td><input  data-key="value" data-name="data.{!! $key !!}.[@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
+                                        <td>
+                                            @php
+                                                $lists_equal = ['count'=>'Count','totalPrice'=>'totalPrice'];
+                                            @endphp
+                                            {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control col','data-key'=>'col','data-name'=>"data[".$key."][@INDEX@].col"]); !!}
+                                        </td>
+                                        <td><input  data-key="value" data-name="data[{!! $key !!}][@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
                                         <td class="text-center">
                                             <button type="button" data-id="#wrap_{!! $key !!}" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
                                             <button style="display: none" type="button" data-id="#wrap_{!! $key !!}" class="remove btn btn-danger btn-xs" onclick="remove(this)">Xóa</button>
@@ -127,11 +105,10 @@
 
                                 </tbody>
                             </table>
-
                         </td>
                     </tr>
                     @endforeach
-                    @endif
+
                     <tr>
                         <td>
                             @includeIf($views)
@@ -438,18 +415,16 @@
 
             line-height: 1;
         }
+
         .dd3-tool {
             position: absolute;
             right: 4px;
-            width: 7em;
+            width: 5em;
             top: 4px;
         }
+
         .dd3-tool .btn {
             margin-left: 5px;
-        }
-        .dd3-tool .check{
-            display: inline-block;
-            padding: 0px 0px 0px 14px;
         }
     </style>
 @endpush
@@ -571,7 +546,7 @@
                 $(this).removeClass('Error');
             });
             let tr = parent.find('.template');
-            let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val()};
+            let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val(),'col':tr.find('.col').val()};
             if((vals.text.length > 0 && vals.value.length > 0)){
                 template(parent,vals,trs.length);
             }else{
@@ -584,7 +559,7 @@
                 var list = e.length ? e : $(e.target), output = list.data('output');
                 $("#nestable").loading({circles: 3, overlay: true, width: "5em", top: "20%", left: "50%"});
                 $.ajax({
-                    url: '{{@route('backend:category:ajax')}}',
+                    url: '{{@route('backend:shop_ja:japan:category:ship:ajaxComShip')}}',
                     type: "POST",
                     data: {act: "position", data: {id: id, pos: list.nestable('serialize'), type: '{!! $type !!}'}},
                     success: function (data) {
@@ -597,7 +572,7 @@
             function ResetNestable() {
                 $("#nestable").loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 $.ajax({
-                    url: '{{@route('backend:category:ajax')}}',
+                    url: '{{@route('backend:shop_ja:japan:category:ship:ajaxComShip')}}',
                     type: "POST",
                     data: {act: "nestable", data: {id:$("input:hidden[name=id]").val(),type: '{!! $type !!}',nestable:'{!! $class_nestable !!}' } },
                     success: function (html) {
@@ -621,7 +596,7 @@
                 $(this).parent().parent().children('.dd-handle').addClass('SelectEdit');
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 $.ajax({
-                    url: '{{@route('backend:shop_ja:japan:category:ajax')}}',
+                    url: '{{@route('backend:shop_ja:japan:category:ship:ajaxComShip')}}',
                     type: "POST",
                     data: {act: "edit", data: {id: data_item.id, type: '{!! $type !!}','pro_id':{!! empty($product_id)?"1":$product_id !!}}},
                     success: function (data) {
@@ -629,8 +604,8 @@
                         document.getElementById("form_store").reset();
                         if (data.hasOwnProperty("data")) {
                             var label = "{{ z_language('Sửa : :Name')  }}";
-                            $("#form-title").html(label.replace(":Name", data.data.info));
-                            console.log(data.data);
+                            $("#form-title").html(label);
+
                             renderData(data.data);
                             form_store.zoe_inputs('set', data.data);
 
@@ -646,10 +621,11 @@
 
 
 
+
+
                 var dd_item = $(this).closest('.dd-item');
-                console.log(dd_item);
-                var children = dd_item.children('.dd-list');
-                console.log(children);
+                var children = dd_item.children('ol.dd-list');
+
                 $.confirm({
                     title: '{!! z_language("Confirm") !!}',
                     content: '{!! z_language("Are you sure to delete this item?") !!}',
@@ -658,9 +634,7 @@
                     icon: 'fa fa-question-circle',
                     animation: 'scale',
                     top:0,
-                    buttons: {
                     confirm: function () {
-
                         if (children.length > 0) {
                             var parent = dd_item.parent();
                             parent.append(children.html());
@@ -668,21 +642,20 @@
                         } else {
                             dd_item.remove();
                         }
-
                         SavePosition(dd_item.data('id'), function (data) {
-                            if (data.error === 0) {
+                            if (data.error == 0) {
 
                             } else {
                                 ResetNestable();
                             }
                         });
-                    }}
+                    }
                 });
             });
             var updateOutput = function (e) {
                 var list = e.length ? e : $(e.target),
                     output = list.data('output');
-
+                console.log(window.JSON.stringify(list.nestable('serialize')));
             };
             $('#nestable').nestable({
                 group: 1
@@ -706,16 +679,10 @@
                 var form_store = $("#form_store");
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 console.log('save');
-                let cates = [];
-                $("#nestable .checkAction").each(function () {
-                    if(this.checked)
-                        cates.push(this.value);
-                });
-                console.log(cates);
                 $.ajax({
-                    url: '{{@route('backend:shop_ja:japan:category:ajax')}}',
+                    url: '{{@route('backend:shop_ja:japan:category:ship:ajaxComShip')}}',
                     type: "POST",
-                    data: {"act": "info", data: form_store.zoe_inputs('get'),'cates':cates},
+                    data: {"act": "info", data: form_store.zoe_inputs('get')},
                     success: function (data) {
                         form_store.find('.has-error').removeClass('has-error').find('.help-block').hide();
                         form_store.loading({destroy: true});
@@ -742,15 +709,6 @@
                 SavePosition(0, function (data) {
 
                 });
-            });
-            $('.checkAction').change(function() {
-                let dd_item = $(this).closest('.dd-item');
-                let val = this.checked;
-                if(val){
-                    dd_item.find('.checkAction').each(function () {
-                        $(this).prop("checked", val);
-                    });
-                }
             });
         });
     </script>

@@ -4,6 +4,7 @@
             'paths' => ['shop_ja' => 'backend'],
             'alias' => [
                 'shop_ja.category.show' => 'shop_ja::controller.category.show',
+                'shop_ja.category.com-ship' => 'shop_ja::controller.category.com-ship',
                 'shop_ja.category.ship' => 'shop_ja::controller.category.ship',
             ],
         ],

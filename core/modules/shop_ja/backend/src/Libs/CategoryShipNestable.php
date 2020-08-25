@@ -5,7 +5,8 @@ class CategoryShipNestable extends \Admin\Lib\CategoryNestable {
     private function str($data){
         $str = "";
         if(isset($data['ship'])){
-            $str.=' -  (Công ty chuyển phát : '.$data['ship'].') ';
+            $category = get_category_type('shop-ja:japan:category:com-ship');
+            $str.=' -  (Công ty chuyển phát : '.(isset($category[$data['ship']])?$category[$data['ship']]->name:$data['ship']).') ';
         }
         return trim($str,' ');
     }
