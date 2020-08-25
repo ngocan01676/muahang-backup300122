@@ -76,7 +76,7 @@ return [
                                 "type" => "shop-ja:japan:category:com-ship",
                                 "view_render" => "shop_ja.category.com-ship",
                                 "slug" => false,
-                                'nestable'=>'\ShopJa\Libs\CategoryNestable'
+                                'nestable'=>'\ShopJa\Libs\CategoryNestableShip'
                             ]
                         ],
                         "ajaxComShip" => [

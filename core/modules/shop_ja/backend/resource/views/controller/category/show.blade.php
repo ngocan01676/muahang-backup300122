@@ -659,7 +659,7 @@
                     top:0,
                     buttons: {
                     confirm: function () {
-                        console.log("remove");
+
                         if (children.length > 0) {
                             var parent = dd_item.parent();
                             parent.append(children.html());
