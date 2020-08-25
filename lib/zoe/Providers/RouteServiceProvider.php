@@ -55,6 +55,7 @@ class RouteServiceProvider extends ServiceProvider
         $configRouter = config_get('router', $guard);
 
         $views_paths = $this->app->getConfig()->views['paths'];
+
         $keyPrivate = $this->app->key;
         foreach ($routers as $name => $route) {
 
@@ -67,14 +68,15 @@ class RouteServiceProvider extends ServiceProvider
             }
             $namespace = isset($route['namespace']) ? $route['namespace'] . '\\' : '';
             $controller = isset($route['controller']) ? $route['controller'] . '@' : '';
-//            var_dump($route);
 
             $_module = $route['module']['name'];
+
             if ($route['module']['type'] == "plugin") {
                 $_view_alias = isset($views_paths["plugin"][$_module]['alias']) ? $views_paths["plugin"][$_module]['alias'] : "";
             } else {
                 $_view_alias = isset($views_paths[$_module][$guard]['alias']) ? $views_paths[$_module][$guard]['alias'] : "";
             }
+
             $permissions = $this->app->getPermissions();
             foreach ($route['router'] as $key => $_route) {
                 $method = ['get'];
@@ -150,7 +152,9 @@ class RouteServiceProvider extends ServiceProvider
                     }
                 }
                 $r->defaults($keyPrivate . "_module", $_module);
+
                 $r->defaults($keyPrivate . "_view_alias", $_view_alias);
+
                 if (isset($configRouter['data'][$alias]['layout'])) {
                     $r->defaults($keyPrivate . "_layout", $configRouter['data'][$alias]['layout']);
                 }

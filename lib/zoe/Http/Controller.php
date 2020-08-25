@@ -55,9 +55,9 @@ class Controller extends BaseController
             $this->view = view()->make($keyView,$data);
             return response()->json(['views'=>$this->view->renderSections()]);
         }else{
-
             $this->view = view($this->layout);
             View::share('_breadcrumb', $this->breadcrumb);
+
             $this->view->nest("content",$keyView,$data);
         }
         return $this->view;

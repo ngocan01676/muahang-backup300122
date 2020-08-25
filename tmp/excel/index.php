@@ -100,7 +100,6 @@ $objPHPExcel->getActiveSheet()->getStyle('P2')->applyFromArray(array(
 $i=0;
 foreach($colums as $key=>$value){
 	$ActiveSheetIndex->setCellValue($col[$i].'3', $colums[$i]);
-
 	$i++;
 }
 $objPHPExcel->getActiveSheet()->getStyle('P3')->applyFromArray(array(

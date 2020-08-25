@@ -96,8 +96,6 @@
                     @foreach($lists_company_ship as $key=>$value)
                     <tr>
                         <td>
-
-
                             <table class="table table-bordered wrap_rows" id="wrap_{!! $key !!}">
                                 <thead>
                                     <tr>
@@ -129,6 +127,7 @@
 
                                 </tbody>
                             </table>
+
                         </td>
                     </tr>
                     @endforeach

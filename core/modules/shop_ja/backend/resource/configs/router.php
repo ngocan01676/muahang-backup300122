@@ -29,7 +29,7 @@ return [
                         ]
                     ]
                 ],
-                'shop_ja:order' => [
+            'shop_ja:order' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "OrderController",
                     "sub_prefix" => "/shop-ja/order",
@@ -59,7 +59,7 @@ return [
                         ],
                     ]
                 ],
-                'shop_ja:category' => [
+            'shop_ja:category' => [
                     "namespace" => "Admin\Http\Controllers",
                     "controller" => "CategoryController",
                     "sub_prefix" => "/shop-ja/product/category",
@@ -81,11 +81,10 @@ return [
                         ]
                     ]
                 ],
-                'shop_ja:japan:category' => [
+            'shop_ja:japan:category' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "CategoryController",
                     "sub_prefix" => "/shop-ja/category/japan",
-
                     "guard" => "backend",
                     "acl"=> "shop_ja:category",
                     "module" => [
@@ -108,22 +107,38 @@ return [
                         ],
                     ]
                 ],
-                'shop_ja:excel' => [
+            'shop_ja:excel' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "ExcelController",
                     "sub_prefix" => "/shop-ja/order/excel",
                     "guard" => "backend",
                     "acl"=> "shop_ja:order:excel",
-                    "module" => [
-                        "name" => "admin",
-                        "type" => "module"
-                    ],
                     "router" => [
                         "list" => [
                             "url" => "/"
                         ],
                     ]
-                ],
+             ],
+            'shop_ja:ship' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "ShipController",
+                "sub_prefix" => "/shop-ja/ship",
+                "guard" => "backend",
+                "acl"=> "shop_ja:ship:store",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                        'acl'=>true
+                    ],
+                    "create" => [
+                        "url" => "/create",
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ],
+                ]
+            ],
             ]
         ]
 ];
