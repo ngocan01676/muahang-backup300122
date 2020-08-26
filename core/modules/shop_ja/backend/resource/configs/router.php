@@ -170,6 +170,13 @@ return [
                     "create" => [
                         "url" => "/create",
                     ],
+                    "edit" => [
+                        "url" => "/edit/{id}",
+                    ],
+                    "delete" => [
+                        "url" => "/delete/{id}",
+                        "method" => ['post'],
+                    ],
                     "store" => [
                         "url" => "/store",
                         "method" => ['post'],

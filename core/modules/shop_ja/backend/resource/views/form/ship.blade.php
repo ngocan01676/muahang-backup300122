@@ -18,52 +18,56 @@
             @endif
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"> {!! @z_language(["Thông tin sản phẩm"]) !!} </a></li>
+                    <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"> {!! @z_language(["Thông tin"]) !!} </a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         <table class="table table-borderless">
                             <tbody>
                                 <tr>
-                                    <td>
+                                    <td colspan="2">
                                         {!! Form::label('category_id',z_language('Công ty'), ['class' => 'Category']) !!} *
                                         {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"category_id") !!}
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td>
-                                        {!! Form::label('region', z_language('Các tỉnh'), ['class' => 'v']) !!}
-                                        {!! Form::text('region',null, ['onpaste'=>'paste_region()','class' => 'form-control','placeholder'=>z_language('Các tỉnh')]) !!}
+                                        {!! Form::label('value', z_language('Giá trị'), ['class' => 'v']) !!}
+                                        {!! Form::text('value',null, ['class' => 'form-control','placeholder'=>z_language('Giá trị')]) !!}
                                     </td>
-                                </tr>
-                                <tr>
                                     <td>
+                                        {!! Form::label('value', z_language('Điều kiện'), ['class' => 'v']) !!}
+                                        @php
+                                            $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
+                                        @endphp
+                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'form-control','name'=>"equal"]); !!}
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
                                         {!! Form::label('unit', z_language('Đơn vị'), ['class' => 'unit']) !!} &nbsp;
                                         @php
-                                            $lists_uint = config('shop_ja.configs.lists_uint');
+                                            $lists_uint = array_merge(["Tất cả"],config('shop_ja.configs.lists_uint'));
+
+                                            $active = isset($model)?$model->unit: 0;
                                         @endphp
                                         @foreach( $lists_uint as $key=>$value)
-                                            {!! Form::radio('unit', $key , true) !!} {!! $value !!}
+                                            {!! Form::radio('unit', $key ,$key == $active,['id'=>"id_".$key]) !!} {!! $value !!}
                                         @endforeach
-
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td colspan="2">
+                                        <div style="display: none">{!! Form::textarea('config',null, ['id'=>'Data','class' => 'form-control','placeholder'=>z_language('config'),'cols'=>5,'rows'=>5]) !!}</div>
+
                                         <table class="table table-bordered wrap_rows" id="wrap">
                                             <thead>
                                                 <tr class="template" data-index="@INDEX@">
-                                                    <td class="text-center">
-                                                        0
-                                                    </td>
-                                                    <td><input data-key="text" data-name="data[@INDEX@].text"  class="data form-control text" placeholder="Loại" type="text"></td>
-                                                    <td>
-                                                        @php
-                                                            $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
-                                                        @endphp
-                                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal','data-key'=>'equal','data-name'=>"data[@INDEX@].equal"]); !!}
-                                                    </td>
-
+                                                    <td class="text-center">0</td>
+                                                    <td><input data-key="text" data-name="data[@INDEX@].text"  class="data form-control text" placeholder="Các tỉnh" type="text"></td>
                                                     <td><input  data-key="value" data-name="data[@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
                                                     <td class="text-center">
                                                         <button type="button" data-id="#wrap" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
@@ -127,41 +131,84 @@
     <script !src="">
         $(document).ready(function () {
             $('.btnSave').click(function () {
-                document.getElementById('form_store').submit();
+
+                $(".wrap_rows tbody").each(function () {
+                    beforeSave($(this));
+                });
+                let form_store = $("#form_store");
+
+                let data = form_store.zoe_inputs('get');
+
+                if(!data.hasOwnProperty('data') || data.data.length === 0){
+                    $("#Data").html('[]');
+                }else{
+                    $("#Data").html(JSON.stringify(data.data));
+                }
+                 document.getElementById('form_store').submit();
             });
         });
-        function paste_region(){
+        function handlePaste (e) {
+            var clipboardData, pastedData;
+
+            // Stop data actually being pasted into div
+            e.stopPropagation();
+            e.preventDefault();
+
+            // Get pasted data via clipboard API
+            clipboardData = e.clipboardData || window.clipboardData;
+            console.log(clipboardData);
 
         }
-        $("#region").bind('copy', function(event) {
-            var selectedText = window.getSelection().toString();
-            selectedText = selectedText.replace(/\u200B/g, "");
 
-            clipboardData = event.clipboardData || window.clipboardData || event.originalEvent.clipboardData;
-            clipboardData.setData('text/html', selectedText);
-            console.log(selectedText);
-            event.preventDefault();
+        $(document).on('paste', ".Element .text,.template .text",function(e) {
+            let str = e.originalEvent.clipboardData.getData('text');
+            str = $.trim(str).replace(/ +(?= )/g,'');
+
+            let val = str.replace(/\s/g, '-');
+            setTimeout(function () {
+                $(e.target).val(val)
+            },100);
         });
+        $(document).on('paste', ".Element .value,.template .value",function(e) {
+            let str = e.originalEvent.clipboardData.getData('text');
+            str = $.trim(str).replace(/ +(?= )/g,'');
+            let val = str.replace(/\D/g,'');
+            setTimeout(function () {
+                $(e.target).val(val)
+            },100);
+        });
+        // $(".template .text").bind('paste', function(e) {
+        //     let str = e.originalEvent.clipboardData.getData('text');
+        //     str = $.trim(str).replace(/ +(?= )/g,'');
+        //
+        //     let val = str.replace(/\s/g, '-');
+        //     setTimeout(function () {
+        //         $(e.target).val(val)
+        //     },100);
+        // });
+
         String.prototype.trimRight = function(charlist) {
             if (charlist === undefined)
                 charlist = "\s";
             return this.replace(new RegExp("[" + charlist + "]+$"), "");
         };
         function renderData(data) {
-            $(".wrap_rows").find('tbody').empty();
-            for(let k in data.data){
+            if(data.length > 0){
+                let _data = JSON.parse(data);
+                $(".wrap_rows").find('tbody').empty();
                 let index = 0;
-                for(let kk in data.data[k]){
-                    template($("#wrap_"+k),data.data[k][kk],index++);
+                for(let k in _data){
+                    template($("#wrap"),_data[k],index++);
                 }
             }
         }
-
+        (function () {
+            renderData($("#Data").val() );
+        })();
         function beforeSave(parent) {
             let trs = parent.find('tr.Element');
             let count = 1;
             trs.each(function () {
-                console.log(this);
                 if(!$(this).hasClass('template')){
                     let elements = $(this).find('.data');
                     let _index = "";
@@ -237,7 +284,7 @@
                 $(this).removeClass('Error');
             });
             let tr = parent.find('.template');
-            let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val()};
+            let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val()};
             if((vals.text.length > 0 && vals.value.length > 0)){
                 template(parent,vals,trs.length);
             }else{

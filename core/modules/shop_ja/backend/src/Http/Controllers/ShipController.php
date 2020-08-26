@@ -4,6 +4,7 @@ use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use ShopJa\Http\Models\ShipModel;
 class ShipController extends \Zoe\Http\ControllerBackend
 {
     public function init()
@@ -16,21 +17,69 @@ class ShipController extends \Zoe\Http\ControllerBackend
     }
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop_ja:order:list'));
+        $this->breadcrumb(z_language("Quản lý tiền ship"), route('backend:shop_ja:ship:list'));
         return $this;
     }
-    public function list()
+    public function list(Request $request)
     {
+        $this->getcrumb();
 
+        $filter = $request->query('filter', []);
+
+        $search = $request->query('search', "");
+        $status = $request->query('status', "");
+        $date = $request->query('date', "");
+
+        $config = config_get('option', "module:shop_ja:product");
+        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+
+        $models = DB::table('shop_ship');
+        if(isset($filter['search'])){
+            $search = $filter['search'];
+        }
+//        if(isset($filter['code'])){
+//            $models->where('code', 'like', '%' . $filter['code']);
+//        }
+//        if (!empty($search)) {
+//            $models->where('title', 'like', '%' . $search);
+//        }
+//        if (!empty($status) || $status != "") {
+//            $models->where('status', $status);
+//        }
+        $models->orderBy('id', 'desc');
+        $category =  get_category_type('shop-ja:product:category');
+        $units = config('shop_ja.configs.lists_uint');
+        return $this->render('ship.lists', [
+            'models' => $models->paginate($item),
+            'callback' => [
+                "GetNameCategory" => function ($model) use($category){
+                    $html = isset($category[$model->category_id])?$category[$model->category_id]->name:"Không xác định";
+                    return $html;
+                },
+                'GetUnit'=>function($model) use($units){
+                    $html = "Tất cả";
+                    if(isset($units[$model->unit])){
+                        $html = $units[$model->unit];
+                    }
+                    return $html;
+                }
+            ]
+        ]);
     }
     public function create(){
        return $this->render('ship.create', ['item' => []],'shop_ja');
+    }
+    public function edit($id)
+    {
+        $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
+        $model = ShipModel::find($id);
+        return $this->render('ship.edit', ["model" => $model]);
     }
     public function store(Request $request){
         $data = $request->all();
         $validator = Validator::make($data, [
             'category_id' => 'required',
-            'region' => 'required',
+            'value' => 'required',
         ], []);
         if ($validator->fails()) {
             return back()
@@ -43,17 +92,17 @@ class ShipController extends \Zoe\Http\ControllerBackend
             $model = new ShipModel();
         }
         try {
-            $model->title = $data['category_id'];
-            $model->region = $data['region'];
-            $model->data = json_encode(isset($data['data'])?$data['data']:[]);
+            $model->category_id = $data['category_id'];
+            $model->value = $data['value'];
+            $model->equal = $data['equal'];
+            $model->config = $data['config'];
+            $model->unit = $data['unit'];
             $model->save();
-            return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
+            return redirect(route('backend:shop_ja:ship:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
         }
-
-
-        return back();
-
+        return back()->withErrors($validator)
+            ->withInput();
     }
 }
