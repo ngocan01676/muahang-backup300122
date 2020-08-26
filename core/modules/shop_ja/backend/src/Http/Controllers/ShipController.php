@@ -53,7 +53,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
             'models' => $models->paginate($item),
             'callback' => [
                 "GetNameCategory" => function ($model) use($category,$units){
-                    $html ="";
+                    $html ="all";
                     if(isset($units[$model->unit])){
                         $html = $units[$model->unit];
                     }
@@ -62,7 +62,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
                     return $html;
                 },
                 "GetEqual"=>function($model) use($units){
-                    $html ="";
+                    $html ="all";
                     if(isset($units[$model->unit])){
                         $html = $units[$model->unit];
                     }
