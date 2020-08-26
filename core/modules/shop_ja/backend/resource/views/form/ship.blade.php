@@ -33,15 +33,15 @@
 
                                 <tr>
                                     <td>
-                                        {!! Form::label('value', z_language('Giá trị'), ['class' => 'v']) !!}
-                                        {!! Form::text('value',null, ['class' => 'form-control','placeholder'=>z_language('Giá trị')]) !!}
+                                        {!! Form::label('value', z_language('Số lượng'), ['class' => 'v']) !!}
+                                        {!! Form::text('value',null, ['class' => 'form-control','placeholder'=>z_language('Số lượng')]) !!}
                                     </td>
                                     <td>
                                         {!! Form::label('value', z_language('Điều kiện'), ['class' => 'v']) !!}
                                         @php
                                             $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
                                         @endphp
-                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'form-control','name'=>"equal"]); !!}
+                                        {!! Form::select('equal', $lists_equal,null,['class'=>'form-control','name'=>"equal"]); !!}
                                     </td>
 
                                 </tr>
@@ -51,7 +51,6 @@
                                         {!! Form::label('unit', z_language('Đơn vị'), ['class' => 'unit']) !!} &nbsp;
                                         @php
                                             $lists_uint = array_merge(["Tất cả"],config('shop_ja.configs.lists_uint'));
-
                                             $active = isset($model)?$model->unit: 0;
                                         @endphp
                                         @foreach( $lists_uint as $key=>$value)

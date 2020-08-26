@@ -77,10 +77,12 @@ class ShipController extends \Zoe\Http\ControllerBackend
     }
     public function store(Request $request){
         $data = $request->all();
+
         $validator = Validator::make($data, [
             'category_id' => 'required',
             'value' => 'required',
         ], []);
+
         if ($validator->fails()) {
             return back()
                 ->withErrors($validator)
@@ -91,11 +93,21 @@ class ShipController extends \Zoe\Http\ControllerBackend
         } else {
             $model = new ShipModel();
         }
+       $category_city  =  config_get('shop_ja','category:city',[]);
         try {
+            $arrs_config = json_decode($data['config'],true);
+            foreach ($arrs_config as $k=>$value){
+               $arr = explode("-",$value['text']);
+               foreach ($arr as $_k=>$_v){
+                   $category_city[$_v] = 1;
+               }
+            }
+            config_set('shop_ja','category:city',$category_city);
             $model->category_id = $data['category_id'];
             $model->value = $data['value'];
             $model->equal = $data['equal'];
             $model->config = $data['config'];
+
             $model->unit = $data['unit'];
             $model->save();
             return redirect(route('backend:shop_ja:ship:edit', ['id' => $model->id]));
