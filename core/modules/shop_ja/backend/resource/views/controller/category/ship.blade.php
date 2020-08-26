@@ -112,6 +112,40 @@
                     </tr>
                     <tr>
                         <td>
+                            <table class="table table-bordered wrap_rows" id="wrap">
+                                <thead>
+
+                                <tr class="template" data-index="@INDEX@">
+                                    <td class="text-center">
+                                        0
+                                    </td>
+                                    <td><input data-key="text" data-name="data.config[@INDEX@].text"  class="data form-control text" placeholder="Loại" type="text"></td>
+                                    <td>
+                                        @php
+                                            $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
+                                        @endphp
+                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal','data-key'=>'equal','data-name'=>"data.config[@INDEX@].equal"]); !!}
+                                    </td>
+                                    <td>
+                                        @php
+                                            $lists_equal = ['count'=>'Count','totalPrice'=>'totalPrice'];
+                                        @endphp
+                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control col','data-key'=>'col','data-name'=>"data.config[@INDEX@].col"]); !!}
+                                    </td>
+                                    <td><input  data-key="value" data-name="data.config[@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
+                                    <td class="text-center">
+                                        <button type="button" data-id="#wrap" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
+                                        <button style="display: none" type="button" data-id="#wrap" class="remove btn btn-danger btn-xs" onclick="remove(this)">Xóa</button>
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
                             {!! Form::radio('status', '1' , true) !!} Yes
                             {!! Form::radio('status', '0',false) !!} No
@@ -453,6 +487,107 @@
     <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
     <script>
 
+        String.prototype.trimRight = function(charlist) {
+            if (charlist === undefined)
+                charlist = "\s";
+            return this.replace(new RegExp("[" + charlist + "]+$"), "");
+        };
+        function renderData(data) {
+            $(".wrap_rows").find('tbody').empty();
+            let index = 0;
+
+            for(let k in data){
+                template($("#wrap"),data[k],index++);
+            }
+        }
+        function beforeSave(parent) {
+            let trs = parent.find('tr.Element');
+            let count = 1;
+            trs.each(function () {
+                console.log(this);
+                if(!$(this).hasClass('template')){
+                    let elements = $(this).find('.data');
+                    let _index = "";
+                    elements.each(function (index) {
+                        if(this.hasAttribute('data-index')){
+                            _index+= $(this).val().trim()+"_";
+                        }
+                    });
+                    if(_index.length === 0)
+                        _index = count++;
+                    else
+                        _index = _index.trimRight("_");
+                    $(this).attr('data-index',_index);
+                    $(this).find("td").first().empty().html(_index);
+                    elements.each(function () {
+                        $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index))
+                    });
+                }
+            });
+        }
+        function template(tbody,vals,index) {
+            let template = tbody.find('.template').clone();
+            template.removeClass('template');
+            template.find("td").first().empty().html(index+1);
+            template.addClass('Element');
+
+            template.find('.data').each(function () {
+                $(this).removeAttr('name');
+                let key = $(this).attr('data-key');
+                let tagName = ($(this).prop("tagName").toLowerCase());
+                if(tagName === 'select'){
+                    if(vals.hasOwnProperty(key)){
+                        $(this).find('option').each(function () {
+                            if($(this).attr('value') === vals[key])
+                                $(this).attr('selected','selected');
+                        });
+                    }
+
+                }else if(tagName === 'input'){
+                    if(vals.hasOwnProperty(key)){
+                        $(this).val(vals[key]);
+                    }
+                }
+            });
+            tbody.append(template);
+
+            beforeSave(tbody);
+
+            tbody.find('.template').find('.data').each(function () {
+                $(this).removeAttr('name');
+
+                if($(this).hasClass('uint')){
+                    // $(this).find('option').first().attr('selected',true);
+                }else{
+                    $(this).val('');
+                }
+            });
+        }
+        function remove(self) {
+            let _this = $(self);
+            let parent = _this.parent().parent();
+            let wrap = parent.closest(".wrap_rows").find('tbody');
+            parent.remove();
+            beforeSave(wrap);
+        }
+        function add(self){
+            let _this = $(self);
+            let parent = _this.closest(_this.attr('data-id'));
+            let tbody = parent.find('tbody');
+            let trs = tbody.find("tr");
+
+            trs.each(function () {
+                $(this).removeClass('Error');
+            });
+            let tr = parent.find('.template');
+            let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val(),'col':tr.find('.col').val()};
+            if((vals.text.length > 0 && vals.value.length > 0)){
+                template(parent,vals,trs.length);
+            }else{
+                tr.addClass('Error');
+            }
+        }
+
         $(document).ready(function () {
             function SavePosition(id, cb) {
                 var e = $('#nestable').data('output', $('#nestable-output'));
@@ -499,11 +634,16 @@
                     type: "POST",
                     data: {act: "edit", data: {id: data_item.id, type: '{!! $type !!}'}},
                     success: function (data) {
-                        console.log(JSON.stringify(data));
+
                         document.getElementById("form_store").reset();
                         if (data.hasOwnProperty("data")) {
                             var label = "{{ z_language('Category Edit : :Name')  }}";
                             $("#form-title").html(label.replace(":Name", data.data.name));
+                            console.log(data.data.data);
+
+                            if(data.data.data.hasOwnProperty('config')){
+                                renderData(data.data.data.config);
+                            }
                             form_store.zoe_inputs('set', data.data);
                         } else {
 
