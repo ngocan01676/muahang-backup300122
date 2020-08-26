@@ -147,8 +147,9 @@
                         'lists' => [
                             'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
                             'GetNameCategory' => ['label' => z_language('Công ty', false), 'type' => 'title','callback' => "GetNameCategory"],
-                            'value' => ['label' => z_language('Giá trị', false), 'type' => 'number'],
+
                             'equal' => ['label' => z_language('So sánh', false), 'type' => 'text'],
+                            'value' => ['label' => z_language('Giá trị', false), 'type' => 'number'],
                             'GetUnit' => ['label' => z_language('Đơn vị', false), 'type' => 'status','callback' => "GetUnit"],
                             'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date'],

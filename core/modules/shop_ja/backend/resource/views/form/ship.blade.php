@@ -37,7 +37,7 @@
                                         @php
                                             $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
                                         @endphp
-                                        {!! Form::select('equal', $lists_equal,null,['class'=>'form-control','name'=>"equal"]); !!}
+                                      [SỐ LƯỢNG]  {!! Form::select('equal', $lists_equal,null,['class'=>'form-control','name'=>"equal"]); !!}
                                     </td>
                                     <td>
                                         {!! Form::label('value', z_language('Số lượng'), ['class' => 'v']) !!}
