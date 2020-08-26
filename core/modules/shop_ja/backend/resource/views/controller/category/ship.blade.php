@@ -111,7 +111,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>Cấu hình: Daibiki</th>  
+                    </tr>
+                    <tr>
+
                         <td>
+
                             <table class="table table-bordered wrap_rows" id="wrap">
                                 <thead>
 
