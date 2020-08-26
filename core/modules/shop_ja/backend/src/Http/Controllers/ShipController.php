@@ -56,8 +56,11 @@ class ShipController extends \Zoe\Http\ControllerBackend
                     $html = isset($category[$model->category_id])?$category[$model->category_id]->name:"Không xác định";
                     return $html;
                 },
-                "GetEqual"=>function($model){
-                    return "IF([Số lượng] ".$model->equal.' '.$model->value.")";
+                "GetEqual"=>function($model) use($units){
+                    if(isset($units[$model->unit])){
+                        $html = $units[$model->unit];
+                    }
+                    return "IF([Số lượng] ".$model->equal.' '.$model->value.$html.")";
                 },
                 'GetUnit'=>function($model) use($units){
                     $html = "Tất cả";
