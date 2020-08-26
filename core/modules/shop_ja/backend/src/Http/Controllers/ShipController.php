@@ -57,6 +57,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
                     return $html;
                 },
                 "GetEqual"=>function($model) use($units){
+                    $html ="";
                     if(isset($units[$model->unit])){
                         $html = $units[$model->unit];
                     }
