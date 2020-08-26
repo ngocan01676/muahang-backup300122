@@ -53,18 +53,18 @@ class ShipController extends \Zoe\Http\ControllerBackend
             'models' => $models->paginate($item),
             'callback' => [
                 "GetNameCategory" => function ($model) use($category,$units){
-                    $html ="all";
+                    $html =" all";
                     if(isset($units[$model->unit])){
-                        $html = $units[$model->unit];
+                        $html = " ".$units[$model->unit];
                     }
                     $html = isset($category[$model->category_id])?$category[$model->category_id]->name." - ".$model->value.$html:"Không xác định";
 
                     return $html;
                 },
                 "GetEqual"=>function($model) use($units){
-                    $html ="all";
+                    $html =" all";
                     if(isset($units[$model->unit])){
-                        $html = $units[$model->unit];
+                        $html =" ".$units[$model->unit];
                     }
                     return "IF([Số lượng] ".$model->equal.' '.$model->value.$html.")";
                 },
