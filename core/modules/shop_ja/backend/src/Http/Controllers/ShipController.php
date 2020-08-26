@@ -52,8 +52,13 @@ class ShipController extends \Zoe\Http\ControllerBackend
         return $this->render('ship.lists', [
             'models' => $models->paginate($item),
             'callback' => [
-                "GetNameCategory" => function ($model) use($category){
-                    $html = isset($category[$model->category_id])?$category[$model->category_id]->name:"Không xác định";
+                "GetNameCategory" => function ($model) use($category,$units){
+                    $html ="";
+                    if(isset($units[$model->unit])){
+                        $html = $units[$model->unit];
+                    }
+                    $html = isset($category[$model->category_id])?$category[$model->category_id]->name." - ".$model->value.$html:"Không xác định";
+
                     return $html;
                 },
                 "GetEqual"=>function($model) use($units){

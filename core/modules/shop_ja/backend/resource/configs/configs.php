@@ -147,7 +147,6 @@
                         'lists' => [
                             'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
                             'GetNameCategory' => ['label' => z_language('Công ty', false), 'type' => 'title','callback' => "GetNameCategory"],
-
                             'GetEqual' => ['label' => z_language('So sánh', false), 'type' => 'text','callback' => "GetEqual"],
                             'value' => ['label' => z_language('Giá trị', false), 'type' => 'number'],
                             'GetUnit' => ['label' => z_language('Đơn vị', false), 'type' => 'status','callback' => "GetUnit"],
