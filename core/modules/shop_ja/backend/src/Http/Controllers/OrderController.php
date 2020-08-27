@@ -45,13 +45,13 @@ class OrderController extends \Zoe\Http\ControllerBackend
               $results =  DB::table('shop_product')->where('description', 'like', '%' . $data['term'] . '%')->get()->all();
           }else if(isset($data['id'])){
               $results =  DB::table('shop_product')->where('id', $data['id'])->get()->all();
+              $key_ids[$data['id']] = $data;
           }else if(isset($data['lists'])){
               $ids = [];
               foreach ($data['lists'] as $k=>$row){
                 $ids[$k] = $row['id'];
                 $key_ids[$row['id']] = $row;
               }
-
               $results =  DB::table('shop_product')->whereIn('id',$ids )->get()->all();
           }
 
@@ -66,29 +66,41 @@ class OrderController extends \Zoe\Http\ControllerBackend
               if(isset($key_ids[$result->id]) && isset($key_ids[$result->id]['count'])){
                   $count = $key_ids[$result->id]['count'];
               }
-              $ships_category = DB::table('shop_ship')->where('category_id', $result->category_id)->orderBy('unit','DESC') ->orderBy('value', 'ASC')->get()->all();
+              $ships_category = DB::table('shop_ship')->where('category_id', $result->category_id)->orderBy('value', 'ASC')->get()->all();
 
               foreach ($ships_category as $k_ship_cate=>$_ship_category){
                   $_config = json_decode($_ship_category->config,true);
                   $ships_category[$k_ship_cate]->config = $_config;
               }
-              $confShip = [$data['city']];
+              $confShip = [];
 
-              $price_ship = "-1";
+              $price_ship = -1;
+              $price_ship_default = -1;
+              $cancel = 0;
+
               foreach ($ships_category as $k_ship_cate=>$_ship_category){
+
                   $conf = $this->IF($count,$_ship_category);
-                  $confShip[] = $conf;
+
                   if($conf!=false){
                       foreach ($conf as $val){
                           if(strrchr($val['text'],$data['city'])){
                               $price_ship  = $val['value'];
-                              $confShip[] = ['active',$val];
-                              break;
+                              $confShip[] = [$_ship_category,$val];
+
+                              if($_ship_category->unit == 0){
+                                  $cancel++;
+                              }
                           }
                       }
-                      if($price_ship!="-1")
-                        break;
                   }
+              }
+              foreach ($confShip as $val){
+                if($val[0]->unit == 0 && $price_ship_default==-1){
+                    $price_ship_default =  $val[1]['value'];
+                }else if($val[0]->unit == $result->unit && $price_ship==-1){
+                    $price_ship = $val[1]['value'];
+                }
               }
               $ship = isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1";
 
@@ -109,11 +121,12 @@ class OrderController extends \Zoe\Http\ControllerBackend
                   'ship'=>$ship,
                   'count'=>$count,
                   'image'=>'image',
-                  'price_ship'=> $price_ship,
+                  'price_ship'=> $price_ship!=-1?$price_ship:$price_ship_default,
                   'total_price'=>$result->price,
                   'total_price_buy'=>$result->price_buy,
                   'ship_category'=>$ships_category,
-                  'confShip'=>$confShip
+                  'confShip'=>$confShip,
+                  'price_ship_default'=>$price_ship_default
               ];
               $temp_array['hidden'] = [
                   'company'=>isset($category[$result->category_id])?$category[$result->category_id]->id:0,

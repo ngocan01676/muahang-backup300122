@@ -107,10 +107,15 @@
                                 class="req">*</span>):
                             @php
                                 $category_city  = config_get('shop_ja','category:city',[]);
+                                $active = isset($model)?$model->city:"";
                              @endphp
                             <select name="city" id="city-select" class="select2 form-control">
                                     @foreach($category_city as $key=>$value)
-                                        <option value="{!! $key !!}">{!! $key !!}</option>
+                                        @if($active == $key)
+                                        <option selected value="{!! $key !!}">{!! $key !!}</option>
+                                        @else
+                                            <option value="{!! $key !!}">{!! $key !!}</option>
+                                        @endif
                                     @endforeach
                             </select>
 
