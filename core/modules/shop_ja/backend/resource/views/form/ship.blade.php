@@ -25,13 +25,17 @@
                         <table class="table table-borderless">
                             <tbody>
                                 <tr>
-                                    <td colspan="2">
+                                    <td colspan="3">
                                         {!! Form::label('category_id',z_language('Công ty'), ['class' => 'Category']) !!} *
                                         {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"category_id") !!}
                                     </td>
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        {!! Form::label('value_start', z_language('Số lượng Start'), ['class' => 'v']) !!}
+                                        {!! Form::text('value_start',null, ['class' => 'form-control','placeholder'=>z_language('Số lượng Start')]) !!}
+                                    </td>
                                     <td>
                                         {!! Form::label('value', z_language('Điều kiện'), ['class' => 'v']) !!}
                                         @php
@@ -40,13 +44,13 @@
                                       [SỐ LƯỢNG]  {!! Form::select('equal', $lists_equal,null,['class'=>'form-control','name'=>"equal"]); !!}
                                     </td>
                                     <td>
-                                        {!! Form::label('value', z_language('Số lượng'), ['class' => 'v']) !!}
-                                        {!! Form::text('value',null, ['class' => 'form-control','placeholder'=>z_language('Số lượng')]) !!}
+                                        {!! Form::label('value_end', z_language('Số lượng End'), ['class' => 'v']) !!}
+                                        {!! Form::text('value_end',null, ['class' => 'form-control','placeholder'=>z_language('Số lượng End')]) !!}
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="2">
+                                    <td colspan="3">
                                         {!! Form::label('unit', z_language('Đơn vị'), ['class' => 'unit']) !!} &nbsp;
                                         @php
                                             $lists_uint = array_merge(["Tất cả"],config('shop_ja.configs.lists_uint'));
@@ -58,7 +62,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
+                                    <td colspan="3">
                                         <div style="display: none">{!! Form::textarea('config',null, ['id'=>'Data','class' => 'form-control','placeholder'=>z_language('config'),'cols'=>5,'rows'=>5]) !!}</div>
 
                                         <table class="table table-bordered wrap_rows" id="wrap">

@@ -57,7 +57,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
                     if(isset($units[$model->unit])){
                         $html = " ".$units[$model->unit];
                     }
-                    $html = isset($category[$model->category_id])?$category[$model->category_id]->name." - ".$model->value.$html:"Không xác định";
+                    $html = isset($category[$model->category_id])?$category[$model->category_id]->name." - (".$model->value_start."-".$model->value_end.")".$html:"Không xác định";
 
                     return $html;
                 },
@@ -66,7 +66,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
                     if(isset($units[$model->unit])){
                         $html =" ".$units[$model->unit];
                     }
-                    return "IF([Số lượng] ".$model->equal.' '.$model->value.$html.")";
+                    return "IF([Số lượng] ".$model->value_start.$model->equal.' '.$model->value_end.$html.")";
                 },
                 'GetUnit'=>function($model) use($units){
                     $html = "Tất cả";
@@ -92,7 +92,8 @@ class ShipController extends \Zoe\Http\ControllerBackend
 
         $validator = Validator::make($data, [
             'category_id' => 'required',
-            'value' => 'required',
+            'value_start' => 'required',
+            'value_end' => 'required',
         ], []);
 
         if ($validator->fails()) {
@@ -116,7 +117,8 @@ class ShipController extends \Zoe\Http\ControllerBackend
             }
             config_set('shop_ja','category:city',['data'=>$category_city]);
             $model->category_id = $data['category_id'];
-            $model->value = $data['value'];
+            $model->value_start= $data['value_start'];
+            $model->value_end= $data['value_end'];
             $model->equal = $data['equal'];
             $model->config = $data['config'];
 
