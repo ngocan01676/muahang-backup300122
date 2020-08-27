@@ -114,7 +114,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
                    $category_city[$_v] = 1;
                }
             }
-            config_set('shop_ja','category:city',$category_city);
+            config_set('shop_ja','category:city',['data'=>$category_city]);
             $model->category_id = $data['category_id'];
             $model->value = $data['value'];
             $model->equal = $data['equal'];

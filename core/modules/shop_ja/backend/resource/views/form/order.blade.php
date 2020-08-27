@@ -105,7 +105,15 @@
                             @endphp
                             {!! Form::label('Tỉnh/Thành phố', z_language('Tỉnh/Thành phố'), ['class' => '']) !!} (<span
                                 class="req">*</span>):
-                            {!! Form::CategoriesNestableOne($nestables,[Form::value('city')=>""],"city") !!}
+                            @php
+                                $category_city  = config_get('shop_ja','category:city',[]);
+                             @endphp
+                            <select name="city" id="city-select" class="select2 form-control">
+                                    @foreach($category_city as $key=>$value)
+                                        <option value="{!! $key !!}">{!! $key !!}</option>
+                                    @endforeach
+                            </select>
+
                         </td>
                     </tr>
                     <tr>
@@ -346,6 +354,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
 
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('module/admin/bower_components/select2/dist/css/select2.min.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/elfinder.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/theme.css') }}">
@@ -358,7 +368,12 @@
     <script src="{{ asset('module/shop-ja/assets/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js') }}"></script>
     <script src="{{ asset('module/shop-ja/assets/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js') }}"></script>
 
+    <script src="{{ asset('module/admin/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+
     <script !src="">
+        $(function () {
+            $('.select2').select2()
+        });
         function change_type_order(self) {
            let _this = $(self);
            let val = _this.val();
@@ -544,7 +559,9 @@
                 $.post("{!! route('backend:shop_ja:order:ajax') !!}" , data, function (response) {
                     if(response.length > 0 ){
                         let dom = $("#id_"+response[0].data.id);
-                        dom.find('.price_ship').text(IF(data.count,response[0].data.price_ship));
+
+                        dom.find('.price_ship').text(response[0].data.price_ship);
+
                         dom.find('.total_price').text(data.count*response[0].data.price);
                         dom.find('.total_price_buy').text(data.count*response[0].data.price_buy);
                         let number_count = dom.find('.number_count');
@@ -583,7 +600,7 @@
                 html+="<td class=\"text-center\"  data-key='image'>"+templateUpload(data.id,data.ship)+"</td>";
                 html+="<td class=\"text-center price\" data-key='price'>"+data.price+"</td>";
                 html+="<td class=\"text-center price_buy\" data-key='price_buy'>"+data.price_buy+"</td>";
-                html+="<td class=\"text-center price_ship\" data-key='price_ship'>"+IF(currentData.hasOwnProperty('count')?currentData.count:data.count,data.price_ship)+"</td>";
+                html+="<td class=\"text-center price_ship\" data-key='price_ship'>"+data.price_ship+"</td>";
                 html+="<td class=\"text-center total_price\" data-key='total_price'>"+(currentData.hasOwnProperty('total_price')?currentData.total_price:data.total_price)+"</td>";
                 html+="<td class=\"text-center total_price_buy\" data-key='total_price_buy'>"+(currentData.hasOwnProperty('total_price_buy')?currentData.total_price_buy:data.total_price_buy)+"</td>";
                 html+="<td class=\"text-center\"><button type=\"button\" class=\"remove btn btn-danger btn-xs\" onclick=\"removeOrderDetail(this)\">Xóa</button></td>";
