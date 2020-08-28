@@ -9,7 +9,7 @@
 @section('content')
     @breadcrumb()@endbreadcrumb
     <!-- Default box -->
-    <div class="col-md-5">
+    <div class="col-md-3">
         <div class="box box-zoe">
             <div class="box-header with-border">
                 <h3 class="box-title">{!! @z_language(["Công ty SHIP"]) !!}</h3>
@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-9">
         <div class="box box-zoe">
             <div class="box-header with-border">
                 <h3 class="box-title" id="form-title">{{ z_language('Thêm mới')}}</h3>
@@ -62,9 +62,8 @@
                             <span class="error help-block"></span>
                         </td>
                     </tr>
-
                     @php
-                        $lists_uint = config('shop_ja.configs.lists_uint');
+                        $lists_uint = array_merge([0=>"Default"],config('shop_ja.configs.lists_uint'));
                     @endphp
                     @foreach($lists_uint as $key=>$value)
                     <tr>
@@ -72,7 +71,7 @@
                             <table class="table table-bordered wrap_rows" id="wrap_{!! $key !!}">
                                 <thead>
                                     <tr>
-                                        <td colspan="4">
+                                        <td colspan="7">
                                             {!! Form::label('data.'.$key, Illuminate\Support\Str::studly($value), ['class' => 'name']) !!}
                                         </td>
                                     </tr>
@@ -80,13 +79,21 @@
                                         <td class="text-center">
                                             0
                                         </td>
-                                        <td><input data-key="text" data-name="data[{!! $key !!}][@INDEX@].text"  class="data form-control text" placeholder="Loại" type="text"></td>
+                                        <td><input data-key="text_start" data-name="data[{!! $key !!}][@INDEX@].text_start"  class="data form-control text_start" placeholder="Giá trị 1" type="text"></td>
                                         <td>
                                             @php
                                                 $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
                                             @endphp
-                                            {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal','data-key'=>'equal','data-name'=>"data[".$key."][@INDEX@].equal"]); !!}
+                                            {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal_start','data-key'=>'equal_start','data-name'=>"data[".$key."][@INDEX@].equal_start"]); !!}
                                         </td>
+                                        <td>
+                                            @php
+                                                $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
+                                            @endphp
+                                            {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal_end','data-key'=>'equal_end','data-name'=>"data[".$key."][@INDEX@].equal_end"]); !!}
+                                        </td>
+                                        <td><input data-key="text_end" data-name="data[{!! $key !!}][@INDEX@].text_end"  class="data form-control text_end" placeholder="Giá trị 2" type="text"></td>
+
                                         <td>
                                             @php
                                                 $lists_equal = ['count'=>'Count','totalPrice'=>'totalPrice'];
@@ -94,6 +101,8 @@
                                             {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control col','data-key'=>'col','data-name'=>"data[".$key."][@INDEX@].col"]); !!}
                                         </td>
                                         <td><input  data-key="value" data-name="data[{!! $key !!}][@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
+
+
                                         <td class="text-center">
                                             <button type="button" data-id="#wrap_{!! $key !!}" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
                                             <button style="display: none" type="button" data-id="#wrap_{!! $key !!}" class="remove btn btn-danger btn-xs" onclick="remove(this)">Xóa</button>
@@ -546,8 +555,8 @@
                 $(this).removeClass('Error');
             });
             let tr = parent.find('.template');
-            let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val(),'col':tr.find('.col').val()};
-            if((vals.text.length > 0 && vals.value.length > 0)){
+            let vals = {"text_start":tr.find('.text_start').val(),"text_end":tr.find('.text_end').val(),"value":tr.find('.value').val(),'equal_start':tr.find('.equal_start').val(),'equal_end':tr.find('.equal_end').val(),'col':tr.find('.col').val()};
+            if((vals.text_start.length > 0 && vals.text_end.length > 0 && vals.equal_start.length > 0  && vals.equal_end.length > 0 && vals.value.length > 0)){
                 template(parent,vals,trs.length);
             }else{
                 tr.addClass('Error');

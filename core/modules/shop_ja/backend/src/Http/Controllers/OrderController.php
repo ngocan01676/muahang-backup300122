@@ -71,6 +71,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
 
           $category = get_category_type('shop-ja:product:category');
           $category_ship = get_category_type('shop-ja:japan:category:com-ship');
+
           foreach ($results as $key=>$result){
               $temp_array = array();
               $temp_array['value'] = $result->description;

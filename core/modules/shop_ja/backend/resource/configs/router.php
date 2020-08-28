@@ -153,6 +153,15 @@ return [
                         "KOGYJA" => [
                             "url" => "/KOGYJA"
                         ],
+                        "OHGA" => [
+                            "url" => "/OHGA"
+                        ],
+                        "FUKUI" => [
+                            "url" => "/FUKUI"
+                        ],
+                        "KURICHIKU" => [
+                            "url" => "/KURICHIKU"
+                        ],
                     ]
                 ],
 
