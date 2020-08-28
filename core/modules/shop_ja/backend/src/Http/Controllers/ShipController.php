@@ -46,7 +46,8 @@ class ShipController extends \Zoe\Http\ControllerBackend
 //        if (!empty($status) || $status != "") {
 //            $models->where('status', $status);
 //        }
-        $models->orderBy('id', 'desc');
+        $models->orderBy('value_end', 'asc');
+
         $category =  get_category_type('shop-ja:product:category');
         $units = config('shop_ja.configs.lists_uint');
         return $this->render('ship.lists', [
@@ -66,7 +67,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
                     if(isset($units[$model->unit])){
                         $html =" ".$units[$model->unit];
                     }
-                    return "IF([Số lượng] ".$model->value_start.$model->equal.' '.$model->value_end.$html.")";
+                    return "IF([Số lượng] ".$model->equal_start.$model->value_start.$model->equal_end.' '.$model->value_end.$html.")";
                 },
                 'GetUnit'=>function($model) use($units){
                     $html = "Tất cả";
@@ -85,7 +86,12 @@ class ShipController extends \Zoe\Http\ControllerBackend
     {
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
         $model = ShipModel::find($id);
-        return $this->render('ship.edit', ["model" => $model]);
+        return $this->render('ship.edit', ["model" => $model,'act'=>'edit']);
+    }
+    public function copy($id){
+        $this->getcrumb()->breadcrumb(z_language("Thêm"), false);
+        $model = ShipModel::find($id);
+        return $this->render('ship.edit', ["model" => $model,'act'=>'copy']);
     }
     public function store(Request $request){
         $data = $request->all();
@@ -119,7 +125,8 @@ class ShipController extends \Zoe\Http\ControllerBackend
             $model->category_id = $data['category_id'];
             $model->value_start= $data['value_start'];
             $model->value_end= $data['value_end'];
-            $model->equal = $data['equal'];
+            $model->equal_start = $data['equal_start'];
+            $model->equal_end = $data['equal_end'];
             $model->config = $data['config'];
 
             $model->unit = $data['unit'];

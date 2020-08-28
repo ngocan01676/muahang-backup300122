@@ -159,7 +159,7 @@
                         'item' => 20,
                         'router' => [
                             'edit' => ['label' => z_language('Edit', false), 'name' => "backend:shop_ja:ship:edit", 'par' => ['id' => 'id']],
-                            'preview' => ['label' => z_language('Preview', false), 'name' => "backend:shop_ja:ship:edit", 'par' => ['id' => 'id']],
+                            'copy' => ['label' => z_language('Copy', false), 'name' => "backend:shop_ja:ship:copy", 'par' => ['id' => 'id']],
                             'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:shop_ja:ship:delete", 'par' => ['id' => 'id']],
                         ]
                     ],

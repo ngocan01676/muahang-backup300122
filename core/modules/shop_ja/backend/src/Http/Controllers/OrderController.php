@@ -19,17 +19,31 @@ class OrderController extends \Zoe\Http\ControllerBackend
         $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop_ja:order:list'));
         return $this;
     }
-    private function IF($val,$conf){
-        if( $conf->equal === "<=" && $val <= $conf->value){
-            return $conf->config;
-        }else if( $conf->equal === ">=" && $val >= $conf->value){
-            return $conf->config;
-        }else if($conf->equal === ">" && $val > $conf->value){
-            return $conf->config;
-        } else if($conf->equal === "<" && $val < $conf->value){
-            return $conf->config;
-        }else if($conf->equal === "=" && $val === $conf->value){
-            return $conf->config;
+    private function IF_End($val,$conf){
+        if( $conf->equal_end === "<=" && $val <= $conf->value_end){
+            return true;
+        }else if( $conf->equal_end === ">=" && $val >= $conf->value_end){
+            return true;
+        }else if($conf->equal_end === ">" && $val > $conf->value_end){
+            return true;
+        } else if($conf->equal_end === "<" && $val < $conf->value_end){
+            return true;
+        }else if($conf->equal_end === "=" && $val === $conf->value_end){
+            return true;
+        }
+        return false;
+    }
+    private function IF_Start($val,$conf){
+        if( $conf->equal_start === "<=" && $val <= $conf->value_start){
+            return true;
+        }else if( $conf->equal_start === ">=" && $val >= $conf->value_start){
+            return true;
+        }else if($conf->equal_start === ">" && $val > $conf->value_start){
+            return true;
+        } else if($conf->equal_start === "<" && $val < $conf->value_start){
+            return true;
+        }else if($conf->equal_start === "=" && $val === $conf->value_start){
+            return true;
         }
         return false;
     }
@@ -66,7 +80,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
               if(isset($key_ids[$result->id]) && isset($key_ids[$result->id]['count'])){
                   $count = $key_ids[$result->id]['count'];
               }
-              $ships_category = DB::table('shop_ship')->where('category_id', $result->category_id)->orderBy('value', 'ASC')->get()->all();
+              $ships_category = DB::table('shop_ship')->where('category_id', $result->category_id)->orderBy('value_end', 'ASC')->get()->all();
 
               foreach ($ships_category as $k_ship_cate=>$_ship_category){
                   $_config = json_decode($_ship_category->config,true);
@@ -76,21 +90,17 @@ class OrderController extends \Zoe\Http\ControllerBackend
 
               $price_ship = -1;
               $price_ship_default = -1;
-              $cancel = 0;
 
               foreach ($ships_category as $k_ship_cate=>$_ship_category){
 
-                  $conf = $this->IF($count,$_ship_category);
 
-                  if($conf!=false){
+
+                  if($this->IF_Start($count,$_ship_category) && $this->IF_End($count,$_ship_category)){
+                      $conf  =  $_ship_category->config;
                       foreach ($conf as $val){
                           if(strrchr($val['text'],$data['city'])){
-                              $price_ship  = $val['value'];
-                              $confShip[] = [$_ship_category,$val];
 
-                              if($_ship_category->unit == 0){
-                                  $cancel++;
-                              }
+                              $confShip[] = [$_ship_category,$val];
                           }
                       }
                   }
@@ -98,7 +108,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
               foreach ($confShip as $val){
                 if($val[0]->unit == 0 && $price_ship_default==-1){
                     $price_ship_default =  $val[1]['value'];
-                }else if($val[0]->unit == $result->unit && $price_ship==-1){
+                }else if($val[0]->unit == $result->unit && $price_ship == -1){
                     $price_ship = $val[1]['value'];
                 }
               }
@@ -126,7 +136,8 @@ class OrderController extends \Zoe\Http\ControllerBackend
                   'total_price_buy'=>$result->price_buy,
                   'ship_category'=>$ships_category,
                   'confShip'=>$confShip,
-                  'price_ship_default'=>$price_ship_default
+                  'price_ship_default'=>$price_ship_default,
+                  '_price_ship'=>$price_ship,
               ];
               $temp_array['hidden'] = [
                   'company'=>isset($category[$result->category_id])?$category[$result->category_id]->id:0,

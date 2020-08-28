@@ -173,6 +173,9 @@ return [
                     "edit" => [
                         "url" => "/edit/{id}",
                     ],
+                    "copy" => [
+                        "url" => "/copy/{id}",
+                    ],
                     "delete" => [
                         "url" => "/delete/{id}",
                         "method" => ['post'],
