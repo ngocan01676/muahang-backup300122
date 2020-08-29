@@ -45,9 +45,45 @@
             </div>
         </div>
     </div>
+    <div id="spreadsheet"></div>
+
 @endsection
 @push('scripts')
 
+    <script src="https://bossanova.uk/jexcel/v4/jexcel.js"></script>
+    <script src="https://bossanova.uk/jsuites/v3/jsuites.js"></script>
+    <link rel="stylesheet" href="https://bossanova.uk/jsuites/v3/jsuites.css" type="text/css" />
+    <link rel="stylesheet" href="https://bossanova.uk/jexcel/v4/jexcel.css" type="text/css" />
+    <script>
+        var data = [
+            ['Cheese', 10, 6.00, "=B1*C1"],
+            ['Apples', 5, 4.00, "=B2*C2"],
+            ['Carrots', 5, 1.00, "=B3*C3"],
+            ['Oranges', 6, 2.00, "=B4*C4"],
+        ];
+
+
+        var SUMCOL = function(instance, columnId) {
+            var total = 0;
+            for (var j = 0; j < instance.options.data.length; j++) {
+                if (Number(instance.records[j][columnId-1].innerHTML)) {
+                    total += Number(instance.records[j][columnId-1].innerHTML);
+                }
+            }
+            return total;
+        }
+
+        var table = jexcel(document.getElementById('spreadsheet'), {
+            data:data,
+            minDimensions: [4,10],
+            columnDrag:true,
+            footers: [['Total','=SUMCOL(TABLE(), COLUMN())','=SUMCOL(TABLE(), COLUMN())','=SUMCOL(TABLE(), COLUMN())']],
+            columns: [{
+                width:'200px',
+            }]
+        });
+        
+    </script>
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 

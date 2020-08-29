@@ -16,8 +16,10 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
+
     @component('backend::layout.component.list',['name'=>'module:shop_ja:order','models'=>$models,'callback'=>$callback])
         @slot("tool")
+
             <div class="box-body">
                 <div class="col-md-12" style="padding:0">
                     <div class="row">
@@ -49,6 +51,13 @@
                     </div>
                 </div>
             </div>
+            @foreach(['YAMADA','KOGYJA','OHGA','FUKUI','KURICHIKU'] as $val)
+                <a href="{!! route('backend:shop_ja:excel:'.$val) !!}">
+                    <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                        <i class="fa fa-download"></i> {!! $val !!}
+                    </button>
+                </a>
+           @endforeach
         @endslot
     @endcomponent
 @endsection

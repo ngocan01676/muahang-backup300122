@@ -197,6 +197,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
         }
         $writer = new Xlsx($spreadsheet);
         $writer->save(public_path().'/uploads/exports/KOGYJA.xlsx');
+        return redirect()->route('backend:shop_ja:order:list');
     }
     public function KURICHIKU(){
         $spreadsheet = new Spreadsheet();
@@ -408,9 +409,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
                             }
                         }
                     }
-
                     if($typeMethod == 0){
-
 
                         $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums));
                         $sheet->getStyle('A'.$start.':'.$nameCol.$start)->applyFromArray(  array(
@@ -462,10 +461,12 @@ class ExcelController extends \Zoe\Http\ControllerBackend
         }
         $writer = new Xlsx($spreadsheet);
         $writer->save(public_path().'/uploads/exports/KURICHIKU.xlsx');
+        return redirect()->route('backend:shop_ja:order:list');
     }
     public function YAMADA(){
 
         $spreadsheet = new Spreadsheet();
+
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->createSheet();
         $spreadsheet->getSheet(1)->setTitle('Sheet2');
@@ -700,6 +701,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
         $sheet->setCellValue("Q".$start, "=SUM(Q".$defaultStart.":Q".($start-1).")");
         $writer = new Xlsx($spreadsheet);
         $writer->save(public_path().'/uploads/exports/YAMADA.xlsx');
+        return redirect()->route('backend:shop_ja:order:list');
     }
     public function OHGA(){
 
@@ -943,6 +945,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
 
         $writer = new Xlsx($spreadsheet);
         $writer->save(public_path().'/uploads/exports/OHGA.xlsx');
+        return redirect()->route('backend:shop_ja:order:list');
     }
     public function FUKUI(){
 
@@ -1228,5 +1231,6 @@ class ExcelController extends \Zoe\Http\ControllerBackend
 
         $writer = new Xlsx($spreadsheet);
         $writer->save(public_path().'/uploads/exports/FUKUI.xlsx');
+        return redirect()->route('backend:shop_ja:order:list');
     }
 }
