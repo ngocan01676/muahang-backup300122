@@ -46,7 +46,7 @@
         </div>
     </div>
     <div id="spreadsheet"></div>
-
+    <div id="spreadsheet1"></div>
 @endsection
 @push('scripts')
 
@@ -82,7 +82,66 @@
                 width:'200px',
             }]
         });
-        
+
+    </script>
+
+
+    <script>
+        var data = [
+            ['Jazz', 'Honda', '2019-02-12', '', true, '$ 2.000,00', '#777700'],
+            ['Civic', 'Honda', '2018-07-11', '', true, '$ 4.000,01', '#007777'],
+        ];
+
+        jexcel(document.getElementById('spreadsheet1'), {
+            data:data,
+            columns: [
+                {
+                    type: 'text',
+                    title:'Car',
+                    width:90
+                },
+                {
+                    type: 'dropdown',
+                    title:'Make',
+                    width:120,
+                    source:[
+                        "Alfa Romeo",
+                        "Audi",
+                        "Bmw",
+                        "Chevrolet",
+                        "Chrystler",
+                        // (...)
+                    ]
+                },
+                {
+                    type: 'calendar',
+                    title:'Available',
+                    width:120
+                },
+                {
+                    type: 'image',
+                    title:'Photo',
+                    width:120
+                },
+                {
+                    type: 'checkbox',
+                    title:'Stock',
+                    width:80
+                },
+                {
+                    type: 'numeric',
+                    title:'Price',
+                    mask:'$ #.##,00',
+                    width:80,
+                    decimal:','
+                },
+                {
+                    type: 'color',
+                    width:80,
+                    render:'square',
+                },
+            ]
+        });
     </script>
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
