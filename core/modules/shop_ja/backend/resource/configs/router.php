@@ -195,6 +195,36 @@ return [
                     ],
                 ]
             ],
+            'shop_ja:order:excel' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "OrderExcelController",
+                "sub_prefix" => "/shop-ja/order/excel",
+                "guard" => "backend",
+                "acl"=> "shop_ja:order:excel",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                        'acl'=>true
+                    ],
+                    "create" => [
+                        "url" => "/create",
+                    ],
+                    "edit" => [
+                        "url" => "/edit/{id}",
+                    ],
+                    "copy" => [
+                        "url" => "/copy/{id}",
+                    ],
+                    "delete" => [
+                        "url" => "/delete/{id}",
+                        "method" => ['post'],
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ],
+                ]
+            ],
             ]
         ]
 ];
