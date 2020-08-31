@@ -53,8 +53,8 @@ class OrderController extends \Zoe\Http\ControllerBackend
         $key_ids = [
 
         ];
+        
         if(isset($data['term']) || isset($data['id']) || isset($data['lists']) ){
-
           if(isset($data['term'])){
               $results =  DB::table('shop_product')->where('description', 'like', '%' . $data['term'] . '%')->get()->all();
           }else if(isset($data['id'])){
@@ -68,10 +68,8 @@ class OrderController extends \Zoe\Http\ControllerBackend
               }
               $results =  DB::table('shop_product')->whereIn('id',$ids )->get()->all();
           }
-
           $category = get_category_type('shop-ja:product:category');
           $category_ship = get_category_type('shop-ja:japan:category:com-ship');
-
           foreach ($results as $key=>$result){
               $temp_array = array();
               $temp_array['value'] = $result->description;
@@ -91,11 +89,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
 
               $price_ship = -1;
               $price_ship_default = -1;
-
               foreach ($ships_category as $k_ship_cate=>$_ship_category){
-
-
-
                   if($this->IF_Start($count,$_ship_category) && $this->IF_End($count,$_ship_category)){
                       $conf  =  $_ship_category->config;
                       foreach ($conf as $val){

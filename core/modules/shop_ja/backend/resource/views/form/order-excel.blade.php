@@ -1,3 +1,4 @@
+<input type="text">
 <div id="spreadsheet"></div>
 <div>
     <button onclick="Save()"> Lưu </button>
@@ -15,10 +16,15 @@
             background-color: green;
             color: #ffffff;
         }
+        #spreadsheet > div:first-child{
+            padding: 6px 0px 0px 7px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
     </style>
     <script>
         let config = {
-            minDimensions:[20,15],
+            minDimensions:[27,15],
             tableWidth: '2000px',
             tableHeight: '1000px',
             defaultColWidth: 100,
@@ -151,6 +157,7 @@
             },
         };
         let datacache = {!! json_encode($excels_data) !!}
+        let dataproduct = {!! json_encode($products) !!}
         function FUKUI() {
             let  sheetName  =  'FUKUI';
             let data = datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[];
@@ -194,130 +201,229 @@
         function YAMADA() {
             let  sheetName  =  'YAMADA';
             let data = datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[];
-            return {
-                sheetName:sheetName,
-                rowResize:true,
-                columnDrag:true,
+            let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
+            let dropdownFilter = function(instance, cell, c, r, source) {
+                var value = instance.jexcel.getValueFromCoords(c - 1, r);
+                console.log("value:"+value);
+                console.log(source);
+                return source;
+            };
+            let index = 0;
 
-                updateTable: function (instance, cell, col, row, val, id) {
-                    if (col === 0 && val) {
-                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
-                        console.log( $(cell).closest('td').css({padding:0}));
-                    }
-                },
-                columns: [
-                    {
-                        type:'image',
-                        width:50,
+            let columns = {
+                    image:{
                         title:'Image',
+                        type:'image',
+                        width:"50px",
                         key:"demo",
                     },
-                    {
+                    timeCreate:{
                         title: '注文日',//A
-                        type: 'text',
-                        width:'50px',
+                        type: 'calendar',
+                        width:'100px',
+                        key:"demo",
                     },
-                    {
+                    payMethod:{
                         title: '支払区分',//B
-                        type: 'dropdown',
-                        source:['代金引換','銀行振込','決済不要'],
+                        type: 'text',
                         width:'130px',
+                        key:"demo",
                     },
-                    {
+                    phone:{
                         title: '配送先電話番号',//C
                         type: 'text',
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    zipcode:{
                         title: '配送先郵便番号',//D
                         type: 'text',
                         width:'60px',
+                        key:"demo",
                     },
-                    {
-                        title: '配送先都道府県',//E
+                    province:{
+                         title: '配送先都道府県',//E
                         type: 'text',
                         width:'200px',
+                        key:"demo",
                     },
-                    {
+                    address:{
                         title: '配送先住所',//F
                         type: 'text',
                         width:'250px',
+                        key:"demo",
                     },
-                    {
-                        title: '配送先氏名',//G
+                    fullname:{
+                         title: '配送先氏名',//G
                         type: 'text',
                         width:'150px',
+                        key:"demo",
                     },
-                    {
-                        title: '品番',//H
+                    product_id:{
+                         title: '品番',//H
                         type: 'text',
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    product_name:{
                         title: '商品名',//I
-                        type: 'text',
+                        type:'dropdown',
+                        source:Object.values(dropdown),
+                        autocomplete:true,
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    price:{
                         title: '単価',//J
-                        type: 'text',
+                        type: 'numeric',
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    count:{
                         title: '数量',//K
-                        type: 'text',
+                        type: 'numeric',
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    order_date:{
                         title: '到着希望日',//L
                         type:'calendar',
                         options: { format:'DD/MM/YYYY' },
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    order_hours:{
                         title: '配送希望時間帯',//M
                         type: 'dropdown',
                         source:['14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                         width:'150px',
+                        key:"demo",
                     },
-                    {
+                    order_ship:{
                         title: '別途送料',//N
-                        type: 'text',
+                        type: 'numeric',
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    order_total_price:{
                         title: '仕入金額',//O
-                        type: 'text',
+                        type: 'numeric',
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    order_total_price_buy:{
                         title: '代引き請求金額',//P
-                        type: 'text',
+                        type: 'numeric',
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    order_ship_cou:{
                         title: '代引き手数料',//P
-                        type: 'text',
+                        type: 'numeric',
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    order_price:{
                         title: '紹介料',//P
-                        type: 'text',
+                        type: 'numeric',
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    order_check:{
                         title: '追跡番号',//P
-                        type: 'text',
+                        type: 'numeric',
                         width:'100px',
+                        key:"demo",
                     },
-                    {
+                    order_info:{
                         title: '振込み情報',//T
                         type: 'text',
                         width:'100px',
                         key:"demo",
                     },
+                    order_link:{
+                        title: '振込み情報',//T
+                        type: 'text',
+                        width:'100px',
+                        key:"demo",
+                       
+                    },
+                };
+                let array1 = []; 
+                for(var i in columns){
+                   columns[i].title ="[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title;   
+                    columns[i].key = i;
+                    columns[i].index = index++;
+                    array1.push(columns[i].title);
+                  //  delete columns[i].title;
+                }
+             //   data = [array1].concat(data);
+             //   console.log(Object.values(columns));
+            return {
+                sheetName:sheetName,
+                rowResize:true,
+                columnDrag:true,
+                columns:Object.values(columns),    
+                updateTable: function (instance, cell, col, row, val, id) {
+                    if (col === 0 && val) {
+                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
+                         
+                    }
+                },
+                onchange:function(instance, cell, c, r, value) {
+                    c = parseInt(c);
+                    if (c == 9) {
+                        let val = parseInt(value); 
+                        if(val+"" == value){
+                            if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([c-1, r]), dropdown[value].data.id);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([c+1, r]),dropdown[value].data.price);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([c+2, r]),1);
+                                
+                                instance.jexcel.setValue(
+                                   jexcel.getColumnNameFromId([c+6, r]),
+                                    "="+jexcel.getColumnNameFromId([11, r])+"*"+jexcel.getColumnNameFromId([10, r])
+                                );
 
-                ],
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([c+7, r]),dropdown[value].data.price_buy);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([c+9, r]), 
+                                "=IF("+jexcel.getColumnNameFromId([c+1, r])+"='','',"+
+                                      jexcel.getColumnNameFromId([c+7, r])+
+                                      "-"+jexcel.getColumnNameFromId([c+6, r])+
+                                      
+                                      "-"+jexcel.getColumnNameFromId([14, r])+
+                                      "-"+jexcel.getColumnNameFromId([c+8, r])+")");
+
+                            }
+                        }
+                    }else if(c == 11){
+                        
+                        let data = {
+                            count:instance.jexcel.getValue(jexcel.getColumnNameFromId([11, r])),  
+                            id:instance.jexcel.getValue(jexcel.getColumnNameFromId([8, r])),  
+                            province:instance.jexcel.getValue(jexcel.getColumnNameFromId([5, r])),  
+                        };
+
+                        let price = instance.jexcel.getValue(jexcel.getColumnNameFromId([10, r]));
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([15, r]),"="+jexcel.getColumnNameFromId([11, r])+"*"+jexcel.getColumnNameFromId([10, r])
+                        );
+                       
+                        if(data.province.length > 0 ){
+                            $.ajax({
+                                type: "POST",
+                                url:"{{ route('backend:shop_ja:order:excel:store') }}",
+                                data:{act:'ship',data:data} ,
+                                success: function (data) {
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([14, r]),data[0].data.price_ship );
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([16, r]),data[0].data.total_price_buy );
+                                },
+                            });
+                        }else{
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([14, r]),-1 );
+                        }
+                    } 
+                },
+              
                 data: data ? data: []
             };
         }
@@ -344,6 +450,7 @@
             console.log(key);
             if(status === true){
                 _spreadsheet.classList.add("cacheAction");
+
                 $.ajax({
                     type: "POST",
                     url:"{{ route('backend:shop_ja:order:excel:store') }}",
@@ -363,7 +470,6 @@
                         data:JSON.stringify(data),
                         act:"save",key:key,name:name,'id':'{{isset($model)?$model->id:0}}','type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
-                        console.log(data);
                         _spreadsheet.classList.remove("cacheAction");
                     },
                 });
