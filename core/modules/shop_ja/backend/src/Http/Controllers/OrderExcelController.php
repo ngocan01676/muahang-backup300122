@@ -4,7 +4,7 @@ use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-use \ShopJa\Http\Models\OrderModel;
+use \ShopJa\Http\Models\OrderExcelModel;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 class OrderExcelController extends \Zoe\Http\ControllerBackend
@@ -44,9 +44,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['configs'] = config_get("config", "shopja");
         $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
 
-
-
-
     }
     public function getCrumb()
     {
@@ -62,7 +59,84 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     return response()->json(['key'=>$k,'data'=>json_decode(Cache::get($k),true)]);
                 }
             }else if($data['act'] == "save"){
+                $orders = json_decode($data['data'],true);
+                $datas = [];
+                $columns = [];
 
+                foreach ($data['columns'] as $k=>$v){
+                    $columns[$v] = $k;
+                }
+                if($data['name'] == "YAMADA"){
+                    if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
+                        $model = OrderExcelModel::find($data['id']);
+                    } else {
+                        $model = new OrderExcelModel();
+                    }
+
+                    $date_time = date('Y-m-d H:i:s');
+                    $model->date_time = $date_time;
+                    $model->name =\Illuminate\Support\Str::random(50);
+                    $model->admin_id = Auth::user()->id;
+
+                    try{
+                        if($model->save()){
+                            foreach ($orders as $key=>$values){
+                                $pay_method = 0;
+                                if($values[$columns["payMethod"]] == "代金引換"){
+                                    $pay_method = 1;
+                                }
+                                $_data = [
+                                    "order_create_date"=>$values[$columns["timeCreate"]],
+                                    "company"=>$data['name'],
+                                    "session_id"=>$model->id,
+                                    "admin_id"=>$model->admin_id,
+                                    "fullname"=>$values[$columns["fullname"]],
+                                    "address"=>$values[$columns["address"]],
+                                    "phone"=>$values[$columns["phone"]],
+                                    "zipcode"=>$values[$columns["zipcode"]],
+                                    "province"=>$values[$columns["province"]],
+                                    "pay_method"=>$pay_method,
+                                    "product_id"=>$values[$columns["product_id"]],
+                                    "count"=>$values[$columns["count"]],
+                                    "order_image"=>$values[$columns["image"]],
+                                    "order_date"=>$values[$columns["order_date"]],
+                                    "order_hours"=>$values[$columns["order_hours"]],
+                                    "order_ship"=>(int)$values[$columns["order_ship"]],
+                                    "order_ship_cou"=>(int)$values[$columns["order_ship_cou"]],
+                                    "order_check"=>$values[$columns["order_check"]],
+                                    "order_info"=>$values[$columns["order_info"]],
+                                    "order_link"=>$values[$columns["order_link"]],
+                                    "updated_at"=>$date_time,
+                                ];
+                                $validator = Validator::make($_data, [
+                                    'fullname' => 'required',
+                                    'order_create_date' => 'required',
+                                    'product_id' => 'required',
+                                    'count' => 'required',
+                                ]);
+                                if (!$validator->fails()) {
+                                    $datas[] = $_data;
+
+                                    DB::table('shop_order_excel')->updateOrInsert(
+                                        [
+                                            'session_id' => $_data['session_id'],
+                                            'admin_id' => $_data['admin_id'],
+                                            'fullname'=>$_data['fullname'],
+                                            "company"=>$_data["company"],
+                                            "zipcode"=>$_data["zipcode"],
+                                            "phone"=>$_data["phone"],
+                                            "province"=>$_data["province"],
+                                    ],$_data);
+                                }
+                            }
+                            DB::table('shop_order_excel')->where('updated_at','!=',$date_time)->delete();
+                            return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id])]);
+                        }
+                    }catch (\Exception $ex){
+                        $datas = ['error'=>$ex->getMessage()];
+                    }
+                }
+                return response()->json($datas);
             }else if($data['act'] == 'ship'){
                 $output = [];
                 if(isset($data['term']) || isset($data['data']['id']) || isset($data['lists']) ){
@@ -89,15 +163,16 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $count = $key_ids[$result->id]['count'];
                         }
                         $ships_category = DB::table('shop_ship')->where('category_id', $result->category_id)->orderBy('value_end', 'ASC')->get()->all();
-          
+
                         foreach ($ships_category as $k_ship_cate=>$_ship_category){
                             $_config = json_decode($_ship_category->config,true);
                             $ships_category[$k_ship_cate]->config = $_config;
                         }
                         $confShip = [];
-          
+
                         $price_ship = -1;
                         $price_ship_default = -1;
+
                         foreach ($ships_category as $k_ship_cate=>$_ship_category){
                             if($this->IF_Start($count,$_ship_category) && $this->IF_End($count,$_ship_category)){
                                 $conf  =  $_ship_category->config;
@@ -108,6 +183,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }
                             }
                         }
+
                         foreach ($confShip as $val){
                           if($val[0]->unit == 0 && $price_ship_default==-1){
                               $price_ship_default =  $val[1]['value'];
@@ -116,7 +192,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                           }
                         }
                         $ship = isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1";
-          
+
                         foreach ($category_ship as $_val){
                               if($ship == $_val->id){
                                   $ship =$_val->name;
@@ -142,6 +218,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             'price_ship_default'=>$price_ship_default,
                             '_price_ship'=>$price_ship,
                         ];
+
                         $temp_array['hidden'] = [
                             'company'=>isset($category[$result->category_id])?$category[$result->category_id]->id:0,
                             'ship'=>isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1",
@@ -149,7 +226,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $output[] = $temp_array;
                     }
                   }
-                  return response()->json($output);    
+                  return response()->json($output);
             }
         }
     }
@@ -163,29 +240,27 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['products'] = [
 
         ];
-        $categorys = config_get("category", "shop-ja:product:category");   
-       
+        $categorys = config_get("category", "shop-ja:product:category");
+
         $names  = [];
-      
+
         foreach($categorys as $category){
             $names[] = $category['name'];
             $shop_products = DB::table('shop_product')->where('category_id',$category['id'])->get()->all();
             $this->data['products'][$category['name']] = [];
-
-            
             foreach($shop_products as $shop_product){
-                $this->data['products'][$category['name']][$shop_product->id] =  
-                [ 
+                $this->data['products'][$category['name']][$shop_product->id] =
+                [
                     'id' => $shop_product->id,
-                    'name'=>$shop_product->description, 
+                    'name'=>$shop_product->description,
                     'image'=>$shop_product->image,
                     'title'=>$shop_product->title,
                     'group'=>$category['name'],
                     'data'=>(array) $shop_product
-                ];   
+                ];
             }
         }
-        
+
         foreach ($names as $name){
             $key = Auth::guard()->user()->id.':'.$type.':'.$name;
             $k = $key.':'.$id;
@@ -208,10 +283,53 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function create(){
         $this->GetCache('create',0);
-
         return $this->render('order-excel.create');
     }
-    public function edit(){
+    public function edit($id){
 
+        $this->GetCache('edit',$id);
+        $model = OrderExcelModel::find($id);
+        $results =$model->GetDetails();
+
+        $datas = [];
+        foreach ($results as $result){
+            if(!isset($datas[$result->company])){
+                $datas[$result->company] = [];
+            }
+            $_product = $this->data['products'][$result->company];
+            $pay_method = "";
+            if($result->pay_method == 1){
+                $pay_method = "代金引換";
+            }
+
+            $order_profit =
+                $_product[$result->product_id]['data']['price_buy']* $result->count -
+                $_product[$result->product_id]['data']['price']* $result->count -
+                $result->order_ship - $result->order_ship_cou
+            ;
+            $datas[$result->company][] = [
+                "",
+                $result->order_create_date,
+                $pay_method,
+                $result->phone,
+                $result->zipcode,
+                $result->province,
+                $result->address,
+                $result->fullname,
+                $result->product_id,
+                $result->product_id,
+                $_product[$result->product_id]['data']['price'],
+                $result->count,
+                $result->order_date,
+                $result->order_hours,
+                $result->order_ship,
+                $_product[$result->product_id]['data']['price']* $result->count,
+                $_product[$result->product_id]['data']['price_buy']* $result->count,
+                $result->order_ship_cou,
+                $order_profit
+            ];
+        }
+        $model->detail = $datas;
+        return $this->render('order-excel.edit',['model'=>$model]);
     }
 }

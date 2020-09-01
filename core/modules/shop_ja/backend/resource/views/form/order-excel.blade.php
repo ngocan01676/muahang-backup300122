@@ -23,6 +23,8 @@
         }
     </style>
     <script>
+        let columnsAll = {};
+        let session_id = '{!! \Illuminate\Support\Str::random(20) !!}';
         let config = {
             minDimensions:[27,15],
             tableWidth: '2000px',
@@ -156,8 +158,9 @@
                 return items;
             },
         };
-        let datacache = {!! json_encode($excels_data) !!}
-        let dataproduct = {!! json_encode($products) !!}
+        let datacache = {!! json_encode($excels_data,JSON_UNESCAPED_UNICODE ) !!}
+        let dataproduct = {!! json_encode($products,JSON_UNESCAPED_UNICODE ) !!}
+        let datamodel = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
         function FUKUI() {
             let  sheetName  =  'FUKUI';
             let data = datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[];
@@ -200,7 +203,10 @@
         }
         function YAMADA() {
             let  sheetName  =  'YAMADA';
-            let data = datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[];
+            let data = [];
+
+            data = !datamodel.hasOwnProperty(sheetName) || datamodel[sheetName].length == 0 ?( datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[]): datamodel[sheetName];
+            console.log(data);
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let dropdownFilter = function(instance, cell, c, r, source) {
                 var value = instance.jexcel.getValueFromCoords(c - 1, r);
@@ -209,7 +215,7 @@
                 return source;
             };
             let index = 0;
-
+            let ID = 0;
             let columns = {
                     image:{
                         title:'Image',
@@ -225,7 +231,12 @@
                     },
                     payMethod:{
                         title: '支払区分',//B
-                        type: 'text',
+                        type:'dropdown',
+                        source:[
+                            "代金引換",
+                            "銀行振込",
+                            "決済不要",
+                        ],
                         width:'130px',
                         key:"demo",
                     },
@@ -346,68 +357,69 @@
                         type: 'text',
                         width:'100px',
                         key:"demo",
-                       
+                    },
+                    id:{
+                        title: 'ID',//T
+                        type: 'text',
+                        width:'100px',
                     },
                 };
-                let array1 = []; 
+            columnsAll[sheetName] = columns;
+                let array1 = [];
                 for(var i in columns){
-                   columns[i].title ="[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title;   
+                    columns[i].title ="[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title;
                     columns[i].key = i;
                     columns[i].index = index++;
                     array1.push(columns[i].title);
-                  //  delete columns[i].title;
                 }
-             //   data = [array1].concat(data);
-             //   console.log(Object.values(columns));
             return {
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
-                columns:Object.values(columns),    
+                columns:Object.values(columns),
                 updateTable: function (instance, cell, col, row, val, id) {
                     if (col === 0 && val) {
                         cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
-                         
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
                     if (c == 9) {
-                        let val = parseInt(value); 
+                        let val = parseInt(value);
                         if(val+"" == value){
                             if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([c-1, r]), dropdown[value].data.id);
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([c+1, r]),dropdown[value].data.price);
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([c+2, r]),1);
-                                
+
                                 instance.jexcel.setValue(
                                    jexcel.getColumnNameFromId([c+6, r]),
                                     "="+jexcel.getColumnNameFromId([11, r])+"*"+jexcel.getColumnNameFromId([10, r])
                                 );
 
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([c+7, r]),dropdown[value].data.price_buy);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([c+9, r]), 
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([c+9, r]),
                                 "=IF("+jexcel.getColumnNameFromId([c+1, r])+"='','',"+
                                       jexcel.getColumnNameFromId([c+7, r])+
                                       "-"+jexcel.getColumnNameFromId([c+6, r])+
-                                      
+
                                       "-"+jexcel.getColumnNameFromId([14, r])+
                                       "-"+jexcel.getColumnNameFromId([c+8, r])+")");
 
                             }
                         }
                     }else if(c == 11){
-                        
+
                         let data = {
-                            count:instance.jexcel.getValue(jexcel.getColumnNameFromId([11, r])),  
-                            id:instance.jexcel.getValue(jexcel.getColumnNameFromId([8, r])),  
-                            province:instance.jexcel.getValue(jexcel.getColumnNameFromId([5, r])),  
+                            count:instance.jexcel.getValue(jexcel.getColumnNameFromId([11, r])),
+                            id:instance.jexcel.getValue(jexcel.getColumnNameFromId([8, r])),
+                            province:instance.jexcel.getValue(jexcel.getColumnNameFromId([5, r])),
                         };
 
                         let price = instance.jexcel.getValue(jexcel.getColumnNameFromId([10, r]));
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([15, r]),"="+jexcel.getColumnNameFromId([11, r])+"*"+jexcel.getColumnNameFromId([10, r])
                         );
-                       
+
                         if(data.province.length > 0 ){
                             $.ajax({
                                 type: "POST",
@@ -421,9 +433,9 @@
                         }else{
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([14, r]),-1 );
                         }
-                    } 
+                    }
                 },
-              
+
                 data: data ? data: []
             };
         }
@@ -457,20 +469,32 @@
                     data:{
                         data:JSON.stringify(data),
                         act:"cache",key:key,name:name,'id':'{{isset($model)?$model->id:0}}','type':'{{isset($model)?'edit':'create'}}'} ,
-                    success: function (data) {
-                        console.log(data);
-                        _spreadsheet.classList.remove("cacheAction");
-                    },
+                        success: function (data) {
+                            console.log(data);
+                            _spreadsheet.classList.remove("cacheAction");
+                        },
                 });
             }else{
+                let _columns = [];
+                for(let k in  columnsAll[name] ){
+                    _columns.push(k);
+                }
                 $.ajax({
                     type: "POST",
                     url:"{{ route('backend:shop_ja:order:excel:store') }}",
                     data:{
                         data:JSON.stringify(data),
-                        act:"save",key:key,name:name,'id':'{{isset($model)?$model->id:0}}','type':'{{isset($model)?'edit':'create'}}'} ,
+                        act:"save",
+                        key:key,
+                        name:name,
+
+                        columns:_columns,
+                        'id':'{{isset($model)?$model->id:0}}',
+                        'type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
-                        _spreadsheet.classList.remove("cacheAction");
+                        if(data.hasOwnProperty('url')){
+                            window.location.replace(data.url);
+                        }
                     },
                 });
             }
