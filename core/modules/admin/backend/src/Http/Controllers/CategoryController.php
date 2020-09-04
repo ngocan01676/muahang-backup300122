@@ -175,6 +175,9 @@ class CategoryController extends \Zoe\Http\ControllerBackend
 
         $this->data['nestable'] = $obj_nestable->nestable(config_get("category", $type), 0, true);
 
+
+
+
         $this->data['type'] = $type;
         $this->data['is_slug'] = $is_slug;
         $this->data['views'] = $views;

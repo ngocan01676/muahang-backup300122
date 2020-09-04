@@ -79,7 +79,7 @@
                                         <td class="text-center">
                                             0
                                         </td>
-                                        <td><input data-key="text_start" data-name="data[{!! $key !!}][@INDEX@].text_start"  class="data form-control text_start" placeholder="Giá trị 1" type="text"></td>
+                                        <td><input data-key="value_start" data-name="data[{!! $key !!}][@INDEX@].value_start"  class="data form-control text_start" placeholder="Giá trị 1" type="text"></td>
                                         <td>
                                             @php
                                                 $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
@@ -92,7 +92,7 @@
                                             @endphp
                                             {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal_end','data-key'=>'equal_end','data-name'=>"data[".$key."][@INDEX@].equal_end"]); !!}
                                         </td>
-                                        <td><input data-key="text_end" data-name="data[{!! $key !!}][@INDEX@].text_end"  class="data form-control text_end" placeholder="Giá trị 2" type="text"></td>
+                                        <td><input data-key="value_end" data-name="data[{!! $key !!}][@INDEX@].value_end"  class="data form-control text_end" placeholder="Giá trị 2" type="text"></td>
 
                                         <td>
                                             @php

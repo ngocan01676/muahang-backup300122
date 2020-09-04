@@ -39,6 +39,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
         return false;
     }
+
     public function init()
     {
         $this->data['language'] = config('zoe.language');
@@ -73,14 +74,18 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $model->date_time = $date_time;
                 $model->name =\Illuminate\Support\Str::random(50);
                 $model->admin_id = Auth::user()->id;
-
+                $logs = [];
                 $oke = $model->save();
+
                 foreach ($datas as $name=>$order){
+                    $logs[$name] = [];
+
                     $check =  [
                         'fullname' => 'required',
                         'product_id' => 'required',
                         'count' => 'required',
                     ];
+
                     if($name == "FUKUI"){
                         $check =  [
                             'fullname' => 'required',
@@ -88,10 +93,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             'count' => 'required',
                         ];
                     }
+
                     $columns = [];
+
                     foreach ($order['columns'] as $k=>$v){
                         $columns[$v] = $k;
                     }
+
                     if($name== "YAMADA" || $name == "FUKUI"){
                         try{
                                 foreach ($order['data'] as $key=>$values){
@@ -123,8 +131,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "updated_at"=>$date_time,
                                     ];
                                     $validator = Validator::make($_data,$check);
+
                                     if (!$validator->fails()) {
-                                        $datas[] = $_data;
+                                        $logs[$name][] = $_data;
                                         DB::table('shop_order_excel')->updateOrInsert(
                                             [
                                                 'session_id' => $_data['session_id'],
@@ -137,14 +146,16 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             ],$_data);
                                     }
                                 }
-                                DB::table('shop_order_excel')->where('updated_at','!=',$date_time)->delete();
-                                return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id])]);
+                                DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
                         }catch (\Exception $ex){
                             $datas = ['error'=>$ex->getMessage()];
                         }
                     }
                 }
-                return response()->json($datas);
+                if($oke)
+                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id])]);
+                else
+                    return response()->json($datas);
             }else if($data['act'] == 'ship'){
                 $output = [];
                 if(isset($data['term']) || isset($data['data']['id']) || isset($data['lists']) ){
@@ -162,7 +173,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $results =  DB::table('shop_product')->whereIn('id',$ids )->get()->all();
                     }
                     $category = get_category_type('shop-ja:product:category');
+
                     $category_ship = get_category_type('shop-ja:japan:category:com-ship');
+
                     foreach ($results as $key=>$result){
                         $temp_array = array();
                         $temp_array['value'] = $result->description;
@@ -180,6 +193,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $price_ship = -1;
                         $price_ship_default = -1;
                         $log = [];
+
                         foreach ($ships_category as $k_ship_cate=>$_ship_category){
                             $log[] = $_ship_category;
                             $is_IF_Start = $this->IF_Start($count,$_ship_category);
@@ -190,11 +204,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 $conf  =  $_ship_category->config;
                                 $log[] = $conf;
                                 foreach ($conf as $val){
-
                                     $arr = explode('-',$val['text']);
                                     $log[] = $arr;
                                     $log[] = $data['data']['province'];
-
                                     foreach ($arr as $v){
                                         if($data['data']['province'] == $v){
                                             $confShip[] = [$_ship_category,$val];
@@ -211,13 +223,31 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                               $price_ship = $val[1]['value'];
                           }
                         }
-
                         $ship = isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1";
+                        $_log_ship_cou = [];
+                        $ship_cou = -1;
 
                         foreach ($category_ship as $_val){
                               if($ship == $_val->id){
-                                  $ship =$_val->name;
+                                  $ship = $_val->name;
+                                  foreach ($_val->data as $units){
+                                    foreach ($units as $unit){
+                                        $_unit = (object)$unit;
+                                        $is_IF_Start = $this->IF_Start($count,$_unit);
+                                        $is_IF_End = $this->IF_End($count,$_unit);
+                                        if($is_IF_Start && $is_IF_End){
+                                            $_log_ship_cou[] = $unit;
+                                            $ship_cou = $unit['value'];
+                                        }
+                                    }
+                                   if($ship_cou != -1){
+                                        break;
+                                   }
+                                  }
                               }
+                             if($ship_cou != -1){
+                                break;
+                             }
                         }
                         $temp_array['data'] = [
                             'id'=>$result->id,
@@ -229,6 +259,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             'unit'=>$result->unit,
                             'company'=>isset($category[$result->category_id])?$category[$result->category_id]->name:"empty",
                             'ship'=>$ship,
+                            'ship_cou'=>$ship_cou,
+                            'log_ship_cou'=>$_log_ship_cou,
                             'count'=>$count,
                             'image'=>'image',
                             'price_ship'=> $price_ship!=-1?$price_ship:$price_ship_default,
@@ -240,11 +272,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             '_price_ship'=>$price_ship,
                             'log'=>$log,
                         ];
-
                         $temp_array['hidden'] = [
                             'company'=>isset($category[$result->category_id])?$category[$result->category_id]->id:0,
                             'ship'=>isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1",
                         ];
+
                         $output[] = $temp_array;
                     }
                   }
@@ -326,8 +358,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $order_profit =
                     $_product[$result->product_id]['data']['price_buy']* $result->count - $_product[$result->product_id]['data']['price']* $result->count - $result->order_ship - $result->order_ship_cou;
                 $datas[$result->company][] = [
-                    "",
-                    "0",
+                    $result->order_image,
+                    $result->status,
                     $result->order_create_date,
                     $pay_method,
                     $result->phone,
