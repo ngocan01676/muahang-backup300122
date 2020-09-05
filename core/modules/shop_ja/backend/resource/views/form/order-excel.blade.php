@@ -1872,11 +1872,11 @@
         ];
         let spreadsheet =  document.getElementById('spreadsheet');
         let worksheets = jexcel.tabs(spreadsheet, sheets);
-        @if(!isset($model))
+
         setInterval(function () {
             Save(true);
         },5000);
-        @endif
+
        function Save(status) {
             if(status === true){
                 let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
