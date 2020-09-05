@@ -13,7 +13,7 @@
             {!! Form::radio('status', '1',false) !!} Lập đơn
         </td>
     </tr>
-    <button onclick="Save()"> Lưu </button>
+    <button onclick="Save()" type="button"> Lưu </button>
 </div>
 {!! Form::close() !!}
 @section('extra-script')
