@@ -13,7 +13,8 @@
             {!! Form::radio('status', '1',false) !!} Lập đơn
         </td>
     </tr>
-    <button onclick="Save()" type="button"> Lưu </button>
+    <button onclick="Save()" type="button"> Lưu </button> &nbsp;
+    <button onclick="Export()" type="button"> Export </button>
 </div>
 {!! Form::close() !!}
 @section('extra-script')
@@ -1963,6 +1964,14 @@
                     },
                 });
             }
+       }
+       function Export() {
+           let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+           let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+
+           let data = spreadsheet.jexcel[worksheet].options.data;
+           let name = _spreadsheet.textContent;
+           console.log(data);
        }
     </script>
 @endsection
