@@ -183,8 +183,13 @@
         let datamodel = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
         function FUKUI() {
             let  sheetName  =  'FUKUI';
-            let  data = !datamodel.hasOwnProperty(sheetName) || datamodel[sheetName].length == 0 ?( datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[]): datamodel[sheetName];
-
+            let  data = [];
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
+                data = datacache[sheetName].data;
+                console.log("cache");
+            }else if(datamodel.hasOwnProperty(sheetName)){
+                data = datamodel[sheetName];
+            }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let columns = {
                 image:{
@@ -459,7 +464,12 @@
         function KOGYJA() {
             let  sheetName  =  'KOGYJA';
             let data = [];
-            data = !datamodel.hasOwnProperty(sheetName) || datamodel[sheetName].length == 0 ?( datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[]): datamodel[sheetName];
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
+                data = datacache[sheetName].data;
+                console.log("cache");
+            }else if(datamodel.hasOwnProperty(sheetName)){
+                data = datamodel[sheetName];
+            }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
             let columns = {
@@ -779,7 +789,12 @@
         function KURICHIKU() {
             let  sheetName  =  'KURICHIKU';
             let data = [];
-            data = !datamodel.hasOwnProperty(sheetName) || datamodel[sheetName].length == 0 ?( datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[]): datamodel[sheetName];
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
+                data = datacache[sheetName].data;
+                console.log("cache");
+            }else if(datamodel.hasOwnProperty(sheetName)){
+                data = datamodel[sheetName];
+            }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
             let columns = {
@@ -1048,7 +1063,12 @@
         function OHGA() {
             let  sheetName  =  'OHGA';
             let data = [];
-            data = !datamodel.hasOwnProperty(sheetName) || datamodel[sheetName].length == 0 ?( datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[]): datamodel[sheetName];
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
+                data = datacache[sheetName].data;
+                console.log("cache");
+            }else if(datamodel.hasOwnProperty(sheetName)){
+                data = datamodel[sheetName];
+            }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
             let columns = {
@@ -1346,7 +1366,14 @@
         function YAMADA() {
             let  sheetName  =  'YAMADA';
             let data = [];
-            data = !datamodel.hasOwnProperty(sheetName) || datamodel[sheetName].length == 0 ?( datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[]): datamodel[sheetName];
+
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
+                data = datacache[sheetName].data;
+                console.log("cache");
+            }else if(datamodel.hasOwnProperty(sheetName)){
+                data = datamodel[sheetName];
+            }
+
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
             let columns = {
@@ -1608,7 +1635,12 @@
         function AMAZON() {
             let  sheetName  =  'AMAZON';
             let data = [];
-            data = !datamodel.hasOwnProperty(sheetName) || datamodel[sheetName].length == 0 ?( datacache.hasOwnProperty(sheetName)?datacache[sheetName].data:[]): datamodel[sheetName];
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
+                data = datacache[sheetName].data;
+                console.log("cache");
+            }else if(datamodel.hasOwnProperty(sheetName)){
+                data = datamodel[sheetName];
+            }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
             let columns = {

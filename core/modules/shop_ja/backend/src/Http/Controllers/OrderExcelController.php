@@ -220,14 +220,19 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }
                 }
                 if($oke){
-                    if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
 
+                    if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
+                        foreach ($datas as $name=>$order){
+                            $k = $this->GetToken()."-".Auth::user()->id.':edit:'.$name.':'.$data['id'];
+                            Cache::forget($k);
+                        }
                     }else{
                         foreach ($datas as $name=>$order){
                             $k = $this->GetToken()."-".Auth::user()->id.':create:'.$name.':0';
                             Cache::forget($k);
                         }
                     }
+
                     return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 }
                 else
