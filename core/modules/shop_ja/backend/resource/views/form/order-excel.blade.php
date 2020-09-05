@@ -602,20 +602,45 @@
             }
             console.log(columns);
             function update_count(instance, cell, c, r, value) {
-                let _r = r;
+                let _r1 = r;
                 let _count = 0;
+                let rowInfo = -1;
+                let rowTotal = -1;
                 do{
-                    let _data =  instance.jexcel.getRowData(_r);
-
-                    if(_data[columns.count.index].length > 0 && _data[columns.product_id.index] > 0 && _data[columns.product_name.index].length > 0){
-                        _count+=parseInt(_data[columns.count.index]);
+                    let _data =  instance.jexcel.getRowData(_r1);
+                    if(_data[columns.count.index] > 0 && _data[columns.product_id.index]>0){
+                        _count+= parseInt(_data[columns.count.index]);
                     }
                     if(_data[columns.fullname.index].length > 0){
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, _r]),_count);
+                        rowInfo = _r1;
                         break;
                     }
-                    _r--;
-                }while (_r >= 0)
+                    _r1--;
+                }while (_r1 >= 0);
+                console.log(_count);
+                let _r2 = parseInt(r)+1;
+                console.log(_r2);
+                while (_r2 < instance.jexcel.rows.length){
+                    let _data =  instance.jexcel.getRowData(_r2);
+                    if(_data[columns.count.index] > 0 && _data[columns.product_id.index]>0){
+                        _count+= parseInt(_data[columns.count.index]);
+                    }
+                    if(_data[columns.fullname.index].length > 0){
+                        break;
+                    }
+                    _r2++;
+                }
+                if(rowInfo!==-1){
+                    let v = 0;
+                    if(_count <= 5){
+                        v = 37;
+                    }else if(_count <= 10){
+                        v = 74;
+                    }else if(_count > 10){
+                        v = 142;
+                    }
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, rowInfo]),v);
+                }
             }
             function update(instance, cell, c, r, value) {
                 let data = {
@@ -693,7 +718,10 @@
                             if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
                             else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
                         }
+                        if(value[columns.fullname.index].length > 0 && value[columns.fullname.index]){
+                            console.log("END");
 
+                        }
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
@@ -1869,7 +1897,7 @@
                         'type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
                         if(data.hasOwnProperty('url')){
-                             window.location.replace(data.url);
+                           //  window.location.replace(data.url);
                         }
                     },
                 });

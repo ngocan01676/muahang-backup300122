@@ -92,21 +92,26 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             'product_id' => 'required',
                             'count' => 'required',
                         ];
+                    }else if($name == "KOGYJA"){
+                        $check =  [
+                            'product_id' => 'required',
+                            'count' => 'required',
+                        ];
                     }
-
                     $columns = [];
 
                     foreach ($order['columns'] as $k=>$v){
                         $columns[$v] = $k;
                     }
 
-                    if($name== "YAMADA" || $name == "FUKUI"){
+                    if($name== "KOGYJA"){
                         try{
                                 foreach ($order['data'] as $key=>$values){
                                     $pay_method = 0;
                                     if($values[$columns["payMethod"]] == "代金引換"){
                                         $pay_method = 1;
                                     }
+
                                     $_data = [
                                         "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
                                         "company"=>$name,
@@ -130,8 +135,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                         "updated_at"=>$date_time,
                                     ];
-                                    $validator = Validator::make($_data,$check);
 
+                                    $validator = Validator::make($_data,$check);
                                     if (!$validator->fails()) {
                                         $logs[$name][] = $_data;
                                         DB::table('shop_order_excel')->updateOrInsert(
@@ -150,10 +155,62 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }catch (\Exception $ex){
                             $datas = ['error'=>$ex->getMessage()];
                         }
+                    }else{
+                        try{
+
+                            foreach ($order['data'] as $key=>$values){
+                                $pay_method = 0;
+                                if($values[$columns["payMethod"]] == "代金引換"){
+                                    $pay_method = 1;
+                                }
+
+                                $_data = [
+                                    "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
+                                    "company"=>$name,
+                                    "session_id"=>$model->id,
+                                    "admin_id"=>$model->admin_id,
+                                    "fullname"=>isset($columns["fullname"])?$values[$columns["fullname"]]:"",
+                                    "address"=> isset($columns["address"])?$values[$columns["address"]]:"",
+                                    "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
+                                    "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
+                                    "province"=>isset($columns["province"])?$values[$columns["province"]]:"",
+                                    "pay_method"=>$pay_method,
+                                    "product_id"=>isset($columns["product_id"])?$values[$columns["product_id"]]:"0",
+                                    "count"=>isset($columns["count"])?$values[$columns["count"]]:0,
+                                    "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
+                                    "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
+                                    "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
+                                    "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:0),
+                                    "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:0),
+                                    "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:0,
+                                    "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
+                                    "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
+                                    "updated_at"=>$date_time,
+                                ];
+
+                                $validator = Validator::make($_data,$check);
+                                if (!$validator->fails()) {
+                                    $logs[$name][] = $_data;
+                                    DB::table('shop_order_excel')->updateOrInsert(
+                                        [
+                                            'session_id' => $_data['session_id'],
+                                            'admin_id' => $_data['admin_id'],
+                                            'fullname'=>$_data['fullname'],
+                                            "company"=>$_data["company"],
+                                            "zipcode"=>$_data["zipcode"],
+                                            "phone"=>$_data["phone"],
+                                            "province"=>$_data["province"],
+                                        ],$_data);
+                                }
+                            }
+                            DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
+                        }catch (\Exception $ex){
+                            $datas = ['error'=>$ex->getMessage()];
+                        }
                     }
                 }
                 if($oke)
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id])]);
+                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 else
                     return response()->json($datas);
             }else if($data['act'] == 'ship'){
