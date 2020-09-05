@@ -74,7 +74,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $date_time = date('Y-m-d H:i:s');
                 $model->date_time = $date_time;
                 $model->name =\Illuminate\Support\Str::random(50);
-                
+
                 $model->status =  $data['info']['status'];
 
                 $logs = [];
