@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Event;
 use \ShopJa\Http\Models\OrderExcelModel;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 class OrderExcelController extends \Zoe\Http\ControllerBackend
 {
     private function IF_End($val,$conf){
@@ -39,7 +41,15 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
         return false;
     }
-
+    private function GetToken(){
+        if(Cookie::has('token_order')){
+            $token = Cookie::get('token_order');
+        }else{
+            $token = rand();
+            Cookie::queue('token_order', $token, 60*1000);
+        }
+        return $token;
+    }
     public function init()
     {
         $this->data['language'] = config('zoe.language');
@@ -57,7 +67,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $data = $request->all();
         if(isset($data['act'])){
             if($data['act'] == "cache"){
-                $k = Auth::user()->id.':'.$data['type'].':'.$data['name'].':'.$data['id'];
+                $k = $this->GetToken()."-".Auth::user()->id.':'.$data['type'].':'.$data['name'].':'.$data['id'];
                 if(Cache::put($k,$data['data'] , 60*60*2)){
                     return response()->json(['key'=>$k,'data'=>json_decode(Cache::get($k),true)]);
                 }
@@ -85,20 +95,16 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                     $check =  [
                         'fullname' => 'required',
-                        'product_id' => 'required',
-                        'count' => 'required',
                     ];
 
                     if($name == "FUKUI"){
                         $check =  [
                             'fullname' => 'required',
-                            'product_id' => 'required',
-                            'count' => 'required',
+
                         ];
                     }else if($name == "KOGYJA"){
                         $check =  [
-                            'product_id' => 'required',
-                            'count' => 'required',
+
                         ];
                     }
                     $columns = [];
@@ -126,8 +132,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
                                         "province"=>isset($columns["province"])?$values[$columns["province"]]:"",
                                         "pay_method"=>$pay_method,
-                                        "product_id"=>isset($columns["product_id"])?$values[$columns["product_id"]]:"0",
-                                        "count"=>isset($columns["count"])?$values[$columns["count"]]:0,
+                                        "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:"0"),
+                                        "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:0),
                                         "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
                                         "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
                                         "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
@@ -178,8 +184,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
                                     "province"=>isset($columns["province"])?$values[$columns["province"]]:"",
                                     "pay_method"=>$pay_method,
-                                    "product_id"=>isset($columns["product_id"])?$values[$columns["product_id"]]:"0",
-                                    "count"=>isset($columns["count"])?$values[$columns["count"]]:0,
+                                    "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:"0"),
+                                    "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:0),
                                     "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
                                     "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
                                     "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
@@ -208,7 +214,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             }
                             DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
                         }catch (\Exception $ex){
-                            $datas = ['error'=>$ex->getMessage()];
+
+                            $logs[$name][] = $ex->getMessage();
                         }
                     }
                 }
@@ -217,7 +224,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                     }else{
                         foreach ($datas as $name=>$order){
-                            $k = Auth::user()->id.':create:'.$name.':0';
+                            $k = $this->GetToken()."-".Auth::user()->id.':create:'.$name.':0';
                             Cache::forget($k);
                         }
                     }
@@ -418,7 +425,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }
         }
         foreach ($names as $name){
-            $key = Auth::guard()->user()->id.':'.$type.':'.$name;
+            $key = $this->GetToken()."-".Auth::guard()->user()->id.':'.$type.':'.$name;
             $k = $key.':'.$id;
             if(Cache::has($k)){
                 $val = Cache::get($k);
@@ -437,7 +444,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             ];
         }
     }
-    public function create(){
+    public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
         $this->GetCache('create',0);
         return $this->render('order-excel.create');
@@ -448,75 +455,103 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $model = OrderExcelModel::find($id);
         $results =$model->GetDetails();
         $datas = [];
-
         foreach ($results as $result){
             if(!isset($datas[$result->company])){
                 $datas[$result->company] = [];
             }
-            $_product = $this->data['products'][$result->company];
-            if($result->company == "YAMADA"){
-                $pay_method = "";
-                if($result->pay_method == 1){
-                    $pay_method = "代金引換";
-                }
-                $order_profit =
-                    $_product[$result->product_id]['data']['price_buy']* $result->count - $_product[$result->product_id]['data']['price']* $result->count - $result->order_ship - $result->order_ship_cou;
-                $datas[$result->company][] = [
-                    $result->order_image,
-                    $result->status,
-                    $result->order_create_date,
-                    $pay_method,
-                    $result->phone,
-                    $result->zipcode,
-                    $result->province,
-                    $result->address,
-                    $result->fullname,
-                    $result->product_id,
-                    $result->product_id,
-                    $_product[$result->product_id]['data']['price'],
-                    $result->count,
-                    $result->order_date,
-                    $result->order_hours,
-                    $result->order_ship,
-                    $_product[$result->product_id]['data']['price']* $result->count,
-                    $_product[$result->product_id]['data']['price_buy']* $result->count,
-                    $result->order_ship_cou,
-                    $order_profit,
-                    "","","", $result->id
-                ];
-            }else  if($result->company == "FUKUI"){
-                $pay_method = "";
-                if($result->pay_method == 1){
-                    $pay_method = "代金引換";
-                }
-                $order_profit =
-                    $_product[$result->product_id]['data']['price_buy'] * $result->count -
-                    $_product[$result->product_id]['data']['price']*$result->count -
-                    $result->order_ship - $result->order_ship_cou;
-                $datas[$result->company][] = [
+            if(isset( $this->data['products'][$result->company])){
 
-                    "",
-                    $pay_method,
-                    $result->order_date,
-                    $result->order_hours,
-                    $result->fullname,
-                    $result->zipcode,
-                    $result->province,
-                    $result->address,
-                    $result->phone,
-                    $result->order_ship,
-                    $order_profit,
-                    $_product[$result->product_id]['data']['price_buy'] * $result->count,
-                    $result->product_id,
-                    $result->product_id,
-                    $_product[$result->product_id]['data']['price']* $result->count,
-                    $result->count,
-                    "",
-                    "",
-                    $result->id
-                ];
+                $_product = $this->data['products'][$result->company];
+             if($result->company == "FUKUI"){
+                    $pay_method = "";
+                    if($result->pay_method == 1){
+                        $pay_method = "代金引換";
+                    }
+                    $order_profit= 0;
+                    $price = 0;
+                    $total_price = 0;
+                    $total_price_buy = 0;
+                    if(isset( $_product[$result->product_id]['data']['price_buy'])){
+
+                        $order_profit =
+                            $_product[$result->product_id]['data']['price_buy'] * $result->count -
+                            $_product[$result->product_id]['data']['price']*$result->count -
+                            $result->order_ship - $result->order_ship_cou;
+
+                        $price = $_product[$result->product_id]['data']['price'];
+                        $total_price = $_product[$result->product_id]['data']['price']* $result->count;
+                        $total_price_buy = $_product[$result->product_id]['data']['price_buy']* $result->count;
+                    }
+
+                    $datas[$result->company][] = [
+
+                        "",
+                        $pay_method,
+                        $result->order_date,
+                        $result->order_hours,
+                        $result->fullname,
+                        $result->zipcode,
+                        $result->province,
+                        $result->address,
+                        $result->phone,
+                        $result->order_ship,
+                        $order_profit,
+                        $total_price_buy,
+                        $result->product_id,
+                        $result->product_id,
+                        $total_price,
+                        $result->count,
+                        "",
+                        "",
+                        $result->id
+                    ];
+                }else{
+
+                         $pay_method = "";
+
+                         if($result->pay_method == 1){
+                             $pay_method = "代金引換";
+                         }
+
+                         $order_profit= 0;
+                         $price = 0;
+                         $total_price = 0;
+                         $total_price_buy = 0;
+
+                         if(isset( $_product[$result->product_id]['data']['price_buy'])){
+                             $order_profit = $_product[$result->product_id]['data']['price_buy'] * $result->count - $_product[$result->product_id]['data']['price']* $result->count - $result->order_ship - $result->order_ship_cou;
+                             $price = $_product[$result->product_id]['data']['price'];
+                             $total_price = $_product[$result->product_id]['data']['price']* $result->count;
+                             $total_price_buy = $_product[$result->product_id]['data']['price_buy']* $result->count;
+                         }
+                         $datas[$result->company][] = [
+                             $result->order_image,
+                             $result->status,
+                             $result->order_create_date,
+                             $pay_method,
+                             $result->phone,
+                             $result->zipcode,
+                             $result->province,
+                             $result->address,
+                             $result->fullname,
+                             $result->product_id,
+                             $result->product_id,
+                             $price,
+                             $result->count,
+                             $result->order_date,
+                             $result->order_hours,
+                             $result->order_ship,
+                             $total_price,
+                             $total_price_buy,
+                             $result->order_ship_cou,
+                             $order_profit,
+                             "","","", $result->id
+                         ];
+
+                 }
             }
-        }
+            }
+
 
         $model->detail = $datas;
         return $this->render('order-excel.edit',['model'=>$model]);

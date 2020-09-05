@@ -372,8 +372,11 @@
                             url:"{{ route('backend:shop_ja:order:excel:store') }}",
                             data:{act:'ship',data:data} ,
                             success: function (data) {
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
-                                setInterest(data[0].data.price_ship);
+                                if(data && data.length > 0){
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
+                                    setInterest(data[0].data.price_ship);
+                                }
+
                             },
                         });
                     }
@@ -686,8 +689,10 @@
                             url:"{{ route('backend:shop_ja:order:excel:store') }}",
                             data:{act:'ship',data:data} ,
                             success: function (data) {
+                                if(data && data.length > 0){
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
                                 setInterest(data[0].data.price_ship);
+                                }
                             },
                         });
                     }
@@ -969,11 +974,13 @@
                             url:"{{ route('backend:shop_ja:order:excel:store') }}",
                             data:{act:'ship',data:data} ,
                             success: function (_data) {
-                                let price_ship = _data[0].data.price_ship * data.count;
-                                let order_ship_cou = _data[0].data.ship_cou;
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou);
-                                setInterest(price_ship);
+                                if(_data && _data.length > 0){
+                                    let price_ship = _data[0].data.price_ship * data.count;
+                                    let order_ship_cou = _data[0].data.ship_cou;
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou);
+                                    setInterest(price_ship);
+                                }
                             },
                         });
                     }
@@ -1261,10 +1268,11 @@
                             url:"{{ route('backend:shop_ja:order:excel:store') }}",
                             data:{act:'ship',data:data} ,
                             success: function (data) {
-                                console.log([columns.order_ship.index, r]);
-                                console.log(data[0].data.price_ship);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
-                                setInterest(data[0].data.price_ship);
+                                if(data && data.length > 0){
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
+                                    setInterest(data[0].data.price_ship);
+                                }
+
                             },
                         });
                     }
@@ -1528,8 +1536,11 @@
                             url:"{{ route('backend:shop_ja:order:excel:store') }}",
                             data:{act:'ship',data:data} ,
                             success: function (data) {
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
-                                setInterest(data[0].data.price_ship);
+                                if(data && data.length >0){
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
+                                    setInterest(data[0].data.price_ship);
+                                }
+
                             },
                         });
                     }
@@ -1780,7 +1791,10 @@
                             url:"{{ route('backend:shop_ja:order:excel:store') }}",
                             data:{act:'ship',data:data} ,
                             success: function (data) {
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
+                                if(data && data.length > 0){
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
+                                }
+
                             },
                         });
                     }
@@ -1858,9 +1872,11 @@
         ];
         let spreadsheet =  document.getElementById('spreadsheet');
         let worksheets = jexcel.tabs(spreadsheet, sheets);
+        @if(!isset($model))
         setInterval(function () {
             Save(true);
         },5000);
+        @endif
        function Save(status) {
             if(status === true){
                 let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
