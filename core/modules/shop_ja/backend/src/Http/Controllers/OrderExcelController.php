@@ -313,13 +313,17 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                   $ship = $_val->name;
                                   foreach ($_val->data as $units){
                                     foreach ($units as $unit){
+                                        $_log_ship_cou[] = $unit;
                                         $_unit = (object)$unit;
-                                        $is_IF_Start = $this->IF_Start($count,$_unit);
-                                        $is_IF_End = $this->IF_End($count,$_unit);
-                                        if($is_IF_Start && $is_IF_End){
-                                            $_log_ship_cou[] = $unit;
-                                            $ship_cou = $unit['value'];
+                                        if($_unit){
+                                            $is_IF_Start = $this->IF_Start($count,$_unit);
+                                            $is_IF_End = $this->IF_End($count,$_unit);
+                                            if($is_IF_Start && $is_IF_End){
+
+                                                $ship_cou = $unit['value'];
+                                            }
                                         }
+
                                     }
                                    if($ship_cou != -1){
                                         break;
