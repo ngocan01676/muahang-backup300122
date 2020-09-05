@@ -1490,7 +1490,7 @@
 
             for(var i in columns){
                 columns[i].index = index;
-                columns[i].title ="[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
+                columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
                 columns[i].key = i;
                 index++;
             }
@@ -1749,7 +1749,7 @@
 
             for(var i in columns){
                 columns[i].index = index;
-                columns[i].title ="[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
+                columns[i].title =i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
                 columns[i].key = i;
                 index++;
             }
