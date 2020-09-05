@@ -1,9 +1,21 @@
 <div id="spreadsheet"></div>
-
+@if(isset($model))
+    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
+    {!! Form::hidden('id') !!}
+@else
+    {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
+@endif
 <div>
+    <tr>
+        <td>
+            {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
+            {!! Form::radio('status', '0' , true) !!} Nháp
+            {!! Form::radio('status', '1',false) !!} Lập đơn
+        </td>
+    </tr>
     <button onclick="Save()"> Lưu </button>
 </div>
-
+{!! Form::close() !!}
 @section('extra-script')
     <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js') }}"></script>
     <script src="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.js') }}"></script>
@@ -1885,12 +1897,13 @@
                         columns:_columns
                     };
                 });
-
+                let form_store = $("#form_store");
                 $.ajax({
                     type: "POST",
                     url:"{{ route('backend:shop_ja:order:excel:store') }}",
                     data:{
                         datas:JSON.stringify(datas),
+                        info: form_store.zoe_inputs('get'),
                         act:"save",
 
                         'id':'{{isset($model)?$model->id:0}}',

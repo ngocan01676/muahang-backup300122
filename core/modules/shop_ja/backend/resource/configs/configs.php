@@ -141,6 +141,7 @@
                     'configs.layout'
                 ]
             ],
+
             'module:shop_ja:ship' => [
                 'config' => [
                     'columns' => [
@@ -184,21 +185,65 @@
                     'configs.layout'
                 ]
             ],
+            'module:shop_ja:order:excel' => [
+                'config' => [
+                    'columns' => [
+                        'lists' => [
+                            'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
+                            'name' => ['label' => z_language('Token', false), 'type' => 'title', 'primary' => true],
+                            'UserName' => ['label' => z_language('Người lập', false), 'type' => 'text','callback' => "GetUserName"],
+                            'GetStatus' => ['label' => z_language('Status', false), 'type' => 'status','callback'=>'GetStatus'],
+                            'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
+                            'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date'],
+                        ],
+                    ],
+                    'pagination' => [
+                        'item' => 20,
+                        'router' => [
+                            'edit' => ['label' => z_language('Edit', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
+                            'preview' => ['label' => z_language('Preview', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
+                            'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:shop_ja:order:excel:delete", 'par' => ['id' => 'id']],
+                        ]
+                    ],
+                    'config' => [
+                        "type" => [
+                            'status' => [
+                                'label' => [
+                                    '1' => z_language('Public', false),
+                                    '0' => z_language('UnPublic', false),
+                                ],
+                            ],
+                        ],
+                        "column"=>[
+
+                        ]
+                    ]
+                ],
+                'data' => [
+                    'pagination' => ['item' => 20],
+                    'columns' => ['id', 'title'],
+                    'search' => ['title'],
+                ],
+                'views' => [
+                    'configs.layout'
+                ]
+            ],
+
         ],
             'configs' => [
             'lists'=>[
                 'shop_ja' => [
-                        'view' => [
-                                'post' => [
-                                    'view' => 'blog::configs.post',
-                                    'label' => z_language('Product'),
-                                ],
+                    'view' => [
+                            'post' => [
+                                'view' => 'blog::configs.post',
+                                'label' => z_language('Product'),
                             ],
-                            'label' => z_language("Shop", false),
-                            'data' => [
+                        ],
+                        'label' => z_language("Shop", false),
+                        'data' => [
 
-                            ]
                         ]
+                    ]
             ]
         ],
 

@@ -50,7 +50,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop_ja:order:list'));
+        $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop_ja:order:excel:list'));
         return $this;
     }
     public function store(Request $request){
@@ -68,12 +68,15 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $model = OrderExcelModel::find($data['id']);
                 } else {
                     $model = new OrderExcelModel();
+                    $model->admin_id = Auth::user()->id;
                 }
 
                 $date_time = date('Y-m-d H:i:s');
                 $model->date_time = $date_time;
                 $model->name =\Illuminate\Support\Str::random(50);
-                $model->admin_id = Auth::user()->id;
+                
+                $model->status =  $data['info']['status'];
+
                 $logs = [];
                 $oke = $model->save();
 
@@ -341,8 +344,42 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }
         }
     }
-    public function list(){
+    public function list(Request $request){
+        $this->getcrumb();
+        $filter = $request->query('filter', []);
+        $search = $request->query('search', "");
+        $status = $request->query('status', "");
+        $date = $request->query('date', "");
+        $config = config_get('option', "module:shop_ja:order:excel");
+        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+        $models = DB::table('shop_order_excel_session');
 
+        if(isset($filter['fullname'])){
+            $models->where('fullname', 'like', '%' . $filter['code']);
+        }
+
+        if (!empty($status) || $status != "") {
+            $models->where('status', $status);
+        }
+        $models->orderBy('id', 'desc');
+        return $this->render('order-excel.list', [
+            'models' => $models->paginate($item),
+            'callback' => [
+                "GetUserName" => function ($model){
+                    $rs = DB::table('admin as t')->where('id', $model->admin_id)->get('username');
+                    return $rs && count($rs) > 0 ? $rs[0]->username : "Empty";
+                },
+                "GetStatus"=>function($model){
+                    if($model->status == 0){
+                        return z_language('Bản nháp');
+                    }else if($model->status == 1){
+                        return z_language('Lập đơn');
+                    }else if($model->status == 2){
+                        return z_language('Đã hoàn thành');
+                    }
+                }
+            ],
+        ]);
     }
     private function GetCache($type,$id){
         $this->data['excels_data'] = [
@@ -392,11 +429,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
     }
     public function create(){
+        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
         $this->GetCache('create',0);
         return $this->render('order-excel.create');
     }
     public function edit($id){
-
+        $this->getCrumb()->breadcrumb(z_language("Sửa"), route('backend:shop_ja:order:excel:create'));
         $this->GetCache('edit',$id);
         $model = OrderExcelModel::find($id);
         $results =$model->GetDetails();
