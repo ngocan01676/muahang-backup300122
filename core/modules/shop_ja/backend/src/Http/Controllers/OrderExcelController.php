@@ -406,6 +406,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             ],
         ]);
     }
+    public function export(Request $request){
+        return $this->render('order-excel.export');
+    }
     private function GetCache($type,$id){
         $this->data['excels_data'] = [
 

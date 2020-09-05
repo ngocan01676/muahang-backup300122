@@ -219,6 +219,9 @@ return [
                         "url" => "/delete/{id}",
                         "method" => ['post'],
                     ],
+                    "export" => [
+                        "url" => "/export"
+                    ],
                     "store" => [
                         "url" => "/store",
                         "method" => ['post'],
