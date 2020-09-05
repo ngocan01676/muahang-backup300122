@@ -1910,7 +1910,7 @@
                         'type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
                         if(data.hasOwnProperty('url')){
-                           //  window.location.replace(data.url);
+                             window.location.replace(data.url);
                         }
                     },
                 });
