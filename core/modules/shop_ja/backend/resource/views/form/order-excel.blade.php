@@ -1776,7 +1776,9 @@
                     data = datacache[sheetName].data.data;
                 }
             }
+
             if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
+
                 data = datamodel[sheetName];
             }
 
