@@ -171,6 +171,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 $pay_method = 0;
                                 if($values[$columns["payMethod"]] == "代金引換"){
                                     $pay_method = 1;
+                                }else  if($values[$columns["payMethod"]] == "銀行振込"){
+                                    $pay_method = 2;
+                                }else  if($values[$columns["payMethod"]] == "決済不要"){
+                                    $pay_method = 3;
                                 }
 
                                 $_data = [
@@ -475,10 +479,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                 $_product = $this->data['products'][$result->company];
              if($result->company == "FUKUI"){
-                    $pay_method = "";
-                    if($result->pay_method == 1){
-                        $pay_method = "代金引換";
-                    }
+                 if($result->pay_method == 1){
+                     $pay_method = "代金引換";
+                 }else  if($result->pay_method == 2){
+                     $pay_method = "銀行振込";
+                 }else if($result->pay_method == 3){
+                     $pay_method = "決済不要";
+                 }
                     $order_profit= 0;
                     $price = 0;
                     $total_price = 0;
@@ -520,11 +527,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 }else{
 
                          $pay_method = "";
-
                          if($result->pay_method == 1){
                              $pay_method = "代金引換";
+                         }else  if($result->pay_method == 2){
+                             $pay_method = "銀行振込";
+                         }else if($result->pay_method == 3){
+                             $pay_method = "決済不要";
                          }
-
                          $order_profit= 0;
                          $price = 0;
                          $total_price = 0;
@@ -563,8 +572,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                  }
             }
             }
-
-
         $model->detail = $datas;
         return $this->render('order-excel.edit',['model'=>$model]);
     }
