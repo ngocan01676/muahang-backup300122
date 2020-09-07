@@ -2417,11 +2417,11 @@
         }
         var sheets = [
             Object.assign(AMAZON(config),config ),
-            // Object.assign(FUKUI(config),config),
-            // Object.assign(KOGYJA(config),config),
-            // Object.assign(KURICHIKU(config),config),
-            // Object.assign(OHGA(config),config),
-            // Object.assign(YAMADA(config),config ),
+            Object.assign(FUKUI(config),config),
+            Object.assign(KOGYJA(config),config),
+            Object.assign(KURICHIKU(config),config),
+            Object.assign(OHGA(config),config),
+            Object.assign(YAMADA(config),config ),
 
         ];
         let spreadsheet =  document.getElementById('spreadsheet');
