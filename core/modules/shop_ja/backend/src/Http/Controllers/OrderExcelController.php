@@ -68,7 +68,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         if(isset($data['act'])){
             if($data['act'] == "cache"){
                 $k = $this->GetToken()."-".Auth::user()->id.':'.$data['type'].':'.$data['name'].':'.$data['id'];
-                if(Cache::put($k,$data['data'] , 60*60*2)){
+                if(Cache::put($k,$data['data'] , 60*60*20)){
                     return response()->json(['key'=>$k,'data'=>json_decode(Cache::get($k),true)]);
                 }
             }else if($data['act'] == "save"){
@@ -92,11 +92,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                 foreach ($datas as $name=>$order){
                     $logs[$name] = [];
-
                     $check =  [
                         'fullname' => 'required',
                     ];
-
                     if($name == "FUKUI"){
                         $check =  [
                             'fullname' => 'required',
@@ -237,7 +235,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                     }
 
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
+                    return response()->json(['id'=>$model->id,'url1'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 }
                 else
                     return response()->json($datas);
@@ -440,6 +438,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 ];
             }
         }
+
         foreach ($names as $name){
             $key = $this->GetToken()."-".Auth::guard()->user()->id.':'.$type.':'.$name;
             $k = $key.':'.$id;

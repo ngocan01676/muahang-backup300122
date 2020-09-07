@@ -70,9 +70,9 @@
             }
 
             var y = utc ? date.getUTCFullYear() : date.getFullYear();
-            format = format.replace(/(^|[^\\])yyyy+/g, "$1" + y);
-            format = format.replace(/(^|[^\\])yy/g, "$1" + y.toString().substr(2, 2));
-            format = format.replace(/(^|[^\\])y/g, "$1" + y);
+            format = format.replace(/(^|[^\\])YYYY+/g, "$1" + y);
+            format = format.replace(/(^|[^\\])YY/g, "$1" + y.toString().substr(2, 2));
+            format = format.replace(/(^|[^\\])Y/g, "$1" + y);
 
             var M = (utc ? date.getUTCMonth() : date.getMonth()) + 1;
             format = format.replace(/(^|[^\\])MMMM+/g, "$1" + MMMM[0]);
@@ -81,10 +81,10 @@
             format = format.replace(/(^|[^\\])M/g, "$1" + M);
 
             var d = utc ? date.getUTCDate() : date.getDate();
-            format = format.replace(/(^|[^\\])dddd+/g, "$1" + dddd[0]);
-            format = format.replace(/(^|[^\\])ddd/g, "$1" + ddd[0]);
-            format = format.replace(/(^|[^\\])dd/g, "$1" + ii(d));
-            format = format.replace(/(^|[^\\])d/g, "$1" + d);
+            format = format.replace(/(^|[^\\])DDDD+/g, "$1" + dddd[0]);
+            format = format.replace(/(^|[^\\])DDD/g, "$1" + ddd[0]);
+            format = format.replace(/(^|[^\\])DD/g, "$1" + ii(d));
+            format = format.replace(/(^|[^\\])D/g, "$1" + d);
 
             var H = utc ? date.getUTCHours() : date.getHours();
             format = format.replace(/(^|[^\\])HH+/g, "$1" + ii(H));
@@ -302,31 +302,33 @@
                     }
 
                     if(self != null){
-
                         if(self.hasOwnProperty(columns[i].value[2])){
                             let v = self[columns[i].value[2]];
-
-                            if(columns[i].value.length > 3){
-                                v = v[columns[i].value[3]];
+                            if(v){
+                                if(columns[i].value.length > 3){
+                                    v = v[columns[i].value[3]];
+                                }
+                                if(v && columns[i].value.length > 4){
+                                    v = v[columns[i].value[4]];
+                                }
+                                if(v && columns[i].value.length > 5){
+                                    v = v[columns[i].value[5]];
+                                }
+                                if(v)
+                                    return [true,v];
                             }
 
-                            if(columns[i].value.length > 4){
-                                v = v[columns[i].value[4]];
-                            }
-                            if(columns[i].value.length > 5){
-                                v = v[columns[i].value[5]];
-                            }
-
-                            return [true,v];
                         }
                     }
                 }else  if(columns[i].value[0] === "date"){
                     //['date','this','options','format'],
+                    console.log(columns[i].value);
                     self = columns[i];
                     if(self != null){
+                        console.log(self);
                         if(self.hasOwnProperty('options') && self.options.hasOwnProperty('format')){
-                            console.log(formatDate(new Date(), "dddd h:mmtt d MMM yyyy"));
-                            return [true,""];
+                            console.log(formatDate(new Date(), self.options.format));
+                            return [true,formatDate(new Date(), self.options.format)];
                         }
                     }
                 }
@@ -401,6 +403,8 @@
                     type:'calendar',
                     options: { format:'DD/MM/YYYY' },
                     width:'100px',
+
+                    value:['date','now']
                 },
                 order_hours:{
                     title: '配送希望時間帯',//M Giờ nhận
@@ -521,6 +525,8 @@
                 let v = setDefaultValue(i,columns);
                 if(v[0]){
                     columns[i].value = v[1];
+                }else{
+                    delete columns[i].value;
                 }
 
 
@@ -648,7 +654,7 @@
 
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(vvv === 1){
+                        if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
 
@@ -686,7 +692,7 @@
                         let v = getValuePayMethod(value);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(v === 1){
+                        if(v === 2){
                             parent.addClass('pay-method-oke');
                         }
                     }
@@ -723,7 +729,8 @@
                     title: '注文日',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
-                    key:"demo",
+                    options: { format:'DD/MM/YYYY' },
+                    value:['date','now']
                 },
                 payMethod:{
                     title: '支払区分',//B Phương thức thanh toán
@@ -734,13 +741,13 @@
                         "決済不要",
                     ],
                     width:'130px',
-                    key:"demo",
+                    value:['product','this','source',0],
                 },
                 phone:{
                     title: '配送先電話番号',//C Số điện thoại
                     type: 'text',
                     width:'100px',
-                    key:"demo",
+                    value:"070-1398-2234",
                 },
                 zipcode:{
                     title: '配送先郵便番号',//D Mã bưu điện
@@ -769,7 +776,7 @@
                 product_id:{
                     title: '品番',//H Mã SP
                     type: 'text',
-                    width:'100px',
+                    value:['product','product_name','source',0,'id'],
                 },
                 product_name:{
                     title: '商品名',//I Tên SP
@@ -777,33 +784,33 @@
                     source:Object.values(dropdown),
                     autocomplete:true,
                     width:'100px',
-                    key:"demo",
+                    value:['product','product_name','source',0,'id'],
                 },
                 price:{
                     title: '単価',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                    value:['product','product_name','source',0,'data','price'],
                 },
                 count:{
                     title: '数量',//K SL
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                   value:1
                 },
                 order_date:{
                     title: '到着希望日',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY' },
                     width:'100px',
-                    key:"demo",
+                    value:['date','now'],
                 },
                 order_hours:{
                     title: '配送希望時間帯',//M Giờ nhận
                     type: 'dropdown',
                     source:['14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     width:'150px',
-                    key:"demo",
+                    value:['product','this','source',3],
                 },
                 order_ship:{
                     title: '別途送料',//N Phí ship
@@ -859,9 +866,15 @@
                 columns[i].index = index;
                 columns[i].title =i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
                 columns[i].key = i;
+                let v = setDefaultValue(i,columns);
+                if(v[0]){
+                    columns[i].value = v[1];
+                }else{
+                    delete columns[i].value;
+                }
                 index++;
             }
-            console.log(columns);
+
             function update_count(instance, cell, c, r, value) {
                 let _r1 = r;
                 let _count = 0;
@@ -949,11 +962,13 @@
                 }
             }
             let columns_index = Object.values(columns);
+            let _data = InitData(data,config,columns_index);
             return {
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
                 columns:columns_index,
+                data: _data,
                 onselection:function (instance, x1, y1, x2, y2, origin) {
                     var cellName1 = jexcel.getColumnNameFromId([x1, y1]);
                     let val = instance.jexcel.getValue(cellName1);
@@ -1011,7 +1026,7 @@
 
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(vvv === 1){
+                        if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
                     }
@@ -1050,12 +1065,12 @@
                         let v = getValuePayMethod(value);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(v === 1){
+                        if(v === 2){
                             parent.addClass('pay-method-oke');
                         }
                     }
                 },
-                data: data ? data: []
+
             };
         }
         function KURICHIKU() {
@@ -1084,7 +1099,8 @@
                     title: '注文日',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
-                    key:"demo",
+                    options: { format:'DD/MM/YYYY' },
+                    value:['date','now']
                 },
                 payMethod:{
                     title: '支払区分',//B Phương thức thanh toán
@@ -1095,13 +1111,13 @@
                         "決済不要",
                     ],
                     width:'130px',
-                    key:"demo",
+                    value:['product','this','source',0],
                 },
                 phone:{
                     title: '配送先電話番号',//C Số điện thoại
                     type: 'text',
                     width:'100px',
-                    key:"demo",
+                    value:"070-1398-2234"
                 },
                 zipcode:{
                     title: '配送先郵便番号',//D Mã bưu điện
@@ -1131,6 +1147,7 @@
                     title: '品番',//H Mã SP
                     type: 'text',
                     width:'100px',
+                    value:['product','product_name','source',0,'id'],
                 },
                 product_name:{
                     title: '商品名',//I Tên SP
@@ -1138,33 +1155,33 @@
                     source:Object.values(dropdown),
                     autocomplete:true,
                     width:'100px',
-                    key:"demo",
+                    value:['product','product_name','source',0,'id'],
                 },
                 price:{
                     title: '単価',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                    value:['product','product_name','source',0,'data','price'],
                 },
                 count:{
                     title: '数量',//K SL
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                    value:"1",
                 },
                 order_date:{
                     title: '到着希望日',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY' },
                     width:'100px',
-                    key:"demo",
+                    value:['date','now']
                 },
                 order_hours:{
                     title: '配送希望時間帯',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     width:'150px',
-                    key:"demo",
+                    value:['product','this','source',4]
                 },
                 order_ship:{
                     title: '別途送料',//N Phí ship
@@ -1226,9 +1243,15 @@
                 columns[i].index = index;
                 columns[i].title =i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
                 columns[i].key = i;
+                let v = setDefaultValue(i,columns);
+                if(v[0]){
+                    columns[i].value = v[1];
+                }else{
+                    delete columns[i].value;
+                }
                 index++;
             }
-            console.log(columns);
+
             function update(instance, cell, c, r, value) {
 
 
@@ -1282,11 +1305,14 @@
                 }
             }
             let columns_index = Object.values(columns);
+
+            let _data = InitData(data,config,columns_index);
             return {
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
                 columns:columns_index,
+                data:_data,
                 onselection:function (instance, x1, y1, x2, y2, origin) {
                     var cellName1 = jexcel.getColumnNameFromId([x1, y1]);
                     let val = instance.jexcel.getValue(cellName1);
@@ -1337,7 +1363,7 @@
 
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(vvv === 1){
+                        if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
                     }
@@ -1366,12 +1392,12 @@
                         let v = getValuePayMethod(value);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(v === 1){
+                        if(v === 2){
                             parent.addClass('pay-method-oke');
                         }
                     }
                 },
-                data: data ? data: []
+
             };
         }
         function OHGA() {
@@ -1400,7 +1426,8 @@
                     title: '注文日',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
-                    key:"demo",
+                    options: { format:'DD/MM/YYYY' },
+                    value:['date','now']
                 },
                 payMethod:{
                     title: '支払区分',//B Phương thức thanh toán
@@ -1472,9 +1499,10 @@
                 order_date:{
                     title: '到着希望日',//L Ngày nhận
                     type:'calendar',
-                    options: { format:'DD/MM/YYYY',today:0 },
+                    options: { format:'DD/MM/YYYY'},
                     width:'100px',
 
+                    value:['date','now']
                 },
                 order_hours:{
                     title: '配送希望時間帯',//M Giờ nhận
@@ -1542,6 +1570,8 @@
                 let v = setDefaultValue(i,columns);
                 if(v[0]){
                     columns[i].value = v[1];
+                }else{
+                    delete columns[i].value;
                 }
                 index++;
             }
@@ -1679,7 +1709,7 @@
 
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(vvv === 1){
+                        if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
 
@@ -1713,7 +1743,7 @@
                         let v = getValuePayMethod(value);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(v === 1){
+                        if(v === 2){
                             parent.addClass('pay-method-oke');
                         }
                     }
@@ -1750,7 +1780,8 @@
                     title: '注文日',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
-                    key:"demo",
+                    options: { format:'DD/MM/YYYY' },
+                    value:['date','now']
                 },
                 payMethod:{
                     title: '支払区分',//B Phương thức thanh toán
@@ -1767,7 +1798,7 @@
                     title: '配送先電話番号',//C Số điện thoại
                     type: 'text',
                     width:'100px',
-                    key:"demo",
+                    value:"070-1398-2234",
                 },
                 zipcode:{
                     title: '配送先郵便番号',//D Mã bưu điện
@@ -1823,10 +1854,10 @@
                 order_date:{
                     title: '到着希望日',//L Ngày nhận
                     type:'calendar',
-                    options: { format:'DD/MM/YYYY',today:0 },
+                    options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
                     width:'100px',
-                    key:"demo",
+
                 },
                 order_hours:{
                     title: '配送希望時間帯',//M Giờ nhận
@@ -1890,6 +1921,7 @@
                     width:'100px',
                 },
             };
+
             columnsAll[sheetName] = columns;
 
             for(var i in columns){
@@ -1899,6 +1931,8 @@
                 let v = setDefaultValue(i,columns);
                 if(v[0]){
                     columns[i].value = v[1];
+                }else{
+                    delete columns[i].value;
                 }
                 index++;
             }
@@ -1948,9 +1982,9 @@
                 }
             }
             let columns_index = Object.values(columns);
-            console.log(data);
+
             let _data = InitData(data,config,columns_index);
-            console.log(_data);
+
             return {
                 sheetName:sheetName,
                 rowResize:true,
@@ -2023,7 +2057,7 @@
 
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(vvv === 1){
+                        if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
                     }
@@ -2052,7 +2086,7 @@
                         let v = getValuePayMethod(value);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(v === 1){
+                        if(v === 2){
                             parent.addClass('pay-method-oke');
                         }
                     }
@@ -2063,14 +2097,16 @@
         function AMAZON() {
             let  sheetName  =  'AMAZON';
             let data = [];
+
             if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
                 data = datacache[sheetName].data;
-                console.log("cache");
+                console.log(data);
             }else if(datamodel.hasOwnProperty(sheetName)){
                 data = datamodel[sheetName];
             }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -2086,7 +2122,8 @@
                     title: '注文日',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
-                    key:"demo",
+                    options: { format:'DD/MM/YYYY' },
+                    value:['date','now']
                 },
                 payMethod:{
                     title: '支払区分',//B Phương thức thanh toán
@@ -2097,13 +2134,13 @@
                         "決済不要",
                     ],
                     width:'130px',
-                    key:"demo",
+                    value:['product','this','source',0],
                 },
                 phone:{
                     title: '配送先電話番号',//C Số điện thoại
                     type: 'text',
                     width:'100px',
-                    key:"demo",
+                    value:"070-1398-2234",
                 },
                 zipcode:{
                     title: '配送先郵便番号',//D Mã bưu điện
@@ -2134,38 +2171,41 @@
                     type: 'text',
                     width:'100px',
                     read:true,
+                    value:['product','product_name','source',0,'id'],
                 },
                 product_name:{
                     title: '商品名',//I Tên SP
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
-                    width:'100px',
-                    key:"demo",
+                    width:'140px',
+                    value:['product','this','source',0,'id']
                 },
                 price:{
                     title: '単価',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                    value:['product','product_name','source',0,'data','price'],
                 },
                 count:{
                     title: '数量',//K SL
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                    value:1
                 },
                 order_date:{
                     title: '到着希望日',//L Ngày nhận
                     type:'calendar',
-                    options: { format:'DD/MM/YYYY' },
+                    options: { format:'DD/MM/YYYY'},
+                    value:['date','now'],
                     width:'100px',
-                    key:"demo",
+
                 },
                 order_hours:{
                     title: '配送希望時間帯',//M Giờ nhận
                     type: 'dropdown',
-                    source:['14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
+                    source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
+                    value:"19:00～21:00",
                     width:'150px',
                     key:"demo",
                 },
@@ -2179,13 +2219,13 @@
                     title: '仕入金額',//O Tổng giá nhập
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                    value:['product','product_name','source',0,'data','price'],
                 },
                 order_total_price_buy:{
                     title: '代引き請求金額',//P Giá bán
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                    value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_ship_cou:{
                     title: '代引き手数料',//P Phí giao hàng
@@ -2211,21 +2251,35 @@
                     width:'100px',
                     key:"demo",
                 },
+                order_info:{
+                    title: '振込み情報',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                    key:"demo",
+                },
                 id:{
                     title: 'ID',//T
                     type: 'text',
                     width:'100px',
                 },
             };
+
             columnsAll[sheetName] = columns;
 
             for(var i in columns){
                 columns[i].index = index;
                 columns[i].title =i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
                 columns[i].key = i;
+                let v = setDefaultValue(i,columns);
+                console.log(v);
+                if(v[0]){
+                    columns[i].value = v[1];
+                }else{
+                    delete columns[i].value;
+                }
                 index++;
             }
-            console.log(columns);
+
             function update(instance, cell, c, r, value) {
                 let data = {
                     count:value.hasOwnProperty('count')?value.count:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r])),
@@ -2263,12 +2317,17 @@
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),-1 );
                 }
             }
+
             let columns_index = Object.values(columns);
+
+            let _data = InitData(data,config,columns_index);
+
             return {
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
                 columns:columns_index,
+                data: _data,
                 onselection:function (instance, x1, y1, x2, y2, origin) {
                     var cellName1 = jexcel.getColumnNameFromId([x1, y1]);
                     let val = instance.jexcel.getValue(cellName1);
@@ -2287,7 +2346,6 @@
                         $("#value-review").show().val(val).focus();
                     }
                 },
-
                 updateTable: function (instance, cell, col, row, val, id) {
                     let c = parseInt(col);
                     if (c === columns.image.index && val.length>0) {
@@ -2318,7 +2376,7 @@
 
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(vvv === 1){
+                        if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
 
@@ -2349,22 +2407,21 @@
                         let v = getValuePayMethod(value);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
                         parent.removeClass('pay-method-oke');
-                        if(v === 1){
+                        if(v === 2){
                             parent.addClass('pay-method-oke');
                         }
                     }
                 },
 
-                data: data ? data: []
             };
         }
         var sheets = [
             Object.assign(AMAZON(config),config ),
-            Object.assign(FUKUI(config),config),
-            Object.assign(KOGYJA(config),config),
-            Object.assign(KURICHIKU(config),config),
-            Object.assign(OHGA(config),config),
-            Object.assign(YAMADA(config),config ),
+            // Object.assign(FUKUI(config),config),
+            // Object.assign(KOGYJA(config),config),
+            // Object.assign(KURICHIKU(config),config),
+            // Object.assign(OHGA(config),config),
+            // Object.assign(YAMADA(config),config ),
 
         ];
         let spreadsheet =  document.getElementById('spreadsheet');

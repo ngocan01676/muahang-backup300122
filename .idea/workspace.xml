@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/zoecms.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/zoecms.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
@@ -20,13 +16,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="350" column="34" lean-forward="true" selection-start-line="350" selection-start-column="34" selection-end-line="350" selection-end-column="34" />
+            <state relative-caret-position="324">
+              <caret line="2099" selection-start-line="2099" selection-end-line="2099" />
               <folding>
                 <element signature="e#2906#7982#0#HTML" />
+                <element signature="e#8272#8296#0#HTML" />
+                <element signature="e#9550#9574#0#HTML" />
+                <element signature="e#8283#25197#0#HTML" />
                 <element signature="e#14885#17905#0#HTML" />
                 <element signature="e#16376#22275#0#HTML" />
                 <element signature="e#16552#16592#0#HTML" />
@@ -36,21 +35,36 @@
                 <element signature="e#20433#20453#0#HTML" />
                 <element signature="e#20495#20515#0#HTML" />
                 <element signature="e#20585#20662#0#HTML" />
+                <element signature="e#22339#38493#0#HTML" />
+                <element signature="e#28093#29763#0#HTML" />
+                <element signature="e#29821#32459#0#HTML" />
+                <element signature="e#32750#33739#0#HTML" />
+                <element signature="e#33815#36216#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#36281#38429#0#HTML" />
                 <element signature="e#38523#52520#0#HTML" />
+                <element signature="e#44500#47446#0#HTML" />
+                <element signature="e#47737#48726#0#HTML" />
+                <element signature="e#48802#50752#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#50817#52456#0#HTML" />
                 <element signature="e#52545#67369#0#HTML" />
                 <element signature="e#58275#62163#0#HTML" />
                 <element signature="e#62454#63443#0#HTML" />
                 <element signature="e#63519#65471#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#65536#67304#0#HTML" />
+                <element signature="e#67396#81659#0#HTML" />
+                <element signature="e#67875#72971#0#HTML" />
                 <element signature="e#73332#75973#0#HTML" />
                 <element signature="e#77954#79891#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#79956#81595#0#HTML" />
-                <element signature="e#81686#94889#0#HTML" />
+                <element signature="e#92285#97774#0#HTML" />
+                <element signature="e#87465#89850#0#HTML" />
+                <element signature="e#91167#93119#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#93184#94824#0#HTML" />
               </folding>
             </state>
           </provider>
@@ -59,8 +73,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="978">
-              <caret line="572" column="13" lean-forward="true" selection-start-line="572" selection-start-column="13" selection-end-line="572" selection-end-column="13" />
+            <state relative-caret-position="54">
+              <caret line="420" column="28" lean-forward="true" selection-start-line="420" selection-start-column="28" selection-end-line="420" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/helper.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="413" column="9" selection-start-line="413" selection-start-column="9" selection-end-line="413" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -72,9 +95,11 @@
       <find>getvalue</find>
       <find>onselection</find>
       <find>jSuites.dropdown($html[0]</find>
-      <find>getValuePayMethod</find>
-      <find>setDefaultValue</find>
       <find>InitData</find>
+      <find>銀行振込</find>
+      <find>getValuePayMethod</find>
+      <find>pay-method-oke</find>
+      <find>setDefaultValue</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -83,8 +108,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
       </list>
     </option>
   </component>
@@ -371,12 +396,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1599447062173</updated>
-      <workItem from="1599447064346" duration="20004000" />
+      <workItem from="1599447064346" duration="22635000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20004000" />
+    <option name="totallyTimeSpent" value="22635000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -424,19 +449,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="978">
-          <caret line="572" column="13" lean-forward="true" selection-start-line="572" selection-start-column="13" selection-end-line="572" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="350" column="34" lean-forward="true" selection-start-line="350" selection-start-column="34" selection-end-line="350" selection-end-column="34" />
+        <state relative-caret-position="324">
+          <caret line="2099" selection-start-line="2099" selection-end-line="2099" />
           <folding>
             <element signature="e#2906#7982#0#HTML" />
+            <element signature="e#8272#8296#0#HTML" />
+            <element signature="e#9550#9574#0#HTML" />
+            <element signature="e#8283#25197#0#HTML" />
             <element signature="e#14885#17905#0#HTML" />
             <element signature="e#16376#22275#0#HTML" />
             <element signature="e#16552#16592#0#HTML" />
@@ -446,22 +467,51 @@
             <element signature="e#20433#20453#0#HTML" />
             <element signature="e#20495#20515#0#HTML" />
             <element signature="e#20585#20662#0#HTML" />
+            <element signature="e#22339#38493#0#HTML" />
+            <element signature="e#28093#29763#0#HTML" />
+            <element signature="e#29821#32459#0#HTML" />
+            <element signature="e#32750#33739#0#HTML" />
+            <element signature="e#33815#36216#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#36281#38429#0#HTML" />
             <element signature="e#38523#52520#0#HTML" />
+            <element signature="e#44500#47446#0#HTML" />
+            <element signature="e#47737#48726#0#HTML" />
+            <element signature="e#48802#50752#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#50817#52456#0#HTML" />
             <element signature="e#52545#67369#0#HTML" />
             <element signature="e#58275#62163#0#HTML" />
             <element signature="e#62454#63443#0#HTML" />
             <element signature="e#63519#65471#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#65536#67304#0#HTML" />
+            <element signature="e#67396#81659#0#HTML" />
+            <element signature="e#67875#72971#0#HTML" />
             <element signature="e#73332#75973#0#HTML" />
             <element signature="e#77954#79891#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#79956#81595#0#HTML" />
-            <element signature="e#81686#94889#0#HTML" />
+            <element signature="e#92285#97774#0#HTML" />
+            <element signature="e#87465#89850#0#HTML" />
+            <element signature="e#91167#93119#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#93184#94824#0#HTML" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="420" column="28" lean-forward="true" selection-start-line="420" selection-start-column="28" selection-end-line="420" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="413" column="9" selection-start-line="413" selection-start-column="9" selection-end-line="413" selection-end-column="9" />
         </state>
       </provider>
     </entry>
