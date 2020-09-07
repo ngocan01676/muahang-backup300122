@@ -291,6 +291,7 @@
         let datacache = {!! json_encode($excels_data,JSON_UNESCAPED_UNICODE ) !!}
         let dataproduct = {!! json_encode($products,JSON_UNESCAPED_UNICODE ) !!}
         let datamodel = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
+        let token = '{!! isset($model)?$model->token:"" !!}';
         function setDefaultValue(i,columns, max) {
             if(columns[i].hasOwnProperty('value') && typeof(columns[i].value) == "object"){
                 let self = null;
@@ -371,11 +372,14 @@
         }
         function FUKUI(config) {
             let  sheetName  =  'FUKUI';
-            let  data = [];
-            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
-                data = datacache[sheetName].data;
-                console.log("cache");
-            }else if(datamodel.hasOwnProperty(sheetName)){
+
+            let data = [];
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){
+                if(datacache[sheetName].data.token === token){
+                    data = datacache[sheetName].data.data;
+                }
+            }
+            if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
                 data = datamodel[sheetName];
             }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
@@ -705,11 +709,14 @@
         }
         function KOGYJA() {
             let  sheetName  =  'KOGYJA';
+
             let data = [];
-            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
-                data = datacache[sheetName].data;
-                console.log("cache");
-            }else if(datamodel.hasOwnProperty(sheetName)){
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){
+                if(datacache[sheetName].data.token === token){
+                    data = datacache[sheetName].data.data;
+                }
+            }
+            if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
                 data = datamodel[sheetName];
             }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
@@ -1075,11 +1082,14 @@
         }
         function KURICHIKU() {
             let  sheetName  =  'KURICHIKU';
+
             let data = [];
-            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
-                data = datacache[sheetName].data;
-                console.log("cache");
-            }else if(datamodel.hasOwnProperty(sheetName)){
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){
+                if(datacache[sheetName].data.token === token){
+                    data = datacache[sheetName].data.data;
+                }
+            }
+            if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
                 data = datamodel[sheetName];
             }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
@@ -1403,10 +1413,14 @@
         function OHGA() {
             let  sheetName  =  'OHGA';
             let data = [];
-            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
-                data = datacache[sheetName].data;
-                console.log("cache");
-            }else if(datamodel.hasOwnProperty(sheetName)){
+
+
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){
+                if(datacache[sheetName].data.token === token){
+                    data = datacache[sheetName].data.data;
+                }
+            }
+            if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
                 data = datamodel[sheetName];
             }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
@@ -1755,11 +1769,14 @@
         }
         function YAMADA() {
             let  sheetName  =  'YAMADA';
-            let data = [];
 
-            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
-                data = datacache[sheetName].data;
-            }else if(datamodel.hasOwnProperty(sheetName)){
+            let data = [];
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){
+                if(datacache[sheetName].data.token === token){
+                    data = datacache[sheetName].data.data;
+                }
+            }
+            if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
                 data = datamodel[sheetName];
             }
 
@@ -2096,12 +2113,14 @@
         }
         function AMAZON() {
             let  sheetName  =  'AMAZON';
-            let data = [];
 
-            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.length > 0){
-                data = datacache[sheetName].data;
-                console.log(data);
-            }else if(datamodel.hasOwnProperty(sheetName)){
+            let data = [];
+            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){
+                if(datacache[sheetName].data.token === token){
+                    data = datacache[sheetName].data.data;
+                }
+            }
+            if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
                 data = datamodel[sheetName];
             }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
@@ -2422,7 +2441,6 @@
             Object.assign(KURICHIKU(config),config),
             Object.assign(OHGA(config),config),
             Object.assign(YAMADA(config),config ),
-
         ];
         let spreadsheet =  document.getElementById('spreadsheet');
         let worksheets = jexcel.tabs(spreadsheet, sheets);
@@ -2459,17 +2477,17 @@
             if(status === true){
                 let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
                 let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
-
                 let data = spreadsheet.jexcel[worksheet].options.data;
                 let name = _spreadsheet.textContent;
                 let key = datacache.hasOwnProperty(name)?datacache[name].key:false;
-
                 _spreadsheet.classList.add("cacheAction");
                 $.ajax({
                     type: "POST",
                     url:"{{ route('backend:shop_ja:order:excel:store') }}",
+
                     data:{
                         data:JSON.stringify(data),
+                        token:token,
                         act:"cache",key:key,name:name,'id':'{{isset($model)?$model->id:0}}','type':'{{isset($model)?'edit':'create'}}'} ,
                         success: function (data) {
                             console.log(data);
@@ -2499,7 +2517,7 @@
                         datas:JSON.stringify(datas),
                         info: form_store.zoe_inputs('get'),
                         act:"save",
-
+                        token:token,
                         'id':'{{isset($model)?$model->id:0}}',
                         'type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {

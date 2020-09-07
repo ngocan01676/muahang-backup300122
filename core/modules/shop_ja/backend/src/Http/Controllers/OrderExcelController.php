@@ -27,18 +27,24 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         return false;
     }
     private function IF_Start($val,$conf){
-
-        if( $conf->equal_start === "<=" && $val <= $conf->value_start){
-            return true;
-        }else if( $conf->equal_start === ">=" && $val >= $conf->value_start){
-            return true;
-        }else if($conf->equal_start === ">" && $val > $conf->value_start){
-            return true;
-        } else if($conf->equal_start === "<" && $val < $conf->value_start){
-            return true;
-        }else if($conf->equal_start === "=" && $val == $conf->value_start){
-            return true;
+        try{
+            if( $conf->equal_start === "<=" && $val <= $conf->value_start){
+                return true;
+            }else if( $conf->equal_start === ">=" && $val >= $conf->value_start){
+                return true;
+            }else if($conf->equal_start === ">" && $val > $conf->value_start){
+                return true;
+            } else if($conf->equal_start === "<" && $val < $conf->value_start){
+                return true;
+            }else if($conf->equal_start === "=" && $val == $conf->value_start){
+                return true;
+            }
+        }catch (\Exception $ex){
+            var_dump($conf);
+            echo $ex->getMessage();
+            die();
         }
+
         return false;
     }
     private function GetToken(){
@@ -68,7 +74,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         if(isset($data['act'])){
             if($data['act'] == "cache"){
                 $k = $this->GetToken()."-".Auth::user()->id.':'.$data['type'].':'.$data['name'].':'.$data['id'];
-                if(Cache::put($k,$data['data'] , 60*60*20)){
+
+                if(Cache::put($k,json_encode(['token'=>$data['token'],'data'=>json_decode($data['data'],true)]) , 60*60*20)){
                     return response()->json(['key'=>$k,'data'=>json_decode(Cache::get($k),true)]);
                 }
             }else if($data['act'] == "save"){
@@ -86,6 +93,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $model->name =\Illuminate\Support\Str::random(50);
 
                 $model->status =  $data['info']['status'];
+                $model->token =  rand();
 
                 $logs = [];
                 $oke = $model->save();
@@ -93,11 +101,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 foreach ($datas as $name=>$order){
                     $logs[$name] = [];
                     $check =  [
-                        'fullname' => 'required',
+//                        'fullname' => 'required',
                     ];
                     if($name == "FUKUI"){
                         $check =  [
-                            'fullname' => 'required',
+//                            'fullname' => 'required',
 
                         ];
                     }else if($name == "KOGYJA"){
@@ -118,7 +126,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     if($values[$columns["payMethod"]] == "代金引換"){
                                         $pay_method = 1;
                                     }
-
                                     $_data = [
                                         "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
                                         "company"=>$name,
@@ -443,9 +450,21 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $key = $this->GetToken()."-".Auth::guard()->user()->id.':'.$type.':'.$name;
             $k = $key.':'.$id;
             if(Cache::has($k)){
-                $val = Cache::get($k);
+                $_val = json_decode(Cache::get($k),true);
+                $val = [];
+
+                if(isset($_val['data'])){
+                    $val['data'] =$_val['data'];
+                }else{
+                    $val['data']  = [];
+                }
+                if(!isset($_val['token']) || !$_val['token']){
+                    $val['token'] = rand();
+                }else{
+                    $val['token'] = $_val['token'];
+                }
             }else{
-                $val ='[]';
+                $val = ['token'=>rand(),'data'=>[]];
             }
             if(Cache::has($key)){
                $dataKey =  Cache::get($key);
@@ -453,20 +472,26 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                $dataKey = rand();
                Cache::put($key,$dataKey , 60*60*24);
             }
+
             $this->data['excels_data'][$name] = [
-                'data'=>$val ? json_decode($val) : '[]',
+                'data'=>$val,
                 'key'=> $dataKey
             ];
+
         }
     }
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
         $this->GetCache('create',0);
+
+
         return $this->render('order-excel.create');
     }
     public function edit($id){
         $this->getCrumb()->breadcrumb(z_language("Sửa"), route('backend:shop_ja:order:excel:create'));
         $this->GetCache('edit',$id);
+
+
         $model = OrderExcelModel::find($id);
         $results =$model->GetDetails();
         $datas = [];
