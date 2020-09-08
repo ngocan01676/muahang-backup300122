@@ -1820,13 +1820,13 @@
 
             let data = [];
 
-            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){
+            {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
-                if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){
-                    data = datacache[sheetName].data.data;
-                    console.log("cache")
-                }
-            }
+                {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
+                    {{--data = datacache[sheetName].data.data;--}}
+                    {{--console.log("cache")--}}
+                {{--}--}}
+            {{--}--}}
 
             if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
 
