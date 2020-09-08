@@ -162,6 +162,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                                 "zipcode"=>$_data["zipcode"],
                                                 "phone"=>$_data["phone"],
                                                 "province"=>$_data["province"],
+                                                "count"=>$_data["count"],
                                             ],$_data);
                                     }
                                 }
@@ -194,6 +195,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "province"=>isset($columns["province"])?$values[$columns["province"]]:"",
                                     "pay_method"=>$pay_method,
                                     "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:"0"),
+                                    "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:"0"),
+                                    "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:"0"),
+                                    "total_price"=>(int)(isset($columns["total_price"])?$values[$columns["total_price"]]:"0"),
+                                    "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:"0"),
+                                    "total_price_buy"=>(int)(isset($columns["total_price_buy"])?$values[$columns["total_price_buy"]]:"0"),
                                     "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:0),
                                     "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
                                     "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
@@ -208,9 +214,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                                 $validator = Validator::make($_data,$check);
                                 if (!$validator->fails()) {
-                                    $logs[$name][] = $_data;
-                                    DB::table('shop_order_excel')->updateOrInsert(
-                                        [
+                                    $_ = [$values,$_data];
+                                    if(isset($columns["id"]) && !empty($values[$columns["id"]])){
+                                        $where = ['id'=>$values[$columns["id"]]];
+                                    }else{
+                                        $where = [
                                             'session_id' => $_data['session_id'],
                                             'admin_id' => $_data['admin_id'],
                                             'fullname'=>$_data['fullname'],
@@ -218,7 +226,19 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             "zipcode"=>$_data["zipcode"],
                                             "phone"=>$_data["phone"],
                                             "province"=>$_data["province"],
-                                        ],$_data);
+                                            "price_buy_sale"=>$_data["price_buy_sale"],
+                                            "price_buy"=>$_data["price_buy"],
+                                            "pay_method"=>$_data["pay_method"],
+                                            "order_ship"=>$_data["order_ship"],
+                                            "order_ship_cou"=>$_data["order_ship_cou"],
+                                            "order_link"=>$_data["order_link"],
+                                            "order_tracking"=>$_data["order_tracking"],
+                                            "order_hours"=>$_data["order_hours"],
+                                        ];
+                                    }
+                                    $_[] = $where;
+                                    $_[] = DB::table('shop_order_excel')->updateOrInsert($where,$_data);
+                                    $logs[$name][] =$_;
                                 }
                             }
                             DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
@@ -548,7 +568,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $result->id
                     ];
                 }else{
-
                          $pay_method = "";
                          if($result->pay_method == 1){
                              $pay_method = "代金引換";
@@ -557,20 +576,33 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          }else if($result->pay_method == 3){
                              $pay_method = "決済不要";
                          }
-                         $order_profit= 0;
-                         $price = 0;
-                         $total_price = 0;
-                         $total_price_buy = 0;
+                         $order_profit = 0;
 
-                         if(isset( $_product[$result->product_id]['data']['price_buy'])){
-                             $order_profit = $_product[$result->product_id]['data']['price_buy'] * $result->count - $_product[$result->product_id]['data']['price']* $result->count - $result->order_ship - $result->order_ship_cou;
-                             $price = $_product[$result->product_id]['data']['price'];
-                             $total_price = $_product[$result->product_id]['data']['price']* $result->count;
-                             $total_price_buy = $_product[$result->product_id]['data']['price_buy']* $result->count;
+                         $price = $result->price;
+                         $price_buy = $result->price_buy;
+                         $total_price = $result->total_price;
+
+                         $total_price_buy = $result->total_price_buy;
+
+                         if(isset($_product[$result->product_id]['data']['price_buy'])){
+                             if($price == 0)
+                                $price = $_product[$result->product_id]['data']['price'];
+                             if($price_buy == 0)
+                                $price_buy = $_product[$result->product_id]['data']['price_buy'];
                          }
-                         $datas[$result->company][] = [
-                             $result->order_image,
+                         if($total_price == 0)
+                            $total_price = $price * $result->count;
+
+                         if($total_price_buy == 0)
+                            $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
+
+                         if($order_profit == 0){
+                            $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
+                         }
+
+                        $datas[$result->company][] = [
                              $result->status,
+                             $result->order_image,
                              $result->order_create_date,
                              $pay_method,
                              $result->phone,
@@ -580,21 +612,26 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                              $result->fullname,
                              $result->product_id,
                              $result->product_id,
-                             $price,
                              $result->count,
+                             $price,
+                             $price_buy,
                              $result->order_date,
                              $result->order_hours,
                              $result->order_ship,
                              $total_price,
+                             $result->price_buy_sale,
                              $total_price_buy,
                              $result->order_ship_cou,
                              $order_profit,
-                             "","","", $result->id
-                         ];
-
+                             $result->order_tracking,
+                             $result->order_link,
+                             $result->order_info,
+                             $result->id
+                        ];
                  }
             }
             }
+
         $model->detail = $datas;
         return $this->render('order-excel.edit',['model'=>$model]);
     }

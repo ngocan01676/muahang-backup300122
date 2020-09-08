@@ -323,7 +323,7 @@
                     }
                 }else  if(columns[i].value[0] === "date"){
                     //['date','this','options','format'],
-                    console.log(columns[i].value);
+
                     self = columns[i];
                     if(self != null){
                         console.log(self);
@@ -333,6 +333,8 @@
                         }
                     }
                 }
+            }else if(columns[i].hasOwnProperty('value')){
+                return [true,columns[i].value];
             }
             return [false,""];
         }
@@ -346,25 +348,43 @@
                     _data[i] = [];
                 }
                 for(let j=0 ; j < config.minDimensions[0] ; j++){
-                    if(columns_index.length < config.minDimensions[0]){
-                        if(columns_index[j] &&  columns_index[j].hasOwnProperty('value')){
-                            if(typeof(_data[i][j]) === "undefined"){
 
-                                _data[i][j] = columns_index[j].value;
-                            }else{
-                                if(typeof(_data[i][j]) == "string" && _data[i][j].length === 0){
+                    if(columns_index.length < config.minDimensions[0]){
+                        if(columns_index[j]){
+                            if(columns_index[j].hasOwnProperty('value')){
+                                console.log(columns_index[j]);
+                                if(typeof(_data[i][j]) === "undefined"){
                                     _data[i][j] = columns_index[j].value;
+                                }else{
+                                    if(typeof(_data[i][j]) == "string" && _data[i][j].length === 0){
+                                        _data[i][j] = columns_index[j].value;
+                                    }
                                 }
                             }
-                        }else{
-                            if(j > _data[i].length ||  typeof(_data[i][j]) === "undefined"){
-                                _data[i][j] = "";
-                            }
                         }
+                        // if(columns_index[j].hasOwnProperty('value')){
+                        //     if(columns_index[j]){
+                        //         if(typeof(_data[i][j]) === "undefined"){
+                        //             _data[i][j] = columns_index[j].value;
+                        //         }else{
+                        //             if(typeof(_data[i][j]) == "string" && _data[i][j].length === 0){
+                        //                 _data[i][j] = columns_index[j].value;
+                        //             }else{
+                        //                 _data[i][j] = columns_index[j].value;
+                        //             }
+                        //         }
+                        //     }else{
+                        //         if(j > _data[i].length ||  typeof(_data[i][j]) === "undefined"){
+                        //             _data[i][j] =  columns_index[j].value;
+                        //         }
+                        //     }
+                        // }
                     }else{
-                        if(j > _data[i].length || typeof(_data[i][j]) === "undefined" || _data[i][j].length == 0){
-                            _data[i][j] = "";
-                        }
+                        // if(columns_index[j].hasOwnProperty('value')){
+                        //     _data[i][j] = columns_index[j].value;
+                        // }else{
+                        //     _data[i][j] = "";
+                        // }
                     }
                 }
             }
@@ -407,7 +427,6 @@
                     type:'calendar',
                     options: { format:'DD/MM/YYYY' },
                     width:'100px',
-
                     value:['date','now']
                 },
                 order_hours:{
@@ -541,6 +560,8 @@
                     id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
                     province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
+                let valRow = instance.jexcel.getRowData(r);
+
                 if(value.hasOwnProperty('count')){
                     data.count = value.count;
                 }else{
@@ -554,13 +575,25 @@
                 let total_price = 0;
                 if(dropdown.hasOwnProperty(data.id)){
                     let product = dropdown[data.id];
+
                     total_price_buy =  parseFloat(product.data.price_buy) * data.count;
                     total_price =  parseFloat(product.data.price) * data.count;
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price_buy);
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price);
+
+                    if(valRow[columns.order_total_price.index].length === 0){
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price_buy);
+
+                    }else{
+                        total_price_buy =  parseInt(valRow[columns.order_total_price_buy.index]);
+                    }
+                    if(valRow[columns.order_total_price_buy.index].length  === 0){
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price);
+                    }else{
+                        total_price = parseInt(valRow[columns.order_total_price_buy.index]);
+                    }
                 }
                 function setInterest(interest){
                     if(total_price_buy ===0 || total_price ==0){ return;}
+
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),(function () {
                         return total_price_buy - total_price - interest;
                     })());
@@ -1771,9 +1804,12 @@
             let  sheetName  =  'YAMADA';
 
             let data = [];
+
             if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){
-                if(datacache[sheetName].data.token === token){
+
+                if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){
                     data = datacache[sheetName].data.data;
+                    console.log("cache")
                 }
             }
 
@@ -1784,6 +1820,7 @@
 
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -1858,17 +1895,23 @@
                     width:'140px',
                     value:['product','this','source',0,'id']
                 },
+                count:{
+                    title: '数量',//K SL
+                    type: 'numeric',
+                    width:'100px',
+                    value:1
+                },
                 price:{
                     title: '単価',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
-                count:{
-                    title: '数量',//K SL
+                price_buy:{
+                    title: '単価',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
-                    value:1
+                    value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_date:{
                     title: '到着希望日',//L Ngày nhận
@@ -1882,24 +1925,29 @@
                     title: '配送希望時間帯',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
-                    value:"19:00～21:00",
+                    value:['product','this','source',4],
                     width:'150px',
-                    key:"demo",
                 },
                 order_ship:{
                     title: '別途送料',//N Phí ship
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                    value:0
                 },
                 order_total_price:{
-                    title: '仕入金額',//O Tổng giá nhập
+                    title: 'Tổng giá nhập',//O Tổng giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
+                price_buy_sale:{
+                    title: 'Tăng Giảm',//J Giá nhập
+                    type: 'numeric',
+                    width:'100px',
+                    value:0,
+                },
                 order_total_price_buy:{
-                    title: '代引き請求金額',//P Giá bán
+                    title: 'Total Bán',//P Giá bán
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
@@ -1908,13 +1956,13 @@
                     title: '代引き手数料',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                    value:0
                 },
                 order_price:{
                     title: '追跡番号',//P Lợi nhuận
                     type: 'numeric',
                     width:'100px',
-                    key:"demo",
+                    value:0
                 },
                 order_tracking:{
                     title: '振込み情報',//T Mã tracking
@@ -1926,7 +1974,6 @@
                     title: '振込み情報',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
-                    key:"demo",
                 },
                 order_info:{
                     title: '振込み情報',//T Thông tin chuyển khoản
@@ -1961,43 +2008,64 @@
                     id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
                     province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
+
                 let total_price_buy =  0;
                 let total_price =  0;
+
+                let valueRow =  instance.jexcel.getRowData(r);
+
                 if(dropdown.hasOwnProperty(data.id)){
+
                     let product = dropdown[data.id];
-                     total_price_buy =  parseFloat(product.data.price_buy) * data.count;
-                     total_price =  parseFloat(product.data.price) * data.count;
+                    let price_buy = 0;
+                    let price = 0;
+                    if(valueRow[columns.price_buy.index] > 0){
+                        price_buy = valueRow[columns.price_buy.index];
+                    }else{
+                        price_buy = product.data.price_buy;
+                    }
+                    if(valueRow[columns.price.index] > 0 ){
+                        price = valueRow[columns.price.index];
+                    }else{
+                        price = product.data.price;
+                    }
+                    total_price =  parseFloat(price) * data.count;
 
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price_buy);
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price);
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price);
 
+                    total_price_buy =
+                        parseFloat(price_buy) *
+                        data.count +
+                        parseFloat(valueRow[columns.order_ship_cou.index]) +
+                        parseFloat(valueRow[columns.order_ship.index]) +
+                        parseFloat(valueRow[columns.price_buy_sale.index]);
+
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy );
                 }
                 function setInterest(interest){
-                    if(total_price_buy ===0 || total_price ==0){ return;}
+                    if(total_price_buy ===0 || total_price == 0){ return;}
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),(function () {
                         return total_price_buy - total_price - interest;
                     })());
                 }
-                if(data.province.length > 0 ){
-                    if(value.hasOwnProperty('price_ship')){
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),value.price_ship);
-                        setInterest(value.price_ship);
-                    }else{
-                        $.ajax({
-                            type: "POST",
-                            url:"{{ route('backend:shop_ja:order:excel:store') }}",
-                            data:{act:'ship',data:data} ,
-                            success: function (data) {
-                                if(data && data.length >0){
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
-                                    setInterest(data[0].data.price_ship);
-                                }
+               if(value.hasOwnProperty('lock') && value.lock.indexOf(columns.order_ship.index)){
+                   $.ajax({
+                       type: "POST",
+                       url:"{{ route('backend:shop_ja:order:excel:store') }}",
+                       data:{act:'ship',data:data} ,
+                       success: function (data) {
+                           if(data && data.length >0){
+                               instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
+                               setInterest(data[0].data.price_ship);
+                           }
 
-                            },
-                        });
+                       },
+                   });
+                } else{
+                    let valueRow =  instance.jexcel.getRowData(r);
+                    if(valueRow[columns.order_ship.index] > 0){
+                        setInterest(parseInt(valueRow[columns.order_ship.index]));
                     }
-                }else{
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),-1 );
                 }
             }
             let columns_index = Object.values(columns);
@@ -2047,6 +2115,7 @@
                 },
                 updateTable: function (instance, cell, col, row, val, id) {
                     let c = parseInt(col);
+
                     if (c === columns.image.index && val.length>0) {
                         cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
                     }
@@ -2067,13 +2136,9 @@
                           }
 
                        }
-
                         if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
                         else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
-
-
                         let vvv = getValuePayMethod(value[columns.payMethod.index]);
-
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
                         if(vvv === 2){
@@ -2093,16 +2158,19 @@
                                 id:dropdown[value].data.id
                             });
                         }
-                    }else if(c === columns.count.index){
+                    }else if(c === columns.count.index ||
+                        c === columns.price_buy_sale.index ||
+                        c === columns.order_ship.index ||
+                        c === columns.order_ship_cou.index
+                    ){
                         update(instance, cell, c, r,{
-                            count:parseInt(value),
+
                         });
                     }else if(c === columns.province.index){
-                        update(instance, cell, c, r,{
-                            province:value,
-                        });
+                        update(instance, cell, c, r,{"lock":[]});
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
+
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
                         parent.removeClass('pay-method-oke');
                         if(v === 2){
@@ -2437,11 +2505,11 @@
             };
         }
         var sheets = [
-            Object.assign(AMAZON(config),config ),
-            Object.assign(FUKUI(config),config),
-            Object.assign(KOGYJA(config),config),
-            Object.assign(KURICHIKU(config),config),
-            Object.assign(OHGA(config),config),
+            // Object.assign(AMAZON(config),config ),
+            // Object.assign(FUKUI(config),config),
+            // Object.assign(KOGYJA(config),config),
+            // Object.assign(KURICHIKU(config),config),
+            // Object.assign(OHGA(config),config),
             Object.assign(YAMADA(config),config ),
         ];
         let spreadsheet =  document.getElementById('spreadsheet');
