@@ -182,7 +182,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }else  if($values[$columns["payMethod"]] == "決済不要"){
                                     $pay_method = 3;
                                 }
-
+                                
                                 $_data = [
                                     "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
                                     "company"=>$name,
@@ -197,14 +197,16 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:"0"),
                                     "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:"0"),
                                     "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:"0"),
-                                    "total_price"=>(int)(isset($columns["total_price"])?$values[$columns["total_price"]]:"0"),
+                                    "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:"0"),
                                     "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:"0"),
-                                    "total_price_buy"=>(int)(isset($columns["total_price_buy"])?$values[$columns["total_price_buy"]]:"0"),
+                                    "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:"0"),
                                     "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:0),
                                     "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
                                     "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
                                     "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
                                     "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:0),
+                                    "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:0),
+                                
                                     "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:0),
                                     "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:0,
                                     "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
@@ -261,7 +263,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             Cache::forget($k);
                         }
                     }
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
+                    return response()->json(['id'=>$model->id,'url1'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 }
                 else
                     return response()->json($datas);
@@ -584,7 +586,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          }else if($result->pay_method == 3){
                              $pay_method = "決済不要";
                          }
-                         $order_profit = 0;
+                         $order_profit = $result->order_price;
 
                          $price = $result->price;
                          $price_buy = $result->price_buy;
