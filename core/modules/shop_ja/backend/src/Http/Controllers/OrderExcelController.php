@@ -284,7 +284,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $category = get_category_type('shop-ja:product:category');
 
                     $category_ship = get_category_type('shop-ja:japan:category:com-ship');
-
+                    $total_price_buy = $data['data']['total_price_buy'];    
                     foreach ($results as $key=>$result){
                         $temp_array = array();
                         $temp_array['value'] = $result->description;
@@ -344,8 +344,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $_log_ship_cou[] = $unit;
                                         $_unit = (object)$unit;
                                         if($_unit){
-                                            $is_IF_Start = $this->IF_Start($count,$_unit);
-                                            $is_IF_End = $this->IF_End($count,$_unit);
+                                            $is_IF_Start = $this->IF_Start($total_price_buy,$_unit);
+                                            $is_IF_End = $this->IF_End($total_price_buy,$_unit);
                                             if($is_IF_Start && $is_IF_End){
 
                                                 $ship_cou = $unit['value'];

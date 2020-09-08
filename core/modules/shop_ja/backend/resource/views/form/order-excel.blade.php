@@ -2023,6 +2023,7 @@
                 index++;
             }
             function update(instance, cell, c, r, value) {
+                console.log("update call");
                 let data = {
                     count:value.hasOwnProperty('count')?value.count:parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r]))),
                     id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
@@ -2033,12 +2034,13 @@
                 let total_price =  0;
 
                 let valueRow =  instance.jexcel.getRowData(r);
-                console.log(valueRow);
+
                 if(dropdown.hasOwnProperty(data.id)){
 
                     let product = dropdown[data.id];
                     let price_buy = 0;
                     let price = 0;
+                    
                     if(valueRow[columns.price_buy.index] > 0){
                         price_buy = valueRow[columns.price_buy.index];
                     }else{
@@ -2049,9 +2051,10 @@
                     }else{
                         price = product.data.price;
                     }
-                    total_price =  parseFloat(price) * data.count;
 
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price);
+                    total_price = parseFloat(price) * data.count;
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,true);
+                    data.total_price = total_price;
 
                     total_price_buy =
                         parseFloat(price_buy) *
@@ -2059,35 +2062,42 @@
                         parseFloat(valueRow[columns.order_ship_cou.index]) +
                         parseFloat(valueRow[columns.order_ship.index]) +
                         parseFloat(valueRow[columns.price_buy_sale.index]);
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy );
+
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
+
+                        data.total_price_buy = total_price_buy;
                 }
                 function setInterest(interest,order_ship_cou){
                     if(total_price_buy ===0 || total_price == 0){ return;}
-                    let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(interest) - parseInt(order_ship_cou));
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a);
+                    let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(interest) - 330);
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                 }
-               if(value.hasOwnProperty('lock') && value.lock.indexOf(columns.order_ship.index)){
-                   $.ajax({
-                       type: "POST",
-                       url:"{{ route('backend:shop_ja:order:excel:store') }}",
-                       data:{act:'ship',data:data} ,
-                       success: function (data) {
-                           if(data && data.length >0){
-                               instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
-                               setInterest(data[0].data.price_ship,parseInt(valueRow[columns.order_ship_cou.index]));
-                           }
-                       },
-                   });
-                } else{
-                   console.log(valueRow);
-                    setInterest(parseInt(valueRow[columns.order_ship.index]),parseInt(valueRow[columns.order_ship_cou.index]));
-                }
-            }
+                $.ajax({
+                    type: "POST",
+                    url:"{{ route('backend:shop_ja:order:excel:store') }}",
+                    data:{act:'ship',data:data} ,
+                    success: function (data) {
+                        if(data && data.length >0){
+                            let price_ship = parseInt(data[0].data.price_ship==-1?0:data[0].data.price_ship);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship,false);
 
+                            let ship_cou = parseInt(data[0].data.ship_cou==-1?0:data[0].data.ship_cou);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),ship_cou,false);
+
+                            setInterest(data[0].data.price_ship,ship_cou);
+                        }
+                    },
+                });
+            //    if(value.hasOwnProperty('lock') && value.lock.indexOf(columns.order_ship.index)){
+                  
+            //     } else{
+            //         setInterest(parseInt(valueRow[columns.order_ship.index]),parseInt(valueRow[columns.order_ship_cou.index]));
+            //     }
+            }
             let columns_index = Object.values(columns);
 
             let _data = InitData(data,config,columns_index);
-
+            let change = {col:-1,row:-1};
             return {
                 sheetName:sheetName,
                 rowResize:true,
@@ -2096,12 +2106,13 @@
                 data:_data,
                 onselection:function (instance, x1, y1, x2, y2, origin) {
 
+                    change = {col:x1,row:y1};
+
                     var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
+
                     $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
                     let val = instance.jexcel.getValue(cellName1);
-                    console.log({"x":x1-1,y:y1});
-                    console.log(val);
-                    console.log(columns_index[x1]);
+                    
                     if(columns_index[x1] && columns_index[x1].type === "dropdown"){
                         $("#value-review").hide();
                        $html = $("<div>");
@@ -2135,9 +2146,11 @@
                     if (c === columns.image.index && val.length>0) {
                         cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
                     }
+
                     cell.style.overflow = 'hidden';
 
-                    if(columns.id.index === c){
+                    if(columns.id.index === c ){
+
                        let v = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
                        if(v == -1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.add('error');
                        else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.remove('error');
@@ -2150,7 +2163,6 @@
                           if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
                               count++;
                           }
-
                        }
                         if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
                         else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
@@ -2160,30 +2172,39 @@
                         if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
+
+
+
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
+                    console.log(c+" "+r);
+                    console.log(change);
+
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
-                            update(instance, cell, c, r,{
-                                count:1,
-                                id:dropdown[value].data.id
-                            });
+                            if(change.col == c){
+                                update(instance, cell, c, r,{
+                                    count:1,
+                                    id:dropdown[value].data.id
+                                });
+                            }
                         }
-                    }else if(c === columns.count.index ||
-                        c === columns.price_buy_sale.index ||
-                        c === columns.order_ship.index ||
-                        c === columns.order_ship_cou.index
-                    ){
-                        update(instance, cell, c, r,{
+                    }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
+                        c === columns.order_ship.index || c === columns.order_ship_cou.index){
+                        if(change.col == c){
+                            update(instance, cell, c, r,{
 
-                        });
+                            });
+                        }        
                     }else if(c === columns.province.index){
-                        update(instance, cell, c, r,{"lock":[]});
+                        if(change.col == c){
+                            update(instance, cell, c, r,{"lock":[]});
+                         }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
@@ -2450,6 +2471,7 @@
                         $("#zoe-dropdown-review").hide();
                         $("#value-review").show().val(val).focus();
                     }
+
                 },
                 updateTable: function (instance, cell, col, row, val, id) {
                     let c = parseInt(col);
@@ -2485,27 +2507,31 @@
 
                     }
                 },
+                onbeforechange: function(instance, cell, c, r, value){
+                    console.log('cell:'+cell);
+                },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
+
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
 
-                            update(instance, cell, c, r,{
-                                count:1,
-                                id:dropdown[value].data.id
-                            });
+                            // update(instance, cell, c, r,{
+                            //     count:1,
+                            //     id:dropdown[value].data.id
+                            // });
                         }
                     }else if(c === columns.count.index){
-                        update(instance, cell, c, r,{
-                            count:parseInt(value),
-                        });
+                        // update(instance, cell, c, r,{
+                        //     count:parseInt(value),
+                        // });
                     }else if(c === columns.province.index){
-                        update(instance, cell, c, r,{
-                            province:value,
-                        });
+                        // update(instance, cell, c, r,{
+                        //     province:value,
+                        // });
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
@@ -2532,6 +2558,9 @@
         setInterval(function () {
          //   Save(true);
         },5000);
+
+
+
         $(document).ready(function () {
             let col_row_review = $("#col-row-review");
             $("#value-review").on("input", function(){
@@ -2620,5 +2649,6 @@
            let name = _spreadsheet.textContent;
            console.log(data);
        }
+      
     </script>
 @endsection
