@@ -18,11 +18,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="1828" column="17" lean-forward="true" selection-start-line="1822" selection-start-column="11" selection-end-line="1828" selection-end-column="17" />
+            <state relative-caret-position="397">
+              <caret line="2071" column="49" lean-forward="true" selection-start-line="2071" selection-start-column="49" selection-end-line="2071" selection-end-column="49" />
               <folding>
                 <element signature="e#12338#14395#0#HTML" />
-                <element signature="e#14390#17052#0#HTML" />
+                <element signature="e#15859#30725#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#30752#47472#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -96,6 +96,7 @@
       <find>province</find>
       <find>order_ship_cou</find>
       <find>cou</find>
+      <find>console.log(columns_index[j]);</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -392,12 +393,12 @@
       <option name="presentableId" value="Default" />
       <updated>1599447062173</updated>
       <workItem from="1599447064346" duration="27810000" />
-      <workItem from="1599531811542" duration="16171000" />
+      <workItem from="1599531811542" duration="17219000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43981000" />
+    <option name="totallyTimeSpent" value="45029000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -475,11 +476,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="1828" column="17" lean-forward="true" selection-start-line="1822" selection-start-column="11" selection-end-line="1828" selection-end-column="17" />
+        <state relative-caret-position="397">
+          <caret line="2071" column="49" lean-forward="true" selection-start-line="2071" selection-start-column="49" selection-end-line="2071" selection-end-column="49" />
           <folding>
             <element signature="e#12338#14395#0#HTML" />
-            <element signature="e#14390#17052#0#HTML" />
+            <element signature="e#15859#30725#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#30752#47472#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
