@@ -335,6 +335,14 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $ship = isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1";
                         $_log_ship_cou = [];
                         $ship_cou = -1;
+                        $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                        $total_price_buy = ( $price_ship< 0?0: $price_ship) + $total_price_buy;
+                        if($data['data']['sheetName'] == "YAMADA"){
+                            if($data['data']['payMethod'] == 1){
+                                $total_price_buy =  $total_price_buy + 330;
+                            }
+                        }
+                       
 
                         foreach ($category_ship as $_val){
                               if($ship == $_val->id){
@@ -376,9 +384,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             'log_ship_cou'=>$_log_ship_cou,
                             'count'=>$count,
                             'image'=>'image',
-                            'price_ship'=> $price_ship!=-1?$price_ship:$price_ship_default,
+                            'price_ship'=> $price_ship,
                             'total_price'=>$result->price,
-                            'total_price_buy'=>$result->price_buy*$count,
+                            'total_price_buy'=>$total_price_buy,
                             'ship_category'=>$ships_category,
                             'confShip'=>$confShip,
                             'price_ship_default'=>$price_ship_default,
