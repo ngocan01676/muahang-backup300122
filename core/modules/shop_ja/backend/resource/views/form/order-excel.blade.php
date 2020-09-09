@@ -632,7 +632,8 @@
                     }
                     console.log("price_buy:"+price_buy);
                     total_price = parseFloat(price) * data.count;
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,true);
+
+
                     data.total_price = total_price;
 
                     total_price_buy = parseFloat(price_buy) * data.count + price_buy_sale;
@@ -644,8 +645,12 @@
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
                     price_ship = price_ship * data.count;
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
-                    console.log(':total_price_buy='+total_price_buy);
+
+
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
+
+                    total_price = total_price + price_ship;
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,true);
 
                     if(total_price_buy ===0 || total_price == 0){ return;}
 
@@ -1446,7 +1451,10 @@
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
                     price_ship = price_ship * data.count;
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
-                    console.log(':total_price_buy='+total_price_buy);
+
+                    total_price = total_price + price_ship;
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,true);
+
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
 
                     if(total_price_buy ===0 || total_price == 0){ return;}
@@ -1874,7 +1882,10 @@
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
                     price_ship = price_ship*data.count;
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
-                    console.log(':total_price_buy='+total_price_buy);
+
+                    total_price = total_price + price_ship;
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,true);
+
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
 
                     if(total_price_buy ===0 || total_price == 0){ return;}
