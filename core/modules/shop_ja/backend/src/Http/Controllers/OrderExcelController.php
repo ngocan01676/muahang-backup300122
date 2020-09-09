@@ -338,7 +338,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $_log_ship_cou = [];
                         $ship_cou = -1;
                         $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
-                        $total_price_buy = ( $price_ship< 0?0: $price_ship) + $total_price_buy;
+
                         if($data['data']['sheetName'] == "YAMADA"){
                             if($data['data']['payMethod'] == 1){
                                 $total_price_buy =  $total_price_buy + 330;

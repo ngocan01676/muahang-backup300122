@@ -2317,9 +2317,11 @@
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
 
                         total_price = total_price+price_ship;
+                        total_price_buy = total_price_buy+price_ship;
+
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,false );
                         if(total_price_buy ===0 || total_price == 0){ return;}
-                        
+
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                         if(payMethod == 3){
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
