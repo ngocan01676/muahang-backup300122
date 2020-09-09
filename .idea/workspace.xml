@@ -19,7 +19,7 @@
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="281">
-              <caret line="1884" column="131" selection-start-line="1884" selection-start-column="131" selection-end-line="1884" selection-end-column="131" />
+              <caret line="2314" column="68" lean-forward="true" selection-start-line="2314" selection-start-column="68" selection-end-line="2314" selection-end-column="68" />
               <folding>
                 <element signature="e#2165#6093#0#HTML" />
                 <element signature="e#6882#11957#0#HTML" />
@@ -34,6 +34,7 @@
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#49056#63655#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#63680#82705#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#95893#102066#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -462,12 +463,12 @@
       <workItem from="1599447064346" duration="27810000" />
       <workItem from="1599531811542" duration="22211000" />
       <workItem from="1599554722332" duration="21000" />
-      <workItem from="1599618502079" duration="10283000" />
+      <workItem from="1599618502079" duration="11065000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60325000" />
+    <option name="totallyTimeSpent" value="61107000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -582,7 +583,7 @@
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
-          <caret line="1884" column="131" selection-start-line="1884" selection-start-column="131" selection-end-line="1884" selection-end-column="131" />
+          <caret line="2314" column="68" lean-forward="true" selection-start-line="2314" selection-start-column="68" selection-end-line="2314" selection-end-column="68" />
           <folding>
             <element signature="e#2165#6093#0#HTML" />
             <element signature="e#6882#11957#0#HTML" />
@@ -597,6 +598,7 @@
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#49056#63655#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#63680#82705#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#95893#102066#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
