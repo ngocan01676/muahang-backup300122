@@ -356,7 +356,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         if($ship_cou == -1){
                             foreach ($category_ship as $_val){
                                 if($ship == $_val->id){
-                                    $ship = $_val->name;
+                                  //  $ship = $_val->name;
                                     foreach ($_val->data as $units){
                                         foreach ($units as $unit){
                                             $_log_ship_cou[] = $unit;
