@@ -2137,7 +2137,7 @@
                         }else{
                             console.log("price_ship:"+price_ship);
                           
-                            let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship) - 330);
+                            let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship) - order_ship_cou);
 
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou,false);
