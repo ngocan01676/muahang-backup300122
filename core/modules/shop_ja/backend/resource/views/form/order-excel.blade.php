@@ -2301,7 +2301,6 @@
                         data.total_price = total_price;
 
                         total_price_buy = parseFloat(price_buy) * data.count + price_buy_sale;
-                        console.log(total_price_buy);
 
                         data.total_price_buy = total_price_buy;
 
@@ -2310,14 +2309,11 @@
 
                         price_ship = price_ship * data.count;
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
-
-
-                        total_price_buy = total_price_buy+price_ship;
+                        total_price_buy = total_price_buy + price_ship;
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,false );
-
                         if(total_price_buy ===0 || total_price == 0){ return;}
-
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
+
                         if(payMethod == 3){
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]), 0);
