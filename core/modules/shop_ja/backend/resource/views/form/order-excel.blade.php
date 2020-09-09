@@ -418,7 +418,7 @@
                 image:{
                     title:'Image',
                     type:'image',
-                    width:"10px",
+                    width:"50px",
                     hide:true,
                 },
                 timeCreate:{
