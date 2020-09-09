@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
@@ -19,13 +20,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="756" selection-start-line="756" selection-end-line="756" />
+            <state relative-caret-position="1062">
+              <caret line="1453" column="64" selection-start-line="1453" selection-start-column="64" selection-end-line="1453" selection-end-column="64" />
               <folding>
                 <element signature="e#2165#6093#0#HTML" />
                 <element signature="e#6882#11957#0#HTML" />
                 <element signature="e#12338#14392#0#HTML" />
                 <element signature="e#14446#16860#0#HTML" />
+                <element signature="e#16892#36359#0#HTML" />
                 <element signature="e#30053#31744#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#33836#35950#0#HTML" />
@@ -55,8 +57,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="354" column="70" selection-start-line="354" selection-start-column="70" selection-end-line="354" selection-end-column="70" />
+            <state relative-caret-position="502">
+              <caret line="366" column="46" lean-forward="true" selection-start-line="366" selection-start-column="46" selection-end-line="366" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -459,12 +461,12 @@
       <workItem from="1599447064346" duration="27810000" />
       <workItem from="1599531811542" duration="22211000" />
       <workItem from="1599554722332" duration="21000" />
-      <workItem from="1599618502079" duration="7687000" />
+      <workItem from="1599618502079" duration="8228000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57729000" />
+    <option name="totallyTimeSpent" value="58270000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -571,13 +573,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="756" selection-start-line="756" selection-end-line="756" />
+        <state relative-caret-position="1062">
+          <caret line="1453" column="64" selection-start-line="1453" selection-start-column="64" selection-end-line="1453" selection-end-column="64" />
           <folding>
             <element signature="e#2165#6093#0#HTML" />
             <element signature="e#6882#11957#0#HTML" />
             <element signature="e#12338#14392#0#HTML" />
             <element signature="e#14446#16860#0#HTML" />
+            <element signature="e#16892#36359#0#HTML" />
             <element signature="e#30053#31744#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#33836#35950#0#HTML" />
@@ -596,8 +599,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="354" column="70" selection-start-line="354" selection-start-column="70" selection-end-line="354" selection-end-column="70" />
+        <state relative-caret-position="502">
+          <caret line="366" column="46" lean-forward="true" selection-start-line="366" selection-start-column="46" selection-end-line="366" selection-end-column="46" />
         </state>
       </provider>
     </entry>

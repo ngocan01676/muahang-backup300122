@@ -1444,7 +1444,7 @@
 
                 }
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
-
+                    price_ship = price_ship * data.count;
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
                     console.log(':total_price_buy='+total_price_buy);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
