@@ -754,7 +754,7 @@
 
                     cell.style.overflow = 'hidden';
 
-                   
+
 
                     if(columns.id.index === c ){
 
