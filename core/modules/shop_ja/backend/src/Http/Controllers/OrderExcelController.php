@@ -343,9 +343,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             if($data['data']['payMethod'] == 1){
                                 $total_price_buy =  $total_price_buy + 330;
                             }
+                        }else  if($data['data']['sheetName'] == "OHGA"){
+                            $total_price_buy =  $total_price_buy + 330;
                         }
-                       
-
                         foreach ($category_ship as $_val){
                               if($ship == $_val->id){
                                   $ship = $_val->name;

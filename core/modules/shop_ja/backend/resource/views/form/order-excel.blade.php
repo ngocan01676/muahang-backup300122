@@ -1444,7 +1444,6 @@
         }
         function OHGA() {
             let  sheetName  =  'OHGA';
-
             let data = [];
 
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
@@ -1646,12 +1645,12 @@
             }
             function update(instance, cell, c, r, value) {
                 console.log("update call");
+
                 let data = {
                     count:value.hasOwnProperty('count')?value.count:parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r]))),
                     id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
                     province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
-
                 let total_price_buy =  0;
                 let total_price =  0;
 
@@ -1660,6 +1659,8 @@
                 data.payMethod = payMethod;
                 data.sheetName = sheetName;
                 console.log("payMethod:"+payMethod);
+                let price_buy_sale = parseInt(valueRow[columns.price_buy_sale.index]);
+                console.log("price_buy_sale:"+price_buy_sale);
                 if(dropdown.hasOwnProperty(data.id)){
 
                     let product = dropdown[data.id];
@@ -1676,15 +1677,21 @@
                     }else{
                         price = product.data.price;
                     }
-
+                    console.log("price_buy:"+price_buy);
                     total_price = parseFloat(price) * data.count;
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,true);
                     data.total_price = total_price;
-                    total_price_buy = parseFloat(price_buy) * data.count ;
+
+                    total_price_buy = parseFloat(price_buy) * data.count + price_buy_sale;
+                    console.log(total_price_buy);
+
                     data.total_price_buy = total_price_buy;
+
                 }
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
+
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    console.log(':total_price_buy='+total_price_buy);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
 
                     if(total_price_buy ===0 || total_price == 0){ return;}
@@ -1704,19 +1711,26 @@
                         console.log("price_ship:"+price_ship);
 
                         let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship) - order_ship_cou);
+
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou,false);
                     }
                 }
+                console.log("SEND");
                 $.ajax({
                     type: "POST",
                     url:"{{ route('backend:shop_ja:order:excel:store') }}",
                     data:{act:'ship',data:data} ,
                     success: function (data) {
+                        console.log(data);
                         if(data && data.length >0){
+                            console.log("oke");
                             let price_ship = parseInt(data[0].data.price_ship)
+
                             let ship_cou = parseInt(data[0].data.ship_cou);
+
                             let total_price_buy = parseInt(data[0].data.total_price_buy);
+
                             setInterest(price_ship < 0? 0 : price_ship,ship_cou< 0 ?0:ship_cou,total_price_buy);
                         }
                     },
@@ -1807,21 +1821,19 @@
                         if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
-
-
-
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
-                    console.log(c+" "+r);
                     console.log(change);
-
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
+
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
+
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+
                             if(change.col == c){
                                 update(instance, cell, c, r,{
                                     count:1,
@@ -2092,7 +2104,7 @@
                         }else{
                             price = product.data.price;
                         }
-
+                        console.log("price_buy:"+price_buy);
                         total_price = parseFloat(price) * data.count;
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,true);
                         data.total_price = total_price;
@@ -2125,7 +2137,7 @@
                         }else{
                             console.log("price_ship:"+price_ship);
                           
-                            let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship) - order_ship_cou);
+                            let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship) - 330);
 
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou,false);
