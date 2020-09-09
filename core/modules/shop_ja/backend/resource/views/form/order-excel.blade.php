@@ -1597,7 +1597,7 @@
                     title: '代引き手数料',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:330
                 },
                 order_price:{
                     title: '追跡番号',//P Lợi nhuận
