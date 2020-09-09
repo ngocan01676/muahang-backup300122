@@ -118,34 +118,61 @@
                         <td>
 
                             <table class="table table-bordered wrap_rows" id="wrap">
-                                <thead>
+                                @php
+                                    $lists_uint = array_merge([0=>"Default"],config('shop_ja.configs.lists_uint'));
+                                @endphp
+                                @foreach($lists_uint as $key=>$value)
+                                    <tr>
+                                        <td>
+                                            <table class="table table-bordered wrap_rows" id="wrap_{!! $key !!}">
+                                                <thead>
+                                                <tr>
+                                                    <td colspan="7">
+                                                        {!! Form::label('data.'.$key, Illuminate\Support\Str::studly($value), ['class' => 'name']) !!}
+                                                    </td>
+                                                </tr>
+                                                <tr class="template" data-index="@INDEX@">
+                                                    <td class="text-center">
+                                                        0
+                                                    </td>
+                                                    <td><input data-key="value_start" data-name="data[{!! $key !!}][@INDEX@].value_start"  class="data form-control text_start" placeholder="Giá trị 1" type="text"></td>
+                                                    <td>
+                                                        @php
+                                                            $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
+                                                        @endphp
+                                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal_start','data-key'=>'equal_start','data-name'=>"data[".$key."][@INDEX@].equal_start"]); !!}
+                                                    </td>
+                                                    <td>
+                                                        @php
+                                                            $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
+                                                        @endphp
+                                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal_end','data-key'=>'equal_end','data-name'=>"data[".$key."][@INDEX@].equal_end"]); !!}
+                                                    </td>
+                                                    <td><input data-key="value_end" data-name="data[{!! $key !!}][@INDEX@].value_end"  class="data form-control text_end" placeholder="Giá trị 2" type="text"></td>
 
-                                <tr class="template" data-index="@INDEX@">
-                                    <td class="text-center">
-                                        0
-                                    </td>
-                                    <td><input data-key="text" data-name="data.config[@INDEX@].text"  class="data form-control text" placeholder="Loại" type="text"></td>
-                                    <td>
-                                        @php
-                                            $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
-                                        @endphp
-                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal','data-key'=>'equal','data-name'=>"data.config[@INDEX@].equal"]); !!}
-                                    </td>
-                                    <td>
-                                        @php
-                                            $lists_equal = ['count'=>'Count','totalPrice'=>'totalPrice'];
-                                        @endphp
-                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control col','data-key'=>'col','data-name'=>"data.config[@INDEX@].col"]); !!}
-                                    </td>
-                                    <td><input  data-key="value" data-name="data.config[@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
-                                    <td class="text-center">
-                                        <button type="button" data-id="#wrap" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
-                                        <button style="display: none" type="button" data-id="#wrap" class="remove btn btn-danger btn-xs" onclick="remove(this)">Xóa</button>
-                                    </td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
+                                                    <td>
+                                                        @php
+                                                            $lists_equal = ['count'=>'Count','totalPrice'=>'totalPrice'];
+                                                        @endphp
+                                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control col','data-key'=>'col','data-name'=>"data[".$key."][@INDEX@].col"]); !!}
+                                                    </td>
+                                                    <td><input  data-key="value" data-name="data[{!! $key !!}][@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
+
+
+                                                    <td class="text-center">
+                                                        <button type="button" data-id="#wrap_{!! $key !!}" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
+                                                        <button style="display: none" type="button" data-id="#wrap_{!! $key !!}" class="remove btn btn-danger btn-xs" onclick="remove(this)">Xóa</button>
+                                                    </td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </table>
                         </td>
                     </tr>

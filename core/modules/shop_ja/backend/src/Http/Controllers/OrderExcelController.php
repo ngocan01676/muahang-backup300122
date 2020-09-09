@@ -345,33 +345,36 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             }
                         }else  if($data['data']['sheetName'] == "OHGA"){
                             $total_price_buy =  $total_price_buy + 330;
+                            $ship_cou = 330;
                         }
-                        foreach ($category_ship as $_val){
-                              if($ship == $_val->id){
-                                  $ship = $_val->name;
-                                  foreach ($_val->data as $units){
-                                    foreach ($units as $unit){
-                                        $_log_ship_cou[] = $unit;
-                                        $_unit = (object)$unit;
-                                        if($_unit){
-                                            $is_IF_Start = $this->IF_Start($total_price_buy,$_unit);
-                                            $is_IF_End = $this->IF_End($total_price_buy,$_unit);
-                                            if($is_IF_Start && $is_IF_End){
-
-                                                $ship_cou = $unit['value'];
+                        if($ship_cou == -1){
+                            foreach ($category_ship as $_val){
+                                if($ship == $_val->id){
+                                    $ship = $_val->name;
+                                    foreach ($_val->data as $units){
+                                        foreach ($units as $unit){
+                                            $_log_ship_cou[] = $unit;
+                                            $_unit = (object)$unit;
+                                            if($_unit){
+                                                $is_IF_Start = $this->IF_Start($total_price_buy,$_unit);
+                                                $is_IF_End = $this->IF_End($total_price_buy,$_unit);
+                                                if($is_IF_Start && $is_IF_End){
+                                                    $ship_cou = $unit['value'];
+                                                }
                                             }
-                                        }
 
+                                        }
+                                        if($ship_cou != -1){
+                                            break;
+                                        }
                                     }
-                                   if($ship_cou != -1){
-                                        break;
-                                   }
-                                  }
-                              }
-                             if($ship_cou != -1){
-                                break;
-                             }
+                                }
+                                if($ship_cou != -1){
+                                    break;
+                                }
+                            }
                         }
+
                         $temp_array['data'] = [
                             'id'=>$result->id,
                             'code'=>$result->code,
