@@ -1844,9 +1844,11 @@
                             let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([c, r]))).parent();
                             if(parentRow.hasClass('group-cell')){
                                 parentRow.removeClass('group-cell');
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]),0);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_name.index, r]), 0);
+
                             }
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]),0);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_name.index, r]), 0);
+
                             parentRow.addClass('group-row');
                         }
                     }else if(c === columns.province.index){

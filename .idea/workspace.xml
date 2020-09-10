@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="1849" column="60" selection-start-line="1849" selection-start-column="60" selection-end-line="1849" selection-end-column="60" />
+            <state relative-caret-position="357">
+              <caret line="1852" column="25" lean-forward="true" selection-start-line="1852" selection-start-column="25" selection-end-line="1852" selection-end-column="25" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -462,12 +463,12 @@
       <workItem from="1599531811542" duration="22211000" />
       <workItem from="1599554722332" duration="21000" />
       <workItem from="1599618502079" duration="24652000" />
-      <workItem from="1599703496921" duration="12992000" />
+      <workItem from="1599703496921" duration="13213000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87686000" />
+    <option name="totallyTimeSpent" value="87907000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -581,8 +582,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="1849" column="60" selection-start-line="1849" selection-start-column="60" selection-end-line="1849" selection-end-column="60" />
+        <state relative-caret-position="357">
+          <caret line="1852" column="25" lean-forward="true" selection-start-line="1852" selection-start-column="25" selection-end-line="1852" selection-end-column="25" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
