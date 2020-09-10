@@ -1786,8 +1786,10 @@
                         }
 
                         if(isRow(value)){
+                            parent.removeClass('group-cell');
                             parent.addClass('group-row');
                         }else if((value[columns.product_name.index]+"").trim().length > 0){
+                            parent.removeClass('group-row');
                             parent.addClass('group-cell');
                         }
 
@@ -1799,7 +1801,9 @@
                     $()
                 },
                 onchange:function(instance, cell, c, r, value) {
+                    console.log("=>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
                     if( (value+"").trim().length == 0) return;
+                    console.log("=>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
                     c = parseInt(c);
 
                     if (c === columns.product_name.index) {
@@ -1816,9 +1820,9 @@
                                 if(index != r){
                                     let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, index]))).parent();
                                     parentRow.addClass('group-row');
+
                                     if(parent.hasClass('group-row')){
                                         parent.removeClass('group-row');
-
                                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.fullname.index, r]),"");
                                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.address.index, r]),"");
                                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.payMethod.index, r]),"");
@@ -1827,6 +1831,7 @@
                                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.zipcode.index, r]),"");
                                     }
                                     parent.addClass('group-cell');
+
                                     update(instance, cell, c, r,{
 
                                     },function () {
@@ -1850,17 +1855,19 @@
                             });
                         }
                     }else if(c === columns.fullname.index || c === columns.address.index ||
-                        c === columns.zipcode.index || c === columns.province.index ||c === columns.payMethod.index || c === columns.phone.index ){
-                        console.log("=>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
+                        c === columns.zipcode.index || c === columns.payMethod.index || c === columns.phone.index ){
+
                         if(change.col == c && (value+"").length > 0){
                             change.col =  {col:-1,row:-1};
 
                             let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([c, r]))).parent();
+
                             if(parentRow.hasClass('group-cell')){
                                 parentRow.removeClass('group-cell');
-
                             }
+
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]),0);
+
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_name.index, r]), 0);
 
                             parentRow.addClass('group-row');
@@ -1868,6 +1875,15 @@
                     }else if(c === columns.province.index){
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
+                            console.log("????????????????");
+                            let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([c, r]))).parent();
+                            if(parentRow.hasClass('group-cell')){
+                                parentRow.removeClass('group-cell');
+                            }
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]),0);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_name.index, r]), 0);
+                            parentRow.addClass('group-row');
+                            console.log("???????????????? group-row");
                             update(instance, cell, c, r,{},()=>{
                                 update_count(instance, cell, c, r,{});
                             });
