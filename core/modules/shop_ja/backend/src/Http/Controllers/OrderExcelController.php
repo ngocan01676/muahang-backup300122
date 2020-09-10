@@ -201,6 +201,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:"0"),
                                     "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:"0"),
                                     "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:0),
+                                    "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:0),
                                     "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
                                     "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
                                     "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
