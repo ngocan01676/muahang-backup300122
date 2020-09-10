@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="1802" column="92" selection-start-line="1802" selection-start-column="92" selection-end-line="1802" selection-end-column="92" />
+            <state relative-caret-position="488">
+              <caret line="1692" column="133" selection-start-line="1692" selection-start-column="133" selection-end-line="1692" selection-end-column="133" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -28,7 +29,9 @@
                 <element signature="e#66944#67318#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#97752#116696#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#116732#135932#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -47,8 +50,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3320">
-              <caret line="265" column="66" lean-forward="true" selection-start-line="265" selection-start-column="66" selection-end-line="265" selection-end-column="66" />
+            <state relative-caret-position="383">
+              <caret line="664" column="42" selection-start-line="664" selection-start-column="42" selection-end-line="664" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -86,9 +89,9 @@
       <find>update_count</find>
       <find>payMethod</find>
       <find>order_total_price_buy</find>
-      <find>order_price</find>
-      <find>total_count</find>
       <find>order_total_price</find>
+      <find>total_count</find>
+      <find>order_price</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -457,12 +460,12 @@
       <workItem from="1599531811542" duration="22211000" />
       <workItem from="1599554722332" duration="21000" />
       <workItem from="1599618502079" duration="24652000" />
-      <workItem from="1599703496921" duration="9268000" />
+      <workItem from="1599703496921" duration="10240000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83962000" />
+    <option name="totallyTimeSpent" value="84934000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -569,15 +572,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3320">
-          <caret line="265" column="66" lean-forward="true" selection-start-line="265" selection-start-column="66" selection-end-line="265" selection-end-column="66" />
+        <state relative-caret-position="383">
+          <caret line="664" column="42" selection-start-line="664" selection-start-column="42" selection-end-line="664" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="1802" column="92" selection-start-line="1802" selection-start-column="92" selection-end-line="1802" selection-end-column="92" />
+        <state relative-caret-position="488">
+          <caret line="1692" column="133" selection-start-line="1692" selection-start-column="133" selection-end-line="1692" selection-end-column="133" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -586,7 +589,9 @@
             <element signature="e#66944#67318#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#97752#116696#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#116732#135932#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
           </folding>
         </state>

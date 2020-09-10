@@ -559,7 +559,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             if(isset( $this->data['products'][$result->company])){
 
                 $_product = $this->data['products'][$result->company];
-             if($result->company == "FUKUI"){
+             if($result->company == "FUKUI1"){
                  if($result->pay_method == 1){
                      $pay_method = "代金引換";
                  }else  if($result->pay_method == 2){
@@ -638,31 +638,31 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                  if($order_profit == 0){
                      $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
                  }
-
+                 $oke = (!empty($result->fullname) || !empty($result->address) || !empty($result->phone) || !empty($result->zipcode) || !empty($result->province) || !empty($result->pay_method));
                  $datas[$result->company][] = [
                      $result->status,
                      $result->order_image,
                      $result->order_create_date,
-                     $pay_method,
-                     $result->phone,
-                     $result->zipcode,
-                     $result->province,
-                     $result->address,
-                     $result->fullname,
-                     $result->product_id,
-                     $result->product_id,
+                     $oke?$pay_method:"",
+                     $oke? $result->phone:"",
+                     $oke?$result->zipcode:"",
+                     $oke? $result->province:"",
+                     $oke? $result->address:"",
+                     $oke? $result->fullname:"",
+                     $oke?"":$result->product_id,
+                     $oke?"":$result->product_id,
                      $result->count,
-                     $result->total_count==0?"":$result->total_count,
+                     $oke?$result->total_count:"",
                      $price,
                      $price_buy,
-                     $result->order_date,
-                     $result->order_hours,
-                     $result->order_ship,
+                     $oke?$result->order_date:"",
+                     $oke? $result->order_hours:"",
+                     $oke?$result->order_ship:"",
                      $total_price,
-                     $result->price_buy_sale,
+                     $oke?$result->price_buy_sale:"",
                      $total_price_buy,
                      $result->order_ship_cou == 0?"":$result->order_ship_cou,
-                     $order_profit,
+                     $oke?$order_profit:"",
                      $result->order_tracking,
                      $result->order_link,
                      $result->order_info,
@@ -728,7 +728,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                              $result->order_tracking,
                              $result->order_link,
                              $result->order_info,
-                             "",
+
                              $result->id
                         ];
                  }

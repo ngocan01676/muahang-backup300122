@@ -1367,7 +1367,7 @@
                     type: 'numeric',
                     width:'100px',
                     value:0,
-
+                    row:"0",
                 },
                 order_total_price_buy:{
                     title: 'Total Bán',//P Giá bán
@@ -1680,6 +1680,7 @@
                                 order_total_price_buy =  parseInt(data[0].data.total_price_buy);
 
                                 let price_buy_sale = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, rowInfo]));
+                                let order_total_price = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_total_price.index, rowInfo]));
 
                                 price_ship = price_ship<0?0:price_ship;
                                 ship_cou = ship_cou<0?0:ship_cou;
@@ -1688,6 +1689,11 @@
 
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, rowInfo]),price_ship<0?0:price_ship);
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, rowInfo]),ship_cou<0?0:ship_cou);
+                                let order_price =  order_total_price_buy - order_total_price - price_ship - price_buy_sale;
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, rowInfo]),order_price);
+
+
+
                             }
                         },
                     });
