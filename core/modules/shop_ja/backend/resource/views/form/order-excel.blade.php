@@ -1785,16 +1785,21 @@
                             parent.addClass('pay-method-oke');
                         }
 
-
+                        if(isRow(value)){
+                            parent.addClass('group-row');
+                        }else if((value[columns.product_name.index]+"").trim().length > 0){
+                            parent.addClass('group-cell');
+                        }
 
                     }
                 },
                 onload:function(instance){
                     console.log("oke=>>>");
                     console.log(instance);
+                    $()
                 },
                 onchange:function(instance, cell, c, r, value) {
-                    if( (value+"").length == 0) return;
+                    if( (value+"").trim().length == 0) return;
                     c = parseInt(c);
 
                     if (c === columns.product_name.index) {

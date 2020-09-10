@@ -18,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="1796" column="55" selection-start-line="1796" selection-start-column="55" selection-end-line="1796" selection-end-column="55" />
+            <state relative-caret-position="102">
+              <caret line="1801" column="41" selection-start-line="1801" selection-start-column="41" selection-end-line="1801" selection-end-column="41" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -462,12 +462,12 @@
       <workItem from="1599531811542" duration="22211000" />
       <workItem from="1599554722332" duration="21000" />
       <workItem from="1599618502079" duration="24652000" />
-      <workItem from="1599703496921" duration="13971000" />
+      <workItem from="1599703496921" duration="14637000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88665000" />
+    <option name="totallyTimeSpent" value="89331000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -581,8 +581,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="1796" column="55" selection-start-line="1796" selection-start-column="55" selection-end-line="1796" selection-end-column="55" />
+        <state relative-caret-position="102">
+          <caret line="1801" column="41" selection-start-line="1801" selection-start-column="41" selection-end-line="1801" selection-end-column="41" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
