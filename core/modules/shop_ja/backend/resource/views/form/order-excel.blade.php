@@ -54,11 +54,15 @@
         .pay-method-oke{
             color: #03a9f4;
         }
+        .jexcel tbody tr.group-row {
+            background-color: #8f2727 !important;
+            color: #ffffff;
+        }
         .jexcel tbody tr.group-cell {
             background-color: #FFFF00 !important;
         }
         .jexcel tbody tr.group-cell td{
-            
+
         }
     </style>
     <script>
@@ -1799,8 +1803,8 @@
                                 let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, r]))).parent();
 
                                 let index = indexFist(instance,r);
-
-
+                                let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, index]))).parent();
+                                parentRow.addClass('group-row');
                                 parent.addClass('group-cell');
                                 change.col =  {col:-1,row:-1};
                                 update(instance, cell, c, r,{
