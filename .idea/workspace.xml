@@ -18,15 +18,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="1633" column="37" selection-start-line="1633" selection-start-column="37" selection-end-line="1633" selection-end-column="37" />
+            <state relative-caret-position="403">
+              <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#53866#60385#0#HTML" />
                 <element signature="e#60467#60899#0#HTML" />
                 <element signature="e#66944#67318#0#HTML" />
+                <element signature="e#71665#72508#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#78253#97727#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#97752#116696#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -91,6 +93,7 @@
       <find>order_total_price</find>
       <find>total_count</find>
       <find>order_price</find>
+      <find>getCell</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -265,7 +268,7 @@
       <path value="$PROJECT_DIR$/vendor/melbahja/seo" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="260" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -459,12 +462,12 @@
       <workItem from="1599531811542" duration="22211000" />
       <workItem from="1599554722332" duration="21000" />
       <workItem from="1599618502079" duration="24652000" />
-      <workItem from="1599703496921" duration="10914000" />
+      <workItem from="1599703496921" duration="12002000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85608000" />
+    <option name="totallyTimeSpent" value="86696000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -578,15 +581,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="1633" column="37" selection-start-line="1633" selection-start-column="37" selection-end-line="1633" selection-end-column="37" />
+        <state relative-caret-position="403">
+          <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#53866#60385#0#HTML" />
             <element signature="e#60467#60899#0#HTML" />
             <element signature="e#66944#67318#0#HTML" />
+            <element signature="e#71665#72508#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#78253#97727#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#97752#116696#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />

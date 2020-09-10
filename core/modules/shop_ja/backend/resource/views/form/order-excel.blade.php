@@ -54,6 +54,12 @@
         .pay-method-oke{
             color: #03a9f4;
         }
+        .jexcel tbody tr.group-cell {
+            background-color: #FFFF00 !important;
+        }
+        .jexcel tbody tr.group-cell td{
+            
+        }
     </style>
     <script>
         function formatDate(date, format, utc) {
@@ -1646,22 +1652,16 @@
                     }else if(_count > 10){
                         v = 142;
                     }
-
                     console.log(rowInfo+" count:"+_count);
-
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, rowInfo]),_count);
                     console.log("order_total_price_buy:"+order_total_price_buy);
                     console.log("order_total_price_buy:"+order_total_price);
-
-
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, rowInfo]),order_total_price);
-
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index, rowInfo]),v);
                     let data = {
                         count:_count,
                         province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, rowInfo])),
                     };
-
                     let payMethod = getValuePayMethod(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.payMethod.index, rowInfo])));
                     data.payMethod = payMethod;
                     data.sheetName = sheetName;
@@ -1796,6 +1796,12 @@
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
 
                             if(change.col == c){
+                                let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, r]))).parent();
+
+                                let index = indexFist(instance,r);
+
+
+                                parent.addClass('group-cell');
                                 change.col =  {col:-1,row:-1};
                                 update(instance, cell, c, r,{
 
