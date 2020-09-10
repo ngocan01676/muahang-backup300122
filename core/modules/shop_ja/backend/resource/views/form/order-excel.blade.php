@@ -1568,6 +1568,9 @@
                 }while (_r1 >= 0);
                 return 0;
             }
+            function isRow(_data) {
+                return (_data[columns.fullname.index].length >0 || _data[columns.payMethod.index].length >0 || _data[columns.address.index].length >0 || _data[columns.zipcode.index].length >0 || _data[columns.phone.index].length >0);
+            }
             function update_count(instance, cell, c, r, value) {
                 let _r1 = r;
                 let _count = 0;
@@ -1601,7 +1604,7 @@
                             order_total_price+=_order_total_price;
                         }
                     }
-                    if(_data[columns.fullname.index].length > 0){
+                    if(isRow(_data)){
                         rowInfo = _r1;
                         break;
                     }
@@ -1628,7 +1631,7 @@
                     if(!isNaN(_order_total_price)){
                         order_total_price+=_order_total_price;
                     }
-                    if(_data[columns.fullname.index].length > 0){
+                    if(isRow(_data)){
                         break;
                     }
                     _r2++;
