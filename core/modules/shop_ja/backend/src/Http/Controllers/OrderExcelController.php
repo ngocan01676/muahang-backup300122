@@ -110,7 +110,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         ];
                     }else if($name == "KOGYJA"){
                         $check =  [
-
+                            'count' => 'required|numeric|gt:0',
                         ];
                     }
                     $columns = [];
@@ -138,11 +138,19 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "province"=>isset($columns["province"])?$values[$columns["province"]]:"",
                                         "pay_method"=>$pay_method,
                                         "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:"0"),
+                                        "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:"0"),
+                                        "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:"0"),
+                                        "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:"0"),
+                                        "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:"0"),
+                                        "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:"0"),
                                         "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:0),
+                                        "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:0),
                                         "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
                                         "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
                                         "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
                                         "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:0),
+                                        "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:0),
+
                                         "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:0),
                                         "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:0,
                                         "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
@@ -153,17 +161,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     $validator = Validator::make($_data,$check);
                                     if (!$validator->fails()) {
                                         $logs[$name][] = $_data;
-                                        DB::table('shop_order_excel')->updateOrInsert(
-                                            [
-                                                'session_id' => $_data['session_id'],
-                                                'admin_id' => $_data['admin_id'],
-                                                'fullname'=>$_data['fullname'],
-                                                "company"=>$_data["company"],
-                                                "zipcode"=>$_data["zipcode"],
-                                                "phone"=>$_data["phone"],
-                                                "province"=>$_data["province"],
-                                                "count"=>$_data["count"],
-                                            ],$_data);
+                                        DB::table('shop_order_excel')->insert($_data);
                                     }
                                 }
                                 DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
@@ -227,6 +225,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             'fullname'=>$_data['fullname'],
                                             "company"=>$_data["company"],
                                             "zipcode"=>$_data["zipcode"],
+                                            "count"=>$_data["count"],
                                             "phone"=>$_data["phone"],
                                             "province"=>$_data["province"],
                                             "price_buy_sale"=>$_data["price_buy_sale"],
@@ -572,6 +571,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $price = 0;
                     $total_price = 0;
                     $total_price_buy = 0;
+
                     if(isset( $_product[$result->product_id]['data']['price_buy'])){
 
                         $order_profit =
@@ -606,7 +606,70 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         "",
                         $result->id
                     ];
-                }else{
+                }else  if($result->company == "KOGYJA"){
+                 $pay_method = "";
+                 if($result->pay_method == 1){
+                     $pay_method = "代金引換";
+                 }else  if($result->pay_method == 2){
+                     $pay_method = "銀行振込";
+                 }else if($result->pay_method == 3){
+                     $pay_method = "決済不要";
+                 }
+                 $order_profit = $result->order_price;
+
+                 $price = $result->price;
+                 $price_buy = $result->price_buy;
+                 $total_price = $result->total_price;
+
+                 $total_price_buy = $result->total_price_buy;
+
+                 if(isset($_product[$result->product_id]['data']['price_buy'])){
+                     if($price == 0)
+                         $price = $_product[$result->product_id]['data']['price'];
+                     if($price_buy == 0)
+                         $price_buy = $_product[$result->product_id]['data']['price_buy'];
+                 }
+                 if($total_price == 0)
+                     $total_price = $price * $result->count;
+
+                 if($total_price_buy == 0)
+                     $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
+
+                 if($order_profit == 0){
+                     $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
+                 }
+
+                 $datas[$result->company][] = [
+                     $result->status,
+                     $result->order_image,
+                     $result->order_create_date,
+                     $pay_method,
+                     $result->phone,
+                     $result->zipcode,
+                     $result->province,
+                     $result->address,
+                     $result->fullname,
+                     $result->product_id,
+                     $result->product_id,
+                     $result->count,
+                     $result->total_count==0?"":$result->total_count,
+                     $price,
+                     $price_buy,
+                     $result->order_date,
+                     $result->order_hours,
+                     $result->order_ship,
+                     $total_price,
+                     $result->price_buy_sale,
+                     $total_price_buy,
+                     $result->order_ship_cou == 0?"":$result->order_ship_cou,
+                     $order_profit,
+                     $result->order_tracking,
+                     $result->order_link,
+                     $result->order_info,
+
+                     $result->id
+                 ];
+                } else{
                          $pay_method = "";
                          if($result->pay_method == 1){
                              $pay_method = "代金引換";
@@ -665,6 +728,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                              $result->order_tracking,
                              $result->order_link,
                              $result->order_info,
+                             "",
                              $result->id
                         ];
                  }

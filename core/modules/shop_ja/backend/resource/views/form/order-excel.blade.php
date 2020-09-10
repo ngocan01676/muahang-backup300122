@@ -3127,12 +3127,12 @@
             };
         }
         var sheets = [
-            // Object.assign(YAMADA("AMAZON",config),config ),
-            // Object.assign(FUKUI(config),config),
+            Object.assign(YAMADA("AMAZON",config),config ),
+            Object.assign(FUKUI(config),config),
             Object.assign(KOGYJA(config),config),
-            // Object.assign(KURICHIKU(config),config),
-            // Object.assign(OHGA(config),config),
-            // Object.assign(YAMADA("YAMADA",config),config ),
+            Object.assign(KURICHIKU(config),config),
+            Object.assign(OHGA(config),config),
+            Object.assign(YAMADA("YAMADA",config),config ),
         ];
         let spreadsheet =  document.getElementById('spreadsheet');
         let worksheets = jexcel.tabs(spreadsheet, sheets);
