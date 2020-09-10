@@ -1800,7 +1800,7 @@
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{},()=>{
-                                if(c === columns.count.index){
+                                if(c === columns.count.index || columns.price_buy_sale.index){
                                     update_count(instance, cell, c, r,{});
                                 }
                             });
