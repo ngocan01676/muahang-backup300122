@@ -286,7 +286,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $category = get_category_type('shop-ja:product:category');
 
                     $category_ship = get_category_type('shop-ja:japan:category:com-ship');
-                    $total_price_buy = $data['data']['total_price_buy'];    
+                    $total_price_buy = $data['data']['total_price_buy'];
+
                     foreach ($results as $key=>$result){
                         $temp_array = array();
                         $temp_array['value'] = $result->description;
@@ -327,6 +328,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }
                             }
                         }
+
                         foreach ($confShip as $val){
                           if($val[0]->unit == 0 && $price_ship_default==-1){
                               $price_ship_default =  $val[1]['value'];
@@ -337,8 +339,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $ship = isset($category[$result->category_id])?isset($category[$result->category_id]->data['ship'])?$category[$result->category_id]->data['ship']:"-1":"-1";
                         $_log_ship_cou = [];
                         $ship_cou = -1;
-                        $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
 
+                        $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                         if($data['data']['sheetName'] == "YAMADA"){
                             if($data['data']['payMethod'] == 1){
                                 $total_price_buy =  $total_price_buy + 330;
@@ -367,6 +369,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 $ship_cou = 0;
                             }
                         }
+
                         if($ship_cou == -1){
                             foreach ($category_ship as $_val){
                                 if($ship == $_val->id){
@@ -394,7 +397,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }
                             }
                         }
-
+                        if($data['data']['sheetName'] == "KOGYJA"){
+                            $total_price_buy = $total_price_buy + ($price_ship==-1?0:$price_ship) + $ship_cou;
+                        }
                         $temp_array['data'] = [
                             'id'=>$result->id,
                             'code'=>$result->code,
