@@ -1789,7 +1789,12 @@
 
                     }
                 },
+                onload:function(instance){
+                    console.log("oke=>>>");
+                    console.log(instance);
+                },
                 onchange:function(instance, cell, c, r, value) {
+                    if( (value+"").length == 0) return;
                     c = parseInt(c);
 
                     if (c === columns.product_name.index) {
@@ -1841,7 +1846,8 @@
                         }
                     }else if(c === columns.fullname.index || c === columns.address.index ||
                         c === columns.zipcode.index || c === columns.province.index ||c === columns.payMethod.index || c === columns.phone.index ){
-                        if(change.col == c){
+                        console.log("=>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
+                        if(change.col == c && (value+"").length > 0){
                             change.col =  {col:-1,row:-1};
 
                             let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([c, r]))).parent();
