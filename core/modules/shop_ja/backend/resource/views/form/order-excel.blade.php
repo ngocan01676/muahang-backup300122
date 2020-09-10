@@ -1803,27 +1803,30 @@
                                 change.col =  {col:-1,row:-1};
                                 let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, r]))).parent();
                                 let index = indexFist(instance,r);
+                                if(index != r){
+                                    let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, index]))).parent();
+                                    parentRow.addClass('group-row');
+                                    if(parent.hasClass('group-row')){
+                                        parent.removeClass('group-row');
 
-                                let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, index]))).parent();
-                                parentRow.addClass('group-row');
+                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.fullname.index, r]),"");
+                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.address.index, r]),"");
+                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.payMethod.index, r]),"");
+                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.phone.index, r]),"");
+                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.province.index, r]),"");
+                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.zipcode.index, r]),"");
+                                    }
+                                    parent.addClass('group-cell');
+                                    update(instance, cell, c, r,{
 
-                                if(parent.hasClass('group-row')){
-                                    parent.removeClass('group-row');
-
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.fullname.index, r]),"");
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.address.index, r]),"");
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.payMethod.index, r]),"");
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.phone.index, r]),"");
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.province.index, r]),"");
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.zipcode.index, r]),"");
+                                    },function () {
+                                        update_count(instance, cell, c, r,{});
+                                    });
+                                }else{
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), 0);
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_name.index, r]),0);
+                                    alert("Lỗi nhập");
                                 }
-                                parent.addClass('group-cell');
-
-                                update(instance, cell, c, r,{
-
-                                },function () {
-                                    update_count(instance, cell, c, r,{});
-                                });
                             }
                         }
                     }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
