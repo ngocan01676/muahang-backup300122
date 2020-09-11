@@ -179,123 +179,7 @@
             getTypeColumns:function(){
                 return "none";
             },
-            contextMenu: function(obj, x, y, e) {
-                var items = [];
 
-                if (y == null) {
-                    // Insert a new column
-                    if (obj.options.allowInsertColumn === true) {
-                        items.push({
-                            title:obj.options.text.insertANewColumnBefore,
-                            onclick:function() {
-                                obj.insertColumn(1, parseInt(x), 1);
-                            }
-                        });
-                    }
-                    if (obj.options.allowInsertColumn === true) {
-                        items.push({
-                            title:obj.options.text.insertANewColumnAfter,
-                            onclick:function() {
-                                obj.insertColumn(1, parseInt(x), 0);
-                            }
-                        });
-                    }
-
-                    // Delete a column
-                    if (obj.options.allowDeleteColumn === true) {
-                        items.push({
-                            title:obj.options.text.deleteSelectedColumns,
-                            onclick:function() {
-                                obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                            }
-                        });
-                    }
-
-                    // // Rename column
-                    // if (obj.options.allowRenameColumn === true) {
-                    //     items.push({
-                    //         title:obj.options.text.renameThisColumn,
-                    //         onclick:function() {
-                    //             obj.setHeader(x);
-                    //         }
-                    //     });
-                    // }
-
-                    // Sorting
-                    if (obj.options.columnSorting == true) {
-
-                        items.push({ type:'line' });
-
-                        items.push({
-                            title:obj.options.text.orderAscending,
-                            onclick:function() {
-                                obj.orderBy(x, 0);
-                            }
-                        });
-                        items.push({
-                            title:obj.options.text.orderDescending,
-                            onclick:function() {
-                                obj.orderBy(x, 1);
-                            }
-                        });
-                    }
-                } else {
-                    // Insert new row
-                    if (obj.options.allowInsertRow === true) {
-                        items.push({
-                            title:obj.options.text.insertANewRowBefore,
-                            onclick:function() {
-                                obj.insertRow(1, parseInt(y), 1);
-                            }
-                        });
-
-                        items.push({
-                            title:obj.options.text.insertANewRowAfter,
-                            onclick:function() {
-                                obj.insertRow(1, parseInt(y));
-                            }
-                        });
-                    }
-
-                    if (obj.options.allowDeleteRow === true) {
-                        items.push({
-                            title:obj.options.text.deleteSelectedRows,
-                            onclick:function() {
-                                obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            }
-                        });
-                    }
-
-                    if (x) {
-                        if (obj.options.allowComments === true) {
-                            items.push({ type:'line' });
-
-                            var title = obj.records[y][x].getAttribute('title') || '';
-
-                            items.push({
-                                title: title ? obj.options.text.editComments : obj.options.text.addComments,
-                                onclick:function() {
-                                    obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
-                                }
-                            });
-
-                            if (title) {
-                                items.push({
-                                    title:obj.options.text.clearComments,
-                                    onclick:function() {
-                                        obj.setComments([ x, y ], '');
-                                    }
-                                });
-                            }
-                        }
-                    }
-                }
-                // // Line
-                // items.push({ type:'line' });
-                // // Save
-
-                return items;
-            },
         };
 
         let datacache = {!! json_encode($excels_data,JSON_UNESCAPED_UNICODE ) !!}
@@ -601,15 +485,12 @@
                 columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
                 columns[i].key = i;
 
-
-
                 let v = setDefaultValue(i,columns);
                 if(v[0]){
                     columns[i].value = v[1];
                 }else{
                     delete columns[i].value;
                 }
-
                 index++;
             }
             function update(instance, cell, c, r, value) {
@@ -725,6 +606,119 @@
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                contextMenu: function(obj, x, y, e) {
+                    var items = [];
+
+                    if (y == null) {
+                        // Insert a new column
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnBefore,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 1);
+                                }
+                            });
+                        }
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnAfter,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 0);
+                                }
+                            });
+                        }
+
+                        // Delete a column
+                        if (obj.options.allowDeleteColumn === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedColumns,
+                                onclick:function() {
+                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                                }
+                            });
+                        }
+
+                        // // Rename column
+                        // if (obj.options.allowRenameColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.renameThisColumn,
+                        //         onclick:function() {
+                        //             obj.setHeader(x);
+                        //         }
+                        //     });
+                        // }
+
+                        // Sorting
+                        if (obj.options.columnSorting == true) {
+
+                            items.push({ type:'line' });
+
+                            items.push({
+                                title:obj.options.text.orderAscending,
+                                onclick:function() {
+                                    obj.orderBy(x, 0);
+                                }
+                            });
+                            items.push({
+                                title:obj.options.text.orderDescending,
+                                onclick:function() {
+                                    obj.orderBy(x, 1);
+                                }
+                            });
+                        }
+                    } else {
+                        // Insert new row
+                        if (obj.options.allowInsertRow === true) {
+                            items.push({
+                                title:obj.options.text.insertANewRowBefore,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y), 1);
+                                }
+                            });
+
+                            items.push({
+                                title:obj.options.text.insertANewRowAfter,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (obj.options.allowDeleteRow === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (x) {
+                            if (obj.options.allowComments === true) {
+                                items.push({ type:'line' });
+
+                                var title = obj.records[y][x].getAttribute('title') || '';
+
+                                items.push({
+                                    title: title ? obj.options.text.editComments : obj.options.text.addComments,
+                                    onclick:function() {
+                                        obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
+                                    }
+                                });
+
+                                if (title) {
+                                    items.push({
+                                        title:obj.options.text.clearComments,
+                                        onclick:function() {
+                                            obj.setComments([ x, y ], '');
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    return items;
+                },
                 onselection:function (instance, x1, y1, x2, y2, origin) {
 
                     change = {col:x1,row:y1};
@@ -1722,6 +1716,218 @@
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                contextMenu: function(obj, x, y, e) {
+                    var items = [];
+
+                    if (y == null) {
+                        // Insert a new column
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnBefore,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 1);
+                                }
+                            });
+                        }
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnAfter,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 0);
+                                }
+                            });
+                        }
+
+                        // Delete a column
+                        if (obj.options.allowDeleteColumn === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedColumns,
+                                onclick:function() {
+                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                                }
+                            });
+                        }
+
+                        // // Rename column
+                        // if (obj.options.allowRenameColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.renameThisColumn,
+                        //         onclick:function() {
+                        //             obj.setHeader(x);
+                        //         }
+                        //     });
+                        // }
+
+                        // Sorting
+                        if (obj.options.columnSorting == true) {
+
+                            items.push({ type:'line' });
+
+                            items.push({
+                                title:obj.options.text.orderAscending,
+                                onclick:function() {
+                                    obj.orderBy(x, 0);
+                                }
+                            });
+                            items.push({
+                                title:obj.options.text.orderDescending,
+                                onclick:function() {
+                                    obj.orderBy(x, 1);
+                                }
+                            });
+                        }
+                    } else {
+                        // Insert new row
+                        if (obj.options.allowInsertRow === true) {
+                            items.push({
+                                title:obj.options.text.insertANewRowBefore,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y), 1);
+                                }
+                            });
+
+                            items.push({
+                                title:obj.options.text.insertANewRowAfter,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (obj.options.allowDeleteRow === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (x) {
+                            if (obj.options.allowComments === true) {
+                                items.push({ type:'line' });
+
+                                var title = obj.records[y][x].getAttribute('title') || '';
+
+                                items.push({
+                                    title: title ? obj.options.text.editComments : obj.options.text.addComments,
+                                    onclick:function() {
+                                        obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
+                                    }
+                                });
+
+                                if (title) {
+                                    items.push({
+                                        title:obj.options.text.clearComments,
+                                        onclick:function() {
+                                            obj.setComments([ x, y ], '');
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                        items.push({
+                            title:"Reset",
+                            onclick:function() {
+                                let parentRow = $(obj.getCell(jexcel.getColumnNameFromId([columns.product_name.index, y]))).parent();
+                                parentRow.removeClass('group-cell');
+                                parentRow.removeClass('group-row');
+
+                                obj.setValue(jexcel.getColumnNameFromId([columns.fullname.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.address.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.payMethod.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.phone.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.province.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.zipcode.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.product_id.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.product_name.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.count.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.total_count.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_date.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_hours.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.price.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, y]),"");
+
+                            }
+                        });
+                        items.push({
+                            title:"Set Info",
+                            onclick:function() {
+                                console.log(obj);
+                                obj.setValue(jexcel.getColumnNameFromId([columns.fullname.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.address.index, y]),"");
+
+                                if(columns_index[columns.payMethod.index] && columns_index[columns.payMethod.index].hasOwnProperty('value')){
+                                    obj.setValue(jexcel.getColumnNameFromId([columns.payMethod.index, y]),columns_index[columns.payMethod.index].value);
+                                }
+                                if(columns_index[columns.payMethod.index] && columns_index[columns.phone.index].hasOwnProperty('value')){
+                                    obj.setValue(jexcel.getColumnNameFromId([columns.phone.index, y]),columns_index[columns.phone.index].value);
+                                }
+
+                                obj.setValue(jexcel.getColumnNameFromId([columns.province.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.zipcode.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.product_id.index, y]),"0");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.product_name.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.count.index, y]),"0");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, y]),"0");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, y]),"0");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, y]),"0");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, y]),"0");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_price.index, y]),"0");
+                                
+                                if(columns_index[columns.order_date.index] && columns_index[columns.order_date.index].hasOwnProperty('value')){
+                                    obj.setValue(jexcel.getColumnNameFromId([columns.order_date.index, y]),columns_index[columns.order_date.index].value);
+                                }
+                                if(columns_index[columns.order_hours.index] && columns_index[columns.order_hours.index].hasOwnProperty('value')){
+                                    obj.setValue(jexcel.getColumnNameFromId([columns.order_hours.index, y]),columns_index[columns.order_hours.index].value);
+                                }
+                                let parentRow = $(obj.getCell(jexcel.getColumnNameFromId([columns.product_name.index, y]))).parent();
+                                parentRow.addClass('group-row');
+                                parentRow.removeClass('group-cell');
+                            }
+                        });
+                        items.push({
+                            title:"Set Product",
+                            onclick:function() {
+                                obj.setValue(jexcel.getColumnNameFromId([columns.fullname.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.address.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.payMethod.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.phone.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.province.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.zipcode.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.product_id.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.product_name.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.count.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.total_count.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_date.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_hours.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.price.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, y]),"");
+                                obj.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, y]),"");
+                                let parentRow = $(obj.getCell(jexcel.getColumnNameFromId([columns.product_name.index, y]))).parent();
+                                parentRow.addClass('group-cell');
+                                parentRow.removeClass('group-row');
+
+                                // if(columns_index[columns.product_name.index]){
+                                //     console.log(columns_index[columns.product_name.index]);
+                                //     change = {c:columns.product_name.index,r:y};
+                                //     obj.setValue(jexcel.getColumnNameFromId([columns.product_name.index, y]),columns_index[columns.product_name.index].value);
+                                // }
+                            }
+                        });
+                    }
+
+                    return items;
+                },
                 onselection:function (instance, x1, y1, x2, y2, origin) {
                     change = {col:x1,row:y1};
 
@@ -1954,7 +2160,6 @@
                         console.log('count');
                     }
                 },
-
             };
         }
 
@@ -2275,6 +2480,119 @@
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                contextMenu: function(obj, x, y, e) {
+                    var items = [];
+
+                    if (y == null) {
+                        // Insert a new column
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnBefore,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 1);
+                                }
+                            });
+                        }
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnAfter,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 0);
+                                }
+                            });
+                        }
+
+                        // Delete a column
+                        if (obj.options.allowDeleteColumn === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedColumns,
+                                onclick:function() {
+                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                                }
+                            });
+                        }
+
+                        // // Rename column
+                        // if (obj.options.allowRenameColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.renameThisColumn,
+                        //         onclick:function() {
+                        //             obj.setHeader(x);
+                        //         }
+                        //     });
+                        // }
+
+                        // Sorting
+                        if (obj.options.columnSorting == true) {
+
+                            items.push({ type:'line' });
+
+                            items.push({
+                                title:obj.options.text.orderAscending,
+                                onclick:function() {
+                                    obj.orderBy(x, 0);
+                                }
+                            });
+                            items.push({
+                                title:obj.options.text.orderDescending,
+                                onclick:function() {
+                                    obj.orderBy(x, 1);
+                                }
+                            });
+                        }
+                    } else {
+                        // Insert new row
+                        if (obj.options.allowInsertRow === true) {
+                            items.push({
+                                title:obj.options.text.insertANewRowBefore,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y), 1);
+                                }
+                            });
+
+                            items.push({
+                                title:obj.options.text.insertANewRowAfter,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (obj.options.allowDeleteRow === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (x) {
+                            if (obj.options.allowComments === true) {
+                                items.push({ type:'line' });
+
+                                var title = obj.records[y][x].getAttribute('title') || '';
+
+                                items.push({
+                                    title: title ? obj.options.text.editComments : obj.options.text.addComments,
+                                    onclick:function() {
+                                        obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
+                                    }
+                                });
+
+                                if (title) {
+                                    items.push({
+                                        title:obj.options.text.clearComments,
+                                        onclick:function() {
+                                            obj.setComments([ x, y ], '');
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    return items;
+                },
                 onselection:function (instance, x1, y1, x2, y2, origin) {
 
                     change = {col:x1,row:y1};
@@ -2707,6 +3025,119 @@
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                contextMenu: function(obj, x, y, e) {
+                    var items = [];
+
+                    if (y == null) {
+                        // Insert a new column
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnBefore,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 1);
+                                }
+                            });
+                        }
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnAfter,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 0);
+                                }
+                            });
+                        }
+
+                        // Delete a column
+                        if (obj.options.allowDeleteColumn === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedColumns,
+                                onclick:function() {
+                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                                }
+                            });
+                        }
+
+                        // // Rename column
+                        // if (obj.options.allowRenameColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.renameThisColumn,
+                        //         onclick:function() {
+                        //             obj.setHeader(x);
+                        //         }
+                        //     });
+                        // }
+
+                        // Sorting
+                        if (obj.options.columnSorting == true) {
+
+                            items.push({ type:'line' });
+
+                            items.push({
+                                title:obj.options.text.orderAscending,
+                                onclick:function() {
+                                    obj.orderBy(x, 0);
+                                }
+                            });
+                            items.push({
+                                title:obj.options.text.orderDescending,
+                                onclick:function() {
+                                    obj.orderBy(x, 1);
+                                }
+                            });
+                        }
+                    } else {
+                        // Insert new row
+                        if (obj.options.allowInsertRow === true) {
+                            items.push({
+                                title:obj.options.text.insertANewRowBefore,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y), 1);
+                                }
+                            });
+
+                            items.push({
+                                title:obj.options.text.insertANewRowAfter,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (obj.options.allowDeleteRow === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (x) {
+                            if (obj.options.allowComments === true) {
+                                items.push({ type:'line' });
+
+                                var title = obj.records[y][x].getAttribute('title') || '';
+
+                                items.push({
+                                    title: title ? obj.options.text.editComments : obj.options.text.addComments,
+                                    onclick:function() {
+                                        obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
+                                    }
+                                });
+
+                                if (title) {
+                                    items.push({
+                                        title:obj.options.text.clearComments,
+                                        onclick:function() {
+                                            obj.setComments([ x, y ], '');
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    return items;
+                },
                 onselection:function (instance, x1, y1, x2, y2, origin) {
 
                     change = {col:x1,row:y1};
@@ -3133,6 +3564,119 @@
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                contextMenu: function(obj, x, y, e) {
+                    var items = [];
+
+                    if (y == null) {
+                        // Insert a new column
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnBefore,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 1);
+                                }
+                            });
+                        }
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnAfter,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 0);
+                                }
+                            });
+                        }
+
+                        // Delete a column
+                        if (obj.options.allowDeleteColumn === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedColumns,
+                                onclick:function() {
+                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                                }
+                            });
+                        }
+
+                        // // Rename column
+                        // if (obj.options.allowRenameColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.renameThisColumn,
+                        //         onclick:function() {
+                        //             obj.setHeader(x);
+                        //         }
+                        //     });
+                        // }
+
+                        // Sorting
+                        if (obj.options.columnSorting == true) {
+
+                            items.push({ type:'line' });
+
+                            items.push({
+                                title:obj.options.text.orderAscending,
+                                onclick:function() {
+                                    obj.orderBy(x, 0);
+                                }
+                            });
+                            items.push({
+                                title:obj.options.text.orderDescending,
+                                onclick:function() {
+                                    obj.orderBy(x, 1);
+                                }
+                            });
+                        }
+                    } else {
+                        // Insert new row
+                        if (obj.options.allowInsertRow === true) {
+                            items.push({
+                                title:obj.options.text.insertANewRowBefore,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y), 1);
+                                }
+                            });
+
+                            items.push({
+                                title:obj.options.text.insertANewRowAfter,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (obj.options.allowDeleteRow === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (x) {
+                            if (obj.options.allowComments === true) {
+                                items.push({ type:'line' });
+
+                                var title = obj.records[y][x].getAttribute('title') || '';
+
+                                items.push({
+                                    title: title ? obj.options.text.editComments : obj.options.text.addComments,
+                                    onclick:function() {
+                                        obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
+                                    }
+                                });
+
+                                if (title) {
+                                    items.push({
+                                        title:obj.options.text.clearComments,
+                                        onclick:function() {
+                                            obj.setComments([ x, y ], '');
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    return items;
+                },
                 onselection:function (instance, x1, y1, x2, y2, origin) {
 
                     change = {col:x1,row:y1};

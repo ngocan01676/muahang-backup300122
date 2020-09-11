@@ -398,7 +398,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             }
                         }
                         if($data['data']['sheetName'] == "KOGYJA"){
-                            $total_price_buy = $total_price_buy + ($price_ship==-1?0:$price_ship) + $ship_cou;
+                            $total_price_buy = $total_price_buy + $ship_cou;
                         }
                         $temp_array['data'] = [
                             'id'=>$result->id,
