@@ -1589,7 +1589,7 @@
                     let _data =  instance.jexcel.getRowData(_r1);
 
                     if(_r1>0){
-                        if(_data[columns.product_id.index]>0){
+                        if((_data[columns.count.index]+"").trim().length>0){
                             let v = parseInt(_data[columns.count.index]);
                             if(isNaN(v)){
                                 _count+= 1;
