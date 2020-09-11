@@ -1719,7 +1719,7 @@
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, rowInfo]),ship_cou<0?0:ship_cou);
                                 let order_price = order_price_total - price_ship - ship_cou;
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, rowInfo]),order_price);
-                                
+
                             }
                         },
                     });

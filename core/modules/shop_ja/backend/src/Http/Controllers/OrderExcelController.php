@@ -110,7 +110,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         ];
                     }else if($name == "KOGYJA"){
                         $check =  [
-//                            'count' => 'required|numeric|gt:0',
+                               'count' => 'required|numeric|gt:0',
                         ];
                     }
                     $columns = [];
