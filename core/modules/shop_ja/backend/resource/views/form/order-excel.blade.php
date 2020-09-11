@@ -1877,6 +1877,7 @@
                                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.phone.index, r]),"");
                                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.province.index, r]),"");
                                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.zipcode.index, r]),"");
+                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index, r]),"");
                                     }
                                     parent.addClass('group-cell');
 
