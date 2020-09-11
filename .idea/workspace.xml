@@ -18,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="1594" column="38" selection-start-line="1594" selection-start-column="32" selection-end-line="1594" selection-end-column="38" />
+            <state relative-caret-position="315">
+              <caret line="1456" column="14" selection-start-line="1456" selection-start-column="14" selection-end-line="1456" selection-end-column="14" />
               <folding>
                 <element signature="e#2439#6367#0#HTML" />
                 <element signature="e#12612#14665#0#HTML" />
@@ -31,7 +31,6 @@
                 <element signature="e#36630#53350#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#54439#60704#0#HTML" />
-                <element signature="e#61279#67388#0#HTML" />
                 <element signature="e#75664#89653#0#HTML" />
                 <element signature="e#89727#91488#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -483,12 +482,12 @@
       <workItem from="1599554722332" duration="21000" />
       <workItem from="1599618502079" duration="24652000" />
       <workItem from="1599703496921" duration="15032000" />
-      <workItem from="1599788346184" duration="16041000" />
+      <workItem from="1599788346184" duration="18819000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="105767000" />
+    <option name="totallyTimeSpent" value="108545000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -602,8 +601,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="1594" column="38" selection-start-line="1594" selection-start-column="32" selection-end-line="1594" selection-end-column="38" />
+        <state relative-caret-position="315">
+          <caret line="1456" column="14" selection-start-line="1456" selection-start-column="14" selection-end-line="1456" selection-end-column="14" />
           <folding>
             <element signature="e#2439#6367#0#HTML" />
             <element signature="e#12612#14665#0#HTML" />
@@ -615,7 +614,6 @@
             <element signature="e#36630#53350#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#54439#60704#0#HTML" />
-            <element signature="e#61279#67388#0#HTML" />
             <element signature="e#75664#89653#0#HTML" />
             <element signature="e#89727#91488#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />

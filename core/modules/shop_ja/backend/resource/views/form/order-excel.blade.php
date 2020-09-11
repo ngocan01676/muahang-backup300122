@@ -1574,6 +1574,9 @@
             function isRow(_data) {
                 return (_data[columns.fullname.index].length >0 || _data[columns.payMethod.index].length >0 || _data[columns.address.index].length >0 || _data[columns.zipcode.index].length >0 || _data[columns.phone.index].length >0);
             }
+            function isProduct(_data) {
+                return ((_data[columns.product_id.index]+"").trim().length >0 &&(_data[columns.product_name.index]+"").trim().length  &&(_data[columns.count.index]+"").trim().length );
+            }
             function update_count(instance, cell, c, r, value) {
                 let _r1 = r;
 
@@ -1585,6 +1588,7 @@
                 let order_total_price = 0;
                 let order_price_total = 0;
                 console.log("update_count:");
+                let list_fee = [];
                 do{
                     let _data =  instance.jexcel.getRowData(_r1);
 
@@ -1609,19 +1613,26 @@
                         console.log(data[columns.order_total_price.index]);
                         let _order_total_price = parseInt(_data[columns.order_total_price.index]);
                         console.log("_order_total_price:"+_order_total_price);
+
                         if(!isNaN(_order_total_price)){
                             order_total_price+=_order_total_price;
                         }else{
                             _order_total_price = 0;
                         }
 
+                        let _total_count = parseInt(_data[columns.total_count.index]);
+                        if(isNaN(_total_count)){
+                            _total_count = 0;
+                        }
+
                         let price_buy_sale = parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, _r1])));
+
                         if(isNaN(price_buy_sale)){
                             price_buy_sale = 0;
                         }
-                        let order_price =  _order_total_price_buy - _order_total_price  + price_buy_sale;
-                        order_price_total+=order_price;
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, _r1]),order_price);
+                        let order_price =  _order_total_price_buy - _order_total_price  - _total_count;
+                        list_fee.push([_r1,order_price]);
+                       // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, _r1]),order_price);
                     }
                     if(isRow(_data)){
                         rowInfo = _r1;
@@ -1656,15 +1667,22 @@
                     if(isNaN(price_buy_sale)){
                         price_buy_sale = 0;
                     }
-                    let order_price =  _order_total_price_buy - _order_total_price  + price_buy_sale;
-                    order_price_total+=order_price;
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, _r2]),order_price);
+                    let _total_count = parseInt(_data[columns.total_count.index]);
+                    if(isNaN(_total_count)){
+                        _total_count = 0;
+                    }
+                    let order_price =  _order_total_price_buy - _order_total_price  - _total_count;
+                    list_fee.push([_r1,order_price]);
+                    //instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, _r2]),order_price);
                     if(isRow(_data)){
                         break;
                     }
                     _r2++;
                 }
                 console.log(r+" order_total_price_buy:"+order_total_price_buy);
+
+                console.log(list_fee);
+
                 if(rowInfo!==-1){
                     let v = 0;
                     if(_count>=1 ){
@@ -1676,13 +1694,16 @@
                             v = 142;
                         }
                     }
-
                     console.log(rowInfo+" count:"+_count);
+
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, rowInfo]),_count);
+
                     console.log("order_total_price_buy:"+order_total_price_buy);
                     console.log("order_total_price_buy:"+order_total_price);
+
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, rowInfo]),order_total_price);
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index, rowInfo]),v);
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index, rowInfo-1]),v);
+
                     let data = {
                         count:_count,
                         province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, rowInfo])),
@@ -1700,29 +1721,35 @@
                             console.log(data);
 
                             if(data && data.length >0){
-                                console.log("oke");
+                                console.log("oke=>>>>>>>>>>>>>>>>>>>>>>>");
 
                                 let price_ship = parseInt(data[0].data.price_ship);
                                 let ship_cou = parseInt(data[0].data.ship_cou);
 
                                 order_total_price_buy =  parseInt(data[0].data.total_price_buy);
 
-                                let price_buy_sale = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, rowInfo]));
-                                let order_total_price = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_total_price.index, rowInfo]));
+                                let price_buy_sale = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, rowInfo+1]));
+                                let order_total_price = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_total_price.index, rowInfo+1]));
 
                                 price_ship = price_ship<0?0:price_ship;
                                 ship_cou = ship_cou<0?0:ship_cou;
-                               // order_total_price_buy = order_total_price_buy;
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, rowInfo]),order_total_price_buy);
+                                console.log("Total Price Buy:"+(rowInfo+1)+"="+order_total_price_buy);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, rowInfo+1]),order_total_price_buy);
 
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, rowInfo]),price_ship<0?0:price_ship);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, rowInfo]),ship_cou<0?0:ship_cou);
-                                let order_price = order_price_total - price_ship - ship_cou;
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, rowInfo]),order_price);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, rowInfo+1]),price_ship<0?0:price_ship);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, rowInfo+1]),ship_cou<0?0:ship_cou);
+                               // let order_price = order_price_total - price_ship - ship_cou;
+                                let _total = 0;
+                                for(let i = 1 ; i < list_fee.length ; i++ ){
+                                    _total+= list_fee[i][1] - v - ship_cou-price_ship;
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, list_fee[i][0]]),_total);
+                                }
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, rowInfo]),_total);
 
                             }
                         },
                     });
+
                     console.log("r:"+r);
                     console.log("r:"+c);
 
