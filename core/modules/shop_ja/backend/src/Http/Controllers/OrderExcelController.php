@@ -110,7 +110,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         ];
                     }else if($name == "KOGYJA"){
                         $check =  [
-                            'count' => 'required|numeric|gt:0',
+//                            'count' => 'required|numeric|gt:0',
                         ];
                     }
                     $columns = [];
@@ -137,22 +137,22 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
                                         "province"=>isset($columns["province"])?$values[$columns["province"]]:"",
                                         "pay_method"=>$pay_method,
-                                        "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:"0"),
-                                        "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:"0"),
-                                        "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:"0"),
-                                        "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:"0"),
-                                        "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:"0"),
-                                        "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:"0"),
-                                        "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:0),
-                                        "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:0),
+                                        "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null),
+                                        "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:""),
+                                        "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:""),
+                                        "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
+                                        "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
+                                        "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
+                                        "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:null),
+                                        "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
                                         "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
                                         "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
                                         "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
-                                        "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:0),
-                                        "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:0),
+                                        "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:""),
+                                        "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:""),
 
-                                        "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:0),
-                                        "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:0,
+                                        "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:""),
+                                        "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:"",
                                         "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
                                         "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                         "updated_at"=>$date_time,
@@ -192,22 +192,22 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
                                     "province"=>isset($columns["province"])?$values[$columns["province"]]:"",
                                     "pay_method"=>$pay_method,
-                                    "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:"0"),
-                                    "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:"0"),
-                                    "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:"0"),
-                                    "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:"0"),
-                                    "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:"0"),
-                                    "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:"0"),
-                                    "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:0),
-                                    "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:0),
+                                    "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:""),
+                                    "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:""),
+                                    "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:""),
+                                    "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
+                                    "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
+                                    "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
+                                    "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:""),
+                                    "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
                                     "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
                                     "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
                                     "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
-                                    "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:0),
-                                    "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:0),
+                                    "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:""),
+                                    "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:""),
                                 
-                                    "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:0),
-                                    "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:0,
+                                    "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:""),
+                                    "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:"",
                                     "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                     "updated_at"=>$date_time,
@@ -263,7 +263,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             Cache::forget($k);
                         }
                     }
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
+                    return response()->json(['id'=>$model->id,'url1'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 }
                 else
                     return response()->json($datas);
@@ -552,6 +552,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $model = OrderExcelModel::find($id);
         $results =$model->GetDetails();
         $datas = [];
+
         foreach ($results as $result){
             if(!isset($datas[$result->company])){
                 $datas[$result->company] = [];
@@ -578,12 +579,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $_product[$result->product_id]['data']['price_buy'] * $result->count -
                             $_product[$result->product_id]['data']['price']*$result->count -
                             $result->order_ship - $result->order_ship_cou;
-
                         $price = $_product[$result->product_id]['data']['price'];
                         $total_price = $_product[$result->product_id]['data']['price']* $result->count;
                         $total_price_buy = $_product[$result->product_id]['data']['price_buy']* $result->count;
                     }
-
                     $datas[$result->company][] = [
 
                         "",
@@ -669,6 +668,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                      $result->id
                  ];
+
                 } else{
                          $pay_method = "";
                          if($result->pay_method == 1){
@@ -678,14 +678,15 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          }else if($result->pay_method == 3){
                              $pay_method = "決済不要";
                          }
+
                          $order_profit = $result->order_price;
 
                          $price = $result->price;
+
                          $price_buy = $result->price_buy;
+
                          $total_price = $result->total_price;
-
                          $total_price_buy = $result->total_price_buy;
-
                          if(isset($_product[$result->product_id]['data']['price_buy'])){
                              if($price == 0)
                                 $price = $_product[$result->product_id]['data']['price'];
@@ -694,14 +695,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          }
                          if($total_price == 0)
                             $total_price = $price * $result->count;
-
                          if($total_price_buy == 0)
                             $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
-
                          if($order_profit == 0){
                             $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
                          }
-
                         $datas[$result->company][] = [
                              $result->status,
                              $result->order_image,
