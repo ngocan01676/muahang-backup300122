@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="1880" column="92" selection-start-line="1880" selection-start-column="92" selection-end-line="1880" selection-end-column="92" />
+            <state relative-caret-position="554">
+              <caret line="1865" column="78" selection-start-line="1865" selection-start-column="78" selection-end-line="1865" selection-end-column="78" />
               <folding>
                 <element signature="e#2439#6367#0#HTML" />
                 <element signature="e#12612#14665#0#HTML" />
@@ -32,18 +31,7 @@
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#36630#53350#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#54140#60405#0#HTML" />
-                <element signature="e#60487#60919#0#HTML" />
-                <element signature="e#60980#67367#0#HTML" />
-                <element signature="e#62850#64390#0#HTML" />
-                <element signature="e#64472#66235#0#HTML" />
-                <element signature="e#67411#67785#0#HTML" />
-                <element signature="e#67820#68069#0#HTML" />
-                <element signature="e#68133#74635#0#HTML" />
-                <element signature="e#72618#74601#0#HTML" />
-                <element signature="e#78906#79934#0#HTML" />
-                <element signature="e#75067#76758#0#HTML" />
-                <element signature="e#76834#79187#0#HTML" />
+                <element signature="e#91564#95903#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#85975#105449#0#HTML" />
                 <element signature="e#86746#92640#0#HTML" />
@@ -69,7 +57,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/ship.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2958">
+            <state relative-caret-position="536">
               <caret line="174" column="43" selection-start-line="174" selection-start-column="43" selection-end-line="174" selection-end-column="43" />
             </state>
           </provider>
@@ -123,6 +111,7 @@
       <find>getCell</find>
       <find>value</find>
       <find>total_price_buy</find>
+      <find>indexFist</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -492,12 +481,12 @@
       <workItem from="1599554722332" duration="21000" />
       <workItem from="1599618502079" duration="24652000" />
       <workItem from="1599703496921" duration="15032000" />
-      <workItem from="1599788346184" duration="9271000" />
+      <workItem from="1599788346184" duration="11041000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98997000" />
+    <option name="totallyTimeSpent" value="100767000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -517,7 +506,7 @@
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" visible="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -588,13 +577,6 @@
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/show.blade.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/ship.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2958">
-          <caret line="174" column="43" selection-start-line="174" selection-start-column="43" selection-end-line="174" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/com-ship.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1071">
@@ -609,10 +591,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/ship.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="536">
+          <caret line="174" column="43" selection-start-line="174" selection-start-column="43" selection-end-line="174" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="1880" column="92" selection-start-line="1880" selection-start-column="92" selection-end-line="1880" selection-end-column="92" />
+        <state relative-caret-position="554">
+          <caret line="1865" column="78" selection-start-line="1865" selection-start-column="78" selection-end-line="1865" selection-end-column="78" />
           <folding>
             <element signature="e#2439#6367#0#HTML" />
             <element signature="e#12612#14665#0#HTML" />
@@ -624,18 +613,7 @@
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#36630#53350#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#54140#60405#0#HTML" />
-            <element signature="e#60487#60919#0#HTML" />
-            <element signature="e#60980#67367#0#HTML" />
-            <element signature="e#62850#64390#0#HTML" />
-            <element signature="e#64472#66235#0#HTML" />
-            <element signature="e#67411#67785#0#HTML" />
-            <element signature="e#67820#68069#0#HTML" />
-            <element signature="e#68133#74635#0#HTML" />
-            <element signature="e#72618#74601#0#HTML" />
-            <element signature="e#78906#79934#0#HTML" />
-            <element signature="e#75067#76758#0#HTML" />
-            <element signature="e#76834#79187#0#HTML" />
+            <element signature="e#91564#95903#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#85975#105449#0#HTML" />
             <element signature="e#86746#92640#0#HTML" />
