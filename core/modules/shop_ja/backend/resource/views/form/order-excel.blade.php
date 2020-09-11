@@ -1648,13 +1648,16 @@
                 console.log(r+" order_total_price_buy:"+order_total_price_buy);
                 if(rowInfo!==-1){
                     let v = 0;
-                    if(_count <= 5){
-                        v = 37;
-                    }else if(_count <= 10){
-                        v = 74;
-                    }else if(_count > 10){
-                        v = 142;
+                    if(_count>=1 ){
+                        if( _count <= 5){
+                            v = 37;
+                        }else if(_count <= 10){
+                            v = 74;
+                        }else if(_count > 10){
+                            v = 142;
+                        }
                     }
+
                     console.log(rowInfo+" count:"+_count);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, rowInfo]),_count);
                     console.log("order_total_price_buy:"+order_total_price_buy);
@@ -1721,7 +1724,7 @@
                 data:_data,
                 onselection:function (instance, x1, y1, x2, y2, origin) {
                     change = {col:x1,row:y1};
-                    lock[y1] = 1;
+
                     console.log(change);
                     var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
 
@@ -1737,11 +1740,12 @@
                             autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
                             width:'100%',
                             onchange:function (el, a, oldValue, Value) {
-                                console.log(Value);
+                                lock[y1] = 1;
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
                             },
                         }).setValue(val);
                     }else{
+                        lock[y1] = 1;
                         $("#value-review").show().val("");
                         $("#zoe-dropdown-review").hide();
                         $("#value-review").prop("disabled",false );
