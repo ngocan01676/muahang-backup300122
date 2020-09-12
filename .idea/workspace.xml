@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,37 +20,30 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="1456" column="14" selection-start-line="1456" selection-start-column="14" selection-end-line="1456" selection-end-column="14" />
+            <state relative-caret-position="606">
+              <caret line="2425" column="31" selection-start-line="2425" selection-start-column="31" selection-end-line="2425" selection-end-column="31" />
               <folding>
                 <element signature="e#2439#6367#0#HTML" />
-                <element signature="e#12612#14665#0#HTML" />
-                <element signature="e#18263#24158#0#HTML" />
-                <element signature="e#24733#30154#0#HTML" />
-                <element signature="e#30334#36590#0#HTML" />
-                <element signature="e#25767#30426#0#HTML" />
+                <element signature="e#7801#9854#0#HTML" />
+                <element signature="e#9908#12653#0#HTML" />
+                <element signature="e#12685#36900#0#HTML" />
+                <element signature="e#25520#36889#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#36630#53350#0#HTML" />
+                <element signature="e#36929#53649#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#54439#60704#0#HTML" />
-                <element signature="e#75664#89653#0#HTML" />
-                <element signature="e#89727#91488#0#HTML" />
+                <element signature="e#60786#61218#0#HTML" />
+                <element signature="e#61279#67388#0#HTML" />
+                <element signature="e#64575#66332#0#HTML" />
+                <element signature="e#69375#79113#0#HTML" />
+                <element signature="e#92650#94411#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#85975#105449#0#HTML" />
-                <element signature="e#86746#92640#0#HTML" />
-                <element signature="e#99064#105438#0#HTML" />
-                <element signature="e#108986#113645#0#HTML" />
+                <element signature="e#107252#131839#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#105474#124418#0#HTML" />
-                <element signature="e#106240#112135#0#HTML" />
-                <element signature="e#112706#118062#0#HTML" />
+                <element signature="e#131864#155921#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#124454#143654#0#HTML" />
-                <element signature="e#125166#131059#0#HTML" />
-                <element signature="e#137470#143643#0#HTML" />
-                <element signature="e#157618#162277#0#HTML" />
-                <element signature="e#137722#139423#0#HTML" />
-                <element signature="e#139499#141438#0#HTML" />
+                <element signature="e#155957#180270#0#HTML" />
+                <element signature="e#163133#168793#0#HTML" />
+                <element signature="e#174338#176039#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -56,9 +51,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="16001" column="10" selection-start-line="16001" selection-start-column="10" selection-end-line="16001" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/ship.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="536">
+            <state relative-caret-position="2958">
               <caret line="174" column="43" selection-start-line="174" selection-start-column="43" selection-end-line="174" selection-end-column="43" />
             </state>
           </provider>
@@ -67,8 +71,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1287">
-              <caret line="112" column="28" selection-start-line="112" selection-start-column="28" selection-end-line="112" selection-end-column="28" />
+            <state relative-caret-position="1285">
+              <caret line="266" column="66" selection-start-line="266" selection-start-column="66" selection-end-line="266" selection-end-column="66" />
+              <folding>
+                <element signature="e#26914#29365#0#PHP" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,8 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getvalue</find>
-      <find>jSuites.dropdown($html[0]</find>
       <find>InitData</find>
       <find>銀行振込</find>
       <find>getValuePayMethod</find>
@@ -111,8 +116,13 @@
       <find>order_price</find>
       <find>getCell</find>
       <find>value</find>
-      <find>indexFist</find>
       <find>total_price_buy</find>
+      <find>indexFist</find>
+      <find>shop-ja:japan:category:com-ship</find>
+      <find>getColumnNameFromId</find>
+      <find>GetShip</find>
+      <find>IsEmpty</find>
+      <find>IF_End</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -482,18 +492,19 @@
       <workItem from="1599554722332" duration="21000" />
       <workItem from="1599618502079" duration="24652000" />
       <workItem from="1599703496921" duration="15032000" />
-      <workItem from="1599788346184" duration="18819000" />
+      <workItem from="1599788346184" duration="19124000" />
+      <workItem from="1599876535243" duration="19834000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="108545000" />
+    <option name="totallyTimeSpent" value="128684000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18763326" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18976545" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -578,13 +589,6 @@
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/show.blade.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/ship.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="174" column="43" selection-start-line="174" selection-start-column="43" selection-end-line="174" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/com-ship.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
@@ -592,46 +596,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="16001" column="10" selection-start-line="16001" selection-start-column="10" selection-end-line="16001" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/ship.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2958">
+          <caret line="174" column="43" selection-start-line="174" selection-start-column="43" selection-end-line="174" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1287">
-          <caret line="112" column="28" selection-start-line="112" selection-start-column="28" selection-end-line="112" selection-end-column="28" />
+        <state relative-caret-position="1285">
+          <caret line="266" column="66" selection-start-line="266" selection-start-column="66" selection-end-line="266" selection-end-column="66" />
+          <folding>
+            <element signature="e#26914#29365#0#PHP" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="1456" column="14" selection-start-line="1456" selection-start-column="14" selection-end-line="1456" selection-end-column="14" />
+        <state relative-caret-position="606">
+          <caret line="2425" column="31" selection-start-line="2425" selection-start-column="31" selection-end-line="2425" selection-end-column="31" />
           <folding>
             <element signature="e#2439#6367#0#HTML" />
-            <element signature="e#12612#14665#0#HTML" />
-            <element signature="e#18263#24158#0#HTML" />
-            <element signature="e#24733#30154#0#HTML" />
-            <element signature="e#30334#36590#0#HTML" />
-            <element signature="e#25767#30426#0#HTML" />
+            <element signature="e#7801#9854#0#HTML" />
+            <element signature="e#9908#12653#0#HTML" />
+            <element signature="e#12685#36900#0#HTML" />
+            <element signature="e#25520#36889#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#36630#53350#0#HTML" />
+            <element signature="e#36929#53649#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#54439#60704#0#HTML" />
-            <element signature="e#75664#89653#0#HTML" />
-            <element signature="e#89727#91488#0#HTML" />
+            <element signature="e#60786#61218#0#HTML" />
+            <element signature="e#61279#67388#0#HTML" />
+            <element signature="e#64575#66332#0#HTML" />
+            <element signature="e#69375#79113#0#HTML" />
+            <element signature="e#92650#94411#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#85975#105449#0#HTML" />
-            <element signature="e#86746#92640#0#HTML" />
-            <element signature="e#99064#105438#0#HTML" />
-            <element signature="e#108986#113645#0#HTML" />
+            <element signature="e#107252#131839#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#105474#124418#0#HTML" />
-            <element signature="e#106240#112135#0#HTML" />
-            <element signature="e#112706#118062#0#HTML" />
+            <element signature="e#131864#155921#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#124454#143654#0#HTML" />
-            <element signature="e#125166#131059#0#HTML" />
-            <element signature="e#137470#143643#0#HTML" />
-            <element signature="e#157618#162277#0#HTML" />
-            <element signature="e#137722#139423#0#HTML" />
-            <element signature="e#139499#141438#0#HTML" />
+            <element signature="e#155957#180270#0#HTML" />
+            <element signature="e#163133#168793#0#HTML" />
+            <element signature="e#174338#176039#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
           </folding>
         </state>

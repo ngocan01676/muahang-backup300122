@@ -156,6 +156,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
                                         "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                         "updated_at"=>$date_time,
+                                        "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
                                     ];
 
                                     $validator = Validator::make($_data,$check);
@@ -263,7 +264,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             Cache::forget($k);
                         }
                     }
-                    return response()->json(['id'=>$model->id,'url1'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
+                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 }
                 else
                     return response()->json($datas);
@@ -536,6 +537,19 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             ];
 
         }
+        $shop_ship = DB::table('shop_ship')->orderBy('value_end', 'ASC')->get()->all();
+        $arr_ship = [];
+        foreach ($shop_ship as $k=>$v){
+            if(!isset($arr_ship["cate_".$v->category_id])){
+                $arr_ship["cate_".$v->category_id] = [];
+            }
+            $v->config = json_decode($v->config,true);
+            $arr_ship["cate_".$v->category_id][] =$v;
+        }
+        $this->data['ships'] = $arr_ship;
+        $this->data['categorys'] = get_category_type('shop-ja:product:category');
+        $this->data['daibiki'] = get_category_type('shop-ja:japan:category:com-ship');
+
     }
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
@@ -622,22 +636,23 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                  $total_price_buy = $result->total_price_buy;
 
-                 if(isset($_product[$result->product_id]['data']['price_buy'])){
-                     if($price == 0)
-                         $price = $_product[$result->product_id]['data']['price'];
-                     if($price_buy == 0)
-                         $price_buy = $_product[$result->product_id]['data']['price_buy'];
-                 }
-                 if($total_price == 0)
-                     $total_price = $price * $result->count;
+//                 if(isset($_product[$result->product_id]['data']['price_buy'])){
+//                     if($price == 0)
+//                         $price = $_product[$result->product_id]['data']['price'];
+//                     if($price_buy == 0)
+//                         $price_buy = $_product[$result->product_id]['data']['price_buy'];
+//                 }
+//                 if($total_price == 0)
+//                     $total_price = $price * $result->count;
+//
+//                 if($total_price_buy == 0)
+//                     $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
 
-                 if($total_price_buy == 0)
-                     $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
-
-                 if($order_profit == 0){
-                     $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
-                 }
+//                 if($order_profit == 0){
+//                     $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
+//                 }
                  $oke = (!empty($result->fullname) || !empty($result->address) || !empty($result->phone) || !empty($result->zipcode) || !empty($result->province) || !empty($result->pay_method));
+
                  $datas[$result->company][] = [
                      $result->status,
                      $result->order_image,
@@ -661,12 +676,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                      $oke?$result->price_buy_sale:"",
                      $total_price_buy,
                      $result->order_ship_cou == 0?"":$result->order_ship_cou,
-                     $oke?$order_profit:"",
+                     $order_profit,
                      $result->order_tracking,
                      $result->order_link,
                      $result->order_info,
 
-                     $result->id
+                     $result->id,
+                     $result->type,
                  ];
 
                 } else{
