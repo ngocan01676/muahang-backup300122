@@ -1481,7 +1481,7 @@
                 index++;
             }
 
-            function GetShip($product,$category_id,$count,$province,$total_price_buy) {
+            function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod) {
 
                 let configShip = dataship.hasOwnProperty("cate_"+$category_id)?dataship["cate_"+$category_id]:[];
                 console.log(configShip);
@@ -1524,26 +1524,30 @@
 
                 let $ship_cou = -1;
 
-                for (let i in datadaibiki){
-                    $_val  = datadaibiki[i];
-                    console.log($_val);
-                    if($ship == $_val.id){
-                        for(let ii in $_val.data){
-                            $units = $_val.data[ii];
-                            for(let iii in $units){
-                                $_unit = $units[iii];
-                                if($_unit){
-                                    $is_IF_Start = IF_Start($total_price_buy,$_unit);
-                                    $is_IF_End = IF_End($total_price_buy,$_unit);
-                                    if($is_IF_Start && $is_IF_End){
-                                        $ship_cou = $_unit.value;
+                if(payMethod == 2){
+                    $ship_cou = 0;
+                }else{
+                    for (let i in datadaibiki){
+                        $_val  = datadaibiki[i];
+
+                        if($ship == $_val.id){
+                            for(let ii in $_val.data){
+                                $units = $_val.data[ii];
+                                for(let iii in $units){
+                                    $_unit = $units[iii];
+                                    if($_unit){
+                                        $is_IF_Start = IF_Start($total_price_buy,$_unit);
+                                        $is_IF_End = IF_End($total_price_buy,$_unit);
+                                        if($is_IF_Start && $is_IF_End){
+                                            $ship_cou = $_unit.value;
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    if($ship_cou != -1){
-                        break;
+                        if($ship_cou != -1){
+                            break;
+                        }
                     }
                 }
                 price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
@@ -1736,8 +1740,10 @@
 
                 let province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
 
+                let payMethod = getValuePayMethod(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.payMethod.index, value.start])));
+
                 if(dropdown.hasOwnProperty(product_id)){
-                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,province,totalPriceBuy);
+                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,province,totalPriceBuy,payMethod);
                 }
                 let v = 0;
 
