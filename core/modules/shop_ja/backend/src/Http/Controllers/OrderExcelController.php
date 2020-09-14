@@ -651,7 +651,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 //                 if($order_profit == 0){
 //                     $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
 //                 }
-                 
+
                  $datas[$result->company][] = [
                      $result->status,
                      $result->order_image,
