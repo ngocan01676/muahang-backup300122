@@ -1524,7 +1524,7 @@
 
                 let $ship_cou = -1;
 
-                if(payMethod == 2){
+                if( payMethod == 2 || payMethod == 3 ){
                     $ship_cou = 0;
                 }else{
                     for (let i in datadaibiki){
