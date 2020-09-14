@@ -1757,11 +1757,17 @@
                     }
                 }
                 console.log("totalPriceBuy:"+totalPriceBuy);
-                totalPriceBuy = totalPriceBuy + confShipCou.order_ship_cou;
+                if(payMethod == 3){
+                    totalPriceBuy = 0;
+                }else{
+                    totalPriceBuy = totalPriceBuy + confShipCou.order_ship_cou;
+                }
+
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, value.end]),totalCount);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index, value.end]),v);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, value.end]),totalPrice);
+
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, value.start]),totalPriceBuy);
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, value.start]),confShipCou.order_ship);
