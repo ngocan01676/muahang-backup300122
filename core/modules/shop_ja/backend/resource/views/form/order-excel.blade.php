@@ -2941,10 +2941,7 @@
                                     count:1,
                                     id:dropdown[value].data.id
                                 });
-                                console.log((r-1));
-                                if(r-1 >= 0 ){
-                                    instance.jexcel.setMerge(jexcel.getColumnNameFromId([columns.fullname.index, r-1]), 0, 2);
-                                }
+                                 
                             }
                         }
                     }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
