@@ -651,36 +651,34 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 //                 if($order_profit == 0){
 //                     $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
 //                 }
-                 $oke = (!empty($result->fullname) || !empty($result->address) || !empty($result->phone) || !empty($result->zipcode) || !empty($result->province) || !empty($result->pay_method));
-
+                 
                  $datas[$result->company][] = [
                      $result->status,
                      $result->order_image,
                      $result->order_create_date,
-                     $oke?$pay_method:"",
-                     $oke? $result->phone:"",
-                     $oke?$result->zipcode:"",
-                     $oke? $result->province:"",
-                     $oke? $result->address:"",
-                     $oke? $result->fullname:"",
-                     $oke?"":$result->product_id,
-                     $oke?"":$result->product_id,
+                     $pay_method,
+                     $result->phone,
+                     $result->zipcode,
+                     $result->province,
+                     $result->address,
+                     $result->fullname,
+                     $result->product_id,
+                     $result->product_id,
                      $result->count,
-                     $oke?$result->total_count:"",
+                     $result->total_count,
                      $price,
                      $price_buy,
-                     $oke?$result->order_date:"",
-                     $oke? $result->order_hours:"",
-                     $oke?$result->order_ship:"",
+                     $result->order_date,
+                     $result->order_hours,
+                     $result->order_ship,
                      $total_price,
-                     $oke?$result->price_buy_sale:"",
+                     $result->price_buy_sale,
                      $total_price_buy,
-                     $result->order_ship_cou == 0?"":$result->order_ship_cou,
+                     $result->order_ship_cou,
                      $order_profit,
                      $result->order_tracking,
                      $result->order_link,
                      $result->order_info,
-
                      $result->id,
                      $result->type,
                  ];
