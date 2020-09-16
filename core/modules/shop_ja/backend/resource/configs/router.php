@@ -220,7 +220,11 @@ return [
                         "method" => ['post'],
                     ],
                     "export" => [
-                        "url" => "/export"
+                        "url" => "/export",
+                        "method" => ['post'],
+                    ],
+                    "show" => [
+                        "url" => "/show"
                     ],
                     "store" => [
                         "url" => "/store",

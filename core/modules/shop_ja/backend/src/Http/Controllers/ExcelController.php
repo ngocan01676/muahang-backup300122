@@ -199,6 +199,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
         $writer->save(public_path().'/uploads/exports/KOGYJA.xlsx');
         return redirect()->route('backend:shop_ja:order:list');
     }
+
     public function KURICHIKU(){
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -463,14 +464,12 @@ class ExcelController extends \Zoe\Http\ControllerBackend
         $writer->save(public_path().'/uploads/exports/KURICHIKU.xlsx');
         return redirect()->route('backend:shop_ja:order:list');
     }
+
     public function YAMADA(){
-
         $spreadsheet = new Spreadsheet();
-
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->createSheet();
         $spreadsheet->getSheet(1)->setTitle('Sheet2');
-
         $sheet->setTitle("Sheet1");
         $spreadsheet->getProperties()
             ->setTitle('PHP Download Example')
@@ -478,7 +477,6 @@ class ExcelController extends \Zoe\Http\ControllerBackend
             ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
             ->setCreator('php-download.com')
             ->setLastModifiedBy('php-download.com');
-
         $title1 = "株式会社ヤマダ 様 注文フォーマット";
         $title2 = "見本";
 
@@ -519,7 +517,6 @@ class ExcelController extends \Zoe\Http\ControllerBackend
             )
         );
         $sheet->getStyle('A3:T3')->applyFromArray( $style_header );
-
         $colums = [
             ["注文日",'dateCreate',10,9],//A
             ["支払区分",'payMethod',10,9],//B
@@ -591,7 +588,6 @@ class ExcelController extends \Zoe\Http\ControllerBackend
         // 決済不要 Không cần thanh toán 3
         $category = config_get("category", "shop-ja:japan:category");
         $category_ship = get_category_type('shop-ja:japan:category:com-ship');
-
         foreach ($datas as $info){
 
             $_tmpData = [
@@ -630,6 +626,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
                 $rowData = [];
                 foreach($colums as $key=>$value){
                     $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+
                     if(is_array($value[1])){
                         if(isset($value[1]['product'])){
                             $conf = $value[1]['product'];
@@ -694,7 +691,6 @@ class ExcelController extends \Zoe\Http\ControllerBackend
                 $start++;
             }
         }
-
         $sheet->setCellValue("K".$start, "=SUM(K".$defaultStart.":K".($start-1).")");
         $sheet->setCellValue("P".$start, "=SUM(P".$defaultStart.":P".($start-1).")");
         $sheet->setCellValue("R".$start, "=SUM(R".$defaultStart.":R".($start-1).")");

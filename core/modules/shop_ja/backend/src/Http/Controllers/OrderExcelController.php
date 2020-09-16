@@ -474,7 +474,25 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         ]);
     }
     public function export(Request $request){
-        return $this->render('order-excel.export');
+        $data = $request->all();
+        $excel = new \ShopJa\Libs\Excel();
+        $output = [];
+        if(isset($data['name'])){
+            if($data['name'] == "KOGYJA"){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output = $excel->KOGYJA($data);
+            }else  if($data['name'] == "YAMADA" || $data['name'] == 'AMAZON'){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output =$excel->YAMADA($data,$data['name']);
+            }else  if($data['name'] == "OHGA"){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output =$excel->OHGA($data);
+            }else  if($data['name'] == "FUKUI"){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output =$excel->FUKUI($data);
+            }
+        }
+        return response()->json($output);
     }
     private function GetCache($type,$id){
         $this->data['excels_data'] = [
@@ -554,17 +572,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
         $this->GetCache('create',0);
-
-
         return $this->render('order-excel.create');
     }
-    public function edit($id){
-        $this->getCrumb()->breadcrumb(z_language("Sửa"), route('backend:shop_ja:order:excel:create'));
-        $this->GetCache('edit',$id);
-
-
-        $model = OrderExcelModel::find($id);
-        $results =$model->GetDetails();
+    function GetData($results){
         $datas = [];
 
         foreach ($results as $result){
@@ -572,23 +582,20 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $datas[$result->company] = [];
             }
             if(isset( $this->data['products'][$result->company])){
-
                 $_product = $this->data['products'][$result->company];
-             if($result->company == "FUKUI1"){
-                 if($result->pay_method == 1){
-                     $pay_method = "代金引換";
-                 }else  if($result->pay_method == 2){
-                     $pay_method = "銀行振込";
-                 }else if($result->pay_method == 3){
-                     $pay_method = "決済不要";
-                 }
+                if($result->company == "FUKUI1"){
+                    if($result->pay_method == 1){
+                        $pay_method = "代金引換";
+                    }else  if($result->pay_method == 2){
+                        $pay_method = "銀行振込";
+                    }else if($result->pay_method == 3){
+                        $pay_method = "決済不要";
+                    }
                     $order_profit= 0;
                     $price = 0;
                     $total_price = 0;
                     $total_price_buy = 0;
-
                     if(isset( $_product[$result->product_id]['data']['price_buy'])){
-
                         $order_profit =
                             $_product[$result->product_id]['data']['price_buy'] * $result->count -
                             $_product[$result->product_id]['data']['price']*$result->count -
@@ -598,7 +605,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $total_price_buy = $_product[$result->product_id]['data']['price_buy']* $result->count;
                     }
                     $datas[$result->company][] = [
-
                         "",
                         $pay_method,
                         $result->order_date,
@@ -620,134 +626,130 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $result->id
                     ];
                 }else  if($result->company == "KOGYJA"){
-                 $pay_method = "";
-                 if($result->pay_method == 1){
-                     $pay_method = "代金引換";
-                 }else  if($result->pay_method == 2){
-                     $pay_method = "銀行振込";
-                 }else if($result->pay_method == 3){
-                     $pay_method = "決済不要";
-                 }
-                 $order_profit = $result->order_price;
+                    $pay_method = "";
+                    if($result->pay_method == 1){
+                        $pay_method = "代金引換";
+                    }else  if($result->pay_method == 2){
+                        $pay_method = "銀行振込";
+                    }else if($result->pay_method == 3){
+                        $pay_method = "決済不要";
+                    }
+                    $order_profit = $result->order_price;
 
-                 $price = $result->price;
-                 $price_buy = $result->price_buy;
-                 $total_price = $result->total_price;
-
-                 $total_price_buy = $result->total_price_buy;
-
-//                 if(isset($_product[$result->product_id]['data']['price_buy'])){
-//                     if($price == 0)
-//                         $price = $_product[$result->product_id]['data']['price'];
-//                     if($price_buy == 0)
-//                         $price_buy = $_product[$result->product_id]['data']['price_buy'];
-//                 }
-//                 if($total_price == 0)
-//                     $total_price = $price * $result->count;
-//
-//                 if($total_price_buy == 0)
-//                     $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
-
-//                 if($order_profit == 0){
-//                     $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
-//                 }
-
-                 $datas[$result->company][] = [
-                     $result->status,
-                     $result->order_image,
-                     $result->order_create_date,
-                     $pay_method,
-                     $result->phone,
-                     $result->zipcode,
-                     $result->province,
-                     $result->address,
-                     $result->fullname,
-                     $result->product_id,
-                     $result->product_id,
-                     $result->count,
-                     $result->total_count,
-                     $price,
-                     $price_buy,
-                     $result->order_date,
-                     $result->order_hours,
-                     $result->order_ship,
-                     $total_price,
-                     $result->price_buy_sale,
-                     $total_price_buy,
-                     $result->order_ship_cou,
-                     $order_profit,
-                     $result->order_tracking,
-                     $result->order_link,
-                     $result->order_info,
-                     $result->id,
-                     $result->type,
-                 ];
+                    $price = $result->price;
+                    $price_buy = $result->price_buy;
+                    $total_price = $result->total_price;
+                    $total_price_buy = $result->total_price_buy;
+                    $datas[$result->company][] = [
+                        $result->status,
+                        $result->order_image,
+                        $result->order_create_date,
+                        $pay_method,
+                        $result->phone,
+                        $result->zipcode,
+                        $result->province,
+                        $result->address,
+                        $result->fullname,
+                        $result->product_id,
+                        $result->product_id,
+                        $result->count,
+                        $result->total_count,
+                        $price,
+                        $price_buy,
+                        $result->order_date,
+                        $result->order_hours,
+                        $result->order_ship,
+                        $total_price,
+                        $result->price_buy_sale,
+                        $total_price_buy,
+                        $result->order_ship_cou,
+                        $order_profit,
+                        $result->order_tracking,
+                        $result->order_link,
+                        $result->order_info,
+                        $result->id,
+                        $result->type,
+                    ];
 
                 } else{
-                         $pay_method = "";
-                         if($result->pay_method == 1){
-                             $pay_method = "代金引換";
-                         }else  if($result->pay_method == 2){
-                             $pay_method = "銀行振込";
-                         }else if($result->pay_method == 3){
-                             $pay_method = "決済不要";
-                         }
+                    $pay_method = "";
+                    if($result->pay_method == 1){
+                        $pay_method = "代金引換";
+                    }else  if($result->pay_method == 2){
+                        $pay_method = "銀行振込";
+                    }else if($result->pay_method == 3){
+                        $pay_method = "決済不要";
+                    }
 
-                         $order_profit = $result->order_price;
+                    $order_profit = $result->order_price;
 
-                         $price = $result->price;
+                    $price = $result->price;
 
-                         $price_buy = $result->price_buy;
+                    $price_buy = $result->price_buy;
 
-                         $total_price = $result->total_price;
-                         $total_price_buy = $result->total_price_buy;
-                         if(isset($_product[$result->product_id]['data']['price_buy'])){
-                             if($price == 0)
-                                $price = $_product[$result->product_id]['data']['price'];
-                             if($price_buy == 0)
-                                $price_buy = $_product[$result->product_id]['data']['price_buy'];
-                         }
-                         if($total_price == 0)
-                            $total_price = $price * $result->count;
-                         if($total_price_buy == 0)
-                            $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
-                         if($order_profit == 0){
-                            $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
-                         }
-                        $datas[$result->company][] = [
-                             $result->status,
-                             $result->order_image,
-                             $result->order_create_date,
-                             $pay_method,
-                             $result->phone,
-                             $result->zipcode,
-                             $result->province,
-                             $result->address,
-                             $result->fullname,
-                             $result->product_id,
-                             $result->product_id,
-                             $result->count,
-                             $price,
-                             $price_buy,
-                             $result->order_date,
-                             $result->order_hours,
-                             $result->order_ship,
-                             $total_price,
-                             $result->price_buy_sale,
-                             $total_price_buy,
-                             $result->order_ship_cou,
-                             $order_profit,
-                             $result->order_tracking,
-                             $result->order_link,
-                             $result->order_info,
-
-                             $result->id
-                        ];
-                 }
+                    $total_price = $result->total_price;
+                    $total_price_buy = $result->total_price_buy;
+                    if(isset($_product[$result->product_id]['data']['price_buy'])){
+                        if($price == 0)
+                            $price = $_product[$result->product_id]['data']['price'];
+                        if($price_buy == 0)
+                            $price_buy = $_product[$result->product_id]['data']['price_buy'];
+                    }
+                    if($total_price == 0)
+                        $total_price = $price * $result->count;
+                    if($total_price_buy == 0)
+                        $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
+                    if($order_profit == 0){
+                        $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
+                    }
+                    $datas[$result->company][] = [
+                        $result->status,
+                        $result->order_image,
+                        $result->order_create_date,
+                        $pay_method,
+                        $result->phone,
+                        $result->zipcode,
+                        $result->province,
+                        $result->address,
+                        $result->fullname,
+                        $result->product_id,
+                        $result->product_id,
+                        $result->count,
+                        $price,
+                        $price_buy,
+                        $result->order_date,
+                        $result->order_hours,
+                        $result->order_ship,
+                        $total_price,
+                        $result->price_buy_sale,
+                        $total_price_buy,
+                        $result->order_ship_cou,
+                        $order_profit,
+                        $result->order_tracking,
+                        $result->order_link,
+                        $result->order_info,
+                        $result->id
+                    ];
+                }
             }
-            }
-
-        $model->detail = $datas;
+        }
+        return $datas;
+    }
+    public function edit($id){
+        $this->getCrumb()->breadcrumb(z_language("Sửa"), route('backend:shop_ja:order:excel:create'));
+        $this->GetCache('edit',$id);
+        $model = OrderExcelModel::find($id);
+        $results = $model->GetDetails();
+        $model->detail = $this->GetData($results);
         return $this->render('order-excel.edit',['model'=>$model]);
     }
+    public function show(){
+        $this->GetCache('show',0);
+        $this->getCrumb()->breadcrumb(z_language("Danh sách"), route('backend:shop_ja:order:excel:create'));
+        $model = new OrderExcelModel();
+        $datas = $model->ShowAll(Auth::user()->id);
+        $model->detail = $this->GetData($datas);
+        return $this->render('order-excel.show',['model'=>$model]);
+    }
+
 }
