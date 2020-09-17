@@ -223,6 +223,10 @@ return [
                         "url" => "/export",
                         "method" => ['post'],
                     ],
+                    "imports" => [
+                        "url" => "/imports",
+                        "method" => ['get','post'],
+                    ],
                     "show" => [
                         "url" => "/show"
                     ],

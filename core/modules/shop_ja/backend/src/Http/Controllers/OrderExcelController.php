@@ -498,6 +498,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
         return response()->json($output);
     }
+    public function imports(Request $request){
+        return $this->render('order-excel.imports');
+    }
     private function GetCache($type,$id){
         $this->data['excels_data'] = [
 

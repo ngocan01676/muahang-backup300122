@@ -56,7 +56,7 @@
         }
         .jexcel tbody tr.info {
             background-color: #8f2727 !important;
-            color: #ffffff;
+            color: #00000;
         }
         .jexcel tbody tr.info td:first-child{
             color: #000000;
@@ -384,7 +384,7 @@
                     title: '配送先電話番号',//C Số điện thoại
                     type: 'text',
                     width:'100px',
-                    value:"070-1398-2234",
+                    value:"",
                 },
                 zipcode:{
                     title: '配送先郵便番号',//D Mã bưu điện

@@ -384,6 +384,7 @@ class Excel{
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->createSheet();
         $spreadsheet->getSheet(1)->setTitle('Sheet2');
+
         $sheet->setTitle("Sheet1");
         $spreadsheet->getProperties()
             ->setTitle('PHP Download Example')
@@ -393,13 +394,10 @@ class Excel{
             ->setLastModifiedBy('php-download.com');
         $title1 = "株式会社ヤマダ 様 注文フォーマット";
         $title2 = "見本";
-
         $info = "依頼人名. VO HOANG 様 22日に 7410 円入金済み";
-
         $sheet->setCellValue('B1', $title1);
         $sheet->setCellValue('F2', $title2);
         $sheet->setCellValue('P2', $info);
-
         $styleArray = array(
             'font'  => array(
                 'size'  => 9,
