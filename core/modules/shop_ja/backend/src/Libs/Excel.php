@@ -202,6 +202,7 @@ class Excel{
         }
         $path = $path.'/'.date('m').'月'.date('d').'日の注文分-福井精米様御中.xlsx';
         $writer->save(public_path().$path);
+        return ['link'=>url($path)];
 
     }
     public function OHGA($datas){
