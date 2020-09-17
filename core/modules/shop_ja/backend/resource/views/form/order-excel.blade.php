@@ -56,7 +56,7 @@
         }
         .jexcel tbody tr.info {
             background-color: #8f2727 !important;
-            color: #00000;
+            color: #85ff00;
         }
         .jexcel tbody tr.info td:first-child{
             color: #000000;
