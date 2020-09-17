@@ -125,6 +125,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     $pay_method = 0;
                                     if($values[$columns["payMethod"]] == "代金引換"){
                                         $pay_method = 1;
+                                    }else if($values[$columns["payMethod"]] == "銀行振込"){
+                                        $pay_method = 2;
+                                    }else if($values[$columns["payMethod"]] == "決済不要"){
+                                        $pay_method =3;
                                     }
                                     $_data = [
                                         "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",

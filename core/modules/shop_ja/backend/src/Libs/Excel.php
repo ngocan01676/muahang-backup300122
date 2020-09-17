@@ -7,6 +7,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\DB;
 class Excel{
+    function getValuePayMethod($val) {
+        if($val === "代金引換") return 1;
+        if($val === "銀行振込") return 2;
+        if($val === "決済不要") return 3;
+        return 0;
+    }
     public function FUKUI($datas){
 
         $spreadsheet = new Spreadsheet();
@@ -347,6 +353,16 @@ class Excel{
         $writer->save(public_path().'/uploads/exports/OHGA.xlsx');
         return ['link'=>url('/uploads/exports/OHGA.xlsx')];
     }
+    function cellsToMergeByColsRow($start = -1, $end = -1, $row = -1){
+        $merge = 'A1:A1';
+        if($start>=0 && $end>=0 && $row>=0){
+            $start = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($start);
+            $end = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($end);
+            $merge = "$start{$row}:$end{$row}";
+        }
+
+        return $merge;
+    }
     public function YAMADA($datas,$name){
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -448,6 +464,7 @@ class Excel{
 
         $columns_value = array_flip($datas['columns']);
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
             foreach($colums as $key=>$value){
@@ -542,26 +559,28 @@ class Excel{
         );
         $sheet->getStyle('B1')->applyFromArray($styleArray);
         $start=2;
-        for($typeMethod = 0; $typeMethod< 2 ; $typeMethod++){
+        $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+        for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
             $colums = [
-                ["注文日",'timeCreate',10,9],//ngày đặt hàng
+                ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
                 ["配送先電話番号",'phone',10,9],//Số điện thoại
                 ["配送先郵便番号",'zipcode',9,9],//Mã bưu điện
                 ["配送先都道府県",'province',14,9],//Tỉnh/TP
                 ["配送先住所",'address',18,9],//Địa chỉ giao hàng
                 ["配送先氏名",'fullname',18,9],//Họ tên người nhận
-                ["品番",['product'=>['product_id','code']],10,9],//Mã SP
-                ["商品名",['product'=>['product_id','title']],18,9],//Tên SP
-                ["単価",['product'=>['product_id','price']],15,9],//Giá nhập
+                ["品番",['product'=>['product_id','code']],10,9],//H
+                ["商品名",['product'=>['product_name','title']],18,9],//I
+                ["単価",'price',15,9],//Giá nhập
                 ["数量",'count',15,9],//SL
-                ["到着希望日",'day_ship',15,9],//Ngày nhận
-                ["配送希望時間帯",'time_ship',15,9],//Giờ nhận
-                ["別途送料",'price_ship',15,9],//Phí ship
-                ["仕入金額",['product'=>['product_id','price','totalPrice']],15,9],//Tổng giá nhập
-                ["代引き請求金額",['product'=>['product_id','price_buy','totalPriceBuy']],15,9],//Giá bán
-                ["代引き手数料",['product'=>['product_id','price_buy','totalCOU']],15,9],
-                ["紹介料",['callback'=>function($index){return '=IF(J'.$index.'="","",P'.$index.'-J'.$index.'*K'.$index.'-N'.$index.'-Q'.$index.')';}],15,9],
+                ["到着希望日",'order_date',15,9],//Ngày nhận
+                ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
+                ["別途送料",'order_ship',15,9],//Phí ship
+                ["仕入金額",'total_count',15,9],//Tổng giá nhập
+                ["代引き請求金額",'order_total_price',15,9],//Giá bán
+                ["代引き請求金額",'order_total_buy',15,9],//Giá bán
+                ["代引き手数料",'order_ship_cou',15,9],
+                ["紹介料",'order_price',15,9],
                 ["追跡番号",'tracking',15,9],
                 ["振込み情報",'info',25,9],
             ];
@@ -584,27 +603,130 @@ class Excel{
 //            $orders = [
 //
 //            ];
-            if($typeMethod == 0){
-                $start+=2;
-                $sheet->setCellValue('N'.$start, '合計');
-                $sheet->setCellValue('P'.$start, '合計代引き金額：　19330');
+            $start++;
+            $columns_value = array_flip($datas['columns']);
+            foreach ($datas['datas'] as $key=>$_values){
+                $type = ((isset($columns_value['type'])?$_values[$columns_value['type']]:""));
 
-                $sheet->getStyle('N'.$start)->applyFromArray(array(
-                        'font'  => array(
-                            'size'  => 9,
-                            'name' => 'Times New Roman',
-                            'color' => array('rgb' => 'ff1100'),
-                        ),
-                    )
-                );
-                $sheet->getStyle('P'.$start)->applyFromArray(array(
-                        'font'  => array(
-                            'size'  => 9,
-                            'name' => 'Times New Roman',
-                            'color' => array('rgb' => 'ff1100'),
-                        ),
-                    )
-                );
+                if($type == "Info"){
+                    $pay_Method = $this->getValuePayMethod(isset($columns_value['payMethod'])?$_values[$columns_value['payMethod']]:"");
+
+                    if($pay_Method == $typeMethod){
+
+                        $startRow = $start;
+                        $endRow = $key;
+                        $count = 0;
+                        for($i = $key ; $i<count($datas['datas']) ; $i++){
+
+                            $count++;
+                            $values = $datas['datas'][$i];
+                            $oke = true;
+                            $type =  (isset($columns_value['type'])?$values[$columns_value['type']]:"");
+                            foreach($colums as $key=>$value){
+                                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                                $oke  = true;
+                                if(false) {
+                                    $oke = false;
+                                }else{
+                                    if(is_array($value[1])){
+                                        if(isset($value[1]['product'])){
+                                            $conf = $value[1]['product'];
+                                            $id = (isset($columns_value[$conf[0]])?$values[$columns_value[$conf[0]]]:"");
+                                            $_val = "";
+
+                                            if(isset($products[$id]) && property_exists($products[$id],$conf[1])){
+                                                $_val = $products[$id]->{$conf[1]};
+                                            }
+
+
+                                        }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                                            $conf = $value[1]['callback'];
+                                            $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start]);
+                                            if($value[1]['key'] == "timeCreate" && $type != "Info"){
+                                                $_val = "";
+                                            }
+                                        }
+
+                                        $sheet->setCellValue($nameCol.$start,$_val);
+                                    }else{
+                                        if($type == "Footer"){
+                                            if(!($value[1]=="count" || $value[1]=="order_price" || $value[1] == "order_total_price") ) continue;
+
+                                        }
+
+                                        $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
+
+                                        if($value[1] == "payMethod"){
+                                            $payMethod = $v;
+                                        }
+
+                                        $sheet->setCellValue($nameCol.$start,$v);
+                                    }
+                                }
+                            }
+                            if($oke){
+                                if($pay_Method == "銀行振込"){
+                                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                                        'font'  => array(
+                                            'size'  => 9,
+                                            'name' => 'Times New Roman',
+                                            'color' => array('rgb' => '0070c0'),
+                                        ),
+                                    ) );
+                                }else  if($payMethod == "決済不要"){
+                                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                                        'font'  => array(
+                                            'size'  => 9,
+                                            'name' => 'Times New Roman',
+                                            'color' => array('rgb' => 'ff0000'),
+                                        ),
+                                    ) );
+                                }
+                                $start++;
+                            }
+                            if($type == "Footer"){
+                                break;
+                            }
+                        }
+                        if($startRow != $start){
+//
+                            foreach (["timeCreate","fullname","payMethod",'zipcode','province','address','phone'] as $col){
+                                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($columns_value[$col]-1);
+                                $spreadsheet->getActiveSheet()->mergeCells($nameCol.$startRow.":".$nameCol.($start-2));
+                                $styleArray = [
+                                    'alignment' => [
+                                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                                    ],
+                                ];
+                                $spreadsheet->getActiveSheet()->getStyle($nameCol.$startRow)->applyFromArray($styleArray);
+                            }
+                        }
+                    }
+
+                }
+            }
+            if($typeMethod == 0){
+//                $start+=2;
+//                $sheet->setCellValue('N'.$start, '合計');
+//                $sheet->setCellValue('P'.$start, '合計代引き金額：　19330');
+
+//                $sheet->getStyle('N'.$start)->applyFromArray(array(
+//                        'font'  => array(
+//                            'size'  => 9,
+//                            'name' => 'Times New Roman',
+//                            'color' => array('rgb' => 'ff1100'),
+//                        ),
+//                    )
+//                );
+//                $sheet->getStyle('P'.$start)->applyFromArray(array(
+//                        'font'  => array(
+//                            'size'  => 9,
+//                            'name' => 'Times New Roman',
+//                            'color' => array('rgb' => 'ff1100'),
+//                        ),
+//                    )
+//                );
 
                 $start++;
                 $sheet->setCellValue('I'.$start, '※1キロずつの小分けをお願いします。');
@@ -617,25 +739,12 @@ class Excel{
                     )
                 );
             }
-            $columns = array_flip($datas['columns']);
-            var_dump($columns);
-            foreach ($datas['datas'] as $key=>$values){
-                foreach($colums as $key=>$value){
-                    $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
-                    if(is_array($value[1])){
-                        $sheet->setCellValue($nameCol.$start,"");
-                    }else{
-                        $sheet->setCellValue($nameCol.$start,(isset($columns[$value[1]])?$values[$columns[$value[1]]]:""));
-                    }
-
-                }
-                $start++;
-            }
             $start+=1;
             $dataRow = [];
         }
 
         $writer = new Xlsx($spreadsheet);
         $writer->save(public_path().'/uploads/exports/KOGYJA.xlsx');
+        return ['link'=>url('/uploads/exports/KOGYJA.xlsx')];
     }
 }

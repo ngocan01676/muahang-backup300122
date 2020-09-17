@@ -1765,7 +1765,7 @@
 
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, value.end]),totalCount);
-                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index, value.end]),v);
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index, value.start]),v);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, value.end]),totalPrice);
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, value.start]),totalPriceBuy);
@@ -1904,12 +1904,9 @@
                         }
                     }
                     console.log(rowInfo+" count:"+_count);
-
                    // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, rowInfo]),_count);
-
                     console.log("order_total_price_buy:"+order_total_price_buy);
                     console.log("order_total_price_buy:"+order_total_price);
-
                    // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, rowInfo]),order_total_price);
                 //    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index, rowInfo]),v);
 
