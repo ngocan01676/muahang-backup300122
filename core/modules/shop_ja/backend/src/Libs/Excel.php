@@ -7,6 +7,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\DB;
 class Excel{
+    protected $file;
+    public function __construct()
+    {
+        $this->file = new \Illuminate\Filesystem\Filesystem();
+    }
+
     function getValuePayMethod($val) {
         if($val === "代金引換") return 1;
         if($val === "銀行振込") return 2;
@@ -186,8 +192,17 @@ class Excel{
 //        $sheet->setCellValue("Q".$start, "=SUM(Q".$defaultStart.":Q".($start-1).")");
 
         $writer = new Xlsx($spreadsheet);
-        $writer->save(public_path().'/uploads/exports/FUKUI.xlsx');
-        return ['link'=>url('/uploads/exports/FUKUI.xlsx')];
+        $path = '/uploads/exports/'.str_replace(__CLASS__.'::',"",__METHOD__);
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/'.date('Y-m-d');
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/'.date('m').'月'.date('d').'日の注文分-福井精米様御中.xlsx';
+        $writer->save(public_path().$path);
+
     }
     public function OHGA($datas){
 
@@ -350,18 +365,18 @@ class Excel{
         $sheet->setCellValue("R".$start, "=SUM(R".$defaultStart.":R".($start-1).")");
         $sheet->setCellValue("Q".$start, "=SUM(Q".$defaultStart.":Q".($start-1).")");
         $writer = new Xlsx($spreadsheet);
-        $writer->save(public_path().'/uploads/exports/OHGA.xlsx');
-        return ['link'=>url('/uploads/exports/OHGA.xlsx')];
-    }
-    function cellsToMergeByColsRow($start = -1, $end = -1, $row = -1){
-        $merge = 'A1:A1';
-        if($start>=0 && $end>=0 && $row>=0){
-            $start = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($start);
-            $end = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($end);
-            $merge = "$start{$row}:$end{$row}";
+        $path = '/uploads/exports/'.str_replace(__CLASS__.'::',"",__METHOD__);
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
         }
+        $path = $path.'/'.date('Y-m-d');
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/大賀商店のお米の注文分'.date('m').'月'.date('d').'日.xlsx';
+        $writer->save(public_path().$path);
+        return ['link'=>url($path)];
 
-        return $merge;
     }
     public function YAMADA($datas,$name){
         $spreadsheet = new Spreadsheet();
@@ -515,8 +530,17 @@ class Excel{
         $sheet->setCellValue("R".$start, "=SUM(R".$defaultStart.":R".($start-1).")");
         $sheet->setCellValue("Q".$start, "=SUM(Q".$defaultStart.":Q".($start-1).")");
         $writer = new Xlsx($spreadsheet);
-        $writer->save(public_path().'/uploads/exports/'.$name.'.xlsx');
-        return ['link'=>url('/uploads/exports/'.$name.'.xlsx')];
+        $path = '/uploads/exports/'.str_replace(__CLASS__.'::',"",__METHOD__);
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/'.date('Y-m-d');
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/株式会社ヤマダ-様-のお米の注文分'.date('m').'月'.date('d').'日.xlsx';
+        $writer->save(public_path().$path);
+        return ['link'=>url($path)];
 
     }
     public function KOGYJA($datas){
@@ -584,8 +608,19 @@ class Excel{
                 ["追跡番号",'tracking',15,9],
                 ["振込み情報",'info',25,9],
             ];
+            $nameColList = [];
             foreach($colums as $key=>$value){
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                if(is_array($value[1])){
+                    if(isset($value[1]['product'])){
+                        $conf = $value[1]['product'];
+                        $nameColList[$conf[0]] = $key;
+                    }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                        $nameColList[$value[1]['key']] = $key;
+                    }
+                }else{
+                    $nameColList[$value[1]] = $key;
+                }
                 $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                         'font'  => array(
                             'size'  => $value[3]
@@ -595,7 +630,9 @@ class Excel{
                 if($value[2] > 0){
                     $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
                 }
+
             }
+
             $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).$start)->applyFromArray( $style_header );
 //            $ship = 34;
 //            $datas = [];
@@ -605,6 +642,7 @@ class Excel{
 //            ];
             $start++;
             $columns_value = array_flip($datas['columns']);
+
             foreach ($datas['datas'] as $key=>$_values){
                 $type = ((isset($columns_value['type'])?$_values[$columns_value['type']]:""));
 
@@ -633,12 +671,9 @@ class Excel{
                                             $conf = $value[1]['product'];
                                             $id = (isset($columns_value[$conf[0]])?$values[$columns_value[$conf[0]]]:"");
                                             $_val = "";
-
                                             if(isset($products[$id]) && property_exists($products[$id],$conf[1])){
                                                 $_val = $products[$id]->{$conf[1]};
                                             }
-
-
                                         }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                                             $conf = $value[1]['callback'];
                                             $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start]);
@@ -690,8 +725,10 @@ class Excel{
                         }
                         if($startRow != $start){
 //
-                            foreach (["timeCreate","fullname","payMethod",'zipcode','province','address','phone'] as $col){
-                                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($columns_value[$col]-1);
+
+                            foreach (["timeCreate","fullname","payMethod",'zipcode','province','address','phone','order_date','order_hours'] as $col){
+
+                                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList[$col]+1);
                                 $spreadsheet->getActiveSheet()->mergeCells($nameCol.$startRow.":".$nameCol.($start-2));
                                 $styleArray = [
                                     'alignment' => [
@@ -727,7 +764,6 @@ class Excel{
 //                        ),
 //                    )
 //                );
-
                 $start++;
                 $sheet->setCellValue('I'.$start, '※1キロずつの小分けをお願いします。');
                 $sheet->getStyle('I'.$start)->applyFromArray(array(
@@ -742,9 +778,18 @@ class Excel{
             $start+=1;
             $dataRow = [];
         }
-
         $writer = new Xlsx($spreadsheet);
-        $writer->save(public_path().'/uploads/exports/KOGYJA.xlsx');
-        return ['link'=>url('/uploads/exports/KOGYJA.xlsx')];
+
+        $path = '/uploads/exports/'.str_replace(__CLASS__.'::',"",__METHOD__);
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/'.date('Y-m-d');
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/株式会社コギ家-様-'.date('m').'月'.date('d').'日注文分.xlsx';
+        $writer->save(public_path().$path);
+        return ['link'=>url($path)];
     }
 }
