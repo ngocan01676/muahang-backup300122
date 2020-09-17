@@ -686,7 +686,13 @@ class Excel{
                                     }else{
                                         if($type == "Footer"){
                                             if(!($value[1]=="count" || $value[1]=="order_price" || $value[1] == "order_total_price") ) continue;
-
+                                            $sheet->getStyle($nameCol.$start)->applyFromArray( array(
+                                                'font'  => array(
+                                                    'size'  => 9,
+                                                    'name' => 'Times New Roman',
+                                                    'color' => array('rgb' => 'ff0000'),
+                                                ),
+                                            ) );
                                         }
 
                                         $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
@@ -724,8 +730,20 @@ class Excel{
                             }
                         }
                         if($startRow != $start){
-//
+                            $_1 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["product_id"]+1).$startRow;
+                            $_2 =  PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"]+1).($start-2);
+                            $sheet->getStyle($_1.':'.$_2)->applyFromArray(   array(
 
+                                'borders' => [
+                                    'allBorders' => array(
+                                        'borderStyle' => Border::BORDER_DOTTED,
+                                        'color' => array('rgb'=>'000000')
+                                    ),
+                                ],
+                                'font' => array(
+                                    'color' => array('rgb' => '0070c0'),
+                                )
+                            ) );
                             foreach (["timeCreate","fullname","payMethod",'zipcode','province','address','phone','order_date','order_hours'] as $col){
 
                                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList[$col]+1);
