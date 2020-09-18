@@ -8,9 +8,100 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\DB;
 class Excel{
     protected $file;
+    public $DataCol = [
+
+    ];
     public function __construct()
     {
         $this->file = new \Illuminate\Filesystem\Filesystem();
+        $this->DataCol = [
+            "FUKUI"=>[
+                    ["支払区分",'payMethod',10,9],//A Phương thức thanh toán
+                    ["到着希望日",'order_date1',15,9],//B ngày giao hàng
+                    ["配送希望時間帯",'order_hours',15,9],//C Giờ nhận
+                    ["配送先氏名",'fullname',18,9],//D Họ và tên khách hàng
+                    ["配送先郵便番号",'zipcode',9,9],// E Mã bưu điện
+                    ["配送先都道府県",'province',14,9], // F Tỉnh
+                    ["配送先住所",'address',18,9], // G Địa chỉ giao hàng
+                    ["配送先電話番号",'phone1',10,9], // H Số điện thoại
+                    ["別途送料",'order_ship',15,9], //I Phí Ship
+                    ["紹介料",['callback'=>function($index,$value){return (int)$value;},'key'=>'order_price'],15,9],// Lợi nhuận J
+                    ["仕入金額",'order_total_price_buy',15,9], // Tổng giá đơn hàng K
+                    ["品番",['product'=>['product_id','code']],10,9], // Mã sản phẩm L
+                    ["商品名",['product'=>['product_id','title']],18,9], // Tên sản phẩm M
+                    ["単価",'order_total_price',15,9], // Giá nhập N
+                    ["数量",'count',15,9], // Số lượng O
+            ],
+            "OHGA"=>[
+                ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+                ["支払区分",'payMethod',10,9],//B
+                ["配送先電話番号",'phone',10,9],//C
+                ["配送先郵便番号",'zipcode',9,9],//D
+                ["配送先都道府県",'province',14,9],//E
+                ["配送先住所",'address',18,9],//F
+                ["配送先氏名",'fullname',18,9],//G
+                ["品番",['product'=>['product_id','code']],10,9],//H
+                ["商品名",['product'=>['product_name','title']],18,9],//I
+                ["単価",'price',15,9],//J
+                ["数量",'count',15,9],//K
+                ["到着希望日",'order_date',15,9],//L
+                ["配送希望時間帯",'order_hours',15,9],//M
+                ["別途送料",'order_ship',15,9],//N
+                ["仕入金額",'order_total_price',15,9],//O
+                ["代引き請求金額",'order_total_price_buy',15,9],//P
+                ["代引き手数料",'order_ship_cou',15,9],//Q
+                ["紹介料",'order_price',15,9],//R
+                ["追跡番号",'order_tracking',15,9],//S
+                ["振込み情報",'order_info',25,9],//T
+                ["",'order_link',25,9],//U
+            ],
+            "YAMADA"=>[
+                ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+                ["支払区分",'payMethod',10,9],//B
+                ["配送先電話番号",'phone',10,9],//C
+                ["配送先郵便番号",'zipcode',9,9],//D
+                ["配送先都道府県",'province',14,9],//E
+                ["配送先住所",'address',18,9],//F
+                ["配送先氏名",'fullname',18,9],//G
+                ["品番",['product'=>['product_id','code']],10,9],//H
+                ["商品名",['product'=>['product_name','title']],18,9],//I
+                ["単価",'price',15,9],//J
+                ["数量",'count',15,9],//K
+                ["到着希望日",'order_date',15,9],//L
+                ["配送希望時間帯",'order_hours',15,9],//M
+                ["別途送料",'order_ship',15,9],//N
+                ["仕入金額",'order_total_price',15,9],//O
+                ["代引き請求金額",'order_total_price_buy',15,9],//P
+                ["代引き手数料",'order_ship_cou',15,9],//Q
+                ["紹介料",'order_price',15,9],//R
+                ["追跡番号",'order_tracking',15,9],//S
+                ["振込み情報",'order_info',25,9],//T
+                ["",'order_link',25,9],//U
+            ],
+            "KOGYJA"=>[
+                ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+                ["支払区分",'payMethod',10,9],//Phương thức thanh toán
+                ["配送先電話番号",'phone',10,9],//Số điện thoại
+                ["配送先郵便番号",'zipcode',9,9],//Mã bưu điện
+                ["配送先都道府県",'province',14,9],//Tỉnh/TP
+                ["配送先住所",'address',18,9],//Địa chỉ giao hàng
+                ["配送先氏名",'fullname',18,9],//Họ tên người nhận
+                ["品番",['product'=>['product_id','code']],10,9],//H
+                ["商品名",['product'=>['product_name','title']],18,9],//I
+                ["単価",'price',15,9],//Giá nhập
+                ["数量",'count',15,9],//SL
+                ["到着希望日",'order_date',15,9],//Ngày nhận
+                ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
+                ["別途送料",'order_ship',15,9],//Phí ship
+                ["仕入金額",'total_count',15,9],//Tổng giá nhập
+                ["代引き請求金額",'order_total_price',15,9],//Giá bán
+                ["代引き請求金額",'order_total_buy',15,9],//Giá bán
+                ["代引き手数料",'order_ship_cou',15,9],
+                ["紹介料",'order_price',15,9],
+                ["追跡番号",'tracking',15,9],
+                ["振込み情報",'info',25,9],
+            ],
+        ];
     }
 
     function getValuePayMethod($val) {
@@ -18,6 +109,98 @@ class Excel{
         if($val === "銀行振込") return 2;
         if($val === "決済不要") return 3;
         return 0;
+    }
+    public function Read($OriginalName,$inputFileName,$inputFileType){
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+        $spreadsheet = $reader->load($inputFileName);
+        $sheet = $spreadsheet->getActiveSheet();
+        $datas =  $sheet->toArray();
+        $type = $this->checkTypeCom($OriginalName);
+
+        $html = "";
+        if(isset($this->DataCol[$type])){
+            $colums = $this->DataCol[$type];
+            $nameColList = [];
+            foreach($colums as $key=>$value){
+                if(is_array($value[1])){
+                    if(isset($value[1]['product'])){
+                        $conf = $value[1]['product'];
+                        $nameColList[$conf[0]] = $key;
+                    }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                        $nameColList[$value[1]['key']] = $key;
+                    }
+                }else{
+                    $nameColList[$value[1]] = $key;
+                }
+            }
+
+            $n = count($datas);
+            $results = [];
+            for ( $i=3 ; $i < $n ;$i++){
+                $order_tracking = trim(rtrim($datas[$i][$nameColList['order_tracking']]));
+                $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
+                if(!empty($order_tracking)){
+                    $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
+                    if(!empty($fullname)){
+                        $item = [
+                            'data'=>$datas[$i],
+                            'checking'=>[$order_tracking],
+                        ];
+                        for($j = $i+1;$j<$count+$i; $j++){
+                            $order_tracking =  trim(rtrim($datas[$j][$nameColList['order_tracking']]));
+                            $item['checking'][] = $order_tracking;
+                        }
+                        $results[] = $item;
+                    }
+                }
+            }
+            $html = "<table>";
+            $html.="<tr>";
+                $html.="<td class='text-center' colspan='".(count($colums)+1)."'><h2>".$type."</h2></td>";
+            $html.="</tr>";
+            foreach ($results as $key=>$value){
+
+
+                $where = [
+                    'fullname'=> trim(rtrim($value['data'][$nameColList['fullname']])),
+                    'address'=> trim(rtrim($value['data'][$nameColList['address']])),
+                    'company'=>$type,
+                    'phone'=>trim(rtrim($value['data'][$nameColList['phone']])),
+                    'zipcode'=>trim(rtrim($value['data'][$nameColList['zipcode']])),
+                    'province'=>trim(rtrim($value['data'][$nameColList['province']])),
+                    'product_code'=>trim(rtrim($value['data'][$nameColList['product_id']])),
+                    'product_title'=>trim(rtrim($value['data'][$nameColList['product_name']])),
+                    'count'=>trim(rtrim($value['data'][$nameColList['count']])),
+                    'price'=>trim(rtrim($value['data'][$nameColList['price']])),
+                    'order_date'=>trim(rtrim($value['data'][$nameColList['order_date']])),
+                    'order_hours'=>trim(rtrim($value['data'][$nameColList['order_hours']])),
+                    'pay_method'=>$this->getValuePayMethod(trim(rtrim($value['data'][$nameColList['payMethod']]))),
+                ];
+                $count = DB::table('shop_order_excel')->where($where)->count('id');
+                $html.="<tr class='".($count==1?'oke':(($count==0)?'empty':'two'))."'>";
+                $html.="<td><input type='checkbox'></td>";
+                $html.="<td>[".$count."]</td>";
+                foreach ($value['data'] as $k=>$val){
+                    $html.="<td>".$val."</td>";
+                }
+                $html.="</tr>";
+            }
+            $html.= "</table>";
+        }
+        return $html;
+    }
+    public function checkTypeCom($name){
+        if( strpos($name,"大賀商店のお米の注文分") !== false){
+            return "OHGA";
+        }else  if( strpos($name,"株式会社クリチク") !== false){
+            return "Kurichiku";
+        }else  if( strpos($name,"株式会社コギ家-様" ) !== false){
+            return "KOGYJA";
+        }else  if( strpos($name,"株式会社ヤマダ-様-のお米の注文分" ) !== false){
+            return "YAMADA";
+        }else if(strpos($name,'の注文分-福井精米様御中')){
+            return "FUKUI";
+        }
     }
     public function FUKUI($datas){
 
@@ -118,8 +301,6 @@ class Excel{
         $start++;
         $defaultStart = $start;
         $lastIndex = "";
-
-
         $company = "36";
 
         $orders = [

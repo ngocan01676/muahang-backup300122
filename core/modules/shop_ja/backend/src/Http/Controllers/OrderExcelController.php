@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
+use \PhpOffice\PhpSpreadsheet;
+use \PhpOffice\PhpSpreadsheet\Style\Border;
+use \PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class OrderExcelController extends \Zoe\Http\ControllerBackend
 {
     private function IF_End($val,$conf){
@@ -502,6 +507,26 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         return response()->json($output);
     }
     public function imports(Request $request){
+        if($request->ajax()){
+            $input = $request->all();
+            $validator = Validator::make($request->all(), [
+                'image' => 'required',
+            ]);
+            if($validator->passes()){
+                $imageName = date('y-m-d').'.'.request()->image->getClientOriginalExtension();
+                $input['image'] = $imageName;
+                $OriginalName = request()->image->getClientOriginalName();
+                request()->image->move(public_path('uploads/tracking'), $imageName);
+                $Excel = new \ShopJa\Libs\Excel();
+                $results = $Excel->Read($OriginalName,public_path('uploads/tracking')."/".$imageName,"Xlsx");
+
+
+                return Response()->json(["success"=>"Image Upload Successfully",'html'=>$results]);
+            }
+
+            return response()->json(['error'=>$validator->errors()->all()]);
+
+        }
         return $this->render('order-excel.imports');
     }
     private function GetCache($type,$id){
