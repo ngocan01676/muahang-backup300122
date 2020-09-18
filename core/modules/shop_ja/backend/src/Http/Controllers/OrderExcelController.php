@@ -130,6 +130,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }else if($values[$columns["payMethod"]] == "決済不要"){
                                         $pay_method =3;
                                     }
+                                    foreach ($values as $kkkkk=>$valllll){
+                                        $values[$kkkkk] = rtrim(trim($valllll));
+                                    }
                                     $_data = [
                                         "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
                                         "company"=>$name,
