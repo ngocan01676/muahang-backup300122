@@ -86,13 +86,13 @@ class Excel{
         );
         $colums = [
             ["支払区分",'payMethod',10,9],//A Phương thức thanh toán
-            ["到着希望日",'order_date',15,9],//B ngày giao hàng
+            ["到着希望日",'order_date1',15,9],//B ngày giao hàng
             ["配送希望時間帯",'order_hours',15,9],//C Giờ nhận
             ["配送先氏名",'fullname',18,9],//D Họ và tên khách hàng
             ["配送先郵便番号",'zipcode',9,9],// E Mã bưu điện
             ["配送先都道府県",'province',14,9], // F Tỉnh
             ["配送先住所",'address',18,9], // G Địa chỉ giao hàng
-            ["配送先電話番号",'phone',10,9], // H Số điện thoại
+            ["配送先電話番号",'phone1',10,9], // H Số điện thoại
             ["別途送料",'order_ship',15,9], //I Phí Ship
             ["紹介料",['callback'=>function($index,$value){return (int)$value + 330;},'key'=>'order_price'],15,9],// Lợi nhuận J
             ["仕入金額",'order_total_price_buy',15,9], // Tổng giá đơn hàng K
@@ -156,7 +156,7 @@ class Excel{
             if($payMethod == "銀行振込"){
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
-                     
+
                         'name' => 'Times New Roman',
                         'color' => array('rgb' => '0070c0'),
                     ),
