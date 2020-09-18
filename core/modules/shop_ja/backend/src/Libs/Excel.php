@@ -156,7 +156,7 @@ class Excel{
             if($payMethod == "銀行振込"){
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
-                        'size'  => 9,
+                     
                         'name' => 'Times New Roman',
                         'color' => array('rgb' => '0070c0'),
                     ),
@@ -164,7 +164,7 @@ class Excel{
             }else  if($payMethod == "決済不要"){
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
-                        'size'  => 9,
+
                         'name' => 'Times New Roman',
                         'color' => array('rgb' => 'ff0000'),
                     ),
