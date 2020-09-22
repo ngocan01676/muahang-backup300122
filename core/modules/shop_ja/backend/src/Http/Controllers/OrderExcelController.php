@@ -123,6 +123,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     foreach ($order['columns'] as $k=>$v){
                         $columns[$v] = $k;
                     }
+                    $this->GetCache('create',0);
+
+                    $_product = $this->data['products'][$name];
 
                     if($name== "KOGYJA"){
                         try{
@@ -138,6 +141,14 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     foreach ($values as $kkkkk=>$valllll){
                                         $values[$kkkkk] = rtrim(trim($valllll));
                                     }
+                                    $product_title = "";$product_code = "";
+
+                                    $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
+
+                                    if(isset( $_product[$product_id]['data']['price_buy'])){
+                                        $product_code = $_product[$product_id]['data']['code'];
+                                        $product_title = $_product[$product_id]['data']['title'];
+                                    }
                                     $_data = [
                                         "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
                                         "company"=>$name,
@@ -149,7 +160,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
                                         "province"=>isset($columns["province"])?$values[$columns["province"]]:"",
                                         "pay_method"=>$pay_method,
-                                        "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null),
+                                        "product_id"=>$product_id,
+                                        "product_code"=>$product_code,
+                                        "product_title"=>$product_title,
                                         "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:""),
                                         "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:""),
                                         "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
@@ -193,7 +206,17 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }else  if($values[$columns["payMethod"]] == "決済不要"){
                                     $pay_method = 3;
                                 }
-                                
+                                foreach ($values as $kkkkk=>$valllll){
+                                    $values[$kkkkk] = rtrim(trim($valllll));
+                                }
+                                $product_title = "";$product_code = "";
+
+                                $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
+
+                                if(isset( $_product[$product_id]['data']['price_buy'])){
+                                    $product_code = $_product[$product_id]['data']['code'];
+                                    $product_title = $_product[$product_id]['data']['title'];
+                                }
                                 $_data = [
                                     "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
                                     "company"=>$name,
@@ -205,7 +228,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
                                     "province"=>isset($columns["province"])?$values[$columns["province"]]:"",
                                     "pay_method"=>$pay_method,
-                                    "product_id"=>(int)(isset($columns["product_id"])?$values[$columns["product_id"]]:""),
+                                    "product_id"=>$product_id,
+                                    "product_code"=>$product_code,
+                                    "product_title"=>$product_title,
                                     "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:""),
                                     "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:""),
                                     "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
@@ -502,6 +527,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }else  if($data['name'] == "FUKUI"){
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->FUKUI($data);
+            }else  if($data['name'] == "KURICHIKU"){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output =$excel->KURICHIKU($data);
             }
         }
         return response()->json($output);
@@ -509,23 +537,29 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     public function imports(Request $request){
         if($request->ajax()){
             $input = $request->all();
-            $validator = Validator::make($request->all(), [
-                'image' => 'required',
-            ]);
-            if($validator->passes()){
-                $imageName = date('y-m-d').'.'.request()->image->getClientOriginalExtension();
-                $input['image'] = $imageName;
-                $OriginalName = request()->image->getClientOriginalName();
-                request()->image->move(public_path('uploads/tracking'), $imageName);
-                $Excel = new \ShopJa\Libs\Excel();
-                $results = $Excel->Read($OriginalName,public_path('uploads/tracking')."/".$imageName,"Xlsx");
+            if(isset($input['type'])){
+                if($input['type'] == "import"){
+                    $lists = isset( $input['lists'])? $input['lists']:[];
+                    foreach ($lists as $list){
+                        DB::table('shop_order_excel')->where("id",$list['id'])->update(['order_tracking'=>json_encode($list['checking'])]);
+                    }
+                }
+            }else{
+                $validator = Validator::make($request->all(), [
+                    'image' => 'required',
+                ]);
+                if($validator->passes()){
+                    $imageName = date('y-m-d').'.'.request()->image->getClientOriginalExtension();
+                    $input['image'] = $imageName;
+                    $OriginalName = request()->image->getClientOriginalName();
+                    request()->image->move(public_path('uploads/tracking'), $imageName);
+                    $Excel = new \ShopJa\Libs\Excel();
+                    $results = $Excel->Read($OriginalName,public_path('uploads/tracking')."/".$imageName,"Xlsx");
+                    return Response()->json(["success"=>"Image Upload Successfully",'html'=>$results]);
+                }
 
-
-                return Response()->json(["success"=>"Image Upload Successfully",'html'=>$results]);
+                return response()->json(['error'=>$validator->errors()->all()]);
             }
-
-            return response()->json(['error'=>$validator->errors()->all()]);
-
         }
         return $this->render('order-excel.imports');
     }
@@ -560,10 +594,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         foreach ($names as $name){
             $key = $this->GetToken()."-".Auth::guard()->user()->id.':'.$type.':'.$name;
             $k = $key.':'.$id;
+
             if(Cache::has($k)){
                 $_val = json_decode(Cache::get($k),true);
                 $val = [];
-
                 if(isset($_val['data'])){
                     $val['data'] =$_val['data'];
                 }else{
@@ -577,6 +611,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }else{
                 $val = ['token'=>rand(),'data'=>[]];
             }
+
             if(Cache::has($key)){
                $dataKey =  Cache::get($key);
             }else{

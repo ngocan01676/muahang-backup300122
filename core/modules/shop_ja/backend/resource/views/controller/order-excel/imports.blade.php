@@ -36,11 +36,30 @@
                 <div class="box">
                     <div class="box-header with-border"></div>
                     <div class="box-body" id="results"></div>
+                    <div class="box-footer">
+                        <button type="button" class="btn btn-success" id="importBtn">Cập nhật</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+@endsection
+@section('extra-script')
+    <style>
+        .update{
+            color: #3a8104;
+        }
+        .oke{
+            color: green;
+        }
+        .conflict{
+            color: red;
+        }
+        .empty{
+            color: #0000cc;
+        }
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.success').hide();// or fade, css display however you'd like.
@@ -84,5 +103,23 @@
                 $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
             });
         }
+        $("#importBtn").click(function () {
+            let lists = [];
+
+            $("#results .update").each(function () {
+                lists.push(JSON.parse($(this).find('textarea.value').val()));
+            });
+
+            $.ajax({
+                type: "POST",
+                data: {
+                    'type':"import",
+                    lists:lists,
+                },
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        });
     </script>
 @endsection

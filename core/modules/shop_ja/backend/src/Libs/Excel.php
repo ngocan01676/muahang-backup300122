@@ -23,14 +23,15 @@ class Excel{
                     ["配送先郵便番号",'zipcode',9,9],// E Mã bưu điện
                     ["配送先都道府県",'province',14,9], // F Tỉnh
                     ["配送先住所",'address',18,9], // G Địa chỉ giao hàng
-                    ["配送先電話番号",'phone1',10,9], // H Số điện thoại
+                    ["配送先電話番号",'phone',10,9], // H Số điện thoại
                     ["別途送料",'order_ship',15,9], //I Phí Ship
                     ["紹介料",['callback'=>function($index,$value){return (int)$value;},'key'=>'order_price'],15,9],// Lợi nhuận J
                     ["仕入金額",'order_total_price_buy',15,9], // Tổng giá đơn hàng K
                     ["品番",['product'=>['product_id','code']],10,9], // Mã sản phẩm L
-                    ["商品名",['product'=>['product_id','title']],18,9], // Tên sản phẩm M
+                    ["商品名",['product'=>['product_name','title']],18,9], // Tên sản phẩm M
                     ["単価",'order_total_price',15,9], // Giá nhập N
                     ["数量",'count',15,9], // Số lượng O
+                    ["",'order_tracking',15,9],
             ],
             "OHGA"=>[
                 ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
@@ -82,7 +83,7 @@ class Excel{
                 ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
                 ["配送先電話番号",'phone',10,9],//Số điện thoại
-                ["配送先郵便番号",'zipcode',9,9],//Mã bưu điện
+                ["郵便番号",'zipcode',9,9],//Mã bưu điện
                 ["配送先都道府県",'province',14,9],//Tỉnh/TP
                 ["配送先住所",'address',18,9],//Địa chỉ giao hàng
                 ["配送先氏名",'fullname',18,9],//Họ tên người nhận
@@ -92,15 +93,38 @@ class Excel{
                 ["数量",'count',15,9],//SL
                 ["到着希望日",'order_date',15,9],//Ngày nhận
                 ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
-                ["別途送料",'order_ship',15,9],//Phí ship
-                ["仕入金額",'total_count',15,9],//Tổng giá nhập
-                ["代引き請求金額",'order_total_price',15,9],//Giá bán
-                ["代引き請求金額",'order_total_buy',15,9],//Giá bán
-                ["代引き手数料",'order_ship_cou',15,9],
-                ["紹介料",'order_price',15,9],
-                ["追跡番号",'tracking',15,9],
-                ["振込み情報",'info',25,9],
+                ["送料",'order_ship',15,9],//Phí ship
+                ["梱包材",'total_count',15,9],//Tổng giá nhập
+                ["仕入金額",'order_total_price',15,9],//Giá bán
+                ["振込み金額",'order_total_price_buy',15,9],//Giá bán
+                ["手数料",'order_ship_cou',15,9],
+                ["余分金",'order_price',15,9],
+                ["追跡番号",'order_tracking',15,9],
+                ["振込み情報",'order_info',25,9],
             ],
+            'KURICHIKU'=> [
+                ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+                ["支払区分",'payMethod',10,9],//Phương thức thanh toán
+                ["配送先電話番号",'phone',10,9],//Số điện thoại
+                ["郵便番号",'zipcode',9,9],//Mã bưu điện
+                ["配送先都道府県",'province',14,9],//Tỉnh/TP
+                ["配送先住所",'address',18,9],//Địa chỉ giao hàng
+                ["配送先氏名",'fullname',18,9],//Họ tên người nhận
+                ["品番",['product'=>['product_id','code']],10,9],//H
+                ["商品名",['product'=>['product_name','title']],18,9],//I
+                ["単価",'price',15,9],//Giá nhập
+                ["数量",'count',15,9],//SL
+                ["到着希望日",'order_date',15,9],//Ngày nhận
+                ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
+                ["送料",'order_ship',15,9],//Phí ship
+
+                ["仕入金額",'order_total_price',15,9],//Giá bán
+                ["振込み金額",'order_total_price_buy',15,9],//Giá bán
+                ["手数料",'order_ship_cou',15,9],
+                ["余分金",'order_price',15,9],
+                ["追跡番号",'order_tracking',15,9],
+                ["振込み情報",'order_info',25,9],
+            ]
         ];
     }
 
@@ -115,16 +139,17 @@ class Excel{
         $spreadsheet = $reader->load($inputFileName);
         $sheet = $spreadsheet->getActiveSheet();
         $datas =  $sheet->toArray();
+
         $type = $this->checkTypeCom($OriginalName);
 
         $html = "";
         if(isset($this->DataCol[$type])){
             $colums = $this->DataCol[$type];
-            $nameColList = [];
             foreach($colums as $key=>$value){
                 if(is_array($value[1])){
                     if(isset($value[1]['product'])){
                         $conf = $value[1]['product'];
+
                         $nameColList[$conf[0]] = $key;
                     }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                         $nameColList[$value[1]['key']] = $key;
@@ -135,57 +160,83 @@ class Excel{
             }
 
             $n = count($datas);
+            $html = "";
             $results = [];
-            for ( $i=3 ; $i < $n ;$i++){
-                $order_tracking = trim(rtrim($datas[$i][$nameColList['order_tracking']]));
-                $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
-                if(!empty($order_tracking)){
-                    $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
-                    if(!empty($fullname)){
-                        $item = [
-                            'data'=>$datas[$i],
-                            'checking'=>[$order_tracking],
-                        ];
-                        for($j = $i+1;$j<$count+$i; $j++){
-                            $order_tracking =  trim(rtrim($datas[$j][$nameColList['order_tracking']]));
-                            $item['checking'][] = $order_tracking;
+
+            if($type == "YAMADA" || $type == "FUKUI" || $type == "OHGA" || $type == "KOGYJA" || $type == "KURICHIKU"){
+                $i = 3;
+                if($type == "FUKUI"){
+                    $i = 6;
+                }
+                for ( ; $i < $n ;$i++){
+
+                    $order_tracking = trim(rtrim($datas[$i][$nameColList['order_tracking']]));
+
+                    $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
+
+                    if(!empty($order_tracking)){
+                        $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
+                        if(!empty($fullname) && $fullname != "配送先氏名"){
+                            $item = [
+                                'data'=>$datas[$i],
+                                'checking'=>[$order_tracking],
+                            ];
+                            for($j = $i+1;$j<$count+$i; $j++){
+                                $order_tracking =  trim(rtrim($datas[$j][$nameColList['order_tracking']]));
+                                $item['checking'][] = $order_tracking;
+                            }
+                            $results[] = $item;
                         }
-                        $results[] = $item;
                     }
                 }
-            }
-            $html = "<table>";
-            $html.="<tr>";
+
+                $html = "<table>";
+                $html.="<tr>";
                 $html.="<td class='text-center' colspan='".(count($colums)+1)."'><h2>".$type."</h2></td>";
-            $html.="</tr>";
-            foreach ($results as $key=>$value){
-
-
-                $where = [
-                    'fullname'=> trim(rtrim($value['data'][$nameColList['fullname']])),
-                    'address'=> trim(rtrim($value['data'][$nameColList['address']])),
-                    'company'=>$type,
-                    'phone'=>trim(rtrim($value['data'][$nameColList['phone']])),
-                    'zipcode'=>trim(rtrim($value['data'][$nameColList['zipcode']])),
-                    'province'=>trim(rtrim($value['data'][$nameColList['province']])),
-                    'product_code'=>trim(rtrim($value['data'][$nameColList['product_id']])),
-                    'product_title'=>trim(rtrim($value['data'][$nameColList['product_name']])),
-                    'count'=>trim(rtrim($value['data'][$nameColList['count']])),
-                    'price'=>trim(rtrim($value['data'][$nameColList['price']])),
-                    'order_date'=>trim(rtrim($value['data'][$nameColList['order_date']])),
-                    'order_hours'=>trim(rtrim($value['data'][$nameColList['order_hours']])),
-                    'pay_method'=>$this->getValuePayMethod(trim(rtrim($value['data'][$nameColList['payMethod']]))),
-                ];
-                $count = DB::table('shop_order_excel')->where($where)->count('id');
-                $html.="<tr class='".($count==1?'oke':(($count==0)?'empty':'two'))."'>";
-                $html.="<td><input type='checkbox'></td>";
-                $html.="<td>[".$count."]</td>";
-                foreach ($value['data'] as $k=>$val){
-                    $html.="<td>".$val."</td>";
-                }
                 $html.="</tr>";
+                foreach ($results as $key=>$value){
+                    $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
+
+                    $where = [
+                        'fullname'=> trim(rtrim($value['data'][$nameColList['fullname']])),
+                        'address'=> trim(rtrim($value['data'][$nameColList['address']])),
+                        'company'=>$type,
+                        'phone'=>trim(rtrim($value['data'][$nameColList['phone']])),
+                        'zipcode'=>trim(rtrim($value['data'][$nameColList['zipcode']])),
+                        'province'=>trim(rtrim($value['data'][$nameColList['province']])),
+                        'product_code'=>trim(rtrim($value['data'][$nameColList['product_id']])),
+                        'product_title'=>trim(rtrim($value['data'][$nameColList['product_name']])),
+                        'pay_method'=>$this->getValuePayMethod(trim(rtrim($value['data'][$nameColList['payMethod']]))),
+
+                    ];
+
+                    $_result = DB::table('shop_order_excel')->where($where)->get()->all();
+                    $count = count($_result);
+                    $class = ($count==1?'update':(($count==0)?'empty':'two'));
+
+                    if($class == "update"){
+                        if(!empty($_result[0]->order_tracking)){
+                            if(json_encode($value['checking']) == $_result[0]->order_tracking){
+                                $class = 'oke';
+                            }else{
+                                $class = 'conflict';
+                            }
+                        }
+                    }
+                    $html.="<tr class='".$class ."'>";
+                    if($class=="update"){
+                        $html.="<td>[".$count."]<div style='display: none'><textarea class='value'>".json_encode(['id'=>$_result[0]->id,'checking'=>$value['checking']])."</textarea></div></td>";
+                    }else{
+                        $html.="<td>[".$count."]</td>";
+                    }
+//                    $html.="<td>".json_encode($where)."</td>";
+                    foreach ($value['data'] as $k=>$val){
+                        $html.="<td>".$val."</td>";
+                    }
+                    $html.="</tr>";
+                }
+                $html.= "</table>";
             }
-            $html.= "</table>";
         }
         return $html;
     }
@@ -193,7 +244,7 @@ class Excel{
         if( strpos($name,"大賀商店のお米の注文分") !== false){
             return "OHGA";
         }else  if( strpos($name,"株式会社クリチク") !== false){
-            return "Kurichiku";
+            return "KURICHIKU";
         }else  if( strpos($name,"株式会社コギ家-様" ) !== false){
             return "KOGYJA";
         }else  if( strpos($name,"株式会社ヤマダ-様-のお米の注文分" ) !== false){
@@ -622,7 +673,7 @@ class Excel{
             ["商品名",['product'=>['product_name','title']],18,9],//I
             ["単価",'price',15,9],//J
             ["数量",'count',15,9],//K
-            ["到着希望日",'order_date',15,9],//L
+            ["到着希望日",['callback'=>function($index,$date){return date("m/d/Y", strtotime($date));},'key'=>'order_date'],15,9],//L
             ["配送希望時間帯",'order_hours',15,9],//M
             ["別途送料",'order_ship',15,9],//N
             ["仕入金額",'order_total_price',15,9],//O
@@ -634,9 +685,19 @@ class Excel{
             ["",'order_link',25,9],//U
         ];
         $start=3;
+        $nameColList  = [];
         foreach($colums as $key=>$value){
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
-
+            if(is_array($value[1])){
+                if(isset($value[1]['product'])){
+                    $conf = $value[1]['product'];
+                    $nameColList[$conf[0]] = $key;
+                }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                    $nameColList[$value[1]['key']] = $key;
+                }
+            }else{
+                $nameColList[$value[1]] = $key;
+            }
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
                         'size'  => $value[3]
@@ -662,8 +723,13 @@ class Excel{
 
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
+            if(empty($values[$nameColList['fullname']])){
+                continue;
+            }
             foreach($colums as $key=>$value){
+
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+
                 if(is_array($value[1])){
                     if(isset($value[1]['product'])){
                         $conf = $value[1]['product'];
@@ -723,6 +789,205 @@ class Excel{
         return ['link'=>url($path)];
 
     }
+    public function KURICHIKU($datas){
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $spreadsheet->createSheet();
+        $spreadsheet->getSheet(1)->setTitle('Sheet2');
+
+        $sheet->setTitle("Sheet1");
+        $spreadsheet->getProperties()
+            ->setTitle('PHP Download Example')
+            ->setSubject('A PHPExcel example')
+            ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
+            ->setCreator('php-download.com')
+            ->setLastModifiedBy('php-download.com');
+
+        $sheet->setCellValue('B1', '株式会社コギ家　様 注文フォーマット');
+
+
+        $styleArray = array(
+            'font'  => array(
+                'size'  => 9,
+                'name' => 'Times New Roman'
+            ));
+        $style_header = array(
+            'fill' => array(
+                'fillType' => Fill::FILL_SOLID,
+                'color' => array('rgb'=>'FFE100'),
+            ),
+            'borders' => [
+                'allBorders' => array(
+                    'borderStyle' => Border::BORDER_DOTTED,
+                    'color' => array('rgb'=>'000000')
+                ),
+            ],
+            'font' => array(
+                'size' => 10
+            )
+        );
+        $sheet->getStyle('B1')->applyFromArray($styleArray);
+        $start=2;
+        $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+        for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
+            $colums = [
+                ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+                ["支払区分",'payMethod',10,9],//Phương thức thanh toán
+                ["配送先電話番号",'phone',10,9],//Số điện thoại
+                ["郵便番号",'zipcode',9,9],//Mã bưu điện
+                ["配送先都道府県",'province',14,9],//Tỉnh/TP
+                ["配送先住所",'address',18,9],//Địa chỉ giao hàng
+                ["配送先氏名",'fullname',18,9],//Họ tên người nhận
+                ["品番",['product'=>['product_id','code']],10,9],//H
+                ["商品名",['product'=>['product_name','title']],18,9],//I
+                ["単価",'price',15,9],//Giá nhập
+                ["数量",'count',15,9],//SL
+                ["到着希望日",'order_date',15,9],//Ngày nhận
+                ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
+                ["送料",'order_ship',15,9],//Phí ship
+                ["仕入金額",'order_total_price',15,9],//Giá bán
+                ["振込み金額",'order_total_price_buy',15,9],//Giá bán
+                ["手数料",'order_ship_cou',15,9],
+                ["余分金",'order_price',15,9],
+                ["追跡番号",'order_tracking',15,9],
+                ["振込み情報",'order_info',25,9],
+            ];
+            $nameColList = [];
+            foreach($colums as $key=>$value){
+                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                if(is_array($value[1])){
+                    if(isset($value[1]['product'])){
+                        $conf = $value[1]['product'];
+                        $nameColList[$conf[0]] = $key;
+                    }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                        $nameColList[$value[1]['key']] = $key;
+                    }
+                }else{
+                    $nameColList[$value[1]] = $key;
+                }
+                $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
+                        'font'  => array(
+                            'size'  => $value[3]
+                        ),
+                    )
+                );
+                if($value[2] > 0){
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
+                }
+
+            }
+
+            $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).$start)->applyFromArray( $style_header );
+//            $ship = 34;
+//            $datas = [];
+//            $company = "22";
+//            $orders = [
+//
+//            ];
+            $start++;
+            $columns_value = array_flip($datas['columns']);
+            $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+            foreach ($datas['datas'] as $key=>$values){
+                $payMethod = (isset($columns_value['payMethod'])?$values[$columns_value['payMethod']]:"");
+                if(empty($values[$nameColList['fullname']])){
+                    continue;
+                }
+                if($typeMethod != $this->getValuePayMethod($payMethod)){
+                    continue;
+                }
+                foreach($colums as $key=>$value){
+                    $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                    if(is_array($value[1])){
+                        if(isset($value[1]['product'])){
+                            $conf = $value[1]['product'];
+                            $id = (isset($columns_value[$conf[0]])?$values[$columns_value[$conf[0]]]:"");
+                            $_val = "";
+                            if(isset($products[$id]) && property_exists($products[$id],$conf[1])){
+                                $_val = $products[$id]->{$conf[1]};
+                            }
+                            $sheet->setCellValue($nameCol.$start,$_val);
+                        }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                            $conf = $value[1]['callback'];
+                            $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start]);
+                            $sheet->setCellValue($nameCol.$start,$_val);
+                        }
+                    }else{
+                        $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
+                        $sheet->setCellValue($nameCol.$start,$v);
+                        if($value[1] == "payMethod"){
+                            $payMethod = $v;
+                        }
+                    }
+                }
+                if($payMethod == "銀行振込"){
+                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                        'font'  => array(
+//                        'size'  => 9,
+                            'name' => 'Times New Roman',
+                            'color' => array('rgb' => '0070c0'),
+                        ),
+                    ) );
+                }else  if($payMethod == "決済不要"){
+                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                        'font'  => array(
+//                        'size'  => 9,
+                            'name' => 'Times New Roman',
+                            'color' => array('rgb' => 'ff0000'),
+                        ),
+                    ) );
+                }
+                $start++;
+            }
+            if($typeMethod == 0){
+//                $start+=2;
+//                $sheet->setCellValue('N'.$start, '合計');
+//                $sheet->setCellValue('P'.$start, '合計代引き金額：　19330');
+
+//                $sheet->getStyle('N'.$start)->applyFromArray(array(
+//                        'font'  => array(
+//                            'size'  => 9,
+//                            'name' => 'Times New Roman',
+//                            'color' => array('rgb' => 'ff1100'),
+//                        ),
+//                    )
+//                );
+//                $sheet->getStyle('P'.$start)->applyFromArray(array(
+//                        'font'  => array(
+//                            'size'  => 9,
+//                            'name' => 'Times New Roman',
+//                            'color' => array('rgb' => 'ff1100'),
+//                        ),
+//                    )
+//                );
+                $start++;
+                $sheet->setCellValue('I'.$start, '※1キロずつの小分けをお願いします。');
+                $sheet->getStyle('I'.$start)->applyFromArray(array(
+                        'font'  => array(
+                            'size'  => 9,
+                            'name' => 'Times New Roman',
+                            'color' => array('rgb' => 'ff1100'),
+                        ),
+                    )
+                );
+            }
+            $start+=1;
+            $dataRow = [];
+        }
+
+        $writer = new Xlsx($spreadsheet);
+
+        $path = '/uploads/exports/'.str_replace(__CLASS__.'::',"",__METHOD__);
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/'.date('Y-m-d');
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/株式会社コギ家-様-'.date('m').'月'.date('d').'日注文分.xlsx';
+        $writer->save(public_path().$path);
+        return ['link'=>url($path)];
+    }
     public function KOGYJA($datas){
 
         $spreadsheet = new Spreadsheet();
@@ -769,7 +1034,7 @@ class Excel{
                 ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
                 ["配送先電話番号",'phone',10,9],//Số điện thoại
-                ["配送先郵便番号",'zipcode',9,9],//Mã bưu điện
+                ["郵便番号",'zipcode',9,9],//Mã bưu điện
                 ["配送先都道府県",'province',14,9],//Tỉnh/TP
                 ["配送先住所",'address',18,9],//Địa chỉ giao hàng
                 ["配送先氏名",'fullname',18,9],//Họ tên người nhận
@@ -779,14 +1044,14 @@ class Excel{
                 ["数量",'count',15,9],//SL
                 ["到着希望日",'order_date',15,9],//Ngày nhận
                 ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
-                ["別途送料",'order_ship',15,9],//Phí ship
-                ["仕入金額",'total_count',15,9],//Tổng giá nhập
-                ["代引き請求金額",'order_total_price',15,9],//Giá bán
-                ["代引き請求金額",'order_total_buy',15,9],//Giá bán
-                ["代引き手数料",'order_ship_cou',15,9],
-                ["紹介料",'order_price',15,9],
-                ["追跡番号",'tracking',15,9],
-                ["振込み情報",'info',25,9],
+                ["送料",'order_ship',15,9],//Phí ship
+                ["梱包材",'total_count',15,9],//Tổng giá nhập
+                ["仕入金額",'order_total_price',15,9],//Giá bán
+                ["振込み金額",'order_total_price_buy',15,9],//Giá bán
+                ["手数料",'order_ship_cou',15,9],
+                ["余分金",'order_price',15,9],
+                ["追跡番号",'order_tracking',15,9],
+                ["振込み情報",'order_info',25,9],
             ];
             $nameColList = [];
             foreach($colums as $key=>$value){
@@ -889,7 +1154,7 @@ class Excel{
                                 if($pay_Method == "銀行振込"){
                                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                                         'font'  => array(
-                                            'size'  => 9,
+
                                             'name' => 'Times New Roman',
                                             'color' => array('rgb' => '0070c0'),
                                         ),
@@ -897,7 +1162,7 @@ class Excel{
                                 }else  if($payMethod == "決済不要"){
                                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                                         'font'  => array(
-                                            'size'  => 9,
+
                                             'name' => 'Times New Roman',
                                             'color' => array('rgb' => 'ff0000'),
                                         ),
@@ -966,7 +1231,7 @@ class Excel{
                 $sheet->setCellValue('I'.$start, '※1キロずつの小分けをお願いします。');
                 $sheet->getStyle('I'.$start)->applyFromArray(array(
                         'font'  => array(
-                            'size'  => 9,
+
                             'name' => 'Times New Roman',
                             'color' => array('rgb' => 'ff1100'),
                         ),
@@ -986,7 +1251,7 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/株式会社コギ家-様-'.date('m').'月'.date('d').'日注文分.xlsx';
+        $path = $path.'/株式会社クリチク-様-'.date('m').'月'.date('d').'日注文分.xlsx';
         $writer->save(public_path().$path);
         return ['link'=>url($path)];
     }

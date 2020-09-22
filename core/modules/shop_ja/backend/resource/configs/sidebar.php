@@ -31,6 +31,10 @@ return [
                 [
                     "name" => "QL ".z_language("Hóa Đơn"),
                     "url" => "backend:shop_ja:order:excel:list",
+                ],
+                [
+                    "name" => "QL ".z_language("Nhập Checking"),
+                    "url" => "backend:shop_ja:order:excel:imports",
                 ]
             ]
         ],
