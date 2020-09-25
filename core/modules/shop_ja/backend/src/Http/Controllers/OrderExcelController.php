@@ -67,19 +67,47 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['nestables'] = config_get("category", "shop-ja:japan:category");
         $this->data['configs'] = config_get("config", "shopja");
         $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
-
+        $this->file = new \Illuminate\Filesystem\Filesystem();
     }
     public function getCrumb()
     {
         $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop_ja:order:excel:list'));
         return $this;
     }
+    function is_base64($s)
+    {
+        return (bool) preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $s);
+    }
+    function base64ToImage($imageData,$file){
+        if(empty($imageData)){
+            return "";
+        }
+        if (strpos($imageData, 'uploads') !== false) {
+           return $imageData;
+        }
+        list($type, $imageData) = explode(';', $imageData);
+
+        list(,$extension) = explode('/',$type);
+        list(,$imageData)      = explode(',', $imageData);
+
+        $path = '/uploads/images';
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/'.$file;
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $fileName =$path.'/'.md5($imageData).'.'.$extension;
+        $imageData = base64_decode($imageData);
+        file_put_contents(public_path().$fileName, $imageData);
+        return $fileName;
+    }
     public function store(Request $request){
         $data = $request->all();
         if(isset($data['act'])){
             if($data['act'] == "cache"){
                 $k = $this->GetToken()."-".Auth::user()->id.':'.$data['type'].':'.$data['name'].':'.$data['id'];
-
                 if(Cache::put($k,json_encode(['token'=>$data['token'],'data'=>json_decode($data['data'],true)]) , 60*60*20)){
                     return response()->json(['key'=>$k,'data'=>json_decode(Cache::get($k),true)]);
                 }
@@ -170,12 +198,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
                                         "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:null),
                                         "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
-                                        "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
+                                        "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
                                         "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
                                         "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
                                         "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:""),
                                         "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:""),
-
                                         "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:""),
                                         "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:"",
                                         "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
@@ -183,7 +210,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "updated_at"=>$date_time,
                                         "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
                                     ];
-
                                     $validator = Validator::make($_data,$check);
                                     if (!$validator->fails()) {
                                         $logs[$name][] = $_data;
@@ -196,7 +222,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                     }else{
                         try{
-
                             foreach ($order['data'] as $key=>$values){
                                 $pay_method = 0;
                                 if($values[$columns["payMethod"]] == "代金引換"){
@@ -238,7 +263,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
                                     "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:""),
                                     "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
-                                    "order_image"=>isset($columns["image"])?$values[$columns["image"]]:"",
+                                    "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
                                     "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
                                     "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
                                     "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:""),
@@ -301,7 +326,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             Cache::forget($k);
                         }
                     }
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
+                    return response()->json(['id'=>$model->id,'url1'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 }
                 else
                     return response()->json($datas);

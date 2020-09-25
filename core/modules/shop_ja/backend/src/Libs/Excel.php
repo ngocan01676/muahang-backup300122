@@ -337,6 +337,7 @@ class Excel{
         ];
         $start=7;
         $sheet->getStyle('A'.$start.':'.PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).$start)->applyFromArray( $style_header );
+        $nameColList = [];
         foreach($colums as $key=>$value){
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
@@ -345,6 +346,16 @@ class Excel{
                     ),
                 )
             );
+            if(is_array($value[1])){
+                if(isset($value[1]['product'])){
+                    $conf = $value[1]['product'];
+                    $nameColList[$conf[0]] = $key;
+                }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                    $nameColList[$value[1]['key']] = $key;
+                }
+            }else{
+                $nameColList[$value[1]] = $key;
+            }
             if($value[2] > 0){
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
             }
@@ -359,8 +370,18 @@ class Excel{
         ];
         $columns_value = array_flip($datas['columns']);
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+        $images = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
+
+            if(empty($values[$nameColList['fullname']])){
+                continue;
+            }
+
+            $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
+
+            $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
+            $images[] = [$image,$order_info];
             foreach($colums as $key=>$value){
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
                 if(is_array($value[1])){
@@ -432,9 +453,53 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('m').'月'.date('d').'日の注文分-福井精米様御中.xlsx';
-        $writer->save(public_path().$path);
-        return ['link'=>url($path)];
+
+        $filename = date('m').'月'.date('d').'日の注文分-福井精米様御中';
+
+
+        $path = $path.'/'.$filename;
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path2 = $path.'/'.$filename.'.xlsx';
+
+        $writer->save(public_path().$path2);
+
+        $files = [
+            [$filename.'.xlsx',public_path().$path2]
+        ];
+
+        foreach ($images as $image){
+
+            if(!empty($image[0]) && file_exists(public_path()."/".$image[0])){
+
+                $pathinfo = pathinfo(public_path()."/".$image[0]);
+
+                if(empty($image[1])){
+                    $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                }else{
+                    $file_image = $image[1].'.'.$pathinfo['extension'];
+                }
+                $newName = $path .'/'. $file_image;
+                $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
+                $files[] = [
+                    $file_image,public_path().'/'.$newName
+                ];
+            }
+        }
+        $zipFileName = $filename.'.zip';
+        $zip = new \ZipArchive();
+        if($this->file->exists(public_path().'/'.$path . '/' . $zipFileName)){
+            $this->file->delete(public_path().'/'.$path . '/' . $zipFileName);
+        }
+        if ($zip->open(public_path().'/'.$path . '/' . $zipFileName, \ZipArchive::CREATE) === TRUE) {
+            foreach ($files as $file){
+                $zip->addFile($file[1],$file[0]);
+            }
+
+            $zip->close();
+        }
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
 
     }
     public function OHGA($datas){
@@ -517,6 +582,7 @@ class Excel{
             ["",'order_link',25,9],//U
         ];
         $start=3;
+        $nameColList = [];
         foreach($colums as $key=>$value){
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
@@ -525,6 +591,16 @@ class Excel{
                     ),
                 )
             );
+            if(is_array($value[1])){
+                if(isset($value[1]['product'])){
+                    $conf = $value[1]['product'];
+                    $nameColList[$conf[0]] = $key;
+                }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                    $nameColList[$value[1]['key']] = $key;
+                }
+            }else{
+                $nameColList[$value[1]] = $key;
+            }
             if($value[2] > 0){
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
             }
@@ -546,9 +622,17 @@ class Excel{
 
         $columns_value = array_flip($datas['columns']);
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
-
+        $images = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
+            if(empty($values[$nameColList['fullname']])){
+                continue;
+            }
+
+            $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
+
+            $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
+            $images[] = [$image,$order_info];
             foreach($colums as $key=>$value){
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
                 if(is_array($value[1])){
@@ -606,9 +690,53 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/大賀商店のお米の注文分'.date('m').'月'.date('d').'日.xlsx';
-        $writer->save(public_path().$path);
-        return ['link'=>url($path)];
+
+        $filename = '大賀商店のお米の注文分'.date('m').'月'.date('d').'日';
+
+
+        $path = $path.'/'.$filename;
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path2 = $path.'/'.$filename.'.xlsx';
+
+        $writer->save(public_path().$path2);
+
+        $files = [
+            [$filename.'.xlsx',public_path().$path2]
+        ];
+
+        foreach ($images as $image){
+
+            if(!empty($image[0]) && file_exists(public_path()."/".$image[0])){
+
+                $pathinfo = pathinfo(public_path()."/".$image[0]);
+
+                if(empty($image[1])){
+                    $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                }else{
+                    $file_image = $image[1].'.'.$pathinfo['extension'];
+                }
+                $newName = $path .'/'. $file_image;
+                $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
+                $files[] = [
+                    $file_image,public_path().'/'.$newName
+                ];
+            }
+        }
+        $zipFileName = $filename.'.zip';
+        $zip = new \ZipArchive();
+        if($this->file->exists(public_path().'/'.$path . '/' . $zipFileName)){
+            $this->file->delete(public_path().'/'.$path . '/' . $zipFileName);
+        }
+        if ($zip->open(public_path().'/'.$path . '/' . $zipFileName, \ZipArchive::CREATE) === TRUE) {
+            foreach ($files as $file){
+                $zip->addFile($file[1],$file[0]);
+            }
+
+            $zip->close();
+        }
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
 
     }
     public function YAMADA($datas,$name){
@@ -720,12 +848,16 @@ class Excel{
 
         $columns_value = array_flip($datas['columns']);
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
-
+        $images = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
             if(empty($values[$nameColList['fullname']])){
                 continue;
             }
+            $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
+
+            $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
+            $images[] = [$image,$order_info];
             foreach($colums as $key=>$value){
 
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
@@ -784,9 +916,51 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/株式会社ヤマダ-様-のお米の注文分'.date('m').'月'.date('d').'日.xlsx';
-        $writer->save(public_path().$path);
-        return ['link'=>url($path)];
+
+
+        $filename = '株式会社ヤマダ-様-のお米の注文分'.date('m').'月'.date('d').'日';
+
+
+        $path = $path.'/'.$filename;
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path2 = $path.'/'.$filename.'.xlsx';
+        $writer->save(public_path().$path2);
+        $files = [
+            [$filename.'.xlsx',public_path().$path2]
+        ];
+        foreach ($images as $image){
+
+            if(!empty($image[0]) && file_exists(public_path()."/".$image[0])){
+
+                $pathinfo = pathinfo(public_path()."/".$image[0]);
+
+                if(empty($image[1])){
+                    $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                }else{
+                    $file_image = $image[1].'.'.$pathinfo['extension'];
+                }
+                $newName = $path .'/'. $file_image;
+                $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
+                $files[] = [
+                    $file_image,public_path().'/'.$newName
+                ];
+            }
+        }
+        $zipFileName = $filename.'.zip';
+        $zip = new \ZipArchive();
+        if($this->file->exists(public_path().'/'.$path . '/' . $zipFileName)){
+            $this->file->delete(public_path().'/'.$path . '/' . $zipFileName);
+        }
+        if ($zip->open(public_path().'/'.$path . '/' . $zipFileName, \ZipArchive::CREATE) === TRUE) {
+            foreach ($files as $file){
+                $zip->addFile($file[1],$file[0]);
+            }
+
+            $zip->close();
+        }
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
 
     }
     public function KURICHIKU($datas){
@@ -829,6 +1003,7 @@ class Excel{
         $sheet->getStyle('B1')->applyFromArray($styleArray);
         $start=2;
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+        $images = [];
         for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
             $colums = [
                 ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
@@ -853,6 +1028,7 @@ class Excel{
                 ["振込み情報",'order_info',25,9],
             ];
             $nameColList = [];
+
             foreach($colums as $key=>$value){
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
                 if(is_array($value[1])){
@@ -887,16 +1063,24 @@ class Excel{
             $start++;
             $columns_value = array_flip($datas['columns']);
             $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+
             foreach ($datas['datas'] as $key=>$values){
                 $payMethod = (isset($columns_value['payMethod'])?$values[$columns_value['payMethod']]:"");
+
                 if(empty($values[$nameColList['fullname']])){
                     continue;
                 }
                 if($typeMethod != $this->getValuePayMethod($payMethod)){
                     continue;
                 }
-                foreach($colums as $key=>$value){
-                    $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+
+                $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
+
+                $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
+                $images[] = [$image,$order_info];
+
+                foreach($colums as $key1=>$value){
+                    $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key1+1);
                     if(is_array($value[1])){
                         if(isset($value[1]['product'])){
                             $conf = $value[1]['product'];
@@ -980,13 +1164,57 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
+
         $path = $path.'/'.date('Y-m-d');
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/株式会社コギ家-様-'.date('m').'月'.date('d').'日注文分.xlsx';
-        $writer->save(public_path().$path);
-        return ['link'=>url($path)];
+
+        $filename ='株式会社コギ家-様-'.date('m').'月'.date('d').'日注文分';
+
+        $path = $path.'/'.$filename;
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path2 = $path.'/'.$filename.'.xlsx';
+        $writer->save(public_path().$path2);
+        $files = [
+            [$filename.'.xlsx',public_path().$path2]
+        ];
+        foreach ($images as $image){
+
+            if(!empty($image[0]) && file_exists(public_path()."/".$image[0])){
+
+                $pathinfo = pathinfo(public_path()."/".$image[0]);
+
+                if(empty($image[1])){
+                    $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                }else{
+                    $file_image = $image[1].'.'.$pathinfo['extension'];
+                }
+                $newName = $path .'/'. $file_image;
+                $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
+                $files[] = [
+                    $file_image,public_path().'/'.$newName
+                ];
+            }
+        }
+        $zipFileName = $filename.'.zip';
+        $zip = new \ZipArchive();
+        if($this->file->exists(public_path().'/'.$path . '/' . $zipFileName)){
+            $this->file->delete(public_path().'/'.$path . '/' . $zipFileName);
+        }
+        if ($zip->open(public_path().'/'.$path . '/' . $zipFileName, \ZipArchive::CREATE) === TRUE) {
+            foreach ($files as $file){
+                $zip->addFile($file[1],$file[0]);
+            }
+
+            $zip->close();
+        }
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+
+
+
     }
     public function KOGYJA($datas){
 
@@ -1087,26 +1315,30 @@ class Excel{
 //            ];
             $start++;
             $columns_value = array_flip($datas['columns']);
-
+            $images = [];
             foreach ($datas['datas'] as $key=>$_values){
                 $type = ((isset($columns_value['type'])?$_values[$columns_value['type']]:""));
 
                 if($type == "Info"){
                     $pay_Method = $this->getValuePayMethod(isset($columns_value['payMethod'])?$_values[$columns_value['payMethod']]:"");
-
+                    $image =  (isset($columns_value['image'])?$_values[$columns_value['image']]:"");
+                    $order_info =  (isset($columns_value['order_info'])?$_values[$columns_value['order_info']]:"");
+                    $images[] = [$image,$order_info];
                     if($pay_Method == $typeMethod){
 
                         $startRow = $start;
                         $endRow = $key;
                         $count = 0;
                         for($i = $key ; $i<count($datas['datas']) ; $i++){
-
                             $count++;
                             $values = $datas['datas'][$i];
                             $oke = true;
                             $type =  (isset($columns_value['type'])?$values[$columns_value['type']]:"");
-                            foreach($colums as $key=>$value){
-                                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+
+
+
+                            foreach($colums as $key1=>$value){
+                                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key1+1);
                                 $oke  = true;
                                 if(false) {
                                     $oke = false;
@@ -1190,7 +1422,6 @@ class Excel{
                                 )
                             ) );
                             foreach (["timeCreate","fullname","payMethod",'zipcode','province','address','phone','order_date','order_hours'] as $col){
-
                                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList[$col]+1);
                                 $spreadsheet->getActiveSheet()->mergeCells($nameCol.$startRow.":".$nameCol.($start-2));
                                 $styleArray = [
@@ -1203,7 +1434,6 @@ class Excel{
                             }
                         }
                     }
-
                 }
             }
             if($typeMethod == 0){
@@ -1251,8 +1481,48 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/株式会社クリチク-様-'.date('m').'月'.date('d').'日注文分.xlsx';
-        $writer->save(public_path().$path);
-        return ['link'=>url($path)];
+        $filename = '株式会社クリチク-様-'.date('m').'月'.date('d').'日注文分';
+
+
+        $path = $path.'/'.$filename;
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path2 = $path.'/'.$filename.'.xlsx';
+        $writer->save(public_path().$path2);
+        $files = [
+            [$filename.'.xlsx',public_path().$path2]
+        ];
+        foreach ($images as $image){
+
+            if(!empty($image[0]) && file_exists(public_path()."/".$image[0])){
+
+                $pathinfo = pathinfo(public_path()."/".$image[0]);
+
+                if(empty($image[1])){
+                    $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                }else{
+                    $file_image = $image[1].'.'.$pathinfo['extension'];
+                }
+                $newName = $path .'/'. $file_image;
+                $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
+                $files[] = [
+                    $file_image,public_path().'/'.$newName
+                ];
+            }
+        }
+        $zipFileName = $filename.'.zip';
+        $zip = new \ZipArchive();
+        if($this->file->exists(public_path().'/'.$path . '/' . $zipFileName)){
+            $this->file->delete(public_path().'/'.$path . '/' . $zipFileName);
+        }
+        if ($zip->open(public_path().'/'.$path . '/' . $zipFileName, \ZipArchive::CREATE) === TRUE) {
+            foreach ($files as $file){
+                $zip->addFile($file[1],$file[0]);
+            }
+
+            $zip->close();
+        }
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
     }
 }
