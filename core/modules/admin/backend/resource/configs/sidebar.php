@@ -108,6 +108,12 @@ return [
             "url" => "backend:log:list",
             "icon" => "fa fa-file-text"
         ],
+        "backup" => [
+            "name" => z_language("Backup", false),
+            "pos" => 1,
+            "url" => "backend:backup:list",
+            "icon" => "fa fa-file-text"
+        ],
 //        "page"=>[
 //            "name"=>"Page",
 //            "pos"=>1,

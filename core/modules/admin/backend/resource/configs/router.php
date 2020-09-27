@@ -270,6 +270,23 @@ return [
                     ]
                 ]
             ],
+            'backup' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "BackupController",
+                "sub_prefix" => "/backup",
+                "guard" => "backend",// pải login
+                "acl"=> "log",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ]
+                ]
+            ],
         ]
     ]
 ];
