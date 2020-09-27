@@ -2,8 +2,9 @@
 
 namespace Zoe\Http;
 
+use Illuminate\Support\Facades\DB;
 use Zoe\Config;
-
+use Auth;
 class ControllerBackend extends Controller
 {
     protected $layout = 'backend::layout.layout';
@@ -36,14 +37,22 @@ class ControllerBackend extends Controller
         }
         return $this->_render($keyView, $data, $key);
     }
-
     protected function list_paginate($table, $option)
     {
 
     }
-
     public function breadcrumb($name, $router)
     {
         return $this->breadcrumb->child->add([$name => ["name" => $name, "uri" => $router]]);
+    }
+    public function log($name,$action,$data){
+        unset($data['_token']);
+        if($action == 'login'){
+            unset($data['password']);
+            return DB::table('log')->insert(['ip'=>$this->getOriginalClientIp(),'name'=>$name,'admin_id'=>0,'actions'=>$action,'datas'=>json_encode($data)]);
+        }else{
+            return DB::table('log')->insert(['ip'=>$this->getOriginalClientIp(),'name'=>$name,'admin_id'=>Auth::user()->id,'actions'=>$action,'datas'=>json_encode($data)]);
+        }
+
     }
 }

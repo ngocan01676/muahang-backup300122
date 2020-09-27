@@ -132,6 +132,53 @@ return [
             'views' => [
                 'configs.layout'
             ]
+        ],
+        'core:log' => [
+            'config' => [
+                'columns' => [
+                    'lists' => [
+                        'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
+                        'name' => ['label' => z_language('Tên', false), 'type' => 'title', 'primary' => true],
+                        'actions' => ['label' => z_language('Hành Động', false), 'type' => 'text',],
+                        'datas' => ['label' => z_language('Dữ liệu', false), 'type' => 'text', ],
+                        'ips' => ['label' => z_language('Ip', false), 'type' => 'text', ],
+                        'getAdmin' => ['label' => z_language('Tên Admin', false), 'type' => 'text','callback' => "getAdmin"],
+                        'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
+                        'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date']
+                    ],
+                ],
+                'pagination' => [
+                    'item' => 20,
+                    'router' => [
+
+                    ]
+                ],
+                'config' => [
+                    "type" => [
+                        'status' => [
+                            'label' => [
+                                '1' => z_language('Public', false),
+                                '0' => z_language('UnPublic', false),
+                            ],
+                            'type' => [
+                                'name' => 'label',
+                                'color' => [
+                                    '1' => 'primary',
+                                    '0' => 'danger'
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            'data' => [
+                'pagination' => ['item' => 20],
+                'columns' => ['id', 'title'],
+                'search' => ['title']
+            ],
+            'views' => [
+                'configs.layout'
+            ]
         ]
     ]
 ];

@@ -253,6 +253,23 @@ return [
                     ],
                 ]
             ],
+            'log' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "LogController",
+                "sub_prefix" => "/log",
+                "guard" => "backend",// pải login
+                "acl"=> "log",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ]
+                ]
+            ],
         ]
     ]
 ];

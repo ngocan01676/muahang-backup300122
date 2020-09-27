@@ -63,6 +63,7 @@ class AuthController extends \Zoe\Http\ControllerBackend
             return $this->sendLockoutResponse($request);
         }
         if ($this->attemptLogin($request)) {
+            $this->log('auth','login',$request->all());
             return $this->sendLoginResponse($request);
         }
         $this->incrementLoginAttempts($request);
@@ -70,19 +71,19 @@ class AuthController extends \Zoe\Http\ControllerBackend
     }
 
     public function getRegister() {
-        return view('admin.register');
+       // return view('admin.register');
     }
 
     public function postRegister(Request $request)
     {
-        $validator = $this->validator($request->all());
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
-        }
-        Auth::guard('admin')->login($this->create($request->all()));
-        return redirect($this->redirectPath());
+//        $validator = $this->validator($request->all());
+//        if ($validator->fails()) {
+//            $this->throwValidationException(
+//                $request, $validator
+//            );
+//        }
+//        Auth::guard('admin')->login($this->create($request->all()));
+//        return redirect($this->redirectPath());
     }
     /**
      * Get a validator for an incoming registration request.

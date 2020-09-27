@@ -104,8 +104,10 @@ class ProductController extends \Zoe\Http\ControllerBackend
                 ->withErrors($validator)
                 ->withInput();
         }
+        $type = 'create';
         if (isset($data['id']) && !empty($data['id'])) {
             $model = ProductModel::find($data['id']);
+            $type = 'edit';
         } else {
             $model = new ProductModel();
         }
@@ -122,6 +124,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->price_buy = $data['price_buy'];
             $model->type_excel = $data['type_excel'];
             $model->save();
+            $this->log('shop_js:product',$type,['id'=>$model->id]);
             return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());

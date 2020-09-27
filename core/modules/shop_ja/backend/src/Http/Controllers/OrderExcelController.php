@@ -113,9 +113,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 }
             }else if($data['act'] == "save"){
                 $datas = json_decode($data['datas'],true);
-
+                $type = 'create';
                 if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
                     $model = OrderExcelModel::find($data['id']);
+                    $type = 'edit';
                 } else {
                     $model = new OrderExcelModel();
                     $model->admin_id = Auth::user()->id;
@@ -130,7 +131,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                 $logs = [];
                 $oke = $model->save();
-
                 foreach ($datas as $name=>$order){
                     $logs[$name] = [];
                     $check =  [
@@ -314,7 +314,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }
                 }
                 if($oke){
-
                     if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
                         foreach ($datas as $name=>$order){
                             $k = $this->GetToken()."-".Auth::user()->id.':edit:'.$name.':'.$data['id'];
@@ -326,6 +325,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             Cache::forget($k);
                         }
                     }
+                    $this->log('shop_js:orderExcel',$type,['id' => $model->id]);
                     return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 }
                 else

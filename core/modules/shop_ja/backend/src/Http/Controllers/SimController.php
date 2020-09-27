@@ -85,13 +85,14 @@ class SimController extends \Zoe\Http\ControllerBackend{
                 ->withErrors($validator)
                 ->withInput();
         }
+        $type = 'create';
         if (isset($data['id']) && !empty($data['id'])) {
             $model =  \ShopJa\Http\Models\SimModel::find($data['id']);
+            $type = 'edit';
         } else {
             $model = new \ShopJa\Http\Models\SimModel();
         }
         try {
-
             $model->fullname = $data['fullname'];
             $model->address = $data['address'];
             $model->sim_type = $data['sim_type'];
@@ -103,8 +104,8 @@ class SimController extends \Zoe\Http\ControllerBackend{
             $model->status = $data['status'];
             $model->info = $data['info'];
             $model->link_fb = $data['link_fb'];
-
             $model->save();
+            $this->log('shop_js:sim',$type,['id' => $model->id]);
             return redirect(route('backend:shop_ja:sim:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
