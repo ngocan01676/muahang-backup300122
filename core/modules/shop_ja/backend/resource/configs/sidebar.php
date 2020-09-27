@@ -38,5 +38,15 @@ return [
                 ]
             ]
         ],
+        "module:shop-ja:sim" => [
+            "name" => z_language('Sim'),
+            "pos" => 2,
+            "url" => "backend:shop_ja:sim:list",
+            "header" => true,
+            "icon"=>"fa fa-newspaper-o",
+//            "items" => [
+//
+//            ]
+        ],
     ]
 ];

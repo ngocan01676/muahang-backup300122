@@ -236,6 +236,33 @@ return [
                     ],
                 ]
             ],
+            'shop_ja:sim' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "SimController",
+                "sub_prefix" => "/shop-ja/sim",
+                "guard" => "backend",
+                "acl"=> "shop_ja:sim",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                        'acl'=>true
+                    ],
+                    "create" => [
+                        "url" => "/create",
+                    ],
+                    "edit" => [
+                        "url" => "/edit/{id}",
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ],
+                    "delete" => [
+                        "url" => "/delete/{id}",
+                        "method" => ['post'],
+                    ],
+                ]
+            ],
             ]
         ]
 ];
