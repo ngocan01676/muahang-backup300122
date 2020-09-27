@@ -3,7 +3,7 @@
         &starf; {!! @z_language(["Manager Backup"]) !!}
         <small>it all starts here</small>
 
-        @btn_option(["config"=>['name'=>'core:log']])
+        @btn_option(["config"=>['name'=>'core:backup']])
         @slot('label')
             {{@z_language(["Option"])}}
         @endslot
