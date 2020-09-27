@@ -101,7 +101,13 @@ return [
                     "url" => "backend:dashboard:router",
                 ],
             ]
-        ]
+        ],
+        "log" => [
+            "name" => z_language("Log", false),
+            "pos" => 1,
+            "url" => "backend:log:list",
+            "icon" => "fa fa-file-text"
+        ],
 //        "page"=>[
 //            "name"=>"Page",
 //            "pos"=>1,
