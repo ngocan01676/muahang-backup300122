@@ -49,7 +49,12 @@ class ControllerBackend extends Controller
         unset($data['_token']);
         if($action == 'login'){
             unset($data['password']);
-            return DB::table('log')->insert(['ip'=>$this->getOriginalClientIp(),'name'=>$name,'admin_id'=>0,'actions'=>$action,'datas'=>json_encode($data)]);
+            return DB::table('log')->insert(
+                ['ip'=>$this->getOriginalClientIp(),'name'=>$name,'admin_id'=>0,'actions'=>$action,'datas'=>json_encode($data)
+                    ,'created_at'=>date('Y-m-d H:i:s')
+                    ,'updated_at'=>date('Y-m-d H:i:s')
+
+                ]);
         }else{
             return DB::table('log')->insert(['ip'=>$this->getOriginalClientIp(),'name'=>$name,'admin_id'=>Auth::user()->id,'actions'=>$action,'datas'=>json_encode($data)]);
         }
