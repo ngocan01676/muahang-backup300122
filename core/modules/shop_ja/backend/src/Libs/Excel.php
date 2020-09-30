@@ -11,9 +11,12 @@ class Excel{
     public $DataCol = [
 
     ];
-    public function __construct()
+    public $date = 0;
+    public function __construct($date)
     {
         $this->file = new \Illuminate\Filesystem\Filesystem();
+        $this->date = strtotime($date);
+
         $this->DataCol = [
             "FUKUI"=>[
                     ["支払区分",'payMethod',10,9],//A Phương thức thanh toán
@@ -449,12 +452,12 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d');
+        $path = $path.'/'.date('Y-m-d', $this->date);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $filename = date('m').'月'.date('d').'日の注文分-福井精米様御中';
+        $filename = date('m',$this->date).'月'.date('d',$this->date).'日の注文分-福井精米様御中';
 
 
         $path = $path.'/'.$filename;
@@ -686,12 +689,12 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d');
+        $path = $path.'/'.date('Y-m-d',$this->date);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $filename = '大賀商店のお米の注文分'.date('m').'月'.date('d').'日';
+        $filename = '大賀商店のお米の注文分'.date('m',$this->date).'月'.date('d',$this->date).'日';
 
 
         $path = $path.'/'.$filename;
@@ -912,13 +915,13 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d');
+        $path = $path.'/'.date('Y-m-d',$this->date);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
 
-        $filename = '株式会社ヤマダ-様-のお米の注文分'.date('m').'月'.date('d').'日';
+        $filename = '株式会社ヤマダ-様-のお米の注文分'.date('m',$this->date).'月'.date('d',$this->date).'日';
 
 
         $path = $path.'/'.$filename;
@@ -1165,12 +1168,12 @@ class Excel{
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $path = $path.'/'.date('Y-m-d');
+        $path = $path.'/'.date('Y-m-d',$this->date);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $filename ='株式会社コギ家-様-'.date('m').'月'.date('d').'日注文分';
+        $filename ='株式会社コギ家-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
 
         $path = $path.'/'.$filename;
         if( !$this->file->isDirectory(public_path().$path)){
@@ -1477,11 +1480,11 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d');
+        $path = $path.'/'.date('Y-m-d',$this->date);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $filename = '株式会社クリチク-様-'.date('m').'月'.date('d').'日注文分';
+        $filename = '株式会社クリチク-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
 
 
         $path = $path.'/'.$filename;

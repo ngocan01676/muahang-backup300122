@@ -7,6 +7,7 @@
         </td>
     </tr>
 </table>
+
 <div id="spreadsheet"></div>
 @if(isset($model))
     {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
@@ -15,13 +16,23 @@
     {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
 @endif
 <div>
-    <tr>
-        <td>
-            {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
-            {!! Form::radio('status', '0' , true) !!} Nháp
-            {!! Form::radio('status', '1',false) !!} Lập đơn
-        </td>
-    </tr>
+
+    <table>
+        <tr>
+            <td>
+                {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
+                {!! Form::radio('status', '0' , true) !!} Nháp
+                {!! Form::radio('status', '1',false) !!} Lập đơn
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {!! Form::label('date', 'date', ['class' => 'date']) !!} &nbsp;
+                {!! Form::date('date') !!}
+            </td>
+        </tr>
+    </table>
+
     <button onclick="Save()" type="button"> Lưu </button> &nbsp;
     <button onclick="Export()" type="button"> Export </button>
 </div>

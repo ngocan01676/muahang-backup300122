@@ -38,6 +38,20 @@ return [
                 ]
             ]
         ],
+        "module:shop-ja:excel:imports" => [
+            "name" => "QL ".z_language("Nhập Checking"),
+            "url" => "backend:shop_ja:order:excel:imports",
+            "pos" => 2,
+            "header" => true,
+            "icon"=>"fa fa-newspaper-o",
+        ],
+        "module:shop-ja::excel:show" => [
+            "name" => "QL ".z_language("Xuất Excel"),
+            "url" => "backend:shop_ja:order:excel:show",
+            "pos" => 2,
+            "header" => true,
+            "icon"=>"fa fa-newspaper-o",
+        ],
         "module:shop-ja:sim" => [
             "name" => z_language('Sim'),
             "pos" => 2,

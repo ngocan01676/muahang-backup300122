@@ -228,7 +228,8 @@ return [
                         "method" => ['get','post'],
                     ],
                     "show" => [
-                        "url" => "/show"
+                        "url" => "/show/{company?}/{date?}/{hour?}",
+                        "method" => ['get','post'],
                     ],
                     "store" => [
                         "url" => "/store",

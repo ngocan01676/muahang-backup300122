@@ -1,14 +1,11 @@
 <aside class="main-sidebar">
-
     <!-- sidebar: style can be found in sidebar.less -->
     @php
         $urlCurrentName = request()->route()->getName();
         $urlCurrent = url()->current();
         $listsNav = explode(":",$urlCurrentName);
-
         $listsNav[count($listsNav)-1] = "list";
         $urlCurrentNameTemp = implode(":",$listsNav);
-
     @endphp
     <section class="sidebar">
         <ul class="sidebar-menu" data-widget="tree">

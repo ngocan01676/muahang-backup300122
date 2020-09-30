@@ -287,6 +287,21 @@ return [
                     ]
                 ]
             ],
+            'sidebar' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "SidebarController",
+                "sub_prefix" => "/sidebar",
+                "guard" => "backend",
+                "acl"=> "menu",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "ajax" => [
+                        "url" => "/ajax", "method" => ['post'],
+                    ],
+                ]
+            ],
         ]
     ]
 ];
