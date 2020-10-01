@@ -1,10 +1,10 @@
 @section('content-header')
     <h1>
-        &starf; {!! @z_language(["Chức năng Tài khoản quản trị"]) !!}
+        &starf; {!! @z_language(["Chức năng Tài khoản"]) !!}
         <small>it all starts here</small>
-        <a href="{{route('backend:user:create')}}"
+        <a href="{{route('backend:member:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
-        @btn_option(["config"=>['name'=>'core:user:list']])
+        @btn_option(["config"=>['name'=>'core:member:list']])
         @slot('label')
             {{@z_language(["Option"])}}
         @endslot
@@ -16,7 +16,7 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
-    @component('backend::layout.component.list',['name'=>'core:user:list','models'=>$models,'route'=>$route,'parameter'=>$parameter])
+    @component('backend::layout.component.list',['name'=>'core:member:list','models'=>$models,'route'=>$route,'parameter'=>$parameter])
         @slot("tool")
             <div class="box-body">
                 <div class="col-md-12" style="padding:0">

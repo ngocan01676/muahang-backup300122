@@ -106,14 +106,14 @@ class AuthController extends \Zoe\Http\ControllerBackend
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
-    {
-        return Admin::create([
-            'name' => $data['name'],
-            'username' => $data['username'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
+//    protected function create(array $data)
+//    {
+//        return Admin::create([
+//            'name' => $data['name'],
+//            'username' => $data['username'],
+//            'password' => bcrypt($data['password']),
+//        ]);
+//    }
     public function logout(Request $request)
     {
         $this->guard("backend")->logout();

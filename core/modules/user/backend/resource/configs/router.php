@@ -44,7 +44,11 @@ return [
                         "url" => "/edit/{id}"
                     ],
                     "delete" => [
-                        "url" => "/delete"
+                        "url" => "/delete","method" => ['post'],
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
                     ],
                 ]
             ],
@@ -64,7 +68,11 @@ return [
                         "url" => "/edit/{id}"
                     ],
                     "delete" => [
-                        "url" => "/delete"
+                        "url" => "/delete","method" => ['post'],
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
                     ],
                 ]
             ],

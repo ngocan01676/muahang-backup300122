@@ -7,6 +7,7 @@ return [
             "url" => "",
             "header" => true,
             "icon" => "fa fa-users",
+            "order"=>1,
             "items" => [
                 [
                     "name" => z_language("Users", false),

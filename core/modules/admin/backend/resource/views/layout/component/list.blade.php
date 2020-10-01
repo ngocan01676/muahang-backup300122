@@ -113,6 +113,7 @@
                                                                           action="{{route($router['name'],$par)}}"
                                                                           method="{{$router['method']}}"
                                                                           style="display: none;">
+                                                                        <input name="ref" type="hidden" value="{!! url()->current(); !!}">
                                                         @csrf
                                                     </form>
                                                                     <a href="#"
