@@ -2627,7 +2627,7 @@
                     source:Object.values(dropdown),
                     autocomplete:true,
                     multiple: true,
-                    width:'140px',
+                    width:'160px',
                     value:['product','this','source',0,'id'],
 
                 },
