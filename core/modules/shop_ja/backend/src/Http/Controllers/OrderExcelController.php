@@ -228,7 +228,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $values[$kkkkk] = rtrim(trim($valllll));
                                     }
                                     $product_title = "";$product_code = "";
-                                    $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
+                                    $product_id = (isset($columns["product_id"])?$values[$columns["product_id"]]:"");
+
                                     if(isset( $_product[$product_id]['data']['price_buy'])){
                                         $product_code = $_product[$product_id]['data']['code'];
                                         $product_title = $_product[$product_id]['data']['title'];
@@ -250,7 +251,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
                                         "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
                                         "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
-                                        "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:""),
+                                        "count"=>(isset($columns["count"])?$values[$columns["count"]]:""),
                                         "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
                                         "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
                                         "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
@@ -399,14 +400,23 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 foreach ($values as $kkkkk=>$valllll){
                                     $values[$kkkkk] = rtrim(trim($valllll));
                                 }
-                                $product_title = "";$product_code = "";
-
-                                $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
-
-                                if(isset( $_product[$product_id]['data']['price_buy'])){
-                                    $product_code = $_product[$product_id]['data']['code'];
-                                    $product_title = $_product[$product_id]['data']['title'];
+                                $product_title = "";$product_code = "";$count = 0;
+                                if($name== "KURICHIKU"){
+                                    $product_id = (isset($columns["product_id"])?$values[$columns["product_id"]]:"");
+                                    $count = (isset($columns["count"])?$values[$columns["count"]]:"");
+                                    if(isset( $_product[$product_id]['data']['price_buy'])){
+                                        $product_code = $_product[$product_id]['data']['code'];
+                                        $product_title = $_product[$product_id]['data']['title'];
+                                    }
+                                }else{
+                                    $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
+                                    $count = (int)(isset($columns["count"])?$values[$columns["count"]]:"");
+                                    if(isset( $_product[$product_id]['data']['price_buy'])){
+                                        $product_code = $_product[$product_id]['data']['code'];
+                                        $product_title = $_product[$product_id]['data']['title'];
+                                    }
                                 }
+
 
                                 $_data = [
                                     "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
@@ -427,7 +437,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
                                     "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
                                     "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
-                                    "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:""),
+                                    "count"=>$count,
                                     "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
                                     "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
                                     "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
@@ -972,6 +982,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                     $total_price = $result->total_price;
                     $total_price_buy = $result->total_price_buy;
+
                     if(isset($_product[$result->product_id]['data']['price_buy'])){
                         if($price == 0)
                             $price = $_product[$result->product_id]['data']['price'];
@@ -985,6 +996,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     if($order_profit == 0){
                         $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
                     }
+
                     $datas[$result->company][] = [
                         $result->status,
                         $result->order_image,

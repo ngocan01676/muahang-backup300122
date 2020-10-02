@@ -1837,7 +1837,7 @@
                         // Get current value
                         var value = obj.options.data[y][x];
                         if (obj.options.columns[x].multiple && !Array.isArray(value)) {
-                            value = value.split(';');
+                            value = value.toString().split(';');
                         }
     
                         // Create dropdown
