@@ -42,6 +42,7 @@
     <script src="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.css') }}" type="text/css" />
+    <script src="{{asset('module/admin/assets/bootpopup/bootpopup.js')}}"></script>
     <style>
         .jexcel tbody tr:nth-child(even) {
             background-color: #EEE9F1 !important;
@@ -2453,6 +2454,107 @@
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
 
+            var customColumn = {
+                // Methods
+                closeEditor : function(cell, save) {
+                    // var value = cell.children[0].value;
+                    // cell.innerHTML = value;
+                    return 0;
+                },
+                openEditor : function(cell) {
+                    let dom = $(cell);
+
+
+                    let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                    let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+
+                    let _jexcel = spreadsheet.jexcel[worksheet];
+
+                    var cellName1 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x'))-1, dom.attr('data-y')]);
+                    var cellName2 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x')), dom.attr('data-y')]);
+
+                    let valsProduct = (_jexcel.getValue(cellName1)).toString().split(";");
+                    let valsCount = {};
+                    try{
+                         valsCount = JSON.parse((_jexcel.getValue(cellName2)).toString());
+                    }catch (e) {
+                         valsCount = {};
+                    }
+
+                    console.log(valsCount);
+                    $html = "<table  class='table table-bordered config_count'>";
+                    $html+="<tr><th>Mã</th><th>Tên</th><th>Số lượng</th></tr>";
+                    for (let i in valsProduct){
+                        if(dropdown.hasOwnProperty(valsProduct[i])){
+                            let item = dropdown[valsProduct[i]];
+                            $html+="<tr>";
+                            $html+="<td>"+item.id+"</td>";
+                            $html+="<td>"+item.name+"</td>";
+                            $html+="<td><input class=\"form-control count\" type='text' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:1)+"'></td>";
+                            $html+="</tr>";
+                        }
+                    }
+                    $html+= "<table>";
+                    let action = function () {
+                        let parent = $('.config_count').find('.count');
+                        let vals = {};
+                        parent.each(function () {
+                            let _dom = $(this);
+                            vals[_dom.attr('data-id')] = _dom.val();
+                        });
+                        let data = {};
+                        for (let i in valsProduct){
+                            if(dropdown.hasOwnProperty(valsProduct[i])){
+                                if(vals.hasOwnProperty(valsProduct[i])){
+                                    data[valsProduct[i]] = vals[valsProduct[i]];
+                                }else{
+                                    data[valsProduct[i]] = 1;
+                                }
+                            }
+                        }
+                        cell.innerHTML =JSON.stringify(data);
+
+                        _jexcel.setValue(cellName2,cell.innerHTML);
+                    };
+                    bootpopup({
+                        title: "Custom HTML",
+                        size: "large",
+                        content: [$html],
+                        ok: action,
+                        cancel: action,
+                        close:action,
+                        before: function (_this) {
+
+                        }
+                    });
+                    // var element = document.createElement('input');
+                    // element.value = cell.innerHTML;
+                    //
+                    // cell.classList.add('editor');
+                    // cell.innerHTML = '';
+                    //
+                    // cell.appendChild(element);
+                    //
+                    // $(element).clockpicker({
+                    //     afterHide:function() {
+                    //         setTimeout(function() {
+                    //             // To avoid double call
+                    //             if (cell.children[0]) {
+                    //                 myTable.closeEditor(cell, true);
+                    //             }
+                    //         });
+                    //     }
+                    // });
+                    //
+                    // element.focus();
+                },
+                getValue : function(cell) {
+                    return cell.innerHTML;
+                },
+                setValue : function(cell, value) {
+                    cell.innerHTML = value;
+                }
+            }
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -2524,15 +2626,18 @@
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
-
+                    multiple: true,
                     width:'140px',
-                    value:['product','this','source',0,'id']
+                    value:['product','this','source',0,'id'],
+
                 },
                 count:{
                     title: '数量',//K SL
-                    type: 'numeric',
+                    type: 'text',
                     width:'100px',
-                    value:1
+                    multiple: true,
+                    value:"{}",
+                    editor:customColumn
                 },
                 price:{
                     title: '単価',//J Giá nhập
@@ -2862,26 +2967,29 @@
                 },
                 onselection:function (instance, x1, y1, x2, y2, origin) {
 
-                    change = {col:x1,row:y1};
-
                     var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
-
-                    $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
                     let val = instance.jexcel.getValue(cellName1);
+                    $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
 
                     if(columns_index[x1] && columns_index[x1].type === "dropdown"){
+
+                        console.log("val:"+val);
+
                         $("#value-review").hide();
                         $html = $("<div>");
                         $("#zoe-dropdown-review").show().html($html);
-
+                        console.log(columns_index[x1].source);
                         jSuites.dropdown($html[0], {
                             data:columns_index[x1].source,
+                            value:val,
                             autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
+                            multiple: columns_index[x1].hasOwnProperty('multiple'),
                             width:'100%',
                             onchange:function (el, a, oldValue, Value) {
+                                change = {col:x1,row:y1};
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
                             },
-                        }).setValue(val);
+                        });
                     }else{
                         $("#value-review").show().val("");
                         $("#zoe-dropdown-review").hide();

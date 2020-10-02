@@ -203,7 +203,7 @@ return [
                 "acl"=> "shop_ja:order:excel",
                 "router" => [
                     "list" => [
-                        "url" => "/",
+                        "url" => "/list",
                         'acl'=>true
                     ],
                     "create" => [
@@ -235,6 +235,24 @@ return [
                         "url" => "/store",
                         "method" => ['post'],
                     ],
+                ]
+            ],
+            'shop_ja:order:action' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "OrderExcelController",
+                "sub_prefix" => "/shop-ja/order/action",
+                "guard" => "backend",
+                "acl"=> "shop_ja:order:action",
+                "router" => [
+                    "imports" => [
+                        "url" => "/imports",
+                        "method" => ['get','post'],
+                    ],
+                    "show" => [
+                        "url" => "/show/{company?}/{date?}/{hour?}",
+                        "method" => ['get','post'],
+                    ],
+
                 ]
             ],
             'shop_ja:sim' => [

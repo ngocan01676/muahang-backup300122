@@ -3,7 +3,7 @@ jSuites.dropdown = (function(el, options) {
     obj.options = {};
 
     // If the element is a SELECT tag, create a configuration object
-    if (el.tagName == 'SELECT') {
+    if (el.tagName === 'SELECT') {
         var ret = jSuites.dropdown.extractFromDom(el, options);
         el = ret.el;
         options = ret.options;
