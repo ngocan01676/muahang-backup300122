@@ -386,6 +386,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }catch (\Exception $ex){
                             $datas = ['error'=>$ex->getMessage()];
                         }
+                        
                     }else{
                         try{
                             foreach ($order['data'] as $key=>$values){
