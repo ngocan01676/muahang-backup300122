@@ -2521,8 +2521,10 @@
                         size: "large",
                         content: [$html],
                         ok: action,
-                        cancel: action,
-                        close:action,
+                        cancel: function () {
+                            
+                        },
+                       
                         before: function (_this) {
 
                         }
