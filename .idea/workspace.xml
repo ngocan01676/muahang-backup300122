@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/dist/jexcel.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/dist/jexcel.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="553">
-              <caret line="2933" column="54" selection-start-line="2933" selection-start-column="54" selection-end-line="2933" selection-end-column="54" />
+            <state relative-caret-position="383">
+              <caret line="48" column="9" lean-forward="true" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
               <folding>
                 <element signature="e#9766#11734#0#HTML" />
                 <element signature="e#11788#14534#0#HTML" />
@@ -728,12 +726,12 @@
       <workItem from="1601266977241" duration="1702000" />
       <workItem from="1601435134743" duration="19859000" />
       <workItem from="1601523108397" duration="9126000" />
-      <workItem from="1601608502166" duration="15217000" />
+      <workItem from="1601608502166" duration="15587000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="281090000" />
+    <option name="totallyTimeSpent" value="281460000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1099,8 +1097,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="2933" column="54" selection-start-line="2933" selection-start-column="54" selection-end-line="2933" selection-end-column="54" />
+        <state relative-caret-position="383">
+          <caret line="48" column="9" lean-forward="true" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
           <folding>
             <element signature="e#9766#11734#0#HTML" />
             <element signature="e#11788#14534#0#HTML" />

@@ -38,8 +38,8 @@
 </div>
 {!! Form::close() !!}
 @section('extra-script')
-    <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js') }}"></script>
-    <script src="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.js') }}"></script>
+    <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js?v='.time()) }}"></script>
+    <script src="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.js?v='.time()) }}"></script>
     <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.css') }}" type="text/css" />
     <script src="{{asset('module/admin/assets/bootpopup/bootpopup.js')}}"></script>
