@@ -107,6 +107,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $data = $request->all();
         if(isset($data['act'])){
             if($data['act'] == "cache"){
+
+            }else if($data['act'] == "cache"){
                 $k = $this->GetToken()."-".Auth::user()->id.':'.$data['type'].':'.$data['name'].':'.$data['id'];
                 if(Cache::put($k,json_encode(['token'=>$data['token'],'data'=>json_decode($data['data'],true)]) , 60*60*20)){
                     return response()->json(['key'=>$k,'data'=>json_decode(Cache::get($k),true)]);
@@ -810,7 +812,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $shop_products = DB::table('shop_product')->where('category_id',$category['id'])->get()->all();
 
             $this->data['products'][$category['name']] = [];
-
+            $lock =  DB::table('shop_order_excel_lock')->where('name',$category['name'])->limit(1)->orderBy('updated_at','desc')->get()->all();
+            $this->data['locks'][$category['name']] = isset($lock[0])?$lock[0]:[];
             try{
                 foreach($shop_products as $shop_product){
 
@@ -881,6 +884,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
         $this->GetCache('create',0);
+
+
+
+
         return $this->render('order-excel.create');
     }
     function GetData($results,$exportAll){

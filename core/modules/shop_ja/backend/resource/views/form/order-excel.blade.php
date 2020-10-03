@@ -204,7 +204,7 @@
         let dataship = {!! json_encode($ships,JSON_UNESCAPED_UNICODE) !!}
         let datadaibiki = {!! json_encode($daibiki,JSON_UNESCAPED_UNICODE) !!}
         let categorys = {!! json_encode($categorys,JSON_UNESCAPED_UNICODE) !!}
-
+        let locks = {!! json_encode($locks,JSON_UNESCAPED_UNICODE) !!}
         let token = '{!! isset($model)?$model->token:"" !!}';
         
         function IF_End($val,$conf){
@@ -652,12 +652,61 @@
 
             let _data = InitData(data,config,columns_index);
             let change = {col:-1,row:-1};
+            let nestedHeaders = [];
+            if(locks .hasOwnProperty(sheetName)){
+                let _lock  = locks [sheetName];
+                let dateNow = '{!! date("Y-m-d"); !!}';
+                if(_lock.action == 2 && _lock.date == dateNow ){
+                    let count = columns_index.length+4;
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày xuất : "+_lock.date  ,
+                        colspan: 3,
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title:  " Giờ xuất :"+_lock.hour ,
+                        colspan: 2,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày tạo :"+_lock.created_at  ,
+                        colspan: 3,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày Sửa :" + _lock.updated_at  ,
+                        colspan:3,
+
+                    });
+                    nestedHeaders.push({
+                        title:"" ,
+                        colspan: count,
+                        align:"left"
+                    });
+                }
+
+            }
+            if(nestedHeaders.length ==0){
+                nestedHeaders = [
+                    {
+                        title: "Không khóa",
+                        colspan: columns_index.length+4,
+                        align:"left"
+                    }
+                ]
+            }
             return {
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                nestedHeaders:[
+                    nestedHeaders
+                ],
                 contextMenu: function(obj, x, y, e) {
                     var items = [];
 
@@ -1972,6 +2021,52 @@
             let change = {col:-1,row:-1};
 
             let lock = {};
+            let nestedHeaders = [];
+            if(locks .hasOwnProperty(sheetName)){
+                let _lock  = locks [sheetName];
+                let dateNow = '{!! date("Y-m-d"); !!}';
+                if(_lock.action == 2 && _lock.date == dateNow ){
+                    let count = columns_index.length+4;
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày xuất : "+_lock.date  ,
+                        colspan: 3,
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title:  " Giờ xuất :"+_lock.hour ,
+                        colspan: 2,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày tạo :"+_lock.created_at  ,
+                        colspan: 3,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày Sửa :" + _lock.updated_at  ,
+                        colspan:3,
+
+                    });
+                    nestedHeaders.push({
+                        title:"" ,
+                        colspan: count,
+                        align:"left"
+                    });
+                }
+
+            }
+            if(nestedHeaders.length ==0){
+                nestedHeaders = [
+                    {
+                        title: "Không khóa",
+                        colspan: columns_index.length+4,
+                        align:"left"
+                    }
+                ]
+            }
             return {
                 sheetName:sheetName,
                 rowResize:true,
@@ -1979,6 +2074,9 @@
                 minDimensions:[30,1],
                 columns:Object.values(columns),
                 data:_data,
+                nestedHeaders:[
+                    nestedHeaders
+                ],
                 contextMenu: function(obj, x, y, e) {
                     var items = [];
 
@@ -2970,12 +3068,63 @@
             let _data = InitData(data,config,columns_index);
 
             let click = false;
+
+            let nestedHeaders = [];
+            if(locks .hasOwnProperty(sheetName)){
+                let _lock  = locks [sheetName];
+                let dateNow = '{!! date("Y-m-d"); !!}';
+                if(_lock.action == 2 && _lock.date == dateNow ){
+                    let count = columns_index.length+4;
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày xuất : "+_lock.date  ,
+                        colspan: 3,
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title:  " Giờ xuất :"+_lock.hour ,
+                        colspan: 2,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày tạo :"+_lock.created_at  ,
+                        colspan: 3,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày Sửa :" + _lock.updated_at  ,
+                        colspan:3,
+
+                    });
+                    nestedHeaders.push({
+                        title:"" ,
+                        colspan: count,
+                        align:"left"
+                    });
+                }
+
+            }
+            if(nestedHeaders.length ==0){
+                nestedHeaders = [
+                    {
+                        title: "Không khóa",
+                        colspan: columns_index.length+4,
+                        align:"left"
+                    }
+                ]
+            }
+
             return {
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                nestedHeaders:[
+                    nestedHeaders
+                ],
                 contextMenu: function(obj, x, y, e) {
                     var items = [];
 
@@ -3532,12 +3681,62 @@
 
             let _data = InitData(data,config,columns_index);
             let change = {col:-1,row:-1};
+            let nestedHeaders = [];
+            if(locks .hasOwnProperty(sheetName)){
+                let _lock  = locks [sheetName];
+
+                let dateNow = '{!! date("Y-m-d"); !!}';
+                if(_lock.action == 2 && _lock.date == dateNow ){
+                    let count = columns_index.length+4;
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày xuất : "+_lock.date  ,
+                        colspan: 3,
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title:  " Giờ xuất :"+_lock.hour ,
+                        colspan: 2,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày tạo :"+_lock.created_at  ,
+                        colspan: 3,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày Sửa :" + _lock.updated_at  ,
+                        colspan:3,
+
+                    });
+                    nestedHeaders.push({
+                        title:"" ,
+                        colspan: count,
+                        align:"left"
+                    });
+                }
+
+            }
+            if(nestedHeaders.length ==0){
+                nestedHeaders = [
+                    {
+                        title: "Không khóa",
+                        colspan: columns_index.length+4,
+                        align:"left"
+                    }
+                ]
+            }
             return {
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                nestedHeaders:[
+                    nestedHeaders
+                ],
                 contextMenu: function(obj, x, y, e) {
                     var items = [];
                     if (y == null) {
@@ -3967,6 +4166,7 @@
                     delete columns[i].value;
                 }
                 index++;
+
             }
             function update(instance, cell, c, r, value) {
                 console.log("update call");
@@ -4071,12 +4271,62 @@
 
             let _data = InitData(data,config,columns_index);
             let change = {col:-1,row:-1};
+
+            let nestedHeaders = [];
+            if(locks.hasOwnProperty(sheetName)){
+                let _lock  = locks [sheetName];
+                let dateNow = '{!! date("Y-m-d"); !!}';
+                if(_lock.action == 2 && _lock.date == dateNow ){
+                    let count = columns_index.length+4;
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày xuất : "+_lock.date  ,
+                        colspan: 3,
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title:  " Giờ xuất :"+_lock.hour ,
+                        colspan: 2,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày tạo :"+_lock.created_at  ,
+                        colspan: 3,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày Sửa :" + _lock.updated_at  ,
+                        colspan:3,
+
+                    });
+                    nestedHeaders.push({
+                        title:"" ,
+                        colspan: count,
+                        align:"left"
+                    });
+                }
+
+            }
+            if(nestedHeaders.length ==0){
+                nestedHeaders = [
+                    {
+                        title: "Không khóa",
+                        colspan: columns_index.length+4,
+                        align:"left"
+                    }
+                ]
+            }
             return {
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                nestedHeaders:[
+                    nestedHeaders
+                ],
                 contextMenu: function(obj, x, y, e) {
                     var items = [];
 
