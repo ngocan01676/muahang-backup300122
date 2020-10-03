@@ -1016,10 +1016,57 @@ class Excel{
                 ["配送先都道府県",'province',14,9],//Tỉnh/TP
                 ["配送先住所",'address',18,9],//Địa chỉ giao hàng
                 ["配送先氏名",'fullname',18,9],//Họ tên người nhận
-                ["品番",['product'=>['product_id','code']],10,9],//H
-                ["商品名",['product'=>['product_name','title']],18,9],//I
+                ["品番",['callback'=>
+                    function($index,$product_id) use($products){
+                    try{
+                        $array_product = explode(";",$product_id);
+                    }catch (\Exception $ex) {
+                        $array_product = [];
+                    }
+
+                    $product_code = "";$product_title = "";
+                        foreach ($array_product as $pro_id){
+                            if(isset( $products[$pro_id])){
+                                $product_code.= $products[$pro_id]->code.",";
+                                $product_title.= $products[$pro_id]->title.",";
+                            }
+                        }
+                    return rtrim($product_code,',');
+                    },'key'=>'product_id'],10,9],//H
+                ["商品名",
+                    ['callback'=>function($index,$product_id) use($products){
+                        try{
+                            $array_product = explode(";",$product_id);
+                        }catch (\Exception $ex) {
+                            $array_product = [];
+                        }
+
+                        $product_code = "";$product_title = "";
+                        foreach ($array_product as $pro_id){
+                            if(isset( $products[$pro_id])){
+                                $product_code.= $products[$pro_id]->code.",";
+                                $product_title.= $products[$pro_id]->title.",";
+                            }
+                        }
+                    return rtrim($product_title,',');
+
+                },'key'=>'product_name'],18,9],//I
                 ["単価",'price',15,9],//Giá nhập
-                ["数量",'count',15,9],//SL
+                ["数量",['callback'=>function($index,$count) use($products){
+                    try{
+                        $array_count = json_decode($count,true);
+                    }catch (\Exception $ex) {
+                        $array_count = [];
+                    }
+                    $total_count = 0;
+
+                    foreach ($array_count as $pro_id=>$_count){
+                        if(isset( $products[$pro_id])){
+                            $total_count+=(int)$_count;
+                        }
+                    }
+                    return $total_count;
+                    },'key'=>'count'],15,9],//SL
                 ["到着希望日",'order_date',15,9],//Ngày nhận
                 ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
                 ["送料",'order_ship',15,9],//Phí ship
@@ -1076,6 +1123,7 @@ class Excel{
                 if($typeMethod != $this->getValuePayMethod($payMethod)){
                     continue;
                 }
+                $id = (isset($columns_value['id'])?$values[$columns_value['id']]:"");
 
                 $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
 
@@ -1096,11 +1144,14 @@ class Excel{
                         }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                             $conf = $value[1]['callback'];
                             $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start]);
+                            
                             $sheet->setCellValue($nameCol.$start,$_val);
                         }
                     }else{
                         $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
+
                         $sheet->setCellValue($nameCol.$start,$v);
+
                         if($value[1] == "payMethod"){
                             $payMethod = $v;
                         }

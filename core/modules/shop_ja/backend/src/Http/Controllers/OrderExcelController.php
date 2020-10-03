@@ -405,13 +405,37 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 if($name== "KURICHIKU"){
                                     $product_id = (isset($columns["product_id"])?$values[$columns["product_id"]]:"");
                                     $count = (isset($columns["count"])?$values[$columns["count"]]:"");
-                                    if(isset( $_product[$product_id]['data']['price_buy'])){
-                                        $product_code = $_product[$product_id]['data']['code'];
-                                        $product_title = $_product[$product_id]['data']['title'];
+                                    try{
+                                        $array_product = explode(";",$product_id);
+                                    }catch (\Exception $ex) {
+                                        $array_product = [];
+                                    }
+
+                                    $product_code = "";$product_title = "";
+                                    foreach ($array_product as $pro_id){
+                                        if(isset( $_product[$pro_id]['data']['price_buy'])){
+                                            $product_code.= $_product[$pro_id]['data']['code'].",";
+                                            $product_title.= $_product[$pro_id]['data']['title'].",";
+                                        }
+                                    }
+                                    $product_code = rtrim($product_code,',');
+                                    $product_title = rtrim($product_title,',');
+                                    try{
+                                        $array_count = json_decode($count,true);
+                                    }catch (\Exception $ex) {
+                                        $array_count = [];
+                                    }
+                                    $total_count = 0;
+
+                                    foreach ($array_count as $pro_id=>$_count){
+                                        if(isset( $_product[$pro_id]['data']['price_buy'])){
+                                            $total_count+=(int)$_count;
+                                        }
                                     }
                                 }else{
                                     $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
                                     $count = (int)(isset($columns["count"])?$values[$columns["count"]]:"");
+                                    $total_count = (int)(isset($columns["total_count"])?$values[$columns["total_count"]]:"");
                                     if(isset( $_product[$product_id]['data']['price_buy'])){
                                         $product_code = $_product[$product_id]['data']['code'];
                                         $product_title = $_product[$product_id]['data']['title'];
@@ -439,7 +463,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
                                     "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
                                     "count"=>$count,
-                                    "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
+                                    "total_count"=>$total_count,
                                     "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
                                     "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
                                     "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
