@@ -12,10 +12,16 @@ class Excel{
 
     ];
     public $date = 0;
-    public function __construct($date)
+    public function __construct($date,$date_export)
     {
         $this->file = new \Illuminate\Filesystem\Filesystem();
         $this->date = strtotime($date);
+
+        if($date_export == 0){
+            $this->date_export = $this->date;
+        }else{
+            $this->date_export =  strtotime($date_export);
+        }
 
         $this->DataCol = [
             "FUKUI"=>[
@@ -560,9 +566,10 @@ class Excel{
             )
         );
         $sheet->getStyle('A3:T3')->applyFromArray( $style_header );
-
+        $date_export = new \stdClass();
+        $date_export->date =  $this->date_export;
         $colums = [
-            ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+            ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
             ["支払区分",'payMethod',10,9],//B
             ["配送先電話番号",'phone',10,9],//C
             ["配送先郵便番号",'zipcode',9,9],//D
@@ -792,8 +799,10 @@ class Excel{
             )
         );
         $sheet->getStyle('A3:T3')->applyFromArray( $style_header );
+        $date_export = new \stdClass();
+        $date_export->date =  $this->date_export;
         $colums = [
-            ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+            ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d",$date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
             ["支払区分",'payMethod',10,9],//B
             ["配送先電話番号",'phone',10,9],//C
             ["配送先郵便番号",'zipcode',9,9],//D
@@ -1007,9 +1016,11 @@ class Excel{
         $start=2;
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
+        $date_export = new \stdClass();
+        $date_export->date =  $this->date_export;
         for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
             $colums = [
-                ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+                ["注文日",['callback'=>function($index,$date) use($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
                 ["配送先電話番号",'phone',10,9],//Số điện thoại
                 ["郵便番号",'zipcode',9,9],//Mã bưu điện
@@ -1311,9 +1322,11 @@ class Excel{
         $sheet->getStyle('B1')->applyFromArray($styleArray);
         $start=2;
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+        $date_export = new \stdClass();
+        $date_export->date = $this->date_export;
         for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
             $colums = [
-                ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+                ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
                 ["配送先電話番号",'phone',10,9],//Số điện thoại
                 ["郵便番号",'zipcode',9,9],//Mã bưu điện

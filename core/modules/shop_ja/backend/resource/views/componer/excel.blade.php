@@ -163,7 +163,7 @@
     let dataship = {!! json_encode($ships,JSON_UNESCAPED_UNICODE) !!}
         let datadaibiki = {!! json_encode($daibiki,JSON_UNESCAPED_UNICODE) !!}
         let categorys = {!! json_encode($categorys,JSON_UNESCAPED_UNICODE) !!}
-
+        let locks = {!! json_encode($locks,JSON_UNESCAPED_UNICODE) !!}
         let token = '{!! isset($model)?$model->token:"" !!}';
 
     function IF_End($val,$conf){
@@ -233,7 +233,7 @@
                 if(self != null){
                     console.log(self);
                     if(self.hasOwnProperty('options') && self.options.hasOwnProperty('format')){
-                        console.log(formatDate(new Date(), self.options.format));
+
                         return [true,formatDate(new Date(), self.options.format)];
                     }
                 }
@@ -261,7 +261,7 @@
                         if(columns_index[j].hasOwnProperty('value')){
                             let oke = true;
                             if(columns_index[j].hasOwnProperty('row')){
-                                oke = columns_index[j].row == i;
+                                oke = columns_index[j].row === i;
                             }
                             if(oke){
                                 if(typeof(_data[i][j]) === "undefined"){
@@ -306,18 +306,18 @@
         let  sheetName  =  'FUKUI';
         let data = [];
 
-        {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
+     {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
-                {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
-                {{--data = datacache[sheetName].data.data;--}}
-                {{--console.log("cache")--}}
-                {{--}--}}
-                {{--}--}}
+             {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
+             {{--data = datacache[sheetName].data.data;--}}
+             {{--console.log("cache")--}}
+             {{--}--}}
+             {{--}--}}
 
-        if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
+     if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
 
-            data = datamodel[sheetName];
-        }
+         data = datamodel[sheetName];
+     }
 
         let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
         let index = 0;
@@ -611,12 +611,61 @@
 
         let _data = InitData(data,config,columns_index);
         let change = {col:-1,row:-1};
+        let nestedHeaders = [];
+        if(locks .hasOwnProperty(sheetName)){
+            let _lock  = locks [sheetName];
+            let dateNow = '{!! date("Y-m-d"); !!}';
+            if(_lock.action == 2 && _lock.date == dateNow ){
+                let count = columns_index.length+4;
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày xuất : "+_lock.date  ,
+                    colspan: 3,
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title:  " Giờ xuất :"+_lock.hour ,
+                    colspan: 2,
+
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày tạo :"+_lock.created_at  ,
+                    colspan: 3,
+
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày Sửa :" + _lock.updated_at  ,
+                    colspan:3,
+
+                });
+                nestedHeaders.push({
+                    title:"" ,
+                    colspan: count,
+                    align:"left"
+                });
+            }
+
+        }
+        if(nestedHeaders.length ==0){
+            nestedHeaders = [
+                {
+                    title: "Không khóa",
+                    colspan: columns_index.length+4,
+                    align:"left"
+                }
+            ]
+        }
         return {
             sheetName:sheetName,
             rowResize:true,
             columnDrag:true,
             columns:Object.values(columns),
             data:_data,
+            nestedHeaders:[
+                nestedHeaders
+            ],
             contextMenu: function(obj, x, y, e) {
                 var items = [];
 
@@ -849,20 +898,19 @@
         };
     }
 
-
     function KOGYJA() {
         let sheetName = "KOGYJA";
         let data = [];
-        {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
+     {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
-                {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
-                {{--data = datacache[sheetName].data.data;--}}
-                {{--console.log("cache")--}}
-                {{--}--}}
-                {{--}--}}
-        if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
-            data = datamodel[sheetName];
-        }
+             {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
+             {{--data = datacache[sheetName].data.data;--}}
+             {{--console.log("cache")--}}
+             {{--}--}}
+             {{--}--}}
+     if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
+         data = datamodel[sheetName];
+     }
         let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
         let index = 0;
 
@@ -1559,6 +1607,52 @@
         let change = {col:-1,row:-1};
 
         let lock = {};
+        let nestedHeaders = [];
+        if(locks .hasOwnProperty(sheetName)){
+            let _lock  = locks [sheetName];
+            let dateNow = '{!! date("Y-m-d"); !!}';
+            if(_lock.action == 2 && _lock.date == dateNow ){
+                let count = columns_index.length+4;
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày xuất : "+_lock.date  ,
+                    colspan: 3,
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title:  " Giờ xuất :"+_lock.hour ,
+                    colspan: 2,
+
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày tạo :"+_lock.created_at  ,
+                    colspan: 3,
+
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày Sửa :" + _lock.updated_at  ,
+                    colspan:3,
+
+                });
+                nestedHeaders.push({
+                    title:"" ,
+                    colspan: count,
+                    align:"left"
+                });
+            }
+
+        }
+        if(nestedHeaders.length ==0){
+            nestedHeaders = [
+                {
+                    title: "Không khóa",
+                    colspan: columns_index.length+4,
+                    align:"left"
+                }
+            ]
+        }
         return {
             sheetName:sheetName,
             rowResize:true,
@@ -1566,6 +1660,9 @@
             minDimensions:[30,1],
             columns:Object.values(columns),
             data:_data,
+            nestedHeaders:[
+                nestedHeaders
+            ],
             contextMenu: function(obj, x, y, e) {
                 var items = [];
 
@@ -2020,27 +2117,135 @@
             },
         };
     }
-
+    function myFunction(self) {
+        if($(self).val() > 10){
+            $(self).val(10);
+        }
+    }
     function KURICHIKU() {
         let  sheetName  =  'KURICHIKU';
         let data = [];
 
-        {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
+     {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
-                {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
-                {{--data = datacache[sheetName].data.data;--}}
-                {{--console.log("cache")--}}
-                {{--}--}}
-                {{--}--}}
+             {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
+             {{--data = datacache[sheetName].data.data;--}}
+             {{--console.log("cache")--}}
+             {{--}--}}
+             {{--}--}}
 
-        if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
+     if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
 
-            data = datamodel[sheetName];
-        }
+         data = datamodel[sheetName];
+     }
 
         let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
         let index = 0;
+        let change = {col:-1,row:-1};
+        let customColumn = {
+            // Methods
+            closeEditor : function(cell, save) {
+                // var value = cell.children[0].value;
+                // cell.innerHTML = value;
+                return 0;
+            },
+            openEditor : function(cell) {
+                let dom = $(cell);
 
+
+                let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+
+                let _jexcel = spreadsheet.jexcel[worksheet];
+
+                var cellName1 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x'))-1, dom.attr('data-y')]);
+                var cellName2 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x')), dom.attr('data-y')]);
+
+                let valsProduct = (_jexcel.getValue(cellName1)).toString().split(";");
+                let valsCount = {};
+                try{
+                    valsCount = JSON.parse((_jexcel.getValue(cellName2)).toString());
+                }catch (e) {
+                    valsCount = {};
+                }
+                console.dir(["opup",change]);
+                console.log(valsCount);
+                $html = "<table  class='table table-bordered config_count'>";
+                $html+="<tr><th>Mã</th><th>Tên</th><th>Số lượng</th></tr>";
+
+                for (let i in valsProduct){
+                    if(dropdown.hasOwnProperty(valsProduct[i])){
+                        let item = dropdown[valsProduct[i]];
+                        $html+="<tr>";
+                        $html+="<td>"+item.id+"</td>";
+                        $html+="<td>"+item.name+"</td>";
+                        $html+="<td><input min=\"1\" max=\"10\" onchange=\"myFunction(this)\" class=\"form-control count\" type='number' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:1)+"'></td>";
+                        $html+="</tr>";
+                    }
+                }
+                $html+= "<table>";
+                let action = function () {
+                    let parent = $('.config_count').find('.count');
+                    let vals = {};
+                    parent.each(function () {
+                        let _dom = $(this);
+                        vals[_dom.attr('data-id')] = _dom.val();
+                    });
+                    let data = {};
+                    for (let i in valsProduct){
+                        if(dropdown.hasOwnProperty(valsProduct[i])){
+                            if(vals.hasOwnProperty(valsProduct[i])){
+                                data[valsProduct[i]] = vals[valsProduct[i]];
+                            }else{
+                                data[valsProduct[i]] = 1;
+                            }
+                        }
+                    }
+                    cell.innerHTML =JSON.stringify(data);
+
+                    _jexcel.setValue(cellName2,cell.innerHTML);
+                };
+                bootpopup({
+                    title: "Custom HTML",
+                    size: "large",
+                    content: [$html],
+                    ok: action,
+                    cancel: function () {
+
+                    },
+
+                    before: function (_this) {
+
+                    }
+                });
+                // var element = document.createElement('input');
+                // element.value = cell.innerHTML;
+                //
+                // cell.classList.add('editor');
+                // cell.innerHTML = '';
+                //
+                // cell.appendChild(element);
+                //
+                // $(element).clockpicker({
+                //     afterHide:function() {
+                //         setTimeout(function() {
+                //             // To avoid double call
+                //             if (cell.children[0]) {
+                //                 myTable.closeEditor(cell, true);
+                //             }
+                //         });
+                //     }
+                // });
+                //
+                // element.focus();
+            },
+            getValue : function(cell) {
+                return cell.innerHTML;
+            },
+            setValue : function(cell, value) {
+                cell.innerHTML = value;
+            }
+        }
         let columns = {
             status: {
                 type: 'checkbox',
@@ -2112,15 +2317,17 @@
                 type:'dropdown',
                 source:Object.values(dropdown),
                 autocomplete:true,
-
-                width:'140px',
-                value:['product','this','source',0,'id']
+                multiple: true,
+                width:'160px',
+                value:['product','this','source',0,'id'],
             },
             count:{
                 title: '数量',//K SL
-                type: 'numeric',
+                type: 'text',
                 width:'100px',
-                value:1
+                multiple: true,
+                value:"1",
+
             },
             price:{
                 title: '単価',//J Giá nhập
@@ -2208,9 +2415,9 @@
                 width:'100px',
             },
         };
-
+        columns.count.editor = customColumn;
         columnsAll[sheetName] = columns;
-
+        let columns_index = Object.values(columns);
         for(var i in columns){
             columns[i].index = index;
             columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
@@ -2225,58 +2432,165 @@
         }
         function update(instance, cell, c, r, value) {
             console.log("update call");
-
             let data = {
-                count:value.hasOwnProperty('count')?value.count:parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r]))),
-                id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
+                count:value.hasOwnProperty('count')?value.count:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r])),
+                id:value.hasOwnProperty('id')?value.id.toString():instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])).toString(),
                 province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
             };
-            console.log(data);
-            if(data.hasOwnProperty('count') && data.count == 0 ){
-                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
-                data.count = 1;
+            data.id = data.id.split(';');
+            let count = parseInt(data.count);
+
+            if(!isNaN(count)){
+                data.count = {};
+                data.count[data.id[0]] = count;
+            }else{
+                try{
+                    data.count = JSON.parse( data.count);
+                }catch (e) {
+                    data.count = {};
+                }
             }
-            let total_price_buy =  0;
-            let total_price =  0;
+
+
 
             let valueRow =  instance.jexcel.getRowData(r);
             let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
+
             data.payMethod = payMethod;
             data.sheetName = sheetName;
+
             console.log("payMethod:"+payMethod);
+
             let price_buy_sale = parseInt(valueRow[columns.price_buy_sale.index]);
             console.log("price_buy_sale:"+price_buy_sale);
-            if(dropdown.hasOwnProperty(data.id)){
+            let price_buy=0;
+            let price=0;
 
-                let product = dropdown[data.id];
-                let price_buy = 0;
-                let price = 0;
+            let total_price_buy =  0;
+            let total_price =  0;
+            let countNew = {};
+            let totalCount = 0;
+            for(let i in data.id){
+                if(data.id.hasOwnProperty(i)){
+                    if(dropdown.hasOwnProperty(data.id[i])){
+                        let product = dropdown[data.id[i]];
 
-                if(valueRow[columns.price_buy.index] > 0){
-                    price_buy = valueRow[columns.price_buy.index];
-                }else{
-                    price_buy = product.data.price_buy;
+                        let _price = parseInt(product.data.price);
+                        let _price_buy = parseInt(product.data.price_buy);
+
+                        price+=_price;
+                        price_buy+=_price_buy;
+                        if(!data.count.hasOwnProperty(data.id[i])){
+                            data.count[data.id[i]] = 1;
+                        }else{
+                            data.count[data.id[i]] = parseInt(data.count[data.id[i]]);
+                        }
+                        totalCount+=data.count[data.id[i]];
+                        countNew[data.id[i]] = data.count[data.id[i]];
+                        total_price_buy+=_price_buy* data.count[data.id[i]];
+                        total_price+=_price* data.count[data.id[i]];
+                    }
+
                 }
-                if(valueRow[columns.price.index] > 0 ){
-                    price = valueRow[columns.price.index];
-                }else{
-                    price = product.data.price;
+            }
+            let product_id = data.id[0];
+            console.log(countNew);
+
+            console.log(columns.count.index);
+
+            instance.jexcel.getCell(
+                jexcel.getColumnNameFromId([columns.count.index, r])).innerHTML = JSON.stringify(countNew);
+
+            data.total_price = total_price;
+            data.total_price_buy = total_price_buy;
+
+            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), price);
+            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), price_buy);
+
+            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price);
+
+            function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod) {
+
+                let configShip = dataship.hasOwnProperty("cate_"+$category_id)?dataship["cate_"+$category_id]:[];
+                console.log(configShip);
+                console.log("$count:"+$count);
+                console.log("$province:"+$province);
+                console.log("$total_price_buy:"+$total_price_buy);
+                let arr_ship = [];
+                for(let i in configShip){
+                    $is_IF_Start = IF_Start($count,configShip[i]);
+                    $is_IF_End =  IF_End($count,configShip[i]);
+                    if($is_IF_Start && $is_IF_End){
+                        $conf  =  configShip[i].config;
+                        for (let ii in $conf){
+                            $val = $conf[ii];
+                            $arr = $val['text'].split("-");
+                            for (let iii in $arr){
+                                $v = $arr[iii];
+                                if($province == $v){
+                                    arr_ship.push([configShip[i],$val])
+                                }
+                            }
+                        }
+                    }
                 }
-                console.log("price_buy:"+price_buy);
-                total_price = parseFloat(price) * data.count;
-                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,true);
-                data.total_price = total_price;
+                console.log(arr_ship);
+                $price_ship_default  = -1;
+                $price_ship  = -1;
+                for (i in arr_ship){
+                    $val = arr_ship[i];
+                    if($val[0].unit == 0 && $price_ship_default==-1){
+                        $price_ship_default =  $val[1]['value'];
+                    }else if($val[0].unit == $product.unit && $price_ship == -1){
+                        $price_ship = $val[1]['value'];
+                    }
+                }
 
-                total_price_buy = parseFloat(price_buy) * data.count + price_buy_sale;
-                console.log(total_price_buy);
+                console.log('$price_ship_default:'+$price_ship_default);
+                console.log('$price_ship:'+$price_ship);
+                let $ship = categorys[$category_id]?( categorys[$category_id].data.hasOwnProperty('ship'))?categorys[$category_id].data.ship:"-1":"-1";
 
-                data.total_price_buy = total_price_buy;
+                let $ship_cou = -1;
 
+                if( payMethod == 2 || payMethod == 3 ){
+                    $ship_cou = 0;
+                }else{
+                    for (let i in datadaibiki){
+                        $_val  = datadaibiki[i];
+
+                        if($ship == $_val.id){
+                            for(let ii in $_val.data){
+                                $units = $_val.data[ii];
+                                for(let iii in $units){
+                                    $_unit = $units[iii];
+                                    if($_unit){
+                                        $is_IF_Start = IF_Start($total_price_buy,$_unit);
+                                        $is_IF_End = IF_End($total_price_buy,$_unit);
+                                        if($is_IF_Start && $is_IF_End){
+                                            $ship_cou = $_unit.value;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if($ship_cou != -1){
+                            break;
+                        }
+                    }
+                }
+                price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                $ship_cou = $ship_cou == -1?0:$ship_cou;
+                return {order_ship:parseInt($price_ship == -1?0:$price_ship),order_ship_cou:parseInt($ship_cou)};
             }
             function setInterest(price_ship,order_ship_cou,total_price_buy){
+
                 price_ship = price_ship * data.count;
+                console.log("price_ship:"+price_ship);
+                console.log("total_price_buy:"+total_price_buy);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+
                 total_price_buy = total_price_buy+price_ship;
+                console.log(total_price_buy);
 
                 if(total_price_buy ===0 || total_price == 0){ return;}
 
@@ -2300,23 +2614,33 @@
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou,false);
                 }
             }
-            console.log("SEND");
-            $.ajax({
-                type: "POST",
-                url:"{{ route('backend:shop_ja:order:excel:store') }}",
-                data:{act:'ship',data:data} ,
-                success: function (data) {
-                    console.log(data);
-                    if(data && data.length >0){
-                        console.log("oke");
-                        let price_ship = parseInt(data[0].data.price_ship)
-                        let ship_cou = parseInt(data[0].data.ship_cou);
-                        let total_price_buy = parseInt(data[0].data.total_price_buy);
 
-                        setInterest(price_ship < 0? 0 : price_ship,ship_cou< 0 ?0:ship_cou,total_price_buy);
-                    }
-                },
-            });
+            console.log("SEND");
+            console.log(data);
+
+            data.count = totalCount;
+            if(dropdown.hasOwnProperty(product_id)){
+                confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod);
+                console.log(confShipCou);
+                setInterest(confShipCou.order_ship , confShipCou.order_ship_cou,total_price_buy + 330)
+            }
+
+         {{--$.ajax({--}}
+         {{--type: "POST",--}}
+         {{--url:"{{ route('backend:shop_ja:order:excel:store') }}",--}}
+         {{--data:{act:'ship',data:data} ,--}}
+         {{--success: function (data) {--}}
+         {{--console.log(data);--}}
+         {{--if(data && data.length >0){--}}
+         {{--console.log("oke");--}}
+         {{--let price_ship = parseInt(data[0].data.price_ship)--}}
+         {{--let ship_cou = parseInt(data[0].data.ship_cou);--}}
+         {{--let total_price_buy = parseInt(data[0].data.total_price_buy);--}}
+
+         {{--setInterest(price_ship < 0? 0 : price_ship,ship_cou< 0 ?0:ship_cou,total_price_buy);--}}
+         {{--}--}}
+         {{--},--}}
+         {{--});--}}
 
 
             //    if(value.hasOwnProperty('lock') && value.lock.indexOf(columns.order_ship.index)){
@@ -2325,16 +2649,68 @@
             //         setInterest(parseInt(valueRow[columns.order_ship.index]),parseInt(valueRow[columns.order_ship_cou.index]));
             //     }
         }
-        let columns_index = Object.values(columns);
+
 
         let _data = InitData(data,config,columns_index);
-        let change = {col:-1,row:-1};
+
+        let click = false;
+
+        let nestedHeaders = [];
+        if(locks .hasOwnProperty(sheetName)){
+            let _lock  = locks [sheetName];
+            let dateNow = '{!! date("Y-m-d"); !!}';
+            if(_lock.action == 2 && _lock.date == dateNow ){
+                let count = columns_index.length+4;
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày xuất : "+_lock.date  ,
+                    colspan: 3,
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title:  " Giờ xuất :"+_lock.hour ,
+                    colspan: 2,
+
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày tạo :"+_lock.created_at  ,
+                    colspan: 3,
+
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày Sửa :" + _lock.updated_at  ,
+                    colspan:3,
+
+                });
+                nestedHeaders.push({
+                    title:"" ,
+                    colspan: count,
+                    align:"left"
+                });
+            }
+
+        }
+        if(nestedHeaders.length ==0){
+            nestedHeaders = [
+                {
+                    title: "Không khóa",
+                    colspan: columns_index.length+4,
+                    align:"left"
+                }
+            ]
+        }
+
         return {
             sheetName:sheetName,
             rowResize:true,
             columnDrag:true,
             columns:Object.values(columns),
             data:_data,
+            nestedHeaders:[
+                nestedHeaders
+            ],
             contextMenu: function(obj, x, y, e) {
                 var items = [];
 
@@ -2449,38 +2825,55 @@
                 return items;
             },
             onselection:function (instance, x1, y1, x2, y2, origin) {
-
-                change = {col:x1,row:y1};
-
-                var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
-
-                $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
-                let val = instance.jexcel.getValue(cellName1);
-
-                if(columns_index[x1] && columns_index[x1].type === "dropdown"){
-                    $("#value-review").hide();
-                    $html = $("<div>");
-                    $("#zoe-dropdown-review").show().html($html);
-
-                    jSuites.dropdown($html[0], {
-                        data:columns_index[x1].source,
-                        autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
-                        width:'100%',
-                        onchange:function (el, a, oldValue, Value) {
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
-                        },
-                    }).setValue(val);
-                }else{
-                    $("#value-review").show().val("");
-                    $("#zoe-dropdown-review").hide();
-                    $("#value-review").prop("disabled",false );
-                    if(columns_index[x1] && columns_index[x1].type === "text"){
-                        if(columns_index[x1].hasOwnProperty('read')){
-                            $("#value-review").prop( "disabled", true );
-                        }
-                    }
-                    $("#value-review").show().val(val);
+                if(click === true){
+                    return;
                 }
+                click = true;
+                console.log("x1"+x1 +" y1: "+ y1);
+
+                setTimeout(function () {
+                    click = false;
+
+                    var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
+                    let cell = instance.jexcel.getCell(cellName1);
+
+                    let val = instance.jexcel.getValue(cellName1);
+                    $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
+                    console.log("ACTION");
+                    if(columns_index[x1] && columns_index[x1].type === "dropdown"){
+                        if(cell.classList.contains('editor')){
+                            console.log("val:"+val);
+                            change = {col:x1,row:y1};
+                            $("#value-review").hide();
+                            $html = $("<div>");
+                            $("#zoe-dropdown-review").show().html($html);
+                            let init = true;
+                            change = {col:x1,row:y1};
+                            init = false;
+                            jSuites.dropdown($html[0], {
+                                data:columns_index[x1].source,
+                                value:val,
+                                autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
+                                multiple: columns_index[x1].hasOwnProperty('multiple'),
+                                width:'100%',
+                                onchange:function (el, a, oldValue, Value) {
+                                    //instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
+                                },
+                            }).setValue(val);
+                        }
+                    }else{
+                        change = {col:x1,row:y1};
+                        $("#value-review").show().val("");
+                        $("#zoe-dropdown-review").hide();
+                        $("#value-review").prop("disabled",false );
+                        if(columns_index[x1] && columns_index[x1].type === "text"){
+                            if(columns_index[x1].hasOwnProperty('read')){
+                                $("#value-review").prop( "disabled", true );
+                            }
+                        }
+                        $("#value-review").show().val(val);
+                    }
+                },500);
             },
             updateTable: function (instance, cell, col, row, val, id) {
                 let c = parseInt(col);
@@ -2515,30 +2908,33 @@
                         parent.addClass('pay-method-oke');
                     }
 
-
-
                 }
             },
             onchange:function(instance, cell, c, r, value) {
                 c = parseInt(c);
                 console.log(change);
+                console.log();
+                console.log("["+c +" "+ r+"] = "+value);
+                if(value.toString().length == 0){
+                    return;
+                }
+
                 if (c === columns.product_name.index) {
-                    if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
+                    // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
+                    if(change.col === c){
+                        change.col = {col: -1, row: -1};
+                        console.log("=>>>>>"+value);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), value);
 
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
+                        //   instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
 
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
+                        //  instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+                        update(instance, cell, c, r,{
 
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
-                        if(change.col == c){
+                        });
 
-                            update(instance, cell, c, r,{
-                                count:1,
-                                id:dropdown[value].data.id
-                            });
-
-                        }
                     }
+                    //  }
                 }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
                     c === columns.order_ship.index || c === columns.order_ship_cou.index){
                     if(change.col == c){
@@ -2569,18 +2965,18 @@
         let  sheetName  =  'OHGA';
         let data = [];
 
-        {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
+     {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
-                {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
-                {{--data = datacache[sheetName].data.data;--}}
-                {{--console.log("cache")--}}
-                {{--}--}}
-                {{--}--}}
+             {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
+             {{--data = datacache[sheetName].data.data;--}}
+             {{--console.log("cache")--}}
+             {{--}--}}
+             {{--}--}}
 
-        if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
+     if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
 
-            data = datamodel[sheetName];
-        }
+         data = datamodel[sheetName];
+     }
 
         let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
         let index = 0;
@@ -2871,15 +3267,64 @@
 
         let _data = InitData(data,config,columns_index);
         let change = {col:-1,row:-1};
+        let nestedHeaders = [];
+        if(locks .hasOwnProperty(sheetName)){
+            let _lock  = locks [sheetName];
+
+            let dateNow = '{!! date("Y-m-d"); !!}';
+            if(_lock.action == 2 && _lock.date == dateNow ){
+                let count = columns_index.length+4;
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày xuất : "+_lock.date  ,
+                    colspan: 3,
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title:  " Giờ xuất :"+_lock.hour ,
+                    colspan: 2,
+
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày tạo :"+_lock.created_at  ,
+                    colspan: 3,
+
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày Sửa :" + _lock.updated_at  ,
+                    colspan:3,
+
+                });
+                nestedHeaders.push({
+                    title:"" ,
+                    colspan: count,
+                    align:"left"
+                });
+            }
+
+        }
+        if(nestedHeaders.length ==0){
+            nestedHeaders = [
+                {
+                    title: "Không khóa",
+                    colspan: columns_index.length+4,
+                    align:"left"
+                }
+            ]
+        }
         return {
             sheetName:sheetName,
             rowResize:true,
             columnDrag:true,
             columns:Object.values(columns),
             data:_data,
+            nestedHeaders:[
+                nestedHeaders
+            ],
             contextMenu: function(obj, x, y, e) {
                 var items = [];
-
                 if (y == null) {
                     // Insert a new column
                     if (obj.options.allowInsertColumn === true) {
@@ -3071,7 +3516,8 @@
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
 
-                        if(change.col == c){
+                        if(change.col === c){
+
                             update(instance, cell, c, r,{
                                 count:1,
                                 id:dropdown[value].data.id
@@ -3110,18 +3556,18 @@
 
         let data = [];
 
-        {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
+     {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
-                {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
-                {{--data = datacache[sheetName].data.data;--}}
-                {{--console.log("cache")--}}
-                {{--}--}}
-                {{--}--}}
+             {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
+             {{--data = datacache[sheetName].data.data;--}}
+             {{--console.log("cache")--}}
+             {{--}--}}
+             {{--}--}}
 
-        if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
+     if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
 
-            data = datamodel[sheetName];
-        }
+         data = datamodel[sheetName];
+     }
 
         let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
         let index = 0;
@@ -3306,6 +3752,7 @@
                 delete columns[i].value;
             }
             index++;
+
         }
         function update(instance, cell, c, r, value) {
             console.log("update call");
@@ -3410,12 +3857,62 @@
 
         let _data = InitData(data,config,columns_index);
         let change = {col:-1,row:-1};
+
+        let nestedHeaders = [];
+        if(locks.hasOwnProperty(sheetName)){
+            let _lock  = locks [sheetName];
+            let dateNow = '{!! date("Y-m-d"); !!}';
+            if(_lock.action == 2 && _lock.date == dateNow ){
+                let count = columns_index.length+4;
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày xuất : "+_lock.date  ,
+                    colspan: 3,
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title:  " Giờ xuất :"+_lock.hour ,
+                    colspan: 2,
+
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày tạo :"+_lock.created_at  ,
+                    colspan: 3,
+
+                });
+                count = count - 1;
+                nestedHeaders.push({
+                    title: "Ngày Sửa :" + _lock.updated_at  ,
+                    colspan:3,
+
+                });
+                nestedHeaders.push({
+                    title:"" ,
+                    colspan: count,
+                    align:"left"
+                });
+            }
+
+        }
+        if(nestedHeaders.length ==0){
+            nestedHeaders = [
+                {
+                    title: "Không khóa",
+                    colspan: columns_index.length+4,
+                    align:"left"
+                }
+            ]
+        }
         return {
             sheetName:sheetName,
             rowResize:true,
             columnDrag:true,
             columns:Object.values(columns),
             data:_data,
+            nestedHeaders:[
+                nestedHeaders
+            ],
             contextMenu: function(obj, x, y, e) {
                 var items = [];
 
@@ -3628,9 +4125,11 @@
                 }else if(c === columns.payMethod.index){
                     let v = getValuePayMethod(value);
                     let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
+
                     parent.removeClass('pay-method-oke');
                     if(v === 2){
                         parent.addClass('pay-method-oke');
+
                     }
                     if(change.col == c){
                         update(instance, cell, c, r,{});

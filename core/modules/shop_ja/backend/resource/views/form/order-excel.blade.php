@@ -939,379 +939,6 @@
             };
         }
 
-        function KOGYJA1() {
-            let  sheetName  =  'KOGYJA';
-
-            let data = [];
-            if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){
-                if(datacache[sheetName].data.token === token){
-                    data = datacache[sheetName].data.data;
-                }
-            }
-            if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
-                data = datamodel[sheetName];
-            }
-            let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
-            let index = 0;
-            let columns = {
-                status: {
-                    type: 'checkbox',
-                    title:'Status'
-                },
-                image:{
-                    title:'Image',
-                    type:'image',
-                    width:"50px",
-                    key:"demo",
-                },
-                timeCreate:{
-                    title: '注文日',//A ngày đặt hàng
-                    type: 'calendar',
-                    width:'100px',
-                    options: { format:'DD/MM/YYYY' },
-                    value:['date','now']
-                },
-                payMethod:{
-                    title: '支払区分',//B Phương thức thanh toán
-                    type:'dropdown',
-                    source:[
-                        "代金引換",
-                        "銀行振込",
-                        "決済不要",
-                    ],
-                    width:'130px',
-                    value:['product','this','source',0],
-                },
-                phone:{
-                    title: '配送先電話番号',//C Số điện thoại
-                    type: 'text',
-                    width:'100px',
-                    value:"070-1398-2234",
-                },
-                zipcode:{
-                    title: '配送先郵便番号',//D Mã bưu điện
-                    type: 'text',
-                    width:'60px',
-                    key:"demo",
-                },
-                province:{
-                    title: '配送先都道府県',//E Tỉnh/TP
-                    type: 'text',
-                    width:'200px',
-                    key:"demo",
-                },
-                address:{
-                    title: '配送先住所',//F Địa chỉ giao hàng
-                    type: 'text',
-                    width:'250px',
-                    key:"demo",
-                },
-                fullname:{
-                    title: '配送先氏名',//G Họ tên người nhận
-                    type: 'text',
-                    width:'150px',
-                    key:"demo",
-                },
-                product_id:{
-                    title: '品番',//H Mã SP
-                    type: 'text',
-                    value:['product','product_name','source',0,'id'],
-                },
-                product_name:{
-                    title: '商品名',//I Tên SP
-                    type:'dropdown',
-                    source:Object.values(dropdown),
-                    autocomplete:true,
-                    width:'100px',
-                    value:['product','product_name','source',0,'id'],
-                },
-                price:{
-                    title: '単価',//J Giá nhập
-                    type: 'numeric',
-                    width:'100px',
-                    value:['product','product_name','source',0,'data','price'],
-                },
-                count:{
-                    title: '数量',//K SL
-                    type: 'numeric',
-                    width:'100px',
-                   value:1
-                },
-                order_date:{
-                    title: '到着希望日',//L Ngày nhận
-                    type:'calendar',
-                    options: { format:'DD/MM/YYYY' },
-                    width:'100px',
-                    value:['date','now'],
-                },
-                order_hours:{
-                    title: '配送希望時間帯',//M Giờ nhận
-                    type: 'dropdown',
-                    source:['14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
-                    width:'150px',
-                    value:['product','this','source',3],
-                },
-                order_ship:{
-                    title: '別途送料',//N Phí ship
-                    type: 'numeric',
-                    width:'100px',
-                    key:"demo",
-                },
-                order_total_price:{
-                    title: '仕入金額',//O Tổng giá nhập
-                    type: 'numeric',
-                    width:'100px',
-                    key:"demo",
-                },
-                order_total_price_buy:{
-                    title: '代引き請求金額',//P Giá bán
-                    type: 'numeric',
-                    width:'100px',
-                    key:"demo",
-                },
-                order_ship_cou:{
-                    title: '代引き手数料',//P Phí giao hàng
-                    type: 'numeric',
-                    width:'100px',
-                    key:"demo",
-                },
-                order_price:{
-                    title: '追跡番号',//P Lợi nhuận
-                    type: 'numeric',
-                    width:'100px',
-                    key:"demo",
-                },
-                order_tracking:{
-                    title: '振込み情報',//T Mã tracking
-                    type: 'text',
-                    width:'100px',
-                    key:"demo",
-                },
-                order_link:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                    key:"demo",
-                },
-                id:{
-                    title: 'ID',//T
-                    type: 'text',
-                    width:'100px',
-                },
-            };
-            columnsAll[sheetName] = columns;
-
-            for(var i in columns){
-                columns[i].index = index;
-                columns[i].title =i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
-                columns[i].key = i;
-                let v = setDefaultValue(i,columns);
-                if(v[0]){
-                    columns[i].value = v[1];
-                }else{
-                    delete columns[i].value;
-                }
-                index++;
-            }
-
-            function update_count(instance, cell, c, r, value) {
-                let _r1 = r;
-                let _count = 0;
-                let rowInfo = -1;
-                let rowTotal = -1;
-                do{
-                    let _data =  instance.jexcel.getRowData(_r1);
-                    if(_data[columns.count.index] > 0 && _data[columns.product_id.index]>0){
-                        _count+= parseInt(_data[columns.count.index]);
-                    }
-                    if(_data[columns.fullname.index].length > 0){
-                        rowInfo = _r1;
-                        break;
-                    }
-                    _r1--;
-                }while (_r1 >= 0);
-                console.log(_count);
-                let _r2 = parseInt(r)+1;
-                console.log(_r2);
-                while (_r2 < instance.jexcel.rows.length){
-                    let _data =  instance.jexcel.getRowData(_r2);
-                    if(_data[columns.count.index] > 0 && _data[columns.product_id.index]>0){
-                        _count+= parseInt(_data[columns.count.index]);
-                    }
-                    if(_data[columns.fullname.index].length > 0){
-                        break;
-                    }
-                    _r2++;
-                }
-                if(rowInfo!==-1){
-                    let v = 0;
-                    if(_count <= 5){
-                        v = 37;
-                    }else if(_count <= 10){
-                        v = 74;
-                    }else if(_count > 10){
-                        v = 142;
-                    }
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, rowInfo]),v);
-                }
-            }
-            function update(instance, cell, c, r, value) {
-                let data = {
-                    count:value.hasOwnProperty('count')?value.count:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r])),
-                    id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
-                    province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
-                };
-                let total_price_buy =  0;
-                let total_price =  0;
-
-                if(dropdown.hasOwnProperty(data.id)){
-                    let product = dropdown[data.id];
-                    total_price_buy =  parseFloat(product.data.price_buy) * data.count;
-                    total_price =  parseFloat(product.data.price) * data.count;
-                    // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price_buy);
-                    // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price);
-                }
-                function setInterest(interest){
-                    if(total_price_buy ===0 || total_price ==0){ return;}
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),(function () {
-                        return total_price_buy - total_price - interest;
-                    })());
-                }
-                if(data.province.length > 0 ){
-                    if(value.hasOwnProperty('price_ship')){
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),value.price_ship);
-                        setInterest(value.price_ship);
-                    }else{
-                        $.ajax({
-                            type: "POST",
-                            url:"{{ route('backend:shop_ja:order:excel:store') }}",
-                            data:{act:'ship',data:data} ,
-                            success: function (data) {
-                                if(data && data.length > 0){
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),data[0].data.price_ship);
-                                setInterest(data[0].data.price_ship);
-                                }
-                            },
-                        });
-                    }
-                }else{
-
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),-11);
-
-                }
-            }
-            let columns_index = Object.values(columns);
-            let _data = InitData(data,config,columns_index);
-            return {
-                sheetName:sheetName,
-                rowResize:true,
-                columnDrag:true,
-                columns:columns_index,
-                data: _data,
-                onselection:function (instance, x1, y1, x2, y2, origin) {
-                    var cellName1 = jexcel.getColumnNameFromId([x1, y1]);
-                    let val = instance.jexcel.getValue(cellName1);
-                    $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
-                    console.log(val);
-                    if(columns_index[x1] && columns_index[x1].type === "dropdown"){
-                        $("#value-review").hide();
-                        $html = $("<div>");
-                        $("#zoe-dropdown-review").show().html($html);
-
-                        jSuites.dropdown($html[0], {
-                            data:columns_index[x1].source,
-                            autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
-                            width:'100%',
-                        }).setValue(val);
-
-                    }else{
-                        $("#zoe-dropdown-review").hide();
-                        $("#value-review").show().val(val).focus();
-                    }
-                },
-                updateTable: function (instance, cell, col, row, val, id) {
-                    let c = parseInt(col);
-                    if (c === columns.image.index && val.length>0) {
-                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
-                    }
-                    cell.style.overflow = 'hidden';
-
-                    if(columns.id.index === c){
-                        let v = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
-
-                        let value = instance.jexcel.getRowData(row);
-
-                        if(value[columns.fullname.index].length > 0 && value[columns.fullname.index]){
-                            if(v == -1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.add('error');
-                            else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.remove('error');
-                        }
-                        let count = 0;
-
-                        for(let k in instance.jexcel.rows){
-                            let _val  = instance.jexcel.getRowData(k);
-                            if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
-                                count++;
-                            }
-                        }
-                        if(value[columns.fullname.index].length > 0 && value[columns.fullname.index]){
-                            if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
-                            else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
-                        }
-                        if(value[columns.fullname.index].length > 0 && value[columns.fullname.index]){
-                            console.log("END");
-
-                        }
-                        let vvv = getValuePayMethod(value[columns.payMethod.index]);
-
-                        let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
-                        parent.removeClass('pay-method-oke');
-                        if(vvv === 2){
-                            parent.addClass('pay-method-oke');
-                        }
-                    }
-                },
-                onchange:function(instance, cell, c, r, value) {
-                    c = parseInt(c);
-                    if (c === columns.product_name.index) {
-                        if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
-
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), dropdown[value].data.price);
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
-                            let _data =  instance.jexcel.getRowData(r);
-
-                            if(_data[columns.fullname.index].length > 0){
-                                update(instance, cell, c, r,{
-                                    count:1,
-                                    id:dropdown[value].data.id
-                                });
-                            }
-                            update_count(instance, cell, c, r, value);
-                        }
-                    }else if(c === columns.count.index){
-                        let _data =  instance.jexcel.getRowData(r);
-                        if(_data[columns.fullname.index].length > 0){
-                            update(instance, cell, c, r,{
-                                count:parseInt(value),
-                            });
-                        }
-                        update_count(instance, cell, c, r, value);
-                    }else if(c === columns.province.index){
-                        update(instance, cell, c, r,{
-                            province:value,
-                        });
-                    }else if(c === columns.payMethod.index){
-                        let v = getValuePayMethod(value);
-                        let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
-                        parent.removeClass('pay-method-oke');
-                        if(v === 2){
-                            parent.addClass('pay-method-oke');
-                        }
-                    }
-                },
-
-            };
-        }
         function KOGYJA() {
             let sheetName = "KOGYJA";
             let data = [];
@@ -2390,9 +2017,6 @@
                 },
                 onload:function(instance){
                     console.log("oke=>>>");
-                    console.log($(instance).html());
-                    console.log(instance.jexcel);
-
                 },
 
                 onchange:function(instance, cell, c, r, value) {
@@ -4553,7 +4177,8 @@
 
             };
         }
-        var sheets = [
+
+        let sheets = [
             Object.assign(YAMADA("AMAZON",config),config ),
             Object.assign(FUKUI(config),config),
             Object.assign(KOGYJA(config),Object.assign(config,{})),
@@ -4561,6 +4186,21 @@
             Object.assign(OHGA(config),config),
             Object.assign(YAMADA("YAMADA",config),config ),
         ];
+        console.log(sheets);
+
+        var win = window,
+            doc = document,
+            docElem = doc.documentElement,
+            body = doc.getElementsByTagName('body')[0],
+            x = win.innerWidth || docElem.clientWidth || body.clientWidth,
+            y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
+
+
+
+        for(let i = 0 ; i < sheets.length ; i++){
+            sheets[i].minDimensions = [sheets[i].minDimensions[0],parseInt(sheets[i].minDimensions[1] *(y/1000))];
+        }
+        console.log(sheets);
         let spreadsheet =  document.getElementById('spreadsheet');
         let worksheets = jexcel.tabs(spreadsheet, sheets);
 

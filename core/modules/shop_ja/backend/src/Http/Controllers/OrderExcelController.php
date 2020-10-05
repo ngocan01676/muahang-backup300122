@@ -740,7 +740,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function export(Request $request){
         $data = $request->all();
-        $excel = new \ShopJa\Libs\Excel(isset($data['date'])?$data['date']:date('Y-m-d'));
+        $excel = new \ShopJa\Libs\Excel(isset($data['date'])?$data['date']:date('Y-m-d'),isset($data['date_export'])?$data['date_export']:0);
 
         $output = [];
         if(isset($data['name'])){
@@ -884,10 +884,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
         $this->GetCache('create',0);
-
-
-
-
         return $this->render('order-excel.create');
     }
     function GetData($results,$exportAll){
@@ -1116,13 +1112,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $this->getCrumb()->breadcrumb(z_language("Xuất ".$company), route('backend:shop_ja:order:excel:show'));
             $model = new OrderExcelModel();
             $date = date('Y-m-d',strtotime($date." 00:00:00"));
-
             $datas = $model->ShowAll(Auth::user()->id,$date);
             $model->detail = $this->GetData($datas,true);
             return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company]);
         }
-
-
     }
 
 }

@@ -14,6 +14,28 @@
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
 @endif
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th style="width: 10px">#</th>
+                <th>
+                    <label>Ngày tạo:</label>
+                    <div class="form-group">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" id="datepicker">
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 <div>
     <button class="btn btn-primary" onclick="Save()" type="button"> Lưu </button> &nbsp &nbsp
     <button type="button" class="btn btn-info" onclick="Export()">Export</button>
@@ -42,8 +64,48 @@
 </div>
 {!! Form::close() !!}
 @section('extra-script')
+
     @include('shop_ja::componer.excel', array())
 
+    <script src="{{ asset('module/admin/assets/moment.min.js') }}"></script>
+
+    <script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+    <script>
+        let stringDate = '{!! $date !!}';
+        let  date = moment(stringDate);
+
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $datepicker = $('#datepicker').datepicker({
+                autoclose: true,
+            });
+            $datepicker.datepicker('setDate', new Date(date.format()));
+
+            $("#view").click(function () {
+                let data = {
+                    dateview:$("#datepicker").val(),
+                    name:$("#company").val(),
+                    time:$("#timepicker").val(),
+                    action: $("input[name='action']:checked").val(),
+                    view:true
+                };
+                $.ajax({
+                    type: "POST",
+
+                    data: data,
+                    success: function (data) {
+                        console.log(data);
+                        if(data.hasOwnProperty('link')){
+                            window.location.replace(data.link);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
     <script>
         function Save(status) {
             if(status === true){
@@ -122,6 +184,7 @@
                     date:'{!! $date !!}',
                     hour:'{!! $hour !!}',
                     company:'{!! $company !!}',
+                    date_export:$("#datepicker").val()
                 },
                 success: function (data) {
                     console.log(data);
