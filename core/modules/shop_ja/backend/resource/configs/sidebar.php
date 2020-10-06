@@ -107,9 +107,16 @@ return [
             "url" => "backend:shop_ja:sim:list",
             "header" => true,
             "icon"=>"fa fa-newspaper-o",
-//            "items" => [
-//
-//            ]
+            "items" => [
+                [
+                    "name" => "QL ".z_language("Danh sách Sim"),
+                    "url" => "backend:shop_ja:sim:list",
+                ],
+                [
+                    "name" => "QL ".z_language("Sim hết hạn"),
+                    "url" => "backend:shop_ja:sim:announce",
+                ],
+            ]
         ],
     ]
 ];

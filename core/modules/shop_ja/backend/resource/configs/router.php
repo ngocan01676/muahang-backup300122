@@ -284,6 +284,10 @@ return [
                         "url" => "/export",
                         "method" => ['post'],
                     ],
+                    "announce" => [
+                        "url" => "/announce",
+                        "method" => ['post','get'],
+                    ],
                 ]
             ],
             ]

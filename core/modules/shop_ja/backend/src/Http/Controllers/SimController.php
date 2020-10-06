@@ -119,13 +119,9 @@ class SimController extends \Zoe\Http\ControllerBackend{
                 continue;
             }
             $names[] = $category['name'];
-
             $shop_products = DB::table('shop_product')->where('category_id',$category['id'])->get()->all();
-
             $this->data['products'][$category['name']] = [];
-
             $lock =  DB::table('shop_order_excel_lock')->where('name',$category['name'])->limit(1)->orderBy('updated_at','desc')->get()->all();
-
             $this->data['locks'][$category['name']] = isset($lock[0])?$lock[0]:[];
             try{
                 foreach($shop_products as $shop_product){
@@ -724,5 +720,45 @@ class SimController extends \Zoe\Http\ControllerBackend{
         }else{
             return redirect(route('backend:shop_ja:sim:list', []));
         }
+    }
+    public function announce(Request $request){
+        $this->getcrumb();
+
+        $filter = $request->query('filter', []);
+
+        $search = $request->query('search', "");
+        $status = $request->query('status', "");
+        $date = $request->query('date', "");
+
+        $config = config_get('option', "module:shop_ja:sim");
+        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+        $ts = strtotime(date('Y-m-d'));
+        $d = array(strtotime('first day of this month', $ts),strtotime('last day of this month', $ts));
+
+        $models = DB::table('shop_order_sim')->where('order_hours','<',date('Y-m-d')." 23:59:59")->orderBy('order_hours','asc');
+
+        if(isset($filter['search'])){
+            $search = $filter['search'];
+        }
+//        if(isset($filter['code'])){
+//            $models->where('code', 'like', '%' . $filter['code']);
+//        }
+//        if (!empty($search)) {
+//            $models->where('title', 'like', '%' . $search);
+//        }
+        if (!empty($status) || $status != "") {
+            $models->where('status', $status);
+        }
+        $models->orderBy('id', 'desc');
+
+        return $this->render('sim.lists', [
+            'models' => $models->paginate($item),
+            'callback' => [
+                "GetProduct" => function ($model){
+                    $html = "<a href='".route('backend:shop_ja:japan:category:show',['product_id' => $model->id])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">Click</button></a>";
+                    return $html;
+                }
+            ]
+        ],'shop_ja');
     }
 }

@@ -530,7 +530,7 @@
                     width:'100px',
                 },
                 order_ship:{
-                    title: 'Phí ship',//N
+                    title: 'Ngày hết hạn',//N
                     type: 'numeric',
                     width:'100px',
                     value:0
