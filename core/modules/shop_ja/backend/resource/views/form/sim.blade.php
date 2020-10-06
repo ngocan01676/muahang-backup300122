@@ -254,7 +254,7 @@
         let dataship = {!! json_encode($ships,JSON_UNESCAPED_UNICODE) !!}
             let datadaibiki = {!! json_encode($daibiki,JSON_UNESCAPED_UNICODE) !!}
             let categorys = {!! json_encode($categorys,JSON_UNESCAPED_UNICODE) !!}
-            let locks = {!! json_encode($locks,JSON_UNESCAPED_UNICODE) !!}
+            let locks = {!! json_encode(isset($locks)?$locks:[],JSON_UNESCAPED_UNICODE) !!}
             let token = '{!! isset($model)?$model->token:"" !!}';
 
         function IF_End($val,$conf){
