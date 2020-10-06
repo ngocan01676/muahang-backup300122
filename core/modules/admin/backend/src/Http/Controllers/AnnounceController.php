@@ -29,7 +29,7 @@ class AnnounceController extends \Zoe\Http\ControllerBackend{
         $config = config_get('option', "core:announce");
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
 
-        $models = DB::table('Announce');
+        $models = DB::table('announce');
         if (!empty($search)) {
             $models->where('title', 'like', '%' . $search);
         }
