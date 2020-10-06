@@ -25,14 +25,30 @@
                 {!! Form::radio('status', '1',false) !!} Lập đơn
             </td>
         </tr>
-        <tr>
-            <td>
-                {!! Form::label('date', 'date', ['class' => 'date']) !!} &nbsp;
-                {!! Form::date('date') !!}
-            </td>
-        </tr>
-    </table>
 
+    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>
+                        <label>Ngày tạo:</label>
+                        <div class="form-group">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker">
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <button onclick="Save()" type="button"> Lưu </button> &nbsp;
     <button onclick="Export()" type="button"> Export </button>
 </div>
@@ -43,6 +59,42 @@
     <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.css') }}" type="text/css" />
     <script src="{{asset('module/admin/assets/bootpopup/bootpopup.js')}}"></script>
+    <script src="{{ asset('module/admin/assets/moment.min.js') }}"></script>
+
+    <script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+    <script>
+        let stringDate = '{!! date('Y-m-d') !!}';
+        let  date = moment(stringDate);
+    </script>
+    <script>
+        $(document).ready(function () {
+            $datepicker = $('#datepicker').datepicker({
+                autoclose: true,
+            });
+
+            $datepicker.datepicker('setDate', new Date(date.format()));
+
+            $("#view").click(function () {
+                let data = {
+                    dateview:$("#datepicker").val(),
+                    name:$("#company").val(),
+                    time:$("#timepicker").val(),
+                    action: $("input[name='action']:checked").val(),
+                    view:true
+                };
+                $.ajax({
+                    type: "POST",
+                    data: data,
+                    success: function (data) {
+                        if(data.hasOwnProperty('link')){
+                            window.location.replace(data.link);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
     <style>
         .jexcel tbody tr:nth-child(even) {
             background-color: #EEE9F1 !important;
@@ -274,8 +326,7 @@
                     if(self != null){
                         console.log(self);
                         if(self.hasOwnProperty('options') && self.options.hasOwnProperty('format')){
-
-                            return [true,formatDate(new Date(), self.options.format)];
+                            return [true,date.format("YYYY-MM-DD")+" 00:00:00"];
                         }
                     }
                 }

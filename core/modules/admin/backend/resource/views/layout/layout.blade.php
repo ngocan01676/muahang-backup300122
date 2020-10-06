@@ -61,7 +61,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
@@ -221,6 +220,19 @@
         </section>
         <!-- Main content -->
         <section class="content clearfix">
+
+            @php
+               $rs = \Illuminate\Support\Facades\DB::table('announce')->where('status',1)
+                   ->where('date_start','<=',date('Y-m-d H:i:s'))
+                   ->where('date_end','>=',date('Y-m-d H:i:s'))->get()->all();
+            @endphp
+            @foreach($rs as $val)
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> {!! $val->title !!}!</h4>
+                {!! $val->message !!}
+            </div>
+            @endforeach
             @yield('content')
         </section>
         <!-- /.content -->

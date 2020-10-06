@@ -280,6 +280,10 @@ return [
                         "url" => "/delete/{id}",
                         "method" => ['post'],
                     ],
+                    "export" => [
+                        "url" => "/export",
+                        "method" => ['post'],
+                    ],
                 ]
             ],
             ]

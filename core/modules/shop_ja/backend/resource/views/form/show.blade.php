@@ -74,7 +74,6 @@
     <script>
         let stringDate = '{!! $date !!}';
         let  date = moment(stringDate);
-
     </script>
     <script>
         $(document).ready(function () {

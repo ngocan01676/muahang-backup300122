@@ -19,34 +19,22 @@
                 'config' => [
                     'columns' => [
                         'lists' => [
-                            'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
-                            'fullname' => ['label' => z_language('Tên Khách Hàng', false), 'type' => 'id', 'primary' => true],
-                            'sim_type' => ['label' => z_language('Thông tin gói cước', false), 'type' => 'title'],
-                            'price' => ['label' => z_language('Cước phí', false), 'type' => 'title'],
-                            'date_start' => ['label' => z_language('Ngày đăng ký', false), 'type' => 'text'],
-                            'date_end' => ['label' => z_language('Ngày hết hạn', false), 'type' => 'text'],
+                            'id' => ['label' => z_language('Id', false), 'type' => 'id'],
+                            'fullname' => ['label' => z_language('Tên Khách Hàng', false), 'type' => 'title'],
+                            'product_title' => ['label' => z_language('Tên giói', false), 'type' => 'text'],
+                            'price' => ['label' => z_language('Cước phí', false), 'type' => 'text'],
+                            'order_date' => ['label' => z_language('Ngày đăng ký', false), 'type' => 'text'],
+                            'order_hours' => ['label' => z_language('Ngày hết hạn', false), 'type' => 'text'],
                             'status' => ['label' => z_language('Status', false), 'type' => 'status'],
-                            'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
-                            'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date'],
-//                            'GetHtmlConfigShip' => ['label' => z_language('Config Ship', false), 'type' => 'number','callback' => "GetHtmlConfigShip"],
-////                            'actions'=>[
-////                                'label'=>z_language('Action', false),
-////                                'type'=>'action',
-////                                'lists'=>[
-////                                   [
-////                                     'attr'=>['type'=>'link','class'=>"btn btn-primary btn-xs"],
-////                                     'label' => z_language('Cấu hình phí ship', false),
-////                                     'router'=>['name' => "backend:shop_ja:japan:category:show", 'par' => ['product_id' => 'id'],'query'=>['ref'=>'currentUrl']]
-////                                   ]
-////                                ],
-////                            ]
+                            'order_create_date' => ['label' => z_language('Create At', false), 'type' => 'date'],
+//                            'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date'],
                         ],
                     ],
                     'pagination' => [
                         'item' => 20,
                         'router' => [
                             'edit' => ['label' => z_language('Edit', false), 'name' => "backend:shop_ja:sim:edit", 'par' => ['id' => 'id']],
-                            'preview' => ['label' => z_language('Preview', false), 'name' => "backend:shop_ja:sim:edit", 'par' => ['id' => 'id']],
+
                             'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:shop_ja:sim:delete", 'par' => ['id' => 'id']],
                         ]
                     ],

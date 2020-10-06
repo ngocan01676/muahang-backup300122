@@ -103,6 +103,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         file_put_contents(public_path().$fileName, $imageData);
         return $fileName;
     }
+
     public function store(Request $request){
         $data = $request->all();
         if(isset($data['act'])){
@@ -278,7 +279,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 }
                 return response()->json(['url'=>route('backend:shop_ja:order:excel:show'),'logs'=>$logs]);
             }else if($data['act'] == "save"){
-
                 $datas = json_decode($data['datas'],true);
                 $type = 'create';
                 if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
@@ -701,6 +701,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }
         }
     }
+
     public function list(Request $request){
         $this->getcrumb();
         $filter = $request->query('filter', []);
@@ -709,6 +710,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $date = $request->query('date', "");
         $config = config_get('option', "module:shop_ja:order:excel");
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+
         $models = DB::table('shop_order_excel_session');
 
         if(isset($filter['fullname'])){
@@ -860,12 +862,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                $dataKey = rand();
                Cache::put($key,$dataKey , 60*60*24);
             }
-
             $this->data['excels_data'][$name] = [
                 'data'=>$val,
                 'key'=> $dataKey
             ];
-
         }
         $shop_ship = DB::table('shop_ship')->orderBy('value_end', 'ASC')->get()->all();
         $arr_ship = [];

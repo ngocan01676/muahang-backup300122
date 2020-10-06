@@ -38,6 +38,13 @@ return [
 //                ]
 //            ]
 //        ],
+        "backend:announce:list" => [
+            "name" => "QL ".z_language("Thông báo"),
+            "url" => "backend:announce:list",
+            "pos" => 2,
+            "header" => true,
+            "icon"=>"fa fa-newspaper-o",
+        ],
         "backend:shop_ja:product:list" => [
             "name" => "QL ".z_language("Sản Shẩm"),
             "url" => "backend:shop_ja:product:list",

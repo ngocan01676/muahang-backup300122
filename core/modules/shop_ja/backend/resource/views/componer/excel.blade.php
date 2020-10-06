@@ -2,6 +2,12 @@
 <script src="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.css') }}" type="text/css" />
 <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.css') }}" type="text/css" />
+<script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+<script>
+    let stringDate = '{!! date('Y-m-d') !!}';
+    let  date = moment(stringDate);
+</script>
 <style>
     .jexcel tbody tr:nth-child(even) {
         background-color: #EEE9F1 !important;

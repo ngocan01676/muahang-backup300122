@@ -2,7 +2,7 @@
 return [
     "sidebars" => [
         "user" => [
-            "name" => z_language('Users'),
+            "name" => z_language('Tài khoản'),
             "pos" => 2,
             "url" => "",
             "header" => true,
@@ -10,15 +10,15 @@ return [
             "order"=>1,
             "items" => [
                 [
-                    "name" => z_language("Users", false),
+                    "name" => z_language("Quản trị", false),
                     "url" => "backend:user:list",
                 ],
                 [
-                    "name" => z_language("Members", false),
+                    "name" => z_language("Người dùng", false),
                     "url" => "backend:member:list",
                 ],
                 [
-                    "name" => z_language("Role", false),
+                    "name" => z_language("Quyền", false),
                     "url" => "backend:user:role:list",
                 ]
             ]

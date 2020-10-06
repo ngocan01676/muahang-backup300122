@@ -302,6 +302,32 @@ return [
                     ],
                 ]
             ],
+            'announce' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "AnnounceController",
+                "sub_prefix" => "/announce",
+                "guard" => "backend",// pải login
+                "acl"=> "announce",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "create" => [
+                        "url" => "/create",
+                    ],
+                    "edit" => [
+                        "url" => "/edit/{id}",
+                    ],
+                    "delete" => [
+                        "url" => "/delete/{id}",
+                        "method" => ['post'],
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ]
+                ]
+            ],
         ]
     ]
 ];

@@ -99,7 +99,7 @@ class UserController extends \Zoe\Http\ControllerBackend
         $ref = $request->ref;
         $model = Admin::find($id);
         if($model){
-          //  $model->delete();
+           $model->delete();
         }
         if($ref){
             return redirect($ref);
