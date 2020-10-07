@@ -109,12 +109,25 @@ class UserController extends \Zoe\Http\ControllerBackend
     }
     public function store(Request $request){
         $data = $request->all();
-        $validator = Validator::make($data, [
+        $filter = [
             'name' => 'required|max:255',
-            'username' => 'required|max:255|unique:admin',
-            'password' => 'required|min:6',
             'role_id' => 'required',
-        ], [
+        ];
+        $type = 'create';
+        if (isset($data['id']) && !empty($data['id'])) {
+            $model = Admin::find($data['id']);
+            $type = 'edit';
+            if(!empty($data['password']))
+                $filter['password'] = 'required|min:6';
+            if($model->username != $data['username']){
+                $filter['username'] = 'required|max:255|unique:admin';
+            }
+        } else {
+            $filter['password'] = 'required|min:6';
+            $filter['username'] = 'required|max:255|unique:admin';
+            $model = new Admin();
+        }
+        $validator = Validator::make($data,$filter, [
             'name.required' => z_language('Tên  không được phép bỏ trống.'),
             'username.required' => z_language('Tài khoản không được phép bỏ trống.'),
             'username.unique' => z_language('Tài khoản đã tồn tại.'),
@@ -126,19 +139,13 @@ class UserController extends \Zoe\Http\ControllerBackend
                 ->withErrors($validator)
                 ->withInput();
         }
-        $type = 'create';
-        if (isset($data['id']) && !empty($data['id'])) {
-            $model = Admin::find($data['id']);
-            $type = 'edit';
-        } else {
-            $model = new Admin();
-        }
+
         try {
             $model->name = $data['name'];
             $model->username = $data['username'];
-            $model->password = Hash::make( $data['password']);
+            if(isset($filter['password']))
+                $model->password = Hash::make( $data['password']);
             $model->role_id = $data['role_id'];
-
             $model->save();
             $this->log('user:user',$type,['id'=>$model->id]);
             return redirect(route('backend:user:edit', ['id' => $model->id]));

@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-sm-4" style="padding:0">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
-                                <label>Code</label>
+                                <label>Mã</label>
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;">
                                 <input type="text" name="filter.code" class="form-control" id="filter.code"
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-sm-4" style="padding:0">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
-                                <label>Name</label>
+                                <label>Tiêu đề</label>
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;">
                                 <input type="text" name="filter.search" class="form-control" id="filter.search"

@@ -30,5 +30,8 @@ class RoleController extends \Zoe\Http\ControllerBackend
             'guard'=>$guard,
         ], 'user');
     }
+    public function error(){
+        return $this->render('role.error');
+    }
 }
 
