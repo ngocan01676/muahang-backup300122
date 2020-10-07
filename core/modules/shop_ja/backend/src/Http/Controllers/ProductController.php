@@ -7,12 +7,7 @@ use Illuminate\Support\Facades\Event;
 use \ShopJa\Http\Models\ProductModel;
 class ProductController extends \Zoe\Http\ControllerBackend
 {
-    function str_replace_array($search, $replace, $subject ) {
-        foreach ( $replace as $replacement ) {
-            $subject = preg_replace("/\?/", $replacement,$subject, 1);
-        }
-        return $subject;
-    }
+
     public function init()
     {
         $this->data['language'] = config('zoe.language');
@@ -62,8 +57,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $models->where('status', $status);
         }
         $models->orderBy('id', 'desc');
-        $sql = $this->str_replace_array('?', $models->getBindings(), $models->toSql());
-        echo $sql;
+
         return $this->render('product.list', [
             'models' => $models->paginate($item),
             'callback' => [
