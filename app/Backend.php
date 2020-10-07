@@ -44,7 +44,6 @@ class Backend extends Authenticatable
             return DB::table('permissions')
                 ->select()->where('role_id',$this->role_id)->get();
         });
-
         $permissions_user = Cache::remember('permissions:user:'.$this->guard, 1, function()
         {
             $rs = DB::table('permissions_user')

@@ -19,7 +19,7 @@ class PermissionMiddleware
                     if(isset($this->_permission[$permissions[0]]['error'])){
                         return redirect(route($this->_permission[$permissions[0]]['error']));
                     }else{
-                        return redirect(route('backend:user:role:error:list'));
+                        return redirect(route('backend:user:role:error:error'));
                     }
                 }
             }

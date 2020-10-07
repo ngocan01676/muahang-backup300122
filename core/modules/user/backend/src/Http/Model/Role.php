@@ -10,8 +10,9 @@ class Role extends Model{
             ->select('name', 'role_id')->where('role_id',$role_id)->pluck('role_id','name')->toArray();;
     }
     public function SaveData($role_id,$guard,$data){
-        $inserts = [];
+
         $time = date('Y-m-d H:i:s');
+
         DB::beginTransaction();
         try{
             foreach ($data as $val=>$status){
