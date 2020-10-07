@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Event;
 use \ShopJa\Http\Models\ProductModel;
 class ProductController extends \Zoe\Http\ControllerBackend
 {
+    function str_replace_array($search, $replace, $subject ) {
+        foreach ( $replace as $replacement ) {
+            $subject = preg_replace("/\?/", $replacement,$subject, 1);
+        }
+        return $subject;
+    }
     public function init()
     {
         $this->data['language'] = config('zoe.language');
@@ -26,6 +32,9 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
         $filter = $request->query('filter', []);
 
+
+
+
         $search = $request->query('search', "");
         $status = $request->query('status', "");
         $date = $request->query('date', "");
@@ -36,18 +45,25 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $models = DB::table('shop_product');
         if(isset($filter['search'])){
             $search = $filter['search'];
+        }else {
+            $filter_search = $request->query('filter_search', "");
+
+            if(!empty($filter_search)){
+                $search = $filter_search;
+            }
         }
         if(isset($filter['code'])){
-            $models->where('code', 'like', '%' . $filter['code']);
+            $models->where('code', 'like', '%' . $filter['code'].'%');
         }
         if (!empty($search)) {
-            $models->where('title', 'like', '%' . $search);
+            $models->where('title', 'like', '%' . $search.'%');
         }
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
         $models->orderBy('id', 'desc');
-
+        $sql = $this->str_replace_array('?', $models->getBindings(), $models->toSql());
+        echo $sql;
         return $this->render('product.list', [
             'models' => $models->paginate($item),
             'callback' => [

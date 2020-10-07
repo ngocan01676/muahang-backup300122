@@ -39,12 +39,12 @@ class Backend extends Authenticatable
                 ->select()->where('guard_name',$this->guard)->get();
         });
 
-        $permissions = Cache::remember('permissions:'.$this->guard.":".$this->role_id, 60, function()
+        $permissions = Cache::remember('permissions:'.$this->guard.":".$this->role_id, 5, function()
         {
             return DB::table('permissions')
                 ->select()->where('role_id',$this->role_id)->get();
         });
-        $permissions_user = Cache::remember('permissions:user:'.$this->guard, 1, function()
+        $permissions_user = Cache::remember('permissions:user:'.$this->guard, 5, function()
         {
             $rs = DB::table('permissions_user')
                 ->select()->where('guard_name',$this->guard)->get();

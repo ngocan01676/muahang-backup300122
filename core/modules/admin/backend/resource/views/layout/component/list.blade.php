@@ -21,7 +21,7 @@
             <div class="box-header with-border">
 
                 <div class="box-tools">
-                    <form action="" id="filter_search_form">
+                    <form method="GET" id="filter_search_form">
                         <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
                             <input type="text" name="filter.search" class="form-control pull-right"
                                    value="{{old('search')}}"
@@ -106,10 +106,11 @@
                                                                 foreach ($router['par'] as $k=>$v){
                                                                     $par[$k] = $model->{$v};
                                                                 }
+                                                                $key_form = md5(rand(1,10000) . rand(1,10000));
                                                             @endphp
                                                             <span class="{{$id}}">
                                                      @isset($router['method'])
-                                                                    <form id="{{$id}}-form"
+                                                                    <form id="{{$id}}-form-{{$key_form}}"
                                                                           action="{{route($router['name'],$par)}}"
                                                                           method="{{$router['method']}}"
                                                                           style="display: none;">
@@ -117,7 +118,7 @@
                                                         @csrf
                                                     </form>
                                                                     <a href="#"
-                                                                       onclick="event.preventDefault(); document.getElementById('{{$id}}-form').submit();"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
+                                                                       onclick="event.preventDefault(); document.getElementById('{{$id}}-form-{{$key_form}}').submit();"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
                                                                 @else
                                                                     <a href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"|":""}}
                                                                 @endif
@@ -173,6 +174,15 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
+            // $('[name="filter.search"]').bind("enterKey",function(e){
+            //     console.log();
+            // });
+            $('[name="filter.search"]').on('keypress', function (e) {
+                if(e.which === 13){
+                console.log(1);
+
+                }
+            });
             $("#sectionList .listMain").on('click', '.column-order_by', function () {
 
                 $("#sectionList").loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});

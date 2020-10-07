@@ -87,7 +87,7 @@
                             'status' => ['label' => z_language('Status', false), 'type' => 'status'],
                             'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date'],
-                            'GetHtmlConfigShip' => ['label' => z_language('Config Ship', false), 'type' => 'number','callback' => "GetHtmlConfigShip"],
+                            'GetHtmlConfigShip' => ['label' => z_language('', false), 'type' => 'number','callback' => "GetHtmlConfigShip"],
 //                            'actions'=>[
 //                                'label'=>z_language('Action', false),
 //                                'type'=>'action',
