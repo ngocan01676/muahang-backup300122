@@ -3140,14 +3140,14 @@
                     key:"demo",
                 },
                 timeCreate:{
-                    title: '注文日',//A ngày đặt hàng
+                    title: 'ngày đặt hàng',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
                     value:['date','now']
                 },
                 payMethod:{
-                    title: '支払区分',//B Phương thức thanh toán
+                    title: 'Phương thức thanh toán',//B Phương thức thanh toán
                     type:'dropdown',
                     source:[
                         "代金引換",
@@ -3158,44 +3158,44 @@
                     value:['product','this','source',0],
                 },
                 phone:{
-                    title: '配送先電話番号',//C Số điện thoại
+                    title: 'Số điện thoại',//C Số điện thoại
                     type: 'text',
                     width:'100px',
                     value:"070-1398-2234",
                 },
                 zipcode:{
-                    title: '配送先郵便番号',//D Mã bưu điện
+                    title: 'Mã bưu điện',//D Mã bưu điện
                     type: 'text',
                     width:'60px',
                     key:"demo",
                 },
                 province:{
-                    title: '配送先都道府県',//E Tỉnh/TP
+                    title: 'Tỉnh/TP',//E Tỉnh/TP
                     type: 'text',
                     width:'200px',
                     key:"demo",
                 },
                 address:{
-                    title: '配送先住所',//F Địa chỉ giao hàng
+                    title: 'Địa chỉ giao hàng',//F Địa chỉ giao hàng
                     type: 'text',
                     width:'250px',
                     key:"demo",
                 },
                 fullname:{
-                    title: '配送先氏名',//G Họ tên người nhận
+                    title: 'Họ tên người nhận',//G Họ tên người nhận
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 product_id:{
-                    title: '品番',//H Mã SP
+                    title: 'Mã SP',//H Mã SP
                     type: 'text',
                     width:'100px',
                     read:true,
                     value:['product','product_name','source',0,'id'],
                 },
                 product_name:{
-                    title: '商品名',//I Tên SP
+                    title: 'Tên SP',//I Tên SP
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
@@ -3203,13 +3203,13 @@
                     value:['product','this','source',0,'id']
                 },
                 count:{
-                    title: '数量',//K SL
+                    title: 'SL',//K SL
                     type: 'numeric',
                     width:'100px',
                     value:1
                 },
                 price:{
-                    title: '単価',//J Giá nhập
+                    title: 'Giá nhập',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
@@ -4348,6 +4348,11 @@
         },5000);
 
         $(document).ready(function () {
+            $(document).bind('keydown', 'ctrl+s', function(e) {
+                e.preventDefault();
+
+                return false;
+            });
             let col_row_review = $("#col-row-review");
             $("#value-review").on("input", function(){
                 console.log($(this).val());
@@ -4450,6 +4455,6 @@
                }
            });
        }
-      
+
     </script>
 @endsection
