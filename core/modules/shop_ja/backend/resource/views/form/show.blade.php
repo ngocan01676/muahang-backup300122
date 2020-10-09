@@ -1,3 +1,33 @@
+@if(isset($model))
+    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
+    {!! Form::hidden('id') !!}
+@else
+    {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
+@endif
+<div class="row">
+    <div class="col-md-6">
+        <label>Ngày giờ xuất:</label>
+        <div class="form-group">
+            <div class="input-group date">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="datepicker">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <label>Ngày nhận:</label>
+        <div class="form-group">
+            <div class="input-group date">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="datepicker1">
+            </div>
+        </div>
+    </div>
+</div>
 <table class="table">
     <tr>
         <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
@@ -8,34 +38,8 @@
     </tr>
 </table>
 <div id="spreadsheet"></div>
-@if(isset($model))
-    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
-    {!! Form::hidden('id') !!}
-@else
-    {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
-@endif
-<div class="row">
-    <div class="col-md-6">
-        <table class="table table-bordered">
-            <tbody>
-            <tr>
-                <th style="width: 10px">#</th>
-                <th>
-                    <label>Ngày tạo:</label>
-                    <div class="form-group">
-                        <div class="input-group date">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <input type="text" class="form-control pull-right" id="datepicker">
-                        </div>
-                    </div>
-                </th>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+
+
 <div>
     <button class="btn btn-primary" onclick="Save()" type="button"> Lưu </button> &nbsp &nbsp
     <button type="button" class="btn btn-info" onclick="Export()">Export</button>
@@ -45,8 +49,6 @@
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
-        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -59,22 +61,12 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
 {!! Form::close() !!}
 @section('extra-script')
-
     @include('shop_ja::componer.excel', array())
 
-    <script src="{{ asset('module/admin/assets/moment.min.js') }}"></script>
-
-    <script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
-    <script>
-        let stringDate = '{!! $date !!}';
-        let  date = moment(stringDate);
-    </script>
     <script>
         $(document).ready(function () {
 
@@ -82,7 +74,10 @@
                 autoclose: true,
             });
             $datepicker.datepicker('setDate', new Date(date.format()));
-
+            $datepicker1 = $('#datepicker1').datepicker({
+                autoclose: true,
+            });
+            $datepicker1.datepicker('setDate', new Date(date.format()));
             $("#view").click(function () {
                 let data = {
                     dateview:$("#datepicker").val(),

@@ -69,7 +69,8 @@
             // Minimal table dimensions
             minDimensions:[0,0],
             // Allow Export
-            allowExport:true,
+
+
             // @type {boolean} - Include the header titles on download
             includeHeadersOnDownload:false,
             // @type {boolean} - Include the header titles on copy

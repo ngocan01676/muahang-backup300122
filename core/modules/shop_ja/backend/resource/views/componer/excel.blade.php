@@ -1,3 +1,4 @@
+<script src="{{ asset('module/admin/assets/moment.min.js') }}"></script>
 <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js') }}"></script>
 <script src="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.css') }}" type="text/css" />

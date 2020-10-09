@@ -1,3 +1,35 @@
+
+
+@if(isset($model))
+    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
+    {!! Form::hidden('id') !!}
+@else
+    {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
+@endif
+<div class="row">
+    <div class="col-md-6">
+        <label>Ngày giờ xuất:</label>
+        <div class="form-group">
+            <div class="input-group date">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="datepicker">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <label>Ngày nhận:</label>
+        <div class="form-group">
+            <div class="input-group date">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="datepicker1">
+            </div>
+        </div>
+    </div>
+</div>
 <table class="table">
     <tr>
         <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
@@ -7,14 +39,8 @@
         </td>
     </tr>
 </table>
-
 <div id="spreadsheet"></div>
-@if(isset($model))
-    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
-    {!! Form::hidden('id') !!}
-@else
-    {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
-@endif
+
 <div>
 
     <table>
@@ -27,28 +53,7 @@
         </tr>
 
     </table>
-    <div class="row">
-        <div class="col-md-6">
-            <table class="table table-bordered">
-                <tbody>
-                <tr>
-                    <th style="width: 10px">#</th>
-                    <th>
-                        <label>Ngày tạo:</label>
-                        <div class="form-group">
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="datepicker">
-                            </div>
-                        </div>
-                    </th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+
     <button onclick="Save()" type="button"> Lưu </button> &nbsp;
     <button onclick="Export()" type="button"> Export </button>
 </div>
@@ -74,7 +79,11 @@
             });
 
             $datepicker.datepicker('setDate', new Date(date.format()));
+            $datepicker1 = $('#datepicker1').datepicker({
+                autoclose: true,
+            });
 
+            $datepicker1.datepicker('setDate', new Date(date.format()));
             $("#view").click(function () {
                 let data = {
                     dateview:$("#datepicker").val(),
@@ -238,11 +247,12 @@
         // };
 
         let config = {
-            minDimensions:[30,20],
+            minDimensions:[35,20],
             tableWidth: '100%',
             tableHeight: '100%',
             defaultColWidth: 100,
             tableOverflow: true,
+            allowExport:false,
             getTypeColumns:function(){
                 return "none";
             },
@@ -3664,7 +3674,7 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'Status'
+                    title:'Trạng thái'
                 },
                 image:{
                     title:'Image',
@@ -3821,18 +3831,26 @@
                     width:'100px',
                     key:"demo",
                 },
+
                 id:{
                     title: 'ID',//T
                     type: 'text',
                     width:'100px',
                 },
+                session_id:{
+                    title: 'SessionId',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                one_address: {
+                    type: 'checkbox',
+                    title:'Cùng địa chỉ'
+                },
             };
-
             columnsAll[sheetName] = columns;
-
             for(var i in columns){
                 columns[i].index = index;
-                columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
+                columns[i].title = columns[i].title;
                 columns[i].key = i;
                 let v = setDefaultValue(i,columns);
                 if(v[0]){
@@ -4237,7 +4255,6 @@
             Object.assign(OHGA(config),config),
             Object.assign(YAMADA("YAMADA",config),config ),
         ];
-        console.log(sheets);
 
         var win = window,
             doc = document,
@@ -4334,8 +4351,6 @@
                 });
             }
        }
-
-
        function Export() {
            let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
            let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');

@@ -239,8 +239,8 @@
                 'config' => [
                     'columns' => [
                         'lists' => [
-                            'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
-                            'name' => ['label' => z_language('Token', false), 'type' => 'title', 'primary' => true],
+                            'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
+                            'GetName' => ['label' => z_language('Tên File', false), 'type' => 'title','callback' => "GetName"],
                             'UserName' => ['label' => z_language('Người lập', false), 'type' => 'text','callback' => "GetUserName"],
                             'GetStatus' => ['label' => z_language('Status', false), 'type' => 'status','callback'=>'GetStatus'],
                             'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],

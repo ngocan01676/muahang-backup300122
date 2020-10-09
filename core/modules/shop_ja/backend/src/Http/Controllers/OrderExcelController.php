@@ -728,6 +728,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $rs = DB::table('admin as t')->where('id', $model->admin_id)->get('username');
                     return $rs && count($rs) > 0 ? $rs[0]->username : "Empty";
                 },
+                "GetName" => function ($model){
+                    return "Form_".$model->id;
+                },
                 "GetStatus"=>function($model){
                     if($model->status == 0){
                         return z_language('Bản nháp');

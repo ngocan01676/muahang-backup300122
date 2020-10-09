@@ -44,7 +44,7 @@
                     <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th width="3">#</th>
+
                         @php  $model =(!is_null($models) && count($models)>0)?$models[0]:null;  @endphp
 
                         @foreach($data['config']['columns']['lists'] as $k=>$columns)
@@ -133,14 +133,7 @@
                                                 </div>
                                             </td>
                                         @elseif($columns['type'] == 'id')
-                                            <td class="column-primary {{list_text_aligin($columns)}}">
-                                                <span class="label-text">
-                                                    <input
-                                                             type="checkbox"
-                                                            class="minimal" value="{!! $model->id !!}"
-                                                            name="post[]">
-                                                </span>
-                                            </td>
+
                                             <td class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
                                         @elseif($columns['type'] == 'action')
                                             <td>
