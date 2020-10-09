@@ -25,9 +25,10 @@
                             'price' => ['label' => z_language('Cước phí', false), 'type' => 'text'],
                             'order_date' => ['label' => z_language('Ngày đăng ký', false), 'type' => 'text'],
                             'order_hours' => ['label' => z_language('Ngày hết hạn', false), 'type' => 'text'],
-                            'status' => ['label' => z_language('Status', false), 'type' => 'status'],
-                            'order_create_date' => ['label' => z_language('Create At', false), 'type' => 'date'],
-//                            'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date'],
+                            'getNotification' => ['label' => z_language('Số lần báo', false), 'type' => 'text','callback' => "getNotification"],
+                            'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status'],
+                            'order_create_date' => ['label' => z_language('Ngày tạo', false), 'type' => 'date'],
+                            'updated_at' => ['label' => z_language('Ngày cập nhật', false), 'type' => 'date'],
                         ],
                     ],
                     'pagination' => [
@@ -88,17 +89,6 @@
                             'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date'],
                             'GetHtmlConfigShip' => ['label' => z_language('', false), 'type' => 'number','callback' => "GetHtmlConfigShip"],
-//                            'actions'=>[
-//                                'label'=>z_language('Action', false),
-//                                'type'=>'action',
-//                                'lists'=>[
-//                                   [
-//                                     'attr'=>['type'=>'link','class'=>"btn btn-primary btn-xs"],
-//                                     'label' => z_language('Cấu hình phí ship', false),
-//                                     'router'=>['name' => "backend:shop_ja:japan:category:show", 'par' => ['product_id' => 'id'],'query'=>['ref'=>'currentUrl']]
-//                                   ]
-//                                ],
-//                            ]
                         ],
                     ],
                     'pagination' => [

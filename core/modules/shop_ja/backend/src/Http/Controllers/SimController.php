@@ -394,9 +394,8 @@ class SimController extends \Zoe\Http\ControllerBackend{
         return $this->render('sim.lists', [
             'models' => $models->paginate($item),
             'callback' => [
-                "GetProduct" => function ($model){
-                    $html = "<a href='".route('backend:shop_ja:japan:category:show',['product_id' => $model->id])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">Click</button></a>";
-                    return $html;
+                "getNotification" => function ($model){
+                    return $model->notification;
                 }
             ]
         ],'shop_ja');
@@ -721,11 +720,20 @@ class SimController extends \Zoe\Http\ControllerBackend{
             return redirect(route('backend:shop_ja:sim:list', []));
         }
     }
-    public function announce(Request $request){
+    public function notification(Request $request){
+        if($request->isMethod('POST')){
+            $data = $request->all();
+            $status = DB::table('shop_order_sim')
+                ->where('id',$data['id'])
+                ->update(['notification'=>$data['count'],'updated_at'=>date('Y-m-d H:i:s')]);
+            return response()->json(['status'=>$status,'data'=>$data]);
+        }
+
         $this->getcrumb();
 
-        $filter = $request->query('filter', []);
 
+        $filter = $request->query('filter', []);
+        $filter_count = $request->get('filter_count','');
         $search = $request->query('search', "");
         $status = $request->query('status', "");
         $date = $request->query('date', "");
@@ -735,28 +743,28 @@ class SimController extends \Zoe\Http\ControllerBackend{
         $ts = strtotime(date('Y-m-d'));
         $d = array(strtotime('first day of this month', $ts),strtotime('last day of this month', $ts));
 
-        $models = DB::table('shop_order_sim')->where('order_hours','<',date('Y-m-d')." 23:59:59")->orderBy('order_hours','asc');
+        $models = DB::table('shop_order_sim')->where('order_hours','<',date('Y-m-d')." 23:59:59");
 
         if(isset($filter['search'])){
             $search = $filter['search'];
         }
-//        if(isset($filter['code'])){
-//            $models->where('code', 'like', '%' . $filter['code']);
-//        }
-//        if (!empty($search)) {
-//            $models->where('title', 'like', '%' . $search);
-//        }
+
+        if(isset($filter['code'])){
+            $models->where('code', 'like', '%' . $filter['code']);
+        }
+        if (!empty($filter_count)) {
+            $models->where('notification', '=', $filter_count);
+        }
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
-        $models->orderBy('id', 'desc');
+        $models->orderBy('updated_at', 'asc');
 
         return $this->render('sim.lists', [
             'models' => $models->paginate($item),
             'callback' => [
-                "GetProduct" => function ($model){
-                    $html = "<a href='".route('backend:shop_ja:japan:category:show',['product_id' => $model->id])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">Click</button></a>";
-                    return $html;
+                "getNotification" => function ($model){
+                    return "<button class='btn btn-primary update_count' data-id='".$model->id."'>".$model->notification."</button>";
                 }
             ]
         ],'shop_ja');

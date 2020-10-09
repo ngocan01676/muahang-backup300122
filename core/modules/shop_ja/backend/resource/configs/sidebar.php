@@ -114,7 +114,7 @@ return [
                 ],
                 [
                     "name" => "QL ".z_language("Sim hết hạn"),
-                    "url" => "backend:shop_ja:sim:announce",
+                    "url" => "backend:shop_ja:sim:notification",
                 ],
             ]
         ],

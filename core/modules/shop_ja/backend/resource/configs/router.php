@@ -284,8 +284,8 @@ return [
                         "url" => "/export",
                         "method" => ['post'],
                     ],
-                    "announce" => [
-                        "url" => "/announce",
+                    "notification" => [
+                        "url" => "/notification",
                         "method" => ['post','get'],
                     ],
                 ]

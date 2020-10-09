@@ -23,20 +23,10 @@
                     <div class="row">
                         <div class="col-sm-4" style="padding:0">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
-                                <label>Code</label>
+                                <label>Số lần báo</label>
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;">
-                                <input type="text" name="filter.code" class="form-control" id="filter.code"
-                                       placeholder="Code">
-                            </div>
-                        </div>
-                        <div class="col-sm-4" style="padding:0">
-                            <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
-                                <label>Name</label>
-                            </div>
-                            <div class="col-sm-8" style="padding:0;text-align: center;">
-                                <input type="text" name="filter.search" class="form-control" id="filter.search"
-                                       placeholder="Name">
+                                <input type="text" name="filter.count" class="form-control" id="filter.count" placeholder="Số lần báo">
                             </div>
                         </div>
                     </div>
@@ -57,5 +47,25 @@
 
 @endpush
 @push('scripts')
+    <script>
+        $(document).ready(function () {
+            $(".update_count").click(function () {
+                let data = $(this).data();
+                let count = parseInt($(this).text());
+                data.count = count+1;
+                data.action = "update_count";
+                $(this).text( data.count);
+                $.ajax({
+                    type: "POST",
+                    data:data,
+                    success: function (data) {
 
+                    },
+                    error: function (xhr, error) {
+
+                    }
+                });
+            });
+        });
+    </script>
 @endpush
