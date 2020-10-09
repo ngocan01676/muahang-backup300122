@@ -199,6 +199,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                     "updated_at"=>$date_time,
                                     "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
+                                    "one_address"=>isset($columns["one_address"])?$values[$columns["one_address"]]:"0",
                                 ];
                                 $validator = Validator::make($_data,$check);
                                 if (!$validator->fails()) {
@@ -266,6 +267,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
                                         "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                         "updated_at"=>$date_time,
+                                        "one_address"=>isset($columns["one_address"])?$values[$columns["one_address"]]:"0",
                                     ];
                                     $logs[$name][] = $_data;
                                     DB::table('shop_order_excel')->where('id',$values[$columns["id"]])->update($_data);
@@ -377,6 +379,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                         "updated_at"=>$date_time,
                                         "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
+                                        "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
                                     ];
                                     $validator = Validator::make($_data,$check);
                                     if (!$validator->fails()) {
@@ -477,9 +480,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                     "updated_at"=>$date_time,
+                                    "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
                                 ];
                                 $validator = Validator::make($_data,$check);
+
                                 if (!$validator->fails()) {
+
                                     $_ = [$values,$_data];
                                     if(isset($columns["id"]) && !empty($values[$columns["id"]])){
                                         $where = ['id'=>$values[$columns["id"]]];
@@ -529,7 +535,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                     }
                     $this->log('shop_js:orderExcel',$type,['id' => $model->id]);
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
+                    return response()->json(['id'=>$model->id,'url1'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 }
                 else
                     return response()->json($datas);
@@ -985,6 +991,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $result->order_tracking,
                         $result->order_link,
                         $result->order_info,
+                        $result->one_address==1,
                         $result->id,
                         $result->type,
                         $result->session_id,
@@ -1054,6 +1061,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $result->order_tracking,
                         $result->order_link,
                         $result->order_info,
+                        $result->one_address==1,
                         $result->id,
                         $result->session_id,
                     ];

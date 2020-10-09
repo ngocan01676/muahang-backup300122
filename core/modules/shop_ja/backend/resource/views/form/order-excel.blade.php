@@ -247,7 +247,7 @@
         // };
 
         let config = {
-            minDimensions:[35,20],
+            minDimensions:[35,15],
             tableWidth: '100%',
             tableHeight: '100%',
             defaultColWidth: 100,
@@ -585,11 +585,21 @@
                     width:'100px',
                     key:"demo",
                 },
+                one_address: {
+                    type: 'checkbox',
+                    title:'Cùng địa chỉ'
+                },
                 id:{
                     title: 'ID',//T
                     type: 'text',
                     width:'100px',
                 },
+                session_id:{
+                    title: 'SessionId',//T
+                    type: 'text',
+                    width:'1px',
+                },
+
             };
 
             columnsAll[sheetName] = columns;
@@ -663,6 +673,10 @@
 
                     if(total_price_buy ===0 || total_price == 0){ return;}
 
+                    let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+                    if(one_address){
+                        payMethod = 2;
+                    }
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                     if(payMethod == 3){
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
@@ -968,6 +982,7 @@
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
 
                             if(change.col == c){
+                                change = {col:-1,row:-1};
                                 update(instance, cell, c, r,{
                                     count:1,
                                     id:dropdown[value].data.id
@@ -977,12 +992,14 @@
                     }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index){
                         if(change.col == c){
+                            change = {col:-1,row:-1};
                             update(instance, cell, c, r,{
 
                             });
                         }
                     }else if(c === columns.province.index){
                         if(change.col == c){
+                            change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
                     }else if(c === columns.payMethod.index){
@@ -993,6 +1010,7 @@
                             parent.addClass('pay-method-oke');
                         }
                         if(change.col == c){
+                            change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
                     }
@@ -1199,6 +1217,10 @@
                     width:'100px',
                     key:"demo",
                 },
+                one_address: {
+                    type: 'checkbox',
+                    title:'Cùng địa chỉ'
+                },
                 id:{
                     title: 'ID',//T
                     type: 'text',
@@ -1209,10 +1231,12 @@
                     type: 'text',
                     width:'100px',
                 },
+                session_id:{
+                    title: 'SessionId',//T
+                    type: 'text',
+                    width:'1px',
+                },
             };
-
-
-
             columnsAll[sheetName] = columns;
 
             for(var i in columns){
@@ -1505,6 +1529,15 @@
                     }
                 }
                 console.log("totalPriceBuy:"+totalPriceBuy);
+
+                let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+
+                if(one_address){
+                    payMethod = 2;
+                }
+
+
+
                 if(payMethod == 3){
                     totalPriceBuy = 0;
                 }else{
@@ -2508,11 +2541,21 @@
                     width:'100px',
                     key:"demo",
                 },
+                one_address: {
+                    type: 'checkbox',
+                    title:'Cùng địa chỉ'
+                },
                 id:{
                     title: 'ID',//T
                     type: 'text',
                     width:'100px',
                 },
+                session_id:{
+                    title: 'SessionId',//T
+                    type: 'text',
+                    width:'1px',
+                },
+
             };
             columns.count.editor = customColumn;
             columnsAll[sheetName] = columns;
@@ -2650,6 +2693,11 @@
                     let $ship = categorys[$category_id]?( categorys[$category_id].data.hasOwnProperty('ship'))?categorys[$category_id].data.ship:"-1":"-1";
 
                     let $ship_cou = -1;
+
+                    let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+                    if(one_address){
+                        payMethod = 2;
+                    }
 
                     if( payMethod == 2 || payMethod == 3 ){
                         $ship_cou = 0;
@@ -3240,11 +3288,21 @@
                     width:'100px',
                     key:"demo",
                 },
+                one_address: {
+                    type: 'checkbox',
+                    title:'Cùng địa chỉ'
+                },
                 id:{
                     title: 'ID',//T
                     type: 'text',
                     width:'100px',
                 },
+                session_id:{
+                    title: 'SessionId',//T
+                    type: 'text',
+                    width:'1px',
+                },
+
             };
 
             columnsAll[sheetName] = columns;
@@ -3314,7 +3372,10 @@
                     total_price_buy = total_price_buy+price_ship;
 
                     if(total_price_buy ===0 || total_price == 0){ return;}
-
+                    let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+                    if(one_address){
+                        payMethod = 2;
+                    }
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                     if(payMethod == 3){
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
@@ -3616,7 +3677,7 @@
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
 
                             if(change.col === c){
-
+                                change = {col:-1,row:-1};
                                 update(instance, cell, c, r,{
                                     count:1,
                                     id:dropdown[value].data.id
@@ -3626,12 +3687,14 @@
                     }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index){
                         if(change.col == c){
+                            change = {col:-1,row:-1};
                             update(instance, cell, c, r,{
 
                             });
                         }
                     }else if(c === columns.province.index){
                         if(change.col == c){
+                            change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
                     }else if(c === columns.payMethod.index){
@@ -3644,6 +3707,7 @@
 
                         }
                         if(change.col == c){
+                            change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
                     }
@@ -3683,14 +3747,14 @@
                     key:"demo",
                 },
                 timeCreate:{
-                    title: '注文日',//A ngày đặt hàng
+                    title: 'Ngày đặt hàng',//A
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
                     value:['date','now']
                 },
                 payMethod:{
-                    title: '支払区分',//B Phương thức thanh toán
+                    title: 'Phương thức thanh toán',//B
                     type:'dropdown',
                     source:[
                         "代金引換",
@@ -3701,44 +3765,44 @@
                     value:['product','this','source',0],
                 },
                 phone:{
-                    title: '配送先電話番号',//C Số điện thoại
+                    title: 'Số điện thoại',//C
                     type: 'text',
                     width:'100px',
                     value:"070-1398-2234",
                 },
                 zipcode:{
-                    title: '配送先郵便番号',//D Mã bưu điện
+                    title: 'Mã bưu điện',//D
                     type: 'text',
                     width:'60px',
                     key:"demo",
                 },
                 province:{
-                    title: '配送先都道府県',//E Tỉnh/TP
+                    title: 'Tỉnh/TP',//E
                     type: 'text',
                     width:'200px',
                     key:"demo",
                 },
                 address:{
-                    title: '配送先住所',//F Địa chỉ giao hàng
+                    title: 'Địa chỉ giao hàng',//F
                     type: 'text',
                     width:'250px',
                     key:"demo",
                 },
                 fullname:{
-                    title: '配送先氏名',//G Họ tên người nhận
+                    title: 'Họ tên người nhận',//G
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 product_id:{
-                    title: '品番',//H Mã SP
+                    title: 'Mã SP',//H
                     type: 'text',
                     width:'100px',
                     read:true,
                     value:['product','product_name','source',0,'id'],
                 },
                 product_name:{
-                    title: '商品名',//I Tên SP
+                    title: 'Tên SP',//I
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
@@ -3746,25 +3810,25 @@
                     value:['product','this','source',0,'id']
                 },
                 count:{
-                    title: '数量',//K SL
+                    title: 'SL',//K
                     type: 'numeric',
                     width:'100px',
                     value:1
                 },
                 price:{
-                    title: '単価',//J Giá nhập
+                    title: 'Giá nhập',//J
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy:{
-                    title: '単価',//J Giá nhập
+                    title: 'Giá bán',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_date:{
-                    title: '到着希望日',//L Ngày nhận
+                    title: 'Ngày nhận',//L
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
@@ -3772,20 +3836,20 @@
 
                 },
                 order_hours:{
-                    title: '配送希望時間帯',//M Giờ nhận
+                    title: 'Giờ nhận',//M
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
                     width:'150px',
                 },
                 order_ship:{
-                    title: '別途送料',//N Phí ship
+                    title: 'Phí ship',//N
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_total_price:{
-                    title: 'Tổng giá nhập',//O Tổng giá nhập
+                    title: 'Tổng giá nhập',//O
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
@@ -3803,35 +3867,38 @@
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_ship_cou:{
-                    title: '代引き手数料',//P Phí giao hàng
+                    title: 'Phí giao hàng',//P
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_price:{
-                    title: '追跡番号',//P Lợi nhuận
+                    title: 'Lợi nhuận',//P
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_tracking:{
-                    title: '振込み情報',//T Mã tracking
+                    title: 'Mã tracking',//T
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 order_link:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
+                    title: 'Đường dẫn',//T
                     type: 'text',
                     width:'100px',
                 },
                 order_info:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
+                    title: 'Thông tin chuyển khoản',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
-
+                one_address: {
+                    type: 'checkbox',
+                    title:'Cùng địa chỉ'
+                },
                 id:{
                     title: 'ID',//T
                     type: 'text',
@@ -3842,10 +3909,7 @@
                     type: 'text',
                     width:'1px',
                 },
-                one_address: {
-                    type: 'checkbox',
-                    title:'Cùng địa chỉ'
-                },
+
             };
             columnsAll[sheetName] = columns;
             for(var i in columns){
@@ -3915,6 +3979,11 @@
 
                         if(total_price_buy ===0 || total_price == 0){ return;}
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
+                        let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+
+                        if(one_address){
+                            payMethod = 2;
+                        }
 
                         if(payMethod == 3){
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
@@ -4002,7 +4071,7 @@
                 }
 
             }
-            if(nestedHeaders.length ==0){
+            if(nestedHeaders.length == 0){
                 nestedHeaders = [
                     {
                         title: "Không khóa",
@@ -4219,14 +4288,16 @@
                             }
                         }
                     }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
-                        c === columns.order_ship.index || c === columns.order_ship_cou.index){
+                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
+                            change = {col:-1,row:-1};
                             update(instance, cell, c, r,{
 
                             });
                         }        
                     }else if(c === columns.province.index){
                         if(change.col == c){
+                            change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                          }
                     }else if(c === columns.payMethod.index){
@@ -4236,9 +4307,9 @@
                         parent.removeClass('pay-method-oke');
                         if(v === 2){
                             parent.addClass('pay-method-oke');
-
                         }
                         if(change.col == c){
+                            change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                          }
                     }
