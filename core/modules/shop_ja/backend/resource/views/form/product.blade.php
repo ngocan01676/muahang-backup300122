@@ -199,5 +199,6 @@
                 }
             }).elfinder('instance');
         }
+
     </script>
 @endsection

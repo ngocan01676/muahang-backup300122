@@ -42,7 +42,6 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $search = $filter['search'];
         }else {
             $filter_search = $request->query('filter_search', "");
-
             if(!empty($filter_search)){
                 $search = $filter_search;
             }
@@ -50,8 +49,14 @@ class ProductController extends \Zoe\Http\ControllerBackend
         if(isset($filter['code'])){
             $models->where('code', 'like', '%' . $filter['code'].'%');
         }
+        if(isset($filter['cate'])){
+            $models->where('category_id', '=',$filter['cate'] );
+        }
         if (!empty($search)) {
             $models->where('title', 'like', '%' . $search.'%');
+        }
+        if(isset($filter['des'])){
+            $models->where('description', 'like', '%' . $filter['des'].'%');
         }
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
