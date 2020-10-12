@@ -277,6 +277,7 @@
                 $.ajax({
                     type: "GET",
                     url: href,
+                    data: $("#filter_form").zoe_inputs('get'),
                     success: function (data) {
                         renderContent(data);
                         $("#sectionList").loading({destroy: true});

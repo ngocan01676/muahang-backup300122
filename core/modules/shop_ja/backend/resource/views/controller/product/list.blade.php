@@ -48,7 +48,6 @@
                                        placeholder="Mô tả">
                             </div>
                         </div>
-
                     </div>
                     <div class="row" style="padding: 5px">
                         <div class="col-sm-4" style="padding:0">

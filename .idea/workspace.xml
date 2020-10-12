@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/product/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/product/list.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/product/list.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="534">
-              <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+            <state relative-caret-position="517">
+              <caret line="49" column="30" lean-forward="true" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
               <folding>
                 <element signature="e#928#949#0#HTML" expanded="true" />
                 <element signature="e#2732#2753#0#HTML" expanded="true" />
@@ -27,6 +28,15 @@
                 <element signature="e#2872#2924#0#HTML" expanded="true" />
                 <element signature="e#3064#3101#0#HTML" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="486">
+              <caret line="279" column="41" selection-start-line="279" selection-start-column="41" selection-end-line="279" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -97,15 +107,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="714">
               <caret line="61" column="46" lean-forward="true" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4675">
-              <caret line="275" column="42" selection-start-line="275" selection-start-column="42" selection-end-line="275" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -193,7 +194,6 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/SimController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/show.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/list.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
@@ -203,6 +203,7 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/ProductController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/product/list.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php" />
       </list>
     </option>
   </component>
@@ -758,12 +759,12 @@
       <workItem from="1601954038462" duration="23118000" />
       <workItem from="1602038636361" duration="7686000" />
       <workItem from="1602208036005" duration="12851000" />
-      <workItem from="1602467254453" duration="3739000" />
+      <workItem from="1602467254453" duration="4633000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="344625000" />
+    <option name="totallyTimeSpent" value="345519000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1021,13 +1022,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/configs/configs.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2601">
@@ -1119,8 +1113,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/product/list.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+        <state relative-caret-position="517">
+          <caret line="49" column="30" lean-forward="true" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
           <folding>
             <element signature="e#928#949#0#HTML" expanded="true" />
             <element signature="e#2732#2753#0#HTML" expanded="true" />
@@ -1128,6 +1122,13 @@
             <element signature="e#2872#2924#0#HTML" expanded="true" />
             <element signature="e#3064#3101#0#HTML" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="279" column="41" selection-start-line="279" selection-start-column="41" selection-end-line="279" selection-end-column="41" />
         </state>
       </provider>
     </entry>
