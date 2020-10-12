@@ -53,7 +53,7 @@
                     <div class="row" style="padding: 5px">
                         <div class="col-sm-4" style="padding:0">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
-                                <label>Mô tả</label>
+                                <label>Công ty</label>
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;" >
                                 {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"filter.cate","",["auto-action"=>1]) !!}
