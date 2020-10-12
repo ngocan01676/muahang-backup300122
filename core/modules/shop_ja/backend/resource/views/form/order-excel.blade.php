@@ -4348,11 +4348,7 @@
         },5000);
 
         $(document).ready(function () {
-            $(document).bind('keydown', 'ctrl+s', function(e) {
-                e.preventDefault();
-
-                return false;
-            });
+           
             let col_row_review = $("#col-row-review");
             $("#value-review").on("input", function(){
                 console.log($(this).val());
