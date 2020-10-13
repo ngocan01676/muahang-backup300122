@@ -4348,7 +4348,7 @@
         },5000);
 
         $(document).ready(function () {
-           
+
             let col_row_review = $("#col-row-review");
             $("#value-review").on("input", function(){
                 console.log($(this).val());
