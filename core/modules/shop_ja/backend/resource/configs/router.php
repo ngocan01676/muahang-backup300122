@@ -290,6 +290,18 @@ return [
                     ],
                 ]
             ],
+//            'dashboards' => [
+//                "namespace" => "ShopJa\Http\Controllers",
+//                "controller" => "DashboardController",
+//                "prefix" => "/admin",
+//                "guard" => "backend",// pải login
+//                "acl"=> "dashboard",
+//                "router" => [
+//                    "list" => [
+//                        "url" => "/",
+//                    ],
+//                ]
+//            ],
             ]
         ]
 ];
