@@ -731,7 +731,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $date_start = $request->get('date_start','');
         $date_end = $request->get('date_end','');
 
-        $this->data['analytics']['total'] = DB::table('shop_order_excel')->where('admin_id',Auth::user()->id);
+        $this->data['analytics']['total'] = DB::table('shop_order_excel')
+            ->where('fullname','!=','')
+            ->where('admin_id',Auth::user()->id);
             if(!empty($date_start) && !empty($date_end)){
                 $this->data['analytics']['total']->where('updated_at','>=',$date_start." 00:00:00");
                 $this->data['analytics']['total']->where('updated_at','<=',$date_end." 23:59:59");
