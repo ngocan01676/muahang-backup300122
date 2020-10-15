@@ -707,7 +707,41 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }
         }
     }
+    public function search(Request $request){
 
+        $fullname = $request->get('fullname','');
+        $address = $request->get('address','');
+        $cate_id = $request->get('cate','');
+        $this->data['category_com'] = config_get("category", "shop-ja:product:category");
+        $company = "";
+
+        if(!empty($cate_id)){
+            foreach ($this->data['category_com'] as $cate){
+                if($cate['id'] == $cate_id){
+                    $company = $cate['name'];
+                    break;
+                }
+
+            }
+
+        }
+
+        $this->GetCache('show',0,$company);
+        $model = new OrderExcelModel();
+
+        $datas = $model->searchAll(Auth::user()->id,[
+            'fullname'=>$fullname,
+            'address'=>$address,
+            'company'=>$company,
+        ]);
+        $model->detail = $this->GetData($datas,true);
+        return $this->render('order-excel.search',[
+            'fullname'=>$fullname,
+            'address'=>$address,
+            'cate'=>$cate_id,
+            'model'=>$model
+        ]);
+    }
     public function list(Request $request){
         $this->getcrumb();
         $filter = $request->query('filter', []);
@@ -731,6 +765,23 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $date_start = $request->get('date_start','');
         $date_end = $request->get('date_end','');
 
+        $categorys = config_get("category", "shop-ja:product:category");
+
+        $names  = [];
+        $this->data['analytics']['category'] = [];
+        foreach($categorys as $category){
+            if($category['name'] == "SIM"){
+                continue;
+            }
+           $query = DB::table('shop_order_excel')
+                ->where('fullname','!=','')
+                ->where('admin_id',Auth::user()->id)->where('company',$category['name']);
+            if(!empty($date_start) && !empty($date_end)){
+                $query->where('updated_at','>=',$date_start." 00:00:00");
+                $query->where('updated_at','<=',$date_end." 23:59:59");
+            }
+            $this->data['analytics']['category'][$category['name']] = $query->count();
+        }
         $this->data['analytics']['total'] = DB::table('shop_order_excel')
             ->where('fullname','!=','')
             ->where('admin_id',Auth::user()->id);
@@ -741,6 +792,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['analytics']['total'] = $this->data['analytics']['total']->count();
 
         $this->data['analytics']['success'] = DB::table('shop_order_excel')
+            ->where('fullname','!=','')
             ->where('admin_id',Auth::user()->id)->where('status',1);
             if(!empty($date_start) && !empty($date_end)) {
 
@@ -750,6 +802,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['analytics']['success'] =  $this->data['analytics']['success']->where('status',1)->count();
 
         $this->data['analytics']['padding'] = DB::table('shop_order_excel')
+            ->where('fullname','!=','')
             ->where('admin_id',Auth::user()->id);
             if(!empty($date_start) && !empty($date_end)) {
 
@@ -758,6 +811,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }
         $this->data['analytics']['padding'] = $this->data['analytics']['padding']->where('status',2)->count();
         $this->data['analytics']['cancel'] = DB::table('shop_order_excel')
+            ->where('fullname','!=','')
             ->where('admin_id',Auth::user()->id);
         if(!empty($date_start) && !empty($date_end)) {
             $this->data['analytics']['cancel']->where('updated_at', '>=', $date_start . " 00:00:00");
@@ -766,11 +820,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['analytics']['cancel'] = $this->data['analytics']['cancel']->where('status',2)->count();
         $this->data['analytics']['today'] = DB::table('shop_order_excel')
             ->where('admin_id',Auth::user()->id)
+            ->where('fullname','!=','')
             ->where('updated_at','>=',$date_start." 00:00:00")
             ->where('updated_at','<=',$date_end." 23:59:59")
             ->count();
         $this->data['analytics']['price'] = DB::table('shop_order_excel')
             ->where('admin_id',Auth::user()->id)
+            ->where('fullname','!=','')
             ->where('updated_at','>=',$date_start." 00:00:00")
             ->where('updated_at','<=',$date_end." 23:59:59")
             ->sum('order_price');
@@ -1165,8 +1221,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
             return $this->render('order-excel.show-select',['date'=>"",'compays'=>$categorys]);
         }else{
+
             $date = base64_decode($date);
             $hour = base64_decode($hour);
+
             $this->GetCache('show',0,$company);
             $this->getCrumb()->breadcrumb(z_language("Xuất ".$company), route('backend:shop_ja:order:excel:show'));
             $model = new OrderExcelModel();

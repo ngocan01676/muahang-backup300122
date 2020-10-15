@@ -87,6 +87,13 @@ return [
             "header" => true,
             "icon"=>"fa fa-newspaper-o",
         ],
+        "backend:shop_ja:order:search" => [
+            "name" => "QL ".z_language("Tìm kiếm hóa đơn"),
+            "url" => "backend:shop_ja:order:search:search",
+            "pos" => 2,
+            "header" => true,
+            "icon"=>"fa fa-newspaper-o",
+        ],
         "module:shop-ja:excel:imports" => [
             "name" => "QL ".z_language("Nhập Checking"),
             "url" => "backend:shop_ja:order:action:imports",

@@ -235,6 +235,23 @@ return [
                         "url" => "/store",
                         "method" => ['post'],
                     ],
+                    "search" => [
+                        "url" => "/search",
+                        "method" => ['get','post'],
+                    ],
+                ]
+            ],
+            'shop_ja:order:search' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "OrderExcelController",
+                "sub_prefix" => "/shop-ja/order/search",
+                "guard" => "backend",
+                "acl"=> "shop_ja:order:search",
+                "router" => [
+                    "search" => [
+                        "url" => "/search",
+                        "method" => ['get','post'],
+                    ],
                 ]
             ],
             'shop_ja:order:action' => [

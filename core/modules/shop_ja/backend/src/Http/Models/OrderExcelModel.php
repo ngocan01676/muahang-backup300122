@@ -30,4 +30,25 @@ class OrderExcelModel extends Model
         }
         return $datas;
     }
+    public function searchAll($user_id,$par = []){
+
+        $shop_order_excel =  DB::table('shop_order_excel')->where('admin_id',$user_id);
+        if(!empty($par['company'])){
+            $shop_order_excel->where('company',$par['company']);
+        }
+        if(!empty($par['fullname'])){
+            $shop_order_excel->where('fullname', 'like', '%'.$par['fullname'].'%');
+        }
+        if(!empty($par['address'])){
+            $shop_order_excel->where('address', 'like', '%'.$par['address'].'%');
+        }
+        $shop_order_excel  = $shop_order_excel->get()->all();
+        $datas = [];
+
+        foreach ($shop_order_excel as $_key=>$_value){
+            $datas[] = $_value;
+        }
+
+        return $datas;
+    }
 }

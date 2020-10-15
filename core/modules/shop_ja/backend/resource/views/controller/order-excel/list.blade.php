@@ -103,6 +103,25 @@
                     </div>
                     <!-- /.col -->
                 </div>
+                <div class="row">
+                    @foreach($analytics['category'] as $category=>$count)
+                        <div class="col-lg-4 col-xs-6">
+                            <!-- small box -->
+                            <div class="small-box bg-aqua">
+                                <div class="inner">
+                                    <h3>{!! $count !!}</h3>
+
+                                    <p>{!! $category !!}</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+
+                    @endforeach
+                </div>
             </div>
 
             <div class="box-body">
