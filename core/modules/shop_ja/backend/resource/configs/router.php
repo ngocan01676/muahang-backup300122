@@ -299,7 +299,7 @@ return [
                     ],
                     "export" => [
                         "url" => "/export",
-                        "method" => ['post'],
+                        "method" => ['get','post'],
                     ],
                     "notification" => [
                         "url" => "/notification",

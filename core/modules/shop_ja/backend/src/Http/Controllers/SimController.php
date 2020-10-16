@@ -720,6 +720,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
             return redirect(route('backend:shop_ja:sim:list', []));
         }
     }
+
     public function notification(Request $request){
         if($request->isMethod('POST')){
             $data = $request->all();
@@ -768,5 +769,273 @@ class SimController extends \Zoe\Http\ControllerBackend{
                 }
             ]
         ],'shop_ja');
+    }
+    function dateDifference($start_date, $end_date)
+    {
+        // calulating the difference in timestamps
+        $diff = strtotime($start_date) - strtotime($end_date);
+
+        // 1 day = 24 hours
+        // 24 * 60 * 60 = 86400 seconds
+        return [
+            'day'=>ceil(abs($diff / 86400)),
+            'status'=> $diff >= 0? true : false
+        ];
+    }
+    public function export(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            $json = [];
+            $self = $this;
+            $colums = [
+                ["Trạng thái",'status',10,9],//B
+                ["Đường dẫn",'order_link',10,9],//B
+                ["Tên",'fullname',10,9],//B
+                ["Địa chỉ",'address',10,9],//B
+                ["Tên gói",['product'=>['product_id','title']],18,9],//I
+                ["Đặt cọc",'total_count',10,9],//B
+                ["Ngày bắt đầu",['callback'=>function($index,$date){return date("d-m-Y",strtotime($date));},'key'=>'order_date'],10,9],//B
+                ["Ngày kết thúc",['callback'=>function($index,$date){return date("d-m-Y",strtotime($date));},'key'=>'order_hours'],10,9],//B
+                ["Số đã hết hạn",['callback'=>function($index,$date) use($self){
+                    $rs =  $self->dateDifference(date('Y-m-d',strtotime($date)),date('Y-m-d'));
+                    return $rs["status"]?$rs['day']:$rs['day']*-1;
+                },'key'=>'order_hours','index'=>false],10,9],//B
+                ["Số lần báo",'notification',10,9],//B
+                ["Số ngày gia hạn",'0',10,9],//B
+                ["Mã",'id',10,9],//B
+            ];
+
+            $nameColList  = [];
+
+            foreach($colums as $key=>$value){
+                if(is_array($value[1])){
+                    if(isset($value[1]['product'])){
+                        $conf = $value[1]['product'];
+                        $nameColList[$conf[0]] = $key;
+                    }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                        if(!isset($value[1]['index']) || isset($value[1]['index'])&&$value[1]['index'] ){
+                            $nameColList[$value[1]['key']] = $key;
+                        }
+
+                    }
+                }else{
+                    $nameColList[$value[1]] = $key;
+                }
+            }
+            if(isset($data['act'])){
+                if($data['act'] == "export"){
+
+                    $spreadsheet = new Spreadsheet();
+                    $sheet = $spreadsheet->getActiveSheet();
+                    $spreadsheet->createSheet();
+                    $spreadsheet->getSheet(1)->setTitle('Sheet2');
+
+                    $sheet->setTitle("Sheet1");
+                    $spreadsheet->getProperties()
+                        ->setTitle('PHP Download Example')
+                        ->setSubject('A PHPExcel example')
+                        ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
+                        ->setCreator('php-download.com')
+                        ->setLastModifiedBy('php-download.com');
+//                    $title1 = "株式会社ヤマダ 様 注文フォーマット";
+//                    $title2 = "見本";
+//                    $info = "依頼人名. VO HOANG 様 22日に 7410 円入金済み";
+//                    $sheet->setCellValue('B1', $title1);
+//                    $sheet->setCellValue('F2', $title2);
+//                    $sheet->setCellValue('P2', $info);
+//                    $styleArray = array(
+//                        'font'  => array(
+//                            'size'  => 9,
+//                            'name' => 'Times New Roman'
+//                        ));
+                    $style_header = array(
+                        'fill' => array(
+                            'fillType' => Fill::FILL_SOLID,
+                            'color' => array('rgb'=>'FFE100'),
+                        ),
+                        'borders' => [
+                            'allBorders' => array(
+                                'borderStyle' => Border::BORDER_DOTTED,
+                                'color' => array('rgb'=>'000000')
+                            ),
+                        ],
+                        'font' => array(
+                            'size' => 10
+                        )
+                    );
+//                    $sheet->getStyle('B1')->applyFromArray($styleArray);
+//                    $sheet->getStyle('F2')->applyFromArray($styleArray);
+                    $sheet->getStyle('P2')->applyFromArray(array(
+                            'font'  => array(
+                                'size'  => 9,
+                                'name' => 'Times New Roman',
+                                'color' => array('rgb' => '0070c0'),
+                            ),
+                        )
+                    );
+                    $sheet->getStyle('A3:T3')->applyFromArray( $style_header );
+
+                    $colums = [
+                        ["Trạng thái",'status',10,9],//B
+                        ["Đường dẫn",'order_link',10,9],//B
+                        ["Tên",'fullname',10,9],//B
+                        ["Địa chỉ",'address',10,9],//B
+                        ["Tên gói",['product'=>['product_id','title']],18,9],//I
+                        ["Đặt cọc",'total_count',10,9],//B
+                        ["Ngày bắt đầu",['callback'=>function($index,$date){return date("d-m-Y",strtotime($date));},'key'=>'order_date'],10,9],//B
+                        ["Ngày kết thúc",['callback'=>function($index,$date){return date("d-m-Y",strtotime($date));},'key'=>'order_hours'],10,9],//B
+                        ["Số đã hết hạn",['callback'=>function($index,$date) use($self){
+                            $rs =  $self->dateDifference(date('Y-m-d',strtotime($date)),date('Y-m-d'));
+                            return $rs["status"]?$rs['day']:$rs['day']*-1;
+                        },'key'=>'order_hours','index'=>false],10,9],//B
+                        ["Số lần báo",'notification',10,9],//B
+                        ["Số ngày gia hạn",'0',10,9],//B
+                        ["Mã",'id',10,9],//B
+                    ];
+
+                    $start=3;
+                    $nameColList  = [];
+
+                    foreach($colums as $key=>$value){
+                        $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                        if(is_array($value[1])){
+                            if(isset($value[1]['product'])){
+                                $conf = $value[1]['product'];
+                                $nameColList[$conf[0]] = $key;
+                            }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                                $nameColList[$value[1]['key']] = $key;
+                            }
+                        }else{
+                            $nameColList[$value[1]] = $key;
+                        }
+                        $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
+                                'font'  => array(
+                                    'size'  => $value[3]
+                                ),
+                            )
+                        );
+
+                        if($value[2] > 0){
+                            $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
+                        }
+                    }
+                    $m = (int)date('m');
+
+                    if(isset($data["month"])){
+                        $m = $m - (int) $data["month"];
+                    }
+                    $ts = strtotime(date('Y').'-'.($m<10?"0".$m:$m).'-01');
+                    $d = array(strtotime('first day of this month', $ts),strtotime('last day of this month', $ts));
+
+
+                    $models = DB::table('shop_order_sim')
+                        ->where('order_hours','>=',date('Y-m-d',$d[0])." 00:00:00")
+                        ->where('order_hours','<=',date('Y-m-d',$d[1])." 23:59:59");
+
+                    $results = $models->orderBy('updated_at', 'asc')->get()->all();
+
+
+                    $columns_value = [
+
+                    ];
+
+                    $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+
+                    foreach ($results as $key=>$values){
+                        $start++;
+                        foreach($colums as $key=>$value){
+                            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                            $sheet->getCell($nameCol.$start)->setDataType(PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                            if(is_array($value[1])){
+                                if(isset($value[1]['product'])){
+                                    $conf = $value[1]['product'];
+                                    if( property_exists($values,$conf[0])){
+                                        $id = $values->{$conf[0]};
+                                        $_val = "";
+                                        if(isset($products[$id]) && property_exists($products[$id],$conf[1])){
+                                            $_val = $products[$id]->{$conf[1]};
+                                        }
+                                        $sheet->setCellValue($nameCol.$start,$_val);
+                                    }
+                                }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                                    $conf = $value[1]['callback'];
+                                    $_val = call_user_func_array($conf,[$start,property_exists($values,$value[1]['key'])?$values->{$value[1]['key']}:"",$nameCol.$start]);
+                                    $sheet->setCellValue($nameCol.$start,$_val);
+                                }
+                            }else{
+                                $v = property_exists($values,$value[1])?$values->{$value[1]}:$value[1];
+                                $sheet->setCellValue($nameCol.$start,$v);
+                            }
+                        }
+                    }
+                    $file = new \Illuminate\Filesystem\Filesystem();
+                    $date = time();
+                    $writer = new Xlsx($spreadsheet);
+                    if( !$file->isDirectory(public_path().'/uploads/sim')){
+                        $file->makeDirectory(public_path().'/uploads/sim');
+                    }
+                    $path = '/uploads/sim/'.str_replace(__CLASS__.'::',"",__METHOD__);
+                    if( !$file->isDirectory(public_path().$path)){
+                        $file->makeDirectory(public_path().$path);
+                    }
+
+                    $path = $path.'/'.date('Y-m-d',$date);
+                    if( !$file->isDirectory(public_path().$path)){
+                        $file->makeDirectory(public_path().$path);
+                    }
+
+
+                    $filename = date('Y-m-d',$d[0]).'-'.date('Y-m-d',$d[1]);
+
+
+                    $path = $path.'/'.$filename;
+                    if( !$file->isDirectory(public_path().$path)){
+                        $file->makeDirectory(public_path().$path);
+                    }
+                    $path2 = $path.'/'.$filename.'.xlsx';
+                    $writer->save(public_path().$path2);
+                    $json['link'] = url($path2);
+                }
+            }else {
+                $validator = Validator::make($request->all(), [
+                    'image' => 'required',
+                ]);
+                if($validator->passes()){
+
+                    $imageName = date('y-m-d').'.'.request()->image->getClientOriginalExtension();
+
+                    $input['image'] = $imageName;
+                    $OriginalName = request()->image->getClientOriginalName();
+                    request()->image->move(public_path('uploads/tracking'), $imageName);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+                    $spreadsheet = $reader->load(public_path('uploads/tracking')."/".$imageName);
+                    $sheet = $spreadsheet->getActiveSheet();
+                    $datas =  $sheet->toArray();
+                    $results =[];
+                    $n = count($datas);
+                    for ($i=3; $i < $n; $i++ ) {
+                        $id = $datas[$i][$nameColList["id"]];
+                        $update = [
+                            'status'=>$datas[$i][$nameColList["status"]],
+                            'notification'=>(int)$datas[$i][$nameColList["notification"]]+1,
+                            'order_date'=>date('Y-m-d',strtotime($datas[$i][$nameColList["order_date"]])),
+                            'order_hours'=>date('Y-m-d',strtotime($datas[$i][$nameColList["order_hours"]])),
+                            'total_count'=>$datas[$i][$nameColList["total_count"]],
+                        ];
+                        $rs = DB::table('shop_order_sim')->where('id',$id)->get()->all();
+                        if(isset($rs[0])){
+                            $update['notification'] = $rs['0']->order_hours!=$update['order_hours']?0:$update['notification'];
+                            DB::table('shop_order_sim')->where('id',$id)->update($update);
+                        }
+                        $results[] =  [$datas[$i],$update,$id];
+
+                    }
+                    return Response()->json(["success"=>"Image Upload Successfully",'html'=>$results]);
+                }
+                return response()->json(['error'=>$validator->errors()->all()]);
+            }
+            return response()->json($json);
+        }
+        return $this->render('sim.export');
     }
 }
