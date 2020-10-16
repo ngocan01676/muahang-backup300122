@@ -926,19 +926,14 @@ class SimController extends \Zoe\Http\ControllerBackend{
                     }
                     $ts = strtotime(date('Y').'-'.($m<10?"0".$m:$m).'-01');
                     $d = array(strtotime('first day of this month', $ts),strtotime('last day of this month', $ts));
-
-
                     $models = DB::table('shop_order_sim')
                         ->where('order_hours','>=',date('Y-m-d',$d[0])." 00:00:00")
-                        ->where('order_hours','<=',date('Y-m-d',$d[1])." 23:59:59");
+                        ->where('order_hours','<=',date('Y-m-d',$d[1])." 23:59:59")->where('status',1);
 
                     $results = $models->orderBy('updated_at', 'asc')->get()->all();
-
-
                     $columns_value = [
 
                     ];
-
                     $products =  DB::table('shop_product')->get()->keyBy('id')->all();
 
                     foreach ($results as $key=>$values){
