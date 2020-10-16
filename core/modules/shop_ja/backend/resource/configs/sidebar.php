@@ -120,8 +120,8 @@ return [
                     "url" => "backend:shop_ja:sim:list",
                 ],
                 [
-                    "name" => "QL ".z_language("Sim hết hạn"),
-                    "url" => "backend:shop_ja:sim:notification",
+                    "name" => "QL ".z_language("Xuất Sim hết hạn"),
+                    "url" => "backend:shop_ja:sim:export",
                 ],
             ]
         ],
