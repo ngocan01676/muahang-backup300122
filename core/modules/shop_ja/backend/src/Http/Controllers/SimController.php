@@ -919,12 +919,12 @@ class SimController extends \Zoe\Http\ControllerBackend{
                             $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
                         }
                     }
-                    $m = (int)date('m');
 
-                    if(isset($data["month"])){
-                        $m = $m - (int) $data["month"];
+                    $date = strtotime(date('Y-m-d'));
+                    if(isset($data["month"]) && $data["month"]>0){
+                        $date = strtotime("-".$data["month"]." month");
                     }
-                    $ts = strtotime(date('Y').'-'.($m<10?"0".$m:$m).'-01');
+                    $ts = strtotime(date('Y',$date).'-'.(date('m',$date)).'-01');
                     $d = array(strtotime('first day of this month', $ts),strtotime('last day of this month', $ts));
                     $models = DB::table('shop_order_sim')
                         ->where('order_hours','>=',date('Y-m-d',$d[0])." 00:00:00")
