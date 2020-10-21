@@ -307,18 +307,31 @@ return [
                     ],
                 ]
             ],
-//            'dashboards' => [
-//                "namespace" => "ShopJa\Http\Controllers",
-//                "controller" => "DashboardController",
-//                "prefix" => "/admin",
-//                "guard" => "backend",// pải login
-//                "acl"=> "dashboard",
-//                "router" => [
-//                    "list" => [
-//                        "url" => "/",
-//                    ],
-//                ]
-//            ],
+            'shop_ja:user' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "UserController",
+                "sub_prefix" => "/shop-ja/user",
+                "guard" => "backend",
+                "acl"=> "user",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                ]
+            ],
+            'dashboard' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "DashboardController",
+                "sub_prefix" => "/admin/dashboard",
+                "guard" => "backend",
+                "acl"=> "dashboard",
+                "router" => [
+                    "user" => [
+                        "url" => "/dashboard/{id?}",
+                        'acl'=>true,
+                    ],
+                ]
+            ],
             ]
         ]
 ];

@@ -42,6 +42,8 @@ class AuthController extends \Zoe\Http\ControllerBackend
      */
     public function __construct()
     {
+
+        $this->redirectTo = '/admin';
         $this->middleware('guest:backend')->except('logout');
     }
 

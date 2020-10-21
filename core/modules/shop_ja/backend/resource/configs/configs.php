@@ -1,11 +1,15 @@
 <?php
     return [
+        'aclsKey'=>[
+            'dashboard'
+        ],
         'views' => [
             'paths' => ['shop_ja' => 'backend'],
             'alias' => [
                 'shop_ja.category.show' => 'shop_ja::controller.category.show',
                 'shop_ja.category.com-ship' => 'shop_ja::controller.category.com-ship',
-                'shop_ja.category.ship' => 'shop_ja::controller.category.ship',
+                'shop_ja.category.ship' => 'shop_ja::controller.category.ship'
+
             ],
         ],
         'packages' => [
@@ -193,7 +197,6 @@
                     'configs.layout'
                 ]
             ],
-
             'module:shop_ja:ship' => [
                 'config' => [
                     'columns' => [
@@ -278,6 +281,59 @@
                 ],
                 'views' => [
                     'configs.layout'
+                ]
+            ],
+            'core:shop_ja:user:list' => [
+                'config' => [
+                    'columns' => [
+                        'lists' => [
+                            'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
+                            'name' => ['label' => z_language('Tên', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha'],
+                            'username' => ['label' => z_language('Tài khoản', false), 'type' => 'text', 'primary' => true, 'order_by' => 'amount'],
+                            'avatar' => ['label' => z_language('Ảnh', false), 'type' => 'image'],
+                            'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status', 'order_by' => 'amount'],
+                            'created_at' => ['label' => z_language('Ngày tạo', false), 'type' => 'date'],
+                            'updated_at' => ['label' => z_language('Ngày cập nhật', false), 'type' => 'date'],
+                            'ctvButton' => ['label' => z_language('Thông tin', false), 'type' => 'number','callback' => "ctvButton"],
+                        ],
+                    ],
+                    'pagination' => [
+                        'item' => 20,
+                        'router' => [
+                            'edit' => ['label' => z_language('Edit', false), 'name' => "backend:user:edit", 'par' => ['id' => 'id']],
+
+                            'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:user:delete", 'par' => ['id' => 'id']],
+                        ]
+                    ],
+                    'config' => [
+                        "type" => [
+                            'image' => [
+                                'width' => 100,
+                                'height' => 100
+                            ],
+                            'status' => [
+                                'label' => [
+                                    '1' => z_language('Public', false),
+                                    '0' => z_language('UnPublic', false),
+                                ],
+                                'type' => [
+                                    'name' => 'label',
+                                    'color' => [
+                                        '1' => 'primary',
+                                        '0' => 'danger'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                'data' => [
+                    'pagination' => ['item' => 20],
+                    'columns' => ['id', 'name'],
+                    'search' => ['name'],
+                ],
+                'option' => [
+
                 ]
             ],
 

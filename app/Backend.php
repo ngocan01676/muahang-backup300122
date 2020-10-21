@@ -28,17 +28,16 @@ class Backend extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function IsAcl($permission){
-        if(empty($permission) || $this->username =="admin"){
+    public function IsAcl($permission,$userfull = 'admin'){
+
+        if(empty($permission) || $this->username == $userfull){
             return true;
         }
-
         Cache::remember('role:'.$this->guard, 60, function()
         {
             return DB::table('role')
                 ->select()->where('guard_name',$this->guard)->get();
         });
-
         $permissions = Cache::remember('permissions:'.$this->guard.":".$this->role_id, 5, function()
         {
             return DB::table('permissions')

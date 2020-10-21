@@ -1,43 +1,24 @@
 <?php
 return [
     "sidebars" => [
-//        "module:shop-ja" => [
-//            "name" => z_language('Shop'),
-//            "pos" => 2,
-//            "url" => "",
-//            "header" => true,
-//            "icon"=>"fa fa-newspaper-o",
-//            "items" => [
-//                [
-//                    "name" => "QL ".z_language("Sản Shẩm"),
-//                    "url" => "backend:shop_ja:product:list",
-//                ],
-//                [
-//                    "name" => z_language("CT Chuyển Phát"),
-//                    "url" => "backend:shop_ja:category:show",
-//                ],
-//                [
-//                    "name" => z_language("QL Tỉnh"),
-//                    "url" => "backend:shop_ja:japan:category:show",
-//                ],
-//                [
-//                    "name" => z_language("QL Ship"),
-//                    "url" => "backend:shop_ja:ship:list",
-//                ],
-//                [
-//                    "name" => z_language("QL COU"),
-//                    "url" => "backend:shop_ja:japan:category:ship:show",
-//                ],
-//                [
-//                    "name" => "QL ".z_language("Hóa Đơn"),
-//                    "url" => "backend:shop_ja:order:excel:list",
-//                ],
-//                [
-//                    "name" => "QL ".z_language("Nhập Checking"),
-//                    "url" => "backend:shop_ja:order:excel:imports",
-//                ]
-//            ]
-//        ],
+        "user"=>false,
+        "log" => [
+            "name" => z_language("Log", false),
+            "pos" => 1,
+            "url" => "backend:log:list",
+            "icon" => "fa fa-file-text"
+        ],
+        "module:admin" => [
+            "name" => z_language('Mở rộng'),
+            "pos" => 2,
+            "url" => "",
+            "header" => true,
+            "icon"=>"fa fa-newspaper-o",
+            "items" => [
+                "dashboard" =>false,
+                'log'=>false
+            ]
+         ],
         "backend:announce:list" => [
             "name" => "QL ".z_language("Thông báo"),
             "url" => "backend:announce:list",
@@ -125,5 +106,24 @@ return [
                 ],
             ]
         ],
+        "shop-ja:user" => [
+            "name" => z_language('Tài khoản'),
+            "pos" => 2,
+            "url" => "",
+            "header" => true,
+            "icon" => "fa fa-users",
+            "order"=>1,
+            "items" => [
+                "1"=>[
+                    "name" => z_language("Tài khoản CTV", false),
+                    "url" => "backend:shop_ja:user:list",
+                ],
+                "2"=>false,
+                "3"=>[
+                    "name" => z_language("Quyền", false),
+                    "url" => "backend:user:role:list",
+                ]
+            ]
+        ]
     ]
 ];

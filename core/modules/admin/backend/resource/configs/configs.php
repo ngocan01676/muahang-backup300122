@@ -5,6 +5,8 @@ return [
         'alias' => [
             'layout.create' => 'backend::controller.layout.create',
             'layout.edit' => 'backend::controller.layout.edit',
+            'dashboard.router'=>'backend::controller.dashboard.router',
+            'dashboard.media'=>'backend::controller.dashboard.media'
         ],
     ],
     'packages' => [

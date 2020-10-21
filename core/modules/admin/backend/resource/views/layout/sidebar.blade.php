@@ -19,7 +19,9 @@
                         @endphp
             @section('treeview'.$key)
                 @foreach ($sidebar['items'] as $_key=>$items)
+                    @continue(!is_array($items))
                     @php
+
                        $items_url = "#";
                        if(route::has($items['url'])){
                             $items_url = route($items['url'],isset($items['parameter'])?$items['parameter']:[]);

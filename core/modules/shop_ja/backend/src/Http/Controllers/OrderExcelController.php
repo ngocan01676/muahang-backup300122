@@ -768,6 +768,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $categorys = config_get("category", "shop-ja:product:category");
 
         $names  = [];
+
         $this->data['analytics']['category'] = [];
         foreach($categorys as $category){
             if($category['name'] == "SIM"){
@@ -782,6 +783,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }
             $this->data['analytics']['category'][$category['name']] = $query->count();
         }
+
         $this->data['analytics']['total'] = DB::table('shop_order_excel')
             ->where('fullname','!=','')
             ->where('admin_id',Auth::user()->id);
@@ -830,6 +832,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             ->where('updated_at','>=',$date_start." 00:00:00")
             ->where('updated_at','<=',$date_end." 23:59:59")
             ->sum('order_price');
+
+
         $models->orderBy('id', 'desc');
         return $this->render('order-excel.list', [
             'models' => $models->paginate($item),

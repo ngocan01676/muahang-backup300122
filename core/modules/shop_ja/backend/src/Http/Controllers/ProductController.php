@@ -14,7 +14,6 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $this->data['nestables'] = config_get("category", "shop-ja:product:category");
         $this->data['configs'] = config_get("config", "shopja");
         $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
-
     }
     public function getCrumb()
     {
