@@ -226,13 +226,16 @@
                    ->where('date_start','<=',date('Y-m-d H:i:s'))
                    ->where('date_end','>=',date('Y-m-d H:i:s'))->get()->all();
             @endphp
-            @foreach($rs as $val)
+            @if(count($rs)>0)
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            @foreach($rs as $val)
+
                 <h4><i class="icon fa fa-check"></i> {!! $val->title !!}! </h4>
                 {!! $val->message !!}<BR>{!! $val->updated_at !!}
-            </div>
             @endforeach
+            </div>
+            @endif
             @yield('content')
         </section>
         <!-- /.content -->
