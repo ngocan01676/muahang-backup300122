@@ -19,6 +19,12 @@ return [
                 'log'=>false
             ]
          ],
+        "dashboard" => [
+            "name" => z_language("Thống kê", false),
+            "pos" => 1,
+            "url" => "backend:dashboard:list",
+            "icon" => "fa fa-dashboard"
+        ],
         "backend:announce:list" => [
             "name" => "QL ".z_language("Thông báo"),
             "url" => "backend:announce:list",
