@@ -232,7 +232,7 @@
             @foreach($rs as $val)
 
                 <h4 style="padding: 0; margin: 0;"><i class="icon fa fa-check"></i> {!! $val->title !!}! </h4>
-                {!! $val->message !!}<BR>{!! $val->updated_at !!}
+                {!! $val->message !!} -  {!! $val->updated_at !!}
             @endforeach
             </div>
             @endif
