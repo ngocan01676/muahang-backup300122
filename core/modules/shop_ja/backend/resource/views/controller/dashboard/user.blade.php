@@ -84,20 +84,34 @@
                     <!-- /.col -->
                 </div>
                 <div class="row">
-                    @foreach($analytics['category'] as $category=>$count)
-                        <div class="col-lg-4 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-aqua">
-                                <div class="inner">
-                                    <h3>{!! $count !!}</h3>
+                    @foreach($analytics['category'] as $category=>$values)
 
-                                    <p>{!! $category !!}</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-bag"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <div class="col-lg-4 col-xs-6">
+                            <div class="info-box bg-green">
+                                <span class="info-box-icon"><i class="ion ion-ios-cart-outline"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">{!! $category !!}</span>
+                                    <span class="info-box-number"> {!! number_format($values['price']) !!} ¥</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 100%"></div>
+                                    </div>
+                                    <span class="progress-description">
+                                   {!! $values['count'] !!} đơn
+                                  </span>
+                                 </div>
                             </div>
+                            {{--<!-- small box -->--}}
+                            {{--<div class="small-box bg-aqua">--}}
+                                {{--<div class="inner">--}}
+                                    {{--<h3>{!! $values['count'] !!}</h3>--}}
+
+                                    {{--<p>{!! $category !!}</p>--}}
+                                {{--</div>--}}
+                                {{--<div class="icon">--}}
+                                    {{--<i class="ion ion-bag"></i>--}}
+                                {{--</div>--}}
+                                {{--<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>--}}
+                            {{--</div>--}}
                         </div>
 
                     @endforeach

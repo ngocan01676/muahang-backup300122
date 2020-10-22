@@ -38,7 +38,20 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                 $query->where('updated_at','>=',$date_start." 00:00:00");
                 $query->where('updated_at','<=',$date_end." 23:59:59");
             }
-            $this->data['analytics']['category'][$category['name']] = $query->count();
+
+            $this->data['analytics']['category'][$category['name']] = [];
+
+            $this->data['analytics']['category'][$category['name']]['count'] = $query->count();
+
+            $price = DB::table('shop_order_excel')
+                ->where('fullname','!=','')
+                ->where('updated_at','>=',$date_start." 00:00:00")
+                ->where('updated_at','<=',$date_end." 23:59:59");
+
+            if(!is_null($user_id)){
+                $price->where('admin_id',$user_id);
+            }
+            $this->data['analytics']['category'][$category['name']]['price'] =  $price->sum('order_price');
         }
 
         $this->data['analytics']['total'] = DB::table('shop_order_excel')
@@ -99,15 +112,15 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         $this->data['analytics']['today'] =  $this->data['analytics']['today']->count();
 
         $this->data['analytics']['price'] = DB::table('shop_order_excel')
-
             ->where('fullname','!=','')
             ->where('updated_at','>=',$date_start." 00:00:00")
-            ->where('updated_at','<=',$date_end." 23:59:59")
-           ;
+            ->where('updated_at','<=',$date_end." 23:59:59");
+
         if(!is_null($user_id)){
             $this->data['analytics']['price']->where('admin_id',$user_id);
         }
         $this->data['analytics']['price'] =  $this->data['analytics']['price']->sum('order_price');
+
         return $this->render('dashboard.user',[]);
     }
 }

@@ -290,6 +290,7 @@
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
                             'name' => ['label' => z_language('Tên', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha'],
                             'username' => ['label' => z_language('Tài khoản', false), 'type' => 'text', 'primary' => true, 'order_by' => 'amount'],
+                            'GetGroupRole' => ['label' => z_language('Nhóm', false), 'type' => 'number','callback' => "GetGroupRole"],
                             'avatar' => ['label' => z_language('Ảnh', false), 'type' => 'image'],
                             'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status', 'order_by' => 'amount'],
                             'created_at' => ['label' => z_language('Ngày tạo', false), 'type' => 'date'],

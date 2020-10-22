@@ -115,10 +115,13 @@ return [
             "order"=>1,
             "items" => [
                 "1"=>[
-                    "name" => z_language("Tài khoản CTV", false),
+                    "name" => z_language("Tài khoản", false),
                     "url" => "backend:shop_ja:user:list",
                 ],
-                "2"=>false,
+                "2"=>[
+                    "name" => z_language("Tài khoản CTV", false),
+                    "url" => "backend:shop_ja:user_cvt:ctv",
+                ],
                 "3"=>[
                     "name" => z_language("Quyền", false),
                     "url" => "backend:user:role:list",

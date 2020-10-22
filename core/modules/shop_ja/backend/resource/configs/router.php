@@ -319,6 +319,18 @@ return [
                     ],
                 ]
             ],
+            'shop_ja:user_cvt' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "UserController",
+                "sub_prefix" => "/shop-ja/user-ctv",
+                "guard" => "backend",
+                "acl"=> "user",
+                "router" => [
+                    "ctv" => [
+                        "url" => "/",
+                    ],
+                ]
+            ],
             'dashboard' => [
                 "namespace" => "ShopJa\Http\Controllers",
                 "controller" => "DashboardController",
