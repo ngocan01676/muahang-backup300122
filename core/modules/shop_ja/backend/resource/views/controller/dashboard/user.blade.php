@@ -6,10 +6,13 @@
                 <label>Thời gian:</label>
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
+                        <button type="button" class="btn daterange pull-left" data-toggle="tooltip"
+                                title="Date range">
+                            <i class="fa fa-calendar"></i></button>
                     </div>
                     <input type="text" class="form-control pull-right" id="reservation">
                 </div>
+
                 <!-- /.input group -->
             </div>
             <div class="result-analytics">
@@ -128,6 +131,32 @@
     <script src="{{ asset('module/admin/assets/moment.min.js') }}"></script>
     <script src="{{ asset('module/admin/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script>
+        $('.daterange').daterangepicker({
+            ranges   : {
+                '{!! z_language('Hôm nay') !!}'       : [moment(), moment()],
+                '{!! z_language('Một năm') !!}'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                '7 ngày qua' : [moment().subtract(6, 'days'), moment()],
+                '30 ngày qua': [moment().subtract(29, 'days'), moment()],
+                'Tháng này'  : [moment().startOf('month'), moment().endOf('month')],
+                'Tháng trước'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            startDate: moment().subtract(29, 'days'),
+            endDate  : moment()
+        }, function (start, end) {
+           // window.alert('You chose: ' + start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            $.ajax({
+                type: "GET",
+                data: {
+                    date_start:start.format('YYYY-MM-DD'),
+                    date_end:end.format('YYYY-MM-DD'),
+                },
+                success: function (data) {
+                    let content = $(data.views.content);
+                    let result_analytics = content.find('.result-analytics');
+                    $(".result-analytics").html(result_analytics.html());
+                },
+            });
+        });
         $('#reservation').daterangepicker({
             //singleDatePicker: true,
             //showDropdowns: true
