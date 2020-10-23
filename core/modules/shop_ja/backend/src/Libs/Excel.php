@@ -822,7 +822,7 @@ class Excel{
             ["紹介料",'order_price',15,9],//R
             ["追跡番号",'order_tracking',15,9],//S
             ["振込み情報",'order_info',25,9],//T
-            ["",'order_link',25,9],//U
+//            ["",'order_link',25,9],//U
         ];
         $start=3;
         $nameColList  = [];
