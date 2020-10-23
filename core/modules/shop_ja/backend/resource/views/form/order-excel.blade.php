@@ -224,7 +224,7 @@
         // };
 
         let config = {
-            minDimensions:[35,15],
+            minDimensions:[35,43],
             tableWidth: '100%',
             tableHeight: '100%',
             defaultColWidth: 100,
@@ -1778,7 +1778,7 @@
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
-                minDimensions:[30,1],
+                minDimensions:[35,1],
                 columns:Object.values(columns),
                 data:_data,
                 nestedHeaders:[
@@ -4352,7 +4352,7 @@
             y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
 
         config.tableHeight = (y*0.57)+"px";
-       
+
         let sheets = [
             Object.assign(YAMADA("AMAZON",config),config ),
             Object.assign(FUKUI(config),config),
