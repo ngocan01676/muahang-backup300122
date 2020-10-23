@@ -201,6 +201,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
                                     "one_address"=>isset($columns["one_address"])?$values[$columns["one_address"]]:"0",
                                 ];
+                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                 $validator = Validator::make($_data,$check);
                                 if (!$validator->fails()) {
                                     $logs[$name][] = $_data;
@@ -269,6 +270,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "updated_at"=>$date_time,
                                         "one_address"=>isset($columns["one_address"])?$values[$columns["one_address"]]:"0",
                                     ];
+                                    $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                     $logs[$name][] = $_data;
                                     DB::table('shop_order_excel')->where('id',$values[$columns["id"]])->update($_data);
                                 }
@@ -381,6 +383,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
                                         "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
                                     ];
+                                    $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                     $validator = Validator::make($_data,$check);
                                     if (!$validator->fails()) {
                                         $logs[$name][] = $_data;
@@ -482,6 +485,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "updated_at"=>$date_time,
                                     "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
                                 ];
+                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                 $validator = Validator::make($_data,$check);
 
                                 if (!$validator->fails()) {
