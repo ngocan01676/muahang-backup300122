@@ -976,7 +976,7 @@
                             }
                         }
                     }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
-                        c === columns.order_ship.index || c === columns.order_ship_cou.index){
+                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{
@@ -2196,7 +2196,7 @@
                             }
                         }
                     }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
-                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.product_id.index){
+                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.product_id.index || c === columns.one_address.index){
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
                             let index = indexFist(instance.jexcel,r);
@@ -3086,7 +3086,7 @@
                             }
                       //  }
                     }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
-                        c === columns.order_ship.index || c === columns.order_ship_cou.index){
+                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
                             update(instance, cell, c, r,{
 
@@ -3697,7 +3697,7 @@
                             }
                         }
                     }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
-                        c === columns.order_ship.index || c === columns.order_ship_cou.index){
+                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{

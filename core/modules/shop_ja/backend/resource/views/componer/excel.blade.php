@@ -583,6 +583,11 @@
 
                 if(total_price_buy ===0 || total_price == 0){ return;}
 
+                let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+                if(one_address){
+                    payMethod = 2;
+                }
+
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                 if(payMethod == 3){
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
@@ -904,7 +909,7 @@
                         }
                     }
                 }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
-                    c === columns.order_ship.index || c === columns.order_ship_cou.index){
+                    c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                     if(change.col == c){
                         update(instance, cell, c, r,{
 
@@ -2119,7 +2124,7 @@
                         }
                     }
                 }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
-                    c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.product_id.index){
+                    c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.product_id.index || c === columns.one_address.index){
                     if(change.col == c){
                         change.col =  {col:-1,row:-1};
                         let index = indexFist(instance.jexcel,r);
@@ -2610,7 +2615,10 @@
                 let $ship = categorys[$category_id]?( categorys[$category_id].data.hasOwnProperty('ship'))?categorys[$category_id].data.ship:"-1":"-1";
 
                 let $ship_cou = -1;
-
+                let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+                if(one_address){
+                    payMethod = 2;
+                }
                 if( payMethod == 2 || payMethod == 3 ){
                     $ship_cou = 0;
                 }else{
@@ -3003,7 +3011,7 @@
                     }
                     //  }
                 }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
-                    c === columns.order_ship.index || c === columns.order_ship_cou.index){
+                    c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                     if(change.col == c){
                         update(instance, cell, c, r,{
 
@@ -3291,7 +3299,10 @@
                 total_price_buy = total_price_buy+price_ship;
 
                 if(total_price_buy ===0 || total_price == 0){ return;}
-
+                let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+                if(one_address){
+                    payMethod = 2;
+                }
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                 if(payMethod == 3){
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
@@ -3610,7 +3621,7 @@
                         }
                     }
                 }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
-                    c === columns.order_ship.index || c === columns.order_ship_cou.index){
+                    c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                     if(change.col == c){
                         update(instance, cell, c, r,{
 
@@ -3902,6 +3913,12 @@
                 total_price_buy = total_price_buy + price_ship;
 
                 if(total_price_buy ===0 || total_price == 0){ return;}
+
+                let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+                if(one_address){
+                    payMethod = 2;
+                }
+
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
 
                 if(payMethod == 3){
@@ -4216,7 +4233,7 @@
                         }
                     }
                 }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
-                    c === columns.order_ship.index || c === columns.order_ship_cou.index){
+                    c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                     if(change.col == c){
                         update(instance, cell, c, r,{
 

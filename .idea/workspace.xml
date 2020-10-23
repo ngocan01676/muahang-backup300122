@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,24 +49,23 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="3909" column="9" lean-forward="true" selection-start-line="3909" selection-start-column="9" selection-end-line="3923" />
+            <state relative-caret-position="281">
+              <caret line="978" column="92" selection-start-line="978" selection-start-column="58" selection-end-line="978" selection-end-column="92" />
               <folding>
-                <element signature="e#16887#43464#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#43492#106310#0#HTML" />
                 <element signature="e#61662#66965#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#106469#144820#0#HTML" />
                 <element signature="e#107286#112016#0#HTML" />
                 <element signature="e#112043#118298#0#HTML" />
+                <element signature="e#118972#130350#0#HTML" />
+                <element signature="e#130531#131778#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#144845#171414#0#HTML" />
                 <element signature="e#145611#151868#0#HTML" />
-                <element signature="e#152439#158016#0#HTML" />
                 <element signature="e#158261#159509#0#HTML" />
                 <element signature="e#160137#165195#0#HTML" />
                 <element signature="e#165269#166960#0#HTML" />
+                <element signature="e#167036#168987#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#178760#184659#0#HTML" />
                 <element signature="e#186780#191839#0#HTML" />
@@ -101,35 +101,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="3833" lean-forward="true" selection-start-line="3833" selection-end-line="3833" />
+            <state relative-caret-position="272">
+              <caret line="3623" column="124" selection-start-line="3623" selection-start-column="124" selection-end-line="3623" selection-end-column="124" />
               <folding>
-                <element signature="e#10007#12511#0#HTML" />
-                <element signature="e#12539#36252#0#HTML" />
-                <element signature="e#18523#18911#0#HTML" />
-                <element signature="e#18965#24004#0#HTML" />
-                <element signature="e#24229#25352#0#HTML" />
-                <element signature="e#25904#30563#0#HTML" />
-                <element signature="e#30633#32208#0#HTML" />
+                <element signature="e#12679#37172#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#36276#94271#0#HTML" />
-                <element signature="e#36773#36819#0#HTML" />
-                <element signature="e#36954#42604#0#HTML" />
-                <element signature="e#57338#66175#0#HTML" />
-                <element signature="e#66490#67613#0#HTML" />
-                <element signature="e#68199#81962#0#HTML" />
-                <element signature="e#82032#83676#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#94406#128890#0#HTML" />
-                <element signature="e#95136#99441#0#HTML" />
-                <element signature="e#99464#104767#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#128911#152555#0#HTML" />
-                <element signature="e#129594#134833#0#HTML" />
-                <element signature="e#135348#140384#0#HTML" />
-                <element signature="e#140609#141733#0#HTML" />
-                <element signature="e#142285#146943#0#HTML" />
-                <element signature="e#147013#148588#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
               </folding>
@@ -141,11 +119,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>filter_search_form</find>
-      <find>Config Ship</find>
-      <find>sim</find>
-      <find>spreadsheet</find>
-      <find>jexcel_tab_link</find>
       <find>bootstrap-datepicker</find>
       <find>ctrl</find>
       <find>allowExport</find>
@@ -169,8 +142,13 @@
       <find>setValue</find>
       <find>searchAll</find>
       <find>searc</find>
-      <find>timeCreate</find>
       <find>has_error</find>
+      <find>timeCreate</find>
+      <find>c === columns.one_address.index</find>
+      <find>$_val  = datadaibiki[i];</find>
+      <find>one_address</find>
+      <find>|| c === columns.</find>
+      <find>c === columns.order_ship_cou.index</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -811,12 +789,12 @@
       <workItem from="1603160116081" duration="1634000" />
       <workItem from="1603247608762" duration="10283000" />
       <workItem from="1603331863546" duration="5777000" />
-      <workItem from="1603420036838" duration="12649000" />
+      <workItem from="1603420036838" duration="13347000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="410407000" />
+    <option name="totallyTimeSpent" value="411105000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1198,24 +1176,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="3909" column="9" lean-forward="true" selection-start-line="3909" selection-start-column="9" selection-end-line="3923" />
+        <state relative-caret-position="281">
+          <caret line="978" column="92" selection-start-line="978" selection-start-column="58" selection-end-line="978" selection-end-column="92" />
           <folding>
-            <element signature="e#16887#43464#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#43492#106310#0#HTML" />
             <element signature="e#61662#66965#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#106469#144820#0#HTML" />
             <element signature="e#107286#112016#0#HTML" />
             <element signature="e#112043#118298#0#HTML" />
+            <element signature="e#118972#130350#0#HTML" />
+            <element signature="e#130531#131778#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#144845#171414#0#HTML" />
             <element signature="e#145611#151868#0#HTML" />
-            <element signature="e#152439#158016#0#HTML" />
             <element signature="e#158261#159509#0#HTML" />
             <element signature="e#160137#165195#0#HTML" />
             <element signature="e#165269#166960#0#HTML" />
+            <element signature="e#167036#168987#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#178760#184659#0#HTML" />
             <element signature="e#186780#191839#0#HTML" />
@@ -1227,35 +1204,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="3833" lean-forward="true" selection-start-line="3833" selection-end-line="3833" />
+        <state relative-caret-position="272">
+          <caret line="3623" column="124" selection-start-line="3623" selection-start-column="124" selection-end-line="3623" selection-end-column="124" />
           <folding>
-            <element signature="e#10007#12511#0#HTML" />
-            <element signature="e#12539#36252#0#HTML" />
-            <element signature="e#18523#18911#0#HTML" />
-            <element signature="e#18965#24004#0#HTML" />
-            <element signature="e#24229#25352#0#HTML" />
-            <element signature="e#25904#30563#0#HTML" />
-            <element signature="e#30633#32208#0#HTML" />
+            <element signature="e#12679#37172#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#36276#94271#0#HTML" />
-            <element signature="e#36773#36819#0#HTML" />
-            <element signature="e#36954#42604#0#HTML" />
-            <element signature="e#57338#66175#0#HTML" />
-            <element signature="e#66490#67613#0#HTML" />
-            <element signature="e#68199#81962#0#HTML" />
-            <element signature="e#82032#83676#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#94406#128890#0#HTML" />
-            <element signature="e#95136#99441#0#HTML" />
-            <element signature="e#99464#104767#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#128911#152555#0#HTML" />
-            <element signature="e#129594#134833#0#HTML" />
-            <element signature="e#135348#140384#0#HTML" />
-            <element signature="e#140609#141733#0#HTML" />
-            <element signature="e#142285#146943#0#HTML" />
-            <element signature="e#147013#148588#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
           </folding>
