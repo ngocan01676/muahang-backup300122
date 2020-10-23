@@ -19,11 +19,11 @@ class OrderExcelModel extends Model
             ->where('status',1)
             ->where('created_at','>=',$date." 00:00:00")
             ->where('created_at','<=',$date." 23:59:59")
-            ->orderBy('pay_method','asc')
+
             ->get()->all();
         $datas = [];
         foreach ($lists as $key=>$value){
-           $shop_order_excel =  DB::table('shop_order_excel')->where('session_id',$value->id)->get()->all();
+           $shop_order_excel =  DB::table('shop_order_excel')->where('session_id',$value->id)->orderBy('pay_method','asc')->get()->all();
            foreach ($shop_order_excel as $_key=>$_value){
                $datas[] = $_value;
            }
