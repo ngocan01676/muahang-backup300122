@@ -496,10 +496,19 @@
                 width:'100px',
                 key:"demo",
             },
+            one_address: {
+                type: 'checkbox',
+                title:'Cùng địa chỉ'
+            },
             id:{
                 title: 'ID',//T
                 type: 'text',
                 width:'100px',
+            },
+            session_id:{
+                title: 'SessionId',//T
+                type: 'text',
+                width:'1px',
             },
         };
 
@@ -1119,6 +1128,10 @@
                 width:'100px',
                 key:"demo",
             },
+            one_address: {
+                type: 'checkbox',
+                title:'Cùng địa chỉ'
+            },
             id:{
                 title: 'ID',//T
                 type: 'text',
@@ -1129,6 +1142,12 @@
                 type: 'text',
                 width:'100px',
             },
+            session_id:{
+                title: 'SessionId',//T
+                type: 'text',
+                width:'1px',
+            },
+
         };
 
 
@@ -2440,10 +2459,19 @@
                 width:'100px',
                 key:"demo",
             },
+            one_address: {
+                type: 'checkbox',
+                title:'Cùng địa chỉ'
+            },
             id:{
                 title: 'ID',//T
                 type: 'text',
                 width:'100px',
+            },
+            session_id:{
+                title: 'SessionId',//T
+                type: 'text',
+                width:'1px',
             },
         };
         columns.count.editor = customColumn;
@@ -3180,10 +3208,19 @@
                 width:'100px',
                 key:"demo",
             },
+            one_address: {
+                type: 'checkbox',
+                title:'Cùng địa chỉ'
+            },
             id:{
                 title: 'ID',//T
                 type: 'text',
                 width:'100px',
+            },
+            session_id:{
+                title: 'SessionId',//T
+                type: 'text',
+                width:'1px',
             },
         };
 
@@ -3780,11 +3817,21 @@
                 width:'100px',
                 key:"demo",
             },
+            one_address: {
+                type: 'checkbox',
+                title:'Cùng địa chỉ'
+            },
             id:{
                 title: 'ID',//T
                 type: 'text',
                 width:'100px',
             },
+            session_id:{
+                title: 'SessionId',//T
+                type: 'text',
+                width:'1px',
+            },
+
         };
 
         columnsAll[sheetName] = columns;
