@@ -4320,6 +4320,7 @@
         $(document).ready(function () {
 
             let changeDate = 0;
+            let changeDate1 = 0;
             $datepicker = $('#datepicker').datepicker({
                 autoclose: true,
             }).on('changeDate', function (ev) {
@@ -4344,6 +4345,23 @@
                 autoclose: true,
                 onSelect: function(dateText) {
                     console.log("Selected date: " + dateText + "; input's current value: " + this.value);
+                }
+            }).on('changeDate', function (ev) {
+
+                if(changeDate1 == 0){
+                    changeDate1++;
+                    return ;
+                }
+                
+                let date = $(ev.target).val();
+                let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+                let data = spreadsheet.jexcel[worksheet].options.data;
+                let name = _spreadsheet.textContent;
+                date = moment(date).format('YYYY-M-D');
+                for(let i in data){
+                    let k = jexcel.getColumnNameFromId([columnsAll[name].order_date.index, parseInt(i) ]);
+                    spreadsheet.jexcel[worksheet].setValue(k,date);
                 }
             });
 
