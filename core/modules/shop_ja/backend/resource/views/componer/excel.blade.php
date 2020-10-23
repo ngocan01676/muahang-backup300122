@@ -254,7 +254,7 @@
         let _data = [];
         let n = data.length;
 
-        for(let i=0; i < config.minDimensions[1] ; i++){
+        for(let i=0; i < n ; i++){
             if(i < n)
                 _data[i] = data[i];
             else{

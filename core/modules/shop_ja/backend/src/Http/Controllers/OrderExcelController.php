@@ -1233,6 +1233,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $date = date('Y-m-d',strtotime($date." 00:00:00"));
             $datas = $model->ShowAll(Auth::user()->id,$date);
             $model->detail = $this->GetData($datas,true);
+
             return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company]);
         }
     }
