@@ -8,6 +8,8 @@
 <script>
     let stringDate = '{!! date('Y-m-d') !!}';
     let  date = moment(stringDate);
+    let spreadsheet =  null;
+    let worksheets = null;
 </script>
 <style>
     .jexcel tbody tr:nth-child(even) {
@@ -4166,8 +4168,8 @@
         sheets.push( Object.assign(YAMADA("YAMADA",config),config ));
     }
 
-    let spreadsheet =  document.getElementById('spreadsheet');
-    let worksheets = jexcel.tabs(spreadsheet, sheets);
+     spreadsheet =  document.getElementById('spreadsheet');
+     worksheets = jexcel.tabs(spreadsheet, sheets);
 
     setInterval(function () {
         //   Save(true);

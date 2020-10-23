@@ -4328,16 +4328,19 @@
                     changeDate++;
                     return ;
                 }
-                let date = $(ev.target).val();
-                let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
-                let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
-                let data = spreadsheet.jexcel[worksheet].options.data;
-                let name = _spreadsheet.textContent;
-                date = moment(date).format('YYYY-M-D');
-                for(let i in data){
-                    let k = jexcel.getColumnNameFromId([columnsAll[name].timeCreate.index, parseInt(i) ]);
-                    spreadsheet.jexcel[worksheet].setValue(k,date);
-                }
+                setTimeout(function () {
+
+                    let date = $(ev.target).val();
+                    let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                    let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+                    let data = spreadsheet.jexcel[worksheet].options.data;
+                    let name = _spreadsheet.textContent;
+                    date = moment(date).format('YYYY-M-D');
+                    for(let i in data){
+                        let k = jexcel.getColumnNameFromId([columnsAll[name].timeCreate.index, parseInt(i) ]);
+                        spreadsheet.jexcel[worksheet].setValue(k,date);
+                    }
+                },500);
             });
 
             $datepicker.datepicker('setDate', new Date(date.format()));
@@ -4352,17 +4355,19 @@
                     changeDate1++;
                     return ;
                 }
-                
-                let date = $(ev.target).val();
-                let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
-                let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
-                let data = spreadsheet.jexcel[worksheet].options.data;
-                let name = _spreadsheet.textContent;
-                date = moment(date).format('YYYY-M-D');
-                for(let i in data){
-                    let k = jexcel.getColumnNameFromId([columnsAll[name].order_date.index, parseInt(i) ]);
-                    spreadsheet.jexcel[worksheet].setValue(k,date);
-                }
+
+                setTimeout(function () {
+                    let date = $(ev.target).val();
+                    let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                    let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+                    let data = spreadsheet.jexcel[worksheet].options.data;
+                    let name = _spreadsheet.textContent;
+                    date = moment(date).format('YYYY-M-D');
+                    for(let i in data){
+                        let k = jexcel.getColumnNameFromId([columnsAll[name].order_date.index, parseInt(i) ]);
+                        spreadsheet.jexcel[worksheet].setValue(k,date);
+                    }
+                },500);
             });
 
             $datepicker1.datepicker('setDate', new Date(date.format()));
