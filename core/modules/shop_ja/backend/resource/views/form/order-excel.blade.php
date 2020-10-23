@@ -75,6 +75,13 @@
 
 
     <style>
+        .bg-error{
+            background: red !important;
+        }
+        .has_error td:first-child {
+            background: red !important;
+            color: #ffffff;
+        }
         .jexcel tbody tr:nth-child(even) {
             background-color: #EEE9F1 !important;
         }
@@ -937,6 +944,15 @@
                         parent.removeClass('pay-method-oke');
                         if(vvv === 2){
                             parent.addClass('pay-method-oke');
+                        }
+                        parent.removeClass('has_error');
+                        if(vvv === 2){
+                            let img = value[columns.image.index];
+                            let order_info = value[columns.order_info.index];
+                            let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                            if(img.length === 0 || order_info.length === 0){
+                                self.addClass('has_error');
+                            }
                         }
                     }
                 },
@@ -2059,9 +2075,18 @@
                         let vvv = getValuePayMethod(value[columns.payMethod.index]);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
-
                         if(vvv === 2){
                             parent.addClass('pay-method-oke');
+
+                        }
+                        parent.removeClass('has_error');
+                        if(vvv === 2){
+                            let img = value[columns.image.index];
+                            let order_info = value[columns.order_info.index];
+                            let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                            if(img.length === 0 || order_info.length === 0){
+                                self.addClass('has_error');
+                            }
                         }
                         let type = value[columns.type.index];
 
@@ -3024,7 +3049,15 @@
                         if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
-
+                        parent.removeClass('has_error');
+                        if(vvv === 2){
+                            let img = value[columns.image.index];
+                            let order_info = value[columns.order_info.index];
+                            let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                            if(img.length === 0 || order_info.length === 0){
+                                self.addClass('has_error');
+                            }
+                        }
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
@@ -3633,6 +3666,15 @@
                         if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
+                        parent.removeClass('has_error');
+                        if(vvv === 2){
+                            let img = value[columns.image.index];
+                            let order_info = value[columns.order_info.index];
+                            let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                            if(img.length === 0 || order_info.length === 0){
+                                self.addClass('has_error');
+                            }
+                        }
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
@@ -3949,12 +3991,11 @@
 
                         if(total_price_buy ===0 || total_price == 0){ return;}
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
-                        let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
 
+                        let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
                         if(one_address){
                             payMethod = 2;
                         }
-
                         if(payMethod == 3){
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]), 0);
@@ -3962,7 +4003,11 @@
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]), 0);
                         }else if(payMethod == 2){
                             let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship));
-                            
+
+
+
+
+
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
                         }else{
@@ -4235,10 +4280,21 @@
                        if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
                         else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
                         let vvv = getValuePayMethod(value[columns.payMethod.index]);
+
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
                         if(vvv === 2){
                             parent.addClass('pay-method-oke');
+                        }
+
+                        parent.removeClass('has_error');
+                        if(vvv === 2){
+                            let img = value[columns.image.index];
+                            let order_info = value[columns.order_info.index];
+                            let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                            if(img.length === 0 || order_info.length === 0){
+                                self.addClass('has_error');
+                            }
                         }
                     }
                 },

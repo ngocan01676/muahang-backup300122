@@ -12,6 +12,10 @@
     let worksheets = null;
 </script>
 <style>
+  .has_error td:first-child {
+   background: red !important;
+   color: #ffffff;
+  }
     .jexcel tbody tr:nth-child(even) {
         background-color: #EEE9F1 !important;
     }
@@ -860,6 +864,15 @@
                     parent.removeClass('pay-method-oke');
                     if(vvv === 2){
                         parent.addClass('pay-method-oke');
+                    }
+                    parent.removeClass('has_error');
+                    if(vvv === 2){
+                        let img = value[columns.image.index];
+                        let order_info = value[columns.order_info.index];
+                        let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                        if(img.length === 0 || order_info.length === 0){
+                            self.addClass('has_error');
+                        }
                     }
                 }
             },
@@ -1967,6 +1980,15 @@
                     if(vvv === 2){
                         parent.addClass('pay-method-oke');
                     }
+                    parent.removeClass('has_error');
+                    if(vvv === 2){
+                        let img = value[columns.image.index];
+                        let order_info = value[columns.order_info.index];
+                        let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                        if(img.length === 0 || order_info.length === 0){
+                            self.addClass('has_error');
+                        }
+                    }
                     let type = value[columns.type.index];
 
                     let parentType = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.type.index, row]))).parent();
@@ -2916,7 +2938,15 @@
                     if(vvv === 2){
                         parent.addClass('pay-method-oke');
                     }
-
+                    parent.removeClass('has_error');
+                    if(vvv === 2){
+                        let img = value[columns.image.index];
+                        let order_info = value[columns.order_info.index];
+                        let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                        if(img.length === 0 || order_info.length === 0){
+                            self.addClass('has_error');
+                        }
+                    }
                 }
             },
             onchange:function(instance, cell, c, r, value) {
@@ -3512,6 +3542,15 @@
                     if(vvv === 2){
                         parent.addClass('pay-method-oke');
                     }
+                    parent.removeClass('has_error');
+                    if(vvv === 2){
+                        let img = value[columns.image.index];
+                        let order_info = value[columns.order_info.index];
+                        let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                        if(img.length === 0 || order_info.length === 0){
+                            self.addClass('has_error');
+                        }
+                    }
                 }
             },
             onchange:function(instance, cell, c, r, value) {
@@ -4103,6 +4142,15 @@
                     if(vvv === 2){
                         parent.addClass('pay-method-oke');
                     }
+                    parent.removeClass('has_error');
+                    if(vvv === 2){
+                        let img = value[columns.image.index];
+                        let order_info = value[columns.order_info.index];
+                        let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                        if(img.length === 0 || order_info.length === 0){
+                            self.addClass('has_error');
+                        }
+                    }
                 }
             },
             onchange:function(instance, cell, c, r, value) {
@@ -4140,6 +4188,7 @@
                         parent.addClass('pay-method-oke');
 
                     }
+
                     if(change.col == c){
                         update(instance, cell, c, r,{});
                     }
@@ -4154,6 +4203,9 @@
 
     if(dataproduct.hasOwnProperty("AMAZON")){
         sheets.push(Object.assign(YAMADA("AMAZON",config),config ));
+    }
+    if(dataproduct.hasOwnProperty("FUKUI")){
+        sheets.push(Object.assign(FUKUI(config),Object.assign(config,{})));
     }
     if(dataproduct.hasOwnProperty("KOGYJA")){
         sheets.push(Object.assign(KOGYJA(config),Object.assign(config,{})));
