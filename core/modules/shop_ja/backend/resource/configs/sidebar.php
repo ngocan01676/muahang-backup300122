@@ -3,7 +3,7 @@ return [
     "sidebars" => [
         "user"=>false,
         "log" => [
-            "name" => z_language("Log", false),
+            "name" => z_language("Nhật ký", false),
             "pos" => 1,
             "url" => "backend:log:list",
             "icon" => "fa fa-file-text"
