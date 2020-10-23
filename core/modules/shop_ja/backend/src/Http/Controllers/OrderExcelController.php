@@ -711,6 +711,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
         $fullname = $request->get('fullname','');
         $address = $request->get('address','');
+        $zipcode = $request->get('zipcode','');
         $cate_id = $request->get('cate','');
         $this->data['category_com'] = config_get("category", "shop-ja:product:category");
         $company = "";
@@ -733,12 +734,15 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             'fullname'=>$fullname,
             'address'=>$address,
             'company'=>$company,
+            'zipcode'=>$zipcode,
         ]);
         $model->detail = $this->GetData($datas,true);
+
         return $this->render('order-excel.search',[
             'fullname'=>$fullname,
             'address'=>$address,
             'cate'=>$cate_id,
+            'zipcode'=>$zipcode,
             'model'=>$model
         ]);
     }

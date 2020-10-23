@@ -16,6 +16,10 @@
                         <input name="address" type="text" class="form-control" id="address" placeholder="Địa chỉ" value="{!! isset($address)?$address:"" !!}">
                     </div>
                     <div class="form-group">
+                        <label for="zipcode">Địa chỉ</label>
+                        <input name="zipcode" type="text" class="form-control" id="zipcode" placeholder="Mã bưu điện" value="{!! isset($zipcode)?$zipcode:"" !!}">
+                    </div>
+                    <div class="form-group">
                         <label for="address">Công ty</label>
                         {!! Form::CategoriesNestableOne($category_com,[$cate=>""],"cate","",["auto-action"=>1]) !!}
                     </div>
@@ -27,7 +31,7 @@
         </div>
     </div>
 </div>
-@if(isset($address) && !empty($address) || isset($fullname) && !empty($fullname))
+@if(isset($address) && !empty($address) || isset($fullname) && !empty($fullname) || isset($zipcode) && !empty($zipcode))
 @if(isset($model))
     {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
     {!! Form::hidden('id') !!}
@@ -49,7 +53,7 @@
 @endif
 {!! Form::close() !!}
 @section('extra-script')
-    @if(isset($address) && !empty($address) || isset($fullname) && !empty($fullname))
+    @if(isset($address) && !empty($address) || isset($fullname) && !empty($fullname) || isset($zipcode) && !empty($zipcode))
     @include('shop_ja::componer.excel', array())
     @endif
     <script>

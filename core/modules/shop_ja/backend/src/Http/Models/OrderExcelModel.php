@@ -35,7 +35,7 @@ class OrderExcelModel extends Model
     }
     public function searchAll($user_id,$par = []){
 
-        $shop_order_excel =  DB::table('shop_order_excel')->where('admin_id',$user_id);
+        $shop_order_excel =  DB::table('shop_order_excel');
         if(!empty($par['company'])){
             $shop_order_excel->where('company',$par['company']);
         }
@@ -45,8 +45,14 @@ class OrderExcelModel extends Model
         if(!empty($par['address'])){
             $shop_order_excel->where('address', 'like', '%'.$par['address'].'%');
         }
+        if(!empty($par['zipcode'])){
+            $shop_order_excel->where('zipcode', '=', $par['zipcode']);
+        }
+
         $shop_order_excel  = $shop_order_excel->get()->all();
         $datas = [];
+
+
 
         foreach ($shop_order_excel as $_key=>$_value){
             $datas[] = $_value;
