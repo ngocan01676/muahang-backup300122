@@ -19,7 +19,6 @@ class OrderExcelModel extends Model
             ->where('status',1)
             ->where('created_at','>=',$date." 00:00:00")
             ->where('created_at','<=',$date." 23:59:59")
-
             ->get()->all();
         $datas = [];
         foreach ($lists as $key=>$value){

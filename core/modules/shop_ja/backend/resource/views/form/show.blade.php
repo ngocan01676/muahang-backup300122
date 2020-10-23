@@ -69,7 +69,6 @@
 
     <script>
         $(document).ready(function () {
-
             $datepicker = $('#datepicker').datepicker({
                 autoclose: true,
             });

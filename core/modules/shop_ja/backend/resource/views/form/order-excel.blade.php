@@ -72,38 +72,8 @@
         let stringDate = '{!! date('Y-m-d') !!}';
         let  date = moment(stringDate);
     </script>
-    <script>
-        $(document).ready(function () {
-            $datepicker = $('#datepicker').datepicker({
-                autoclose: true,
-            });
 
-            $datepicker.datepicker('setDate', new Date(date.format()));
-            $datepicker1 = $('#datepicker1').datepicker({
-                autoclose: true,
-            });
 
-            $datepicker1.datepicker('setDate', new Date(date.format()));
-            $("#view").click(function () {
-                let data = {
-                    dateview:$("#datepicker").val(),
-                    name:$("#company").val(),
-                    time:$("#timepicker").val(),
-                    action: $("input[name='action']:checked").val(),
-                    view:true
-                };
-                $.ajax({
-                    type: "POST",
-                    data: data,
-                    success: function (data) {
-                        if(data.hasOwnProperty('link')){
-                            window.location.replace(data.link);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
     <style>
         .jexcel tbody tr:nth-child(even) {
             background-color: #EEE9F1 !important;
@@ -4339,7 +4309,7 @@
         for(let i = 0 ; i < sheets.length ; i++){
             sheets[i].minDimensions = [sheets[i].minDimensions[0],parseInt(sheets[i].minDimensions[1] *(y/1000))];
         }
-        console.log(sheets);
+
         let spreadsheet =  document.getElementById('spreadsheet');
         let worksheets = jexcel.tabs(spreadsheet, sheets);
 
@@ -4348,6 +4318,54 @@
         },5000);
 
         $(document).ready(function () {
+
+            let changeDate = 0;
+            $datepicker = $('#datepicker').datepicker({
+                autoclose: true,
+            }).on('changeDate', function (ev) {
+                if(changeDate == 0){
+                    changeDate++;
+                    return ;
+                }
+                let date = $(ev.target).val();
+                let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+                let data = spreadsheet.jexcel[worksheet].options.data;
+                let name = _spreadsheet.textContent;
+                date = moment(date).format('YYYY-M-D');
+                for(let i in data){
+                    let k = jexcel.getColumnNameFromId([columnsAll[name].timeCreate.index, parseInt(i) ]);
+                    spreadsheet.jexcel[worksheet].setValue(k,date);
+                }
+            });
+
+            $datepicker.datepicker('setDate', new Date(date.format()));
+            $datepicker1 = $('#datepicker1').datepicker({
+                autoclose: true,
+                onSelect: function(dateText) {
+                    console.log("Selected date: " + dateText + "; input's current value: " + this.value);
+                }
+            });
+
+            $datepicker1.datepicker('setDate', new Date(date.format()));
+            $("#view").click(function () {
+                let data = {
+                    dateview:$("#datepicker").val(),
+                    name:$("#company").val(),
+                    time:$("#timepicker").val(),
+                    action: $("input[name='action']:checked").val(),
+                    view:true
+                };
+                $.ajax({
+                    type: "POST",
+                    data: data,
+                    success: function (data) {
+                        if(data.hasOwnProperty('link')){
+                            window.location.replace(data.link);
+                        }
+                    }
+                });
+            });
 
             let col_row_review = $("#col-row-review");
             $("#value-review").on("input", function(){
