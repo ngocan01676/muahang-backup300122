@@ -23,11 +23,14 @@ class OrderExcelModel extends Model
             ->get()->all();
         $datas = [];
         foreach ($lists as $key=>$value){
-           $shop_order_excel =  DB::table('shop_order_excel')->where('session_id',$value->id)->orderBy('pay_method','asc')->get()->all();
+           $shop_order_excel =  DB::table('shop_order_excel')->where('session_id',$value->id)->get()->all();
            foreach ($shop_order_excel as $_key=>$_value){
                $datas[] = $_value;
            }
         }
+        usort($datas, function ($a,$b){
+            return $a->pay_method - $b->pay_method;
+        });
         return $datas;
     }
     public function searchAll($user_id,$par = []){
