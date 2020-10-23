@@ -160,13 +160,12 @@
     let config = {
         minDimensions:[30,20],
         tableWidth: '100%',
-        tableHeight: '100%',
+        tableHeight: '500px',
         defaultColWidth: 100,
         tableOverflow: true,
         getTypeColumns:function(){
             return "none";
         },
-
     };
 
     let datacache = {!! json_encode($excels_data,JSON_UNESCAPED_UNICODE ) !!}
@@ -4264,6 +4263,14 @@
     var sheets = [
 
     ];
+    var win = window,
+        doc = document,
+        docElem = doc.documentElement,
+        body = doc.getElementsByTagName('body')[0],
+        x = win.innerWidth || docElem.clientWidth || body.clientWidth,
+        y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
+
+    config.tableHeight = (y*0.57)+"px";
 
     if(dataproduct.hasOwnProperty("AMAZON")){
         sheets.push(Object.assign(YAMADA("AMAZON",config),config ));

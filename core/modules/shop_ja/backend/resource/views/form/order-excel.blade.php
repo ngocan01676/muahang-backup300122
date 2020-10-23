@@ -4344,6 +4344,15 @@
             };
         }
 
+        var win = window,
+            doc = document,
+            docElem = doc.documentElement,
+            body = doc.getElementsByTagName('body')[0],
+            x = win.innerWidth || docElem.clientWidth || body.clientWidth,
+            y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
+
+        config.tableHeight = (y*0.57)+"px";
+       
         let sheets = [
             Object.assign(YAMADA("AMAZON",config),config ),
             Object.assign(FUKUI(config),config),
@@ -4353,12 +4362,7 @@
             Object.assign(YAMADA("YAMADA",config),config ),
         ];
 
-        var win = window,
-            doc = document,
-            docElem = doc.documentElement,
-            body = doc.getElementsByTagName('body')[0],
-            x = win.innerWidth || docElem.clientWidth || body.clientWidth,
-            y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
+
 
 
 
