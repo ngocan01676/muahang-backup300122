@@ -16,14 +16,23 @@ return [
             "icon"=>"fa fa-newspaper-o",
             "items" => [
                 "dashboard" =>false,
-                'log'=>false
+                'log'=>false,
+                'media'=>false,
             ]
          ],
+
         "dashboard" => [
             "name" => z_language("Thống kê", false),
             "pos" => 1,
             "url" => "backend:dashboard:list",
             "icon" => "fa fa-dashboard"
+        ],
+        "media" => [
+            "name" => z_language('Media', false),
+            "pos" => 2,
+            "url" => "backend:dashboard:media",
+            "header" => true,
+
         ],
         "backend:announce:list" => [
             "name" => "QL ".z_language("Thông báo"),
