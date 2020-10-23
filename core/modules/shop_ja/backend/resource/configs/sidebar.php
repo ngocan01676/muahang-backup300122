@@ -28,7 +28,7 @@ return [
             "icon" => "fa fa-dashboard"
         ],
         "media" => [
-            "name" => z_language('Media', false),
+            "name" => z_language('Tài nguyên', false),
             "pos" => 2,
             "url" => "backend:dashboard:media",
             "header" => true,
