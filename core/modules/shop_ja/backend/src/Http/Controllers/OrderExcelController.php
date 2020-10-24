@@ -14,6 +14,8 @@ use \PhpOffice\PhpSpreadsheet\Style\Border;
 use \PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Zoe\Config;
+
 class OrderExcelController extends \Zoe\Http\ControllerBackend
 {
 
@@ -200,7 +202,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "updated_at"=>$date_time,
                                     "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
                                     "one_address"=>isset($columns["one_address"])?$values[$columns["one_address"]]:"0",
-                                    "public"=>isset($columns["status"])?$values[$columns["status"]]:"0",
+                                    "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                 ];
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                 $validator = Validator::make($_data,$check);
@@ -270,7 +272,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                         "updated_at"=>$date_time,
                                         "one_address"=>isset($columns["one_address"])?$values[$columns["one_address"]]:"0",
-                                        "public"=>isset($columns["status"])?$values[$columns["status"]]:"0",
+                                        "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                     $logs[$name][] = $_data;
@@ -384,7 +386,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "updated_at"=>$date_time,
                                         "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
                                         "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
-                                        "public"=>isset($columns["status"])?$values[$columns["status"]]:"0",
+                                        "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                     $validator = Validator::make($_data,$check);
@@ -487,14 +489,14 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                     "updated_at"=>$date_time,
                                     "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
-                                    "public"=>isset($columns["status"])?$values[$columns["status"]]:"0",
+                                    "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                 ];
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                 $validator = Validator::make($_data,$check);
 
                                 if (!$validator->fails()) {
 
-                                    $_ = [$values,$_data];
+                                    $_ = [$values,$_data,$columns];
                                     if(isset($columns["id"]) && !empty($values[$columns["id"]])){
                                         $where = ['id'=>$values[$columns["id"]]];
                                     }else{
@@ -518,8 +520,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         ];
                                     }
                                     $_[] = $where;
-                                    $_[] = DB::table('shop_order_excel')->updateOrInsert($where,$_data);
+
                                     $logs[$name][] =$_;
+                                     DB::table('shop_order_excel')->updateOrInsert($where,$_data);
+
                                 }
                             }
                             DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
@@ -543,7 +547,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                     }
                     $this->log('shop_js:orderExcel',$type,['id' => $model->id]);
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
+                    return response()->json(['id'=>$model->id,'url1'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 }
                 else
                     return response()->json($datas);
@@ -756,6 +760,24 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function list(Request $request){
         $this->getcrumb();
+        foreach([0,1] as $day){
+            $key_date = date('Y-m-d',strtotime('+'.$day." day"));
+
+            DB::table("shop_order_excel_session")->updateOrInsert([
+                'admin_id'=>Auth::user()->id,
+                'key_date'=>$key_date
+            ],[
+                'admin_id'=>Auth::user()->id,
+                'key_date'=>$key_date,
+                'token'=>rand(1000,9999),
+                'date_time'=>$key_date." 00:00:00",
+                'created_at'=>$key_date." 00:00:00",
+                'updated_at'=>$key_date." 00:00:00",
+                'status'=>0,
+                'name'=>\Illuminate\Support\Str::random(50)
+            ]);
+        }
+
         $filter = $request->query('filter', []);
         $search = $request->query('search', "");
         $status = $request->query('status', "");
@@ -855,7 +877,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     return $rs && count($rs) > 0 ? $rs[0]->username : "Empty";
                 },
                 "GetName" => function ($model){
-                    return "Form_".$model->id;
+                    return "Form_".$model->key_date;
                 },
                 "GetStatus"=>function($model){
                     if($model->status == 0){
@@ -881,9 +903,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }else  if($data['name'] == "YAMADA" || $data['name'] == 'AMAZON'){
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->YAMADA($data,$data['name']);
+
             }else  if($data['name'] == "OHGA"){
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->OHGA($data);
+
             }else  if($data['name'] == "FUKUI"){
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->FUKUI($data);
@@ -891,6 +915,18 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->KURICHIKU($data);
             }
+            if(isset($output['ids'])){
+                DB::table("shop_order_excel_exports")->updateOrInsert([
+                    'date'=>date('Y-m-d',$excel->date),
+                    'company'=>$data['name']
+                ],[
+                    'date'=>date('Y-m-d',$excel->date),
+                    'company'=>$data['name'],
+                    'data'=>json_encode($output['ids']),
+                    'create_time'=>date('Y-m-d H:i:s')
+                ]);
+            }
+
         }
         return response()->json($output);
     }
@@ -923,7 +959,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
         return $this->render('order-excel.imports');
     }
-    private function GetCache($type,$id,$company = ""){
+    private function GetCache($type,$id,$company = "",$date = ""){
         $this->data['excels_data'] = [
 
         ];
@@ -1009,10 +1045,19 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['categorys'] = get_category_type('shop-ja:product:category');
         $this->data['daibiki'] = get_category_type('shop-ja:japan:category:com-ship');
 
+        $date_start = date('Y-m-d',strtotime('-5 day',strtotime($date)));
+        $date_end = date('Y-m-d',strtotime('+2 day',strtotime($date)));
+
+        $rs  = DB::table('shop_order_excel_exports')->where('date','>=',$date_start)->where('date',"<=",$date_end)->get()->all();
+        $this->data['exports'] = new Config();
+        foreach ($rs as $value){
+            $this->data['exports'] = $this->data['exports']->add(json_decode($value->data,true)) ;
+        }
+
     }
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
-        $this->GetCache('create',0);
+        $this->GetCache('create',0,"",date('Y-m-d'));
         return $this->render('order-excel.create');
     }
     function GetData($results,$exportAll){
@@ -1192,8 +1237,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function edit($id){
         $this->getCrumb()->breadcrumb(z_language("Sửa"), route('backend:shop_ja:order:excel:create'));
-        $this->GetCache('edit',$id);
+
         $model = OrderExcelModel::find($id);
+        $this->GetCache('edit',$id,"",$model->key_date);
         $results = $model->GetDetails();
         $model->detail = $this->GetData($results,false);
         return $this->render('order-excel.edit',['model'=>$model]);
@@ -1212,7 +1258,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         [
                             'name'=>$data['name'],
                             'date'=>date('Y-m-d',strtotime($data['dateview'])),
-//                            'hour'=>$data['time'],
                             'admin_id'=>$admin_id
                         ]
                         ,
@@ -1232,17 +1277,18 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 return response()->json($data);
             }
             $categorys = config_get("category", "shop-ja:product:category");
-
             return $this->render('order-excel.show-select',['date'=>"",'compays'=>$categorys]);
         }else{
 
             $date = base64_decode($date);
             $hour = base64_decode($hour);
 
-            $this->GetCache('show',0,$company);
+            $date = date('Y-m-d',strtotime($date." 00:00:00"));
+            $this->GetCache('show',0,$company,$date);
+
             $this->getCrumb()->breadcrumb(z_language("Xuất ".$company), route('backend:shop_ja:order:excel:show'));
             $model = new OrderExcelModel();
-            $date = date('Y-m-d',strtotime($date." 00:00:00"));
+
 
             $datas = $model->ShowAll(Auth::user()->id,$date,$company);
             $model->detail = $this->GetData($datas,true);

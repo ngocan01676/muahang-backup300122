@@ -380,6 +380,7 @@ class Excel{
         $columns_value = array_flip($datas['columns']);
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
+        $ids = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
 
@@ -388,7 +389,8 @@ class Excel{
             }
 
             $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
-
+            $order_id =  (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+            $ids[$order_id] = 1;
             $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
             $images[] = [$image,$order_info];
             foreach($colums as $key=>$value){
@@ -508,7 +510,7 @@ class Excel{
 
             $zip->close();
         }
-        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
     }
     public function OHGA($datas){
@@ -633,6 +635,7 @@ class Excel{
         $columns_value = array_flip($datas['columns']);
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
+        $ids = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
             if(empty($values[$nameColList['fullname']])){
@@ -640,7 +643,8 @@ class Excel{
             }
 
             $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
-
+            $order_id =  (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+            $ids[$order_id] = 1;
             $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
             $images[] = [$image,$order_info];
             foreach($colums as $key=>$value){
@@ -746,7 +750,7 @@ class Excel{
 
             $zip->close();
         }
-        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
     }
     public function YAMADA($datas,$name){
@@ -861,19 +865,19 @@ class Excel{
         $columns_value = array_flip($datas['columns']);
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
+        $ids = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
             if(empty($values[$nameColList['fullname']])){
                 continue;
             }
             $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
-
+            $order_id =  (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+            $ids[$order_id] = 1;
             $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
             $images[] = [$image,$order_info];
             foreach($colums as $key=>$value){
-
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
-
                 if(is_array($value[1])){
                     if(isset($value[1]['product'])){
                         $conf = $value[1]['product'];
@@ -969,10 +973,9 @@ class Excel{
             foreach ($files as $file){
                 $zip->addFile($file[1],$file[0]);
             }
-
             $zip->close();
         }
-        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,"ids"=>$ids];
 
     }
     public function KURICHIKU($datas){
@@ -1016,6 +1019,7 @@ class Excel{
         $start=2;
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
+        $ids = [];
         $date_export = new \stdClass();
         $date_export->date =  $this->date_export;
         for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
@@ -1134,8 +1138,8 @@ class Excel{
                 if($typeMethod != $this->getValuePayMethod($payMethod)){
                     continue;
                 }
-                $id = (isset($columns_value['id'])?$values[$columns_value['id']]:"");
-
+                $order_id = (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+                $ids[$order_id] = 1;
                 $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
 
                 $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
@@ -1276,7 +1280,7 @@ class Excel{
 
             $zip->close();
         }
-        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
 
 
@@ -1383,6 +1387,7 @@ class Excel{
             $start++;
             $columns_value = array_flip($datas['columns']);
             $images = [];
+            $ids = [];
             foreach ($datas['datas'] as $key=>$_values){
                 $type = ((isset($columns_value['type'])?$_values[$columns_value['type']]:""));
 
@@ -1390,7 +1395,9 @@ class Excel{
                     $pay_Method = $this->getValuePayMethod(isset($columns_value['payMethod'])?$_values[$columns_value['payMethod']]:"");
                     $image =  (isset($columns_value['image'])?$_values[$columns_value['image']]:"");
                     $order_info =  (isset($columns_value['order_info'])?$_values[$columns_value['order_info']]:"");
+                    $order_id =  (isset($columns_value['id'])?$_values[$columns_value['id']]:"");
                     $images[] = [$image,$order_info];
+                    $ids[$order_id] = 1;
                     if($pay_Method == $typeMethod){
 
                         $startRow = $start;
@@ -1590,6 +1597,6 @@ class Excel{
 
             $zip->close();
         }
-        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
     }
 }

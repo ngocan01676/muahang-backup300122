@@ -12,12 +12,15 @@ class OrderExcelModel extends Model
 
     public function GetDetails(){
         $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)->orderBy('id')->get()->all();
+        $datas = [];
         foreach ($shop_order_excel as $_key=>$_value){
             $datas[] = $_value;
         }
-        usort($datas, function ($a,$b){
-            return $a->pay_method - $b->pay_method;
-        });
+        if(count($datas)>1) {
+            usort($datas, function ($a, $b) {
+                return $a->pay_method - $b->pay_method;
+            });
+        }
         return $datas;
     }
     public function ShowAll($user_id,$date,$company){
@@ -39,9 +42,12 @@ class OrderExcelModel extends Model
                $datas[] = $_value;
            }
      //   }
-        usort($datas, function ($a,$b){
-            return $a->pay_method - $b->pay_method;
-        });
+        if(count($datas)>1){
+            usort($datas, function ($a,$b){
+                return $a->pay_method - $b->pay_method;
+            });
+        }
+
         return $datas;
     }
     public function searchAll($user_id,$par = []){

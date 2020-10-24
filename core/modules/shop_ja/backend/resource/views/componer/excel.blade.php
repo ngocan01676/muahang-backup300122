@@ -16,6 +16,10 @@
    background: red !important;
    color: #ffffff;
   }
+  .has_export td:first-child {
+     background: green !important;
+     color: #ffffff;
+    }
     .jexcel tbody tr:nth-child(even) {
         background-color: #EEE9F1 !important;
     }
@@ -177,7 +181,7 @@
         let categorys = {!! json_encode($categorys,JSON_UNESCAPED_UNICODE) !!}
         let locks = {!! json_encode($locks,JSON_UNESCAPED_UNICODE) !!}
         let token = '{!! isset($model)?$model->token:"" !!}';
-
+    let exporsId = {!! json_encode($exports->getArrayCopy(),JSON_UNESCAPED_UNICODE) !!}
     function IF_End($val,$conf){
         if( $conf.equal_end === "<=" && $val <= $conf.value_end){
             return true;
@@ -888,6 +892,14 @@
                         let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
                         if(img.length === 0 || order_info.length === 0){
                             self.addClass('has_error');
+                        }
+                    }
+
+                    parent.removeClass('has_export');
+                    let id = value[columns.id.index];
+                    if((id+"").toString().length > 0){
+                        if(exporsId.hasOwnProperty(id)){
+                            parent.addClass('has_export');
                         }
                     }
                 }
@@ -2015,6 +2027,13 @@
                             self.addClass('has_error');
                         }
                     }
+                    parent.removeClass('has_export');
+                    let id = value[columns.id.index];
+                    if((id+"").toString().length > 0){
+                        if(exporsId.hasOwnProperty(id)){
+                            parent.addClass('has_export');
+                        }
+                    }
                     let type = value[columns.type.index];
 
                     let parentType = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.type.index, row]))).parent();
@@ -2985,6 +3004,13 @@
                             self.addClass('has_error');
                         }
                     }
+                    parent.removeClass('has_export');
+                    let id = value[columns.id.index];
+                    if((id+"").toString().length > 0){
+                        if(exporsId.hasOwnProperty(id)){
+                            parent.addClass('has_export');
+                        }
+                    }
                 }
             },
             onchange:function(instance, cell, c, r, value) {
@@ -3601,6 +3627,13 @@
                             self.addClass('has_error');
                         }
                     }
+                    parent.removeClass('has_export');
+                    let id = value[columns.id.index];
+                    if((id+"").toString().length > 0){
+                        if(exporsId.hasOwnProperty(id)){
+                            parent.addClass('has_export');
+                        }
+                    }
                 }
             },
             onchange:function(instance, cell, c, r, value) {
@@ -4215,6 +4248,13 @@
                         let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
                         if(img.length === 0 || order_info.length === 0){
                             self.addClass('has_error');
+                        }
+                    }
+                    parent.removeClass('has_export');
+                    let id = value[columns.id.index];
+                    if((id+"").toString().length > 0){
+                        if(exporsId.hasOwnProperty(id)){
+                            parent.addClass('has_export');
                         }
                     }
                 }
