@@ -8,6 +8,12 @@ return [
             "url" => "backend:log:list",
             "icon" => "fa fa-file-text"
         ],
+        "configuration" => [
+            "name" => z_language('Cấu hình', false),
+            "pos" => 2,
+            "url" => "backend:configuration:list",
+
+        ],
         "module:admin" => [
             "name" => z_language('Mở rộng'),
             "pos" => 2,
@@ -18,6 +24,7 @@ return [
                 "dashboard" =>false,
                 'log'=>false,
                 'media'=>false,
+                'configuration'=>false,
             ]
          ],
 

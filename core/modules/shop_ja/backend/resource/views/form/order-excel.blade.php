@@ -77,6 +77,11 @@
     <style>
         .bg-error{
             background: red !important;
+
+        }
+         .jexcel thead .jexcel_nested td[data-column="0,1,2"] ,  .jexcel thead .jexcel_nested td[data-column="3,4"]{
+            background: red !important;
+            color: #ffffff;
         }
         .has_error td:first-child {
             background: red !important;
@@ -250,6 +255,7 @@
         let locks = {!! json_encode($locks,JSON_UNESCAPED_UNICODE) !!}
         let token = '{!! isset($model)?$model->token:"" !!}';
         let exporsId = {!! json_encode($exports->getArrayCopy(),JSON_UNESCAPED_UNICODE) !!}
+        let statusCompnay = {!! json_encode($status,JSON_UNESCAPED_UNICODE) !!}
 
         function IF_End($val,$conf){
             if( $conf.equal_end === "<=" && $val <= $conf.value_end){
@@ -786,6 +792,7 @@
             let nestedHeaders = [];
             if(locks .hasOwnProperty(sheetName)){
                 let _lock  = locks [sheetName];
+
                 let dateNow = '{!! date("Y-m-d"); !!}';
                 if(_lock.action == 2 && _lock.date == dateNow ){
                     let count = columns_index.length+4;
@@ -793,6 +800,7 @@
                     nestedHeaders.push({
                         title: "Ngày xuất : "+_lock.date  ,
                         colspan: 3,
+                        class:"demo"
                     });
                     count = count - 1;
                     nestedHeaders.push({
@@ -4168,6 +4176,7 @@
                     nestedHeaders.push({
                         title: "Ngày xuất : "+_lock.date  ,
                         colspan: 3,
+
                     });
                     count = count - 1;
                     nestedHeaders.push({
@@ -4470,22 +4479,31 @@
         config.tableHeight = (y*0.57)+"px";
 
         let sheets = [
-            Object.assign(YAMADA("AMAZON",config),config ),
-            Object.assign(FUKUI(config),config),
-            Object.assign(KOGYJA(config),Object.assign(config,{})),
-            Object.assign(KURICHIKU(config),config),
-            Object.assign(OHGA(config),config),
-            Object.assign(YAMADA("YAMADA",config),config ),
+
         ];
 
 
-
-
-
+        if(!statusCompnay.hasOwnProperty('AMAZON')){
+            sheets.push(Object.assign(YAMADA("AMAZON",config),config ));
+        }
+        if(!statusCompnay.hasOwnProperty('FUKUI')){
+            sheets.push( Object.assign(FUKUI(config),config));
+        }
+        if(!statusCompnay.hasOwnProperty('KOGYJA')){
+            sheets.push(Object.assign(KOGYJA(config),Object.assign(config,{})),);
+        }
+        if(!statusCompnay.hasOwnProperty('KURICHIKU')){
+            sheets.push( Object.assign(KURICHIKU(config),config));
+        }
+        if(!statusCompnay.hasOwnProperty('OHGA')){
+            sheets.push( Object.assign(OHGA(config),config));
+        }
+        if(!statusCompnay.hasOwnProperty('YAMADA')){
+            sheets.push(Object.assign(YAMADA("YAMADA",config),config ));
+        }
         for(let i = 0 ; i < sheets.length ; i++){
             sheets[i].minDimensions = [sheets[i].minDimensions[0],parseInt(sheets[i].minDimensions[1] *(y/1000))];
         }
-
         let spreadsheet =  document.getElementById('spreadsheet');
         let worksheets = jexcel.tabs(spreadsheet, sheets);
 

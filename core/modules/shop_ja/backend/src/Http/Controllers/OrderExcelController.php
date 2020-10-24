@@ -547,7 +547,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                     }
                     $this->log('shop_js:orderExcel',$type,['id' => $model->id]);
-                    return response()->json(['id'=>$model->id,'url1'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
+                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
                 }
                 else
                     return response()->json($datas);
@@ -1053,7 +1053,35 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         foreach ($rs as $value){
             $this->data['exports'] = $this->data['exports']->add(json_decode($value->data,true)) ;
         }
+        $config = config_get('config','shop_ja');
+        $this->data['status'] = [];
+        if(isset($config['company'])){
+            foreach ($config['company'] as $key=>$value){
+                if(!isset($value['status'])) continue;
+                if($value['status'] == 1){
+                    $oke = false;
+                    if($value['type'] == 2){
+                        $number = date('N');
+                        if($number == $value['week']){
+                            $oke = true;
+                        }
+                    }else{
 
+                       $date = explode('-',$value['date']);
+                       $start = date('Y-m-d',strtotime($date[0]))." 00:00:00";
+                       $end = date('Y-m-d',strtotime($date[1]))." 00:00:00";
+
+                       if($start <= date('Y-m-d H:i:s') && $end >= date('Y-m-d H:i:s')){
+                           $oke = true;
+                       }
+                    }
+                    if($oke == true){
+                        $this->data['status'][$key] = 1;
+                    }
+                }
+            }
+        }
+        var_dump( $this->data['status']);
     }
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));

@@ -53,7 +53,7 @@ class CategoryController extends \Admin\Http\Controllers\CategoryController
         }else{
             $this->data["product_id"]  = "";
         }
-
        return parent::show($request);
     }
+
 }

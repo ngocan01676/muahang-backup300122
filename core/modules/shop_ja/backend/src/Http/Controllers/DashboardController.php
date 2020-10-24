@@ -123,4 +123,5 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
         return $this->render('dashboard.user',[]);
     }
+
 }

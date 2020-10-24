@@ -8,7 +8,8 @@
             'alias' => [
                 'shop_ja.category.show' => 'shop_ja::controller.category.show',
                 'shop_ja.category.com-ship' => 'shop_ja::controller.category.com-ship',
-                'shop_ja.category.ship' => 'shop_ja::controller.category.ship'
+                'shop_ja.category.ship' => 'shop_ja::controller.category.ship',
+
 
             ],
         ],
@@ -344,8 +345,8 @@
                 'shop_ja' => [
                     'view' => [
                             'post' => [
-                                'view' => 'blog::configs.post',
-                                'label' => z_language('Product'),
+                                'view' => 'shop_ja::configs.company',
+                                'label' => z_language('Công Ty'),
                             ],
                         ],
                         'label' => z_language("Shop", false),

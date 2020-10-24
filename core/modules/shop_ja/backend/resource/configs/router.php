@@ -82,6 +82,7 @@ return [
                         "ajaxComShip" => [
                             "url" => "/ajax-com-ship", "method" => ['post'],
                         ],
+
                     ]
                 ],
                 'shop_ja:category' => [
@@ -103,7 +104,8 @@ return [
                                 "views" => "blog::module.admin.category",
                                 'nestable'=>'\ShopJa\Libs\CategoryShipNestable'
                             ]
-                        ]
+                        ],
+
                     ]
                 ],
                 'shop_ja:japan:category' => [
@@ -344,6 +346,7 @@ return [
                     ],
                 ]
             ],
+
             ]
         ]
 ];
