@@ -23,16 +23,15 @@
                     <input type="text" class="form-control daterange" name="company.{!! $value->name !!}.date">
                 </div>
             </td>
-            <th width="150">
-                <select name="company.{!! $value->name !!}.week">
-                    <option value="1"> {!! z_language('Thứ 2') !!}</option>
-                    <option value="2"> {!! z_language('Thứ 3') !!}</option>
-                    <option value="3"> {!! z_language('Thứ 4') !!}</option>
-                    <option value="4"> {!! z_language('Thứ 5') !!}</option>
-                    <option value="5"> {!! z_language('Thứ 6') !!}</option>
-                    <option value="6"> {!! z_language('Thứ 7') !!}</option>
-                    <option value="0"> {!! z_language('Chủ nhật') !!}</option>
-                </select>
+            <th>
+                <input type="checkbox" name="company.{!! $value->name !!}.week" value="1">{!! z_language('Thứ 2') !!}
+                <input type="checkbox" name="company.{!! $value->name !!}.week" value="2">{!! z_language('Thứ 3') !!}
+                <input type="checkbox" name="company.{!! $value->name !!}.week" value="3">{!! z_language('Thứ 4') !!}
+                <input type="checkbox" name="company.{!! $value->name !!}.week" value="4">{!! z_language('Thứ 5') !!}
+                <input type="checkbox" name="company.{!! $value->name !!}.week" value="5">{!! z_language('Thứ 6') !!}
+                <input type="checkbox" name="company.{!! $value->name !!}.week" value="6">{!! z_language('Thứ 7') !!}
+                <input type="checkbox" name="company.{!! $value->name !!}.week" value="0">{!! z_language('Chủ nhật') !!}
+
             </td>
         </tr>
         @endforeach

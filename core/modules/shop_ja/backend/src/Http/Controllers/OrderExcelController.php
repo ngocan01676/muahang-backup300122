@@ -1062,8 +1062,17 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $oke = false;
                     if($value['type'] == 2){
                         $number = date('N');
-                        if($number == $value['week']){
-                            $oke = true;
+
+                        $weeks = $value['week'];
+                        if(!is_array($weeks)){
+                            $weeks = [$weeks];
+                        }
+                        foreach ($value['week'] as $_val){
+
+                            if($number == $_val){
+                                $oke = true;
+                                break;
+                            }
                         }
                     }else{
 
@@ -1081,7 +1090,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 }
             }
         }
-        var_dump( $this->data['status']);
+        
     }
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
