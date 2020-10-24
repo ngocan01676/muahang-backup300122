@@ -200,6 +200,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "updated_at"=>$date_time,
                                     "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
                                     "one_address"=>isset($columns["one_address"])?$values[$columns["one_address"]]:"0",
+                                    "public"=>isset($columns["status"])?$values[$columns["status"]]:"0",
                                 ];
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                 $validator = Validator::make($_data,$check);
@@ -269,6 +270,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                         "updated_at"=>$date_time,
                                         "one_address"=>isset($columns["one_address"])?$values[$columns["one_address"]]:"0",
+                                        "public"=>isset($columns["status"])?$values[$columns["status"]]:"0",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                     $logs[$name][] = $_data;
@@ -382,6 +384,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "updated_at"=>$date_time,
                                         "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
                                         "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
+                                        "public"=>isset($columns["status"])?$values[$columns["status"]]:"0",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                     $validator = Validator::make($_data,$check);
@@ -484,6 +487,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                     "updated_at"=>$date_time,
                                     "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
+                                    "public"=>isset($columns["status"])?$values[$columns["status"]]:"0",
                                 ];
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                 $validator = Validator::make($_data,$check);
@@ -1081,7 +1085,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $total_price = $result->total_price;
                     $total_price_buy = $result->total_price_buy;
                     $datas[$result->company][] = [
-                        $result->status,
+                        $result->public,
                         $result->order_image,
                         $result->order_create_date,
                         $pay_method,
@@ -1152,7 +1156,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }
 
                     $datas[$result->company][] = [
-                        $result->status,
+                        $result->public,
                         $result->order_image,
                         $result->order_create_date,
                         $pay_method,
@@ -1239,7 +1243,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $this->getCrumb()->breadcrumb(z_language("Xuất ".$company), route('backend:shop_ja:order:excel:show'));
             $model = new OrderExcelModel();
             $date = date('Y-m-d',strtotime($date." 00:00:00"));
-            $datas = $model->ShowAll(Auth::user()->id,$date);
+
+            $datas = $model->ShowAll(Auth::user()->id,$date,$company);
             $model->detail = $this->GetData($datas,true);
 
             return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company]);

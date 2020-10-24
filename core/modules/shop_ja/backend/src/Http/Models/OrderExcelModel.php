@@ -20,7 +20,7 @@ class OrderExcelModel extends Model
         });
         return $datas;
     }
-    public function ShowAll($user_id,$date){
+    public function ShowAll($user_id,$date,$company){
 //        $lists = DB::table('shop_order_excel_session')
 ////            ->where('admin_id',$user_id)
 //            ->where('status',1)
@@ -28,9 +28,12 @@ class OrderExcelModel extends Model
 //            ->where('created_at','<=',$date." 23:59:59")
 //            ->get()->all();
         $datas = [];
+        $date_last = date('Y-m-d',strtotime('-1 day', strtotime($date)));
       //  foreach ($lists as $key=>$value){
            $shop_order_excel =  DB::table('shop_order_excel')
-               ->where('order_create_date','>=',$date." 00:00:00")
+               ->where('public',1)
+               ->where('company', $company )
+               ->where('order_create_date','>=',$date_last." 00:00:00")
                ->where('order_create_date','<=',$date." 23:59:59")->orderBy('id')->get()->all();
            foreach ($shop_order_excel as $_key=>$_value){
                $datas[] = $_value;
