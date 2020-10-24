@@ -322,12 +322,13 @@
             }
             return [false,""];
         }
+
         function InitData(data,config,columns_index) {
             let _data = [];
-            let n = data.length;
+            let n =  data.length === 0 || config.minDimensions[1] > data.length?config.minDimensions[1]: data.length;
 
             for(let i=0; i < n ; i++){
-                if(i < n)
+                if(i < data.length)
                     _data[i] = data[i];
                 else{
                     _data[i] = [];
@@ -342,7 +343,11 @@
                                 if(columns_index[j].hasOwnProperty('row')){
                                     oke = columns_index[j].row === i;
                                 }
+                                if(typeof(_data[i]) === "undefined"){
+                                    _data[i] = [];
+                                }
                                 if(oke){
+
                                     if(typeof(_data[i][j]) === "undefined"){
                                         _data[i][j] = columns_index[j].value;
                                     }else{
@@ -381,6 +386,75 @@
             }
             return _data;
         }
+
+        function InitData1(data,config,columns_index) {
+            let _data = [];
+            let n =  data.length === 0 || config.minDimensions[1] > data.length?config.minDimensions[1]: data.length;
+
+            for(let i=0; i < n ; i++){
+                if(i < data.length)
+                    _data[i] = data[i];
+                else{
+                    _data[i] = [];
+                }
+                for(let j=0 ; j < config.minDimensions[0] ; j++){
+
+                    if(columns_index.length < config.minDimensions[0]){
+
+                        if(columns_index[j]){
+
+                            if(columns_index[j].hasOwnProperty('value')){
+
+                                let oke = true;
+
+                                if(columns_index[j].hasOwnProperty('row')){
+                                    oke = columns_index[j].row === i;
+                                }
+                                if(typeof(_data[i]) === "undefined"){
+                                    _data[i] = [];
+                                }
+                                console.log(columns_index[j].row + " "+ columns_index[j].value + " "+ oke);
+                                if(oke){
+
+                                    if(typeof(_data[i][j]) === "undefined"){
+                                        _data[i][j] = columns_index[j].value;
+                                    }else{
+                                        if(typeof(_data[i][j]) == "string" && _data[i][j].length === 0){
+                                            _data[i][j] = columns_index[j].value;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        // if(columns_index[j].hasOwnProperty('value')){
+                        //     if(columns_index[j]){
+                        //         if(typeof(_data[i][j]) === "undefined"){
+                        //             _data[i][j] = columns_index[j].value;
+                        //         }else{
+                        //             if(typeof(_data[i][j]) == "string" && _data[i][j].length === 0){
+                        //                 _data[i][j] = columns_index[j].value;
+                        //             }else{
+                        //                 _data[i][j] = columns_index[j].value;
+                        //             }
+                        //         }
+                        //     }else{
+                        //         if(j > _data[i].length ||  typeof(_data[i][j]) === "undefined"){
+                        //             _data[i][j] =  columns_index[j].value;
+                        //         }
+                        //     }
+                        // }
+                    }else{
+                        // if(columns_index[j].hasOwnProperty('value')){
+                        //     _data[i][j] = columns_index[j].value;
+                        // }else{
+                        //     _data[i][j] = "";
+                        // }
+                    }
+                }
+            }
+            return _data;
+        }
+
         function FUKUI(config) {
             let  sheetName  =  'FUKUI';
             let data = [];
@@ -413,14 +487,14 @@
                     hide:true,
                 },
                 timeCreate:{
-                    title: '注文日',//A ngày đặt hàng
+                    title: 'ngày đặt hàng',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
                     value:['date','now']
                 },
                 payMethod:{
-                    title: '支払区分',//B Phương thức thanh toán
+                    title: 'Phương thức thanh toán',//B Phương thức thanh toán
                     type:'dropdown',
                     source:[
                         "代金引換",
@@ -431,44 +505,44 @@
                     value:['product','this','source',0],
                 },
                 phone:{
-                    title: '配送先電話番号',//C Số điện thoại
+                    title: 'Số điện thoại',//C Số điện thoại
                     type: 'text',
                     width:'100px',
                     value:"",
                 },
                 zipcode:{
-                    title: '配送先郵便番号',//D Mã bưu điện
+                    title: 'Mã bưu điện',//D Mã bưu điện
                     type: 'text',
                     width:'60px',
                     key:"demo",
                 },
                 province:{
-                    title: '配送先都道府県',//E Tỉnh/TP
+                    title: 'Tỉnh/TP',//E Tỉnh/TP
                     type: 'text',
                     width:'200px',
                     key:"demo",
                 },
                 address:{
-                    title: '配送先住所',//F Địa chỉ giao hàng
+                    title: 'Địa chỉ giao hàng',//F Địa chỉ giao hàng
                     type: 'text',
                     width:'250px',
                     key:"demo",
                 },
                 fullname:{
-                    title: '配送先氏名',//G Họ tên người nhận
+                    title: 'Họ tên người nhận',//G Họ tên người nhận
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 product_id:{
-                    title: '品番',//H Mã SP
+                    title: 'Mã SP',//H Mã SP
                     type: 'text',
                     width:'100px',
                     read:true,
                     value:['product','product_name','source',0,'id'],
                 },
                 product_name:{
-                    title: '商品名',//I Tên SP
+                    title: 'Tên SP',//I Tên SP
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
@@ -476,26 +550,26 @@
                     value:['product','this','source',0,'id']
                 },
                 count:{
-                    title: '数量',//K SL
+                    title: 'SL',//K SL
                     type: 'numeric',
                     width:'100px',
                     value:1
                 },
                 price:{
-                    title: '単価',//J Giá nhập
+                    title: 'Giá nhập',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy:{
-                    title: '単価',//J Giá nhập
+                    title: 'Giá bán',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
 
                 },
                 order_date:{
-                    title: '到着希望日',//L Ngày nhận
+                    title: 'Ngày nhận',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
@@ -503,14 +577,14 @@
 
                 },
                 order_hours:{
-                    title: '配送希望時間帯',//M Giờ nhận
+                    title: 'Giờ nhận',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
                     width:'150px',
                 },
                 order_ship:{
-                    title: '別途送料',//N Phí ship
+                    title: 'Phí ship',//N Phí ship
                     type: 'numeric',
                     width:'100px',
                     value:0
@@ -534,30 +608,30 @@
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_ship_cou:{
-                    title: '代引き手数料',//P Phí giao hàng
+                    title: 'Phí giao hàng',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
                     value:330
                 },
                 order_price:{
-                    title: '追跡番号',//P Lợi nhuận
+                    title: 'Lợi nhuận',//P Lợi nhuận
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_tracking:{
-                    title: '振込み情報',//T Mã tracking
+                    title: 'Mã tracking',//T Mã tracking
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 order_link:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
+                    title: 'Đường dẫn',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                 },
                 order_info:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
+                    title: ' Thông tin chuyển khoản',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                     key:"demo",
@@ -583,7 +657,7 @@
 
             for(var i in columns){
                 columns[i].index = index;
-                columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
+              //  columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
                 columns[i].key = i;
 
                 let v = setDefaultValue(i,columns);
@@ -1032,15 +1106,15 @@
                     key:"demo",
                 },
                 timeCreate:{
-                    title: '注文日',//A ngày đặt hàng
+                    title: 'ngày đặt hàng',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
                     value:['date','now'],
-                    row:"0",
+                    // row:"0",
                 },
                 payMethod:{
-                    title: '支払区分',//B Phương thức thanh toán
+                    title: 'Phương thức thanh toán',//B Phương thức thanh toán
                     type:'dropdown',
                     source:[
                         "代金引換",
@@ -1049,156 +1123,156 @@
                     ],
                     width:'130px',
                     value:['product','this','source',0],
-                    row:"0",
+                    // row:"0",
                 },
                 phone:{
-                    title: '配送先電話番号',//C Số điện thoại
+                    title: 'Số điện thoại',//C Số điện thoại
                     type: 'text',
                     width:'100px',
                     value:"070-1398-2234",
-                    row:"0",
+                    // row:"0",
                 },
                 zipcode:{
-                    title: '配送先郵便番号',//D Mã bưu điện
+                    title: 'Mã bưu điện',//D Mã bưu điện
                     type: 'text',
                     width:'60px',
 
                 },
                 province:{
-                    title: '配送先都道府県',//E Tỉnh/TP
+                    title: 'Tỉnh/TP',//E Tỉnh/TP
                     type: 'text',
                     width:'200px',
 
                 },
                 address:{
-                    title: '配送先住所',//F Địa chỉ giao hàng
+                    title: 'Địa chỉ giao hàng',//F Địa chỉ giao hàng
                     type: 'text',
                     width:'250px',
                     key:"demo",
                 },
                 fullname:{
-                    title: '配送先氏名',//G Họ tên người nhận
+                    title: 'Họ tên người nhận',//G Họ tên người nhận
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 product_id:{
-                    title: '品番',//H Mã SP
+                    title: 'Mã SP',//H Mã SP
                     type: 'text',
                     width:'100px',
                     read:true,
                     value:"0",
-                    row:"0",
+                    // row:"0",
                 },
                 product_name:{
-                    title: '商品名',//I Tên SP
+                    title: 'Tên SP',//I Tên SP
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
                     width:'140px',
                     value:"0",
-                    row:"0",
+                    // row:"0",
                 },
                 count:{
-                    title: '数量',//K SL
+                    title: 'SL',//K SL
                     type: 'numeric',
                     width:'100px',
                     value:0,
-                    row:"0",
+                    // row:"0",
                 },
                 total_count:{
-                    title: '数量',//K SL
+                    title: '数量',//K SL Tổng
                     type: 'numeric',
                     width:'100px',
                     value:0,
-                    row:"0",
+                    // row:"0",
                 },
                 price:{
-                    title: '単価',//J Giá nhập
+                    title: 'Giá nhập',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
-                    row:"0",
+                    // row:"0",
                 },
                 price_buy:{
-                    title: '単価',//J Giá nhập
+                    title: 'Giá bán',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
-                    row:"0",
+                    // row:"0",
                 },
                 order_date:{
-                    title: '到着希望日',//L Ngày nhận
+                    title: 'Ngày nhận',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
                     width:'100px',
-                    row:"0",
+                    // row:"0",
                 },
                 order_hours:{
-                    title: '配送希望時間帯',//M Giờ nhận
+                    title: 'Giờ nhận',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
                     width:'150px',
-                    row:"0",
+                    // row:"0",
                 },
                 order_ship:{
-                    title: '別途送料',//N Phí ship
+                    title: 'Phí ship',//N Phí ship
                     type: 'numeric',
                     width:'100px',
                     value:0,
-                    row:"0",
+                    // row:"0",
                 },
                 order_total_price:{
                     title: 'Tổng giá nhập',//O Tổng giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
-                    row:"0",
+                    // row:"0",
                 },
                 price_buy_sale:{
                     title: 'Tăng Giảm',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
-                    row:"0",
+                    // row:"0",
                 },
                 order_total_price_buy:{
                     title: 'Total Bán',//P Giá bán
                     type: 'numeric',
                     width:'100px',
                     value:0,
-                    row:"0",
+                    // row:"0",
                 },
                 order_ship_cou:{
-                    title: '代引き手数料',//P Phí giao hàng
+                    title: 'Phí giao hàng',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
                     value:0,
-                    row:"0",
+                    // row:"0",
                 },
                 order_price:{
-                    title: '追跡番号',//P Lợi nhuận
+                    title: 'Lợi nhuận',//P Lợi nhuận
                     type: 'numeric',
                     width:'100px',
                     value:0,
-                    row:"0",
+                    // row:"0",
                 },
                 order_tracking:{
-                    title: '振込み情報',//T Mã tracking
+                    title: 'Mã tracking',//T Mã tracking
                     type: 'text',
                     width:'100px',
                     key:"demo",
                     row:"0",
                 },
                 order_link:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
+                    title: 'Đường đẫn',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                 },
                 order_info:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
+                    title: 'Thông tin chuyển khoản',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                     key:"demo",
@@ -1227,7 +1301,7 @@
 
             for(var i in columns){
                 columns[i].index = index;
-                columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
+
                 columns[i].key = i;
                 let v = setDefaultValue(i,columns);
 
@@ -1723,8 +1797,10 @@
             }
             let columns_index = Object.values(columns);
         //    console.log(data);
+            console.log(config);
             let _data = InitData(data,config,columns_index);
-        //    console.log(_data);
+           console.log(columns_index);
+           console.log(_data);
             let change = {col:-1,row:-1};
 
             let lock = {};
@@ -1778,7 +1854,7 @@
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
-                minDimensions:[35,1],
+                minDimensions:[35,42],
                 columns:Object.values(columns),
                 data:_data,
                 nestedHeaders:[
@@ -2385,14 +2461,14 @@
                     key:"demo",
                 },
                 timeCreate:{
-                    title: '注文日',//A ngày đặt hàng
+                    title: 'ngày đặt hàng',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
                     value:['date','now']
                 },
                 payMethod:{
-                    title: '支払区分',//B Phương thức thanh toán
+                    title: 'Phương thức thanh toán',//B Phương thức thanh toán
                     type:'dropdown',
                     source:[
                         "代金引換",
@@ -2403,44 +2479,44 @@
                     value:['product','this','source',0],
                 },
                 phone:{
-                    title: '配送先電話番号',//C Số điện thoại
+                    title: 'Số điện thoại',//C Số điện thoại
                     type: 'text',
                     width:'100px',
                     value:"070-1398-2234",
                 },
                 zipcode:{
-                    title: '配送先郵便番号',//D Mã bưu điện
+                    title: 'Mã bưu điện',//D Mã bưu điện
                     type: 'text',
                     width:'60px',
                     key:"demo",
                 },
                 province:{
-                    title: '配送先都道府県',//E Tỉnh/TP
+                    title: 'Tỉnh/TP',//E Tỉnh/TP
                     type: 'text',
                     width:'200px',
                     key:"demo",
                 },
                 address:{
-                    title: '配送先住所',//F Địa chỉ giao hàng
+                    title: 'Địa chỉ giao hàng',//F Địa chỉ giao hàng
                     type: 'text',
                     width:'250px',
                     key:"demo",
                 },
                 fullname:{
-                    title: '配送先氏名',//G Họ tên người nhận
+                    title: 'Họ tên người nhận',//G Họ tên người nhận
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 product_id:{
-                    title: '品番',//H Mã SP
+                    title: 'Mã SP',//H Mã SP
                     type: 'text',
                     width:'100px',
                     read:true,
                     value:['product','product_name','source',0,'id'],
                 },
                 product_name:{
-                    title: '商品名',//I Tên SP
+                    title: 'Tên SP',//I Tên SP
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
@@ -2449,7 +2525,7 @@
                     value:['product','this','source',0,'id'],
                 },
                 count:{
-                    title: '数量',//K SL
+                    title: 'SL',//K SL
                     type: 'text',
                     width:'100px',
                     multiple: true,
@@ -2457,19 +2533,19 @@
 
                 },
                 price:{
-                    title: '単価',//J Giá nhập
+                    title: 'Giá nhập',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy:{
-                    title: '単価',//J Giá nhập
+                    title: 'Giá bán',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_date:{
-                    title: '到着希望日',//L Ngày nhận
+                    title: 'Ngày nhận',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
@@ -2477,14 +2553,14 @@
 
                 },
                 order_hours:{
-                    title: '配送希望時間帯',//M Giờ nhận
+                    title: 'Giờ nhận',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
                     width:'150px',
                 },
                 order_ship:{
-                    title: '別途送料',//N Phí ship
+                    title: 'Phí ship',//N Phí ship
                     type: 'numeric',
                     width:'100px',
                     value:0
@@ -2508,30 +2584,30 @@
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_ship_cou:{
-                    title: '代引き手数料',//P Phí giao hàng
+                    title: 'Phí giao hàng',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_price:{
-                    title: '追跡番号',//P Lợi nhuận
+                    title: 'Lợi nhuận',//P Lợi nhuận
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_tracking:{
-                    title: '振込み情報',//T Mã tracking
+                    title: 'Mã tracking',//T Mã tracking
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 order_link:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
+                    title: 'Đường dẫn',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                 },
                 order_info:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
+                    title: 'Thông tin chuyển khoản',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                     key:"demo",
@@ -2557,7 +2633,7 @@
             let columns_index = Object.values(columns);
             for(var i in columns){
                 columns[i].index = index;
-                columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
+
                 columns[i].key = i;
                 let v = setDefaultValue(i,columns);
                 if(v[0]){
@@ -3269,24 +3345,24 @@
                     value:330
                 },
                 order_price:{
-                    title: '追跡番号',//P Lợi nhuận
+                    title: 'Lợi nhuận',//P Lợi nhuận
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_tracking:{
-                    title: '振込み情報',//T Mã tracking
+                    title: 'Mã tracking',//T Mã tracking
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 order_link:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
+                    title: 'Đường dẫn',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                 },
                 order_info:{
-                    title: '振込み情報',//T Thông tin chuyển khoản
+                    title: 'Thông tin chuyển khoản',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                     key:"demo",
@@ -3312,7 +3388,7 @@
 
             for(var i in columns){
                 columns[i].index = index;
-                columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
+
                 columns[i].key = i;
                 let v = setDefaultValue(i,columns);
                 if(v[0]){

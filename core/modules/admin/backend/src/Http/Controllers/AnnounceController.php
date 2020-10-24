@@ -73,9 +73,19 @@ class AnnounceController extends \Zoe\Http\ControllerBackend{
         return $this->render('announce.edit', ["model" => $model]);
     }
 
-    public function delete()
+    public function delete(Request $request)
     {
-
+        $id = $request->id;
+        $ref = $request->ref;
+        $model = AnnounceModel::find($id);
+        if($model){
+             $model->delete();
+        }
+        if($ref){
+            return redirect($ref);
+        }else{
+            return redirect(route('backend:announce:list', []));
+        }
     }
 
     public function status()

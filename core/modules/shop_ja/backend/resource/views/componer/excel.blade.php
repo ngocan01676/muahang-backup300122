@@ -257,7 +257,7 @@
     }
     function InitData(data,config,columns_index) {
         let _data = [];
-        let n = data.length;
+        let n =  data.length === 0 || config.minDimensions[1] > data.length?config.minDimensions[1]: data.length;
 
         for(let i=0; i < n ; i++){
             if(i < n)
@@ -274,6 +274,9 @@
                             let oke = true;
                             if(columns_index[j].hasOwnProperty('row')){
                                 oke = columns_index[j].row === i;
+                            }
+                            if(typeof(_data[i]) === "undefined"){
+                                _data[i] = [];
                             }
                             if(oke){
                                 if(typeof(_data[i][j]) === "undefined"){
@@ -966,7 +969,7 @@
                 width:'100px',
                 options: { format:'DD/MM/YYYY' },
                 value:['date','now'],
-                row:"0",
+                // row:"0",
             },
             payMethod:{
                 title: '支払区分',//B Phương thức thanh toán
@@ -978,14 +981,14 @@
                 ],
                 width:'130px',
                 value:['product','this','source',0],
-                row:"0",
+                // row:"0",
             },
             phone:{
                 title: '配送先電話番号',//C Số điện thoại
                 type: 'text',
                 width:'100px',
                 value:"070-1398-2234",
-                row:"0",
+                // row:"0",
             },
             zipcode:{
                 title: '配送先郵便番号',//D Mã bưu điện
@@ -1017,7 +1020,7 @@
                 width:'100px',
                 read:true,
                 value:"0",
-                row:"0",
+                // row:"0",
             },
             product_name:{
                 title: '商品名',//I Tên SP
@@ -1026,35 +1029,35 @@
                 autocomplete:true,
                 width:'140px',
                 value:"0",
-                row:"0",
+                // row:"0",
             },
             count:{
                 title: '数量',//K SL
                 type: 'numeric',
                 width:'100px',
                 value:0,
-                row:"0",
+                // row:"0",
             },
             total_count:{
                 title: '数量',//K SL
                 type: 'numeric',
                 width:'100px',
                 value:0,
-                row:"0",
+                // row:"0",
             },
             price:{
                 title: '単価',//J Giá nhập
                 type: 'numeric',
                 width:'100px',
                 value:0,
-                row:"0",
+                // row:"0",
             },
             price_buy:{
                 title: '単価',//J Giá nhập
                 type: 'numeric',
                 width:'100px',
                 value:0,
-                row:"0",
+                // row:"0",
             },
             order_date:{
                 title: '到着希望日',//L Ngày nhận
@@ -1062,7 +1065,7 @@
                 options: { format:'DD/MM/YYYY'},
                 value:['date','now'],
                 width:'100px',
-                row:"0",
+                // row:"0",
             },
             order_hours:{
                 title: '配送希望時間帯',//M Giờ nhận
@@ -1070,56 +1073,56 @@
                 source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                 value:['product','this','source',4],
                 width:'150px',
-                row:"0",
+                // row:"0",
             },
             order_ship:{
                 title: '別途送料',//N Phí ship
                 type: 'numeric',
                 width:'100px',
                 value:0,
-                row:"0",
+                // row:"0",
             },
             order_total_price:{
                 title: 'Tổng giá nhập',//O Tổng giá nhập
                 type: 'numeric',
                 width:'100px',
                 value:0,
-                row:"0",
+                // row:"0",
             },
             price_buy_sale:{
                 title: 'Tăng Giảm',//J Giá nhập
                 type: 'numeric',
                 width:'100px',
                 value:0,
-                row:"0",
+                // row:"0",
             },
             order_total_price_buy:{
                 title: 'Total Bán',//P Giá bán
                 type: 'numeric',
                 width:'100px',
                 value:0,
-                row:"0",
+                // row:"0",
             },
             order_ship_cou:{
                 title: '代引き手数料',//P Phí giao hàng
                 type: 'numeric',
                 width:'100px',
                 value:0,
-                row:"0",
+                // row:"0",
             },
             order_price:{
                 title: '追跡番号',//P Lợi nhuận
                 type: 'numeric',
                 width:'100px',
                 value:0,
-                row:"0",
+                // row:"0",
             },
             order_tracking:{
                 title: '振込み情報',//T Mã tracking
                 type: 'text',
                 width:'100px',
                 key:"demo",
-                row:"0",
+                // row:"0",
             },
             order_link:{
                 title: '振込み情報',//T Thông tin chuyển khoản
