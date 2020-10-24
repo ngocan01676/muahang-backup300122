@@ -11,7 +11,7 @@ class OrderExcelModel extends Model
     protected $fillable = [];
 
     public function GetDetails(){
-        $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)->get()->all();
+        $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)->orderBy('id')->get()->all();
         foreach ($shop_order_excel as $_key=>$_value){
             $datas[] = $_value;
         }
@@ -31,7 +31,7 @@ class OrderExcelModel extends Model
       //  foreach ($lists as $key=>$value){
            $shop_order_excel =  DB::table('shop_order_excel')
                ->where('order_create_date','>=',$date." 00:00:00")
-               ->where('order_create_date','<=',$date." 23:59:59")->get()->all();
+               ->where('order_create_date','<=',$date." 23:59:59")->orderBy('id')->get()->all();
            foreach ($shop_order_excel as $_key=>$_value){
                $datas[] = $_value;
            }
