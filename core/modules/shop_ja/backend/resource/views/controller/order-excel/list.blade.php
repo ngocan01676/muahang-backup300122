@@ -2,8 +2,8 @@
     <h1>
         &starf; {!! @z_language(["Chức năng quản lý đơn hàng"]) !!}
         <small>it all starts here</small>
-        <a href="{{route('backend:shop_ja:order:excel:create')}}"
-           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Tạo đơn"]) !!} </a>
+        {{--<a href="{{route('backend:shop_ja:order:excel:create')}}"--}}
+           {{--class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Tạo đơn"]) !!} </a>--}}
         @btn_option(["config"=>['name'=>'module:shop_ja:order:excel']])
         @slot('label')
             {{@z_language(["Cấu hình"])}}
