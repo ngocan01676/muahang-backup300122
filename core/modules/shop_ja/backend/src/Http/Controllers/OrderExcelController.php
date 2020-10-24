@@ -1067,7 +1067,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         if(!is_array($weeks)){
                             $weeks = [$weeks];
                         }
-                        foreach ($value['week'] as $_val){
+                        foreach ($weeks as $_val){
 
                             if($number == $_val){
                                 $oke = true;
@@ -1090,7 +1090,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 }
             }
         }
-        
+
     }
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));

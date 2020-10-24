@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/configs/company.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/configs/company.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="1067" column="46" selection-start-line="1067" selection-start-column="46" selection-end-line="1067" selection-end-column="46" />
+            <state relative-caret-position="240">
+              <caret line="1069" column="39" selection-start-line="1069" selection-start-column="39" selection-end-line="1069" selection-end-column="39" />
               <folding>
                 <element signature="e#3905#44017#0#PHP" />
               </folding>
@@ -722,12 +721,12 @@
       <workItem from="1603247608762" duration="10283000" />
       <workItem from="1603331863546" duration="5777000" />
       <workItem from="1603420036838" duration="14895000" />
-      <workItem from="1603511403351" duration="14587000" />
+      <workItem from="1603511403351" duration="14761000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="427240000" />
+    <option name="totallyTimeSpent" value="427414000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1112,8 +1111,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="1067" column="46" selection-start-line="1067" selection-start-column="46" selection-end-line="1067" selection-end-column="46" />
+        <state relative-caret-position="240">
+          <caret line="1069" column="39" selection-start-line="1069" selection-start-column="39" selection-end-line="1069" selection-end-column="39" />
           <folding>
             <element signature="e#3905#44017#0#PHP" />
           </folding>
