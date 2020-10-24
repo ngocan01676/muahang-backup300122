@@ -15,8 +15,8 @@
                 <input type="checkbox" name="company.{!! $value->name !!}.status" value="1">
             </th>
             <th width="150">
-                <input type="radio" name="company.{!! $value->name !!}.type" value="1"> Ngày
-                <input type="radio" name="company.{!! $value->name !!}.type" value="2"> Tuần
+                <input type="radio" name="company.{!! $value->name !!}.type" value="1"> Thời gian
+                <input type="radio" name="company.{!! $value->name !!}.type" value="2"> Thứ
             </th>
             <td>
                 <div class="col-md-6 col-xs-12">
