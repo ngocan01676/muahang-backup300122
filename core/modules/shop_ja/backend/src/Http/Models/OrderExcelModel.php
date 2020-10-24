@@ -11,7 +11,14 @@ class OrderExcelModel extends Model
     protected $fillable = [];
 
     public function GetDetails(){
-        return DB::table('shop_order_excel')->where('session_id',$this->id)->get()->all();
+        $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)->get()->all();
+        foreach ($shop_order_excel as $_key=>$_value){
+            $datas[] = $_value;
+        }
+        usort($datas, function ($a,$b){
+            return $a->pay_method - $b->pay_method;
+        });
+        return $datas;
     }
     public function ShowAll($user_id,$date){
 //        $lists = DB::table('shop_order_excel_session')
