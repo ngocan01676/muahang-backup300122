@@ -1109,7 +1109,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
         $this->GetCache('create',0,"",date('Y-m-d'));
-        return $this->render('order-excel.create');
+        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+
+        return $this->render('order-excel.create',['admin'=>$users]);
     }
     function GetData($results,$exportAll){
         $datas = [];
