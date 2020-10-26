@@ -210,9 +210,11 @@ return [
                     ],
                     "create" => [
                         "url" => "/create",
+                        "method" => ['post','get'],
                     ],
                     "edit" => [
                         "url" => "/edit/{id}",
+                        "method" => ['post','get'],
                     ],
                     "copy" => [
                         "url" => "/copy/{id}",
@@ -287,9 +289,11 @@ return [
                     ],
                     "create" => [
                         "url" => "/create",
+
                     ],
                     "edit" => [
                         "url" => "/edit/{id}",
+
                     ],
                     "store" => [
                         "url" => "/store",

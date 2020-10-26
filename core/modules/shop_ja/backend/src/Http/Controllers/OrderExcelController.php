@@ -1288,14 +1288,50 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
         return $datas;
     }
-    public function edit($id){
-        $this->getCrumb()->breadcrumb(z_language("Sửa"), route('backend:shop_ja:order:excel:create'));
+    public function edit(Request $request){
+        $data = $request->all();
+        if(isset($data['act'])){
+            if($data['act'] == "conflict"){
+                $admin_id = Auth::user()->id;
+                $datas = [];
+                DB::enableQueryLog();
+                foreach ($data['data'] as $k=>$v){
+                   $datas[$k] = [];
 
+                   $rs1 = DB::table('shop_order_excel')->where('company',$data["company"])
+                       ->where('order_create_date',">=",date('Y-m-d',strtotime('-3 day')))->where('order_create_date','<=',date('Y-m-d H:i:s'));
+                   if(isset($v['fullname'])){
+                       $rs1->where('fullname',$v['fullname']);
+                   }
+                   if(isset($v['address'])){
+                        $rs1->where('address',$v['address']);
+                   }
+                   if(isset($v['province'])){
+                        $rs1->where('province',$v['province']);
+                   }
+                   $datas[$k]['3'] = $rs1->get()->all();
+                   $rs2 = DB::table('shop_order_excel')
+                    ->where('order_create_date',">=",date('Y-m-d',strtotime('-3 day')))->where('order_create_date','<=',date('Y-m-d H:i:s'));
+                   if(isset($v['address'])){
+                        $rs2->where('address',$v['address']);
+                   }
+                   if(isset($v['province'])){
+                        $rs2->where('province',$v['province']);
+                   }
+                   $datas[$k]['2'] = $rs2->get()->all();
+                }
+                return response()->json($datas);
+            }
+        }
+        $this->getCrumb()->breadcrumb(z_language("Sửa"), route('backend:shop_ja:order:excel:create'));
+        $id = $request->id;
         $model = OrderExcelModel::find($id);
         $this->GetCache('edit',$id,"",$model->key_date);
         $results = $model->GetDetails();
         $model->detail = $this->GetData($results,false);
-        return $this->render('order-excel.edit',['model'=>$model]);
+        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+
+        return $this->render('order-excel.edit',['model'=>$model,'admin'=>$users]);
     }
     public function show(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Danh sách Xuất"), route('backend:shop_ja:order:excel:show'));
@@ -1342,12 +1378,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $type = $request->type;
             $date = date('Y-m-d',strtotime($date." 00:00:00"));
             $this->GetCache('show',0,$company,$date);
-
             $this->getCrumb()->breadcrumb(z_language("Xuất ".$company), route('backend:shop_ja:order:excel:show'));
             $model = new OrderExcelModel();
-
-
             $datas = $model->ShowAll(Auth::user()->id,$date,$company,$type);
+
             $model->detail = $this->GetData($datas,true);
 
             return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company]);
@@ -1360,5 +1394,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
         return redirect()->route('backend:shop_ja:order:excel:list', []);
     }
+
 
 }

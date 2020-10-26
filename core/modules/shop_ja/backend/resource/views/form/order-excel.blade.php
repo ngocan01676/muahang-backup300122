@@ -57,6 +57,58 @@
     <button onclick="Save()" type="button"> Lưu </button> &nbsp;
     <button onclick="Export()" type="button"> Export </button>
 </div>
+<style>
+    .modal-dialog {
+        width: 98%;
+        height: 92%;
+        padding: 0;
+    }
+
+    .modal-content {
+        height: 99%;
+    }
+</style>
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_2" data-toggle="tab">Địa chỉ và tỉnh</a></li>
+                        <li><a href="#tab_3" data-toggle="tab"> Tên và địa chỉ và tỉnh</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_2">
+                             <table class="">
+
+                             </table>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="tab_3">
+                            The European languages are members of the same family. Their separate existence is a myth.
+                            For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
+                            in their grammar, their pronunciation and their most common words. Everyone realizes why a
+                            new common language would be desirable: one could refuse to pay expensive translators. To
+                            achieve this, it would be necessary to have uniform grammar, pronunciation and more common
+                            words. If several languages coalesce, the grammar of the resulting language is more simple
+                            and regular than that of the individual languages.
+                        </div>
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 {!! Form::close() !!}
 @section('extra-script')
     <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js?v='.time()) }}"></script>
@@ -75,11 +127,21 @@
 
 
     <style>
+        .bor-error{
+            border: 1px dotted red !important;
+        }
         .bg-error{
             background: red !important;
 
         }
-         .jexcel thead .jexcel_nested td[data-column="0,1,2"] ,  .jexcel thead .jexcel_nested td[data-column="3,4"]{
+        .error-conflict{
+
+        }
+        .open_popup{
+            cursor: pointer;
+            color: #0000ee;
+        }
+        .jexcel thead .jexcel_nested td[data-column="0,1,2"] ,  .jexcel thead .jexcel_nested td[data-column="3,4"]{
             background: red !important;
             color: #ffffff;
         }
@@ -257,6 +319,7 @@
         let exporsId = {!! json_encode($exports->getArrayCopy(),JSON_UNESCAPED_UNICODE) !!}
         let statusCompnay = {!! json_encode($status,JSON_UNESCAPED_UNICODE) !!}
         let hideprototy = {!! json_encode($hide,JSON_UNESCAPED_UNICODE) !!}
+        let info_admin = {!! json_encode($admin,JSON_UNESCAPED_UNICODE) !!}
 
         function IF_End($val,$conf){
             if( $conf.equal_end === "<=" && $val <= $conf.value_end){
@@ -1040,6 +1103,7 @@
                         if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
+
                         parent.removeClass('has_error');
                         if(vvv === 2){
                             let img = value[columns.image.index];
@@ -1049,10 +1113,11 @@
                                 self.addClass('has_error');
                             }
                         }
+
                         parent.removeClass('has_export');
-                        let id = value[columns.id.index];
-                        if((id+"").toString().length > 0){
-                            if(exporsId.hasOwnProperty(id)){
+                        let _export = value[columns.export.index];
+                        if((_export+"").toString().length > 0){
+                            if(_export){
                                 parent.addClass('has_export');
                             }
                         }
@@ -2201,9 +2266,9 @@
                             }
                         }
                         parent.removeClass('has_export');
-                        let id = value[columns.id.index];
-                        if((id+"").toString().length > 0){
-                            if(exporsId.hasOwnProperty(id)){
+                        let _export = value[columns.export.index];
+                        if((_export+"").toString().length > 0){
+                            if(_export){
                                 parent.addClass('has_export');
                             }
                         }
@@ -3186,9 +3251,9 @@
                             }
                         }
                         parent.removeClass('has_export');
-                        let id = value[columns.id.index];
-                        if((id+"").toString().length > 0){
-                            if(exporsId.hasOwnProperty(id)){
+                        let _export = value[columns.export.index];
+                        if((_export+"").toString().length > 0){
+                            if(_export){
                                 parent.addClass('has_export');
                             }
                         }
@@ -3817,9 +3882,9 @@
                             }
                         }
                         parent.removeClass('has_export');
-                        let id = value[columns.id.index];
-                        if((id+"").toString().length > 0){
-                            if(exporsId.hasOwnProperty(id)){
+                        let _export = value[columns.export.index];
+                        if((_export+"").toString().length > 0){
+                            if(_export){
                                 parent.addClass('has_export');
                             }
                         }
@@ -4072,7 +4137,7 @@
                 export:{
                     title: 'Export',//T
                     type: 'checkbox',
-                    width:'1px',
+                    width:'50px',
                 },
             };
             columnsAll[sheetName] = columns;
@@ -4253,11 +4318,59 @@
                 ]
             }
             return {
+
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                onload: function (e) {
+                   let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
+                    td.click(function () {
+                        let parent = $(this).parent().data();
+
+                        if(parent.hasOwnProperty('info')){
+                            let info = parent.info;
+                            for(let tab in info){
+                                let dom = $("#tab_"+tab);
+                                let table = "<table class=\"table table-bordered\">";
+                                table+="<tr>";
+                                table+='<td>Mã</td>';
+                                table+='<td>Phiên</td>';
+                                table+='<td>Người lập</td>';
+                                table+='<td>Ho Tên</td>';
+                                table+='<td>Địa chỉ</td>';
+                                table+='<td>Tỉnh</td>';
+                                table+='<td>Ngày tạo</td>';
+
+                                table+='<td>Số điện thoại</td>';
+                                table+='<td>Trạng thái</td>';
+                                table+='<td>Xuất</td>';
+                                table+='<td>Đường dẫn</td>';
+                                table+="</tr>";
+                                for(let index in info[tab]){
+                                    table+="<tr>";
+                                        table+='<td>'+info[tab][index].id+'</td>';
+                                        table+='<td>'+info[tab][index].session_id+'</td>';
+                                        table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
+                                        table+='<td>'+info[tab][index].fullname+'</td>';
+                                        table+='<td>'+info[tab][index].address+'</td>';
+                                        table+='<td>'+info[tab][index].province+'</td>';
+                                        table+='<td>'+info[tab][index].order_create_date+'</td>';
+
+                                        table+='<td>'+info[tab][index].phone+'</td>';
+                                        table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
+                                        table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
+                                        table+='<td>'+info[tab][index].order_link+'</td>';
+                                    table+="</tr>";
+                                }
+                                table+="</table>";
+                                dom.html(table);
+                            }
+                            $('#modal-default').modal('show');
+                        }
+                    });
+                },
                 nestedHeaders:[
                     nestedHeaders
                 ],
@@ -4453,13 +4566,36 @@
                                 self.addClass('has_error');
                             }
                         }
+                        let _product_id = value[columns.product_id.index];
+
+                        if(parseInt(_product_id)>0){
+                            let _province = value[columns.province.index];
+                            let _address = value[columns.address.index];
+                            let _fullname = value[columns.fullname.index];
+                            console.log(_province);
+                            $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            $col.removeClass('bor-error');
+                            if(_province.length <= 0){
+                                $col.addClass('bor-error')
+                            }
+                            $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
+                            if(_address.length <= 0){
+                                $col.addClass('bor-error')
+                            }
+                            $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
+                            if(_fullname.length <= 0){
+                                $col.addClass('bor-error')
+                            }
+                        }
+
                         parent.removeClass('has_export');
-                        let id = value[columns.id.index];
-                        if((id+"").toString().length > 0){
-                            if(exporsId.hasOwnProperty(id)){
+                        let _export = value[columns.export.index];
+                        if((_export+"").toString().length > 0){
+                            if(_export){
                                 parent.addClass('has_export');
                             }
                         }
+
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
@@ -4504,24 +4640,18 @@
                          }
                     }
                 },
-
             };
         }
-
         var win = window,
             doc = document,
             docElem = doc.documentElement,
             body = doc.getElementsByTagName('body')[0],
             x = win.innerWidth || docElem.clientWidth || body.clientWidth,
             y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
-
         config.tableHeight = (y*0.57)+"px";
-
         let sheets = [
 
         ];
-
-
         if(!statusCompnay.hasOwnProperty('AMAZON')){
             sheets.push(Object.assign(YAMADA("AMAZON",config),config ));
         }
@@ -4546,12 +4676,8 @@
         let spreadsheet =  document.getElementById('spreadsheet');
         let worksheets = jexcel.tabs(spreadsheet, sheets);
 
-        setInterval(function () {
-         //   Save(true);
-        },5000);
 
         $(document).ready(function () {
-
             let changeDate = 0;
             let changeDate1 = 0;
             $datepicker = $('#datepicker').datepicker({
@@ -4562,7 +4688,6 @@
                     return ;
                 }
                 setTimeout(function () {
-
                     let date = $(ev.target).val();
                     let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
                     let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
@@ -4575,7 +4700,6 @@
                     }
                 },500);
             });
-
             $datepicker.datepicker('setDate', new Date(date.format()));
             $datepicker1 = $('#datepicker1').datepicker({
                 autoclose: true,
@@ -4583,12 +4707,10 @@
                     console.log("Selected date: " + dateText + "; input's current value: " + this.value);
                 }
             }).on('changeDate', function (ev) {
-
                 if(changeDate1 == 0){
                     changeDate1++;
                     return ;
                 }
-
                 setTimeout(function () {
                     let date = $(ev.target).val();
                     let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
@@ -4729,8 +4851,56 @@
                }
            });
        }
-        function option(){
+        function CheckData(){
+            let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+            let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+            let data = spreadsheet.jexcel[worksheet].options.data;
+            let name = _spreadsheet.textContent;
+            let cols =  columnsAll[name];
+            let datas = {};
+            for(let i in data){
+                let val = data[i];
+                let row = {};
+                if(val[cols.address.index].length > 0){
+                    row.address = val[cols.address.index];
+                }
+                if(val[cols.province.index].length > 0){
+                    row.province = val[cols.province.index];
+                }
+                if(val[cols.fullname.index].length > 0){
+                    row.fullname = val[cols.fullname.index];
+                }
+                if(Object.keys(row).length >0){
+                    datas[i] = row;
+                }
+            }
+            $.ajax({
+                type: "POST",
+                data:{
+                    act:"conflict",
+                    company:name,
+                    data:datas
+                },
+                success: function (data) {
+                    for(let index in datas){
+                        if(data.hasOwnProperty(index)){
+                            let row = $(spreadsheet.jexcel[worksheet].getCell(jexcel.getColumnNameFromId([0, index])));
 
+                            if(row){
+                               let p =  row.parent();
+                               p.data('info',data[index]);  p.find('.jexcel_row').addClass('open_popup');
+
+                            }
+                        }
+                    }
+                },
+            });
+            console.log(datas);
         }
+        CheckData();
+        setInterval(function () {
+            CheckData();
+
+        },5000);
     </script>
 @endsection

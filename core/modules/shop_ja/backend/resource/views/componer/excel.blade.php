@@ -899,11 +899,10 @@
                             self.addClass('has_error');
                         }
                     }
-
                     parent.removeClass('has_export');
-                    let id = value[columns.id.index];
-                    if((id+"").toString().length > 0){
-                        if(exporsId.hasOwnProperty(id)){
+                    let _export = value[columns.export.index];
+                    if((_export+"").toString().length > 0){
+                        if(_export){
                             parent.addClass('has_export');
                         }
                     }
@@ -2037,9 +2036,9 @@
                         }
                     }
                     parent.removeClass('has_export');
-                    let id = value[columns.id.index];
-                    if((id+"").toString().length > 0){
-                        if(exporsId.hasOwnProperty(id)){
+                    let _export = value[columns.export.index];
+                    if((_export+"").toString().length > 0){
+                        if(_export){
                             parent.addClass('has_export');
                         }
                     }
@@ -3019,9 +3018,9 @@
                         }
                     }
                     parent.removeClass('has_export');
-                    let id = value[columns.id.index];
-                    if((id+"").toString().length > 0){
-                        if(exporsId.hasOwnProperty(id)){
+                    let _export = value[columns.export.index];
+                    if((_export+"").toString().length > 0){
+                        if(_export){
                             parent.addClass('has_export');
                         }
                     }
@@ -3647,9 +3646,9 @@
                         }
                     }
                     parent.removeClass('has_export');
-                    let id = value[columns.id.index];
-                    if((id+"").toString().length > 0){
-                        if(exporsId.hasOwnProperty(id)){
+                    let _export = value[columns.export.index];
+                    if((_export+"").toString().length > 0){
+                        if(_export){
                             parent.addClass('has_export');
                         }
                     }
@@ -4274,9 +4273,9 @@
                         }
                     }
                     parent.removeClass('has_export');
-                    let id = value[columns.id.index];
-                    if((id+"").toString().length > 0){
-                        if(exporsId.hasOwnProperty(id)){
+                    let _export = value[columns.export.index];
+                    if((_export+"").toString().length > 0){
+                        if(_export){
                             parent.addClass('has_export');
                         }
                     }
