@@ -1322,7 +1322,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                    }
                    $datas[$k]['2'] = $rs2->get()->all();
                 }
-                return response()->json($datas);
+                return response()->json(['lists'=>$datas,'company'=>$data["company"]]);
             }
         }
         $this->getCrumb()->breadcrumb(z_language("Sửa"), route('backend:shop_ja:order:excel:create'));

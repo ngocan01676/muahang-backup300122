@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7633">
-              <caret line="1113" column="66" selection-start-line="1113" selection-start-column="66" selection-end-line="1113" selection-end-column="66" />
+            <state relative-caret-position="876">
+              <caret line="1324" column="47" selection-start-line="1324" selection-start-column="47" selection-end-line="1324" selection-end-column="47" />
               <folding>
                 <element signature="e#3905#44017#0#PHP" />
                 <element signature="e#44022#45191#0#PHP" />
@@ -96,26 +97,30 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="142" column="30" selection-start-line="142" selection-start-column="30" selection-end-line="142" selection-end-column="30" />
+            <state relative-caret-position="394">
+              <caret line="141" column="27" selection-start-line="141" selection-start-column="27" selection-end-line="141" selection-end-column="27" />
               <folding>
                 <element signature="e#1919#2753#0#HTML" />
                 <element signature="e#2207#2214#1#HTML" expanded="true" />
                 <element signature="e#20570#26868#0#HTML" />
+                <element signature="e#38092#40921#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#88980#91809#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#143995#146824#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#175763#178592#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#179168#185247#0#HTML" />
                 <element signature="e#185327#185708#0#HTML" />
                 <element signature="e#185766#191640#0#HTML" />
                 <element signature="e#191885#193133#0#HTML" />
+                <element signature="e#195666#195719#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#203594#205911#0#HTML" />
                 <element signature="e#207543#211656#0#HTML" />
                 <element signature="e#211689#214316#0#HTML" />
                 <element signature="e#214343#215353#0#HTML" />
-                <element signature="e#218522#218546#0#HTML" />
               </folding>
             </state>
           </provider>
@@ -143,8 +148,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ids</find>
-      <find>Auth</find>
       <find>exporsId</find>
       <find>GetDetails</find>
       <find>GetCache</find>
@@ -173,6 +176,8 @@
       <find>function edit</find>
       <find>getCell</find>
       <find>function crea</find>
+      <find>columns:Object.values(columns),</find>
+      <find>edit</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -591,12 +596,12 @@
       <workItem from="1603331863546" duration="5777000" />
       <workItem from="1603420036838" duration="14895000" />
       <workItem from="1603511403351" duration="15157000" />
-      <workItem from="1603676671144" duration="16426000" />
+      <workItem from="1603676671144" duration="16915000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="444236000" />
+    <option name="totallyTimeSpent" value="444725000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -941,8 +946,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7633">
-          <caret line="1113" column="66" selection-start-line="1113" selection-start-column="66" selection-end-line="1113" selection-end-column="66" />
+        <state relative-caret-position="876">
+          <caret line="1324" column="47" selection-start-line="1324" selection-start-column="47" selection-end-line="1324" selection-end-column="47" />
           <folding>
             <element signature="e#3905#44017#0#PHP" />
             <element signature="e#44022#45191#0#PHP" />
@@ -952,26 +957,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="142" column="30" selection-start-line="142" selection-start-column="30" selection-end-line="142" selection-end-column="30" />
+        <state relative-caret-position="394">
+          <caret line="141" column="27" selection-start-line="141" selection-start-column="27" selection-end-line="141" selection-end-column="27" />
           <folding>
             <element signature="e#1919#2753#0#HTML" />
             <element signature="e#2207#2214#1#HTML" expanded="true" />
             <element signature="e#20570#26868#0#HTML" />
+            <element signature="e#38092#40921#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#88980#91809#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#143995#146824#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#175763#178592#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#179168#185247#0#HTML" />
             <element signature="e#185327#185708#0#HTML" />
             <element signature="e#185766#191640#0#HTML" />
             <element signature="e#191885#193133#0#HTML" />
+            <element signature="e#195666#195719#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#203594#205911#0#HTML" />
             <element signature="e#207543#211656#0#HTML" />
             <element signature="e#211689#214316#0#HTML" />
             <element signature="e#214343#215353#0#HTML" />
-            <element signature="e#218522#218546#0#HTML" />
           </folding>
         </state>
       </provider>

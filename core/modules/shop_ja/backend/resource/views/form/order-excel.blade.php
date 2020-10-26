@@ -139,7 +139,7 @@
         }
         .open_popup{
             cursor: pointer;
-            color: #0000ee;
+            color: #dd8c1a;
             font-weight: bold;
         }
         .jexcel thead .jexcel_nested td[data-column="0,1,2"] ,  .jexcel thead .jexcel_nested td[data-column="3,4"]{
@@ -5052,6 +5052,7 @@
            });
        }
         function CheckData(){
+
             let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
             let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
             let data = spreadsheet.jexcel[worksheet].options.data;
@@ -5074,6 +5075,7 @@
                     datas[i] = row;
                 }
             }
+
             $.ajax({
                 type: "POST",
                 data:{
@@ -5082,17 +5084,20 @@
                     data:datas
                 },
                 success: function (data) {
-                    for(let index in datas){
-                        if(data.hasOwnProperty(index)){
-                            let row = $(spreadsheet.jexcel[worksheet].getCell(jexcel.getColumnNameFromId([0, index])));
+                    if(data.company === name){
+                        for(let index in datas){
+                            if(data["lists"].hasOwnProperty(index)){
+                                let row = $(spreadsheet.jexcel[worksheet].getCell(jexcel.getColumnNameFromId([0, index])));
 
-                            if(row){
-                               let p =  row.parent();
-                               p.data('info',data[index]);  p.find('.jexcel_row').addClass('open_popup');
+                                if(row){
+                                    let p =  row.parent();
+                                    p.data('info',data["lists"][index]);  p.find('.jexcel_row').addClass('open_popup');
 
+                                }
                             }
                         }
                     }
+
                 },
             });
             console.log(datas);
@@ -5100,7 +5105,6 @@
         CheckData();
         setInterval(function () {
             CheckData();
-
         },5000);
     </script>
 @endsection
