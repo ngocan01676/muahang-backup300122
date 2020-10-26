@@ -140,6 +140,7 @@
         .open_popup{
             cursor: pointer;
             color: #0000ee;
+            font-weight: bold;
         }
         .jexcel thead .jexcel_nested td[data-column="0,1,2"] ,  .jexcel thead .jexcel_nested td[data-column="3,4"]{
             background: red !important;
@@ -914,6 +915,55 @@
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                onload: function (e) {
+
+                    let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
+                    td.click(function () {
+                        let parent = $(this).parent().data();
+
+                        if(parent.hasOwnProperty('info')){
+                            let info = parent.info;
+                            for(let tab in info){
+                                let dom = $("#tab_"+tab);
+                                let table = "<table class=\"table table-bordered\">";
+                                table+="<tr>";
+                                table+='<td>Mã</td>';
+                                table+='<td>Phiên</td>';
+                                table+='<td>Người lập</td>';
+                                table+='<td>Ho Tên</td>';
+                                table+='<td>Địa chỉ</td>';
+                                table+='<td>Tỉnh</td>';
+                                table+='<td>Ngày tạo</td>';
+
+                                table+='<td>Số điện thoại</td>';
+                                table+='<td>Trạng thái</td>';
+                                table+='<td>Xuất</td>';
+                                table+='<td>Đường dẫn</td>';
+                                table+="</tr>";
+                                for(let index in info[tab]){
+                                    table+="<tr>";
+                                    table+='<td>'+info[tab][index].id+'</td>';
+                                    table+='<td>'+info[tab][index].session_id+'</td>';
+                                    table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
+                                    table+='<td>'+info[tab][index].fullname+'</td>';
+                                    table+='<td>'+info[tab][index].address+'</td>';
+                                    table+='<td>'+info[tab][index].province+'</td>';
+                                    table+='<td>'+info[tab][index].order_create_date+'</td>';
+
+                                    table+='<td>'+info[tab][index].phone+'</td>';
+                                    table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
+                                    table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
+                                    table+='<td>'+info[tab][index].order_link+'</td>';
+                                    table+="</tr>";
+                                }
+                                table+="</table>";
+                                dom.html(table);
+                            }
+                            $('#modal-default').modal('show');
+                        }
+                    });
+                },
+
                 nestedHeaders:[
                     nestedHeaders
                 ],
@@ -1958,6 +2008,55 @@
                 minDimensions:[35,42],
                 columns:Object.values(columns),
                 data:_data,
+                onload: function (e) {
+
+                    let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
+                    td.click(function () {
+                        let parent = $(this).parent().data();
+
+                        if(parent.hasOwnProperty('info')){
+                            let info = parent.info;
+                            for(let tab in info){
+                                let dom = $("#tab_"+tab);
+                                let table = "<table class=\"table table-bordered\">";
+                                table+="<tr>";
+                                table+='<td>Mã</td>';
+                                table+='<td>Phiên</td>';
+                                table+='<td>Người lập</td>';
+                                table+='<td>Ho Tên</td>';
+                                table+='<td>Địa chỉ</td>';
+                                table+='<td>Tỉnh</td>';
+                                table+='<td>Ngày tạo</td>';
+
+                                table+='<td>Số điện thoại</td>';
+                                table+='<td>Trạng thái</td>';
+                                table+='<td>Xuất</td>';
+                                table+='<td>Đường dẫn</td>';
+                                table+="</tr>";
+                                for(let index in info[tab]){
+                                    table+="<tr>";
+                                    table+='<td>'+info[tab][index].id+'</td>';
+                                    table+='<td>'+info[tab][index].session_id+'</td>';
+                                    table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
+                                    table+='<td>'+info[tab][index].fullname+'</td>';
+                                    table+='<td>'+info[tab][index].address+'</td>';
+                                    table+='<td>'+info[tab][index].province+'</td>';
+                                    table+='<td>'+info[tab][index].order_create_date+'</td>';
+
+                                    table+='<td>'+info[tab][index].phone+'</td>';
+                                    table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
+                                    table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
+                                    table+='<td>'+info[tab][index].order_link+'</td>';
+                                    table+="</tr>";
+                                }
+                                table+="</table>";
+                                dom.html(table);
+                            }
+                            $('#modal-default').modal('show');
+                        }
+                    });
+                },
+
                 nestedHeaders:[
                     nestedHeaders
                 ],
@@ -3042,6 +3141,55 @@
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                onload: function (e) {
+
+                    let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
+                    td.click(function () {
+                        let parent = $(this).parent().data();
+
+                        if(parent.hasOwnProperty('info')){
+                            let info = parent.info;
+                            for(let tab in info){
+                                let dom = $("#tab_"+tab);
+                                let table = "<table class=\"table table-bordered\">";
+                                table+="<tr>";
+                                table+='<td>Mã</td>';
+                                table+='<td>Phiên</td>';
+                                table+='<td>Người lập</td>';
+                                table+='<td>Ho Tên</td>';
+                                table+='<td>Địa chỉ</td>';
+                                table+='<td>Tỉnh</td>';
+                                table+='<td>Ngày tạo</td>';
+
+                                table+='<td>Số điện thoại</td>';
+                                table+='<td>Trạng thái</td>';
+                                table+='<td>Xuất</td>';
+                                table+='<td>Đường dẫn</td>';
+                                table+="</tr>";
+                                for(let index in info[tab]){
+                                    table+="<tr>";
+                                    table+='<td>'+info[tab][index].id+'</td>';
+                                    table+='<td>'+info[tab][index].session_id+'</td>';
+                                    table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
+                                    table+='<td>'+info[tab][index].fullname+'</td>';
+                                    table+='<td>'+info[tab][index].address+'</td>';
+                                    table+='<td>'+info[tab][index].province+'</td>';
+                                    table+='<td>'+info[tab][index].order_create_date+'</td>';
+
+                                    table+='<td>'+info[tab][index].phone+'</td>';
+                                    table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
+                                    table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
+                                    table+='<td>'+info[tab][index].order_link+'</td>';
+                                    table+="</tr>";
+                                }
+                                table+="</table>";
+                                dom.html(table);
+                            }
+                            $('#modal-default').modal('show');
+                        }
+                    });
+                },
+
                 nestedHeaders:[
                     nestedHeaders
                 ],
@@ -3689,6 +3837,55 @@
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+                onload: function (e) {
+
+                    let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
+                    td.click(function () {
+                        let parent = $(this).parent().data();
+
+                        if(parent.hasOwnProperty('info')){
+                            let info = parent.info;
+                            for(let tab in info){
+                                let dom = $("#tab_"+tab);
+                                let table = "<table class=\"table table-bordered\">";
+                                table+="<tr>";
+                                table+='<td>Mã</td>';
+                                table+='<td>Phiên</td>';
+                                table+='<td>Người lập</td>';
+                                table+='<td>Ho Tên</td>';
+                                table+='<td>Địa chỉ</td>';
+                                table+='<td>Tỉnh</td>';
+                                table+='<td>Ngày tạo</td>';
+
+                                table+='<td>Số điện thoại</td>';
+                                table+='<td>Trạng thái</td>';
+                                table+='<td>Xuất</td>';
+                                table+='<td>Đường dẫn</td>';
+                                table+="</tr>";
+                                for(let index in info[tab]){
+                                    table+="<tr>";
+                                    table+='<td>'+info[tab][index].id+'</td>';
+                                    table+='<td>'+info[tab][index].session_id+'</td>';
+                                    table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
+                                    table+='<td>'+info[tab][index].fullname+'</td>';
+                                    table+='<td>'+info[tab][index].address+'</td>';
+                                    table+='<td>'+info[tab][index].province+'</td>';
+                                    table+='<td>'+info[tab][index].order_create_date+'</td>';
+
+                                    table+='<td>'+info[tab][index].phone+'</td>';
+                                    table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
+                                    table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
+                                    table+='<td>'+info[tab][index].order_link+'</td>';
+                                    table+="</tr>";
+                                }
+                                table+="</table>";
+                                dom.html(table);
+                            }
+                            $('#modal-default').modal('show');
+                        }
+                    });
+                },
+
                 nestedHeaders:[
                     nestedHeaders
                 ],
@@ -4324,7 +4521,9 @@
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+
                 onload: function (e) {
+
                    let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
                         let parent = $(this).parent().data();
@@ -4371,6 +4570,7 @@
                         }
                     });
                 },
+
                 nestedHeaders:[
                     nestedHeaders
                 ],
