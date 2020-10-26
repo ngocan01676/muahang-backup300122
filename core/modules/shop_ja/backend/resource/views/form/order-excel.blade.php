@@ -680,7 +680,7 @@
                 }
                 index++;
                 if(hide.hasOwnProperty(i)){
-                    columns[i].width ="1px";
+                    columns[i].width =hide[i]+"px";
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -1336,7 +1336,7 @@
                 }
                 index++;
                 if(hide.hasOwnProperty(i)){
-                    columns[i].width ="1px";
+                    columns[i].width =hide[i]+"px";
                 }
             }
 
@@ -2678,7 +2678,7 @@
                 }
                 index++;
                 if(hide.hasOwnProperty(i)){
-                    columns[i].width ="1px";
+                    columns[i].width =hide[i]+"px";
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -3443,7 +3443,7 @@
                 }
                 index++;
                 if(hide.hasOwnProperty(i)){
-                    columns[i].width ="1px";
+                    columns[i].width =hide[i]+"px";
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -4069,7 +4069,7 @@
                 }
                 index++;
                 if(hide.hasOwnProperty(i)){
-                    columns[i].width ="1px";
+                    columns[i].width =hide[i]+"px";
                 }
             }
             function update(instance, cell, c, r, value) {
