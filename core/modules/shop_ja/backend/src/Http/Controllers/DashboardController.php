@@ -45,6 +45,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
             $price = DB::table('shop_order_excel')
                 ->where('fullname','!=','')
+                ->where('company',$category['name'])
                 ->where('updated_at','>=',$date_start." 00:00:00")
                 ->where('updated_at','<=',$date_end." 23:59:59");
 

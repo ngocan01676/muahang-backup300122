@@ -162,7 +162,7 @@
     // };
 
     let config = {
-        minDimensions:[30,20],
+        minDimensions:[35,43],
         tableWidth: '100%',
         tableHeight: '500px',
         defaultColWidth: 100,
@@ -259,68 +259,49 @@
         }
         return [false,""];
     }
-    function InitData(data,config,columns_index) {
+    function InitData(data,config,columns_index,_sheetName) {
         let _data = [];
         let n =  data.length === 0 || config.minDimensions[1] > data.length?config.minDimensions[1]: data.length;
 
         for(let i=0; i < n ; i++){
-            if(i < n)
+            if(i < data.length)
                 _data[i] = data[i];
             else{
                 _data[i] = [];
             }
             for(let j=0 ; j < config.minDimensions[0] ; j++){
-
                 if(columns_index.length < config.minDimensions[0]){
-
                     if(columns_index[j]){
                         if(columns_index[j].hasOwnProperty('value')){
                             let oke = true;
                             if(columns_index[j].hasOwnProperty('row')){
                                 oke = columns_index[j].row === i;
                             }
+                            let okeValue = true;
                             if(typeof(_data[i]) === "undefined"){
-                                _data[i] = [];
+                                _data[i] = [];okeValue = false;
                             }
                             if(oke){
                                 if(typeof(_data[i][j]) === "undefined"){
                                     _data[i][j] = columns_index[j].value;
                                 }else{
                                     if(typeof(_data[i][j]) == "string" && _data[i][j].length === 0){
-                                        _data[i][j] = columns_index[j].value;
+                                        if(_sheetName === "KOGYJA"){
+
+                                        }else{
+                                            _data[i][j] = columns_index[j].value;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                    // if(columns_index[j].hasOwnProperty('value')){
-                    //     if(columns_index[j]){
-                    //         if(typeof(_data[i][j]) === "undefined"){
-                    //             _data[i][j] = columns_index[j].value;
-                    //         }else{
-                    //             if(typeof(_data[i][j]) == "string" && _data[i][j].length === 0){
-                    //                 _data[i][j] = columns_index[j].value;
-                    //             }else{
-                    //                 _data[i][j] = columns_index[j].value;
-                    //             }
-                    //         }
-                    //     }else{
-                    //         if(j > _data[i].length ||  typeof(_data[i][j]) === "undefined"){
-                    //             _data[i][j] =  columns_index[j].value;
-                    //         }
-                    //     }
-                    // }
-                }else{
-                    // if(columns_index[j].hasOwnProperty('value')){
-                    //     _data[i][j] = columns_index[j].value;
-                    // }else{
-                    //     _data[i][j] = "";
-                    // }
                 }
             }
         }
         return _data;
     }
+
     function FUKUI(config) {
         let  sheetName  =  'FUKUI';
         let data = [];
@@ -647,7 +628,7 @@
         }
         let columns_index = Object.values(columns);
 
-        let _data = InitData(data,config,columns_index);
+        let _data = InitData(data,config,columns_index,sheetName);
         let change = {col:-1,row:-1};
         let nestedHeaders = [];
         if(locks .hasOwnProperty(sheetName)){
@@ -1175,6 +1156,16 @@
                 type: 'checkbox',
                 width:'1px',
             },
+            token:{
+                title: 'Token',//T
+                type: 'text',
+                width:'100px',
+            },
+            position:{
+                title: 'Position',//T
+                type: 'text',
+                width:'100px',
+            },
         };
 
 
@@ -1670,7 +1661,7 @@
         }
         let columns_index = Object.values(columns);
         //    console.log(data);
-        let _data = InitData(data,config,columns_index);
+        let _data = InitData(data,config,columns_index,sheetName);
         //    console.log(_data);
         let change = {col:-1,row:-1};
 
@@ -1725,7 +1716,7 @@
             sheetName:sheetName,
             rowResize:true,
             columnDrag:true,
-            minDimensions:[30,1],
+            minDimensions:[35,43],
             columns:Object.values(columns),
             data:_data,
             nestedHeaders:[
@@ -2752,7 +2743,7 @@
         }
 
 
-        let _data = InitData(data,config,columns_index);
+        let _data = InitData(data,config,columns_index,sheetName);
 
         let click = false;
 
@@ -3398,7 +3389,7 @@
         }
         let columns_index = Object.values(columns);
 
-        let _data = InitData(data,config,columns_index);
+        let _data = InitData(data,config,columns_index,sheetName);
         let change = {col:-1,row:-1};
         let nestedHeaders = [];
         if(locks .hasOwnProperty(sheetName)){
@@ -4024,7 +4015,7 @@
         }
         let columns_index = Object.values(columns);
 
-        let _data = InitData(data,config,columns_index);
+        let _data = InitData(data,config,columns_index,sheetName);
         let change = {col:-1,row:-1};
 
         let nestedHeaders = [];

@@ -1328,6 +1328,8 @@ class Excel{
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $date_export = new \stdClass();
         $date_export->date = $this->date_export;
+        $images = [];
+        $ids = [];
         for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
             $colums = [
                 ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
@@ -1386,30 +1388,36 @@ class Excel{
 //            ];
             $start++;
             $columns_value = array_flip($datas['columns']);
-            $images = [];
-            $ids = [];
+
+
             foreach ($datas['datas'] as $key=>$_values){
                 $type = ((isset($columns_value['type'])?$_values[$columns_value['type']]:""));
 
                 if($type == "Info"){
+
                     $pay_Method = $this->getValuePayMethod(isset($columns_value['payMethod'])?$_values[$columns_value['payMethod']]:"");
+
                     $image =  (isset($columns_value['image'])?$_values[$columns_value['image']]:"");
                     $order_info =  (isset($columns_value['order_info'])?$_values[$columns_value['order_info']]:"");
-                    $order_id =  (isset($columns_value['id'])?$_values[$columns_value['id']]:"");
+
                     $images[] = [$image,$order_info];
-                    $ids[$order_id] = 1;
+
+
                     if($pay_Method == $typeMethod){
 
                         $startRow = $start;
                         $endRow = $key;
                         $count = 0;
-                        for($i = $key ; $i<count($datas['datas']) ; $i++){
+
+                        for($i = $key ; $i < count($datas['datas']) ; $i++){
                             $count++;
                             $values = $datas['datas'][$i];
                             $oke = true;
+
                             $type =  (isset($columns_value['type'])?$values[$columns_value['type']]:"");
 
-
+                            $order_id =  (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+                            $ids[$order_id] = 1;
 
                             foreach($colums as $key1=>$value){
                                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key1+1);
@@ -1432,7 +1440,6 @@ class Excel{
                                                 $_val = "";
                                             }
                                         }
-
                                         $sheet->setCellValue($nameCol.$start,$_val);
                                     }else{
                                         if($type == "Footer"){
@@ -1445,13 +1452,10 @@ class Excel{
                                                 ),
                                             ) );
                                         }
-
                                         $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
-
                                         if($value[1] == "payMethod"){
                                             $payMethod = $v;
                                         }
-
                                         $sheet->setCellValue($nameCol.$start,$v);
                                     }
                                 }

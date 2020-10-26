@@ -10,18 +10,73 @@ class OrderExcelModel extends Model
     protected $table = 'shop_order_excel_session';
     protected $fillable = [];
 
-    public function GetDetails(){
-        $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)->orderBy('id')->get()->all();
-        $datas = [];
+    public function GetDetails($compay){
+        $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)
+            ->orderBy('id','ASC')->orderBy('admin_id','ASC')->get()->all();
+
+        $datas = [
+
+        ];
+
         foreach ($shop_order_excel as $_key=>$_value){
-            $datas[] = $_value;
+            if(!isset($datas[$_value->company])){
+                $datas[$_value->company] = [];
+            }
+            $datas[$_value->company][] = $_value;
         }
-        if(count($datas)>1) {
-            usort($datas, function ($a, $b) {
-                return $a->pay_method - $b->pay_method;
-            });
+        $dataNew = [];
+        if(count($datas)>0) {
+
+            foreach ($datas as $key=>$values){
+                usort($values, function ($a, $b) {
+                    return ($a->pay_method) - $b->pay_method;
+                });
+                $dataNew[$key] = $values;
+            }
+            if(isset($dataNew['KOGYJA'])){
+                $KOGYJA = [];
+                foreach ($dataNew['KOGYJA'] as $k=>$value){
+                    if($value->type == "Info"){
+                        $row = [$value];
+                        foreach ($dataNew['KOGYJA'] as $kk=>$value1){
+                            if($k != $kk && $value1->token == $value->token )
+                            {
+                                $value1->order_create_date = "";
+                                $value1->pay_method = "";
+                                $value1->phone = "";
+                                $value1->order_date = "";
+                                $value1->order_hours = "";
+
+                                if($value1->type!="Footer") $value1->type = "Item";
+                                $row[] = $value1;
+                            }
+                        }
+                        $n = count($row);
+                        $item_last = $row[$n-1];
+
+                        $item = new \stdClass();
+                        foreach ($item_last as $key=>$v){
+                            $item->{$key} = "";
+                        }
+                        $item->order_index =  $item_last->order_index;
+                        $item->company =  $item_last->company;
+                        $item->type = "Item";
+                        $item_last->order_index++;
+                        $row[] = $item;
+                        usort($row, function ($a, $b) {
+                            return ($a->order_index) - $b->order_index;
+                        });
+                        foreach ($row as $k=>$v){
+                            $KOGYJA[] = $v;
+                        }
+
+                    }
+                }
+                $dataNew['KOGYJA'] = $KOGYJA;
+            }
         }
-        return $datas;
+
+        return $dataNew;
     }
     public function ShowAll($user_id,$date,$company,$type){
 //        $lists = DB::table('shop_order_excel_session')
@@ -38,23 +93,79 @@ class OrderExcelModel extends Model
                ->where('company', $company )
                ->where('order_create_date','>=',$date_last." 00:00:00")
                ->where('order_create_date','<=',$date." 23:59:59")->orderBy('id');
-
            if($type == 2){
                $shop_order_excel->where('export',0);
            }
-
            $shop_order_excel = $shop_order_excel->get()->all();
-           foreach ($shop_order_excel as $_key=>$_value){
-               $datas[] = $_value;
-           }
-     //   }
-        if(count($datas)>1){
-            usort($datas, function ($a,$b){
-                return $a->pay_method - $b->pay_method;
-            });
+
+
+        $datas = [
+
+        ];
+
+        foreach ($shop_order_excel as $_key=>$_value){
+            if(!isset($datas[$_value->company])){
+                $datas[$_value->company] = [];
+            }
+            $datas[$_value->company][] = $_value;
         }
 
-        return $datas;
+        $dataNew = [];
+
+        if(count($datas)>0) {
+
+            foreach ($datas as $key=>$values){
+                usort($values, function ($a, $b) {
+                    return ($a->pay_method) - $b->pay_method;
+                });
+                $dataNew[$key] = $values;
+            }
+
+            if(isset($dataNew['KOGYJA'])){
+                $KOGYJA = [];
+                foreach ($dataNew['KOGYJA'] as $k=>$value){
+                    if($value->type == "Info"){
+                        $row = [$value];
+                        foreach ($dataNew['KOGYJA'] as $kk=>$value1){
+                            if($k != $kk && $value1->token == $value->token )
+                            {
+                                $value1->order_create_date = "";
+                                $value1->pay_method = "";
+                                $value1->phone = "";
+                                $value1->order_date = "";
+                                $value1->order_hours = "";
+
+                                if($value1->type!="Footer") $value1->type = "Item";
+                                $row[] = $value1;
+                            }
+                        }
+
+                        usort($row, function ($a, $b) {
+                            return ($a->order_index) - $b->order_index;
+                        });
+                        foreach ($row as $k=>$v){
+                            $KOGYJA[] = $v;
+                        }
+
+                    }
+                }
+                $dataNew['KOGYJA'] = $KOGYJA;
+            }
+        }
+
+        return $dataNew;
+
+//           foreach ($shop_order_excel as $_key=>$_value){
+//               $datas[] = $_value;
+//           }
+//     //   }
+//        if(count($datas)>1){
+//            usort($datas, function ($a,$b){
+//                return $a->pay_method - $b->pay_method;
+//            });
+//        }
+//
+//        return $datas;
     }
     public function searchAll($user_id,$par = []){
 
