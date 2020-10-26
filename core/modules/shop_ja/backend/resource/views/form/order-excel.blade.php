@@ -896,8 +896,8 @@
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
-                                table+='<td>Mã</td>';
-                                table+='<td>Phiên</td>';
+                                // table+='<td>Mã</td>';
+                                // table+='<td>Phiên</td>';
                                 table+='<td>Người lập</td>';
                                 table+='<td>Ho Tên</td>';
                                 table+='<td>Địa chỉ</td>';
@@ -913,8 +913,8 @@
                                 table+="</tr>";
                                 for(let index in info[tab]){
                                     table+="<tr>";
-                                    table+='<td>'+info[tab][index].id+'</td>';
-                                    table+='<td>'+info[tab][index].session_id+'</td>';
+                                    // table+='<td>'+info[tab][index].id+'</td>';
+                                    // table+='<td>'+info[tab][index].session_id+'</td>';
                                     table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
                                     table+='<td>'+info[tab][index].fullname+'</td>';
                                     table+='<td>'+info[tab][index].address+'</td>';
@@ -1089,9 +1089,7 @@
                         $("#value-review").show().val(val);
                     }
                 },
-                onload:function(){
-                    console.log('1');
-                },
+
                 updateTable: function (instance, cell, col, row, val, id) {
                     let c = parseInt(col);
 
@@ -2007,8 +2005,8 @@
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
-                                table+='<td>Mã</td>';
-                                table+='<td>Phiên</td>';
+                                // table+='<td>Mã</td>';
+                                // table+='<td>Phiên</td>';
                                 table+='<td>Người lập</td>';
                                 table+='<td>Ho Tên</td>';
                                 table+='<td>Địa chỉ</td>';
@@ -2024,8 +2022,8 @@
                                 table+="</tr>";
                                 for(let index in info[tab]){
                                     table+="<tr>";
-                                    table+='<td>'+info[tab][index].id+'</td>';
-                                    table+='<td>'+info[tab][index].session_id+'</td>';
+                                    // table+='<td>'+info[tab][index].id+'</td>';
+                                    // table+='<td>'+info[tab][index].session_id+'</td>';
                                     table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
                                     table+='<td>'+info[tab][index].fullname+'</td>';
                                     table+='<td>'+info[tab][index].address+'</td>';
@@ -2379,9 +2377,7 @@
                         //indexFist(instance.jexcel,row);
                     }
                 },
-                onload:function(instance){
-                    console.log("oke=>>>");
-                },
+
                 onchange:function(instance, cell, c, r, value) {
                     // console.log("c:"+c);
                     // console.log("r:"+r);
@@ -3138,8 +3134,8 @@
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
-                                table+='<td>Mã</td>';
-                                table+='<td>Phiên</td>';
+                                // table+='<td>Mã</td>';
+                                // table+='<td>Phiên</td>';
                                 table+='<td>Người lập</td>';
                                 table+='<td>Ho Tên</td>';
                                 table+='<td>Địa chỉ</td>';
@@ -3155,8 +3151,8 @@
                                 table+="</tr>";
                                 for(let index in info[tab]){
                                     table+="<tr>";
-                                    table+='<td>'+info[tab][index].id+'</td>';
-                                    table+='<td>'+info[tab][index].session_id+'</td>';
+                                    // table+='<td>'+info[tab][index].id+'</td>';
+                                    // table+='<td>'+info[tab][index].session_id+'</td>';
                                     table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
                                     table+='<td>'+info[tab][index].fullname+'</td>';
                                     table+='<td>'+info[tab][index].address+'</td>';
@@ -3837,8 +3833,8 @@
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
-                                table+='<td>Mã</td>';
-                                table+='<td>Phiên</td>';
+                                // table+='<td>Mã</td>';
+                                // table+='<td>Phiên</td>';
                                 table+='<td>Người lập</td>';
                                 table+='<td>Ho Tên</td>';
                                 table+='<td>Địa chỉ</td>';
@@ -3854,8 +3850,8 @@
                                 table+="</tr>";
                                 for(let index in info[tab]){
                                     table+="<tr>";
-                                    table+='<td>'+info[tab][index].id+'</td>';
-                                    table+='<td>'+info[tab][index].session_id+'</td>';
+                                    // table+='<td>'+info[tab][index].id+'</td>';
+                                    // table+='<td>'+info[tab][index].session_id+'</td>';
                                     table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
                                     table+='<td>'+info[tab][index].fullname+'</td>';
                                     table+='<td>'+info[tab][index].address+'</td>';
@@ -4526,8 +4522,8 @@
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
-                                table+='<td>Mã</td>';
-                                table+='<td>Phiên</td>';
+                                // table+='<td>Mã</td>';
+                                // table+='<td>Phiên</td>';
                                 table+='<td>Người lập</td>';
                                 table+='<td>Ho Tên</td>';
                                 table+='<td>Địa chỉ</td>';
@@ -4543,8 +4539,8 @@
                                 table+="</tr>";
                                 for(let index in info[tab]){
                                     table+="<tr>";
-                                        table+='<td>'+info[tab][index].id+'</td>';
-                                        table+='<td>'+info[tab][index].session_id+'</td>';
+                                        // table+='<td>'+info[tab][index].id+'</td>';
+                                        // table+='<td>'+info[tab][index].session_id+'</td>';
                                         table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
                                         table+='<td>'+info[tab][index].fullname+'</td>';
                                         table+='<td>'+info[tab][index].address+'</td>';
