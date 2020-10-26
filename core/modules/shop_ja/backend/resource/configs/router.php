@@ -230,7 +230,7 @@ return [
                         "method" => ['get','post'],
                     ],
                     "show" => [
-                        "url" => "/show/{company?}/{date?}/{hour?}",
+                        "url" => "/show/{company?}/{date?}/{hour?}/{type?}",
                         "method" => ['get','post'],
                     ],
                     "store" => [

@@ -516,6 +516,11 @@
                 type: 'text',
                 width:'1px',
             },
+            export:{
+                title: 'Export',//T
+                type: 'checkbox',
+                width:'1px',
+            },
         };
 
         columnsAll[sheetName] = columns;
@@ -1166,7 +1171,11 @@
                 type: 'text',
                 width:'1px',
             },
-
+            export:{
+                title: 'Export',//T
+                type: 'checkbox',
+                width:'1px',
+            },
         };
 
 
@@ -2499,6 +2508,11 @@
                 type: 'text',
                 width:'1px',
             },
+            export:{
+                title: 'Export',//T
+                type: 'checkbox',
+                width:'1px',
+            },
         };
         columns.count.editor = customColumn;
         columnsAll[sheetName] = columns;
@@ -3258,6 +3272,11 @@
                 type: 'text',
                 width:'1px',
             },
+            export:{
+                title: 'Export',//T
+                type: 'checkbox',
+                width:'1px',
+            },
         };
 
         columnsAll[sheetName] = columns;
@@ -3877,7 +3896,11 @@
                 type: 'text',
                 width:'1px',
             },
-
+            export:{
+                title: 'Export',//T
+                type: 'checkbox',
+                width:'1px',
+            },
         };
 
         columnsAll[sheetName] = columns;

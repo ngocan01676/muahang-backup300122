@@ -916,15 +916,27 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $output =$excel->KURICHIKU($data);
             }
             if(isset($output['ids'])){
-                DB::table("shop_order_excel_exports")->updateOrInsert([
-                    'date'=>date('Y-m-d',$excel->date),
-                    'company'=>$data['name']
-                ],[
-                    'date'=>date('Y-m-d',$excel->date),
-                    'company'=>$data['name'],
-                    'data'=>json_encode($output['ids']),
-                    'create_time'=>date('Y-m-d H:i:s')
-                ]);
+                DB::beginTransaction();
+
+                try{
+                    foreach ($output['ids'] as $id=>$val){
+                        DB::table("shop_order_excel")->where('id',$id)->update(['export'=>1]);
+                    }
+                    DB::table("shop_order_excel_exports")->updateOrInsert([
+                        'date'=>date('Y-m-d',$excel->date),
+                        'company'=>$data['name']
+                    ],[
+                        'date'=>date('Y-m-d',$excel->date),
+                        'company'=>$data['name'],
+                        'data'=>json_encode($output['ids']),
+                        'create_time'=>date('Y-m-d H:i:s')
+                    ]);
+                    DB::commit();
+                    $output['error'] = false;
+                }catch (\Exception $ex){
+                    DB::rollBack();
+                    $output['error'] = $ex->getMessage();
+                }
             }
 
         }
@@ -1199,6 +1211,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $result->id,
                         $result->type,
                         $result->session_id,
+                        $result->export == 1,
                     ];
                 } else{
                     $pay_method = "";
@@ -1268,6 +1281,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $result->one_address==1,
                         $result->id,
                         $result->session_id,
+                        $result->export == 1,
                     ];
                 }
             }
@@ -1312,7 +1326,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     //{company?}/{date?}/{hour?}
                 }
                 if($data['action']!=1)
-                    $data = ['link'=>route('backend:shop_ja:order:excel:show',['company'=>$data['name'],'date'=>base64_encode($data['dateview']),'hour'=>base64_encode($data['time'])])];
+                    $data = ['link'=>route(
+                        'backend:shop_ja:order:excel:show',
+                        ['company'=>$data['name'],
+                            'date'=>base64_encode($data['dateview']),
+                            'hour'=>base64_encode($data['time']),'type'=>$data['action']])];
                 return response()->json($data);
             }
             $categorys = config_get("category", "shop-ja:product:category");
@@ -1321,7 +1339,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
             $date = base64_decode($date);
             $hour = base64_decode($hour);
-
+            $type = $request->type;
             $date = date('Y-m-d',strtotime($date." 00:00:00"));
             $this->GetCache('show',0,$company,$date);
 
@@ -1329,11 +1347,18 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $model = new OrderExcelModel();
 
 
-            $datas = $model->ShowAll(Auth::user()->id,$date,$company);
+            $datas = $model->ShowAll(Auth::user()->id,$date,$company,$type);
             $model->detail = $this->GetData($datas,true);
 
             return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company]);
         }
+    }
+    public function delete ($id){
+        $model = OrderExcelModel::find($id);
+        if($model){
+            $model->delete();
+        }
+        return redirect()->route('backend:shop_ja:order:excel:list', []);
     }
 
 }

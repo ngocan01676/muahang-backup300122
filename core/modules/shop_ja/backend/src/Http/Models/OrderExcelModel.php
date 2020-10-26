@@ -23,7 +23,7 @@ class OrderExcelModel extends Model
         }
         return $datas;
     }
-    public function ShowAll($user_id,$date,$company){
+    public function ShowAll($user_id,$date,$company,$type){
 //        $lists = DB::table('shop_order_excel_session')
 ////            ->where('admin_id',$user_id)
 //            ->where('status',1)
@@ -37,7 +37,13 @@ class OrderExcelModel extends Model
                ->where('public',1)
                ->where('company', $company )
                ->where('order_create_date','>=',$date_last." 00:00:00")
-               ->where('order_create_date','<=',$date." 23:59:59")->orderBy('id')->get()->all();
+               ->where('order_create_date','<=',$date." 23:59:59")->orderBy('id');
+
+           if($type == 2){
+               $shop_order_excel->where('export',0);
+           }
+
+           $shop_order_excel = $shop_order_excel->get()->all();
            foreach ($shop_order_excel as $_key=>$_value){
                $datas[] = $_value;
            }

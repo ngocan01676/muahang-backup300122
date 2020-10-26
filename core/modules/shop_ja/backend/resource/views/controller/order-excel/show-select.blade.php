@@ -49,8 +49,8 @@
                     </th>
                     <th>
                         <label>Hành động:</label><BR>
-                        <input type="radio" name="action" value="1" > Mở Khóa
-                        <input type="radio" name="action" value="2">  Khóa
+                        <input type="radio" name="action" value="1" > Mở Khóa Xuất
+                        <input type="radio" name="action" value="2"> Khóa Xuất
                         <input type="radio" name="action" value="3" checked>  Xem
                     </th>
                     <th>
