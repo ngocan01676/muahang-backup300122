@@ -84,19 +84,11 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_2">
-                             <table class="">
 
-                             </table>
                         </div>
                         <!-- /.tab-pane -->
                         <div class="tab-pane" id="tab_3">
-                            The European languages are members of the same family. Their separate existence is a myth.
-                            For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
-                            in their grammar, their pronunciation and their most common words. Everyone realizes why a
-                            new common language would be desirable: one could refuse to pay expensive translators. To
-                            achieve this, it would be necessary to have uniform grammar, pronunciation and more common
-                            words. If several languages coalesce, the grammar of the resulting language is more simple
-                            and regular than that of the individual languages.
+
                         </div>
                     </div>
                     <!-- /.tab-content -->
@@ -125,14 +117,12 @@
         let  date = moment(stringDate);
     </script>
 
-
     <style>
         .bor-error{
             border: 1px dotted red !important;
         }
         .bg-error{
             background: red !important;
-
         }
         .error-conflict{
 
@@ -916,7 +906,6 @@
                 columns:Object.values(columns),
                 data:_data,
                 onload: function (e) {
-
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
                         let parent = $(this).parent().data();
@@ -934,8 +923,10 @@
                                 table+='<td>Địa chỉ</td>';
                                 table+='<td>Tỉnh</td>';
                                 table+='<td>Ngày tạo</td>';
-
                                 table+='<td>Số điện thoại</td>';
+                                table+='<td>Công ty</td>';
+                                table+='<td>Sản phẩm</td>';
+                                table+='<td>Số lượng</td>';
                                 table+='<td>Trạng thái</td>';
                                 table+='<td>Xuất</td>';
                                 table+='<td>Đường dẫn</td>';
@@ -949,8 +940,10 @@
                                     table+='<td>'+info[tab][index].address+'</td>';
                                     table+='<td>'+info[tab][index].province+'</td>';
                                     table+='<td>'+info[tab][index].order_create_date+'</td>';
-
                                     table+='<td>'+info[tab][index].phone+'</td>';
+                                    table+='<td>'+info[tab][index].company+'</td>';
+                                    table+='<td>'+info[tab][index].product_title+'</td>';
+                                    table+='<td>'+info[tab][index].count+'</td>';
                                     table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
                                     table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
                                     table+='<td>'+info[tab][index].order_link+'</td>';
@@ -2009,7 +2002,6 @@
                 columns:Object.values(columns),
                 data:_data,
                 onload: function (e) {
-
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
                         let parent = $(this).parent().data();
@@ -2027,8 +2019,10 @@
                                 table+='<td>Địa chỉ</td>';
                                 table+='<td>Tỉnh</td>';
                                 table+='<td>Ngày tạo</td>';
-
                                 table+='<td>Số điện thoại</td>';
+                                table+='<td>Công ty</td>';
+                                table+='<td>Sản phẩm</td>';
+                                table+='<td>Số lượng</td>';
                                 table+='<td>Trạng thái</td>';
                                 table+='<td>Xuất</td>';
                                 table+='<td>Đường dẫn</td>';
@@ -2042,8 +2036,10 @@
                                     table+='<td>'+info[tab][index].address+'</td>';
                                     table+='<td>'+info[tab][index].province+'</td>';
                                     table+='<td>'+info[tab][index].order_create_date+'</td>';
-
                                     table+='<td>'+info[tab][index].phone+'</td>';
+                                    table+='<td>'+info[tab][index].company+'</td>';
+                                    table+='<td>'+info[tab][index].product_title+'</td>';
+                                    table+='<td>'+info[tab][index].count+'</td>';
                                     table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
                                     table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
                                     table+='<td>'+info[tab][index].order_link+'</td>';
@@ -3142,7 +3138,6 @@
                 columns:Object.values(columns),
                 data:_data,
                 onload: function (e) {
-
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
                         let parent = $(this).parent().data();
@@ -3160,8 +3155,10 @@
                                 table+='<td>Địa chỉ</td>';
                                 table+='<td>Tỉnh</td>';
                                 table+='<td>Ngày tạo</td>';
-
                                 table+='<td>Số điện thoại</td>';
+                                table+='<td>Công ty</td>';
+                                table+='<td>Sản phẩm</td>';
+                                table+='<td>Số lượng</td>';
                                 table+='<td>Trạng thái</td>';
                                 table+='<td>Xuất</td>';
                                 table+='<td>Đường dẫn</td>';
@@ -3175,8 +3172,10 @@
                                     table+='<td>'+info[tab][index].address+'</td>';
                                     table+='<td>'+info[tab][index].province+'</td>';
                                     table+='<td>'+info[tab][index].order_create_date+'</td>';
-
                                     table+='<td>'+info[tab][index].phone+'</td>';
+                                    table+='<td>'+info[tab][index].company+'</td>';
+                                    table+='<td>'+info[tab][index].product_title+'</td>';
+                                    table+='<td>'+info[tab][index].count+'</td>';
                                     table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
                                     table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
                                     table+='<td>'+info[tab][index].order_link+'</td>';
@@ -3838,7 +3837,6 @@
                 columns:Object.values(columns),
                 data:_data,
                 onload: function (e) {
-
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
                         let parent = $(this).parent().data();
@@ -3856,8 +3854,10 @@
                                 table+='<td>Địa chỉ</td>';
                                 table+='<td>Tỉnh</td>';
                                 table+='<td>Ngày tạo</td>';
-
                                 table+='<td>Số điện thoại</td>';
+                                table+='<td>Công ty</td>';
+                                table+='<td>Sản phẩm</td>';
+                                table+='<td>Số lượng</td>';
                                 table+='<td>Trạng thái</td>';
                                 table+='<td>Xuất</td>';
                                 table+='<td>Đường dẫn</td>';
@@ -3871,8 +3871,10 @@
                                     table+='<td>'+info[tab][index].address+'</td>';
                                     table+='<td>'+info[tab][index].province+'</td>';
                                     table+='<td>'+info[tab][index].order_create_date+'</td>';
-
                                     table+='<td>'+info[tab][index].phone+'</td>';
+                                    table+='<td>'+info[tab][index].company+'</td>';
+                                    table+='<td>'+info[tab][index].product_title+'</td>';
+                                    table+='<td>'+info[tab][index].count+'</td>';
                                     table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
                                     table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
                                     table+='<td>'+info[tab][index].order_link+'</td>';
@@ -4541,8 +4543,10 @@
                                 table+='<td>Địa chỉ</td>';
                                 table+='<td>Tỉnh</td>';
                                 table+='<td>Ngày tạo</td>';
-
                                 table+='<td>Số điện thoại</td>';
+                                table+='<td>Công ty</td>';
+                                table+='<td>Sản phẩm</td>';
+                                table+='<td>Số lượng</td>';
                                 table+='<td>Trạng thái</td>';
                                 table+='<td>Xuất</td>';
                                 table+='<td>Đường dẫn</td>';
@@ -4556,8 +4560,10 @@
                                         table+='<td>'+info[tab][index].address+'</td>';
                                         table+='<td>'+info[tab][index].province+'</td>';
                                         table+='<td>'+info[tab][index].order_create_date+'</td>';
-
                                         table+='<td>'+info[tab][index].phone+'</td>';
+                                        table+='<td>'+info[tab][index].company+'</td>';
+                                        table+='<td>'+info[tab][index].product_title+'</td>';
+                                        table+='<td>'+info[tab][index].count+'</td>';
                                         table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
                                         table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
                                         table+='<td>'+info[tab][index].order_link+'</td>';

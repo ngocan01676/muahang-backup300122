@@ -124,4 +124,7 @@ class UserController extends \User\Http\Controllers\UserController
             ]
         ],'shop_ja');
     }
+    public function acl(){
+       return $this->render('user.acl','shop_ja');
+    }
 }
