@@ -1054,6 +1054,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $this->data['exports'] = $this->data['exports']->add(json_decode($value->data,true)) ;
         }
         $config = config_get('config','shop_ja');
+
         $this->data['status'] = [];
         if(isset($config['company'])){
             foreach ($config['company'] as $key=>$value){
@@ -1062,13 +1063,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $oke = false;
                     if($value['type'] == 2){
                         $number = date('N');
-
                         $weeks = $value['week'];
                         if(!is_array($weeks)){
                             $weeks = [$weeks];
                         }
                         foreach ($weeks as $_val){
-
                             if($number == $_val){
                                 $oke = true;
                                 break;
@@ -1090,7 +1089,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 }
             }
         }
-
+        $this->data['hide'] = [];
+        if(isset($config['excel'])){
+            $this->data['hide'] =$config['excel'];
+        }
     }
     public function create(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));

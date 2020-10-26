@@ -256,6 +256,7 @@
         let token = '{!! isset($model)?$model->token:"" !!}';
         let exporsId = {!! json_encode($exports->getArrayCopy(),JSON_UNESCAPED_UNICODE) !!}
         let statusCompnay = {!! json_encode($status,JSON_UNESCAPED_UNICODE) !!}
+        let hideprototy = {!! json_encode($hide,JSON_UNESCAPED_UNICODE) !!}
 
         function IF_End($val,$conf){
             if( $conf.equal_end === "<=" && $val <= $conf.value_end){
@@ -665,7 +666,7 @@
             };
 
             columnsAll[sheetName] = columns;
-
+            let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
             for(var i in columns){
                 columns[i].index = index;
               //  columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
@@ -678,6 +679,9 @@
                     delete columns[i].value;
                 }
                 index++;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width ="1px";
+                }
             }
             function update(instance, cell, c, r, value) {
                 console.log("update call");
@@ -1318,7 +1322,7 @@
                 },
             };
             columnsAll[sheetName] = columns;
-
+            let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
             for(var i in columns){
                 columns[i].index = index;
 
@@ -1331,6 +1335,9 @@
                     delete columns[i].value;
                 }
                 index++;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width ="1px";
+                }
             }
 
             function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod) {
@@ -2658,6 +2665,7 @@
             columns.count.editor = customColumn;
             columnsAll[sheetName] = columns;
             let columns_index = Object.values(columns);
+            let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
             for(var i in columns){
                 columns[i].index = index;
 
@@ -2669,6 +2677,9 @@
                     delete columns[i].value;
                 }
                 index++;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width ="1px";
+                }
             }
             function update(instance, cell, c, r, value) {
                 console.log("update call");
@@ -3419,7 +3430,7 @@
             };
 
             columnsAll[sheetName] = columns;
-
+            let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
             for(var i in columns){
                 columns[i].index = index;
 
@@ -3431,6 +3442,9 @@
                     delete columns[i].value;
                 }
                 index++;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width ="1px";
+                }
             }
             function update(instance, cell, c, r, value) {
                 console.log("update call");
@@ -4041,6 +4055,8 @@
 
             };
             columnsAll[sheetName] = columns;
+
+            let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
             for(var i in columns){
                 columns[i].index = index;
                 columns[i].title = columns[i].title;
@@ -4052,7 +4068,9 @@
                     delete columns[i].value;
                 }
                 index++;
-
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width ="1px";
+                }
             }
             function update(instance, cell, c, r, value) {
                 console.log("update call");
