@@ -9,16 +9,11 @@ class OrderExcelModel extends Model
 {
     protected $table = 'shop_order_excel_session';
     protected $fillable = [];
-
-    public function GetDetails($compay){
-        $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)
-            ->orderBy('id','ASC')->orderBy('admin_id','ASC')->get()->all();
-
+    public function RenderData($ressult ,$def = true){
         $datas = [
 
         ];
-
-        foreach ($shop_order_excel as $_key=>$_value){
+        foreach ($ressult as $_key=>$_value){
             if(!isset($datas[$_value->company])){
                 $datas[$_value->company] = [];
             }
@@ -51,18 +46,20 @@ class OrderExcelModel extends Model
                                 $row[] = $value1;
                             }
                         }
-                        $n = count($row);
-                        $item_last = $row[$n-1];
-
-                        $item = new \stdClass();
-                        foreach ($item_last as $key=>$v){
-                            $item->{$key} = "";
+                        if($def)
+                        {
+                            $n = count($row);
+                            $item_last = $row[$n-1];
+                            $item = new \stdClass();
+                            foreach ($item_last as $key=>$v){
+                                $item->{$key} = "";
+                            }
+                            $item->order_index =  $item_last->order_index;
+                            $item->company =  $item_last->company;
+                            $item->type = "Item";
+                            $item_last->order_index++;
+                            $row[] = $item;
                         }
-                        $item->order_index =  $item_last->order_index;
-                        $item->company =  $item_last->company;
-                        $item->type = "Item";
-                        $item_last->order_index++;
-                        $row[] = $item;
                         usort($row, function ($a, $b) {
                             return ($a->order_index) - $b->order_index;
                         });
@@ -75,8 +72,12 @@ class OrderExcelModel extends Model
                 $dataNew['KOGYJA'] = $KOGYJA;
             }
         }
-
         return $dataNew;
+    }
+    public function GetDetails($compay){
+        $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)
+            ->orderBy('id','ASC')->orderBy('admin_id','ASC')->get()->all();
+        return $this->RenderData($shop_order_excel);
     }
     public function ShowAll($user_id,$date,$company,$type){
 //        $lists = DB::table('shop_order_excel_session')

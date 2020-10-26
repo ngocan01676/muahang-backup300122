@@ -64,6 +64,9 @@
     'one_address' => 'Cùng địa chỉ',
     'id' => 'ID',
     'session_id' => 'SessionId',
+    'export' => 'Export',
+    'token' => 'token',
+    'position' => 'position',
   )
  @endphp
 <table class="table table-bordered">

@@ -892,6 +892,11 @@
 
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            let company = parent.company;
+
+                            console.log('1');
+                            console.log(info);
+
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
@@ -906,29 +911,44 @@
                                 table+='<td>Số điện thoại</td>';
                                 table+='<td>Công ty</td>';
                                 table+='<td>Sản phẩm</td>';
-                                table+='<td>Số lượng</td>';
+
                                 table+='<td>Trạng thái</td>';
                                 table+='<td>Xuất</td>';
                                 table+='<td>Đường dẫn</td>';
                                 table+="</tr>";
-                                for(let index in info[tab]){
-                                    table+="<tr>";
-                                    // table+='<td>'+info[tab][index].id+'</td>';
-                                    // table+='<td>'+info[tab][index].session_id+'</td>';
-                                    table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
-                                    table+='<td>'+info[tab][index].fullname+'</td>';
-                                    table+='<td>'+info[tab][index].address+'</td>';
-                                    table+='<td>'+info[tab][index].province+'</td>';
-                                    table+='<td>'+info[tab][index].order_create_date+'</td>';
-                                    table+='<td>'+info[tab][index].phone+'</td>';
-                                    table+='<td>'+info[tab][index].company+'</td>';
-                                    table+='<td>'+info[tab][index].product_title+'</td>';
-                                    table+='<td>'+info[tab][index].count+'</td>';
-                                    table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
-                                    table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
-                                    table+='<td>'+info[tab][index].order_link+'</td>';
-                                    table+="</tr>";
+                                for(let pos in info){
+                                    for(let com in info[pos]){
+                                        if(com!=company) continue;
+                                        for(let index in info[pos][com]){
+                                            let val = info[pos][com][index];
+                                            table+="<tr>";
+                                            table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                            table+='<td>'+val.fullname+'</td>';
+                                            table+='<td>'+val.address+'</td>';
+                                            table+='<td>'+val.province+'</td>';
+                                            table+='<td>'+val.order_create_date+'</td>';
+                                            table+='<td>'+val.phone+'</td>';
+                                            table+='<td>'+val.company+'</td>';
+                                            table+= "<td><table class=\"table table-bordered\">";
+                                            table+='<td>'+val.product_title+'</td>';
+                                            table+='<td>'+val.count+'</td>';
+                                            if(val.hasOwnProperty('items')){
+                                                for(let _index in val.items){
+                                                    table+="<tr>";
+                                                    table+='<td>'+val.items[_index].product_title+'</td>';
+                                                    table+='<td>'+val.items[_index].count+'</td>';
+                                                    table+="</tr>";
+                                                }
+                                            }
+                                            table+="</table></td>";
+                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
+                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+val.order_link+'</td>';
+                                            table+="</tr>";
+                                        }
+                                    }
                                 }
+
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -936,7 +956,6 @@
                         }
                     });
                 },
-
                 nestedHeaders:[
                     nestedHeaders
                 ],
@@ -1428,6 +1447,7 @@
             };
             columnsAll[sheetName] = columns;
             let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
+
             for(var i in columns){
                 columns[i].index = index;
 
@@ -1994,6 +2014,7 @@
                 minDimensions:[35,42],
                 columns:Object.values(columns),
                 data:_data,
+
                 onload: function (e) {
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
@@ -2001,6 +2022,11 @@
 
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            let company = parent.company;
+
+                            console.log('1');
+                            console.log(info);
+
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
@@ -2015,29 +2041,44 @@
                                 table+='<td>Số điện thoại</td>';
                                 table+='<td>Công ty</td>';
                                 table+='<td>Sản phẩm</td>';
-                                table+='<td>Số lượng</td>';
+
                                 table+='<td>Trạng thái</td>';
                                 table+='<td>Xuất</td>';
                                 table+='<td>Đường dẫn</td>';
                                 table+="</tr>";
-                                for(let index in info[tab]){
-                                    table+="<tr>";
-                                    // table+='<td>'+info[tab][index].id+'</td>';
-                                    // table+='<td>'+info[tab][index].session_id+'</td>';
-                                    table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
-                                    table+='<td>'+info[tab][index].fullname+'</td>';
-                                    table+='<td>'+info[tab][index].address+'</td>';
-                                    table+='<td>'+info[tab][index].province+'</td>';
-                                    table+='<td>'+info[tab][index].order_create_date+'</td>';
-                                    table+='<td>'+info[tab][index].phone+'</td>';
-                                    table+='<td>'+info[tab][index].company+'</td>';
-                                    table+='<td>'+info[tab][index].product_title+'</td>';
-                                    table+='<td>'+info[tab][index].count+'</td>';
-                                    table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
-                                    table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
-                                    table+='<td>'+info[tab][index].order_link+'</td>';
-                                    table+="</tr>";
+                                for(let pos in info){
+                                for(let com in info[pos]){
+                                    if(com!=company) continue;
+                                    for(let index in info[pos][com]){
+                                        let val = info[pos][com][index];
+                                        table+="<tr>";
+                                        table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                        table+='<td>'+val.fullname+'</td>';
+                                        table+='<td>'+val.address+'</td>';
+                                        table+='<td>'+val.province+'</td>';
+                                        table+='<td>'+val.order_create_date+'</td>';
+                                        table+='<td>'+val.phone+'</td>';
+                                        table+='<td>'+val.company+'</td>';
+                                        table+= "<td><table class=\"table table-bordered\">";
+                                        table+='<td>'+val.product_title+'</td>';
+                                        table+='<td>'+val.count+'</td>';
+                                        if(val.hasOwnProperty('items')){
+                                                for(let _index in val.items){
+                                                    table+="<tr>";
+                                                    table+='<td>'+val.items[_index].product_title+'</td>';
+                                                    table+='<td>'+val.items[_index].count+'</td>';
+                                                    table+="</tr>";
+                                                }
+                                        }
+                                        table+="</table></td>";
+                                        table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
+                                        table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                        table+='<td>'+val.order_link+'</td>';
+                                        table+="</tr>";
+                                    }
                                 }
+                                }
+
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -3130,6 +3171,11 @@
 
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            let company = parent.company;
+
+                            console.log('1');
+                            console.log(info);
+
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
@@ -3144,29 +3190,44 @@
                                 table+='<td>Số điện thoại</td>';
                                 table+='<td>Công ty</td>';
                                 table+='<td>Sản phẩm</td>';
-                                table+='<td>Số lượng</td>';
+
                                 table+='<td>Trạng thái</td>';
                                 table+='<td>Xuất</td>';
                                 table+='<td>Đường dẫn</td>';
                                 table+="</tr>";
-                                for(let index in info[tab]){
-                                    table+="<tr>";
-                                    // table+='<td>'+info[tab][index].id+'</td>';
-                                    // table+='<td>'+info[tab][index].session_id+'</td>';
-                                    table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
-                                    table+='<td>'+info[tab][index].fullname+'</td>';
-                                    table+='<td>'+info[tab][index].address+'</td>';
-                                    table+='<td>'+info[tab][index].province+'</td>';
-                                    table+='<td>'+info[tab][index].order_create_date+'</td>';
-                                    table+='<td>'+info[tab][index].phone+'</td>';
-                                    table+='<td>'+info[tab][index].company+'</td>';
-                                    table+='<td>'+info[tab][index].product_title+'</td>';
-                                    table+='<td>'+info[tab][index].count+'</td>';
-                                    table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
-                                    table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
-                                    table+='<td>'+info[tab][index].order_link+'</td>';
-                                    table+="</tr>";
+                                for(let pos in info){
+                                    for(let com in info[pos]){
+                                        if(com!=company) continue;
+                                        for(let index in info[pos][com]){
+                                            let val = info[pos][com][index];
+                                            table+="<tr>";
+                                            table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                            table+='<td>'+val.fullname+'</td>';
+                                            table+='<td>'+val.address+'</td>';
+                                            table+='<td>'+val.province+'</td>';
+                                            table+='<td>'+val.order_create_date+'</td>';
+                                            table+='<td>'+val.phone+'</td>';
+                                            table+='<td>'+val.company+'</td>';
+                                            table+= "<td><table class=\"table table-bordered\">";
+                                            table+='<td>'+val.product_title+'</td>';
+                                            table+='<td>'+val.count+'</td>';
+                                            if(val.hasOwnProperty('items')){
+                                                for(let _index in val.items){
+                                                    table+="<tr>";
+                                                    table+='<td>'+val.items[_index].product_title+'</td>';
+                                                    table+='<td>'+val.items[_index].count+'</td>';
+                                                    table+="</tr>";
+                                                }
+                                            }
+                                            table+="</table></td>";
+                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
+                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+val.order_link+'</td>';
+                                            table+="</tr>";
+                                        }
+                                    }
                                 }
+
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -3174,7 +3235,6 @@
                         }
                     });
                 },
-
                 nestedHeaders:[
                     nestedHeaders
                 ],
@@ -3822,6 +3882,7 @@
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
+
                 onload: function (e) {
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
@@ -3829,6 +3890,11 @@
 
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            let company = parent.company;
+
+                            console.log('1');
+                            console.log(info);
+
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
@@ -3843,29 +3909,44 @@
                                 table+='<td>Số điện thoại</td>';
                                 table+='<td>Công ty</td>';
                                 table+='<td>Sản phẩm</td>';
-                                table+='<td>Số lượng</td>';
+
                                 table+='<td>Trạng thái</td>';
                                 table+='<td>Xuất</td>';
                                 table+='<td>Đường dẫn</td>';
                                 table+="</tr>";
-                                for(let index in info[tab]){
-                                    table+="<tr>";
-                                    // table+='<td>'+info[tab][index].id+'</td>';
-                                    // table+='<td>'+info[tab][index].session_id+'</td>';
-                                    table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
-                                    table+='<td>'+info[tab][index].fullname+'</td>';
-                                    table+='<td>'+info[tab][index].address+'</td>';
-                                    table+='<td>'+info[tab][index].province+'</td>';
-                                    table+='<td>'+info[tab][index].order_create_date+'</td>';
-                                    table+='<td>'+info[tab][index].phone+'</td>';
-                                    table+='<td>'+info[tab][index].company+'</td>';
-                                    table+='<td>'+info[tab][index].product_title+'</td>';
-                                    table+='<td>'+info[tab][index].count+'</td>';
-                                    table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
-                                    table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
-                                    table+='<td>'+info[tab][index].order_link+'</td>';
-                                    table+="</tr>";
+                                for(let pos in info){
+                                    for(let com in info[pos]){
+                                        if(com!=company) continue;
+                                        for(let index in info[pos][com]){
+                                            let val = info[pos][com][index];
+                                            table+="<tr>";
+                                            table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                            table+='<td>'+val.fullname+'</td>';
+                                            table+='<td>'+val.address+'</td>';
+                                            table+='<td>'+val.province+'</td>';
+                                            table+='<td>'+val.order_create_date+'</td>';
+                                            table+='<td>'+val.phone+'</td>';
+                                            table+='<td>'+val.company+'</td>';
+                                            table+= "<td><table class=\"table table-bordered\">";
+                                            table+='<td>'+val.product_title+'</td>';
+                                            table+='<td>'+val.count+'</td>';
+                                            if(val.hasOwnProperty('items')){
+                                                for(let _index in val.items){
+                                                    table+="<tr>";
+                                                    table+='<td>'+val.items[_index].product_title+'</td>';
+                                                    table+='<td>'+val.items[_index].count+'</td>';
+                                                    table+="</tr>";
+                                                }
+                                            }
+                                            table+="</table></td>";
+                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
+                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+val.order_link+'</td>';
+                                            table+="</tr>";
+                                        }
+                                    }
                                 }
+
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -3873,7 +3954,6 @@
                         }
                     });
                 },
-
                 nestedHeaders:[
                     nestedHeaders
                 ],
@@ -4511,13 +4591,17 @@
                 data:_data,
 
                 onload: function (e) {
-
-                   let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
+                    let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
                         let parent = $(this).parent().data();
 
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            let company = parent.company;
+
+                            console.log('1');
+                            console.log(info);
+
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
@@ -4532,29 +4616,44 @@
                                 table+='<td>Số điện thoại</td>';
                                 table+='<td>Công ty</td>';
                                 table+='<td>Sản phẩm</td>';
-                                table+='<td>Số lượng</td>';
+
                                 table+='<td>Trạng thái</td>';
                                 table+='<td>Xuất</td>';
                                 table+='<td>Đường dẫn</td>';
                                 table+="</tr>";
-                                for(let index in info[tab]){
-                                    table+="<tr>";
-                                        // table+='<td>'+info[tab][index].id+'</td>';
-                                        // table+='<td>'+info[tab][index].session_id+'</td>';
-                                        table+='<td>'+(info_admin.hasOwnProperty(info[tab][index].admin_id)?info_admin[info[tab][index].admin_id].name:"Không xác định")+'</td>';
-                                        table+='<td>'+info[tab][index].fullname+'</td>';
-                                        table+='<td>'+info[tab][index].address+'</td>';
-                                        table+='<td>'+info[tab][index].province+'</td>';
-                                        table+='<td>'+info[tab][index].order_create_date+'</td>';
-                                        table+='<td>'+info[tab][index].phone+'</td>';
-                                        table+='<td>'+info[tab][index].company+'</td>';
-                                        table+='<td>'+info[tab][index].product_title+'</td>';
-                                        table+='<td>'+info[tab][index].count+'</td>';
-                                        table+='<td>'+(info[tab][index].public == 1?"Đơn":"Nháp")+'</td>';
-                                        table+='<td>'+(info[tab][index].export == 1?"Xuất":"Chưa")+'</td>';
-                                        table+='<td>'+info[tab][index].order_link+'</td>';
-                                    table+="</tr>";
+                                for(let pos in info){
+                                    for(let com in info[pos]){
+                                        if(com!=company) continue;
+                                        for(let index in info[pos][com]){
+                                            let val = info[pos][com][index];
+                                            table+="<tr>";
+                                            table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                            table+='<td>'+val.fullname+'</td>';
+                                            table+='<td>'+val.address+'</td>';
+                                            table+='<td>'+val.province+'</td>';
+                                            table+='<td>'+val.order_create_date+'</td>';
+                                            table+='<td>'+val.phone+'</td>';
+                                            table+='<td>'+val.company+'</td>';
+                                            table+= "<td><table class=\"table table-bordered\">";
+                                            table+='<td>'+val.product_title+'</td>';
+                                            table+='<td>'+val.count+'</td>';
+                                            if(val.hasOwnProperty('items')){
+                                                for(let _index in val.items){
+                                                    table+="<tr>";
+                                                    table+='<td>'+val.items[_index].product_title+'</td>';
+                                                    table+='<td>'+val.items[_index].count+'</td>';
+                                                    table+="</tr>";
+                                                }
+                                            }
+                                            table+="</table></td>";
+                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
+                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+val.order_link+'</td>';
+                                            table+="</tr>";
+                                        }
+                                    }
                                 }
+
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -4562,7 +4661,6 @@
                         }
                     });
                 },
-
                 nestedHeaders:[
                     nestedHeaders
                 ],
@@ -5082,6 +5180,7 @@
                                 if(row){
                                     let p =  row.parent();
                                     p.data('info',data["lists"][index]);  p.find('.jexcel_row').addClass('open_popup');
+                                    p.data('company',data["company"]);  p.find('.jexcel_row').addClass('open_popup');
                                 }
                             }
                         }
