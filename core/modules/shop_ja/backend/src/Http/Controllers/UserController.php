@@ -60,6 +60,10 @@ class UserController extends \User\Http\Controllers\UserController
                 "ctvButton" => function ($model){
                     $html = "<a href='".route('backend:dashboard:list',['id'=>base64_encode($model->id)])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">Thông tin đơn hàng</button></a>";
                     return $html;
+                },
+                "ctvOptionButton" => function ($model){
+                    $html = "<a href='".route('backend:shop_ja:user:option',['id'=>base64_encode($model->id)])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">Cấu hình</button></a>";
+                    return $html;
                 }
             ]
         ],'shop_ja');
@@ -120,11 +124,32 @@ class UserController extends \User\Http\Controllers\UserController
                 "ctvButton" => function ($model){
                     $html = "<a href='".route('backend:dashboard:list',['id'=>base64_encode($model->id)])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">Thông tin đơn hàng</button></a>";
                     return $html;
+                },
+                "ctvOptionButton" => function ($model){
+                    $html = "<a href='".route('backend:shop_ja:user:option',['id'=>base64_encode($model->id)])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">Cấu hình</button></a>";
+                    return $html;
                 }
             ]
         ],'shop_ja');
     }
-    public function acl(){
-       return $this->render('user.acl','shop_ja');
+    public function option(Request $request){
+        $id = base64_decode( $request->id);
+        $datas = $request->all();
+        if($request->isMethod('post')){
+            if(isset($datas['act'])){
+                DB::table('shop_admin')->updateOrInsert(['admin_id'=>$id],['data'=>serialize($datas['data'])]);
+            }
+            return response()->json($datas);
+        }
+
+        $results = DB::table('shop_admin')->where('admin_id',$id)->get()->all();
+
+        $options = [];
+
+        if(isset($results[0])){
+            $options = unserialize($results[0]->data);
+        }
+
+        return $this->render('user.option',['options'=>$options],'shop_ja');
     }
 }

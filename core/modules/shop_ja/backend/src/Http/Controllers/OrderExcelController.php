@@ -999,9 +999,14 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['products'] = [
 
         ];
+        $options = DB::table('shop_admin')->where('admin_id',Auth::id())->get()->all();
 
+        $this->data['options'] = [
 
-
+        ];
+        if(isset($options[0])){
+            $this->data['options'] = unserialize($options[0]->data);
+        }
 
         $categorys = config_get("category", "shop-ja:product:category");
         $names  = [];

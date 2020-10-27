@@ -297,6 +297,7 @@
                             'created_at' => ['label' => z_language('Ngày tạo', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Ngày cập nhật', false), 'type' => 'date'],
                             'ctvButton' => ['label' => z_language('Thông tin', false), 'type' => 'number','callback' => "ctvButton"],
+                            'ctvOptionButton' => ['label' => z_language('Cấu hình', false), 'type' => 'number','callback' => "ctvOptionButton"],
                         ],
                     ],
                     'pagination' => [

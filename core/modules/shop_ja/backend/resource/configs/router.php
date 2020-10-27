@@ -323,6 +323,9 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
+                    "option" => [
+                        "url" => "/option/{id}","method" => ['post','get'],
+                    ],
                 ]
             ],
             'shop_ja:user_cvt' => [
@@ -338,19 +341,18 @@ return [
                 ]
             ],
             'dashboard' => [
-                "namespace" => "ShopJa\Http\Controllers",
-                "controller" => "DashboardController",
-                "sub_prefix" => "/admin/dashboard",
-                "guard" => "backend",
-                "acl"=> "dashboard",
-                "router" => [
-                    "user" => [
-                        "url" => "/dashboard/{id?}",
-                        'acl'=>true,
-                    ],
-                ]
-            ],
-
+                    "namespace" => "ShopJa\Http\Controllers",
+                    "controller" => "DashboardController",
+                    "sub_prefix" => "/admin/dashboard",
+                    "guard" => "backend",
+                    "acl"=> "dashboard",
+                    "router" => [
+                        "user" => [
+                            "url" => "/dashboard/{id?}",
+                            'acl'=>true,
+                        ],
+                    ]
+                ],
             ]
-        ]
+    ]
 ];

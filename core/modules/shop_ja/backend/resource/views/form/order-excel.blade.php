@@ -330,6 +330,7 @@
         let statusCompnay = {!! json_encode($status,JSON_UNESCAPED_UNICODE) !!}
         let hideprototy = {!! json_encode($hide,JSON_UNESCAPED_UNICODE) !!}
         let info_admin = {!! json_encode($admin,JSON_UNESCAPED_UNICODE) !!}
+        let options = {!! json_encode($options,JSON_UNESCAPED_UNICODE) !!}
 
         function IF_End($val,$conf){
             if( $conf.equal_end === "<=" && $val <= $conf.value_end){
@@ -724,11 +725,11 @@
 
             columnsAll[sheetName] = columns;
             let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
+            let _option = options.hasOwnProperty(sheetName)?options[sheetName]:{};
             for(var i in columns){
                 columns[i].index = index;
-              //  columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
-                columns[i].key = i;
 
+                columns[i].key = i;
                 let v = setDefaultValue(i,columns);
                 if(v[0]){
                     columns[i].value = v[1];
@@ -738,6 +739,10 @@
                 index++;
                 if(hide.hasOwnProperty(i)){
                     columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
+                    }
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -1466,12 +1471,12 @@
             columnsAll[sheetName] = columns;
             let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
 
+            let _option = options.hasOwnProperty(sheetName)?options[sheetName]:{};
             for(var i in columns){
                 columns[i].index = index;
 
                 columns[i].key = i;
                 let v = setDefaultValue(i,columns);
-
                 if(v[0]){
                     columns[i].value = v[1];
                 }else{
@@ -1480,6 +1485,10 @@
                 index++;
                 if(hide.hasOwnProperty(i)){
                     columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
+                    }
                 }
             }
 
@@ -2888,6 +2897,7 @@
             columnsAll[sheetName] = columns;
             let columns_index = Object.values(columns);
             let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
+            let _option = options.hasOwnProperty(sheetName)?options[sheetName]:{};
             for(var i in columns){
                 columns[i].index = index;
 
@@ -2901,6 +2911,10 @@
                 index++;
                 if(hide.hasOwnProperty(i)){
                     columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
+                    }
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -3727,6 +3741,7 @@
 
             columnsAll[sheetName] = columns;
             let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
+            let _option = options.hasOwnProperty(sheetName)?options[sheetName]:{};
             for(var i in columns){
                 columns[i].index = index;
 
@@ -3740,6 +3755,10 @@
                 index++;
                 if(hide.hasOwnProperty(i)){
                     columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
+                    }
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -4428,9 +4447,11 @@
             columnsAll[sheetName] = columns;
 
             let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
+
+            let _option = options.hasOwnProperty(sheetName)?options[sheetName]:{};
             for(var i in columns){
                 columns[i].index = index;
-                columns[i].title = columns[i].title;
+
                 columns[i].key = i;
                 let v = setDefaultValue(i,columns);
                 if(v[0]){
@@ -4441,6 +4462,10 @@
                 index++;
                 if(hide.hasOwnProperty(i)){
                     columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
+                    }
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -4958,26 +4983,36 @@
             x = win.innerWidth || docElem.clientWidth || body.clientWidth,
             y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
         config.tableHeight = (y*0.5)+"px";
+
         let sheets = [
 
         ];
+
         if(!statusCompnay.hasOwnProperty('AMAZON')){
-            sheets.push(Object.assign(YAMADA("AMAZON",config),config ));
+            if(options.hasOwnProperty('AMAZON') && options.AMAZON.status == 1){
+                sheets.push(Object.assign(YAMADA("AMAZON",config),config ));
+            }
+
         }
         if(!statusCompnay.hasOwnProperty('FUKUI')){
-            sheets.push( Object.assign(FUKUI(config),config));
+            if(options.hasOwnProperty('FUKUI') && options.FUKUI.status == 1)
+                sheets.push( Object.assign(FUKUI(config),config));
         }
         if(!statusCompnay.hasOwnProperty('KOGYJA')){
-            sheets.push(Object.assign(KOGYJA(config),Object.assign(config,{})),);
+            if(options.hasOwnProperty('KOGYJA') && options.KOGYJA.status == 1)
+                sheets.push(Object.assign(KOGYJA(config),Object.assign(config,{})),);
         }
         if(!statusCompnay.hasOwnProperty('KURICHIKU')){
-            sheets.push( Object.assign(KURICHIKU(config),config));
+            if(options.hasOwnProperty('KURICHIKU') && options.KURICHIKU.status == 1)
+                sheets.push( Object.assign(KURICHIKU(config),config));
         }
         if(!statusCompnay.hasOwnProperty('OHGA')){
-            sheets.push( Object.assign(OHGA(config),config));
+            if(options.hasOwnProperty('OHGA') && options.OHGA.status == 1)
+                sheets.push( Object.assign(OHGA(config),config));
         }
         if(!statusCompnay.hasOwnProperty('YAMADA')){
-            sheets.push(Object.assign(YAMADA("YAMADA",config),config ));
+            if(options.hasOwnProperty('YAMADA') && options.YAMADA.status == 1)
+                sheets.push(Object.assign(YAMADA("YAMADA",config),config ));
         }
         for(let i = 0 ; i < sheets.length ; i++){
             sheets[i].minDimensions = [sheets[i].minDimensions[0],parseInt(sheets[i].minDimensions[1] *(y/1000))];
@@ -5215,7 +5250,9 @@
             });
             console.log(datas);
         }
-        CheckData();
+       setTimeout(function () {
+           CheckData();
+       },2000)
 
         setInterval(function () {
             CheckData();
