@@ -299,6 +299,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $model->admin_id = Auth::user()->id;
                 }
 
+                $this->InitOption();
+
                 $date_time = date('Y-m-d H:i:s');
                 $model->date_time = $date_time;
                 $model->name =\Illuminate\Support\Str::random(50);
@@ -360,9 +362,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $values[$kkkkk] = rtrim(trim($valllll));
                                     }
 
-
-
-
                                     $product_title = "";$product_code = "";
 
                                     $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
@@ -408,12 +407,40 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                         "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                         "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
+                                        "rate"=> isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                     $validator = Validator::make($_data,$check);
                                     if (!$validator->fails()) {
-                                        $logs[$name][] = $_data;
-                                        DB::table('shop_order_excel')->insert($_data);
+//                                        $logs[$name][] = $_data;
+//                                        DB::table('shop_order_excel')->insert($_data);
+                                        $_ = [$values,$_data,$columns];
+                                        if(isset($columns["id"]) && !empty($values[$columns["id"]])){
+                                            $where = ['id'=>$values[$columns["id"]]];
+                                        }else{
+                                            $where = [
+                                                'session_id' => $_data['session_id'],
+                                                'admin_id' => $_data['admin_id'],
+                                                'fullname'=>$_data['fullname'],
+                                                "company"=>$_data["company"],
+                                                "zipcode"=>$_data["zipcode"],
+                                                "count"=>$_data["count"],
+                                                "phone"=>$_data["phone"],
+                                                "province"=>$_data["province"],
+                                                "price_buy_sale"=>$_data["price_buy_sale"],
+                                                "price_buy"=>$_data["price_buy"],
+                                                "pay_method"=>$_data["pay_method"],
+                                                "order_ship"=>$_data["order_ship"],
+                                                "order_ship_cou"=>$_data["order_ship_cou"],
+                                                "order_link"=>$_data["order_link"],
+                                                "order_tracking"=>$_data["order_tracking"],
+                                                "order_hours"=>$_data["order_hours"],
+                                            ];
+                                            $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
+                                        }
+                                        $_[] = $where;
+                                        $logs[$name][] =$_;
+                                        DB::table('shop_order_excel')->updateOrInsert($where,$_data);
                                     }
                                 }
                                 DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
@@ -444,7 +471,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }catch (\Exception $ex) {
                                         $array_product = [];
                                     }
-
                                     $product_code = "";$product_title = "";
                                     foreach ($array_product as $pro_id){
                                         if(isset( $_product[$pro_id]['data']['price_buy'])){
@@ -460,7 +486,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $array_count = [];
                                     }
                                     $total_count = 0;
-
                                     foreach ($array_count as $pro_id=>$_count){
                                         if(isset( $_product[$pro_id]['data']['price_buy'])){
                                             $total_count+=(int)$_count;
@@ -475,7 +500,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $product_title = $_product[$product_id]['data']['title'];
                                     }
                                 }
-
                                 $_data = [
                                     "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
                                     "company"=>$name,
@@ -511,12 +535,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                     "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
+
                                 ];
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
                                 $validator = Validator::make($_data,$check);
 
                                 if (!$validator->fails()) {
-
                                     $_ = [$values,$_data,$columns];
                                     if(isset($columns["id"]) && !empty($values[$columns["id"]])){
                                         $where = ['id'=>$values[$columns["id"]]];
@@ -539,12 +563,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             "order_tracking"=>$_data["order_tracking"],
                                             "order_hours"=>$_data["order_hours"],
                                         ];
+                                        $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
                                     }
                                     $_[] = $where;
-
                                     $logs[$name][] =$_;
                                      DB::table('shop_order_excel')->updateOrInsert($where,$_data);
-
                                 }
                             }
                             DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
@@ -992,6 +1015,15 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
         return $this->render('order-excel.imports');
     }
+    public function InitOption(){
+        $options = DB::table('shop_admin')->where('admin_id',Auth::id())->get()->all();
+        $this->data['options'] = [
+
+        ];
+        if(isset($options[0])){
+            $this->data['options'] = unserialize($options[0]->data);
+        }
+    }
     private function GetCache($type,$id,$company = "",$date = ""){
         $this->data['excels_data'] = [
 
@@ -999,14 +1031,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['products'] = [
 
         ];
-        $options = DB::table('shop_admin')->where('admin_id',Auth::id())->get()->all();
 
-        $this->data['options'] = [
-
-        ];
-        if(isset($options[0])){
-            $this->data['options'] = unserialize($options[0]->data);
-        }
+        $this->InitOption();
 
         $categorys = config_get("category", "shop-ja:product:category");
         $names  = [];
@@ -1234,6 +1260,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $total_price_buy,
                             $result->order_ship_cou,
                             $order_profit,
+                            (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
                             $result->order_tracking,
                             $result->order_link,
                             $result->order_info,
@@ -1308,6 +1335,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $total_price_buy,
                             $result->order_ship_cou,
                             $order_profit,
+                            (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
                             $result->order_tracking,
                             $result->order_link,
                             $result->order_info,
