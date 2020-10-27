@@ -1,61 +1,80 @@
-
-
 @if(isset($model))
     {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
     {!! Form::hidden('id') !!}
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
 @endif
-<div class="row">
-    <div class="col-md-6">
-        <label>Ngày giờ xuất:</label>
-        <div class="form-group">
-            <div class="input-group date">
-                <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" class="form-control pull-right" id="datepicker">
-            </div>
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title">{!! z_language('Thông tin') !!}</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+            </button>
         </div>
     </div>
-    <div class="col-md-6">
-        <label>Ngày nhận:</label>
-        <div class="form-group">
-            <div class="input-group date">
-                <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-6">
+                <label>Ngày giờ xuất:</label>
+                <div class="form-group">
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="datepicker">
+                    </div>
                 </div>
-                <input type="text" class="form-control pull-right" id="datepicker1">
+            </div>
+            <div class="col-md-6">
+                <label>Ngày nhận:</label>
+                <div class="form-group">
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="datepicker1">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<table class="table">
-    <tr>
-        <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
-        <td style="width: 95%">
-            <input type="text" class="form-control" id="value-review">
-            <div id="zoe-dropdown-review" style="display: none"></div>
-        </td>
-    </tr>
-</table>
-<div id="spreadsheet"></div>
 
-<div>
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title">{!! z_language(' Nội dung ') !!}</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+        <table class="table">
+            <tr>
+                <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
+                <td style="width: 95%">
+                    <input type="text" class="form-control" id="value-review">
+                    <div id="zoe-dropdown-review" style="display: none"></div>
+                </td>
+            </tr>
+        </table>
+        <div id="spreadsheet"></div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
+                        {!! Form::radio('status', '0' , true) !!} Nháp
+                        {!! Form::radio('status', '1',false) !!} Lập đơn
+                    </td>
+                </tr>
 
-    <table>
-        <tr>
-            <td>
-                {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
-                {!! Form::radio('status', '0' , true) !!} Nháp
-                {!! Form::radio('status', '1',false) !!} Lập đơn
-            </td>
-        </tr>
-
-    </table>
-
-    <button onclick="Save()" type="button"> Lưu </button> &nbsp;
-    <button onclick="Export()" type="button"> Export </button>
+            </table>
+            <button onclick="Save()" type="button"> Lưu </button> &nbsp;
+            <button onclick="Export()" type="button"> Export </button>
+        </div>
+    </div>
+    <!-- /.box-body -->
 </div>
 <style>
     .modal-dialog {

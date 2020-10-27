@@ -5,6 +5,5 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
     @include('shop_ja::form.order-excel')
 @endsection

@@ -460,7 +460,7 @@
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
-@includeIf('backend::developer-tools.toolbar')
+{{--@includeIf('backend::developer-tools.toolbar')--}}
 <!-- ./wrapper -->
 @stack('extra-content')
 <!-- jQuery 3 -->
@@ -488,7 +488,7 @@
 <script src="{{asset('module/admin/dist/js/demo.js')}}"></script>
 <script src="{{asset('module/admin/assets/main.js')}}"></script>
 
-<script src="{{asset('module/admin/developer-tools/toolbar.js')}}"></script>
+{{--<script src="{{asset('module/admin/developer-tools/toolbar.js')}}"></script>--}}
 
 <script type="text/javascript">
     $(document).ready(function () {
