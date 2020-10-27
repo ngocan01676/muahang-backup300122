@@ -921,7 +921,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     return $rs && count($rs) > 0 ? $rs[0]->username : "Empty";
                 },
                 "GetName" => function ($model){
-                    return "Form_".$model->key_date;
+                    return $model->key_date;
                 },
                 "GetStatus"=>function($model){
                     if($model->status == 0){
