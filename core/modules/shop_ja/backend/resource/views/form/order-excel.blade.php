@@ -4965,6 +4965,7 @@
         $(document).ready(function () {
             let changeDate = 0;
             let changeDate1 = 0;
+            $('body').addClass('sidebar-collapse');
             $datepicker = $('#datepicker').datepicker({
                 autoclose: true,
             }).on('changeDate', function (ev) {

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,107 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/OrderModel.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/OrderExcelModel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="32" column="41" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17340">
-              <caret line="1331" column="18" selection-start-line="1331" selection-start-column="18" selection-end-line="1331" selection-end-column="18" />
-              <folding>
-                <element signature="e#42663#55998#0#PHP" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
+        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="5056" column="13" lean-forward="true" selection-start-line="5056" selection-start-column="13" selection-end-line="5056" selection-end-column="13" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#240955#243000#0#HTML" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="41">
-              <caret line="524" column="15" selection-start-line="524" selection-start-column="15" selection-end-line="524" selection-end-column="15" />
-              <folding>
-                <element signature="e#14212#14218#0#HTML" expanded="true" />
-                <element signature="e#14218#14224#0#HTML" expanded="true" />
-                <element signature="e#14224#14230#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/list.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1632">
-              <caret line="96" column="92" selection-start-line="96" selection-start-column="85" selection-end-line="96" selection-end-column="92" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
-              <folding>
-                <element signature="e#41#55#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/configs/company.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1122">
-              <caret line="66" column="25" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8704">
-              <caret line="512" column="82" selection-start-line="512" selection-start-column="19" selection-end-line="512" selection-end-column="82" />
+            <state relative-caret-position="391">
+              <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -199,7 +103,6 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/config/company.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/list.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/configuration/list.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/list.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/show-select.blade.php" />
@@ -214,6 +117,7 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/configs/company.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" />
       </list>
     </option>
   </component>
@@ -525,6 +429,33 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="configs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
               <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -631,12 +562,12 @@
       <workItem from="1603420036838" duration="14895000" />
       <workItem from="1603511403351" duration="15157000" />
       <workItem from="1603676671144" duration="29645000" />
-      <workItem from="1603763607147" duration="2343000" />
+      <workItem from="1603763607147" duration="2821000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="459798000" />
+    <option name="totallyTimeSpent" value="460276000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -814,13 +745,6 @@
     <entry file="file://$PROJECT_DIR$/core/modules/blog/backend/resource/configs/sidebar.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/ExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-8415" />
@@ -977,8 +901,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="5056" column="13" lean-forward="true" selection-start-line="5056" selection-start-column="13" selection-end-line="5056" selection-end-column="13" />
+        <state relative-caret-position="346">
+          <caret line="4967" column="51" selection-start-line="4967" selection-start-column="51" selection-end-line="4967" selection-end-column="51" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -987,6 +911,13 @@
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#240955#243000#0#HTML" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
         </state>
       </provider>
     </entry>
