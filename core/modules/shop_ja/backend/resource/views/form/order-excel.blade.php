@@ -894,8 +894,7 @@
                             let info = parent.info;
                             let company = parent.company;
 
-                            console.log('1');
-                            console.log(info);
+
 
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
@@ -2024,8 +2023,7 @@
                             let info = parent.info;
                             let company = parent.company;
 
-                            console.log('1');
-                            console.log(info);
+
 
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
@@ -3173,8 +3171,7 @@
                             let info = parent.info;
                             let company = parent.company;
 
-                            console.log('1');
-                            console.log(info);
+
 
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
@@ -3892,8 +3889,7 @@
                             let info = parent.info;
                             let company = parent.company;
 
-                            console.log('1');
-                            console.log(info);
+
 
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
@@ -4599,8 +4595,7 @@
                             let info = parent.info;
                             let company = parent.company;
 
-                            console.log('1');
-                            console.log(info);
+
 
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
@@ -5055,11 +5050,9 @@
                 console.log("out");
             });
         });
-        function Save(status) {
-
+        function Save(status,auto) {
             let oke =  confirm('{!! z_language('Bạn muốn lưu') !!}');
             if(!oke) return;
-
             if(status === true){
                 let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
                 let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
@@ -5106,9 +5099,14 @@
                         'id':'{{isset($model)?$model->id:0}}',
                         'type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
-                        if(data.hasOwnProperty('url')){
-                             window.location.replace(data.url);
+                        if(auto){
+
+                        }else{
+                            if(data.hasOwnProperty('url')){
+                                window.location.replace(data.url);
+                            }
                         }
+
                     },
                 });
             }
@@ -5190,8 +5188,12 @@
             console.log(datas);
         }
         CheckData();
+
         setInterval(function () {
             CheckData();
         },5000);
+        setInterval(function () {
+            Save(false,true);
+        },30000)
     </script>
 @endsection
