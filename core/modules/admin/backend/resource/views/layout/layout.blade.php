@@ -524,8 +524,9 @@
     $(document).ready(function () {
 
         setTimeout(function () {
-            $("#announce button.btn").trigger('click');
-            console.log('click');
+            if($("#announce button.btn i").hasClass('fa-minus')){
+                $("#announce button.btn").trigger('click');
+            }
         },5000);
     })
 </script>
