@@ -189,13 +189,63 @@ class OrderExcelModel extends Model
         }
 
         $shop_order_excel  = $shop_order_excel->get()->all();
-        $datas = [];
+        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+        $datas = [
 
-
+        ];
 
         foreach ($shop_order_excel as $_key=>$_value){
-            $datas[] = $_value;
+            if(!isset($datas[$_value->company])){
+                $datas[$_value->company] = [];
+            }
+            $_value->admin = isset($users[$_value->admin_id])?$users[$_value->admin_id]->name:"";
+            $datas[$_value->company][] = $_value;
         }
+
+        $dataNew = [];
+
+        if(count($datas)>0) {
+
+            foreach ($datas as $key=>$values){
+                usort($values, function ($a, $b) {
+                    return ($a->pay_method) - $b->pay_method;
+                });
+                $dataNew[$key] = $values;
+            }
+
+            if(isset($dataNew['KOGYJA'])){
+                $KOGYJA = [];
+                foreach ($dataNew['KOGYJA'] as $k=>$value){
+                    if($value->type == "Info"){
+                        $row = [$value];
+                        foreach ($dataNew['KOGYJA'] as $kk=>$value1){
+                            if($k != $kk && $value1->token == $value->token )
+                            {
+                                $value1->order_create_date = "";
+                                $value1->pay_method = "";
+                                $value1->phone = "";
+                                $value1->order_date = "";
+                                $value1->order_hours = "";
+                                $value1->admin = "";
+                                if($value1->type!="Footer") $value1->type = "Item";
+                                $row[] = $value1;
+                            }
+                        }
+
+                        usort($row, function ($a, $b) {
+                            return ($a->order_index) - $b->order_index;
+                        });
+                        foreach ($row as $k=>$v){
+                            $KOGYJA[] = $v;
+                        }
+
+                    }
+                }
+                $dataNew['KOGYJA'] = $KOGYJA;
+            }
+        }
+
+        return $dataNew;
 
         return $datas;
     }
