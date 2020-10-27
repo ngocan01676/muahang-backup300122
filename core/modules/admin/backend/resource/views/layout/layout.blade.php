@@ -522,6 +522,9 @@
 @if(count($rsAnnounce)>0)
 <script>
     $(document).ready(function () {
+        let c = setInterval(function () {
+
+        },1000);
         setTimeout(function () {
             $("#announce button.btn").trigger('click');
             console.log('click');

@@ -5051,8 +5051,10 @@
             });
         });
         function Save(status,auto) {
-            let oke =  confirm('{!! z_language('Bạn muốn lưu') !!}');
-            if(!oke) return;
+            if(!(auto === true)){
+                let oke =  confirm('{!! z_language('Bạn muốn lưu') !!}');
+                if(!oke) return;
+            }
             if(status === true){
                 let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
                 let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
