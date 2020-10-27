@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/module/admin/assets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/module/admin/assets/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +43,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="472">
@@ -56,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-131">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
+            <state relative-caret-position="634">
+              <caret line="117" column="199" selection-start-line="117" selection-start-column="199" selection-end-line="117" selection-end-column="199" />
             </state>
           </provider>
         </entry>
@@ -210,8 +206,8 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/OrderExcelModel.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
         <option value="$PROJECT_DIR$/public/module/admin/assets/style.css" />
-        <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" />
+        <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php" />
       </list>
     </option>
   </component>
@@ -727,12 +723,12 @@
       <workItem from="1603420036838" duration="14895000" />
       <workItem from="1603511403351" duration="15157000" />
       <workItem from="1603676671144" duration="29645000" />
-      <workItem from="1603763607147" duration="16402000" />
+      <workItem from="1603763607147" duration="16590000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="473857000" />
+    <option name="totallyTimeSpent" value="474045000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1097,17 +1093,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-131">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="472">
           <caret line="260" column="36" selection-start-line="260" selection-start-column="36" selection-end-line="260" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="634">
+          <caret line="117" column="199" selection-start-line="117" selection-start-column="199" selection-end-line="117" selection-end-column="199" />
         </state>
       </provider>
     </entry>

@@ -94,7 +94,7 @@
                                                 class="column column-primary column-name {{list_text_aligin($columns)}}">
                                                 <strong><a class="row-title"
                                                            href="#">@php echo list_label($model->{$key},$columns,$data,$model); @endphp</a></strong>
-                                                <div class="row-actions">
+                                                <div class="row-actions text-center">
                                                     @isset($data['config']['pagination']['router'])
                                                         @php  $n = count($data['config']['pagination']['router'])-1; $i=0; @endphp
                                                         @foreach($data['config']['pagination']['router'] as $id=>$router)
@@ -115,9 +115,9 @@
                                                         @csrf
                                                     </form>
                                                                     <a href="#"
-                                                                       onclick="event.preventDefault(); document.getElementById('{{$id}}-form-{{$key_form}}').submit();"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
+                                                                       onclick="event.preventDefault();if(confirm('Press a button!')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
                                                                 @else
-                                                                    <a href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"|":""}}
+                                                                    <a href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"  | ":""}}
                                                                 @endif
                                                 </span>
                                                         @endforeach
