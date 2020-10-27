@@ -1260,7 +1260,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $total_price_buy,
                             $result->order_ship_cou,
                             $order_profit,
-                            (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
+                            $result->type == "Info"?$result->rate:0,
                             $result->order_tracking,
                             $result->order_link,
                             $result->order_info,
