@@ -804,9 +804,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function list(Request $request){
         $this->getcrumb();
-        foreach([0,1] as $day){
-            $key_date = date('Y-m-d',strtotime('+'.$day." day"));
 
+        $first = (int)date("d", strtotime("first day of this month"));
+        $last = (int)date("d", strtotime("last day of this month"));
+
+
+        for($day = $first;$day<=$last;$day++){
+            $key_date = date('Y-m').'-'.(($day<10)?"0".$day:$day);
             DB::table("shop_order_excel_session")->updateOrInsert([
                 'admin_id'=>Auth::user()->id,
                 'key_date'=>$key_date
@@ -828,7 +832,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $date = $request->query('date', "");
 
         $config = config_get('option', "module:shop_ja:order:excel");
-        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+        $item = $last;
 
         $models = DB::table('shop_order_excel_session');
 
@@ -847,72 +851,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
         $names  = [];
 
-        $this->data['analytics']['category'] = [];
-        foreach($categorys as $category){
-            if($category['name'] == "SIM"){
-                continue;
-            }
-           $query = DB::table('shop_order_excel')
-                ->where('fullname','!=','')
-                ->where('admin_id',Auth::user()->id)->where('company',$category['name']);
-            if(!empty($date_start) && !empty($date_end)){
-                $query->where('updated_at','>=',$date_start." 00:00:00");
-                $query->where('updated_at','<=',$date_end." 23:59:59");
-            }
-            $this->data['analytics']['category'][$category['name']] = $query->count();
-        }
-
-        $this->data['analytics']['total'] = DB::table('shop_order_excel')
-            ->where('fullname','!=','')
-            ->where('admin_id',Auth::user()->id);
-            if(!empty($date_start) && !empty($date_end)){
-                $this->data['analytics']['total']->where('updated_at','>=',$date_start." 00:00:00");
-                $this->data['analytics']['total']->where('updated_at','<=',$date_end." 23:59:59");
-            }
-        $this->data['analytics']['total'] = $this->data['analytics']['total']->count();
-
-        $this->data['analytics']['success'] = DB::table('shop_order_excel')
-            ->where('fullname','!=','')
-            ->where('admin_id',Auth::user()->id)->where('status',1);
-            if(!empty($date_start) && !empty($date_end)) {
-
-               $this->data['analytics']['success']->where('updated_at', '>=', $date_start . " 00:00:00");
-               $this->data['analytics']['success']->where('updated_at', '<=', $date_end . " 23:59:59");
-            }
-        $this->data['analytics']['success'] =  $this->data['analytics']['success']->where('status',1)->count();
-
-        $this->data['analytics']['padding'] = DB::table('shop_order_excel')
-            ->where('fullname','!=','')
-            ->where('admin_id',Auth::user()->id);
-            if(!empty($date_start) && !empty($date_end)) {
-
-                $this->data['analytics']['padding']->where('updated_at', '>=', $date_start . " 00:00:00");
-                $this->data['analytics']['padding']->where('updated_at', '<=', $date_end . " 23:59:59");
-            }
-        $this->data['analytics']['padding'] = $this->data['analytics']['padding']->where('status',2)->count();
-        $this->data['analytics']['cancel'] = DB::table('shop_order_excel')
-            ->where('fullname','!=','')
-            ->where('admin_id',Auth::user()->id);
-        if(!empty($date_start) && !empty($date_end)) {
-            $this->data['analytics']['cancel']->where('updated_at', '>=', $date_start . " 00:00:00");
-            $this->data['analytics']['cancel']->where('updated_at', '<=', $date_end . " 23:59:59");
-        }
-        $this->data['analytics']['cancel'] = $this->data['analytics']['cancel']->where('status',2)->count();
-        $this->data['analytics']['today'] = DB::table('shop_order_excel')
-            ->where('admin_id',Auth::user()->id)
-            ->where('fullname','!=','')
-            ->where('updated_at','>=',$date_start." 00:00:00")
-            ->where('updated_at','<=',$date_end." 23:59:59")
-            ->count();
-        $this->data['analytics']['price'] = DB::table('shop_order_excel')
-            ->where('admin_id',Auth::user()->id)
-            ->where('fullname','!=','')
-            ->where('updated_at','>=',$date_start." 00:00:00")
-            ->where('updated_at','<=',$date_end." 23:59:59")
-            ->sum('order_price');
-
-
-        $models->orderBy('id', 'desc');
+        $models->orderBy('key_date', 'desc');
         return $this->render('order-excel.list', [
             'models' => $models->paginate($item),
             'callback' => [
