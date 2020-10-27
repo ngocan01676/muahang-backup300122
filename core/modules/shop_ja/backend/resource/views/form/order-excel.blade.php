@@ -8,7 +8,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">{!! z_language('Thông tin') !!}</h3>
         <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
         </div>
     </div>
@@ -44,7 +44,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">{!! z_language(' Nội dung ') !!}</h3>
         <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
         </div>
     </div>
