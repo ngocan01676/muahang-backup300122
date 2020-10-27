@@ -806,7 +806,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->getcrumb();
 
         $first = (int)date("d", strtotime("first day of this month"));
-        $last = (int)date("d", strtotime("last day of this month"));
+        $last = (int) date("d", strtotime("last day of this month"));
 
 
         for($day = $first;$day<=$last;$day++){

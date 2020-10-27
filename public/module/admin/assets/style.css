@@ -292,7 +292,7 @@ body {
 
 .listMain .table tbody tr td.column {
     position: relative;
-    padding: 1px 0px 3px 7px;
+    padding: 12px 0px 15px 18px;
 }
 
 .listMain .table tbody tr td span.label-text {

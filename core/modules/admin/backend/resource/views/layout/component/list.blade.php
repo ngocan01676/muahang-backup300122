@@ -55,10 +55,7 @@
 
                                 @if($model!=null && property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) || $k =="actions" )
                                 @if('id'== $columns['type'])
-                                    <th width="39px" class="column-primary">
-                                        <input  id="check-all"
-                                               type="checkbox" class="minimal">
-                                    </th>
+
                                     <th class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!} @isset($columns['order_by']) column-order_by @endisset {{list_text_aligin($columns)}}">
                                         {{z_language($columns['label'])}}
                                         {!! sort_type(isset($columns['order_by'])?$columns['order_by']:"",$k,$parameter) !!}
@@ -82,7 +79,7 @@
                     @if(count($models)>0)
                         @foreach ($models as $k=>$model)
                             <tr class="list-row">
-                                <td>@php echo list_label($k+1,$columns,$data,$model); @endphp</td>
+
                                 @foreach($data['config']['columns']['lists'] as $key=>$columns)
                                     @isset($data['data']['columns'][$key])
 

@@ -246,7 +246,7 @@
                     'columns' => [
                         'lists' => [
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
-                            'GetName' => ['label' => z_language('Tên File', false), 'type' => 'title','callback' => "GetName"],
+                            'GetName' => ['label' => z_language('Tên File', false),'primary' => true, 'type' => 'title','callback' => "GetName"],
                             'UserName' => ['label' => z_language('Người lập', false), 'type' => 'text','callback' => "GetUserName"],
                             'GetStatus' => ['label' => z_language('Status', false), 'type' => 'status','callback'=>'GetStatus'],
                             'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
@@ -257,7 +257,7 @@
                         'item' => 20,
                         'router' => [
                             'edit' => ['label' => z_language('Edit', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
-                            'preview' => ['label' => z_language('Preview', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
+//                            'preview' => ['label' => z_language('Preview', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
                             'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:shop_ja:order:excel:delete", 'par' => ['id' => 'id']],
                         ]
                     ],
