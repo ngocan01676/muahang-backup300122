@@ -78,8 +78,8 @@
 </div>
 <style>
     .modal-dialog {
-        width: 98%;
-        height: 92%;
+        width: 80%;
+        height: 85%;
         padding: 0;
     }
 
