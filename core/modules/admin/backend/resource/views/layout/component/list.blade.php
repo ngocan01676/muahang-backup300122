@@ -115,7 +115,7 @@
                                                         @csrf
                                                     </form>
                                                                     <a href="#"
-                                                                       onclick="event.preventDefault();if(confirm('Press a button!')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
+                                                                       onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn xóa bảng ghi này') !!}')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
                                                                 @else
                                                                     <a href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"  | ":""}}
                                                                 @endif
