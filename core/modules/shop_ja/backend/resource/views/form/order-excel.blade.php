@@ -5192,7 +5192,9 @@
         setInterval(function () {
             CheckData();
         },5000);
+
         setInterval(function () {
+            console.log("Save");
             Save(false,true);
         },30000)
     </script>
