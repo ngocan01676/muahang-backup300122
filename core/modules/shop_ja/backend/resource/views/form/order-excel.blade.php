@@ -186,14 +186,14 @@
             color: #03a9f4;
         }
         .jexcel tbody tr.info {
-            background-color: #8f2727 !important;
-            color: #85ff00;
+            background-color: #FFFF00 !important;
+
         }
         .jexcel tbody tr.info td:first-child{
             color: #000000;
         }
         .jexcel tbody tr.footer {
-            background-color: #FFFF00 !important;
+            /*background-color: #FFFF00 !important;*/
         }
         .jexcel tbody tr.group-cell td{
 
@@ -1511,6 +1511,7 @@
                 console.log(arr_ship);
                 $price_ship_default  = -1;
                 $price_ship  = -1;
+
                 for (i in arr_ship){
                     $val = arr_ship[i];
                     if($val[0].unit == 0 && $price_ship_default==-1){
@@ -1522,6 +1523,7 @@
 
                 console.log('$price_ship_default:'+$price_ship_default);
                 console.log('$price_ship:'+$price_ship);
+
                 let $ship = categorys[$category_id]?( categorys[$category_id].data.hasOwnProperty('ship'))?categorys[$category_id].data.ship:"-1":"-1";
 
                 let $ship_cou = -1;
@@ -1753,8 +1755,11 @@
                 let confShipCou = {order_ship:0,order_ship_cou:0};
 
                 console.log("product_id:"+product_id);
-                let province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+
+                let province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, value.start]));
+
                 let payMethod = getValuePayMethod(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.payMethod.index, value.start])));
+
                 if(dropdown.hasOwnProperty(product_id)){
                     confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,province,totalPriceBuy,payMethod);
                 }
@@ -5047,6 +5052,7 @@
                             window.location.replace(data.link);
                         }
                     }
+
                 });
             });
 

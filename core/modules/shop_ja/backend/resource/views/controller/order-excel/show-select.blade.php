@@ -55,7 +55,7 @@
                     </th>
                     <th>
                         <BR>
-                        <button class="btn btn-primary btn-block" type="button" id="view"> Xem </button>
+                        <button class="btn btn-primary btn-block" type="button" id="view"> Hành động </button>
                     </th>
                 </tr>
                 </tbody>

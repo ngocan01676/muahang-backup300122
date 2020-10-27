@@ -47,14 +47,14 @@
         color: #03a9f4;
     }
     .jexcel tbody tr.info {
-        background-color: #8f2727 !important;
+        background-color: #FFFF00 !important;
         color: #85ff00;
     }
     .jexcel tbody tr.info td:first-child{
         color: #000000;
     }
     .jexcel tbody tr.footer {
-        background-color: #FFFF00 !important;
+        /*background-color: #FFFF00 !important;*/
     }
     .jexcel tbody tr.group-cell td{
 
@@ -186,7 +186,10 @@
         let locks = {!! json_encode($locks,JSON_UNESCAPED_UNICODE) !!}
         let token = '{!! isset($model)?$model->token:"" !!}';
     let exporsId = {!! json_encode($exports->getArrayCopy(),JSON_UNESCAPED_UNICODE) !!}
+
         let hideprototy = {!! json_encode($hide,JSON_UNESCAPED_UNICODE) !!}
+
+
     function IF_End($val,$conf){
         if( $conf.equal_end === "<=" && $val <= $conf.value_end){
             return true;
@@ -506,6 +509,16 @@
                 title: 'Export',//T
                 type: 'checkbox',
                 width:'1px',
+            },
+            token:{
+                title: 'Token',//T
+                type: 'text',
+                width:'100px',
+            },
+            admin:{
+                title: 'Người đăng',//T
+                type: 'text',
+                width:'150px',
             },
         };
 
@@ -1172,6 +1185,11 @@
                 title: 'Position',//T
                 type: 'text',
                 width:'100px',
+            },
+            admin:{
+                title: 'Người đăng',//T
+                type: 'text',
+                width:'150px',
             },
         };
 
@@ -2513,6 +2531,16 @@
                 type: 'checkbox',
                 width:'1px',
             },
+            token:{
+                title: 'Token',//T
+                type: 'text',
+                width:'100px',
+            },
+            admin:{
+                title: 'Người đăng',//T
+                type: 'text',
+                width:'150px',
+            },
         };
         columns.count.editor = customColumn;
         columnsAll[sheetName] = columns;
@@ -3281,6 +3309,16 @@
                 type: 'checkbox',
                 width:'1px',
             },
+            token:{
+                title: 'Token',//T
+                type: 'text',
+                width:'100px',
+            },
+            admin:{
+                title: 'Người đăng',//T
+                type: 'text',
+                width:'150px',
+            },
         };
 
         columnsAll[sheetName] = columns;
@@ -3907,6 +3945,16 @@
                 title: 'Export',//T
                 type: 'checkbox',
                 width:'1px',
+            },
+            token:{
+                title: 'Token',//T
+                type: 'text',
+                width:'100px',
+            },
+            admin:{
+                title: 'Người đăng',//T
+                type: 'text',
+                width:'150px',
             },
         };
 

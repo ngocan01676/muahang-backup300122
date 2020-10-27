@@ -999,10 +999,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['products'] = [
 
         ];
+
+
+
+
         $categorys = config_get("category", "shop-ja:product:category");
-
         $names  = [];
-
         foreach($categorys as $category){
             if(!empty($company) && $company !=$category['name']){
                 continue;
@@ -1236,6 +1238,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->session_id,
                             $result->export == 1,
                             $result->token,
+                            $result->order_index,
+                            $result->admin,
                         ];
                     } else{
                         $pay_method = "";
@@ -1307,6 +1311,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->session_id,
                             $result->export == 1,
                             $result->token,
+                            $result->admin,
                         ];
                     }
                 }

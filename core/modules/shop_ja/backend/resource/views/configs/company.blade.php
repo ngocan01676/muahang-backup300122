@@ -67,6 +67,8 @@
     'export' => 'Export',
     'token' => 'token',
     'position' => 'position',
+    'admin' => 'Người đăng',
+    'type' => 'Kiểu',
   )
  @endphp
 <table class="table table-bordered">

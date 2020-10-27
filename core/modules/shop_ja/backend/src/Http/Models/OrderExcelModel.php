@@ -13,10 +13,12 @@ class OrderExcelModel extends Model
         $datas = [
 
         ];
+        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
         foreach ($ressult as $_key=>$_value){
             if(!isset($datas[$_value->company])){
                 $datas[$_value->company] = [];
             }
+            $_value->admin = isset($users[$_value->admin_id])?$users[$_value->admin_id]->name:"";
             $datas[$_value->company][] = $_value;
         }
         $dataNew = [];
@@ -41,6 +43,7 @@ class OrderExcelModel extends Model
                                 $value1->phone = "";
                                 $value1->order_date = "";
                                 $value1->order_hours = "";
+                                $value1->admin = "";
 
                                 if($value1->type!="Footer") $value1->type = "Item";
                                 $row[] = $value1;
@@ -99,7 +102,7 @@ class OrderExcelModel extends Model
            }
            $shop_order_excel = $shop_order_excel->get()->all();
 
-
+        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
         $datas = [
 
         ];
@@ -108,6 +111,7 @@ class OrderExcelModel extends Model
             if(!isset($datas[$_value->company])){
                 $datas[$_value->company] = [];
             }
+            $_value->admin = isset($users[$_value->admin_id])?$users[$_value->admin_id]->name:"";
             $datas[$_value->company][] = $_value;
         }
 
@@ -135,7 +139,7 @@ class OrderExcelModel extends Model
                                 $value1->phone = "";
                                 $value1->order_date = "";
                                 $value1->order_hours = "";
-
+                                $value1->admin = "";
                                 if($value1->type!="Footer") $value1->type = "Item";
                                 $row[] = $value1;
                             }
