@@ -347,7 +347,7 @@ return [
                     "guard" => "backend",
                     "acl"=> "dashboard",
                     "router" => [
-                        "list" => [
+                        "user" => [
                             "url" => "/dashboard/{id?}",
                             'acl'=>true,
                         ],

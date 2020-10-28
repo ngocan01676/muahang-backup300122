@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/zoecms.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/zoecms.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,17 +21,31 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
-              <caret line="115" column="59" lean-forward="true" selection-start-line="115" selection-start-column="59" selection-end-line="115" selection-end-column="59" />
+            <state relative-caret-position="1938">
+              <caret line="114" column="59" selection-start-line="114" selection-start-column="59" selection-end-line="114" selection-end-column="59" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/sidebar.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
+            <state relative-caret-position="-1675">
+              <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/CategoryShipNestable.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="711">
+              <caret line="528" column="13" selection-start-line="528" selection-start-column="13" selection-end-line="528" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -38,16 +53,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="33" column="44" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
+            <state relative-caret-position="2465">
+              <caret line="145" column="18" selection-start-line="145" selection-start-column="18" selection-end-line="145" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="925">
+            <state relative-caret-position="620">
               <caret line="349" column="29" selection-start-line="349" selection-start-column="29" selection-end-line="349" selection-end-column="29" />
             </state>
           </provider>
@@ -56,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
+            <state relative-caret-position="119">
               <caret line="10" column="24" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="24" />
               <folding>
                 <element signature="e#41#55#0#PHP" expanded="true" />
@@ -155,62 +170,11 @@
         <option value="$PROJECT_DIR$/public/module/admin/assets/style.css" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/sidebar.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/public/module/admin/assets/tagging/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/Flot/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap-colorpicker/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap-datepicker/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap-daterangepicker/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/chart.js/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/ckeditor/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/eve-raphael/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/ion.rangeSlider/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/jquery-knob/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/jquery-slimscroll/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/jquery-ui/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/morris.js/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/select2/package.json" />
-      <path value="$PROJECT_DIR$/public/module/blog/plugins/camohub-jquery-sortable-lists/package.json" />
-      <path value="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/package.json" />
-      <path value="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/package.json" />
-      <path value="$PROJECT_DIR$/public/plugins/layout/plugins/code-prettify/package.json" />
-      <path value="$PROJECT_DIR$/public/plugins/layout/plugins/jquery-ui-1.12.1.custom/package.json" />
-      <path value="$PROJECT_DIR$/public/plugins/layout/plugins/js-beautify-1.7.5/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/Flot/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-colorpicker/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-datepicker/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-daterangepicker/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/chart.js/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/ckeditor/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/eve-raphael/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/ion.rangeSlider/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/jquery-knob/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/jquery-slimscroll/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/jquery-ui/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/morris.js/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/select2/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/package.json" />
-      <path value="$PROJECT_DIR$/tmp/basicContext-master/package.json" />
-      <path value="$PROJECT_DIR$/tmp/keditor-master/examples/plugins/code-prettify/package.json" />
-      <path value="$PROJECT_DIR$/tmp/keditor-master/examples/plugins/jquery-ui-1.12.1.custom/package.json" />
-      <path value="$PROJECT_DIR$/tmp/keditor-master/examples/plugins/js-beautify-1.7.5/package.json" />
-      <path value="$PROJECT_DIR$/tmp/keditor-master/package.json" />
-    </packageJsonPaths>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -319,6 +283,7 @@
       <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/melbahja/seo" />
+      <path value="$PROJECT_DIR$/vendor/phpexcel/phpexcel" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -332,6 +297,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -373,6 +339,16 @@
               <item name="admin" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="configs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
@@ -582,7 +558,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -662,17 +637,18 @@
       <workItem from="1603511403351" duration="15157000" />
       <workItem from="1603676671144" duration="29645000" />
       <workItem from="1603763607147" duration="17416000" />
+      <workItem from="1603893059994" duration="648000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="474871000" />
+    <option name="totallyTimeSpent" value="475519000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19083156" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19296375" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -696,17 +672,7 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/configs/sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="670">
-          <caret line="110" column="18" lean-forward="true" selection-start-line="94" selection-start-column="14" selection-end-line="110" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/blog/backend/resource/configs/configs.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -835,13 +801,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1081">
-          <caret line="528" column="13" lean-forward="true" selection-start-line="528" selection-start-column="13" selection-end-line="528" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1009,14 +968,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="115" column="59" lean-forward="true" selection-start-line="115" selection-start-column="59" selection-end-line="115" selection-end-column="59" />
+        <state relative-caret-position="1938">
+          <caret line="114" column="59" selection-start-line="114" selection-start-column="59" selection-end-line="114" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2465">
+          <caret line="145" column="18" selection-start-line="145" selection-start-column="18" selection-end-line="145" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
+        <state relative-caret-position="119">
           <caret line="10" column="24" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="24" />
           <folding>
             <element signature="e#41#55#0#PHP" expanded="true" />
@@ -1024,24 +990,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="33" column="44" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="925">
-          <caret line="349" column="29" selection-start-line="349" selection-start-column="29" selection-end-line="349" selection-end-column="29" />
+        <state relative-caret-position="711">
+          <caret line="528" column="13" selection-start-line="528" selection-start-column="13" selection-end-line="528" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/sidebar.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
+        <state relative-caret-position="-1675">
+          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/CategoryShipNestable.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="349" column="29" selection-start-line="349" selection-start-column="29" selection-end-line="349" selection-end-column="29" />
         </state>
       </provider>
     </entry>
