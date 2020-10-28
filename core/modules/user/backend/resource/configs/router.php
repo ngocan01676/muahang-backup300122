@@ -44,7 +44,11 @@ return [
                         "url" => "/edit/{id}"
                     ],
                     "delete" => [
-                        "url" => "/delete"
+                        "url" => "/delete","method" => ['post'],
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
                     ],
                 ]
             ],
@@ -64,7 +68,11 @@ return [
                         "url" => "/edit/{id}"
                     ],
                     "delete" => [
-                        "url" => "/delete"
+                        "url" => "/delete","method" => ['post'],
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
                     ],
                 ]
             ],
@@ -81,7 +89,19 @@ return [
                         'url' => '/user/permission/{id}/{guard}',
                         "method" => ['get','post']
                     ],
-
+                    "error" =>[
+                        'url' => '/error',
+                    ],
+                ]
+            ],
+            'user:role:error' => [
+                "namespace" => "User\Http\Controllers",
+                "controller" => "RoleController",
+                "guard" => "backend",
+                "router" => [
+                    "error" =>[
+                        'url' => '/error',
+                    ],
                 ]
             ],
         ]

@@ -1,8 +1,8 @@
 @section('content-header')
     <h1>
-        &starf; {!! @z_language(["Manager User Admin"]) !!}
+        &starf; {!! @z_language(["Chức năng Tài khoản quản trị"]) !!}
         <small>it all starts here</small>
-        <a href="{{route('backend:layout:create')}}"
+        <a href="{{route('backend:user:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
         @btn_option(["config"=>['name'=>'core:user:list']])
         @slot('label')

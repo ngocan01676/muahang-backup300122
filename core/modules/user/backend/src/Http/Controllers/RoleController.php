@@ -19,6 +19,7 @@ class RoleController extends \Zoe\Http\ControllerBackend
         $modelRole = new Role();
         if($request->isXmlHttpRequest()){
             $post = $request->all();
+            $this->log('role','permission',['guard'=>$guard]);
             $modelRole->SaveData($id,$guard,isset($post['data'])?$post['data']:[]);
             return $post;
         }
@@ -28,6 +29,9 @@ class RoleController extends \Zoe\Http\ControllerBackend
             'id'=>$id,
             'guard'=>$guard,
         ], 'user');
+    }
+    public function error(){
+        return $this->render('role.error');
     }
 }
 

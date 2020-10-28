@@ -61,7 +61,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
@@ -221,6 +220,37 @@
         </section>
         <!-- Main content -->
         <section class="content clearfix">
+
+            @php
+               $rsAnnounce = \Illuminate\Support\Facades\DB::table('announce')->where('status',1)
+                   ->where('date_start','<=',date('Y-m-d H:i:s'))
+                   ->where('date_end','>=',date('Y-m-d H:i:s'))->get()->all();
+            @endphp
+            @if(count($rsAnnounce)>0)
+
+                <div id="announce" class="box box-default box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{!! z_language('Thông báo') !!}</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                            @foreach($rsAnnounce as $val)
+                                <h5 style="padding: 0; margin: 0;"><i class="icon fa fa-check"></i> {!! $val->title !!}! </h5>
+                            &nbsp;&nbsp;&nbsp; {!! $val->message !!} -  {!! $val->updated_at !!}
+                            @endforeach
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+            @endif
             @yield('content')
         </section>
         <!-- /.content -->
@@ -430,7 +460,7 @@
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
-@includeIf('backend::developer-tools.toolbar')
+{{--@includeIf('backend::developer-tools.toolbar')--}}
 <!-- ./wrapper -->
 @stack('extra-content')
 <!-- jQuery 3 -->
@@ -458,7 +488,7 @@
 <script src="{{asset('module/admin/dist/js/demo.js')}}"></script>
 <script src="{{asset('module/admin/assets/main.js')}}"></script>
 
-<script src="{{asset('module/admin/developer-tools/toolbar.js')}}"></script>
+{{--<script src="{{asset('module/admin/developer-tools/toolbar.js')}}"></script>--}}
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -489,8 +519,22 @@
         });
     });
 </script>
+@if(count($rsAnnounce)>0)
 <script>
     $(document).ready(function () {
+
+        setTimeout(function () {
+            if($("#announce button.btn i").hasClass('fa-minus')){
+                $("#announce button.btn").trigger('click');
+            }
+        },5000);
+    })
+</script>
+@endif
+<script>
+
+    $(document).ready(function () {
+
         $('.sidebar-menu').tree();
         var content_header = $(".content-header");
         if (content_header && !content_header.is(':empty')) {
@@ -514,6 +558,7 @@
                 }
             });
         }
+
     });
 </script>
 @stack('scripts')

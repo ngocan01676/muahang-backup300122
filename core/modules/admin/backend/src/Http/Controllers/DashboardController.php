@@ -9,11 +9,12 @@ use User\Http\Model\Role;
 
 class DashboardController extends \Zoe\Http\ControllerBackend
 {
-    public function list()
+    public function list(Request $request)
     {
         return $this->render('dashboard.list');
     }
     public function media(){
+
         return $this->render('dashboard.media');
     }
     public function option(Request $request)

@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Event;
 use \ShopJa\Http\Models\ProductModel;
 class ProductController extends \Zoe\Http\ControllerBackend
 {
+
     public function init()
     {
         $this->data['language'] = config('zoe.language');
         $this->data['nestables'] = config_get("category", "shop-ja:product:category");
         $this->data['configs'] = config_get("config", "shopja");
         $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
-
     }
     public function getCrumb()
     {
@@ -26,6 +26,9 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
         $filter = $request->query('filter', []);
 
+
+
+
         $search = $request->query('search', "");
         $status = $request->query('status', "");
         $date = $request->query('date', "");
@@ -36,12 +39,23 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $models = DB::table('shop_product');
         if(isset($filter['search'])){
             $search = $filter['search'];
+        }else {
+            $filter_search = $request->query('filter_search', "");
+            if(!empty($filter_search)){
+                $search = $filter_search;
+            }
         }
         if(isset($filter['code'])){
-            $models->where('code', 'like', '%' . $filter['code']);
+            $models->where('code', 'like', '%' . $filter['code'].'%');
+        }
+        if(isset($filter['cate'])){
+            $models->where('category_id', '=',$filter['cate'] );
         }
         if (!empty($search)) {
-            $models->where('title', 'like', '%' . $search);
+            $models->where('title', 'like', '%' . $search.'%');
+        }
+        if(isset($filter['des'])){
+            $models->where('description', 'like', '%' . $filter['des'].'%');
         }
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
@@ -104,8 +118,10 @@ class ProductController extends \Zoe\Http\ControllerBackend
                 ->withErrors($validator)
                 ->withInput();
         }
+        $type = 'create';
         if (isset($data['id']) && !empty($data['id'])) {
             $model = ProductModel::find($data['id']);
+            $type = 'edit';
         } else {
             $model = new ProductModel();
         }
@@ -122,6 +138,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->price_buy = $data['price_buy'];
             $model->type_excel = $data['type_excel'];
             $model->save();
+            $this->log('shop_js:product',$type,['id'=>$model->id]);
             return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());

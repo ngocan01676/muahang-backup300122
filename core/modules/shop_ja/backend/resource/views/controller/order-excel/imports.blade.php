@@ -15,13 +15,21 @@
                         <div class="alert alert-danger print-error-msg" style="display:none">
                             <ul></ul>
                         </div>
-                        <div class="success alert alert-success">
+                        <div class="success alert alert-success" style="display: none">
                             Upload Successfully
                         </div>
                         <form enctype="multipart/form-data" id="imageUpload">
-                            <div class="form-group">
-                                <label><strong>File Excel : </strong></label>
-                                <input type="file" name="image" class="form-control">
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                    <input type="file" name="image" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="form-group"><div class="input-group date"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right" id="datepicker"></div></div>
+                                </div>
                             </div>
                             <div class="form-group text-center">
                                 <button class="btn btn-success">Đẩy lên</button>
@@ -60,9 +68,18 @@
             color: #0000cc;
         }
     </style>
+
+    <script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('.success').hide();// or fade, css display however you'd like.
+            $datepicker = $('#datepicker').datepicker({
+                autoclose: true,
+                format: 'mm/dd/yyyy',
+            });
+            $datepicker.datepicker('setDate', new Date());
         });
         $('#imageUpload').on('submit',(function(e) {
             $.ajaxSetup({
@@ -72,6 +89,8 @@
             });
             e.preventDefault();
             var formData = new FormData(this);
+
+            formData.append('date',$("#datepicker").val());
             $.ajax({
                 type:'POST',
                 url: "{{ route('backend:shop_ja:order:excel:imports')}}",
@@ -79,10 +98,8 @@
                 cache:false,
                 contentType: false,
                 processData: false,
-
                 complete: function(response)
                 {
-                    console.log(response);
                     if($.isEmptyObject(response.responseJSON.error)){
                         $('.success').show();
                         setTimeout(function(){

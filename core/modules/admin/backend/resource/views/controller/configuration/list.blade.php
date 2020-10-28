@@ -253,22 +253,28 @@
     <script>
 
         function Save() {
-            var form = $("#configWrap .active form");
-            var data = form.zoe_inputs('get');
-            console.log(data);
-            form.loading({circles: 3, overlay: true, width: "5em", top: "35%", left: "50%"});
-            $.ajax({
-                type: 'POST',
-                url: '{!! route('backend:configuration:ajax') !!}',
-                data: {
-                    data: data,
-                    key: form.data('key')
-                },
-                success: function (data) {
-                    console.log(data);
-                    form.loading({destroy: true});
-                }
-            });
+
+            let oke =  confirm('{!! z_language('Bạn muốn lưu') !!}');
+
+            if(oke){
+                var form = $("#configWrap .active form");
+                var data = form.zoe_inputs('get');
+                console.log(data);
+                form.loading({circles: 3, overlay: true, width: "5em", top: "35%", left: "50%"});
+                $.ajax({
+                    type: 'POST',
+                    url: '{!! route('backend:configuration:ajax') !!}',
+                    data: {
+                        data: data,
+                        key: form.data('key')
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        form.loading({destroy: true});
+                    }
+                });
+            }
+
         }
     </script>
 @endpush

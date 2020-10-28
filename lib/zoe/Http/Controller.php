@@ -26,6 +26,20 @@ class Controller extends BaseController
     public function init(){
 
     }
+    function getOriginalClientIp(Request $request = null) : string
+    {
+        $request = $request ?? request();
+        $xForwardedFor = $request->header('x-forwarded-for');
+        if (empty($xForwardedFor)) {
+            // Si está vacío, tome la IP del request.
+            $ip = $request->ip();
+        } else {
+            // Si no, viene de API gateway y se transforma para usar.
+            $ips = is_array($xForwardedFor) ? $xForwardedFor : explode(', ', $xForwardedFor);
+            $ip = $ips[0];
+        }
+        return $ip;
+    }
     protected function __render($view, $data, $key)
     {
         $alias = app()->getConfig()['views']['alias'];

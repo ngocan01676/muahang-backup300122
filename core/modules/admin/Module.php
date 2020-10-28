@@ -25,8 +25,12 @@ class Module extends ZModule
                ' . show_categories_nestable($nestables, $category, 0) . '
             </select>';
         });
-        \Form::macro('CategoriesNestableOne', function ($nestables, $category, $name = "category",$class = "") {
-            return '<select id="' . $name . '-select" class="form-control'.$class.'" name="' . $name . '">
+        \Form::macro('CategoriesNestableOne', function ($nestables, $category, $name = "category",$class = "",$attrs = []) {
+            $attrHtml = "";
+            foreach ($attrs as $key=>$attr){
+                $attrHtml.=$key."='".$attr."'";
+            }
+            return '<select id="' . $name . '-select" class="form-control'.$class.'" '.$attrHtml.' name="' . $name . '">
                 <option value="">' . z_language('Select') . '</option>
                ' . show_categories_nestable($nestables, $category, 0) . '
             </select>';

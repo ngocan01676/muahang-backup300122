@@ -253,6 +253,81 @@ return [
                     ],
                 ]
             ],
+            'log' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "LogController",
+                "sub_prefix" => "/log",
+                "guard" => "backend",// pải login
+                "acl"=> "log",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ]
+                ]
+            ],
+            'backup' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "BackupController",
+                "sub_prefix" => "/backup",
+                "guard" => "backend",// pải login
+                "acl"=> "log",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ]
+                ]
+            ],
+            'sidebar' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "SidebarController",
+                "sub_prefix" => "/sidebar",
+                "guard" => "backend",
+                "acl"=> "menu",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "ajax" => [
+                        "url" => "/ajax", "method" => ['post'],
+                    ],
+                ]
+            ],
+            'announce' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "AnnounceController",
+                "sub_prefix" => "/announce",
+                "guard" => "backend",// pải login
+                "acl"=> "announce",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "create" => [
+                        "url" => "/create",
+                    ],
+                    "edit" => [
+                        "url" => "/edit/{id}",
+                    ],
+                    "delete" => [
+                        "url" => "/delete/{id}",
+                        "method" => ['post'],
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ]
+                ]
+            ],
         ]
     ]
 ];

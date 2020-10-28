@@ -2,22 +2,23 @@
 return [
     "sidebars" => [
         "user" => [
-            "name" => z_language('Users'),
+            "name" => z_language('Tài khoản'),
             "pos" => 2,
             "url" => "",
             "header" => true,
             "icon" => "fa fa-users",
+            "order"=>1,
             "items" => [
-                [
-                    "name" => z_language("Users", false),
+                "1"=>[
+                    "name" => z_language("Quản trị", false),
                     "url" => "backend:user:list",
                 ],
-                [
-                    "name" => z_language("Members", false),
+                "2"=>[
+                    "name" => z_language("Người dùng", false),
                     "url" => "backend:member:list",
                 ],
-                [
-                    "name" => z_language("Role", false),
+                "3"=>[
+                    "name" => z_language("Quyền", false),
                     "url" => "backend:user:role:list",
                 ]
             ]

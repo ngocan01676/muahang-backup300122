@@ -21,7 +21,7 @@
             <div class="box-header with-border">
 
                 <div class="box-tools">
-                    <form action="" id="filter_search_form">
+                    <form method="GET" id="filter_search_form">
                         <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
                             <input type="text" name="filter.search" class="form-control pull-right"
                                    value="{{old('search')}}"
@@ -44,7 +44,7 @@
                     <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th width="3">#</th>
+
                         @php  $model =(!is_null($models) && count($models)>0)?$models[0]:null;  @endphp
 
                         @foreach($data['config']['columns']['lists'] as $k=>$columns)
@@ -55,10 +55,7 @@
 
                                 @if($model!=null && property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) || $k =="actions" )
                                 @if('id'== $columns['type'])
-                                    <th width="39px" class="column-primary">
-                                        <input  id="check-all"
-                                               type="checkbox" class="minimal">
-                                    </th>
+
                                     <th class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!} @isset($columns['order_by']) column-order_by @endisset {{list_text_aligin($columns)}}">
                                         {{z_language($columns['label'])}}
                                         {!! sort_type(isset($columns['order_by'])?$columns['order_by']:"",$k,$parameter) !!}
@@ -82,7 +79,7 @@
                     @if(count($models)>0)
                         @foreach ($models as $k=>$model)
                             <tr class="list-row">
-                                <td>@php echo list_label($k+1,$columns,$data,$model); @endphp</td>
+
                                 @foreach($data['config']['columns']['lists'] as $key=>$columns)
                                     @isset($data['data']['columns'][$key])
 
@@ -97,7 +94,7 @@
                                                 class="column column-primary column-name {{list_text_aligin($columns)}}">
                                                 <strong><a class="row-title"
                                                            href="#">@php echo list_label($model->{$key},$columns,$data,$model); @endphp</a></strong>
-                                                <div class="row-actions">
+                                                <div class="row-actions text-center">
                                                     @isset($data['config']['pagination']['router'])
                                                         @php  $n = count($data['config']['pagination']['router'])-1; $i=0; @endphp
                                                         @foreach($data['config']['pagination']['router'] as $id=>$router)
@@ -106,19 +103,21 @@
                                                                 foreach ($router['par'] as $k=>$v){
                                                                     $par[$k] = $model->{$v};
                                                                 }
+                                                                $key_form = md5(rand(1,10000) . rand(1,10000));
                                                             @endphp
                                                             <span class="{{$id}}">
                                                      @isset($router['method'])
-                                                                    <form id="{{$id}}-form"
+                                                                    <form id="{{$id}}-form-{{$key_form}}"
                                                                           action="{{route($router['name'],$par)}}"
                                                                           method="{{$router['method']}}"
                                                                           style="display: none;">
+                                                                        <input name="ref" type="hidden" value="{!! url()->current(); !!}">
                                                         @csrf
                                                     </form>
                                                                     <a href="#"
-                                                                       onclick="event.preventDefault(); document.getElementById('{{$id}}-form').submit();"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
+                                                                       onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn xóa bảng ghi này') !!}')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
                                                                 @else
-                                                                    <a href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"|":""}}
+                                                                    <a href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"  | ":""}}
                                                                 @endif
                                                 </span>
                                                         @endforeach
@@ -131,14 +130,7 @@
                                                 </div>
                                             </td>
                                         @elseif($columns['type'] == 'id')
-                                            <td class="column-primary {{list_text_aligin($columns)}}">
-                                                <span class="label-text">
-                                                    <input
-                                                             type="checkbox"
-                                                            class="minimal" value="{!! $model->id !!}"
-                                                            name="post[]">
-                                                </span>
-                                            </td>
+
                                             <td class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
                                         @elseif($columns['type'] == 'action')
                                             <td>
@@ -172,6 +164,15 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
+            // $('[name="filter.search"]').bind("enterKey",function(e){
+            //     console.log();
+            // });
+            $('[name="filter.search"]').on('keypress', function (e) {
+                if(e.which === 13){
+                console.log(1);
+
+                }
+            });
             $("#sectionList .listMain").on('click', '.column-order_by', function () {
 
                 $("#sectionList").loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
@@ -273,6 +274,7 @@
                 $.ajax({
                     type: "GET",
                     url: href,
+                    data: $("#filter_form").zoe_inputs('get'),
                     success: function (data) {
                         renderContent(data);
                         $("#sectionList").loading({destroy: true});

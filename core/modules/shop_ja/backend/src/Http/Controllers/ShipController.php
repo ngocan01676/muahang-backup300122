@@ -107,8 +107,10 @@ class ShipController extends \Zoe\Http\ControllerBackend
                 ->withErrors($validator)
                 ->withInput();
         }
+        $type = 'create';
         if (isset($data['id']) && !empty($data['id'])) {
             $model = ShipModel::find($data['id']);
+            $type = 'edit';
         } else {
             $model = new ShipModel();
         }
@@ -131,6 +133,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
 
             $model->unit = $data['unit'];
             $model->save();
+            $this->log('shop_js:ship',$type,['id' => $model->id]);
             return redirect(route('backend:shop_ja:ship:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());

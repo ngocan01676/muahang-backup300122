@@ -1,12 +1,10 @@
 <aside class="main-sidebar">
-
     <!-- sidebar: style can be found in sidebar.less -->
     @php
         $urlCurrentName = request()->route()->getName();
         $urlCurrent = url()->current();
         $listsNav = explode(":",$urlCurrentName);
-
-        $listsNav[count($listsNav)-1] = "list";
+      //  $listsNav[count($listsNav)-1] = "list";
         $urlCurrentNameTemp = implode(":",$listsNav);
 
     @endphp
@@ -22,7 +20,9 @@
                         @endphp
             @section('treeview'.$key)
                 @foreach ($sidebar['items'] as $_key=>$items)
+                    @continue(!is_array($items))
                     @php
+
                        $items_url = "#";
                        if(route::has($items['url'])){
                             $items_url = route($items['url'],isset($items['parameter'])?$items['parameter']:[]);
@@ -51,7 +51,7 @@
                             $__uri = route($_items['url'],isset($_items['parameter'])?$_items['parameter']:[]);
                         }
 
-                        if($urlCurrentName == $_items['url'] && $__uri==$urlCurrent || $urlCurrentNameTemp == $_items['url']){
+                        if($urlCurrentName == $_items['url'] && $__uri== $urlCurrent || $urlCurrentNameTemp == $_items['url']){
                             $clazz.= " active";
                             $sub_bool_actvie = true;
                         }
@@ -143,10 +143,7 @@
                         @endif
                         @endisset
                         @endforeach
-                        <li class="header">LABELS</li>
-                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+
         </ul>
     </section>
     <!-- /.sidebar -->

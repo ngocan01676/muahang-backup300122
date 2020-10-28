@@ -12,7 +12,12 @@ function ZoeExtension($file)
     $file_extension = end($tmp);
     return $file_extension;
 }
-
+function str_replace_array($search, $replace, $subject ) {
+    foreach ( $replace as $replacement ) {
+        $subject = preg_replace("/\?/", $replacement,$subject, 1);
+    }
+    return $subject;
+}
 function ZoeImageResize($url, $resize_config = [], $action = true)
 {
     $is_storage = false;

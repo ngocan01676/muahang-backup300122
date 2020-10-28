@@ -82,6 +82,7 @@ return [
                         "ajaxComShip" => [
                             "url" => "/ajax-com-ship", "method" => ['post'],
                         ],
+
                     ]
                 ],
                 'shop_ja:category' => [
@@ -103,7 +104,8 @@ return [
                                 "views" => "blog::module.admin.category",
                                 'nestable'=>'\ShopJa\Libs\CategoryShipNestable'
                             ]
-                        ]
+                        ],
+
                     ]
                 ],
                 'shop_ja:japan:category' => [
@@ -203,14 +205,16 @@ return [
                 "acl"=> "shop_ja:order:excel",
                 "router" => [
                     "list" => [
-                        "url" => "/",
+                        "url" => "/list",
                         'acl'=>true
                     ],
                     "create" => [
                         "url" => "/create",
+                        "method" => ['post','get'],
                     ],
                     "edit" => [
                         "url" => "/edit/{id}",
+                        "method" => ['post','get'],
                     ],
                     "copy" => [
                         "url" => "/copy/{id}",
@@ -228,14 +232,127 @@ return [
                         "method" => ['get','post'],
                     ],
                     "show" => [
-                        "url" => "/show"
+                        "url" => "/show/{company?}/{date?}/{hour?}/{type?}",
+                        "method" => ['get','post'],
                     ],
                     "store" => [
                         "url" => "/store",
                         "method" => ['post'],
                     ],
+                    "search" => [
+                        "url" => "/search",
+                        "method" => ['get','post'],
+                    ],
                 ]
             ],
+            'shop_ja:order:search' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "OrderExcelController",
+                "sub_prefix" => "/shop-ja/order/search",
+                "guard" => "backend",
+                "acl"=> "shop_ja:order:search",
+                "router" => [
+                    "search" => [
+                        "url" => "/search",
+                        "method" => ['get','post'],
+                    ],
+                ]
+            ],
+            'shop_ja:order:action' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "OrderExcelController",
+                "sub_prefix" => "/shop-ja/order/action",
+                "guard" => "backend",
+                "acl"=> "shop_ja:order:action",
+                "router" => [
+                    "imports" => [
+                        "url" => "/imports",
+                        "method" => ['get','post'],
+                    ],
+                    "show" => [
+                        "url" => "/show/{company?}/{date?}/{hour?}",
+                        "method" => ['get','post'],
+                    ],
+
+                ]
+            ],
+            'shop_ja:sim' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "SimController",
+                "sub_prefix" => "/shop-ja/sim",
+                "guard" => "backend",
+                "acl"=> "shop_ja:sim",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                        'acl'=>true
+                    ],
+                    "create" => [
+                        "url" => "/create",
+
+                    ],
+                    "edit" => [
+                        "url" => "/edit/{id}",
+
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ],
+                    "delete" => [
+                        "url" => "/delete/{id}",
+                        "method" => ['post'],
+                    ],
+                    "export" => [
+                        "url" => "/export",
+                        "method" => ['get','post'],
+                    ],
+                    "notification" => [
+                        "url" => "/notification",
+                        "method" => ['post','get'],
+                    ],
+                ]
+            ],
+            'shop_ja:user' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "UserController",
+                "sub_prefix" => "/shop-ja/user",
+                "guard" => "backend",
+                "acl"=> "user",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "option" => [
+                        "url" => "/option/{id}","method" => ['post','get'],
+                    ],
+                ]
+            ],
+            'shop_ja:user_cvt' => [
+                "namespace" => "ShopJa\Http\Controllers",
+                "controller" => "UserController",
+                "sub_prefix" => "/shop-ja/user-ctv",
+                "guard" => "backend",
+                "acl"=> "user",
+                "router" => [
+                    "ctv" => [
+                        "url" => "/",
+                    ],
+                ]
+            ],
+            'dashboard' => [
+                    "namespace" => "ShopJa\Http\Controllers",
+                    "controller" => "DashboardController",
+                    "sub_prefix" => "/admin/dashboard",
+                    "guard" => "backend",
+                    "acl"=> "dashboard",
+                    "router" => [
+                        "list" => [
+                            "url" => "/dashboard/{id?}",
+                            'acl'=>true,
+                        ],
+                    ]
+                ],
             ]
-        ]
+    ]
 ];

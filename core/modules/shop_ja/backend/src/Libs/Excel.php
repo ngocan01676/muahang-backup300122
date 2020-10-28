@@ -11,9 +11,18 @@ class Excel{
     public $DataCol = [
 
     ];
-    public function __construct()
+    public $date = 0;
+    public function __construct($date,$date_export)
     {
         $this->file = new \Illuminate\Filesystem\Filesystem();
+        $this->date = strtotime($date);
+
+        if($date_export == 0){
+            $this->date_export = $this->date;
+        }else{
+            $this->date_export =  strtotime($date_export);
+        }
+
         $this->DataCol = [
             "FUKUI"=>[
                     ["支払区分",'payMethod',10,9],//A Phương thức thanh toán
@@ -371,6 +380,7 @@ class Excel{
         $columns_value = array_flip($datas['columns']);
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
+        $ids = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
 
@@ -379,7 +389,8 @@ class Excel{
             }
 
             $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
-
+            $order_id =  (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+            $ids[$order_id] = 1;
             $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
             $images[] = [$image,$order_info];
             foreach($colums as $key=>$value){
@@ -449,12 +460,12 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d');
+        $path = $path.'/'.date('Y-m-d', $this->date);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $filename = date('m').'月'.date('d').'日の注文分-福井精米様御中';
+        $filename = date('m',$this->date).'月'.date('d',$this->date).'日の注文分-福井精米様御中';
 
 
         $path = $path.'/'.$filename;
@@ -499,7 +510,7 @@ class Excel{
 
             $zip->close();
         }
-        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
     }
     public function OHGA($datas){
@@ -557,9 +568,10 @@ class Excel{
             )
         );
         $sheet->getStyle('A3:T3')->applyFromArray( $style_header );
-
+        $date_export = new \stdClass();
+        $date_export->date =  $this->date_export;
         $colums = [
-            ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+            ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
             ["支払区分",'payMethod',10,9],//B
             ["配送先電話番号",'phone',10,9],//C
             ["配送先郵便番号",'zipcode',9,9],//D
@@ -623,6 +635,7 @@ class Excel{
         $columns_value = array_flip($datas['columns']);
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
+        $ids = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
             if(empty($values[$nameColList['fullname']])){
@@ -630,7 +643,8 @@ class Excel{
             }
 
             $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
-
+            $order_id =  (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+            $ids[$order_id] = 1;
             $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
             $images[] = [$image,$order_info];
             foreach($colums as $key=>$value){
@@ -686,12 +700,12 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d');
+        $path = $path.'/'.date('Y-m-d',$this->date);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $filename = '大賀商店のお米の注文分'.date('m').'月'.date('d').'日';
+        $filename = '大賀商店のお米の注文分'.date('m',$this->date).'月'.date('d',$this->date).'日';
 
 
         $path = $path.'/'.$filename;
@@ -736,7 +750,7 @@ class Excel{
 
             $zip->close();
         }
-        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
     }
     public function YAMADA($datas,$name){
@@ -789,8 +803,10 @@ class Excel{
             )
         );
         $sheet->getStyle('A3:T3')->applyFromArray( $style_header );
+        $date_export = new \stdClass();
+        $date_export->date =  $this->date_export;
         $colums = [
-            ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+            ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d",$date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
             ["支払区分",'payMethod',10,9],//B
             ["配送先電話番号",'phone',10,9],//C
             ["配送先郵便番号",'zipcode',9,9],//D
@@ -810,7 +826,7 @@ class Excel{
             ["紹介料",'order_price',15,9],//R
             ["追跡番号",'order_tracking',15,9],//S
             ["振込み情報",'order_info',25,9],//T
-            ["",'order_link',25,9],//U
+//            ["",'order_link',25,9],//U
         ];
         $start=3;
         $nameColList  = [];
@@ -849,19 +865,19 @@ class Excel{
         $columns_value = array_flip($datas['columns']);
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
+        $ids = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
             if(empty($values[$nameColList['fullname']])){
                 continue;
             }
             $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
-
+            $order_id =  (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+            $ids[$order_id] = 1;
             $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
             $images[] = [$image,$order_info];
             foreach($colums as $key=>$value){
-
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
-
                 if(is_array($value[1])){
                     if(isset($value[1]['product'])){
                         $conf = $value[1]['product'];
@@ -912,13 +928,13 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d');
+        $path = $path.'/'.date('Y-m-d',$this->date);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
 
-        $filename = '株式会社ヤマダ-様-のお米の注文分'.date('m').'月'.date('d').'日';
+        $filename = '株式会社ヤマダ-様-のお米の注文分'.date('m',$this->date).'月'.date('d',$this->date).'日';
 
 
         $path = $path.'/'.$filename;
@@ -957,10 +973,9 @@ class Excel{
             foreach ($files as $file){
                 $zip->addFile($file[1],$file[0]);
             }
-
             $zip->close();
         }
-        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,"ids"=>$ids];
 
     }
     public function KURICHIKU($datas){
@@ -1004,19 +1019,69 @@ class Excel{
         $start=2;
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
+        $ids = [];
+        $date_export = new \stdClass();
+        $date_export->date =  $this->date_export;
         for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
             $colums = [
-                ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+                ["注文日",['callback'=>function($index,$date) use($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
                 ["配送先電話番号",'phone',10,9],//Số điện thoại
                 ["郵便番号",'zipcode',9,9],//Mã bưu điện
                 ["配送先都道府県",'province',14,9],//Tỉnh/TP
                 ["配送先住所",'address',18,9],//Địa chỉ giao hàng
                 ["配送先氏名",'fullname',18,9],//Họ tên người nhận
-                ["品番",['product'=>['product_id','code']],10,9],//H
-                ["商品名",['product'=>['product_name','title']],18,9],//I
+                ["品番",['callback'=>
+                    function($index,$product_id) use($products){
+                    try{
+                        $array_product = explode(";",$product_id);
+                    }catch (\Exception $ex) {
+                        $array_product = [];
+                    }
+
+                    $product_code = "";$product_title = "";
+                        foreach ($array_product as $pro_id){
+                            if(isset( $products[$pro_id])){
+                                $product_code.= $products[$pro_id]->code.",";
+                                $product_title.= $products[$pro_id]->title.",";
+                            }
+                        }
+                    return rtrim($product_code,',');
+                    },'key'=>'product_id'],10,9],//H
+                ["商品名",
+                    ['callback'=>function($index,$product_id) use($products){
+                        try{
+                            $array_product = explode(";",$product_id);
+                        }catch (\Exception $ex) {
+                            $array_product = [];
+                        }
+
+                        $product_code = "";$product_title = "";
+                        foreach ($array_product as $pro_id){
+                            if(isset( $products[$pro_id])){
+                                $product_code.= $products[$pro_id]->code.",";
+                                $product_title.= $products[$pro_id]->title.",";
+                            }
+                        }
+                    return rtrim($product_title,',');
+
+                },'key'=>'product_name'],18,9],//I
                 ["単価",'price',15,9],//Giá nhập
-                ["数量",'count',15,9],//SL
+                ["数量",['callback'=>function($index,$count) use($products){
+                    try{
+                        $array_count = json_decode($count,true);
+                    }catch (\Exception $ex) {
+                        $array_count = [];
+                    }
+                    $total_count = 0;
+
+                    foreach ($array_count as $pro_id=>$_count){
+                        if(isset( $products[$pro_id])){
+                            $total_count+=(int)$_count;
+                        }
+                    }
+                    return $total_count;
+                    },'key'=>'count'],15,9],//SL
                 ["到着希望日",'order_date',15,9],//Ngày nhận
                 ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
                 ["送料",'order_ship',15,9],//Phí ship
@@ -1073,7 +1138,8 @@ class Excel{
                 if($typeMethod != $this->getValuePayMethod($payMethod)){
                     continue;
                 }
-
+                $order_id = (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+                $ids[$order_id] = 1;
                 $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
 
                 $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
@@ -1093,11 +1159,14 @@ class Excel{
                         }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                             $conf = $value[1]['callback'];
                             $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start]);
+
                             $sheet->setCellValue($nameCol.$start,$_val);
                         }
                     }else{
                         $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
+
                         $sheet->setCellValue($nameCol.$start,$v);
+
                         if($value[1] == "payMethod"){
                             $payMethod = $v;
                         }
@@ -1165,12 +1234,12 @@ class Excel{
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $path = $path.'/'.date('Y-m-d');
+        $path = $path.'/'.date('Y-m-d',$this->date);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $filename ='株式会社コギ家-様-'.date('m').'月'.date('d').'日注文分';
+        $filename ='株式会社コギ家-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
 
         $path = $path.'/'.$filename;
         if( !$this->file->isDirectory(public_path().$path)){
@@ -1211,7 +1280,7 @@ class Excel{
 
             $zip->close();
         }
-        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
 
 
@@ -1257,9 +1326,13 @@ class Excel{
         $sheet->getStyle('B1')->applyFromArray($styleArray);
         $start=2;
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+        $date_export = new \stdClass();
+        $date_export->date = $this->date_export;
+        $images = [];
+        $ids = [];
         for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
             $colums = [
-                ["注文日",['callback'=>function($index,$date){return date("d", strtotime($date)).'日';},'key'=>'timeCreate'],10,9],//A
+                ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
                 ["配送先電話番号",'phone',10,9],//Số điện thoại
                 ["郵便番号",'zipcode',9,9],//Mã bưu điện
@@ -1315,27 +1388,36 @@ class Excel{
 //            ];
             $start++;
             $columns_value = array_flip($datas['columns']);
-            $images = [];
+
+
             foreach ($datas['datas'] as $key=>$_values){
                 $type = ((isset($columns_value['type'])?$_values[$columns_value['type']]:""));
 
                 if($type == "Info"){
+
                     $pay_Method = $this->getValuePayMethod(isset($columns_value['payMethod'])?$_values[$columns_value['payMethod']]:"");
+
                     $image =  (isset($columns_value['image'])?$_values[$columns_value['image']]:"");
                     $order_info =  (isset($columns_value['order_info'])?$_values[$columns_value['order_info']]:"");
+
                     $images[] = [$image,$order_info];
+
+
                     if($pay_Method == $typeMethod){
 
                         $startRow = $start;
                         $endRow = $key;
                         $count = 0;
-                        for($i = $key ; $i<count($datas['datas']) ; $i++){
+
+                        for($i = $key ; $i < count($datas['datas']) ; $i++){
                             $count++;
                             $values = $datas['datas'][$i];
                             $oke = true;
+
                             $type =  (isset($columns_value['type'])?$values[$columns_value['type']]:"");
 
-
+                            $order_id =  (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+                            $ids[$order_id] = 1;
 
                             foreach($colums as $key1=>$value){
                                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key1+1);
@@ -1358,7 +1440,6 @@ class Excel{
                                                 $_val = "";
                                             }
                                         }
-
                                         $sheet->setCellValue($nameCol.$start,$_val);
                                     }else{
                                         if($type == "Footer"){
@@ -1371,13 +1452,10 @@ class Excel{
                                                 ),
                                             ) );
                                         }
-
                                         $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
-
                                         if($value[1] == "payMethod"){
                                             $payMethod = $v;
                                         }
-
                                         $sheet->setCellValue($nameCol.$start,$v);
                                     }
                                 }
@@ -1477,11 +1555,11 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d');
+        $path = $path.'/'.date('Y-m-d',$this->date);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $filename = '株式会社クリチク-様-'.date('m').'月'.date('d').'日注文分';
+        $filename = '株式会社クリチク-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
 
 
         $path = $path.'/'.$filename;
@@ -1523,6 +1601,6 @@ class Excel{
 
             $zip->close();
         }
-        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images];
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
     }
 }
