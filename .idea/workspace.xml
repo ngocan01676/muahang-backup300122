@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
-    </list>
+    <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,12 +16,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17770">
+            <state relative-caret-position="25364">
               <caret line="1497" column="36" selection-start-line="1497" selection-start-column="36" selection-end-line="1497" selection-end-column="36" />
               <folding>
                 <element signature="e#30#60#0#PHP" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="e#45747#57002#0#PHP" />
               </folding>
             </state>
           </provider>
@@ -37,8 +33,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="328" column="66" selection-start-line="328" selection-start-column="66" selection-end-line="328" selection-end-column="66" />
+            <state relative-caret-position="312">
+              <caret line="320" column="46" lean-forward="true" selection-start-line="320" selection-start-column="46" selection-end-line="320" selection-end-column="46" />
               <folding>
                 <element signature="e#41#55#0#PHP" expanded="true" />
               </folding>
@@ -106,57 +102,6 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/public/module/admin/assets/tagging/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/Flot/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap-colorpicker/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap-datepicker/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap-daterangepicker/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/chart.js/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/ckeditor/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/eve-raphael/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/ion.rangeSlider/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/jquery-knob/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/jquery-slimscroll/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/jquery-ui/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/morris.js/package.json" />
-      <path value="$PROJECT_DIR$/public/module/admin/bower_components/select2/package.json" />
-      <path value="$PROJECT_DIR$/public/module/blog/plugins/camohub-jquery-sortable-lists/package.json" />
-      <path value="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/package.json" />
-      <path value="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/package.json" />
-      <path value="$PROJECT_DIR$/public/plugins/layout/plugins/code-prettify/package.json" />
-      <path value="$PROJECT_DIR$/public/plugins/layout/plugins/jquery-ui-1.12.1.custom/package.json" />
-      <path value="$PROJECT_DIR$/public/plugins/layout/plugins/js-beautify-1.7.5/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/Flot/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-colorpicker/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-datepicker/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-daterangepicker/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/chart.js/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/ckeditor/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/eve-raphael/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/ion.rangeSlider/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/jquery-knob/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/jquery-slimscroll/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/jquery-ui/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/morris.js/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/select2/package.json" />
-      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/package.json" />
-      <path value="$PROJECT_DIR$/tmp/basicContext-master/package.json" />
-      <path value="$PROJECT_DIR$/tmp/keditor-master/examples/plugins/code-prettify/package.json" />
-      <path value="$PROJECT_DIR$/tmp/keditor-master/examples/plugins/jquery-ui-1.12.1.custom/package.json" />
-      <path value="$PROJECT_DIR$/tmp/keditor-master/examples/plugins/js-beautify-1.7.5/package.json" />
-      <path value="$PROJECT_DIR$/tmp/keditor-master/package.json" />
-    </packageJsonPaths>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -278,6 +223,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -374,34 +320,10 @@
               <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="uploads" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="uploads" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="uploads" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="KURICHIKU" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="uploads" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="YAMADA" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -453,17 +375,18 @@
       <workItem from="1600741627310" duration="15317000" />
       <workItem from="1600827241364" duration="935000" />
       <workItem from="1601017593805" duration="8737000" />
+      <workItem from="1601047837119" duration="2000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="222515000" />
+    <option name="totallyTimeSpent" value="222517000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20682302" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20895523" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -723,21 +646,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/5f6d9c4e5d464.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/5f6d9c4e5f42f.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/images/3022091af13b41655864e24012854387.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/images/f7fec085cd7c26b86d6aa236d571a77e.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/public/uploads/5f6d9c4e5d464.jpeg" />
+    <entry file="file://$PROJECT_DIR$/public/uploads/5f6d9c4e5f42f.jpeg" />
+    <entry file="file://$PROJECT_DIR$/public/uploads/images/3022091af13b41655864e24012854387.jpeg" />
+    <entry file="file://$PROJECT_DIR$/public/uploads/images/f7fec085cd7c26b86d6aa236d571a77e.jpeg" />
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="376">
@@ -745,28 +657,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/exports/KOGYJA/2020-09-25/株式会社クリチク-様-09月25日注文分/b63eefe14607be5f463bcc580d420f6b.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/images/KURICHIKU/b63eefe14607be5f463bcc580d420f6b.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/public/uploads/exports/KOGYJA/2020-09-25/株式会社クリチク-様-09月25日注文分/b63eefe14607be5f463bcc580d420f6b.jpeg" />
+    <entry file="file://$PROJECT_DIR$/public/uploads/images/KURICHIKU/b63eefe14607be5f463bcc580d420f6b.jpeg" />
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17770">
+        <state relative-caret-position="25364">
           <caret line="1497" column="36" selection-start-line="1497" selection-start-column="36" selection-end-line="1497" selection-end-column="36" />
           <folding>
             <element signature="e#30#60#0#PHP" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="e#45747#57002#0#PHP" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="328" column="66" selection-start-line="328" selection-start-column="66" selection-end-line="328" selection-end-column="66" />
+        <state relative-caret-position="312">
+          <caret line="320" column="46" lean-forward="true" selection-start-line="320" selection-start-column="46" selection-end-line="320" selection-end-column="46" />
           <folding>
             <element signature="e#41#55#0#PHP" expanded="true" />
           </folding>
