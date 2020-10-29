@@ -41,7 +41,7 @@
 
 
 <div>
-    <button class="btn btn-primary" onclick="Save()" type="button"> Lưu </button> &nbsp &nbsp
+    {{--<button class="btn btn-primary" onclick="Save()" type="button"> Lưu </button> &nbsp &nbsp--}}
     <button type="button" class="btn btn-info" onclick="Export()">Export</button>
 </div>
 
