@@ -262,6 +262,7 @@ class Excel{
             return "FUKUI";
         }
     }
+
     public function FUKUI($datas){
 
         $spreadsheet = new Spreadsheet();
@@ -513,6 +514,7 @@ class Excel{
         return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
     }
+
     public function OHGA($datas){
 
         $spreadsheet = new Spreadsheet();

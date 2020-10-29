@@ -1106,7 +1106,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
         return $this->render('order-excel.create',['admin'=>$users]);
     }
-    function GetData($results,$exportAll){
+    public  function GetData($results,$exportAll){
         $datas = [];
         foreach ($results as $resultAll){
             foreach ($resultAll as $result){
@@ -1349,6 +1349,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $results = $model->GetDetails("");
 
         $model->detail = $this->GetData($results,false);
+
         $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
 
         return $this->render('order-excel.edit',['model'=>$model,'admin'=>$users]);

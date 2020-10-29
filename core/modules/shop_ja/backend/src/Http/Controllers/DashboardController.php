@@ -139,6 +139,223 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
         return $this->render('dashboard.user',[]);
     }
+    public  function GetData($results,$exportAll){
+        $datas = [];
+
+        $categorys = config_get("category", "shop-ja:product:category");
+        $names  = [];
+        foreach($categorys as $category){
+            if(!empty($company) && $company !=$category['name']){
+                continue;
+            }
+            $names[] = $category['name'];
+
+            $shop_products = DB::table('shop_product')->where('category_id',$category['id'])->get()->all();
+
+            $this->data['products'][$category['name']] = [];
+            $lock =  DB::table('shop_order_excel_lock')->where('name',$category['name'])->limit(1)->orderBy('updated_at','desc')->get()->all();
+            $this->data['locks'][$category['name']] = isset($lock[0])?$lock[0]:[];
+            try{
+                foreach($shop_products as $shop_product){
+
+                    $this->data['products'][$category['name']][$shop_product->id] =
+                        [
+                            'id' => $shop_product->id,
+                            'name'=>$shop_product->description,
+                            'image'=>$shop_product->image,
+                            'title'=>$shop_product->title,
+                            'group'=>$category['name'],
+                            'data'=>(array) $shop_product
+                        ];
+                }
+            }catch (\Exception $ex){
+
+            }
+
+        }
+        foreach ($results as $resultAll){
+            foreach ($resultAll as $result){
+                if(!isset($datas[$result->company])){
+                    $datas[$result->company] = [];
+                }
+                if(isset( $this->data['products'][$result->company])){
+                    $_product = $this->data['products'][$result->company];
+
+                    if($result->company == "FUKUI1"){
+                        if($result->pay_method == 1){
+                            $pay_method = "代金引換";
+                        }else  if($result->pay_method == 2){
+                            $pay_method = "銀行振込";
+                        }else if($result->pay_method == 3){
+                            $pay_method = "決済不要";
+                        }
+
+                        $order_profit= 0;
+                        $price = 0;
+                        $total_price = 0;
+                        $total_price_buy = 0;
+                        if(isset( $_product[$result->product_id]['data']['price_buy'])){
+                            $order_profit =
+                                $_product[$result->product_id]['data']['price_buy'] * $result->count -
+                                $_product[$result->product_id]['data']['price']*$result->count -
+                                $result->order_ship - $result->order_ship_cou;
+                            $price = $_product[$result->product_id]['data']['price'];
+                            $total_price = $_product[$result->product_id]['data']['price']* $result->count;
+                            $total_price_buy = $_product[$result->product_id]['data']['price_buy']* $result->count;
+                        }
+
+                        $datas[$result->company][] = [
+                            "",
+                            $pay_method,
+                            $result->order_date,
+                            $result->order_hours,
+                            $result->fullname,
+                            $result->zipcode,
+                            $result->province,
+                            $result->address,
+                            $result->phone,
+                            $result->order_ship,
+                            $order_profit,
+                            $total_price_buy,
+                            $result->product_id,
+                            $result->product_id,
+                            $total_price,
+                            $result->count,
+                            "",
+                            "",
+                            $result->id,
+                        ];
+                    }else  if($result->company == "KOGYJA"){
+                        $pay_method = "";
+                        if($result->pay_method == 1){
+                            $pay_method = "代金引換";
+                        }else  if($result->pay_method == 2){
+                            $pay_method = "銀行振込";
+                        }else if($result->pay_method == 3){
+                            $pay_method = "決済不要";
+                        }
+                        $order_profit = $result->order_price;
+
+                        $price = $result->price;
+                        $price_buy = $result->price_buy;
+                        $total_price = $result->total_price;
+                        $total_price_buy = $result->total_price_buy;
+                        $datas[$result->company][] = [
+                            $result->public,
+                            $result->order_image,
+                            $result->order_create_date,
+                            $pay_method,
+                            $result->phone,
+                            $result->zipcode,
+                            $result->province,
+                            $result->address,
+                            $result->fullname,
+                            $result->product_id,
+                            $result->product_id,
+                            $result->count,
+                            $result->total_count,
+                            $price,
+                            $price_buy,
+                            $result->order_date,
+                            $result->order_hours,
+                            $result->order_ship,
+                            $total_price,
+                            $result->price_buy_sale,
+                            $total_price_buy,
+                            $result->order_ship_cou,
+                            $order_profit,
+                            $result->type == "Info"?$result->rate:0,
+                            $result->order_tracking,
+                            $result->order_link,
+                            $result->order_info,
+                            $result->one_address==1,
+                            $result->id,
+                            $result->type,
+                            $result->session_id,
+                            $result->export == 1,
+                            $result->token,
+                            $result->order_index,
+                            $result->admin,
+                        ];
+                    } else{
+                        $pay_method = "";
+                        if($result->pay_method == 1){
+                            $pay_method = "代金引換";
+                        }else  if($result->pay_method == 2){
+                            $pay_method = "銀行振込";
+                        }else if($result->pay_method == 3){
+                            $pay_method = "決済不要";
+                        }
+                        if($exportAll == true)
+                        {
+                            if(empty($result->fullname)){
+                                continue;
+                            }
+                        }
+
+                        $order_profit = $result->order_price;
+
+                        $price = $result->price;
+
+                        $price_buy = $result->price_buy;
+
+                        $total_price = $result->total_price;
+                        $total_price_buy = $result->total_price_buy;
+
+                        if(isset($_product[$result->product_id]['data']['price_buy'])){
+                            if($price == 0)
+                                $price = $_product[$result->product_id]['data']['price'];
+                            if($price_buy == 0)
+                                $price_buy = $_product[$result->product_id]['data']['price_buy'];
+                        }
+                        if($total_price == 0)
+                            $total_price = $price * $result->count;
+                        if($total_price_buy == 0)
+                            $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
+                        if($order_profit == 0){
+                            $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
+                        }
+
+                        $datas[$result->company][] = [
+                            $result->public,
+                            $result->order_image,
+                            $result->order_create_date,
+                            $pay_method,
+                            $result->phone,
+                            $result->zipcode,
+                            $result->province,
+                            $result->address,
+                            $result->fullname,
+                            $result->product_id,
+                            $result->product_id,
+                            $result->count,
+                            $price,
+                            $price_buy,
+                            $result->order_date,
+                            $result->order_hours,
+                            $result->order_ship,
+                            $total_price,
+                            $result->price_buy_sale,
+                            $total_price_buy,
+                            $result->order_ship_cou,
+                            $order_profit,
+                            (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
+                            $result->order_tracking,
+                            $result->order_link,
+                            $result->order_info,
+                            $result->one_address==1,
+                            $result->id,
+                            $result->session_id,
+                            $result->export == 1,
+                            $result->token,
+                            "",
+                        ];
+                    }
+                }
+            }
+        }
+        return $datas;
+    }
     public function export(Request $request){
         $user_id = null;
         $this->file = new \Illuminate\Filesystem\Filesystem();
@@ -176,32 +393,65 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                 ->where('order_create_date','>=',$date_start." 00:00:00")
                 ->where('order_create_date','<=',$date_end." 23:59:59");
         }
+
         if(!is_null($user_id)){
             $price->where('admin_id',$user_id);
         }
 
         $total_price = 0;
+
         $arr_prices = [];
         $results = $price->get()->all();
-
         foreach ($results as $key=>$value){
-           $k = date('Y/m/d',strtotime($value->order_create_date));
-           if(!isset($arr_prices[$k])){
-               $arr_prices[$k] = 0;
-           }
-           if(is_null($user_id)){
-               $total_price+= $value->order_price;
-               $arr_prices[$k]+=$value->order_price;
-           }else{
-               if($data['company'] == "KOGYJA"){
-                   $total_price+= $value->rate;
-                   $arr_prices[$k]+=$value->rate;
-               }else{
-                   $total_price+= (int)$value->rate * (int)$value->count;
-                   $arr_prices[$k]+=(int)$value->rate* (int)$value->count;
-               }
-           }
+            $k = date('Y/m/d',strtotime($value->order_create_date));
+            if(!isset($arr_prices[$k])){
+                $arr_prices[$k] = 0;
+            }
+            if(is_null($user_id)){
+                $total_price+= $value->order_price;
+                $arr_prices[$k]+=$value->order_price;
+
+            }else{
+                if($data['company'] == "KOGYJA"){
+                    $total_price+= $value->rate;
+                    $arr_prices[$k]+=$value->rate;
+                }else{
+                    $total_price+= (int)$value->rate * (int)$value->count;
+                    $arr_prices[$k]+=(int)$value->rate* (int)$value->count;
+
+                }
+            }
         }
+
+        if($data['company'] == "FUKUI"){
+            $this->date = strtotime($date_end);
+            $this->DataCol = [
+                "FUKUI"=>[
+                    ["支払区分",'payMethod',10,9],//A Phương thức thanh toán
+                    ["到着希望日",'order_date1',15,9],//B ngày giao hàng
+                    ["配送希望時間帯",'order_hours',15,9],//C Giờ nhận
+                    ["配送先氏名",'fullname',18,9],//D Họ và tên khách hàng
+                    ["配送先郵便番号",'zipcode',9,9],// E Mã bưu điện
+                    ["配送先都道府県",'province',14,9], // F Tỉnh
+                    ["配送先住所",'address',18,9], // G Địa chỉ giao hàng
+                    ["配送先電話番号",'phone',10,9], // H Số điện thoại
+                    ["別途送料",'order_ship',15,9], //I Phí Ship
+                    ["紹介料",['callback'=>function($index,$value){return (int)$value;},'key'=>'order_price'],15,9],// Lợi nhuận J
+                    ["仕入金額",'order_total_price_buy',15,9], // Tổng giá đơn hàng K
+                    ["品番",['product'=>['product_id','code']],10,9], // Mã sản phẩm L
+                    ["商品名",['product'=>['product_name','title']],18,9], // Tên sản phẩm M
+                    ["単価",'order_total_price',15,9], // Giá nhập N
+                    ["数量",'count',15,9], // Số lượng O
+                    ["",'order_tracking',15,9],
+                ]
+            ];
+            $a = [];
+            $a[$data['company']] = $results;
+           return $this->FUKUI(['total'=>$total_price,'datas'=>$this->GetData($a,false)[$data['company']],'']);
+        }
+
+
+
         $json = [];
 
         $spreadsheet = new Spreadsheet();
@@ -366,5 +616,280 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
         return response()->json($json   );
     }
+    public function FUKUI($datas){
 
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $spreadsheet->createSheet();
+        $spreadsheet->getSheet(1)->setTitle('Sheet2');
+         
+        $sheet->setTitle("Sheet1");
+        $spreadsheet->getProperties()
+            ->setTitle('PHP Download Example')
+            ->setSubject('A PHPExcel example')
+            ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
+            ->setCreator('php-download.com')
+            ->setLastModifiedBy('php-download.com');
+
+
+        $titles = [
+            ['A1','グエン様専用注文フォーマット'],
+            ['G2','別途送料'],
+            ['H2','北海道：800円'],
+            ['H2','沖縄：1200円'],
+            ['N5','VU THI 様 14 日に 6250  円入金済み'],
+        ];
+        foreach ($titles as $title){
+            $sheet->setCellValue($title[0], $title[1]);
+        }
+        $titles = [
+            '選択','入力','選択','入力','入力','入力','入力','入力','入力','不要','入力','入力','不要','不要','入力'
+        ];
+        $start = 6;
+        foreach($titles as $key=>$value){
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+            $sheet->setCellValue($nameCol.$start, $value);
+        }
+
+        $styleArray = array(
+            'font'  => array(
+                'size'  => 9,
+                'name' => 'Times New Roman'
+            ));
+        $style_header = array(
+            'fill' => array(
+                'fillType' => Fill::FILL_SOLID,
+                'color' => array('rgb'=>'FFE100'),
+            ),
+            'borders' => [
+                'allBorders' => array(
+                    'borderStyle' => Border::BORDER_DOTTED,
+                    'color' => array('rgb'=>'000000')
+                ),
+            ],
+            'font' => array(
+                'size' => 10
+            )
+        );
+        $sheet->getStyle('B1')->applyFromArray($styleArray);
+        $sheet->getStyle('F2')->applyFromArray($styleArray);
+        $sheet->getStyle('P2')->applyFromArray(array(
+                'font'  => array(
+                    'size'  => 9,
+                    'name' => 'Times New Roman',
+                    'color' => array('rgb' => '0070c0'),
+                ),
+            )
+        );
+        $colums = [
+            ["支払区分",'payMethod',10,9],//A Phương thức thanh toán
+            ["到着希望日",'order_date1',15,9],//B ngày giao hàng
+            ["配送希望時間帯",'order_hours',15,9],//C Giờ nhận
+            ["配送先氏名",'fullname',18,9],//D Họ và tên khách hàng
+            ["配送先郵便番号",'zipcode',9,9],// E Mã bưu điện
+            ["配送先都道府県",'province',14,9], // F Tỉnh
+            ["配送先住所",'address',18,9], // G Địa chỉ giao hàng
+            ["配送先電話番号",'phone1',10,9], // H Số điện thoại
+            ["別途送料",'order_ship',15,9], //I Phí Ship
+            ["紹介料",['callback'=>function($index,$value){return (int)$value;},'key'=>'order_price'],15,9],// Lợi nhuận J
+            ["仕入金額",'order_total_price_buy',15,9], // Tổng giá đơn hàng K
+            ["品番",['product'=>['product_id','code']],10,9], // Mã sản phẩm L
+            ["商品名",['product'=>['product_id','title']],18,9], // Tên sản phẩm M
+            ["単価",'order_total_price',15,9], // Giá nhập N
+            ["数量",'count',15,9], // Số lượng O
+        ];
+        $start=7;
+        $sheet->getStyle('A'.$start.':'.PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).$start)->applyFromArray( $style_header );
+        $nameColList = [];
+        foreach($colums as $key=>$value){
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+            $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
+                    'font'  => array(
+                        'size'  => $value[3]
+                    ),
+                )
+            );
+            if(is_array($value[1])){
+                if(isset($value[1]['product'])){
+                    $conf = $value[1]['product'];
+                    $nameColList[$conf[0]] = $key;
+                }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                    $nameColList[$value[1]['key']] = $key;
+                }
+            }else{
+                $nameColList[$value[1]] = $key;
+            }
+            if($value[2] > 0){
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
+            }
+        }
+        $start++;
+        $defaultStart = $start;
+        $lastIndex = "";
+        $company = "36";
+
+        $orders = [
+
+        ];
+        $columns_value = array_flip(["status", "image", "timeCreate", "payMethod", "phone", "zipcode", "province", "address", "fullname", "product_id", "product_name", "count", "price", "price_buy", "order_date", "order_hours", "order_ship", "order_total_price", "price_buy_sale", "order_total_price_buy", "order_ship_cou", "order_price", "order_tracking", "order_link", "order_info", "one_address", "id", "session_id", "export", "token", "admin"]);
+        $products =  DB::table('shop_product')->get()->keyBy('id')->all();
+        $images = [];
+        $ids = [];
+        $order_total_price_buy = 0;
+        foreach ($datas['datas'] as $key=>$values){
+            $payMethod = "";
+
+            if(empty($values[$nameColList['fullname']])){
+                continue;
+            }
+
+            $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
+            $order_id =  (isset($columns_value['id'])?$values[$columns_value['id']]:"");
+            $ids[$order_id] = 1;
+            $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
+            $images[] = [$image,$order_info];
+            $order_total_price_buy+=(isset($columns_value['order_total_price_buy'])?$values[$columns_value['order_total_price_buy']]:0);
+
+            foreach($colums as $key=>$value){
+                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                if(is_array($value[1])){
+                    if(isset($value[1]['product'])){
+                        $conf = $value[1]['product'];
+                        $id = (isset($columns_value[$conf[0]])?$values[$columns_value[$conf[0]]]:"");
+                        $_val = "";
+                        if(isset($products[$id]) && property_exists($products[$id],$conf[1])){
+                            $_val = $products[$id]->{$conf[1]};
+                        }
+                        $sheet->setCellValue($nameCol.$start,$_val);
+                    }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
+                        $conf = $value[1]['callback'];
+                        $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start]);
+                        $sheet->setCellValue($nameCol.$start,$_val);
+                    }
+                }else{
+                    $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
+                    $sheet->setCellValue($nameCol.$start,$v);
+                    if($value[1] == "payMethod"){
+                        $payMethod = $v;
+                    }
+                }
+            }
+            if($payMethod == "銀行振込"){
+                $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                    'font'  => array(
+
+                        'name' => 'Times New Roman',
+                        'color' => array('rgb' => '0070c0'),
+                    ),
+                ) );
+            }else  if($payMethod == "決済不要"){
+                $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                    'font'  => array(
+
+                        'name' => 'Times New Roman',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                ) );
+            }
+            $start++;
+        }
+
+        $sheet->getStyle('K6:K'.$start)->applyFromArray(array(
+                'font'  => array(
+                    'color' => array('rgb' => 'ff0000'),
+                ),
+            )
+        );
+
+
+        $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship']+2);
+        $sheet->getStyle($nameCol.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+            'font'  => array(
+
+                'name' => 'Times New Roman',
+                'color' => array('rgb' => 'ff0000'),
+            ),
+        ) );
+        $sheet->setCellValue($nameCol.$start,$datas['total']);
+
+        $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_total_price_buy']+1);
+        $sheet->getStyle($nameCol.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+            'font'  => array(
+
+                'name' => 'Times New Roman',
+                'color' => array('rgb' => 'ff0000'),
+            ),
+        ) );
+        $sheet->setCellValue($nameCol.$start,$order_total_price_buy);
+
+//        $sheet->getStyle('K6:K'.$start)->getStyleArray(array(
+//                'fill' => array(
+//                    'fillType' => Fill::FILL_SOLID,
+//                    'color' => array('rgb'=>'c00010'),
+//                ),
+//            )
+//        );
+        // $sheet->setCellValue("J".$start, "=SUM(K".$defaultStart.":K".($start-1).")");
+//        $sheet->setCellValue("P".$start, "=SUM(P".$defaultStart.":P".($start-1).")");
+//        $sheet->setCellValue("R".$start, "=SUM(R".$defaultStart.":R".($start-1).")");
+//        $sheet->setCellValue("Q".$start, "=SUM(Q".$defaultStart.":Q".($start-1).")");
+
+        $writer = new Xlsx($spreadsheet);
+        $path = '/uploads/exports/'.str_replace(__CLASS__.'::',"",__METHOD__);
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path = $path.'/'.date('Y-m-d', $this->date);
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+
+        $filename = date('m',$this->date).'5月の総合計 '.$order_total_price_buy.' 円';
+
+
+        $path = $path.'/'.$filename;
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+        $path2 = $path.'/'.$filename.'.xlsx';
+
+        $writer->save(public_path().$path2);
+
+        $files = [
+            [$filename.'.xlsx',public_path().$path2]
+        ];
+
+        foreach ($images as $image){
+
+            if(!empty($image[0]) && file_exists(public_path()."/".$image[0])){
+
+                $pathinfo = pathinfo(public_path()."/".$image[0]);
+
+                if(empty($image[1])){
+                    $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                }else{
+                    $file_image = $image[1].'.'.$pathinfo['extension'];
+                }
+                $newName = $path .'/'. $file_image;
+                $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
+                $files[] = [
+                    $file_image,public_path().'/'.$newName
+                ];
+            }
+        }
+        $zipFileName = $filename.'.zip';
+        $zip = new \ZipArchive();
+        if($this->file->exists(public_path().'/'.$path . '/' . $zipFileName)){
+            $this->file->delete(public_path().'/'.$path . '/' . $zipFileName);
+        }
+        if ($zip->open(public_path().'/'.$path . '/' . $zipFileName, \ZipArchive::CREATE) === TRUE) {
+            foreach ($files as $file){
+                $zip->addFile($file[1],$file[0]);
+            }
+
+            $zip->close();
+        }
+        return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
+
+    }
 }
