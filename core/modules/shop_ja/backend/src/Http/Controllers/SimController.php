@@ -87,7 +87,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
         $this->data['nestables'] = config_get("category", "shop-ja:product:category");
         $this->data['configs'] = config_get("config", "shopja");
         $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
-
+        $this->file = new \Illuminate\Filesystem\Filesystem();
     }
     public function getCrumb()
     {
@@ -273,6 +273,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
                         $result->product_id,
                         $result->count,
                         $result->total_count,
+                        $result->auto,
                         $price,
                         $price_buy,
                         $result->order_date,
@@ -292,12 +293,15 @@ class SimController extends \Zoe\Http\ControllerBackend{
                     ];
                 } else{
                     $pay_method = "";
+
                     if($result->pay_method == 1){
-                        $pay_method = "代金引換";
+                        $pay_method = "Đã thanh toán";
                     }else  if($result->pay_method == 2){
-                        $pay_method = "銀行振込";
+                        $pay_method = "Chưa thanh toán";
                     }else if($result->pay_method == 3){
-                        $pay_method = "決済不要";
+                        $pay_method = "Đã thông báo";
+                    }else if($result->pay_method == 3){
+                        $pay_method = "Chờ xử lý";
                     }
                     if($exportAll == true)
                     {
@@ -314,7 +318,6 @@ class SimController extends \Zoe\Http\ControllerBackend{
 
                     $total_price = $result->total_price;
                     $total_price_buy = $result->total_price_buy;
-
                     if(isset($_product[$result->product_id]['data']['price_buy'])){
                         if($price == 0)
                             $price = $_product[$result->product_id]['data']['price'];
@@ -328,12 +331,12 @@ class SimController extends \Zoe\Http\ControllerBackend{
                     if($order_profit == 0){
                         $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
                     }
-
                     $datas[$result->company][] = [
                         $result->status,
                         $result->order_image,
                         $result->order_create_date,
                         $pay_method,
+                        $result->notification,
                         $result->phone,
                         $result->zipcode,
                         $result->province,
@@ -344,6 +347,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
                         $result->count,
                         $price,
                         $result->total_count,
+                        $result->auto,
                         $price_buy,
                         $result->order_date,
                         $result->order_hours,
@@ -357,7 +361,6 @@ class SimController extends \Zoe\Http\ControllerBackend{
                         $result->order_link,
                         $result->order_info,
                         $result->id,
-
                     ];
                 }
             }
@@ -454,14 +457,19 @@ class SimController extends \Zoe\Http\ControllerBackend{
                             foreach ($order['data'] as $key=>$values){
 
                                 $pay_method = 0;
-
-                                if($values[$columns["payMethod"]] == "代金引換"){
+                                if($values[$columns["payMethod"]] === "Hoạt động"){
                                     $pay_method = 1;
-                                }else  if($values[$columns["payMethod"]] == "銀行振込"){
+                                }else  if($values[$columns["payMethod"]] === "Chưa thanh toán"){
                                     $pay_method = 2;
-                                }else  if($values[$columns["payMethod"]] == "決済不要"){
+                                }else if($values[$columns["payMethod"]] === "Đã thông báo"){
                                     $pay_method = 3;
+                                }else if($values[$columns["payMethod"]] === "Chờ xử lý"){
+                                    $pay_method = 4;
+                                }else if($values[$columns["payMethod"]] === "Đã thanh toán"){
+                                    $pay_method = 5;
                                 }
+
+
 
                                 foreach ($values as $kkkkk=>$valllll){
                                     $values[$kkkkk] = rtrim(trim($valllll));
@@ -478,6 +486,26 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                 }
 
                                 $date_time = date('Y-m-d');
+
+                                $order_date = isset($columns["order_date"])?$values[$columns["order_date"]]:"";
+                                $order_hours = isset($columns["order_hours"])?$values[$columns["order_hours"]]:"";
+                                $auto =  isset($columns["auto"])?(int)$values[$columns["auto"]]:1;
+                                $notification = $order_hours = isset($columns["order_hours"])?$values[$columns["order_hours"]]:"";
+                                if($pay_method == 5){
+
+                                    $first = strtotime('first day of this month');
+                                    $end = strtotime('last day of this month');
+
+                                    $first_date = date('Y-m-d',$first);
+                                    $order_date = $first_date;
+
+                                    while ($auto > 1){
+                                        $end = strtotime('last day of this month',strtotime('+1 day',$end));
+                                        $auto--;
+                                    }
+                                    $order_hours = date('Y-m-d',$end);
+                                    $pay_method = 1;
+                                }
 
                                 $_data = [
                                     "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
@@ -497,20 +525,21 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                     "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
                                     "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
                                     "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
+                                    "auto"=>(int)(isset($columns["auto"])?$values[$columns["auto"]]:"1"),
                                     "count"=>$count,
                                     "total_count"=>$total_count,
                                     "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
-                                    "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
-                                    "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
+                                    "order_date"=>$order_date,
+                                    "order_hours"=>$order_hours,
                                     "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:""),
                                     "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:""),
-
                                     "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:""),
                                     "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:"",
                                     "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                     "updated_at"=>$date_time,
                                 ];
+
                                 $validator = Validator::make($_data,$check,[
                                     'fullname.required' => z_language('Tên khách hàng không được phép bỏ trống.')
                                 ]);
@@ -998,8 +1027,8 @@ class SimController extends \Zoe\Http\ControllerBackend{
                 if($validator->passes()){
 
                     $imageName = date('y-m-d').'.'.request()->image->getClientOriginalExtension();
-
                     $input['image'] = $imageName;
+
                     $OriginalName = request()->image->getClientOriginalName();
                     request()->image->move(public_path('uploads/tracking'), $imageName);
                     $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
@@ -1032,5 +1061,26 @@ class SimController extends \Zoe\Http\ControllerBackend{
             return response()->json($json);
         }
         return $this->render('sim.export');
+    }
+    public function show(Request $request){
+        $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
+        $this->GetCache('edit',0,"SIM");
+        $data = $request->all();
+        $date = strtotime(date('Y-m-d'));
+        $month = $request->month;
+
+        if($month > 0){
+            $date = strtotime("-".$month." month");
+        }
+        $ts = strtotime(date('Y',$date).'-'.(date('m',$date)).'-01');
+        $d = array(strtotime('first day of this month', $ts),strtotime('last day of this month', $ts));
+        $models = DB::table('shop_order_sim')
+            ->where('order_hours','>=',date('Y-m-d',$d[0])." 00:00:00")
+            ->where('order_hours','<=',date('Y-m-d',$d[1])." 23:59:59")->where('status',1);
+        $result = $models->get()->all();
+        $model = new \stdClass();
+        $model->detail = $this->GetData($result,false);
+        $model->token = rand();
+        return $this->render('sim.show', ['act'=>'edit','model'=>$model]);
     }
 }

@@ -11,26 +11,28 @@
             <h3 class="box-title">Xuất Excel</h3>
         </div>
         <div class="box-body">
-            <table class="table table-bordered">
-                <tbody>
-                <tr>
-                    <th colspan="2">Thời gian hết hạn</th>
-                </tr>
-                <tr>
-                    <th style="width: 80%">
-                        <select id="month" class="form-control">
-                            <option value="0">Hết trong tháng này</option>
-                            @foreach([2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24] as $month)
-                                <option value="{!! $month-1 !!}">Hết {!! $month-1 !!} tháng </option>
-                            @endforeach
-                        </select>
-                    </th>
-                    <th>
-                        <button class="btn btn-primary btn-block" type="button" id="btnExport"> Xuất File </button>
-                    </th>
-                </tr>
-                </tbody>
-            </table>
+
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th colspan="2">Thời gian hết hạn</th>
+                    </tr>
+                    <tr>
+                        <th style="width: 80%">
+                            <select id="month" class="form-control">
+                                <option value="0">Hết trong tháng này</option>
+                                @foreach([2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24] as $month)
+                                    <option value="{!! $month-1 !!}">Hết {!! $month-1 !!} tháng </option>
+                                @endforeach
+                            </select>
+                        </th>
+                        <th>
+                            <button class="btn btn-primary btn-block" type="button" id="btnExport"> Xuất File </button>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+
         </div>
     </div>
     <div class="box">
@@ -139,18 +141,8 @@
 
             $('.success').hide();
             $("#btnExport").click(function () {
-                    $.ajax({
-                        type: "POST",
-                        data: {
-                            month:$("#month").val(),
-                            act:"export"
-                        },
-                        success: function (data) {
-                            if(data.hasOwnProperty('link')){
-                                window.location.replace(data.link);
-                            }
-                        }
-                    });
+                let url = '{!! route('backend:shop_ja:sim:show',['month'=>"MONTH"]) !!}';
+                window.location.href =  url.replace('MONTH',$("#month").val());
             });
             // $datepicker = $('#datepicker').datepicker({
             //     autoclose: true,

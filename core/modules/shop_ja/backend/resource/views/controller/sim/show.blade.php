@@ -1,56 +1,66 @@
-<table class="table">
-    <tr>
-        <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
-        <td style="width: 95%">
-            <input type="text" class="form-control" id="value-review">
-            <div id="zoe-dropdown-review" style="display: none"></div>
-        </td>
-    </tr>
-</table>
+@section('content-header')
+    <h1>
+        {!! @z_language(["Chức năng Sim"]) !!}
+        {!! Form::btn_save("form_store"); !!}
+    </h1>
+@endsection
+@section('content')
+    @breadcrumb()@endbreadcrumb
 
-<div id="spreadsheet"></div>
-@if(isset($model))
-    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:sim:store'],'id'=>'form_store']) !!}
-    {!! Form::hidden('id') !!}
-@else
-    {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:sim:store'],'id'=>'form_store']) !!}
-@endif
-<div>
-    <table>
+    <table class="table">
         <tr>
-            <td>
-                {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
-                {!! Form::radio('status', '0' , true) !!} Nháp
-                {!! Form::radio('status', '1',false) !!} Lập đơn
+            <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
+            <td style="width: 95%">
+                <input type="text" class="form-control" id="value-review">
+                <div id="zoe-dropdown-review" style="display: none"></div>
             </td>
         </tr>
     </table>
-    <div class="row">
-        <div class="col-md-6">
-            <table class="table table-bordered">
-                <tbody>
-                <tr>
-                    <th style="width: 10px">#</th>
-                    <th>
-                        <label>Ngày tạo:</label>
-                        <div class="form-group">
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+
+    <div id="spreadsheet"></div>
+    @if(isset($model))
+        {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:sim:store'],'id'=>'form_store']) !!}
+        {!! Form::hidden('id') !!}
+    @else
+        {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:sim:store'],'id'=>'form_store']) !!}
+    @endif
+    <div>
+        <table>
+            <tr>
+                <td>
+                    {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
+                    {!! Form::radio('status', '0' , true) !!} Nháp
+                    {!! Form::radio('status', '1',false) !!} Lập đơn
+                </td>
+            </tr>
+        </table>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>
+                            <label>Ngày tạo:</label>
+                            <div class="form-group">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="datepicker">
                                 </div>
-                                <input type="text" class="form-control pull-right" id="datepicker">
                             </div>
-                        </div>
-                    </th>
-                </tr>
-                </tbody>
-            </table>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <button onclick="Save()" type="button"> Lưu </button> &nbsp;
+        <button onclick="Export()" type="button"> Export </button>
     </div>
-    <button onclick="Save()" type="button"> Lưu </button> &nbsp;
-    <button onclick="Export()" type="button"> Export </button>
-</div>
-{!! Form::close() !!}
+    {!! Form::close() !!}
+@endsection
 @section('extra-script')
     <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js?v='.time()) }}"></script>
     <script src="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.js?v='.time()) }}"></script>
@@ -216,6 +226,7 @@
             "銀行振込",
             "決済不要"
         ];
+
         function getValuePayMethod(val) {
             let pay_method = "0";
             if(val === "Hoạt động"){
@@ -423,7 +434,6 @@
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
 
-
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -609,7 +619,6 @@
                     width:'100px',
                 },
             };
-
 
             columnsAll[sheetName] = columns;
 
@@ -1072,7 +1081,7 @@
                     data:{
                         data:JSON.stringify(data),
                         token:token,
-                        act:"cache",key:key,name:name,'id':'{{isset($model)?$model->id:0}}','type':'{{isset($model)?'edit':'create'}}'} ,
+                        act:"cache",key:key,name:name,'id':'0','type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
                         console.log(data);
                         _spreadsheet.classList.remove("cacheAction");
@@ -1100,7 +1109,7 @@
                 let instance = spreadsheet.jexcel[worksheet];
                 let name = _spreadsheet.textContent;
                 let columns = columnsAll[name];
-                console.log(columns);
+
                 $.ajax({
                     type: "POST",
                     url:"{{ route('backend:shop_ja:sim:store') }}",
@@ -1109,7 +1118,7 @@
                         info: form_store.zoe_inputs('get'),
                         act:"save",
                         token:token,
-                        'id':'{{isset($model)?$model->id:0}}',
+                        'id':'0',
                         'type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
                         for(let k in data.ids){
@@ -1136,8 +1145,6 @@
                 });
             }
         }
-
-
         function Export() {
             let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
             let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
@@ -1169,3 +1176,5 @@
 
     </script>
 @endsection
+
+

@@ -311,6 +311,10 @@ return [
                         "url" => "/notification",
                         "method" => ['post','get'],
                     ],
+                    "show" => [
+                        "url" => "/show/{month}",
+                        "method" => ['post','get'],
+                    ],
                 ]
             ],
             'shop_ja:user' => [
@@ -343,14 +347,12 @@ return [
             'dashboard' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "DashboardController",
-                    "sub_prefix" => "/admin/dashboard",
                     "guard" => "backend",
                     "acl"=> "dashboard",
                     "router" => [
-                        "user" => [
-                            "url" => "/dashboard/{id?}",
-                            'acl'=>true,
-                        ],
+                        "export"=>[
+                            "url" => "/dashboard/export","method" => ['post'],
+                        ]
                     ]
                 ],
             ]

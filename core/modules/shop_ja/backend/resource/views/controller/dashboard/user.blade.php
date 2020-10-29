@@ -1,4 +1,5 @@
 @section('content')
+
     @breadcrumb()@endbreadcrumb
     <div class="row">
         <div class="col-md-12">
@@ -55,7 +56,6 @@
                         <!-- /.info-box -->
                     </div>
                     <!-- /.col -->
-
                     <!-- fix for small devices only -->
                     <div class="clearfix visible-sm-block"></div>
 
@@ -88,7 +88,6 @@
                 </div>
                 <div class="row">
                     @foreach($analytics['category'] as $category=>$values)
-
                         <div class="col-lg-4 col-xs-6">
                             <div class="info-box bg-green">
                                 <span class="info-box-icon"><i class="ion ion-ios-cart-outline"></i></span>
@@ -103,26 +102,69 @@
                                   </span>
                                  </div>
                             </div>
-                            {{--<!-- small box -->--}}
-                            {{--<div class="small-box bg-aqua">--}}
-                                {{--<div class="inner">--}}
-                                    {{--<h3>{!! $values['count'] !!}</h3>--}}
-
-                                    {{--<p>{!! $category !!}</p>--}}
-                                {{--</div>--}}
-                                {{--<div class="icon">--}}
-                                    {{--<i class="ion ion-bag"></i>--}}
-                                {{--</div>--}}
-                                {{--<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>--}}
-                            {{--</div>--}}
                         </div>
-
                     @endforeach
                 </div>
             </div>
-
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Xuất Excel</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <form action="" id="formAction">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <select name="company" class="form-control">
+                                    @foreach($analytics['category'] as $category=>$values)
+                                        <option value="{!! $category !!}">{!! $category !!}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                @php $month = date('m'); @endphp
+                                <select name="month" class="form-control">
+                                    <option value="0">Chọn tháng</option>
+                                    @foreach(["01","02","03","04","05","06","07","08","09","10","11","12"] as $m)
+                                        <option {!! $m == $month ?"selected":""!!} value="{!! $m<0?'0'.$m:$m !!}">Tháng {!! $m<0?'0'.$m:$m !!}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                @php $date = date('Y'); @endphp
+                                <select name="year" class="form-control">
+                                    <option value="">Chọn Năm</option>
+                                    @for($i=10;$i>0;$i--)
+                                        <option value="{!! date("Y", strtotime("+".$i." year")) !!}">Năm {!! date("Y", strtotime("-".$i." year")) !!}</option>
+                                    @endfor
+                                    @for($i=0;$i<=10;$i++)
+                                        @php $d = date("Y", strtotime("+".$i." year")); @endphp;
+                                        <option {!! $date == $d ?"selected":""!!} value="{!! $d !!}">Năm {!! $d !!}</option>
+                                    @endfor
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-block" type="button" id="action"> Hành động </button>
+                            </td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @push('links')
     <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
@@ -172,6 +214,27 @@
                     let result_analytics = content.find('.result-analytics');
                     $(".result-analytics").html(result_analytics.html());
                 },
+            });
+        });
+        $(document).ready(function () {
+
+            $("#action").click(function () {
+                let formAction = $("#formAction").zoe_inputs('get');
+                console.log(formAction);
+                $.ajax({
+                    type: "POST",
+                    url: "{!! route('backend:dashboard:export') !!}",
+                    data: formAction,
+                    success: function (data) {
+
+                        if(data.hasOwnProperty('link')){
+                            window.location.href = data.link
+                        }
+                    },
+                    error: function (xhr, error) {
+
+                    }
+                });
             });
         });
     </script>

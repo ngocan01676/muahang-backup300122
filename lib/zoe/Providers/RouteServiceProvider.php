@@ -173,7 +173,7 @@ class RouteServiceProvider extends ServiceProvider
                 $r->middleware($middleware);
             }
         }
-
+//        dd($routers);
         $this->app->WriteCache();
 //        die;
     }
