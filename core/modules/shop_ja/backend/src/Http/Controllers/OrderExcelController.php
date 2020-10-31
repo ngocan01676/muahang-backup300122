@@ -808,9 +808,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $first = (int)date("d", strtotime("first day of this month"));
         $last = (int) date("d", strtotime("last day of this month"));
 
+        $next = date('Y-m');
 
         for($day = $first;$day<=$last;$day++){
-            $key_date = date('Y-m').'-'.(($day<10)?"0".$day:$day);
+            $key_date = $next.'-'.(($day<10)?"0".$day:$day);
             DB::table("shop_order_excel_session")->updateOrInsert([
                 'admin_id'=>Auth::user()->id,
                 'key_date'=>$key_date
@@ -825,7 +826,25 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 'name'=>\Illuminate\Support\Str::random(50)
             ]);
         }
-
+        if($last == date('d')){
+            $next = date('Y-m',strtotime('+1 day'));
+            for($day = 1;$day<=5;$day++){
+                $key_date = $next.'-'.(($day<10)?"0".$day:$day);
+                DB::table("shop_order_excel_session")->updateOrInsert([
+                    'admin_id'=>Auth::user()->id,
+                    'key_date'=>$key_date
+                ],[
+                    'admin_id'=>Auth::user()->id,
+                    'key_date'=>$key_date,
+                    'token'=>rand(1000,9999),
+                    'date_time'=>$key_date." 00:00:00",
+                    'created_at'=>$key_date." 00:00:00",
+                    'updated_at'=>$key_date." 00:00:00",
+                    'status'=>0,
+                    'name'=>\Illuminate\Support\Str::random(50)
+                ]);
+            }
+        }
         $filter = $request->query('filter', []);
         $search = $request->query('search', "");
         $status = $request->query('status', "");
