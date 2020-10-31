@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +19,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="636">
+            <state relative-caret-position="3910">
               <caret line="230" column="60" selection-start-line="230" selection-start-column="60" selection-end-line="230" selection-end-column="60" />
             </state>
           </provider>
@@ -29,7 +28,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="778">
+            <state relative-caret-position="6001">
               <caret line="353" column="76" selection-start-line="353" selection-start-column="76" selection-end-line="353" selection-end-column="76" />
             </state>
           </provider>
@@ -38,11 +37,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="804" column="100" selection-start-line="804" selection-start-column="100" selection-end-line="804" selection-end-column="100" />
+            <state relative-caret-position="17">
+              <caret line="62" column="40" selection-start-line="62" selection-start-column="40" selection-end-line="62" selection-end-column="40" />
               <folding>
                 <element signature="e#41#55#0#PHP" expanded="true" />
-                <element signature="e#6553#15303#0#PHP" />
               </folding>
             </state>
           </provider>
@@ -51,7 +49,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/ProductController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1469">
+            <state relative-caret-position="323">
               <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
             </state>
           </provider>
@@ -64,15 +62,13 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/show.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2200" />
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
+            <state relative-caret-position="9010">
               <caret line="530" column="23" selection-start-line="530" selection-start-column="23" selection-end-line="530" selection-end-column="23" />
             </state>
           </provider>
@@ -81,10 +77,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6319">
+            <state relative-caret-position="5185">
               <caret line="975" column="9" selection-start-line="975" selection-start-column="9" selection-end-line="1005" selection-end-column="9" />
               <folding>
-                <element signature="e#61536#70181#0#PHP" />
+                <element signature="e#3905#48111#0#PHP" />
               </folding>
             </state>
           </provider>
@@ -93,15 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
+            <state relative-caret-position="646">
               <caret line="43" column="14" selection-start-line="25" selection-start-column="6" selection-end-line="43" selection-end-column="14" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="e#12292#22767#0#PHP" />
-                <element signature="e#32783#42658#0#PHP" />
-                <element signature="e#42663#55998#0#PHP" />
-                <element signature="e#56003#71424#0#PHP" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -109,7 +98,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/SimController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
+            <state relative-caret-position="16286">
               <caret line="971" column="117" selection-start-line="970" selection-start-column="26" selection-end-line="971" selection-end-column="117" />
               <folding>
                 <element signature="e#42#56#0#PHP" expanded="true" />
@@ -122,7 +111,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>totalPrice</find>
       <find>inin</find>
       <find>initData</find>
       <find>.jexcel thead .jexcel_nested</find>
@@ -150,8 +138,9 @@
       <find>Full</find>
       <find>columns</find>
       <find>order_price</find>
-      <find>FUKUI</find>
       <find>$order_total_price_buy</find>
+      <find>order_total_price_buy</find>
+      <find>FUKUI</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -386,7 +375,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -612,6 +600,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -691,18 +680,19 @@
       <workItem from="1603511403351" duration="15157000" />
       <workItem from="1603676671144" duration="29645000" />
       <workItem from="1603763607147" duration="18017000" />
-      <workItem from="1603938042308" duration="21037000" />
+      <workItem from="1603938042308" duration="21497000" />
+      <workItem from="1604023346601" duration="1198000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="496509000" />
+    <option name="totallyTimeSpent" value="498167000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19296375" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19509594" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -917,14 +907,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-34516">
           <caret line="2916" column="82" selection-start-line="2916" selection-start-column="82" selection-end-line="2916" selection-end-column="82" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#232230#234547#0#HTML" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -946,9 +928,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
           <caret line="229" column="26" selection-start-line="229" selection-start-column="16" selection-end-line="229" selection-end-column="26" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -956,15 +935,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="231" column="33" selection-start-line="231" selection-start-column="24" selection-end-line="231" selection-end-column="33" />
-          <folding>
-            <element signature="e#255#272#0#HTML" expanded="true" />
-            <element signature="e#360#378#0#HTML" expanded="true" />
-            <element signature="e#493#514#0#HTML" expanded="true" />
-            <element signature="e#997#1003#0#HTML" expanded="true" />
-            <element signature="e#1348#1367#0#HTML" expanded="true" />
-            <element signature="e#2071#2077#0#HTML" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1011,41 +981,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="778">
-          <caret line="353" column="76" selection-start-line="353" selection-start-column="76" selection-end-line="353" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/SimController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="971" column="117" selection-start-line="970" selection-start-column="26" selection-end-line="971" selection-end-column="117" />
-          <folding>
-            <element signature="e#42#56#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
+        <state relative-caret-position="3910">
           <caret line="230" column="60" selection-start-line="230" selection-start-column="60" selection-end-line="230" selection-end-column="60" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="43" column="14" selection-start-line="25" selection-start-column="6" selection-end-line="43" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="e#12292#22767#0#PHP" />
-            <element signature="e#32783#42658#0#PHP" />
-            <element signature="e#42663#55998#0#PHP" />
-            <element signature="e#56003#71424#0#PHP" />
-          </folding>
+        <state relative-caret-position="6001">
+          <caret line="353" column="76" selection-start-line="353" selection-start-column="76" selection-end-line="353" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/ProductController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1053,41 +1006,48 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2200" />
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
+        <state relative-caret-position="9010">
           <caret line="530" column="23" selection-start-line="530" selection-start-column="23" selection-end-line="530" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/ProductController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1469">
-          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6319">
+        <state relative-caret-position="5185">
           <caret line="975" column="9" selection-start-line="975" selection-start-column="9" selection-end-line="1005" selection-end-column="9" />
           <folding>
-            <element signature="e#61536#70181#0#PHP" />
+            <element signature="e#3905#48111#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="43" column="14" selection-start-line="25" selection-start-column="6" selection-end-line="43" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/SimController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16286">
+          <caret line="971" column="117" selection-start-line="970" selection-start-column="26" selection-end-line="971" selection-end-column="117" />
+          <folding>
+            <element signature="e#42#56#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="804" column="100" selection-start-line="804" selection-start-column="100" selection-end-line="804" selection-end-column="100" />
+        <state relative-caret-position="17">
+          <caret line="62" column="40" selection-start-line="62" selection-start-column="40" selection-end-line="62" selection-end-column="40" />
           <folding>
             <element signature="e#41#55#0#PHP" expanded="true" />
-            <element signature="e#6553#15303#0#PHP" />
           </folding>
         </state>
       </provider>

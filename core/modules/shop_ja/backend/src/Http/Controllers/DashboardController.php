@@ -49,7 +49,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                     ->where('company',$category['name'])
                     ->where('type','Footer')
                     ->where('public','1')
-                    ->where('success','1')
+                    ->where('success','0')
                     ->where('order_create_date','>=',$date_start." 00:00:00")
                     ->where('order_create_date','<=',$date_end." 23:59:59");
                 if(!is_null($user_id)){
@@ -60,7 +60,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                     ->where('fullname','!=','')
                     ->where('company',$category['name'])
                     ->where('public','1')
-                    ->where('success','1')
+                    ->where('success','0')
                     ->where('order_create_date','>=',$date_start." 00:00:00")
                     ->where('order_create_date','<=',$date_end." 23:59:59");
                 if(!is_null($user_id)){
@@ -363,7 +363,6 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
             $user_id = Auth::user()->id;
         }
         $data = $request->all();
-
         $date_start = "";
         $date_end = "";
 
@@ -397,9 +396,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         if(!is_null($user_id)){
             $price->where('admin_id',$user_id);
         }
-
         $total_price = 0;
-
         $arr_prices = [];
         $results = $price->get()->all();
         foreach ($results as $key=>$value){
