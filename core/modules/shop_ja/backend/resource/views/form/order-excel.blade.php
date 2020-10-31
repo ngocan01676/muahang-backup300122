@@ -867,7 +867,7 @@
             if(locks .hasOwnProperty(sheetName)){
                 let _lock  = locks [sheetName];
 
-                let dateNow = '{!! date("Y-m-d"); !!}';
+                let dateNow = stringDate;
                 if(_lock.action == 2 && _lock.date == dateNow ){
                     let count = columns_index.length+4;
                     count = count - 1;
@@ -2010,7 +2010,7 @@
             let nestedHeaders = [];
             if(locks .hasOwnProperty(sheetName)){
                 let _lock  = locks [sheetName];
-                let dateNow = '{!! date("Y-m-d"); !!}';
+                let dateNow = stringDate;
                 if(_lock.action == 2 && _lock.date == dateNow ){
                     let count = columns_index.length+4;
                     count = count - 1;
@@ -3170,7 +3170,7 @@
             let nestedHeaders = [];
             if(locks .hasOwnProperty(sheetName)){
                 let _lock  = locks [sheetName];
-                let dateNow = '{!! date("Y-m-d"); !!}';
+                let dateNow = stringDate;
                 if(_lock.action == 2 && _lock.date == dateNow ){
                     let count = columns_index.length+4;
                     count = count - 1;
@@ -3899,7 +3899,7 @@
             if(locks .hasOwnProperty(sheetName)){
                 let _lock  = locks [sheetName];
 
-                let dateNow = '{!! date("Y-m-d"); !!}';
+                let dateNow = stringDate;
                 if(_lock.action == 2 && _lock.date == dateNow ){
                     let count = columns_index.length+4;
                     count = count - 1;
@@ -4616,7 +4616,7 @@
             let nestedHeaders = [];
             if(locks.hasOwnProperty(sheetName)){
                 let _lock  = locks [sheetName];
-                let dateNow = '{!! date("Y-m-d"); !!}';
+                let dateNow =stringDate;
                 if(_lock.action == 2 && _lock.date == dateNow ){
                     let count = columns_index.length+4;
                     count = count - 1;
