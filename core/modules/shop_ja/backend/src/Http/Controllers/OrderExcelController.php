@@ -828,6 +828,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
         if($last == date('d')){
             $next = date('Y-m',strtotime('+1 day'));
+            $last+=7;
             for($day = 1;$day<=7;$day++){
                 $key_date = $next.'-'.(($day<10)?"0".$day:$day);
                 DB::table("shop_order_excel_session")->updateOrInsert([
