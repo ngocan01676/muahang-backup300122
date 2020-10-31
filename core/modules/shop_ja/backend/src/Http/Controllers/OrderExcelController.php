@@ -1081,6 +1081,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $config = config_get('config','shop_ja');
 
         $this->data['status'] = [];
+        $number = empty($date)?date('N'):date('N',strtotime($date));
         if(isset($config['company'])){
             foreach ($config['company'] as $key=>$value){
 
@@ -1089,7 +1090,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 if(isset($value['status']) && $value['status'] == 1){
                     $oke = false;
                     if(isset($value['type']) && $value['type'] == 2){
-                        $number = date('N');
+
                         $weeks = $value['week'];
                         if(!is_array($weeks)){
                             $weeks = [$weeks];
