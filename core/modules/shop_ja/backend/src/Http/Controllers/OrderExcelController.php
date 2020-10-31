@@ -1083,10 +1083,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['status'] = [];
         if(isset($config['company'])){
             foreach ($config['company'] as $key=>$value){
+
                 if(!isset($value['status'])) continue;
-                if($value['status'] == 1){
+
+                if(isset($value['status']) && $value['status'] == 1){
                     $oke = false;
-                    if($value['type'] == 2){
+                    if(isset($value['type']) && $value['type'] == 2){
                         $number = date('N');
                         $weeks = $value['week'];
                         if(!is_array($weeks)){
@@ -1098,7 +1100,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 break;
                             }
                         }
-                    }else{
+                    }else if(isset($value['date'])){
 
                        $date = explode('-',$value['date']);
                        $start = date('Y-m-d',strtotime($date[0]))." 00:00:00";
