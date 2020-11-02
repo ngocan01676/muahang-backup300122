@@ -29,20 +29,20 @@ const pages = {};
                         let id = $(td[1]).find('input').val();
                         if(id){
                             Trackings[id] = {
-                                Id : $(td[2]).text().replace(/  +/g, ' '),
-                                Date : $(td[3]).text().replace(/  +/g, ' '),
-                                Text : $(td[4]).text().replace(/  +/g, ' '),
+                                Id : $(td[2]).text().trim().replace(/  +/g, ' ').replace(/\n/g, ' '),
+                                Date : $(td[3]).text().trim().replace(/  +/g, ' ').replace(/^"+|"+$/g, ''),
+                                Text : $(td[4]).text().trim().replace(/  +/g, ' ').replace(/^"+|"+$/g, ''),
                             };
                             Trackings[id].Status = Trackings[id].Text === "Delivered";
                         }
                     });
                 }
             });
-            console.log(Trackings);
+
             $("center table").each(function () {
                // console.log($(this).html());
             });
-            resolve();
+            resolve(Trackings);
         },3000);
     });
 }
@@ -69,17 +69,16 @@ async function SAGAWA(tracking){
                     let id = $(td[0]).find('input').val();
                     if(id){
                         Trackings[id] = {
-                            Id : id,
-                            Date : $(td[1]).text().replace(/  +/g, ' '),
-                            Text : $(td[2]).text().replace(/  +/g, ' '),
+                            Id : id.trim().replace(/\n/g, ' ').replace(/^"+|"+$/g, ''),
+                            Date : $(td[1]).text().trim().replace(/  +/g, ' ').replace(/^"+|"+$/g, ''),
+                            Text : $(td[2]).text().trim().replace(/  +/g, ' ').replace(/^"+|"+$/g, ''),
                         };
                         Trackings[id].Status = Trackings[id].Text.indexOf('Delivered:')>=0;
                     }
                 });
             });
-            console.log(Trackings);
 
-            resolve();
+            resolve(Trackings);
         },3000);
     });
 }
@@ -92,10 +91,9 @@ async function JAPAN_POST(tracking){
 
         for(let index in tracking){
             let _index = parseInt(index)+1;
-            console.log('input[name="requestNo'+(_index)+'"]');
+
             await page.$eval('input[name="requestNo'+(_index)+'"]', (el,val) => el.value = val,tracking[index]);
         }
-
         await page.click('input[name="search"]');
         await page.waitForSelector('#content');
         setTimeout(async function () {
@@ -107,21 +105,18 @@ async function JAPAN_POST(tracking){
                 $(this).find('tr').each(function () {
                     let _tr = $(this);
                     let td = _tr.find('td');
-                    console.log("td:"+td.length);
                     if(td.length > 0){
                         let input = $(td[0]).find('a');
-                        console.log("input:"+input.length);
                         if(input.length > 0){
-
                             if(td.length === 6){
                                 let id = input.text();
                                 last = id;
                                 if(id){
                                     let key = id.replace(/-/g, "");
                                     Trackings[key] = {
-                                        Id : id,
-                                        Date : $(td[2]).text().replace(/  +/g, ' ').replace(/\s/g, " "),
-                                        Text : $(td[3]).text().replace(/  +/g, ' '),
+                                        Id : id.trim().replace(/\n/g, ' ').replace(/^"+|"+$/g, ''),
+                                        Date : $(td[2]).text().trim().replace(/  +/g, ' ').replace(/\s/g, " ").replace(/^"+|"+$/g, ''),
+                                        Text : $(td[3]).text().trim().replace(/  +/g, ' ').replace(/^"+|"+$/g, ''),
                                     };
                                     Trackings[key].Status =Trackings[key].Status === "お届け先にお届け済み";
                                 }
@@ -130,9 +125,7 @@ async function JAPAN_POST(tracking){
                     }
                 });
             });
-            console.log(JSON.stringify(Trackings));
-
-            resolve();
+            resolve(Trackings);
         },3000);
     });
 }
@@ -178,13 +171,8 @@ async function JAPAN_POST(tracking){
     setInterval(function () {
 
         if(lock === false ){
-
-            console.log('Action');
-
             if(pushData.length > 0){
-
                 lock = true;
-
                 let data = pushData.shift();
                 if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
                     console.log(data.name+' '+data.data.join(' '));
@@ -192,7 +180,7 @@ async function JAPAN_POST(tracking){
 
                         YAMATO(data.data).then(function () {
                             lock = false;
-                            console.log(data.name+' sucesss');
+                            console.log("\n"+data.name+' sucesss \n');
                         }).catch(function () {
                             lock = false;
                         });
@@ -201,8 +189,7 @@ async function JAPAN_POST(tracking){
 
                         SAGAWA(data.data).then(function () {
                             lock = false;
-
-                            console.log(data.name+' sucesss');
+                            console.log("\n"+data.name+' sucesss \n');
                         }).catch(function () {
                             lock = false;
                         });
@@ -210,7 +197,7 @@ async function JAPAN_POST(tracking){
                     }else if(data.name === "JAPAN_POST"){
                         JAPAN_POST(data.data).then(function () {
                             lock = false;
-                            console.log(data.name+' sucesss');
+                            console.log("\n"+data.name+' sucesss \n');
                         }).catch(function () {
                             lock = false;
                         });
@@ -221,7 +208,7 @@ async function JAPAN_POST(tracking){
 
             }
         }else{
-            console.log('---');
+            process.stdout.write('.');
         }
     },1000);
 
