@@ -5185,6 +5185,12 @@
                     };
                 });
                 let form_store = $("#form_store");
+
+
+                let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+
+                let name = _spreadsheet.textContent;
                 $.ajax({
                     type: "POST",
                     url:"{{ route('backend:shop_ja:order:excel:store') }}",
@@ -5192,6 +5198,7 @@
                         datas:JSON.stringify(datas),
                         info: form_store.zoe_inputs('get'),
                         act:"save",
+                        tab:name,
                         token:token,
                         'id':'{{isset($model)?$model->id:0}}',
                         'type':'{{isset($model)?'edit':'create'}}'} ,
@@ -5287,11 +5294,9 @@
        setTimeout(function () {
            CheckData();
        },2000)
-
         setInterval(function () {
             CheckData();
         },5000);
-
         setInterval(function () {
             console.log("Save");
             Save(false,true);

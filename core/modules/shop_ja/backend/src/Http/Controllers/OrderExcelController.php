@@ -290,6 +290,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 return response()->json(['url'=>route('backend:shop_ja:order:excel:show'),'logs'=>$logs]);
             }else if($data['act'] == "save"){
                 $datas = json_decode($data['datas'],true);
+
                 $type = 'create';
                 if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
                     $model = OrderExcelModel::find($data['id']);
@@ -898,6 +899,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $data = $request->all();
         $excel = new \ShopJa\Libs\Excel(isset($data['date'])?$data['date']:date('Y-m-d'),isset($data['date_export'])?$data['date_export']:0);
 
+
         $output = [];
         if(isset($data['name'])){
             if($data['name'] == "KOGYJA"){
@@ -1395,6 +1397,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 return response()->json(['lists'=>$datas,'company'=>$data["company"]]);
             }
         }
+
         $this->getCrumb()->breadcrumb(z_language("Sửa"), route('backend:shop_ja:order:excel:create'));
         $id = $request->id;
         $model = OrderExcelModel::find($id);
