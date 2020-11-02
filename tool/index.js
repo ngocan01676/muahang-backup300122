@@ -137,7 +137,7 @@ async function JAPAN_POST(tracking){
     });
 }
 (async () => {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: true ,args:['--no-sandbox']});
 
     pages["YAMATO"] =  await browser.newPage();
     pages["YAMATO"].setViewport({ width: 1280, height:720 });
