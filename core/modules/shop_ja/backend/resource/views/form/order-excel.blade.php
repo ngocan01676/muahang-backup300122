@@ -834,6 +834,7 @@
                     }
                 }
                 console.log("SEND");
+                
                 $.ajax({
                     type: "POST",
                     url:"{{ route('backend:shop_ja:order:excel:store') }}",
@@ -4585,6 +4586,7 @@
                         } 
                     }
                     console.log("SEND");
+
                     $.ajax({
                         type: "POST",
                         url:"{{ route('backend:shop_ja:order:excel:store') }}",
@@ -4596,7 +4598,6 @@
                                 let price_ship = parseInt(data[0].data.price_ship) 
                                 let ship_cou = parseInt(data[0].data.ship_cou);
                                 let total_price_buy = parseInt(data[0].data.total_price_buy);
-
                                 setInterest(price_ship < 0? 0 : price_ship,ship_cou< 0 ?0:ship_cou,total_price_buy);
                             }
                         },
