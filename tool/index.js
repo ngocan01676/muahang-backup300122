@@ -186,6 +186,7 @@ async function JAPAN_POST(tracking){
                             lock = false;
                         });
 
+                        
                     }else if(data.name === "SAGAWA"){
 
                         SAGAWA(data.data).then(function (val) {
