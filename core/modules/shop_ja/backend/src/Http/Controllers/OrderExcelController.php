@@ -1139,7 +1139,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 if(isset( $this->data['products'][$result->company])){
                     $_product = $this->data['products'][$result->company];
 
-                    if($result->company == "FUKUI1"){
+                    if($result->company == "FUKUI"){
+                        $pay_method = "";
                         if($result->pay_method == 1){
                             $pay_method = "代金引換";
                         }else  if($result->pay_method == 2){
@@ -1147,23 +1148,40 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }else if($result->pay_method == 3){
                             $pay_method = "決済不要";
                         }
+                        if($exportAll == true)
+                        {
+                            if(empty($result->fullname)){
+                                continue;
+                            }
+                        }
 
-                        $order_profit= 0;
-                        $price = 0;
-                        $total_price = 0;
-                        $total_price_buy = 0;
-                        if(isset( $_product[$result->product_id]['data']['price_buy'])){
-                            $order_profit =
-                                $_product[$result->product_id]['data']['price_buy'] * $result->count -
-                                $_product[$result->product_id]['data']['price']*$result->count -
-                                $result->order_ship - $result->order_ship_cou;
-                            $price = $_product[$result->product_id]['data']['price'];
-                            $total_price = $_product[$result->product_id]['data']['price']* $result->count;
-                            $total_price_buy = $_product[$result->product_id]['data']['price_buy']* $result->count;
+                        $order_profit = $result->order_price;
+
+                        $price = $result->price;
+
+                        $price_buy = $result->price_buy;
+
+                        $total_price = $result->total_price;
+                        $total_price_buy = $result->total_price_buy;
+
+                        if(isset($_product[$result->product_id]['data']['price_buy'])){
+                            if($price == 0)
+                                $price = $_product[$result->product_id]['data']['price'];
+                            if($price_buy == 0)
+                                $price_buy = $_product[$result->product_id]['data']['price_buy'];
+                        }
+                        if($total_price == 0)
+                            $total_price = $price * $result->count;
+                        if($total_price_buy == 0)
+                            $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
+                        if($order_profit == 0){
+                            $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
                         }
 
                         $datas[$result->company][] = [
-                            "",
+                            $result->public,
+                            $result->order_image,
+                            $result->order_create_date,
                             $pay_method,
                             $result->order_date,
                             $result->order_hours,
@@ -1172,16 +1190,28 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->province,
                             $result->address,
                             $result->phone,
-                            $result->order_ship,
-                            $order_profit,
-                            $total_price_buy,
                             $result->product_id,
                             $result->product_id,
-                            $total_price,
                             $result->count,
-                            "",
-                            "",
+                            $price,
+                            $price_buy,
+
+                            $result->order_ship,
+                            $total_price,
+                            $result->price_buy_sale,
+                            $total_price_buy,
+                            $result->order_ship_cou,
+                            $order_profit,
+                            (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
+                            $result->order_tracking,
+                            $result->order_link,
+                            $result->order_info,
+                            $result->one_address==1,
                             $result->id,
+                            $result->session_id,
+                            $result->export == 1,
+                            $result->token,
+                            $result->admin,
                         ];
                     }else  if($result->company == "KOGYJA"){
                         $pay_method = "";
