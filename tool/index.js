@@ -29,9 +29,9 @@ const pages = {};
                         let id = $(td[1]).find('input').val();
                         if(id){
                             Trackings[id] = {
-                                Id : $(td[2]).text().trim().replace(/  +/g, ' ').replace(/\n/g, ' '),
-                                Date : $(td[3]).text().trim().replace(/  +/g, ' ').replace(/^"+|"+$/g, ''),
-                                Text : $(td[4]).text().trim().replace(/  +/g, ' ').replace(/^"+|"+$/g, ''),
+                                Id : $(td[2]).text().trim().replace(/\s+/g, " "),
+                                Date : $(td[3]).text().trim().replace(/\s+/g, " "),
+                                Text : $(td[4]).text().trim().replace(/\s+/g, " "),
                             };
                             Trackings[id].Status = Trackings[id].Text === "Delivered";
                         }
@@ -69,9 +69,9 @@ async function SAGAWA(tracking){
                     let id = $(td[0]).find('input').val();
                     if(id){
                         Trackings[id] = {
-                            Id : id.trim().replace(/\n/g, ' ').replace(/^"+|"+$/g, ''),
-                            Date : $(td[1]).text().trim().replace(/  +/g, ' ').replace(/^"+|"+$/g, ''),
-                            Text : $(td[2]).text().trim().replace(/  +/g, ' ').replace(/^"+|"+$/g, ''),
+                            Id : id.trim().replace(/\n/g, ' ').replace(/\s+/g, " "),
+                            Date : $(td[1]).text().trim().replace(/\s+/g, ""),
+                            Text : $(td[2]).text().trim().replace(/\s+/g, " "),
                         };
                         Trackings[id].Status = Trackings[id].Text.indexOf('Delivered:')>=0;
                     }
@@ -114,11 +114,11 @@ async function JAPAN_POST(tracking){
                                 if(id){
                                     let key = id.replace(/-/g, "");
                                     Trackings[key] = {
-                                        Id : id.trim().replace(/\n/g, ' ').replace(/^"+|"+$/g, ''),
-                                        Date : $(td[2]).text().trim().replace(/  +/g, ' ').replace(/\s/g, " ").replace(/^"+|"+$/g, ''),
-                                        Text : $(td[3]).text().trim().replace(/  +/g, ' ').replace(/^"+|"+$/g, ''),
+                                        Id : id.trim().replace(/\n/g, ' ').replace(/\s+/g, " "),
+                                        Date : $(td[2]).text().trim().replace(/\s+/g, " "),
+                                        Text : $(td[3]).text().trim().replace(/\s+/g, " "),
                                     };
-                                    Trackings[key].Status =Trackings[key].Status === "お届け先にお届け済み";
+                                    Trackings[key].Status = Trackings[key].Text == "お届け先にお届け済み";
                                 }
                             }
                         }
@@ -186,7 +186,7 @@ async function JAPAN_POST(tracking){
                             lock = false;
                         });
 
-                        
+
                     }else if(data.name === "SAGAWA"){
 
                         SAGAWA(data.data).then(function (val) {
