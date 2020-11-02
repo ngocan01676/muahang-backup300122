@@ -313,7 +313,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $oke = $model->save();
 
                 foreach ($datas as $name=>$order){
+
                     $logs[$name] = [];
+
                     $check =  [
                         'fullname' => 'required',
                     ];
@@ -339,13 +341,26 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         try{
                             foreach ($order['data'] as $key=>$values){
                                 if($values[$columns["type"]] == "Info"){
+                                    $oke = false;
                                     foreach ($order['data'] as $key1=>$values1){
                                         if ($key1!=$key && $values1[$columns["token"]] == $values[$columns["token"]]) {
                                             $order['data'][$key1][$columns["status"]] =  $values[$columns["status"]];
                                             $order['data'][$key1][$columns["timeCreate"]] = $values[$columns["timeCreate"]];
-
+                                            $order['data'][$key1][$columns["session_id"]] = $values[$columns["session_id"]];
+                                            $order['data'][$key1][$columns["fullname"]] = $values[$columns["fullname"]];
+                                            $order['data'][$key1][$columns["address"]] = $values[$columns["address"]];
+                                            $order['data'][$key1][$columns["phone"]] = $values[$columns["phone"]];
+                                            $order['data'][$key1][$columns["province"]] = $values[$columns["province"]];
+                                            $order['data'][$key1][$columns["payMethod"]] = $values[$columns["payMethod"]];
+                                            $order['data'][$key1][$columns["zipcode"]] = $values[$columns["zipcode"]];
+                                            $order['data'][$key1][$columns["order_date"]] = $values[$columns["order_date"]];
+                                            if($values1[$columns["type"]] == "Footer"){
+                                                $oke = true;
+                                                $order['data'][$key1][$columns["position"]] = (int) $order['data'][$key1][$columns["position"]] - 1;
+                                            }
                                         }
                                     }
+
                                 }
                             }
                            foreach ($order['data'] as $key=>$values){
@@ -364,7 +379,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                                     $product_title = "";$product_code = "";
 
-                                    $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
+                                    $product_id = (isset($columns["product_id"])?(int)$values[$columns["product_id"]]:0);
 
                                     if(isset( $_product[$product_id]['data']['price_buy'])){
                                         $product_code = $_product[$product_id]['data']['code'];
@@ -402,19 +417,23 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
                                         "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                         "updated_at"=>$date_time,
-                                        "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
+                                        "type"=>isset($columns["type"]) && !empty($values[$columns["type"]])?$values[$columns["type"]]:"Item",
                                         "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
                                         "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                         "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
-                                        "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
+                                        "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:0,
                                         "rate"=> isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
+
+                                    $_data["sort"] = $model->admin_id * 10000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($_data['order_create_date']);
+
                                     $validator = Validator::make($_data,$check);
-                                    if (!$validator->fails()) {
+                                     $_ = [$values,$_data,$columns];
+                                    if ($product_id > 0 && $_data['type'] == "Item" || $_data['type'] == "Footer" || $_data['type'] == "Info") {
 //                                        $logs[$name][] = $_data;
 //                                        DB::table('shop_order_excel')->insert($_data);
-                                        $_ = [$values,$_data,$columns];
+
                                         if(isset($columns["id"]) && !empty($values[$columns["id"]])){
                                             $where = ['id'=>$values[$columns["id"]]];
                                         }else{
@@ -424,28 +443,28 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                                 'fullname'=>$_data['fullname'],
                                                 "company"=>$_data["company"],
                                                 "zipcode"=>$_data["zipcode"],
-                                                "count"=>$_data["count"],
                                                 "phone"=>$_data["phone"],
                                                 "province"=>$_data["province"],
-                                                "price_buy_sale"=>$_data["price_buy_sale"],
-                                                "price_buy"=>$_data["price_buy"],
                                                 "pay_method"=>$_data["pay_method"],
-                                                "order_ship"=>$_data["order_ship"],
-                                                "order_ship_cou"=>$_data["order_ship_cou"],
-                                                "order_link"=>$_data["order_link"],
-                                                "order_tracking"=>$_data["order_tracking"],
                                                 "order_hours"=>$_data["order_hours"],
+                                                "order_date"=>$_data["order_date"],
+                                                "order_index"=>$_data["order_index"],
+                                                "type"=> $_data["type"],
+                                                "sort"=> $_data["sort"],
                                             ];
                                             $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
                                         }
                                         $_[] = $where;
-                                        $logs[$name][] =$_;
+
+
                                         DB::table('shop_order_excel')->updateOrInsert($where,$_data);
+
                                     }
+                                    $logs[$name][] =$_;
                                 }
                                 DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
                         }catch (\Exception $ex){
-                            $datas = ['error'=>$ex->getMessage()];
+                            $logs[$name][] = $ex->getMessage();
                         }
 
                     }else{
@@ -537,7 +556,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
 
                                 ];
+
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
+
+                                $_data["sort"] = $model->admin_id * 10000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($_data['order_create_date']);
+
                                 $validator = Validator::make($_data,$check);
 
                                 if (!$validator->fails()) {
@@ -1131,6 +1154,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public  function GetData($results,$exportAll){
         $datas = [];
+
         foreach ($results as $resultAll){
             foreach ($resultAll as $result){
                 if(!isset($datas[$result->company])){

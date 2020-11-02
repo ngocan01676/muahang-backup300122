@@ -22,6 +22,7 @@ class OrderExcelModel extends Model
             $datas[$_value->company][] = $_value;
         }
         $dataNew = [];
+
         if(count($datas)>0) {
 
             foreach ($datas as $key=>$values){
@@ -30,8 +31,10 @@ class OrderExcelModel extends Model
                 });
                 $dataNew[$key] = $values;
             }
+
             if(isset($dataNew['KOGYJA'])){
                 $KOGYJA = [];
+
                 foreach ($dataNew['KOGYJA'] as $k=>$value){
                     if($value->type == "Info"){
                         $row = [$value];
@@ -44,11 +47,26 @@ class OrderExcelModel extends Model
                                 $value1->order_date = "";
                                 $value1->order_hours = "";
                                 $value1->admin = "";
+                                $value1->fullname = "";
+                                $value1->address = "";
+                                $value1->zipcode = "";
+                                $value1->province = "";
 
-                                if($value1->type!="Footer") $value1->type = "Item";
+                                if($value1->type =="Item") {
+                                    $value1->type = "Item";
+                                    $value1->total_count = "";
+                                    $value1->order_ship_cou = "";
+                                    $value1->rate = "";
+                                }else if($value1->type=="Footer"){
+
+                                }
                                 $row[] = $value1;
                             }
                         }
+                        usort($row, function ($a, $b) {
+                            return ($a->order_index) - $b->order_index;
+                        });
+
                         if($def)
                         {
                             $n = count($row);
@@ -66,6 +84,7 @@ class OrderExcelModel extends Model
                         usort($row, function ($a, $b) {
                             return ($a->order_index) - $b->order_index;
                         });
+
                         foreach ($row as $k=>$v){
                             $KOGYJA[] = $v;
                         }
@@ -79,7 +98,7 @@ class OrderExcelModel extends Model
     }
     public function GetDetails($compay){
         $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)
-            ->orderBy('id','ASC')->orderBy('admin_id','ASC')->get()->all();
+            ->orderBy('id','ASC')->orderBy('sort','ASC')->get()->all();
         return $this->RenderData($shop_order_excel);
     }
     public function ShowAll($user_id,$date,$company,$type){
@@ -89,14 +108,14 @@ class OrderExcelModel extends Model
 //            ->where('created_at','>=',$date." 00:00:00")
 //            ->where('created_at','<=',$date." 23:59:59")
 //            ->get()->all();
-        $datas = [];
+
         $date_last = date('Y-m-d',strtotime('-1 day', strtotime($date)));
       //  foreach ($lists as $key=>$value){
            $shop_order_excel =  DB::table('shop_order_excel')
                ->where('public',1)
                ->where('company', $company )
                ->where('order_create_date','>=',$date_last." 00:00:00")
-               ->where('order_create_date','<=',$date." 23:59:59")->orderBy('id');
+               ->where('order_create_date','<=',$date." 23:59:59")->orderBy('sort');
            if($type == 2){
                $shop_order_excel->where('export',0);
            }
@@ -128,9 +147,11 @@ class OrderExcelModel extends Model
 
             if(isset($dataNew['KOGYJA'])){
                 $KOGYJA = [];
+
                 foreach ($dataNew['KOGYJA'] as $k=>$value){
                     if($value->type == "Info"){
                         $row = [$value];
+
                         foreach ($dataNew['KOGYJA'] as $kk=>$value1){
                             if($k != $kk && $value1->token == $value->token )
                             {
@@ -247,6 +268,5 @@ class OrderExcelModel extends Model
 
         return $dataNew;
 
-        return $datas;
     }
 }

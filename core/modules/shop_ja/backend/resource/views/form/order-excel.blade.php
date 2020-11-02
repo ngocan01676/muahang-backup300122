@@ -147,6 +147,9 @@
         .error-conflict{
 
         }
+        .error-line-order{
+            background: red !important;
+        }
         .open_popup{
             cursor: pointer;
             color: #dd8c1a;
@@ -1161,15 +1164,24 @@
 
                         let value = instance.jexcel.getRowData(row);
 
+
                         let count = 0;
+                        let countAddress = 0;
                         for(let k in instance.jexcel.rows){
                             let _val  = instance.jexcel.getRowData(k);
                             if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
                                 count++;
                             }
+                            if(value[columns.address.index].length > 0 && value[columns.address.index] === _val[columns.address.index]){
+                                countAddress++;
+                            }
                         }
+                        instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
                         if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
-                        else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
+
+                        instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.remove('error');
+                        if(countAddress > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.add('error');
+
                         let vvv = getValuePayMethod(value[columns.payMethod.index]);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
@@ -1185,6 +1197,27 @@
                             if(img.length === 0 || order_info.length === 0){
                                 self.addClass('has_error');
                             }
+                        }
+
+                        let _province = value[columns.province.index]+"".trim();
+                        let _address = value[columns.address.index]+"".trim();
+                        let _fullname = value[columns.fullname.index]+"".trim();
+
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+
+                        $col.removeClass('bor-error');
+                        if(_province.length <= 0){
+                            $col.addClass('bor-error')
+                        }
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
+                        $col.removeClass('bor-error')
+                        if(_address.length <= 0){
+                            $col.addClass('bor-error')
+                        }
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
+                        $col.removeClass('bor-error')
+                        if(_fullname.length <= 0){
+                            $col.addClass('bor-error')
                         }
 
                         parent.removeClass('has_export');
@@ -1588,20 +1621,22 @@
             }
 
             function update(instance, cell, c, r, value,cb) {
-                console.log("update call");
+                console.log("update call:"+r);
 
                 let data = {
-                    count:value.hasOwnProperty('count')?value.count:parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r]))),
-                    id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
-                    province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
+                    count:parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r]))),
+                    id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
+                    province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
                 let valueRow =  instance.jexcel.getRowData(r);
+
                 if(isNaN(data.count) || data.count === 0 ){
+
                     if(
-                        (_data[columns.product_id.index]+"").trim().length > 0 &&
-                        (_data[columns.product_name.index]+"").trim().length > 0 &&
-                        (_data[columns.product_name.index]+"").trim()!="0" &&
-                        (_data[columns.product_id.index]+"").trim()!="0"){
+                        (valueRow[columns.product_id.index]+"").trim().length > 0 &&
+                        (valueRow[columns.product_name.index]+"").trim().length > 0 &&
+                        (valueRow[columns.product_name.index]+"").trim()!="0" &&
+                        (valueRow[columns.product_id.index]+"").trim()!="0"){
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
 
                         data.count = 1;
@@ -1671,35 +1706,36 @@
 
             }
             function isInfo(instance,r) {
-
-                return $(instance.getCell(jexcel.getColumnNameFromId([columns.product_name.index, r]))).parent().hasClass('info');
+                return instance.getValue(jexcel.getColumnNameFromId([columns.type.index, r])) == "Info";
+                //return $(instance.getCell(jexcel.getColumnNameFromId([columns.product_name.index, r]))).parent().hasClass('info');
             }
             function isFooter(instance,r) {
-
-                return $(instance.getCell(jexcel.getColumnNameFromId([columns.product_name.index, r]))).parent().hasClass('footer');
+               // return $(instance.getCell(jexcel.getColumnNameFromId([columns.product_name.index, r]))).parent().hasClass('footer');
+                return instance.getValue(jexcel.getColumnNameFromId([columns.type.index, r])) == "Footer";
             }
             function indexFist(instance,r) {//instance.jexcel
                 r = parseInt(r);
                 let _r1 = r;
-                let result = {start:0,end:0,status:true};
+                let result = {start:0,end:0,count:0,row:r};
                 do{
                     if(isInfo(instance,_r1)){
                         result.start = parseInt(_r1);
+                        result.count++;
                         break;
                     }
                     if(isFooter(instance,_r1-1)){
                         result.start = parseInt(_r1);
+                        result.count++;
                         break;
                     }
                     _r1--;
                 }while (_r1 >= 0);
-                let _r2 = r+1;
-
-                let indexAction = 0;
+                let _r2 = r;
 
                 while (_r2 < instance.rows.length){
                     if(isFooter(instance,_r2)){
                         result.end = parseInt(_r2);
+                        result.count++;
                         break;
                     }
                     _r2++;
@@ -1766,7 +1802,7 @@
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, i]),_price*-1);
                             totalLoiNhuan+=_price*-1;
                         }
-                        keyGroup.push([product_id,_count]);
+                        keyGroup.push([product_id,_count , i]);
                     }
                 }
                 let stringKey = $.md5(JSON.stringify(keyGroup));
@@ -1834,172 +1870,7 @@
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, value.start]),order_price);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, value.end]),order_price+totalLoiNhuan);
             }
-            function update_count1(instance, cell, c, r, value) {
-                let _r1 = r;
-                let _count = 0;
-                let rowInfo = 0;
-                let rowTotal = -1;
-                let order_total_price_buy = 0;
-                let order_total_price = 0;
-                let order_price_total = 0;
-                console.log("update_count:");
-                let list_fee = [];
 
-
-
-
-                do{
-                    let _data =  instance.jexcel.getRowData(_r1);
-                    if(isRow(_data)){
-                        rowInfo = _r1;
-                        break;
-                    }else{
-                        if(_r1>0){
-                            if((_data[columns.count.index]+"").trim() !="0" && (_data[columns.product_name.index]+"").trim()!="0" ){
-                                let v = parseInt(_data[columns.count.index]);
-                                if(isNaN(v)){
-                                    _count+= 1;
-                                }else{
-                                    _count+= v;
-                                }
-                            }
-                            let _order_total_price_buy = parseInt(_data[columns.order_total_price_buy.index]);
-                            console.log("_order_total_price_buy:"+_order_total_price_buy);
-                            if(!isNaN(_order_total_price_buy)){
-                                order_total_price_buy+=_order_total_price_buy;
-                            }else{
-                                _order_total_price_buy = 0;
-                            }
-                            console.log(data[columns.order_total_price.index]);
-                            let _order_total_price = parseInt(_data[columns.order_total_price.index]);
-                            console.log("_order_total_price:"+_order_total_price);
-
-                            if(!isNaN(_order_total_price)){
-                                order_total_price+=_order_total_price;
-                            }else{
-                                _order_total_price = 0;
-                            }
-
-                            let _total_count = parseInt(_data[columns.total_count.index]);
-                            if(isNaN(_total_count)){
-                                _total_count = 0;
-                            }
-
-                            let price_buy_sale = parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, _r1])));
-
-                            if(isNaN(price_buy_sale)){
-                                price_buy_sale = 0;
-                            }
-                            let order_price =  _order_total_price_buy - _order_total_price  - _total_count;
-                            list_fee.push([_r1,order_price]);
-                            // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, _r1]),order_price);
-                        }
-                        _r1--;
-                    }
-                }while (_r1 >= 0);
-                let _r2 = parseInt(r)+1;
-                while (_r2 < instance.jexcel.rows.length){
-                    let _data =  instance.jexcel.getRowData(_r2);
-                    if(isRow(_data)){
-                        break;
-                    }else{
-                        if((_data[columns.count.index]+"").trim() != "0" && (_data[columns.product_name.index]+"").trim()!="0" ){
-                            let v = parseInt(_data[columns.count.index]);
-                            if(!isNaN(v)){
-                                _count+= v;
-                            }
-                        }
-                        let _order_total_price_buy = parseInt(_data[columns.order_total_price_buy.index]);
-                        if(!isNaN(_order_total_price_buy)){
-                            order_total_price_buy+=_order_total_price_buy;
-                        }else{
-                            _order_total_price_buy = 0;
-                        }
-                        let _order_total_price = parseInt(_data[columns.order_total_price.index]);
-
-                        if(!isNaN(_order_total_price)){
-                            order_total_price+=_order_total_price;
-                        }else{
-                            _order_total_price = 0;
-                        }
-                        let price_buy_sale = parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, _r2])));
-                        if(isNaN(price_buy_sale)){
-                            price_buy_sale = 0;
-                        }
-                        let _total_count = parseInt(_data[columns.total_count.index]);
-                        if(isNaN(_total_count)){
-                            _total_count = 0;
-                        }
-                        let order_price =  _order_total_price_buy - _order_total_price  - _total_count;
-                        list_fee.push([_r1,order_price]);
-                        //instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, _r2]),order_price);
-                        _r2++;
-                    }
-                }
-                console.log(r+" order_total_price_buy:"+order_total_price_buy);
-                console.log(list_fee);
-                if(rowInfo!==-1){
-                    let v = 0;
-                    if(_count>=1 ){
-                        if( _count <= 5){
-                            v = 37;
-                        }else if(_count <= 10){
-                            v = 74;
-                        }else if(_count > 10){
-                            v = 142;
-                        }
-                    }
-                    console.log(rowInfo+" count:"+_count);
-                   // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, rowInfo]),_count);
-                    console.log("order_total_price_buy:"+order_total_price_buy);
-                    console.log("order_total_price_buy:"+order_total_price);
-                   // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, rowInfo]),order_total_price);
-                //    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index, rowInfo]),v);
-
-                    let data = {
-                        count:_count,
-                        province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, rowInfo])),
-                    };
-                    let payMethod = getValuePayMethod(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.payMethod.index, rowInfo])));
-                    data.payMethod = payMethod;
-                    data.sheetName = sheetName;
-                  //  data.id = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, rowInfo]));
-                    data.total_price_buy = order_total_price_buy;
-
-                    $.ajax({
-                        type: "POST",
-                        url:"{{ route('backend:shop_ja:order:excel:store') }}",
-                        data:{act:'ship',data:data,data} ,
-                        success: function (data) {
-                          //  console.log(data);
-                            if(data && data.length >0){
-                                console.log("oke=>>>>>>>>>>>>>>>>>>>>>>>");
-                                let price_ship = parseInt(data[0].data.price_ship);
-                                let ship_cou = parseInt(data[0].data.ship_cou);
-                                order_total_price_buy =  parseInt(data[0].data.total_price_buy);
-                                let price_buy_sale = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, rowInfo]));
-                                let order_total_price = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_total_price.index, rowInfo]));
-                                price_ship = price_ship<0?0:price_ship;
-                                ship_cou = ship_cou<0?0:ship_cou;
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, rowInfo]),order_total_price_buy);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, rowInfo]),price_ship<0?0:price_ship);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, rowInfo]),ship_cou<0?0:ship_cou);
-                                let _total = 0;
-                                for(let i = 1 ; i < list_fee.length ; i++ ){
-                                    _total+= list_fee[i][1] - v - ship_cou-price_ship;
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, list_fee[i][0]]),_total);
-                                }
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, rowInfo]),_total);
-                            }
-                        },
-                    });
-
-                    // let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, r]))).parent();
-                    // parentRow.addClass('group-row');
-                    // let _data =  instance.jexcel.getRowData(r);
-                    // console.log(_data);
-                }
-            }
             let columns_index = Object.values(columns);
         //    console.log(data);
             console.log(config);
@@ -2062,7 +1933,6 @@
                 minDimensions:[35,42],
                 columns:Object.values(columns),
                 data:_data,
-
                 onload: function (e) {
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
@@ -2133,7 +2003,6 @@
                         }
                     });
                 },
-
                 nestedHeaders:[
                     nestedHeaders
                 ],
@@ -2160,16 +2029,16 @@
                         }
 
                         // Delete a column
-                        // if (obj.options.allowDeleteColumn === true) {
-                        //     items.push({
-                        //         title:obj.options.text.deleteSelectedColumns,
-                        //         onclick:function() {
-                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                        //
-                        //
-                        //         }
-                        //     });
-                        // }
+                        if (obj.options.allowDeleteColumn === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedColumns,
+                                onclick:function() {
+                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+
+
+                                }
+                            });
+                        }
 
                         // // Rename column
                         // if (obj.options.allowRenameColumn === true) {
@@ -2219,19 +2088,44 @@
                             });
                         }
 
-                        // if (obj.options.allowDeleteRow === true) {
-                        //     items.push({
-                        //         title:obj.options.text.deleteSelectedRows,
-                        //         onclick:function() {
-                        //             let index = indexFist(obj,y);
-                        //             console.log(index + "y "+y);
-                        //             if(index !=y ){
-                        //                 console.log(obj.getSelectedRows());
-                        //                 obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                        //             }
-                        //         }
-                        //     });
-                        // }
+                        if (obj.options.allowDeleteRow === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+
+                                    let index = indexFist(obj,y);
+
+                                    if(index.start ===  index.end){
+                                        obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    }else{
+                                        let type = obj.getValue(jexcel.getColumnNameFromId([columns.type.index, y]));
+                                        console.log(type);
+                                        change = {col:-1,row:-1};
+                                        if(type === "Info" || type ==="Footer"){
+                                                console.log(obj);
+                                                console.log(spreadsheet.jexcel);
+
+                                            for(let i = index.start; i <= index.end;i++){
+                                                obj.deleteRow(index.end -  index.start,i);
+                                            }
+                                        }else{
+                                            let count = parseInt( obj.getValue(jexcel.getColumnNameFromId([columns.count.index, y])));
+                                            if(!isNaN(count)){
+                                                obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                                let _instance = {
+                                                    jexcel:obj
+                                                };
+                                                index.end = index.end - 1;
+                                                update(_instance, null, columns.count.index, index.start ,{},function () {
+                                                    update_count(_instance, null ,columns.count.index, index.start,index);
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
 
                         if (x) {
                             if (obj.options.allowComments === true) {
@@ -2243,6 +2137,7 @@
                                     title: title ? obj.options.text.editComments : obj.options.text.addComments,
                                     onclick:function() {
                                         obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
+
                                     }
                                 });
 
@@ -2262,7 +2157,6 @@
                                 let parentRow = $(obj.getCell(jexcel.getColumnNameFromId([columns.product_name.index, y]))).parent();
 
                                 parentRow.removeClass('action');
-                                parentRow.removeClass('footer');
                                 parentRow.removeClass('footer');
 
                                 obj.setValue(jexcel.getColumnNameFromId([columns.fullname.index, y]),"");
@@ -2399,46 +2293,91 @@
                         $("#value-review").show().val(val);
                     }
                 },
+
                 updateTable: function (instance, cell, col, row, val, id) {
                     let c = parseInt(col);
-
-                    if (c === columns.image.index && val.length>0) {
-                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
-                    }
 
                     cell.style.overflow = 'hidden';
 
                     if(columns.id.index === c ){
+                        if (c === columns.image.index && val.length>0) {
+                            cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
+                        }
 
                         let v = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
                         if(v == -1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.add('error');
                         else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.remove('error');
 
                         let value = instance.jexcel.getRowData(row);
-
-                        let count = 0;
-                        for(let k in instance.jexcel.rows){
-                            let _val  = instance.jexcel.getRowData(k);
-                            if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
-                                count++;
-                            }
-                        }
-                        if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
-                        else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
-                        let vvv = getValuePayMethod(value[columns.payMethod.index]);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
-                        parent.removeClass('pay-method-oke');
-                        if(vvv === 2){
-                            parent.addClass('pay-method-oke');
 
+                        let pos_start_end = indexFist(instance.jexcel,row);
+
+                        parent.removeClass('error-line-order');
+
+                        if(pos_start_end.end  <  pos_start_end.start){
+                            parent.addClass('error-line-order');
                         }
-                        parent.removeClass('has_error');
-                        if(vvv === 2){
-                            let img = value[columns.image.index];
-                            let order_info = value[columns.order_info.index];
-                            let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
-                            if(img.length === 0 || order_info.length === 0){
-                                self.addClass('has_error');
+                        if(value[columns.type.index] == "Info"){
+
+                            let count = 0;
+                            let countAddress = 0;
+                            for(let k in instance.jexcel.rows){
+                                let _val  = instance.jexcel.getRowData(k);
+                                if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
+                                    count++;
+                                }
+                                if(value[columns.address.index].length > 0 && value[columns.address.index] === _val[columns.address.index]){
+                                    countAddress++;
+                                }
+                            }
+                            instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
+                            if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
+
+                            instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.remove('error');
+                            if(countAddress > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.add('error');
+
+
+
+
+
+
+                            let vvv = getValuePayMethod(value[columns.payMethod.index]);
+
+                            parent.removeClass('pay-method-oke');
+                            if(vvv === 2){
+                                parent.addClass('pay-method-oke');
+
+                            }
+                            parent.removeClass('has_error');
+                            if(vvv === 2){
+                                let img = value[columns.image.index];
+                                let order_info = value[columns.order_info.index];
+                                let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                                if(img.length === 0 || order_info.length === 0){
+                                    self.addClass('has_error');
+                                }
+                            }
+
+                            let _province = value[columns.province.index]+"".trim();
+                            let _address = value[columns.address.index]+"".trim();
+                            let _fullname = value[columns.fullname.index]+"".trim();
+
+                            let $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+
+                            $col.removeClass('bor-error');
+                            if(_province.length <= 0){
+                                $col.addClass('bor-error')
+                            }
+                            $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
+                            $col.removeClass('bor-error')
+                            if(_address.length <= 0){
+                                $col.addClass('bor-error')
+                            }
+                            $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
+                            $col.removeClass('bor-error')
+                            if(_fullname.length <= 0){
+                                $col.addClass('bor-error')
                             }
                         }
                         parent.removeClass('has_export');
@@ -2495,6 +2434,7 @@
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col == c){
                                 change.col =  {col:-1,row:-1};
+                                console.log("Change:"+r);
                                 let thisRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([c, r]))).parent();
                                 if(thisRow.hasClass('footer')){
                                     instance.jexcel.setValue(jexcel.getColumnNameFromId([c, r]),"");
@@ -2504,11 +2444,18 @@
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
 
+                                r = parseInt(r);
                                 let index = indexFist(instance.jexcel,r);
 
-                                console.log(index);
+
+
+                                if(index.start < r && index.end > r){
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, r]),"Item");
+                                }
+
                                 let parentRowEnd = null;
                                 let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, index.start]))).parent();
+
                                 if(!parentRow.hasClass('info')){
                                     parentRow.addClass('info');
                                     parentRow.addClass('action');
@@ -2528,13 +2475,11 @@
                                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index,index.end]),1);
                                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, index.end]),1);
                                 }
-                                console.warn(index);
-                                for(let i = index.start; i < index.end - 1; i++ ){
+
+                                for(let i = index.start; i < index.end; i++ ){
                                     let valueRow =  instance.jexcel.getRowData(i);
-                                    console.warn("i:"+i);
-                                    console.warn(valueRow);
+
                                     if(IsEmpty(valueRow)){
-                                        console.warn("false");
                                         insert = false;
                                         break;
                                     }
@@ -2543,7 +2488,7 @@
                                     instance.jexcel.insertRow(1, parseInt(index.end-1));
                                     index.end++;
                                 }
-                                update(instance, cell, c, r,index,function () {
+                                update(instance, cell, c, r ,index,function () {
                                     update_count(instance, cell, c, r,index);
                                 });
                             }
@@ -3476,15 +3421,24 @@
 
                         let value = instance.jexcel.getRowData(row);
 
+
                         let count = 0;
+                        let countAddress = 0;
                         for(let k in instance.jexcel.rows){
                             let _val  = instance.jexcel.getRowData(k);
                             if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
                                 count++;
                             }
+                            if(value[columns.address.index].length > 0 && value[columns.address.index] === _val[columns.address.index]){
+                                countAddress++;
+                            }
                         }
+                        instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
                         if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
-                        else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
+
+                        instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.remove('error');
+                        if(countAddress > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.add('error');
+
                         let vvv = getValuePayMethod(value[columns.payMethod.index]);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
@@ -3499,6 +3453,26 @@
                             if(img.length === 0 || order_info.length === 0){
                                 self.addClass('has_error');
                             }
+                        }
+                        let _province = value[columns.province.index]+"".trim();
+                        let _address = value[columns.address.index]+"".trim();
+                        let _fullname = value[columns.fullname.index]+"".trim();
+
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+
+                        $col.removeClass('bor-error');
+                        if(_province.length <= 0){
+                            $col.addClass('bor-error')
+                        }
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
+                        $col.removeClass('bor-error')
+                        if(_address.length <= 0){
+                            $col.addClass('bor-error')
+                        }
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
+                        $col.removeClass('bor-error')
+                        if(_fullname.length <= 0){
+                            $col.addClass('bor-error')
                         }
                         parent.removeClass('has_export');
                         let _export = value[columns.export.index];
@@ -4189,15 +4163,24 @@
 
                         let value = instance.jexcel.getRowData(row);
 
+
                         let count = 0;
+                        let countAddress = 0;
                         for(let k in instance.jexcel.rows){
                             let _val  = instance.jexcel.getRowData(k);
                             if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
                                 count++;
                             }
+                            if(value[columns.address.index].length > 0 && value[columns.address.index] === _val[columns.address.index]){
+                                countAddress++;
+                            }
                         }
+                        instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
                         if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
-                        else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
+
+                        instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.remove('error');
+                        if(countAddress > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.add('error');
+
                         let vvv = getValuePayMethod(value[columns.payMethod.index]);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
                         parent.removeClass('pay-method-oke');
@@ -4213,6 +4196,27 @@
                                 self.addClass('has_error');
                             }
                         }
+                        let _province = value[columns.province.index]+"".trim();
+                        let _address = value[columns.address.index]+"".trim();
+                        let _fullname = value[columns.fullname.index]+"".trim();
+
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+
+                        $col.removeClass('bor-error');
+                        if(_province.length <= 0){
+                            $col.addClass('bor-error')
+                        }
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
+                        $col.removeClass('bor-error')
+                        if(_address.length <= 0){
+                            $col.addClass('bor-error')
+                        }
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
+                        $col.removeClass('bor-error')
+                        if(_fullname.length <= 0){
+                            $col.addClass('bor-error')
+                        }
+
                         parent.removeClass('has_export');
                         let _export = value[columns.export.index];
                         if((_export+"").toString().length > 0){
@@ -4618,7 +4622,7 @@
             let nestedHeaders = [];
             if(locks.hasOwnProperty(sheetName)){
                 let _lock  = locks [sheetName];
-                let dateNow =stringDate;
+                let dateNow = stringDate;
                 if(_lock.action == 2 && _lock.date == dateNow ){
                     let count = columns_index.length+4;
                     count = count - 1;
@@ -4910,14 +4914,24 @@
                        let value = instance.jexcel.getRowData(row);
 
                        let count = 0;
+                       let countAddress = 0;
                        for(let k in instance.jexcel.rows){
                           let _val  = instance.jexcel.getRowData(k);
                           if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
                               count++;
                           }
-                       }
-                       if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
-                        else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
+                           if(value[columns.address.index].length > 0 && value[columns.address.index] === _val[columns.address.index]){
+                               countAddress++;
+                           }
+                        }
+                        instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
+                        if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
+
+                        instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.remove('error');
+                        if(countAddress > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.add('error');
+
+
+
                         let vvv = getValuePayMethod(value[columns.payMethod.index]);
 
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
@@ -4937,25 +4951,29 @@
                         }
                         let _product_id = value[columns.product_id.index];
 
-                        if(parseInt(_product_id)>0){
-                            let _province = value[columns.province.index];
-                            let _address = value[columns.address.index];
-                            let _fullname = value[columns.fullname.index];
-                            console.log(_province);
+                        //if(parseInt(_product_id)>0){
+
+                            let _province = value[columns.province.index]+"".trim();
+                            let _address = value[columns.address.index]+"".trim();
+                            let _fullname = value[columns.fullname.index]+"".trim();
+
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+
                             $col.removeClass('bor-error');
                             if(_province.length <= 0){
                                 $col.addClass('bor-error')
                             }
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
+                            $col.removeClass('bor-error')
                             if(_address.length <= 0){
                                 $col.addClass('bor-error')
                             }
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
+                            $col.removeClass('bor-error')
                             if(_fullname.length <= 0){
                                 $col.addClass('bor-error')
                             }
-                        }
+                       // }
 
                         parent.removeClass('has_export');
                         let _export = value[columns.export.index];
