@@ -444,6 +444,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                                 "company"=>$_data["company"],
                                                 "zipcode"=>$_data["zipcode"],
                                                 "phone"=>$_data["phone"],
+                                                "address"=>$_data["address"],
                                                 "province"=>$_data["province"],
                                                 "pay_method"=>$_data["pay_method"],
                                                 "order_hours"=>$_data["order_hours"],
@@ -554,7 +555,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                     "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
-
                                 ];
 
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
@@ -574,17 +574,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             'fullname'=>$_data['fullname'],
                                             "company"=>$_data["company"],
                                             "zipcode"=>$_data["zipcode"],
-                                            "count"=>$_data["count"],
                                             "phone"=>$_data["phone"],
                                             "province"=>$_data["province"],
-                                            "price_buy_sale"=>$_data["price_buy_sale"],
-                                            "price_buy"=>$_data["price_buy"],
-                                            "pay_method"=>$_data["pay_method"],
-                                            "order_ship"=>$_data["order_ship"],
-                                            "order_ship_cou"=>$_data["order_ship_cou"],
-                                            "order_link"=>$_data["order_link"],
-                                            "order_tracking"=>$_data["order_tracking"],
-                                            "order_hours"=>$_data["order_hours"],
+                                            "address"=>$_data["address"],
+                                            "sort"=> $_data["sort"],
+                                            "order_create_date"=> $_data["order_create_date"],
                                         ];
                                         $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
                                     }
