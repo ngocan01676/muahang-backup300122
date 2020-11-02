@@ -237,7 +237,6 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $result->count,
                             $price,
                             $price_buy,
-
                             $result->order_ship,
                             $total_price,
                             $result->price_buy_sale,

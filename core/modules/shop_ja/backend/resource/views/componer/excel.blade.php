@@ -359,11 +359,26 @@
                 width:'130px',
                 value:['product','this','source',0],
             },
-            phone:{
-                title: 'Số điện thoại',//C Số điện thoại
-                type: 'text',
+            order_date:{
+                title: 'Ngày nhận',//L Ngày nhận
+                type:'calendar',
+                options: { format:'DD/MM/YYYY'},
+                value:['date','now'],
                 width:'100px',
-                value:"",
+
+            },
+            order_hours:{
+                title: 'Giờ nhận',//M Giờ nhận
+                type: 'dropdown',
+                source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
+                value:['product','this','source',4],
+                width:'150px',
+            },
+            fullname:{
+                title: 'Họ tên người nhận',//G Họ tên người nhận
+                type: 'text',
+                width:'150px',
+                key:"demo",
             },
             zipcode:{
                 title: 'Mã bưu điện',//D Mã bưu điện
@@ -383,11 +398,11 @@
                 width:'250px',
                 key:"demo",
             },
-            fullname:{
-                title: 'Họ tên người nhận',//G Họ tên người nhận
+            phone:{
+                title: 'Số điện thoại',//C Số điện thoại
                 type: 'text',
-                width:'150px',
-                key:"demo",
+                width:'100px',
+                value:"",
             },
             product_id:{
                 title: 'Mã SP',//H Mã SP
@@ -423,21 +438,7 @@
                 value:['product','product_name','source',0,'data','price_buy'],
 
             },
-            order_date:{
-                title: 'Ngày nhận',//L Ngày nhận
-                type:'calendar',
-                options: { format:'DD/MM/YYYY'},
-                value:['date','now'],
-                width:'100px',
 
-            },
-            order_hours:{
-                title: 'Giờ nhận',//M Giờ nhận
-                type: 'dropdown',
-                source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
-                value:['product','this','source',4],
-                width:'150px',
-            },
             order_ship:{
                 title: 'Phí ship',//N Phí ship
                 type: 'numeric',
