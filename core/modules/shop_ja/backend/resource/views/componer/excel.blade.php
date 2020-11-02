@@ -475,6 +475,12 @@
                 width:'100px',
                 value:0
             },
+            order_rate:{
+                title: 'Lợi nhuận CTV',//P
+                type: 'numeric',
+                width:'100px',
+                value:0
+            },
             order_tracking:{
                 title: 'Mã tracking',//T Mã tracking
                 type: 'text',
@@ -1134,6 +1140,12 @@
                 width:'100px',
                 value:0,
                 // row:"0",
+            },
+            order_rate:{
+                title: 'Lợi nhuận CTV',//P
+                type: 'numeric',
+                width:'100px',
+                value:0
             },
             order_tracking:{
                 title: 'Mã tracking',//T Mã tracking
@@ -2496,6 +2508,12 @@
                 width:'100px',
                 value:0
             },
+            order_rate:{
+                title: 'Lợi nhuận CTV',//P
+                type: 'numeric',
+                width:'100px',
+                value:0
+            },
             order_tracking:{
                 title: 'Mã tracking',//T Mã tracking
                 type: 'text',
@@ -3274,6 +3292,12 @@
                 width:'100px',
                 value:0
             },
+            order_rate:{
+                title: 'Lợi nhuận CTV',//P
+                type: 'numeric',
+                width:'100px',
+                value:0
+            },
             order_tracking:{
                 title: '振込み情報',//T Mã tracking
                 type: 'text',
@@ -3907,6 +3931,12 @@
             },
             order_price:{
                 title: 'Lợi nhuận',//P Lợi nhuận
+                type: 'numeric',
+                width:'100px',
+                value:0
+            },
+            order_rate:{
+                title: 'Lợi nhuận CTV',//P
                 type: 'numeric',
                 width:'100px',
                 value:0

@@ -10,6 +10,12 @@ const opts = {
 };
 const log = require('simple-node-logger').createRollingFileLogger( opts );
 const mysql = require('mysql');
+var pool  = mysql.createPool({
+    host    : 'localhost',
+    user    : 'root',
+    password: '',
+    database: 'cms',
+});
 
 function YAMATO(tracking){
     return new  Promise (async function (resolve, reject) {
@@ -46,7 +52,7 @@ function YAMATO(tracking){
             $("center table").each(function () {
                // console.log($(this).html());
             });
-            resolve(Trackings,tracking);
+            resolve([Trackings,tracking]);
         },3000);
     });
 }
@@ -82,7 +88,7 @@ async function SAGAWA(tracking){
                 });
             });
 
-            resolve(Trackings,tracking);
+            resolve([Trackings,tracking]);
         },3000);
     });
 }
@@ -128,7 +134,7 @@ async function JAPAN_POST(tracking){
                     }
                 });
             });
-            resolve(Trackings,tracking);
+            resolve([Trackings,tracking]);
         },3000);
     });
 }
@@ -254,11 +260,25 @@ async function JAPAN_POST(tracking){
                 if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
                     console.log(data.name+' '+data.data.join(' '));
                     if(data.name === "YAMATO"){
-                        YAMATO(data.data).then(function (val,conf) {
+                        YAMATO(data.data).then(function (vals) {
                             lock = false;
+
                             console.log("\n"+data.name+' sucesss \n');
-                            console.log(val);
-                            log.info('YAMATO:'+JSON.stringify(val));
+
+                            console.log(vals[0]);
+                            console.log(vals[1]);
+
+                            log.info('YAMATO:'+JSON.stringify(vals));
+
+                            for(let i in vals[1]){
+                                if(vals[0].hasOwnProperty(vals[1][i].id)){
+                                    let sql = 'UPDATE `cms_shop_order_excel_tracking` SET `status` = "1" WHERE `id` = '+vals[1][i].data.id+';';
+                                    console.log(sql);
+                                }
+                                // pool.query('UPDATE `cms_shop_order_excel_tracking` SET `status` = "1" WHERE `id` = 5;',function () {
+                                //
+                                // });
+                            }
                         }).catch(function () {
                             lock = false;
                         });

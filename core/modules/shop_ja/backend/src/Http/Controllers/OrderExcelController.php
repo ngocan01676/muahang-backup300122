@@ -121,7 +121,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $datas = json_decode($data['datas'],true);
                 $date_time = date('Y-m-d H:i:s');
                 $logs = [];
-
                 foreach ($datas as $name=>$order){
                     $logs[$name] = [];
                     $check =  [
@@ -1197,7 +1196,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->count,
                             $price,
                             $price_buy,
-
                             $result->order_ship,
                             $total_price,
                             $result->price_buy_sale,
@@ -1215,6 +1213,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->token,
                             $result->admin,
                         ];
+                        
                     }else  if($result->company == "KOGYJA"){
                         $pay_method = "";
                         if($result->pay_method == 1){
