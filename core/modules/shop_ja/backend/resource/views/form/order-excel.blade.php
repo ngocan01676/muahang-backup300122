@@ -134,7 +134,9 @@
     <script>
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
+        console.log = function () {
 
+        };
     </script>
 
     <style>
@@ -2011,34 +2013,34 @@
 
                     if (y == null) {
                         // Insert a new column
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnBefore,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 1);
-                                }
-                            });
-                        }
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnAfter,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 0);
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnBefore,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 1);
+                        //         }
+                        //     });
+                        // }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
 
                         // Delete a column
-                        if (obj.options.allowDeleteColumn === true) {
-                            items.push({
-                                title:obj.options.text.deleteSelectedColumns,
-                                onclick:function() {
-                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-
-
-                                }
-                            });
-                        }
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //
+                        //
+                        //         }
+                        //     });
+                        // }
 
                         // // Rename column
                         // if (obj.options.allowRenameColumn === true) {
@@ -2051,42 +2053,42 @@
                         // }
 
                         // Sorting
-                        if (obj.options.columnSorting == true) {
-
-                            items.push({ type:'line' });
-
-                            items.push({
-                                title:obj.options.text.orderAscending,
-                                onclick:function() {
-                                    obj.orderBy(x, 0);
-                                }
-                            });
-                            items.push({
-                                title:obj.options.text.orderDescending,
-                                onclick:function() {
-                                    obj.orderBy(x, 1);
-                                }
-                            });
-                        }
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
                     } else {
                         // Insert new row
-                        if (obj.options.allowInsertRow === true) {
-                            items.push({
-                                title:obj.options.text.insertANewRowBefore,
-                                onclick:function() {
-                                    obj.insertRow(1, parseInt(y), 1);
-                                }
-                            });
-
-                            items.push({
-                                title:obj.options.text.insertANewRowAfter,
-                                onclick:function() {
-                                    obj.insertRow(1, parseInt(y));
-
-
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertRow === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewRowBefore,
+                        //         onclick:function() {
+                        //             obj.insertRow(1, parseInt(y), 1);
+                        //         }
+                        //     });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.insertANewRowAfter,
+                        //         onclick:function() {
+                        //             obj.insertRow(1, parseInt(y));
+                        //
+                        //
+                        //         }
+                        //     });
+                        // }
 
                         if (obj.options.allowDeleteRow === true) {
                             items.push({
@@ -2103,12 +2105,11 @@
                                         console.log(type);
                                         change = {col:-1,row:-1};
                                         if(type === "Info" || type ==="Footer"){
-                                                console.log(obj);
-                                                console.log(spreadsheet.jexcel);
-
-                                            for(let i = index.start; i <= index.end;i++){
-                                                obj.deleteRow(index.end -  index.start,i);
-                                            }
+                                                let count = 0;
+                                                for(let i = index.start; i <= index.end;i++){
+                                                    count++;
+                                                }
+                                                obj.deleteRow(index.start,count);
                                         }else{
                                             let count = parseInt( obj.getValue(jexcel.getColumnNameFromId([columns.count.index, y])));
                                             if(!isNaN(count)){
@@ -2127,61 +2128,61 @@
                             });
                         }
 
-                        if (x) {
-                            if (obj.options.allowComments === true) {
-                                items.push({ type:'line' });
-
-                                var title = obj.records[y][x].getAttribute('title') || '';
-
-                                items.push({
-                                    title: title ? obj.options.text.editComments : obj.options.text.addComments,
-                                    onclick:function() {
-                                        obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
-
-                                    }
-                                });
-
-                                if (title) {
-                                    items.push({
-                                        title:obj.options.text.clearComments,
-                                        onclick:function() {
-                                            obj.setComments([ x, y ], '');
-                                        }
-                                    });
-                                }
-                            }
-                        }
-                        items.push({
-                            title:"Reset",
-                            onclick:function() {
-                                let parentRow = $(obj.getCell(jexcel.getColumnNameFromId([columns.product_name.index, y]))).parent();
-
-                                parentRow.removeClass('action');
-                                parentRow.removeClass('footer');
-
-                                obj.setValue(jexcel.getColumnNameFromId([columns.fullname.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.address.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.payMethod.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.phone.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.province.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.zipcode.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.product_id.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.product_name.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.count.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.total_count.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.order_date.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.order_hours.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.price.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, y]),"");
-                                obj.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, y]),"");
-
-
-                            }
-                        });
+                        // if (x) {
+                        //     if (obj.options.allowComments === true) {
+                        //         items.push({ type:'line' });
+                        //
+                        //         var title = obj.records[y][x].getAttribute('title') || '';
+                        //
+                        //         items.push({
+                        //             title: title ? obj.options.text.editComments : obj.options.text.addComments,
+                        //             onclick:function() {
+                        //                 obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
+                        //
+                        //             }
+                        //         });
+                        //
+                        //         if (title) {
+                        //             items.push({
+                        //                 title:obj.options.text.clearComments,
+                        //                 onclick:function() {
+                        //                     obj.setComments([ x, y ], '');
+                        //                 }
+                        //             });
+                        //         }
+                        //     }
+                        // }
+                        // items.push({
+                        //     title:"Reset",
+                        //     onclick:function() {
+                        //         let parentRow = $(obj.getCell(jexcel.getColumnNameFromId([columns.product_name.index, y]))).parent();
+                        //
+                        //         parentRow.removeClass('action');
+                        //         parentRow.removeClass('footer');
+                        //
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.fullname.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.address.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.payMethod.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.phone.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.province.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.zipcode.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.product_id.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.product_name.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.count.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.total_count.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.order_date.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.order_hours.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.price_buy_sale.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.price.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, y]),"");
+                        //         obj.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, y]),"");
+                        //
+                        //
+                        //     }
+                        // });
                         // items.push({
                         //     title:"Set Info",
                         //     onclick:function() {
@@ -2316,8 +2317,13 @@
                         parent.removeClass('error-line-order');
 
                         if(pos_start_end.end  <  pos_start_end.start){
-                            parent.addClass('error-line-order');
+                            let value = instance.jexcel.getRowData(pos_start_end.start);
+                            if(value[columns.type.index] == "Info"){
+                                parent.addClass('error-line-order');
+                            }
+
                         }
+
                         if(value[columns.type.index] == "Info"){
 
                             let count = 0;
