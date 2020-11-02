@@ -6,7 +6,7 @@
 <script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
 <script>
-    let stringDate = '{!! date('Y-m-d') !!}';
+    let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
     let  date = moment(stringDate);
     let spreadsheet =  null;
     let worksheets = null;

@@ -16,7 +16,7 @@ var pool  = mysql.createPool({
     password: '',
     database: 'cms',
 });
-
+var moment = require('moment');
 function YAMATO(tracking){
     return new  Promise (async function (resolve, reject) {
         let page = pages["YAMATO"];
@@ -98,11 +98,14 @@ async function JAPAN_POST(tracking){
         let page = pages["YAMATO"];
         await page.goto('https://trackings.post.japanpost.jp/services/srv/search/input', {waitUntil: 'networkidle2'});
         await page.waitForSelector('#content');
-
+        let _index = 1;
         for(let index in tracking){
-            let _index = parseInt(index)+1;
+            _index = parseInt(index)+1;
+          console.log(tracking[index].id);
             await page.$eval('input[name="requestNo'+(_index)+'"]', (el,val) => el.value = val,tracking[index].id);
         }
+        if(_index == 1)
+            await page.$eval('input[name="requestNo'+(_index+1)+'"]', (el,val) => el.value = val,new Date().getTime());
         await page.click('input[name="search"]');
         await page.waitForSelector('#content');
         setTimeout(async function () {
@@ -140,7 +143,7 @@ async function JAPAN_POST(tracking){
 }
 
 (async () => {
-    const browser = await puppeteer.launch({ headless: true ,args:['--no-sandbox']});
+    const browser = await puppeteer.launch({ headless: false ,args:['--no-sandbox']});
 
     pages["YAMATO"] =  await browser.newPage();
     pages["YAMATO"].setViewport({ width: 1280, height:720 });
@@ -212,7 +215,7 @@ async function JAPAN_POST(tracking){
     function AddQueue(){
         try{
             let countEmpty = 0;
-
+            console.dir(databaseData);
             for(let name in databaseData){
                 let trackingIds = [];
                 let count = 0;
@@ -272,30 +275,64 @@ async function JAPAN_POST(tracking){
 
                             for(let i in vals[1]){
                                 if(vals[0].hasOwnProperty(vals[1][i].id)){
-                                    let sql = 'UPDATE `cms_shop_order_excel_tracking` SET `status` = "1" WHERE `id` = '+vals[1][i].data.id+';';
-                                    console.log(sql);
+                                    let sql;
+                                    if(vals[0][vals[1][i].id].Status){
+                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                    }else{
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                    }
+                                    pool.query(sql,function () {
+
+                                    });
                                 }
-                                // pool.query('UPDATE `cms_shop_order_excel_tracking` SET `status` = "1" WHERE `id` = 5;',function () {
-                                //
-                                // });
+
                             }
                         }).catch(function () {
                             lock = false;
                         });
                     }else if(data.name === "SAGAWA"){
-                        SAGAWA(data.data).then(function (val,conf) {
+                        SAGAWA(data.data).then(function (vals) {
                             lock = false;
                             console.log("\n"+data.name+' sucesss \n');
-                            log.info('SAGAWA:'+ JSON.stringify(val));
+                            log.info('SAGAWA:'+ JSON.stringify(vals));
+                            for(let i in vals[1]){
+                                if(vals[0].hasOwnProperty(vals[1][i].id)){
+                                    let sql;
+                                    if(vals[0][vals[1][i].id].Status){
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                    }else{
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                    }
+                                    pool.query(sql,function () {
+
+                                    });
+                                }
+
+                            }
                         }).catch(function () {
                             lock = false;
                         });
                     }else if(data.name === "JAPAN_POST"){
-                        JAPAN_POST(data.data).then(function (val,conf) {
+                        JAPAN_POST(data.data).then(function (vals) {
                             lock = false;
                             console.log("\n"+data.name+' sucesss \n');
-                            console.log(val);
-                            log.info('JAPAN_POST:'+JSON.stringify(val));
+                            console.log(vals);
+                            log.info('JAPAN_POST:'+JSON.stringify(vals));
+                            for(let i in vals[1]){
+                                if(vals[0].hasOwnProperty(vals[1][i].id)){
+                                    let sql;
+                                    if(vals[0][vals[1][i].id].Status){
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                    }else{
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                    }
+                                    console.log(sql);
+                                    pool.query(sql,function () {
+
+                                    });
+                                }
+
+                            }
                         }).catch(function () {
                             lock = false;
                         });

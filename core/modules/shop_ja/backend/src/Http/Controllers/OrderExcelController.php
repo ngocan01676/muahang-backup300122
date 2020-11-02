@@ -898,7 +898,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $data = $request->all();
         $excel = new \ShopJa\Libs\Excel(isset($data['date'])?$data['date']:date('Y-m-d'),isset($data['date_export'])?$data['date_export']:0);
 
-
         $output = [];
         if(isset($data['name'])){
             if($data['name'] == "KOGYJA"){
