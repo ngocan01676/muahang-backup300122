@@ -864,7 +864,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
-
+        $models->where('admin_id', Auth::user()->id);
         $date_start = $request->get('date_start','');
         $date_end = $request->get('date_end','');
 
