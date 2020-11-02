@@ -29,9 +29,9 @@ const pages = {};
                         let id = $(td[1]).find('input').val();
                         if(id){
                             Trackings[id] = {
-                                Id : $(td[2]).text().replace(/^\s*|\s*$/g, ''),
-                                Date : $(td[3]).text().replace(/^\s*|\s*$/g, ''),
-                                Text : $(td[4]).text().replace(/^\s*|\s*$/g, ''),
+                                Id : $(td[2]).text().replace(/  +/g, ' '),
+                                Date : $(td[3]).text().replace(/  +/g, ' '),
+                                Text : $(td[4]).text().replace(/  +/g, ' '),
                             };
                             Trackings[id].Status = Trackings[id].Text === "Delivered";
                         }
@@ -70,8 +70,8 @@ async function SAGAWA(tracking){
                     if(id){
                         Trackings[id] = {
                             Id : id,
-                            Date : $(td[1]).text().replace(/^\s*|\s*$/g, '').replace(/\s/g, " "),
-                            Text : $(td[2]).text().replace(/^\s*|\s*$/g, ''),
+                            Date : $(td[1]).text().replace(/  +/g, ' '),
+                            Text : $(td[2]).text().replace(/  +/g, ' '),
                         };
                         Trackings[id].Status = Trackings[id].Text.indexOf('Delivered:')>=0;
                     }
@@ -120,8 +120,8 @@ async function JAPAN_POST(tracking){
                                     let key = id.replace(/-/g, "");
                                     Trackings[key] = {
                                         Id : id,
-                                        Date : $(td[2]).text().replace(/^\s*|\s*$/g, '').replace(/\s/g, " "),
-                                        Text : $(td[3]).text().replace(/^\s*|\s*$/g, ''),
+                                        Date : $(td[2]).text().replace(/  +/g, ' ').replace(/\s/g, " "),
+                                        Text : $(td[3]).text().replace(/  +/g, ' '),
                                     };
                                     Trackings[key].Status =Trackings[key].Status === "お届け先にお届け済み";
                                 }
