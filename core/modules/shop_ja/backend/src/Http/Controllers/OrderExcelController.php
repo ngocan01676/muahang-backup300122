@@ -1213,7 +1213,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->token,
                             $result->admin,
                         ];
-                        
+
                     }else  if($result->company == "KOGYJA"){
                         $pay_method = "";
                         if($result->pay_method == 1){
