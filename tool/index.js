@@ -178,26 +178,29 @@ async function JAPAN_POST(tracking){
                     console.log(data.name+' '+data.data.join(' '));
                     if(data.name === "YAMATO"){
 
-                        YAMATO(data.data).then(function () {
+                        YAMATO(data.data).then(function (val) {
                             lock = false;
                             console.log("\n"+data.name+' sucesss \n');
+                            console.log(val);
                         }).catch(function () {
                             lock = false;
                         });
 
                     }else if(data.name === "SAGAWA"){
 
-                        SAGAWA(data.data).then(function () {
+                        SAGAWA(data.data).then(function (val) {
                             lock = false;
                             console.log("\n"+data.name+' sucesss \n');
+                            console.log(val);
                         }).catch(function () {
                             lock = false;
                         });
 
                     }else if(data.name === "JAPAN_POST"){
-                        JAPAN_POST(data.data).then(function () {
+                        JAPAN_POST(data.data).then(function (val) {
                             lock = false;
                             console.log("\n"+data.name+' sucesss \n');
+                            console.log(val);
                         }).catch(function () {
                             lock = false;
                         });
