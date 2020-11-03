@@ -109,6 +109,8 @@ class OrderExcelModel extends Model
 //            ->where('created_at','<=',$date." 23:59:59")
 //            ->get()->all();
 
+
+
         $date_last = date('Y-m-d',strtotime('-1 day', strtotime($date)));
       //  foreach ($lists as $key=>$value){
            $shop_order_excel =  DB::table('shop_order_excel')
@@ -161,7 +163,20 @@ class OrderExcelModel extends Model
                                 $value1->order_date = "";
                                 $value1->order_hours = "";
                                 $value1->admin = "";
-                                if($value1->type!="Footer") $value1->type = "Item";
+                                $value1->fullname = "";
+                                $value1->address = "";
+                                $value1->zipcode = "";
+                                $value1->province = "";
+
+                                if($value1->type =="Item") {
+                                    $value1->type = "Item";
+                                    $value1->total_count = "";
+                                    $value1->order_ship_cou = "";
+                                    $value1->rate = "";
+                                }else if($value1->type=="Footer"){
+                                    $value1->product_id = "";
+                                    $value1->total_count = "";
+                                }
                                 $row[] = $value1;
                             }
                         }

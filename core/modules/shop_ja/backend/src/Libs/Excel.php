@@ -191,18 +191,39 @@ class Excel{
                                 'checking'=>[$order_tracking],
                             ];
                             for($j = $i+1;$j<$count+$i; $j++){
-                                $order_tracking =  trim(rtrim($datas[$j][$nameColList['order_tracking']]));
-                                $item['checking'][] = $order_tracking;
+
+                                $_fullname = trim(rtrim($datas[$j][$nameColList['fullname']]));
+                                if(strlen($_fullname)>0){
+                                    break;
+                                }else{
+                                    $order_tracking =  trim(rtrim($datas[$j][$nameColList['order_tracking']]));
+                                    if(strlen($order_tracking)>0)
+                                    $item['checking'][] = $order_tracking;
+                                }
                             }
                             $results[] = $item;
                         }
                     }
                 }
+                $category =  get_category_type("shop-ja:product:category");
 
+                $ship =  get_category_type("shop-ja:japan:category:com-ship");
+                $nameShip = "";
+
+                foreach ($category as $item){
+                    if($item->name == $type){
+                        if(isset($ship[$item->data["ship"]])){
+
+                            $nameShip = $ship[$item->data["ship"]]->name;
+                        }
+                    }
+                }
                 $html = "<table>";
                 $html.="<tr>";
-                $html.="<td class='text-center' colspan='".(count($colums)+1)."'><h2>".$type."</h2></td>";
+                $html.="<td class='text-center' colspan='".((count($colums)+1)/2)."'><h2 id='company'>".$type."</h2></td>";
+                $html.="<td class='text-center' colspan='".((count($colums)+1)/2)."'><h2 id='ship'>".$nameShip."</h2></td>";
                 $html.="</tr>";
+                DB::enableQueryLog();
                 foreach ($results as $key=>$value){
                     $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
 
@@ -216,10 +237,14 @@ class Excel{
                         'product_code'=>trim(rtrim($value['data'][$nameColList['product_id']])),
                         'product_title'=>trim(rtrim($value['data'][$nameColList['product_name']])),
                         'pay_method'=>$this->getValuePayMethod(trim(rtrim($value['data'][$nameColList['payMethod']]))),
-
+                        'count'=>trim(rtrim($value['data'][$nameColList['count']])),
                     ];
+                    $_result = DB::table('shop_order_excel')->where($where)
+                        ->where('order_create_date','>=',date('Y-m-d',strtotime('-1 day',$this->date)).' 00:00:00')
+                        ->where('order_create_date','<=',date('Y-m-d',$this->date).' 23:59:59')
+                        ->where('export',1)
+                        ->get()->all();
 
-                    $_result = DB::table('shop_order_excel')->where($where)->get()->all();
                     $count = count($_result);
                     $class = ($count==1?'update':(($count==0)?'empty':'two'));
 
@@ -232,9 +257,10 @@ class Excel{
                             }
                         }
                     }
+
                     $html.="<tr class='".$class ."'>";
                     if($class=="update"){
-                        $html.="<td>[".$count."]<div style='display: none'><textarea class='value'>".json_encode(['id'=>$_result[0]->id,'checking'=>$value['checking']])."</textarea></div></td>";
+                        $html.="<td>[".$count."]<div style='display: none'><textarea class='value'>".json_encode(['create'=>$_result[0]->order_create_date,'id'=>$_result[0]->id,'checking'=>$value['checking']])."</textarea></div></td>";
                     }else{
                         $html.="<td>[".$count."]</td>";
                     }
@@ -245,6 +271,29 @@ class Excel{
                     $html.="</tr>";
                 }
                 $html.= "</table>";
+
+               // $html.= json_encode(DB::getQueryLog(),JSON_UNESCAPED_UNICODE );
+                foreach (DB::getQueryLog() as $k=>$v){
+                    $sql = $v['query'];
+                    foreach ($v['bindings'] as $binding) {
+                        if (is_string($binding)) {
+                            $binding = "'{$binding}'";
+                        } elseif ($binding === null) {
+                            $binding = 'NULL';
+                        } elseif ($binding instanceof Carbon) {
+                            $binding = "'{$binding->toDateTimeString()}'";
+                        } elseif ($binding instanceof DateTime) {
+                            $binding = "'{$binding->format('Y-m-d H:i:s')}'";
+                        }
+
+                        $sql = preg_replace("/\?/", $binding, $sql, 1);
+
+                    }
+                    $html.= $sql."<BR>";
+                }
+
+
+
             }
         }
         return $html;
