@@ -150,7 +150,7 @@ async function JAPAN_POST(tracking){
     const browser = await puppeteer.launch({ headless: false ,args:['--no-sandbox']});
     const [tabOne] = (await browser.pages());
     pages["YAMATO"] = tabOne;
-   
+
    // pages["YAMATO"].setViewport({ width: 1280, height:720 });
 
     // pages["SAGAWA"] =  await browser.newPage();
