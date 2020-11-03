@@ -218,12 +218,12 @@ class Excel{
                         }
                     }
                 }
-                $html = "<table>";
+                $html = "<table class='table table-bordered'>";
                 $html.="<tr>";
                 $html.="<td class='text-center' colspan='".((count($colums)+1)/2)."'><h2 id='company'>".$type."</h2></td>";
                 $html.="<td class='text-center' colspan='".((count($colums)+1)/2)."'><h2 id='ship'>".$nameShip."</h2></td>";
                 $html.="</tr>";
-                 
+
                 foreach ($results as $key=>$value){
                     $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
 
