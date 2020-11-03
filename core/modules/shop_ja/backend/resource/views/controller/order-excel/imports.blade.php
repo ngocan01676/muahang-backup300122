@@ -126,11 +126,12 @@
             $("#results .update").each(function () {
                 lists.push(JSON.parse($(this).find('textarea.value').val()));
             });
-
             $.ajax({
                 type: "POST",
                 data: {
                     'type':"import",
+                    'com':$("#company").text(),
+                    'ship':$("#ship").text().toUpperCase(),
                     lists:lists,
                 },
                 success: function (data) {

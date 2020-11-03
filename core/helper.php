@@ -778,3 +778,25 @@ function convertDotToArray($array) {
     }
     return $newArray;
 }
+function logs_sql(){
+    $sqls = "";
+    foreach (DB::getQueryLog() as $k=>$v){
+        $sql = $v['query'];
+        foreach ($v['bindings'] as $binding) {
+            if (is_string($binding)) {
+                $binding = "'{$binding}'";
+            } elseif ($binding === null) {
+                $binding = 'NULL';
+            } elseif ($binding instanceof Carbon) {
+                $binding = "'{$binding->toDateTimeString()}'";
+            } elseif ($binding instanceof DateTime) {
+                $binding = "'{$binding->format('Y-m-d H:i:s')}'";
+            }
+
+            $sql = preg_replace("/\?/", $binding, $sql, 1);
+
+        }
+        $sqls.= $sql."<BR>";
+    }
+    return $sql;
+}

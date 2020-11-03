@@ -36,14 +36,15 @@ function YAMATO(tracking){
                     $(this).find('tr').each(function () {
                         let _tr = $(this);
                         let td = _tr.find('td');
-                        let id = $(td[1]).find('input').val();
+                        let id = $(td[2]).text().trim().replace(/\s+/g, " ");
                         if(id){
-                            Trackings[id] = {
-                                Id : $(td[2]).text().trim().replace(/\s+/g, " "),
+                            let key = id.replace(/-+/g, "");
+                            Trackings[key] = {
+                                Id : id,
                                 Date : $(td[3]).text().trim().replace(/\s+/g, " "),
                                 Text : $(td[4]).text().trim().replace(/\s+/g, " "),
                             };
-                            Trackings[id].Status = Trackings[id].Text === "Delivered";
+                            Trackings[key].Status = Trackings[key].Text === "Delivered";
                         }
                     });
                 }
@@ -77,12 +78,14 @@ async function SAGAWA(tracking){
                     let td = _tr.find('td');
                     let id = $(td[0]).find('input').val();
                     if(id){
-                        Trackings[id] = {
-                            Id : id.trim().replace(/\n/g, ' ').replace(/\s+/g, " "),
+                        id = id.trim().replace(/\n/g, ' ');
+                        let key = id.replace(/-+/g, "");
+                        Trackings[key] = {
+                            Id : id,
                             Date : $(td[1]).text().trim().replace(/\s+/g, ""),
                             Text : $(td[2]).text().trim().replace(/\s+/g, " "),
                         };
-                        Trackings[id].Status = Trackings[id].Text.indexOf('Delivered:')>=0;
+                        Trackings[key].Status = Trackings[key].Text.indexOf('Delivered:')>=0;
                     }
                 });
             });
@@ -123,9 +126,10 @@ async function JAPAN_POST(tracking){
                                 let id = input.text();
                                 last = id;
                                 if(id){
+                                    id = id.trim().replace(/\n/g, ' ').replace(/\s+/g, " ");
                                     let key = id.replace(/-/g, "");
                                     Trackings[key] = {
-                                        Id : id.trim().replace(/\n/g, ' ').replace(/\s+/g, " "),
+                                        Id : id ,
                                         Date : $(td[2]).text().trim().replace(/\s+/g, " "),
                                         Text : $(td[3]).text().trim().replace(/\s+/g, " "),
                                     };
@@ -143,9 +147,10 @@ async function JAPAN_POST(tracking){
 
 (async () => {
     const browser = await puppeteer.launch({ headless: false ,args:['--no-sandbox']});
+    const [tabOne] = (await browser.pages());
+    pages["YAMATO"] = tabOne;
 
-    pages["YAMATO"] =  await browser.newPage();
-    pages["YAMATO"].setViewport({ width: 1280, height:720 });
+   // pages["YAMATO"].setViewport({ width: 1280, height:720 });
 
     // pages["SAGAWA"] =  await browser.newPage();
     // pages["SAGAWA"].setViewport({ width: 1280, height:720 });
@@ -169,6 +174,7 @@ async function JAPAN_POST(tracking){
     let pushData = [];
     let databaseData = {};
     let databaseLock = {
+
 
     };
     // let tYAMATO = setInterval(function () {
@@ -224,6 +230,7 @@ async function JAPAN_POST(tracking){
                         databaseLock[index] = new Date();
                         trackingIds.push({
                             id:index,
+                            key:index.replace(/-+/g, ""),
                             data:databaseData[name][index],
                         });
                         count++;
@@ -273,13 +280,18 @@ async function JAPAN_POST(tracking){
                             log.info('YAMATO:'+JSON.stringify(vals));
 
                             for(let i in vals[1]){
-                                if(vals[0].hasOwnProperty(vals[1][i].id)){
+
+                                if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
-                                    if(vals[0][vals[1][i].id].Status){
-                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+
+                                    if(vals[0][vals[1][i].key].Status){
+                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }else{
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }
+
+                                    console.log(sql);
+
                                     pool.query(sql,function () {
 
                                     });
@@ -295,12 +307,12 @@ async function JAPAN_POST(tracking){
                             console.log("\n"+data.name+' sucesss \n');
                             log.info('SAGAWA:'+ JSON.stringify(vals));
                             for(let i in vals[1]){
-                                if(vals[0].hasOwnProperty(vals[1][i].id)){
+                                if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
-                                    if(vals[0][vals[1][i].id].Status){
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                    if(vals[0][vals[1][i].key].Status){
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }else{
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }
                                     pool.query(sql,function () {
 
@@ -318,12 +330,12 @@ async function JAPAN_POST(tracking){
                             console.log(vals);
                             log.info('JAPAN_POST:'+JSON.stringify(vals));
                             for(let i in vals[1]){
-                                if(vals[0].hasOwnProperty(vals[1][i].id)){
+                                if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
-                                    if(vals[0][vals[1][i].id].Status){
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                    if(vals[0][vals[1][i].key].Status){
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }else{
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].id])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }
                                     console.log(sql);
                                     pool.query(sql,function () {
@@ -345,4 +357,15 @@ async function JAPAN_POST(tracking){
         }
     },5000);
 
+
+
+    process.on('SIGINT', async function() {
+        console.log("Caught interrupt signal");
+        pages["YAMATO"].close();
+        if (browser && browser.process() != null) {
+            browser.process().kill('SIGINT');
+        }
+        await browser.close();
+        process.exit();
+    });
 })();

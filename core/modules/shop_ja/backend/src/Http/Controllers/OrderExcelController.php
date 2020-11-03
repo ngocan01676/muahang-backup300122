@@ -968,10 +968,31 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             if(isset($input['type'])){
                 if($input['type'] == "import"){
                     $lists = isset( $input['lists'])? $input['lists']:[];
-                    foreach ($lists as $list){
-                        DB::table('shop_order_excel')->where("id",$list['id'])->update(['order_tracking'=>json_encode($list['checking'])]);
+                    DB::beginTransaction();
+                    try{
+                        foreach ($lists as $list){
+                            DB::table('shop_order_excel')->where("id",$list['id'])->update(['order_tracking'=>json_encode($list['checking'])]);
+                            foreach ($list['checking'] as $checking){
+                                DB::table('shop_order_excel_tracking')
+                                    ->updateOrInsert(
+                                        [
+                                            'order_id'=>$list['id'],
+                                            'type'=>$input['ship'],
+                                            'company'=>$input['com'],
+                                            'tracking_id'=>$checking,
+                                            'created_at'=>$list['create']
+                                        ],
+                                        ['data'=>'[]','status'=>0,'updated_at'=>date('Y-m-d')]);
+                            }
+
+                        }
+                        DB::commit();
+                    }catch (\Exception $ex){
+                        DB::rollBack();
+                        $input['error'] = $ex->getMessage();
                     }
                 }
+                return response()->json($input);
             }else{
                 $validator = Validator::make($request->all(), [
                     'image' => 'required',
@@ -981,7 +1002,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $input['image'] = $imageName;
                     $OriginalName = request()->image->getClientOriginalName();
                     request()->image->move(public_path('uploads/tracking'), $imageName);
-                    $Excel = new \ShopJa\Libs\Excel();
+                    $Excel = new \ShopJa\Libs\Excel($input['date'],0);
                     $results = $Excel->Read($OriginalName,public_path('uploads/tracking')."/".$imageName,"Xlsx");
                     return Response()->json(["success"=>"Image Upload Successfully",'html'=>$results]);
                 }
@@ -1475,6 +1496,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $this->getCrumb()->breadcrumb(z_language("Xuất ".$company), route('backend:shop_ja:order:excel:show'));
             $model = new OrderExcelModel();
             $datas = $model->ShowAll(Auth::user()->id,$date,$company,$type);
+
             $model->key_date =$date;
             $model->detail = $this->GetData($datas,true);
             return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company]);

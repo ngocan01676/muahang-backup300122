@@ -191,18 +191,42 @@ class Excel{
                                 'checking'=>[$order_tracking],
                             ];
                             for($j = $i+1;$j<$count+$i; $j++){
-                                $order_tracking =  trim(rtrim($datas[$j][$nameColList['order_tracking']]));
-                                $item['checking'][] = $order_tracking;
+
+                                $_fullname = trim(rtrim($datas[$j][$nameColList['fullname']]));
+                                if(strlen($_fullname)>0){
+                                    break;
+                                }else{
+                                    $order_tracking =  trim(rtrim($datas[$j][$nameColList['order_tracking']]));
+                                    if(strlen($order_tracking)>0)
+                                    $item['checking'][] = $order_tracking;
+                                }
                             }
                             $results[] = $item;
                         }
                     }
                 }
+                $category =  get_category_type("shop-ja:product:category");
 
-                $html = "<table>";
+                $ship =  get_category_type("shop-ja:japan:category:com-ship");
+                $nameShip = "";
+
+                foreach ($category as $item){
+                    if($item->name == $type){
+                        if(isset($ship[$item->data["ship"]])){
+
+                            $nameShip = $ship[$item->data["ship"]]->name;
+                        }
+                    }
+                }
+                $html = "<table class='table table-bordered'>";
                 $html.="<tr>";
-                $html.="<td class='text-center' colspan='".(count($colums)+1)."'><h2>".$type."</h2></td>";
+                $html.="<td class='text-center'><h2>Công Ty</h2></td>";
+                $html.="<td class='text-center'><h2 id='company'>".$type."</h2></td>";
+                $html.="<td class='text-center'><h2>Đơn vị vận chuyển</h2></td>";
+                $html.="<td class='text-center'><h2 id='ship'>".$nameShip."</h2></td>";
                 $html.="</tr>";
+                $html.= "</table>";
+                $html.= "<div style=\"overflow:scroll; height:500px;\"><table class='table table-bordered'>";
                 foreach ($results as $key=>$value){
                     $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
 
@@ -214,12 +238,16 @@ class Excel{
                         'zipcode'=>trim(rtrim($value['data'][$nameColList['zipcode']])),
                         'province'=>trim(rtrim($value['data'][$nameColList['province']])),
                         'product_code'=>trim(rtrim($value['data'][$nameColList['product_id']])),
-                        'product_title'=>trim(rtrim($value['data'][$nameColList['product_name']])),
+//                        'product_title'=>trim(rtrim($value['data'][$nameColList['product_name']])),
                         'pay_method'=>$this->getValuePayMethod(trim(rtrim($value['data'][$nameColList['payMethod']]))),
-
+                        'count'=>trim(rtrim($value['data'][$nameColList['count']])),
                     ];
+                    $_result = DB::table('shop_order_excel')->where($where)
+                        ->where('order_create_date','>=',date('Y-m-d',strtotime('-1 day',$this->date)).' 00:00:00')
+                        ->where('order_create_date','<=',date('Y-m-d',$this->date).' 23:59:59')
+                        ->where('export',1)
+                        ->get()->all();
 
-                    $_result = DB::table('shop_order_excel')->where($where)->get()->all();
                     $count = count($_result);
                     $class = ($count==1?'update':(($count==0)?'empty':'two'));
 
@@ -232,9 +260,10 @@ class Excel{
                             }
                         }
                     }
+
                     $html.="<tr class='".$class ."'>";
                     if($class=="update"){
-                        $html.="<td>[".$count."]<div style='display: none'><textarea class='value'>".json_encode(['id'=>$_result[0]->id,'checking'=>$value['checking']])."</textarea></div></td>";
+                        $html.="<td>[".$count."]<div style='display: none'><textarea class='value'>".json_encode(['create'=>$_result[0]->order_create_date,'id'=>$_result[0]->id,'checking'=>$value['checking']])."</textarea></div></td>";
                     }else{
                         $html.="<td>[".$count."]</td>";
                     }
@@ -244,7 +273,9 @@ class Excel{
                     }
                     $html.="</tr>";
                 }
-                $html.= "</table>";
+                $html.= "</table></div>";
+
+
             }
         }
         return $html;
