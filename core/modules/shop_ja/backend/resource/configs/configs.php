@@ -339,7 +339,68 @@
 
                 ]
             ],
+            'module:shop_ja:tracking' => [
+                'config' => [
+                    'columns' => [
+                        'lists' => [
+                            'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
+                            'tracking_id' => ['label' => z_language('Mã kiểm tra', false), 'type' => 'number'],
+                            'order_id' => ['label' => z_language('Mã đơn hàng', false), 'type' => 'id', 'primary' => true],
+                            'type' => ['label' => z_language('Công ty chuyển phát', false), 'type' => 'title'],
+                            'company' => ['label' => z_language('Công ty sảm phẩm', false), 'type' => 'title'],
+                            'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status'],
+                            'get_results' => ['label' => z_language('Kết quả', false), 'type' => 'text','callback' => "get_results"],
+                            'created_at' => ['label' => z_language('Ngày đăng', false), 'type' => 'date'],
+                            'updated_at' => ['label' => z_language('Ngày nhập', false), 'type' => 'date'],
+                        ],
+                    ],
+                    'pagination' => [
+                        'item' => 20,
+                        'router' => [
+//                            'edit' => ['label' => z_language('Edit', false), 'name' => "backend:shop_ja:product:edit", 'par' => ['id' => 'id']],
+//                            'preview' => ['label' => z_language('Preview', false), 'name' => "backend:shop_ja:product:edit", 'par' => ['id' => 'id']],
+//                            'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:shop_ja:product:delete", 'par' => ['id' => 'id']],
+                        ]
+                    ],
+                    'config' => [
+                        "type" => [
+                            'status' => [
+                                'label' => [
+                                    '1' => z_language('Thành công', false),
+                                    '2' => z_language('Đang xử lý', false),
+                                    '3' => z_language('Chưa xử lý', false),
+                                ],
+                                'type' => [
+                                    'name' => 'label',
+                                    'color' => [
+                                        '1' => 'primary',
+                                        '2' => 'danger',
+                                        '3' => 'info'
+                                    ]
+                                ]
+                            ],
+                            'image'=>[
+                                'width'  => '50px',
+                                'height' => '50px',
+                            ]
+                        ],
+                        "column"=>[
+                            'image'=>[
+                                'style'=>'width="50px";height="50px";text-align:center'
+                            ]
+                        ]
+                    ]
+                ],
+                'data' => [
+                    'pagination' => ['item' => 20],
+                    'columns' => ['id', 'title'],
+                    'search' => ['title'],
 
+                ],
+                'views' => [
+                    'configs.layout'
+                ]
+            ],
         ],
             'configs' => [
             'lists'=>[

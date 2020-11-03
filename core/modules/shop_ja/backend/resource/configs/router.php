@@ -231,6 +231,14 @@ return [
                         "url" => "/imports",
                         "method" => ['get','post'],
                     ],
+                    "tracking" => [
+                        "url" => "/tracking",
+                        "method" => ['get','post'],
+                    ],
+                    "tracking_list" => [
+                        "url" => "/tracking-list",
+                        "method" => ['get','post'],
+                    ],
                     "show" => [
                         "url" => "/show/{company?}/{date?}/{hour?}/{type?}",
                         "method" => ['get','post'],
