@@ -220,12 +220,13 @@ class Excel{
                 }
                 $html = "<table class='table table-bordered'>";
                 $html.="<tr>";
-                $html.="<td class='text-center' colspan='".((count($colums)+1)/4)."'><h2>Công Ty</h2></td>";
-                $html.="<td class='text-center' colspan='".((count($colums)+1)/4)."'><h2 id='company'>".$type."</h2></td>";
-                $html.="<td class='text-center' colspan='".((count($colums)+1)/4)."'><h2>Đơn vị vận chuyển</h2></td>";
-                $html.="<td class='text-center' colspan='".((count($colums)+1)/4)."'><h2 id='ship'>".$nameShip."</h2></td>";
+                $html.="<td class='text-center'><h2>Công Ty</h2></td>";
+                $html.="<td class='text-center'><h2 id='company'>".$type."</h2></td>";
+                $html.="<td class='text-center'><h2>Đơn vị vận chuyển</h2></td>";
+                $html.="<td class='text-center'><h2 id='ship'>".$nameShip."</h2></td>";
                 $html.="</tr>";
-
+                $html.= "</table>";
+                $html.= "<div style=\"overflow:scroll; height:500px;\"><table class='table table-bordered'>";
                 foreach ($results as $key=>$value){
                     $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
 
@@ -272,11 +273,7 @@ class Excel{
                     }
                     $html.="</tr>";
                 }
-                $html.= "</table>";
-
-
-
-                ;
+                $html.= "</table></div>";
 
 
             }
