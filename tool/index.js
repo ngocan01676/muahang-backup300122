@@ -176,6 +176,7 @@ async function JAPAN_POST(tracking){
     let databaseData = {};
     let databaseLock = {
 
+        
     };
     // let tYAMATO = setInterval(function () {
     //     pushData.push({name:"YAMATO",data:[380180590484,380179697192]});
