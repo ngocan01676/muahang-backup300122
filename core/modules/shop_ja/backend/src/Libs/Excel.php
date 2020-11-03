@@ -220,8 +220,10 @@ class Excel{
                 }
                 $html = "<table class='table table-bordered'>";
                 $html.="<tr>";
-                $html.="<td class='text-center' colspan='".((count($colums)+1)/2)."'><h2 id='company'>".$type."</h2></td>";
-                $html.="<td class='text-center' colspan='".((count($colums)+1)/2)."'><h2 id='ship'>".$nameShip."</h2></td>";
+                $html.="<td class='text-center' colspan='".((count($colums)+1)/4)."'><h2>Công Ty</h2></td>";
+                $html.="<td class='text-center' colspan='".((count($colums)+1)/4)."'><h2 id='company'>".$type."</h2></td>";
+                $html.="<td class='text-center' colspan='".((count($colums)+1)/4)."'><h2>Đơn vị vận chuyển</h2></td>";
+                $html.="<td class='text-center' colspan='".((count($colums)+1)/4)."'><h2 id='ship'>".$nameShip."</h2></td>";
                 $html.="</tr>";
 
                 foreach ($results as $key=>$value){
