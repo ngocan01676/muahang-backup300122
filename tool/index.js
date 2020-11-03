@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 var cheerio = require('cheerio');
-var encoding = require('encoding-japanese');
 const pages = {};
 const opts = {
     errorEventName:'error',
