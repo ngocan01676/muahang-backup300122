@@ -223,7 +223,7 @@ class Excel{
                 $html.="<td class='text-center' colspan='".((count($colums)+1)/2)."'><h2 id='company'>".$type."</h2></td>";
                 $html.="<td class='text-center' colspan='".((count($colums)+1)/2)."'><h2 id='ship'>".$nameShip."</h2></td>";
                 $html.="</tr>";
-                DB::enableQueryLog();
+                 
                 foreach ($results as $key=>$value){
                     $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
 
@@ -272,26 +272,9 @@ class Excel{
                 }
                 $html.= "</table>";
 
-               // $html.= json_encode(DB::getQueryLog(),JSON_UNESCAPED_UNICODE );
-                foreach (DB::getQueryLog() as $k=>$v){
-                    $sql = $v['query'];
-                    foreach ($v['bindings'] as $binding) {
-                        if (is_string($binding)) {
-                            $binding = "'{$binding}'";
-                        } elseif ($binding === null) {
-                            $binding = 'NULL';
-                        } elseif ($binding instanceof Carbon) {
-                            $binding = "'{$binding->toDateTimeString()}'";
-                        } elseif ($binding instanceof DateTime) {
-                            $binding = "'{$binding->format('Y-m-d H:i:s')}'";
-                        }
 
-                        $sql = preg_replace("/\?/", $binding, $sql, 1);
 
-                    }
-                    $html.= $sql."<BR>";
-                }
-
+                ;
 
 
             }
