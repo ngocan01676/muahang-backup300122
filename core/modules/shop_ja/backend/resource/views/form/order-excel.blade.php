@@ -3055,7 +3055,7 @@
                     price_ship = price_ship * data.count;
                     console.log("price_ship:"+price_ship);
                     console.log("total_price_buy:"+total_price_buy);
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship-order_ship_cou);
 
                     total_price_buy = total_price_buy+price_ship;
                     console.log(total_price_buy);
@@ -3090,7 +3090,7 @@
                 if(dropdown.hasOwnProperty(product_id)){
                     confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod);
                     console.log(confShipCou);
-                    setInterest(confShipCou.order_ship , confShipCou.order_ship_cou,total_price_buy + 330)
+                    setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330)
                 }
 
                 {{--$.ajax({--}}
