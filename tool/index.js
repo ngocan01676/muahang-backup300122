@@ -225,6 +225,7 @@ async function JAPAN_POST(tracking){
         });
     }
     function AddQueue(){
+
         try{
             let countEmpty = 0;
             for(let name in databaseData){
@@ -248,10 +249,9 @@ async function JAPAN_POST(tracking){
                     pushData.push({name:name,data:trackingIds});
                 }
             }
-
             if(pushData.length === 0){
                 GetData(function () {
-                    
+
                 });
             }
         }catch (e) {
@@ -271,7 +271,7 @@ async function JAPAN_POST(tracking){
                 lock = true;
                 let data = pushData.shift();
                 if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
-                    console.log(data.name+' '+data.data.join(' '));
+                    console.log("Date:"+(new Date().toDateString())+data.name+' '+data.data.join(' '));
                     if(data.name === "YAMATO"){
                         YAMATO(data.data).then(function (vals) {
                             lock = false;
