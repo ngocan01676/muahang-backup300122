@@ -347,7 +347,7 @@
                             'tracking_id' => ['label' => z_language('Mã kiểm tra', false), 'type' => 'number'],
                             'order_id' => ['label' => z_language('Mã đơn hàng', false), 'type' => 'id', 'primary' => true],
                             'type' => ['label' => z_language('Công ty chuyển phát', false), 'type' => 'title'],
-                            'company' => ['label' => z_language('Công ty sảm phẩm', false), 'type' => 'title'],
+                            'company' => ['label' => z_language('Công ty sản phẩm', false), 'type' => 'title'],
                             'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status'],
                             'get_results' => ['label' => z_language('Kết quả', false), 'type' => 'text','callback' => "get_results"],
                             'created_at' => ['label' => z_language('Ngày đăng', false), 'type' => 'date'],
