@@ -3055,7 +3055,7 @@
                     price_ship = price_ship * data.count;
                     console.log("price_ship:"+price_ship);
                     console.log("total_price_buy:"+total_price_buy);
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship-order_ship_cou);
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
 
                     total_price_buy = total_price_buy+price_ship;
                     console.log(total_price_buy);
