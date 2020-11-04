@@ -13,7 +13,7 @@ const mysql = require('mysql');
 var pool  = mysql.createPool({
     host    : 'localhost',
     user    : 'root',
-    password: '',
+    password: 'db@#$204OlA',
     database: 'cms',
 });
 var moment = require('moment');
