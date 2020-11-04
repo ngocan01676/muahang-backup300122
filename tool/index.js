@@ -358,7 +358,7 @@ async function JAPAN_POST(tracking){
         }
     },5000);
 
-
+    console.log('Init Run');
 
     process.on('SIGINT', async function() {
         console.log("Caught interrupt signal");
