@@ -465,7 +465,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }
                                 DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
                         }catch (\Exception $ex){
-                            $logs[$name][] = $ex->getMessage();
+                            $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
                         }
 
                     }else{
@@ -506,11 +506,17 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $array_count = [];
                                     }
                                     $total_count = 0;
-                                    foreach ($array_count as $pro_id=>$_count){
-                                        if(isset( $_product[$pro_id]['data']['price_buy'])){
-                                            $total_count+=(int)$_count;
+
+                                    if(is_array($array_count)){
+                                        foreach ($array_count as $pro_id=>$_count){
+                                            if(isset( $_product[$pro_id]['data']['price_buy'])){
+                                                $total_count+=(int)$_count;
+                                            }
                                         }
+                                    }else{
+                                        $total_count = $count;
                                     }
+                                    
                                 }else{
                                     $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
                                     $count = (int)(isset($columns["count"])?$values[$columns["count"]]:"");
@@ -590,7 +596,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
                         }catch (\Exception $ex){
 
-                            $logs[$name][] = $ex->getMessage();
+                            $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
                         }
                     }
 
