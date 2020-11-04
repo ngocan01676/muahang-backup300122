@@ -60,18 +60,17 @@
         </table>
         <div id="spreadsheet"></div>
         <div>
-            <table>
-                <tr>
-                    <td>
-                        {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
-                        {!! Form::radio('status', '0' , true) !!} Nháp
-                        {!! Form::radio('status', '1',false) !!} Lập đơn
-                    </td>
-                </tr>
+            {{--<table>--}}
+                {{--<tr>--}}
+                    {{--<td>--}}
+                        {{--{!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;--}}
+                        {{--{!! Form::radio('status', '0' , true) !!} Nháp--}}
+                        {{--{!! Form::radio('status', '1',false) !!} Lập đơn--}}
+                    {{--</td>--}}
+                {{--</tr>--}}
 
-            </table>
-            <button onclick="Save()" type="button"> Lưu </button> &nbsp;
-            <button onclick="Export()" type="button"> Export </button>
+            {{--</table>--}}
+
         </div>
     </div>
     <!-- /.box-body -->
@@ -5043,7 +5042,7 @@
             body = doc.getElementsByTagName('body')[0],
             x = win.innerWidth || docElem.clientWidth || body.clientWidth,
             y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
-        config.tableHeight = (y*0.5)+"px";
+        config.tableHeight = (y*0.65)+"px";
 
         let sheets = [
 
