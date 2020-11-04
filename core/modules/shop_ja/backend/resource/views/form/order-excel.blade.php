@@ -4,15 +4,15 @@
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
 @endif
-<div class="box box-default box-solid">
+<div class="box box-default box-solid collapsed-box">
     <div class="box-header with-border">
         <h3 class="box-title">{!! z_language('Thông tin') !!}</h3>
         <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
             </button>
         </div>
     </div>
-    <div class="box-body">
+    <div class="box-body" style="display: none;">
         <div class="row">
             <div class="col-md-6">
                 <label>Ngày giờ xuất:</label>
