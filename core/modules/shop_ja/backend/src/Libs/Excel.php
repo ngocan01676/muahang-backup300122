@@ -1593,8 +1593,8 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $filename = '株式会社クリチク-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
-
+        $filename = '株式会社コギ家-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
+        //株式会社コギ家-様-10月17日注文分
 
         $path = $path.'/'.$filename;
         if( !$this->file->isDirectory(public_path().$path)){

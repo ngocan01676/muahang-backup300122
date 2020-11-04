@@ -4,15 +4,15 @@
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
 @endif
-<div class="box box-default box-solid collapsed-box">
+<div class="box box-default box-solid">
     <div class="box-header with-border">
         <h3 class="box-title">{!! z_language('Thông tin') !!}</h3>
         <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+            <button type="button" class="btn btn-box-tool btnInfo" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
         </div>
     </div>
-    <div class="box-body" style="display: none;">
+    <div class="box-body">
         <div class="row">
             <div class="col-md-6">
                 <label>Ngày giờ xuất:</label>
@@ -41,7 +41,7 @@
 </div>
 
 <div class="box box-default box-solid">
-   
+
     <div class="box-body">
         <table class="table">
             <tr>
@@ -79,6 +79,7 @@
     .modal-content {
         height: 99%;
     }
+
 </style>
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
@@ -5253,7 +5254,8 @@
                data: {
                    datas: JSON.stringify(data),
                    name:name,
-                   columns:_columns
+                   columns:_columns,
+                   date:$("#datepicker").val()
                },
                success: function (data) {
                    console.log(data);
@@ -5313,6 +5315,8 @@
         }
        setTimeout(function () {
            CheckData();
+           $(".btnInfo").trigger('click');
+
        },2000)
         setInterval(function () {
             CheckData();
@@ -5321,5 +5325,6 @@
             console.log("Save");
             Save(false,true);
         },30000)
+
     </script>
 @endsection

@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="307" column="35" selection-start-line="307" selection-start-column="35" selection-end-line="307" selection-end-column="35" />
+            <state relative-caret-position="400">
+              <caret line="920" column="33" lean-forward="true" selection-start-line="920" selection-start-column="33" selection-end-line="920" selection-end-column="33" />
               <folding>
                 <element signature="e#4072#49212#0#PHP" />
                 <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
@@ -31,11 +33,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="371" column="78" selection-start-line="371" selection-start-column="78" selection-end-line="371" selection-end-column="78" />
+            <state relative-caret-position="1254">
+              <caret line="1595" column="53" selection-start-line="1595" selection-start-column="49" selection-end-line="1595" selection-end-column="53" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="e#13936#24461#0#PHP" />
+                <element signature="e#24467#34473#0#PHP" />
+                <element signature="e#34478#44353#0#PHP" />
+                <element signature="e#44358#57693#0#PHP" />
               </folding>
             </state>
           </provider>
@@ -77,13 +83,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="43" column="3" selection-start-line="43" selection-start-column="3" selection-end-line="43" selection-end-column="3" />
+            <state relative-caret-position="370">
+              <caret line="5257" column="46" selection-start-line="5257" selection-start-column="46" selection-end-line="5257" selection-end-column="46" />
               <folding>
-                <element signature="e#678#700#0#HTML" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -92,6 +97,11 @@
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/CategoryController.php">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -107,7 +117,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>p\Http\Middleware\EncryptCookies::</find>
       <find>excel_active_tab</find>
       <find>list</find>
       <find>Auth::user()</find>
@@ -134,9 +143,10 @@
       <find>import</find>
       <find>)</find>
       <find>console.log</find>
-      <find>紹介料</find>
-      <find>GetShip</find>
       <find>stor</find>
+      <find>紹介料</find>
+      <find>export</find>
+      <find>GetShip</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -192,8 +202,8 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/tracking.blade.php" />
         <option value="$PROJECT_DIR$/tool/index.js" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" />
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/edit.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
       </list>
@@ -408,29 +418,6 @@
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-              <item name="order-excel" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="form" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -451,6 +438,17 @@
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
@@ -562,7 +560,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="563205000" />
+    <option name="totallyTimeSpent" value="565050000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -593,13 +591,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/user/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="69" selection-start-line="69" selection-end-line="77" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/imports.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
@@ -893,17 +884,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="371" column="78" selection-start-line="371" selection-start-column="78" selection-end-line="371" selection-end-column="78" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -911,28 +891,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/CategoryController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="307" column="35" selection-start-line="307" selection-start-column="35" selection-end-line="307" selection-end-column="35" />
+        <state relative-caret-position="1254">
+          <caret line="1595" column="53" selection-start-line="1595" selection-start-column="49" selection-end-line="1595" selection-end-column="53" />
           <folding>
-            <element signature="e#4072#49212#0#PHP" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="e#13936#24461#0#PHP" />
+            <element signature="e#24467#34473#0#PHP" />
+            <element signature="e#34478#44353#0#PHP" />
+            <element signature="e#44358#57693#0#PHP" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="43" column="3" selection-start-line="43" selection-start-column="3" selection-end-line="43" selection-end-column="3" />
+        <state relative-caret-position="370">
+          <caret line="5257" column="46" selection-start-line="5257" selection-start-column="46" selection-end-line="5257" selection-end-column="46" />
           <folding>
-            <element signature="e#678#700#0#HTML" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="920" column="33" lean-forward="true" selection-start-line="920" selection-start-column="33" selection-end-line="920" selection-end-column="33" />
+          <folding>
+            <element signature="e#4072#49212#0#PHP" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
