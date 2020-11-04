@@ -77,7 +77,7 @@
             $('.success').hide();// or fade, css display however you'd like.
             $datepicker = $('#datepicker').datepicker({
                 autoclose: true,
-                format: 'mm/dd/yyyy',
+                format: 'dd/mm/yyyy',
             });
             $datepicker.datepicker('setDate', new Date());
         });

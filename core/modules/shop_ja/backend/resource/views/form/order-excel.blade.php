@@ -5086,6 +5086,7 @@
             $('body').addClass('sidebar-collapse');
             $datepicker = $('#datepicker').datepicker({
                 autoclose: true,
+                format: 'dd/mm/yyyy',
             }).on('changeDate', function (ev) {
                 if(changeDate == 0){
                     changeDate++;
@@ -5107,6 +5108,7 @@
             $datepicker.datepicker('setDate', new Date(date.format()));
             $datepicker1 = $('#datepicker1').datepicker({
                 autoclose: true,
+                format: 'dd/mm/yyyy',
                 onSelect: function(dateText) {
                     console.log("Selected date: " + dateText + "; input's current value: " + this.value);
                 }
