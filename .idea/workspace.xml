@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3dc190-2af7-483d-99f9-35226304652c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/zoe.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/zoe.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,10 +17,31 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
+        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="79" column="48" selection-start-line="79" selection-start-column="48" selection-end-line="79" selection-end-column="48" />
+            <state relative-caret-position="570">
+              <caret line="778" column="34" lean-forward="true" selection-start-line="778" selection-start-column="34" selection-end-line="778" selection-end-column="34" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#211600#213820#0#HTML" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tool/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="648">
+              <caret line="134" column="62" selection-start-line="134" selection-start-column="62" selection-end-line="134" selection-end-column="69" />
+              <folding>
+                <element signature="n#!!block;n#YAMATO#0" />
+                <element signature="n#!!block;n#SAGAWA#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -28,8 +50,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dd(</find>
-      <find>GetDetails</find>
       <find>ed</find>
       <find>parent</find>
       <find>delete</find>
@@ -58,6 +78,8 @@
       <find>Title</find>
       <find>Category Create</find>
       <find>Manager Blog Category</find>
+      <find>order_ship</find>
+      <find>province:value.hasOwnProperty</find>
     </findStrings>
     <dirStrings>
       <dir>C:\xampp\htdocs\zoecms\core\modules\shop_ja</dir>
@@ -69,7 +91,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/configs/configs.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/DashboardController.php" />
         <option value="$PROJECT_DIR$/core/modules/user/backend/src/Http/Controllers/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Backend.php" />
@@ -106,7 +127,6 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/OrderExcelModel.php" />
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
         <option value="$PROJECT_DIR$/tool/index.js" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php" />
@@ -120,6 +140,8 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/com-ship.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/language/list.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" />
+        <option value="$PROJECT_DIR$/config/zoe.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
       </list>
     </option>
   </component>
@@ -260,6 +282,11 @@
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -367,7 +394,7 @@
               <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="configs" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
@@ -378,6 +405,72 @@
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="order-excel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
@@ -508,12 +601,12 @@
       <workItem from="1604281551351" duration="30729000" />
       <workItem from="1604328734355" duration="16866000" />
       <workItem from="1604412051276" duration="406000" />
-      <workItem from="1604502354956" duration="4634000" />
+      <workItem from="1604502354956" duration="6410000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="562214000" />
+    <option name="totallyTimeSpent" value="563990000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -544,9 +637,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/export.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/configs/component.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -626,13 +716,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3910">
           <caret line="230" column="60" selection-start-line="230" selection-start-column="60" selection-end-line="230" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/SimController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16286">
-          <caret line="971" column="117" selection-start-line="970" selection-start-column="26" selection-end-line="971" selection-end-column="117" />
         </state>
       </provider>
     </entry>
@@ -719,13 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2346">
-          <caret line="138" column="10" selection-start-line="138" selection-start-column="10" selection-end-line="138" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/src/js/jexcel.core.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="62713">
@@ -751,18 +827,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="62" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tool/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="218" column="27" lean-forward="true" selection-start-line="218" selection-start-column="27" selection-end-line="218" selection-end-column="27" />
-          <folding>
-            <element signature="n#!!block;n#YAMATO#0" />
-            <element signature="n#!!block;n#SAGAWA#0" />
-            <element signature="n#!!block;n#JAPAN_POST#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -876,13 +940,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/language/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="68" column="33" selection-start-line="68" selection-start-column="33" selection-end-line="68" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/configs/sidebar.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -890,10 +947,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/zoe.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="26" lean-forward="true" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/language/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="179" column="82" selection-start-line="179" selection-start-column="74" selection-end-line="179" selection-end-column="82" />
+          <folding>
+            <element signature="e#10825#10851#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/SimController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="349" column="37" selection-start-line="349" selection-start-column="33" selection-end-line="349" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
+        <state relative-caret-position="1343">
           <caret line="79" column="48" selection-start-line="79" selection-start-column="48" selection-end-line="79" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tool/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="134" column="62" selection-start-line="134" selection-start-column="62" selection-end-line="134" selection-end-column="69" />
+          <folding>
+            <element signature="n#!!block;n#YAMATO#0" />
+            <element signature="n#!!block;n#SAGAWA#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="778" column="34" lean-forward="true" selection-start-line="778" selection-start-column="34" selection-end-line="778" selection-end-column="34" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#211600#213820#0#HTML" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

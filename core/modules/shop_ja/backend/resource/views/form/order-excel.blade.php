@@ -128,9 +128,9 @@
     <script>
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
-        console.log = function () {
-
-        };
+        // console.log = function () {
+        //
+        // };
     </script>
 
     <style>
@@ -761,6 +761,7 @@
                     id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
                     province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
+                data.province = data.province.trim();
                 let total_price_buy =  0;
                 let total_price =  0;
 
@@ -2891,6 +2892,7 @@
                     id:value.hasOwnProperty('id')?value.id.toString():instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])).toString(),
                     province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
+                data.province = data.province.trim();
                 data.id = data.id.split(';');
                 let count = parseInt(data.count);
 
@@ -3649,7 +3651,7 @@
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_date:{
-                    title: '到着希望日',//L Ngày nhận
+                    title: 'Ngày nhận',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
@@ -3657,14 +3659,14 @@
 
                 },
                 order_hours:{
-                    title: '配送希望時間帯',//M Giờ nhận
+                    title: 'Giờ nhận',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
                     width:'150px',
                 },
                 order_ship:{
-                    title: '別途送料',//N Phí ship
+                    title: 'Phí ship',//N Phí ship
                     type: 'numeric',
                     width:'100px',
                     value:0
@@ -3688,7 +3690,7 @@
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_ship_cou:{
-                    title: '代引き手数料',//P Phí giao hàng
+                    title: 'Phí giao hàng',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
                     value:330
@@ -3773,6 +3775,7 @@
                     id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
                     province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
+                data.province = data.province.trim();
                 let total_price_buy =  0;
                 let total_price =  0;
 
@@ -4517,6 +4520,7 @@
                     id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
                     province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
+                data.province = data.province.trim();
                 let total_price_buy =  0;
                 let total_price =  0;
                
