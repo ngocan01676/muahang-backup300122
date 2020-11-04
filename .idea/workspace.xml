@@ -39,8 +39,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tool/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="197" column="36" selection-start-line="197" selection-start-column="36" selection-end-line="197" selection-end-column="36" />
+            <state relative-caret-position="-391">
+              <caret line="202" column="98" selection-start-line="202" selection-start-column="98" selection-end-line="202" selection-end-column="98" />
             </state>
           </provider>
         </entry>
@@ -49,7 +49,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>value[</find>
       <find>Fukui</find>
       <find>edit</find>
       <find>\Illuminate\Session\Middleware\StartSession::class,</find>
@@ -79,6 +78,7 @@
       <find>fa fa-gears</find>
       <find>import</find>
       <find>)</find>
+      <find>console.log</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -461,7 +461,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="556526000" />
+    <option name="totallyTimeSpent" value="556715000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -741,8 +741,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tool/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="197" column="36" selection-start-line="197" selection-start-column="36" selection-end-line="197" selection-end-column="36" />
+        <state relative-caret-position="-391">
+          <caret line="202" column="98" selection-start-line="202" selection-start-column="98" selection-end-line="202" selection-end-column="98" />
         </state>
       </provider>
     </entry>

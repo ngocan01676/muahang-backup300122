@@ -227,11 +227,9 @@ async function JAPAN_POST(tracking){
     function AddQueue(){
         try{
             let countEmpty = 0;
-
             for(let name in databaseData){
                 let trackingIds = [];
                 let count = 0;
-
                 for(let index in databaseData[name]){
                     if(!databaseLock.hasOwnProperty(index)){
                         databaseLock[index] = new Date();
