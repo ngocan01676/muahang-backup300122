@@ -77,7 +77,7 @@ return [
             "icon"=>"fa  fa-thumbs-up",
         ],
         "backend:shop_ja:ship:list" => [
-            "name" => z_language("QL Ship"),
+            "name" => z_language("QL Chuyển phát"),
             "url" => "backend:shop_ja:ship:list",
             "pos" => 2,
             "header" => true,
