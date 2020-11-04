@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 var cheerio = require('cheerio');
-var encoding = require('encoding-japanese');
 const pages = {};
 const opts = {
     errorEventName:'error',
@@ -199,8 +198,7 @@ async function JAPAN_POST(tracking){
         });
         conn.connect(function (err){
             if (err) throw err.stack;
-            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 0 LIMIT 0,30";
-            console.log(sql);
+            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 LIMIT 0,100";
             let rows = {};
             let _databaseData = {};
             conn.query(sql, function (err,results, fields) {
@@ -212,16 +210,22 @@ async function JAPAN_POST(tracking){
                     _databaseData[results[key].type][results[key].tracking_id] =results[key];
                 }
                 databaseData = _databaseData;
+                for(let name in databaseData){
+                    for(let index in databaseData[name]){
+                        conn.query('UPDATE `cms_shop_order_excel_tracking` SET `status` = \'2\' WHERE `id` = '+databaseData[name][index].id+';')
+                    }
+                }
                 databaseLock = {};
                 conn.end();
                 Cb();
             });
+
         });
     }
     function AddQueue(){
         try{
             let countEmpty = 0;
-            console.dir(databaseData);
+
             for(let name in databaseData){
                 let trackingIds = [];
                 let count = 0;

@@ -962,6 +962,87 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
         return response()->json($output);
     }
+    public function tracking_list(Request $request){
+        $this->getcrumb();
+
+        $filter = $request->query('filter', []);
+        $search = $request->query('search', "");
+        $status = $request->query('status', "");
+        $date = $request->query('date', "");
+
+        $config = config_get('option', "module:shop_ja:tracking");
+        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+
+        $models = DB::table('shop_order_excel_tracking');
+        if(isset($filter['search'])){
+            $search = $filter['search'];
+        }else {
+            $filter_search = $request->query('filter_search', "");
+            if(!empty($filter_search)){
+                $search = $filter_search;
+            }
+        }
+//        if(isset($filter['code'])){
+//            $models->where('code', 'like', '%' . $filter['code'].'%');
+//        }
+//        if(isset($filter['cate'])){
+//            $models->where('category_id', '=',$filter['cate'] );
+//        }
+//        if (!empty($search)) {
+//            $models->where('title', 'like', '%' . $search.'%');
+//        }
+//        if(isset($filter['des'])){
+//            $models->where('description', 'like', '%' . $filter['des'].'%');
+//        }
+        if (!empty($status) || $status != "") {
+            $models->where('status', $status);
+        }
+        $models->orderBy('id', 'desc');
+        return $this->render('order-excel.tracking_list', [
+            'models' => $models->paginate($item),
+            'callback' => [
+                "get_results" => function ($model){
+                    $html = "";
+                    $data = json_decode($model->data,true);
+                    if($model->status == 1){
+                        $html.='<table class="table table-bordered" style="background: #dedede">';
+                        $html.='<tr>';
+                        $html.='<td><label class="label label-default">'.(isset($data['Date'])?$data['Date']:z_language('Không xác định')).'</label></td>';
+                        $html.='<td><label class="label label-default">'.(isset($data['Text'])?$data['Text']:z_language('Không xác định')).'</label></td>';
+                        $html.='</tr>';
+                        $html.='</table>';
+                    }
+                    return $html;
+                }
+            ]
+        ]);
+    }
+    public function tracking(Request $request){
+        $category =  get_category_type("shop-ja:product:category");
+        $datas = [];
+
+        foreach ($category as $key=>$value){
+            $datas[$value->name][] =
+                DB::table('shop_order_excel_tracking')
+                    ->where('company',$value->name)
+                    ->where('status',2)
+                    ->orderBy('updated_at')
+                    ->limit(30)
+                    ->get()->all();
+        }
+        foreach ($category as $key=>$value){
+            $datas[$value->name][] =
+                DB::table('shop_order_excel_tracking')
+                    ->where('company',$value->name)
+                    ->where('status',3)
+                    ->orderBy('updated_at')
+                    ->limit(30)
+                    ->get()->all();
+        }
+        return $this->render('order-excel.tracking',[
+            'datas'=>$datas
+        ]);
+    }
     public function imports(Request $request){
         if($request->ajax()){
             $input = $request->all();
@@ -982,7 +1063,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             'tracking_id'=>$checking,
                                             'created_at'=>$list['create']
                                         ],
-                                        ['data'=>'[]','status'=>0,'updated_at'=>date('Y-m-d')]);
+                                        ['data'=>'[]','status'=>3,'updated_at'=>date('Y-m-d')]);
                             }
 
                         }

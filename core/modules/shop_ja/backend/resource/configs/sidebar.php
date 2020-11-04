@@ -97,12 +97,27 @@ return [
             "header" => true,
             "icon"=>"fa fa-search",
         ],
+
         "module:shop-ja:excel:imports" => [
-            "name" => "QL ".z_language("Nhập Checking"),
-            "url" => "backend:shop_ja:order:action:imports",
+            "name" =>z_language("Nhập Checking"),
             "pos" => 2,
+            "url" => "backend:shop_ja:sim:list",
             "header" => true,
-            "icon"=>"fa fa-check-square-o",
+            "icon"=>"fa fa-sticky-note-o",
+            "items" => [
+                [
+                    "name" => z_language("Nhập dữ liệu"),
+                    "url" => "backend:shop_ja:order:action:imports",
+                ],
+                [
+                    "name" =>z_language("Danh sách"),
+                    "url" => "backend:shop_ja:order:excel:tracking_list",
+                ],
+                [
+                    "name" => z_language("Xử lý"),
+                    "url" => "backend:shop_ja:order:excel:tracking",
+                ],
+            ]
         ],
         "module:shop-ja::excel:show" => [
             "name" => "QL ".z_language("Xuất Excel"),
