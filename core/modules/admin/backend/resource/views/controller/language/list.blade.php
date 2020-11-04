@@ -63,17 +63,24 @@
 //            $('#formAction tbody .row-lang').sort(function (a, b) {
 //                return $(a).data('name') < $(b).data('name');
 //            }).appendTo('#formAction tbody');
-
-            $("#formAction table tbody").paginathing({
+            $('.list-group').paginathing({
                 perPage: '{!! $maxPage !!}',
-                insertAfter: "#formAction .panel-footer",
-                ulClass: 'pagination pagination-sm',
-                firstText: "{!! z_language('First') !!}", // "First button" text
-                lastText: "{!! z_language('Last') !!}", // "Last button" text
-            });
-            $("#formAction").on('click', '.page a', function () {
-                console.log(1);
-            });
+                // limitPagination: 9,
+                containerClass: 'panel-footer',
+                pageNumbers: true,
+                firstText: "{!! z_language('Đầu tiên') !!}", // "First button" text
+                lastText: "{!! z_language('Cuối cùng') !!}", // "Last button" text
+            })
+            {{--$("#formAction #tab_tab_0eb9b3af2e4a00837a1b1a854c9ea18c_shop_ja table tbody").paginathing({--}}
+                {{--perPage: '{!! $maxPage !!}',--}}
+                {{--insertAfter: "#formAction .panel-footer",--}}
+                {{--ulClass: 'pagination pagination-sm',--}}
+                {{--firstText: "{!! z_language('First') !!}", // "First button" text--}}
+                {{--lastText: "{!! z_language('Last') !!}", // "Last button" text--}}
+            {{--});--}}
+            {{--$("#formAction").on('click', '.page a', function () {--}}
+                {{--console.log(1);--}}
+            {{--});--}}
         });
 
         function Save() {
@@ -164,12 +171,16 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-
+                                                    <tr>
+                                                        <td colspan="{!! count($languages)+1 !!}">
+                                                    <ul class="list-group list-unstyled" data-count="{!! count($lists) !!}">
                                                     @foreach($lists as $key=>$values)
                                                         @php isset($langStatic[$values['name']][$language["lang"]])?$langStatic[$values['name']][$language["lang"]]:"";  @endphp
-                                                        <tr class="row-lang"
+                                                        <li class="row-lang"
                                                             style="{{$i++<$maxPage?"":'display: none'}}"
                                                             data-name="{!! $values['name'] !!}">
+                                                            <table class="table table-bordered">
+                                                                <tr>
                                                             <td data-path="{!! implode('-',$values['path']) !!}"
                                                                 class="text-center"> {!! $values['name'] !!} </td>
 
@@ -192,8 +203,13 @@
                                                                            value="{!! $langValue !!}">
                                                                 </td>
                                                             @endforeach
-                                                        </tr>
+                                                                </tr>
+                                                            </table>
+                                                        </li>
                                                     @endforeach
+                                                    </ul>
+                                                    </td>
+                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>

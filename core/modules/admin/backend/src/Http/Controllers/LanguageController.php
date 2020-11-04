@@ -83,9 +83,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         $array = [];
 
         preg_match_all('/' . $string_find . '\((.*?)\)/', $string_blade, $match);
-//        echo "<pre>";
-//            var_dump($match);
-//        echo "</pre>";
+
         if (isset($match[1])) {
             foreach ($match[1] as $val) {
                 $key_val = trim($val, "]");
@@ -221,6 +219,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
             }
             $lists[$value['path'][1]][$value['path'][2]] [$k] = $value;
         }
+
         return $this->render('language.list', ['langs' => $lists, 'lists' => $array, 'language_data' => $language_data, 'data' => $data]);
     }
 }

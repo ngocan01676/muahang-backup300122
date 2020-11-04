@@ -25,14 +25,21 @@ return [
                 'log'=>false,
                 'media'=>false,
                 'configuration'=>false,
+                'name'=>false,
+                'language'=>false,
             ]
          ],
-
         "dashboard" => [
             "name" => z_language("Thống kê", false),
             "pos" => 1,
             "url" => "backend:dashboard:list",
             "icon" => "fa fa-dashboard"
+        ],
+        "language" => [
+            "name" => z_language("Ngôn ngữ", false),
+            "pos" => 1,
+            "url" => "backend:language:list",
+            "icon" => "fa fa-language"
         ],
         "media" => [
             "name" => z_language('Tài nguyên', false),

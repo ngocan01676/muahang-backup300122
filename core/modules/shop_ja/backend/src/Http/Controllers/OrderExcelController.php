@@ -1582,7 +1582,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $type = $request->type;
             $date = date('Y-m-d',strtotime($date." 00:00:00"));
             $this->GetCache('show',0,$company,$date);
-            $this->getCrumb()->breadcrumb(z_language("Xuất ".$company), route('backend:shop_ja:order:excel:show'));
+            $this->getCrumb()->breadcrumb(z_language("Xuất :COMPANY",["COMPANY"=>$company]), route('backend:shop_ja:order:excel:show'));
             $model = new OrderExcelModel();
             $datas = $model->ShowAll(Auth::user()->id,$date,$company,$type);
 

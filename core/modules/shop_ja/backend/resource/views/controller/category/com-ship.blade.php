@@ -1,6 +1,6 @@
 @section('content-header')
     <h1>
-        &starf; {!! @z_language(["Manager Blog Category"]) !!}
+        &starf; {!! @z_language(["Công ty chuyển phát"]) !!}
         <small>it all starts here</small>
         <a href="#" id="btnCreate"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
@@ -12,7 +12,7 @@
     <div class="col-md-3">
         <div class="box box-zoe">
             <div class="box-header with-border">
-                <h3 class="box-title">{!! @z_language(["Công ty SHIP"]) !!}</h3>
+                <h3 class="box-title">{!! @z_language(["Công ty chuyển phát"]) !!}</h3>
 
             </div>
             <div class="box-body">
@@ -593,7 +593,7 @@
             }
             $("#btnCreate").click(function () {
                 document.getElementById("form_store").reset();
-                var label = "{{ z_language('Category Create')}}";
+                var label = "{{ z_language('Tạo chuyên mục')}}";
                 $("#form_store input:hidden[name=id]").val(0);
                 console.log( $("#form_store input:hidden[name=id]"));
                 $("#form-title").html(label);
