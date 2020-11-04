@@ -3,7 +3,7 @@ var cheerio = require('cheerio');
 const pages = {};
 const opts = {
     errorEventName:'error',
-    logDirectory:'logs', // NOTE: folder must exist and be writable...
+    logDirectory:__dirname+'/logs', // NOTE: folder must exist and be writable...
     fileNamePattern:'roll-<DATE>.log',
     dateFormat:'YYYY.MM.DD'
 };
