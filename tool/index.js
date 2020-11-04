@@ -205,12 +205,15 @@ async function JAPAN_POST(tracking){
             let _databaseData = {};
             conn.query(sql, function (err,results, fields) {
                 if (err) throw err;
+                let count =0;
                 for(let key in results){
                     if(!_databaseData.hasOwnProperty(results[key].type)){
                         _databaseData[results[key].type] = {};
                     }
                     _databaseData[results[key].type][results[key].tracking_id] =results[key];
+                    count++;
                 }
+                console.log('Data:'+count);
                 databaseData = _databaseData;
                 for(let name in databaseData){
                     for(let index in databaseData[name]){
