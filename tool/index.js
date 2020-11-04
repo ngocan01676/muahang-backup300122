@@ -9,12 +9,14 @@ const opts = {
 };
 const log = require('simple-node-logger').createRollingFileLogger( opts );
 const mysql = require('mysql');
+
 var pool  = mysql.createPool({
     host    : 'localhost',
     user    : 'root',
     password: 'db@#$204OlA',
     database: 'cms',
 });
+
 var moment = require('moment');
 function YAMATO(tracking){
     return new  Promise (async function (resolve, reject) {
@@ -193,7 +195,7 @@ async function JAPAN_POST(tracking){
         var conn = mysql.createConnection({
             host    : 'localhost',
             user    : 'root',
-            password: '',
+            password: 'db@#$204OlA',
             database: 'cms',
         });
         conn.connect(function (err){
