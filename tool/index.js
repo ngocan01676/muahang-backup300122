@@ -269,7 +269,6 @@ async function JAPAN_POST(tracking){
     },60000);
     setInterval(function () {
         if(lock === false ){
-            console.log(pushData);
             if(pushData.length > 0){
                 lock = true;
                 let data = pushData.shift();
@@ -296,8 +295,6 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }
-
-                                    console.log(sql);
 
                                     pool.query(sql,function () {
 
@@ -344,7 +341,6 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }
-                                    console.log(sql);
                                     pool.query(sql,function () {
 
                                     });
