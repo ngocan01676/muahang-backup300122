@@ -76,8 +76,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="3017" column="21" selection-start-line="3017" selection-start-column="21" selection-end-line="3017" selection-end-column="21" />
+            <state relative-caret-position="179">
+              <caret line="3058" column="54" lean-forward="true" selection-start-line="3058" selection-start-column="54" selection-end-line="3058" selection-end-column="54" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -548,7 +548,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="561382000" />
+    <option name="totallyTimeSpent" value="561908000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -906,8 +906,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="3017" column="21" selection-start-line="3017" selection-start-column="21" selection-end-line="3017" selection-end-column="21" />
+        <state relative-caret-position="179">
+          <caret line="3058" column="54" lean-forward="true" selection-start-line="3058" selection-start-column="54" selection-end-line="3058" selection-end-column="54" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
