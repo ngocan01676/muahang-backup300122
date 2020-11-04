@@ -1625,6 +1625,9 @@
                     id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
                     province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
+
+                data.province =   data.province.trim();
+                console.log(data);
                 let valueRow =  instance.jexcel.getRowData(r);
 
                 if(isNaN(data.count) || data.count === 0 ){
@@ -1814,7 +1817,7 @@
 
                 console.log("product_id:"+product_id);
 
-                let province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, value.start]));
+                let province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, value.start])).trim();
 
                 let payMethod = getValuePayMethod(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.payMethod.index, value.start])));
 
