@@ -81,6 +81,14 @@
             });
             $datepicker.datepicker('setDate', new Date());
         });
+        $("input[type=file]").on('change',function(){
+
+            var regex = /\d+/g;
+
+            var matches = this.value.match(regex);
+
+            $datepicker.datepicker('setDate',matches[1]+"/"+matches[0]+"/"+ new Date().getFullYear());
+        });
         $('#imageUpload').on('submit',(function(e) {
             $.ajaxSetup({
                 headers: {
