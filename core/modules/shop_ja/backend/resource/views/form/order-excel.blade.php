@@ -8,7 +8,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">{!! z_language('Thông tin') !!}</h3>
         <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            <button type="button" class="btn btn-box-tool btnInfo" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
         </div>
     </div>
@@ -41,13 +41,7 @@
 </div>
 
 <div class="box box-default box-solid">
-    <div class="box-header with-border">
-        <h3 class="box-title">{!! z_language(' Nội dung ') !!}</h3>
-        <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-        </div>
-    </div>
+
     <div class="box-body">
         <table class="table">
             <tr>
@@ -60,18 +54,17 @@
         </table>
         <div id="spreadsheet"></div>
         <div>
-            <table>
-                <tr>
-                    <td>
-                        {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
-                        {!! Form::radio('status', '0' , true) !!} Nháp
-                        {!! Form::radio('status', '1',false) !!} Lập đơn
-                    </td>
-                </tr>
+            {{--<table>--}}
+                {{--<tr>--}}
+                    {{--<td>--}}
+                        {{--{!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;--}}
+                        {{--{!! Form::radio('status', '0' , true) !!} Nháp--}}
+                        {{--{!! Form::radio('status', '1',false) !!} Lập đơn--}}
+                    {{--</td>--}}
+                {{--</tr>--}}
 
-            </table>
-            <button onclick="Save()" type="button"> Lưu </button> &nbsp;
-            <button onclick="Export()" type="button"> Export </button>
+            {{--</table>--}}
+
         </div>
     </div>
     <!-- /.box-body -->
@@ -86,6 +79,7 @@
     .modal-content {
         height: 99%;
     }
+
 </style>
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
@@ -3016,7 +3010,6 @@
                     if(one_address){
                         payMethod = 2;
                     }
-
                     if( payMethod == 2 || payMethod == 3 ){
                         $ship_cou = 0;
                     }else{
@@ -3045,7 +3038,10 @@
                     }
                     price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
-                    return {order_ship:parseInt($price_ship == -1?0:$price_ship),order_ship_cou:parseInt($ship_cou)};
+                    return {
+                        order_ship:parseInt(price_ship === -1 ? 0 :price_ship),
+                        order_ship_cou:parseInt($ship_cou)
+                    };
                 }
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
 
@@ -3054,7 +3050,7 @@
                     console.log("total_price_buy:"+total_price_buy);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
 
-                    total_price_buy = total_price_buy+price_ship;
+                   // total_price_buy = total_price_buy;
                     console.log(total_price_buy);
 
                     if(total_price_buy ===0 || total_price == 0){ return;}
@@ -3087,7 +3083,7 @@
                 if(dropdown.hasOwnProperty(product_id)){
                     confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod);
                     console.log(confShipCou);
-                    setInterest(confShipCou.order_ship , confShipCou.order_ship_cou,total_price_buy + 330)
+                    setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330)
                 }
 
                 {{--$.ajax({--}}
@@ -5041,7 +5037,7 @@
             body = doc.getElementsByTagName('body')[0],
             x = win.innerWidth || docElem.clientWidth || body.clientWidth,
             y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
-        config.tableHeight = (y*0.5)+"px";
+        config.tableHeight = (y*0.65)+"px";
 
         let sheets = [
 
@@ -5258,7 +5254,8 @@
                data: {
                    datas: JSON.stringify(data),
                    name:name,
-                   columns:_columns
+                   columns:_columns,
+                   date:$("#datepicker").val()
                },
                success: function (data) {
                    console.log(data);
@@ -5318,6 +5315,8 @@
         }
        setTimeout(function () {
            CheckData();
+           $(".btnInfo").trigger('click');
+
        },2000)
         setInterval(function () {
             CheckData();
@@ -5326,5 +5325,6 @@
             console.log("Save");
             Save(false,true);
         },30000)
+
     </script>
 @endsection

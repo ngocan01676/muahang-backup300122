@@ -3,18 +3,20 @@ var cheerio = require('cheerio');
 const pages = {};
 const opts = {
     errorEventName:'error',
-    logDirectory:'logs', // NOTE: folder must exist and be writable...
+    logDirectory:__dirname+'/logs', // NOTE: folder must exist and be writable...
     fileNamePattern:'roll-<DATE>.log',
     dateFormat:'YYYY.MM.DD'
 };
 const log = require('simple-node-logger').createRollingFileLogger( opts );
 const mysql = require('mysql');
+
 var pool  = mysql.createPool({
     host    : 'localhost',
     user    : 'root',
-    password: '',
+    password: 'db@#$204OlA',
     database: 'cms',
 });
+
 var moment = require('moment');
 function YAMATO(tracking){
     return new  Promise (async function (resolve, reject) {
@@ -146,7 +148,7 @@ async function JAPAN_POST(tracking){
 }
 
 (async () => {
-    const browser = await puppeteer.launch({ headless: false ,args:['--no-sandbox']});
+    const browser = await puppeteer.launch({ headless: true ,args:['--no-sandbox']});
     const [tabOne] = (await browser.pages());
     pages["YAMATO"] = tabOne;
 
@@ -193,7 +195,7 @@ async function JAPAN_POST(tracking){
         var conn = mysql.createConnection({
             host    : 'localhost',
             user    : 'root',
-            password: '',
+            password: 'db@#$204OlA',
             database: 'cms',
         });
         conn.connect(function (err){
@@ -203,12 +205,15 @@ async function JAPAN_POST(tracking){
             let _databaseData = {};
             conn.query(sql, function (err,results, fields) {
                 if (err) throw err;
+                let count =0;
                 for(let key in results){
                     if(!_databaseData.hasOwnProperty(results[key].type)){
                         _databaseData[results[key].type] = {};
                     }
                     _databaseData[results[key].type][results[key].tracking_id] =results[key];
+                    count++;
                 }
+                console.log('Data:'+count);
                 databaseData = _databaseData;
                 for(let name in databaseData){
                     for(let index in databaseData[name]){
@@ -223,13 +228,12 @@ async function JAPAN_POST(tracking){
         });
     }
     function AddQueue(){
+
         try{
             let countEmpty = 0;
-
             for(let name in databaseData){
                 let trackingIds = [];
                 let count = 0;
-
                 for(let index in databaseData[name]){
                     if(!databaseLock.hasOwnProperty(index)){
                         databaseLock[index] = new Date();
@@ -248,10 +252,9 @@ async function JAPAN_POST(tracking){
                     pushData.push({name:name,data:trackingIds});
                 }
             }
-
             if(pushData.length === 0){
                 GetData(function () {
-                    
+
                 });
             }
         }catch (e) {
@@ -267,12 +270,11 @@ async function JAPAN_POST(tracking){
     },60000);
     setInterval(function () {
         if(lock === false ){
-            console.log(pushData);
             if(pushData.length > 0){
                 lock = true;
                 let data = pushData.shift();
                 if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
-                    console.log(data.name+' '+data.data.join(' '));
+                    console.log("Date:"+(new Date().toDateString())+data.name+' '+data.data.join(' '));
                     if(data.name === "YAMATO"){
                         YAMATO(data.data).then(function (vals) {
                             lock = false;
@@ -294,8 +296,6 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }
-
-                                    console.log(sql);
 
                                     pool.query(sql,function () {
 
@@ -342,7 +342,6 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }
-                                    console.log(sql);
                                     pool.query(sql,function () {
 
                                     });
@@ -362,7 +361,7 @@ async function JAPAN_POST(tracking){
         }
     },5000);
 
-
+    console.log('Init Run');
 
     process.on('SIGINT', async function() {
         console.log("Caught interrupt signal");

@@ -369,7 +369,7 @@ class Excel{
             ["配送先住所",'address',18,9], // G Địa chỉ giao hàng
             ["配送先電話番号",'phone1',10,9], // H Số điện thoại
             ["別途送料",'order_ship',15,9], //I Phí Ship
-            ["紹介料",['callback'=>function($index,$value){return (int)$value;},'key'=>'order_price'],15,9],// Lợi nhuận J
+            ["紹介料",['callback'=>function($index,$value){return (int)$value+330;},'key'=>'order_price'],15,9],// Lợi nhuận J
             ["仕入金額",'order_total_price_buy',15,9], // Tổng giá đơn hàng K
             ["品番",['product'=>['product_id','code']],10,9], // Mã sản phẩm L
             ["商品名",['product'=>['product_id','title']],18,9], // Tên sản phẩm M
@@ -1593,8 +1593,8 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $filename = '株式会社クリチク-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
-
+        $filename = '株式会社コギ家-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
+        //株式会社コギ家-様-10月17日注文分
 
         $path = $path.'/'.$filename;
         if( !$this->file->isDirectory(public_path().$path)){

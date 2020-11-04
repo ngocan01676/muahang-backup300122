@@ -305,7 +305,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $model->date_time = $date_time;
                 $model->name =\Illuminate\Support\Str::random(50);
 
-                $model->status =  $data['info']['status'];
+                $model->status =  1;
                 $model->token =  rand();
 
                 $logs = [];
@@ -465,7 +465,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }
                                 DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
                         }catch (\Exception $ex){
-                            $logs[$name][] = $ex->getMessage();
+                            $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
                         }
 
                     }else{
@@ -506,11 +506,17 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $array_count = [];
                                     }
                                     $total_count = 0;
-                                    foreach ($array_count as $pro_id=>$_count){
-                                        if(isset( $_product[$pro_id]['data']['price_buy'])){
-                                            $total_count+=(int)$_count;
+
+                                    if(is_array($array_count)){
+                                        foreach ($array_count as $pro_id=>$_count){
+                                            if(isset( $_product[$pro_id]['data']['price_buy'])){
+                                                $total_count+=(int)$_count;
+                                            }
                                         }
+                                    }else{
+                                        $total_count = $count;
                                     }
+                                    
                                 }else{
                                     $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
                                     $count = (int)(isset($columns["count"])?$values[$columns["count"]]:"");
@@ -590,7 +596,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
                         }catch (\Exception $ex){
 
-                            $logs[$name][] = $ex->getMessage();
+                            $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
                         }
                     }
 
@@ -913,7 +919,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function export(Request $request){
         $data = $request->all();
-        $excel = new \ShopJa\Libs\Excel(isset($data['date'])?$data['date']:date('Y-m-d'),isset($data['date_export'])?$data['date_export']:0);
+
+        $excel = new \ShopJa\Libs\Excel(
+            isset($data['date'])?$data['date']:date('Y-m-d'),isset($data['date_export'])?$data['date_export']:0);
 
         $output = [];
         if(isset($data['name'])){
