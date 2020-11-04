@@ -3045,7 +3045,10 @@
                     }
                     price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
-                    return {order_ship:parseInt($price_ship == -1?0:$price_ship),order_ship_cou:parseInt($ship_cou)};
+                    return {
+                        order_ship:parseInt(price_ship === -1 ? 0 :price_ship),
+                        order_ship_cou:parseInt($ship_cou)
+                    };
                 }
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
 
