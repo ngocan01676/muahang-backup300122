@@ -3016,7 +3016,6 @@
                     if(one_address){
                         payMethod = 2;
                     }
-
                     if( payMethod == 2 || payMethod == 3 ){
                         $ship_cou = 0;
                     }else{
