@@ -64,40 +64,7 @@
                             {!! Form::select('country', array_merge(["japan"=>"Nhật Bản"]),null,['class'=>'form-control']); !!}
                         </td>
                     </tr>
-                    {{--                <tr>--}}
-                    {{--                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("type_order")) class="error" @endif>--}}
-                    {{--                        @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp :--}}
-                    {{--                        {!! Form::label('type_order', z_language('Loại đơn hàng'), ['class' => '']) !!} (<span--}}
-                    {{--                            class="req">*</span>):--}}
-                    {{--                        {!! Form::select('type_order', array_merge([""=>z_language('..:  Chọn  :..')],$lists_ship),null,['class'=>'form-control','onchange'=>"change_type_order(this)"]); !!}--}}
-                    {{--                        @if ($errors->any())--}}
-                    {{--                            <p class="text-error">--}}
-                    {{--                                @if($errors->any() && $errors->getBag("default")->hasAny("type_order"))--}}
-                    {{--                                    @foreach ($errors->getBag("default")->get("type_order") as $error)--}}
-                    {{--                                        {{ $error }}--}}
-                    {{--                                    @endforeach--}}
-                    {{--                                @endif--}}
-                    {{--                            </p>--}}
-                    {{--                        @endif--}}
-                    {{--                    </td>--}}
-                    {{--                </tr>--}}
-                    {{--                <tr>--}}
-                    {{--                    <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("ship")) class="error" @endif>--}}
-                    {{--                        @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp--}}
-                    {{--                        {!! Form::label('ship', z_language('Đơn vị giao hàng'), ['class' => '']) !!} (<span--}}
-                    {{--                            class="req">*</span>):--}}
-                    {{--                        {!! Form::select('ship', array_merge([""=>z_language('..:  Chọn  :..')],['Yamato'=>'Công ty chuyển phát Yamato','Sagawa'=>'Công ty chuyển phát Sagawa','Japan-Post'=>'Công ty chuyển phát Japan Post']),null,['class'=>'form-control','onchange="change()"']); !!}--}}
-                    {{--                        @if ($errors->any())--}}
-                    {{--                            <p class="text-error">--}}
-                    {{--                                @if($errors->any() && $errors->getBag("default")->hasAny("ship"))--}}
-                    {{--                                    @foreach ($errors->getBag("default")->get("ship") as $error)--}}
-                    {{--                                        {{ $error }}--}}
-                    {{--                                    @endforeach--}}
-                    {{--                                @endif--}}
-                    {{--                            </p>--}}
-                    {{--                        @endif--}}
-                    {{--                    </td>--}}
-                    {{--                </tr>--}}
+
                     <tr>
                         <td colspan="3" @if($errors->any() && $errors->getBag("default")->hasAny("city")) class="error" @endif>
                             @php

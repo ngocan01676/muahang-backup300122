@@ -7,8 +7,7 @@
                 <label>Thời gian:</label>
                 <div class="input-group">
                     <div class="input-group-addon">
-                        <button type="button" class="btn daterange pull-left" data-toggle="tooltip"
-                                title="Date range">
+                        <button type="button" class="btn daterange pull-left">
                             <i class="fa fa-calendar"></i></button>
                     </div>
                     <input type="text" class="form-control pull-right" id="reservation">
@@ -177,10 +176,10 @@
             ranges   : {
                 '{!! z_language('Hôm nay') !!}'       : [moment(), moment()],
                 '{!! z_language('Một năm') !!}'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                '7 ngày qua' : [moment().subtract(6, 'days'), moment()],
-                '30 ngày qua': [moment().subtract(29, 'days'), moment()],
-                'Tháng này'  : [moment().startOf('month'), moment().endOf('month')],
-                'Tháng trước'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                '{!! z_language('7 ngày qua') !!}' : [moment().subtract(6, 'days'), moment()],
+                '{!! z_language('30 ngày qua') !!}': [moment().subtract(29, 'days'), moment()],
+                '{!! z_language('Tháng này') !!}'  : [moment().startOf('month'), moment().endOf('month')],
+                '{!! z_language('Tháng trước') !!}'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
             startDate: moment().subtract(29, 'days'),
             endDate  : moment()

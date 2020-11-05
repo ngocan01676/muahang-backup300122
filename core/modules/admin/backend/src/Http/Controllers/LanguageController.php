@@ -115,7 +115,8 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                 $value = [
                     "value" => "",
                     "path" => $sub_path,
-                    "name" => $key_val
+                    "name" => $key_val,
+                    "key"=> md5($key)
                 ];
                 $array[md5($key)] = $value;
             }
@@ -207,7 +208,9 @@ class LanguageController extends \Zoe\Http\ControllerBackend
 //                $datas[$lang][$val['key']] = $val;
 //            }
 //        }
-
+        usort($array, function($a, $b) {
+            return $a['name'] > $b['name'];
+        });
         $lists = [];
         foreach ($array as $k => $value) {
             $key = $value['path'][1] . "." . $value['path'][2];

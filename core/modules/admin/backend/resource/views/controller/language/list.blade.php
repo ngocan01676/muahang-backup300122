@@ -110,6 +110,7 @@
                         @php $select = false; @endphp
                         @foreach($langs as $keyLang=>$listsLang)
                             {{--@foreach($listsLang as $key=>$lists)--}}
+
                             @php $keyTab = "tab_".md5($keyLang); @endphp
                             <li @if($select == false) class="active" @php $select = true; @endphp @endif><a
                                         href="#{!! $keyTab !!}"
@@ -142,6 +143,7 @@
                                     <ul class="nav nav-tabs" role="tablist">
                                         @php $navsub_active = true; @endphp
                                         @foreach($listsLang as $key=>$lists)
+
                                             <li role="presentation"
                                                 @if($navsub_active) class="active" @php $navsub_active = false; @endphp @endif>
                                                 <a href="#tab_{!! $keyTab !!}_{!! $key !!}"
@@ -153,6 +155,7 @@
                                     </ul>
                                     <div class="tab-content tabs">
                                         @foreach($listsLang as $key=>$lists)
+
                                             <div role="tabpanel"
                                                  class="tab-pane fade in @if($navsub_active == false) active @php $navsub_active = true; @endphp @endif"
                                                  id="tab_{!! $keyTab !!}_{!! $key !!}">
@@ -174,7 +177,8 @@
                                                     <tr>
                                                         <td colspan="{!! count($languages)+1 !!}">
                                                     <ul class="list-group list-unstyled" data-count="{!! count($lists) !!}">
-                                                    @foreach($lists as $key=>$values)
+                                                    @foreach($lists as $key1=>$values)
+                                                        @php  $key = $values['key']; @endphp
                                                         @php isset($langStatic[$values['name']][$language["lang"]])?$langStatic[$values['name']][$language["lang"]]:"";  @endphp
                                                         <li class="row-lang"
                                                             style="{{$i++<$maxPage?"":'display: none'}}"

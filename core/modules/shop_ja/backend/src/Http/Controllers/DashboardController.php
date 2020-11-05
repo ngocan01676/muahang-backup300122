@@ -14,15 +14,17 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
     public function list(Request $request)
     {
-        $this->breadcrumb(z_language("QL CTV"), route('backend:dashboard:list'));
-        $this->breadcrumb(z_language("Thông tin"), "");
+
         $date_start = $request->get('date_start','');
         $date_end = $request->get('date_end','');
         $categorys = config_get("category", "shop-ja:product:category");
         $this->data['analytics']['category'] = [];
         $user_id = null;
+
         if(!is_null($request->id)){
             $user_id = base64_decode($request->id);
+            $this->breadcrumb(z_language("QL CTV"), route('backend:dashboard:list'));
+            $this->breadcrumb(z_language("Thông tin"), "");
         }else if(!Auth::user()->IsAcl("dashboard:all")){
             $user_id = Auth::user()->id;
         }

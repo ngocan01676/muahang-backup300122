@@ -6,7 +6,7 @@ class CategoryShipNestable extends \Admin\Lib\CategoryNestable {
         $str = "";
         if(isset($data['ship'])){
             $category = get_category_type('shop-ja:japan:category:com-ship');
-            $str.=' -  (Công ty chuyển phát : '.(isset($category[$data['ship']])?$category[$data['ship']]->name:$data['ship']).') ';
+            $str.=' -  ('.z_language('Công ty chuyển phát').' : '.(isset($category[$data['ship']])?$category[$data['ship']]->name:$data['ship']).') ';
         }
         return trim($str,' ');
     }
