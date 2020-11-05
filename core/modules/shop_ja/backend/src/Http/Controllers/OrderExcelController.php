@@ -516,7 +516,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }else{
                                         $total_count = $count;
                                     }
-                                    
+
                                 }else{
                                     $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
                                     $count = (int)(isset($columns["count"])?$values[$columns["count"]]:"");
