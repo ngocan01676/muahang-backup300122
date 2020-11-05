@@ -110,7 +110,7 @@ class OrderExcelModel extends Model
 //            ->get()->all();
 
 
-
+        \DB::enableQueryLog();
         $date_last = date('Y-m-d',strtotime('-1 day', strtotime($date)));
       //  foreach ($lists as $key=>$value){
            $shop_order_excel =  DB::table('shop_order_excel')
@@ -118,11 +118,12 @@ class OrderExcelModel extends Model
                ->where('company', $company )
                ->where('order_create_date','>=',$date_last." 00:00:00")
                ->where('order_create_date','<=',$date." 23:59:59")->orderBy('sort');
+
            if($type == 2){
                $shop_order_excel->where('export',0);
            }
            $shop_order_excel = $shop_order_excel->get()->all();
-
+        var_dump(logs_sql());
         $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
         $datas = [
 
