@@ -73,7 +73,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4">
-                                        <div style="display: none">{!! Form::textarea('config',null, ['id'=>'Data','class' => 'form-control','placeholder'=>z_language('config'),'cols'=>5,'rows'=>5]) !!}</div>
+                                        <div style="display: none">{!! Form::textarea('config',null, ['id'=>'Data','class' => 'form-control','placeholder'=>z_language('Cấu hình'),'cols'=>5,'rows'=>5]) !!}</div>
 
                                         <table class="table table-bordered wrap_rows" id="wrap">
                                             <thead>

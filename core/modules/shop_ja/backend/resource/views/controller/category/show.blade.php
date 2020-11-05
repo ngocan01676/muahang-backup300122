@@ -86,7 +86,7 @@
                     </tr>
                     <tr>
                         <td>
-                            {!! Form::label('description', z_language('Description'), ['class' => 'name']) !!}
+                            {!! Form::label('description', z_language('Mô tả'), ['class' => 'name']) !!}
                             {!! Form::text('description',null, ['class' => 'form-control','placeholder'=>'Description']) !!}
                             <span class="error help-block"></span>
                         </td>
@@ -589,7 +589,7 @@
                     data: {act: "position", data: {id: id, pos: list.nestable('serialize'), type: '{!! $type !!}'}},
                     success: function (data) {
                         $("#nestable").loading({destroy: true});
-                        $.growl.notice({ message: '{!! z_language("Update Position Successfully") !!}' });
+                        $.growl.notice({ message: '{!! z_language("Cập nhật vị trí thành công") !!}' });
                         cb(data);
                     }
                 });
@@ -601,7 +601,7 @@
                     type: "POST",
                     data: {act: "nestable", data: {id:$("input:hidden[name=id]").val(),type: '{!! $type !!}',nestable:'{!! $class_nestable !!}' } },
                     success: function (html) {
-                        $.growl.notice({ message: '{!! z_language("Reset Position Successfully") !!}' });
+                        $.growl.notice({ message: '{!! z_language("Đặt lại vị trí thành công") !!}' });
                         $("#nestable").html(html);
                         $("#nestable").loading({destroy: true});
                     }
@@ -651,7 +651,7 @@
                 var children = dd_item.children('.dd-list');
                 console.log(children);
                 $.confirm({
-                    title: '{!! z_language("Confirm") !!}',
+                    title: '{!! z_language("Xác nhận") !!}',
                     content: '{!! z_language("Bạn có muốn xóa?") !!}',
                     confirmButton: 'Proceed',
                     confirmButtonClass: 'btn-info',
@@ -730,9 +730,9 @@
                                 parent.addClass('has-error');
                                 parent.find('.error').html(data.error[k].join("\n"));
                             }
-                            $.growl.error({ message:"{!! z_language('Error update failed') !!}" });
+                            $.growl.error({ message:"{!! z_language('Lỗi cập nhật không thành công') !!}" });
                         } else {
-                            $.growl.notice({ message: "{!! z_language('Update Successfully') !!}" });
+                            $.growl.notice({ message: "{!! z_language('Cập nhật thành công') !!}" });
                             ResetNestable();
                         }
                     }

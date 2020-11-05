@@ -24,7 +24,7 @@
                 'config' => [
                     'columns' => [
                         'lists' => [
-                            'id' => ['label' => z_language('Id', false), 'type' => 'id'],
+                            'id' => ['label' => z_language('Mã', false), 'type' => 'id'],
                             'fullname' => ['label' => z_language('Tên Khách Hàng', false), 'type' => 'title'],
                             'product_title' => ['label' => z_language('Tên giói', false), 'type' => 'text'],
                             'price' => ['label' => z_language('Cước phí', false), 'type' => 'text'],
@@ -39,17 +39,17 @@
                     'pagination' => [
                         'item' => 20,
                         'router' => [
-                            'edit' => ['label' => z_language('Edit', false), 'name' => "backend:shop_ja:sim:edit", 'par' => ['id' => 'id']],
+                            'edit' => ['label' => z_language('Sửa', false), 'name' => "backend:shop_ja:sim:edit", 'par' => ['id' => 'id']],
 
-                            'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:shop_ja:sim:delete", 'par' => ['id' => 'id']],
+                            'trash' => ['method' => 'post', 'label' => z_language('Xóa', false), 'name' => "backend:shop_ja:sim:delete", 'par' => ['id' => 'id']],
                         ]
                     ],
                     'config' => [
                         "type" => [
                             'status' => [
                                 'label' => [
-                                    '1' => z_language('Public', false),
-                                    '0' => z_language('UnPublic', false),
+                                    '1' => z_language('Bật', false),
+                                    '0' => z_language('Tắt', false),
                                 ],
                                 'type' => [
                                     'name' => 'label',
@@ -85,17 +85,17 @@
                 'config' => [
                     'columns' => [
                         'lists' => [
-                            'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
+                            'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
                             'code' => ['label' => z_language('Code', false), 'type' => 'id', 'primary' => true],
                             'title' => ['label' => z_language('Tiêu đề', false), 'type' => 'title'],
                             'price' => ['label' => z_language('Giá nhập', false), 'type' => 'number'],
                             'price_buy' => ['label' => z_language('Giá Bán', false), 'type' => 'number'],
-                            'description' => ['label' => z_language('Description', false), 'type' => 'text'],
+                            'description' => ['label' => z_language('Mô tả', false), 'type' => 'text'],
                             'image' => ['label' => z_language('Ảnh', false), 'type' => 'image'],
                             'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status'],
                             'created_at' => ['label' => z_language('Tạo lúc', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Sửa lúc', false), 'type' => 'date'],
-                            'GetHtmlConfigShip' => ['label' => z_language('', false), 'type' => 'number','callback' => "GetHtmlConfigShip"],
+                            'GetHtmlConfigShip' => ['label' => z_language('Hành động', false), 'type' => 'number','callback' => "GetHtmlConfigShip"],
                         ],
                     ],
                     'pagination' => [
@@ -147,24 +147,13 @@
                 'config' => [
                     'columns' => [
                         'lists' => [
-                            'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
+                            'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
                             'UserName' => ['label' => z_language('Người lập', false), 'type' => 'text','callback' => "GetUserName"],
                             'fullname' => ['label' => z_language('Tên Khách Hàng', false), 'type' => 'title', 'primary' => true],
                             'GetCountOrder' => ['label' => z_language('Sản phẩm', false), 'type' => 'number','callback' => "GetCountOrder"],
                             'GetStatus' => ['label' => z_language('Trạng thái', false), 'type' => 'status','callback'=>'GetStatus'],
                             'created_at' => ['label' => z_language('Tạo lúc', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Sửa lúc', false), 'type' => 'date'],
-//                            'actions'=>[
-//                                'label'=>z_language('Action', false),
-//                                'type'=>'action',
-//                                'lists'=>[
-//                                    [
-//                                        'attr'=>['type'=>'link','class'=>"btn btn-primary btn-xs"],
-//                                        'label' => z_language('Cấu hình phí ship', false),
-//                                        'router'=>['name' => "backend:shop_ja:japan:category:show", 'par' => ['product_id' => 'id']]
-//                                    ]
-//                                ],
-//                            ]
                         ],
                     ],
                     'pagination' => [
@@ -202,11 +191,11 @@
                 'config' => [
                     'columns' => [
                         'lists' => [
-                            'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
+                            'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
                             'GetNameCategory' => ['label' => z_language('Công ty', false), 'type' => 'title','callback' => "GetNameCategory"],
                             'GetEqual' => ['label' => z_language('So sánh', false), 'type' => 'text','callback' => "GetEqual"],
-                            'value_start' => ['label' => z_language('Start', false), 'type' => 'number'],
-                            'value_end' => ['label' => z_language('End', false), 'type' => 'number'],
+                            'value_start' => ['label' => z_language('Bắt đầu', false), 'type' => 'number'],
+                            'value_end' => ['label' => z_language('Kết thúc', false), 'type' => 'number'],
                             'GetUnit' => ['label' => z_language('Đơn vị', false), 'type' => 'status','callback' => "GetUnit"],
                             'created_at' => ['label' => z_language('Tạo luc', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Sửa lúc', false), 'type' => 'date'],
@@ -303,9 +292,9 @@
                     'pagination' => [
                         'item' => 20,
                         'router' => [
-                            'edit' => ['label' => z_language('Edit', false), 'name' => "backend:user:edit", 'par' => ['id' => 'id']],
+                            'edit' => ['label' => z_language('Sửa', false), 'name' => "backend:user:edit", 'par' => ['id' => 'id']],
 
-                            'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:user:delete", 'par' => ['id' => 'id']],
+                            'trash' => ['method' => 'post', 'label' => z_language('Xóa', false), 'name' => "backend:user:delete", 'par' => ['id' => 'id']],
                         ]
                     ],
                     'config' => [
@@ -343,7 +332,7 @@
                 'config' => [
                     'columns' => [
                         'lists' => [
-                            'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
+                            'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
                             'tracking_id' => ['label' => z_language('Mã kiểm tra', false), 'type' => 'number'],
                             'order_id' => ['label' => z_language('Mã đơn hàng', false), 'type' => 'id', 'primary' => true],
                             'type' => ['label' => z_language('Cty chuyển phát', false), 'type' => 'title'],

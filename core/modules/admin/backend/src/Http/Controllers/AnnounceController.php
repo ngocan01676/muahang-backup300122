@@ -63,12 +63,12 @@ class AnnounceController extends \Zoe\Http\ControllerBackend{
     }
     public function create(Request $request)
     {
-        $this->getcrumb()->breadcrumb("Tạo thông báo", false);
+        $this->getcrumb()->breadcrumb(z_language('Tạo thông báo'), false);
         return $this->render('announce.create', []);
     }
     public function edit($id)
     {
-        $this->getcrumb()->breadcrumb("Edit Page", false);
+        $this->getcrumb()->breadcrumb(z_language('Sửa thông báo'), false);
         $model = AnnounceModel::find($id);
         return $this->render('announce.edit', ["model" => $model]);
     }
