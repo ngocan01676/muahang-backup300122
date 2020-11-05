@@ -2961,7 +2961,8 @@
                     jexcel.getColumnNameFromId([columns.count.index, r])).innerHTML = JSON.stringify(countNew);
 
                 data.total_price = total_price;
-                data.total_price_buy = total_price_buy;
+                data.total_price_buy = total_price_buy + price_buy_sale;
+                total_price_buy =  data.total_price_buy;
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), price);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), price_buy);
