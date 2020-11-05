@@ -33,7 +33,7 @@
                             <tbody>
                                 <tr>
                                     <td colspan="4">
-                                        {!! Form::label('category_id',z_language('Công ty'), ['class' => 'Category']) !!} *
+                                        {!! Form::label('category_id',z_language('Công Ty'), ['class' => 'Category']) !!} *
                                         {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"category_id") !!}
                                     </td>
                                 </tr>
