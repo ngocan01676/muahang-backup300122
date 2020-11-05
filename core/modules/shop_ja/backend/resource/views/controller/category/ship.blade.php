@@ -1,9 +1,9 @@
 @section('content-header')
     <h1>
-        &starf; {!! @z_language(["Công ty"]) !!}
+        &starf; {!! @z_language(["Công Ty"]) !!}
         <small>it all starts here</small>
         <a href="#" id="btnCreate"
-           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
+           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Thêm mới"]) !!} </a>
     </h1>
 @endsection
 @section('content')

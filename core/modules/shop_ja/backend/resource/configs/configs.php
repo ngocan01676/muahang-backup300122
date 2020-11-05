@@ -192,7 +192,7 @@
                     'columns' => [
                         'lists' => [
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
-                            'GetNameCategory' => ['label' => z_language('Công ty', false), 'type' => 'title','callback' => "GetNameCategory"],
+                            'GetNameCategory' => ['label' => z_language('Công Ty', false), 'type' => 'title','callback' => "GetNameCategory"],
                             'GetEqual' => ['label' => z_language('So sánh', false), 'type' => 'text','callback' => "GetEqual"],
                             'value_start' => ['label' => z_language('Bắt đầu', false), 'type' => 'number'],
                             'value_end' => ['label' => z_language('Kết thúc', false), 'type' => 'number'],
