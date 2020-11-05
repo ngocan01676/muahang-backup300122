@@ -116,7 +116,7 @@ class OrderExcelModel extends Model
       //  foreach ($lists as $key=>$value){
            $shop_order_excel =  DB::table('shop_order_excel')
                ->where('public',1)
-               ->where('company', $company )
+//               ->where('company', $company )
                ->where('order_create_date','>=',$date_last." 00:00:00")
                ->where('order_create_date','<=',$date." 23:59:59")->orderBy('sort');
 

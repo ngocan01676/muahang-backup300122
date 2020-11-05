@@ -189,7 +189,98 @@
 
         let hideprototy = {!! json_encode($hide,JSON_UNESCAPED_UNICODE) !!}
 
-
+            let columnsWidth = {
+     status: {
+      width:"30px",
+     },
+     image:{
+      width:"50px",
+     },
+     timeCreate:{
+      width:'90px',
+     },
+     payMethod:{
+      width:'90px',
+     },
+     phone:{
+      width:'90px',
+     },
+     zipcode:{
+      width:'60px',
+     },
+     province:{
+      width:'150px',
+     },
+     address:{
+      width:'150px',
+     },
+     fullname:{
+      width:'150px',
+     },
+     product_id:{
+      width:'50px',
+     },
+     product_name:{
+      width:'140px',
+     },
+     count:{
+      width:'50px',
+     },
+     price:{
+      width:'70px',
+     },
+     price_buy:{
+      width:'70px',
+     },
+     order_date:{
+      width:'80px',
+     },
+     order_hours:{
+      width:'100px',
+     },
+     order_ship:{
+      width:'80px',
+     },
+     order_total_price:{
+      width:'100px',
+     },
+     price_buy_sale:{
+      width:'80px',
+     },
+     order_total_price_buy:{
+      width:'100px',
+     },
+     order_ship_cou:{
+      width:'100px',
+     },
+     order_price:{
+      width:'100px',
+     },
+     order_rate:{
+      width:'80px',
+     },
+     order_tracking:{
+      width:'100px',
+     },
+     order_link:{
+      width:'100px',
+     },
+     order_info:{
+      width:'100px',
+     },
+     one_address: {
+      width:'30px',
+     },
+     id:{
+      width:'100px',
+     },
+     session_id:{
+      width:'1px',
+     },
+     export:{
+      width:'50px',
+     },
+    };
     function IF_End($val,$conf){
         if( $conf.equal_end === "<=" && $val <= $conf.value_end){
             return true;
@@ -331,16 +422,16 @@
         let index = 0;
 
         let columns = {
-            status: {
-                type: 'checkbox',
-                title:'Status'
-            },
-            image:{
-                title:'Image',
-                type:'image',
-                width:"50px",
-                hide:true,
-            },
+          status: {
+           type: 'checkbox',
+           title:'Trạng thái'
+          },
+          image:{
+           title:'Ảnh',
+           type:'image',
+           width:"50px",
+           key:"demo",
+          },
             timeCreate:{
                 title: 'ngày đặt hàng',//A ngày đặt hàng
                 type: 'calendar',
@@ -544,6 +635,8 @@
             index++;
             if(hide.hasOwnProperty(i)){
                 columns[i].width =hide[i]+"px";
+            }else if(columnsWidth.hasOwnProperty(i)){
+             columns[i].width =columnsWidth[i].width;
             }
         }
         function update(instance, cell, c, r, value) {
@@ -977,16 +1070,16 @@
         let index = 0;
 
         let columns = {
-            status: {
-                type: 'checkbox',
-                title:'Status'
-            },
-            image:{
-                title:'Image',
-                type:'image',
-                width:"50px",
-                key:"demo",
-            },
+         status: {
+          type: 'checkbox',
+          title:'Trạng thái'
+         },
+         image:{
+          title:'Ảnh',
+          type:'image',
+          width:"50px",
+          key:"demo",
+         },
             timeCreate:{
                 title: 'ngày đặt hàng',//A ngày đặt hàng
                 type: 'calendar',
@@ -1224,6 +1317,8 @@
             index++;
             if(hide.hasOwnProperty(i)){
                 columns[i].width =hide[i]+"px";
+            }else if(columnsWidth.hasOwnProperty(i)){
+             columns[i].width =columnsWidth[i].width;
             }
         }
 
@@ -2363,16 +2458,16 @@
             }
         }
         let columns = {
-            status: {
-                type: 'checkbox',
-                title:'Status'
-            },
-            image:{
-                title:'Image',
-                type:'image',
-                width:"50px",
-                key:"demo",
-            },
+         status: {
+          type: 'checkbox',
+          title:'Trạng thái'
+         },
+         image:{
+          title:'Ảnh',
+          type:'image',
+          width:"50px",
+          key:"demo",
+         },
             timeCreate:{
                 title: 'ngày đặt hàng',//A ngày đặt hàng
                 type: 'calendar',
@@ -2567,7 +2662,7 @@
         let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
         for(var i in columns){
             columns[i].index = index;
-            columns[i].title = i+"[ "+jexcel.getColumnName(index)+" ]-"+columns[i].title+"-"+index;
+         
             columns[i].key = i;
             let v = setDefaultValue(i,columns);
             if(v[0]){
@@ -2578,6 +2673,8 @@
             index++;
             if(hide.hasOwnProperty(i)){
                 columns[i].width =hide[i]+"px";
+            }else if(columnsWidth.hasOwnProperty(i)){
+             columns[i].width =columnsWidth[i].width;
             }
         }
         function update(instance, cell, c, r, value) {
@@ -3150,16 +3247,16 @@
         let index = 0;
 
         let columns = {
-            status: {
-                type: 'checkbox',
-                title:'Status'
-            },
-            image:{
-                title:'Image',
-                type:'image',
-                width:"50px",
-                key:"demo",
-            },
+         status: {
+          type: 'checkbox',
+          title:'Trạng thái'
+         },
+         image:{
+          title:'Ảnh',
+          type:'image',
+          width:"50px",
+          key:"demo",
+         },
             timeCreate:{
                 title: 'ngày đặt hàng',//A ngày đặt hàng
                 type: 'calendar',
@@ -3361,6 +3458,8 @@
             index++;
             if(hide.hasOwnProperty(i)){
                 columns[i].width =hide[i]+"px";
+            }else if(columnsWidth.hasOwnProperty(i)){
+             columns[i].width =columnsWidth[i].width;
             }
         }
         function update(instance, cell, c, r, value) {
@@ -3793,16 +3892,16 @@
         let index = 0;
 
         let columns = {
-            status: {
-                type: 'checkbox',
-                title:'Status'
-            },
-            image:{
-                title:'Image',
-                type:'image',
-                width:"50px",
-                key:"demo",
-            },
+         status: {
+          type: 'checkbox',
+          title:'Trạng thái'
+         },
+         image:{
+          title:'Ảnh',
+          type:'image',
+          width:"50px",
+          key:"demo",
+         },
             timeCreate:{
                 title: 'ngày đặt hàng',//A ngày đặt hàng
                 type: 'calendar',
@@ -4004,6 +4103,8 @@
             index++;
             if(hide.hasOwnProperty(i)){
                 columns[i].width =hide[i]+"px";
+            }else if(columnsWidth.hasOwnProperty(i)){
+             columns[i].width =columnsWidth[i].width;
             }
         }
         function update(instance, cell, c, r, value) {

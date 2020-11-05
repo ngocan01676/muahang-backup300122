@@ -1524,7 +1524,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }
         }
 
-        $this->getCrumb()->breadcrumb(z_language("Sửa"), route('backend:shop_ja:order:excel:create'));
+
         $id = $request->id;
         $model = OrderExcelModel::find($id);
         $this->GetCache('edit',$id,"",$model->key_date);
@@ -1584,7 +1584,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $date = explode("/",$date);
             $date = $date[2].'-'.$date[1].'-'.$date[0];
 
-            $this->GetCache('show',0,$company,$date);
+            $this->GetCache('show',0,"",$date);
             $this->getCrumb()->breadcrumb(z_language("Xuất :COMPANY",["COMPANY"=>$company]), route('backend:shop_ja:order:excel:show'));
             $model = new OrderExcelModel();
             $datas = $model->ShowAll(Auth::user()->id,$date,$company,$type);

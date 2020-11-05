@@ -332,12 +332,12 @@ class Excel{
         $styleArray = array(
             'font'  => array(
                 'size'  => 9,
-                'name' => 'Times New Roman'
+                'name' => 'Calibri'
             ));
         $style_header = array(
             'fill' => array(
                 'fillType' => Fill::FILL_SOLID,
-                'color' => array('rgb'=>'FFE100'),
+                'color' => array('rgb'=>'ffff00'),
             ),
             'borders' => [
                 'allBorders' => array(
@@ -346,15 +346,16 @@ class Excel{
                 ),
             ],
             'font' => array(
-                'size' => 10
+                'size' => 9,
+                'name' => 'Calibri'
             )
         );
         $sheet->getStyle('B1')->applyFromArray($styleArray);
         $sheet->getStyle('F2')->applyFromArray($styleArray);
         $sheet->getStyle('P2')->applyFromArray(array(
                 'font'  => array(
-                    'size'  => 9,
-                    'name' => 'Times New Roman',
+                    'size' => 9,
+                    'name' => 'Calibri',
                     'color' => array('rgb' => '0070c0'),
                 ),
             )
@@ -384,7 +385,8 @@ class Excel{
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
-                        'size'  => $value[3]
+                        'size' => 9,
+                        'name' => 'Calibri',
                     ),
                 )
             );
@@ -454,16 +456,25 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
 
-                        'name' => 'Times New Roman',
+                        'size' => 9,
+                        'name' => 'Calibri',
                         'color' => array('rgb' => '0070c0'),
                     ),
                 ) );
             }else  if($payMethod == "決済不要"){
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
-
-                        'name' => 'Times New Roman',
+                        'size' => 9,
+                        'name' => 'Calibri',
                         'color' => array('rgb' => 'ff0000'),
+                    ),
+                ) );
+            }else{
+                $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                    'font'  => array(
+                        'size' => 9,
+                        'name' => 'Calibri',
+
                     ),
                 ) );
             }
@@ -472,6 +483,8 @@ class Excel{
 
         $sheet->getStyle('K6:K'.$start)->applyFromArray(array(
                 'font'  => array(
+                    'size' => 9,
+                    'name' => 'Calibri',
                     'color' => array('rgb' => 'ff0000'),
                 ),
             )
@@ -521,10 +534,30 @@ class Excel{
 
                 if(empty($image[1])){
                     $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                    $newName = $path .'/'. $file_image;
+                    if($this->file->exists(public_path().'/'.$newName)){
+                        for($i=1;$i<100;$i++){
+                            $file_image = $pathinfo['filename'].'('.$i.')'.'.'.$pathinfo['extension'];
+                            $newName = $path .'/'. $file_image;
+                            if(!$this->file->exists(public_path().'/'.$newName)){
+                                break;
+                            }
+                        }
+                    }
                 }else{
                     $file_image = $image[1].'.'.$pathinfo['extension'];
+                    $newName = $path .'/'. $file_image;
+                    if($this->file->exists(public_path().'/'.$newName)){
+                        for($i=1;$i<100;$i++){
+                            $file_image = $image[1].'('.$i.')'.'.'.$pathinfo['extension'];
+                            $newName = $path .'/'. $file_image;
+                            if(!$this->file->exists(public_path().'/'.$newName)){
+                                break;
+                            }
+                        }
+                    }
                 }
-                $newName = $path .'/'. $file_image;
+
                 $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
                 $files[] = [
                     $file_image,public_path().'/'.$newName
@@ -546,7 +579,6 @@ class Excel{
         return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
     }
-
     public function OHGA($datas){
 
         $spreadsheet = new Spreadsheet();
@@ -574,12 +606,12 @@ class Excel{
         $styleArray = array(
             'font'  => array(
                 'size'  => 9,
-                'name' => 'Times New Roman'
+                'name' => 'Calibri'
             ));
         $style_header = array(
             'fill' => array(
                 'fillType' => Fill::FILL_SOLID,
-                'color' => array('rgb'=>'FFE100'),
+                'color' => array('rgb'=>'ffff00'),
             ),
             'borders' => [
                 'allBorders' => array(
@@ -588,7 +620,8 @@ class Excel{
                 ),
             ],
             'font' => array(
-                'size' => 10
+                'size'  => 9,
+                'name' => 'Calibri'
             )
         );
         $sheet->getStyle('B1')->applyFromArray($styleArray);
@@ -596,7 +629,7 @@ class Excel{
         $sheet->getStyle('P2')->applyFromArray(array(
                 'font'  => array(
                     'size'  => 9,
-                    'name' => 'Times New Roman',
+                    'name' => 'Calibri',
                     'color' => array('rgb' => '0070c0'),
                 ),
             )
@@ -616,7 +649,7 @@ class Excel{
             ["商品名",['product'=>['product_name','title']],18,9],//I
             ["単価",'price',15,9],//J
             ["数量",'count',15,9],//K
-            ["到着希望日",'order_date',15,9],//L
+            ["到着希望日",['callback'=>function($index,$date) use($date_export){return date("d/m/y", $date_export->date);},'key'=>'order_date'],15,9],
             ["配送希望時間帯",'order_hours',15,9],//M
             ["別途送料",'order_ship',15,9],//N
             ["仕入金額",'order_total_price',15,9],//O
@@ -633,7 +666,8 @@ class Excel{
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
-                        'size'  => $value[3]
+                        'size'  => 9,
+                        'name' => 'Calibri'
                     ),
                 )
             );
@@ -709,7 +743,7 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Times New Roman',
+                        'name' => 'Calibri',
                         'color' => array('rgb' => '0070c0'),
                     ),
                 ) );
@@ -717,8 +751,16 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Times New Roman',
+                        'name' => 'Calibri',
                         'color' => array('rgb' => 'ff0000'),
+                    ),
+                ) );
+            }else{
+                $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                    'font'  => array(
+                        'size'  => 9,
+                        'name' => 'Calibri',
+
                     ),
                 ) );
             }
@@ -762,10 +804,30 @@ class Excel{
 
                 if(empty($image[1])){
                     $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                    $newName = $path .'/'. $file_image;
+                    if($this->file->exists(public_path().'/'.$newName)){
+                        for($i=1;$i<100;$i++){
+                            $file_image = $pathinfo['filename'].'('.$i.')'.'.'.$pathinfo['extension'];
+                            $newName = $path .'/'. $file_image;
+                            if(!$this->file->exists(public_path().'/'.$newName)){
+                                break;
+                            }
+                        }
+                    }
                 }else{
                     $file_image = $image[1].'.'.$pathinfo['extension'];
+                    $newName = $path .'/'. $file_image;
+                    if($this->file->exists(public_path().'/'.$newName)){
+                        for($i=1;$i<100;$i++){
+                            $file_image = $image[1].'('.$i.')'.'.'.$pathinfo['extension'];
+                            $newName = $path .'/'. $file_image;
+                            if(!$this->file->exists(public_path().'/'.$newName)){
+                                break;
+                            }
+                        }
+                    }
                 }
-                $newName = $path .'/'. $file_image;
+
                 $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
                 $files[] = [
                     $file_image,public_path().'/'.$newName
@@ -809,12 +871,12 @@ class Excel{
         $styleArray = array(
             'font'  => array(
                 'size'  => 9,
-                'name' => 'Times New Roman'
+                'name' => 'Calibri'
             ));
         $style_header = array(
             'fill' => array(
                 'fillType' => Fill::FILL_SOLID,
-                'color' => array('rgb'=>'FFE100'),
+                'color' => array('rgb'=>'ffff00'),
             ),
             'borders' => [
                 'allBorders' => array(
@@ -823,7 +885,8 @@ class Excel{
                 ),
             ],
             'font' => array(
-                'size' => 10
+                'size'  => 9,
+                'name' => 'Calibri'
             )
         );
         $sheet->getStyle('B1')->applyFromArray($styleArray);
@@ -831,7 +894,7 @@ class Excel{
         $sheet->getStyle('P2')->applyFromArray(array(
                 'font'  => array(
                     'size'  => 9,
-                    'name' => 'Times New Roman',
+                    'name' => 'Calibri',
                     'color' => array('rgb' => '0070c0'),
                 ),
             )
@@ -878,7 +941,8 @@ class Excel{
             }
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
-                        'size'  => $value[3]
+                        'size'  => 9,
+                        'name' => 'Calibri'
                     ),
                 )
             );
@@ -937,17 +1001,25 @@ class Excel{
             if($payMethod == "銀行振込"){
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
-//                        'size'  => 9,
-                        'name' => 'Times New Roman',
+                        'size'  => 9,
+                        'name' => 'Calibri',
                         'color' => array('rgb' => '0070c0'),
                     ),
                 ) );
             }else  if($payMethod == "決済不要"){
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
-//                        'size'  => 9,
-                        'name' => 'Times New Roman',
+                        'size'  => 9,
+                        'name' => 'Calibri',
                         'color' => array('rgb' => 'ff0000'),
+                    ),
+                ) );
+            }else{
+                $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                    'font'  => array(
+                        'size'  => 9,
+                        'name' => 'Calibri',
+
                     ),
                 ) );
             }
@@ -988,10 +1060,30 @@ class Excel{
 
                 if(empty($image[1])){
                     $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                    $newName = $path .'/'. $file_image;
+                    if($this->file->exists(public_path().'/'.$newName)){
+                        for($i=1;$i<100;$i++){
+                            $file_image = $pathinfo['filename'].'('.$i.')'.'.'.$pathinfo['extension'];
+                            $newName = $path .'/'. $file_image;
+                            if(!$this->file->exists(public_path().'/'.$newName)){
+                                break;
+                            }
+                        }
+                    }
                 }else{
                     $file_image = $image[1].'.'.$pathinfo['extension'];
+                    $newName = $path .'/'. $file_image;
+                    if($this->file->exists(public_path().'/'.$newName)){
+                        for($i=1;$i<100;$i++){
+                            $file_image = $image[1].'('.$i.')'.'.'.$pathinfo['extension'];
+                            $newName = $path .'/'. $file_image;
+                            if(!$this->file->exists(public_path().'/'.$newName)){
+                                break;
+                            }
+                        }
+                    }
                 }
-                $newName = $path .'/'. $file_image;
+
                 $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
                 $files[] = [
                     $file_image,public_path().'/'.$newName
@@ -1032,12 +1124,12 @@ class Excel{
         $styleArray = array(
             'font'  => array(
                 'size'  => 9,
-                'name' => 'Times New Roman'
+                'name' => 'Calibri'
             ));
         $style_header = array(
             'fill' => array(
                 'fillType' => Fill::FILL_SOLID,
-                'color' => array('rgb'=>'FFE100'),
+                'color' => array('rgb'=>'ffff00'),
             ),
             'borders' => [
                 'allBorders' => array(
@@ -1046,7 +1138,8 @@ class Excel{
                 ),
             ],
             'font' => array(
-                'size' => 10
+                'size'  => 9,
+                'name' => 'Calibri'
             )
         );
         $sheet->getStyle('B1')->applyFromArray($styleArray);
@@ -1108,15 +1201,19 @@ class Excel{
                         $array_count = [];
                     }
                     $total_count = 0;
-
-                    foreach ($array_count as $pro_id=>$_count){
-                        if(isset( $products[$pro_id])){
-                            $total_count+=(int)$_count;
+                    if(is_array($array_count)){
+                        foreach ($array_count as $pro_id=>$_count){
+                            if(isset( $products[$pro_id])){
+                                $total_count+=(int)$_count;
+                            }
                         }
+                    }else{
+                        $total_count = $array_count;
                     }
+
                     return $total_count;
                     },'key'=>'count'],15,9],//SL
-                ["到着希望日",'order_date',15,9],//Ngày nhận
+                ["到着希望日",['callback'=>function($index,$date) use($date_export){return date("d/m/y", $date_export->date);},'key'=>'order_date'],15,9],//Ngày nhận
                 ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
                 ["送料",'order_ship',15,9],//Phí ship
                 ["仕入金額",'order_total_price',15,9],//Giá bán
@@ -1142,7 +1239,8 @@ class Excel{
                 }
                 $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                         'font'  => array(
-                            'size'  => $value[3]
+                            'size'  => 9,
+                            'name' => 'Calibri'
                         ),
                     )
                 );
@@ -1209,17 +1307,25 @@ class Excel{
                 if($payMethod == "銀行振込"){
                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                         'font'  => array(
-//                        'size'  => 9,
-                            'name' => 'Times New Roman',
+                            'size'  => 9,
+                            'name' => 'Calibri',
                             'color' => array('rgb' => '0070c0'),
                         ),
                     ) );
                 }else  if($payMethod == "決済不要"){
                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                         'font'  => array(
-//                        'size'  => 9,
-                            'name' => 'Times New Roman',
+                            'size'  => 9,
+                            'name' => 'Calibri',
                             'color' => array('rgb' => 'ff0000'),
+                        ),
+                    ) );
+                }else{
+                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                        'font'  => array(
+                            'size'  => 9,
+                            'name' => 'Calibri',
+//                            'color' => array('rgb' => 'ff0000'),
                         ),
                     ) );
                 }
@@ -1292,10 +1398,31 @@ class Excel{
 
                 if(empty($image[1])){
                     $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                    $newName = $path .'/'. $file_image;
+                    if($this->file->exists(public_path().'/'.$newName)){
+                        for($i=1;$i<100;$i++){
+                            $file_image = $pathinfo['filename'].'('.$i.')'.'.'.$pathinfo['extension'];
+                            $newName = $path .'/'. $file_image;
+                            if(!$this->file->exists(public_path().'/'.$newName)){
+                                break;
+                            }
+                        }
+                    }
                 }else{
                     $file_image = $image[1].'.'.$pathinfo['extension'];
+                    $newName = $path .'/'. $file_image;
+                    if($this->file->exists(public_path().'/'.$newName)){
+                        for($i=1;$i<100;$i++){
+                            $file_image = $image[1].'('.$i.')'.'.'.$pathinfo['extension'];
+                            $newName = $path .'/'. $file_image;
+                            if(!$this->file->exists(public_path().'/'.$newName)){
+                                break;
+                            }
+                        }
+                    }
                 }
-                $newName = $path .'/'. $file_image;
+
+
                 $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
                 $files[] = [
                     $file_image,public_path().'/'.$newName
@@ -1334,18 +1461,14 @@ class Excel{
             ->setCreator('php-download.com')
             ->setLastModifiedBy('php-download.com');
 
-        $sheet->setCellValue('B1', '株式会社コギ家　様 注文フォーマット');
 
 
-        $styleArray = array(
-            'font'  => array(
-                'size'  => 9,
-                'name' => 'Times New Roman'
-            ));
+
+
         $style_header = array(
             'fill' => array(
                 'fillType' => Fill::FILL_SOLID,
-                'color' => array('rgb'=>'FFE100'),
+                'color' => array('rgb'=>'ffff00'),
             ),
             'borders' => [
                 'allBorders' => array(
@@ -1354,10 +1477,11 @@ class Excel{
                 ),
             ],
             'font' => array(
-                'size' => 10
+                'size'  => 9,
+                'name' => 'Calibri'
             )
         );
-        $sheet->getStyle('B1')->applyFromArray($styleArray);
+
         $start=2;
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $date_export = new \stdClass();
@@ -1365,6 +1489,16 @@ class Excel{
         $images = [];
         $ids = [];
         for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
+            $styleArray = array(
+                'font'  => array(
+                    'size'  => 9,
+                    'name' => 'Calibri',
+                    'color' => array('rgb' => 'ff0000'),
+                ));
+            $sheet->setCellValue( PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(2).$start, '※1キロずつの小分けをお願いします。');
+            $sheet->getStyle(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(2).$start)->applyFromArray($styleArray);
+
+            $start++;
             $colums = [
                 ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
@@ -1377,7 +1511,7 @@ class Excel{
                 ["商品名",['product'=>['product_name','title']],18,9],//I
                 ["単価",'price',15,9],//Giá nhập
                 ["数量",'count',15,9],//SL
-                ["到着希望日",'order_date',15,9],//Ngày nhận
+                ["到着希望日",['callback'=>function($index,$date) use($date_export){return date("d/m/y", $date_export->date);},'key'=>'order_date'],15,9],
                 ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
                 ["送料",'order_ship',15,9],//Phí ship
                 ["梱包材",'total_count',15,9],//Tổng giá nhập
@@ -1470,26 +1604,32 @@ class Excel{
                                         }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                                             $conf = $value[1]['callback'];
                                             $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start]);
-                                            if($value[1]['key'] == "timeCreate" && $type != "Info"){
+                                            if(($value[1]['key'] == "timeCreate" || $value[1]['key'] == "order_date") && $type != "Info"  ){
                                                 $_val = "";
                                             }
                                         }
+                                        if($_val == 0) $_val = "";
                                         $sheet->setCellValue($nameCol.$start,$_val);
                                     }else{
+
                                         if($type == "Footer"){
-                                            if(!($value[1]=="count" || $value[1]=="order_price" || $value[1] == "order_total_price") ) continue;
+                                            if(!($value[1]=="count" || $value[1]=="order_price" || $value[1] == "order_total_price" )) continue;
                                             $sheet->getStyle($nameCol.$start)->applyFromArray( array(
                                                 'font'  => array(
                                                     'size'  => 9,
-                                                    'name' => 'Times New Roman',
+                                                    'name' => 'Calibri',
                                                     'color' => array('rgb' => 'ff0000'),
                                                 ),
                                             ) );
+                                            $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
+                                        }else{
+                                            $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
                                         }
-                                        $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
+
                                         if($value[1] == "payMethod"){
                                             $payMethod = $v;
                                         }
+                                        if($v == 0) $v = "";
                                         $sheet->setCellValue($nameCol.$start,$v);
                                     }
                                 }
@@ -1498,17 +1638,25 @@ class Excel{
                                 if($pay_Method == "銀行振込"){
                                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                                         'font'  => array(
-
-                                            'name' => 'Times New Roman',
+                                            'size'  => 9,
+                                            'name' => 'Calibri',
                                             'color' => array('rgb' => '0070c0'),
                                         ),
                                     ) );
                                 }else  if($payMethod == "決済不要"){
                                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                                         'font'  => array(
-
-                                            'name' => 'Times New Roman',
+                                            'size'  => 9,
+                                            'name' => 'Calibri',
                                             'color' => array('rgb' => 'ff0000'),
+                                        ),
+                                    ) );
+                                }else{
+                                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                                        'font'  => array(
+                                            'size'  => 9,
+                                            'name' => 'Calibri',
+
                                         ),
                                     ) );
                                 }
@@ -1523,14 +1671,16 @@ class Excel{
                             $_2 =  PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"]+1).($start-2);
                             $sheet->getStyle($_1.':'.$_2)->applyFromArray(   array(
 
-                                'borders' => [
-                                    'allBorders' => array(
-                                        'borderStyle' => Border::BORDER_DOTTED,
-                                        'color' => array('rgb'=>'000000')
-                                    ),
-                                ],
+//                                'borders' => [
+//                                    'allBorders' => array(
+//                                        'borderStyle' => Border::BORDER_DOTTED,
+//                                        'color' => array('rgb'=>'000000')
+//                                    ),
+//                                ],
                                 'font' => array(
                                     'color' => array('rgb' => '0070c0'),
+                                    'size'  => 9,
+                                    'name' => 'Calibri',
                                 )
                             ) );
                             foreach (["timeCreate","fullname","payMethod",'zipcode','province','address','phone','order_date','order_hours'] as $col){
@@ -1613,10 +1763,30 @@ class Excel{
 
                 if(empty($image[1])){
                     $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
+                    $newName = $path .'/'. $file_image;
+                    if($this->file->exists(public_path().'/'.$newName)){
+                        for($i=1;$i<100;$i++){
+                            $file_image = $pathinfo['filename'].'('.$i.')'.'.'.$pathinfo['extension'];
+                            $newName = $path .'/'. $file_image;
+                            if(!$this->file->exists(public_path().'/'.$newName)){
+                                break;
+                            }
+                        }
+                    }
                 }else{
                     $file_image = $image[1].'.'.$pathinfo['extension'];
+                    $newName = $path .'/'. $file_image;
+                    if($this->file->exists(public_path().'/'.$newName)){
+                        for($i=1;$i<100;$i++){
+                            $file_image = $image[1].'('.$i.')'.'.'.$pathinfo['extension'];
+                            $newName = $path .'/'. $file_image;
+                            if(!$this->file->exists(public_path().'/'.$newName)){
+                                break;
+                            }
+                        }
+                    }
                 }
-                $newName = $path .'/'. $file_image;
+
                 $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
                 $files[] = [
                     $file_image,public_path().'/'.$newName

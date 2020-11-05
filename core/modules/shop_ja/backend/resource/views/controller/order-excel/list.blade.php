@@ -2,8 +2,14 @@
     <h1>
         &starf; {!! @z_language(["Chức năng quản lý đơn hàng"]) !!}
         <small>it all starts here</small>
-        {{--<a href="{{route('backend:shop_ja:order:excel:create')}}"--}}
-           {{--class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Tạo đơn"]) !!} </a>--}}
+        <a href="#" onclick="open_edit('now');"
+           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i>
+            {!! @z_language(["Tạo đơn hôm nay"]) !!}
+        </a>
+        <a href="#" onclick="open_edit('next');"
+           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i>
+            {!! @z_language(["Tạo đơn mai"]) !!}
+        </a>
         @btn_option(["config"=>['name'=>'module:shop_ja:order:excel']])
         @slot('label')
             {{@z_language(["Cấu hình"])}}
@@ -173,6 +179,15 @@
     <script src="{{ asset('module/admin/assets/moment.min.js') }}"></script>
     <script src="{{ asset('module/admin/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script>
+        function open_edit(type) {
+            let date;
+            if(type === "now"){
+                 date = "{!! date('d-m-Y') !!}";
+            }else{
+                date = "{!! date('d-m-Y',strtotime('+1 day')) !!}";
+            }
+            console.log(date);
+        }
         // $('#reservation').daterangepicker({
         //     //singleDatePicker: true,
         //     //showDropdowns: true

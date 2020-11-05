@@ -47,8 +47,14 @@
             <tr>
                 <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
                 <td style="width: 95%">
-                    <input type="text" class="form-control" id="value-review">
-                    <div id="zoe-dropdown-review" style="display: none"></div>
+
+                    <input type="text" class="form-control onselection" id="value-review">
+                    <div class="onselection" id="zoe-dropdown-review" style="display: none"></div>
+
+                    <div class="onselection" id="info_payment">
+
+                    </div>
+
                 </td>
             </tr>
         </table>
@@ -1206,7 +1212,7 @@
                     change = {col:x1,row:y1};
 
                     var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
-
+                    $('.onselection').hide();
                     $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
                     let val = instance.jexcel.getValue(cellName1);
 
@@ -1225,7 +1231,62 @@
                             },
                         }).setValue(val);
 
-                    }else{
+                    }else if(columns_index[x1].key === "order_info"){
+
+                        //NGUYEN V 様 00 日に 0000 円入金済み
+                        let vals = val.split(' ');
+                        console.log(vals);
+                        $("#info_payment").show();
+                        let html  = "<table>";
+                        html+="<tr>";
+
+                        html+="<th>";
+                        html+='<input type="text" class="form-control name" value="'+(vals[0]?vals[0]:"")+'">';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='様';
+                        html+="</th>";
+                        html+="<th>";
+                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='日に';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='円入金済み';
+                        html+="</th>";
+
+                        html+="<td>";
+                        html+='&nbsp;<button type="button" class="btn">{!! z_language('Lưu') !!}</button>';
+                        html+="</td>";
+                        html+="</tr>";
+                        html+="</table>";
+                        var dom = $(html);
+                        dom.find('button').click(function () {
+                            let th = dom.find('tr th');
+                            let vals = "";
+                            console.log(th);
+                            for(let i = 0; i< th.length ; i++){
+                                if(i%2===0){
+                                    vals+=" "+$(th[i]).find('input').val().trim();
+                                }else{
+                                    vals+=" "+$(th[i]).text().trim();
+                                }
+                            }
+                            setTimeout(function () {
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), vals.trim());
+                            },1000);
+                        });
+                        $("#info_payment").html(dom);
+                    }
+                    else{
                         $("#value-review").show().val("");
                         $("#zoe-dropdown-review").hide();
                         $("#value-review").prop("disabled",false );
@@ -2360,7 +2421,7 @@
 
                     console.log(change);
                     var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
-
+                    $('.onselection').hide();
                     $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
                     let val = instance.jexcel.getValue(cellName1);
 
@@ -2377,7 +2438,62 @@
                                // instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
                             },
                         }).setValue(val);
-                    }else{
+                    }else if(columns_index[x1].key === "order_info"){
+
+                        //NGUYEN V 様 00 日に 0000 円入金済み
+                        let vals = val.split(' ');
+                        console.log(vals);
+                        $("#info_payment").show();
+                        let html  = "<table>";
+                        html+="<tr>";
+
+                        html+="<th>";
+                        html+='<input type="text" class="form-control name" value="'+(vals[0]?vals[0]:"")+'">';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='様';
+                        html+="</th>";
+                        html+="<th>";
+                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='日に';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='円入金済み';
+                        html+="</th>";
+
+                        html+="<td>";
+                        html+='&nbsp;<button type="button" class="btn">{!! z_language('Lưu') !!}</button>';
+                        html+="</td>";
+                        html+="</tr>";
+                        html+="</table>";
+                        var dom = $(html);
+                        dom.find('button').click(function () {
+                            let th = dom.find('tr th');
+                            let vals = "";
+                            console.log(th);
+                            for(let i = 0; i< th.length ; i++){
+                                if(i%2===0){
+                                    vals+=" "+$(th[i]).find('input').val().trim();
+                                }else{
+                                    vals+=" "+$(th[i]).text().trim();
+                                }
+                            }
+                            setTimeout(function () {
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), vals.trim());
+                            },1000);
+                        });
+                        $("#info_payment").html(dom);
+                    }
+                    else{
                         lock[y1] = 1;
                         $("#value-review").show().val("");
                         $("#zoe-dropdown-review").hide();
@@ -3168,7 +3284,7 @@
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), 0);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]), 0);
                     }else if(payMethod == 2){
-                        let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship));
+                        let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship)) - 330;
 
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
@@ -3473,7 +3589,7 @@
 
                         var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
                         let cell = instance.jexcel.getCell(cellName1);
-
+                            $(".onselection").hide();
                             let val = instance.jexcel.getValue(cellName1);
                             $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
                              console.log("ACTION");
@@ -3498,7 +3614,62 @@
                                     },
                                 }).setValue(val);
                                 }
-                            }else{
+                            }else if(columns_index[x1].key === "order_info"){
+
+                                //NGUYEN V 様 00 日に 0000 円入金済み
+                                let vals = val.split(' ');
+                                console.log(vals);
+                                $("#info_payment").show();
+                                let html  = "<table>";
+                                html+="<tr>";
+
+                                html+="<th>";
+                                html+='<input type="text" class="form-control name" value="'+(vals[0]?vals[0]:"")+'">';
+                                html+="</th>";
+
+                                html+="<th>";
+                                html+='様';
+                                html+="</th>";
+                                html+="<th>";
+                                html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                                html+="</th>";
+
+                                html+="<th>";
+                                html+='日に';
+                                html+="</th>";
+
+                                html+="<th>";
+                                html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                                html+="</th>";
+
+                                html+="<th>";
+                                html+='円入金済み';
+                                html+="</th>";
+
+                                html+="<td>";
+                                html+='&nbsp;<button type="button" class="btn">{!! z_language('Lưu') !!}</button>';
+                                html+="</td>";
+                                html+="</tr>";
+                                html+="</table>";
+                                var dom = $(html);
+                                dom.find('button').click(function () {
+                                    let th = dom.find('tr th');
+                                    let vals = "";
+                                    console.log(th);
+                                    for(let i = 0; i< th.length ; i++){
+                                        if(i%2===0){
+                                            vals+=" "+$(th[i]).find('input').val().trim();
+                                        }else{
+                                            vals+=" "+$(th[i]).text().trim();
+                                        }
+                                    }
+                                    setTimeout(function () {
+                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), vals.trim());
+                                    },1000);
+                                });
+                                $("#info_payment").html(dom);
+                            }
+                            else{
                                 change = {col:x1,row:y1};
                                 $("#value-review").show().val("");
                                 $("#zoe-dropdown-review").hide();
@@ -3599,7 +3770,6 @@
                     if(value.toString().length == 0){
                         return;
                     }
-
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col === c){
@@ -4226,7 +4396,7 @@
                     change = {col:x1,row:y1};
 
                     var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
-
+                    $('.onselection').hide();
                     $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
                     let val = instance.jexcel.getValue(cellName1);
 
@@ -4245,7 +4415,62 @@
                             },
                         }).setValue(val);
 
-                    }else{
+                    }else if(columns_index[x1].key === "order_info"){
+
+                        //NGUYEN V 様 00 日に 0000 円入金済み
+                        let vals = val.split(' ');
+                        console.log(vals);
+                        $("#info_payment").show();
+                        let html  = "<table>";
+                        html+="<tr>";
+
+                        html+="<th>";
+                        html+='<input type="text" class="form-control name" value="'+(vals[0]?vals[0]:"")+'">';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='様';
+                        html+="</th>";
+                        html+="<th>";
+                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='日に';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+="</th>";
+
+                        html+="<th>";
+                        html+='円入金済み';
+                        html+="</th>";
+
+                        html+="<td>";
+                        html+='&nbsp;<button type="button" class="btn">{!! z_language('Lưu') !!}</button>';
+                        html+="</td>";
+                        html+="</tr>";
+                        html+="</table>";
+                        var dom = $(html);
+                        dom.find('button').click(function () {
+                            let th = dom.find('tr th');
+                            let vals = "";
+                            console.log(th);
+                            for(let i = 0; i< th.length ; i++){
+                                if(i%2===0){
+                                    vals+=" "+$(th[i]).find('input').val().trim();
+                                }else{
+                                    vals+=" "+$(th[i]).text().trim();
+                                }
+                            }
+                            setTimeout(function () {
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), vals.trim());
+                            },1000);
+                        });
+                        $("#info_payment").html(dom);
+                    }
+                    else{
                         $("#value-review").show().val("");
                         $("#zoe-dropdown-review").hide();
                         $("#value-review").prop("disabled",false );
@@ -4984,7 +5209,9 @@
 
                     $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
                     let val = instance.jexcel.getValue(cellName1);
-                    
+
+                    $('.onselection').hide();
+
                     if(columns_index[x1] && columns_index[x1].type === "dropdown"){
                         $("#value-review").hide();
                        $html = $("<div>");
@@ -5000,7 +5227,59 @@
                            },
                        }).setValue(val);
 
-                    }else{
+                    }else if(columns_index[x1].key === "order_info"){
+
+                        //依頼人名. NGUYEN V 様  00 日に 0000 円入金済み
+                        let vals = val.split(' ');
+                        $("#info_payment").show();
+                        let html  = "<table>";
+                         html+="<tr>";
+                            html+="<th>";
+                                html+='依頼人名.';
+                            html+="</th>";
+                            html+="<th>";
+                            html+='<input type="text" class="form-control name" value="'+(vals[1]?vals[1]:"")+'">';
+                            html+="</th>";
+                            html+="<th>";
+                            html+='様';
+                            html+="</th>";
+                            html+="<th>";
+                            html+='<input type="text" class="form-control date" value="'+(vals[3]?vals[3]:"")+'">';
+                            html+="</th>";
+                            html+="<th>";
+                            html+='日に';
+                            html+="</th>";
+                            html+="<th>";
+                            html+='<input type="text" class="form-control price" value="'+(vals[5]?vals[5]:"")+'">';
+                            html+="</th>";
+                            html+="<th>";
+                            html+='円入金済み';
+                            html+="</th>";
+                            html+="<td>";
+                            html+='&nbsp;<button type="button" class="btn">{!! z_language('Lưu') !!}</button>';
+                            html+="</td>";
+                            html+="</tr>";
+                            html+="</table>";
+                            var dom = $(html);
+                            dom.find('button').click(function () {
+                                let th = dom.find('tr th');
+                                let vals = "";
+                                console.log(th);
+                                for(let i = 0; i< th.length ; i++){
+                                    if(i%2===1){
+                                        vals+=" "+$(th[i]).find('input').val().trim();
+                                    }else{
+                                        vals+=" "+$(th[i]).text().trim();
+                                    }
+                                }
+                                setTimeout(function () {
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), vals);
+                                },1000);
+                            });
+                        $("#info_payment").html(dom);
+                    }
+                    else{
+
                         $("#value-review").show().val("");
                         $("#zoe-dropdown-review").hide();
                         $("#value-review").prop("disabled",false );
@@ -5188,8 +5467,6 @@
         }
         let spreadsheet =  document.getElementById('spreadsheet');
         let worksheets = jexcel.tabs(spreadsheet, sheets);
-
-
         $(document).ready(function () {
             let changeDate = 0;
             let changeDate1 = 0;
