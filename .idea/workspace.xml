@@ -20,10 +20,23 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="536">
-              <caret line="512" column="60" selection-start-line="512" selection-start-column="48" selection-end-line="512" selection-end-column="60" />
+            <state relative-caret-position="315">
+              <caret line="943" column="42" selection-start-line="943" selection-start-column="33" selection-end-line="943" selection-end-column="42" />
               <folding>
                 <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3268">
+              <caret line="1014" column="20" selection-start-line="1014" selection-start-column="20" selection-end-line="1014" selection-end-column="20" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -32,11 +45,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="3776" column="53" selection-start-line="3776" selection-start-column="53" selection-end-line="3776" selection-end-column="53" />
+            <state relative-caret-position="392">
+              <caret line="2964" column="56" selection-start-line="2964" selection-start-column="56" selection-end-line="2964" selection-end-column="56" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#137878#141847#0#HTML" />
+                <element signature="e#141927#143962#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -76,9 +91,9 @@
       <find>紹介料</find>
       <find>console.log</find>
       <find>store</find>
+      <find>province:</find>
       <find>GetShip</find>
       <find>KURICHIKU</find>
-      <find>province:</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -706,12 +721,12 @@
       <workItem from="1604281551351" duration="30729000" />
       <workItem from="1604328734355" duration="16866000" />
       <workItem from="1604412051276" duration="406000" />
-      <workItem from="1604543456518" duration="1075000" />
+      <workItem from="1604543456518" duration="1825000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="567362000" />
+    <option name="totallyTimeSpent" value="568112000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1038,28 +1053,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/CategoryController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1254">
-          <caret line="1595" column="53" selection-start-line="1595" selection-start-column="49" selection-end-line="1595" selection-end-column="53" />
+        <state relative-caret-position="-3268">
+          <caret line="1014" column="20" selection-start-line="1014" selection-start-column="20" selection-end-line="1014" selection-end-column="20" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="e#13936#24461#0#PHP" />
-            <element signature="e#24467#34473#0#PHP" />
-            <element signature="e#34478#44353#0#PHP" />
-            <element signature="e#44358#57693#0#PHP" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/CategoryController.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="512" column="60" selection-start-line="512" selection-start-column="48" selection-end-line="512" selection-end-column="60" />
+        <state relative-caret-position="315">
+          <caret line="943" column="42" selection-start-line="943" selection-start-column="33" selection-end-line="943" selection-end-column="42" />
           <folding>
             <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
           </folding>
@@ -1068,11 +1079,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="3776" column="53" selection-start-line="3776" selection-start-column="53" selection-end-line="3776" selection-end-column="53" />
+        <state relative-caret-position="392">
+          <caret line="2964" column="56" selection-start-line="2964" selection-start-column="56" selection-end-line="2964" selection-end-column="56" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#137878#141847#0#HTML" />
+            <element signature="e#141927#143962#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />

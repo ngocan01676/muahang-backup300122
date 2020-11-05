@@ -128,9 +128,9 @@
     <script>
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
-        console.log = function () {
-
-        };
+        // console.log = function () {
+        //
+        // };
     </script>
 
     <style>
@@ -2944,7 +2944,7 @@
                             }
                             totalCount+=data.count[data.id[i]];
                             countNew[data.id[i]] = data.count[data.id[i]];
-                            total_price_buy+=_price_buy* data.count[data.id[i]];
+                            total_price_buy+=_price_buy * data.count[data.id[i]];
                             total_price+=_price* data.count[data.id[i]];
                         }
 
@@ -2958,9 +2958,11 @@
                 instance.jexcel.getCell(
                     jexcel.getColumnNameFromId([columns.count.index, r])).innerHTML = JSON.stringify(countNew);
 
-                data.total_price = total_price;
-                data.total_price_buy = total_price_buy;
 
+                data.total_price = total_price;
+                console.log("@total_price_buy:"+total_price_buy);
+                data.total_price_buy = total_price_buy + price_buy_sale;
+                total_price_buy =  data.total_price_buy;
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), price);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), price_buy);
 
@@ -3050,7 +3052,7 @@
 
                     price_ship = price_ship * data.count;
                     console.log("price_ship:"+price_ship);
-                    console.log("total_price_buy:"+total_price_buy);
+                    console.log("@total_price_buy:"+total_price_buy);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
 
                    // total_price_buy = total_price_buy;
@@ -3085,7 +3087,7 @@
                  data.count = totalCount;
                 if(dropdown.hasOwnProperty(product_id)){
                     confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod);
-                    console.log(confShipCou);
+
                     setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330)
                 }
 
