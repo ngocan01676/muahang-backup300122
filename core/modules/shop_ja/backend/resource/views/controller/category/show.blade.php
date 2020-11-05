@@ -1,6 +1,6 @@
 @section('content-header')
     <h1>
-        &starf; {!! @z_language(["Manager Blog Category"]) !!}
+        &starf; {!! @z_language(["TỈNH"]) !!}
         <small>it all starts here</small>
         <a href="#" id="btnCreate"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
@@ -609,7 +609,7 @@
             }
             $("#btnCreate").click(function () {
                 document.getElementById("form_store").reset();
-                var label = "{{ z_language('Category Create')}}";
+                var label = "{{ z_language('Tạo chuyên mục')}}";
                 $("#form_store input:hidden[name=id]").val(0);
                 console.log( $("#form_store input:hidden[name=id]"));
                 $("#form-title").html(label);
@@ -652,7 +652,7 @@
                 console.log(children);
                 $.confirm({
                     title: '{!! z_language("Confirm") !!}',
-                    content: '{!! z_language("Are you sure to delete this item?") !!}',
+                    content: '{!! z_language("Bạn có muốn xóa?") !!}',
                     confirmButton: 'Proceed',
                     confirmButtonClass: 'btn-info',
                     icon: 'fa fa-question-circle',

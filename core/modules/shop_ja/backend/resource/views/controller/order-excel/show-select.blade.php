@@ -76,7 +76,7 @@
        $(document).ready(function () {
            $datepicker = $('#datepicker').datepicker({
                autoclose: true,
-               format: 'mm/dd/yyyy',
+               format: 'dd/mm/yyyy',
            });
            $datepicker.datepicker('setDate', new Date());
            $("#view").click(function () {

@@ -1625,7 +1625,9 @@
                     id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
                     province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
-                data.province = data.province.trim();
+
+                data.province =   data.province.trim();
+                console.log(data);
                 let valueRow =  instance.jexcel.getRowData(r);
 
                 if(isNaN(data.count) || data.count === 0 ){
@@ -1815,7 +1817,7 @@
 
                 console.log("product_id:"+product_id);
 
-                let province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, value.start]));
+                let province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, value.start])).trim();
 
                 let payMethod = getValuePayMethod(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.payMethod.index, value.start])));
 
@@ -2944,7 +2946,7 @@
                             }
                             totalCount+=data.count[data.id[i]];
                             countNew[data.id[i]] = data.count[data.id[i]];
-                            total_price_buy+=_price_buy * data.count[data.id[i]];
+                            total_price_buy+=_price_buy* data.count[data.id[i]];
                             total_price+=_price* data.count[data.id[i]];
                         }
 
@@ -2958,11 +2960,9 @@
                 instance.jexcel.getCell(
                     jexcel.getColumnNameFromId([columns.count.index, r])).innerHTML = JSON.stringify(countNew);
 
-
                 data.total_price = total_price;
-                console.log("@total_price_buy:"+total_price_buy);
-                data.total_price_buy = total_price_buy + price_buy_sale;
-                total_price_buy =  data.total_price_buy;
+                data.total_price_buy = total_price_buy;
+
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), price);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), price_buy);
 
@@ -3052,7 +3052,7 @@
 
                     price_ship = price_ship * data.count;
                     console.log("price_ship:"+price_ship);
-                    console.log("@total_price_buy:"+total_price_buy);
+                    console.log("total_price_buy:"+total_price_buy);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
 
                    // total_price_buy = total_price_buy;
@@ -3087,7 +3087,7 @@
                  data.count = totalCount;
                 if(dropdown.hasOwnProperty(product_id)){
                     confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod);
-
+                    console.log(confShipCou);
                     setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330)
                 }
 
@@ -3654,7 +3654,7 @@
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_date:{
-                    title: '到着希望日',//L Ngày nhận
+                    title: 'Ngày nhận',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
@@ -3662,14 +3662,14 @@
 
                 },
                 order_hours:{
-                    title: '配送希望時間帯',//M Giờ nhận
+                    title: 'Giờ nhận',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
                     width:'150px',
                 },
                 order_ship:{
-                    title: '別途送料',//N Phí ship
+                    title: 'Phí ship',//N Phí ship
                     type: 'numeric',
                     width:'100px',
                     value:0
@@ -3693,7 +3693,7 @@
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_ship_cou:{
-                    title: '代引き手数料',//P Phí giao hàng
+                    title: 'Phí giao hàng',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
                     value:330
@@ -4524,8 +4524,6 @@
                     province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
                 data.province = data.province.trim();
-
-
                 let total_price_buy =  0;
                 let total_price =  0;
                
@@ -5091,6 +5089,7 @@
             $('body').addClass('sidebar-collapse');
             $datepicker = $('#datepicker').datepicker({
                 autoclose: true,
+                format: 'dd/mm/yyyy',
             }).on('changeDate', function (ev) {
                 if(changeDate == 0){
                     changeDate++;
@@ -5112,6 +5111,7 @@
             $datepicker.datepicker('setDate', new Date(date.format()));
             $datepicker1 = $('#datepicker1').datepicker({
                 autoclose: true,
+                format: 'dd/mm/yyyy',
                 onSelect: function(dateText) {
                     console.log("Selected date: " + dateText + "; input's current value: " + this.value);
                 }

@@ -83,6 +83,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         $array = [];
 
         preg_match_all('/' . $string_find . '\((.*?)\)/', $string_blade, $match);
+
         if (isset($match[1])) {
             foreach ($match[1] as $val) {
                 $key_val = trim($val, "]");
@@ -119,6 +120,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                 $array[md5($key)] = $value;
             }
         }
+
         return $array;
     }
 
@@ -146,6 +148,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                     continue;
                 }
             }
+
             $string_blade = $file->get($_file);
             $array = array_merge($array, static::lang($string_blade, $sub_path));
 
@@ -216,6 +219,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
             }
             $lists[$value['path'][1]][$value['path'][2]] [$k] = $value;
         }
+
         return $this->render('language.list', ['langs' => $lists, 'lists' => $array, 'language_data' => $language_data, 'data' => $data]);
     }
 }

@@ -77,9 +77,21 @@
             $('.success').hide();// or fade, css display however you'd like.
             $datepicker = $('#datepicker').datepicker({
                 autoclose: true,
-                format: 'mm/dd/yyyy',
+                format: 'dd/mm/yyyy',
             });
             $datepicker.datepicker('setDate', new Date());
+        });
+        $("input[type=file]").on('change',function(evt){
+
+            var files = evt.target.files;
+
+            var regex = /\d+/g;
+
+            var matches = this.value.match(regex);
+            if(matches.length > 1){
+                $datepicker.datepicker('setDate',matches[1]+"/"+matches[0]+"/"+ files[0].lastModifiedDate.getFullYear());
+            }
+
         });
         $('#imageUpload').on('submit',(function(e) {
             $.ajaxSetup({
