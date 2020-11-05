@@ -134,6 +134,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
             $model->unit = $data['unit'];
             $model->save();
             $this->log('shop_js:ship',$type,['id' => $model->id]);
+            $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
             return redirect(route('backend:shop_ja:ship:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
