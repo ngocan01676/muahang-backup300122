@@ -16,6 +16,11 @@
                     </ul>
                 </div><br/>
             @endif
+            @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div><br/>
+            @endif
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"> {!! @z_language(["Thông tin tài khoản"]) !!} </a></li>

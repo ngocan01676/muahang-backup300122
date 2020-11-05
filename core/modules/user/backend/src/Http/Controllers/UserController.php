@@ -148,6 +148,7 @@ class UserController extends \Zoe\Http\ControllerBackend
             $model->role_id = $data['role_id'];
             $model->save();
             $this->log('user:user',$type,['id'=>$model->id]);
+            $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
             return redirect(route('backend:user:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('name', $ex->getMessage());

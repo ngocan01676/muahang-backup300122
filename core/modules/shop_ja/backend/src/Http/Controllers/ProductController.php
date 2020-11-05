@@ -139,6 +139,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->type_excel = $data['type_excel'];
             $model->save();
             $this->log('shop_js:product',$type,['id'=>$model->id]);
+            $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
             return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());

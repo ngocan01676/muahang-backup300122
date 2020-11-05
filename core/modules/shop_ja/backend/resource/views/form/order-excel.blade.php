@@ -332,6 +332,100 @@
         let info_admin = {!! json_encode($admin,JSON_UNESCAPED_UNICODE) !!}
         let options = {!! json_encode($options,JSON_UNESCAPED_UNICODE) !!}
 
+        let columnsWidth = {
+            status: {
+                width:"30px",
+            },
+            image:{
+                width:"50px",
+            },
+            timeCreate:{
+                width:'90px',
+            },
+            payMethod:{
+                width:'90px',
+            },
+            phone:{
+                width:'90px',
+            },
+            zipcode:{
+                width:'60px',
+            },
+            province:{
+                width:'150px',
+            },
+            address:{
+                width:'150px',
+            },
+            fullname:{
+                width:'150px',
+            },
+            product_id:{
+                width:'50px',
+            },
+            product_name:{
+                width:'140px',
+            },
+            count:{
+                width:'50px',
+            },
+            price:{
+                width:'70px',
+            },
+            price_buy:{
+                width:'70px',
+            },
+            order_date:{
+                width:'80px',
+            },
+            order_hours:{
+                width:'100px',
+            },
+            order_ship:{
+                width:'80px',
+            },
+            order_total_price:{
+                width:'100px',
+            },
+            price_buy_sale:{
+                width:'80px',
+            },
+            order_total_price_buy:{
+                width:'100px',
+            },
+            order_ship_cou:{
+                width:'100px',
+            },
+            order_price:{
+                width:'100px',
+            },
+            order_rate:{
+                width:'80px',
+            },
+            order_tracking:{
+                width:'100px',
+            },
+            order_link:{
+                width:'100px',
+            },
+            order_info:{
+                width:'100px',
+            },
+            one_address: {
+                width:'30px',
+            },
+            id:{
+                width:'100px',
+            },
+            session_id:{
+                width:'1px',
+            },
+            export:{
+                width:'50px',
+            },
+        };
+
+
         function IF_End($val,$conf){
             if( $conf.equal_end === "<=" && $val <= $conf.value_end){
                 return true;
@@ -544,16 +638,16 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'Status'
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 image:{
-                    title:'Image',
+                    title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
                     hide:true,
                 },
                 timeCreate:{
-                    title: 'ngày đặt hàng',//A ngày đặt hàng
+                    title: 'Ngày đặt hàng',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
@@ -751,6 +845,8 @@
                     if(_option.colums.hasOwnProperty(i)){
                         columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i)){
+                    columns[i].width =columnsWidth[i].width;
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -1293,16 +1389,16 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'Status'
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 image:{
-                    title:'Image',
+                    title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
-                    key:"demo",
+                    hide:true,
                 },
                 timeCreate:{
-                    title: 'ngày đặt hàng',//A ngày đặt hàng
+                    title: 'Ngày đặt hàng',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
@@ -1535,6 +1631,8 @@
                     if(_option.colums.hasOwnProperty(i)){
                         columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i)){
+                    columns[i].width =columnsWidth[i].width;
                 }
             }
 
@@ -2678,16 +2776,16 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'Status'
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 image:{
-                    title:'Image',
+                    title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
-                    key:"demo",
+                    hide:true,
                 },
                 timeCreate:{
-                    title: 'ngày đặt hàng',//A ngày đặt hàng
+                    title: 'Ngày đặt hàng',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
@@ -2886,6 +2984,8 @@
                     if(_option.colums.hasOwnProperty(i)){
                         columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i)){
+                    columns[i].width =columnsWidth[i].width;
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -3565,16 +3665,16 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'Status'
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 image:{
-                    title:'Image',
+                    title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
-                    key:"demo",
+                    hide:true,
                 },
                 timeCreate:{
-                    title: 'ngày đặt hàng',//A ngày đặt hàng
+                    title: 'Ngày đặt hàng',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
@@ -3769,6 +3869,8 @@
                     if(_option.colums.hasOwnProperty(i)){
                         columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i)){
+                    columns[i].width =columnsWidth[i].width;
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -4308,18 +4410,18 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'Trạng thái'
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 image:{
-                    title:'Image',
+                    title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
-                    key:"demo",
+                    hide:true,
                 },
                 timeCreate:{
-                    title: 'Ngày đặt hàng',//A
+                    title: 'Ngày đặt hàng',//A ngày đặt hàng
                     type: 'calendar',
-                    width:'100px',
+                    width:'90px',
                     options: { format:'DD/MM/YYYY' },
                     value:['date','now']
                 },
@@ -4331,13 +4433,13 @@
                         "銀行振込",
                         "決済不要",
                     ],
-                    width:'130px',
+                    width:'90px',
                     value:['product','this','source',0],
                 },
                 phone:{
                     title: 'Số điện thoại',//C
                     type: 'text',
-                    width:'100px',
+                    width:'90px',
                     value:"070-1398-2234",
                 },
                 zipcode:{
@@ -4349,13 +4451,13 @@
                 province:{
                     title: 'Tỉnh/TP',//E
                     type: 'text',
-                    width:'200px',
+                    width:'150px',
                     key:"demo",
                 },
                 address:{
                     title: 'Địa chỉ giao hàng',//F
                     type: 'text',
-                    width:'250px',
+                    width:'150px',
                     key:"demo",
                 },
                 fullname:{
@@ -4367,7 +4469,7 @@
                 product_id:{
                     title: 'Mã SP',//H
                     type: 'text',
-                    width:'100px',
+                    width:'50px',
                     read:true,
                     value:['product','product_name','source',0,'id'],
                 },
@@ -4382,19 +4484,19 @@
                 count:{
                     title: 'SL',//K
                     type: 'numeric',
-                    width:'100px',
+                    width:'50px',
                     value:1
                 },
                 price:{
                     title: 'Giá nhập',//J
                     type: 'numeric',
-                    width:'100px',
+                    width:'70px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy:{
                     title: 'Giá bán',//J Giá nhập
                     type: 'numeric',
-                    width:'100px',
+                    width:'70px',
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_date:{
@@ -4402,7 +4504,7 @@
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
-                    width:'100px',
+                    width:'80px',
 
                 },
                 order_hours:{
@@ -4410,12 +4512,12 @@
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
-                    width:'150px',
+                    width:'100px',
                 },
                 order_ship:{
                     title: 'Phí ship',//N
                     type: 'numeric',
-                    width:'100px',
+                    width:'80px',
                     value:0
                 },
                 order_total_price:{
@@ -4427,7 +4529,7 @@
                 price_buy_sale:{
                     title: 'Tăng Giảm',//J Giá nhập
                     type: 'numeric',
-                    width:'100px',
+                    width:'80px',
                     value:0,
                 },
                 order_total_price_buy:{
@@ -4452,7 +4554,7 @@
                 order_rate:{
                     title: 'Lợi nhuận CTV',//P
                     type: 'numeric',
-                    width:'100px',
+                    width:'80px',
                     value:0
                 },
                 order_tracking:{
@@ -4474,7 +4576,8 @@
                 },
                 one_address: {
                     type: 'checkbox',
-                    title:'Cùng địa chỉ'
+                    title:'Cùng địa chỉ',
+                    width:'30px',
                 },
                 id:{
                     title: 'ID',//T
@@ -4514,7 +4617,10 @@
                     if(_option.colums.hasOwnProperty(i)){
                         columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i)){
+                    columns[i].width =columnsWidth[i].width;
                 }
+
             }
             function update(instance, cell, c, r, value) {
                 console.log("update call");
