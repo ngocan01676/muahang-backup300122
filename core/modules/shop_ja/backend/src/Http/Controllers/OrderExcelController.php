@@ -903,7 +903,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     return $rs && count($rs) > 0 ? $rs[0]->username : "Empty";
                 },
                 "GetName" => function ($model){
-                    return $model->key_date;
+                    return date('d-m-Y',strtotime($model->key_date));
                 },
                 "GetStatus"=>function($model){
                     if($model->status == 0){

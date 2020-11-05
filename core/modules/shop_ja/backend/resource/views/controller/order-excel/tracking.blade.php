@@ -6,37 +6,15 @@
 @endsection
 @section('content')
     <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-            @php
-                $active = "";
-            @endphp
-            @foreach($datas as $key=>$value)
-            <li @php if(empty($active)){$active = $key;echo "class='active'";} @endphp><a href="#tab_{!! $key !!}" data-toggle="tab">{!! $key !!}</a></li>
-            @endforeach
-
-        </ul>
+        @php
+            $active = "";
+            $counts = [];
+        @endphp
+        @section('tab-content')
         <div class="tab-content">
             @foreach($datas as $key=>$value)
-            <div class="tab-pane  @php if($active == $key){$active = $key;echo "active";} @endphp" id="tab_{!! $key !!}">
-                {{--<div class="row">--}}
-                    {{--<div class="col-md-6">--}}
-                        {{--<table class="table">--}}
-                            {{--<tr>--}}
-                                {{--<th>Trạng thái</th>--}}
-                                {{--<td>--}}
-                                    {{--<select class="form-control">--}}
-                                        {{--<option value="0">{!! z_language('Tất cả') !!}</option>--}}
-                                        {{--<option value="1">{!! z_language('Thành công') !!}</option>--}}
-                                        {{--<option value="2">{!! z_language('Đang xử lý') !!}</option>--}}
-                                        {{--<option value="3">{!! z_language('Chưa xử lý') !!}</option>--}}
-                                    {{--</select>--}}
-                                {{--</td>--}}
-
-                            {{--</tr>--}}
-                        {{--</table>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
+                @php $counts[$key] = []; @endphp
+            <div class="tab-pane  @php if(empty($active)){$active = $key;echo "active";} @endphp" id="tab_{!! $key !!}">
                 <table class="table table-bordered">
                      <tr>
                          <th>{!! z_language('Mã') !!}</th>
@@ -49,11 +27,13 @@
                          <th>{!! z_language('Thời gian tạo') !!}</th>
                      </tr>
                     @foreach($value as $kk=>$vv)
+                        @php $counts[$key][$kk] = 0; @endphp
                         <tr>
                             <th colspan="8" class="text-center" style="background: #dedede">{!! $kk== 0 ?z_language("ĐANG XỬ LÝ"):z_language("CHỜ XỬ LÝ") !!} ({!! count($vv) !!})</th>
                         </tr>
-                         @if(count($vv))
 
+                         @if(count($vv))
+                             @php  $counts[$key][$kk] = $vv @endphp
                          @foreach($vv as $k=>$v)
 
                              <tr>
@@ -85,6 +65,16 @@
             </div>
             @endforeach
         </div>
+        @endsection
+        @section('tab-nav')
+                <ul class="nav nav-tabs">
+                    @foreach($datas as $key=>$value)
+                        <li @php if(!empty($active)){$active = "";echo "class='active'";} @endphp><a href="#tab_{!! $key !!}" data-toggle="tab">{!! $key  !!} [{!! $counts[$key][0].'/'.$counts[$key][1] !!}]</a></li>
+                    @endforeach
+                </ul>
+        @endsection
+        @yield('tab-nav')
+        @yield('tab-content')
         <!-- /.tab-content -->
     </div>
     <!-- nav-tabs-custom -->
