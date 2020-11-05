@@ -10,6 +10,11 @@
                     </ul>
                 </div><br/>
             @endif
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div><br/>
+            @endif
             @if(isset($model))
                 {!! Form::model($model, ['method' => 'POST','route' => ['backend:announce:store'],'id'=>'form_store']) !!}
                 {!! Form::hidden('id') !!}

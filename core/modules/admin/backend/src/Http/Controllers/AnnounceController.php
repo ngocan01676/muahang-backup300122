@@ -131,6 +131,7 @@ class AnnounceController extends \Zoe\Http\ControllerBackend{
             $model->status = $data['status'];
             $model->save();
             $this->log('announce:edit',$type,['id'=>$model->id]);
+            $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
             return redirect(route('backend:announce:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
