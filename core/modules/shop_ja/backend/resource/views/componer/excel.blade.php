@@ -2662,7 +2662,7 @@
         let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
         for(var i in columns){
             columns[i].index = index;
-         
+
             columns[i].key = i;
             let v = setDefaultValue(i,columns);
             if(v[0]){
