@@ -274,7 +274,7 @@ class Excel{
                     }
                     $html.="</tr>";
                 }
-                $html.= "</table></div>".var_dump(logs_sql());
+                $html.= "</table></div>".logs_sql();
 
 
             }

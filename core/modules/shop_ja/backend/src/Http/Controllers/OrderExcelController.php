@@ -1091,7 +1091,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $input['image'] = $imageName;
                     $OriginalName = request()->image->getClientOriginalName();
                     request()->image->move(public_path('uploads/tracking'), $imageName);
-                    $Excel = new \ShopJa\Libs\Excel($input['date'],0);
+                    $date = explode('/',$input['date']);
+                    $date = $date[2].'-'.$date[1].'-'.$date[0];
+                    $Excel = new \ShopJa\Libs\Excel($date,0);
                     $results = $Excel->Read($OriginalName,public_path('uploads/tracking')."/".$imageName,"Xlsx");
                     return Response()->json(["success"=>"Image Upload Successfully",'html'=>$results]);
                 }
