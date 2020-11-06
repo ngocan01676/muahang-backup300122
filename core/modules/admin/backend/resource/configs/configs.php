@@ -143,10 +143,11 @@ return [
                         'title' => ['label' => z_language('Tiêu đề', false), 'type' => 'title', 'primary' => true],
                         'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status'],
                         'get_name' => ['label' => z_language('Tài khoản', false), 'type' => 'text','callback' => "get_name"],
+                        'message' => ['label' => z_language('Nội dung', false), 'type' => 'text'],
                         'date_start' => ['label' => z_language('Thời gian bắt đầu', false), 'type' => 'date'],
                         'date_end' => ['label' => z_language('Thời gian kết thúc', false), 'type' => 'date'],
-                        'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
-                        'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date']
+                        'created_at' => ['label' => z_language('Tạo lúc', false), 'type' => 'date'],
+                        'updated_at' => ['label' => z_language('Sửa lúc', false), 'type' => 'date']
                     ],
                 ],
                 'pagination' => [
@@ -160,8 +161,8 @@ return [
                     "type" => [
                         'status' => [
                             'label' => [
-                                '1' => z_language('Public', false),
-                                '0' => z_language('UnPublic', false),
+                                '1' => z_language('Bật', false),
+                                '0' => z_language('Tắt', false),
                             ],
                             'type' => [
                                 'name' => 'label',

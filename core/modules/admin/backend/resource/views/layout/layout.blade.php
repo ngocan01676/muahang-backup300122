@@ -1,3 +1,8 @@
+@php
+    $rsAnnounce = \Illuminate\Support\Facades\DB::table('announce')->where('status',1)
+        ->where('date_start','<=',date('Y-m-d H:i:s'))
+        ->where('date_end','>=',date('Y-m-d H:i:s'))->get()->all();
+@endphp
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,21 +111,24 @@
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
+                            <span class="label label-warning">{{count($rsAnnounce)}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
+                            <li class="header">{!! z_language('Bạn có 10 thông báo',['COUNT'=>count($rsAnnounce)]) !!}</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
                                     <li>
+                                        @foreach($rsAnnounce as $val)
                                         <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                            <i class="fa fa-users text-aqua"></i> {!! $val->title !!}
+                                            {{--{!! $val->message !!} -  {!! $val->updated_at !!}--}}
                                         </a>
+                                        @endforeach
                                     </li>
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">View all</a></li>
+                            <li class="footer"><a href="{!! route('backend:announce:list') !!}">{!! z_language('Xem tất cả') !!}</a></li>
                         </ul>
                     </li>
                     <!-- Tasks: style can be found in dropdown.less -->
@@ -230,34 +238,30 @@
         <!-- Main content -->
         <section class="content clearfix">
 
-            @php
-               $rsAnnounce = \Illuminate\Support\Facades\DB::table('announce')->where('status',1)
-                   ->where('date_start','<=',date('Y-m-d H:i:s'))
-                   ->where('date_end','>=',date('Y-m-d H:i:s'))->get()->all();
-            @endphp
+
             @if(count($rsAnnounce)>0)
 
-                <div id="announce" class="box box-default box-solid">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">{!! z_language('Thông báo') !!}</h3>
+                {{--<div id="announce" class="box box-default box-solid">--}}
+                    {{--<div class="box-header with-border">--}}
+                        {{--<h3 class="box-title">{!! z_language('Thông báo') !!}</h3>--}}
 
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <!-- /.box-tools -->
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
+                        {{--<div class="box-tools pull-right">--}}
+                            {{--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>--}}
+                            {{--</button>--}}
+                        {{--</div>--}}
+                        {{--<!-- /.box-tools -->--}}
+                    {{--</div>--}}
+                    {{--<!-- /.box-header -->--}}
+                    {{--<div class="box-body">--}}
 
-                            @foreach($rsAnnounce as $val)
-                                <h5 style="padding: 0; margin: 0;"><i class="icon fa fa-check"></i> {!! $val->title !!}! </h5>
-                            &nbsp;&nbsp;&nbsp; {!! $val->message !!} -  {!! $val->updated_at !!}
-                            @endforeach
+                            {{--@foreach($rsAnnounce as $val)--}}
+                                {{--<h5 style="padding: 0; margin: 0;"><i class="icon fa fa-check"></i> {!! $val->title !!} </h5>--}}
+                            {{--&nbsp;&nbsp;&nbsp; {!! $val->message !!} -  {!! $val->updated_at !!}--}}
+                            {{--@endforeach--}}
 
-                    </div>
-                    <!-- /.box-body -->
-                </div>
+                    {{--</div>--}}
+                    {{--<!-- /.box-body -->--}}
+                {{--</div>--}}
 
             @endif
             @yield('content')
