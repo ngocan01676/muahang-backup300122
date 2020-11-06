@@ -227,6 +227,7 @@ class Excel{
                 $html.="</tr>";
                 $html.= "</table>";
                 $html.= "<div style=\"overflow:scroll; height:500px;\"><table class='table table-bordered'>";
+                \DB::enableQueryLog();
                 foreach ($results as $key=>$value){
                     $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
 
@@ -273,7 +274,7 @@ class Excel{
                     }
                     $html.="</tr>";
                 }
-                $html.= "</table></div>";
+                $html.= "</table></div>".var_dump(logs_sql());
 
 
             }
