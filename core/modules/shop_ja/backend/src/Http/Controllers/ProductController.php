@@ -68,6 +68,9 @@ class ProductController extends \Zoe\Http\ControllerBackend
                 "GetHtmlConfigShip" => function ($model){
                     $html = "<a href='".route('backend:shop_ja:japan:category:show',['product_id' => $model->id])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">Click</button></a>";
                     return $html;
+                },
+                "GetButtonEdit"=>function($model){
+                    return  $html = "<a href='".route('backend:shop_ja:product:edit',['id' => $model->id])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">".z_language('Sửa')."</button></a>";
                 }
             ]
         ]);

@@ -178,6 +178,19 @@
 @endsection
 @push('links')
     <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <style>
+        .listMain .table tbody tr td.column{
+            position: relative;
+            padding: 5px 0px 5px 5px;
+        }
+        .label-text{
+            text-align: center;
+        }
+        .listMain .company td{
+            background: #dedede !important;
+            padding: 5px;
+        }
+    </style>
 @endpush
 @push('scripts')
     <script src="{{ asset('module/admin/assets/moment.min.js') }}"></script>

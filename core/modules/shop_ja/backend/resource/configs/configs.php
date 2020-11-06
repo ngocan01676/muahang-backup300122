@@ -95,7 +95,8 @@
                             'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status'],
                             'created_at' => ['label' => z_language('Tạo lúc', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Sửa lúc', false), 'type' => 'date'],
-                            'GetHtmlConfigShip' => ['label' => z_language('Hành động', false), 'type' => 'number','callback' => "GetHtmlConfigShip"],
+
+                            'GetButtonEdit' => ['label' => z_language('Sửa', false), 'type' => 'number','callback' => "GetButtonEdit"],
                         ],
                     ],
                     'pagination' => [
@@ -154,6 +155,7 @@
                             'GetStatus' => ['label' => z_language('Trạng thái', false), 'type' => 'status','callback'=>'GetStatus'],
                             'created_at' => ['label' => z_language('Tạo lúc', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Sửa lúc', false), 'type' => 'date'],
+
                         ],
                     ],
                     'pagination' => [
@@ -237,17 +239,19 @@
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
                             'GetName' => ['label' => z_language('Tên File', false),'primary' => true, 'type' => 'title','callback' => "GetName"],
                             'UserName' => ['label' => z_language('Người lập', false), 'type' => 'text','callback' => "GetUserName"],
+                            'CountCompany' => ['label' => z_language('Sản phẩm', false), 'type' => 'text','callback' => "CountCompany"],
                             'GetStatus' => ['label' => z_language('Trạng thái', false), 'type' => 'status','callback'=>'GetStatus'],
                             'created_at' => ['label' => z_language('Tạo lúc', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Sửa lúc', false), 'type' => 'date'],
+                            'GetButtonEdit' => ['label' => z_language('Hành động', false), 'type' => 'text','callback' => "GetButtonEdit"],
                         ],
                     ],
                     'pagination' => [
                         'item' => 20,
                         'router' => [
-                            'edit' => ['label' => z_language('Sửa', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
+//                            'edit' => ['label' => z_language('Sửa', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
 //                            'preview' => ['label' => z_language('Preview', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
-                            'trash' => ['method' => 'post', 'label' => z_language('Xóa', false), 'name' => "backend:shop_ja:order:excel:delete", 'par' => ['id' => 'id']],
+//                            'trash' => ['method' => 'post', 'label' => z_language('Xóa', false), 'name' => "backend:shop_ja:order:excel:delete", 'par' => ['id' => 'id']],
                         ]
                     ],
                     'config' => [

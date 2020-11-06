@@ -904,6 +904,21 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 "GetName" => function ($model){
                     return date('d-m-Y',strtotime($model->key_date));
                 },
+                "CountCompany"=> function($model) use($categorys){
+
+                    $table = "<table class='table table-bordered company' style='padding: 0;margin: 0;'><tr>";
+                    foreach ($categorys as $k=>$value){
+
+                       $count = DB::table('shop_order_excel')
+                            ->where('company',$value['name'])
+                            ->where('fullname','!=','')
+                            ->where('order_create_date','>=',$model->key_date.' 00:00:00')
+                            ->where('order_create_date','<=',$model->key_date.' 23:59:59')->count();
+                        $table.= "<td style='width: ".(100/count($categorys))."%'><span style='font-size: 15px;padding: 5px;display: inline-block'>".$value['name']."</span><span class=\"badge bg-light-blue\">".$count."</span></td>";
+                    }
+                    $table.= "</tr></table>";
+                    return $table;
+                },
                 "GetStatus"=>function($model){
                     if($model->status == 0){
                         return z_language('Bản nháp');
@@ -912,6 +927,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }else if($model->status == 2){
                         return z_language('Đã hoàn thành');
                     }
+                },
+                "GetButtonEdit"=>function($model){
+                    return  $html = "<a href='".route('backend:shop_ja:order:excel:edit',['id' => $model->id])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">".z_language('Sửa')."</button></a>";
                 }
             ],
         ]);
