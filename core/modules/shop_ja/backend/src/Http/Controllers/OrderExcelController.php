@@ -204,7 +204,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
                                 ];
-                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
+                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date'])).' '.date('H:i:s');
                                 $validator = Validator::make($_data,$check);
                                 if (!$validator->fails()) {
                                     $logs[$name][] = $_data;
@@ -243,7 +243,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }
                                     $_data = [
                                         "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
-
                                         "fullname"=>isset($columns["fullname"])?$values[$columns["fullname"]]:"",
                                         "address"=> isset($columns["address"])?$values[$columns["address"]]:"",
                                         "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
