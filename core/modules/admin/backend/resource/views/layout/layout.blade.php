@@ -67,10 +67,10 @@
                 <span class="icon-bar"></span>
             </a>
             @if(count($rsAnnounce))
-                
+
                 <marquee direction = "right" style="width: 50%;display: inline-block; height: 100%; padding: 6px;">
                     @foreach($rsAnnounce as $val)
-                        <strong>{!! $val->message !!}</strong>&nbsp;&nbsp;
+                        <strong>★ {!! $val->message !!}</strong>&nbsp;&nbsp;
                     @endforeach
                 </marquee>
             @endif
