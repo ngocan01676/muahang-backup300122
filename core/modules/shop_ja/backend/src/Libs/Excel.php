@@ -226,7 +226,7 @@ class Excel{
                 $html.="<td class='text-center'><h2 id='ship'>".$nameShip."</h2></td>";
                 $html.="</tr>";
                 $html.= "</table>";
-                $html.= "<div style=\"overflow:scroll; height:500px;\"><table class='table table-bordered'>";
+                $html.= "<div style=\"overflow:scroll; min-height:100px;\"><table class='table table-bordered'>";
                 \DB::enableQueryLog();
                 foreach ($results as $key=>$value){
                     $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
