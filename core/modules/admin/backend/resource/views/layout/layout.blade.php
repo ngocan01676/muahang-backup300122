@@ -66,8 +66,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
+
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <li>
+                        @if(count($rsAnnounce))
+                            <marquee style="width: 100%;display: inline-block; height: 100%; padding: 6px;">
+                                @foreach($rsAnnounce as $val)
+                                    {!! $val->title !!} :  {!! $val->message !!} -  {!! $val->updated_at !!} &nbsp;&nbsp;&nbsp;
+                                @endforeach
+                            </marquee>
+                        @endif
+                    </li>
                     {{--<!-- Messages: style can be found in dropdown.less-->--}}
                     {{--<li class="dropdown messages-menu">--}}
                         {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
