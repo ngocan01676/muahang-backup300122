@@ -114,7 +114,7 @@
                             <span class="label label-warning">{{count($rsAnnounce)}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">{!! z_language('Bạn có COUNT thông báo',['COUNT'=>count($rsAnnounce)]) !!}</li>
+                            <li class="header">{!! z_language('Bạn có :COUNT thông báo',['COUNT'=>count($rsAnnounce)]) !!}</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
