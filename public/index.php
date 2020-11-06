@@ -6,9 +6,9 @@
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
+session_start();
 
 define('LARAVEL_START', microtime(true));
-
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -48,8 +48,6 @@ $app = require_once __DIR__ . '/../bootstrap/app.php';
 | and wonderful application we have prepared for them.
 |
 */
-
-
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 

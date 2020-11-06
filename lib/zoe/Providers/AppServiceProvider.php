@@ -42,13 +42,10 @@ class AppServiceProvider extends ServiceProvider
 //        });
         $this->app->key = md5(config('app.key'));
         $this->app->ReadCache();
-
         $this->app->InitLanguage();
-
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
 
         });
-
         $this->file = new \Illuminate\Filesystem\Filesystem();
         $time_start = microtime(true);
         $this->blade();

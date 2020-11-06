@@ -10,11 +10,11 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
-require __DIR__ . '/../core/helper.php';
+
 $app = new \Zoe\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
-
+require __DIR__ . '/../core/helper.php';
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
@@ -51,5 +51,4 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
-
 return $app;

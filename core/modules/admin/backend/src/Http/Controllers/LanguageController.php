@@ -25,7 +25,11 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         }
         return $results;
     }
-
+    public function set_lang(Request $request){
+        session(['lang'=>$request->lang]);
+        $ref = $request->query('ref',false);
+        return redirect($ref?base64_decode($ref):route('backend:dashboard:list'));
+    }
     public function table()
     {
         return DB::table('config');

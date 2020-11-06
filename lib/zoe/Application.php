@@ -74,10 +74,9 @@ class Application extends App
         });
         $config = config_get("config", "system");
         $this->site_language = isset($config['core']['site_language'])?$config['core']['site_language']:'vi';
-
     }
     public function getLocale(){
-        return $this->site_language;
+        return  session('lang', $this->site_language);
     }
     public function getTheme()
     {

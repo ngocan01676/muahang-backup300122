@@ -82,6 +82,9 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
+                    "set_lang" => [
+                        "url" => "/set-lang/{lang}",
+                    ],
                     "ajax:save" => [
                         "url" => "/save",
                         "method" => ['post'],

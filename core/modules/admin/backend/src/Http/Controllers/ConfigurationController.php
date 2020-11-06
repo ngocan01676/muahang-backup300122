@@ -18,7 +18,6 @@ class ConfigurationController extends \Zoe\Http\ControllerBackend
     public function ajax(Request $request)
     {
         $datas = $request->all();
-
         config_set("config", $datas['key'], ['data' => $datas['data']]);
     }
 

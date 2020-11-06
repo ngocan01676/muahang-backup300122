@@ -88,7 +88,7 @@
                                 <a href="javascript:void(0)">
                                     <i class="{{ isset($items['icon'])?$items['icon']:"fa fa-circle-o" }}"></i>
                                     <span>
-                                                        {{ $items['name'] }}
+                                                        {{ z_language($items['name']) }}
                                                     </span>
                                     <span class="pull-right-container">
                                                       <i class="fa fa-angle-left pull-right"></i>

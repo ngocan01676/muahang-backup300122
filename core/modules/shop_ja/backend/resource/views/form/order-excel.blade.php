@@ -5612,8 +5612,10 @@
                         act:"save",
                         tab:name,
                         token:token,
+                        date:stringDate,
                         'id':'{{isset($model)?$model->id:0}}',
                         'type':'{{isset($model)?'edit':'create'}}'} ,
+
                     success: function (data) {
                         if(auto){
 

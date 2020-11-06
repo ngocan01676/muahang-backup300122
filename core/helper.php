@@ -543,11 +543,12 @@ function gen_uuid()
         mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
     );
 }
-
 function z_language($key, $par = [], $__env = null)
 {
     if (is_array($par)) {
+
         $_lang_name_ = app()->getLocale();
+
         $_langs_ = app()->getLanguage();
 
         $html = isset($_langs_[$_lang_name_][$key]) && !empty($_langs_[$_lang_name_][$key]) ? $_langs_[$_lang_name_][$key] : $key;
@@ -556,7 +557,6 @@ function z_language($key, $par = [], $__env = null)
                 $html = str_replace(":" . $k, $v, $html);
             }
         }
-
         return $html;
     }
     return $key;
