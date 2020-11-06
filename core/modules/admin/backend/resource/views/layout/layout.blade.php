@@ -73,7 +73,7 @@
                         @if(count($rsAnnounce))
                             <marquee style="width: 100%;display: inline-block; height: 100%; padding: 6px;">
                                 @foreach($rsAnnounce as $val)
-                                    {!! $val->title !!} :  {!! $val->message !!} -  {!! $val->updated_at !!} &nbsp;&nbsp;&nbsp;
+                                   <strong> {!! $val->title !!}</strong> :  <pre>{!! $val->message !!}</pre> -  {!! $val->updated_at !!} &nbsp;&nbsp;&nbsp;
                                 @endforeach
                             </marquee>
                         @endif
