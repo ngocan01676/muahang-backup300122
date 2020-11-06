@@ -66,17 +66,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-
+            @if(count($rsAnnounce))
+                <marquee direction = "right" style="width: 50%;display: inline-block; height: 100%; padding: 6px;">
+                    @foreach($rsAnnounce as $val)
+                        <strong>{!! $val->message !!}</strong>&nbsp;&nbsp;
+                    @endforeach
+                </marquee>
+            @endif
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li>
-                        @if(count($rsAnnounce))
-                            <marquee style="width: 100%;display: inline-block; height: 100%; padding: 6px;">
-                                @foreach($rsAnnounce as $val)
-                                   <strong>{!! $val->message !!}</strong>&nbsp;&nbsp;
-                                @endforeach
-                            </marquee>
-                        @endif
+
                     </li>
                     {{--<!-- Messages: style can be found in dropdown.less-->--}}
                     {{--<li class="dropdown messages-menu">--}}
