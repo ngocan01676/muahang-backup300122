@@ -26,7 +26,6 @@ class CategoryController extends \Admin\Http\Controllers\CategoryController
         }
         if ($post['act'] == "info") {
             $dataJson = $respon->getData();
-
             if (property_exists($dataJson, 'success') && property_exists($dataJson->success, 'product_id') && !is_null( $dataJson->success->product_id)) {
                 $data = isset($post["data"]['data']) && is_array($post["data"]['data']) ? serialize($post["data"]['data']) : serialize([]);
                 DB::table('shop_ship_category')->

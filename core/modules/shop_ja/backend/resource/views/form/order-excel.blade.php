@@ -5008,13 +5008,11 @@
                 ]
             }
             return {
-
                 sheetName:sheetName,
                 rowResize:true,
                 columnDrag:true,
                 columns:Object.values(columns),
                 data:_data,
-
                 onload: function (e) {
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {

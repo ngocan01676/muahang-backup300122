@@ -25,7 +25,7 @@
                         <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
                             <input type="text" name="filter.search" class="form-control pull-right"
                                    value="{{old('search')}}"
-                                   placeholder="{!! z_language("Search") !!}">
+                                   placeholder="{!! z_language("Tìm kiếm") !!}">
                             <div class="input-group-btn">
                                 <button type="button" id="BtnSearch" class="btn btn-default"><i
                                             class="fa fa-search"></i></button>
@@ -33,29 +33,20 @@
                         </div>
                     </form>
                 </div>
-                <div style="padding: 5px"><a href="{!! url()->current() !!}">{{ z_language('All') }}</a> | <a
-                            href="?status=1">{{ z_language('Public') }}</a> |
-                    <a href="?status=0">{{ z_language('UnPublic') }}</a>
+                <div style="padding: 5px">
+                    <a href="{!! url()->current() !!}">{{ z_language('Tất cả') }}</a> | <a href="?status=1">{{ z_language('Bật') }}</a> | <a href="?status=0">{{ z_language('Tắt') }}</a>
                 </div>
             </div>
             <div class="box-body listMain">
-
-
                     <table class="table table-bordered">
                     <thead>
                     <tr>
-
                         @php  $model =(!is_null($models) && count($models)>0)?$models[0]:null;  @endphp
-
                         @foreach($data['config']['columns']['lists'] as $k=>$columns)
-
                             @isset($data['data']['columns'][$k])
-
                                 @continue(isset($route[$k]))
-
                                 @if($model!=null && property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) || $k =="actions" )
                                 @if('id'== $columns['type'])
-
                                     <th class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!} @isset($columns['order_by']) column-order_by @endisset {{list_text_aligin($columns)}}">
                                         {{z_language($columns['label'])}}
                                         {!! sort_type(isset($columns['order_by'])?$columns['order_by']:"",$k,$parameter) !!}
@@ -71,7 +62,6 @@
                                 @endif
                             @endisset
                         @endforeach
-
                     </tr>
                      </thead>
                     <tbody>
@@ -114,7 +104,7 @@
                                                                         <input name="ref" type="hidden" value="{!! url()->current(); !!}">
                                                         @csrf
                                                     </form>
-                                                                    <a href="#"
+                                                                    <a  href="#"
                                                                        onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn xóa bảng ghi này') !!}')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
                                                                 @else
                                                                     <a href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"  | ":""}}
@@ -149,7 +139,7 @@
                     @else
                         <tr>
                             <td colspan="@php echo count($data['config']['columns']['lists'])+2 @endphp">
-                                <strong>{{z_language('List Empty')}}</strong></td>
+                                <strong>{{z_language('Danh sách trống')}}</strong></td>
                         </tr>
                     @endif
                     </tbody>
@@ -164,30 +154,21 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            // $('[name="filter.search"]').bind("enterKey",function(e){
-            //     console.log();
-            // });
-            $('[name="filter.search"]').on('keypress', function (e) {
-                if(e.which === 13){
-                console.log(1);
 
-                }
-            });
             $("#sectionList .listMain").on('click', '.column-order_by', function () {
-
                 $("#sectionList").loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
                 var data = $("#sectionList .pagination .active").data();
-
                 var getData = $("#filter_form").zoe_inputs('get');
+
                 getData.action = true;
                 getData.order_by = $(this).children('.fa').data();
+
                 $.ajax({
                     type: "GET",
                     url: null,
                     data: getData,
                     success: function (data) {
                         renderContent(data);
-                        console.log(data);
                         $("#sectionList").loading({destroy: true});
                     },
                     error: function (xhr, error) {
@@ -203,10 +184,9 @@
                     var htmlContent = $(data.views.content);
                     var listMain = htmlContent.find(".listMain table");
                     var pagination = htmlContent.find(".pagination ul li");
-                    console.log(pagination);
+
                     $("#sectionList .listMain").html(listMain);
                     $("#sectionList .pagination ul").html(pagination);
-                    console.log(pagination);
                 }
             }
 

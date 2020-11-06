@@ -2,13 +2,17 @@
     <h1>
         &starf; {!! @z_language(["Chức năng quản lý đơn hàng"]) !!}
         <small>it all starts here</small>
-        <a href="#" onclick="open_edit('now');"
+        <a  onclick="open_edit('last');"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i>
-            {!! @z_language(["Tạo đơn hôm nay"]) !!}
+            {!! @z_language(["Mở đơn hôm qua"]) !!}
         </a>
-        <a href="#" onclick="open_edit('next');"
+        <a  onclick="open_edit('now');"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i>
-            {!! @z_language(["Tạo đơn mai"]) !!}
+            {!! @z_language(["Mở đơn hôm nay"]) !!}
+        </a>
+        <a  onclick="open_edit('next');"
+           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i>
+            {!! @z_language(["Mở đơn mai"]) !!}
         </a>
         @btn_option(["config"=>['name'=>'module:shop_ja:order:excel']])
         @slot('label')
@@ -181,29 +185,25 @@
     <script>
         function open_edit(type) {
             let date;
+
             if(type === "now"){
                  date = "{!! date('d-m-Y') !!}";
-            }else{
+            }else if(type === "last"){
+                date = "{!! date('d-m-Y',strtotime('-1 day')) !!}";
+            }
+            else{
                 date = "{!! date('d-m-Y',strtotime('+1 day')) !!}";
             }
-            console.log(date);
+            let arrTimeDate = $("#sectionList .list-row .row-title");
+
+            for(let i=0 ; i < arrTimeDate.length ; i++){
+                let a = $(arrTimeDate[i]);
+                let t = a.text();
+                if(t === date){
+                    window.location.href = a.closest('.column').find('.edit a').attr('href');
+                    break;
+                }
+            }
         }
-        // $('#reservation').daterangepicker({
-        //     //singleDatePicker: true,
-        //     //showDropdowns: true
-        // }, function(start, end, label) {
-        //     $.ajax({
-        //         type: "GET",
-        //         data: {
-        //            date_start:start.format('YYYY-MM-DD'),
-        //            date_end:end.format('YYYY-MM-DD'),
-        //         },
-        //         success: function (data) {
-        //            let content = $(data.views.content);
-        //            let result_analytics = content.find('.result-analytics');
-        //            $(".result-analytics").html(result_analytics.html());
-        //         },
-        //     });
-        // });
     </script>
 @endpush

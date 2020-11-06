@@ -1,8 +1,8 @@
 @section('content-header')
     <h1>
-        {!! @z_language(["Manager Language"]) !!}
+        {!! @z_language(["Quản lý ngôn ngữ"]) !!}
         {{--<small>it all starts here</small>--}}
-        <button type="button" onclick="Save()" class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
+        <button type="button" onclick="Save()" class="btn btn-default btn-md"> {!! @z_language(["Lưu"]) !!} </button>
     </h1>
 @endsection
 @php $languages = config('zoe.language');
@@ -161,14 +161,12 @@
                                                  id="tab_{!! $keyTab !!}_{!! $key !!}">
                                                 <table class="table table-bordered">
                                                     <thead>
-
                                                     <tr>
-                                                        <th class="text-center" width="250px">
-                                                        </th>
+                                                        <th class="text-center" style="width: {!! $w !!}%"> &nbsp; </th>
                                                         @foreach ($languages as $lang=>$language)
                                                             {{--@continue($lang == $lang_default)--}}
-                                                            <th class="text-center"><span
-                                                                        class="flag-icon flag-icon-{{$language['flag']}}"></span>
+                                                            <th style="width: {!! $w !!}%" class="text-center">
+                                                                <span class="flag-icon flag-icon-{{$language['flag']}}"></span>
                                                             </th>
                                                         @endforeach
                                                     </tr>
@@ -185,28 +183,26 @@
                                                             data-name="{!! $values['name'] !!}">
                                                             <table class="table table-bordered">
                                                                 <tr>
-                                                            <td data-path="{!! implode('-',$values['path']) !!}"
-                                                                class="text-center"> {!! $values['name'] !!} </td>
-
-                                                            @foreach ($languages as $lang=>$language)
-                                                                {{--                                @continue($lang == $lang_default)--}}
-                                                                @php
-                                                                    $langValue =  isset($data['lang'][$language["lang"]][$key]["value"]) && !empty($data['lang'][$language["lang"]][$key]["value"])?$data['lang'][$language["lang"]][$key]["value"]:(isset($langStatic[$values['name']][$language["lang"]])?$langStatic[$values['name']][$language["lang"]]:"");
-                                                                @endphp
-                                                                <td class="text-center" style="width: {!! $w !!}%">
-                                                                    <a href="#" class="lang"
-                                                                       data-title="{!! @z_language(["Please enter at least 1 character"]) !!}">{!! $langValue !!}</a>
-                                                                    <input type="hidden"
-                                                                           name="lang[{!! $language["lang"] !!}][{!! $key !!}].name"
-                                                                           value="{!! $values['name'] !!}">
-                                                                    <input type="hidden"
-                                                                           name="lang[{!! $language["lang"] !!}][{!! $key !!}].key"
-                                                                           value="{!! $values['path'][0].'-'.$values['path'][1].'-'.$values['path'][2] !!}">
-                                                                    <input type="hidden" class="val"
-                                                                           name="lang[{!! $language["lang"] !!}][{!! $key !!}].value"
-                                                                           value="{!! $langValue !!}">
-                                                                </td>
-                                                            @endforeach
+                                                                    <td class="text-center" style="width: {!! $w !!}%" data-path="{!! implode('-',$values['path']) !!}"> {!! $values['name'] !!} </td>
+                                                                    @foreach ($languages as $lang=>$language)
+                                                                        {{--                                @continue($lang == $lang_default)--}}
+                                                                        @php
+                                                                            $langValue =  isset($data['lang'][$language["lang"]][$key]["value"]) && !empty($data['lang'][$language["lang"]][$key]["value"])?$data['lang'][$language["lang"]][$key]["value"]:(isset($langStatic[$values['name']][$language["lang"]])?$langStatic[$values['name']][$language["lang"]]:"");
+                                                                        @endphp
+                                                                        <td class="text-center" style="width: {!! $w !!}%">
+                                                                            <a href="#" class="lang"
+                                                                               data-title="{!! @z_language(["Please enter at least 1 character"]) !!}">{!! $langValue !!}</a>
+                                                                            <input type="hidden"
+                                                                                   name="lang[{!! $language["lang"] !!}][{!! $key !!}].name"
+                                                                                   value="{!! $values['name'] !!}">
+                                                                            <input type="hidden"
+                                                                                   name="lang[{!! $language["lang"] !!}][{!! $key !!}].key"
+                                                                                   value="{!! $values['path'][0].'-'.$values['path'][1].'-'.$values['path'][2] !!}">
+                                                                            <input type="hidden" class="val"
+                                                                                   name="lang[{!! $language["lang"] !!}][{!! $key !!}].value"
+                                                                                   value="{!! $langValue !!}">
+                                                                        </td>
+                                                                    @endforeach
                                                                 </tr>
                                                             </table>
                                                         </li>
@@ -381,17 +377,14 @@
                 width: 100%;
                 display: block;
             }
-
             .vertical-tab .nav-tabs li a {
                 padding: 7px 7px;
                 margin: 0 0 10px 0;
             }
-
             .vertical-tab .tab-content {
                 padding: 20px 15px 10px;
                 display: block;
             }
-
             .vertical-tab .tab-content h3 {
                 font-size: 18px;
             }
