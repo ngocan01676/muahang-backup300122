@@ -1159,6 +1159,13 @@ class Excel{
         $_dateNhan = new \stdClass();
         $_dateNhan->date = $this->date;
         for($typeMethod = 2; $typeMethod >=1 ; $typeMethod--){
+
+            $total_order_ship = 0;
+            $total_order_total_price = 0;
+            $total_order_total_price_buy = 0;
+            $total_ship_cou = 0;
+            $total_order_price = 0;
+
             $colums = [
                 ["注文日",['callback'=>function($index,$date) use($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
@@ -1286,13 +1293,21 @@ class Excel{
                 $order_info =  (isset($columns_value['order_info'])?$values[$columns_value['order_info']]:"");
                 $images[] = [$image,$order_info];
 
+                $total_order_ship +=(int)(isset($columns_value['order_ship'])?$values[$columns_value['order_ship']]:"0");
+                $total_order_total_price+=(int)(isset($columns_value['order_total_price'])?$values[$columns_value['order_total_price']]:"0");
+                $total_order_total_price_buy+=(int)(isset($columns_value['order_total_price_buy'])?$values[$columns_value['order_total_price_buy']]:"0");
+                $total_ship_cou+=(int)(isset($columns_value['ship_cou'])?$values[$columns_value['ship_cou']]:"0");
+                $total_order_price+=(int)(isset($columns_value['order_price'])?$values[$columns_value['order_price']]:"0");
+
+
                 foreach($colums as $key1=>$value){
                     $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key1+1);
+                    $_val = "";
                     if(is_array($value[1])){
                         if(isset($value[1]['product'])){
                             $conf = $value[1]['product'];
                             $id = (isset($columns_value[$conf[0]])?$values[$columns_value[$conf[0]]]:"");
-                            $_val = "";
+
                             if(isset($products[$id]) && property_exists($products[$id],$conf[1])){
                                 $_val = $products[$id]->{$conf[1]};
                             }
@@ -1300,18 +1315,18 @@ class Excel{
                         }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                             $conf = $value[1]['callback'];
                             $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start]);
-
                             $sheet->setCellValue($nameCol.$start,$_val);
                         }
                     }else{
                         $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
-
                         $sheet->setCellValue($nameCol.$start,$v);
-
+                        $_val = $v;
                         if($value[1] == "payMethod"){
                             $payMethod = $v;
                         }
                     }
+
+
                 }
                 if($payMethod == "銀行振込"){
                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
@@ -1366,7 +1381,7 @@ class Excel{
                 $sheet->getStyle('I'.$start)->applyFromArray(array(
                         'font'  => array(
                             'size'  => 9,
-                            'name' => 'Times New Roman',
+                            'name' => 'Calibri',
                             'color' => array('rgb' => 'ff1100'),
                         ),
                     )
