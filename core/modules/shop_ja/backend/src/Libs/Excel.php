@@ -1358,14 +1358,55 @@ class Excel{
 
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship']+1);
             $sheet->setCellValue($nameCol.$start,$total_order_ship);
+            $sheet->getStyle($nameCol.$start)->applyFromArray( array(
+                    'font'  => array(
+                        'size'  => 9,
+                        'name' => 'Calibri',
+                         'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_total_price']+1);
             $sheet->setCellValue($nameCol.$start,$total_order_total_price);
+            $sheet->getStyle($nameCol.$start)->applyFromArray( array(
+                    'font'  => array(
+                        'size'  => 9,
+                        'name' => 'Calibri',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_total_price_buy']+1);
             $sheet->setCellValue($nameCol.$start,$total_order_total_price_buy);
+            $sheet->getStyle($nameCol.$start)->applyFromArray( array(
+                    'font'  => array(
+                        'size'  => 9,
+                        'name' => 'Calibri',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship_cou']+1);
             $sheet->setCellValue($nameCol.$start,$total_ship_cou);
+            $sheet->getStyle($nameCol.$start)->applyFromArray( array(
+                    'font'  => array(
+                        'size'  => 9,
+                        'name' => 'Calibri',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_price']+1);
             $sheet->setCellValue($nameCol.$start,$total_order_price);
+            $sheet->getStyle($nameCol.$start)->applyFromArray( array(
+                    'font'  => array(
+                        'size'  => 9,
+                        'name' => 'Calibri',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+            $start++;
             if($typeMethod == 0){
 //                $start+=2;
 //                $sheet->setCellValue('N'.$start, '合計');
