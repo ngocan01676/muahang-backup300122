@@ -83,7 +83,7 @@
                     let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
                     let data = spreadsheet.jexcel[worksheet].options.data;
                     let name = _spreadsheet.textContent;
-                    date = moment(date).format('YYYY-M-D');
+                    date = moment(date).format('D-M-YYYY');
                     console.log(date);
 
                     for(let i in data){
@@ -109,7 +109,7 @@
                   let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
                   let data = spreadsheet.jexcel[worksheet].options.data;
                   let name = _spreadsheet.textContent;
-                  date = moment(date).format('YYYY-M-D');
+                  date = moment(date).format('D-M-YYYY');
                   for(let i in data){
                       let k = jexcel.getColumnNameFromId([columnsAll[name].order_date.index, parseInt(i) ]);
                       spreadsheet.jexcel[worksheet].setValue(k,date);
