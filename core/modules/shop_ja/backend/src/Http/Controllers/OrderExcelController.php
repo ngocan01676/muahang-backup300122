@@ -1498,7 +1498,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 }
             }
         }
-        dd($datas);
+       
         return $datas;
     }
     public function edit(Request $request){
