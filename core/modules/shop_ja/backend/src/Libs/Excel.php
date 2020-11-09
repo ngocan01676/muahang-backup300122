@@ -1683,7 +1683,7 @@ class Excel{
                         }
                         if($startRow != $start){
                             $_1 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["product_id"]+1).$startRow;
-                            $_2 =  PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"]+1).($start-2);
+                            $_2 =  PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"]+1).($start-1);
                             $sheet->getStyle($_1.':'.$_2)->applyFromArray(   array(
 
 //                                'borders' => [
@@ -1700,7 +1700,7 @@ class Excel{
                             ) );
                             foreach (["timeCreate","fullname","payMethod",'zipcode','province','address','phone','order_date','order_hours'] as $col){
                                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList[$col]+1);
-                                $spreadsheet->getActiveSheet()->mergeCells($nameCol.$startRow.":".$nameCol.($start-2));
+                                $spreadsheet->getActiveSheet()->mergeCells($nameCol.$startRow.":".$nameCol.($start-1));
                                 $styleArray = [
                                     'alignment' => [
                                         'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
