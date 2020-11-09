@@ -1610,7 +1610,8 @@ class Excel{
                                                 $_val = "";
                                             }
                                         }
-                                        if($_val == 0) $_val = "";
+
+                                        if($_val == "0") $_val = "";
 
                                         $sheet->setCellValue($nameCol.$start,$_val);
                                     }else{
@@ -1632,7 +1633,7 @@ class Excel{
                                         if($value[1] == "payMethod"){
                                             $payMethod = $v;
                                         }
-                                       // if($v == 0) $v = "";
+                                        if($v == "0") $v = "";
                                         $sheet->setCellValue($nameCol.$start,$v);
                                     }
                                 }
