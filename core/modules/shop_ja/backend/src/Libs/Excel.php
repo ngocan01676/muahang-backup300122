@@ -1355,6 +1355,10 @@ class Excel{
                 }
                 $start++;
             }
+            
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship']);
+            $sheet->setCellValue($nameCol.$start,$total_order_ship);
+
             if($typeMethod == 0){
 //                $start+=2;
 //                $sheet->setCellValue('N'.$start, '合計');
