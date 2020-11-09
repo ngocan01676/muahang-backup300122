@@ -1355,10 +1355,17 @@ class Excel{
                 }
                 $start++;
             }
-            
-            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship']);
-            $sheet->setCellValue($nameCol.$start,$total_order_ship);
 
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship']+1);
+            $sheet->setCellValue($nameCol.$start,$total_order_ship);
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_total_price']+1);
+            $sheet->setCellValue($nameCol.$start,$total_order_total_price);
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_total_price_buy']+1);
+            $sheet->setCellValue($nameCol.$start,$total_order_total_price_buy);
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['ship_cou']+1);
+            $sheet->setCellValue($nameCol.$start,$total_ship_cou);
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_price']+1);
+            $sheet->setCellValue($nameCol.$start,$total_order_price);
             if($typeMethod == 0){
 //                $start+=2;
 //                $sheet->setCellValue('N'.$start, '合計');
