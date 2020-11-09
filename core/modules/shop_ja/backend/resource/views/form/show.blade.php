@@ -213,10 +213,10 @@
                     datas: JSON.stringify(data),
                     name:name,
                     columns:_columns,
-                    date:$("#datepicker1").val(),//dêt nhan
+                    date:$("#datepicker1").val(),// giờ xuất
                     hour:'{!! $hour !!}',
                     company:'{!! $company !!}',
-                    date_export:$("#datepicker").val()
+                    date_export:$("#datepicker").val()// ngày xuất
                 },
                 success: function (data) {
                     console.log(data);

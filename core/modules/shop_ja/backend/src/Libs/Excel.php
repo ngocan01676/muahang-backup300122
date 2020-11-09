@@ -244,8 +244,8 @@ class Excel{
                         'count'=>trim(rtrim($value['data'][$nameColList['count']])),
                     ];
                     $_result = DB::table('shop_order_excel')->where($where)
-                        ->where('order_create_date','>=',date('Y-m-d',strtotime('-1 day',$this->date)).' 00:00:00')
-                        ->where('order_create_date','<=',date('Y-m-d',$this->date).' 23:59:59')
+                        ->where('order_create_date','>=',date('Y-m-d',strtotime('-1 day',$this->date_export)).' 00:00:00')
+                        ->where('order_create_date','<=',date('Y-m-d',$this->date_export).' 23:59:59')
                         ->where('export',1)
                         ->get()->all();
 
@@ -507,12 +507,12 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d', $this->date);
+        $path = $path.'/'.date('Y-m-d', $this->date_export);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $filename = date('m',$this->date).'月'.date('d',$this->date).'日の注文分-福井精米様御中';
+        $filename = date('m',$this->date_export).'月'.date('d',$this->date_export).'日の注文分-福井精米様御中';
 
 
         $path = $path.'/'.$filename;
@@ -780,12 +780,12 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d',$this->date);
+        $path = $path.'/'.date('Y-m-d',$this->date_export);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $filename = '大賀商店のお米の注文分'.date('m',$this->date).'月'.date('d',$this->date).'日';
+        $filename = '大賀商店のお米の注文分'.date('m',$this->date_export).'月'.date('d',$this->date_export).'日';
 
 
         $path = $path.'/'.$filename;
@@ -1076,17 +1076,17 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d',$this->date);
+        $path = $path.'/'.date('Y-m-d',$this->date_export);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
 
         if($name == "AMAZON"){
-            $filename = 'の注文分'.date('m',$this->date).'月'.date('d',$this->date).'日';
+            $filename = 'の注文分'.date('m',$this->date_export).'月'.date('d',$this->date_export).'日';
         }else{
-            $filename = '株式会社ヤマダ-様-のお米の注文分'.date('m',$this->date).'月'.date('d',$this->date).'日';
+            $filename = '株式会社ヤマダ-様-のお米の注文分'.date('m',$this->date_export).'月'.date('d',$this->date_export).'日';
         }
-        
+
         $path = $path.'/'.$filename;
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
@@ -1487,13 +1487,13 @@ class Excel{
             $this->file->makeDirectory(public_path().$path);
         }
 
-        $path = $path.'/'.date('Y-m-d',$this->date);
+        $path = $path.'/'.date('Y-m-d',$this->date_export);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
         // 株式会社クリチク-様-11月03日注文分
       //  $filename ='株式会社クリチク-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
-        $filename ='株式会社クリチク-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
+        $filename ='株式会社クリチク-様-'.date('m',$this->date_export).'月'.date('d',$this->date_export).'日注文分';
 
         $path = $path.'/'.$filename;
         if( !$this->file->isDirectory(public_path().$path)){
@@ -1857,11 +1857,11 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $path = $path.'/'.date('Y-m-d',$this->date);
+        $path = $path.'/'.date('Y-m-d',$this->date_export);
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        $filename = '株式会社コギ家-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
+        $filename = '株式会社コギ家-様-'.date('m',$this->date_export).'月'.date('d',$this->date_export).'日注文分';
         //株式会社コギ家-様-10月17日注文分
 
         $path = $path.'/'.$filename;
