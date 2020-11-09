@@ -638,6 +638,9 @@ class Excel{
         $sheet->getStyle('A3:T3')->applyFromArray( $style_header );
         $date_export = new \stdClass();
         $date_export->date =  $this->date_export;
+
+        $_dateNhan = new \stdClass();
+        $_dateNhan->date =  $this->date;
         $colums = [
             ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
             ["支払区分",'payMethod',10,9],//B
@@ -650,7 +653,7 @@ class Excel{
             ["商品名",['product'=>['product_name','title']],18,9],//I
             ["単価",'price',15,9],//J
             ["数量",'count',15,9],//K
-            ["到着希望日",['callback'=>function($index,$date) use($date_export){return date("d/m/y", $date_export->date);},'key'=>'order_date'],15,9],
+            ["到着希望日",['callback'=>function($index,$date) use($_dateNhan){return date("d/m/Y", $_dateNhan->date);},'key'=>'order_date'],15,9],
             ["配送希望時間帯",'order_hours',15,9],//M
             ["別途送料",'order_ship',15,9],//N
             ["仕入金額",'order_total_price',15,9],//O
@@ -903,6 +906,9 @@ class Excel{
         $sheet->getStyle('A3:T3')->applyFromArray( $style_header );
         $date_export = new \stdClass();
         $date_export->date =  $this->date_export;
+        $date_nhan = new \stdClass();
+        $date_nhan->date =  $this->date;
+
         $colums = [
             ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d",$date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
             ["支払区分",'payMethod',10,9],//B
@@ -915,7 +921,7 @@ class Excel{
             ["商品名",['product'=>['product_name','title']],18,9],//I
             ["単価",'price',15,9],//J
             ["数量",'count',15,9],//K
-            ["到着希望日",['callback'=>function($index,$date){return date("m/d/Y", strtotime($date));},'key'=>'order_date'],15,9],//L
+            ["到着希望日",['callback'=>function($index,$date) use($date_nhan){return date("m/d/Y", $date_nhan->date);},'key'=>'order_date'],15,9],//L
             ["配送希望時間帯",'order_hours',15,9],//M
             ["別途送料",'order_ship',15,9],//N
             ["仕入金額",'order_total_price',15,9],//O
@@ -1150,7 +1156,8 @@ class Excel{
         $ids = [];
         $date_export = new \stdClass();
         $date_export->date =  $this->date_export;
-
+        $_dateNhan = new \stdClass();
+        $_dateNhan->date = $this->date;
         for($typeMethod = 2; $typeMethod >=1 ; $typeMethod--){
             $colums = [
                 ["注文日",['callback'=>function($index,$date) use($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
@@ -1215,7 +1222,7 @@ class Excel{
 
                     return $total_count;
                     },'key'=>'count'],15,9],//SL
-                ["到着希望日",['callback'=>function($index,$date) use($date_export){return date("d/m/y", $date_export->date);},'key'=>'order_date'],15,9],//Ngày nhận
+                ["到着希望日",['callback'=>function($index,$date) use($_dateNhan){return date("d/m/y", $_dateNhan->date);},'key'=>'order_date'],15,9],//Ngày nhận
                 ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
                 ["送料",'order_ship',15,9],//Phí ship
                 ["仕入金額",'order_total_price',15,9],//Giá bán
@@ -1489,6 +1496,8 @@ class Excel{
         $products =  DB::table('shop_product')->get()->keyBy('id')->all();
         $date_export = new \stdClass();
         $date_export->date = $this->date_export;
+        $_dateNhan = new \stdClass();
+        $_dateNhan->date = $this->date;
         $images = [];
         $ids = [];
         for($typeMethod = 2; $typeMethod >=1 ; $typeMethod--){
@@ -1514,7 +1523,7 @@ class Excel{
                 ["商品名",['product'=>['product_name','title']],18,9],//I
                 ["単価",'price',15,9],//Giá nhập
                 ["数量",'count',15,9],//SL
-                ["到着希望日",['callback'=>function($index,$date) use($date_export){return date("d/m/y", $date_export->date);},'key'=>'order_date'],15,9],
+                ["到着希望日",['callback'=>function($index,$date) use($_dateNhan){return date("d/m/y", $_dateNhan->date);},'key'=>'order_date'],15,9],
                 ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
                 ["送料",'order_ship',15,9],//Phí ship
                 ["梱包材",'total_count',15,9],//Tổng giá nhập
