@@ -1595,6 +1595,7 @@ class Excel{
                                     $oke = false;
                                 }else{
                                     if(is_array($value[1])){
+                                        $_val = "";
                                         if(isset($value[1]['product'])){
                                             $conf = $value[1]['product'];
                                             $id = (isset($columns_value[$conf[0]])?$values[$columns_value[$conf[0]]]:"");
@@ -1630,7 +1631,7 @@ class Excel{
                                         if($value[1] == "payMethod"){
                                             $payMethod = $v;
                                         }
-                                        if($v == 0) $v = "";
+                                     //   if($v == 0) $v = "";
                                         $sheet->setCellValue($nameCol.$start,$v);
                                     }
                                 }
