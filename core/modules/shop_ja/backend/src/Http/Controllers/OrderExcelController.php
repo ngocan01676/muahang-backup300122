@@ -892,7 +892,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $categorys = config_get("category", "shop-ja:product:category");
 
         $names  = [];
-
+        $admin_id = Auth::user()->id;
         $models->orderBy('key_date', 'desc');
         return $this->render('order-excel.list', [
             'models' => $models->paginate($item),
@@ -904,13 +904,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 "GetName" => function ($model){
                     return date('d-m-Y',strtotime($model->key_date));
                 },
-                "CountCompany"=> function($model) use($categorys){
+                "CountCompany"=> function($model) use($categorys,$admin_id){
 
                     $table = "<table class='table table-bordered company' style='padding: 0;margin: 0;'><tr>";
                     foreach ($categorys as $k=>$value){
-
                        $count = DB::table('shop_order_excel')
                             ->where('company',$value['name'])
+                            ->where('admin_id',$admin_id)
                             ->where('fullname','!=','')
                             ->where('order_create_date','>=',$model->key_date.' 00:00:00')
                             ->where('order_create_date','<=',$model->key_date.' 23:59:59')->count();
