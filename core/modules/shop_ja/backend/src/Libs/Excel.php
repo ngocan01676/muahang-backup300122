@@ -1296,7 +1296,7 @@ class Excel{
                 $total_order_ship +=(int)(isset($columns_value['order_ship'])?$values[$columns_value['order_ship']]:"0");
                 $total_order_total_price+=(int)(isset($columns_value['order_total_price'])?$values[$columns_value['order_total_price']]:"0");
                 $total_order_total_price_buy+=(int)(isset($columns_value['order_total_price_buy'])?$values[$columns_value['order_total_price_buy']]:"0");
-                $total_ship_cou+=(int)(isset($columns_value['ship_cou'])?$values[$columns_value['ship_cou']]:"0");
+                $total_ship_cou+=(int)(isset($columns_value['order_ship_cou'])?$values[$columns_value['order_ship_cou']]:"0");
                 $total_order_price+=(int)(isset($columns_value['order_price'])?$values[$columns_value['order_price']]:"0");
 
 
@@ -1362,7 +1362,7 @@ class Excel{
             $sheet->setCellValue($nameCol.$start,$total_order_total_price);
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_total_price_buy']+1);
             $sheet->setCellValue($nameCol.$start,$total_order_total_price_buy);
-            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['ship_cou']+1);
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship_cou']+1);
             $sheet->setCellValue($nameCol.$start,$total_ship_cou);
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_price']+1);
             $sheet->setCellValue($nameCol.$start,$total_order_price);
