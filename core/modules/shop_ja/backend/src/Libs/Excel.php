@@ -1151,7 +1151,7 @@ class Excel{
         $date_export = new \stdClass();
         $date_export->date =  $this->date_export;
 
-        for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
+        for($typeMethod = 2; $typeMethod >=1 ; $typeMethod--){
             $colums = [
                 ["注文日",['callback'=>function($index,$date) use($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
@@ -1380,8 +1380,9 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-
-        $filename ='株式会社コギ家-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
+        // 株式会社クリチク-様-11月03日注文分
+      //  $filename ='株式会社クリチク-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
+        $filename ='株式会社クリチク-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
 
         $path = $path.'/'.$filename;
         if( !$this->file->isDirectory(public_path().$path)){
@@ -1490,7 +1491,7 @@ class Excel{
         $date_export->date = $this->date_export;
         $images = [];
         $ids = [];
-        for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
+        for($typeMethod = 2; $typeMethod >=1 ; $typeMethod--){
             $styleArray = array(
                 'font'  => array(
                     'size'  => 9,

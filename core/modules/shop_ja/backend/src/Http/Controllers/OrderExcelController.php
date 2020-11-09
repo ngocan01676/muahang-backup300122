@@ -941,7 +941,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
             $data['date_export'] = $data['date_export'][2] . '-' . $data['date_export'][1] . '-' . $data['date_export'][0];
         }
-       
+
         $excel = new \ShopJa\Libs\Excel(
             isset($data['date'])?$data['date']:date('Y-m-d'),isset($data['date_export'])?$data['date_export']:0);
 
