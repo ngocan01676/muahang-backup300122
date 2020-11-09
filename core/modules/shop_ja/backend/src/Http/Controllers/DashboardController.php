@@ -11,7 +11,271 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class DashboardController extends \Admin\Http\Controllers\DashboardController
 {
+    public function analytics(Request $request){
+        $data = $request->all();
+        $datas = [];
+        \DB::enableQueryLog();
+        $type = "";
+        $response = [];
+        if(isset($data['act'])){
+            if($data['act'] == 'line'){
+                if(isset($data['type'])){
+                    $type = $data['type'];
 
+                    $company = $data['conpany'];
+                    $admin_id = base64_decode($data['user_id']);
+                    $results = [];
+                    if($company != 'KOGYJA'){
+                        $excel = DB::table('shop_order_excel');
+                        $excel->where('fullname','!=','');
+                        $excel->where('public','1');
+                        if(!empty($admin_id)){
+                            $excel->where('admin_id',$admin_id);
+                        }
+                        if(!empty($company)){
+                            $excel->where('company',$company);
+                        }else {
+                            $excel->where('company', '!=', 'KOGYJA');
+                        }
+                        if($type == 'week'){
+                            $date_start = date('Y-m').'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        }
+                        else if($type == 'month'){
+                            $date_start = date('Y').'-01-01';
+                            $date_end = date('Y').'-12-31';;
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        } else if($type == 'year'){
+                            $date_start = date('Y',strtotime('-5 year', time())).'-01-01';
+                            $date_end =  date('Y',strtotime('+5 year', time())).'-12-31';
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        }else{
+                            $date_start = date('Y-m').'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                            $type = "day";
+                        }
+                        $results = $excel->orderBy('order_create_date')->get()->all();
+                    }
+                    foreach ($results as $key=>$value){
+                        $key = '';
+                        if ($type == 'month') {
+                            $key = date('Y-m', strtotime($value->order_create_date)) . "-01";
+                        } else if ($type == 'year') {
+                            $key = date('Y', strtotime($value->order_create_date));
+                        }else if ($type == 'week') {
+                            list($start_date, $end_date) = $this->x_week_range($value->order_create_date);
+                            $key = $start_date.' '.$end_date;
+                        }else{
+                            $key = date('Y-m-d', strtotime($value->order_create_date));
+                        }
+                        if(!isset($datas[$key])){
+                            $datas[$key] = [
+                                "count"=>0,
+                                "rate"=>0,
+                                $type =>$key
+                            ];
+                        }
+                        $datas[$key]["count"]++;
+                        $datas[$key]["rate"]+= $value->order_price;
+                    }
+                    if(empty($company) || $company == 'KOGYJA') {
+                        $excel = DB::table('shop_order_excel');
+                        $excel->where('fullname', '!=', '');
+                        $excel->where('public', '1');
+                        $excel->where('type', 'Footer');
+                        if (!empty($admin_id)) {
+                            $excel->where('admin_id', $admin_id);
+                        }
+                        $excel->where('company', 'KOGYJA');
+                        if($type == 'week'){
+                            $date_start = date('Y-m').'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        }
+                        else if($type == 'month'){
+                            $date_start = date('Y').'-01-01';
+                            $date_end = date('Y').'-12-31';
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        } else if($type == 'year'){
+                            $date_start = date('Y',strtotime('-5 year', time())).'-01-01';
+                            $date_end =  date('Y',strtotime('+5 year', time())).'-12-31';
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        }else{
+                            $date_start = date('Y-m').'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                            $type = "day";
+                        }
+                        $results = $excel->orderBy('order_create_date')->get()->all();
+
+                        foreach ($results as $key => $value) {
+                            $key = '';
+                            if ($type == 'month') {
+                                $key = date('Y-m', strtotime($value->order_create_date)) . "-01";
+                            } else if ($type == 'year') {
+                                $key = date('Y', strtotime($value->order_create_date));
+                            }else if ($type == 'week') {
+                                list($start_date, $end_date) = $this->x_week_range($value->order_create_date);
+                                $key = $start_date.' '.$end_date;
+                            }
+                            else{
+                                $key = date('Y-m-d', strtotime($value->order_create_date));
+                            }
+                            if (!isset($datas[$key])) {
+                                $datas[$key] = [
+                                    "count" => 0,
+                                    "rate" => 0,
+                                    $type => $key
+                                ];
+                            }
+                            $datas[$key]["count"]++;
+                            $datas[$key]["rate"] += $value->order_price;
+                        }
+                    }
+                    $response = [
+                        "lists"=>$datas,
+                        "sql"=>logs_sql(),
+                        'xkey'=>$type
+                    ];
+                }
+            }else if($data['act'] == 'circle'){
+                if(isset($data['type'])){
+                    $type = $data['type'];
+                    $roles = DB::table('admin')->get()->keyBy('id');
+
+                    $company = $data['conpany'];
+                    $admin_id = "";
+                    $results = [];
+                    $totals = 0;
+                    if($company != 'KOGYJA'){
+                        $excel = DB::table('shop_order_excel');
+                        $excel->where('fullname','!=','');
+                        $excel->where('public','1');
+                        if(!empty($admin_id)){
+                            $excel->where('admin_id',$admin_id);
+                        }
+                        if(!empty($company)){
+                            $excel->where('company',$company);
+                        }else {
+                            $excel->where('company', '!=', 'KOGYJA');
+                        }
+                        if($type == 'week'){
+                            $date_start = date('Y-m-d', strtotime('+7 day',strtotime('Last Monday', time())));
+                            $date_end = date('Y-m-d', strtotime('Next Sunday', time()));
+
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        }
+                        else if($type == 'month'){
+                            $date_start = date('Y').'-01-01';
+                            $date_end = date('Y').'-12-31';;
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        } else if($type == 'year'){
+                            $date_start = date('Y',strtotime('-5 year', time())).'-01-01';
+                            $date_end =  date('Y',strtotime('+5 year', time())).'-12-31';
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        }else{
+                            $date_start = date('Y-m').'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                            $type = "day";
+                        }
+                        $results = $excel->orderBy('order_create_date')->get()->all();
+                    }
+                    foreach ($results as $key=>$value){
+                        $key = $value->admin_id;
+
+                        if(!isset($datas[$key])){
+                            $datas[$key] = [
+                                "count"=>0,
+                                "rate"=>0,
+                                $type =>$key
+                            ];
+                            $datas[$key]['name'] = $roles[$key]->username;
+                        }
+                        $totals++;
+                        $datas[$key]["count"]++;
+                        $datas[$key]["rate"]+= $value->order_price;
+                    }
+                    if(empty($company) || $company == 'KOGYJA') {
+                        $excel = DB::table('shop_order_excel');
+                        $excel->where('fullname', '!=', '');
+                        $excel->where('public', '1');
+                        $excel->where('type', 'Footer');
+                        if (!empty($admin_id)) {
+                            $excel->where('admin_id', $admin_id);
+                        }
+                        $excel->where('company', 'KOGYJA');
+                        if($type == 'week'){
+                            $date_start = date('Y-m-d', strtotime('+7 day',strtotime('Last Monday', time())));
+                            $date_end = date('Y-m-d', strtotime('Next Sunday', time()));
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        }
+                        else if($type == 'month'){
+                            $date_start = date('Y').'-01-01';
+                            $date_end = date('Y').'-12-31';
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        } else if($type == 'year'){
+                            $date_start = date('Y',strtotime('-5 year', time())).'-01-01';
+                            $date_end =  date('Y',strtotime('+5 year', time())).'-12-31';
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                        }else{
+                            $date_start = date('Y-m').'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                            $type = "day";
+                        }
+                        $results = $excel->orderBy('order_create_date')->get()->all();
+
+                        foreach ($results as $key => $value) {
+                            $key = $value->admin_id;
+                            if (!isset($datas[$key])) {
+                                $datas[$key] = [
+                                    "count" => 0,
+                                    "rate" => 0,
+                                    $type => $key
+                                ];
+                                $datas[$key]['name'] = $roles[$key]->username;
+
+                            }
+                            $totals++;
+                            $datas[$key]["count"]++;
+                            $datas[$key]["rate"] += $value->order_price;
+                        }
+                    }
+                    $response = [
+                        "lists"=>$datas,
+                        "sql"=>logs_sql(),
+                        'totals'=>$totals
+                    ];
+                }
+            }
+        }
+        return response()->json($response);
+    }
+    function x_week_range($date) {
+        $ts = strtotime($date);
+        $start = (date('w', $ts) == 0) ? $ts : strtotime('last sunday', $ts);
+        $start = strtotime('+1 day',$start);
+        return array(date('Y-m-d', $start), date('Y-m-d', strtotime('next sunday', $start)));
+    }
     public function list(Request $request)
     {
 
@@ -28,6 +292,15 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         }else if(!Auth::user()->IsAcl("dashboard:all")){
             $user_id = Auth::user()->id;
         }
+        $this->data['roles'] = DB::table('role')->get()->keyBy('id');
+        $this->data['users'] = [];
+        $admins = DB::table('admin')->get()->all();
+        foreach ($admins as $admin){
+            if(!isset($this->data['users'][$admin->role_id])){
+                $this->data['users'][$admin->role_id] = [];
+            }
+            $this->data['users'][$admin->role_id][$admin->id] = $admin;
+        }
         foreach($categorys as $category){
 
             $query = DB::table('shop_order_excel')
@@ -40,11 +313,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                 $query->where('order_create_date','>=',$date_start." 00:00:00");
                 $query->where('order_create_date','<=',$date_end." 23:59:59");
             }
-
             $this->data['analytics']['category'][$category['name']] = [];
-
             $this->data['analytics']['category'][$category['name']]['count'] = $query->count();
-
             if($category['name'] == "KOGYJA"){
                 $price = DB::table('shop_order_excel')
                     ->where('fullname','!=','')

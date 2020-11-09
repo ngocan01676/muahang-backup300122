@@ -792,11 +792,10 @@ function logs_sql(){
             } elseif ($binding instanceof DateTime) {
                 $binding = "'{$binding->format('Y-m-d H:i:s')}'";
             }
-
             $sql = preg_replace("/\?/", $binding, $sql, 1);
 
         }
         $sqls.= $sql."<BR>";
     }
-    return $sql;
+    return $sqls;
 }

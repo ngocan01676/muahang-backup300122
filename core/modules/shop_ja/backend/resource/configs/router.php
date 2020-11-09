@@ -360,6 +360,9 @@ return [
                     "router" => [
                         "export"=>[
                             "url" => "/dashboard/export","method" => ['post'],
+                        ],
+                        "analytics"=>[
+                            "url" => "/dashboard/analytics","method" => ['post'],
                         ]
                     ]
                 ],
