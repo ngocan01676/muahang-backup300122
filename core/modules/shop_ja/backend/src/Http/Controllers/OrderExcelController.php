@@ -971,7 +971,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }
             if(isset($output['ids'])){
                 DB::beginTransaction();
-
                 try{
                     foreach ($output['ids'] as $id=>$val){
                         DB::table("shop_order_excel")->where('id',$id)->update(['export'=>1]);
