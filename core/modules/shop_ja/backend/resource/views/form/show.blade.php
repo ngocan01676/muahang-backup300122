@@ -213,7 +213,7 @@
                     datas: JSON.stringify(data),
                     name:name,
                     columns:_columns,
-                    date:$("#datepicker1").val(),//
+                    date:$("#datepicker1").val(),//dêt nhan
                     hour:'{!! $hour !!}',
                     company:'{!! $company !!}',
                     date_export:$("#datepicker").val()
