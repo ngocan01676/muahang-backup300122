@@ -182,7 +182,7 @@
             function renderContent(data) {
                 if (data.hasOwnProperty('views') && data.views.hasOwnProperty('content')) {
                     var htmlContent = $(data.views.content);
-                    var listMain = htmlContent.find(".listMain table");
+                    var listMain = htmlContent.find(".listMain>table");
                     var pagination = htmlContent.find(".pagination ul li");
 
                     $("#sectionList .listMain").html(listMain);
