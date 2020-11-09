@@ -1632,7 +1632,7 @@ class Excel{
                                         if($value[1] == "payMethod"){
                                             $payMethod = $v;
                                         }
-                                       if($v == 0) $v = "";
+                                       // if($v == 0) $v = "";
                                         $sheet->setCellValue($nameCol.$start,$v);
                                     }
                                 }
