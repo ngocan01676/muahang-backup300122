@@ -1595,7 +1595,9 @@ class Excel{
                             $oke = true;
 
                             $type =  (isset($columns_value['type'])?$values[$columns_value['type']]:"");
-
+                            if($type == "Footer"){
+                                $start = $start -1;
+                            }
                             $order_id =  (isset($columns_value['id'])?$values[$columns_value['id']]:"");
                             $ids[$order_id] = 1;
 
@@ -1621,12 +1623,9 @@ class Excel{
                                                 $_val = "";
                                             }
                                         }
-
                                         if($_val == "0") $_val = "";
-
                                         $sheet->setCellValue($nameCol.$start,$_val);
                                     }else{
-
                                         if($type == "Footer"){
                                             if(!($value[1]=="count" || $value[1]=="order_price" || $value[1] == "order_total_price" )) continue;
                                             $sheet->getStyle($nameCol.$start)->applyFromArray( array(
@@ -1640,7 +1639,6 @@ class Excel{
                                         }else{
                                             $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
                                         }
-
                                         if($value[1] == "payMethod"){
                                             $payMethod = $v;
                                         }
@@ -1651,7 +1649,7 @@ class Excel{
                             }
                             if($oke){
                                 if($pay_Method == "銀行振込"){
-                                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                                    $sheet->getStyle('A'.($start).':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                                         'font'  => array(
                                             'size'  => 9,
                                             'name' => 'Calibri',
@@ -1675,6 +1673,7 @@ class Excel{
                                         ),
                                     ) );
                                 }
+
                                 $start++;
                             }
                             if($type == "Footer"){
