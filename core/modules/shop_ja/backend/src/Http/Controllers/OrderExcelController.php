@@ -1339,7 +1339,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->order_image,
                             $result->order_create_date,
                             $pay_method,
-                            date('d/m/Y',strtotime($result->order_date)),
+                            date('Y-m-d',strtotime($result->order_date)),
                             $result->order_hours,
                             $result->fullname,
                             $result->zipcode,
@@ -1400,7 +1400,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->total_count,
                             $price,
                             $price_buy,
-                            date('d/m/Y',strtotime($result->order_date)),
+                            date('Y-m-d',strtotime($result->order_date)),
                             $result->order_hours,
                             $result->order_ship,
                             $total_price,
@@ -1475,7 +1475,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->count,
                             $price,
                             $price_buy,
-                            date('d/m/Y',strtotime($result->order_date)),
+                            date('Y-m-d',strtotime($result->order_date)),
                             $result->order_hours,
                             $result->order_ship,
                             $total_price,
@@ -1498,7 +1498,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 }
             }
         }
-       
+
         return $datas;
     }
     public function edit(Request $request){
