@@ -853,7 +853,7 @@ class Excel{
         return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
     }
-    public function YAMADA($datas,$name){
+    public function YAMADA($datas,$name,$formatFileName){
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->createSheet();
@@ -1072,7 +1072,7 @@ class Excel{
             )
         );
         $writer = new Xlsx($spreadsheet);
-        $path = '/uploads/exports/'.str_replace(__CLASS__.'::',"",__METHOD__);
+        $path = '/uploads/exports/'.$name;
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
@@ -1081,10 +1081,12 @@ class Excel{
             $this->file->makeDirectory(public_path().$path);
         }
 
-
-        $filename = '株式会社ヤマダ-様-のお米の注文分'.date('m',$this->date).'月'.date('d',$this->date).'日';
-
-
+        if($name == "AMAZON"){
+            $filename = 'の注文分'.date('m',$this->date).'月'.date('d',$this->date).'日';
+        }else{
+            $filename = '株式会社ヤマダ-様-のお米の注文分'.date('m',$this->date).'月'.date('d',$this->date).'日';
+        }
+        
         $path = $path.'/'.$filename;
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
