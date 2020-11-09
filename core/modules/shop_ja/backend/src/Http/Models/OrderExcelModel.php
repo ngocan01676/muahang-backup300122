@@ -110,7 +110,7 @@ class OrderExcelModel extends Model
 //            ->get()->all();
 
 
-         
+        \DB::enableQueryLog();
 
         $date_last = date('Y-m-d',strtotime('-1 day', strtotime($date)));
       //  foreach ($lists as $key=>$value){
@@ -195,7 +195,7 @@ class OrderExcelModel extends Model
                 $dataNew['KOGYJA'] = $KOGYJA;
             }
         }
-
+        echo logs_sql();
         return $dataNew;
 
 //           foreach ($shop_order_excel as $_key=>$_value){
