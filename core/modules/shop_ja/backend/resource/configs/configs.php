@@ -249,7 +249,7 @@
                     'pagination' => [
                         'item' => 20,
                         'router' => [
-                            'edit' => ['label' => z_language('Sửa', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
+                            'edit' => ['hide'=>'hide','label' => z_language('Sửa', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
 //                            'preview' => ['label' => z_language('Preview', false), 'name' => "backend:shop_ja:order:excel:edit", 'par' => ['id' => 'id']],
 //                            'trash' => ['method' => 'post', 'label' => z_language('Xóa', false), 'name' => "backend:shop_ja:order:excel:delete", 'par' => ['id' => 'id']],
                         ]
