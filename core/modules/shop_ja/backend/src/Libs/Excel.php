@@ -1150,6 +1150,7 @@ class Excel{
         $ids = [];
         $date_export = new \stdClass();
         $date_export->date =  $this->date_export;
+
         for($typeMethod = 1; $typeMethod < 3 ; $typeMethod++){
             $colums = [
                 ["注文日",['callback'=>function($index,$date) use($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A

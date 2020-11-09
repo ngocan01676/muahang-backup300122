@@ -110,7 +110,7 @@ class OrderExcelModel extends Model
 //            ->get()->all();
 
 
-       
+
 
         $date_last = date('Y-m-d',strtotime('-1 day', strtotime($date)));
       //  foreach ($lists as $key=>$value){

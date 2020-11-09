@@ -69,6 +69,7 @@
             let changeDate = 0;
             let changeDate1 = 0;
             $datepicker = $('#datepicker').datepicker({
+                format: 'dd/mm/yyyy',
                 autoclose: true,
             }).on('changeDate', function (ev) {
                 if(changeDate === 0){
@@ -83,6 +84,8 @@
                     let data = spreadsheet.jexcel[worksheet].options.data;
                     let name = _spreadsheet.textContent;
                     date = moment(date).format('YYYY-M-D');
+                    console.log(date);
+
                     for(let i in data){
                         let k = jexcel.getColumnNameFromId([columnsAll[name].timeCreate.index, parseInt(i) ]);
                         spreadsheet.jexcel[worksheet].setValue(k,date);
@@ -92,6 +95,7 @@
             $datepicker.datepicker('setDate', new Date(date.format()));
             $datepicker1 = $('#datepicker1').datepicker({
                 autoclose: true,
+                format: 'dd/mm/yyyy',
             }).on('changeDate', function (ev) {
                 if(changeDate1 === 0){
                     changeDate1++;
