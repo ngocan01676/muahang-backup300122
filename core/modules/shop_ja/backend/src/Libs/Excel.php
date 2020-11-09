@@ -1609,7 +1609,7 @@ class Excel{
                                                 $_val = "";
                                             }
                                         }
-                                        if($_val == 0) $_val = "";
+                                       // if($_val == 0) $_val = "";
                                         $sheet->setCellValue($nameCol.$start,$_val);
                                     }else{
 
