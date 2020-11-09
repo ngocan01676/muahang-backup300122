@@ -1744,7 +1744,7 @@ class Excel{
                     )
                 );
             }
-            $start+=1;
+            $start+=2;
             $dataRow = [];
         }
         $writer = new Xlsx($spreadsheet);
