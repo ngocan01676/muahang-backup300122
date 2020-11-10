@@ -194,76 +194,61 @@ class SimController extends \Zoe\Http\ControllerBackend{
         $datas = [];
 
         foreach ($results as $result){
+
             if(!isset($datas[$result->company])){
                 $datas[$result->company] = [];
             }
-            if(isset( $this->data['products'][$result->company])){
-                $_product = $this->data['products'][$result->company];
 
-                if($result->company == "FUKUI1"){
-                    if($result->pay_method == 1){
-                        $pay_method = "代金引換";
-                    }else  if($result->pay_method == 2){
-                        $pay_method = "銀行振込";
-                    }else if($result->pay_method == 3){
-                        $pay_method = "決済不要";
-                    }
-
-                    $order_profit= 0;
-                    $price = 0;
-                    $total_price = 0;
-                    $total_price_buy = 0;
-                    if(isset( $_product[$result->product_id]['data']['price_buy'])){
-                        $order_profit =
-                            $_product[$result->product_id]['data']['price_buy'] * $result->count -
-                            $_product[$result->product_id]['data']['price']*$result->count -
-                            $result->order_ship - $result->order_ship_cou;
-                        $price = $_product[$result->product_id]['data']['price'];
-                        $total_price = $_product[$result->product_id]['data']['price']* $result->count;
-                        $total_price_buy = $_product[$result->product_id]['data']['price_buy']* $result->count;
-                    }
-
-                    $datas[$result->company][] = [
-                        "",
-                        $pay_method,
-                        $result->order_date,
-                        $result->order_hours,
-                        $result->fullname,
-                        $result->zipcode,
-                        $result->province,
-                        $result->address,
-                        $result->phone,
-                        $result->order_ship,
-                        $order_profit,
-                        $total_price_buy,
-                        $result->product_id,
-                        $result->product_id,
-                        $total_price,
-                        $result->count,
-                        "",
-                        "",
-                        $result->id
-                    ];
-                }else  if($result->company == "KOGYJA"){
+            if(isset( $this->data['products']["SIM"])){
+                $_product = $this->data['products']["SIM"];
                     $pay_method = "";
-                    if($result->pay_method == 1){
-                        $pay_method = "代金引換";
-                    }else  if($result->pay_method == 2){
-                        $pay_method = "銀行振込";
-                    }else if($result->pay_method == 3){
-                        $pay_method = "決済不要";
-                    }
-                    $order_profit = $result->order_price;
 
+                    if($result->pay_method == 1){
+                        $pay_method = "Đã thanh toán";
+                    }else  if($result->pay_method == 2){
+                        $pay_method = "Chưa thanh toán";
+                    }else if($result->pay_method == 3){
+                        $pay_method = "Đã thông báo";
+                    }else if($result->pay_method == 4){
+                        $pay_method = "Chờ xử lý";
+                    }
+
+                    if($exportAll == true)
+                    {
+                        if(empty($result->fullname)){
+                            continue;
+                        }
+                    }
+                if($result->company == "SIM1"){
+                    $order_profit = $result->order_price;
                     $price = $result->price;
+
                     $price_buy = $result->price_buy;
+
                     $total_price = $result->total_price;
                     $total_price_buy = $result->total_price_buy;
+                    if(isset($_product[$result->product_id]['data']['price_buy'])){
+                        if($price == 0)
+                            $price = $_product[$result->product_id]['data']['price'];
+                        if($price_buy == 0)
+                            $price_buy = $_product[$result->product_id]['data']['price_buy'];
+                    }
+                    if($total_price == 0)
+                        $total_price = $price * $result->count;
+                    if($total_price_buy == 0)
+                        $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
+                    if($order_profit == 0){
+                        $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
+                    }
                     $datas[$result->company][] = [
                         $result->status,
                         $result->order_image,
+                        $result->order_image1,
+                        $result->order_image2,
+                        $result->order_image3,
                         $result->order_create_date,
                         $pay_method,
+                        $result->notification,
                         $result->phone,
                         $result->zipcode,
                         $result->province,
@@ -272,9 +257,9 @@ class SimController extends \Zoe\Http\ControllerBackend{
                         $result->product_id,
                         $result->product_id,
                         $result->count,
+                        $price,
                         $result->total_count,
                         $result->auto,
-                        $price,
                         $price_buy,
                         $result->order_date,
                         $result->order_hours,
@@ -288,30 +273,11 @@ class SimController extends \Zoe\Http\ControllerBackend{
                         $result->order_link,
                         $result->order_info,
                         $result->id,
-                        $result->type,
-                        $result->session_id,
                     ];
-                } else{
-                    $pay_method = "";
 
-                    if($result->pay_method == 1){
-                        $pay_method = "Đã thanh toán";
-                    }else  if($result->pay_method == 2){
-                        $pay_method = "Chưa thanh toán";
-                    }else if($result->pay_method == 3){
-                        $pay_method = "Đã thông báo";
-                    }else if($result->pay_method == 3){
-                        $pay_method = "Chờ xử lý";
-                    }
-                    if($exportAll == true)
-                    {
-                        if(empty($result->fullname)){
-                            continue;
-                        }
-                    }
+                } else{
 
                     $order_profit = $result->order_price;
-
                     $price = $result->price;
 
                     $price_buy = $result->price_buy;
@@ -365,59 +331,136 @@ class SimController extends \Zoe\Http\ControllerBackend{
                 }
             }
         }
+
         return $datas;
     }
     public function list(Request $request){
         $this->getcrumb();
 
-        $filter = $request->query('filter', []);
+        $first = (int)date("d", strtotime("first day of this month"));
+        $last = (int) date("d", strtotime("last day of this month"));
 
+        $next = date('Y-m');
+
+        for($day = $first;$day<=$last;$day++){
+            $key_date = $next.'-'.(($day<10)?"0".$day:$day);
+            DB::table("shop_order_sim_session")->updateOrInsert([
+                'admin_id'=>Auth::user()->id,
+                'key_date'=>$key_date
+            ],[
+                'admin_id'=>Auth::user()->id,
+                'key_date'=>$key_date,
+                'token'=>rand(1000,9999),
+                'date_time'=>$key_date." 00:00:00",
+                'created_at'=>$key_date." 00:00:00",
+                'updated_at'=>$key_date." 00:00:00",
+                'status'=>0,
+                'name'=>\Illuminate\Support\Str::random(50)
+            ]);
+        }
+        if($last == date('d')){
+            $next = date('Y-m',strtotime('+1 day'));
+            $last+=7;
+            for($day = 1;$day<=7;$day++){
+                $key_date = $next.'-'.(($day<10)?"0".$day:$day);
+                DB::table("shop_order_sim_session")->updateOrInsert([
+                    'admin_id'=>Auth::user()->id,
+                    'key_date'=>$key_date
+                ],[
+                    'admin_id'=>Auth::user()->id,
+                    'key_date'=>$key_date,
+                    'token'=>rand(1000,9999),
+                    'date_time'=>$key_date." 00:00:00",
+                    'created_at'=>$key_date." 00:00:00",
+                    'updated_at'=>$key_date." 00:00:00",
+                    'status'=>0,
+                    'name'=>\Illuminate\Support\Str::random(50)
+                ]);
+            }
+        }
+
+        $filter = $request->query('filter', []);
         $search = $request->query('search', "");
         $status = $request->query('status', "");
         $date = $request->query('date', "");
 
-        $config = config_get('option', "module:shop_ja:sim");
-        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+        $config = config_get('option', "module:shop_ja:order:excel");
+        $item = $last;
 
-        $models = DB::table('shop_order_sim');
-        if(isset($filter['search'])){
-            $search = $filter['search'];
+        $models = DB::table('shop_order_excel_session');
+
+        if(isset($filter['fullname'])){
+            $models->where('fullname', 'like', '%' . $filter['code']);
         }
-        if(isset($filter['code'])){
-            $models->where('code', 'like', '%' . $filter['code']);
-        }
-        if (!empty($search)) {
-            $models->where('title', 'like', '%' . $search);
-        }
+
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
-        $models->orderBy('id', 'desc');
+        $models->where('admin_id', Auth::user()->id);
+        $date_start = $request->get('date_start','');
+        $date_end = $request->get('date_end','');
 
+        $categorys = [['name'=>'SIM'],['name'=>'SIM1']];
+
+        $names  = [];
+        $admin_id = Auth::user()->id;
+        $models->orderBy('key_date', 'desc');
         return $this->render('sim.lists', [
             'models' => $models->paginate($item),
             'callback' => [
-                "getNotification" => function ($model){
-                    return $model->notification;
-                }
-            ]
-        ],'shop_ja');
-    }
-    public function create(){
-        $this->GetCache('create',0,"SIM");
-        return $this->render('sim.create', ['item' => []],'shop_ja');
-    }
+                "GetUserName" => function ($model){
+                    $rs = DB::table('admin as t')->where('id', $model->admin_id)->get('username');
+                    return $rs && count($rs) > 0 ? $rs[0]->username : "Empty";
+                },
+                "GetName" => function ($model){
+                    return date('d-m-Y',strtotime($model->key_date));
+                },
+                "CountCompany"=> function($model) use($categorys,$admin_id){
 
-    public function edit($id)
+                    $table = "<table class='table table-bordered company' style='padding: 0;margin: 0;'><tr>";
+                    foreach ($categorys as $k=>$value){
+                        $count = DB::table('shop_order_sim')
+                            ->where('company',$value['name'])
+                            ->where('admin_id',$admin_id)
+                            ->where('fullname','!=','')
+                            ->where('order_create_date','>=',$model->key_date.' 00:00:00')
+                            ->where('order_create_date','<=',$model->key_date.' 23:59:59')->count();
+                        $table.= "<td style='width: ".(100/count($categorys))."%'><span style='font-size: 15px;padding: 5px;display: inline-block'>".$value['name']."</span><span class=\"badge bg-light-blue\">".$count."</span></td>";
+                    }
+                    $table.= "</tr></table>";
+                    return $table;
+                },
+                "GetStatus"=>function($model){
+                    if($model->status == 0){
+                        return z_language('Bản nháp');
+                    }else if($model->status == 1){
+                        return z_language('Lập đơn');
+                    }else if($model->status == 2){
+                        return z_language('Đã hoàn thành');
+                    }
+                },
+                "GetButtonEdit"=>function($model){
+                    return  $html = "<a href='".route('backend:shop_ja:sim:edit',['date' => $model->key_date])."'><button type=\"button\" class=\"btn btn-primary btn-xs\">".z_language('Sửa')."</button></a>";
+                }
+            ],
+        ]);
+    }
+    public function create(Request $request){
+        $date_key = $request->date;
+        $this->GetCache('create',0,"SIM");
+        return $this->render('sim.create', ['item' => [],'date_key'=>$date_key],'shop_ja');
+    }
+    public function edit(Request $request)
     {
+        $date_key = $request->date;
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
         $this->GetCache('edit',0,"SIM");
-        $result = DB::table('shop_order_sim')->where('id',$id)->get()->all();
+        $result = DB::table('shop_order_sim')->where('key_date',$date_key)->get()->all();
         $model = new \stdClass();
         $model->detail = $this->GetData($result,false);
         $model->token = rand();
-        $model->id = $id;
-        return $this->render('sim.edit', ['act'=>'edit','model'=>$model]);
+        $model->id = $date_key;
+        return $this->render('sim.edit', ['date_key'=>$date_key,'act'=>'edit','model'=>$model]);
     }
     public function store(Request $request){
         $data = $request->all();
@@ -432,7 +475,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
             } else if($data['act'] == "save"){
 
                 $datas = json_decode($data['datas'],true);
-
+                $logs = [];
                 foreach ($datas as $name=>$order){
 
                     $logs[$name] = [];
@@ -442,18 +485,18 @@ class SimController extends \Zoe\Http\ControllerBackend{
                          'province' => 'required',
                          'address' => 'required',
                     ];
-
                     $columns = [];
-
                     foreach ($order['columns'] as $k=>$v){
                         $columns[$v] = $k;
                     }
                     $this->GetCache('create',0);
-                    $_product = $this->data['products'][$name];
+                    $_product = isset($this->data['products']['SIM'])?$this->data['products']['SIM']:[];
 
                         try{
                             $errors = [];
                             $ids = [];
+                            $date_time = date('Y-m-d H:i:s');
+
                             foreach ($order['data'] as $key=>$values){
 
                                 $pay_method = 0;
@@ -468,13 +511,9 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                 }else if($values[$columns["payMethod"]] === "Đã thanh toán"){
                                     $pay_method = 5;
                                 }
-
-
-
                                 foreach ($values as $kkkkk=>$valllll){
                                     $values[$kkkkk] = rtrim(trim($valllll));
                                 }
-
                                 $product_title = "";$product_code = "";$count = 0;
                                 $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
                                 $count = (int)(isset($columns["count"])?$values[$columns["count"]]:"");
@@ -485,20 +524,15 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                     $product_title = $_product[$product_id]['data']['title'];
                                 }
 
-                                $date_time = date('Y-m-d');
-
                                 $order_date = isset($columns["order_date"])?$values[$columns["order_date"]]:"";
                                 $order_hours = isset($columns["order_hours"])?$values[$columns["order_hours"]]:"";
                                 $auto =  isset($columns["auto"])?(int)$values[$columns["auto"]]:1;
-                                $notification = $order_hours = isset($columns["order_hours"])?$values[$columns["order_hours"]]:"";
+                               // $notification = $order_hours = isset($columns["order_hours"])?$values[$columns["order_hours"]]:"";
                                 if($pay_method == 5){
-
                                     $first = strtotime('first day of this month');
                                     $end = strtotime('last day of this month');
-
                                     $first_date = date('Y-m-d',$first);
                                     $order_date = $first_date;
-
                                     while ($auto > 1){
                                         $end = strtotime('last day of this month',strtotime('+1 day',$end));
                                         $auto--;
@@ -506,10 +540,10 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                     $order_hours = date('Y-m-d',$end);
                                     $pay_method = 1;
                                 }
-
                                 $_data = [
                                     "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
                                     "company"=>$name,
+                                    "key_date"=>$data['date_key'],
                                     "admin_id"=> Auth::user()->id,
                                     "fullname"=>isset($columns["fullname"])?$values[$columns["fullname"]]:"",
                                     "address"=> isset($columns["address"])?$values[$columns["address"]]:"",
@@ -540,11 +574,16 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                     "updated_at"=>$date_time,
                                 ];
 
+                                if($name == "SIM1"){
+                                    $_data['order_image1'] = $this->base64ToImage(isset($columns["image1"])?$values[$columns["image1"]]:"",$name);
+                                    $_data['order_image2'] = $this->base64ToImage(isset($columns["image2"])?$values[$columns["image2"]]:"",$name);
+                                    $_data['order_image3'] = $this->base64ToImage(isset($columns["image3"])?$values[$columns["image3"]]:"",$name);
+                                }
                                 $validator = Validator::make($_data,$check,[
                                     'fullname.required' => z_language('Tên khách hàng không được phép bỏ trống.')
                                 ]);
-                                $_[] = $_data;
 
+                                $_[] = [$_data];
                                 if (!$validator->fails()) {
                                     $_ = [$values,$_data];
                                     if(isset($columns["id"]) && !empty($values[$columns["id"]])){
@@ -552,8 +591,24 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                         DB::table('shop_order_sim')->where($where)->update($_data);
                                         $ids[$key] = $values[$columns["id"]];
                                     }else{
-                                        $ids[$key] = DB::table('shop_order_sim')->insertGetId($_data);
+
+                                        $where = [
+                                            "fullname"=>$_data['fullname'],
+                                            "address"=>$_data['address'],
+                                            "phone"=>$_data['phone'],
+                                            "product_id"=>$_data['product_id'],
+                                            "company"=>$_data['company'],
+                                        ];
+                                        DB::table('shop_order_sim')->updateOrInsert($where,$_data);
+                                        $ids[$key] = DB::getPdo()->lastInsertId();
                                     }
+                                    DB::table('shop_order_sim_image_order')->updateOrInsert([
+                                        'sim_id'=> $ids[$key],
+                                        'image'=> $_data['order_image'],
+                                    ],[
+                                        'create_time'=>date('Y-m-d H:i:s')
+                                    ]);
+
                                 }else{
                                     $message = $validator->errors()->getMessages();
                                     if(count($check) > count($message)){
@@ -561,6 +616,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                     }
                                 }
                             }
+                            DB::table('shop_order_sim')->where('company',$name)->where('key_date',$data['date_key'])->where('updated_at','!=',$date_time)->delete();
                     }catch (\Exception $ex){
                             $logs[$name][] =$ex->getMessage();
                     }
@@ -749,7 +805,6 @@ class SimController extends \Zoe\Http\ControllerBackend{
             return redirect(route('backend:shop_ja:sim:list', []));
         }
     }
-
     public function notification(Request $request){
         if($request->isMethod('POST')){
             $data = $request->all();
@@ -1063,17 +1118,18 @@ class SimController extends \Zoe\Http\ControllerBackend{
         return $this->render('sim.export');
     }
     public function show(Request $request){
+
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
         $this->GetCache('edit',0,"SIM");
         $data = $request->all();
         $date = strtotime(date('Y-m-d'));
         $month = $request->month;
-
         if($month > 0){
             $date = strtotime("-".$month." month");
         }
         $ts = strtotime(date('Y',$date).'-'.(date('m',$date)).'-01');
         $d = array(strtotime('first day of this month', $ts),strtotime('last day of this month', $ts));
+
         $models = DB::table('shop_order_sim')
             ->where('order_hours','>=',date('Y-m-d',$d[0])." 00:00:00")
             ->where('order_hours','<=',date('Y-m-d',$d[1])." 23:59:59")->where('status',1);
@@ -1081,6 +1137,6 @@ class SimController extends \Zoe\Http\ControllerBackend{
         $model = new \stdClass();
         $model->detail = $this->GetData($result,false);
         $model->token = rand();
-        return $this->render('sim.show', ['act'=>'edit','model'=>$model]);
+        return $this->render('sim.show', ['act'=>'edit','model'=>$model,]);
     }
 }

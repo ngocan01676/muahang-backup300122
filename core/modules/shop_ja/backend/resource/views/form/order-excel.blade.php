@@ -204,6 +204,10 @@
         .jexcel tbody tr.group-cell td{
 
         }
+        .jupload img{
+            width: 100% !important;
+            height:  100% !important;
+        }
     </style>
     <script>
         function formatDate(date, format, utc) {
@@ -509,7 +513,6 @@
             }
             return [false,""];
         }
-
         function InitData(data,config,columns_index,_sheetName) {
             let _data = [];
             let n =  data.length === 0 || config.minDimensions[1] > data.length?config.minDimensions[1]: data.length;
@@ -521,7 +524,7 @@
                     _data[i] = [];
                 }
                 for(let j=0 ; j < config.minDimensions[0] ; j++){
-                    if(columns_index.length < config.minDimensions[0]){
+                    if(j < columns_index.length){//columns_index.length < config.minDimensions[0]
                         if(columns_index[j]){
                             if(columns_index[j].hasOwnProperty('value')){
                                 let oke = true;

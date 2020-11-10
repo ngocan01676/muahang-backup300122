@@ -1,7 +1,8 @@
 @section('content-header')
     <h1>
         {!! @z_language(["Quản lý Sim"]) !!}
-        {!! Form::btn_save("form_store"); !!}
+        <button onclick="Save()" type="button"> Lưu </button> &nbsp;
+        <button onclick="Export()" type="button"> Export </button>
     </h1>
 @endsection
 @section('content')

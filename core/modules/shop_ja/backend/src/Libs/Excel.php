@@ -227,7 +227,7 @@ class Excel{
                 $html.="</tr>";
                 $html.= "</table>";
                 $html.= "<div style=\"overflow:scroll; min-height:100px;\"><table class='table table-bordered'>";
-                \DB::enableQueryLog();
+
                 foreach ($results as $key=>$value){
                     $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
 
@@ -286,7 +286,7 @@ class Excel{
             return "OHGA";
         }else  if( strpos($name,"株式会社クリチク") !== false){
             return "KURICHIKU";
-        }else  if( strpos($name,"株式会社コギ家-様" ) !== false){
+        }else  if( strpos($name,"株式会社コギ家" ) !== false){
             return "KOGYJA";
         }else  if( strpos($name,"株式会社ヤマダ-様-のお米の注文分" ) !== false){
             return "YAMADA";

@@ -15,41 +15,6 @@
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:sim:store'],'id'=>'form_store']) !!}
 @endif
-<div>
-    <table>
-        <tr>
-            <td>
-                {!! Form::label('id_status', 'Status', ['class' => 'status']) !!} &nbsp;
-                {!! Form::radio('status', '0' , true) !!} Nháp
-                {!! Form::radio('status', '1',false) !!} Lập đơn
-            </td>
-        </tr>
-    </table>
-    <div class="row">
-        <div class="col-md-6">
-            <table class="table table-bordered">
-                <tbody>
-                <tr>
-                    <th style="width: 10px">#</th>
-                    <th>
-                        <label>Ngày tạo:</label>
-                        <div class="form-group">
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="datepicker">
-                            </div>
-                        </div>
-                    </th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <button onclick="Save()" type="button"> Lưu </button> &nbsp;
-    <button onclick="Export()" type="button"> Export </button>
-</div>
 {!! Form::close() !!}
 @section('extra-script')
     <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js?v='.time()) }}"></script>
@@ -62,15 +27,18 @@
     <script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
     <script>
-        let stringDate = '{!! date('Y-m-d') !!}';
-        let  date = moment(stringDate);
+        let stringDate = '{!! isset($date_key)?$date_key:date('Y-m-d') !!}';
+
+        let  dateNowAll = moment(stringDate);
+
     </script>
     <script>
         $(document).ready(function () {
-            $datepicker = $('#datepicker').datepicker({
-                autoclose: true,
-            });
-            $datepicker.datepicker('setDate', new Date(date.format()));
+            // $datepicker = $('#datepicker').datepicker({
+            //     autoclose: true,
+            // });
+            // console.log(dateNowAll.format());
+            // $datepicker.datepicker('setDate', new Date(dateNowAll.format()));
             $("#view").click(function () {
                 let data = {
                     dateview:$("#datepicker").val(),
@@ -126,6 +94,10 @@
         }
         .jexcel tbody tr.group-cell td{
 
+        }
+        .jupload img{
+            width: 100% !important;
+            height:  100% !important;
         }
     </style>
     <script>
@@ -253,17 +225,14 @@
             },
 
         };
-
         let datacache = {!! json_encode($excels_data,JSON_UNESCAPED_UNICODE ) !!}
             let dataproduct = {!! json_encode($products,JSON_UNESCAPED_UNICODE ) !!}
             let datamodel = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
-
         let dataship = {!! json_encode($ships,JSON_UNESCAPED_UNICODE) !!}
             let datadaibiki = {!! json_encode($daibiki,JSON_UNESCAPED_UNICODE) !!}
             let categorys = {!! json_encode($categorys,JSON_UNESCAPED_UNICODE) !!}
             let locks = {!! json_encode(isset($locks)?$locks:[],JSON_UNESCAPED_UNICODE) !!}
             let token = '{!! isset($model)?$model->token:"" !!}';
-
         function IF_End($val,$conf){
             if( $conf.equal_end === "<=" && $val <= $conf.value_end){
                 return true;
@@ -326,15 +295,13 @@
                         }
                     }
                 }else  if(columns[i].value[0] === "date"){
-                    //['date','this','options','format'],
                     self = columns[i];
                     if(self != null){
                         if(columns[i].value[1] === "now"){
-                            if(self.hasOwnProperty('options')){
-                                return [true,date.format("YYYY-MM-DD")+" 00:00:00"];
-                            }
+                            return [true,dateNowAll.format("YYYY-MM-DD")];
                         }else if(columns[i].value[1] === "nowEnd"){
-                            return [true,date.endOf('month').format("YYYY-MM-DD")+" 00:00:00"];
+                            let endTime = moment(dateNowAll.format("YYYY-MM-DD"));
+                            return [true,endTime.month(1).format("YYYY-MM-DD")];
                         }
                     }
                 }
@@ -343,94 +310,69 @@
             }
             return [false,""];
         }
-        function InitData(data,config,columns_index) {
+        function InitData(data,config,columns_index,_sheetName) {
             let _data = [];
-            let n = data.length;
+            let n =  data.length === 0 || config.minDimensions[1] > data.length?config.minDimensions[1]: data.length;
 
-            for(let i=0; i < config.minDimensions[1] ; i++){
-                if(i < n)
+            for(let i=0; i < n ; i++){
+                if(i < data.length)
                     _data[i] = data[i];
                 else{
                     _data[i] = [];
                 }
                 for(let j=0 ; j < config.minDimensions[0] ; j++){
 
-                    if(columns_index.length < config.minDimensions[0]){
+                    if(j < columns_index.length){
 
                         if(columns_index[j]){
+
                             if(columns_index[j].hasOwnProperty('value')){
+
+
                                 let oke = true;
                                 if(columns_index[j].hasOwnProperty('row')){
                                     oke = columns_index[j].row === i;
+                                }
+                                let okeValue = true;
+                                if(typeof(_data[i]) === "undefined"){
+                                    _data[i] = [];okeValue = false;
                                 }
                                 if(oke){
                                     if(typeof(_data[i][j]) === "undefined"){
                                         _data[i][j] = columns_index[j].value;
                                     }else{
                                         if(typeof(_data[i][j]) == "string" && _data[i][j].length === 0){
-                                            _data[i][j] = columns_index[j].value;
+                                            if(_sheetName === "KOGYJA"){
+
+                                            }else{
+                                                _data[i][j] = columns_index[j].value;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                        // if(columns_index[j].hasOwnProperty('value')){
-                        //     if(columns_index[j]){
-                        //         if(typeof(_data[i][j]) === "undefined"){
-                        //             _data[i][j] = columns_index[j].value;
-                        //         }else{
-                        //             if(typeof(_data[i][j]) == "string" && _data[i][j].length === 0){
-                        //                 _data[i][j] = columns_index[j].value;
-                        //             }else{
-                        //                 _data[i][j] = columns_index[j].value;
-                        //             }
-                        //         }
-                        //     }else{
-                        //         if(j > _data[i].length ||  typeof(_data[i][j]) === "undefined"){
-                        //             _data[i][j] =  columns_index[j].value;
-                        //         }
-                        //     }
-                        // }
-                    }else{
-                        // if(columns_index[j].hasOwnProperty('value')){
-                        //     _data[i][j] = columns_index[j].value;
-                        // }else{
-                        //     _data[i][j] = "";
-                        // }
                     }
                 }
             }
             return _data;
         }
 
-        function YAMADA(sheetName) {
+        function SIM(sheetName,config,name) {
 
             let data = [];
-
-            {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
-
-                    {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
-                    {{--data = datacache[sheetName].data.data;--}}
-                    {{--console.log("cache")--}}
-                    {{--}--}}
-                    {{--}--}}
-
             if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
-
                 data = datamodel[sheetName];
             }
-
-            let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
+            let dropdown = dataproduct.hasOwnProperty(name)?dataproduct[name]:{};
             let index = 0;
-
-
             let columns = {
                 status: {
                     type: 'checkbox',
                     title:'Status'
                 },
                 image:{
-                    title:'Image',
+                    title:'Ảnh hóa đơn',
                     type:'image',
                     width:"50px",
                     key:"demo",
@@ -551,7 +493,7 @@
                     width:'100px',
                 },
                 order_ship:{
-                    title: 'Ngày hết hạn',//N
+                    title: 'Số ngày hết hạn',//N
                     type: 'numeric',
                     width:'100px',
                     value:0
@@ -609,13 +551,9 @@
                     width:'100px',
                 },
             };
-
-
             columnsAll[sheetName] = columns;
-
             for(var i in columns){
                 columns[i].index = index;
-                columns[i].title = columns[i].title;
                 columns[i].key = i;
                 let v = setDefaultValue(i,columns);
                 if(v[0]){
@@ -726,10 +664,8 @@
                 //     }
             }
             let columns_index = Object.values(columns);
-
             let _data = InitData(data,config,columns_index);
             let change = {col:-1,row:-1};
-
             let nestedHeaders = [];
             if(locks.hasOwnProperty(sheetName)){
                 let _lock  = locks [sheetName];
@@ -1011,12 +947,637 @@
 
             };
         }
+        function SIM1(sheetName,config,name) {
 
+            let data = [];
+
+            {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
+
+            {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
+            {{--data = datacache[sheetName].data.data;--}}
+            {{--console.log("cache")--}}
+            {{--}--}}
+            {{--}--}}
+
+            if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
+
+                data = datamodel[sheetName];
+            }
+
+            let dropdown = dataproduct.hasOwnProperty(name)?dataproduct[name]:{};
+            let index = 0;
+            let columns = {
+                status: {
+                    type: 'checkbox',
+                    title:'Status'
+                },
+                image:{
+                    title:'Ảnh hóa đơn',
+                    type:'image',
+                    width:"50px",
+                },
+                image1:{
+                    title:'Ảnh 2',
+                    type:'image',
+                    width:"50px",
+                },
+                image2:{
+                    title:'Ảnh 3',
+                    type:'image',
+                    width:"50px",
+                },
+                image3:{
+                    title:'Ảnh 4',
+                    type:'image',
+                    width:"50px",
+                },
+                timeCreate:{
+                    title: 'Ngày tạo',//A ngày đặt hàng
+                    type: 'calendar',
+                    width:'100px',
+                    options: { format:'DD/MM/YYYY' },
+                    value:['date','now']
+                },
+                payMethod:{
+                    title: 'Phương thức thanh toán',//B Phương thức thanh toán
+                    type:'dropdown',
+                    source:[
+                        "Chưa thanh toán",
+                        "Đã thông báo",
+                        "Chờ xử lý",
+                        "Đã thanh toán",
+                    ],
+                    width:'130px',
+                    value:['product','this','source',0],
+                },
+                notification:{
+                    title: 'Số lần báo',//C
+                    type: 'text',
+                    width:'100px',
+                    value:"1",
+                },
+                phone:{
+                    title: 'Số điện thoại',//C
+                    type: 'text',
+                    width:'100px',
+                    value:"070-1398-2234",
+                },
+                zipcode:{
+                    title: 'Mã bưu điện',//D
+                    type: 'text',
+                    width:'60px',
+                    key:"demo",
+                },
+                province:{
+                    title: 'Tỉnh/TP',//E
+                    type: 'text',
+                    width:'200px',
+                    key:"demo",
+                },
+                address:{
+                    title: 'Địa chỉ giao hàng',//F
+                    type: 'text',
+                    width:'250px',
+                    key:"demo",
+                },
+                fullname:{
+                    title: 'Họ tên người nhận',//G
+                    type: 'text',
+                    width:'150px',
+                    key:"demo",
+                },
+                product_id:{
+                    title: 'Mã SP',//H
+                    type: 'text',
+                    width:'100px',
+                    read:true,
+                    value:['product','product_name','source',0,'id'],
+                },
+                product_name:{
+                    title: 'Tên SP',//I
+                    type:'dropdown',
+                    source:Object.values(dropdown),
+                    autocomplete:true,
+                    width:'140px',
+                    value:['product','this','source',0,'id']
+                },
+                count:{
+                    title: 'SL',//K
+                    type: 'numeric',
+                    width:'100px',
+                    value:1
+                },
+
+                price:{
+                    title: 'Giá nhập',//J
+                    type: 'numeric',
+                    width:'100px',
+                    value:['product','product_name','source',0,'data','price'],
+                },
+                total_count:{
+                    title: 'Đặt cọc',//K
+                    type: 'numeric',
+                    width:'100px',
+                    value:0
+                },
+                auto:{
+                    title: 'Chu kỳ gia hạn',//K
+                    type: 'numeric',
+                    width:'100px',
+                    value:1
+                },
+                price_buy:{
+                    title: '単価',//J Giá nhập
+                    type: 'numeric',
+                    width:'1px',
+                    value:['product','product_name','source',0,'data','price_buy'],
+                },
+                order_date:{
+                    title: 'Ngày bắt đầu',//L Ngày nhận
+                    type:'calendar',
+                    options: { },
+                    value:['date','now'],
+                    width:'100px',
+                },
+                order_hours:{
+                    title: 'Ngày hết hạn',//L Ngày nhận
+                    type:'calendar',
+                    options: { },
+                    value:['date','nowEnd'],
+                    width:'100px',
+                },
+                order_ship:{
+                    title: 'Số ngày hết hạn',//N
+                    type: 'numeric',
+                    width:'100px',
+                    value:0
+                },
+                order_total_price:{
+                    title: 'Tổng giá nhập',//O Tổng giá nhập
+                    type: 'numeric',
+                    width:'100px',
+                    value:['product','product_name','source',0,'data','price'],
+                },
+                price_buy_sale:{
+                    title: 'Tăng Giảm',//J Giá nhập
+                    type: 'numeric',
+                    width:'100px',
+                    value:0,
+                },
+                order_total_price_buy:{
+                    title: 'Total Bán',//P Giá bán
+                    type: 'numeric',
+                    width:'100px',
+                    value:['product','product_name','source',0,'data','price_buy'],
+                },
+                order_ship_cou:{
+                    title: 'Phí giao hàng',//P
+                    type: 'numeric',
+                    width:'100px',
+                    value:0
+                },
+                order_price:{
+                    title: 'Lợi nhuận',//P
+                    type: 'numeric',
+                    width:'100px',
+                    value:0
+                },
+                order_tracking:{
+                    title: 'tracking',//T Mã tracking
+                    type: 'text',
+                    width:'100px',
+                    key:"demo",
+                },
+                order_link:{
+                    title: 'Đường dẫn',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                },
+                order_info:{
+                    title: 'Thông tin chuyển khoản',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                    key:"demo",
+                },
+                id:{
+                    title: 'ID',//T
+                    type: 'text',
+                    width:'100px',
+                },
+            };
+            columnsAll[sheetName] = columns;
+            for(var i in columns){
+                columns[i].index = index;
+                columns[i].key = i;
+                let v = setDefaultValue(i,columns);
+
+
+                if(v[0]){
+                    columns[i].value = v[1];
+                }else{
+                    delete columns[i].value;
+                }
+                console.log(JSON.stringify(columns[i]) +  JSON.stringify(v));
+                index++;
+            }
+            function update(instance, cell, c, r, value) {
+                console.log("update call");
+
+                let data = {
+                    count:value.hasOwnProperty('count')?value.count:parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r]))),
+                    id:value.hasOwnProperty('id')?value.id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
+                    province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
+                };
+                let total_price_buy =  0;
+                let total_price =  0;
+
+                let valueRow =  instance.jexcel.getRowData(r);
+                let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
+                data.payMethod = payMethod;
+                data.sheetName = sheetName;
+                console.log("payMethod:"+payMethod);
+                let price_buy_sale = parseInt(valueRow[columns.price_buy_sale.index]);
+                console.log("price_buy_sale:"+price_buy_sale);
+                if(dropdown.hasOwnProperty(data.id)){
+
+                    let product = dropdown[data.id];
+                    let price_buy = 0;
+                    let price = 0;
+
+                    if(valueRow[columns.price_buy.index] > 0){
+                        price_buy = valueRow[columns.price_buy.index];
+                    }else{
+                        price_buy = product.data.price_buy;
+                    }
+                    if(valueRow[columns.price.index] > 0 ){
+                        price = valueRow[columns.price.index];
+                    }else{
+                        price = product.data.price;
+                    }
+                    console.log("price_buy:"+price_buy);
+                    total_price = parseFloat(price) * data.count;
+
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,true);
+
+                    data.total_price = total_price;
+
+                    total_price_buy = parseFloat(price_buy) * data.count + price_buy_sale;
+
+                    data.total_price_buy = total_price_buy;
+
+                }
+                function setInterest(price_ship,order_ship_cou,total_price_buy){
+
+                    price_ship = price_ship * data.count;
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    total_price_buy = total_price_buy + price_ship;
+
+                    if(total_price_buy ===0 || total_price == 0){ return;}
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
+
+                    if(payMethod == 3){
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]), 0);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), 0);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]), 0);
+                    }else if(payMethod == 2){
+                        let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship));
+
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
+                    }else{
+                        console.log("price_ship:"+price_ship);
+
+                        let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship) - order_ship_cou);
+
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou,false);
+                    }
+                }
+                console.log("SEND");
+                $.ajax({
+                    type: "POST",
+                    url:"{{ route('backend:shop_ja:order:excel:store') }}",
+                    data:{act:'ship',data:data} ,
+                    success: function (data) {
+                        console.log(data);
+                        if(data && data.length >0){
+                            console.log("oke");
+                            let price_ship = parseInt(data[0].data.price_ship)
+                            let ship_cou = parseInt(data[0].data.ship_cou);
+                            let total_price_buy = parseInt(data[0].data.total_price_buy);
+
+                            setInterest(price_ship < 0? 0 : price_ship,ship_cou< 0 ?0:ship_cou,total_price_buy);
+                        }
+                    },
+                });
+
+
+                //    if(value.hasOwnProperty('lock') && value.lock.indexOf(columns.order_ship.index)){
+
+                //     } else{
+                //         setInterest(parseInt(valueRow[columns.order_ship.index]),parseInt(valueRow[columns.order_ship_cou.index]));
+                //     }
+            }
+            let columns_index = Object.values(columns);
+
+            let _data = InitData(data,config,columns_index);
+
+            let change = {col:-1,row:-1};
+            let nestedHeaders = [];
+            if(locks.hasOwnProperty(sheetName)){
+                let _lock  = locks [sheetName];
+                let dateNow = '{!! date("Y-m-d"); !!}';
+                if(_lock.action == 2 && _lock.date == dateNow ){
+                    let count = columns_index.length+4;
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày xuất : "+_lock.date  ,
+                        colspan: 3,
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title:  " Giờ xuất :"+_lock.hour ,
+                        colspan: 2,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày tạo :"+_lock.created_at  ,
+                        colspan: 3,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày Sửa :" + _lock.updated_at  ,
+                        colspan:3,
+
+                    });
+                    nestedHeaders.push({
+                        title:"" ,
+                        colspan: count,
+                        align:"left"
+                    });
+                }
+
+            }
+            if(nestedHeaders.length ==0){
+                nestedHeaders = [
+                    {
+                        title: "Không khóa",
+                        colspan: columns_index.length+4,
+                        align:"left"
+                    }
+                ]
+            }
+            return {
+                sheetName:sheetName,
+                rowResize:true,
+                columnDrag:true,
+                columns:Object.values(columns),
+                data:_data,
+                nestedHeaders:[
+                    nestedHeaders
+                ],
+                contextMenu: function(obj, x, y, e) {
+                    var items = [];
+
+                    if (y == null) {
+                        // Insert a new column
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnBefore,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 1);
+                                }
+                            });
+                        }
+                        if (obj.options.allowInsertColumn === true) {
+                            items.push({
+                                title:obj.options.text.insertANewColumnAfter,
+                                onclick:function() {
+                                    obj.insertColumn(1, parseInt(x), 0);
+                                }
+                            });
+                        }
+
+                        // Delete a column
+                        if (obj.options.allowDeleteColumn === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedColumns,
+                                onclick:function() {
+                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                                }
+                            });
+                        }
+
+                        // // Rename column
+                        // if (obj.options.allowRenameColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.renameThisColumn,
+                        //         onclick:function() {
+                        //             obj.setHeader(x);
+                        //         }
+                        //     });
+                        // }
+
+                        // Sorting
+                        if (obj.options.columnSorting == true) {
+
+                            items.push({ type:'line' });
+
+                            items.push({
+                                title:obj.options.text.orderAscending,
+                                onclick:function() {
+                                    obj.orderBy(x, 0);
+                                }
+                            });
+                            items.push({
+                                title:obj.options.text.orderDescending,
+                                onclick:function() {
+                                    obj.orderBy(x, 1);
+                                }
+                            });
+                        }
+                    } else {
+                        // Insert new row
+                        if (obj.options.allowInsertRow === true) {
+                            items.push({
+                                title:obj.options.text.insertANewRowBefore,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y), 1);
+                                }
+                            });
+
+                            items.push({
+                                title:obj.options.text.insertANewRowAfter,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (obj.options.allowDeleteRow === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (x) {
+                            if (obj.options.allowComments === true) {
+                                items.push({ type:'line' });
+
+                                var title = obj.records[y][x].getAttribute('title') || '';
+
+                                items.push({
+                                    title: title ? obj.options.text.editComments : obj.options.text.addComments,
+                                    onclick:function() {
+                                        obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
+                                    }
+                                });
+
+                                if (title) {
+                                    items.push({
+                                        title:obj.options.text.clearComments,
+                                        onclick:function() {
+                                            obj.setComments([ x, y ], '');
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    return items;
+                },
+                onselection:function (instance, x1, y1, x2, y2, origin) {
+
+                    change = {col:x1,row:y1};
+
+                    var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
+
+                    $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
+                    let val = instance.jexcel.getValue(cellName1);
+
+                    if(columns_index[x1] && columns_index[x1].type === "dropdown"){
+                        $("#value-review").hide();
+                        $html = $("<div>");
+                        $("#zoe-dropdown-review").show().html($html);
+
+                        jSuites.dropdown($html[0], {
+                            data:columns_index[x1].source,
+                            autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
+                            width:'100%',
+                            onchange:function (el, a, oldValue, Value) {
+                                console.log(Value);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
+                            },
+                        }).setValue(val);
+
+                    }else{
+                        $("#value-review").show().val("");
+                        $("#zoe-dropdown-review").hide();
+                        $("#value-review").prop("disabled",false );
+                        if(columns_index[x1] && columns_index[x1].type === "text"){
+                            if(columns_index[x1].hasOwnProperty('read')){
+                                $("#value-review").prop( "disabled", true );
+                            }
+                        }
+                        $("#value-review").show().val(val);
+                    }
+                },
+                updateTable: function (instance, cell, col, row, val, id) {
+                    let c = parseInt(col);
+
+                    if (c === columns.image.index && val.length>0) {
+                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
+                    }
+                    if (c === columns.image1.index && val.length>0) {
+                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
+                    }
+                    if (c === columns.image2.index && val.length>0) {
+                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
+                    }
+                    if (c === columns.image3.index && val.length>0) {
+                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
+                    }
+                    cell.style.overflow = 'hidden';
+
+                    if(columns.id.index === c ){
+
+                        let v = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
+                        if(v == -1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.add('error');
+                        else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.remove('error');
+
+                        let value = instance.jexcel.getRowData(row);
+
+                        let count = 0;
+                        for(let k in instance.jexcel.rows){
+                            let _val  = instance.jexcel.getRowData(k);
+                            if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
+                                count++;
+                            }
+                        }
+                        if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
+                        else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
+                        let vvv = getValuePayMethod(value[columns.payMethod.index]);
+                        let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
+                        parent.removeClass('pay-method-oke');
+                        if(vvv === 2){
+                            parent.addClass('pay-method-oke');
+                        }
+                    }
+                },
+                onchange:function(instance, cell, c, r, value) {
+                    c = parseInt(c);
+                    console.log(change);
+                    if (c === columns.product_name.index) {
+                        if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+                            if(change.col == c){
+                                update(instance, cell, c, r,{
+                                    count:1,
+                                    id:dropdown[value].data.id
+                                });
+                            }
+                        }
+                    }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
+                        c === columns.order_ship.index || c === columns.order_ship_cou.index){
+                        if(change.col == c){
+                            update(instance, cell, c, r,{
+
+                            });
+                        }
+                    }else if(c === columns.province.index){
+                        if(change.col == c){
+                            update(instance, cell, c, r,{});
+                        }
+                    }else if(c === columns.payMethod.index){
+                        let v = getValuePayMethod(value);
+                        let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
+
+                        parent.removeClass('pay-method-oke');
+                        if(v === 2){
+                            parent.addClass('pay-method-oke');
+
+                        }
+                        if(change.col == c){
+                            update(instance, cell, c, r,{});
+                        }
+                    }
+                },
+
+            };
+        }
         let sheets = [
-            Object.assign(YAMADA("SIM",config),config ),
+            Object.assign(SIM("SIM",config,'SIM'),config ),
+            Object.assign(SIM1("SIM1",config,'SIM'),config ),
         ];
         console.log(sheets);
-
         var win = window,
             doc = document,
             docElem = doc.documentElement,
@@ -1072,7 +1633,7 @@
                     data:{
                         data:JSON.stringify(data),
                         token:token,
-                        act:"cache",key:key,name:name,'id':'{{isset($model)?$model->id:0}}','type':'{{isset($model)?'edit':'create'}}'} ,
+                        act:"cache",key:key,name:name,'id':'0','type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
                         console.log(data);
                         _spreadsheet.classList.remove("cacheAction");
@@ -1109,7 +1670,8 @@
                         info: form_store.zoe_inputs('get'),
                         act:"save",
                         token:token,
-                        'id':'{{isset($model)?$model->id:0}}',
+                        date_key:'{!! isset($date_key)?$date_key:date('Y-m-d') !!}',
+                        'id':'0',
                         'type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
                         for(let k in data.ids){
@@ -1136,8 +1698,6 @@
                 });
             }
         }
-
-
         function Export() {
             let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
             let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
@@ -1156,7 +1716,8 @@
                 data: {
                     datas: JSON.stringify(data),
                     name:name,
-                    columns:_columns
+                    columns:_columns,
+                    date_key:'{!! isset($date_key)?$date_key:date('Y-m-d') !!}'
                 },
                 success: function (data) {
                     console.log(data);

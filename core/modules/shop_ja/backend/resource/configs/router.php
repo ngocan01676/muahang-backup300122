@@ -296,11 +296,11 @@ return [
                         'acl'=>true
                     ],
                     "create" => [
-                        "url" => "/create",
+                        "url" => "/create/{date}",
 
                     ],
                     "edit" => [
-                        "url" => "/edit/{id}",
+                        "url" => "/edit/{date}",
 
                     ],
                     "store" => [

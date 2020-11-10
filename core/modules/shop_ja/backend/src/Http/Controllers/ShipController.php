@@ -94,6 +94,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
         return $this->render('ship.edit', ["model" => $model,'act'=>'copy']);
     }
     public function store(Request $request){
+
         $data = $request->all();
 
         $validator = Validator::make($data, [
@@ -124,6 +125,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
                }
             }
             config_set('shop_ja','category:city',['data'=>$category_city]);
+
             $model->category_id = $data['category_id'];
             $model->value_start= $data['value_start'];
             $model->value_end= $data['value_end'];
@@ -135,6 +137,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
             $model->save();
             $this->log('shop_js:ship',$type,['id' => $model->id]);
             $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
+
             return redirect(route('backend:shop_ja:ship:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
