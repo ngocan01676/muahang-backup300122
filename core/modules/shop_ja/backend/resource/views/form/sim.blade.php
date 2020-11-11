@@ -301,7 +301,7 @@
                             return [true,dateNowAll.format("YYYY-MM-DD")];
                         }else if(columns[i].value[1] === "nowEnd"){
                             let endTime = moment(dateNowAll.format("YYYY-MM-DD"));
-                            return [true,endTime.month(1).format("YYYY-MM-DD")];
+                            return [true,endTime.add(1,'months').format("YYYY-MM-DD")];
                         }
                     }
                 }
