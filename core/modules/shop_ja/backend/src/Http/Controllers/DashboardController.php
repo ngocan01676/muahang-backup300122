@@ -289,7 +289,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
             $user_id = base64_decode($request->id);
             $this->breadcrumb(z_language("QL CTV"), route('backend:dashboard:list'));
             $this->breadcrumb(z_language("Thông tin"), "");
-        }else if(!Auth::user()->IsAcl("dashboard:all")){
+        }else if(!Auth::user()->IsAclCheck("dashboard:all")){
             $user_id = Auth::user()->id;
         }
         $this->data['roles'] = DB::table('role')->get()->keyBy('id');

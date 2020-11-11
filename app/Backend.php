@@ -28,6 +28,9 @@ class Backend extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public function IsAclCheck($permission,$userfull = 'admin'){
+        return $this->IsAcl($permission,$userfull);
+    }
     public function IsAcl($permission,$userfull = 'admin'){
 
         if(empty($permission) || $this->username == $userfull){
