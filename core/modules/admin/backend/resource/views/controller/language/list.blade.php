@@ -116,7 +116,7 @@
                             <li @if($select == false) class="active" @php $select = true; @endphp @endif><a
                                         href="#{!! $keyTab !!}"
                                         data-toggle="tab">
-                                    {!! Illuminate\Support\Str::title($keyLang) !!}
+                                    {!! $keyLang !!}
                                 </a>
                             </li>
                             {{--@endforeach--}}

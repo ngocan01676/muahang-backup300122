@@ -561,7 +561,125 @@ function z_language($key, $par = [], $__env = null)
     }
     return $key;
 }
+function acl_alias($key){
+    return "Acl:".$key;
+}
+function find_acl($string_blade, $sub_path, $string_find = "z_language"){
+    $array = [];
+    preg_match_all('/' . $string_find . '\((.*?)\)/', $string_blade, $match);
+    if (isset($match[1])) {
+        foreach ($match[1] as $val) {
+            $key_val = trim($val, "]");
+            $key_val = trim($key_val, "[");
+            $key_val = trim($key_val, '"\'');
+//                $val = trim($val, '[false');
+            $key_val = trim($key_val, '"\', ');
 
+            if (substr($key_val, -5) == "false") {
+                $key_val = substr($key_val, 0, strlen($key_val) - 5);
+                $key_val = trim($key_val, '"\', ');
+            }
+            $key_val = trim($key_val);
+            if (substr($key_val, 0, 1) == "$") {
+                continue;
+            }
+            $Arr = explode("',", $key_val);
+            if (count($Arr) == 2) {
+                $key_val = $Arr[0];
+            } else {
+                $Arr = explode("\",", $key_val);
+                if (count($Arr) == 2) {
+                    $key_val = $Arr[0];
+                }
+            }
+            $key_val = trim($key_val, '"\', ');
+
+            $key = md5($key_val.'-'.$string_find);
+            $value = [
+                "value" => "",
+                "path" => $sub_path,
+                "name" => $key_val,
+                "key"=> md5($key)
+            ];
+            $array[md5($key)] = $value;
+        }
+    }
+    return $array;
+}
+function lang_all_key(){
+    return Cache::remember('lang_all_key:static', 60, function()
+    {
+        $results = [];
+        $results = get_dir_contents(base_path('core'), '/\.php$/', $results);
+        $file = new \Illuminate\Filesystem\Filesystem();
+        $array = [
+
+        ];
+        $system_modules = config('zoe.modules');
+        $modules = DB::table('module')
+            ->select()->where('status', 1)->pluck('name')->all();
+        $plugins = config_get('plugin', 'lists');
+        foreach ($results as $_file) {
+            $name = str_replace(base_path(), "", $_file);
+            $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
+            if (count($sub_path) > 2) {
+                if (
+                    $sub_path[1] == "modules" && !in_array($sub_path[2], $system_modules) && !in_array($sub_path[2], $modules) ||
+                    $sub_path[1] == "plugins" && !isset($plugins[$sub_path[2]])
+                ) {
+                    continue;
+                }
+            }
+            $string_blade = $file->get($_file);
+            $array = array_merge($array, find_acl($string_blade, $sub_path,"z_language"));
+        }
+        return $array;
+    });
+}
+function acl_all_key(){
+    return Cache::remember('acl_all_key:static', 60, function()
+    {
+        $results = [];
+        $results = get_dir_contents(base_path('core'), '/\.php$/', $results);
+        $file = new \Illuminate\Filesystem\Filesystem();
+        $array = [
+
+        ];
+        $system_modules = config('zoe.modules');
+        $modules = DB::table('module')
+            ->select()->where('status', 1)->pluck('name')->all();
+        $plugins = config_get('plugin', 'lists');
+        foreach ($results as $_file) {
+            $name = str_replace(base_path(), "", $_file);
+            $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
+            if (count($sub_path) > 2) {
+                if (
+                    $sub_path[1] == "modules" && !in_array($sub_path[2], $system_modules) && !in_array($sub_path[2], $modules) ||
+                    $sub_path[1] == "plugins" && !isset($plugins[$sub_path[2]])
+                ) {
+                    continue;
+                }
+            }
+            $string_blade = $file->get($_file);
+            $array = array_merge($array, find_acl($string_blade, $sub_path,"acl_alias"));
+        }
+        return $array;
+    });
+}
+function get_dir_contents($dir, $filter = '', &$results = array())
+{
+    $files = scandir($dir);
+
+    foreach ($files as $key => $value) {
+        $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
+        if (!is_dir($path)) {
+            if (empty($filter) || preg_match($filter, $path)) $results[] = $path;
+        } elseif ($value != "." && $value != "..") {
+            get_dir_contents($path, $filter, $results);
+        }
+    }
+    return $results;
+}
 function get_config_component($id, $config = [])
 {
     return [];

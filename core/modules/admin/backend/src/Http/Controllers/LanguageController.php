@@ -115,7 +115,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
                 }
                 $key_val = trim($key_val, '"\', ');
 
-                $key = md5($key_val);
+                $key = md5($key_val.'-'.$string_find);
                 $value = [
                     "value" => "",
                     "path" => $sub_path,
@@ -131,54 +131,53 @@ class LanguageController extends \Zoe\Http\ControllerBackend
 
     public function list()
     {
-        $results = $this->getDirContents(base_path('core'), '/\.php$/', $results);
+//        $results = $this->getDirContents(base_path('core'), '/\.php$/', $results);
         $language_data = config('zoe.language_data');
-        $file = new \Illuminate\Filesystem\Filesystem();
-        $array = [
+//        $file = new \Illuminate\Filesystem\Filesystem();
+         $array = lang_all_key();
 
-        ];
-        $system_modules = config('zoe.modules');
-        $modules = DB::table('module')
-            ->select()->where('status', 1)->pluck('name')->all();
-        $plugins = config_get('plugin', 'lists');
-
-        foreach ($results as $_file) {
-            $name = str_replace(base_path(), "", $_file);
-            $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
-            if (count($sub_path) > 2) {
-                if (
-                    $sub_path[1] == "modules" && !in_array($sub_path[2], $system_modules) && !in_array($sub_path[2], $modules) ||
-                    $sub_path[1] == "plugins" && !isset($plugins[$sub_path[2]])
-                ) {
-                    continue;
-                }
-            }
-
-            $string_blade = $file->get($_file);
-            $array = array_merge($array, static::lang($string_blade, $sub_path));
-
-//            preg_match_all('/z_language\((.*?)\)/', $string_blade, $match);
-//            if (isset($match[1])) {
-//                foreach ($match[1] as $val) {
-//                    $val = trim($val, "]");
-//                    $val = trim($val, "[");
-//                    $keywords = preg_split("/[,]+/", $val);
+//        $system_modules = config('zoe.modules');
+//        $modules = DB::table('module')
+//            ->select()->where('status', 1)->pluck('name')->all();
+//        $plugins = config_get('plugin', 'lists');
 //
-//                    $key_val = trim($keywords[0], '"\'');
-//                    $key_val = trim($key_val);
-//                    if (substr($key_val, 0, 1) == "$") {
-//                        continue;
-//                    }
-//                    $key = md5($key_val);
-//                    $value = [
-//                        "value" => "",
-//                        "path" => $sub_path,
-//                        "name" => $key_val
-//                    ];
-//                    $array[md5($key)] = $value;
+//        foreach ($results as $_file) {
+//            $name = str_replace(base_path(), "", $_file);
+//            $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
+//            if (count($sub_path) > 2) {
+//                if (
+//                    $sub_path[1] == "modules" && !in_array($sub_path[2], $system_modules) && !in_array($sub_path[2], $modules) ||
+//                    $sub_path[1] == "plugins" && !isset($plugins[$sub_path[2]])
+//                ) {
+//                    continue;
 //                }
 //            }
-        }
+//
+//            $string_blade = $file->get($_file);
+//            $array = array_merge($array, static::lang($string_blade, $sub_path));
+//
+////            preg_match_all('/z_language\((.*?)\)/', $string_blade, $match);
+////            if (isset($match[1])) {
+////                foreach ($match[1] as $val) {
+////                    $val = trim($val, "]");
+////                    $val = trim($val, "[");
+////                    $keywords = preg_split("/[,]+/", $val);
+////
+////                    $key_val = trim($keywords[0], '"\'');
+////                    $key_val = trim($key_val);
+////                    if (substr($key_val, 0, 1) == "$") {
+////                        continue;
+////                    }
+////                    $key = md5($key_val);
+////                    $value = [
+////                        "value" => "",
+////                        "path" => $sub_path,
+////                        "name" => $key_val
+////                    ];
+////                    $array[md5($key)] = $value;
+////                }
+////            }
+//        }
 
 //        $rs = $this->table()->where([
 //            'name' => 'language',
@@ -196,10 +195,13 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         ])->get();
 
         $langs = new \Zoe\Config();
+
         foreach ($rs as $k => $v) {
             $langs->add(unserialize($v->data));
         }
+
         $data = $langs->getArrayCopy();
+
 //        $datas = [];
 //        foreach ($langs->lang as $lang => $langs) {
 //            if (!isset($datas[$lang])) {
@@ -212,10 +214,20 @@ class LanguageController extends \Zoe\Http\ControllerBackend
 //                $datas[$lang][$val['key']] = $val;
 //            }
 //        }
+
+        $tmp = [
+            z_language('modules'),
+            z_language('themes'),
+            z_language('plugins'),
+            z_language('acl'),
+        ];
+
         usort($array, function($a, $b) {
             return $a['name'] > $b['name'];
         });
+
         $lists = [];
+
         foreach ($array as $k => $value) {
             $key = $value['path'][1] . "." . $value['path'][2];
             if (!isset($lists[$value['path'][1]])) {
@@ -226,7 +238,21 @@ class LanguageController extends \Zoe\Http\ControllerBackend
             }
             $lists[$value['path'][1]][$value['path'][2]] [$k] = $value;
         }
-
+        $lists['acl']["Static"] = acl_all_key();
+        $permisssionAll = app()->getPermissions();
+        
+        foreach ($permisssionAll->data as $name=>$permissions){
+            $lists['acl'][$name] = [];
+            foreach($permissions as $aliases=>$permission){
+                $key = md5('acl-'.json_encode($permission).'-'.$aliases);
+                $lists['acl'][$name][$key] = [
+                    "value"=>"",
+                    "path"=>["acl","router",$aliases],
+                    'name'=>$aliases,
+                    'key'=>$key
+                ];
+            }
+        }
         return $this->render('language.list', ['langs' => $lists, 'lists' => $array, 'language_data' => $language_data, 'data' => $data]);
     }
 }
