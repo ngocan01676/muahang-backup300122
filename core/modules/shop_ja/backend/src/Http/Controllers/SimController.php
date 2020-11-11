@@ -111,7 +111,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
 
         ];
         $categorys = config_get("category", "shop-ja:product:category");
-        
+
         $names  = [];
 
         foreach($categorys as $category){
@@ -247,6 +247,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
                         $result->order_image1,
                         $result->order_image2,
                         $result->order_image3,
+                        $result->order_image4,
                         $result->order_create_date,
                         $pay_method,
                         $result->notification,
@@ -301,6 +302,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
                     $datas[$result->company][] = [
                         $result->status,
                         $result->order_image,
+                        $result->order_image1,
                         $result->order_create_date,
                         $pay_method,
                         $result->notification,
@@ -568,6 +570,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                     "count"=>$count,
                                     "total_count"=>$total_count,
                                     "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
+                                    "order_image1"=>$this->base64ToImage(isset($columns["image1"])?$values[$columns["image1"]]:"",$name),
                                     "order_date"=>$order_date,
                                     "order_hours"=>$order_hours,
                                     "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:""),
@@ -580,9 +583,9 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                 ];
 
                                 if($name == "GTN"){
-                                    $_data['order_image1'] = $this->base64ToImage(isset($columns["image1"])?$values[$columns["image1"]]:"",$name);
                                     $_data['order_image2'] = $this->base64ToImage(isset($columns["image2"])?$values[$columns["image2"]]:"",$name);
                                     $_data['order_image3'] = $this->base64ToImage(isset($columns["image3"])?$values[$columns["image3"]]:"",$name);
+                                    $_data['order_image4'] = $this->base64ToImage(isset($columns["image4"])?$values[$columns["image4"]]:"",$name);
                                 }
                                 $validator = Validator::make($_data,$check,[
                                     'fullname.required' => z_language('Tên khách hàng không được phép bỏ trống.')

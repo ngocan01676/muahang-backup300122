@@ -376,7 +376,13 @@
                     title:'Ảnh hóa đơn',
                     type:'image',
                     width:"50px",
-                    key:"demo",
+
+                },
+                image1:{
+                    title:'Ảnh 1',
+                    type:'image',
+                    width:"50px",
+
                 },
                 timeCreate:{
                     title: 'Ngày tạo',//A ngày đặt hàng
@@ -978,16 +984,21 @@
                     width:"50px",
                 },
                 image1:{
-                    title:'Ảnh 2',
+                    title:'Ảnh 1',
                     type:'image',
                     width:"50px",
                 },
                 image2:{
-                    title:'Ảnh 3',
+                    title:'Ảnh 2',
                     type:'image',
                     width:"50px",
                 },
                 image3:{
+                    title:'Ảnh 3',
+                    type:'image',
+                    width:"50px",
+                },
+                image4:{
                     title:'Ảnh 4',
                     type:'image',
                     width:"50px",
