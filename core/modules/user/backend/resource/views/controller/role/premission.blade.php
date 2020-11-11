@@ -36,8 +36,7 @@
                                     <tr>
                                         <td>
                                             {!! Form::checkbox($aliases, '1' , isset($user_permissions[$aliases])) !!}
-
-                                            {!! $aliases !!}
+                                            {!! z_language($aliases) !!}
                                         </td>
                                         <td>
                                             <table class="table table-bordered">

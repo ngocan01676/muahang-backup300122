@@ -240,7 +240,7 @@ class LanguageController extends \Zoe\Http\ControllerBackend
         }
         $lists['acl']["Static"] = acl_all_key();
         $permisssionAll = app()->getPermissions();
-        
+
         foreach ($permisssionAll->data as $name=>$permissions){
             $lists['acl'][$name] = [];
             foreach($permissions as $aliases=>$permission){
