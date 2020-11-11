@@ -22,7 +22,7 @@
         $.fn.editable.defaults.mode = 'inline';
         $("#BtnSearch").click(function () {
             console.log(1);
-            var val = $('.search-value').val();
+            var val = $('.search-value').val().trim();
             console.log(val);
             $("#formAction .row-lang").each(function () {
                 var data = $(this).data();
