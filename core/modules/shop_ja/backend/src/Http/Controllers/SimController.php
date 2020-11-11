@@ -500,7 +500,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
                         $columns[$v] = $k;
                     }
                     $this->GetCache('create',0);
-                    $_product = isset($this->data['products'][$order->company])?$this->data['products'][$order->company]:[];
+                    $_product = isset($this->data['products'][$name])?$this->data['products'][$name]:[];
 
                         try{
                             $errors = [];
