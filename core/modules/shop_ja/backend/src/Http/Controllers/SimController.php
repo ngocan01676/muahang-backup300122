@@ -111,15 +111,14 @@ class SimController extends \Zoe\Http\ControllerBackend{
 
         ];
         $categorys = config_get("category", "shop-ja:product:category");
-        var_dump($company);
-        dd($categorys);
-
+        
         $names  = [];
 
         foreach($categorys as $category){
-            if( is_array($company) && count($company)>0 && in_array($category['name'],$company)){
+            if( is_array($company) && count($company) >  0 && !in_array($category['name'],$company)){
                 continue;
             }
+
             $names[] = $category['name'];
             $shop_products = DB::table('shop_product')->where('category_id',$category['id'])->get()->all();
             $this->data['products'][$category['name']] = [];
