@@ -1587,7 +1587,7 @@
         }
 
         let sheets = [
-            Object.assign(SIM("SOFTBANK",config,'SOFTBANK'),config ),
+            Object.assign(SIM1("SOFTBANK",config,'SOFTBANK'),config ),
             Object.assign(SIM1("GTN",config,'GTN'),config ),
         ];
 
