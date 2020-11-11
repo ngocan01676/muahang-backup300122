@@ -308,6 +308,7 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now(), WHERE `id` = "+vals[1][i].data.id;
                                     }
+                                    console.log(sql);
                                     pool.query(sql,function () {
 
                                     });
@@ -330,7 +331,7 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now(), WHERE `id` = "+vals[1][i].data.id;
                                     }
-
+                                    console.log(sql);
                                     pool.query(sql,function () {
 
                                     });
@@ -354,6 +355,7 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now(), WHERE `id` = "+vals[1][i].data.id;
                                     }
+                                    console.log(sql);
                                     pool.query(sql,function () {
 
                                     });
