@@ -223,7 +223,9 @@ async function JAPAN_POST(tracking){
                     count++;
                 }
                 console.log('Data:'+count);
+
                 databaseData = _databaseData;
+
                 for(let name in databaseData){
                     for(let index in databaseData[name]){
                         conn.query('UPDATE `cms_shop_order_excel_tracking` SET `status` = \'2\' WHERE `id` = '+databaseData[name][index].id+';')
@@ -240,6 +242,7 @@ async function JAPAN_POST(tracking){
 
         try{
             let countEmpty = 0;
+            console.log('AddQueue:');
             for(let name in databaseData){
                 let trackingIds = [];
                 let count = 0;
@@ -327,6 +330,7 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now(), WHERE `id` = "+vals[1][i].data.id;
                                     }
+
                                     pool.query(sql,function () {
 
                                     });
@@ -372,8 +376,10 @@ async function JAPAN_POST(tracking){
     console.log('Init Run');
 
     process.on('SIGINT', async function() {
+
         console.log("Caught interrupt signal");
         pages["YAMATO"].close();
+
         if (browser && browser.process() != null) {
             browser.process().kill('SIGINT');
         }
