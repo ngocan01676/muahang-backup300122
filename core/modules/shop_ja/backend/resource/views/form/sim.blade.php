@@ -1574,10 +1574,12 @@
 
             };
         }
+
         let sheets = [
-            Object.assign(SIM("SIM",config,'SIM'),config ),
-            Object.assign(SIM1("SIM1",config,'SIM'),config ),
+            Object.assign(SIM("SOFTBANK",config,'SOFTBANK'),config ),
+            Object.assign(SIM1("GTN",config,'GTN'),config ),
         ];
+
         console.log(sheets);
         var win = window,
             doc = document,

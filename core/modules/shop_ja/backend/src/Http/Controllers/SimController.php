@@ -219,7 +219,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
                             continue;
                         }
                     }
-                if($result->company == "SIM1"){
+                if($result->company == "GTN"){
                     $order_profit = $result->order_price;
                     $price = $result->price;
 
@@ -400,7 +400,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
         $date_start = $request->get('date_start','');
         $date_end = $request->get('date_end','');
 
-        $categorys = [['name'=>'SIM'],['name'=>'SIM1']];
+        $categorys = [['name'=>'SOFTBANK'],['name'=>'GTN']];
 
         $names  = [];
         $admin_id = Auth::user()->id;
@@ -490,7 +490,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
                         $columns[$v] = $k;
                     }
                     $this->GetCache('create',0);
-                    $_product = isset($this->data['products']['SIM'])?$this->data['products']['SIM']:[];
+                    $_product = isset($this->data['products'][$order->company])?$this->data['products'][$order->company]:[];
 
                         try{
                             $errors = [];
@@ -574,7 +574,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                     "updated_at"=>$date_time,
                                 ];
 
-                                if($name == "SIM1"){
+                                if($name == "GTN"){
                                     $_data['order_image1'] = $this->base64ToImage(isset($columns["image1"])?$values[$columns["image1"]]:"",$name);
                                     $_data['order_image2'] = $this->base64ToImage(isset($columns["image2"])?$values[$columns["image2"]]:"",$name);
                                     $_data['order_image3'] = $this->base64ToImage(isset($columns["image3"])?$values[$columns["image3"]]:"",$name);
