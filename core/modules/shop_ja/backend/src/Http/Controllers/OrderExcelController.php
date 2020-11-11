@@ -1052,7 +1052,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 "GetTimeCheck" => function ($model){
                     if($model->status > 1) {
 
-                        $diff = strtotime("+30 minutes",$model->updated_at)  - strtotime(date('Y-m-d H:i:s')) ;
+                        $diff = strtotime("+30 minutes", strtotime($model->updated_at))  - strtotime(date('Y-m-d H:i:s')) ;
 
                         $years = floor($diff / (365 * 60 * 60 * 24));
                         $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
@@ -1068,6 +1068,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         ]);
     }
     public function tracking(Request $request){
+
         $category =  get_category_type("shop-ja:product:category");
         $datas = [];
 
