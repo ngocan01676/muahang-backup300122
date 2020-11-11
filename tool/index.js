@@ -286,8 +286,8 @@ async function JAPAN_POST(tracking){
                 lock = true;
                 let data = pushData.shift();
                 if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
-                    console.log("Date:"+(new Date().toDateString())+data.name+' ');
-                    console.log(data);
+                    console.log("Date:"+(new Date().toDateString())+data.name+' '+data.data.id);
+
 
                     if(data.name === "YAMATO"){
                         YAMATO(data.data).then(function (vals) {
