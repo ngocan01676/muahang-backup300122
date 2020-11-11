@@ -40,7 +40,7 @@
                                  <td>{!! $v->order_id !!}</td>
                                  <td>{!! $v->type !!}</td>
                                  <td>{!! $v->tracking_id !!}</td>
-                                 <td {!! $v->status !!}>{!! $v->status==1?z_language('Thành công'):($v->status==2?z_language('Đang xử lý'):($v->status==3?z_language('Xử lý chưa thành công'):z_language('Chưa xử lý'))) !!}</td>
+                                 <td {!! $v->status !!}>{!! $v->status==1?z_language('Thành công'):($v->status==2?z_language('Đang kiểm tra'):($v->status==3?z_language('Đã kiểm tra'):z_language('Chưa kiểm tra'))) !!}</td>
                                  <td>
                                      @php
                                         $data = json_decode($v->data,true);

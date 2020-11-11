@@ -357,9 +357,9 @@
                             'status' => [
                                 'label' => [
                                     '1' => z_language('Thành công', false),
-                                    '2' => z_language('Đang xử lý', false),
-                                    '0' => z_language('Chưa xử lý', false),
-                                    '3' => z_language('Đã xử lý', false),
+                                    '2' => z_language('Đang kiểm tra', false),
+                                    '0' => z_language('Chưa kiểm tra', false),
+                                    '3' => z_language('Đã kiểm tra', false),
                                 ],
                                 'type' => [
                                     'name' => 'label',
