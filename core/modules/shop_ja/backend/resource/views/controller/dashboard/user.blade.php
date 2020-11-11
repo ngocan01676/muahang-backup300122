@@ -446,7 +446,11 @@
                 '{!! z_language('Tháng trước') !!}'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
             startDate: moment().subtract(29, 'days'),
-            endDate  : moment()
+            endDate  : moment(),
+            format: 'DD/MM/YYYY',
+            locale: {
+                format: 'DD/MM/YYYY'
+            }
         }, function (start, end) {
            // window.alert('You chose: ' + start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             $("#reservation").val(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
