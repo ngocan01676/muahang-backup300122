@@ -203,7 +203,6 @@ async function JAPAN_POST(tracking){
     //     pushData.push({name:"JAPAN_POST",data:['156482236175','156480922640']});
     // },25000);
     let lock = false;
-
     function GetData(Cb){
         var conn = mysql.createConnection({
             host    : 'localhost',
