@@ -1051,16 +1051,14 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 },
                 "GetTimeCheck" => function ($model){
                     if($model->status > 1) {
-
                         $diff = strtotime("+30 minutes", strtotime($model->updated_at))  - strtotime(date('Y-m-d H:i:s')) ;
-
                         $years = floor($diff / (365 * 60 * 60 * 24));
                         $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
                         $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
                         $hours = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24) / (60 * 60));
                         $minuts = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24 - $hours * 60 * 60) / 60);
                         $seconds = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24 - $hours * 60 * 60 - $minuts * 60));
-                        return $diff<=0?z_language("Đợi đến lượt"):$hours.z_language('Giờ')." $minuts".z_language('Phút')." $seconds".z_language('Giây')." ";
+                        return $diff<=0?($model->status == 2?z_language('Đang kiểm tra'):z_language("Đợi đến lượt"):$hours.z_language('giờ')." $minuts".z_language('phút')." $seconds".z_language('giây')." ";
                     }
                     return "Thành công";
                 },
