@@ -25,9 +25,10 @@
             var val = $('.search-value').val().trim();
             console.log(val);
             $("#formAction .row-lang").each(function () {
+
                 var data = $(this).data();
-                if (data.name.indexOf(val) !== -1) {
-                    console.log(data.name);
+
+                if (data.name.indexOf(val) !== -1 || data.name.normalize() === val.normalize() || data.name.localeCompare(val)) {
                     $(this).show();
                 } else {
                     $(this).hide();
