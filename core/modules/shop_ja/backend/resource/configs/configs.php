@@ -364,6 +364,7 @@
                                 'type' => [
                                     'name' => 'label',
                                     'color' => [
+                                        '0' => 'default',
                                         '1' => 'primary',
                                         '2' => 'danger',
                                         '3' => 'info'
