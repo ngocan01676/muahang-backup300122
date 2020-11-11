@@ -46,7 +46,10 @@ function YAMATO(tracking){
                                 Date : $(td[3]).text().trim().replace(/\s+/g, " "),
                                 Text : $(td[4]).text().trim().replace(/\s+/g, " "),
                             };
-                            Trackings[key].Status = Trackings[key].Text === "Delivered";
+                            Trackings[key].Status = 3;
+                            if(Trackings[key].Text === "Delivered"){
+                                Trackings[key].Status = 1;
+                            }
                         }
                     });
                 }
@@ -87,7 +90,10 @@ async function SAGAWA(tracking){
                             Date : $(td[1]).text().trim().replace(/\s+/g, ""),
                             Text : $(td[2]).text().trim().replace(/\s+/g, " "),
                         };
-                        Trackings[key].Status = Trackings[key].Text.indexOf('Delivered:')>=0;
+                        Trackings[key].Status = 3;
+                        if(Trackings[key].Text.indexOf('Delivered:')>=0){
+                            Trackings[key].Status = 1;
+                        }
                     }
                 });
             });
@@ -135,7 +141,10 @@ async function JAPAN_POST(tracking){
                                         Date : $(td[2]).text().trim().replace(/\s+/g, " "),
                                         Text : $(td[3]).text().trim().replace(/\s+/g, " "),
                                     };
-                                    Trackings[key].Status = Trackings[key].Text == "お届け先にお届け済み";
+                                    Trackings[key].Status = 3;
+                                    if(Trackings[key].Text === "お届け先にお届け済み"){
+                                        Trackings[key].Status = 1;
+                                    }
                                 }
                             }
                         }
@@ -290,13 +299,11 @@ async function JAPAN_POST(tracking){
 
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
-
                                     if(vals[0][vals[1][i].key].Status){
-                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }else{
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }
-
                                     pool.query(sql,function () {
 
                                     });
@@ -315,9 +322,9 @@ async function JAPAN_POST(tracking){
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
                                     if(vals[0][vals[1][i].key].Status){
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+" , `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }else{
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }
                                     pool.query(sql,function () {
 
@@ -338,9 +345,9 @@ async function JAPAN_POST(tracking){
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
                                     if(vals[0][vals[1][i].key].Status){
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = 1,`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }else{
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`='" + moment().format('YYYY-MM-DD HH:mm:ss')+"' WHERE `id` = "+vals[1][i].data.id;
                                     }
                                     pool.query(sql,function () {
 
