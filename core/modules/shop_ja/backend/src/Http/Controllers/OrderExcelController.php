@@ -1051,7 +1051,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 },
                 "GetTimeCheck" => function ($model){
                     if($model->status > 0) {
-                        $diff = strtotime(date('Y-m-d H:i:s')) - strtotime($model->updated_at);
+                        $diff = strtotime("-30 minutes",time()) - strtotime($model->updated_at);
 
                         $years = floor($diff / (365 * 60 * 60 * 24));
                         $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
