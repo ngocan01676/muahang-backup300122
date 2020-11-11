@@ -28,7 +28,7 @@
 
                 var data = $(this).data();
 
-                if (data.name.toUpperCase().indexOf(val.toUpperCase()) !== -1 || data.name.toUpperCase().normalize() === val.toUpperCase().normalize() || data.name.toUpperCase().localeCompare(val.toUpperCase())) {
+                if (data.name.toUpperCase().indexOf(val.toUpperCase()) !== -1) {
                     $(this).show();
                 } else {
                     $(this).hide();
