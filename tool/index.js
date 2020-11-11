@@ -161,7 +161,7 @@ async function JAPAN_POST(tracking){
 }
 
 (async () => {
-    const browser = await puppeteer.launch({ headless: true ,args:['--no-sandbox']});
+    const browser = await puppeteer.launch({ headless: true ,args:['--no-sandbox','--disable-setuid-sandbox']});
     const [tabOne] = (await browser.pages());
     pages["YAMATO"] = tabOne;
 
