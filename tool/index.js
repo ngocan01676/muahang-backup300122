@@ -18,7 +18,7 @@ var pool  = mysql.createPool({
 });
 
 var moment = require('moment');
-console.log("Time:"+moment().format("YYYY-MM-DD hh:mm:ss"));
+console.log("Time:"+moment().format("YYYY-MM-DD HH:mm:ss"));
 let timeEnd = moment().add('-30','minutes').format("YYYY-MM-DD hh:mm:ss");
 console.log(timeEnd);
 
@@ -212,7 +212,7 @@ async function JAPAN_POST(tracking){
         });
         conn.connect(function (err){
             if (err) throw err.stack;
-            let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD hh:mm:ss");
+            let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:ss");
             var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and (updated_at <= '"+timeEnd+"' or status=0 ) LIMIT 0,20";
 
             console.log(sql);
