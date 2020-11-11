@@ -529,8 +529,8 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                 $auto =  isset($columns["auto"])?(int)$values[$columns["auto"]]:1;
                                // $notification = $order_hours = isset($columns["order_hours"])?$values[$columns["order_hours"]]:"";
                                 if($pay_method == 5){
-                                    $first = strtotime('first day of this month');
-                                    $end = strtotime('last day of this month');
+                                    $first = strtotime('first day of this month',$order_hours);
+                                    $end = strtotime('last day of this month',$order_hours);
                                     $first_date = date('Y-m-d',$first);
                                     $order_date = $first_date;
                                     while ($auto > 1){
