@@ -114,6 +114,7 @@ class UserController extends \Zoe\Http\ControllerBackend
             'role_id' => 'required',
         ];
         $type = 'create';
+
         if (isset($data['id']) && !empty($data['id'])) {
             $model = Admin::find($data['id']);
             $type = 'edit';

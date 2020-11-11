@@ -85,6 +85,16 @@ return [
                     "list" => [
                         "url" => "/user/role"
                     ],
+                    "create" => [
+                        "url" => "/user/role/create"
+                    ],
+                    "edit" => [
+                        "url" => "/user/role/edit/{id}"
+                    ],
+                    "store" => [
+                        "url" => "/user/role/store",
+                        "method" => ['post'],
+                    ],
                     "permission" =>[
                         'url' => '/user/permission/{id}/{guard}',
                         "method" => ['get','post']
