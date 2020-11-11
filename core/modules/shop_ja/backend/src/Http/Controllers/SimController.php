@@ -111,7 +111,8 @@ class SimController extends \Zoe\Http\ControllerBackend{
 
         ];
         $categorys = config_get("category", "shop-ja:product:category");
-
+        dd($categorys);
+        
         $names  = [];
 
         foreach($categorys as $category){
@@ -447,14 +448,18 @@ class SimController extends \Zoe\Http\ControllerBackend{
     }
     public function create(Request $request){
         $date_key = $request->date;
+
         $this->GetCache('create',0,['SOFTBANK','GTN']);
+
         return $this->render('sim.create', ['item' => [],'date_key'=>$date_key],'shop_ja');
     }
     public function edit(Request $request)
     {
         $date_key = $request->date;
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
+
         $this->GetCache('edit',0,['SOFTBANK','GTN']);
+
         $result = DB::table('shop_order_sim')->where('key_date',$date_key)->get()->all();
         $model = new \stdClass();
         $model->detail = $this->GetData($result,false);
