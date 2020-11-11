@@ -1037,6 +1037,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 "get_results" => function ($model){
                     $html = "";
                     $data = json_decode($model->data,true);
+
                     if($model->status > 0){
                         $html.='<table class="table table-bordered" style="background: #dedede">';
                         $html.='<tr>';
@@ -1045,18 +1046,20 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $html.='</tr>';
                         $html.='</table>';
                     }
+
                     return $html;
                 },
                 "GetTimeCheck" => function ($model){
                     if($model->status > 0) {
                         $diff = strtotime(date('Y-m-d H:i:s')) - strtotime($model->updated_at);
+
                         $years = floor($diff / (365 * 60 * 60 * 24));
                         $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
                         $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
                         $hours = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24) / (60 * 60));
                         $minuts = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24 - $hours * 60 * 60) / 60);
                         $seconds = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24 - $hours * 60 * 60 - $minuts * 60));
-                        return $diff>0?"0:0:0":"$hours:$minuts:$seconds";
+                        return $diff<=0?"0:0:0":"$hours:$minuts:$seconds";
                     }
                     return "0:0:0";
                 },
