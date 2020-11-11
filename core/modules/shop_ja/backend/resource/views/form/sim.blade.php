@@ -215,7 +215,7 @@
         // };
 
         let config = {
-            minDimensions:[30,10],
+            minDimensions:[15,15],
             tableWidth: '100%',
             tableHeight: '100%',
             defaultColWidth: 100,
@@ -1585,6 +1585,7 @@
             body = doc.getElementsByTagName('body')[0],
             x = win.innerWidth || docElem.clientWidth || body.clientWidth,
             y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
+        config.tableHeight = (y*0.65)+"px";
 
 
 
