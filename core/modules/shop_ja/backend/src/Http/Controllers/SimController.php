@@ -111,8 +111,9 @@ class SimController extends \Zoe\Http\ControllerBackend{
 
         ];
         $categorys = config_get("category", "shop-ja:product:category");
+        var_dump($company);
         dd($categorys);
-        
+
         $names  = [];
 
         foreach($categorys as $category){
