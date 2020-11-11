@@ -447,9 +447,9 @@
             },
             startDate: moment().subtract(29, 'days'),
             endDate  : moment(),
-            format: 'DD/MM/YYYY',
+
             locale: {
-                format: 'DD/MM/YYYY'
+                format: 'MMMM D, YYYY'
             }
         }, function (start, end) {
            // window.alert('You chose: ' + start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));

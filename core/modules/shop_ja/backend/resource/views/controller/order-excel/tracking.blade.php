@@ -33,7 +33,7 @@
                         </tr>
 
                          @if(count($vv))
-                             @php  $counts[$key][$kk] = $vv @endphp
+                             @php  $counts[$key][$kk] = count($vv) @endphp
                          @foreach($vv as $k=>$v)
 
                              <tr>
@@ -67,9 +67,10 @@
         </div>
         @endsection
         @section('tab-nav')
+
                 <ul class="nav nav-tabs">
                     @foreach($datas as $key=>$value)
-                        <li @php if(!empty($active)){$active = "";echo "class='active'";} @endphp><a href="#tab_{!! $key !!}" data-toggle="tab">{!! $key  !!} [{!! $counts[$key][0].'/'.$counts[$key][1] !!}]</a></li>
+                        <li @php if(!empty($active)){$active = ""; echo "class='active'";} @endphp><a href="#tab_{!! $key !!}" data-toggle="tab">{!! $key  !!} [{!! $counts[$key][0].'/'.$counts[$key][1] !!}]</a></li>
                     @endforeach
                 </ul>
         @endsection
