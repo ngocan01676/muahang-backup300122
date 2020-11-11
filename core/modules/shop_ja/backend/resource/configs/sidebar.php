@@ -113,12 +113,12 @@ return [
             "icon"=>"fa fa-sticky-note-o",
             "items" => [
                 [
-                    "name" => z_language("Nhập dữ liệu",false),
-                    "url" => "backend:shop_ja:order:action:imports",
-                ],
-                [
                     "name" =>z_language("Danh sách",false),
                     "url" => "backend:shop_ja:order:excel:tracking_list",
+                ],
+                [
+                    "name" => z_language("Nhập dữ liệu",false),
+                    "url" => "backend:shop_ja:order:action:imports",
                 ],
                 [
                     "name" => z_language("Xử lý",false),
