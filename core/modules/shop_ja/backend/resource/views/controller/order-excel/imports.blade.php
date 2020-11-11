@@ -147,7 +147,7 @@
                     lists:lists,
                 },
                 success: function (data) {
-                    console.log(data);
+                    $.growl.notice({ message: "{!! z_language('Cập nhật thành công') !!}" });
                 }
             });
         });

@@ -1,7 +1,6 @@
 @section('content-header')
     <h1>
         &starf; {!! @z_language(["Chức năng quản lý Mã kiểm tra"]) !!}
-
     </h1>
 @endsection
 @section('content')
