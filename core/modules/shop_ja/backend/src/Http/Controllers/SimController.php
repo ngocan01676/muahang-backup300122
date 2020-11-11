@@ -103,7 +103,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
         }
         return $token;
     }
-    private function GetCache($type,$id,$company = ""){
+    private function GetCache($type,$id,$company = []){
         $this->data['excels_data'] = [
 
         ];
@@ -115,7 +115,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
         $names  = [];
 
         foreach($categorys as $category){
-            if(!empty($company) && $company !=$category['name']){
+            if( is_array($company) && count($company)>0 && in_array($category['name'],$company)){
                 continue;
             }
             $names[] = $category['name'];
@@ -447,14 +447,14 @@ class SimController extends \Zoe\Http\ControllerBackend{
     }
     public function create(Request $request){
         $date_key = $request->date;
-        $this->GetCache('create',0,"SIM");
+        $this->GetCache('create',0,['SOFTBANK','GTN']);
         return $this->render('sim.create', ['item' => [],'date_key'=>$date_key],'shop_ja');
     }
     public function edit(Request $request)
     {
         $date_key = $request->date;
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
-        $this->GetCache('edit',0,"SIM");
+        $this->GetCache('edit',0,['SOFTBANK','GTN']);
         $result = DB::table('shop_order_sim')->where('key_date',$date_key)->get()->all();
         $model = new \stdClass();
         $model->detail = $this->GetData($result,false);
