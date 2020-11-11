@@ -1085,7 +1085,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 DB::table('shop_order_excel_tracking')
                     ->where('company',$value->name)
                     ->where('status',3)
-                    ->where('updated_at',"<=",date('Y-m-d',strtotime('-30 minutes')))
+                    ->where('updated_at',"<=",date('Y-m-d H:i:s',strtotime('-30 minutes')))
                     ->orderBy('updated_at')
                     ->limit(30)
                     ->get()->all();
