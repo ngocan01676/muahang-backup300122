@@ -30,7 +30,7 @@ return [
             ]
          ],
         "dashboard" => [
-            "name" => z_language("Thông kê", false),
+            "name" => z_language("Thông kê1", false),
             "pos" => 1,
             "url" => "backend:dashboard:list",
             "icon" => "fa fa-dashboard"
