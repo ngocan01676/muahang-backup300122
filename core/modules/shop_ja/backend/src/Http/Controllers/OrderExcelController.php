@@ -1037,7 +1037,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 "get_results" => function ($model){
                     $html = "";
                     $data = json_decode($model->data,true);
-                    if($model->status == 1){
+                    if($model->status > 0){
                         $html.='<table class="table table-bordered" style="background: #dedede">';
                         $html.='<tr>';
                         $html.='<td><label class="label label-default">'.(isset($data['Date'])?$data['Date']:z_language('Không xác định')).'</label></td>';
@@ -1096,7 +1096,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             'tracking_id'=>$checking,
                                             'created_at'=>$list['create']
                                         ],
-                                        ['data'=>'[]','status'=>3,'updated_at'=>date('Y-m-d')]);
+                                        ['data'=>'[]','status'=>0,'updated_at'=>date('Y-m-d')]);
                             }
 
                         }
