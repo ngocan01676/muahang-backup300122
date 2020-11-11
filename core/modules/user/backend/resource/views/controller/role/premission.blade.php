@@ -21,17 +21,16 @@
     <div class="col-md-10">
         <div class="box ">
             <div class="box-body no-padding">
+
                 @if(isset($global_permissions->data[$guard]))
                     @foreach($global_permissions->data as $key=>$permissions)
                         <form action="" id="form_{!! $key !!}">
                             <table class="table">
                                 <tbody>
                                 <tr>
-
                                     <th>{!! @z_language(["Giá trị Quyền"]) !!}</th>
                                     <th></th>
                                 </tr>
-
                                 @foreach($permissions as $aliases=>$permission)
                                     <tr>
                                         <td>
@@ -41,9 +40,6 @@
                                         <td>
                                             <table class="table table-bordered">
                                                 <tr>
-
-
-
                                                 @foreach($permission as $k=>$val)
                                                     @if(isset($global_permissions->aliases[$val]))
                                                             @php $a = explode(":",$val); $k = $a[count($a)-1]; @endphp

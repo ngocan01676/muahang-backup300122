@@ -14,7 +14,6 @@ class LanguageController extends \Zoe\Http\ControllerBackend
     function getDirContents($dir, $filter = '', &$results = array())
     {
         $files = scandir($dir);
-
         foreach ($files as $key => $value) {
             $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
             if (!is_dir($path)) {
@@ -238,9 +237,9 @@ class LanguageController extends \Zoe\Http\ControllerBackend
             }
             $lists[$value['path'][1]][$value['path'][2]] [$k] = $value;
         }
+
         $lists['acl']["Static"] = acl_all_key();
         $permisssionAll = app()->getPermissions();
-
         foreach ($permisssionAll->data as $name=>$permissions){
             $lists['acl'][$name] = [];
             foreach($permissions as $aliases=>$permission){

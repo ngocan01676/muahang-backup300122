@@ -1051,7 +1051,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 },
                 "GetTimeCheck" => function ($model){
                     if($model->status > 1) {
-                        $diff = strtotime("+".(60*24*1)." minutes", strtotime($model->updated_at))  - strtotime(date('Y-m-d H:i:s')) ;
+                        $diff = strtotime("+".(60*24*0.5)." minutes", strtotime($model->updated_at))  - strtotime(date('Y-m-d H:i:s')) ;
                         $years = floor($diff / (365 * 60 * 60 * 24));
                         $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
                         $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
@@ -1084,7 +1084,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 DB::table('shop_order_excel_tracking')
                     ->where('company',$value->name)
                     ->where('status',3)
-                    ->where('updated_at',"<=",date('Y-m-d H:i:s',strtotime('-'.(60*24*1).' minutes')))
+                    ->where('updated_at',"<=",date('Y-m-d H:i:s',strtotime('-'.(60*24*0.5).' minutes')))
                     ->orderBy('updated_at')
                     ->limit(30)
                     ->get()->all();

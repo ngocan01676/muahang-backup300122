@@ -19,7 +19,6 @@
         @endif
         <div class="box box box-zoe" id="sectionList">
             <div class="box-header with-border">
-
                 <div class="box-tools">
                     <form method="GET" id="filter_search_form">
                         <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
@@ -33,9 +32,9 @@
                         </div>
                     </form>
                 </div>
-                <div style="padding: 5px">
-                    <a href="{!! url()->current() !!}">{{ z_language('Tất cả') }}</a> | <a href="?status=1">{{ z_language('Bật') }}</a> | <a href="?status=0">{{ z_language('Tắt') }}</a>
-                </div>
+                {{--<div style="padding: 5px">--}}
+                    {{--<a href="{!! url()->current() !!}">{{ z_language('Tất cả') }}</a> | <a href="?status=1">{{ z_language('Bật') }}</a> | <a href="?status=0">{{ z_language('Tắt') }}</a>--}}
+                {{--</div>--}}
             </div>
             <div class="box-body listMain">
                     <table class="table table-bordered">
