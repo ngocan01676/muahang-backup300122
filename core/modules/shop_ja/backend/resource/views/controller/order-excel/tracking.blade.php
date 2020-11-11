@@ -45,6 +45,7 @@
                                      @php
                                         $data = json_decode($v->data,true);
                                         var_dump($data);
+
                                      @endphp
                                      <table class="table table-bordered">
                                          <td>{!! isset($data['Date'])?$data['Date']:z_language('Không xác định') !!}</td>
