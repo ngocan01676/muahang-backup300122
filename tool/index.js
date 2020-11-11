@@ -215,7 +215,7 @@ async function JAPAN_POST(tracking){
             if (err) throw err.stack;
             let timeEnd = moment().add('-30','minutes').format("YYYY-MM-DD hh:mm:ss");
 
-            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and updated_at <= '"+timeEnd+"' LIMIT 0,100";
+            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and (updated_at <= '"+timeEnd+"' or status=0 ) LIMIT 0,100";
 
             console.log(sql);
 
