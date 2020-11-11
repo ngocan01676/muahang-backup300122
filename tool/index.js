@@ -288,7 +288,7 @@ async function JAPAN_POST(tracking){
                 if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
                     console.log("Date:"+(new Date().toDateString())+data.name+' ');
                     console.log(data);
-                    
+
                     if(data.name === "YAMATO"){
                         YAMATO(data.data).then(function (vals) {
                             lock = false;
@@ -306,9 +306,9 @@ async function JAPAN_POST(tracking){
                                     let sql;
 
                                     if(vals[0][vals[1][i].key].Status){
-                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now(), WHERE `id` = "+vals[1][i].data.id;
+                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }else{
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now(), WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }
                                     console.log(sql);
                                     pool.query(sql,function () {
@@ -329,9 +329,9 @@ async function JAPAN_POST(tracking){
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
                                     if(vals[0][vals[1][i].key].Status){
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+" , `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now(), WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+" , `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }else{
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now(), WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }
                                     console.log(sql);
                                     pool.query(sql,function () {
@@ -353,9 +353,9 @@ async function JAPAN_POST(tracking){
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
                                     if(vals[0][vals[1][i].key].Status){
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now(), WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }else{
-                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now(), WHERE `id` = "+vals[1][i].data.id;
+                                        sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }
                                     console.log(sql);
                                     pool.query(sql,function () {
