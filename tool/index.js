@@ -18,6 +18,10 @@ var pool  = mysql.createPool({
 });
 
 var moment = require('moment');
+console.log("Time:"+moment().format("YYYY-MM-DD hh:mm:ss"));
+let timeEnd = moment().add('-30','minutes').format("YYYY-MM-DD hh:mm:ss");
+console.log(timeEnd);
+
 function YAMATO(tracking){
     return new  Promise (async function (resolve, reject) {
         let page = pages["YAMATO"];
@@ -209,7 +213,11 @@ async function JAPAN_POST(tracking){
         });
         conn.connect(function (err){
             if (err) throw err.stack;
-            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 LIMIT 0,100";
+            let timeEnd = moment().add('-30','minutes').format("YYYY-MM-DD hh:mm:ss");
+            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and updated_at <="+timeEnd+" LIMIT 0,100";
+
+            console.log(sql);
+            
             let rows = {};
             let _databaseData = {};
             conn.query(sql, function (err,results, fields) {
@@ -292,14 +300,8 @@ async function JAPAN_POST(tracking){
                     if(data.name === "YAMATO"){
                         YAMATO(data.data).then(function (vals) {
                             lock = false;
-
                             console.log("\n"+data.name+' sucesss \n');
-
-                            console.log(vals[0]);
-                            console.log(vals[1]);
-
                             log.info('YAMATO:'+JSON.stringify(vals));
-
                             for(let i in vals[1]){
 
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
@@ -310,12 +312,11 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }
-                                    console.log(sql);
+
                                     pool.query(sql,function () {
 
                                     });
                                 }
-
                             }
                         }).catch(function () {
                             lock = false;
@@ -333,7 +334,7 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }
-                                    console.log(sql);
+
                                     pool.query(sql,function () {
 
                                     });
@@ -357,7 +358,7 @@ async function JAPAN_POST(tracking){
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+", `data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }
-                                    console.log(sql);
+
                                     pool.query(sql,function () {
 
                                     });
