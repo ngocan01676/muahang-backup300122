@@ -203,10 +203,10 @@ return [
                 "sub_prefix" => "/shop-ja/order/excel",
                 "guard" => "backend",
                 "acl"=> "shop_ja:order:excel",
+                "name"=>"Hóa đơn",
                 "router" => [
                     "list" => [
                         "url" => "/list",
-                        'acl'=>true
                     ],
                     "create" => [
                         "url" => "/create",
