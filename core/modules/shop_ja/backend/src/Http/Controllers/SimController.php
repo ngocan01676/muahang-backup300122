@@ -200,8 +200,8 @@ class SimController extends \Zoe\Http\ControllerBackend{
                 $datas[$result->company] = [];
             }
 
-            if(isset( $this->data['products']["SIM"])){
-                $_product = $this->data['products']["SIM"];
+            if(isset( $this->data['products'][$result->company])){
+                $_product = $this->data['products'][$result->company];
                     $pay_method = "";
 
                     if($result->pay_method == 1){
@@ -303,6 +303,9 @@ class SimController extends \Zoe\Http\ControllerBackend{
                         $result->status,
                         $result->order_image,
                         $result->order_image1,
+                        $result->order_image2,
+                        $result->order_image3,
+                        $result->order_image4,
                         $result->order_create_date,
                         $pay_method,
                         $result->notification,
@@ -582,11 +585,10 @@ class SimController extends \Zoe\Http\ControllerBackend{
                                     "updated_at"=>$date_time,
                                 ];
 
-                                if($name == "GTN"){
-                                    $_data['order_image2'] = $this->base64ToImage(isset($columns["image2"])?$values[$columns["image2"]]:"",$name);
-                                    $_data['order_image3'] = $this->base64ToImage(isset($columns["image3"])?$values[$columns["image3"]]:"",$name);
-                                    $_data['order_image4'] = $this->base64ToImage(isset($columns["image4"])?$values[$columns["image4"]]:"",$name);
-                                }
+                                $_data['order_image2'] = $this->base64ToImage(isset($columns["image2"])?$values[$columns["image2"]]:"",$name);
+                                $_data['order_image3'] = $this->base64ToImage(isset($columns["image3"])?$values[$columns["image3"]]:"",$name);
+                                $_data['order_image4'] = $this->base64ToImage(isset($columns["image4"])?$values[$columns["image4"]]:"",$name);
+
                                 $validator = Validator::make($_data,$check,[
                                     'fullname.required' => z_language('Tên khách hàng không được phép bỏ trống.')
                                 ]);
