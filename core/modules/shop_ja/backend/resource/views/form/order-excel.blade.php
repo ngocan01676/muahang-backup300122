@@ -2853,12 +2853,10 @@
                         content: [$html],
                         ok: action,
                         cancel:function () {
-                            cell.innerHTML =old_value;
-                            _jexcel.setValue(cellName2,cell.innerHTML);
+                            
                         },
                         dismiss:function () {
-                            cell.innerHTML =old_value;
-                            _jexcel.setValue(cellName2,cell.innerHTML);
+
                         },
                         before: function (_this) {
 
