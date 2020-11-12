@@ -2785,10 +2785,11 @@
             let customColumn = {
                 closeEditor : function(cell, save) {
                     console.log("closeEditor");
+                    change = {col:-1,row:-1};
                     return 0;
                 },
                 openEditor : function(cell) {
-                    change = {col:-1,row:-1};
+
                     let dom = $(cell);
                     let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
                     let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
@@ -2841,8 +2842,7 @@
                         }
                         cell.innerHTML =JSON.stringify(data);
                         console.log('ACTION=>'+cell.innerHTML);
-
-
+                        
                         _jexcel.setValue(cellName2,cell.innerHTML);
                     };
                     bootpopup({
