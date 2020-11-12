@@ -2840,6 +2840,8 @@
                             }
                         }
                         cell.innerHTML =JSON.stringify(data);
+                        console.log('ACTION=>'+cell.innerHTML);
+
 
                         _jexcel.setValue(cellName2,cell.innerHTML);
                     };
