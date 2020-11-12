@@ -2841,7 +2841,7 @@
                                 }
                             }
                         }
-                        cell.innerHTML =JSON.stringify(data);
+                       // cell.innerHTML =JSON.stringify(data);
                         oldData = cell.innerHTML;
 
 
@@ -2858,6 +2858,7 @@
                         },
                         dismiss:function () {
                             console.log('bootpopup:dismiss')
+                            cell.innerHTML = oldData;
                             _jexcel.setValue(cellName2,cell.innerHTML);
                         },
                         before: function (_this) {
