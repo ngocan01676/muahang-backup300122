@@ -2841,10 +2841,9 @@
                                 }
                             }
                         }
-                       // cell.innerHTML =JSON.stringify(data);
+                        cell.innerHTML =JSON.stringify(data);
                         oldData = cell.innerHTML;
-
-
+                        _jexcel.setValue(cellName2,cell.innerHTML);
                     };
 
                     bootpopup({
