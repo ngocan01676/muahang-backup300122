@@ -2763,11 +2763,7 @@
                 },
             };
         }
-        function myFunction(self) {
-            if($(self).val() > 10){
-                $(self).val(10);
-            }
-        }
+
         function KURICHIKU() {
             let  sheetName  =  'KURICHIKU';
             let data = [];
@@ -2825,7 +2821,7 @@
                             $html+="<tr>";
                             $html+="<td>"+item.id+"</td>";
                             $html+="<td>"+item.name+"</td>";
-                            $html+="<td><input min=\"1\" max=\"10\" onchange=\"myFunction(this)\" class=\"form-control count\" type='number' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:1)+"'></td>";
+                            $html+="<td><input min=\"1\" max=\"10\" class=\"form-control count\" type='number' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:1)+"'></td>";
                             $html+="</tr>";
                         }
                     }
