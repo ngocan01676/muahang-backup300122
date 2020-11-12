@@ -2868,6 +2868,7 @@
                     return cell.innerHTML;
                 },
                 setValue : function(cell, value) {
+                    console.log('setValue');
                     cell.innerHTML = value;
                 }
             }
