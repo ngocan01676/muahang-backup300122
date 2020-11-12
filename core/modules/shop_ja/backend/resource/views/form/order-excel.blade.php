@@ -3094,7 +3094,7 @@
             function update(instance, cell, c, r, value) {
                 console.log("update call");
                 let data = {
-                    count:value.hasOwnProperty('count')?value.count:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r])),
+                    count:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r])),
                     id:value.hasOwnProperty('id')?value.id.toString():instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])).toString(),
                     province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
