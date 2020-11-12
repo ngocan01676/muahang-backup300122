@@ -2853,12 +2853,11 @@
                         ok: action,
                         cancel:function () {
                             console.log('bootpopup:cancel');
-                           action();
+                           
                         },
                         dismiss:function () {
                             console.log('bootpopup:dismiss')
-                            cell.innerHTML = oldData;
-                            _jexcel.setValue(cellName2,cell.innerHTML);
+
                         },
                         before: function (_this) {
                             console.log('bootpopup:before')
