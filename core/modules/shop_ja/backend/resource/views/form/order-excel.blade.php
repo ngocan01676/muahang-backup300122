@@ -3740,6 +3740,9 @@
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
+                    if($(".modal").length > 0 && $(".modal").is(":visible")){
+                        return;
+                    }
                     c = parseInt(c);
                     console.log(change);
                     console.log();
