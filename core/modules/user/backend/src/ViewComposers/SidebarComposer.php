@@ -51,11 +51,8 @@ class SidebarComposer
                         if (isset($item['url']) && !empty($item['url'])) {
                             if (isset($aliases_acl[$item['url']])) {
                                 $acl = $aliases_acl[$item['url']];
-                                //echo $item['url']."=".$acl."\n";
                                 if ($this->user->IsAcl($acl)) {
                                     $_items[] = $item;
-                                }else{
-
                                 }
                             }
                         }
