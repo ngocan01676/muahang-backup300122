@@ -1247,7 +1247,7 @@ class Excel{
                         $product_code = "";$product_title = "";
                         foreach ($array_product as $pro_id){
                             if(isset( $products[$pro_id])){
-                                $product_code.= $products[$pro_id]->code.",";
+                                $product_code.= $products[$pro_id]->code.'、';
                                 if(isset($array_count[$pro_id])){
                                     $kg = $array_count[$pro_id];
                                 }else{
@@ -1256,7 +1256,7 @@ class Excel{
                                 $product_title.= $products[$pro_id]->title." ".$kg."kg,";
                             }
                         }
-                    return rtrim($product_title,',');
+                    return rtrim($product_title,'、');
 
                 },'key'=>'product_name'],18,9],//I
                 ["単価",'price',15,9],//Giá nhập
