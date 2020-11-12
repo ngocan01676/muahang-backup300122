@@ -1253,7 +1253,7 @@ class Excel{
                                 }else{
                                     $kg = $array_count;
                                 }
-                                $product_title.= $products[$pro_id]->title.",";
+                                $product_title.= $products[$pro_id]->title.$kg.",";
                             }
                         }
                     return rtrim($product_title,',');
