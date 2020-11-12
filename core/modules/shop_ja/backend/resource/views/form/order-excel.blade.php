@@ -2800,12 +2800,12 @@
                     var cellName1 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x'))-1, dom.attr('data-y')]);
                     var cellName2 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x')), dom.attr('data-y')]);
 
-                    let old_value = (_jexcel.getValue(cellName2)).toString();
+                     oldData = (_jexcel.getValue(cellName2)).toString();
                     let valsProduct = (_jexcel.getValue(cellName1)).toString().split(";");
 
                     let valsCount = {};
                     try{
-                         valsCount = JSON.parse(old_value);
+                         valsCount = JSON.parse(oldData);
                     }catch (e) {
                          valsCount = {};
                     }
@@ -2843,7 +2843,6 @@
                         }
                         cell.innerHTML =JSON.stringify(data);
                         console.log('ACTION=>'+cell.innerHTML);
-
                         _jexcel.setValue(cellName2,cell.innerHTML);
                     };
 
@@ -2853,12 +2852,12 @@
                         content: [$html],
                         ok: action,
                         cancel:function () {
-                            console.log('bootpopup:cancel')
+                            console.log('bootpopup:cancel');
                            action();
                         },
                         dismiss:function () {
                             console.log('bootpopup:dismiss')
-                            action();
+                            console.log(oldData);
                         },
                         before: function (_this) {
                             console.log('bootpopup:before')
