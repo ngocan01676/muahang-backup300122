@@ -3153,6 +3153,7 @@
                 let total_price =  0;
                 let countNew = {};
                 let totalCount = 0;
+
                 for(let i in data.id){
                     if(data.id.hasOwnProperty(i)){
                         if(dropdown.hasOwnProperty(data.id[i])){
@@ -3161,17 +3162,21 @@
                             let _price = parseInt(product.data.price);
                             let _price_buy = parseInt(product.data.price_buy);
 
-                            price+=_price;
-                            price_buy+=_price_buy;
+
                             if(!data.count.hasOwnProperty(data.id[i])){
                                 data.count[data.id[i]] = 1;
                             }else{
                                 data.count[data.id[i]] = parseInt(data.count[data.id[i]]);
                             }
+
+                            price+=_price*data.count[data.id[i]];
+                            price_buy+=_price_buy*data.count[data.id[i]];
+
                             totalCount+=data.count[data.id[i]];
                             countNew[data.id[i]] = data.count[data.id[i]];
-                            total_price_buy+=_price_buy* data.count[data.id[i]];
-                            total_price+=_price* data.count[data.id[i]];
+
+                            total_price_buy+=_price* data.count[data.id[i]];
+                            total_price+=_price_buy* data.count[data.id[i]];
                         }
 
                     }
@@ -3183,7 +3188,7 @@
                     jexcel.getColumnNameFromId([columns.count.index, r])).innerHTML = JSON.stringify(countNew);
                 let total_count  = parseInt(valueRow[columns.total_count.index]);
                 data.total_price = total_price;
-                data.total_price_buy = total_price_buy*total_count + price_buy_sale;
+                data.total_price_buy = total_price_buy * total_count + price_buy_sale;
                 total_price_buy =  data.total_price_buy;
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), price);
