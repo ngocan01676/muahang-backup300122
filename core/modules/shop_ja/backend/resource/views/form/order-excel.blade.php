@@ -2782,6 +2782,7 @@
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
             let change = {col:-1,row:-1};
+            let oldData = "";
             let customColumn = {
                 closeEditor : function(cell, save) {
                     console.log("closeEditor");
@@ -2845,6 +2846,7 @@
 
                         _jexcel.setValue(cellName2,cell.innerHTML);
                     };
+
                     bootpopup({
                         title: "Custom HTML",
                         size: "large",
@@ -2868,7 +2870,7 @@
                     return cell.innerHTML;
                 },
                 setValue : function(cell, value) {
-                    console.log('setValue');
+                    console.log('setValue=>'+value);
                     cell.innerHTML = value;
                 }
             }
