@@ -2538,7 +2538,12 @@
                 width:'100px',
                 multiple: true,
                 value:"1",
-
+            },
+            total_count:{
+                title: 'SL Tổng',//K SL Tổng
+                type: 'numeric',
+                width:'60px',
+                value:1,
             },
             price:{
                 title: 'Giá nhập',//J Giá nhập
@@ -2709,7 +2714,7 @@
             console.log("payMethod:"+payMethod);
 
             let price_buy_sale = parseInt(valueRow[columns.price_buy_sale.index]);
-            console.log("price_buy_sale:"+price_buy_sale);
+
             let price_buy=0;
             let price=0;
 
@@ -2747,9 +2752,9 @@
 
             instance.jexcel.getCell(
                 jexcel.getColumnNameFromId([columns.count.index, r])).innerHTML = JSON.stringify(countNew);
-
+            let total_count  = parseInt(valueRow[columns.total_count.index]);
             data.total_price = total_price;
-            data.total_price_buy = total_price_buy;
+            data.total_price_buy = total_price_buy *total_count + price_buy_sale;
 
             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), price);
             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), price_buy);
@@ -2832,14 +2837,14 @@
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
                 return {order_ship:parseInt($price_ship == -1?0:$price_ship),order_ship_cou:parseInt($ship_cou)};
             }
-            function setInterest(price_ship,order_ship_cou,total_price_buy){
+            function setInterest(price_ship,order_ship_cou,total_price_buy,total_count){
 
-                price_ship = price_ship * data.count;
+                price_ship = price_ship * total_count;
                 console.log("price_ship:"+price_ship);
                 console.log("total_price_buy:"+total_price_buy);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
 
-                total_price_buy = total_price_buy+price_ship;
+                total_price_buy = total_price_buy + price_ship;
                 console.log(total_price_buy);
 
                 if(total_price_buy ===0 || total_price == 0){ return;}
@@ -3200,7 +3205,7 @@
 
                     }
                     //  }
-                }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
+                }else if(c ===  columns.total_count.index || c === columns.count.index || c === columns.price_buy_sale.index ||
                     c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                     if(change.col == c){
                         update(instance, cell, c, r,{

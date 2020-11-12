@@ -1537,10 +1537,10 @@
                     // row:"0",
                 },
                 total_count:{
-                    title: '数量',//K SL Tổng
+                    title: 'SL tổng',//K SL Tổng
                     type: 'numeric',
                     width:'100px',
-                    value:0,
+                    value:1,
                     // row:"0",
                 },
                 price:{
@@ -2973,7 +2973,12 @@
                     width:'100px',
                     multiple: true,
                     value:"1",
-
+                },
+                total_count:{
+                    title: 'SL Tổng',//K SL Tổng
+                    type: 'numeric',
+                    width:'60px',
+                    value:1,
                 },
                 price:{
                     title: 'Giá nhập',//J Giá nhập
@@ -3172,15 +3177,13 @@
                     }
                 }
                 let product_id = data.id[0];
-                console.log(countNew);
 
-                console.log(columns.count.index);
 
                 instance.jexcel.getCell(
                     jexcel.getColumnNameFromId([columns.count.index, r])).innerHTML = JSON.stringify(countNew);
-
+                let total_count  = parseInt(valueRow[columns.total_count.index]);
                 data.total_price = total_price;
-                data.total_price_buy = total_price_buy + price_buy_sale;
+                data.total_price_buy = total_price_buy*total_count + price_buy_sale;
                 total_price_buy =  data.total_price_buy;
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), price);
@@ -3268,9 +3271,9 @@
                         order_ship_cou:parseInt($ship_cou)
                     };
                 }
-                function setInterest(price_ship,order_ship_cou,total_price_buy){
+                function setInterest(price_ship,order_ship_cou,total_price_buy,total_count){
 
-                    price_ship = price_ship * data.count;
+                    price_ship = price_ship * total_count;
                     console.log("price_ship:"+price_ship);
                     console.log("total_price_buy:"+total_price_buy);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
@@ -3278,7 +3281,7 @@
                    // total_price_buy = total_price_buy;
                     console.log(total_price_buy);
 
-                    if(total_price_buy ===0 || total_price == 0){ return;}
+                    if(total_price_buy === 0 || total_price === 0){ return;}
 
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                     if(payMethod == 3){
@@ -3308,7 +3311,7 @@
                 if(dropdown.hasOwnProperty(product_id)){
                     confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod);
                     console.log(confShipCou);
-                    setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330)
+                    setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330,total_count)
                 }
 
                 {{--$.ajax({--}}
@@ -3789,7 +3792,7 @@
                                  
                             }
                       //  }
-                    }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
+                    }else if(c === columns.total_count.index || c === columns.count.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
                             update(instance, cell, c, r,{
