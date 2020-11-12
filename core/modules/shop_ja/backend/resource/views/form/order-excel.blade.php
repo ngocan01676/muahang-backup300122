@@ -2785,7 +2785,7 @@
             let customColumn = {
                 closeEditor : function(cell, save) {
                     console.log("closeEditor");
-                  
+
                     return 0;
                 },
                 openEditor : function(cell) {

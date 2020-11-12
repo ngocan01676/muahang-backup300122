@@ -1476,19 +1476,19 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $total_price = $result->total_price;
                         $total_price_buy = $result->total_price_buy;
 
-                        if(isset($_product[$result->product_id]['data']['price_buy'])){
-                            if($price == 0)
-                                $price = $_product[$result->product_id]['data']['price'];
-                            if($price_buy == 0)
-                                $price_buy = $_product[$result->product_id]['data']['price_buy'];
-                        }
-                        if($total_price == 0)
-                            $total_price = $price * $result->count;
-                        if($total_price_buy == 0)
-                            $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
-                        if($order_profit == 0){
-                            $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
-                        }
+//                        if(isset($_product[$result->product_id]['data']['price_buy'])){
+//                            if($price == 0)
+//                                $price = $_product[$result->product_id]['data']['price'];
+//                            if($price_buy == 0)
+//                                $price_buy = $_product[$result->product_id]['data']['price_buy'];
+//                        }
+//                        if($total_price == 0)
+//                            $total_price = $price * $result->count;
+//                        if($total_price_buy == 0)
+//                            $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
+//                        if($order_profit == 0){
+//                            $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
+//                        }
 
                         $datas[$result->company][] = [
                             $result->public,
