@@ -3175,8 +3175,8 @@
                             totalCount+=data.count[data.id[i]];
                             countNew[data.id[i]] = data.count[data.id[i]];
 
-                            total_price_buy+=_price* data.count[data.id[i]];
-                            total_price+=_price_buy* data.count[data.id[i]];
+                            total_price_buy+= _price_buy * data.count[data.id[i]];
+                            total_price+=_price * data.count[data.id[i]];
                         }
 
                     }
