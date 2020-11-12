@@ -2842,8 +2842,9 @@
                             }
                         }
                         cell.innerHTML =JSON.stringify(data);
-                        console.log('ACTION=>'+cell.innerHTML);
-                        _jexcel.setValue(cellName2,cell.innerHTML);
+                        oldData = cell.innerHTML;
+
+
                     };
 
                     bootpopup({
@@ -2857,7 +2858,7 @@
                         },
                         dismiss:function () {
                             console.log('bootpopup:dismiss')
-                            console.log(oldData);
+                            _jexcel.setValue(cellName2,cell.innerHTML);
                         },
                         before: function (_this) {
                             console.log('bootpopup:before')
@@ -2872,7 +2873,7 @@
                     console.log('setValue=>'+value);
                     cell.innerHTML = value;
                 }
-            }
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -3560,6 +3561,7 @@
                         return;
                     }
                     click = true;
+
                     console.log("x1"+x1 +" y1: "+ y1);
 
                     setTimeout(function () {
