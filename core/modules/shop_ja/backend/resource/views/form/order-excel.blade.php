@@ -2858,20 +2858,17 @@
                         },
                         dismiss:function () {
                             console.log('bootpopup:dismiss')
-
                         },
-                        before: function (_this) {
+                        before: function () {
                             console.log('bootpopup:before')
                         }
                     });
                 },
                 getValue : function(cell) {
-                    console.log("getValue");
                     return cell.innerHTML;
                 },
                 setValue : function(cell, value) {
-                    console.log('setValue=>'+value);
-                    cell.innerHTML = value;
+                   // cell.innerHTML = value;
                 }
             };
             let columns = {
