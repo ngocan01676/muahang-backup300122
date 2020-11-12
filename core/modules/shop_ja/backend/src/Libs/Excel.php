@@ -1202,7 +1202,7 @@ class Excel{
             $total_order_total_price_buy = 0;
             $total_ship_cou = 0;
             $total_order_price = 0;
-
+            $columns_value = array_flip($datas['columns']);
             $colums = [
                 ["注文日",['callback'=>function($index,$date) use($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
                 ["支払区分",'payMethod',10,9],//Phương thức thanh toán
@@ -1212,7 +1212,17 @@ class Excel{
                 ["配送先住所",'address',18,9],//Địa chỉ giao hàng
                 ["配送先氏名",'fullname',18,9],//Họ tên người nhận
                 ["品番",['callback'=>
-                    function($index,$product_id) use($products){
+                    function($index,$product_id,$a,$values) use($products,$columns_value){
+
+
+                        $count = (isset($columns_value["count"])?$values[$columns_value["count"]]:"");
+
+                        try{
+                            $array_count = json_decode($count,true);
+                        }catch (\Exception $ex) {
+                            $array_count = [];
+                        }
+
                     try{
                         $array_product = explode(";",$product_id);
                     }catch (\Exception $ex) {
@@ -1222,8 +1232,15 @@ class Excel{
                     $product_code = "";$product_title = "";
                         foreach ($array_product as $pro_id){
                             if(isset( $products[$pro_id])){
+                                $kg = 1;
+                                if(isset($array_count[$pro_id])){
+                                    $kg = $array_count[$pro_id];
+                                }else{
+                                    $kg = $array_count;
+                                }
                                 $product_code.= $products[$pro_id]->code.",";
-                                $product_title.= $products[$pro_id]->title.",";
+                                $product_title.= $products[$pro_id]->title.$kg.",";
+
                             }
                         }
                     return rtrim($product_code,',');
@@ -1277,7 +1294,6 @@ class Excel{
                 ["振込み情報",'order_info',25,9],
             ];
             $nameColList = [];
-
             foreach($colums as $key=>$value){
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
                 if(is_array($value[1])){
@@ -1311,7 +1327,7 @@ class Excel{
 //
 //            ];
             $start++;
-            $columns_value = array_flip($datas['columns']);
+
             $products =  DB::table('shop_product')->get()->keyBy('id')->all();
 
             foreach ($datas['datas'] as $key=>$values){
@@ -1351,7 +1367,7 @@ class Excel{
                             $sheet->setCellValue($nameCol.$start,$_val);
                         }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                             $conf = $value[1]['callback'];
-                            $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start]);
+                            $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start,$values]);
                             $sheet->setCellValue($nameCol.$start,$_val);
                         }
                     }else{
