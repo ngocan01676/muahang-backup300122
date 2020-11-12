@@ -8,7 +8,7 @@
 
         $urlCurrentNameTemp = implode(":",$listsNav);
 
-        $lists_sidebar = Cache::remember('sidebar:main', 60, function() use($lists_sidebar)
+        $lists_sidebar = Cache::remember('sidebar:main', 1, function() use($lists_sidebar)
         {
             $func_sort = function ( $a , $b ){
                 if(!isset($a['pos'])){
@@ -50,6 +50,7 @@
             @section('treeview'.$key)
                 @foreach ($sidebar['items'] as $_key=>$items)
                     @continue(!is_array($items))
+
                     @php
                        $items_url = "#";
                        if(route::has($items['url'])){

@@ -4,7 +4,7 @@ return [
         "module:blog" => [
             "name" => z_language('Blog'),
             "pos" => 2,
-            "url" => "#",
+
             "header" => true,
             "icon"=>"fa fa-newspaper-o",
             "items" => [

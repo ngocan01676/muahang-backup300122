@@ -6,7 +6,6 @@ return [
             "pos" => 0,
             "url" => "backend:dashboard:list",
             "icon" => "fa fa-dashboard",
-            "key"=>"dashboard",
         ],
         "translations" => [
             "name" => z_language('Translations', false),
@@ -21,35 +20,40 @@ return [
                     "icon" => "fa fa-language"
                 ],
             ],
-            "key"=>"translations",
         ],
         "page" => [
             "name" => z_language("Page", false),
             "pos" => 2,
             "url" => "backend:page:list",
             "icon" => "fa fa-book",
-            "key"=>"page",
         ],
         "plugin" => [
             "name" => z_language('Plugins', false),
             "pos" => 3,
             "url" => "backend:plugin:list",
             "header" => true,
-            "key"=>"plugin",
+        ],
+        "plugin:item" => [
+            "name" => z_language('Plugins', false),
+            "pos" => 2,
+            "url" => "",
+            "header" => true,
+            "items" => [
+
+            ]
         ],
         "module" => [
             "name" => z_language('Modules', false),
             "pos" => 4,
             "url" => "backend:module:list",
             "header" => true,
-            "key"=>"module",
+            "icon"=>"fa fa-cubes"
         ],
         'appearance'=>[
             "name" => z_language('Appearance', false),
             "pos" => 5,
             "url" => "",
             "icon"=>"fa fa-paint-brush",
-            "key"=>"appearance",
             'items'=>[
                 [
                     "name" => z_language('Themes', false),
@@ -93,14 +97,12 @@ return [
             "url" => "backend:dashboard:media",
             "header" => true,
             "icon"=>"fa fa-picture-o",
-            "key"=>"media",
         ],
         "configuration" => [
             "name" => z_language('Configuration', false),
             "pos" => 8,
             "url" => "",
             "icon"=>"fa fa-cogs",
-            "key"=>"configuration",
             'items'=>[
                [
                     "name" => z_language('Configuration', false),
@@ -119,14 +121,12 @@ return [
             "pos" => 9,
             "url" => "backend:log:list",
             "icon" => "fa fa-file-text",
-            "key"=>"log",
         ],
         "backup" => [
             "name" => z_language("Backup", false),
             "pos" => 10,
             "url" => "backend:backup:list",
             "icon" => "fa fa-file-text",
-            "key"=>"backup",
         ],
     ]
 ];

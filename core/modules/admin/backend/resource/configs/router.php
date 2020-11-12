@@ -11,18 +11,22 @@ return [
                 "router" => [
                     "list" => [
                         "url" => "/",
+                        "acl"=>true
                     ],
                     "media" => [
                         "url" => "/media",
-                        "acl"=>"media"
+                        "acl"=>"media",
+                        "acl"=>true
                     ],
                     "router" => [
                         "url" => "/router",
                         "method" => ['post', 'get'],
+                        "acl"=>true
                     ],
                     "option" => [
                         "url" => "/option",
                         "method" => ['post'],
+                        "acl"=>true
                     ]
                 ]
             ],

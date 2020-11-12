@@ -16,6 +16,7 @@
             'list'=>"Danh sách",'ajax'=>'Xử lý','store'=>'Xử lý','create'=>'Thêm','edit'=>'Sửa','delete'=>'Xóa','permission'=>'Phân quyền','show'=>'Danh sách'
         ];
         $descriptions = app()->getConfig()->acls['descriptions'];
+
      @endphp
     <!-- Default box -->
     <div class="col-md-10">

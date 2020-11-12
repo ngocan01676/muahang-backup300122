@@ -6,6 +6,7 @@ return [
             "controller" => "LayoutController",
             "sub_prefix" => "/mega-menu/layout",
             "guard" => "backend",
+            'acl'=>'plugin:mega-menu:layout',
             "module"=>[
                 "name"=>"admin",
                 "type"=>"module"
