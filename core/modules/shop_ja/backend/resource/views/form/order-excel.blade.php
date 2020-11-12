@@ -2802,8 +2802,8 @@
 
                     var cellName1 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x'))-1, dom.attr('data-y')]);
                     var cellName2 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x')), dom.attr('data-y')]);
-
-                    let valsProduct = (_jexcel.getValue(cellName1)).toString().split(";");
+                    let old_value = (_jexcel.getValue(cellName1)).toString();
+                    let valsProduct = old_value.split(";");
                     let valsCount = {};
                     try{
                          valsCount = JSON.parse((_jexcel.getValue(cellName2)).toString());
@@ -2811,9 +2811,8 @@
                          valsCount = {};
                     }
 
-                    $html = "<table  class='table table-bordered config_count'>";
+                    let $html = "<table  class='table table-bordered config_count'>";
                     $html+="<tr><th>Mã</th><th>Tên</th><th>Số lượng</th></tr>";
-
                     for (let i in valsProduct){
                         if(dropdown.hasOwnProperty(valsProduct[i])){
                             let item = dropdown[valsProduct[i]];
@@ -2851,8 +2850,12 @@
                         size: "large",
                         content: [$html],
                         ok: action,
-                        cancel: action,
-                        dismiss:action,
+                        cancel: function () {
+                            _jexcel.setValue(cellName2,old_value);
+                        },
+                        dismiss:function () {
+                            _jexcel.setValue(cellName2,old_value);
+                        },
                         before: function (_this) {
 
                         }
