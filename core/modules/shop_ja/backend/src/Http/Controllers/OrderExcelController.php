@@ -485,25 +485,36 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 if($name== "KURICHIKU"){
                                     $product_id = (isset($columns["product_id"])?$values[$columns["product_id"]]:"");
                                     $count = (isset($columns["count"])?$values[$columns["count"]]:"");
-                                    try{
-                                        $array_product = explode(";",$product_id);
-                                    }catch (\Exception $ex) {
-                                        $array_product = [];
-                                    }
-                                    $product_code = "";$product_title = "";
-                                    foreach ($array_product as $pro_id){
-                                        if(isset( $_product[$pro_id]['data']['price_buy'])){
-                                            $product_code.= $_product[$pro_id]['data']['code'].",";
-                                            $product_title.= $_product[$pro_id]['data']['title'].",";
-                                        }
-                                    }
-                                    $product_code = rtrim($product_code,',');
-                                    $product_title = rtrim($product_title,',');
+
                                     try{
                                         $array_count = json_decode($count,true);
                                     }catch (\Exception $ex) {
                                         $array_count = [];
                                     }
+
+
+                                    try{
+                                        $array_product = explode(";",$product_id);
+                                    }catch (\Exception $ex) {
+                                        $array_product = [];
+                                    }
+
+                                    $product_code = "";$product_title = "";
+                                    foreach ($array_product as $pro_id){
+                                        if(isset( $_product[$pro_id]['data']['price_buy'])){
+                                            $_kg = 0;
+                                            if(isset($array_count[$pro_id])){
+                                                $_kg = $array_count[$pro_id];
+                                            }else{
+                                                $_kg = $array_count;
+                                            }
+                                            $product_code.= $_product[$pro_id]['data']['code'].",";
+                                            $product_title.= $_product[$pro_id]['data']['title'].$_kg."kg,";
+                                        }
+                                    }
+                                    $product_code = rtrim($product_code,',');
+                                    $product_title = rtrim($product_title,',');
+
                                     $total_count = isset($columns["total_count"])?(int)$values[$columns["total_count"]]:"1";
 
 //                                    if(is_array($array_count)){
