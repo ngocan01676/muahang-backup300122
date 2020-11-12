@@ -2802,11 +2802,13 @@
 
                     var cellName1 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x'))-1, dom.attr('data-y')]);
                     var cellName2 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x')), dom.attr('data-y')]);
-                    let old_value = (_jexcel.getValue(cellName1)).toString();
-                    let valsProduct = old_value.split(";");
+
+                    let old_value = (_jexcel.getValue(cellName2)).toString();
+                    let valsProduct = (_jexcel.getValue(cellName1)).toString().split(";");
+
                     let valsCount = {};
                     try{
-                         valsCount = JSON.parse((_jexcel.getValue(cellName2)).toString());
+                         valsCount = JSON.parse(old_value);
                     }catch (e) {
                          valsCount = {};
                     }
@@ -2850,13 +2852,13 @@
                         size: "large",
                         content: [$html],
                         ok: action,
-                        cancel: function () {
+                        cancel:function () {
                             cell.innerHTML =old_value;
-                            _jexcel.setValue(cellName2,old_value);
+                            _jexcel.setValue(cellName2,cell.innerHTML);
                         },
                         dismiss:function () {
                             cell.innerHTML =old_value;
-                            _jexcel.setValue(cellName2,old_value);
+                            _jexcel.setValue(cellName2,cell.innerHTML);
                         },
                         before: function (_this) {
 
