@@ -504,22 +504,22 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }catch (\Exception $ex) {
                                         $array_count = [];
                                     }
-                                    $total_count = 0;
+                                    $total_count = isset($columns["total_count"])?(int)$values[$columns["total_count"]]:"1";
 
-                                    if(is_array($array_count)){
-                                        foreach ($array_count as $pro_id=>$_count){
-                                            if(isset( $_product[$pro_id]['data']['price_buy'])){
-                                                $total_count+=(int)$_count;
-                                            }
-                                        }
-                                    }else{
-                                        $total_count = $count;
-                                    }
+//                                    if(is_array($array_count)){
+//                                        foreach ($array_count as $pro_id=>$_count){
+//                                            if(isset( $_product[$pro_id]['data']['price_buy'])){
+//                                                $total_count+=(int)$_count;
+//                                            }
+//                                        }
+//                                    }else{
+//                                        $total_count = $count;
+//                                    }
 
                                 }else{
                                     $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
                                     $count = (int)(isset($columns["count"])?$values[$columns["count"]]:"");
-                                    $total_count = (int)(isset($columns["total_count"])?$values[$columns["total_count"]]:"");
+                                    $total_count = (int)(isset($columns["total_count"])?$values[$columns["total_count"]]:"0");
                                     if(isset( $_product[$product_id]['data']['price_buy'])){
                                         $product_code = $_product[$product_id]['data']['code'];
                                         $product_title = $_product[$product_id]['data']['title'];
@@ -1440,7 +1440,81 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->order_index,
                             $result->admin,
                         ];
-                    } else{
+                    } else if($result->company == "KURICHIKU"){
+                        $pay_method = "";
+                        if($result->pay_method == 1){
+                            $pay_method = "代金引換";
+                        }else  if($result->pay_method == 2){
+                            $pay_method = "銀行振込";
+                        }else if($result->pay_method == 3){
+                            $pay_method = "決済不要";
+                        }
+                        if($exportAll == true)
+                        {
+                            if(empty($result->fullname)){
+                                continue;
+                            }
+                        }
+
+                        $order_profit = $result->order_price;
+
+                        $price = $result->price;
+
+                        $price_buy = $result->price_buy;
+
+                        $total_price = $result->total_price;
+                        $total_price_buy = $result->total_price_buy;
+
+                        if(isset($_product[$result->product_id]['data']['price_buy'])){
+                            if($price == 0)
+                                $price = $_product[$result->product_id]['data']['price'];
+                            if($price_buy == 0)
+                                $price_buy = $_product[$result->product_id]['data']['price_buy'];
+                        }
+                        if($total_price == 0)
+                            $total_price = $price * $result->count;
+                        if($total_price_buy == 0)
+                            $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
+                        if($order_profit == 0){
+                            $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
+                        }
+
+                        $datas[$result->company][] = [
+                            $result->public,
+                            $result->order_image,
+                            $result->order_create_date,
+                            $pay_method,
+                            $result->phone,
+                            $result->zipcode,
+                            $result->province,
+                            $result->address,
+                            $result->fullname,
+                            $result->product_id,
+                            $result->product_id,
+                            $result->count,
+                            $result->total_count,
+                            $price,
+                            $price_buy,
+                            !empty($result->order_date)?date('Y-m-d',strtotime($result->order_date)):"",
+                            $result->order_hours,
+                            $result->order_ship,
+                            $total_price,
+                            $result->price_buy_sale,
+                            $total_price_buy,
+                            $result->order_ship_cou,
+                            $order_profit,
+                            (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
+                            $result->order_tracking,
+                            $result->order_link,
+                            $result->order_info,
+                            $result->one_address==1,
+                            $result->id,
+                            $result->session_id,
+                            $result->export == 1,
+                            $result->token,
+                            $result->admin,
+                        ];
+                    }else{
                         $pay_method = "";
                         if($result->pay_method == 1){
                             $pay_method = "代金引換";
