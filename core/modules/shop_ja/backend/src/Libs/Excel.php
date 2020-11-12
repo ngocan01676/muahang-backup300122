@@ -1213,13 +1213,7 @@ class Excel{
                 ["配送先氏名",'fullname',18,9],//Họ tên người nhận
                 ["品番",['callback'=>
                     function($index,$product_id,$a,$values) use($products,$columns_value){
-                        $count = (isset($columns_value["count"])?$values[$columns_value["count"]]:"");
 
-                        try{
-                            $array_count = json_decode($count,true);
-                        }catch (\Exception $ex) {
-                            $array_count = [];
-                        }
                     try{
                         $array_product = explode(";",$product_id);
                     }catch (\Exception $ex) {
@@ -1229,30 +1223,36 @@ class Excel{
                     $product_code = "";$product_title = "";
                         foreach ($array_product as $pro_id){
                             if(isset( $products[$pro_id])){
-                                if(isset($array_count[$pro_id])){
-                                    $kg = $array_count[$pro_id];
-                                }else{
-                                    $kg = $array_count;
-                                }
+
                                 $product_code.= $products[$pro_id]->code.",";
-                                $product_title.= $products[$pro_id]->title.$kg.",";
+                                $product_title.= $products[$pro_id]->title.",";
 
                             }
                         }
                     return rtrim($product_code,',');
                     },'key'=>'product_id'],10,9],//H
                 ["商品名",
-                    ['callback'=>function($index,$product_id) use($products){
+                    ['callback'=>function($index,$product_id,$a,$values) use($products,$columns_value){
                         try{
                             $array_product = explode(";",$product_id);
                         }catch (\Exception $ex) {
                             $array_product = [];
                         }
-
+                        $count = (isset($columns_value["count"])?$values[$columns_value["count"]]:"");
+                        try{
+                            $array_count = json_decode($count,true);
+                        }catch (\Exception $ex) {
+                            $array_count = [];
+                        }
                         $product_code = "";$product_title = "";
                         foreach ($array_product as $pro_id){
                             if(isset( $products[$pro_id])){
                                 $product_code.= $products[$pro_id]->code.",";
+                                if(isset($array_count[$pro_id])){
+                                    $kg = $array_count[$pro_id];
+                                }else{
+                                    $kg = $array_count;
+                                }
                                 $product_title.= $products[$pro_id]->title.",";
                             }
                         }
