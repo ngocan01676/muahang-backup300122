@@ -1247,13 +1247,19 @@ class Excel{
                         $product_code = "";$product_title = "";
                         foreach ($array_product as $pro_id){
                             if(isset( $products[$pro_id])){
-                                $product_code.= $products[$pro_id]->code.'、';
-                                if(isset($array_count[$pro_id])){
-                                    $kg = $array_count[$pro_id];
+
+                                if($products[$pro_id]->unit == 5){
+                                    $product_title.= $products[$pro_id]->title.'、';
                                 }else{
-                                    $kg = $array_count;
+                                    $product_code.= $products[$pro_id]->code.'、';
+                                    if(isset($array_count[$pro_id])){
+                                        $kg = $array_count[$pro_id];
+                                    }else{
+                                        $kg = $array_count;
+                                    }
+                                    $product_title.= $products[$pro_id]->title." ".$kg."kg".'、';
                                 }
-                                $product_title.= $products[$pro_id]->title." ".$kg."kg,";
+
                             }
                         }
                     return rtrim($product_title,'、');
