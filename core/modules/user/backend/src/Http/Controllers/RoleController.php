@@ -24,8 +24,8 @@ class RoleController extends \Zoe\Http\ControllerBackend
     public function permission($id,$guard,Request $request)
     {
         $modelRole = new Role();
-
         if($request->isXmlHttpRequest()){
+
             $post = $request->all();
             $this->log('role','permission',['guard'=>$guard]);
             $modelRole->SaveData($id,$guard,isset($post['data'])?$post['data']:[]);
@@ -34,17 +34,17 @@ class RoleController extends \Zoe\Http\ControllerBackend
             Cache::pull('role:'.$guard);
             Cache::pull( 'permissions:'.$guard.":".$id);
             Cache::pull( 'permissions:user:'.$guard);
-
             return $post;
         }
-
+        dd($modelRole->GetPermissions($id));
         return $this->render('role.premission', [
             'user_permissions' => $modelRole->GetPermissions($id),
             'global_permissions' => app()->getPermissions(),
             'id'=>$id,
             'guard'=>$guard,
-            'acl_static'=>acl_all_key()
+            'acl_static'=> acl_all_key()
         ], 'user');
+
     }
     public function error(){
         return $this->render('role.error');
