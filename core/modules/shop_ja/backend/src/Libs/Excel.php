@@ -1244,22 +1244,20 @@ class Excel{
                         }catch (\Exception $ex) {
                             $array_count = [];
                         }
-                        $product_code = "";$product_title = "";
+                        $product_title = "";
                         foreach ($array_product as $pro_id){
                             if(isset( $products[$pro_id])){
-
-                                if($products[$pro_id]->unit == 5){
-                                    $product_title.= $products[$pro_id]->title.'、';
+                                if(isset($array_count[$pro_id])){
+                                    $kg = $array_count[$pro_id];
                                 }else{
-                                    $product_code.= $products[$pro_id]->code.'、';
-                                    if(isset($array_count[$pro_id])){
-                                        $kg = $array_count[$pro_id];
-                                    }else{
-                                        $kg = $array_count;
-                                    }
+                                    $kg = $array_count;
+                                }
+                                if($products[$pro_id]->unit == 5){
+                                    $product_title.= str_replace('鶏羽',"鶏".$kg."羽",$products[$pro_id]->title).'、';
+                                }else{
+
                                     $product_title.= $products[$pro_id]->title." ".$kg."kg".'、';
                                 }
-
                             }
                         }
                     return rtrim($product_title,'、');
