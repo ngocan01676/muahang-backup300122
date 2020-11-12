@@ -64,7 +64,7 @@ class Backend extends Authenticatable
         return $bool;
     }
     public function keyCache(){
-        return auth_key_cache($this->guard,$this->roleId);
+        return auth_key_cache($this->guard,$this->role_id);
     }
 
     public static function ResetCacheKey($guard,$role_id){
