@@ -2852,9 +2852,7 @@
                         size: "large",
                         content: [$html],
                         ok: action,
-                        cancel: function () {
-                            
-                        },
+                        cancel: action,
                        
                         before: function (_this) {
 
