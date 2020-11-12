@@ -2851,9 +2851,11 @@
                         content: [$html],
                         ok: action,
                         cancel: function () {
+                            cell.innerHTML =old_value;
                             _jexcel.setValue(cellName2,old_value);
                         },
                         dismiss:function () {
+                            cell.innerHTML =old_value;
                             _jexcel.setValue(cellName2,old_value);
                         },
                         before: function (_this) {
