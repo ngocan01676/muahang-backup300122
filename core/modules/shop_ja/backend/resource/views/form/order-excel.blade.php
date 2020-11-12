@@ -2810,8 +2810,7 @@
                     }catch (e) {
                          valsCount = {};
                     }
-                    console.dir(["opup",change]);
-                    console.log(valsCount);
+                   
                     $html = "<table  class='table table-bordered config_count'>";
                     $html+="<tr><th>Mã</th><th>Tên</th><th>Số lượng</th></tr>";
 
