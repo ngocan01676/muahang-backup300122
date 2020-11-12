@@ -3304,32 +3304,14 @@
                     }
                 }
 
-                console.log("SEND");
-                console.log(data);
-
                  data.count = totalCount;
                 if(dropdown.hasOwnProperty(product_id)){
-                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod);
-                    console.log(confShipCou);
+                    let confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod);
+
                     setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330,total_count)
                 }
 
-                {{--$.ajax({--}}
-                    {{--type: "POST",--}}
-                    {{--url:"{{ route('backend:shop_ja:order:excel:store') }}",--}}
-                    {{--data:{act:'ship',data:data} ,--}}
-                    {{--success: function (data) {--}}
-                        {{--console.log(data);--}}
-                        {{--if(data && data.length >0){--}}
-                            {{--console.log("oke");--}}
-                            {{--let price_ship = parseInt(data[0].data.price_ship)--}}
-                            {{--let ship_cou = parseInt(data[0].data.ship_cou);--}}
-                            {{--let total_price_buy = parseInt(data[0].data.total_price_buy);--}}
-
-                            {{--setInterest(price_ship < 0? 0 : price_ship,ship_cou< 0 ?0:ship_cou,total_price_buy);--}}
-                        {{--}--}}
-                    {{--},--}}
-                {{--});--}}
+               
 
 
                 //    if(value.hasOwnProperty('lock') && value.lock.indexOf(columns.order_ship.index)){
