@@ -15,6 +15,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     public function getCrumb()
     {
+
         $this->breadcrumb(z_language("Layout"), route('backend:layout:list'));
         return $this;
     }
@@ -682,7 +683,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     public function create($type = "")
     {
-
+        $this->sidebar('backend:layout:list');
         $this->getcrumb()->breadcrumb("Create Layout", false);
         $model = new \Admin\Http\Models\Layout();
         $content = [
@@ -706,7 +707,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function edit($id, $type = "")
     {
         $arr = $this->getListType('theme');
-
+        $this->sidebar('backend:layout:list');
 
         $info = [];
         $model = \Admin\Http\Models\Layout::find($id);
@@ -749,6 +750,4 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $lists = \Admin\Http\Models\Layout::where('type_group', 'theme')->orderBy("updated_at", "desc")->get();
         return $this->render('layout.build', ['lists' => $lists]);
     }
-
-
 }

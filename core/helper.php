@@ -607,7 +607,7 @@ function find_acl($string_blade, $sub_path, $string_find = "z_language"){
     return $array;
 }
 function lang_all_key(){
-    return Cache::remember('lang_all_key:static', 60, function()
+    return Cache::remember('lang_all_key:static', 1, function()
     {
         $results = [];
         $results = get_dir_contents(base_path('core'), '/\.php$/', $results);
@@ -618,7 +618,9 @@ function lang_all_key(){
         $system_modules = config('zoe.modules');
         $modules = DB::table('module')
             ->select()->where('status', 1)->pluck('name')->all();
+
         $plugins = config_get('plugin', 'lists');
+
         foreach ($results as $_file) {
             $name = str_replace(base_path(), "", $_file);
             $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
@@ -630,6 +632,7 @@ function lang_all_key(){
                     continue;
                 }
             }
+
             $string_blade = $file->get($_file);
             $array = array_merge($array, find_acl($string_blade, $sub_path,"z_language"));
         }

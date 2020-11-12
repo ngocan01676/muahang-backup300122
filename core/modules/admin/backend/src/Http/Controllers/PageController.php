@@ -11,10 +11,10 @@ class PageController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
+        $this->sidebar('backend:page:list');
         $this->breadcrumb(z_language("Page"), route('backend:page:list'));
         return $this;
     }
-
     public function list(Request $request)
     {
         $this->getcrumb();

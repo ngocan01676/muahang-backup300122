@@ -102,12 +102,7 @@ class AnnounceController extends \Zoe\Http\ControllerBackend{
             'date_start' => 'required',
             'date_end' => 'required',
         ], [
-            'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
-            'category_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
-            'price.required' => z_language('Giá nhập không được bỏ trống.'),
-            'price.integer' => z_language('Giá nhập phải là giá trị số.'),
-            'price_buy.required' => z_language('Giá bán không được bỏ trống.'),
-            'price_buy.integer' => z_language('Giá bán phải là giá trị số.'),
+            'title.required' => z_language('Tên không được phép bỏ trống.'),
         ]);
         if ($validator->fails()) {
             return back()

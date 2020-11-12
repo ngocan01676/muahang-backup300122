@@ -12,6 +12,7 @@ class MemberController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
+        $this->sidebar('backend:member:list');
         $this->breadcrumb("Tài khoản", route('backend:member:list'));
         return $this;
     }
@@ -75,6 +76,7 @@ class MemberController extends \Zoe\Http\ControllerBackend
 
     public function edit($id)
     {
+        $this->getcrumb();
         $roles = DB::table('role')->where('guard_name','backend')->get()->all();
         $this->data['roles'] = [];
         foreach ($roles as $role){
@@ -88,6 +90,7 @@ class MemberController extends \Zoe\Http\ControllerBackend
 
     public function create()
     {
+        $this->getcrumb();
         $roles = DB::table('role')->where('guard_name','backend')->get()->all();
         $this->data['roles'] = [];
         foreach ($roles as $role){

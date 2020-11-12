@@ -235,7 +235,7 @@
                         <div class="demo" style="overflow-y: scroll;padding: 2px 3px 0px;min-height: 550px">
                             <div id="snippet">
                                 <pre>
-                                    <code class="html">{{ $sources }}</code>
+                                    <code class="html">{{ isset($sources)?$sources:"" }}</code>
                                 </pre>
                             </div>
                         </div>

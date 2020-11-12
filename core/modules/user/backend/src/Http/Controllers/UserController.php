@@ -11,6 +11,7 @@ class UserController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
+        $this->sidebar('backend:user:list');
         $this->breadcrumb("Tài khoản quản trị", route('backend:user:list'));
         return $this;
     }
@@ -72,6 +73,7 @@ class UserController extends \Zoe\Http\ControllerBackend
 
     public function edit($id)
     {
+        $this->getcrumb();
         $roles = DB::table('role')->where('guard_name','backend')->get()->all();
         $this->data['roles'] = [];
         foreach ($roles as $role){
@@ -85,6 +87,7 @@ class UserController extends \Zoe\Http\ControllerBackend
 
     public function create()
     {
+        $this->getcrumb();
         $roles = DB::table('role')->where('guard_name','backend')->get()->all();
         $this->data['roles'] = [];
         foreach ($roles as $role){

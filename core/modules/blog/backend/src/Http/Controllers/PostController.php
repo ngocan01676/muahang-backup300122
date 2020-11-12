@@ -23,6 +23,7 @@ class PostController extends \Zoe\Http\ControllerBackend
 
     public function getCrumb()
     {
+        $this->sidebar('backend:blog:post:list');
         $this->breadcrumb("Post", route('backend:blog:post:list'));
         return $this;
     }

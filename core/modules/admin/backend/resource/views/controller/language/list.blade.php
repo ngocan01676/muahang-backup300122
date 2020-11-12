@@ -184,13 +184,14 @@
                                                             data-name="{!! $values['name'] !!}">
                                                             <table class="table table-bordered">
                                                                 <tr>
-                                                                    <td class="text-center" style="width: {!! $w !!}%" data-path="{!! implode('-',$values['path']) !!}"> {!! $values['name'] !!} </td>
+                                                                    <td class="text-center" style="width: {!! $w !!}%" data-path="{!! implode('-',$values['path']) !!}">
+                                                                        <a href="#" data-toggle="tooltip" title="{!! implode('-',$values['path']) !!}"> {!! $values['name'] !!} </a></td>
                                                                     @foreach ($languages as $lang=>$language)
                                                                         {{--                                @continue($lang == $lang_default)--}}
                                                                         @php
                                                                             $langValue =  isset($data['lang'][$language["lang"]][$key]["value"]) && !empty($data['lang'][$language["lang"]][$key]["value"])?$data['lang'][$language["lang"]][$key]["value"]:(isset($langStatic[$values['name']][$language["lang"]])?$langStatic[$values['name']][$language["lang"]]:"");
                                                                         @endphp
-                                                                        <td class="text-center" style="width: {!! $w !!}%">
+                                                                        <td  class="text-center" style="width: {!! $w !!}%">
                                                                             <a href="#" class="lang"
                                                                                data-title="{!! @z_language(["Please enter at least 1 character"]) !!}">{!! $langValue !!}</a>
                                                                             <input type="hidden"

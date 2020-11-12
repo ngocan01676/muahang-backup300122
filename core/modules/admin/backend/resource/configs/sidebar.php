@@ -3,13 +3,14 @@ return [
     "sidebars" => [
         "dashboard" => [
             "name" => z_language("Dashboard", false),
-            "pos" => 1,
+            "pos" => 0,
             "url" => "backend:dashboard:list",
-            "icon" => "fa fa-dashboard"
+            "icon" => "fa fa-dashboard",
+            "key"=>"dashboard",
         ],
         "translations" => [
             "name" => z_language('Translations', false),
-            "pos" => 2,
+            "pos" => 1,
             "url" => "",
             "icon"=>"fa fa-language",
             'items'=>[
@@ -19,32 +20,36 @@ return [
                     "url" => "backend:language:list",
                     "icon" => "fa fa-language"
                 ],
-            ]
+            ],
+            "key"=>"translations",
         ],
         "page" => [
             "name" => z_language("Page", false),
-            "pos" => 1,
+            "pos" => 2,
             "url" => "backend:page:list",
-            "icon" => "fa fa-book"
+            "icon" => "fa fa-book",
+            "key"=>"page",
         ],
-
         "plugin" => [
             "name" => z_language('Plugins', false),
-            "pos" => 2,
+            "pos" => 3,
             "url" => "backend:plugin:list",
             "header" => true,
+            "key"=>"plugin",
         ],
         "module" => [
             "name" => z_language('Modules', false),
-            "pos" => 2,
+            "pos" => 4,
             "url" => "backend:module:list",
             "header" => true,
+            "key"=>"module",
         ],
         'appearance'=>[
             "name" => z_language('Appearance', false),
-            "pos" => 2,
+            "pos" => 5,
             "url" => "",
             "icon"=>"fa fa-paint-brush",
+            "key"=>"appearance",
             'items'=>[
                 [
                     "name" => z_language('Themes', false),
@@ -84,32 +89,24 @@ return [
         ],
         "media" => [
             "name" => z_language('Media', false),
-            "pos" => 2,
+            "pos" => 6,
             "url" => "backend:dashboard:media",
             "header" => true,
-            "icon"=>"fa fa-picture-o"
-        ],
-        "plugin:item" => [
-            "name" => z_language('Plugins', false),
-            "pos" => 2,
-            "url" => "",
-            "header" => true,
-            "icon"=>"fa fa-plug",
-            "items" => [
-
-            ]
+            "icon"=>"fa fa-picture-o",
+            "key"=>"media",
         ],
         "configuration" => [
             "name" => z_language('Configuration', false),
-            "pos" => 2,
+            "pos" => 8,
             "url" => "",
             "icon"=>"fa fa-cogs",
+            "key"=>"configuration",
             'items'=>[
-                [
+               [
                     "name" => z_language('Configuration', false),
                     "pos" => 2,
                     "url" => "backend:configuration:list",
-                    "header" => true
+                    "header" => true,
                 ],
                 [
                     "name" => z_language('Router', false),
@@ -119,15 +116,17 @@ return [
         ],
         "log" => [
             "name" => z_language("Log", false),
-            "pos" => 1,
+            "pos" => 9,
             "url" => "backend:log:list",
-            "icon" => "fa fa-file-text"
+            "icon" => "fa fa-file-text",
+            "key"=>"log",
         ],
         "backup" => [
             "name" => z_language("Backup", false),
-            "pos" => 1,
+            "pos" => 10,
             "url" => "backend:backup:list",
-            "icon" => "fa fa-file-text"
+            "icon" => "fa fa-file-text",
+            "key"=>"backup",
         ],
     ]
 ];

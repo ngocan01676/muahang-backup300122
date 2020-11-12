@@ -1,7 +1,7 @@
 <?php
 
 namespace Zoe\Http;
-
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
 use Zoe\Config;
 use Auth;
@@ -55,5 +55,8 @@ class ControllerBackend extends Controller
             return DB::table('log')->insert(['ips'=>$this->getOriginalClientIp(),'name'=>$name,'admin_id'=>Auth::user()->id,'actions'=>$action,'datas'=>json_encode($data)]);
         }
 
+    }
+    public function sidebar($name){
+        View::share('sidebar_current', $name);
     }
 }
