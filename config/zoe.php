@@ -39,5 +39,4 @@ return [
 //        'zh_cn' => ['flag' => 'cn', 'lang' => 'zh-cn', 'label' => 'Chinese (PRC)'],
     ],
     'language_data' => include base_path('tmp/lang.php'),
-
 ];
