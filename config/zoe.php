@@ -30,7 +30,10 @@ return [
     ],
     'theme' => 'zoe',
     'cache' => [
-        "status" => false
+        "status" => false,
+        "ttl"=>[
+            'sidebars'=>60,
+        ]
     ],
     'language' => [
 //        'en_us' => ['flag' => 'gb', 'lang' => 'en-us', 'label' => 'English (United States)'],

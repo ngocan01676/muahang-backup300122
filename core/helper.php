@@ -639,6 +639,9 @@ function lang_all_key(){
         return $array;
     });
 }
+function auth_key_cache($guard,$roleId){
+    return $guard.":".$roleId;
+}
 function acl_all_key(){
     return Cache::remember('acl_all_key:static', 60, function()
     {

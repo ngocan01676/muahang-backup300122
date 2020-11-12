@@ -7,33 +7,6 @@
         $listsNav = explode(":",$urlCurrentName);
 
         $urlCurrentNameTemp = implode(":",$listsNav);
-
-        $lists_sidebar = Cache::remember('sidebar:main', 1, function() use($lists_sidebar)
-        {
-            $func_sort = function ( $a , $b ){
-                if(!isset($a['pos'])){
-                    return  -1;
-                }
-                if(!isset($b['pos'])){
-                    return -1;
-                }
-                if ($a['pos'] == $b['pos']) {
-                    return 0;
-                }
-                return ($a['pos'] < $b['pos']) ? -1 : 1;
-            };
-
-            usort($lists_sidebar,$func_sort);
-
-            foreach ($lists_sidebar as $key=>$values){
-                if(isset($values['items']) && count($values['items']) > 0){
-                    $items = $values['items'];
-                    usort($items,$func_sort);
-                    $lists_sidebar[$key]['items'] = $items;
-                }
-            }
-            return $lists_sidebar;
-        });
         $_sidebar_parent_key = isset($sidebar_current)?$sidebar_current:"";
         $locks = [];
     @endphp

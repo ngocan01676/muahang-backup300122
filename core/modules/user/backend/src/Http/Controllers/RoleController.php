@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use \User\Http\Model\Role;
 use Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 class RoleController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
@@ -28,6 +29,12 @@ class RoleController extends \Zoe\Http\ControllerBackend
             $post = $request->all();
             $this->log('role','permission',['guard'=>$guard]);
             $modelRole->SaveData($id,$guard,isset($post['data'])?$post['data']:[]);
+
+            Cache::pull('sidebars:'.auth_key_cache($guard,$id));
+            Cache::pull('role:'.$guard);
+            Cache::pull( 'permissions:'.$guard.":".$id);
+            Cache::pull( 'permissions:user:'.$guard);
+
             return $post;
         }
 

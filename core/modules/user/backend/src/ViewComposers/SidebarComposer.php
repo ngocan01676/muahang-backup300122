@@ -28,7 +28,8 @@ class SidebarComposer
 
     public function compose(View $view)
     {
-        $sidebars = Cache::remember('sidebars:' . $this->user->keyCache(), 1, function () {
+
+        $sidebars = Cache::remember('sidebars:' . $this->user->keyCache(), 60 , function () {
             $app = app();
             $sidebars = $app->getConfig()->sidebars;
             $aliases_acl = $app->getPermissions()->aliases;
@@ -63,6 +64,26 @@ class SidebarComposer
                     if (count($sidebar['items']) > 0) {
                         $sidebar_new[$key] = $sidebar;
                     }
+                }
+            }
+            $func_sort = function ( $a , $b ){
+                if(!isset($a['pos'])){
+                    return  -1;
+                }
+                if(!isset($b['pos'])){
+                    return -1;
+                }
+                if ($a['pos'] == $b['pos']) {
+                    return 0;
+                }
+                return ($a['pos'] < $b['pos']) ? -1 : 1;
+            };
+            usort($sidebar_new,$func_sort);
+            foreach ($sidebar_new as $key=>$values){
+                if(isset($values['items']) && count($values['items']) > 0){
+                    $items = $values['items'];
+                    usort($items,$func_sort);
+                    $lists_sidebar[$key]['items'] = $items;
                 }
             }
             return $sidebar_new;
