@@ -2785,16 +2785,52 @@
             let index = 0;
             let change = {col:-1,row:-1};
             let customColumn = {
-                // Methods
                 closeEditor : function(cell, save) {
-                    // var value = cell.children[0].value;
-                    // cell.innerHTML = value;
+                    let dom = $(cell);
+                    let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                    let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+
+                    let _jexcel = spreadsheet.jexcel[worksheet];
+
+                    var cellName1 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x'))-1, dom.attr('data-y')]);
+                    var cellName2 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x')), dom.attr('data-y')]);
+
+                    let old_value = (_jexcel.getValue(cellName2)).toString();
+                    let valsProduct = (_jexcel.getValue(cellName1)).toString().split(";");
+
+                    let valsCount = {};
+                    try{
+                        valsCount = JSON.parse(old_value);
+                    }catch (e) {
+                        valsCount = {};
+                    }
+
+                    let action = function () {
+                        let parent = $('.config_count').find('.count');
+                        let vals = {};
+                        parent.each(function () {
+                            let _dom = $(this);
+                            vals[_dom.attr('data-id')] = _dom.val();
+                        });
+                        let data = {};
+                        for (let i in valsProduct){
+                            if(dropdown.hasOwnProperty(valsProduct[i])){
+                                if(vals.hasOwnProperty(valsProduct[i])){
+                                    data[valsProduct[i]] = vals[valsProduct[i]];
+                                }else{
+                                    data[valsProduct[i]] = 1;
+                                }
+                            }
+                        }
+                        cell.innerHTML =JSON.stringify(data);
+
+                        _jexcel.setValue(cellName2,cell.innerHTML);
+                    };
+                    action();
                     return 0;
                 },
                 openEditor : function(cell) {
                     let dom = $(cell);
-
-
                     let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
                     let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
 
@@ -2826,6 +2862,7 @@
                         }
                     }
                     $html+= "<table>";
+
                     let action = function () {
                         let parent = $('.config_count').find('.count');
                         let vals = {};
@@ -2853,7 +2890,7 @@
                         content: [$html],
                         ok: action,
                         cancel:function () {
-                            
+
                         },
                         dismiss:function () {
 
@@ -2862,26 +2899,6 @@
 
                         }
                     });
-                    // var element = document.createElement('input');
-                    // element.value = cell.innerHTML;
-                    //
-                    // cell.classList.add('editor');
-                    // cell.innerHTML = '';
-                    //
-                    // cell.appendChild(element);
-                    //
-                    // $(element).clockpicker({
-                    //     afterHide:function() {
-                    //         setTimeout(function() {
-                    //             // To avoid double call
-                    //             if (cell.children[0]) {
-                    //                 myTable.closeEditor(cell, true);
-                    //             }
-                    //         });
-                    //     }
-                    // });
-                    //
-                    // element.focus();
                 },
                 getValue : function(cell) {
                     return cell.innerHTML;
