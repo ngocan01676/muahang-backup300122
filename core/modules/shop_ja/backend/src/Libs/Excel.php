@@ -1213,8 +1213,6 @@ class Excel{
                 ["配送先氏名",'fullname',18,9],//Họ tên người nhận
                 ["品番",['callback'=>
                     function($index,$product_id,$a,$values) use($products,$columns_value){
-
-
                         $count = (isset($columns_value["count"])?$values[$columns_value["count"]]:"");
 
                         try{
@@ -1222,7 +1220,6 @@ class Excel{
                         }catch (\Exception $ex) {
                             $array_count = [];
                         }
-
                     try{
                         $array_product = explode(";",$product_id);
                     }catch (\Exception $ex) {
@@ -1232,7 +1229,6 @@ class Excel{
                     $product_code = "";$product_title = "";
                         foreach ($array_product as $pro_id){
                             if(isset( $products[$pro_id])){
-                                $kg = 1;
                                 if(isset($array_count[$pro_id])){
                                     $kg = $array_count[$pro_id];
                                 }else{
