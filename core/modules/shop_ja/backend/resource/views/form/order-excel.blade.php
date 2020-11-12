@@ -2849,9 +2849,11 @@
                         ok: action,
                         cancel:function () {
                             console.log('bootpopup:cancel')
+                            action();
                         },
                         dismiss:function () {
                             console.log('bootpopup:dismiss')
+                            action();
                         },
                         before: function (_this) {
                             console.log('bootpopup:before')
