@@ -2849,11 +2849,12 @@
                     bootpopup({
                         title: "Custom HTML",
                         size: "large",
+                        showclose: false,
                         content: [$html],
                         ok: action,
                         cancel:function () {
                             console.log('bootpopup:cancel');
-                           
+
                         },
                         dismiss:function () {
                             console.log('bootpopup:dismiss')
