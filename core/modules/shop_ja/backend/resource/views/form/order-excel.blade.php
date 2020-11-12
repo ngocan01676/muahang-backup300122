@@ -134,9 +134,9 @@
     <script>
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
-        console.log = function () {
-
-        };
+        // console.log = function () {
+        //
+        // };
     </script>
 
     <style>
@@ -2777,56 +2777,14 @@
                     {{--}--}}
 
             if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
-
                 data = datamodel[sheetName];
             }
-
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
             let change = {col:-1,row:-1};
             let customColumn = {
                 closeEditor : function(cell, save) {
-                    let dom = $(cell);
-                    let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
-                    let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
-
-                    let _jexcel = spreadsheet.jexcel[worksheet];
-
-                    var cellName1 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x'))-1, dom.attr('data-y')]);
-                    var cellName2 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x')), dom.attr('data-y')]);
-
-                    let old_value = (_jexcel.getValue(cellName2)).toString();
-                    let valsProduct = (_jexcel.getValue(cellName1)).toString().split(";");
-
-                    let valsCount = {};
-                    try{
-                        valsCount = JSON.parse(old_value);
-                    }catch (e) {
-                        valsCount = {};
-                    }
-
-                    let action = function () {
-                        let parent = $('.config_count').find('.count');
-                        let vals = {};
-                        parent.each(function () {
-                            let _dom = $(this);
-                            vals[_dom.attr('data-id')] = _dom.val();
-                        });
-                        let data = {};
-                        for (let i in valsProduct){
-                            if(dropdown.hasOwnProperty(valsProduct[i])){
-                                if(vals.hasOwnProperty(valsProduct[i])){
-                                    data[valsProduct[i]] = vals[valsProduct[i]];
-                                }else{
-                                    data[valsProduct[i]] = 1;
-                                }
-                            }
-                        }
-                        cell.innerHTML =JSON.stringify(data);
-
-                        _jexcel.setValue(cellName2,cell.innerHTML);
-                    };
-                    action();
+                    console.log("closeEditor");
                     return 0;
                 },
                 openEditor : function(cell) {
@@ -2890,17 +2848,18 @@
                         content: [$html],
                         ok: action,
                         cancel:function () {
-
+                            console.log('bootpopup:cancel')
                         },
                         dismiss:function () {
-
+                            console.log('bootpopup:dismiss')
                         },
                         before: function (_this) {
-
+                            console.log('bootpopup:before')
                         }
                     });
                 },
                 getValue : function(cell) {
+                    console.log("getValue");
                     return cell.innerHTML;
                 },
                 setValue : function(cell, value) {
