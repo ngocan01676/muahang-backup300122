@@ -2842,7 +2842,7 @@
                         }
                         cell.innerHTML =JSON.stringify(data);
                         console.log('ACTION=>'+cell.innerHTML);
-                        
+
                         _jexcel.setValue(cellName2,cell.innerHTML);
                     };
                     bootpopup({
@@ -3100,6 +3100,9 @@
                 };
                 data.province = data.province.trim();
                 data.id = data.id.split(';');
+
+                console.log(data);
+
                 let count = parseInt(data.count);
 
                 if(!isNaN(count)){
@@ -3107,9 +3110,10 @@
                     data.count[data.id[0]] = count;
                 }else{
                     try{
-                        data.count = JSON.parse( data.count);
+                        data.count = JSON.parse(data.count);
                     }catch (e) {
                         data.count = {};
+                        data.count[data.id[0]] = 1;
                     }
                 }
 
