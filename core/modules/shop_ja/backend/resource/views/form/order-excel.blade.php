@@ -5714,14 +5714,15 @@
            CheckData();
            $(".btnInfo").trigger('click');
 
-       },2000)
+       },2000);
+
         setInterval(function () {
             CheckData();
         },5000);
+
         setInterval(function () {
-            console.log("Save");
             Save(false,true);
-        },30000)
+        },10000)
 
     </script>
 @endsection
