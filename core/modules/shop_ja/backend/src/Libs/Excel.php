@@ -523,7 +523,7 @@ class Excel{
 
         $path = $path.'/zip';
         if( $this->file->isDirectory(public_path().$path)){
-            $this->file->delete(public_path().$path);
+            $this->file->deleteDirectory(public_path().$path,true);
         }
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
@@ -805,7 +805,7 @@ class Excel{
 
         $path = $path.'/zip';
         if( $this->file->isDirectory(public_path().$path)){
-            $this->file->delete(public_path().$path);
+            $this->file->deleteDirectory(public_path().$path,true);
         }
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
@@ -1122,7 +1122,7 @@ class Excel{
 
         $path = $path.'/zip';
         if( $this->file->isDirectory(public_path().$path)){
-            $this->file->delete(public_path().$path);
+            $this->file->deleteDirectory(public_path().$path,true);
         }
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
@@ -1537,7 +1537,7 @@ class Excel{
 
         $path = $path.'/zip';
         if( $this->file->isDirectory(public_path().$path)){
-            $this->file->delete(public_path().$path);
+            $this->file->deleteDirectory(public_path().$path,true);
         }
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
@@ -1915,7 +1915,7 @@ class Excel{
 
         $path = $path.'/zip';
         if( $this->file->isDirectory(public_path().$path)){
-            $this->file->delete(public_path().$path);
+            $this->file->deleteDirectory(public_path().$path,true);
         }
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
