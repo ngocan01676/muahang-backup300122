@@ -2,7 +2,7 @@
 return [
     "sidebars" => [
         "module:admin" => [
-            "name" => z_language('Mở rộng'),
+            "name" => z_language('Mở rộng',false),
             "pos" => 2,
             "url" => "",
             "header" => true,

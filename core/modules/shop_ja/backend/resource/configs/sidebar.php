@@ -102,7 +102,7 @@ return [
             "url" => "backend:configuration:list",
         ],
         "module:admin" => [
-            "name" => z_language('Mở rộng'),
+            "name" => z_language('Mở rộng',false),
             "pos" => 12,
             "url" => "",
             "header" => true,
@@ -117,7 +117,7 @@ return [
             ]
          ],
         "module:system" => [
-            "name" => z_language('Hệ thống'),
+            "name" => z_language('Hệ thống',false),
             "pos" => 11,
             "url" => "",
             "header" => true,
