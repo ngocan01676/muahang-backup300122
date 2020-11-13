@@ -21,21 +21,19 @@
     <script>
         $.fn.editable.defaults.mode = 'inline';
         $("#BtnSearch").click(function () {
-            console.log(1);
+
             var val = $('.search-value').val().trim();
-            console.log(val);
+
+            $("#formAction .row-lang").hide();
             $("#formAction .row-lang").each(function () {
-
-                var data = $(this).data();
-
-                if (data.name.toUpperCase().indexOf(val.toUpperCase()) !== -1) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
+                var td = $(this).find('td');
+                for(let i =0 ; i<td.length;i++){
+                    if ($(td[i]).text().trim().toUpperCase().indexOf(val.toUpperCase()) !== -1) {
+                        $(this).show();
+                    }
                 }
             });
         });
-
         function InitEditable(obj) {
             obj.each(function () {
 //                $(this).html($(this).parent().find('input.val').val());
