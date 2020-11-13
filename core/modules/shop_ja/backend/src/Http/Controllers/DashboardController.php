@@ -343,10 +343,10 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         }
 
         $this->data['analytics']['total'] = DB::table('shop_order_excel')
-            ->where('fullname','!=','');
+            ->where('fullname','!=','')->where('public','1');
 
         if(!is_null($user_id)){
-            $this->data['analytics']['total']->where('public','1')->where('admin_id',$user_id);
+            $this->data['analytics']['total']->where('admin_id',$user_id);
         }
         if(!empty($date_start) && !empty($date_end)){
             $this->data['analytics']['total']->where('order_create_date','>=',$date_start." 00:00:00");
