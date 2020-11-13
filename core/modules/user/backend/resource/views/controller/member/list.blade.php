@@ -1,6 +1,6 @@
 @section('content-header')
     <h1>
-        &starf; {!! @z_language(["Chức năng Tài khoản"]) !!}
+        &starf; {!! @z_language(["Manager Membership"]) !!}
         <small>it all starts here</small>
         <a href="{{route('backend:member:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
@@ -9,7 +9,7 @@
             {{@z_language(["Option"])}}
         @endslot
         @slot('header')
-            {{@z_language(["Layout Option"])}}
+            {{@z_language(["Membership Option"])}}
         @endslot
         @endbtn_option
     </h1>

@@ -13,36 +13,30 @@ class MemberController extends \Zoe\Http\ControllerBackend
     public function getCrumb()
     {
         $this->sidebar('backend:member:list');
-        $this->breadcrumb("Tài khoản", route('backend:member:list'));
+        $this->breadcrumb(z_language('Membership'), route('backend:member:list'));
         return $this;
     }
-
     public function list(Request $request)
     {
         $this->getcrumb();
-
-
         $search = $request->query('search', "");
         $status = $request->query('status', "");
-
         $config = config_get('option', "core:member:list");
         $data = $request->query();
-
         $page = null;
+
         if (isset($data['action'])) {
             $page = 1;
         }
+
         $parameter = $data;
-
         $route = [];
-
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
 
         $models = DB::table('user');
 
         if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
             $models->where('name', 'like', '%' . $search . '%');
-
         }
         if (isset($parameter["filter"]['type']) && !empty($parameter['filter']['type'])) {
             $models->where('type', $parameter['filter']['type']);
@@ -56,24 +50,21 @@ class MemberController extends \Zoe\Http\ControllerBackend
         } else {
             if (isset($parameter['action'])) {
                 $parameter['order_by']['type'] = isset($parameter['order_by']['type']) && $parameter['order_by']['type'] == "desc" ? "asc" : "desc";
-
             }
         }
         if (isset($parameter['action'])) {
             unset($parameter['action']);
         }
-
         $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
-
         $models = $models->paginate($item, ['*'], 'page', $page);
         $models->appends($parameter);
+
         return $this->render('member.list', [
             'models' => $models,
             "route" => $route,
             'parameter' => $parameter
         ]);
     }
-
     public function edit($id)
     {
         $this->getcrumb();

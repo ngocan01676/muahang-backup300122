@@ -337,12 +337,13 @@ body {
 .table-borderless > thead > tr > th {
     border: none;
 }
-
 .notifyjs-wrapper .notifyjs-bootstrap-base {
     text-align: left;
     display: inline-block;
 }
-
+.box-header{
+    padding: 23px;
+}
 @media (min-width: 768px) {
     .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu > li:hover > a > span {
         top: 0;

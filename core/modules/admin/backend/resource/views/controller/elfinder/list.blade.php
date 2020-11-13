@@ -6,14 +6,17 @@
         $('#elfinder').elfinder({
             // set your elFinder options here
             {{--@if($locale)--}}
-                {{--lang: '{{ $locale }}', // locale--}}
-                {{--@endif--}}
+            {{--lang: '{{ $locale }}', // locale--}}
+            {{--@endif--}}
             customData: {
                 _token: '{{ csrf_token() }}'
             },
             url: '{{ route("backend:elfinder:showConnector") }}',  // connector URL
             soundPath: '{{ asset('/module/admin/assets/elfinder/sounds') }}',
             cssAutoLoad: false,
+            width: '100%',
+            height: '100%',
+            resizable: false,
         }).elfinder('instance').exec('fullscreen');
     });
 </script>

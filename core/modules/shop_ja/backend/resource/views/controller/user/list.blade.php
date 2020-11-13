@@ -1,6 +1,6 @@
 @section('content-header')
     <h1>
-        &starf; {!! @z_language(["Chức năng Tài khoản quản trị 1" ]) !!}
+        &starf; {!! @z_language(["Module User"]) !!}
         <small>it all starts here</small>
         <a href="{{route('backend:user:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Tạo cộng tác viên"]) !!} </a>
