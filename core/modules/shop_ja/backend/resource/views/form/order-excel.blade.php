@@ -3321,17 +3321,13 @@
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou,false);
                     }
                 }
-
                  data.count = totalCount;
                 if(dropdown.hasOwnProperty(product_id)){
                     let confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod);
 
                     setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330,total_count)
                 }
-
-
-
-
+                
                 //    if(value.hasOwnProperty('lock') && value.lock.indexOf(columns.order_ship.index)){
 
                 //     } else{
