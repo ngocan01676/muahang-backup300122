@@ -4395,9 +4395,7 @@
                     return items;
                 },
                 onselection:function (instance, x1, y1, x2, y2, origin) {
-
-                    change = {col:x1,row:y1};
-
+                    change = {col:-1,row:-1};
                     var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
                     $('.onselection').hide();
                     $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
@@ -4406,17 +4404,21 @@
                     if(columns_index[x1] && columns_index[x1].type === "dropdown"){
                         $("#value-review").hide();
                         $html = $("<div>");
-                        $("#zoe-dropdown-review").show().html($html);
+                        $("#zoe-dropdown-review").empty().show().html($html);
 
-                        jSuites.dropdown($html[0], {
-                            data:columns_index[x1].source,
-                            autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
-                            width:'100%',
-                            onchange:function (el, a, oldValue, Value) {
-                                console.log(Value);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
-                            },
-                        }).setValue(val);
+                        change = {col:x1,row:y1};
+
+                        // jSuites.dropdown($html[0], {
+                        //     data:columns_index[x1].source,
+                        //     autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
+                        //     width:'100%',
+                        //     onchange:function (el, a, oldValue, Value) {
+                        //         if(oldValue != Value){
+                        //             change = {col:x1,row:y1};
+                        //             instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
+                        //         }
+                        //     },
+                        // }).setValue(val);
 
                     }else if(columns_index[x1].key === "order_info"){
 
@@ -4468,12 +4470,14 @@
                                 }
                             }
                             setTimeout(function () {
+                               change = {col:x1,row:y1};
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), vals.trim());
                             },1000);
                         });
                         $("#info_payment").html(dom);
                     }
                     else{
+                       change = {col:x1,row:y1};
                         $("#value-review").show().val("");
                         $("#zoe-dropdown-review").hide();
                         $("#value-review").prop("disabled",false );
@@ -4567,7 +4571,7 @@
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
-                    console.log(change);
+                    console.dir(JSON.stringify([change,value]));
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
 
@@ -4612,7 +4616,6 @@
                         }
                     }
                 },
-
             };
         }
         function YAMADA(sheetName) {
@@ -5204,26 +5207,22 @@
                 },
                 onselection:function (instance, x1, y1, x2, y2, origin) {
 
-                    change = {col:x1,row:y1};
-
                     var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
 
                     $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
                     let val = instance.jexcel.getValue(cellName1);
 
                     $('.onselection').hide();
-
                     if(columns_index[x1] && columns_index[x1].type === "dropdown"){
                         $("#value-review").hide();
                        $html = $("<div>");
                        $("#zoe-dropdown-review").show().html($html);
-
                        jSuites.dropdown($html[0], {
                            data:columns_index[x1].source,
                            autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
                            width:'100%',
                            onchange:function (el, a, oldValue, Value) {
-                                console.log(Value);
+                               change = {col:x1,row:y1};
                                instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
                            },
                        }).setValue(val);
@@ -5274,13 +5273,14 @@
                                     }
                                 }
                                 setTimeout(function () {
+                                    change = {col:x1,row:y1};
                                     instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), vals);
                                 },1000);
                             });
                         $("#info_payment").html(dom);
                     }
                     else{
-
+                        change = {col:x1,row:y1};
                         $("#value-review").show().val("");
                         $("#zoe-dropdown-review").hide();
                         $("#value-review").prop("disabled",false );
