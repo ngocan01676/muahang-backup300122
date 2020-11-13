@@ -3203,7 +3203,7 @@
                 data.total_price = total_price * total_count;
                 data.total_price_buy = total_price_buy * total_count + price_buy_sale;
                 total_price_buy =  data.total_price_buy;
-
+                total_price = data.total_price;
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), price);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), price_buy);
 
