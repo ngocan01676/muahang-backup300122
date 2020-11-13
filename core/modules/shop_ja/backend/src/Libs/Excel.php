@@ -377,6 +377,7 @@ class Excel{
             ["商品名",['product'=>['product_id','title']],18,9], // Tên sản phẩm M
             ["単価",'order_total_price',15,9], // Giá nhập N
             ["数量",'count',15,9], // Số lượng O
+            ["",'',15,9], // Số lượng O
             ["",'order_info',15,9], // Số lượng O
         ];
         $start=7;
