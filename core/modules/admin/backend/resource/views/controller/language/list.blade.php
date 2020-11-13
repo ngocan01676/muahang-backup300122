@@ -52,19 +52,16 @@
         $("#BtnSearch").click(function () {
             var val = $('.search-value').val().trim();
             console.log(val);
+            $("#formAction .row-lang").hide();
             $("#formAction .row-lang").each(function () {
                 var data = $(this).data();
-
                 var td = $(this).find('td');
+
                 for(let i =0 ; i<td.length;i++){
-                    console.log($(td[i]).text().trim() + " "+ $(td[i]).text().trim().toUpperCase().indexOf(val.toUpperCase()) );
                     if ($(td[i]).text().trim().toUpperCase().indexOf(val.toUpperCase()) !== -1) {
                         $(this).show();
-                    } else {
-                        $(this).hide();
                     }
                 }
-
             });
         });
         function InitEditable(obj) {
