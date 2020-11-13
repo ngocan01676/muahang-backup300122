@@ -2831,7 +2831,8 @@
                         let vals = {};
                         parent.each(function () {
                             let _dom = $(this);
-                            vals[_dom.attr('data-id')] = _dom.val();
+                            let v = parseInt( _dom.val());
+                            vals[_dom.attr('data-id')] = isNaN(v)?0:v;
                         });
                         let data = {};
                         for (let i in valsProduct){
