@@ -868,7 +868,7 @@ class Excel{
             ->setLastModifiedBy('php-download.com');
         $title1 = "株式会社ヤマダ 様 注文フォーマット";
         $title2 = "見本";
-        $info = "依頼人名. VO HOANG 様 22日に 7410 円入金済み";
+        $info = "";
         $sheet->setCellValue('B1', $title1);
         $sheet->setCellValue('F2', $title2);
         $sheet->setCellValue('P2', $info);
@@ -991,14 +991,23 @@ class Excel{
                         if(isset($products[$id]) && property_exists($products[$id],$conf[1])){
                             $_val = $products[$id]->{$conf[1]};
                         }
+                        if($_val == "0"){
+                            $_val = "";
+                        }
                         $sheet->setCellValue($nameCol.$start,$_val);
                     }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                         $conf = $value[1]['callback'];
                         $_val = call_user_func_array($conf,[$start,(isset($columns_value[$value[1]['key']])?$values[$columns_value[$value[1]['key']]]:""),$nameCol.$start]);
+                        if($_val == "0"){
+                            $_val = "";
+                        }
                         $sheet->setCellValue($nameCol.$start,$_val);
                     }
                 }else{
                     $v = (isset($columns_value[$value[1]])?$values[$columns_value[$value[1]]]:"");
+                    if($v == "0"){
+                        $v = "";
+                    }
                     $sheet->setCellValue($nameCol.$start,$v);
                     if($value[1] == "payMethod"){
                         $payMethod = $v;
