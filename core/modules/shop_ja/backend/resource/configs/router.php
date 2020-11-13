@@ -230,17 +230,17 @@ return [
                     "imports" => [
                         "url" => "/imports",
                         "method" => ['get','post'],
-                        "act"=>true,
+                        "acl"=>true,
                     ],
                     "tracking" => [
                         "url" => "/tracking",
                         "method" => ['get','post'],
-                        "act"=>true,
+                        "acl"=>true,
                     ],
                     "tracking_list" => [
                         "url" => "/tracking-list",
                         "method" => ['get','post'],
-                        "act"=>true,
+                        "acl"=>true,
                     ],
                     "show" => [
                         "url" => "/show/{company?}/{date?}/{hour?}/{type?}",
