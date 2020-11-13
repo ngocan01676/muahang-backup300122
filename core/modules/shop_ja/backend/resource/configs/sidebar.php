@@ -16,7 +16,7 @@ return [
         ],
         "module:shop-ja:sim" => [
             "name" => z_language('Sim',false),
-            "pos" => 2,
+            "pos" => 3,
             "url" => "backend:shop_ja:sim:list",
             "header" => true,
             "icon"=>"fa fa-sticky-note-o",
@@ -34,13 +34,13 @@ return [
         "module:shop-ja::excel:show" => [
             "name" => "QL ".z_language("Xuất Excel",false),
             "url" => "backend:shop_ja:order:action:show",
-            "pos" => 2,
+            "pos" => 4,
             "header" => true,
             "icon"=>"fa fa-upload",
         ],
         "media" => [
             "name" => z_language('Tài nguyên', false),
-            "pos" => 2,
+            "pos" => 5,
             "url" => "backend:dashboard:media",
             "header" => true,
             "icon"=>"fa fa-server",
@@ -48,13 +48,13 @@ return [
         "backend:shop_ja:order:search" => [
             "name" => "QL ".z_language("Tìm kiếm hóa đơn",false),
             "url" => "backend:shop_ja:order:search:search",
-            "pos" => 2,
+            "pos" => 6,
             "header" => true,
             "icon"=>"fa fa-search",
         ],
         "shop-ja:user" => [
             "name" => z_language('Tài khoản',false),
-            "pos" => 2,
+            "pos" => 7,
             "url" => "",
             "header" => true,
             "icon" => "fa fa-users",
@@ -76,7 +76,7 @@ return [
         ],
         "module:shop-ja:excel:imports" => [
             "name" =>z_language("Nhập Checking",false),
-            "pos" => 2,
+            "pos" => 8,
             "url" => "backend:shop_ja:sim:list",
             "header" => true,
             "icon"=>"fa fa-sticky-note-o",
@@ -96,15 +96,9 @@ return [
             ]
         ],
         "user"=>false,
-        "log" => [
-            "name" => z_language("Nhật ký", false),
-            "pos" => 1,
-            "url" => "backend:log:list",
-            "icon" => "fa fa-file-text"
-        ],
         "configuration" => [
             "name" => z_language('Cấu hình', false),
-            "pos" => 2,
+            "pos" => 10,
             "url" => "backend:configuration:list",
         ],
         "module:admin" => [
@@ -124,11 +118,17 @@ return [
          ],
         "module:system" => [
             "name" => z_language('Hệ thống'),
-            "pos" => 2,
+            "pos" => 11,
             "url" => "",
             "header" => true,
             "icon"=>"fa fa-newspaper-o",
             "items" => [
+                "log" => [
+                    "name" => z_language("Nhật ký", false),
+                    "pos" => 9,
+                    "url" => "backend:log:list",
+                    "icon" => "fa fa-file-text"
+                ],
                 "language" => [
                     "name" => z_language("Ngôn ngữ", false),
                     "pos" => 1,
