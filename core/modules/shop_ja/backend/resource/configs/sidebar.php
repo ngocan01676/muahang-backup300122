@@ -103,7 +103,7 @@ return [
         ],
         "module:admin" => [
             "name" => z_language('Mở rộng'),
-            "pos" => 2,
+            "pos" => 11,
             "url" => "",
             "header" => true,
             "icon"=>"fa fa-newspaper-o",
