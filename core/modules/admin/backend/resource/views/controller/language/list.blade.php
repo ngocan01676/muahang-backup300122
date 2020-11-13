@@ -51,7 +51,6 @@
         }
         $("#BtnSearch").click(function () {
             var val = $('.search-value').val().trim();
-            console.log(val);
             $("#formAction .row-lang").hide();
             $("#formAction .row-lang").each(function () {
                 var data = $(this).data();
