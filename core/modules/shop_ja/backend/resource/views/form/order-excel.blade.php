@@ -1224,15 +1224,15 @@
                         $html = $("<div>");
                         $("#zoe-dropdown-review").show().html($html);
 
-                        jSuites.dropdown($html[0], {
-                            data:columns_index[x1].source,
-                            autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
-                            width:'100%',
-                            onchange:function (el, a, oldValue, Value) {
-                                console.log(Value);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
-                            },
-                        }).setValue(val);
+                        // jSuites.dropdown($html[0], {
+                        //     data:columns_index[x1].source,
+                        //     autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
+                        //     width:'100%',
+                        //     onchange:function (el, a, oldValue, Value) {
+                        //         console.log(Value);
+                        //         instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
+                        //     },
+                        // }).setValue(val);
 
                     }else if(columns_index[x1].key === "order_info"){
 
@@ -2432,15 +2432,15 @@
                         $("#value-review").hide();
                         $html = $("<div>");
                         $("#zoe-dropdown-review").show().html($html);
-                        jSuites.dropdown($html[0], {
-                            data:columns_index[x1].source,
-                            autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
-                            width:'100%',
-                            onchange:function (el, a, oldValue, Value) {
-                              //  lock[y1] = 1;
-                               // instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
-                            },
-                        }).setValue(val);
+                        // jSuites.dropdown($html[0], {
+                        //     data:columns_index[x1].source,
+                        //     autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
+                        //     width:'100%',
+                        //     onchange:function (el, a, oldValue, Value) {
+                        //       //  lock[y1] = 1;
+                        //        // instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
+                        //     },
+                        // }).setValue(val);
                     }else if(columns_index[x1].key === "order_info"){
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
@@ -3604,16 +3604,16 @@
                                 let init = true;
                                 change = {col:x1,row:y1};
                                 init = false;
-                                jSuites.dropdown($html[0], {
-                                    data:columns_index[x1].source,
-                                    value:val,
-                                    autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
-                                    multiple: columns_index[x1].hasOwnProperty('multiple'),
-                                    width:'100%',
-                                    onchange:function (el, a, oldValue, Value) {
-                                        //instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
-                                    },
-                                }).setValue(val);
+                                    // jSuites.dropdown($html[0], {
+                                    //     data:columns_index[x1].source,
+                                    //     value:val,
+                                    //     autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
+                                    //     multiple: columns_index[x1].hasOwnProperty('multiple'),
+                                    //     width:'100%',
+                                    //     onchange:function (el, a, oldValue, Value) {
+                                    //         //instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
+                                    //     },
+                                    // }).setValue(val);
                                 }
                             }else if(columns_index[x1].key === "order_info"){
 
@@ -5217,15 +5217,16 @@
                         $("#value-review").hide();
                        $html = $("<div>");
                        $("#zoe-dropdown-review").show().html($html);
-                       jSuites.dropdown($html[0], {
-                           data:columns_index[x1].source,
-                           autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
-                           width:'100%',
-                           onchange:function (el, a, oldValue, Value) {
-                               change = {col:x1,row:y1};
-                               instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
-                           },
-                       }).setValue(val);
+                        change = {col:x1,row:y1};
+                       // jSuites.dropdown($html[0], {
+                       //     data:columns_index[x1].source,
+                       //     autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
+                       //     width:'100%',
+                       //     onchange:function (el, a, oldValue, Value) {
+                       //
+                       //         instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
+                       //     },
+                       // }).setValue(val);
 
                     }else if(columns_index[x1].key === "order_info"){
 
