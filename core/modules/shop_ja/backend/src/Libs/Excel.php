@@ -522,6 +522,7 @@ class Excel{
         }
 
         $path = $path.'/zip';
+        $pathZip = $path;
         if( $this->file->isDirectory(public_path().$path)){
             $this->file->deleteDirectory(public_path().$path,true);
         }
@@ -586,6 +587,9 @@ class Excel{
             }
 
             $zip->close();
+        }
+        if( $this->file->isDirectory(public_path().$pathZip)){
+            $this->file->deleteDirectory(public_path().$pathZip,true);
         }
         return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
@@ -804,6 +808,7 @@ class Excel{
         }
 
         $path = $path.'/zip';
+        $pathZip = $path;
         if( $this->file->isDirectory(public_path().$path)){
             $this->file->deleteDirectory(public_path().$path,true);
         }
@@ -868,6 +873,9 @@ class Excel{
             }
 
             $zip->close();
+        }
+        if( $this->file->isDirectory(public_path().$pathZip)){
+            $this->file->deleteDirectory(public_path().$pathZip,true);
         }
         return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
@@ -1121,6 +1129,7 @@ class Excel{
         }
 
         $path = $path.'/zip';
+        $pathZip = $path;
         if( $this->file->isDirectory(public_path().$path)){
             $this->file->deleteDirectory(public_path().$path,true);
         }
@@ -1181,6 +1190,9 @@ class Excel{
                 $zip->addFile($file[1],$file[0]);
             }
             $zip->close();
+        }
+        if( $this->file->isDirectory(public_path().$pathZip)){
+            $this->file->deleteDirectory(public_path().$pathZip,true);
         }
         return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,"ids"=>$ids];
 
@@ -1534,15 +1546,14 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-
         $path = $path.'/zip';
+        $pathZip = $path;
         if( $this->file->isDirectory(public_path().$path)){
             $this->file->deleteDirectory(public_path().$path,true);
         }
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-
         $path2 = $path.'/'.$filename.'.xlsx';
         $writer->save(public_path().$path2);
         $files = [
@@ -1598,6 +1609,9 @@ class Excel{
             }
 
             $zip->close();
+        }
+        if( $this->file->isDirectory(public_path().$pathZip)){
+            $this->file->deleteDirectory(public_path().$pathZip,true);
         }
         return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
 
@@ -1914,6 +1928,7 @@ class Excel{
         }
 
         $path = $path.'/zip';
+        $pathZip = $path;
         if( $this->file->isDirectory(public_path().$path)){
             $this->file->deleteDirectory(public_path().$path,true);
         }
@@ -1977,6 +1992,9 @@ class Excel{
             }
 
             $zip->close();
+        }
+        if( $this->file->isDirectory(public_path().$pathZip)){
+            $this->file->deleteDirectory(public_path().$pathZip,true);
         }
         return ['link'=>url($path . '/' . $zipFileName),'images'=>$images,'ids'=>$ids];
     }
