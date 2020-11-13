@@ -23,19 +23,24 @@
         $("#BtnSearch").click(function () {
 
             var val = $('.search-value').val().trim();
-            console.log(val);
-            $("#formAction .row-lang").each(function () {
 
+            console.log(val);
+
+            $("#formAction .row-lang").each(function () {
                 var data = $(this).data();
 
-                if (data.name.toUpperCase().indexOf(val.toUpperCase()) !== -1) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
+                var td = $(this).find('td');
+
+                for(let i =0 ; i<td.length;i++){
+                    if ($(td[i]).text().toUpperCase().indexOf(val.toUpperCase()) !== -1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
                 }
+                
             });
         });
-
         function InitEditable(obj) {
             obj.each(function () {
 //                $(this).html($(this).parent().find('input.val').val());
@@ -44,11 +49,8 @@
                 });
             });
         }
-
         $(document).ready(function () {
             InitEditable($('#formAction  tr .lang'));
-
-
 //            var $table = $('#formAction .table');
 //            var $rows = $('tbody > tr', $table);
 //            $rows.sort(function (a, b) {
