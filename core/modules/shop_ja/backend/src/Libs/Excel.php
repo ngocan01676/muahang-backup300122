@@ -1127,7 +1127,7 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-        
+
         $pathZip = $path.'/zip';
         if( $this->file->isDirectory(public_path().$pathZip)){
             $this->file->deleteDirectory(public_path().$pathZip,true);
@@ -1148,11 +1148,11 @@ class Excel{
 
                 if(empty($image[1])){
                     $file_image = $pathinfo['filename'].'.'.$pathinfo['extension'];
-                    $newName = $path .'/'. $file_image;
+                    $newName = $pathZip .'/'. $file_image;
                     if($this->file->exists(public_path().'/'.$newName)){
                         for($i=1;$i<100;$i++){
                             $file_image = $pathinfo['filename'].'('.$i.')'.'.'.$pathinfo['extension'];
-                            $newName = $path .'/'. $file_image;
+                            $newName = $pathZip .'/'. $file_image;
                             if(!$this->file->exists(public_path().'/'.$newName)){
                                 break;
                             }
@@ -1160,11 +1160,11 @@ class Excel{
                     }
                 }else{
                     $file_image = $image[1].'.'.$pathinfo['extension'];
-                    $newName = $path .'/'. $file_image;
+                    $newName = $pathZip .'/'. $file_image;
                     if($this->file->exists(public_path().'/'.$newName)){
                         for($i=1;$i<100;$i++){
                             $file_image = $image[1].'('.$i.')'.'.'.$pathinfo['extension'];
-                            $newName = $path .'/'. $file_image;
+                            $newName = $pathZip .'/'. $file_image;
                             if(!$this->file->exists(public_path().'/'.$newName)){
                                 break;
                             }
