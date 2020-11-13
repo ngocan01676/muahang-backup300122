@@ -2966,11 +2966,18 @@
                     width:'100px',
                     multiple: true,
                     value:(function () {
-                        $count = {};
+                        let _count = {};
+                        let _id = 0;
                         for(let index in dropdown){
-                            $count[dropdown[index].id] = 0
+                            if(_id === 0){
+                                _id = dropdown[index].id;
+                                _count[dropdown[index].id] = 1;
+                            }else{
+                                _count[dropdown[index].id] = 0;
+                            }
+
                         }
-                        return  JSON.stringify($count);
+                        return  JSON.stringify(_count);
                     })()
                 },
                 total_count:{
