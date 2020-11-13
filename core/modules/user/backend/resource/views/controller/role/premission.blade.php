@@ -40,13 +40,13 @@
                                         <td>
                                             <table class="table table-bordered">
                                                 <tr>
-                                                @foreach($permission as $k=>$val)
-                                                    @if(isset($global_permissions->aliases[$val]))
-                                                            @php $a = explode(":",$val); $k = $a[count($a)-1]; @endphp
-                                                            <td> <span title="{!! $val !!}">{!! isset($descriptions[$val])?$descriptions[$val]:(isset($names[$k])?$names[$k]:$k) !!}</span></td>
+                                                {{--@foreach($permission as $k=>$val)--}}
+                                                    {{--@if(isset($global_permissions->aliases[$val]))--}}
+                                                            {{--@php $a = explode(":",$val); $k = $a[count($a)-1]; @endphp--}}
+                                                            {{--<td> <span title="{!! $val !!}">{!! isset($descriptions[$val])?$descriptions[$val]:(isset($names[$k])?$names[$k]:$k) !!}</span></td>--}}
 
-                                                    @endif
-                                                @endforeach
+                                                    {{--@endif--}}
+                                                {{--@endforeach--}}
                                                     </tr>
                                             </table>
                                         </td>
