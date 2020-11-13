@@ -1638,7 +1638,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                              $rs2->where('province',$v['province']);
                          }
                          $dataItem['2'] = $model->RenderData($rs2->get()->all(),false);
-
                          foreach ($dataItem as $key=>$values){
                             foreach ($values as $_key=>$_val){
                                 if($_key == "KOGYJA"){
