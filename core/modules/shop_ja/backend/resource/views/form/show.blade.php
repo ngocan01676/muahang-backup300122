@@ -32,8 +32,11 @@
     <tr>
         <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
         <td style="width: 95%">
-            <input type="text" class="form-control" id="value-review">
-            <div id="zoe-dropdown-review" style="display: none"></div>
+            <input type="text" class="form-control onselection" id="value-review">
+            <div class="onselection" id="zoe-dropdown-review" style="display: none"></div>
+            <div class="onselection" id="info_payment">
+
+            </div>
         </td>
     </tr>
 </table>
