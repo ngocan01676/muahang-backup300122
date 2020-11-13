@@ -136,14 +136,14 @@ return [
                     "icon" => "fa fa-language"
                 ],
                 "backend:announce:list" => [
-                    "name" => "QL ".z_language("Thông báo",false),
+                    "name" => z_language("Thông báo",false),
                     "url" => "backend:announce:list",
                     "pos" => 2,
                     "header" => true,
                     "icon"=>"fa fa fa-envelope",
                 ],
                 "backend:shop_ja:product:list" => [
-                    "name" => "QL ".z_language("Sản Shẩm",false),
+                    "name" => z_language("Sản Shẩm",false),
                     "url" => "backend:shop_ja:product:list",
                     "pos" => 2,
                     "header" => true,
