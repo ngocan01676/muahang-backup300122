@@ -3295,26 +3295,24 @@
                     console.log("price_ship:"+price_ship);
                     console.log("total_price_buy:"+total_price_buy);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
-
                    // total_price_buy = total_price_buy;
                     console.log(total_price_buy);
-
                     if(total_price_buy === 0 || total_price === 0){ return;}
 
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                     if(payMethod == 3){
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]), 0);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), 0);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]), 0);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                     }else if(payMethod == 2){
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy-330,false );
                         let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship)) - 330;
-
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
                     }else{
                         console.log("price_ship:"+price_ship);
-
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                         let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship) - order_ship_cou);
 
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
@@ -3327,7 +3325,7 @@
 
                     setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330,total_count)
                 }
-                
+
                 //    if(value.hasOwnProperty('lock') && value.lock.indexOf(columns.order_ship.index)){
 
                 //     } else{
