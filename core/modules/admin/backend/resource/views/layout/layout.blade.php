@@ -131,7 +131,7 @@
                                 <ul class="menu">
                                     <li>
                                         @foreach($rsAnnounce as $val)
-                                        <a href="#">
+                                        <a href="{!! route('backend:announce:list') !!}">
                                             <i class="fa fa-users text-aqua"></i> {!! $val->title !!}
                                             {{--{!! $val->message !!} -  {!! $val->updated_at !!}--}}
                                         </a>

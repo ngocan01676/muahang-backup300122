@@ -2,7 +2,7 @@
 return [
     "sidebars" => [
         "user" => [
-            "name" => z_language('Tài khoản'),
+            "name" => z_language('Tài khoản',false),
             "pos" => 2,
             "url" => "",
             "header" => true,
