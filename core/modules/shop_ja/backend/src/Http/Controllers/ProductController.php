@@ -88,9 +88,13 @@ class ProductController extends \Zoe\Http\ControllerBackend
         return $this->render('product.edit', ["model" => $model]);
     }
 
-    public function delete()
+    public function delete($id)
     {
-
+        $model = ProductModel::find($id);
+        if($model){
+            $model->delete();
+        }
+        return redirect()->route('backend:shop_ja:product:list', []);
     }
 
     public function status()
