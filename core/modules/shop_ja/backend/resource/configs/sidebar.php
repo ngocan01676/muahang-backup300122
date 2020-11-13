@@ -98,12 +98,12 @@ return [
         "user"=>false,
         "configuration" => [
             "name" => z_language('Cấu hình', false),
-            "pos" => 10,
+            "pos" => 9,
             "url" => "backend:configuration:list",
         ],
         "module:admin" => [
             "name" => z_language('Mở rộng'),
-            "pos" => 11,
+            "pos" => 12,
             "url" => "",
             "header" => true,
             "icon"=>"fa fa-newspaper-o",
