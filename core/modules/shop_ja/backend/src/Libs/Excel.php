@@ -1127,16 +1127,14 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
-
-        $path = $path.'/zip';
-        $pathZip = $path;
+        
+        $pathZip = $path.'/zip';
         if( $this->file->isDirectory(public_path().$pathZip)){
             $this->file->deleteDirectory(public_path().$pathZip,true);
         }
         if( !$this->file->isDirectory(public_path().$pathZip)){
             $this->file->makeDirectory(public_path().$pathZip);
         }
-
         $path2 = $pathZip.'/'.$filename.'.xlsx';
         $writer->save(public_path().$path2);
         $files = [
