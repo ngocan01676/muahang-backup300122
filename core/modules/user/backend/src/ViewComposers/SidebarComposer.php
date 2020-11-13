@@ -33,6 +33,7 @@ class SidebarComposer
             $sidebars = $app->getConfig()->sidebars;
             $aliases_acl = $app->getPermissions()->aliases;
             $sidebar_new = [];
+
             foreach ($sidebars as $key => $sidebar) {
                 if (isset($sidebar['url']) && !empty($sidebar['url']) && !isset($sidebar['items'])) {
                     if (isset($aliases_acl[$sidebar['url']])) {

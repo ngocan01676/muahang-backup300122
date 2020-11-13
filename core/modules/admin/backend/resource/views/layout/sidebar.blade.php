@@ -6,7 +6,6 @@
         $listsNav = explode(":",$urlCurrentName);
       //  $listsNav[count($listsNav)-1] = "list";
         $urlCurrentNameTemp = implode(":",$listsNav);
-
     @endphp
     <section class="sidebar">
         <ul class="sidebar-menu" data-widget="tree">

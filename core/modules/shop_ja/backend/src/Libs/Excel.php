@@ -1213,22 +1213,24 @@ class Excel{
                 ["配送先氏名",'fullname',18,9],//Họ tên người nhận
                 ["品番",['callback'=>
                     function($index,$product_id,$a,$values) use($products,$columns_value){
-
                     try{
                         $array_product = explode(";",$product_id);
                     }catch (\Exception $ex) {
                         $array_product = [];
                     }
-
                     $product_code = "";$product_title = "";
-                        foreach ($array_product as $pro_id){
-                            if(isset( $products[$pro_id])){
-
+                    $count = (isset($columns_value["count"])?$values[$columns_value["count"]]:"");
+                    try{
+                        $array_count = json_decode($count,true);
+                    }catch (\Exception $ex) {
+                        $array_count = [];
+                    }
+                    foreach ($array_product as $pro_id){
+                            if(isset( $products[$pro_id]) && isset($array_count[$pro_id]) && $array_count[$pro_id] > 0){
                                 $product_code.= $products[$pro_id]->code.",";
                                 $product_title.= $products[$pro_id]->title.",";
-
                             }
-                        }
+                    }
                     return rtrim($product_code,',');
                     },'key'=>'product_id'],10,9],//H
                 ["商品名",
@@ -1246,16 +1248,14 @@ class Excel{
                         }
                         $product_title = "";
                         foreach ($array_product as $pro_id){
-                            if(isset( $products[$pro_id])){
+                            if(isset( $products[$pro_id]) && isset($array_count[$pro_id]) && $array_count[$pro_id] > 0){
+                                $kg = 0;
                                 if(isset($array_count[$pro_id])){
                                     $kg = $array_count[$pro_id];
-                                }else{
-                                    $kg = $array_count;
                                 }
                                 if($products[$pro_id]->unit == 5){
                                     $product_title.= str_replace('鶏羽',"鶏".$kg."羽",$products[$pro_id]->title).'、';
                                 }else{
-
                                     $product_title.= $products[$pro_id]->title." ".$kg."kg".'、';
                                 }
                             }

@@ -2787,11 +2787,12 @@
                 closeEditor : function(cell, save) {
                     console.log("closeEditor");
 
-                    return 0;
+                    return oldData;
                 },
                 openEditor : function(cell) {
 
                     let dom = $(cell);
+
                     let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
                     let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
 
@@ -2811,14 +2812,15 @@
                     }
 
                     let $html = "<table  class='table table-bordered config_count'>";
-                    $html+="<tr><th>Mã</th><th>Tên</th><th>Số lượng</th></tr>";
+                    $html+="<tr><th>Mã</th><th>Tên</th><th>Tên</th><th>Số lượng</th></tr>";
                     for (let i in valsProduct){
                         if(dropdown.hasOwnProperty(valsProduct[i])){
                             let item = dropdown[valsProduct[i]];
                             $html+="<tr>";
                             $html+="<td>"+item.id+"</td>";
                             $html+="<td>"+item.name+"</td>";
-                            $html+="<td><input min=\"1\" max=\"10\" class=\"form-control count\" type='number' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:1)+"'></td>";
+                            $html+="<td>"+item.title+"</td>";
+                            $html+="<td><input min=\"1\" max=\"10\" class=\"form-control count\" type='number' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:0)+"'></td>";
                             $html+="</tr>";
                         }
                     }
@@ -2868,7 +2870,7 @@
                     return cell.innerHTML;
                 },
                 setValue : function(cell, value) {
-                   // cell.innerHTML = value;
+                    cell.innerHTML = value;
                 }
             };
             let columns = {
@@ -2935,7 +2937,13 @@
                     type: 'text',
                     width:'100px',
                     read:true,
-                    value:['product','product_name','source',0,'id'],
+                    value:(function () {
+                        $id = "";
+                        for(let index in dropdown){
+                            $id+=dropdown[index].id+";";
+                        }
+                        return $id.trim(";");
+                    })(),
                 },
                 product_name:{
                     title: 'Tên SP',//I Tên SP
@@ -2944,14 +2952,26 @@
                     autocomplete:true,
                     multiple: true,
                     width:'160px',
-                    value:['product','this','source',0,'id'],
+                    value:(function () {
+                        $id = "";
+                        for(let index in dropdown){
+                            $id+=dropdown[index].id+";";
+                        }
+                        return $id.trim(";");
+                    })()
                 },
                 count:{
                     title: 'SL',//K SL
                     type: 'text',
                     width:'100px',
                     multiple: true,
-                    value:"1",
+                    value:(function () {
+                        $count = {};
+                        for(let index in dropdown){
+                            $count[dropdown[index].id] = 0
+                        }
+                        return  JSON.stringify($count);
+                    })()
                 },
                 total_count:{
                     title: 'SL Tổng',//K SL Tổng
