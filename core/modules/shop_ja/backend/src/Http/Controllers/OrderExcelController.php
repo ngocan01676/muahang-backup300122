@@ -919,6 +919,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                     $table = "<table class='table table-bordered company' style='padding: 0;margin: 0;'><tr>";
                     foreach ($categorys as $k=>$value){
+                       if( in_array($value['name'],['SOFTBANK','GTN'])) continue;
                        $count = DB::table('shop_order_excel')
                             ->where('company',$value['name'])
                             ->where('admin_id',$admin_id)
