@@ -2667,7 +2667,7 @@
         columnsAll[sheetName] = columns;
         let columns_index = Object.values(columns);
         let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
-        let _option = options.hasOwnProperty(sheetName)?options[sheetName]:{};
+        let _option = {};
         for(var i in columns){
             columns[i].index = index;
 
