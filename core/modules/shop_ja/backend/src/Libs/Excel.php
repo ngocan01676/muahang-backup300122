@@ -1162,7 +1162,7 @@ class Excel{
             ->setCreator('php-download.com')
             ->setLastModifiedBy('php-download.com');
 
-        $sheet->setCellValue('B1', '株式会社コギ家　様 注文フォーマット');
+        $sheet->setCellValue('B1', '株式会社クリチク　様 注文フォーマット');
 
 
         $styleArray = array(
