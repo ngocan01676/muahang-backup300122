@@ -8,7 +8,7 @@ return [
             "icon" => "fa fa-dashboard"
         ],
         "backend:shop_ja:order:excel:list" => [
-            "name" => "QL ".z_language("Hóa Đơn",false),
+            "name" => z_language("QL Hóa Đơn",false),
             "url" => "backend:shop_ja:order:excel:list",
             "pos" => 2,
             "header" => true,
@@ -22,17 +22,17 @@ return [
             "icon"=>"fa fa-sticky-note-o",
             "items" => [
                 [
-                    "name" => "QL ".z_language("Danh sách Sim",false),
+                    "name" => z_language("Danh sách Sim",false),
                     "url" => "backend:shop_ja:sim:list",
                 ],
                 [
-                    "name" => "QL ".z_language("Xuất Sim hết hạn",false),
+                    "name" => z_language("Xuất Sim hết hạn",false),
                     "url" => "backend:shop_ja:sim:export",
                 ],
             ]
         ],
         "module:shop-ja::excel:show" => [
-            "name" => "QL ".z_language("Xuất Excel",false),
+            "name" => z_language("Xuất Excel",false),
             "url" => "backend:shop_ja:order:action:show",
             "pos" => 4,
             "header" => true,
@@ -46,7 +46,7 @@ return [
             "icon"=>"fa fa-server",
         ],
         "backend:shop_ja:order:search" => [
-            "name" => "QL ".z_language("Tìm kiếm hóa đơn",false),
+            "name" => z_language("Tìm kiếm hóa đơn",false),
             "url" => "backend:shop_ja:order:search:search",
             "pos" => 6,
             "header" => true,
