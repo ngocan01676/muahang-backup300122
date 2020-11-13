@@ -364,7 +364,7 @@ class Excel{
         $colums = [
             ["支払区分",'payMethod',10,9],//A Phương thức thanh toán
             ["到着希望日",'order_date1',15,9],//B ngày giao hàng
-            ["配送希望時間帯",'order_hours',15,9],//C Giờ nhận
+            ["配送希望時間帯",['callback'=>function($index,$value){return "8:00 ~ 12:00" == $value ?"午前中":$value;},'key'=>'order_hours'],15,9],//C Giờ nhận
             ["配送先氏名",'fullname',18,9],//D Họ và tên khách hàng
             ["配送先郵便番号",'zipcode',9,9],// E Mã bưu điện
             ["配送先都道府県",'province',14,9], // F Tỉnh
@@ -655,7 +655,7 @@ class Excel{
             ["単価",'price',15,9],//J
             ["数量",'count',15,9],//K
             ["到着希望日",['callback'=>function($index,$date) use($_dateNhan){return date("d/m/Y", $_dateNhan->date);},'key'=>'order_date'],15,9],
-            ["配送希望時間帯",'order_hours',15,9],//M
+            ["配送希望時間帯",['callback'=>function($index,$value){return "8:00 ~ 12:00" == $value ?"午前中":$value;},'key'=>'order_hours'],15,9],//M
             ["別途送料",'order_ship',15,9],//N
             ["仕入金額",'order_total_price',15,9],//O
             ["代引き請求金額",'order_total_price_buy',15,9],//P
@@ -923,7 +923,7 @@ class Excel{
             ["単価",'price',15,9],//J
             ["数量",'count',15,9],//K
             ["到着希望日",['callback'=>function($index,$date) use($date_nhan){return date("d/m/Y", $date_nhan->date);},'key'=>'order_date'],15,9],//L
-            ["配送希望時間帯",'order_hours',15,9],//M
+            ["配送希望時間帯",['callback'=>function($index,$value){return "8:00 ~ 12:00" == $value ?"午前中":$value;},'key'=>'order_hours'],15,9],//M
             ["別途送料",'order_ship',15,9],//N
             ["仕入金額",'order_total_price',15,9],//O
             ["代引き請求金額",'order_total_price_buy',15,9],//P
@@ -1276,7 +1276,7 @@ class Excel{
                 ["単価",'price',15,9],//Giá nhập
                 ["数量","total_count",15,9],//SL
                 ["到着希望日",['callback'=>function($index,$date) use($_dateNhan){return date("d/m/Y", $_dateNhan->date);},'key'=>'order_date'],15,9],//Ngày nhận
-                ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
+                ["配送希望時間帯",['callback'=>function($index,$value){return "8:00 ~ 12:00" == $value ?"午前中":$value;},'key'=>'order_hours'],15,9],//Giờ nhận
                 ["送料",'order_ship',15,9],//Phí ship
                 ["仕入金額",'order_total_price',15,9],//Giá bán
                 ["振込み金額",'order_total_price_buy',15,9],//Giá bán
@@ -1636,7 +1636,7 @@ class Excel{
                 ["単価",'price',15,9],//Giá nhập
                 ["数量",'count',15,9],//SL
                 ["到着希望日",['callback'=>function($index,$date) use($_dateNhan){return date("d/m/Y", $_dateNhan->date);},'key'=>'order_date'],15,9],
-                ["配送希望時間帯",'order_hours',15,9],//Giờ nhận
+                ["配送希望時間帯",['callback'=>function($index,$value){return "8:00 ~ 12:00" == $value ?"午前中":$value;},'key'=>'order_hours'],15,9],//Giờ nhận
                 ["送料",'order_ship',15,9],//Phí ship
                 ["梱包材",'total_count',15,9],//Tổng giá nhập
                 ["仕入金額",'order_total_price',15,9],//Giá bán
