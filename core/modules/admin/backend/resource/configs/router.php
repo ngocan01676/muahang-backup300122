@@ -29,7 +29,7 @@ return [
             'elfinder' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "ElfinderController",
-                "sub_prefix" => "/elfinder",
+                "sub_prefix" => "/".md5("elfinder"),
                 "guard" => "backend",// pải login
                 "acl"=>"dashboard:media",
                 "router" => [
