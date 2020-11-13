@@ -520,6 +520,15 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
+
+        $path = $path.'/zip';
+        if( $this->file->isDirectory(public_path().$path)){
+            $this->file->delete(public_path().$path);
+        }
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+
         $path2 = $path.'/'.$filename.'.xlsx';
 
         $writer->save(public_path().$path2);
@@ -793,6 +802,15 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
+
+        $path = $path.'/zip';
+        if( $this->file->isDirectory(public_path().$path)){
+            $this->file->delete(public_path().$path);
+        }
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+
         $path2 = $path.'/'.$filename.'.xlsx';
 
         $writer->save(public_path().$path2);
@@ -1101,6 +1119,15 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
+
+        $path = $path.'/zip';
+        if( $this->file->isDirectory(public_path().$path)){
+            $this->file->delete(public_path().$path);
+        }
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+
         $path2 = $path.'/'.$filename.'.xlsx';
         $writer->save(public_path().$path2);
         $files = [
@@ -1507,6 +1534,15 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
+
+        $path = $path.'/zip';
+        if( $this->file->isDirectory(public_path().$path)){
+            $this->file->delete(public_path().$path);
+        }
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+
         $path2 = $path.'/'.$filename.'.xlsx';
         $writer->save(public_path().$path2);
         $files = [
@@ -1876,11 +1912,21 @@ class Excel{
         if( !$this->file->isDirectory(public_path().$path)){
             $this->file->makeDirectory(public_path().$path);
         }
+
+        $path = $path.'/zip';
+        if( $this->file->isDirectory(public_path().$path)){
+            $this->file->delete(public_path().$path);
+        }
+        if( !$this->file->isDirectory(public_path().$path)){
+            $this->file->makeDirectory(public_path().$path);
+        }
+
         $path2 = $path.'/'.$filename.'.xlsx';
         $writer->save(public_path().$path2);
         $files = [
             [$filename.'.xlsx',public_path().$path2]
         ];
+
         foreach ($images as $image){
 
             if(!empty($image[0]) && file_exists(public_path()."/".$image[0])){
@@ -1914,6 +1960,7 @@ class Excel{
                 }
 
                 $this->file->copy(public_path()."/".$image[0],public_path().'/'.$newName );
+
                 $files[] = [
                     $file_image,public_path().'/'.$newName
                 ];
