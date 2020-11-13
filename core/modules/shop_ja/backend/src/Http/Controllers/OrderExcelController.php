@@ -274,7 +274,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "token"=> isset($columns["token"])? (int)$values[$columns["token"]]:"",
                                         "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
                                     ];
-                                    $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
+                                    $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
                                     $logs[$name][] = $_data;
                                     DB::table('shop_order_excel')->where('id',$values[$columns["id"]])->update($_data);
                                 }
@@ -423,7 +423,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:0,
                                         "rate"=> isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0",
                                     ];
-                                    $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
+                                    $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date(' H:i:s');
 
                                     $_data["sort"] = $model->admin_id * 10000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($_data['order_create_date']);
 
@@ -573,7 +573,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
                                 ];
 
-                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']));
+                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
 
                                 $_data["sort"] = $model->admin_id * 10000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($_data['order_create_date']);
 
@@ -594,7 +594,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             "province"=>$_data["province"],
                                             "address"=>$_data["address"],
                                             "sort"=> $_data["sort"],
-                                            "order_create_date"=> $_data["order_create_date"],
+//                                            "order_create_date"=> $_data["order_create_date"],
                                         ];
                                         $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
                                     }
