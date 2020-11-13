@@ -21,7 +21,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
             if($data['act'] == 'line'){
                 if(isset($data['type'])){
                     $type = $data['type'];
-
+                    DB::connection()->enableQueryLog();
                     $company = $data['conpany'];
                     $admin_id = base64_decode($data['user_id']);
                     $results = [];
