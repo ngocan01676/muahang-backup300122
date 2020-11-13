@@ -1,7 +1,7 @@
 @section('content-header')
     <h1>
         {!! @z_language(["Chức năng quản lý đơn hàng Excel"]) !!}
-
+        <button type="button" class="btn btn-success" id="importBtn">Cập nhật</button>
     </h1>
 @endsection
 @section('content')
@@ -45,7 +45,7 @@
                     <div class="box-header with-border"></div>
                     <div class="box-body" id="results"></div>
                     <div class="box-footer">
-                        <button type="button" class="btn btn-success" id="importBtn">Cập nhật</button>
+
                     </div>
                 </div>
             </div>
