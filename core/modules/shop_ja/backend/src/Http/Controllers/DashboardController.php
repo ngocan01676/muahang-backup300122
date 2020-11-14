@@ -281,10 +281,11 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
         $date_start = $request->get('date_start','');
         $date_end = $request->get('date_end','');
+
         $categorys = config_get("category", "shop-ja:product:category");
         $this->data['analytics']['category'] = [];
         $user_id = null;
-
+        \DB::enableQueryLog();
         if(!is_null($request->id)){
             $user_id = base64_decode($request->id);
             $this->breadcrumb(z_language("QL CTV"), route('backend:dashboard:list'));
@@ -305,6 +306,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
             $query = DB::table('shop_order_excel')
                 ->where('fullname','!=','')
+                ->where('public',1)
                 ->where('company',$category['name']);
             if(!is_null($user_id)){
                 $query->where('admin_id',$user_id);
@@ -364,7 +366,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         }
         $this->data['analytics']['success'] =  $this->data['analytics']['success']->where('status',1)->count();
 
-        $this->data['analytics']['padding'] = DB::table('shop_order_excel')
+        $this->data['analytics']['padding'] = DB::table('shop_order_excel')->where('public',1)
             ->where('fullname','!=','')
            ;
         if(!is_null($user_id)){
@@ -390,6 +392,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
         $this->data['analytics']['today'] = DB::table('shop_order_excel')
             ->where('fullname','!=','')
+            ->where('public',1)
             ->where('updated_at','>=',$date_start." 00:00:00")
             ->where('updated_at','<=',$date_end." 23:59:59");
         if(!is_null($user_id)){
@@ -399,6 +402,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
         $this->data['analytics']['price'] = DB::table('shop_order_excel')
             ->where('fullname','!=','')
+            ->where('public',1)
             ->where('order_create_date','>=',$date_start." 00:00:00")
             ->where('order_create_date','<=',$date_end." 23:59:59");
 
@@ -406,7 +410,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
             $this->data['analytics']['price']->where('admin_id',$user_id);
         }
         $this->data['analytics']['price'] =  $this->data['analytics']['price']->sum('order_price');
-
+        $this->data['analytics']['sql'] = logs_sql();
         return $this->render('dashboard.user',[]);
     }
     public  function GetData($results,$exportAll){
