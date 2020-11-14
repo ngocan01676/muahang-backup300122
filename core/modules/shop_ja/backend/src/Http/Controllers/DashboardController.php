@@ -326,7 +326,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                     ->where('type','Footer')
                     ->where('public','1');
 
-                if(!is_null($user_id)){
+                if(!is_null($user_id) && !empty($user_id)){
                     $price->where('admin_id',$user_id);
                 }
             }else{
@@ -338,7 +338,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                     $price->where('order_create_date', '>=', $date_start . " 00:00:00");
                     $price->where('order_create_date', '<=', $date_end . " 23:59:59");
                 }
-                if(!is_null($user_id)){
+                if(!is_null($user_id) && !empty($user_id)){
                     $price->where('admin_id',$user_id);
                 }
             }
@@ -346,7 +346,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         }
         $this->data['analytics']['total'] = DB::table('shop_order_excel')
             ->where('fullname','!=','')->where('public','1');
-        if(!is_null($user_id)){
+        if(!is_null($user_id) && !empty($user_id)){
             $this->data['analytics']['total']->where('admin_id',$user_id);
         }
         if(!empty($date_start) && !empty($date_end)){
@@ -357,7 +357,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
         $this->data['analytics']['success'] = DB::table('shop_order_excel')
             ->where('fullname','!=','')->where('status',1)->where('public','1');
-        if(!is_null($user_id)){
+        if(!is_null($user_id) && !empty($user_id)){
             $this->data['analytics']['success']->where('admin_id',$user_id);
         }
         if(!empty($date_start) && !empty($date_end)) {
@@ -370,7 +370,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         $this->data['analytics']['padding'] = DB::table('shop_order_excel')->where('public',1)
             ->where('fullname','!=','')
            ;
-        if(!is_null($user_id)){
+        if(!is_null($user_id) && !empty($user_id)){
             $this->data['analytics']['padding']->where('admin_id',$user_id);
         }
         if(!empty($date_start) && !empty($date_end)) {
@@ -382,7 +382,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         $this->data['analytics']['cancel'] = DB::table('shop_order_excel')
             ->where('fullname','!=','')
             ;
-        if(!is_null($user_id)){
+        if(!is_null($user_id) && !empty($user_id)){
             $this->data['analytics']['cancel']->where('admin_id',$user_id);
         }
         if(!empty($date_start) && !empty($date_end)) {
@@ -397,7 +397,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
             ->where('updated_at','>=',date('Y-m-d')." 00:00:00")
             ->where('updated_at','<=',date('Y-m-d')." 23:59:59");
-        if(!is_null($user_id)){
+        if(!is_null($user_id) && !empty($user_id)){
             $this->data['analytics']['today']->where('admin_id',$user_id);
         }
         $this->data['analytics']['today'] =  $this->data['analytics']['today']->count();
@@ -408,7 +408,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
             ->where('order_create_date','>=',date('Y-m-d')." 00:00:00")
             ->where('order_create_date','<=',date('Y-m-d')." 23:59:59");
 
-        if(!is_null($user_id)){
+        if(!is_null($user_id) && !empty($user_id)){
             $this->data['analytics']['price']->where('admin_id',$user_id);
         }
         $this->data['analytics']['price'] =  $this->data['analytics']['price']->sum('order_price');
