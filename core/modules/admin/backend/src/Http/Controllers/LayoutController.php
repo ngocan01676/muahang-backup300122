@@ -19,8 +19,6 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $this->breadcrumb(z_language("Layout"), route('backend:layout:list'));
         return $this;
     }
-
-
     public function getListType($type)
     {
 
@@ -37,12 +35,6 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             return $arr;
         }
     }
-
-    public function delete()
-    {
-
-    }
-
     private function GetViewHelperBlade()
     {
 
@@ -535,10 +527,11 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $model->token = $items["info"]['token'];
         $model->slug = $slug;
         $model->type = $items["info"]['type'];
+        $model->theme = $theme;
         $layout = isset($items['layout']) ? json_decode($items['layout'], true) : [];
         $model->content = base64_encode(serialize($layout));
-
-        echo json_encode($this->saveFile($model, $layout));
+        $results = $this->saveFile($model, $layout);
+        return response()->json($results);
 //        $obj_layout = new \Admin\Lib\LayoutBlade();
 //        $obj_layout->ViewHelper = $this->GetViewHelperBlade();
 //        $obj_layout->GridHelper = $this->GetGridBlade();
@@ -641,7 +634,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             }
         }
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
-        $item = 1;
+
         $models = DB::table('layout');
 
         if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
@@ -742,6 +735,31 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "listsType" => $this->listsType,
             "sources" => $obj_layout->getContent($model->slug, $model->token, $model->type_group, $model->type)
         ]);
+    }
+
+    public function delete(Request $request)
+    {
+        $data = $request->all();
+        $url = "";
+        if(isset($data["_id"]) && !is_null($data["_id"])){
+            $model = \Admin\Http\Models\Layout::find($data["_id"]);
+            if($model){
+
+                if( $model->delete()){
+                    $request->session()->flash('success',z_language('Layout is deleted successfully'));
+                }else{
+                    $request->session()->flash('error',z_language('There was an error please try again later'));
+                }
+                if(isset($data["_ref"]) && !is_null($data["_ref"])){
+                    $url =  base64_decode($data["_ref"]);
+                }else{
+                    $url = route('backend:layout:list');
+                }
+            }else{
+                $url = route('backend:error:not_found');
+            }
+        }
+        return redirect($url);
     }
 
     public function build(Request $request)

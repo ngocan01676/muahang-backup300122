@@ -1,10 +1,14 @@
-@php $option = app()->getConfig()->options; @endphp
+@php
+    $app = app();
+    $option = $app->getConfig()->options;
+@endphp
 @if(isset($name) && isset($option[$name]))
     @php
         $data = $option[$name];
         $_data = config_get('option',$name);
         $data['data'] = isset($data['data'])?array_merge($data['data'],$_data):$_data;
         $parameter = isset($parameter)?$parameter:[];
+        $aliases_acl = $app->getPermissions()->aliases;
     @endphp
 
     @isset($data['config']['columns'])
@@ -17,6 +21,7 @@
                 </div>
             </div>
         @endif
+        @flash_message()@endflash_message
         <div class="box box box-zoe" id="sectionList">
             <div class="box-header with-border">
                 <div class="box-tools">
@@ -64,11 +69,9 @@
                     </tr>
                      </thead>
                     <tbody>
-
                     @if(count($models)>0)
                         @foreach ($models as $k=>$model)
                             <tr class="list-row">
-
                                 @foreach($data['config']['columns']['lists'] as $key=>$columns)
                                     @isset($data['data']['columns'][$key])
 
@@ -88,6 +91,15 @@
                                                         @php  $n = count($data['config']['pagination']['router'])-1; $i=0; @endphp
                                                         @foreach($data['config']['pagination']['router'] as $id=>$router)
                                                             @php
+                                                                $oke = true;
+                                                                if (isset($aliases_acl[$router['name']])) {
+                                                                    $acl = $aliases_acl[$router['name']];
+
+                                                                    if (!auth()->user()->IsAcl($acl)) {
+                                                                        $oke = false;
+                                                                    }
+                                                                }
+                                                                if($oke == false) continue;
                                                                 $par = isset($route)?$route:[];
                                                                 foreach ($router['par'] as $k=>$v){
                                                                     $par[$k] = $model->{$v};
@@ -95,21 +107,24 @@
                                                                 $key_form = md5(rand(1,10000) . rand(1,10000));
                                                             @endphp
                                                             <span class="{{$id}}">
-                                                     @isset($router['method'])
-                                                                    <form id="{{$id}}-form-{{$key_form}}"
-                                                                          action="{{route($router['name'],$par)}}"
-                                                                          method="{{$router['method']}}"
-                                                                          style="display: none;">
-                                                                        <input name="ref" type="hidden" value="{!! url()->current(); !!}">
-                                                        @csrf
-                                                    </form>
-                                                                    <a  href="#"
-                                                                       onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn xóa bảng ghi này') !!}')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
-                                                                @else
+                                                             @isset($router['method'])
+                                                                            <form id="{{$id}}-form-{{$key_form}}"
+                                                                                  action="{{route($router['name'],$par)}}"
+                                                                                  method="{{$router['method']}}"
+                                                                                  style="display: none;">
+                                                                                <input name="_ref" type="hidden" value="{!! base64_encode(url()->current()); !!}">
+                                                                                @foreach($par as $_k=>$_v)
+                                                                                <input name="_{!! $_k !!}" type="hidden" value="{!! $_v; !!}">
+                                                                                @endforeach
+                                                                                            @csrf
+                                                                                        </form>
+                                                                        <a  href="#"
+                                                                               onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn xóa bảng ghi này') !!}')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
+                                                                        @else
 
-                                                                    <a {!! isset($router['hide'])?'style="display:none"':"" !!} href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"  | ":""}}
-                                                                @endif
-                                                </span>
+                                                                            <a {!! isset($router['hide'])?'style="display:none"':"" !!} href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"  | ":""}}
+                                                                        @endif
+                                                        </span>
                                                         @endforeach
                                                     @endisset
                                                 </div>

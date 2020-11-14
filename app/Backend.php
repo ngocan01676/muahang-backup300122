@@ -36,6 +36,7 @@ class Backend extends Authenticatable
         if(empty($permission) || $this->username == $userfull){
             return true;
         }
+        
         Cache::remember('role:'.$this->guard, 60, function()
         {
             return DB::table('role')

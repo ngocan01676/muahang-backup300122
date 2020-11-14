@@ -335,6 +335,17 @@ return [
                     ]
                 ]
             ],
+            'error' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "ErrorController",
+                "sub_prefix" => "/error",
+                "guard" => "backend",// pải login
+                "router" => [
+                    "not_found" => [
+                        "url" => "/not-found",
+                    ],
+                ]
+            ],
         ]
     ]
 ];

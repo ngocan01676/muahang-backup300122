@@ -58,7 +58,6 @@ return [
                     'item' => 20,
                     'router' => [
                         'edit' => ['label' => z_language('Edit', false), 'name' => "backend:layout:edit", 'par' => ['id' => 'id']],
-                        'preview' => ['label' => z_language('Preview', false), 'name' => "backend:layout:edit", 'par' => ['id' => 'id']],
                         'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:layout:delete", 'par' => ['id' => 'id']],
                     ]
                 ],

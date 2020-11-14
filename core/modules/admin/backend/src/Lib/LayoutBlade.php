@@ -402,7 +402,7 @@ class LayoutBlade extends Layout
             $prefix .= "layouts.theme." . $theme . ".";
             $path = $path . '/' . config_get('theme', "active") . '/';
         } else {
-            $path = storage_path($path . $type_group . '/');
+            $path = storage_path( $type_group . '/');
             $prefix .= "layouts." . $type_group . ".";
         }
             

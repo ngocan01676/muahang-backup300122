@@ -434,7 +434,6 @@
         .CodeMirror {
             border: 1px solid black;
         }
-
         iframe {
             margin: 10px auto;
             display: block; /* iframes are inline by default */
