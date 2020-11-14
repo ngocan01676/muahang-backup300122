@@ -1,5 +1,6 @@
 @section('content')
     @breadcrumb()@endbreadcrumb
+    {{ $analytics['sql'] }}
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
