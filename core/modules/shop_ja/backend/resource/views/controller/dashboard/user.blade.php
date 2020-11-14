@@ -1,6 +1,8 @@
 @section('content')
     @breadcrumb()@endbreadcrumb
-    {{ $analytics['sql'] }}
+    <div style="display: none">
+        {{ $analytics['sql'] }}
+    </div>
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
