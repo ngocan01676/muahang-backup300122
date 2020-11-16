@@ -1128,7 +1128,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                            // 'tracking_id'=>$checking,
                                             'created_at'=>$list['create']
                                         ],
-                                        ['data'=>'[]','tracking_id'=>$checking,'status'=>0,'updated_at'=>date('Y-m-d')]);
+                                        ['data'=>'[]','tracking_id'=>(int)$checking,'status'=>0,'updated_at'=>date('Y-m-d')]);
                             }
 
                         }
