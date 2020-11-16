@@ -1277,7 +1277,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $oke = false;
                     if(isset($value['type']) && $value['type'] == 2){
 
-                        $weeks = $value['week'];
+                        $weeks = isset($value['week'])?$value['week']:-1;
                         if(!is_array($weeks)){
                             $weeks = [$weeks];
                         }

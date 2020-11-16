@@ -395,7 +395,7 @@
                 ]
             ],
         ],
-            'configs' => [
+        'configs' => [
             'lists'=>[
                 'shop_ja' => [
                     'view' => [
@@ -408,8 +408,19 @@
                         'data' => [
 
                         ]
+                ],
+                'shop_ja:excel' => [
+                    'view' => [
+                        'post' => [
+                            'view' => 'shop_ja::configs.excel',
+                            'label' => z_language('Excel Config'),
+                        ],
+                    ],
+                    'label' => z_language("Excel", false),
+                    'data' => [
+
                     ]
+                ]
             ]
         ],
-
     ];
