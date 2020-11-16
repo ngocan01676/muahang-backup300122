@@ -505,8 +505,10 @@
                             if(columns[i].value[1] === "now")
                             return [true,date.format("YYYY-MM-DD")+" 00:00:00"];
                             else if(columns[i].value[1] === "nowSum"){
+
                                 let tmpDate =  moment(date.format("YYYY-MM-DD"));
-                                return [true,tmpDate.day(columns[i].value[2]).format("YYYY-MM-DD")+" 00:00:00"];
+                    
+                                return [true,tmpDate.add(columns[i].value[2],'days').format("YYYY-MM-DD")+" 00:00:00"];
                             }
 
                         }
