@@ -1125,7 +1125,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             'order_id'=>$list['id'],
                                             'type'=>$input['ship'],
                                             'company'=>$input['com'],
-                                            'tracking_id'=>$checking,
+                                           // 'tracking_id'=>$checking,
                                             'created_at'=>$list['create']
                                         ],
                                         ['data'=>'[]','status'=>0,'updated_at'=>date('Y-m-d')]);
