@@ -1072,7 +1072,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $seconds = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24 - $hours * 60 * 60 - $minuts * 60));
                         return $diff<=0?($model->status == 2?z_language('Đang kiểm tra'):z_language("Đợi đến lượt")):($days>0?'['.$days.z_language('ngày').']':"").$hours." : $minuts"." : $seconds";
                     }
-                    return "Thành công";
+                    return z_language("Đợi đến lượt");
                 },
             ]
         ]);
