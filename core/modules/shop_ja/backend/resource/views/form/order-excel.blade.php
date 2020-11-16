@@ -656,14 +656,14 @@
                     hide:true,
                 },
                 timeCreate:{
-                    title: 'Ngày đặt hàng',//A ngày đặt hàng
+                    title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
                     value:['date','now']
                 },
                 payMethod:{
-                    title: 'Phương thức thanh toán',//B Phương thức thanh toán
+                    title: '{!! z_language("Phương thức thanh toán") !!}',//B Phương thức thanh toán
                     type:'dropdown',
                     source:[
                         "代金引換",
@@ -674,7 +674,7 @@
                     value:['product','this','source',0],
                 },
                 order_date:{
-                    title: 'Ngày nhận',//L Ngày nhận
+                    title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
@@ -682,51 +682,51 @@
 
                 },
                 order_hours:{
-                    title: 'Giờ nhận',//M Giờ nhận
+                    title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
                     width:'150px',
                 },
                 fullname:{
-                    title: 'Họ tên người nhận',//G Họ tên người nhận
+                    title: '{!! z_language("Họ tên người nhận") !!}',//G Họ tên người nhận
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 zipcode:{
-                    title: 'Mã bưu điện',//D Mã bưu điện
+                    title: '{!! z_language("Mã bưu điện") !!}',//D Mã bưu điện
                     type: 'text',
                     width:'60px',
                     key:"demo",
                 },
                 province:{
-                    title: 'Tỉnh/TP',//E Tỉnh/TP
+                    title: '{!! z_language("Tỉnh/TP") !!}',//E Tỉnh/TP
                     type: 'text',
                     width:'200px',
                     key:"demo",
                 },
                 address:{
-                    title: 'Địa chỉ giao hàng',//F Địa chỉ giao hàng
+                    title: '{!! z_language("Địa chỉ giao hàng") !!}',//F Địa chỉ giao hàng
                     type: 'text',
                     width:'250px',
                     key:"demo",
                 },
                 phone:{
-                    title: 'Số điện thoại',//C Số điện thoại
+                    title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
                     type: 'text',
                     width:'100px',
                     value:"",
                 },
                 product_id:{
-                    title: 'Mã SP',//H Mã SP
+                    title: '{!! z_language("Mã SP") !!}',//H Mã SP
                     type: 'text',
                     width:'100px',
                     read:true,
                     value:['product','product_name','source',0,'id'],
                 },
                 product_name:{
-                    title: 'Tên SP',//I Tên SP
+                    title: '{!! z_language("Tên SP") !!}',//I Tên SP
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
@@ -734,19 +734,19 @@
                     value:['product','this','source',0,'id']
                 },
                 count:{
-                    title: 'SL',//K SL
+                    title: '{!! z_language("SL") !!}',//K SL
                     type: 'numeric',
                     width:'100px',
                     value:1
                 },
                 price:{
-                    title: 'Giá nhập',//J Giá nhập
+                    title: '{!! z_language("Giá nhập") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy:{
-                    title: 'Giá bán',//J Giá nhập
+                    title: '{!! z_language("Giá bán") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
@@ -754,80 +754,80 @@
                 },
 
                 order_ship:{
-                    title: 'Phí ship',//N Phí ship
+                    title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_total_price:{
-                    title: 'Tổng giá nhập',//O Tổng giá nhập
+                    title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy_sale:{
-                    title: 'Tăng Giảm',//J Giá nhập
+                    title: '{!! z_language("Tăng Giảm") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
                 },
                 order_total_price_buy:{
-                    title: 'Total Bán',//P Giá bán
+                    title: '{!! z_language("Total Bán") !!}',//P Giá bán
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_ship_cou:{
-                    title: 'Phí giao hàng',//P Phí giao hàng
+                    title: '{!! z_language("Phí giao hàng") !!}',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
                     value:330
                 },
                 order_price:{
-                    title: 'Lợi nhuận',//P Lợi nhuận
+                    title: '{!! z_language("Lợi nhuận") !!}',//P Lợi nhuận
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_rate:{
-                    title: 'Lợi nhuận CTV',//P
+                    title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_tracking:{
-                    title: 'Mã tracking',//T Mã tracking
+                    title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 order_link:{
-                    title: 'Đường dẫn',//T Thông tin chuyển khoản
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                 },
                 order_info:{
-                    title: ' Thông tin chuyển khoản',//T Thông tin chuyển khoản
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 one_address: {
                     type: 'checkbox',
-                    title:'Cùng địa chỉ'
+                    title:'{!! z_language("Cùng địa chỉ") !!}'
                 },
                 id:{
-                    title: 'ID',//T
+                    title: '{!! z_language("ID") !!}ID',//T
                     type: 'text',
                     width:'100px',
                 },
                 session_id:{
-                    title: 'SessionId',//T
+                    title: '{!! z_language("SessionId") !!}',//T
                     type: 'text',
                     width:'1px',
                 },
                 export:{
-                    title: 'Export',//T
+                    title: '{!! z_language("Xuất") !!}',//T
                     type: 'checkbox',
                     width:'1px',
                 },
@@ -1462,7 +1462,7 @@
                     hide:true,
                 },
                 timeCreate:{
-                    title: 'Ngày đặt hàng',//A ngày đặt hàng
+                    title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
@@ -1470,7 +1470,7 @@
                     // row:"0",
                 },
                 payMethod:{
-                    title: 'Phương thức thanh toán',//B Phương thức thanh toán
+                    title: '{!! z_language("Phương thức thanh toán") !!}',//B Phương thức thanh toán
                     type:'dropdown',
                     source:[
                         "代金引換",
@@ -1482,38 +1482,38 @@
                     // row:"0",
                 },
                 phone:{
-                    title: 'Số điện thoại',//C Số điện thoại
+                    title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
                     type: 'text',
                     width:'100px',
                     value:"070-1398-2234",
                     // row:"0",
                 },
                 zipcode:{
-                    title: 'Mã bưu điện',//D Mã bưu điện
+                    title: '{!! z_language("Mã bưu điện") !!}',//D Mã bưu điện
                     type: 'text',
                     width:'60px',
 
                 },
                 province:{
-                    title: 'Tỉnh/TP',//E Tỉnh/TP
+                    title: '{!! z_language("Tỉnh/TP") !!}',//E Tỉnh/TP
                     type: 'text',
                     width:'200px',
 
                 },
                 address:{
-                    title: 'Địa chỉ giao hàng',//F Địa chỉ giao hàng
+                    title: '{!! z_language("Địa chỉ giao hàng") !!}',//F Địa chỉ giao hàng
                     type: 'text',
                     width:'250px',
                     key:"demo",
                 },
                 fullname:{
-                    title: 'Họ tên người nhận',//G Họ tên người nhận
+                    title: '{!! z_language("Họ tên người nhận") !!}',//G Họ tên người nhận
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 product_id:{
-                    title: 'Mã SP',//H Mã SP
+                    title: '{!! z_language("Mã SP") !!}',//H Mã SP
                     type: 'text',
                     width:'100px',
                     read:true,
@@ -1521,7 +1521,7 @@
                     // row:"0",
                 },
                 product_name:{
-                    title: 'Tên SP',//I Tên SP
+                    title: '{!! z_language("Tên SP") !!}',//I Tên SP
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
@@ -1530,35 +1530,35 @@
                     // row:"0",
                 },
                 count:{
-                    title: 'SL',//K SL
+                    title: '{!! z_language("SL") !!}',//K SL
                     type: 'numeric',
                     width:'100px',
                     value:0,
                     // row:"0",
                 },
                 total_count:{
-                    title: 'SL tổng',//K SL Tổng
+                    title: '{!! z_language("SL") !!}',//K SL
                     type: 'numeric',
                     width:'100px',
                     value:1,
                     // row:"0",
                 },
                 price:{
-                    title: 'Giá nhập',//J Giá nhập
+                    title: '{!! z_language("Giá nhập") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
                     // row:"0",
                 },
                 price_buy:{
-                    title: 'Giá bán',//J Giá nhập
+                    title: '{!! z_language("Giá bán") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
                     // row:"0",
                 },
                 order_date:{
-                    title: 'Ngày nhận',//L Ngày nhận
+                    title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
@@ -1566,7 +1566,7 @@
                     // row:"0",
                 },
                 order_hours:{
-                    title: 'Giờ nhận',//M Giờ nhận
+                    title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
@@ -1574,77 +1574,77 @@
                     // row:"0",
                 },
                 order_ship:{
-                    title: 'Phí ship',//N Phí ship
+                    title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
                     value:0,
                     // row:"0",
                 },
                 order_total_price:{
-                    title: 'Tổng giá nhập',//O Tổng giá nhập
+                    title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
                     // row:"0",
                 },
                 price_buy_sale:{
-                    title: 'Tăng Giảm',//J Giá nhập
+                    title: '{!! z_language("Tăng Giảm") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
                     // row:"0",
                 },
                 order_total_price_buy:{
-                    title: 'Total Bán',//P Giá bán
+                    title: '{!! z_language("Total Bán") !!}',//P Giá bán
                     type: 'numeric',
                     width:'100px',
                     value:0,
                     // row:"0",
                 },
                 order_ship_cou:{
-                    title: 'Phí giao hàng',//P Phí giao hàng
+                    title: '{!! z_language("Phí giao hàng") !!}',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
                     value:0,
                     // row:"0",
                 },
                 order_price:{
-                    title: 'Lợi nhuận',//P Lợi nhuận
+                    title: '{!! z_language("Lợi nhuận") !!}',//P Lợi nhuận
                     type: 'numeric',
                     width:'100px',
                     value:0,
                     // row:"0",
                 },
                 order_rate:{
-                    title: 'Lợi nhuận CTV',//P
+                    title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_tracking:{
-                    title: 'Mã tracking',//T Mã tracking
+                    title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
                     type: 'text',
                     width:'100px',
                     key:"demo",
                     row:"0",
                 },
                 order_link:{
-                    title: 'Đường đẫn',//T Thông tin chuyển khoản
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                 },
                 order_info:{
-                    title: 'Thông tin chuyển khoản',//T Thông tin chuyển khoản
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 one_address: {
                     type: 'checkbox',
-                    title:'Cùng địa chỉ'
+                    title:'{!! z_language("Cùng địa chỉ") !!}'
                 },
                 id:{
-                    title: 'ID',//T
+                    title: '{!! z_language("ID") !!}ID',//T
                     type: 'text',
                     width:'100px',
                 },
@@ -1654,22 +1654,22 @@
                     width:'100px',
                 },
                 session_id:{
-                    title: 'SessionId',//T
+                    title: '{!! z_language("SessionId") !!}',//T
                     type: 'text',
                     width:'100px',
                 },
                 export:{
-                    title: 'Export',//T
+                    title: '{!! z_language("Xuất") !!}',//T
                     type: 'checkbox',
                     width:'100px',
                 },
                 token:{
-                    title: 'Token',//T
+                    title: '{!! z_language("Token") !!}',//T title: '',//T
                     type: 'text',
                     width:'100px',
                 },
                 position:{
-                    title: 'Position',//T
+                    title: '{!! z_language("Vị trí") !!}',//T title: '',//T title: 'Position',//T
                     type: 'text',
                     width:'100px',
                 },
@@ -2886,14 +2886,14 @@
                     hide:true,
                 },
                 timeCreate:{
-                    title: 'Ngày đặt hàng',//A ngày đặt hàng
+                    title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
                     value:['date','now']
                 },
                 payMethod:{
-                    title: 'Phương thức thanh toán',//B Phương thức thanh toán
+                    title: '{!! z_language("Phương thức thanh toán") !!}',//B Phương thức thanh toán
                     type:'dropdown',
                     source:[
                         "代金引換",
@@ -2904,37 +2904,37 @@
                     value:['product','this','source',0],
                 },
                 phone:{
-                    title: 'Số điện thoại',//C Số điện thoại
+                    title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
                     type: 'text',
                     width:'100px',
                     value:"070-1398-2234",
                 },
                 zipcode:{
-                    title: 'Mã bưu điện',//D Mã bưu điện
+                    title: '{!! z_language("Mã bưu điện") !!}',//D Mã bưu điện
                     type: 'text',
                     width:'60px',
                     key:"demo",
                 },
                 province:{
-                    title: 'Tỉnh/TP',//E Tỉnh/TP
+                    title: '{!! z_language("Tỉnh/TP") !!}',//E Tỉnh/TP
                     type: 'text',
                     width:'200px',
                     key:"demo",
                 },
                 address:{
-                    title: 'Địa chỉ giao hàng',//F Địa chỉ giao hàng
+                    title: '{!! z_language("Địa chỉ giao hàng") !!}',//F Địa chỉ giao hàng
                     type: 'text',
                     width:'250px',
                     key:"demo",
                 },
                 fullname:{
-                    title: 'Họ tên người nhận',//G Họ tên người nhận
+                    title: '{!! z_language("Họ tên người nhận") !!}',//G Họ tên người nhận
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 product_id:{
-                    title: 'Mã SP',//H Mã SP
+                    title: '{!! z_language("Mã SP") !!}',//H Mã SP
                     type: 'text',
                     width:'100px',
                     read:true,
@@ -2947,7 +2947,7 @@
                     })(),
                 },
                 product_name:{
-                    title: 'Tên SP',//I Tên SP
+                    title: '{!! z_language("Tên SP") !!}',//I Tên SP
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
@@ -2962,7 +2962,7 @@
                     })()
                 },
                 count:{
-                    title: 'SL',//K SL
+                    title: '{!! z_language("SL") !!}',//K SL
                     type: 'text',
                     width:'100px',
                     multiple: true,
@@ -2982,25 +2982,25 @@
                     })()
                 },
                 total_count:{
-                    title: 'SL Tổng',//K SL Tổng
+                    title: '{!! z_language("SL Tổng") !!}',//K SL  title: '',//K SL Tổng
                     type: 'numeric',
                     width:'60px',
                     value:1,
                 },
                 price:{
-                    title: 'Giá nhập',//J Giá nhập
+                    title: '{!! z_language("Giá nhập") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy:{
-                    title: 'Giá bán',//J Giá nhập
+                    title: '{!! z_language("Giá bán") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_date:{
-                    title: 'Ngày nhận',//L Ngày nhận
+                    title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
@@ -3008,87 +3008,87 @@
 
                 },
                 order_hours:{
-                    title: 'Giờ nhận',//M Giờ nhận
+                    title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
                     width:'150px',
                 },
                 order_ship:{
-                    title: 'Phí ship',//N Phí ship
+                    title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_total_price:{
-                    title: 'Tổng giá nhập',//O Tổng giá nhập
+                    title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy_sale:{
-                    title: 'Tăng Giảm',//J Giá nhập
+                    title: '{!! z_language("Tăng Giảm") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
                 },
                 order_total_price_buy:{
-                    title: 'Total Bán',//P Giá bán
+                    title: '{!! z_language("Total Bán") !!}',//P Giá bán
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_ship_cou:{
-                    title: 'Phí giao hàng',//P Phí giao hàng
+                    title: '{!! z_language("Phí giao hàng") !!}',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_price:{
-                    title: 'Lợi nhuận',//P Lợi nhuận
+                    title: '{!! z_language("Lợi nhuận") !!}',//P Lợi nhuận
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_rate:{
-                    title: 'Lợi nhuận CTV',//P
+                    title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_tracking:{
-                    title: 'Mã tracking',//T Mã tracking
+                    title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 order_link:{
-                    title: 'Đường dẫn',//T Thông tin chuyển khoản
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                 },
                 order_info:{
-                    title: 'Thông tin chuyển khoản',//T Thông tin chuyển khoản
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 one_address: {
                     type: 'checkbox',
-                    title:'Cùng địa chỉ'
+                    title:'{!! z_language("Cùng địa chỉ") !!}'
                 },
                 id:{
-                    title: 'ID',//T
+                    title: '{!! z_language("ID") !!}ID',//T
                     type: 'text',
                     width:'100px',
                 },
                 session_id:{
-                    title: 'SessionId',//T
+                    title: '{!! z_language("SessionId") !!}',//T
                     type: 'text',
                     width:'1px',
                 },
                 export:{
-                    title: 'Export',//T
+                    title: '{!! z_language("Xuất") !!}',//T
                     type: 'checkbox',
                     width:'1px',
                 },
@@ -3847,14 +3847,14 @@
                     hide:true,
                 },
                 timeCreate:{
-                    title: 'Ngày đặt hàng',//A ngày đặt hàng
+                    title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
                     type: 'calendar',
                     width:'100px',
                     options: { format:'DD/MM/YYYY' },
                     value:['date','now']
                 },
                 payMethod:{
-                    title: 'Phương thức thanh toán',//B Phương thức thanh toán
+                    title: '{!! z_language("Phương thức thanh toán") !!}',//B Phương thức thanh toán
                     type:'dropdown',
                     source:[
                         "代金引換",
@@ -3865,44 +3865,44 @@
                     value:['product','this','source',0],
                 },
                 phone:{
-                    title: 'Số điện thoại',//C Số điện thoại
+                    title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
                     type: 'text',
                     width:'100px',
                     value:"070-1398-2234",
                 },
                 zipcode:{
-                    title: 'Mã bưu điện',//D Mã bưu điện
+                    title: '{!! z_language("Mã bưu điện") !!}',//D Mã bưu điện
                     type: 'text',
                     width:'60px',
                     key:"demo",
                 },
                 province:{
-                    title: 'Tỉnh/TP',//E Tỉnh/TP
+                    title: '{!! z_language("Tỉnh/TP") !!}',//E Tỉnh/TP
                     type: 'text',
                     width:'200px',
                     key:"demo",
                 },
                 address:{
-                    title: 'Địa chỉ giao hàng',//F Địa chỉ giao hàng
+                    title: '{!! z_language("Địa chỉ giao hàng") !!}',//F Địa chỉ giao hàng
                     type: 'text',
                     width:'250px',
                     key:"demo",
                 },
                 fullname:{
-                    title: 'Họ tên người nhận',//G Họ tên người nhận
+                    title: '{!! z_language("Họ tên người nhận") !!}',//G Họ tên người nhận
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 product_id:{
-                    title: 'Mã SP',//H Mã SP
+                    title: '{!! z_language("Mã SP") !!}',//H Mã SP
                     type: 'text',
                     width:'100px',
                     read:true,
                     value:['product','product_name','source',0,'id'],
                 },
                 product_name:{
-                    title: 'Tên SP',//I Tên SP
+                    title: '{!! z_language("Tên SP") !!}',//I Tên SP
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
@@ -3910,25 +3910,25 @@
                     value:['product','this','source',0,'id']
                 },
                 count:{
-                    title: 'SL',//K SL
+                    title: '{!! z_language("SL") !!}',//I Tên SP
                     type: 'numeric',
                     width:'100px',
                     value:1
                 },
                 price:{
-                    title: 'Giá nhập',//J Giá nhập
+                    title: '{!! z_language("Giá nhập") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy:{
-                    title: '単価',//J Giá nhập
+                    title: '{!! z_language("Giá bán") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_date:{
-                    title: 'Ngày nhận',//L Ngày nhận
+                    title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
@@ -3936,87 +3936,87 @@
 
                 },
                 order_hours:{
-                    title: 'Giờ nhận',//M Giờ nhận
+                    title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
                     width:'150px',
                 },
                 order_ship:{
-                    title: 'Phí ship',//N Phí ship
+                    title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_total_price:{
-                    title: 'Tổng giá nhập',//O Tổng giá nhập
+                    title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy_sale:{
-                    title: 'Tăng Giảm',//J Giá nhập
+                    title: '{!! z_language("Tăng Giảm") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:0,
                 },
                 order_total_price_buy:{
-                    title: 'Total Bán',//P Giá bán
+                    title: '{!! z_language("Total Bán") !!}',//P Giá bán
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_ship_cou:{
-                    title: 'Phí giao hàng',//P Phí giao hàng
+                    title: '{!! z_language("Phí giao hàng") !!}',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
                     value:330
                 },
                 order_price:{
-                    title: 'Lợi nhuận',//P Lợi nhuận
+                    title: '{!! z_language("Lợi nhuận") !!}',//P Lợi nhuận
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_rate:{
-                    title: 'Lợi nhuận CTV',//P
+                    title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_tracking:{
-                    title: 'Mã tracking',//T Mã tracking
+                    title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 order_link:{
-                    title: 'Đường dẫn',//T Thông tin chuyển khoản
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                 },
                 order_info:{
-                    title: 'Thông tin chuyển khoản',//T Thông tin chuyển khoản
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 one_address: {
                     type: 'checkbox',
-                    title:'Cùng địa chỉ'
+                    title:'{!! z_language("Cùng địa chỉ") !!}'
                 },
                 id:{
-                    title: 'ID',//T
+                    title: '{!! z_language("ID") !!}ID',//T
                     type: 'text',
                     width:'100px',
                 },
                 session_id:{
-                    title: 'SessionId',//T
+                    title: '{!! z_language("SessionId") !!}',//T
                     type: 'text',
                     width:'1px',
                 },
                 export:{
-                    title: 'Export',//T
+                    title: '{!! z_language("Xuất") !!}',//T
                     type: 'checkbox',
                     width:'1px',
                 },
@@ -4650,14 +4650,14 @@
                     hide:true,
                 },
                 timeCreate:{
-                    title: 'Ngày đặt hàng',//A ngày đặt hàng
+                    title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
                     type: 'calendar',
                     width:'90px',
                     options: { format:'DD/MM/YYYY' },
                     value:['date','now']
                 },
                 payMethod:{
-                    title: 'Phương thức thanh toán',//B
+                    title: '{!! z_language("Phương thức thanh toán") !!}',//B Phương thức thanh toán
                     type:'dropdown',
                     source:[
                         "代金引換",
@@ -4668,44 +4668,44 @@
                     value:['product','this','source',0],
                 },
                 phone:{
-                    title: 'Số điện thoại',//C
+                    title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
                     type: 'text',
                     width:'90px',
                     value:"070-1398-2234",
                 },
                 zipcode:{
-                    title: 'Mã bưu điện',//D
+                    title: '{!! z_language("Mã bưu điện") !!}',//D Mã bưu điện
                     type: 'text',
                     width:'60px',
                     key:"demo",
                 },
                 province:{
-                    title: 'Tỉnh/TP',//E
+                    title: '{!! z_language("Tỉnh/TP") !!}',//E Tỉnh/TP
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 address:{
-                    title: 'Địa chỉ giao hàng',//F
+                    title: '{!! z_language("Địa chỉ giao hàng") !!}',//F Địa chỉ giao hàng
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 fullname:{
-                    title: 'Họ tên người nhận',//G
+                    title: '{!! z_language("Họ tên người nhận") !!}',//G Họ tên người nhận
                     type: 'text',
                     width:'150px',
                     key:"demo",
                 },
                 product_id:{
-                    title: 'Mã SP',//H
+                    title: '{!! z_language("Mã SP") !!}',//H Mã SP
                     type: 'text',
                     width:'50px',
                     read:true,
                     value:['product','product_name','source',0,'id'],
                 },
                 product_name:{
-                    title: 'Tên SP',//I
+                    title: '{!! z_language("Tên SP") !!}',//I Tên SP
                     type:'dropdown',
                     source:Object.values(dropdown),
                     autocomplete:true,
@@ -4713,25 +4713,25 @@
                     value:['product','this','source',0,'id']
                 },
                 count:{
-                    title: 'SL',//K
+                    title: '{!! z_language("SL") !!}',//I Tên SP
                     type: 'numeric',
                     width:'50px',
                     value:1
                 },
                 price:{
-                    title: 'Giá nhập',//J
+                    title: '{!! z_language("Giá nhập") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'70px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy:{
-                    title: 'Giá bán',//J Giá nhập
+                    title: '{!! z_language("Giá bán") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'70px',
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_date:{
-                    title: 'Ngày nhận',//L
+                    title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
                     value:['date','now'],
@@ -4739,89 +4739,89 @@
 
                 },
                 order_hours:{
-                    title: 'Giờ nhận',//M
+                    title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
                     type: 'dropdown',
                     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
                     value:['product','this','source',4],
                     width:'100px',
                 },
                 order_ship:{
-                    title: 'Phí ship',//N
+                    title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'80px',
                     value:0
                 },
                 order_total_price:{
-                    title: 'Tổng giá nhập',//O
+                    title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price'],
                 },
                 price_buy_sale:{
-                    title: 'Tăng Giảm',//J Giá nhập
+                    title: '{!! z_language("Tăng Giảm") !!}',//J Giá nhập
                     type: 'numeric',
                     width:'80px',
                     value:0,
                 },
                 order_total_price_buy:{
-                    title: 'Total Bán',//P Giá bán
+                    title: '{!! z_language("Total Bán") !!}',//P Giá bán
                     type: 'numeric',
                     width:'100px',
                     value:['product','product_name','source',0,'data','price_buy'],
                 },
                 order_ship_cou:{
-                    title: 'Phí giao hàng',//P
+                    title: '{!! z_language("Phí giao hàng") !!}',//P Phí giao hàng
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
                 order_price:{
-                    title: 'Lợi nhuận',//P
+                    title: '{!! z_language("Lợi nhuận") !!}',//P Lợi nhuận
                     type: 'numeric',
                     width:'100px',
                     value:0
                 },
 
                 order_rate:{
-                    title: 'Lợi nhuận CTV',//P
+                    title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'80px',
                     value:0
                 },
                 order_tracking:{
-                    title: 'Mã tracking',//T
+                    title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 order_link:{
-                    title: 'Đường dẫn',//T
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                 },
                 order_info:{
-                    title: 'Thông tin chuyển khoản',//T Thông tin chuyển khoản
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
                     type: 'text',
                     width:'100px',
                     key:"demo",
                 },
                 one_address: {
                     type: 'checkbox',
-                    title:'Cùng địa chỉ',
+                    title:'{!! z_language("Cùng địa chỉ") !!}'
                     width:'30px',
                 },
                 id:{
-                    title: 'ID',//T
+                    title: '{!! z_language("ID") !!}ID',//T
                     type: 'text',
                     width:'100px',
                 },
                 session_id:{
-                    title: 'SessionId',//T
+                    title: '{!! z_language("SessionId") !!}',//T
                     type: 'text',
                     width:'1px',
                 },
                 export:{
-                    title: 'Export',//T
+                    title: '{!! z_language("Xuất") !!}',//T
                     type: 'checkbox',
                     width:'50px',
                 },
