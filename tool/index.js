@@ -235,7 +235,7 @@ async function JAPAN_POST(tracking){
 
                 for(let name in databaseData){
                     for(let index in databaseData[name]){
-                        conn.query('UPDATE `cms_shop_order_excel_tracking` SET `status` = \'2\' WHERE `id` = '+databaseData[name][index].id+';')
+                        conn.query('UPDATE `cms_shop_order_excel_tracking` SET `status` = \'2\',`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
                     }
                 }
                 databaseLock = {};
