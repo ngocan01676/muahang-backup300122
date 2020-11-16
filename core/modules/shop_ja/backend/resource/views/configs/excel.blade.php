@@ -41,7 +41,7 @@
                             <tr>
                                 @endif
                                 <td> <input type="text" name="excel_width.{!! $value->name !!}.{!! $val[0] !!}" value="{!! $val[1] !!}"> {!! z_language($val[2]) !!}</td>
-                                @if($i==5)
+                                @if($i==3)
                                     @php $i=0; $close = false; @endphp
                             </tr>
                             @endif
