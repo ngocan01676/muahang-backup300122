@@ -2112,50 +2112,50 @@
                                 table+="<tr>";
                                 // table+='<td>Mã</td>';
                                 // table+='<td>Phiên</td>';
-                                table+='<td>Người lập</td>';
-                                table+='<td>Ho Tên</td>';
-                                table+='<td>Địa chỉ</td>';
-                                table+='<td>Tỉnh</td>';
-                                table+='<td>Ngày tạo</td>';
-                                table+='<td>Số điện thoại</td>';
-                                table+='<td>Công ty</td>';
-                                table+='<td>Sản phẩm</td>';
+                                table+='<td>{!! z_language('Người lập') !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Ngày tạo") !!}</td>';
+                                table+='<td>{!! z_language("Số điện thoại") !!}</td>';
+                                table+='<td>{!! z_language("Công ty") !!}</td>';
+                                table+='<td>{!! z_language("Sản phẩm") !!}</td>';
 
-                                table+='<td>Trạng thái</td>';
-                                table+='<td>Xuất</td>';
-                                table+='<td>Đường dẫn</td>';
+                                table+='<td>{!! z_language("Trạng thái") !!}</td>';
+                                table+='<td>{!! z_language("Xuất") !!}</td>';
+                                table+='<td>{!! z_language("Đường dẫn") !!}</td>';
                                 table+="</tr>";
                                 for(let pos in info){
-                                for(let com in info[pos]){
-                                    if(com!=company) continue;
-                                    for(let index in info[pos][com]){
-                                        let val = info[pos][com][index];
-                                        table+="<tr>";
-                                        table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
-                                        table+='<td>'+val.fullname+'</td>';
-                                        table+='<td>'+val.address+'</td>';
-                                        table+='<td>'+val.province+'</td>';
-                                        table+='<td>'+val.order_create_date+'</td>';
-                                        table+='<td>'+val.phone+'</td>';
-                                        table+='<td>'+val.company+'</td>';
-                                        table+= "<td><table class=\"table table-bordered\">";
-                                        table+='<td>'+val.product_title+'</td>';
-                                        table+='<td>'+val.count+'</td>';
-                                        if(val.hasOwnProperty('items')){
+                                    for(let com in info[pos]){
+                                        if(com!=company) continue;
+                                        for(let index in info[pos][com]){
+                                            let val = info[pos][com][index];
+                                            table+="<tr>";
+                                            table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                            table+='<td>'+val.fullname+'</td>';
+                                            table+='<td>'+val.address+'</td>';
+                                            table+='<td>'+val.province+'</td>';
+                                            table+='<td>'+val.order_create_date+'</td>';
+                                            table+='<td>'+val.phone+'</td>';
+                                            table+='<td>'+val.company+'</td>';
+                                            table+= "<td><table class=\"table table-bordered\">";
+                                            table+='<td>'+val.product_title+'</td>';
+                                            table+='<td>'+val.count+'</td>';
+                                            if(val.hasOwnProperty('items')){
                                                 for(let _index in val.items){
                                                     table+="<tr>";
                                                     table+='<td>'+val.items[_index].product_title+'</td>';
                                                     table+='<td>'+val.items[_index].count+'</td>';
                                                     table+="</tr>";
                                                 }
+                                            }
+                                            table+="</table></td>";
+                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
+                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+val.order_link+'</td>';
+                                            table+="</tr>";
                                         }
-                                        table+="</table></td>";
-                                        table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                        table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
-                                        table+='<td>'+val.order_link+'</td>';
-                                        table+="</tr>";
                                     }
-                                }
                                 }
 
                                 table+="</table>";
@@ -3408,18 +3408,18 @@
                                 table+="<tr>";
                                 // table+='<td>Mã</td>';
                                 // table+='<td>Phiên</td>';
-                                table+='<td>Người lập</td>';
-                                table+='<td>Ho Tên</td>';
-                                table+='<td>Địa chỉ</td>';
-                                table+='<td>Tỉnh</td>';
-                                table+='<td>Ngày tạo</td>';
-                                table+='<td>Số điện thoại</td>';
-                                table+='<td>Công ty</td>';
-                                table+='<td>Sản phẩm</td>';
+                                table+='<td>{!! z_language('Người lập') !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Ngày tạo") !!}</td>';
+                                table+='<td>{!! z_language("Số điện thoại") !!}</td>';
+                                table+='<td>{!! z_language("Công ty") !!}</td>';
+                                table+='<td>{!! z_language("Sản phẩm") !!}</td>';
 
-                                table+='<td>Trạng thái</td>';
-                                table+='<td>Xuất</td>';
-                                table+='<td>Đường dẫn</td>';
+                                table+='<td>{!! z_language("Trạng thái") !!}</td>';
+                                table+='<td>{!! z_language("Xuất") !!}</td>';
+                                table+='<td>{!! z_language("Đường dẫn") !!}</td>';
                                 table+="</tr>";
                                 for(let pos in info){
                                     for(let com in info[pos]){
@@ -4226,18 +4226,18 @@
                                 table+="<tr>";
                                 // table+='<td>Mã</td>';
                                 // table+='<td>Phiên</td>';
-                                table+='<td>Người lập</td>';
-                                table+='<td>Ho Tên</td>';
-                                table+='<td>Địa chỉ</td>';
-                                table+='<td>Tỉnh</td>';
-                                table+='<td>Ngày tạo</td>';
-                                table+='<td>Số điện thoại</td>';
-                                table+='<td>Công ty</td>';
-                                table+='<td>Sản phẩm</td>';
+                                table+='<td>{!! z_language('Người lập') !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Ngày tạo") !!}</td>';
+                                table+='<td>{!! z_language("Số điện thoại") !!}</td>';
+                                table+='<td>{!! z_language("Công ty") !!}</td>';
+                                table+='<td>{!! z_language("Sản phẩm") !!}</td>';
 
-                                table+='<td>Trạng thái</td>';
-                                table+='<td>Xuất</td>';
-                                table+='<td>Đường dẫn</td>';
+                                table+='<td>{!! z_language("Trạng thái") !!}</td>';
+                                table+='<td>{!! z_language("Xuất") !!}</td>';
+                                table+='<td>{!! z_language("Đường dẫn") !!}</td>';
                                 table+="</tr>";
                                 for(let pos in info){
                                     for(let com in info[pos]){
@@ -5036,18 +5036,18 @@
                                 table+="<tr>";
                                 // table+='<td>Mã</td>';
                                 // table+='<td>Phiên</td>';
-                                table+='<td>Người lập</td>';
-                                table+='<td>Ho Tên</td>';
-                                table+='<td>Địa chỉ</td>';
-                                table+='<td>Tỉnh</td>';
-                                table+='<td>Ngày tạo</td>';
-                                table+='<td>Số điện thoại</td>';
-                                table+='<td>Công ty</td>';
-                                table+='<td>Sản phẩm</td>';
+                                table+='<td>{!! z_language('Người lập') !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Ngày tạo") !!}</td>';
+                                table+='<td>{!! z_language("Số điện thoại") !!}</td>';
+                                table+='<td>{!! z_language("Công ty") !!}</td>';
+                                table+='<td>{!! z_language("Sản phẩm") !!}</td>';
 
-                                table+='<td>Trạng thái</td>';
-                                table+='<td>Xuất</td>';
-                                table+='<td>Đường dẫn</td>';
+                                table+='<td>{!! z_language("Trạng thái") !!}</td>';
+                                table+='<td>{!! z_language("Xuất") !!}</td>';
+                                table+='<td>{!! z_language("Đường dẫn") !!}</td>';
                                 table+="</tr>";
                                 for(let pos in info){
                                     for(let com in info[pos]){
