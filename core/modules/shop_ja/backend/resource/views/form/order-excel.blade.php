@@ -507,7 +507,7 @@
                             else if(columns[i].value[1] === "nowSum"){
 
                                 let tmpDate =  moment(date.format("YYYY-MM-DD"));
-                    
+
                                 return [true,tmpDate.add(columns[i].value[2],'days').format("YYYY-MM-DD")+" 00:00:00"];
                             }
 
@@ -683,7 +683,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',3],
+                    value:['date','nowSum',2],
                     width:'100px',
 
                 },
@@ -1567,7 +1567,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',3],
+                    value:['date','nowSum',2],
                     width:'100px',
                     // row:"0",
                 },
@@ -3009,7 +3009,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',3],
+                    value:['date','nowSum',2],
                     width:'100px',
 
                 },
@@ -3937,7 +3937,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',3],
+                    value:['date','nowSum',2],
                     width:'100px',
 
                 },
@@ -4740,7 +4740,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',3],
+                    value:['date','nowSum',2],
                     width:'80px',
 
                 },
