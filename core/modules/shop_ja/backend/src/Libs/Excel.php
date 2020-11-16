@@ -925,26 +925,26 @@ class Excel{
         $date_nhan->date =  $this->date;
 
         $colums = [
-            ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d",$date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
-            ["支払区分",'payMethod',10,9],//B
-            ["配送先電話番号",'phone',10,9],//C
-            ["配送先郵便番号",'zipcode',9,9],//D
-            ["配送先都道府県",'province',14,9],//E
-            ["配送先住所",'address',18,9],//F
-            ["配送先氏名",'fullname',18,9],//G
-            ["品番",['product'=>['product_id','code']],10,9],//H
-            ["商品名",['product'=>['product_name','title']],18,9],//I
-            ["単価",'price',15,9],//J
-            ["数量",'count',15,9],//K
-            ["到着希望日",['callback'=>function($index,$date) use($date_nhan){return date("d/m/Y", $date_nhan->date);},'key'=>'order_date'],15,9],//L
-            ["配送希望時間帯",['callback'=>function($index,$value){return "8:00 ~ 12:00" == $value ?"午前中":$value;},'key'=>'order_hours'],15,9],//M
-            ["別途送料",'order_ship',15,9],//N
-            ["仕入金額",'order_total_price',15,9],//O
-            ["代引き請求金額",'order_total_price_buy',15,9],//P
-            ["代引き手数料",'order_ship_cou',15,9],//Q
-            ["紹介料",'order_price',15,9],//R
-            ["追跡番号",'order_tracking',15,9],//S
-            ["振込み情報",'order_info',25,9],//T
+            ["注文日",['callback'=>function($index,$date) use ($date_export){return date("d",$date_export->date).'日';},'key'=>'timeCreate'],3.29,9],//A
+            ["支払区分",'payMethod',6.57,9],//B
+            ["配送先電話番号",'phone',10.86,9],//C
+            ["配送先郵便番号",'zipcode',6.57,9],//D
+            ["配送先都道府県",'province',5.14,9],//E
+            ["配送先住所",'address',28.71,9],//F
+            ["配送先氏名",'fullname',14.71,9],//G
+            ["品番",['product'=>['product_id','code']],7,9],//H
+            ["商品名",['product'=>['product_name','title']],18.57,9],//I
+            ["単価",'price',4.57,9],//J
+            ["数量",'count',2.86,9],//K
+            ["到着希望日",['callback'=>function($index,$date) use($date_nhan){return date("d/m/Y", $date_nhan->date);},'key'=>'order_date'],9,9],//L
+            ["配送希望時間帯",['callback'=>function($index,$value){return "8:00 ~ 12:00" == $value ?"午前中":$value;},'key'=>'order_hours'],10,9],//M
+            ["別途送料",'order_ship',4.71,9],//N
+            ["仕入金額",'order_total_price',6.43,9],//O
+            ["代引き請求金額",'order_total_price_buy',8,9],//P
+            ["代引き手数料",'order_ship_cou',3.43,9],//Q
+            ["紹介料",'order_price',5.43,9],//R
+            ["追跡番号",'order_tracking',4.86,9],//S
+            ["振込み情報",'order_info',8.57,9],//T
 //            ["",'order_link',25,9],//U
         ];
         $start=3;
