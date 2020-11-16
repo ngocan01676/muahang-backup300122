@@ -501,10 +501,11 @@
                     //['date','this','options','format'],
                     self = columns[i];
                     if(self != null){
-
                         if(self.hasOwnProperty('options') && self.options.hasOwnProperty('format')){
-
+                            if(columns[i].value[1] === "now")
                             return [true,date.format("YYYY-MM-DD")+" 00:00:00"];
+                            else if(columns[i].value[1] === "nowSum")
+                            return [true,date.days(columns[i].value[2]).format("YYYY-MM-DD")+" 00:00:00"];
                         }
                     }
                 }
@@ -677,7 +678,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','now'],
+                    value:['date','nowSum',2],
                     width:'100px',
 
                 },
@@ -1561,7 +1562,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','now'],
+                    value:['date','nowSum',2],
                     width:'100px',
                     // row:"0",
                 },
@@ -3003,7 +3004,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','now'],
+                    value:['date','nowSum',2],
                     width:'100px',
 
                 },
@@ -3931,7 +3932,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','now'],
+                    value:['date','nowSum',2],
                     width:'100px',
 
                 },
@@ -4734,7 +4735,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','now'],
+                    value:['date','nowSum',2],
                     width:'80px',
 
                 },
