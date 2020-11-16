@@ -678,7 +678,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',2],
+                    value:['date','nowSum',3],
                     width:'100px',
 
                 },
@@ -1562,7 +1562,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',2],
+                    value:['date','nowSum',3],
                     width:'100px',
                     // row:"0",
                 },
@@ -3004,7 +3004,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',2],
+                    value:['date','nowSum',3],
                     width:'100px',
 
                 },
@@ -3932,7 +3932,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',2],
+                    value:['date','nowSum',3],
                     width:'100px',
 
                 },
@@ -4735,7 +4735,7 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',2],
+                    value:['date','nowSum',3],
                     width:'80px',
 
                 },
