@@ -4807,7 +4807,7 @@
                 },
                 one_address: {
                     type: 'checkbox',
-                    title:'{!! z_language("Cùng địa chỉ") !!}'
+                    title:'{!! z_language("Cùng địa chỉ") !!}',
                     width:'30px',
                 },
                 id:{
