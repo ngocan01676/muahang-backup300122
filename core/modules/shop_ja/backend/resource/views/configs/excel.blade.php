@@ -40,7 +40,7 @@
                             @php $close = true; @endphp
                             <tr>
                                 @endif
-                                <td> <input type="checkbox" name="excel.export.{!! $value->name !!}.{!! $val[0] !!}" value="1"> {!! z_language($val[2]) !!}</td>
+                                <td> <input type="text" name="excel_width.{!! $value->name !!}.{!! $val[0] !!}" value="{!! $val[1] !!}"> {!! z_language($val[2]) !!}</td>
                                 @if($i==5)
                                     @php $i=0; $close = false; @endphp
                             </tr>

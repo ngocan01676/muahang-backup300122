@@ -12,6 +12,7 @@ class Excel{
 
     ];
     public $date = 0;
+    public $config = [];
     public function __construct($date,$date_export)
     {
         $this->file = new \Illuminate\Filesystem\Filesystem();
@@ -22,7 +23,7 @@ class Excel{
         }else{
             $this->date_export =  strtotime($date_export);
         }
-
+        $this->config = config_get('config','shop_ja');
         $this->DataCol = [
             "FUKUI"=>[
                     ["支払区分",'payMethod',10,9],//A Phương thức thanh toán
@@ -296,7 +297,7 @@ class Excel{
     }
 
     public function FUKUI($datas){
-
+        $name = "FUKUI";
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->createSheet();
@@ -383,8 +384,10 @@ class Excel{
         $start=7;
         $sheet->getStyle('A'.$start.':'.PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).$start)->applyFromArray( $style_header );
         $nameColList = [];
+
         foreach($colums as $key=>$value){
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+            $keyCol = "";
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
                         'size' => 9,
@@ -396,13 +399,18 @@ class Excel{
                 if(isset($value[1]['product'])){
                     $conf = $value[1]['product'];
                     $nameColList[$conf[0]] = $key;
+                    $keyCol = $conf[0];
                 }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                     $nameColList[$value[1]['key']] = $key;
+                    $keyCol = $value[1]['key'];
                 }
             }else{
                 $nameColList[$value[1]] = $key;
+                $keyCol = $value[1];
             }
-            if($value[2] > 0){
+            if(isset($this->config["excel_width"][$name][$keyCol])){
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]);
+            }else if($value[2] > 0){
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
             }
         }
@@ -589,7 +597,7 @@ class Excel{
 
     }
     public function OHGA($datas){
-
+        $name = "OHGA";
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->createSheet();
@@ -676,6 +684,7 @@ class Excel{
         $nameColList = [];
         foreach($colums as $key=>$value){
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+            $keyCol = "";
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
                         'size'  => 9,
@@ -687,13 +696,18 @@ class Excel{
                 if(isset($value[1]['product'])){
                     $conf = $value[1]['product'];
                     $nameColList[$conf[0]] = $key;
+                    $keyCol = $conf[0];
                 }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                     $nameColList[$value[1]['key']] = $key;
+                    $keyCol = $value[1]['key'];
                 }
             }else{
                 $nameColList[$value[1]] = $key;
+                $keyCol = $value[1];
             }
-            if($value[2] > 0){
+            if(isset($this->config["excel_width"][$name][$keyCol])){
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]);
+            }else if($value[2] > 0){
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
             }
         }
@@ -1184,6 +1198,7 @@ class Excel{
 
     }
     public function KURICHIKU($datas){
+        $name = "KURICHIKU";
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->createSheet();
@@ -1314,15 +1329,19 @@ class Excel{
             $nameColList = [];
             foreach($colums as $key=>$value){
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                $keyCol = "";
                 if(is_array($value[1])){
                     if(isset($value[1]['product'])){
                         $conf = $value[1]['product'];
                         $nameColList[$conf[0]] = $key;
+                        $keyCol = $conf[0];
                     }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                         $nameColList[$value[1]['key']] = $key;
+                        $keyCol = $value[1]['key'];
                     }
                 }else{
                     $nameColList[$value[1]] = $key;
+                    $keyCol = $value[1];
                 }
                 $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                         'font'  => array(
@@ -1331,7 +1350,9 @@ class Excel{
                         ),
                     )
                 );
-                if($value[2] > 0){
+                if(isset($this->config["excel_width"][$name][$keyCol])){
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]);
+                }else if($value[2] > 0){
                     $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
                 }
 
@@ -1603,7 +1624,7 @@ class Excel{
 
     }
     public function KOGYJA($datas){
-
+        $name = "KOGYJA";
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->createSheet();
@@ -1680,18 +1701,23 @@ class Excel{
                 ["追跡番号",'order_tracking',15,9],
                 ["振込み情報",'order_info',25,9],
             ];
+
             $nameColList = [];
             foreach($colums as $key=>$value){
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+                $keyCol = "";
                 if(is_array($value[1])){
                     if(isset($value[1]['product'])){
                         $conf = $value[1]['product'];
                         $nameColList[$conf[0]] = $key;
+                        $keyCol = $conf[0];
                     }else if(isset($value[1]['callback']) && isset($value[1]['key'])){
                         $nameColList[$value[1]['key']] = $key;
+                        $keyCol = $value[1]['key'];
                     }
                 }else{
                     $nameColList[$value[1]] = $key;
+                    $keyCol = $value[1];
                 }
                 $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                         'font'  => array(
@@ -1699,12 +1725,12 @@ class Excel{
                         ),
                     )
                 );
-                if($value[2] > 0){
+                if(isset($this->config["excel_width"][$name][$keyCol])){
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]);
+                }else if($value[2] > 0){
                     $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
                 }
-
             }
-
             $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).$start)->applyFromArray( $style_header );
 //            $ship = 34;
 //            $datas = [];

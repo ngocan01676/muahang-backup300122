@@ -403,24 +403,17 @@
                                 'view' => 'shop_ja::configs.company',
                                 'label' => z_language('Công Ty'),
                             ],
+                            'excel_export' => [
+                                'view' => 'shop_ja::configs.excel',
+                                'label' => z_language('Excel Config'),
+                            ],
                         ],
                         'label' => z_language("Cửa hàng", false),
                         'data' => [
 
                         ]
                 ],
-                'shop_ja:excel' => [
-                    'view' => [
-                        'post' => [
-                            'view' => 'shop_ja::configs.excel',
-                            'label' => z_language('Excel Config'),
-                        ],
-                    ],
-                    'label' => z_language("Excel", false),
-                    'data' => [
 
-                    ]
-                ]
             ]
         ],
     ];
