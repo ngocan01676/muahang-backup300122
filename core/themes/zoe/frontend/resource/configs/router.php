@@ -3,27 +3,14 @@ return [
     'routers' => [
         'frontend' => [
             'home' => [
-                "namespace" => "Admin\Http\Controllers",
-                "controller" => "DashboardController",
-                "prefix" => "/admin",
-                "guard" => "backend",// pải login
-                "acl"=> "dashboard",
+                "namespace" => "ZoeTheme\Http\Controllers",
+                "controller" => "HomeController",
                 "router" => [
-                    "list" => [
+                    "lists" => [
                         "url" => "/",
+                        "guard" => "",
+                        "action"=>'getLists'
                     ],
-                    "media" => [
-                        "url" => "/media",
-                        "acl"=>"media"
-                    ],
-                    "router" => [
-                        "url" => "/router",
-                        "method" => ['post', 'get'],
-                    ],
-                    "option" => [
-                        "url" => "/option",
-                        "method" => ['post'],
-                    ]
                 ]
             ]
         ]
