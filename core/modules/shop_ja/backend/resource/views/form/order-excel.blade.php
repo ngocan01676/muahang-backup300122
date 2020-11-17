@@ -2824,13 +2824,14 @@
                     }
 
                     let $html = "<table  class='table table-bordered config_count'>";
-                    $html+="<tr><th>Mã</th><th>Tên</th><th>Tên</th><th>Số lượng</th></tr>";
+                    $html+="<tr><th>Vị trí</th><th>Mã</th><th>Tên</th><th>Tên</th><th>Số lượng</th></tr>";
 
 
                     for (let i in valsProduct){
                         if(dropdown.hasOwnProperty(valsProduct[i])){
                             let item = dropdown[valsProduct[i]];
                             $html+="<tr>";
+                            $html+="<td>"+item.data.order_index+"</td>";
                             $html+="<td>"+item.id+"</td>";
                             $html+="<td>"+item.name+"</td>";
                             $html+="<td>"+item.title+"</td>";
