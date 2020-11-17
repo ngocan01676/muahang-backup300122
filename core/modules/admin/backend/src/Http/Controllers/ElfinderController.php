@@ -101,7 +101,7 @@ class ElfinderController extends \Zoe\Http\ControllerBackend
         $permission = configs_get('Elfinder:permission');
 
 
-        $regpat = "~^".show_preg_match_1($directories,'/',$permission,auth()->user()->role_id).'$~x';
+        $regpat = "~^ ".show_preg_match_1($directories,'/',$permission,auth()->user()->role_id).'$~x';
 
         $access = function ($attr, $path, $data, $volume, $isDir, $relpath) use($regpat)
         {
