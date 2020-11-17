@@ -1187,7 +1187,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }
             $names[] = $category['name'];
 
-            $shop_products = DB::table('shop_product')->where('category_id',$category['id'])->orderBy('order_index',"DESC")->get()->all();
+            $shop_products = DB::table('shop_product')->where('category_id',$category['id'])->orderBy('order_index',"desc")->get()->all();
 
             $this->data['products'][$category['name']] = [];
             $lock =  DB::table('shop_order_excel_lock')->where('name',$category['name'])->limit(1)->orderBy('updated_at','desc')->get()->all();

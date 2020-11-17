@@ -2810,6 +2810,12 @@
                      oldData = (_jexcel.getValue(cellName2)).toString();
                     let valsProduct = (_jexcel.getValue(cellName1)).toString().split(";");
 
+                    valsProduct.sort(function(a, b){
+                        if(dropdown.hasOwnProperty(a)){
+                            return dropdown[a].data.order_index - dropdown[b].data.order_index;
+                        }
+                    });
+
                     let valsCount = {};
                     try{
                          valsCount = JSON.parse(oldData);
@@ -2819,6 +2825,8 @@
 
                     let $html = "<table  class='table table-bordered config_count'>";
                     $html+="<tr><th>Mã</th><th>Tên</th><th>Tên</th><th>Số lượng</th></tr>";
+
+
                     for (let i in valsProduct){
                         if(dropdown.hasOwnProperty(valsProduct[i])){
                             let item = dropdown[valsProduct[i]];
