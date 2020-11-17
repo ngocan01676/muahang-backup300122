@@ -1,6 +1,4 @@
 <?php
-echo preg_replace('/\s+/', ' ', );
-die;
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
