@@ -2812,7 +2812,7 @@
 
                     valsProduct.sort(function(a, b){
                         if(dropdown.hasOwnProperty(a)){
-                            return dropdown[a].data.order_index - dropdown[b].data.order_index;
+                            return dropdown[b].data.order_index - dropdown[a].data.order_index;
                         }
                     });
 
