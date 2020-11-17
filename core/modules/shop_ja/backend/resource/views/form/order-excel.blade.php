@@ -2824,7 +2824,7 @@
                     }
 
                     let $html = "<table  class='table table-bordered config_count'>";
-                    $html+="<tr><th>Tên</th><th>Tên</th><th>Số lượng</th><th>Tên</th><th>Tên</th><th>Số lượng</th></tr>";
+                    $html+="<tr><th>Tên</th><th>Tên</th><th>Số lượng</th><th colspan=3></th><th>Tên</th><th>Tên</th><th>Số lượng</th></tr>";
 
 
 
@@ -2841,6 +2841,7 @@
                             $html+="<td><input min=\"1\" max=\"10\" class=\"form-control count\" type='number' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:0)+"'></td>";
                             count++;
                             if(open === true && count === 2){
+                                $html+="<td colspan=3></td>";
                                 $html+="</tr>";
                                 open = false;
                                 count = 0;
