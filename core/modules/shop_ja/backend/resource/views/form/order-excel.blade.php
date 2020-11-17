@@ -2995,9 +2995,9 @@
                     })()
                 },
                 count:{
-                    title: '{!! z_language("SL") !!}',//K SL
+                    title: '{!! z_language("Loại thịt + SL") !!}',//K SL
                     type: 'text',
-                    width:'100px',
+                    width:'150px',
                     multiple: true,
                     value:(function () {
                         let _count = {};
