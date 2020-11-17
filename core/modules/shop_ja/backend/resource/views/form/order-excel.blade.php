@@ -2824,7 +2824,7 @@
                     }
 
                     let $html = "<table  class='table table-bordered config_count'>";
-                    $html+="<tr><th>Tên</th><th>Tên</th><th style='width: 80px;'>Số lượng</th><th></th><th></th><<th></th>th>Tên</th><th>Tên</th><th style='width: 80px;'>Số lượng</th></tr>";
+                    $html+="<tr><th>Tên</th><th>Tên</th><th style='width: 80px;'>Số lượng</th><th></th><th></th><<th></th><th>Tên</th><th>Tên</th><th style='width: 80px;'>Số lượng</th></tr>";
 
 
 
