@@ -10,7 +10,7 @@
 
         <a  onclick="open_edit('next');"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i>
-            {!! @z_language(["Đơn ngày :DATETIME",['DATETIME'=>date('d-m-Y',strtotime('+1 day',date('Y-m-d')))]]) !!}
+            {!! @z_language(["Đơn ngày :DATETIME",['DATETIME'=>date('d-m-Y',strtotime('+1 day'))]]) !!}
         </a>
 
         @btn_option(["config"=>['name'=>'module:shop_ja:order:excel']])
