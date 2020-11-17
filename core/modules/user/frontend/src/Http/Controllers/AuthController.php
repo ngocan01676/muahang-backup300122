@@ -58,7 +58,7 @@ class AuthController extends \Zoe\Http\ControllerFront
     }
     public function getLogin()
     {
-        return redirect(route('backend:dashboard'));
+        return redirect(route('backend:dashboard:list'));
         return $this->render('auth.login', [], 'user');
     }
     public function postRegister()
