@@ -2824,9 +2824,9 @@
                     }
 
                     let $html = "<table  class='table table-bordered config_count'>";
-                    $html+="<tr><th>Vị trí</th><th>Mã</th><th>Tên</th><th>Tên</th><th>Số lượng</th></tr>";
+                    $html+="<tr><th>Tên</th><th>Tên</th><th>Số lượng</th><th>Tên</th><th>Tên</th><th>Số lượng</th></tr>";
 
-                     
+
 
                     let open = false;
                     let count = 0;
