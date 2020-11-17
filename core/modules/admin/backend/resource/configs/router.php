@@ -198,6 +198,9 @@ return [
                     "ajax" => [
                         "url" => "/ajax", "method" => ['post'],
                     ],
+                    "action" => [
+                        "url" => "/action", "method" => ['post'],
+                    ],
                 ]
             ],
             'plugin' => [

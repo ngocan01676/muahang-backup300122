@@ -38,6 +38,20 @@ return [
             'category'=>[
                 'template'=>'category',
                 'name'=>false
+            ],
+            'media' => [
+                'view' => [
+                    'media_acl' => [
+                        'view' => 'backend::configs.media.premission',
+                        'label' => z_language('Permission'),
+                        'position'=>1,
+                        'save'=>0
+                    ],
+                ],
+                'label' => z_language("Media", false),
+                'data' => [
+
+                ],
             ]
         ]
     ],

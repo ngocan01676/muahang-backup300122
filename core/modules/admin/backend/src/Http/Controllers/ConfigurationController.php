@@ -15,12 +15,22 @@ class ConfigurationController extends \Zoe\Http\ControllerBackend
         return $this;
     }
 
+    public function action(Request $request){
+        $data = $request->all();
+        if(isset($data['act'])){
+            if($data['act'] == "save"){
+                config_set($data['name'],$data['selected'],['data'=>isset($data['data'])?$data['data']:[]]);
+                return response()->json($data);
+            }else if($data['act'] =="get"){
+                return response()->json(config_get($data['name'],$data['selected']));
+            }
+        }
+    }
     public function ajax(Request $request)
     {
         $datas = $request->all();
         config_set("config", $datas['key'], ['data' => $datas['data']]);
     }
-
     public function list(Request $request,$type = null)
     {
         $configs = app()->getConfig()->configs;

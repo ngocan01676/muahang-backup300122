@@ -923,3 +923,20 @@ function logs_sql(){
     }
     return $sqls;
 }
+function expand_directories_matrix($base_dir, $level = 0) {
+    $directories = array();
+    foreach(scandir($base_dir) as $file) {
+        if($file == '.' || $file == '..' || $file == '.quarantine' || $file ==".tmb") continue;
+        $dir = $base_dir.DIRECTORY_SEPARATOR.$file;
+        if(is_dir($dir)) {
+            $directories[]= array(
+                'level' => $level,
+                'name' => $file,
+                'dir' => $dir,
+                'path' => pathinfo($dir),
+                'children' => expand_directories_matrix($dir, $level +1)
+            );
+        }
+    }
+    return $directories;
+}

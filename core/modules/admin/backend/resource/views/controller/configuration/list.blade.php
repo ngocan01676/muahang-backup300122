@@ -31,7 +31,7 @@
                         $_config = config_get('config',$key);
                     @endphp
                     <div class="tab-pane @if($key == $active) active @endif clearfix" id="tab_{!! $key !!}">
-                        <form action="" data-key="{!! $key !!}">
+
                         @if(is_array($list['view']))
                             <!-- tabs -->
                                 <table class="table table-bordered">
@@ -40,10 +40,10 @@
                                             <div class="vertical-tab" role="tabpanel" style="width: 100%">
                                                 <!-- Nav tabs -->
                                                 <ul class="nav nav-tabs" role="tablist">
-                                                    @php $iactive = "post" @endphp
+                                                    @php $iactive = "" @endphp
                                                     @foreach($list['view'] as $_key=>$view)
                                                         <li role="presentation"
-                                                            @if($_key == $iactive) class="active" @endif>
+                                                            @if($iactive == "") @php $iactive =$_key  @endphp class="active" @endif>
                                                             <a href="#tab_{!! $key !!}_{!! $_key !!}"
                                                                aria-controls="home"
                                                                role="tab"
@@ -56,12 +56,14 @@
                                                     @foreach($list['view'] as $_key=>$view)
                                                         @php
                                                             $keyName = isset($view['name'])?$view['name']:$key;
-
+                                                            $keyNoSave = isset($view['save'])?$view['save']:1;
                                                         @endphp
-                                                        <div role="tabpanel"
+                                                        <div role="tabpanel" data-save="{!! $keyNoSave !!}"
                                                              class="tab-pane fade in @if($_key == $iactive) active @endif"
                                                              id="tab_{!! $key !!}_{!! $_key !!}">
+                                                            <form action="" data-key="{!! $key !!}.{!! $_key !!}">
                                                             @include($view['view'],['keyName'=>empty($keyName)?"":$keyName.".",'config'=>empty($keyName) || !isset($_config[$keyName])?$_config:$_config[$keyName],'key'=>$key."_".$_key,'option'=>$view])
+                                                            </form>
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -72,11 +74,12 @@
                             @else
                                 @php
                                     $keyName = isset($list['name'])?$list['name']:$key;
-
                                 @endphp
+                                <form action="" data-key="{!! $key !!}">
                                 @include($list['view'],['keyName'=>empty($keyName)?"":$keyName.".",'config'=>empty($keyName) || !isset($_config[$keyName])?$_config:$_config[$keyName],'key'=>$key,'option'=>$list])
+                                </form>
                             @endif
-                        </form>
+
                     </div>
                     @push('scripts')
                         <script>
@@ -89,10 +92,9 @@
         <!-- /.tab-content -->
     </div>
     <style>
-        #configWrap .table tr td div {
+        #configWrap .table tr td>div {
             padding: 0;
         }
-
         .tabs-left > .nav-tabs {
             border-bottom: 0;
         }
@@ -257,24 +259,29 @@
             let oke =  confirm('{!! z_language('Bạn muốn lưu') !!}');
 
             if(oke){
-                var form = $("#configWrap .active form");
-                var data = form.zoe_inputs('get');
-                console.log(data);
-                form.loading({circles: 3, overlay: true, width: "5em", top: "35%", left: "50%"});
+                var forms = $("#configWrap > .tab-content > .tab-pane.active").find('form');
+
+              //  forms.loading({circles: 3, overlay: true, width: "5em", top: "35%", left: "50%"});
+                let dataSave = {};
+                forms.each(function () {
+                    
+                   console.log($(this).html());
+                    var data = $(this).zoe_inputs('get');
+                    console.log(data);
+                });
                 $.ajax({
-                    type: 'POST',
+                type: 'POST',
                     url: '{!! route('backend:configuration:ajax') !!}',
                     data: {
-                        data: data,
-                        key: form.data('key')
+                    data: data,
+                    key: forms.data('key')
                     },
-                    success: function (data) {
+                 success: function (data) {
                         console.log(data);
                         form.loading({destroy: true});
                     }
                 });
             }
-
         }
     </script>
 @endpush
