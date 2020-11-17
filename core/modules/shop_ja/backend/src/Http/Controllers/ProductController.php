@@ -140,6 +140,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->status = $data['status'];
             $model->price_buy = $data['price_buy'];
             $model->type_excel = $data['type_excel'];
+            $model->order_index = isset($data['order_index'])?$data['order_index']:0;
             $model->save();
             $this->log('shop_js:product',$type,['id'=>$model->id]);
             $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));

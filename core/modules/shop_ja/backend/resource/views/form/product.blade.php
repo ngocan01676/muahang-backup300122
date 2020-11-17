@@ -81,6 +81,12 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        {!! Form::label('order_index', z_language('Vị trí'), ['class' => 'order_index']) !!}
+                                        {!! Form::text('order_index',null, ['class' => 'form-control','placeholder'=>z_language('Vị trí')]) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         {!! Form::label('unit', z_language('Đơn vị'), ['class' => 'unit']) !!} &nbsp;
                                         @php
                                             $lists_uint = config('shop_ja.configs.lists_uint');
