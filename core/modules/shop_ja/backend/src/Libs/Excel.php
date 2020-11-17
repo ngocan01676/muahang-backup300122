@@ -186,6 +186,7 @@ class Excel{
 
                     if(!empty($order_tracking)){
                         $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
+                        $fullname = preg_replace('/\s+/', ' ',$fullname );
                         if(!empty($fullname) && $fullname != "配送先氏名"){
                             $item = [
                                 'data'=>$datas[$i],
@@ -194,6 +195,7 @@ class Excel{
                             for($j = $i+1;$j<$count+$i; $j++){
 
                                 $_fullname = trim(rtrim($datas[$j][$nameColList['fullname']]));
+                                $_fullname =  preg_replace('/\s+/', ' ',$_fullname );
                                 if(strlen($_fullname)>0){
                                     break;
                                 }else{
@@ -231,10 +233,11 @@ class Excel{
 
                 foreach ($results as $key=>$value){
                     $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
-
+                    $fullname = preg_replace('/\s+/', ' ', $fullname);
+                    $address = preg_replace('/\s+/', '',trim(rtrim($value['data'][$nameColList['address']])));
                     $where = [
-                        'fullname'=> trim(rtrim($value['data'][$nameColList['fullname']])),
-                        'address'=> trim(rtrim($value['data'][$nameColList['address']])),
+                        'fullname'=> $fullname,
+                        'address'=> $address,
                         'company'=>$type,
                         'phone'=>trim(rtrim($value['data'][$nameColList['phone']])),
                         'zipcode'=>trim(rtrim($value['data'][$nameColList['zipcode']])),
@@ -366,10 +369,10 @@ class Excel{
             ["支払区分",'payMethod',10,9],//A Phương thức thanh toán
             ["到着希望日",'order_date1',15,9],//B ngày giao hàng
             ["配送希望時間帯",['callback'=>function($index,$value){return "8:00 ~ 12:00" == $value ?"午前中":$value;},'key'=>'order_hours'],15,9],//C Giờ nhận
-            ["配送先氏名",'fullname',18,9],//D Họ và tên khách hàng
+            ["配送先氏名",['callback'=>function($index,$value){return preg_replace('/\s+/', ' ',$value );},'key'=>'fullname'],18,9],//D Họ và tên khách hàng
             ["配送先郵便番号",'zipcode',9,9],// E Mã bưu điện
             ["配送先都道府県",'province',14,9], // F Tỉnh
-            ["配送先住所",'address',18,9], // G Địa chỉ giao hàng
+            ["配送先住所",['callback'=>function($index,$value){return preg_replace('/\s+/', '',$value );},'key'=>'address'],18,9], // G Địa chỉ giao hàng
             ["配送先電話番号",'phone1',10,9], // H Số điện thoại
             ["別途送料",'order_ship',15,9], //I Phí Ship
             ["紹介料",['callback'=>function($index,$value){return (int)$value+330;},'key'=>'order_price'],15,9],// Lợi nhuận J
@@ -663,8 +666,8 @@ class Excel{
             ["配送先電話番号",'phone',10,9],//C
             ["配送先郵便番号",'zipcode',9,9],//D
             ["配送先都道府県",'province',14,9],//E
-            ["配送先住所",'address',18,9],//F
-            ["配送先氏名",'fullname',18,9],//G
+            ["配送先住所",['callback'=>function($index,$value){return preg_replace('/\s+/', '',$value );},'key'=>'address'],18,9],//F
+            ["配送先氏名",['callback'=>function($index,$value){return preg_replace('/\s+/', ' ',$value );},'key'=>'fullname'],18,9],//G
             ["品番",['product'=>['product_id','code']],10,9],//H
             ["商品名",['product'=>['product_name','title']],18,9],//I
             ["単価",'price',15,9],//J
@@ -944,8 +947,8 @@ class Excel{
             ["配送先電話番号",'phone',10.86,9],//C
             ["配送先郵便番号",'zipcode',6.57,9],//D
             ["配送先都道府県",'province',5.14,9],//E
-            ["配送先住所",'address',28.71,9],//F
-            ["配送先氏名",'fullname',14.71,9],//G
+            ["配送先住所",['callback'=>function($index,$value){return preg_replace('/\s+/', '',$value );},'key'=>'address'],28.71,9],//F
+            ["配送先氏名",['callback'=>function($index,$value){return preg_replace('/\s+/', ' ',$value );},'key'=>'fullname'],14.71,9],//G
             ["品番",['product'=>['product_id','code']],7,9],//H
             ["商品名",['product'=>['product_name','title']],18.57,9],//I
             ["単価",'price',4.57,9],//J
@@ -1259,8 +1262,8 @@ class Excel{
                 ["配送先電話番号",'phone',10,9],//Số điện thoại
                 ["郵便番号",'zipcode',9,9],//Mã bưu điện
                 ["配送先都道府県",'province',14,9],//Tỉnh/TP
-                ["配送先住所",'address',18,9],//Địa chỉ giao hàng
-                ["配送先氏名",'fullname',18,9],//Họ tên người nhận
+                ["配送先住所",['callback'=>function($index,$value){return preg_replace('/\s+/', '',$value );},'key'=>'address'],18,9],//Địa chỉ giao hàng
+                ["配送先氏名",['callback'=>function($index,$value){return preg_replace('/\s+/', ' ',$value );},'key'=>'fullname'],18,9],//Họ tên người nhận
 //                ["品番",['callback'=>
 //                    function($index,$product_id,$a,$values) use($products,$columns_value){
 //                    try{
@@ -1687,8 +1690,8 @@ class Excel{
                 ["配送先電話番号",'phone',10,9],//Số điện thoại
                 ["郵便番号",'zipcode',9,9],//Mã bưu điện
                 ["配送先都道府県",'province',14,9],//Tỉnh/TP
-                ["配送先住所",'address',18,9],//Địa chỉ giao hàng
-                ["配送先氏名",'fullname',18,9],//Họ tên người nhận
+                ["配送先住所",['callback'=>function($index,$value){return preg_replace('/\s+/', '',$value );},'key'=>'address'],18,9],//Địa chỉ giao hàng
+                ["配送先氏名",['callback'=>function($index,$value){return preg_replace('/\s+/', ' ',$value );},'key'=>'fullname'],18,9],//Họ tên người nhận
                 ["品番",['product'=>['product_id','code']],10,9],//H
                 ["商品名",['product'=>['product_name','title']],18,9],//I
                 ["単価",'price',15,9],//Giá nhập
