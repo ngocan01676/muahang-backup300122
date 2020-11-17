@@ -83,7 +83,7 @@
     }
 
     .modal-content {
-        height: 99%;
+        /*height: 99%;*/
     }
 
 </style>
