@@ -3148,7 +3148,7 @@
                     if(_option.colums.hasOwnProperty(i)){
                         columns[i].width = "1px";
                     }
-                }else if(columnsWidth.hasOwnProperty(i)){
+                }else if(columnsWidth.hasOwnProperty(i) && i!="count"){
                     columns[i].width =columnsWidth[i].width;
                 }
             }
