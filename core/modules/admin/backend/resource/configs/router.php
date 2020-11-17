@@ -33,12 +33,15 @@ return [
             'elfinder' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "ElfinderController",
-                "sub_prefix" => "/elfinder",
+                "sub_prefix" => "/elfinder-".md5('ElfinderController'),
                 "guard" => "backend",// pải login
                 "acl"=>"dashboard:media",
                 "router" => [
                     "list" => [
                         "url" => "/",
+                    ],
+                    "permission" => [
+                        "url" => "/permission",
                     ],
                     "showConnector" => [
                         "url" => '/show-connector',
