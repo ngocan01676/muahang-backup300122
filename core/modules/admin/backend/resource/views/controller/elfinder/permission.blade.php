@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <form action="">
+                    <form action="" id="formData">
                         <div class="col-md-2">
                             <table class="table-bordered table">
                                 <tr>
@@ -113,6 +113,8 @@
                 r.push(data.instance.get_node(data.selected[i]).text);
             }
             console.log('Selected: ' + r.join(', '));
+            let dataForm = $("#formData").zoe_inputs('get');
+            console.log(dataForm);
         }).jstree(); });
     </script>
 @endpush
