@@ -2825,18 +2825,19 @@
 
                     let $html = "<table  class='table table-bordered config_count'>";
                     $html+="<tr><th>Vị trí</th><th>Mã</th><th>Tên</th><th>Tên</th><th>Số lượng</th></tr>";
-
-
+                    let open = false;
                     for (let i in valsProduct){
                         if(dropdown.hasOwnProperty(valsProduct[i])){
                             let item = dropdown[valsProduct[i]];
-                            $html+="<tr>";
-                            $html+="<td>"+item.data.order_index+"</td>";
-                            $html+="<td>"+item.id+"</td>";
+                            if(open === false && i%2 === 0){
+                                $html+="<tr>";open = true;
+                            }
                             $html+="<td>"+item.name+"</td>";
                             $html+="<td>"+item.title+"</td>";
                             $html+="<td><input min=\"1\" max=\"10\" class=\"form-control count\" type='number' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:0)+"'></td>";
-                            $html+="</tr>";
+                            if(open === true && i%3 === 1){
+                                $html+="</tr>";
+                            }
                         }
                     }
                     $html+= "<table>";
