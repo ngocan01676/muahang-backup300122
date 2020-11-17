@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{asset('module/admin/assets/jquery.growl/stylesheets/jquery.growl.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/jquery-confirm/dist/jquery-confirm.min.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/developer-tools/toolbar.css')}}">
+    <link rel="stylesheet" href="{{asset('module/admin/assets/loadmask/jquery.loadmask.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -498,8 +499,9 @@
 <!-- FastClick -->
 <script src="{{asset('module/admin/bower_components/fastclick/lib/fastclick.js')}}"></script>
 <script src="{{asset('module/admin/assets/bootpopup/bootpopup.js')}}"></script>
-<script src="{{asset('module/admin/assets/loadding/js/jquery-loading.js')}}"></script>
 
+<script src="{{asset('module/admin/assets/loadding/js/jquery-loading.js')}}"></script>
+<script src="{{asset('module/admin/assets/loadmask/jquery.loadmask.js')}}"></script>
 <script src="{{asset('module/admin/assets/jquery.growl/javascripts/jquery.growl.js')}}"></script>
 <script src="{{asset('module/admin/assets/notify.min.js')}}"></script>
 

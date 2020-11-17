@@ -59,7 +59,7 @@
                 // lookup succeeded
                 if (update) {
 
-                    console.log('setting value', keys.slice(0, i + 1).join('_'), lookup);
+
 
                     if ($input.is(':checkbox, :radio')) {
                         if ($.isArray(lookup)) {
@@ -155,15 +155,9 @@
                         // save last scope
                         last = {scope: scope, key: key};
                         // push new scope if necessary
-                        console.log('==Start== '+key);
-                        console.log(last);
-                        console.log(scope[key]);
                         if ( scope[key]  === undefined || scope[key] === null) {
                             scope[key] = {};
-                            console.log('scope[key]='+key);
                         }
-                        console.log(scope);
-                        console.log('==end==');
                         // descend into scope
                         scope = scope[key];
                         // push key

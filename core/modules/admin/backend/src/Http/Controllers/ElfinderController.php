@@ -166,7 +166,16 @@ EOP;
         }
         return $directories;
     }
-    public function permission(){
+    public function permission(Request $request){
+       $data = $request->all();
+       if(isset($data['act'])){
+            if($data['act'] == "save"){
+                config_set('Elfinder:permission',$data['selected'],['data'=>isset($data['data'])?$data['data']:[]]);
+                return response()->json($data);
+            }else if($data['act'] =="get"){
+                return response()->json(config_get('Elfinder:permission',$data['selected']));
+            }
+       }
        $this->layout = 'backend::layout.layout';
        $_directories =  $this->expandDirectoriesMatrix( base_path('public/uploads'));
        $roles = DB::table('role')->get()->all();

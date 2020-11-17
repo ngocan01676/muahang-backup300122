@@ -47,56 +47,57 @@
                             </table>
                         </div>
                         <div class="col-md-5">
-                            <table class="table-bordered table">
-                                <tr>
-                                    <th colspan="5" class="text-center">{!! z_language("Role") !!}</th>
-                                </tr>
-                                <tr>
-                                    <th class="text-center">{!! z_language('Name') !!}</th>
-                                    <th class="text-center">{!! z_language('All') !!}</th>
-                                    <th class="text-center">{!! z_language('Read') !!}</th>
-                                    <th class="text-center">{!! z_language('Write') !!}</th>
-                                    <th class="text-center">{!! z_language('No') !!}</th>
-                                </tr>
-                                @foreach($roles as $role)
+                            <table class="table-bordered table role">
+                                <thead>
                                     <tr>
-                                        <td class="text-center">{!! $role->name !!}</td>
-                                        <td class="text-center"><input type="checkbox" value="1" name="role.all[{!! $role->name !!}]"></td>
-                                        <td class="text-center"><input type="checkbox" value="1" name="role.read[{!! $role->name !!}]"></td>
-                                        <td class="text-center"><input type="checkbox" value="1" name="role.write[{!! $role->name !!}]"></td>
-                                        <td class="text-center"><input type="checkbox" value="1" name="role.status[{!! $role->name !!}]"></td>
+                                        <th colspan="5" class="text-center">{!! z_language("Role") !!}</th>
                                     </tr>
-                                @endforeach
+                                    <tr>
+                                        <th class="text-center">{!! z_language('Name') !!}</th>
+                                        <th class="text-center">{!! z_language('Read') !!} <input type="checkbox" value="1" onchange="change(this)"></th>
+                                        <th class="text-center">{!! z_language('Write') !!} <input type="checkbox" value="2" onchange="change(this)"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($roles as $role)
+                                        <tr>
+                                            <td class="text-center">{!! $role->name !!}</td>
+                                            <td class="text-center"><input type="checkbox" value="1" name="role.read[{!! $role->name !!}]"></td>
+                                            <td class="text-center"><input type="checkbox" value="2" name="role.write[{!! $role->name !!}]"></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+
                             </table>
                         </div>
                         <div class="col-md-5">
-                            <table class="table-bordered table">
-                                <tr>
-                                    <th class="text-center" colspan="5">{!! z_language("User") !!}</th>
-                                </tr>
-                                <tr>
-                                    <th class="text-center">{!! z_language('Name') !!}</th>
-                                    <th class="text-center">{!! z_language('All') !!}</th>
-                                    <th class="text-center">{!! z_language('Read') !!}</th>
-                                    <th class="text-center">{!! z_language('Write') !!}</th>
-                                    <th class="text-center">{!! z_language('No') !!}</th>
-                                </tr>
+                            <table class="table-bordered table user">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" colspan="5">{!! z_language("User") !!}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">{!! z_language('Name') !!}</th>
+                                        <th class="text-center">{!! z_language('Read') !!} <input type="checkbox"  value="1" onchange="change(this)"></th>
+                                        <th class="text-center">{!! z_language('Write') !!} <input type="checkbox"  value="2" onchange="change(this)"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 @foreach($admins as $admin)
                                     <tr>
                                         <td class="text-center">{!! $admin->username !!}</td>
-                                        <td class="text-center"><input type="checkbox" value="1" name="admin.all[{!! $admin->username !!}]"></td>
                                         <td class="text-center"><input type="checkbox" value="1" name="admin.read[{!! $admin->username !!}]"></td>
-                                        <td class="text-center"><input type="checkbox" value="1" name="admin.write[{!! $admin->username !!}]"></td>
-                                        <td class="text-center"><input type="checkbox" value="1" name="admin.status[{!! $admin->username !!}]"></td>
+                                        <td class="text-center"><input type="checkbox" value="2" name="admin.write[{!! $admin->username !!}]"></td>
                                     </tr>
                                 @endforeach
+                                </tbody>
                             </table>
                         </div>
                     </form>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    Footer
+                    <button class="btn btn-sm btn-primary pull-right" onclick="SaveAction()"> <i class="fa fa-save"></i> {!! z_language("Save") !!}</button>
                 </div>
                 <!-- /.box-footer-->
             </div>
@@ -104,18 +105,70 @@
     </div>
 @endsection
 @push('scripts')
+    <style>
+        .user,.role{
+            opacity: 0.3;
+        }
+        .user.selected,.role.selected{
+            opacity: 1;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
     <script>
-        $(function () { $('#main').on('changed.jstree', function (e, data) {
-            var i, j, r = [];
-            for(i = 0, j = data.selected.length; i < j; i++) {
-                r.push(data.instance.get_node(data.selected[i]).text);
+        let selected = null;
+
+        function change(self){
+            let status = $(self).is(":checked");
+            let val = $(self).val();
+
+            $(self).closest('.table').find('tbody tr input[value="'+val+'"]').each(function () {
+                $(this).prop('checked',status);
+            });
+            console.log();
+            console.log(val);
+            console.log(status);
+            if(status){
+
             }
-            console.log('Selected: ' + r.join(', '));
+        }
+        $(function () {
+            $('#main').on('changed.jstree', function (e, data) {
+                var i, j, r = [];
+                for(i = 0, j = data.selected.length; i < j; i++) {
+                    r.push(data.instance.get_node(data.selected[i]).text);
+                }
+                if(r.length > 0){
+                    $(".user,.role").mask("{!! z_language('Waiting...') !!}");
+                    selected = r[0];
+                    console.log('selected:'+selected);
+                    $('#formData input:checkbox').each(function () {
+                        $(this).prop('checked',false);
+                    });
+                    $.ajax({
+                        type: "POST",
+                        data: {"act": "get", selected:selected},
+                        success: function (data) {
+                            $("#formData").zoe_inputs('set',data);
+                            $(".user,.role").addClass('selected');
+                            $(".user,.role").unmask();
+                        }
+                    });
+                }
+            }).jstree();
+        });
+        function SaveAction() {
+            console.log(selected);
             let dataForm = $("#formData").zoe_inputs('get');
             console.log(dataForm);
-        }).jstree(); });
+            $.ajax({
+                type: "POST",
+                data: {"act": "save", data: dataForm,selected:selected},
+                success: function (data) {
+
+                }
+            });
+        }
     </script>
 @endpush
 

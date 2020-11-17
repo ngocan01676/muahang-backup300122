@@ -41,7 +41,7 @@ return [
                         "url" => "/",
                     ],
                     "permission" => [
-                        "url" => "/permission",
+                        "url" => "/permission", "method" => ['get', 'post'],
                     ],
                     "showConnector" => [
                         "url" => '/show-connector',
