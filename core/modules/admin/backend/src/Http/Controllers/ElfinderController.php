@@ -19,56 +19,89 @@ class ElfinderController extends \Zoe\Http\ControllerBackend
     {
         return $this->render('elfinder.tinymce4', ['dir' => 'module/admin/assets/elfinder', 'locale' => app()->getLocale()]);
     }
+    function show_preg_match($list, $path = '',$permission,$role){
+        $html = "";
+        $_path = $path;
+        foreach ($list as $directory){
+            $__path = $_path.$directory['name'].'/';
+            if(isset($permission[$__path]['role']['read'][$role])){
+                $html.= $directory['name']."(/";
+
+                if(count($directory['children'])){
+                    if($directory['level'] < 2){
+                        $html.="|/([^/]+|";
+                        $html.=$this->show_preg_match($directory['children'], $__path,$permission,$role);
+                        $html = trim($html,"|");
+                        $html.=")";
+                    }else{
+                        $html.='|/.+';
+                    }
+                }else{
+                    $html.='|/.+';
+                }
+                $html.=")|";
+            }else if(isset($permission[$__path]['role']['all'][$role])){
+                $html.= $directory['name']."(\/|\/.+)";
+            }
+        }
+        return trim($html,"|");
+    }
     public function showConnector()
     {
-            $regpat = <<<'EOP'
-~^
-    /
-    |
-    Documents(
-        /   # directory
-        |
-        /.+ # all of items
-    )
-    |
-    Pictures(
-        /   # directory
-        |
-        /
-        (
-            [^/]+   # files
-            |
-            Events  # Pictures/Events
-            (
-                /   # directory
-                |
-                /[^/]+   # files
-                |
-                /
-                (
-                    (
-                        School  # Pictures/Events/School
-                        |
-                        Others  # Pictures/Events/Others
-                    )
-                    (
-                        /   # directory
-                        |
-                        /[^/]+   # files
-                    )
-                )
-            )
-            |
-            Design  # Pictures/Design
-            (
-                /   # directory
-                |
-                /.+   # all of items
-            )
-        )
-    )
-$~x
-EOP;
+        $directories =  expand_directories_matrix( base_path('public/uploads'));
+
+//            $regpat = <<<'EOP'
+//~^
+//    /
+//    |
+//    Documents(
+//        /   # directory
+//        |
+//        /.+ # all of items
+//    )
+//    |
+//    Pictures(
+//        /   # directory
+//        |
+//        /
+//        (
+//            [^/]+   # files
+//            |
+//            Events  # Pictures/Events
+//            (
+//                /   # directory
+//                |
+//                /[^/]+   # files
+//                |
+//                /
+//                (
+//                    (
+//                        School  # Pictures/Events/School
+//                        |
+//                        Others  # Pictures/Events/Others
+//                    )
+//                    (
+//                        /   # directory
+//                        |
+//                        /[^/]+   # files
+//                    )
+//                )
+//            )
+//            |
+//            Design  # Pictures/Design
+//            (
+//                /   # directory
+//                |
+//                /.+   # all of items
+//            )
+//        )
+//    )
+//$~x
+//EOP;
+        $permission = configs_get('Elfinder:permission');
+
+
+        $regpat = "~^".show_preg_match_1($directories,'/',$permission,auth()->user()->role_id).'$~x';
 
         $access = function ($attr, $path, $data, $volume, $isDir, $relpath) use($regpat)
         {

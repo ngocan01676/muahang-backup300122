@@ -416,7 +416,17 @@ function render_attr($option,$model){
     }
     return "<".$tag.$attr.">".$html."</".$tag.">";
 }
-function config_get($type, $name, $default = [])
+function configs_get($type,$default = []){
+    $results = DB::table('config')->where(['type' => $type])->get()->all();
+    if (!$results) return $default;
+    $data = [];
+    foreach ($results as $k=>$v){
+        $rs = unserialize($v->data);
+        $data[$v->name] = isset($rs['data']) ? $rs['data'] : $default;
+    }
+    return $data;
+}
+function config_get($type, $name = "", $default = [])
 {
     $rs = DB::table('config')->where(['type' => $type, 'name' => $name])->first();
     if (!$rs) return $default;
@@ -939,4 +949,67 @@ function expand_directories_matrix($base_dir, $level = 0) {
         }
     }
     return $directories;
+}
+function show_preg_match($list, $path = '',$permission,$role){
+    $html = "";
+    $_path = $path;
+    foreach ($list as $directory){
+        $__path = $_path.$directory['name'].'/';
+        if(isset($permission[$__path]['role']['premission'][$role])){
+
+            if($permission[$__path]['role']['premission'][$role] == "0"){
+                $html.= $directory['name']."(\/|\/.+)";
+            }else{
+                $html.= $directory['name']."(/|";
+                if(count($directory['children']) && ($permission[$__path]['role']['premission'][$role] == "1" || $permission[$__path]['role']['premission'][$role] == "3")){
+                    if($directory['level'] < 2){
+                        $html.="/([^/]+|";
+                        $html.=show_preg_match($directory['children'], $__path,$permission,$role);
+                        $html = trim($html,"|");
+                        $html.=")";
+                    }else{
+                        $html.='/.+';
+                    }
+                }else{
+                    if($permission[$__path]['role']['premission'][$role] == "2" || $permission[$__path]['role']['premission'][$role] == "3")
+                        $html.='/.+';
+                }
+                $html.=")|";
+            }
+        }
+    }
+    return trim($html,"|");
+}
+function show_preg_match_1($list, $path = '',$permission,$role){
+    $html = "";
+    $_path = $path;
+    foreach ($list as $directory){
+        $__path = $_path.$directory['name'].'/';
+        if(isset($permission[$__path]['role']['premission'][$role]) && $permission[$__path]['role']['premission'][$role] > 0){
+            if($permission[$__path]['role']['premission'][$role] != 4){
+                $html.= $directory['name']."(/";
+                if($permission[$__path]['role']['premission'][$role] == 1){
+                    $html.="|/([^/]+";$html.=")";
+                }else{
+                    if(count($directory['children'])){
+                        if($directory['level'] < 2){
+                            $html.="|/([^/]+|";
+                            $html.=show_preg_match_1($directory['children'], $__path,$permission,$role);
+                            $html = trim($html,"|");
+                            $html.=")";
+                        }else{
+                            $html.='|/.+';
+                        }
+                    }else{
+                        $html.='|/.+';
+                    }
+                }
+                $html.=")|";
+            }
+            else {
+                $html.= $directory['name']."(\/|\/.+)";
+            }
+        }
+    }
+    return trim($html,"|");
 }

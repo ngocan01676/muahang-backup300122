@@ -5,6 +5,11 @@
         <button type="button" onclick="Save()" class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
     </h1>
 @endsection
+@push('scriptsTop')
+    <script>
+        let Events = {};
+    </script>
+@endpush()
 @section('content')
     <div id="configWrap" class="nav-tabs-custom clearfix">
         @if($active == 'system')
@@ -30,8 +35,7 @@
                     @php
                         $_config = config_get('config',$key);
                     @endphp
-                    <div class="tab-pane @if($key == $active) active @endif clearfix" id="tab_{!! $key !!}">
-
+                    <div data-key="{!! $key !!}" class="tab-pane @if($key == $active) active @endif clearfix" id="tab_{!! $key !!}">
                         @if(is_array($list['view']))
                             <!-- tabs -->
                                 <table class="table table-bordered">
@@ -51,19 +55,32 @@
                                                         </li>
                                                     @endforeach
                                                 </ul>
+                                                @push('scriptsTop')
+                                                    <script>Events['{!! $key !!}'] = [];</script>
+                                                @endpush
                                                 <!-- Tab panes -->
                                                 <div class="tab-content tabs">
                                                     @foreach($list['view'] as $_key=>$view)
                                                         @php
-                                                            $keyName = isset($view['name'])?$view['name']:$key;
+                                                            $keyName = isset($view['key'])?$view['key']:$_key;
                                                             $keyNoSave = isset($view['save'])?$view['save']:1;
+                                                            $keyForm = "form_".md5($key.'-'.$keyName.'-'.rand(0,100));
                                                         @endphp
                                                         <div role="tabpanel" data-save="{!! $keyNoSave !!}"
                                                              class="tab-pane fade in @if($_key == $iactive) active @endif"
                                                              id="tab_{!! $key !!}_{!! $_key !!}">
-                                                            <form action="" data-key="{!! $key !!}.{!! $_key !!}">
-                                                            @include($view['view'],['keyName'=>empty($keyName)?"":$keyName.".",'config'=>empty($keyName) || !isset($_config[$keyName])?$_config:$_config[$keyName],'key'=>$key."_".$_key,'option'=>$view])
-                                                            </form>
+                                                            @if($keyNoSave == 1)
+                                                                <form class="formData" id="{!! $keyForm !!}" action="" data-key="{!! $keyName !!}">
+                                                                    @include($view['view'],['keyName'=>empty($keyName)?"":$keyName.".",'config'=>empty($keyName) || !isset($_config[$keyName])?$_config:$_config[$keyName],'key'=>$key."_".$_key,'option'=>$view])
+                                                                </form>
+                                                                @push('scripts')
+                                                                    <script>
+                                                                        $("#{!! $keyForm !!}").zoe_inputs('set', @json(isset($_config[$keyName])?$_config[$keyName]:[]));
+                                                                    </script>
+                                                                @endpush
+                                                            @else
+                                                                @include($view['view'],['keyName'=>empty($keyName)?"":$keyName.".",'config'=>empty($keyName) || !isset($_config[$keyName])?$_config:$_config[$keyName],'key'=>$key."_".$_key,'option'=>$view])
+                                                            @endif
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -73,19 +90,27 @@
                                 </table>
                             @else
                                 @php
-                                    $keyName = isset($list['name'])?$list['name']:$key;
+                                    $keyName = isset($list['key'])?$list['key']:$key;
+                                    $keyForm = "form_".md5($key.'-'.$keyName.'-'.rand(0,100));
                                 @endphp
-                                <form action="" data-key="{!! $key !!}">
-                                @include($list['view'],['keyName'=>empty($keyName)?"":$keyName.".",'config'=>empty($keyName) || !isset($_config[$keyName])?$_config:$_config[$keyName],'key'=>$key,'option'=>$list])
+                                <form class="formData" id="{!! $keyForm !!}" action="" data-key="{!! $keyName !!}">
+                                    @include($list['view'],['keyName'=>empty($keyName)?"":$keyName.".",'config'=>empty($keyName) || !isset($_config[$keyName])?$_config:$_config[$keyName],'key'=>$key,'option'=>$list])
                                 </form>
+                                @push('scriptsTop')
+                                    <script>
+                                        Events['{!! $key !!}'] = [];
+                                    </script>
+                                @endpush
+                                @push('scripts')
+                                    <script>
+                                        Events['{!! $key !!}'] = [];
+                                        $("#{!! $keyForm !!}").zoe_inputs('set', @json(isset($_config[$keyName])?$_config[$keyName]:[]));
+                                    </script>
+                                @endpush
                             @endif
 
                     </div>
-                    @push('scripts')
-                        <script>
-                            $("#tab_{!! $key !!} form").zoe_inputs('set', @json($_config));
-                        </script>
-                    @endpush
+
                 @endif
             @endforeach
         </div>
@@ -251,36 +276,48 @@
         }
     </style>
 @endsection
+
 @push('scripts')
     <script>
-
         function Save() {
-
             let oke =  confirm('{!! z_language('Bạn muốn lưu') !!}');
-
             if(oke){
-                var forms = $("#configWrap > .tab-content > .tab-pane.active").find('form');
+                let parent = $("#configWrap > .tab-content > .tab-pane.active");
+                let keyParent = parent.attr('data-key');
+                let forms = parent.find('form.formData');
+                let _event = Events.hasOwnProperty(keyParent)?Events[keyParent]:[];
 
-              //  forms.loading({circles: 3, overlay: true, width: "5em", top: "35%", left: "50%"});
-                let dataSave = {};
+
+                let datas = {};
+                let PromiseData = [];
                 forms.each(function () {
-                    
-                   console.log($(this).html());
                     var data = $(this).zoe_inputs('get');
                     console.log(data);
+                    let key = $(this).attr('data-key');
+                    datas[key] = data;
                 });
-                $.ajax({
-                type: 'POST',
-                    url: '{!! route('backend:configuration:ajax') !!}',
-                    data: {
-                    data: data,
-                    key: forms.data('key')
-                    },
-                 success: function (data) {
-                        console.log(data);
-                        form.loading({destroy: true});
-                    }
-                });
+                for(let i in _event){
+                    PromiseData.push(_event[i].call(datas));
+                }
+                Promise.all(PromiseData).then(function (t) {
+                    console.log(t);
+                    if(forms.length === 0) return;
+                    $.ajax({
+                        type: 'POST',
+                        url: '{!! route('backend:configuration:ajax') !!}',
+                        data: {
+                            data: datas,
+                            key: keyParent
+                        },
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    });
+                }).catch(function (t) {
+
+                })
+
+
             }
         }
     </script>

@@ -1,4 +1,3 @@
-
 <table class="table table-bordered">
     <tbody>
     <tr class="text-center">
@@ -7,7 +6,7 @@
         </th>
         <td>
             <div class="col-md-6 col-xs-12">
-                <input type="text" class="form-control" name="core.site_name">
+                <input type="text" class="form-control" name="site_name">
             </div>
         </td>
     </tr>
@@ -20,7 +19,7 @@
                 @if(isset($config['core']['logo']))
                 <div style="padding: 5px"> <img src="{!! $config['core']['logo'] !!}" class="img-thumbnail img-responsive img-rounded"></div>
                 @endif
-                <input type="text" class="form-control" name="core.logo">
+                <input type="text" class="form-control" name="logo">
             </div>
         </td>
     </tr>
@@ -30,7 +29,7 @@
         </th>
         <td>
             <div class="col-md-6 col-xs-12">
-                <select name="core.time_zone" id="time_zone" class="form-control">
+                <select name="time_zone" id="time_zone" class="form-control">
                     <option value="Africa/Abidjan">Africa/Abidjan</option>
                     <option value="Africa/Accra">Africa/Accra</option>
                     <option value="Africa/Addis_Ababa">Africa/Addis_Ababa</option>
@@ -459,7 +458,7 @@
                         'm-d-Y','j-m-Y','d-m-Y','d.m.Y','Y-m-d','Y.m.d','m-j-y','j-m-y','M d Y'
                     ];
                 @endphp
-                <select class="form-control" name="core.short_date" id="core-short_date">
+                <select class="form-control" name="short_date" id="core-short_date">
                     @foreach($short_dates as $short_date)
                         <option value="{!! $short_date !!}">{!! date($short_date); !!} ({!! $short_date !!})</option>
                     @endforeach
@@ -482,7 +481,7 @@
                         'l, d.m. F',
                     ];
                 @endphp
-                <select class="form-control" name="core.long_date" id="long_date">
+                <select class="form-control" name="long_date" id="long_date">
                     @foreach($long_dates as $long_date)
                         <option value="{!! $long_date !!}">{!! date($long_date); !!} ({!! $long_date !!})</option>
                     @endforeach
@@ -495,7 +494,7 @@
         <td>
             <div class="col-md-6 col-xs-12">
                 @php $languages = config('zoe.language');@endphp
-                <select class="form-control" name="core.site_language" id="site_language">
+                <select class="form-control" name="site_language" id="site_language">
 
                     @foreach($languages as $language)
                         <option value="{!! $language['lang'] !!}">{!! $language['label']; !!}</option>
@@ -508,7 +507,7 @@
         <th><label for="site_meta_keywords" class="control-label">Site meta keywords</label></th>
         <td>
             <div class="col-xs-12">
-                <input type="text" id="site_meta_keywords" class="form-control" name="core.site_meta_keywords">
+                <input type="text" id="site_meta_keywords" class="form-control" name="site_meta_keywords">
             </div>
         </td>
     </tr>
@@ -517,7 +516,7 @@
         <th><label for="site_meta_description" class="control-label">Site meta description</label></th>
         <td>
             <div class="col-xs-12">
-                <textarea id="site_meta_description" class="form-control" name="core.site_meta_description"
+                <textarea id="site_meta_description" class="form-control" name="site_meta_description"
                           style="height: 10em;"></textarea>
             </div>
         </td>
@@ -526,16 +525,16 @@
         <th><label for="site_meta_description" class="control-label">Google analytics</label></th>
         <td>
             <div class="col-xs-12">
-                <textarea id="google_analytics" class="form-control" name="core.google_analytics"
+                <textarea id="google_analytics" class="form-control" name="google_analytics"
                           style="height: 10em;"></textarea>
             </div>
         </td>
     </tr>
     <tr>
-        <th><label for="site_meta_description" class="control-label">Google site verification</label></th>
+        <th><label for="google_site_verification" class="control-label">Google site verification</label></th>
         <td>
             <div class="col-xs-12">
-                <input type="text" id="site_meta_keywords" class="form-control" name="core.google_site_verification">
+                <input type="text" id="google_site_verification" class="form-control" name="google_site_verification">
             </div>
         </td>
     </tr>

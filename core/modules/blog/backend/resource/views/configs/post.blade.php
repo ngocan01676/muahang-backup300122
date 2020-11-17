@@ -6,7 +6,7 @@
         </th>
         <td>
             <div class="col-md-6 col-xs-12">
-                <input type="checkbox" name="post.language.multiple" value="1">
+                <input type="checkbox" name="language.multiple" value="1">
             </div>
         </td>
     </tr>
@@ -19,9 +19,9 @@
                 @php
                     $language = config('zoe.language');
                 @endphp
-                <select name="post.language.default" class="form-control">
+                <select name="language.default" class="form-control">
                     @foreach($language as $k=>$_language)
-                        @if(!isset($config['post']['language']['lists']) || in_array($k,$config['post']['language']['lists']))
+                        @if(!isset($config['post']['language']['lists']) || in_array($k,isset($config['post']['language']['lists'])?$config['post']['language']['lists']:[]))
                             <option value="{!! $_language['lang'] !!}">{!! $_language['label'] !!}</option>
                         @endif
                     @endforeach
@@ -39,7 +39,7 @@
                     $language = config('zoe.language');
                 @endphp
                 @foreach($language as $k=>$_language)
-                    <input type="checkbox" name="post.language.lists"
+                    <input type="checkbox" name="language.lists"
                            value="{!! $_language['lang'] !!}"> &nbsp; <span
                             class="flag-icon flag-icon-{{$_language['flag']}}"></span> &nbsp;
                 @endforeach
@@ -52,7 +52,7 @@
         </th>
         <td>
             <div class="col-md-6 col-xs-12">
-                <input type="text" class="form-control" name="post.image.width">
+                <input type="text" class="form-control" name="image.width">
             </div>
         </td>
     </tr>
@@ -62,7 +62,7 @@
         </th>
         <td>
             <div class="col-md-6 col-xs-12">
-                <input type="text" class="form-control" name="post.image.height">
+                <input type="text" class="form-control" name="image.height">
             </div>
         </td>
     </tr>
@@ -72,7 +72,7 @@
         </th>
         <td>
             <div class="col-md-6 col-xs-12">
-                <select class="form-control" name="post.image.unit">
+                <select class="form-control" name="image.unit">
                     <option value="px">px</option>
                     <option value="px">em</option>
                 </select>
@@ -85,7 +85,7 @@
         </th>
         <td>
             <div class="col-md-6 col-xs-12">
-                <input type="text" class="form-control" name="post.items_per_page">
+                <input type="text" class="form-control" name="items_per_page">
             </div>
         </td>
     </tr>

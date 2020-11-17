@@ -19,10 +19,10 @@ class ConfigurationController extends \Zoe\Http\ControllerBackend
         $data = $request->all();
         if(isset($data['act'])){
             if($data['act'] == "save"){
-                config_set($data['name'],$data['selected'],['data'=>isset($data['data'])?$data['data']:[]]);
+                config_set($data['type'],$data['name'],['data'=>isset($data['data'])?$data['data']:[]]);
                 return response()->json($data);
             }else if($data['act'] =="get"){
-                return response()->json(config_get($data['name'],$data['selected']));
+                return response()->json(config_get($data['type'],$data['name']));
             }
         }
     }

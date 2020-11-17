@@ -591,6 +591,7 @@
 
     });
 </script>
+@stack('scriptsTop');
 @stack('scripts')
 @section('extra-script')
 @show

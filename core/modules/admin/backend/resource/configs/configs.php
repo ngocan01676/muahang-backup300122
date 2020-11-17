@@ -31,6 +31,8 @@ return [
             'system' => [
                 'view' => 'backend::configs.config',
                 'label' => z_language("System", false),
+                'key'=>'core',
+                'acl'=>acl_alias("configuration:core"),
                 'data' => [
 
                 ]
@@ -41,10 +43,9 @@ return [
             ],
             'media' => [
                 'view' => [
-                    'media_acl' => [
+                    'acl' => [
                         'view' => 'backend::configs.media.premission',
                         'label' => z_language('Permission'),
-                        'position'=>1,
                         'save'=>0
                     ],
                 ],

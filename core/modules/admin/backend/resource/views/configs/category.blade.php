@@ -5,7 +5,7 @@
         </th>
         <td>
             <div class="col-md-6 col-xs-12">
-                <input type="checkbox" name="{!! $keyName !!}language.multiple" value="1">
+                <input type="checkbox" name="language.multiple" value="1">
             </div>
         </td>
     </tr>
@@ -18,7 +18,7 @@
                 @php
                     $language = config('zoe.language');
                 @endphp
-                <select name="{!! $keyName !!}language.default" class="form-control">
+                <select name="language.default" class="form-control">
                     @foreach($language as $k=>$_language)
                         @if(!isset($config['language']['lists']) || is_array($config['language']['lists']   )&&in_array($k,$config['language']['lists']))
                             <option value="{!! $_language['lang'] !!}">{!! $_language['label'] !!}</option>
@@ -38,7 +38,7 @@
                     $language = config('zoe.language');
                 @endphp
                 @foreach($language as $k=>$_language)
-                    <input type="checkbox" name="{!! $keyName !!}language.lists"
+                    <input type="checkbox" name="language.lists"
                            value="{!! $k !!}"> &nbsp; <span
                             class="flag-icon flag-icon-{{$_language['flag']}}"></span> &nbsp;
                 @endforeach
