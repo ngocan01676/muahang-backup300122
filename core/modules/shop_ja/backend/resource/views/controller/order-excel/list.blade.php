@@ -2,18 +2,17 @@
     <h1>
         &starf; {!! @z_language(["Chức năng quản lý đơn hàng"]) !!}
         <small>it all starts here</small>
-        <a  onclick="open_edit('last');"
-           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i>
-            {!! @z_language(["Mở đơn hôm qua"]) !!}
-        </a>
+
         <a  onclick="open_edit('now');"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i>
-            {!! @z_language(["Mở đơn hôm nay"]) !!}
+            {!! @z_language(["Đơn ngày :DATETIME",['DATETIME'=>date('d-m-Y')]]) !!}
         </a>
+
         <a  onclick="open_edit('next');"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i>
-            {!! @z_language(["Mở đơn mai"]) !!}
+            {!! @z_language(["Đơn ngày :DATETIME",['DATETIME'=>date('d-m-Y',strtotime('+1 day',date('Y-m-d')))]]) !!}
         </a>
+
         @btn_option(["config"=>['name'=>'module:shop_ja:order:excel']])
         @slot('label')
             {{@z_language(["Cấu hình"])}}

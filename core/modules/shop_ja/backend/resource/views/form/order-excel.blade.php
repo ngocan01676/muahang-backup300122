@@ -6,7 +6,7 @@
 @endif
 <div class="box box-default box-solid">
     <div class="box-header with-border">
-        <h3 class="box-title">{!! z_language('Thông tin') !!}</h3>
+        <h3 class="box-title">{!! z_language('Đơn ngày :DATE',['DATE'=>date('Y-m-d',strtotime($model?$model->key_date:time()))]) !!}</h3>
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool btnInfo" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
