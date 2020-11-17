@@ -2824,7 +2824,7 @@
                     }
 
                     let $html = "<table  class='table table-bordered config_count'>";
-                    $html+="<tr><th>Tên</th><th>Tên</th><th style='width: 80px;'>Số lượng</th><th></th><th></th><<th></th><th>Tên</th><th>Tên</th><th style='width: 80px;'>Số lượng</th></tr>";
+                    $html+="<tr><th>Tên</th><th>Tên</th><th style='width: 80px;'>Số lượng</th><th></th><th></th><th></th><<th></th><th>Tên</th><th>Tên</th><th style='width: 80px;'>Số lượng</th></tr>";
 
 
 
@@ -2840,7 +2840,7 @@
                             $html+="<td>"+item.title+"</td>";
                             $html+="<td><input min=\"1\" max=\"10\" class=\"form-control count\" type='number' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:0)+"'></td>";
                             if(count === 0){
-                                $html+="<td colspan=3></td>";
+                                $html+="<td colspan=4></td>";
                             }
                             count++;
 
