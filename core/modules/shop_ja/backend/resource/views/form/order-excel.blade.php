@@ -1332,10 +1332,10 @@
                         let countAddress = 0;
                         for(let k in instance.jexcel.rows){
                             let _val  = instance.jexcel.getRowData(k);
-                            if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
+                            if(value[columns.fullname.index].length > 0 && value[columns.fullname.index].replace(/\s+/g, ' ') === _val[columns.fullname.index].replace(/\s+/g, ' ')){
                                 count++;
                             }
-                            if(value[columns.address.index].length > 0 && value[columns.address.index] === _val[columns.address.index]){
+                            if(value[columns.address.index].length > 0 && value[columns.address.index].replace(/\s/g, '') === _val[columns.address.index].replace(/\s/g, '')){
                                 countAddress++;
                             }
                         }
@@ -1363,8 +1363,8 @@
                         }
 
                         let _province = value[columns.province.index]+"".trim();
-                        let _address = value[columns.address.index]+"".trim();
-                        let _fullname = value[columns.fullname.index]+"".trim();
+                        let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
+                        let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
 
@@ -2551,10 +2551,10 @@
                             let countAddress = 0;
                             for(let k in instance.jexcel.rows){
                                 let _val  = instance.jexcel.getRowData(k);
-                                if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
+                                if(value[columns.fullname.index].length > 0 && value[columns.fullname.index].replace(/\s+/g, ' ') === _val[columns.fullname.index].replace(/\s+/g, ' ')){
                                     count++;
                                 }
-                                if(value[columns.address.index].length > 0 && value[columns.address.index] === _val[columns.address.index]){
+                                if(value[columns.address.index].length > 0 && value[columns.address.index].replace(/\s/g, '') === _val[columns.address.index].replace(/\s/g, '')){
                                     countAddress++;
                                 }
                             }
@@ -2587,8 +2587,8 @@
                             }
 
                             let _province = value[columns.province.index]+"".trim();
-                            let _address = value[columns.address.index]+"".trim();
-                            let _fullname = value[columns.fullname.index]+"".trim();
+                            let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
+                            let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
                             let $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
 
@@ -3739,10 +3739,10 @@
                         let countAddress = 0;
                         for(let k in instance.jexcel.rows){
                             let _val  = instance.jexcel.getRowData(k);
-                            if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
+                            if(value[columns.fullname.index].length > 0 && value[columns.fullname.index].replace(/\s+/g, ' ') === _val[columns.fullname.index].replace(/\s+/g, ' ')){
                                 count++;
                             }
-                            if(value[columns.address.index].length > 0 && value[columns.address.index] === _val[columns.address.index]){
+                            if(value[columns.address.index].length > 0 && value[columns.address.index].replace(/\s/g, '') === _val[columns.address.index].replace(/\s/g, '')){
                                 countAddress++;
                             }
                         }
@@ -3768,8 +3768,8 @@
                             }
                         }
                         let _province = value[columns.province.index]+"".trim();
-                        let _address = value[columns.address.index]+"".trim();
-                        let _fullname = value[columns.fullname.index]+"".trim();
+                        let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
+                        let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
 
@@ -4544,10 +4544,10 @@
                         let countAddress = 0;
                         for(let k in instance.jexcel.rows){
                             let _val  = instance.jexcel.getRowData(k);
-                            if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
+                            if(value[columns.fullname.index].length > 0 && value[columns.fullname.index].replace(/\s+/g, ' ') === _val[columns.fullname.index].replace(/\s+/g, ' ')){
                                 count++;
                             }
-                            if(value[columns.address.index].length > 0 && value[columns.address.index] === _val[columns.address.index]){
+                            if(value[columns.address.index].length > 0 && value[columns.address.index].replace(/\s/g, '') === _val[columns.address.index].replace(/\s/g, '')){
                                 countAddress++;
                             }
                         }
@@ -4574,7 +4574,7 @@
                         }
                         let _province = value[columns.province.index]+"".trim();
                         let _address = value[columns.address.index]+"".trim();
-                        let _fullname = value[columns.fullname.index]+"".trim();
+                        let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
 
@@ -5347,10 +5347,10 @@
                        let countAddress = 0;
                        for(let k in instance.jexcel.rows){
                           let _val  = instance.jexcel.getRowData(k);
-                          if(value[columns.fullname.index].length > 0 && value[columns.fullname.index] === _val[columns.fullname.index]){
+                          if(value[columns.fullname.index].length > 0 && value[columns.fullname.index].replace(/\s+/g, ' ') === _val[columns.fullname.index].replace(/\s+/g, ' ')){
                               count++;
                           }
-                           if(value[columns.address.index].length > 0 && value[columns.address.index] === _val[columns.address.index]){
+                           if(value[columns.address.index].length > 0 && value[columns.address.index].replace(/\s/g, '') === _val[columns.address.index].replace(/\s/g, '')){
                                countAddress++;
                            }
                         }
@@ -5384,8 +5384,8 @@
                         //if(parseInt(_product_id)>0){
 
                             let _province = value[columns.province.index]+"".trim();
-                            let _address = value[columns.address.index]+"".trim();
-                            let _fullname = value[columns.fullname.index]+"".trim();
+                            let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
+                            let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
 
