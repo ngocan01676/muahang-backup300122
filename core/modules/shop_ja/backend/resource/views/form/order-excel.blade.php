@@ -2847,6 +2847,11 @@
                             }
                         }
                     }
+                    if(open === true){
+                        $html+="</tr>";
+                        open = false;
+                        count = 0;
+                    }
                     $html+= "<table>";
 
                     let action = function () {
