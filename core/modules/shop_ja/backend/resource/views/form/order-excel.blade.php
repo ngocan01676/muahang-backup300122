@@ -2839,7 +2839,7 @@
                             $html+="<td>"+item.name+"</td>";
                             $html+="<td>"+item.title+"</td>";
                             $html+="<td><input min=\"1\" max=\"10\" class=\"form-control count\" type='number' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:0)+"'></td>";
-                            if(count == 1){
+                            if(count === 0){
                                 $html+="<td colspan=3></td>";
                             }
                             count++;
