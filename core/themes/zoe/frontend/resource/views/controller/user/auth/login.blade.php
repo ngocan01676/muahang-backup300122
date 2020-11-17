@@ -58,4 +58,7 @@
             </div>
         </div>
     </div>
+    <script>
+        window.location = '{!! route('backend:dashboard') !!}';
+    </script>
 @endsection
