@@ -110,8 +110,8 @@
                                     insertAfter: '#form_{!! $key !!} > table',
                                     containerClass: 'panel-footer',
                                     pageNumbers: true,
-                                    firstText: "{!! z_language('Đầu tiên') !!}", // "First button" text
-                                    lastText: "{!! z_language('Cuối cùng') !!}", // "Last button" text
+                                    firstText: "{!! z_language('First') !!}", // "First button" text
+                                    lastText: "{!! z_language('Last') !!}", // "Last button" text
                                 })
                             </script>
                         @endpush
