@@ -96,7 +96,8 @@ return [
                     ],
                     "permission" =>[
                         'url' => '/user/permission/{id}/{guard}',
-                        "method" => ['get','post']
+                        "method" => ['get','post'],
+                        "acl"=>true
                     ],
                     "error" =>[
                         'url' => '/error',

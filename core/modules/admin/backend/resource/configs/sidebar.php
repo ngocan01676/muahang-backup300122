@@ -95,18 +95,8 @@ return [
         "media" => [
             "name" => z_language('Media', false),
             "pos" => 8,
-            "url" => "",
+            "url" => "backend:dashboard:media",
             "icon"=>"fa fa-picture-o",
-            'items'=>[
-                "media" => [
-                    "name" => z_language('Media', false),
-                    "url" => "backend:dashboard:media",
-                ],
-                [
-                    "name" => z_language('Acl Folder', false),
-                    "url" => "backend:elfinder:permission",
-                ],
-            ]
         ],
         "configuration" => [
             "name" => z_language('Configuration', false),

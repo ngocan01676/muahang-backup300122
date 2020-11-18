@@ -15,8 +15,7 @@ return [
                     ],
                     "media" => [
                         "url" => "/media",
-                        "acl"=>"media",
-                        "acl"=>true
+                         "acl"=>true
                     ],
                     "router" => [
                         "url" => "/router",
@@ -35,7 +34,7 @@ return [
                 "controller" => "ElfinderController",
                 "sub_prefix" => "/elfinder-".md5('ElfinderController'),
                 "guard" => "backend",// pải login
-                "acl"=>"dashboard:media",
+                "acl"=>"elfinder",
                 "router" => [
                     "list" => [
                         "url" => "/",

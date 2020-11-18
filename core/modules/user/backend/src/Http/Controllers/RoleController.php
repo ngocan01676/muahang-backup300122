@@ -34,9 +34,9 @@ class RoleController extends \Zoe\Http\ControllerBackend
             Cache::pull('role:'.$guard);
             Cache::pull( 'permissions:'.$guard.":".$id);
             Cache::pull( 'permissions:user:'.$guard);
+
             return $post;
         }
-        dd($modelRole->GetPermissions($id));
         return $this->render('role.premission', [
             'user_permissions' => $modelRole->GetPermissions($id),
             'global_permissions' => app()->getPermissions(),

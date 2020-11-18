@@ -34,7 +34,6 @@ class DashboardController extends \Zoe\Http\ControllerBackend
         }
     }
 
-
     public function router(Request $request)
     {
         $controllers = [];
