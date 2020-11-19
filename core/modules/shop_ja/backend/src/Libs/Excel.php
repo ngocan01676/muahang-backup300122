@@ -392,8 +392,11 @@ class Excel{
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
 
            // $sheet->getColumnDimension($nameCol)->setAutoSize(true);
+
             //$sheet->getStyle($nameCol)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL);
-            $sheet->getStyle($nameCol)->getAlignment()->setWrapText(true);
+
+          //  $sheet->getStyle($nameCol)->getAlignment()->setWrapText(true);
+
             $keyCol = "";
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
