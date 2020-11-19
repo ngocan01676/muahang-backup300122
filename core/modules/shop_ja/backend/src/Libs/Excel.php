@@ -432,7 +432,7 @@ class Excel{
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
 
-            if(empty($values[$nameColList['fullname']])){
+            if(empty($values[$columns_value['fullname']])){
                 continue;
             }
 
