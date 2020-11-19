@@ -337,7 +337,7 @@ class Excel{
         $styleArray = array(
             'font'  => array(
                 'size'  => 9,
-                'name' => 'Calibri'
+                'name' => 'ＭＳ Ｐゴシック'
             ));
         $style_header = array(
             'fill' => array(
@@ -352,7 +352,7 @@ class Excel{
             ],
             'font' => array(
                 'size' => 9,
-                'name' => 'Calibri'
+                'name' => 'ＭＳ Ｐゴシック'
             )
         );
         $sheet->getStyle('B1')->applyFromArray($styleArray);
@@ -360,7 +360,7 @@ class Excel{
         $sheet->getStyle('P2')->applyFromArray(array(
                 'font'  => array(
                     'size' => 9,
-                    'name' => 'Calibri',
+                    'name' => 'ＭＳ Ｐゴシック',
                     'color' => array('rgb' => '0070c0'),
                 ),
             )
@@ -394,7 +394,7 @@ class Excel{
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
                         'size' => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                     ),
                 )
             );
@@ -470,7 +470,7 @@ class Excel{
                     'font'  => array(
 
                         'size' => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                         'color' => array('rgb' => '0070c0'),
                     ),
                 ) );
@@ -478,7 +478,7 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
                         'size' => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                         'color' => array('rgb' => 'ff0000'),
                     ),
                 ) );
@@ -486,7 +486,7 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
                         'size' => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
 
                     ),
                 ) );
@@ -497,7 +497,7 @@ class Excel{
         $sheet->getStyle('K6:K'.$start)->applyFromArray(array(
                 'font'  => array(
                     'size' => 9,
-                    'name' => 'Calibri',
+                    'name' => 'ＭＳ Ｐゴシック',
                     'color' => array('rgb' => 'ff0000'),
                 ),
             )
@@ -617,7 +617,7 @@ class Excel{
         $title1 = "株式会社ヤマダ 様 注文フォーマット";
         $title2 = "見本";
 
-        $info = "依頼人名. VO HOANG 様 22日に 7410 円入金済み";
+        $info = "";
 
         $sheet->setCellValue('B1', $title1);
         $sheet->setCellValue('F2', $title2);
@@ -626,7 +626,7 @@ class Excel{
         $styleArray = array(
             'font'  => array(
                 'size'  => 9,
-                'name' => 'Calibri'
+                'name' => 'ＭＳ Ｐゴシック'
             ));
         $style_header = array(
             'fill' => array(
@@ -641,7 +641,7 @@ class Excel{
             ],
             'font' => array(
                 'size'  => 9,
-                'name' => 'Calibri'
+                'name' => 'ＭＳ Ｐゴシック'
             )
         );
         $sheet->getStyle('B1')->applyFromArray($styleArray);
@@ -649,7 +649,7 @@ class Excel{
         $sheet->getStyle('P2')->applyFromArray(array(
                 'font'  => array(
                     'size'  => 9,
-                    'name' => 'Calibri',
+                    'name' => 'ＭＳ Ｐゴシック',
                     'color' => array('rgb' => '0070c0'),
                 ),
             )
@@ -691,7 +691,7 @@ class Excel{
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri'
+                        'name' => 'ＭＳ Ｐゴシック'
                     ),
                 )
             );
@@ -772,7 +772,7 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                         'color' => array('rgb' => '0070c0'),
                     ),
                 ) );
@@ -780,7 +780,7 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                         'color' => array('rgb' => 'ff0000'),
                     ),
                 ) );
@@ -788,7 +788,7 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
 
                     ),
                 ) );
@@ -907,7 +907,7 @@ class Excel{
         $styleArray = array(
             'font'  => array(
                 'size'  => 9,
-                'name' => 'Calibri'
+                'name' => 'ＭＳ Ｐゴシック'
             ));
         $style_header = array(
             'fill' => array(
@@ -922,7 +922,7 @@ class Excel{
             ],
             'font' => array(
                 'size'  => 9,
-                'name' => 'Calibri'
+                'name' => 'ＭＳ Ｐゴシック'
             )
         );
         $sheet->getStyle('B1')->applyFromArray($styleArray);
@@ -930,7 +930,7 @@ class Excel{
         $sheet->getStyle('P2')->applyFromArray(array(
                 'font'  => array(
                     'size'  => 9,
-                    'name' => 'Calibri',
+                    'name' => 'ＭＳ Ｐゴシック',
                     'color' => array('rgb' => '0070c0'),
                 ),
             )
@@ -981,7 +981,7 @@ class Excel{
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri'
+                        'name' => 'ＭＳ Ｐゴシック'
                     ),
                 )
             );
@@ -1050,7 +1050,7 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                         'color' => array('rgb' => '0070c0'),
                     ),
                 ) );
@@ -1058,7 +1058,7 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                         'color' => array('rgb' => 'ff0000'),
                     ),
                 ) );
@@ -1066,7 +1066,7 @@ class Excel{
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
 
                     ),
                 ) );
@@ -1082,7 +1082,7 @@ class Excel{
         $sheet->getStyle("K".$start)->applyFromArray( array(
                 'font'  => array(
                     'size'  => 9,
-                    'name' => 'Calibri',
+                    'name' => 'ＭＳ Ｐゴシック',
                     'color' => array('rgb' => 'ff0000'),
                 ),
             )
@@ -1091,7 +1091,7 @@ class Excel{
         $sheet->getStyle("P".$start)->applyFromArray( array(
                 'font'  => array(
                     'size'  => 9,
-                    'name' => 'Calibri',
+                    'name' => 'ＭＳ Ｐゴシック',
                     'color' => array('rgb' => 'ff0000'),
                 ),
             )
@@ -1099,7 +1099,7 @@ class Excel{
         $sheet->getStyle("R".$start)->applyFromArray( array(
                 'font'  => array(
                     'size'  => 9,
-                    'name' => 'Calibri',
+                    'name' => 'ＭＳ Ｐゴシック',
                     'color' => array('rgb' => 'ff0000'),
                 ),
             )
@@ -1107,7 +1107,7 @@ class Excel{
         $sheet->getStyle("Q".$start)->applyFromArray( array(
                 'font'  => array(
                     'size'  => 9,
-                    'name' => 'Calibri',
+                    'name' => 'ＭＳ Ｐゴシック',
                     'color' => array('rgb' => 'ff0000'),
                 ),
             )
@@ -1221,7 +1221,7 @@ class Excel{
         $styleArray = array(
             'font'  => array(
                 'size'  => 9,
-                'name' => 'Calibri'
+                'name' => 'ＭＳ Ｐゴシック'
             ));
         $style_header = array(
             'fill' => array(
@@ -1236,7 +1236,7 @@ class Excel{
             ],
             'font' => array(
                 'size'  => 9,
-                'name' => 'Calibri'
+                'name' => 'ＭＳ Ｐゴシック'
             )
         );
         $sheet->getStyle('B1')->applyFromArray($styleArray);
@@ -1352,7 +1352,7 @@ class Excel{
                 $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                         'font'  => array(
                             'size'  => 9,
-                            'name' => 'Calibri'
+                            'name' => 'ＭＳ Ｐゴシック'
                         ),
                     )
                 );
@@ -1430,7 +1430,7 @@ class Excel{
                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                         'font'  => array(
                             'size'  => 9,
-                            'name' => 'Calibri',
+                            'name' => 'ＭＳ Ｐゴシック',
                             'color' => array('rgb' => '0070c0'),
                         ),
                     ) );
@@ -1438,7 +1438,7 @@ class Excel{
                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                         'font'  => array(
                             'size'  => 9,
-                            'name' => 'Calibri',
+                            'name' => 'ＭＳ Ｐゴシック',
                             'color' => array('rgb' => 'ff0000'),
                         ),
                     ) );
@@ -1446,7 +1446,7 @@ class Excel{
                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                         'font'  => array(
                             'size'  => 9,
-                            'name' => 'Calibri',
+                            'name' => 'ＭＳ Ｐゴシック',
 //                            'color' => array('rgb' => 'ff0000'),
                         ),
                     ) );
@@ -1459,7 +1459,7 @@ class Excel{
             $sheet->getStyle($nameCol.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                          'color' => array('rgb' => 'ff0000'),
                     ),
                 )
@@ -1469,7 +1469,7 @@ class Excel{
             $sheet->getStyle($nameCol.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                         'color' => array('rgb' => 'ff0000'),
                     ),
                 )
@@ -1479,7 +1479,7 @@ class Excel{
             $sheet->getStyle($nameCol.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                         'color' => array('rgb' => 'ff0000'),
                     ),
                 )
@@ -1489,7 +1489,7 @@ class Excel{
             $sheet->getStyle($nameCol.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                         'color' => array('rgb' => 'ff0000'),
                     ),
                 )
@@ -1499,7 +1499,7 @@ class Excel{
             $sheet->getStyle($nameCol.$start)->applyFromArray( array(
                     'font'  => array(
                         'size'  => 9,
-                        'name' => 'Calibri',
+                        'name' => 'ＭＳ Ｐゴシック',
                         'color' => array('rgb' => 'ff0000'),
                     ),
                 )
@@ -1531,7 +1531,7 @@ class Excel{
                 $sheet->getStyle('I'.$start)->applyFromArray(array(
                         'font'  => array(
                             'size'  => 9,
-                            'name' => 'Calibri',
+                            'name' => 'ＭＳ Ｐゴシック',
                             'color' => array('rgb' => 'ff1100'),
                         ),
                     )
@@ -1661,7 +1661,7 @@ class Excel{
             ],
             'font' => array(
                 'size'  => 9,
-                'name' => 'Calibri'
+                'name' => 'ＭＳ Ｐゴシック'
             )
         );
 
@@ -1677,7 +1677,7 @@ class Excel{
             $styleArray = array(
                 'font'  => array(
                     'size'  => 9,
-                    'name' => 'Calibri',
+                    'name' => 'ＭＳ Ｐゴシック',
                     'color' => array('rgb' => 'ff0000'),
                 ));
             $sheet->setCellValue( PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(2).$start, '※1キロずつの小分けをお願いします。');
@@ -1809,7 +1809,7 @@ class Excel{
                                             $sheet->getStyle($nameCol.$start)->applyFromArray( array(
                                                 'font'  => array(
                                                     'size'  => 9,
-                                                    'name' => 'Calibri',
+                                                    'name' => 'ＭＳ Ｐゴシック',
                                                     'color' => array('rgb' => 'ff0000'),
                                                 ),
                                             ) );
@@ -1830,7 +1830,7 @@ class Excel{
                                     $sheet->getStyle('A'.($start).':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                                         'font'  => array(
                                             'size'  => 9,
-                                            'name' => 'Calibri',
+                                            'name' => 'ＭＳ Ｐゴシック',
                                             'color' => array('rgb' => '0070c0'),
                                         ),
                                     ) );
@@ -1838,7 +1838,7 @@ class Excel{
                                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                                         'font'  => array(
                                             'size'  => 9,
-                                            'name' => 'Calibri',
+                                            'name' => 'ＭＳ Ｐゴシック',
                                             'color' => array('rgb' => 'ff0000'),
                                         ),
                                     ) );
@@ -1846,7 +1846,7 @@ class Excel{
                                     $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                                         'font'  => array(
                                             'size'  => 9,
-                                            'name' => 'Calibri',
+                                            'name' => 'ＭＳ Ｐゴシック',
 
                                         ),
                                     ) );
@@ -1872,7 +1872,7 @@ class Excel{
                                 'font' => array(
                                     'color' => array('rgb' => '0070c0'),
                                     'size'  => 9,
-                                    'name' => 'Calibri',
+                                    'name' => 'ＭＳ Ｐゴシック',
                                 )
                             ) );
                             foreach (["timeCreate","fullname","payMethod",'zipcode','province','address','phone','order_date','order_hours'] as $col){
