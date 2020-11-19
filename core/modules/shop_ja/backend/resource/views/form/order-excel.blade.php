@@ -135,9 +135,9 @@
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
 
-        console.log = function () {
-
-        };
+        // console.log = function () {
+        //
+        // };
 
     </script>
 
@@ -1090,9 +1090,9 @@
                         }
                     }
 
-                    //price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                    let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
-                    return {order_ship:parseInt($price_ship == -1?0:$price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
+                    return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
 
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
@@ -1985,9 +1985,9 @@
                         }
                     }
                 }
-                price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
-                return {order_ship:parseInt($price_ship == -1?0:$price_ship),order_ship_cou:parseInt($ship_cou)};
+                return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou)};
             }
 
 
@@ -3643,7 +3643,7 @@
                             }
                         }
                     }
-                    price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                    let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
                     return {
                         order_ship:parseInt(price_ship === -1 ? 0 :price_ship),
@@ -4635,9 +4635,9 @@
                         }
                     }
 
-                    //price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                    let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
-                    return {order_ship:parseInt($price_ship == -1?0:$price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
+                    return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
                     price_ship = price_ship*data.count;
@@ -5628,9 +5628,9 @@
                         }
                     }
 
-                    //price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                    let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
-                    return {order_ship:parseInt($price_ship == -1?0:$price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
+                    return {order_ship:parseInt(price_ship === -1?0:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
 
                 function setInterest(price_ship,order_ship_cou,total_price_buy){

@@ -389,7 +389,7 @@ class Excel{
         $nameColList = [];
 
         $sheet->getStyle(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL);
-         
+
         foreach($colums as $key=>$value){
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
 
