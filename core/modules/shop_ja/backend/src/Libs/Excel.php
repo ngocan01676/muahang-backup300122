@@ -376,11 +376,11 @@ class Excel{
             ["配送先住所",['callback'=>function($index,$value){return preg_replace('/\s+/', '',$value );},'key'=>'address'],18,9], // G Địa chỉ giao hàng
             ["配送先電話番号",'phone1',10,9], // H Số điện thoại
             ["別途送料",'order_ship',15,9], //I Phí Ship
-            ["紹介料",,15,9],// Lợi nhuận J
-            ["仕入金額",'order_total_price_buy',15,9], // Tổng giá đơn hàng K
+            ["紹介料",['callback'=>function($index,$value){return (int)$value+330;},'key'=>'order_price'],15,9],// Lợi nhuận J
+            ["単価",['callback'=>function($index,$value,$a,$values) use($columns_value){return (int)$value/(int)$values[$columns_value['count']];},'key'=>'order_total_price_buy'],15,9],
             ["品番",['product'=>['product_id','code']],10,9], // Mã sản phẩm L
             ["商品名",['product'=>['product_id','title']],18,9], // Tên sản phẩm M
-            ["単価",['callback'=>function($index,$value,$a,$values) use($columns_value){return (int)$value/(int)$values[$columns_value['count']];},'key'=>'order_total_price'],15,9], // Giá nhập N
+            ["単価",'order_total_price',15,9], // Giá nhập N
             ["数量",'count',15,9], // Số lượng O
             ["",'',15,9], // Số lượng O
             ["",'order_info',15,9], // Số lượng O

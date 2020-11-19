@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
@@ -125,8 +124,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="385" column="49" lean-forward="true" selection-start-line="385" selection-start-column="49" selection-end-line="385" selection-end-column="49" />
+            <state relative-caret-position="493">
+              <caret line="457" column="177" selection-start-line="457" selection-start-column="177" selection-end-line="457" selection-end-column="177" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
@@ -616,12 +615,12 @@
       <option name="presentableId" value="Default" />
       <updated>1605765476216</updated>
       <workItem from="1605765480778" duration="643000" />
-      <workItem from="1605769068599" duration="272000" />
+      <workItem from="1605769068599" duration="417000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="915000" />
+    <option name="totallyTimeSpent" value="1060000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -657,8 +656,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="385" column="49" lean-forward="true" selection-start-line="385" selection-start-column="49" selection-end-line="385" selection-end-column="49" />
+        <state relative-caret-position="493">
+          <caret line="457" column="177" selection-start-line="457" selection-start-column="177" selection-end-line="457" selection-end-column="177" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
