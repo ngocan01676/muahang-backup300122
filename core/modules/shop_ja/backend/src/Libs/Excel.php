@@ -735,7 +735,7 @@ class Excel{
         $ids = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
-            if(empty($values[$nameColList['fullname']])){
+            if(empty($values[$columns_value['fullname']])){
                 continue;
             }
 
@@ -1005,7 +1005,7 @@ class Excel{
         $ids = [];
         foreach ($datas['datas'] as $key=>$values){
             $payMethod = "";
-            if(empty($values[$nameColList['fullname']])){
+            if(empty($values[$columns_value['fullname']])){
                 continue;
             }
             $image =  (isset($columns_value['image'])?$values[$columns_value['image']]:"");
@@ -1378,7 +1378,7 @@ class Excel{
             foreach ($datas['datas'] as $key=>$values){
                 $payMethod = (isset($columns_value['payMethod'])?$values[$columns_value['payMethod']]:"");
 
-                if(empty($values[$nameColList['fullname']])){
+                if(empty($values[$columns_value['fullname']])){
                     continue;
                 }
                 if($typeMethod != $this->getValuePayMethod($payMethod)){
