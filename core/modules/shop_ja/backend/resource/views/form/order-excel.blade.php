@@ -135,9 +135,9 @@
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
 
-        console.log = function () {
-
-        };
+        // console.log = function () {
+        //
+        // };
 
     </script>
 
@@ -1870,6 +1870,16 @@
                     type: 'text',
                     width:'100px',
                 },
+                admin:{
+                    title: '{!! z_language("Người tạo") !!}',//T title: '',//T title: 'Position',//T
+                    type: 'text',
+                    width:'0px',
+                },
+                group:{
+                    title: '{!! z_language("Đơn gộp") !!}',//T title: '',//T title: 'Position',//T
+                    type: 'text',
+                    width:'100px',
+                }
             };
             columnsAll[sheetName] = columns;
             let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
@@ -1897,14 +1907,19 @@
                 }
             }
 
-            function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod) {
+            function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all) {
 
                 let configShip = dataship.hasOwnProperty("cate_"+$category_id)?dataship["cate_"+$category_id]:[];
                 console.log(configShip);
                 console.log("$count:"+$count);
                 console.log("$province:"+$province);
                 console.log("$total_price_buy:"+$total_price_buy);
+
                 let arr_ship = [];
+                if(total_price_buy_all == 0){
+                    total_price_buy_all = $total_price_buy;
+                }
+                console.log("total_price_buy_all:"+total_price_buy_all);
                 for(let i in configShip){
                     $is_IF_Start = IF_Start($count,configShip[i]);
                     $is_IF_End =  IF_End($count,configShip[i]);
@@ -1956,8 +1971,8 @@
                                 for(let iii in $units){
                                     $_unit = $units[iii];
                                     if($_unit){
-                                        $is_IF_Start = IF_Start($total_price_buy,$_unit);
-                                        $is_IF_End = IF_End($total_price_buy,$_unit);
+                                        $is_IF_Start = IF_Start(total_price_buy_all,$_unit);
+                                        $is_IF_End = IF_End(total_price_buy_all,$_unit);
                                         if($is_IF_Start && $is_IF_End){
                                             $ship_cou = $_unit.value;
                                         }
@@ -2054,6 +2069,10 @@
 
                     data.total_price_buy = total_price_buy;
                     data.total_price = total_price;
+
+
+
+
                 }else{
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),0);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),0);
@@ -2064,6 +2083,7 @@
                 cb();
 
             }
+
             function isInfo(instance,r) {
                 return instance.getValue(jexcel.getColumnNameFromId([columns.type.index, r])) == "Info";
                 //return $(instance.getCell(jexcel.getColumnNameFromId([columns.product_name.index, r]))).parent().hasClass('info');
@@ -2122,6 +2142,7 @@
                 let totalPriceBuyStart = 0;
                 let totalLoiNhuan = 0;
                 let keyGroup = [{!! auth()->user()->id!!}];
+
                 for(let i = value.start ; i < value.end ; i++){
                     let _data =  instance.jexcel.getRowData(i);
                     if(i == value.start){
@@ -2176,14 +2197,68 @@
 
                 console.log("product_id:"+product_id);
 
-                let province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, value.start])).trim();
+                let province = (instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, value.start]))+"").trim();
 
                 let payMethod = getValuePayMethod(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.payMethod.index, value.start])));
+                let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, value.start]));
+
+                let total_price_buy_all = 0;
+                let Row = -1;
+
+
+                let Group = parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.group.index, value.start])));
+
+                console.log(columns.group.index+'_one_addressL:'+one_address);
+                console.log(columns.group.index+':Group:'+Group);
+
+                console.log("totalPriceBuy:"+totalPriceBuy);
+
+                if(one_address){// true
+                    for(let iii = r-1;iii>=0;iii--){
+                        let _data = instance.jexcel.getRowData(iii);
+
+                        if(_data && !_data[columns.one_address.index] && _data[columns.type.index] === "Info"){
+                            console.log(_data);
+                            Group = iii;
+                            Row = Group;
+                            break
+                        }
+                    }
+                }else{
+                    total_price_buy_all = totalPriceBuy;
+
+                    for(let iii = r+1;iii<100;iii++){// bỏ cùng địa chỉ
+                        let _data = instance.jexcel.getRowData(iii);
+                        if(_data && _data[columns.type.index] === "Info"){
+                            if(_data[columns.one_address.index]){
+                                console.log(_data);
+                                let total = parseInt(_data[columns.order_total_price_buy.index]);
+                                total_price_buy_all+= isNaN(total)?0:total;
+                            }else{
+                                break
+                            }
+                        }
+
+                    }
+
+                    if(!isNaN(Group)){
+                        Row = Group;
+                    }
+
+                    console.log("Row:"+Row);
+                    Group = "";
+                }
+
+                console.log("total_price_buy_all:"+total_price_buy_all);
+                console.log("Group:"+Group);
+
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.group.index, value.start]), isNaN(Group)?"":Group);
 
                 if(dropdown.hasOwnProperty(product_id)){
-                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,province,totalPriceBuy,payMethod);
+                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,province,totalPriceBuy,payMethod,total_price_buy_all);
                 }
                 let v = 0;
+
                 if(totalCount >=1 ){
                     if( totalCount <= 5){
                         v = 37;
@@ -2195,17 +2270,15 @@
                 }
                 console.log("totalPriceBuy:"+totalPriceBuy);
 
-                let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
-                if(one_address){
-                    payMethod = 2;
-                }
-
                 if(payMethod == 3){
                     totalPriceBuy = 0;
                 }else{
-                    totalPriceBuy = totalPriceBuy + confShipCou.order_ship_cou;
+                    if(one_address){
+                        confShipCou.order_ship_cou = 0;
+                    }else{
+                        totalPriceBuy = totalPriceBuy + confShipCou.order_ship_cou;
+                    }
                 }
-
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, value.end]),totalCount);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index, value.start]),v);
@@ -2228,6 +2301,14 @@
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, value.start]),order_price);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, value.end]),order_price+totalLoiNhuan);
+
+                if(Row > -1){
+                    console.log("Group=>"+Row)
+                    let index = indexFist(instance.jexcel,Row);
+                    update(instance, null, columns.one_address.index, Row ,{},function () {
+                        update_count(instance, null ,columns.one_address.index, Row,index);
+                    });
+                }
             }
 
             let columns_index = Object.values(columns);

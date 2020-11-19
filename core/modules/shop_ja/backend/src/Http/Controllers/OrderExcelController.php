@@ -422,6 +422,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                         "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:0,
                                         "rate"=> isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0",
+                                        "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date(' H:i:s');
 
@@ -571,6 +572,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                     "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
+                                    "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                 ];
 
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
@@ -1398,6 +1400,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->export == 1,
                             $result->token,
                             $result->admin,
+                            $result->group,
                         ];
 
                     }else  if($result->company == "KOGYJA"){
@@ -1451,6 +1454,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->token,
                             $result->order_index,
                             $result->admin,
+                            $result->group,
                         ];
                     } else if($result->company == "KURICHIKU"){
                         $pay_method = "";
@@ -1525,6 +1529,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->export == 1,
                             $result->token,
                             $result->admin,
+                            $result->group,
                         ];
                     }else{
                         $pay_method = "";
@@ -1598,6 +1603,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->export == 1,
                             $result->token,
                             $result->admin,
+                            $result->group,
                         ];
                     }
                 }
