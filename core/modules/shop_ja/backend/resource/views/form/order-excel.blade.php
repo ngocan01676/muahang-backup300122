@@ -957,7 +957,7 @@
 
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.token.index, r]), token);
 
-                    console.log(total_price_buy_all);
+                    console.log("total_price_buy_all:"+total_price_buy_all);
 
                     let confShipCou = GetShip(product.data,product.data.category_id,data.count,data.province,data.total_price_buy, data.payMethod,total_price_buy_all);
 
@@ -1126,6 +1126,11 @@
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou,false);
                         }
+                    }
+                    if(Row>-1)
+                    {
+                        console.log("Update:Row"+Row);
+                        update(instance,cell, c, Row, {});
                     }
                 }
                 console.log("SEND");
