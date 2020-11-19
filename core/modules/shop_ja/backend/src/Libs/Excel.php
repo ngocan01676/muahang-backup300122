@@ -388,6 +388,8 @@ class Excel{
         $sheet->getStyle('A'.$start.':'.PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).$start)->applyFromArray( $style_header );
         $nameColList = [];
 
+        $sheet->getStyle(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(7))->getAlignment()->setWrapText(true);
+
         foreach($colums as $key=>$value){
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
 
@@ -395,7 +397,7 @@ class Excel{
 
             //$sheet->getStyle($nameCol)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL);
 
-          //  $sheet->getStyle($nameCol)->getAlignment()->setWrapText(true);
+          //
 
             $keyCol = "";
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
