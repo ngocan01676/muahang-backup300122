@@ -1602,10 +1602,10 @@
                                 });
                             }
                         }
-                    }else if(c === columns.count.index || c === columns.zipcode.index || c === columns.price_buy_sale.index ||
+                    }else if(c === columns.count.index || c === columns.fullname.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
-                            if(c === columns.zipcode.index){
+                            if(c === columns.fullname.index){
                                 change = {col:columns.province.index,row:r};
                             }else{
                                 change = {col:-1,row:-1};
