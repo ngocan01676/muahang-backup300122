@@ -37,12 +37,54 @@ class RoleController extends \Zoe\Http\ControllerBackend
 
             return $post;
         }
+
+        $permissions = [];
+        $global_permissions = app()->getPermissions();
+        foreach ($global_permissions->data as $key=>$values){
+            $permissions[$key] = [];
+            foreach ($values as $_key=>$_values){
+                $permissions[$key][$_key] = [
+                    "type"=>"router",
+                    "name"=>$_key,
+                    "group"=>explode(":",$_key),
+                    "status"=>true,
+                    "permissions"=>$_values
+                ];
+            }
+        }
+
+        $acl_statics = acl_all_key();
+        foreach ($acl_statics as $acl_static){
+            $arr_acls = explode(":",$acl_static['name']);
+
+            $key = isset($arr_acls[0])?$arr_acls[0]=="SB"?"backend":"frontend":"";
+            $n = count($arr_acls);
+
+            if(!empty($key)){
+                $name = "";
+
+                for ($i=1; $i< count($arr_acls) ; $i++){
+                    $name.=$arr_acls[$i].":";
+                }
+                $name = trim($name,":");
+
+                $permissions[$key][$acl_static['name']] = [
+                    "type"=>$acl_static['path'][1],
+                    "name"=>$name,
+                    "group"=>$arr_acls,
+                    "status"=>$n > 2,
+                    "permissions"=>[$acl_static['name']]
+                ];
+
+            }
+        }
         return $this->render('role.premission', [
             'user_permissions' => $modelRole->GetPermissions($id),
-            'global_permissions' => app()->getPermissions(),
+            'global_permissions' => $global_permissions,
+            'permissions' => $permissions,
             'id'=>$id,
             'guard'=>$guard,
-            'acl_static'=> acl_all_key()
+            'acl_statics'=> acl_all_key()
         ], 'user');
 
     }

@@ -22,7 +22,7 @@ return [
             "namespace" => "PluginMegaMenu\Controllers",
             "controller" => "IndexController",
             "sub_prefix" => "/mega-layout",
-            "acl"=>"plugin:mega_layout",
+            "acl"=>"plugin:mega-menu",
             "router" => [
                 "list" => [
                     "url" => "/"
