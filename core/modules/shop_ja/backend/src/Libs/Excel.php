@@ -320,7 +320,7 @@ class Excel{
             ['G2','別途送料'],
             ['H2','北海道：800円'],
             ['H2','沖縄：1200円'],
-            ['N5','VU THI 様 14 日に 6250  円入金済み'],
+            ['N5',''],
         ];
         foreach ($titles as $title){
             $sheet->setCellValue($title[0], $title[1]);
