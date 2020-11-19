@@ -390,7 +390,9 @@ class Excel{
 
         foreach($colums as $key=>$value){
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
-            $sheet->getColumnDimension($nameCol)->setAutoSize(true);
+
+           // $sheet->getColumnDimension($nameCol)->setAutoSize(true);
+            $sheet->getStyle($nameCol)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL);
             $keyCol = "";
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
