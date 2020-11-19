@@ -6129,7 +6129,7 @@
                                 });
                             }
                         }
-                    }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
+                    }else if(c === columns.count.index || c === columns.zipcode.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
                             change = {col:-1,row:-1};

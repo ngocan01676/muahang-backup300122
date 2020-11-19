@@ -141,8 +141,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="139" column="10" lean-forward="true" selection-start-line="137" selection-start-column="6" selection-end-line="139" selection-end-column="10" />
+            <state relative-caret-position="316">
+              <caret line="6131" column="79" selection-start-line="6131" selection-start-column="79" selection-end-line="6131" selection-end-column="79" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -150,6 +150,10 @@
                 <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#271844#276182#0#HTML" />
+                <element signature="e#276321#281380#0#HTML" />
+                <element signature="e#281454#285986#0#HTML" />
+                <element signature="e#286062#290963#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -181,8 +185,8 @@
       <find>FUKUI</find>
       <find>['fullname']</find>
       <find>KU</find>
-      <find>YAMADA</find>
       <find>function GetShip(</find>
+      <find>YAMADA</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -698,12 +702,12 @@
       <option name="presentableId" value="Default" />
       <updated>1605765476216</updated>
       <workItem from="1605765480778" duration="643000" />
-      <workItem from="1605769068599" duration="3150000" />
+      <workItem from="1605769068599" duration="3461000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3793000" />
+    <option name="totallyTimeSpent" value="4104000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -768,8 +772,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="139" column="10" lean-forward="true" selection-start-line="137" selection-start-column="6" selection-end-line="139" selection-end-column="10" />
+        <state relative-caret-position="316">
+          <caret line="6131" column="79" selection-start-line="6131" selection-start-column="79" selection-end-line="6131" selection-end-column="79" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -777,6 +781,10 @@
             <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#271844#276182#0#HTML" />
+            <element signature="e#276321#281380#0#HTML" />
+            <element signature="e#281454#285986#0#HTML" />
+            <element signature="e#286062#290963#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
           </folding>
         </state>
