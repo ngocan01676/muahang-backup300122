@@ -135,9 +135,9 @@
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
 
-        // console.log = function () {
-        //
-        // };
+        console.log = function () {
+
+        };
 
     </script>
 
@@ -3397,6 +3397,11 @@
                     type: 'checkbox',
                     width:'1px',
                 },
+                token:{
+                    title: '{!! z_language("Token") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
             };
             columns.count.editor = customColumn;
             columnsAll[sheetName] = columns;
@@ -3507,15 +3512,66 @@
 
                 data.total_price = total_price * total_count;
                 data.total_price_buy = total_price_buy * total_count + price_buy_sale;
+
                 total_price_buy =  data.total_price_buy;
                 total_price = data.total_price;
+
+                let total_price_buy_all = 0;
+                let Row = -1;
+                let token = parseInt(valueRow[columns.token.index]);
+                console.log("valueRow[columns.one_address.index]:"+valueRow[columns.one_address.index]);
+                console.log("token:"+token);
+                if(!valueRow[columns.one_address.index]){
+                    total_price_buy_all = total_price_buy;
+                    for(let iii = r+1;iii<10;iii++){
+                        let _data = instance.jexcel.getRowData(iii);
+                        if(_data && _data[columns.one_address.index]){
+                            console.log(_data);
+                            let total = parseInt(_data[columns.order_total_price_buy.index]);
+                            total_price_buy_all+= isNaN(total)?0:total;
+                        }else{
+                            break
+                        }
+                    }
+                    console.log(11111111111111);
+                    if(!isNaN(token)){
+                        Row = token;
+                    }
+                    console.log("Row:"+Row);
+                    token = "";
+                }else{
+                    for(let iii = r-1;iii>=0;iii--){
+                        let _data = instance.jexcel.getRowData(iii);
+                        console.log(data);
+                        if(_data && !_data[columns.one_address.index]){
+                            token = iii;
+                            Row = token;
+                            break
+                        }
+                    }
+                }
+
+                console.log("token:"+token);
+                console.log("Row:"+Row);
+                console.log("total_price_buy_all:"+total_price_buy_all);
+
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.token.index, r]), token);
+
+                total_price_buy =  data.total_price_buy;
+                total_price = data.total_price;
+
+
+
+
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), price);
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), price_buy);
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]),  data.total_price);
 
-                function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod) {
-
+                function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all) {
+                    if(total_price_buy_all == 0){
+                        total_price_buy_all = $total_price_buy;
+                    }
                     let configShip = dataship.hasOwnProperty("cate_"+$category_id)?dataship["cate_"+$category_id]:[];
                     console.log(configShip);
                     console.log("$count:"+$count);
@@ -3573,8 +3629,8 @@
                                     for(let iii in $units){
                                         $_unit = $units[iii];
                                         if($_unit){
-                                            $is_IF_Start = IF_Start($total_price_buy,$_unit);
-                                            $is_IF_End = IF_End($total_price_buy,$_unit);
+                                            $is_IF_Start = IF_Start(total_price_buy_all,$_unit);
+                                            $is_IF_End = IF_End(total_price_buy_all,$_unit);
                                             if($is_IF_Start && $is_IF_End){
                                                 $ship_cou = $_unit.value;
                                             }
@@ -3623,10 +3679,15 @@
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou,false);
                     }
+                    if(Row>-1)
+                    {
+                        console.log("Update:Row"+Row);
+                        update(instance,cell, c, Row, {});
+                    }
                 }
                  data.count = totalCount;
                 if(dropdown.hasOwnProperty(product_id)){
-                    let confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod);
+                    let confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod,total_price_buy_all);
 
                     setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330,total_count)
                 }
