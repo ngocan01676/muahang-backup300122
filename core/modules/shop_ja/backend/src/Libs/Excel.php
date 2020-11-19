@@ -390,6 +390,7 @@ class Excel{
 
         foreach($colums as $key=>$value){
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
+            $sheet->getColumnDimension($nameCol)->setAutoSize(true);
             $keyCol = "";
             $sheet->setCellValue($nameCol.$start, $value[0])->getStyle($nameCol.$start)->applyFromArray(array(
                     'font'  => array(
@@ -398,6 +399,7 @@ class Excel{
                     ),
                 )
             );
+
             if(is_array($value[1])){
                 if(isset($value[1]['product'])){
                     $conf = $value[1]['product'];
