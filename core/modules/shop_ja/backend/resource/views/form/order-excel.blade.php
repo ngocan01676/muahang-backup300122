@@ -135,9 +135,9 @@
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
 
-        // console.log = function () {
-        //
-        // };
+        console.log = function () {
+
+        };
 
     </script>
 
@@ -1602,13 +1602,17 @@
                                 });
                             }
                         }
-                    }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
+                    }else if(c === columns.count.index || c === columns.zipcode.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
-                            change = {col:-1,row:-1};
-                            update(instance, cell, c, r,{
+                            if(c === columns.zipcode.index){
+                                change = {col:columns.province.index,row:r};
+                            }else{
+                                change = {col:-1,row:-1};
+                                update(instance, cell, c, r,{
 
-                            });
+                                });
+                            }
                         }
                     }else if(c === columns.province.index){
                         if(change.col == c){
@@ -2992,15 +2996,18 @@
                                 });
                             }
                         }
-                    }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
+                    }else if(c === columns.count.index || c === columns.zipcode.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.product_id.index || c === columns.one_address.index){
                         if(change.col == c){
-                            change.col =  {col:-1,row:-1};
-                            let index = indexFist(instance.jexcel,r);
-                            update(instance, cell, c, r,index,function () {
-                                update_count(instance, cell, c, r,index);
-                            });
-
+                            if(c === columns.zipcode.index){
+                                change = {col:columns.province.index,row:r};
+                            }else{
+                                change.col =  {col:-1,row:-1};
+                                let index = indexFist(instance.jexcel,r);
+                                update(instance, cell, c, r,index,function () {
+                                    update_count(instance, cell, c, r,index);
+                                });
+                            }
                         }
                     }else if(c === columns.fullname.index || c === columns.address.index ||
                         c === columns.zipcode.index || c === columns.payMethod.index || c === columns.phone.index ){
@@ -4148,21 +4155,28 @@
                              //   instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
 
                               //  instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+                                change.col =  {col:-1,row:-1};
                                 update(instance, cell, c, r,{
 
                                 });
                                  
                             }
                       //  }
-                    }else if(c === columns.total_count.index || c === columns.count.index || c === columns.price_buy_sale.index ||
+                    }else if(c === columns.total_count.index|| columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
-                            update(instance, cell, c, r,{
+                            if(c === columns.zipcode.index){
+                                change = {col:columns.province.index,row:r};
+                            }else{
+                                change.col =  {col:-1,row:-1};
+                                update(instance, cell, c, r,{
 
-                            });
+                                });
+                            }
                         }
                     }else if(c === columns.province.index){
                         if(change.col == c){
+                            change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
                     }else if(c === columns.payMethod.index){
@@ -4173,6 +4187,7 @@
                             parent.addClass('pay-method-oke');
                         }
                         if(change.col == c){
+                            change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
                     }
@@ -5147,13 +5162,17 @@
                                 });
                             }
                         }
-                    }else if(c === columns.count.index || c === columns.price_buy_sale.index ||
+                    }else if(c === columns.count.index || columns.zipcode.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
-                            change = {col:-1,row:-1};
-                            update(instance, cell, c, r,{
+                            if(c === columns.zipcode.index){
+                                change = {col:columns.province.index,row:r};
+                            }else{
+                                change.col =  {col:-1,row:-1};
+                                update(instance, cell, c, r,{
 
-                            });
+                                });
+                            }
                         }
                     }else if(c === columns.province.index){
                         if(change.col == c){

@@ -141,8 +141,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="6134" column="29" selection-start-line="6134" selection-start-column="29" selection-end-line="6134" selection-end-column="29" />
+            <state relative-caret-position="323">
+              <caret line="139" column="10" lean-forward="true" selection-start-line="137" selection-start-column="5" selection-end-line="139" selection-end-column="10" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -195,6 +195,7 @@
       <find>function GetShip(</find>
       <find>onchange:function(instance, cell, c, r, value) {</find>
       <find>YAMADA</find>
+      <find>onchange:function</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -710,12 +711,12 @@
       <option name="presentableId" value="Default" />
       <updated>1605765476216</updated>
       <workItem from="1605765480778" duration="643000" />
-      <workItem from="1605769068599" duration="4431000" />
+      <workItem from="1605769068599" duration="4684000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5074000" />
+    <option name="totallyTimeSpent" value="5327000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -779,8 +780,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="6134" column="29" selection-start-line="6134" selection-start-column="29" selection-end-line="6134" selection-end-column="29" />
+        <state relative-caret-position="323">
+          <caret line="139" column="10" lean-forward="true" selection-start-line="137" selection-start-column="5" selection-end-line="139" selection-end-column="10" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
