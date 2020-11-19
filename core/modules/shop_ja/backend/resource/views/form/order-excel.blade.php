@@ -3681,8 +3681,10 @@
                     }else{
                         let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
                         if(one_address){
+
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy-330,false );
-                            let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship)) - 330;
+                            let a = (parseInt(total_price_buy)-330- parseInt(total_price) - parseInt(price_ship)) - 330;
+
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
                         }else{
