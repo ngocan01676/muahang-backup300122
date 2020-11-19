@@ -135,9 +135,9 @@
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
 
-        console.log = function () {
-
-        };
+        // console.log = function () {
+        //
+        // };
 
     </script>
 
@@ -6027,13 +6027,10 @@
                 },
                 updateTable: function (instance, cell, col, row, val, id) {
                     let c = parseInt(col);
-
                     if (c === columns.image.index && val.length>0) {
                         cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
                     }
-
                     cell.style.overflow = 'hidden';
-
                     if(columns.id.index === c ){
 
                        let v = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
@@ -6058,9 +6055,6 @@
 
                         instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.remove('error');
                         if(countAddress > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.add('error');
-
-
-
                         let vvv = getValuePayMethod(value[columns.payMethod.index]);
 
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
@@ -6068,7 +6062,6 @@
                         if(vvv === 2){
                             parent.addClass('pay-method-oke');
                         }
-
                         parent.removeClass('has_error');
                         if(vvv === 2){
                             let img = value[columns.image.index];
@@ -6111,7 +6104,7 @@
                                 parent.addClass('has_export');
                             }
                         }
-
+                        change = {x:-1,y:-1};
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
@@ -6132,10 +6125,14 @@
                     }else if(c === columns.count.index || c === columns.zipcode.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
-                            change = {col:-1,row:-1};
-                            update(instance, cell, c, r,{
+                            if(c === columns.zipcode.index){
+                                change = {col:columns.province.index,row:r};
+                            }else{
+                                change = {col:-1,row:-1};
+                                update(instance, cell, c, r,{
 
-                            });
+                                });
+                            }
                         }        
                     }else if(c === columns.province.index){
                         if(change.col == c){
