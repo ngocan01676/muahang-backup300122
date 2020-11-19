@@ -140,14 +140,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="1607" column="90" selection-start-line="1607" selection-start-column="90" selection-end-line="1607" selection-end-column="90" />
+            <state relative-caret-position="604">
+              <caret line="3681" column="120" selection-start-line="3681" selection-start-column="115" selection-end-line="3681" selection-end-column="120" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#144750#149900#0#HTML" />
                 <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
+                <element signature="e#149928#158720#0#HTML" />
+                <element signature="e#159076#159841#0#HTML" />
+                <element signature="e#166376#167187#0#HTML" />
+                <element signature="e#173468#174701#0#HTML" />
+                <element signature="e#175230#179568#0#HTML" />
+                <element signature="e#184840#190589#0#HTML" />
+                <element signature="e#190665#195347#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#195412#197873#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#246341#253866#0#HTML" />
                 <element signature="e#254929#269833#0#HTML" />
@@ -190,12 +199,13 @@
     <findStrings>
       <find>FUKUI</find>
       <find>['fullname']</find>
-      <find>KU</find>
       <find>function GetShip(</find>
       <find>onchange:function(instance, cell, c, r, value) {</find>
       <find>YAMADA</find>
       <find>onchange:function</find>
       <find>FU</find>
+      <find>KU</find>
+      <find>KURICHIKU</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -711,12 +721,12 @@
       <option name="presentableId" value="Default" />
       <updated>1605765476216</updated>
       <workItem from="1605765480778" duration="643000" />
-      <workItem from="1605769068599" duration="4857000" />
+      <workItem from="1605769068599" duration="5531000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5500000" />
+    <option name="totallyTimeSpent" value="6174000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -780,14 +790,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="1607" column="90" selection-start-line="1607" selection-start-column="90" selection-end-line="1607" selection-end-column="90" />
+        <state relative-caret-position="604">
+          <caret line="3681" column="120" selection-start-line="3681" selection-start-column="115" selection-end-line="3681" selection-end-column="120" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#144750#149900#0#HTML" />
             <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
+            <element signature="e#149928#158720#0#HTML" />
+            <element signature="e#159076#159841#0#HTML" />
+            <element signature="e#166376#167187#0#HTML" />
+            <element signature="e#173468#174701#0#HTML" />
+            <element signature="e#175230#179568#0#HTML" />
+            <element signature="e#184840#190589#0#HTML" />
+            <element signature="e#190665#195347#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#195412#197873#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#246341#253866#0#HTML" />
             <element signature="e#254929#269833#0#HTML" />
