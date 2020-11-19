@@ -242,7 +242,7 @@ class Excel{
                         'phone'=>trim(rtrim($value['data'][$nameColList['phone']])),
                         'zipcode'=>trim(rtrim($value['data'][$nameColList['zipcode']])),
                         'province'=>trim(rtrim($value['data'][$nameColList['province']])),
-                        'product_code'=>trim(rtrim($value['data'][$nameColList['product_id']])),
+//                        'product_code'=>trim(rtrim($value['data'][$nameColList['product_id']])),
 //                        'product_title'=>trim(rtrim($value['data'][$nameColList['product_name']])),
                         'pay_method'=>$this->getValuePayMethod(trim(rtrim($value['data'][$nameColList['payMethod']]))),
                         'count'=>trim(rtrim($value['data'][$nameColList['count']])),
