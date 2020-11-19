@@ -17,6 +17,17 @@ return [
                     'defaults' => ["type" => "plugin:mega-menu:layout"]
                 ]
             ]
+        ],
+        'mega_layout' => [
+            "namespace" => "PluginMegaMenu\Controllers",
+            "controller" => "IndexController",
+            "sub_prefix" => "/mega-layout",
+            "acl"=>"plugin:mega_layout",
+            "router" => [
+                "list" => [
+                    "url" => "/"
+                ],
+            ]
         ]
     ]
 ];
