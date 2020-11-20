@@ -142,6 +142,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->code = $data['code'];
             $model->unit = $data['unit'];
             $model->status = $data['status'];
+            $model->value = $data['value'];
             $model->price_buy = $data['price_buy'];
             $model->type_excel = $data['type_excel'];
             $model->order_index = isset($data['order_index'])?$data['order_index']:0;

@@ -87,6 +87,12 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        {!! Form::label('value', z_language('Cân nặng'), ['class' => 'value']) !!}
+                                        {!! Form::text('value',null, ['class' => 'form-control','placeholder'=>z_language('Cân nặng')]) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         {!! Form::label('unit', z_language('Đơn vị'), ['class' => 'unit']) !!} &nbsp;
                                         @php
                                             $lists_uint = config('shop_ja.configs.lists_uint');

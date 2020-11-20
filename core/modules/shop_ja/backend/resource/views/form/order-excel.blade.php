@@ -2061,7 +2061,7 @@
                     }else{
                         price = product.data.price;
                     }
-                    total_price = parseFloat(price) * data.count;
+                    total_price = parseFloat(price) * data.count ;
                     total_price_buy = parseFloat(price_buy) * data.count + price_buy_sale;
 
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]),0);
@@ -2154,8 +2154,11 @@
                         (_data[columns.product_name.index]+"").trim()!="0" &&
                         (_data[columns.product_id.index]+"").trim()!="0"){
                         let _count = parseInt(_data[columns.count.index]);
+
+                        let product = dropdown[parseInt(_data[columns.product_name.index])];
+
                         if(!isNaN(_count)){
-                            totalCount+=_count;
+                            totalCount+= _count * parseInt(product.data['value']);
                         }else{
                             _count = 0;
                         }
@@ -2303,7 +2306,7 @@
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, value.end]),order_price+totalLoiNhuan);
 
                 if(Row > -1){
-                    console.log("Group=>"+Row)
+
                     let index = indexFist(instance.jexcel,Row);
                     update(instance, null, columns.one_address.index, Row ,{},function () {
                         update_count(instance, null ,columns.one_address.index, Row,index);
