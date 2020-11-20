@@ -789,7 +789,6 @@ class Excel{
                         $payMethod = $v;
                     }
                 }
-
             }
             $sheet->getStyle("P".$start)->applyFromArray( array(
                 'font'  => array(
