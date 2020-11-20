@@ -287,7 +287,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         $categorys = config_get("category", "shop-ja:product:category");
         $this->data['analytics']['category'] = [];
         $user_id = null;
-//        \DB::enableQueryLog();
+        \DB::enableQueryLog();
         if(!is_null($request->id)){
             $user_id = base64_decode($request->id);
             $this->breadcrumb(z_language("QL CTV"), route('backend:dashboard:list'));
@@ -401,7 +401,6 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         $this->data['analytics']['today'] = DB::table('shop_order_excel')
             ->where('fullname','!=','')
             ->where('public',1)
-
             ->where('updated_at','>=',date('Y-m-d')." 00:00:00")
             ->where('updated_at','<=',date('Y-m-d')." 23:59:59");
         if(!is_null($user_id) && !empty($user_id)){
@@ -419,7 +418,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
             $this->data['analytics']['price']->where('admin_id',$user_id);
         }
         $this->data['analytics']['price'] =  $this->data['analytics']['price']->sum('order_price');
-//        $this->data['analytics']['sql'] = logs_sql();
+        $this->data['analytics']['sql'] = logs_sql();
         return $this->render('dashboard.user',[]);
     }
     public  function GetData($results,$exportAll){
