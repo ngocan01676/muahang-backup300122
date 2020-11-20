@@ -1445,7 +1445,7 @@
                     }else if(columns_index[x1].key === "order_info"){
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
-                        let vals = val.split(' ');
+                        let vals = val.trim().split(' ');
                         console.log(vals);
                         $("#info_payment").show();
                         let html  = "<table>";
@@ -2747,7 +2747,7 @@
                     }else if(columns_index[x1].key === "order_info"){
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
-                        let vals = val.split(' ');
+                        let vals = val.trim().split(' ');
                         console.log(vals);
                         $("#info_payment").show();
                         let html  = "<table>";
@@ -4036,7 +4036,7 @@
                             }else if(columns_index[x1].key === "order_info"){
 
                                 //NGUYEN V 様 00 日に 0000 円入金済み
-                                let vals = val.split(' ');
+                                let vals = val.trim().split(' ');
                                 console.log(vals);
                                 $("#info_payment").show();
                                 let html  = "<table>";
@@ -5057,7 +5057,7 @@
                     }else if(columns_index[x1].key === "order_info"){
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
-                        let vals = val.split(' ');
+                        let vals = val.trim().split(' ');
                         console.log(vals);
                         $("#info_payment").show();
                         let html  = "<table>";
@@ -6057,7 +6057,9 @@
                     }else if(columns_index[x1].key === "order_info"){
 
                         //依頼人名. NGUYEN V 様  00 日に 0000 円入金済み
-                        let vals = val.split(' ');
+
+                        let vals = val.trim().split(' ');
+                        console.log(vals);
                         $("#info_payment").show();
                         let html  = "<table>";
                          html+="<tr>";
@@ -6083,7 +6085,7 @@
                             html+='円入金済み';
                             html+="</th>";
                             html+="<td>";
-                            html+='&nbsp;<button type="button" class="btn">{!! z_language('Lưu') !!}</button>';
+                            html+='&nbsp;<button type="button" class="btn btn-xs">{!! z_language('Lưu') !!}</button>';
                             html+="</td>";
                             html+="</tr>";
                             html+="</table>";

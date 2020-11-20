@@ -200,7 +200,7 @@
                 </div>
             </div>
 
-            <div id="donut-chart" style="height: 300px;"></div>
+            <div id="donut-chart" style="height: 600px;"></div>
         </div>
         <!-- /.box-body-->
     </div>

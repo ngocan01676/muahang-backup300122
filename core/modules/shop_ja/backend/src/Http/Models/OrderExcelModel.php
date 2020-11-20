@@ -13,12 +13,12 @@ class OrderExcelModel extends Model
         $datas = [
 
         ];
-        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+        $users = DB::table('admin')->select('id','username')->get()->keyBy('id')->toArray();
         foreach ($ressult as $_key=>$_value){
             if(!isset($datas[$_value->company])){
                 $datas[$_value->company] = [];
             }
-            $_value->admin = isset($users[$_value->admin_id])?$users[$_value->admin_id]->name:"";
+            $_value->admin = isset($users[$_value->admin_id])?$users[$_value->admin_id]->username:"";
             $datas[$_value->company][] = $_value;
         }
         $dataNew = [];
@@ -125,7 +125,7 @@ class OrderExcelModel extends Model
            }
            $shop_order_excel = $shop_order_excel->get()->all();
 
-        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+        $users = DB::table('admin')->select('id','username')->get()->keyBy('id')->toArray();
         $datas = [
 
         ];
@@ -134,7 +134,7 @@ class OrderExcelModel extends Model
             if(!isset($datas[$_value->company])){
                 $datas[$_value->company] = [];
             }
-            $_value->admin = isset($users[$_value->admin_id])?$users[$_value->admin_id]->name:"";
+            $_value->admin = isset($users[$_value->admin_id])?$users[$_value->admin_id]->username:"";
             $datas[$_value->company][] = $_value;
         }
 
@@ -226,7 +226,7 @@ class OrderExcelModel extends Model
         }
 
         $shop_order_excel  = $shop_order_excel->get()->all();
-        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+        $users = DB::table('admin')->select('id','username')->get()->keyBy('id')->toArray();
         $datas = [
 
         ];
@@ -235,7 +235,7 @@ class OrderExcelModel extends Model
             if(!isset($datas[$_value->company])){
                 $datas[$_value->company] = [];
             }
-            $_value->admin = isset($users[$_value->admin_id])?$users[$_value->admin_id]->name:"";
+            $_value->admin = isset($users[$_value->admin_id])?$users[$_value->admin_id]->username:"";
             $datas[$_value->company][] = $_value;
         }
 
