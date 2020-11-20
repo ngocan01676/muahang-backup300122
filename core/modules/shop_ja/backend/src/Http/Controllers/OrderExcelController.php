@@ -1635,22 +1635,37 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          if(isset($v['province'])){
                              $rs1->where('province',$v['province']);
                          }
+                         if($data['name'] == "YAMADA" || $data['name'] == 'FUKUI' || $data['name']  == 'OHGA' ){
+                             $rs1->whereIn('company',['YAMADA','FUKUI','OHGA']);
+                         }else{
+                             $rs1->where('company',$data['name']);
+                         }
                          $dataItem['3'] = $model-> RenderData($rs1->get()->all(),false);
+
                          $rs2 = DB::table('shop_order_excel')
-                             ->where('order_create_date',">=",date('Y-m-d',strtotime('-3 day')))->where('order_create_date','<=',date('Y-m-d H:i:s'));
+                             ->where('order_create_date',">=",date('Y-m-d',strtotime('-3 day')))
+                             ->where('order_create_date','<=',date('Y-m-d H:i:s'));
                          if(isset($v['address'])){
                              $rs2->where('address',$v['address']);
                          }
                          if(isset($v['province'])){
                              $rs2->where('province',$v['province']);
                          }
+                         if($data['name'] == "YAMADA" || $data['name'] == 'FUKUI' || $data['name']  == 'OHGA' ){
+                             $rs2->whereIn('company',['YAMADA','FUKUI','OHGA']);
+                         }else{
+                             $rs2->where('company',$data['name']);
+                         }
                          $dataItem['2'] = $model->RenderData($rs2->get()->all(),false);
+
                          foreach ($dataItem as $key=>$values){
                             foreach ($values as $_key=>$_val){
                                 if($_key == "KOGYJA"){
                                     foreach ($_val as $__k=>$__val){
                                         $dataItem[$key][$_key][$__k]->items =  DB::table('shop_order_excel')
-                                            ->where('id',"!=",$__val->id)->where('token',$__val->token)->orderBy('order_index','ASC')->get()->toArray();
+                                            ->where('id',"!=",$__val->id)->where('token',$__val->token)
+                                            ->orderBy('order_index','ASC')
+                                            ->get()->toArray();
                                     }
                                 }
                             }
