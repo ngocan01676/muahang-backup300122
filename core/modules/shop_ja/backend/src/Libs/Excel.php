@@ -666,6 +666,10 @@ class Excel{
             )
         );
         $sheet->getStyle('A3:T3')->applyFromArray( $style_header );
+
+
+
+
         $date_export = new \stdClass();
         $date_export->date =  $this->date_export;
 
@@ -725,6 +729,13 @@ class Excel{
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
             }
         }
+        $sheet->getStyle("P".$start)->applyFromArray( array(
+            'font'  => array(
+                'color' => array('rgb' => 'ff0000'),
+                'size'  => 9,
+                'name' => 'ＭＳ Ｐゴシック',
+            ),
+        ) );
         $start++;
         $defaultStart = $start;
         $lastIndex = "";
