@@ -147,11 +147,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="139" column="13" lean-forward="true" selection-start-line="136" selection-start-column="10" selection-end-line="139" selection-end-column="13" />
+            <state relative-caret-position="323">
+              <caret line="139" column="10" selection-start-line="137" selection-start-column="4" selection-end-line="139" selection-end-column="10" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#82750#86373#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
@@ -858,7 +857,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15029000" />
+    <option name="totallyTimeSpent" value="15297000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -995,11 +994,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="139" column="13" lean-forward="true" selection-start-line="136" selection-start-column="10" selection-end-line="139" selection-end-column="13" />
+        <state relative-caret-position="323">
+          <caret line="139" column="10" selection-start-line="137" selection-start-column="4" selection-end-line="139" selection-end-column="10" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#82750#86373#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
