@@ -789,7 +789,15 @@ class Excel{
                         $payMethod = $v;
                     }
                 }
+
             }
+            $sheet->getStyle("P".$start)->applyFromArray( array(
+                'font'  => array(
+                    'color' => array('rgb' => 'ff0000'),
+                    'size'  => 9,
+                    'name' => 'ＭＳ Ｐゴシック',
+                ),
+            ) );
             if($payMethod == "銀行振込"){
                 $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
                     'font'  => array(
