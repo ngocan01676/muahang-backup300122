@@ -134,10 +134,10 @@
     <script>
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
-
-        console.log = function () {
-
-        };
+        //
+        // console.log = function () {
+        //
+        // };
 
     </script>
 
