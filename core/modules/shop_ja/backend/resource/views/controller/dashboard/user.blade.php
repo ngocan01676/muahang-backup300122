@@ -1,7 +1,7 @@
 @section('content')
     @breadcrumb()@endbreadcrumb
     <div style="display: none">
-        {!! $sql !!}
+        {!! $analytics['sql'] !!}
     </div>
     <div class="row">
         <div class="col-md-3">
