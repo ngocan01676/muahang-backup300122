@@ -983,7 +983,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->KURICHIKU($data);
             }
-            if(isset($output['ids'])){
+            if(isset($output['ids']) && isset($data['type']) && $data['type'] != "demo"){
                 DB::beginTransaction();
                 try{
                     foreach ($output['ids'] as $id=>$val){

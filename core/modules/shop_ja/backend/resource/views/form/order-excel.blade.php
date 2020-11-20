@@ -6409,7 +6409,8 @@
                    datas: JSON.stringify(data),
                    name:name,
                    columns:_columns,
-                   date:$("#datepicker").val()
+                   date:$("#datepicker").val(),
+                   type:"demo"
                },
                success: function (data) {
                    console.log(data);

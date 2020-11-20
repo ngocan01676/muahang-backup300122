@@ -219,7 +219,8 @@
                     date:$("#datepicker1").val(),// giờ xuất
                     hour:'{!! $hour !!}',
                     company:'{!! $company !!}',
-                    date_export:$("#datepicker").val()// ngày xuất
+                    date_export:$("#datepicker").val(),// ngày xuất
+                    type:"export"
                 },
                 success: function (data) {
                     console.log(data);
