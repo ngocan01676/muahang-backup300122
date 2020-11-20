@@ -1727,7 +1727,7 @@
                     // row:"0",
                 },
                 count:{
-                    title: '{!! z_language("SL") !!}',//K SL
+                    title: '{!! z_language("SL Size") !!}',//K SL
                     type: 'numeric',
                     width:'100px',
                     value:0,
@@ -2136,6 +2136,7 @@
             }
             function update_count(instance, cell, c, r, value) {
                 let totalCount = 0;
+                let totalCountAll = 0;
                 let totalPriceBuy = 0;
                 let totalPrice = 0;
                 let product_id = 0;
@@ -2158,7 +2159,8 @@
                         let product = dropdown[parseInt(_data[columns.product_name.index])];
 
                         if(!isNaN(_count)){
-                            totalCount+= _count * parseInt(product.data['value']);
+                            totalCountAll+= _count * parseInt(product.data['value']);
+                            totalCount+= _count;
                         }else{
                             _count = 0;
                         }
@@ -2262,12 +2264,12 @@
                 }
                 let v = 0;
 
-                if(totalCount >=1 ){
-                    if( totalCount <= 5){
+                if(totalCountAll >=1 ){
+                    if( totalCountAll <= 5){
                         v = 37;
-                    }else if( totalCount <= 10){
+                    }else if( totalCountAll <= 10){
                         v = 74;
-                    }else if( totalCount > 10){
+                    }else if( totalCountAll > 10){
                         v = 142;
                     }
                 }
