@@ -1455,7 +1455,7 @@ class Excel{
                 ) );
 
                 if($payMethod == "銀行振込"){
-                    foreach (["B","H","I","J","T"] as $col){
+                    foreach (["B","H","I","J","S"] as $col){
                         $sheet->getStyle($col.$start)->applyFromArray( array(
                             'font'  => array(
                                 'color' => array('rgb' => '0070c0'),
@@ -1464,7 +1464,7 @@ class Excel{
                     }
 
                 }else  if($payMethod == "決済不要"){
-                    foreach (["B","H","I","J","T"] as $col){
+                    foreach (["B","H","I","J","S"] as $col){
                         $sheet->getStyle($col.$start)->applyFromArray( array(
                             'font'  => array(
                                 'color' => array('rgb' => 'ff0000'),
@@ -1473,7 +1473,7 @@ class Excel{
                     }
 
                 }else{
-                    foreach (["B","H","I","J","T"] as $col){
+                    foreach (["B","H","I","J","S"] as $col){
                         $sheet->getStyle($col.$start)->applyFromArray( array(
                             'font'  => array(
                                 'color' => array('rgb' => '0070c0'),
