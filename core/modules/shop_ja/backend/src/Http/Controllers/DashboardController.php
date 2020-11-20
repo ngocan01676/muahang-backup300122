@@ -353,7 +353,10 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
             $this->data['analytics']['category'][$category['name']]['price'] =  $price->sum('order_price');
         }
         $this->data['analytics']['total'] = DB::table('shop_order_excel')
-            ->where('fullname','!=','')->where('public','1');
+            ->where('fullname','!=','')->where('company','!=','KOGYJA')->where('public','1');
+        $this->data['analytics']['total']+= DB::table('shop_order_excel')
+            ->where('fullname','!=','')->where('type','Info')->where('company','==','KOGYJA')->where('public','1');
+
         if(!is_null($user_id) && !empty($user_id)){
             $this->data['analytics']['total']->where('admin_id',$user_id);
         }
