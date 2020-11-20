@@ -314,7 +314,9 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
             if(!is_null($user_id) && !empty($user_id)){
                 $query->where('admin_id',$user_id);
             }
-
+            if($category['name'] == "KOGYJA"){
+                $query->where('type',"Info");
+            }
             if(!empty($date_start) && !empty($date_end)){
                 $query->where('order_create_date','>=',$date_start." 00:00:00");
                 $query->where('order_create_date','<=',$date_end." 23:59:59");
@@ -322,6 +324,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
             $this->data['analytics']['category'][$category['name']] = [];
             $this->data['analytics']['category'][$category['name']]['count'] = $query->count();
+
             if($category['name'] == "KOGYJA"){
                 $price = DB::table('shop_order_excel')
                     ->where('fullname','!=','')
