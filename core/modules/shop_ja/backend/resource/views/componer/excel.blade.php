@@ -5984,7 +5984,7 @@
        },1000);
       });
       $("#info_payment").html(dom);
-      
+
      }
      else{
       change = {col:x1,row:y1};
