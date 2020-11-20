@@ -203,6 +203,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                     "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
+                                    "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                 ];
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date'])).' '.date('H:i:s');
                                 $validator = Validator::make($_data,$check);
@@ -273,6 +274,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                         "token"=> isset($columns["token"])? (int)$values[$columns["token"]]:"",
                                         "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
+                                        "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
                                     $logs[$name][] = $_data;
@@ -423,6 +425,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:0,
                                         "rate"=> isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0",
                                         "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
+                                        "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date(' H:i:s');
 
@@ -573,6 +576,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
+                                    "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                 ];
 
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
@@ -1401,6 +1405,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->token,
                             $result->admin,
                             $result->group,
+                            $result->comment,
                         ];
 
                     }else  if($result->company == "KOGYJA"){
@@ -1455,6 +1460,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->order_index,
                             $result->admin,
                             $result->group,
+                            $result->comment,
                         ];
                     } else if($result->company == "KURICHIKU"){
                         $pay_method = "";
@@ -1530,6 +1536,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->token,
                             $result->admin,
                             $result->group,
+                            $result->comment,
                         ];
                     }else{
                         $pay_method = "";
@@ -1604,6 +1611,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->token,
                             $result->admin,
                             $result->group,
+                            $result->comment,
                         ];
                     }
                 }

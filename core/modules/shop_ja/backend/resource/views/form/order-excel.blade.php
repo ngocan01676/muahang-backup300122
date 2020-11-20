@@ -135,9 +135,9 @@
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
         //
-        console.log = function () {
-
-        };
+        // console.log = function () {
+        //
+        // };
 
     </script>
 
@@ -840,6 +840,21 @@
                 },
                 token:{
                     title: '{!! z_language("Token") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
+                admin:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                group:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                comment:{
+                    title: '{!! z_language("Admin") !!}',//T
                     type: 'text',
                     width:'100px',
                 },
@@ -1873,13 +1888,18 @@
                 admin:{
                     title: '{!! z_language("Người tạo") !!}',//T title: '',//T title: 'Position',//T
                     type: 'text',
-                    width:'0px',
+                    width:'1px',
                 },
                 group:{
                     title: '{!! z_language("Đơn gộp") !!}',//T title: '',//T title: 'Position',//T
                     type: 'text',
+                    width:'1px',
+                },
+                comment:{
+                    title: '{!! z_language("Ghi chú") !!}',//T title: '',//T title: 'Position',//T
+                    type: 'text',
                     width:'100px',
-                }
+                },
             };
             columnsAll[sheetName] = columns;
             let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
@@ -3410,6 +3430,21 @@
                     type: 'text',
                     width:'100px',
                 },
+                admin:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                group:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                comment:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
             };
             columns.count.editor = customColumn;
             columnsAll[sheetName] = columns;
@@ -4416,6 +4451,21 @@
                     type: 'text',
                     width:'100px',
                 },
+                admin:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                group:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                comment:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
             };
 
             columnsAll[sheetName] = columns;
@@ -5417,7 +5467,22 @@
                     title: '{!! z_language("Token") !!}',//T
                     type: 'text',
                     width:'100px',
-                }
+                },
+                admin:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                group:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                comment:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
             };
             columnsAll[sheetName] = columns;
 
@@ -6348,6 +6413,7 @@
                 $("#spreadsheet .jexcel_tab_link").each(function () {
                     let  worksheet = this.getAttribute('data-spreadsheet');
                     let data = spreadsheet.jexcel[worksheet].options.data;
+                    console.log(spreadsheet.jexcel[worksheet].options);
                     let name = this.textContent;
                     let _columns = [];
                     for(let k in  columnsAll[name] ){
