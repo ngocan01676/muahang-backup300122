@@ -354,11 +354,14 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         }
 
         $total = DB::table('shop_order_excel')
-            ->where('fullname','!=','')->where('company','!=','KOGYJA')->where('public','1');
+            ->where('fullname','!=','')
+            ->where('company','!=','KOGYJA')
+            ->where('public','1');
 
         if(!is_null($user_id) && !empty($user_id)){
             $total->where('admin_id',$user_id);
         }
+
         if(!empty($date_start) && !empty($date_end)){
             $total->where('order_create_date','>=',$date_start." 00:00:00");
             $total->where('order_create_date','<=',$date_end." 23:59:59");
@@ -366,7 +369,10 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         $total = $total->count();
 
         $total1 = DB::table('shop_order_excel')
-            ->where('fullname','!=','')->where('type','Info')->where('company','==','KOGYJA')->where('public','1');
+            ->where('fullname','!=','')
+            ->where('type','Info')
+            ->where('company','=','KOGYJA')
+            ->where('public','1');
 
         if(!is_null($user_id) && !empty($user_id)){
             $total1->where('admin_id',$user_id);
@@ -378,10 +384,11 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         $total1 = $total1->count();
 
         $this->data['analytics']['total'] = $total1 + $total;
-        
+
 
         $this->data['analytics']['success'] = DB::table('shop_order_excel')
-            ->where('fullname','!=','')->where('status',1)->where('public','1');
+            ->where('fullname','!=','')
+            ->where('status',1)->where('public','1');
         if(!is_null($user_id) && !empty($user_id)){
             $this->data['analytics']['success']->where('admin_id',$user_id);
         }
