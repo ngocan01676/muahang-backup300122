@@ -1451,7 +1451,6 @@ class Excel{
                     'font'  => array(
                         'size'  => 9,
                         'name' => 'ＭＳ Ｐゴシック',
-//                            'color' => array('rgb' => '0070c0'),
                     ),
                 ) );
 
@@ -1474,13 +1473,13 @@ class Excel{
                     }
 
                 }else{
-//                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
-//                        'font'  => array(
-//                            'size'  => 9,
-//                            'name' => 'ＭＳ Ｐゴシック',
-////                            'color' => array('rgb' => 'ff0000'),
-//                        ),
-//                    ) );
+                    foreach (["B","H","I","J","T"] as $col){
+                        $sheet->getStyle($col.$start)->applyFromArray( array(
+                            'font'  => array(
+                                'color' => array('rgb' => '0070c0'),
+                            ),
+                        ) );
+                    }
                 }
                 $start++;
             }
