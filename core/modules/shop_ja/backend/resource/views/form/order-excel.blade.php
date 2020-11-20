@@ -5474,8 +5474,7 @@
                     width:'1px',
                 },
                 group:{
-                    title: '{!! z_language("group
-                    ") !!}',//T
+                    title: '{!! z_language("group") !!}',//T
                     type: 'text',
                     width:'1px',
                 },
