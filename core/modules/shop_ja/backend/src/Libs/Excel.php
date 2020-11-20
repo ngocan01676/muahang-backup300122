@@ -1241,7 +1241,7 @@ class Excel{
             ),
             'borders' => [
                 'allBorders' => array(
-                    'borderStyle' => Border::BORDER_DASHDOT,
+                    'borderStyle' => Border::BORDER_DOTTED,
                     'color' => array('rgb'=>'000000')
                 ),
             ],
@@ -1446,30 +1446,43 @@ class Excel{
 
 
                 }
+
+                $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                    'font'  => array(
+                        'size'  => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+//                            'color' => array('rgb' => '0070c0'),
+                    ),
+                ) );
+
                 if($payMethod == "銀行振込"){
-                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+                    $sheet->getStyle('B'.$start.':H'.$start.':I'.$start.':J'.$start.':T'.$start)->applyFromArray( array(
                         'font'  => array(
-                            'size'  => 9,
-                            'name' => 'ＭＳ Ｐゴシック',
-                            'color' => array('rgb' => '0070c0'),
+                             'color' => array('rgb' => '0070c0'),
                         ),
                     ) );
+
                 }else  if($payMethod == "決済不要"){
-                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+//                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+//                        'font'  => array(
+//                            'size'  => 9,
+//                            'name' => 'ＭＳ Ｐゴシック',
+////                            'color' => array('rgb' => 'ff0000'),
+//                        ),
+//                    ) );
+                    $sheet->getStyle('B'.$start.':H'.$start.':I'.$start.':J'.$start.':T'.$start)->applyFromArray( array(
                         'font'  => array(
-                            'size'  => 9,
-                            'name' => 'ＭＳ Ｐゴシック',
                             'color' => array('rgb' => 'ff0000'),
                         ),
                     ) );
                 }else{
-                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
-                        'font'  => array(
-                            'size'  => 9,
-                            'name' => 'ＭＳ Ｐゴシック',
-//                            'color' => array('rgb' => 'ff0000'),
-                        ),
-                    ) );
+//                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
+//                        'font'  => array(
+//                            'size'  => 9,
+//                            'name' => 'ＭＳ Ｐゴシック',
+////                            'color' => array('rgb' => 'ff0000'),
+//                        ),
+//                    ) );
                 }
                 $start++;
             }
