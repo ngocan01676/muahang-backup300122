@@ -1456,25 +1456,23 @@ class Excel{
                 ) );
 
                 if($payMethod == "銀行振込"){
-                    $sheet->getStyle('B'.$start.':H'.$start.':I'.$start.':J'.$start.':T'.$start)->applyFromArray( array(
-                        'font'  => array(
-                             'color' => array('rgb' => '0070c0'),
-                        ),
-                    ) );
+                    foreach (["B","H","I","J","T"] as $col){
+                        $sheet->getStyle($col.$start)->applyFromArray( array(
+                            'font'  => array(
+                                'color' => array('rgb' => '0070c0'),
+                            ),
+                        ) );
+                    }
 
                 }else  if($payMethod == "決済不要"){
-//                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
-//                        'font'  => array(
-//                            'size'  => 9,
-//                            'name' => 'ＭＳ Ｐゴシック',
-////                            'color' => array('rgb' => 'ff0000'),
-//                        ),
-//                    ) );
-                    $sheet->getStyle('B'.$start.':H'.$start.':I'.$start.':J'.$start.':T'.$start)->applyFromArray( array(
-                        'font'  => array(
-                            'color' => array('rgb' => 'ff0000'),
-                        ),
-                    ) );
+                    foreach (["B","H","I","J","T"] as $col){
+                        $sheet->getStyle($col.$start)->applyFromArray( array(
+                            'font'  => array(
+                                'color' => array('rgb' => 'ff0000'),
+                            ),
+                        ) );
+                    }
+
                 }else{
 //                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
 //                        'font'  => array(
