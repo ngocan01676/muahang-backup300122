@@ -124,8 +124,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="379" column="76" lean-forward="true" selection-start-line="379" selection-start-column="76" selection-end-line="379" selection-end-column="76" />
+            <state relative-caret-position="519">
+              <caret line="378" column="139" selection-start-line="378" selection-start-column="139" selection-end-line="378" selection-end-column="139" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
@@ -160,8 +160,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62509">
-              <caret line="3677" column="57" selection-start-line="3677" selection-start-column="57" selection-end-line="3677" selection-end-column="57" />
+            <state relative-caret-position="323">
+              <caret line="298" column="17" selection-start-line="298" selection-start-column="13" selection-end-line="298" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -708,12 +708,12 @@
       <updated>1605765476216</updated>
       <workItem from="1605765480778" duration="643000" />
       <workItem from="1605769068599" duration="7924000" />
-      <workItem from="1605838828496" duration="118000" />
+      <workItem from="1605838828496" duration="329000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8685000" />
+    <option name="totallyTimeSpent" value="8896000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -761,13 +761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62509">
-          <caret line="3677" column="57" selection-start-line="3677" selection-start-column="57" selection-end-line="3677" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Style/Alignment.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -785,10 +778,17 @@
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Tracking.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="298" column="17" selection-start-line="298" selection-start-column="13" selection-end-line="298" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="379" column="76" lean-forward="true" selection-start-line="379" selection-start-column="76" selection-end-line="379" selection-end-column="76" />
+        <state relative-caret-position="519">
+          <caret line="378" column="139" selection-start-line="378" selection-start-column="139" selection-end-line="378" selection-end-column="139" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#td#0;n#!!top" expanded="true" />
