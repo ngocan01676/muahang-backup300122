@@ -415,7 +415,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 //        }
         $total1 = $total1->count();
 
-        $this->data['analytics']['count'] = $total1 + $total;
+        $this->data['analytics']['total'] = $total1 + $total;
 
 
 
