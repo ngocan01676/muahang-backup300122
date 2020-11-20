@@ -1635,10 +1635,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          if(isset($v['province'])){
                              $rs1->where('province',$v['province']);
                          }
-                         if($data['name'] == "YAMADA" || $data['name'] == 'FUKUI' || $data['name']  == 'OHGA' ){
+                         if($data['company'] == "YAMADA" || $data['company'] == 'FUKUI' || $data['company']  == 'OHGA' ){
                              $rs1->whereIn('company',['YAMADA','FUKUI','OHGA']);
                          }else{
-                             $rs1->where('company',$data['name']);
+                             $rs1->where('company',$data['company']);
                          }
                          $dataItem['3'] = $model-> RenderData($rs1->get()->all(),false);
 
@@ -1651,10 +1651,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          if(isset($v['province'])){
                              $rs2->where('province',$v['province']);
                          }
-                         if($data['name'] == "YAMADA" || $data['name'] == 'FUKUI' || $data['name']  == 'OHGA' ){
+                         if($data['company'] == "YAMADA" || $data['company'] == 'FUKUI' || $data['company']  == 'OHGA' ){
                              $rs2->whereIn('company',['YAMADA','FUKUI','OHGA']);
                          }else{
-                             $rs2->where('company',$data['name']);
+                             $rs2->where('company',$data['company']);
                          }
                          $dataItem['2'] = $model->RenderData($rs2->get()->all(),false);
 
