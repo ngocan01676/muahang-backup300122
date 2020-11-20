@@ -383,7 +383,40 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         }
         $total1 = $total1->count();
 
-        $this->data['analytics']['total'] = $total1 + $total;
+        $this->data['analytics']['today'] = $total1 + $total;
+
+        $total = DB::table('shop_order_excel')
+            ->where('fullname','!=','')
+            ->where('company','!=','KOGYJA')
+            ->where('public','1');
+
+        if(!is_null($user_id) && !empty($user_id)){
+            $total->where('admin_id',$user_id);
+        }
+
+//        if(!empty($date_start) && !empty($date_end)){
+//            $total->where('order_create_date','>=',$date_start." 00:00:00");
+//            $total->where('order_create_date','<=',$date_end." 23:59:59");
+//        }
+        $total = $total->count();
+
+        $total1 = DB::table('shop_order_excel')
+            ->where('fullname','!=','')
+            ->where('type','Info')
+            ->where('company','=','KOGYJA')
+            ->where('public','1');
+
+        if(!is_null($user_id) && !empty($user_id)){
+            $total1->where('admin_id',$user_id);
+        }
+//        if(!empty($date_start) && !empty($date_end)){
+//            $total1->where('order_create_date','>=',$date_start." 00:00:00");
+//            $total1->where('order_create_date','<=',$date_end." 23:59:59");
+//        }
+        $total1 = $total1->count();
+
+        $this->data['analytics']['count'] = $total1 + $total;
+
 
 
         $this->data['analytics']['success'] = DB::table('shop_order_excel')
@@ -423,15 +456,15 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         }
         $this->data['analytics']['cancel'] = $this->data['analytics']['cancel']->where('status',2)->count();
 
-        $this->data['analytics']['today'] = DB::table('shop_order_excel')
-            ->where('fullname','!=','')
-            ->where('public',1)
-            ->where('updated_at','>=',date('Y-m-d')." 00:00:00")
-            ->where('updated_at','<=',date('Y-m-d')." 23:59:59");
-        if(!is_null($user_id) && !empty($user_id)){
-            $this->data['analytics']['today']->where('admin_id',$user_id);
-        }
-        $this->data['analytics']['today'] =  $this->data['analytics']['today']->count();
+//        $this->data['analytics']['today'] = DB::table('shop_order_excel')
+//            ->where('fullname','!=','')
+//            ->where('public',1)
+//            ->where('updated_at','>=',date('Y-m-d')." 00:00:00")
+//            ->where('updated_at','<=',date('Y-m-d')." 23:59:59");
+//        if(!is_null($user_id) && !empty($user_id)){
+//            $this->data['analytics']['today']->where('admin_id',$user_id);
+//        }
+//        $this->data['analytics']['today'] =  $this->data['analytics']['today']->count();
 
         $this->data['analytics']['price'] = DB::table('shop_order_excel')
             ->where('fullname','!=','')

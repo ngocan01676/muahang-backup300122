@@ -168,8 +168,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="374" column="34" lean-forward="true" selection-start-line="374" selection-start-column="34" selection-end-line="374" selection-end-column="34" />
+            <state relative-caret-position="506">
+              <caret line="417" column="39" selection-start-line="417" selection-start-column="39" selection-end-line="417" selection-end-column="39" />
               <folding>
                 <element signature="e#442#14854#0#PHP" />
               </folding>
@@ -881,7 +881,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16896000" />
+    <option name="totallyTimeSpent" value="16993000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1060,8 +1060,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="374" column="34" lean-forward="true" selection-start-line="374" selection-start-column="34" selection-end-line="374" selection-end-column="34" />
+        <state relative-caret-position="506">
+          <caret line="417" column="39" selection-start-line="417" selection-start-column="39" selection-end-line="417" selection-end-column="39" />
           <folding>
             <element signature="e#442#14854#0#PHP" />
           </folding>
