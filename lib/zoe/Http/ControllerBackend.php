@@ -4,7 +4,7 @@ namespace Zoe\Http;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
 use Zoe\Config;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 class ControllerBackend extends Controller
 {
     protected $layout = 'backend::layout.layout';
@@ -58,5 +58,13 @@ class ControllerBackend extends Controller
     }
     public function sidebar($name){
         View::share('sidebar_current', $name);
+    }
+    public function IsAcl($routerName){
+        $aliases_acl = app()->getPermissions()->aliases;
+        if(isset($aliases_acl[$routerName])){
+            $acl = $aliases_acl[$routerName];
+            return Auth::guard("backend")->user()->IsAcl($acl);
+        }
+        return true;
     }
 }

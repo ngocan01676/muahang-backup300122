@@ -6,9 +6,22 @@
                 <label for="text">Columns</label>
             </td>
             <td>
-                @foreach($configs['config']["columns"]['lists'] as $val=>$columns)
-                    <input type="checkbox" name="data.columns[{!! $val !!}]" value="{!! $val !!}"> {!! isset($columns['label'])?$columns['label']:"Empty" !!}
-                @endforeach
+                <table class="table table-bordered">
+                    @foreach($configs['config']["columns"]['lists'] as $val=>$columns)
+                    <tr>
+                        <td><input type="checkbox" name="data.columns[{!! $val !!}]" value="{!! $val !!}"> {!! isset($columns['label'])?$columns['label']:"Empty" !!}</td>
+                        <td><input type="text" name="data.widths[{!! $val !!}]">%</td>
+                        <td>
+                            <select class="form-control" name="data.units[{!! $val !!}]">
+                                <option value="%">%</option>
+                                <option value="px">Px</option>
+
+                                <option value="em">Em</option>
+                            </select>
+                        </td>
+                    </tr>
+                    @endforeach
+                </table>
             </td>
         </tr>
         @endif

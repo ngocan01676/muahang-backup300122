@@ -27,10 +27,7 @@
         <div class="box box-zoe ">
             <div class="box-body no-padding">
                 @if(isset($permissions[$guard]))
-                    <p>
-                        <span class="label-primary">Router</span>
-                        <span class="label-success">Module</span>
-                    </p>
+
                     <form action="" id="form_{!! $guard !!}">
                             <table class="table table-bordered">
                                             <thead>
@@ -39,7 +36,13 @@
                                                 <th class="text-center">{!! @z_language(["Group"]) !!}</th>
 
                                                 <th class="text-center">
-                                                    {!! @z_language(["Description"]) !!}
+
+                                                    <p>
+                                                        {!! @z_language(["Description"]) !!}
+                                                        <span class="label-primary">Router</span>
+                                                        <span class="label-success">Module</span>
+                                                        <span class="label-danger">Error</span>
+                                                    </p>
                                                 </th>
                                             </tr>
                                             </thead>

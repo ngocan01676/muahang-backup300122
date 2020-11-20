@@ -110,6 +110,7 @@ return [
                     'lists' => [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
                         'title' => ['label' => z_language('Title', false), 'type' => 'title', 'primary' => true],
+                        'func_slug' => ['label' => z_language('Url', false), 'type' => 'text','callback' => "func_slug"],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status'],
                         'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
                         'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date']

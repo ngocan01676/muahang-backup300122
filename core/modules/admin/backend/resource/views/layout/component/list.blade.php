@@ -82,7 +82,7 @@
                                             @endphp
                                         @endif
                                         @if('title'== $columns['type'])
-                                            <td scope="col"
+                                            <td scope="col" @isset($data['data']['widths'][$key]) style="width: {!! $data['data']['widths'][$key] !!}{!! $data['data']['units'][$key] !!}" @endisset
                                                 class="column column-primary column-name {{list_text_aligin($columns)}}">
                                                 <strong><a class="row-title"
                                                            href="#">@php echo list_label($model->{$key},$columns,$data,$model); @endphp</a></strong>
@@ -99,7 +99,9 @@
                                                                         $oke = false;
                                                                     }
                                                                 }
-                                                                if($oke == false) continue;
+                                                            @endphp
+                                                                @continue($oke == false);
+                                                            @php
                                                                 $par = isset($route)?$route:[];
                                                                 foreach ($router['par'] as $k=>$v){
                                                                     $par[$k] = $model->{$v};
@@ -136,15 +138,15 @@
                                             </td>
                                         @elseif($columns['type'] == 'id')
 
-                                            <td class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
+                                            <td @isset($data['data']['widths'][$key]) style="width: {!! $data['data']['widths'][$key] !!}{!! $data['data']['units'][$key] !!}" @endisset class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
                                         @elseif($columns['type'] == 'action')
-                                            <td>
+                                            <td @isset($data['data']['widths'][$key]) style="width: {!! $data['data']['widths'][$key] !!}{!! $data['data']['units'][$key] !!}" @endisset>
                                                  @foreach($columns['lists'] as $lists)
                                                         {!! render_attr($lists,$model)  !!}
                                                  @endforeach
                                             </td>
                                         @else
-                                            <td data="col"
+                                            <td data="col" @isset($data['data']['widths'][$key]) style="width: {!! $data['data']['widths'][$key] !!}{!! $data['data']['units'][$key] !!}" @endisset
                                                 class="column @isset($columns['primary']) column-primary @endisset {{list_text_aligin($columns)}}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
                                         @endif
                                     @endisset
@@ -246,10 +248,13 @@
                 });
             });
 
-            $("#sectionList .listMain").on('mouseenter', '.list-row', function () {
+            $("#sectionList .listMain").on('mouseenter', '.list-row .column-primary', function () {
                 $(this).find('.row-actions').css({display: "block"});
-            }).on('mouseleave', '.list-row', function () {
+
+            }).on('mouseleave', '.list-row .column-primary', function () {
+
                 $(this).find('.row-actions').css({display: "none"});
+
             }).on('click', ".btn-box-tool", function () {
                 var i = $(this).find('i');
                 if ($(this).find('i').hasClass('fa-plus')) {

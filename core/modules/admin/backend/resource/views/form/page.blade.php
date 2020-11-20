@@ -1,4 +1,4 @@
-<div class="col-md-9">
+<div class="col-md-12">
     <div class="box box box-zoe">
         <div class="box-body">
             @if ($errors->any())
@@ -10,32 +10,44 @@
                     </ul>
                 </div><br/>
             @endif
+            @flash_message()@endflash_message
             @if(isset($page))
                 {!! Form::model($page, ['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
                 {!! Form::hidden('id') !!}
             @else
                 {!! Form::open(['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
             @endif
-
             <table class="table table-borderless">
                 <tbody>
                 <tr>
                     <td>
-                        {!! Form::label('id_title', 'Tiều đề trang', ['class' => 'title']) !!}
-                        {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Tiều đề trang']) !!}
+                        {!! Form::label('id_title', z_language('Page title'), ['class' => 'title']) !!}
+                        {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>z_language('Page title')]) !!}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {!! Form::label('id_description', 'Mô tả', ['class' => 'description']) !!}
+                        <div class="url_slug">
+                            {!! Form::label('url', z_language('Url'), ['class' => 'url']) !!} :
+                            {!! url('/') !!}<span class="url_value">/{!! trim(Form::value("slug"),'/') !!}</span>
+                            &nbsp;<button type="button" class="btn btn-xs btn-primary edit" onclick="change_url(this)">{!! z_language('Edit') !!}</button>
+                            &nbsp;<button style="display: none" type="button" class="btn btn-xs btn-primary save" onclick="save_url(this)">{!! z_language('Save') !!}</button>&nbsp;
+                            <button style="display: none" type="button" class="btn btn-xs btn-primary cancel" onclick="cancel_url(this)">{!! z_language('Cancel') !!}</button>
+                            {!! Form::hidden('slug') !!}
+                   </div>
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   {!! Form::label('id_description', z_language('Description'), ['class' => 'description']) !!}
                         {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Tiều đề trang','cols'=>5,'rows'=>5]) !!}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {!! Form::label('id_status', 'Status', ['class' => 'description']) !!}
-                        {!! Form::radio('status', '1' , true) !!} Yes
-                        {!! Form::radio('status', '0',false) !!} No
+                        {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
+                        {!! Form::radio('status', '1' , true) !!} {!! z_language('Yes') !!}
+                        {!! Form::radio('status', '0',false) !!} {!! z_language('No') !!}
                     </td>
                 </tr>
                 <tr>
@@ -43,6 +55,42 @@
                         <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
                         {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
                         <script>
+
+                            function change_url(self) {
+                                let _this = $(self);
+                                let _parent = _this.closest('.url_slug');
+                                let dom_url_value =_parent.find('.url_value');
+                                let val = dom_url_value.text();
+                                _parent.find('.btn').hide();
+                                _parent.find('.btn.save').show();
+                                _parent.find('.btn.cancel').show();
+                                dom_url_value.html('&nbsp;<input data-value_old="'+val+'" value="'+val+'">');
+                            }
+
+                            function cancel_url(self) {
+                                let _this = $(self);
+                                let _parent = _this.closest('.url_slug');
+                                let dom_url_value =_parent.find('.url_value');
+                                _parent.find('.btn').hide();
+                                _parent.find('.btn.edit').show();
+                                dom_url_value.html(dom_url_value.find("input").data('value_old'));
+                            }
+
+                            function save_url(self) {
+                                let _this = $(self);
+
+                                let _parent = _this.closest('.url_slug');
+                                let dom_url_value =_parent.find('.url_value');
+
+                                _parent.mask("{!! z_language('Waiting...') !!}");
+                                let val = dom_url_value.find("input").val();
+                                _parent.unmask();
+                                _parent.find('.btn').hide();
+                                _parent.find('.btn.edit').show();
+                                dom_url_value.html(val);
+                                _parent.find('input[name="slug"]').val(val);
+                            }
+
                             var editor_config = {
                                     path_absolute: "/",
                                     selector: "textarea.my-editor",
@@ -103,8 +151,6 @@
 
                                     }
                                 }
-                            ;
-
                             tinymce.init(editor_config);
                         </script>
                     </td>
@@ -116,62 +162,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-3">
-    <div class="box box box-zoe">
-        <div class="box-body">
-            <table class="table table-striped">
-                <tbody>
-                <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Task</th>
-                    <th>Progress</th>
-                    <th style="width: 40px">Label</th>
-                </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>Update software</td>
-                    <td>
-                        <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-danger">55%</span></td>
-                </tr>
-                <tr>
-                    <td>2.</td>
-                    <td>Clean database</td>
-                    <td>
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-warning" style="width: 70%"></div>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-warning">70%</span></td>
-                </tr>
-                <tr>
-                    <td>3.</td>
-                    <td>Cron job running</td>
-                    <td>
-                        <div class="progress progress-xs progress-striped active">
-                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-primary">30%</span></td>
-                </tr>
-                <tr>
-                    <td>4.</td>
-                    <td>Fix and squish bugs</td>
-                    <td>
-                        <div class="progress progress-xs progress-striped active">
-                            <div class="progress-bar bg-success" style="width: 90%"></div>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-success">90%</span></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+
 @section('extra-script')
     <script type="text/javascript">
 

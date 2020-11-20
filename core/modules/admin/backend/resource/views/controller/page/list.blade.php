@@ -16,9 +16,7 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
-
-    @component('backend::layout.component.list',['name'=>'core:page','models'=>$models])
-
+    @component('backend::layout.component.list',['name'=>'core:page','models'=>$models,"callback"=>$callback])
     @endcomponent
 @endsection
 @push('links')

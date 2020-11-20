@@ -520,7 +520,8 @@
     $(document).ready(function () {
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'KEY':"{!! base64_encode(request()->route()->getName()) !!}"
             },
             error: function (jqXHR, exception) {
                 // if (jqXHR.status === 0) {
