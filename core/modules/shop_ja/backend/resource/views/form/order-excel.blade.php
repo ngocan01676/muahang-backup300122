@@ -2260,7 +2260,7 @@
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.group.index, value.start]), isNaN(Group)?"":Group);
 
                 if(dropdown.hasOwnProperty(product_id)){
-                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,province,totalPriceBuy,payMethod,total_price_buy_all);
+                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCountAll,province,totalPriceBuy,payMethod,total_price_buy_all);
                 }
                 let v = 0;
 
