@@ -625,7 +625,7 @@ class Excel{
             ->setCreator('php-download.com')
             ->setLastModifiedBy('php-download.com');
 
-        $title1 = "株式会社ヤマダ 様 注文フォーマット";
+        $title1 = "大賀商店様 注文フォーマット";//大賀商店様 注文フォーマット
         $title2 = "見本";
 
         $info = "";
@@ -811,6 +811,16 @@ class Excel{
         $sheet->setCellValue("P".$start, "=SUM(P".$defaultStart.":P".($start-1).")");
         $sheet->setCellValue("R".$start, "=SUM(R".$defaultStart.":R".($start-1).")");
         $sheet->setCellValue("Q".$start, "=SUM(Q".$defaultStart.":Q".($start-1).")");
+
+
+        foreach (["K","P","R","Q"] as $col){
+            $sheet->getStyle($col.$start)->applyFromArray( array(
+                'font'  => array(
+                    'color' => array('rgb' => '0070c0'),
+                ),
+            ) );
+        }
+
         $writer = new Xlsx($spreadsheet);
         $path = '/uploads/exports/'.str_replace(__CLASS__.'::',"",__METHOD__);
         if( !$this->file->isDirectory(public_path().$path)){
