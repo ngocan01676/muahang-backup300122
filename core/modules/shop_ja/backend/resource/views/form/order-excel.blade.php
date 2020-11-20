@@ -1225,13 +1225,9 @@
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
                         let parent = $(this).parent().data();
-
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
                             let company = parent.company;
-
-
-
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
@@ -6420,8 +6416,8 @@
                }
            });
        }
-        function CheckData(){
 
+        function CheckData(){
             let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
             let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
             let data = spreadsheet.jexcel[worksheet].options.data;
