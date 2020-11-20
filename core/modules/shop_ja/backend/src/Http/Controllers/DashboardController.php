@@ -279,8 +279,10 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
     public function list(Request $request)
     {
 
-        $date_start = $request->get('date_start','');
-        $date_end = $request->get('date_end','');
+        $date_start = $request->get('date_start',date('Y-m-d'));
+        $date_end = $request->get('date_end',date('Y-m-d'));
+
+
 
         $categorys = config_get("category", "shop-ja:product:category");
         $this->data['analytics']['category'] = [];
@@ -326,7 +328,10 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                     ->where('company',$category['name'])
                     ->where('type','Footer')
                     ->where('public','1');
-
+                if(!empty($date_start) && !empty($date_end)) {
+                    $price->where('order_create_date', '>=', $date_start . " 00:00:00");
+                    $price->where('order_create_date', '<=', $date_end . " 23:59:59");
+                }
                 if(!is_null($user_id) && !empty($user_id)){
                     $price->where('admin_id',$user_id);
                 }
