@@ -1241,7 +1241,7 @@ class Excel{
             ),
             'borders' => [
                 'allBorders' => array(
-                    'borderStyle' => Border::BORDER_DOTTED,
+                    'borderStyle' => Border::BORDER_DASHDOT,
                     'color' => array('rgb'=>'000000')
                 ),
             ],
@@ -1344,6 +1344,7 @@ class Excel{
                 ["振込み情報",'order_info',25,9],
             ];
             $nameColList = [];
+
             foreach($colums as $key=>$value){
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key+1);
                 $keyCol = "";
@@ -1382,6 +1383,14 @@ class Excel{
 //            $orders = [
 //
 //            ];
+            $sheet->getStyle("O".$start)->applyFromArray( array(
+                    'font'  => array(
+                        'size'  => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
             $start++;
 
             $products =  DB::table('shop_product')->get()->keyBy('id')->all();
