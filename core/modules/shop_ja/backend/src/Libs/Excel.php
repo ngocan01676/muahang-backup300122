@@ -817,6 +817,8 @@ class Excel{
             $sheet->getStyle($col.$start)->applyFromArray( array(
                 'font'  => array(
                     'color' => array('rgb' => 'ff0000'),
+                    'size'  => 9,
+                    'name' => 'ＭＳ Ｐゴシック',
                 ),
             ) );
         }
