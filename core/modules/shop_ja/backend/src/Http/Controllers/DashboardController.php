@@ -352,20 +352,32 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
             }
             $this->data['analytics']['category'][$category['name']]['price'] =  $price->sum('order_price');
         }
-        $this->data['analytics']['total'] = DB::table('shop_order_excel')
+        $total = DB::table('shop_order_excel')
             ->where('fullname','!=','')->where('company','!=','KOGYJA')->where('public','1');
-        $this->data['analytics']['total']+= DB::table('shop_order_excel')
+
+        if(!is_null($user_id) && !empty($user_id)){
+            $total->where('admin_id',$user_id);
+        }
+        if(!empty($date_start) && !empty($date_end)){
+            $total->where('order_create_date','>=',$date_start." 00:00:00");
+            $total->where('order_create_date','<=',$date_end." 23:59:59");
+        }
+        $total = $total->count();
+
+        $total1 = DB::table('shop_order_excel')
             ->where('fullname','!=','')->where('type','Info')->where('company','==','KOGYJA')->where('public','1');
 
         if(!is_null($user_id) && !empty($user_id)){
-            $this->data['analytics']['total']->where('admin_id',$user_id);
+            $total1->where('admin_id',$user_id);
         }
         if(!empty($date_start) && !empty($date_end)){
-            $this->data['analytics']['total']->where('order_create_date','>=',$date_start." 00:00:00");
-            $this->data['analytics']['total']->where('order_create_date','<=',$date_end." 23:59:59");
+            $total1->where('order_create_date','>=',$date_start." 00:00:00");
+            $total1->where('order_create_date','<=',$date_end." 23:59:59");
         }
-        $this->data['analytics']['total'] = $this->data['analytics']['total']->count();
+        $total1 = $total1->count();
 
+        $this->data['analytics']['total'] = $total1 + $total;
+        
         $this->data['analytics']['success'] = DB::table('shop_order_excel')
             ->where('fullname','!=','')->where('status',1)->where('public','1');
         if(!is_null($user_id) && !empty($user_id)){
