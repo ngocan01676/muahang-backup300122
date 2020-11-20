@@ -373,9 +373,9 @@ class Excel{
             ["配送先郵便番号",'zipcode',9,9],// E Mã bưu điện
             ["配送先都道府県",'province',14,9], // F Tỉnh
             ["配送先住所",['callback'=>function($index,$value){return preg_replace('/\s+/', '',$value );},'key'=>'address'],18,9], // G Địa chỉ giao hàng
-            ["配送先電話番号",'phone1',10,9], // H Số điện thoại
+            ["配送先電話番号",'phone',10,9], // H Số điện thoại
             ["別途送料",'order_ship',15,9], //I Phí Ship
-            ["紹介料",['callback'=>function($index,$value){return (int)$value+330;},'key'=>'order_price'],15,9],// Lợi nhuận J
+            ["紹介料",['callback'=>function($index,$value){return (int)$value;},'key'=>'order_price'],15,9],// Lợi nhuận J
             ["仕入金額",'order_total_price_buy',15,9], // Tổng giá đơn hàng K
             ["品番",['product'=>['product_id','code']],10,9], // Mã sản phẩm L
             ["商品名",['product'=>['product_id','title']],18,9], // Tên sản phẩm M
