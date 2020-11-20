@@ -1625,7 +1625,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          $dataItem = [];
                          $rs1 = DB::table('shop_order_excel')->where('company',$data["company"])
                              ->where('order_create_date',">=",date('Y-m-d',
-                                 strtotime('-3 day')))->where('order_create_date','<=',date('Y-m-d H:i:s'));
+                                 strtotime('-7 day')))->where('order_create_date','<=',date('Y-m-d H:i:s'));
                          if(isset($v['fullname'])){
                              $rs1->where('fullname',$v['fullname']);
                          }
@@ -1643,7 +1643,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          $dataItem['3'] = $model-> RenderData($rs1->get()->all(),false);
 
                          $rs2 = DB::table('shop_order_excel')
-                             ->where('order_create_date',">=",date('Y-m-d',strtotime('-3 day')))
+                             ->where('order_create_date',">=",date('Y-m-d',strtotime('-7 day')))
                              ->where('order_create_date','<=',date('Y-m-d H:i:s'));
                          if(isset($v['address'])){
                              $rs2->where('address',$v['address']);
