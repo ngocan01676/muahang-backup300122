@@ -310,7 +310,6 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                 ->where('fullname','!=','')
                 ->where('public',1)
                 ->where('company',$category['name']);
-
             if(!is_null($user_id) && !empty($user_id)){
                 $query->where('admin_id',$user_id);
             }
@@ -321,7 +320,6 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                 $query->where('order_create_date','>=',$date_start." 00:00:00");
                 $query->where('order_create_date','<=',$date_end." 23:59:59");
             }
-
             $this->data['analytics']['category'][$category['name']] = [];
             $this->data['analytics']['category'][$category['name']]['count'] = $query->count();
 
