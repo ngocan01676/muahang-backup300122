@@ -841,7 +841,7 @@
                 token:{
                     title: '{!! z_language("Token") !!}',//T
                     type: 'text',
-                    width:'100px',
+                    width:'0px',
                 },
                 admin:{
                     title: '{!! z_language("Admin") !!}',//T
@@ -849,12 +849,12 @@
                     width:'1px',
                 },
                 group:{
-                    title: '{!! z_language("Admin") !!}',//T
+                    title: '{!! z_language("group") !!}',//T
                     type: 'text',
                     width:'1px',
                 },
                 comment:{
-                    title: '{!! z_language("Admin") !!}',//T
+                    title: '{!! z_language("Ghi chú") !!}',//T
                     type: 'text',
                     width:'100px',
                 },
@@ -3428,7 +3428,7 @@
                 token:{
                     title: '{!! z_language("Token") !!}',//T
                     type: 'text',
-                    width:'100px',
+                    width:'1px',
                 },
                 admin:{
                     title: '{!! z_language("Admin") !!}',//T
@@ -3436,12 +3436,12 @@
                     width:'1px',
                 },
                 group:{
-                    title: '{!! z_language("Admin") !!}',//T
+                    title: '{!! z_language("group") !!}',//T
                     type: 'text',
                     width:'1px',
                 },
                 comment:{
-                    title: '{!! z_language("Admin") !!}',//T
+                    title: '{!! z_language("Ghi chú") !!}',//T
                     type: 'text',
                     width:'100px',
                 },
@@ -4449,7 +4449,7 @@
                 token:{
                     title: '{!! z_language("Token") !!}',//T
                     type: 'text',
-                    width:'100px',
+                    width:'1px',
                 },
                 admin:{
                     title: '{!! z_language("Admin") !!}',//T
@@ -4457,12 +4457,12 @@
                     width:'1px',
                 },
                 group:{
-                    title: '{!! z_language("Admin") !!}',//T
+                    title: '{!! z_language("group") !!}',//T
                     type: 'text',
                     width:'1px',
                 },
                 comment:{
-                    title: '{!! z_language("Admin") !!}',//T
+                    title: '{!! z_language("Ghi chú") !!}',//T
                     type: 'text',
                     width:'100px',
                 },
@@ -5466,7 +5466,7 @@
                 token:{
                     title: '{!! z_language("Token") !!}',//T
                     type: 'text',
-                    width:'100px',
+                    width:'1px',
                 },
                 admin:{
                     title: '{!! z_language("Admin") !!}',//T
@@ -5474,12 +5474,13 @@
                     width:'1px',
                 },
                 group:{
-                    title: '{!! z_language("Admin") !!}',//T
+                    title: '{!! z_language("group
+                    ") !!}',//T
                     type: 'text',
                     width:'1px',
                 },
                 comment:{
-                    title: '{!! z_language("Admin") !!}',//T
+                    title: '{!! z_language("Ghi chú") !!}',//T
                     type: 'text',
                     width:'100px',
                 },
