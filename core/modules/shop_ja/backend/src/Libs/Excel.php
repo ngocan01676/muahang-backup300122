@@ -790,6 +790,7 @@ class Excel{
                     }
                 }
             }
+            
             $sheet->getStyle("P".$start)->applyFromArray( array(
                 'font'  => array(
                     'color' => array('rgb' => 'ff0000'),
