@@ -317,7 +317,7 @@
         // };
 
         let config = {
-            minDimensions:[35,43],
+            minDimensions:[40,43],
             tableWidth: '100%',
             tableHeight: '100%',
             defaultColWidth: 100,
