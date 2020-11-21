@@ -245,6 +245,7 @@ return [
                     "show" => [
                         "url" => "/show/{company?}/{date?}/{hour?}/{type?}",
                         "method" => ['get','post'],
+                        "acl"=>true,
                     ],
                     "store" => [
                         "url" => "/store",
