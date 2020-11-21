@@ -59,9 +59,9 @@ class LogController extends \Zoe\Http\ControllerBackend
                             $html = "<table class='table-bordered table-bordered' style=\" width: 100%;\">";
 
                             $html.="<tr>";
-                                $html.="<td style=\"vertical-align: middle;\">".$datas["create_date"]."</td>";
-                                $html.="<td style=\"vertical-align: middle;\">".$datas["id"]."</td>";
-                                $html.="<td style=\"vertical-align: middle;\">".$datas["username"]."</td>";
+                                $html.="<td style=\"vertical-align: middle;\">".$datas["create_date"]."|</td>";
+                                $html.="<td style=\"vertical-align: middle;\">".$datas["id"]."|</td>";
+                                $html.="<td style=\"vertical-align: middle;\">".$datas["username"]."|</td>";
                                 $html.="<td style=\"vertical-align: middle;\">".$datas["company"]."</td>";
                                 $html.="<td>";
                                     $html.= "<table class='table-bordered table-bordered' style=\" width: 100%;\">";
