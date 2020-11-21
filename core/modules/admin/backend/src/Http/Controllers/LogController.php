@@ -54,7 +54,7 @@ class LogController extends \Zoe\Http\ControllerBackend
                    }
                 },
                 "getData"=>function($model){
-                    if($model->name == "shop_js:excel"){
+                    if($model->name == "shop_js:excel:change"){
                         $datas = json_decode($model->datas,true) ;
                             $html = "<table class='table-bordered table-bordered' style=\" width: 100%;\">";
 
