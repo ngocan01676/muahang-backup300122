@@ -1857,6 +1857,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     );
                     //{company?}/{date?}/{hour?}
                 }
+                
                 if($data['action']!=1)
                     $data = ['link'=>route(
                         'backend:shop_ja:order:excel:show',
