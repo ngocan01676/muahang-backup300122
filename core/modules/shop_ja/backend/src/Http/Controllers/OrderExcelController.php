@@ -240,6 +240,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     if(isset($columns["id"]) && !empty($values[$columns["id"]])){
                                         $where = ['id'=>$values[$columns["id"]]];
                                         DB::table('shop_order_excel')->where($where)->update($_data);
+                                        $this->log('shop_js:excel',"edit",[
+                                            'id'=>$values[$columns["id"]],
+                                            'change'=>$order['oldData'][$key],
+                                        ]);
                                     }
                                 }
                             }
@@ -361,7 +365,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     $_ = [$values,$_data,$columns];
                                     if(isset($columns["id"]) && !empty($values[$columns["id"]])){
                                         $where = ['id'=>$values[$columns["id"]]];
+
                                         DB::table('shop_order_excel')->where($where)->update($_data);
+                                        $this->log('shop_js:excel',"edit",[
+                                            'id'=>$values[$columns["id"]],
+                                            'change'=>$order['oldData'][$key],
+                                        ]);
                                     }
                                     $_[] = $where;
                                     $logs[$name][] =$_;
@@ -1469,7 +1478,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
 
                         $datas[$result->company][] = [
-                            $result->public,
+                            $result->public==1,
                             $result->order_image,
                             $result->order_create_date,
                             $pay_method,
@@ -1521,7 +1530,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $total_price = $result->total_price;
                         $total_price_buy = $result->total_price_buy;
                         $datas[$result->company][] = [
-                            $result->public,
+                            $result->public==1,
                             $result->order_image,
                             $result->order_create_date,
                             $pay_method,
@@ -1599,7 +1608,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 //                        }
 
                         $datas[$result->company][] = [
-                            $result->public,
+                            $result->public==1,
                             $result->order_image,
                             $result->order_create_date,
                             $pay_method,
@@ -1675,7 +1684,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
 
                         $datas[$result->company][] = [
-                            $result->public,
+                            $result->public==1,
                             $result->order_image,
                             $result->order_create_date,
                             $pay_method,

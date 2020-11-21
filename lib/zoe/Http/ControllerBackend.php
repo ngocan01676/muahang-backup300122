@@ -52,7 +52,7 @@ class ControllerBackend extends Controller
 
                 ]);
         }else{
-            return DB::table('log')->insert(['ips'=>$this->getOriginalClientIp(),'name'=>$name,'admin_id'=>Auth::user()->id,'actions'=>$action,'datas'=>json_encode($data)]);
+            return DB::table('log')->insert(['ips'=>$this->getOriginalClientIp(),'name'=>$name,'admin_id'=>Auth::user()->id,'actions'=>$action,'datas'=>json_encode($data,JSON_UNESCAPED_UNICODE )]);
         }
 
     }

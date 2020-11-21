@@ -142,6 +142,9 @@
         });
     </script>
     <script>
+
+        let datamodelOld = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
+
         function Save(status) {
             if(status === true){
                 let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
@@ -174,9 +177,36 @@
                     for(let k in  columnsAll[name] ){
                         _columns.push(k);
                     }
+                    let oldData = [];
+
+                    if(datamodelOld.hasOwnProperty(name)){
+                        oldData = datamodelOld[name];
+                    }
+
+                    let dataNew = [];
+                    let dataOldNew = [];
+                    if(oldData.length > 0 ){
+                        for(let i in oldData){
+                           if(data[i][columnsAll[name]["id"].index] === oldData[i][columnsAll[name]["id"].index]){
+                               let valNew = [];
+                               for(let ii in oldData[i]){
+                                  if(!(oldData[i][ii]===data[i][ii])){
+                                      valNew.push(
+                                          [oldData[i][ii],data[i][ii],_columns[ii]]
+                                      );
+                                  }
+                               }
+                               if(valNew.length){
+                                   dataNew.push(data[i]);
+                                   dataOldNew.push(valNew);
+                               }
+                           }
+                        }
+                    }
                     datas[name] = {
-                        data:data,
-                        columns:_columns
+                        data:dataNew,
+                        columns:_columns,
+                        oldData:dataOldNew
                     };
                // });
                 let form_store = $("#form_store");
@@ -190,7 +220,7 @@
                         'id':'{{isset($model)?$model->id:0}}',
                         'type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
-                        location.reload();
+                       location.reload();
                     },
                 });
             }
