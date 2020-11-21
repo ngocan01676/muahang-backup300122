@@ -240,7 +240,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     if(isset($columns["id"]) && !empty($values[$columns["id"]])){
                                         $where = ['id'=>$values[$columns["id"]]];
                                         DB::table('shop_order_excel')->where($where)->update($_data);
-                                        $this->log('shop_js:excel',"edit",[
+                                        $this->log('shop_js:excel:change',"edit",[
                                             'id'=>$values[$columns["id"]],
                                             'change'=>$order['oldData'][$key],
                                         ]);
@@ -367,7 +367,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $where = ['id'=>$values[$columns["id"]]];
 
                                         DB::table('shop_order_excel')->where($where)->update($_data);
-                                        $this->log('shop_js:excel',"edit",[
+                                        $this->log('shop_js:excel:change',"edit",[
                                             'id'=>$values[$columns["id"]],
                                             'change'=>$order['oldData'][$key],
                                         ]);
