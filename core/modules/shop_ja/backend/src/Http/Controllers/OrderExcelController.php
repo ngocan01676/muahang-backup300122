@@ -243,6 +243,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $this->log('shop_js:excel:change',"edit",[
                                             'id'=>$values[$columns["id"]],
                                             'company'=>$name,
+                                            'username'=>$admin_id,
                                             'create_date'=>$_data['order_create_date'],
                                             'change'=>$order['oldData'][$key],
                                         ]);
@@ -373,6 +374,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $this->log('shop_js:excel:change',"edit",[
                                             'id'=>$values[$columns["id"]],
                                             'company'=>$name,
+                                            'username'=>$admin_id,
                                             'create_date'=>$_data['order_create_date'],
                                             'change'=>$order['oldData'][$key],
                                         ]);
