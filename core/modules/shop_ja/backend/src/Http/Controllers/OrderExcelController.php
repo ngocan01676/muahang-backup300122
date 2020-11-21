@@ -117,12 +117,14 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     return response()->json(['key'=>$k,'data'=>json_decode(Cache::get($k),true)]);
                 }
             }elseif($data['act'] == "saveShow"){
-
                 $datas = json_decode($data['datas'],true);
+                $usernames = DB::table('admin')->select('id','username')->get()->keyBy('username')->toArray();
+                $this->InitOption();
                 $date_time = date('Y-m-d H:i:s');
-                $logs = [];
                 foreach ($datas as $name=>$order){
+
                     $logs[$name] = [];
+
                     $check =  [
                         'fullname' => 'required',
                     ];
@@ -147,9 +149,29 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     if($name== "KOGYJA"){
                         try{
                             foreach ($order['data'] as $key=>$values){
-                                if(!isset($columns["id"]) || empty($values[$columns["id"]])){
-                                    continue;
+                                if($values[$columns["type"]] == "Info"){
+                                    $oke = false;
+                                    foreach ($order['data'] as $key1=>$values1){
+                                        if ($key1!=$key && $values1[$columns["token"]] == $values[$columns["token"]]) {
+                                            $order['data'][$key1][$columns["status"]] =  $values[$columns["status"]];
+                                            $order['data'][$key1][$columns["timeCreate"]] = $values[$columns["timeCreate"]];
+                                            $order['data'][$key1][$columns["session_id"]] = $values[$columns["session_id"]];
+                                            $order['data'][$key1][$columns["fullname"]] = $values[$columns["fullname"]];
+                                            $order['data'][$key1][$columns["address"]] = $values[$columns["address"]];
+                                            $order['data'][$key1][$columns["phone"]] = $values[$columns["phone"]];
+                                            $order['data'][$key1][$columns["province"]] = $values[$columns["province"]];
+                                            $order['data'][$key1][$columns["payMethod"]] = $values[$columns["payMethod"]];
+                                            $order['data'][$key1][$columns["zipcode"]] = $values[$columns["zipcode"]];
+                                            $order['data'][$key1][$columns["order_date"]] = $values[$columns["order_date"]];
+                                            if($values1[$columns["type"]] == "Footer"){
+                                                $oke = true;
+                                                $order['data'][$key1][$columns["position"]] = (int) $order['data'][$key1][$columns["position"]] - 1;
+                                            }
+                                        }
+                                    }
                                 }
+                            }
+                            foreach ($order['data'] as $key=>$values){
                                 $pay_method = 0;
                                 if($values[$columns["payMethod"]] == "代金引換"){
                                     $pay_method = 1;
@@ -158,22 +180,27 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }else if($values[$columns["payMethod"]] == "決済不要"){
                                     $pay_method =3;
                                 }
+
                                 foreach ($values as $kkkkk=>$valllll){
                                     $values[$kkkkk] = rtrim(trim($valllll));
                                 }
+
                                 $product_title = "";$product_code = "";
-                                $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
+
+                                $product_id = (isset($columns["product_id"])?(int)$values[$columns["product_id"]]:0);
 
                                 if(isset( $_product[$product_id]['data']['price_buy'])){
                                     $product_code = $_product[$product_id]['data']['code'];
                                     $product_title = $_product[$product_id]['data']['title'];
                                 }
+                                $admin_id = isset($columns["admin"])?$values[$columns["admin"]]:"";
                                 $_data = [
                                     "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
                                     "company"=>$name,
-                                    "session_id"=> $values[$columns["id"]],
+                                    "session_id"=> isset($columns["session_id"])?$values[$columns["session_id"]]:"",
+                                    "admin_id"=>isset($usernames[$admin_id])?$usernames[$admin_id]->id:"",
                                     "fullname"=>isset($columns["fullname"])?preg_replace('/\s+/', ' ', $values[$columns["fullname"]]):"",
-                                    "address"=> isset($columns["address"])?preg_replace('/\s+/', '',$values[$columns["address"]] ) :"",
+                                    "address"=> isset($columns["address"])?preg_replace('/\s+/', '',$values[$columns["address"]] ):"",
                                     "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
                                     "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
                                     "province"=>isset($columns["province"])?preg_replace('/\s+/', '',$values[$columns["province"]] ):"",
@@ -198,96 +225,175 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                     "updated_at"=>$date_time,
-                                    "type"=>isset($columns["type"])?$values[$columns["type"]]:"Item",
-                                    "one_address"=>isset($columns["one_address"])?$values[$columns["one_address"]]:"0",
+                                    "type"=>isset($columns["type"]) && !empty($values[$columns["type"]])?$values[$columns["type"]]:"Item",
+                                    "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
                                     "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                     "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
-                                    "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
+                                    "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:0,
+                                    "rate"=> isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0",
+                                    "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                     "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                 ];
-                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date'])).' '.date('H:i:s');
-                                $validator = Validator::make($_data,$check);
-                                if (!$validator->fails()) {
-                                    $logs[$name][] = $_data;
-                                    DB::table('shop_order_excel')->insert($_data);
+                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date(' H:i:s');
+                                $_ = [$values,$_data,$columns];
+                                if ($product_id > 0 && $_data['type'] == "Item" || $_data['type'] == "Footer" || $_data['type'] == "Info") {
+                                    if(isset($columns["id"]) && !empty($values[$columns["id"]])){
+                                        $where = ['id'=>$values[$columns["id"]]];
+                                        DB::table('shop_order_excel')->where($where)->update($_data);
+                                        $this->log('shop_js:excel',"edit",[
+                                            'id'=>$values[$columns["id"]],
+                                            'change'=>$order['oldData'][$key],
+                                        ]);
+                                    }
                                 }
                             }
                         }catch (\Exception $ex){
-                            $datas = ['error'=>$ex->getMessage()];
+                            $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
                         }
                     }else{
                         try{
                             foreach ($order['data'] as $key=>$values){
-                                $fullname = isset($columns["fullname"])?$values[$columns["fullname"]]:"";
-
-                                if(empty($fullname)) continue;
-
-                                if(isset($columns["id"]) && !empty($values[$columns["id"]])){
-
-                                    $pay_method = 0;
-                                    if($values[$columns["payMethod"]] == "代金引換"){
-                                        $pay_method = 1;
-                                    }else  if($values[$columns["payMethod"]] == "銀行振込"){
-                                        $pay_method = 2;
-                                    }else  if($values[$columns["payMethod"]] == "決済不要"){
-                                        $pay_method = 3;
-                                    }
-                                    foreach ($values as $kkkkk=>$valllll){
-                                        $values[$kkkkk] = rtrim(trim($valllll));
-                                    }
-                                    $product_title = "";$product_code = "";
+                                $pay_method = 0;
+                                if($values[$columns["payMethod"]] == "代金引換"){
+                                    $pay_method = 1;
+                                }else  if($values[$columns["payMethod"]] == "銀行振込"){
+                                    $pay_method = 2;
+                                }else  if($values[$columns["payMethod"]] == "決済不要"){
+                                    $pay_method = 3;
+                                }
+                                foreach ($values as $kkkkk=>$valllll){
+                                    $values[$kkkkk] = rtrim(trim($valllll));
+                                }
+                                $product_title = "";$product_code = "";$count = 0;
+                                if($name== "KURICHIKU"){
                                     $product_id = (isset($columns["product_id"])?$values[$columns["product_id"]]:"");
+                                    $count = (isset($columns["count"])?$values[$columns["count"]]:"");
 
+                                    try{
+                                        $array_count = json_decode($count,true);
+                                    }catch (\Exception $ex) {
+                                        $array_count = [];
+                                    }
+
+
+                                    try{
+                                        $array_product = explode(";",$product_id);
+                                    }catch (\Exception $ex) {
+                                        $array_product = [];
+                                    }
+
+                                    $product_code = "";$product_title = "";
+                                    foreach ($array_product as $pro_id){
+                                        if(isset( $_product[$pro_id]['data']['price_buy'])){
+                                            $_kg = 0;
+                                            if(isset($array_count[$pro_id])){
+                                                $_kg = $array_count[$pro_id];
+                                            }else{
+                                                $_kg = $array_count;
+                                            }
+                                            $product_code.= $_product[$pro_id]['data']['code'].",";
+                                            $product_title.= $_product[$pro_id]['data']['title'].$_kg."kg,";
+                                        }
+                                    }
+                                    $product_code = rtrim($product_code,',');
+                                    $product_title = rtrim($product_title,',');
+
+                                    $total_count = isset($columns["total_count"])?(int)$values[$columns["total_count"]]:"1";
+
+//                                    if(is_array($array_count)){
+//                                        foreach ($array_count as $pro_id=>$_count){
+//                                            if(isset( $_product[$pro_id]['data']['price_buy'])){
+//                                                $total_count+=(int)$_count;
+//                                            }
+//                                        }
+//                                    }else{
+//                                        $total_count = $count;
+//                                    }
+
+                                }else{
+                                    $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
+                                    $count = (int)(isset($columns["count"])?$values[$columns["count"]]:"");
+                                    $total_count = (int)(isset($columns["total_count"])?$values[$columns["total_count"]]:"0");
                                     if(isset( $_product[$product_id]['data']['price_buy'])){
                                         $product_code = $_product[$product_id]['data']['code'];
                                         $product_title = $_product[$product_id]['data']['title'];
                                     }
-                                    $_data = [
-                                        "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
-                                        "fullname"=>isset($columns["fullname"])?preg_replace('/\s+/', ' ', $values[$columns["fullname"]]):"",
-                                        "address"=> isset($columns["address"])?preg_replace('/\s+/', '',$values[$columns["address"]] ):"",
-                                        "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
-                                        "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
-                                        "province"=>isset($columns["province"])?preg_replace('/\s+/', '',$values[$columns["province"]] ):"",
-                                        "pay_method"=>$pay_method,
-                                        "product_id"=>$product_id,
-                                        "product_code"=>$product_code,
-                                        "product_title"=>$product_title,
-                                        "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:""),
-                                        "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:""),
-                                        "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
-                                        "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
-                                        "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
-                                        "count"=>(isset($columns["count"])?$values[$columns["count"]]:""),
-                                        "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
-                                        "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
-                                        "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
-                                        "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
-                                        "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:""),
-                                        "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:""),
-                                        "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:""),
-                                        "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:"",
-                                        "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
-                                        "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
-                                        "updated_at"=>$date_time,
-                                        "one_address"=>isset($columns["one_address"])?$values[$columns["one_address"]]:"0",
-                                        "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
-                                        "token"=> isset($columns["token"])? (int)$values[$columns["token"]]:"",
-                                        "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
-                                        "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
-                                    ];
-                                    $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
-                                    $logs[$name][] = $_data;
-                                    DB::table('shop_order_excel')->where('id',$values[$columns["id"]])->update($_data);
                                 }
+                                $admin_id = isset($columns["admin"])?$values[$columns["admin"]]:"";
+                                $_data = [
+                                    "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
+                                    "company"=>$name,
+                                    "session_id"=> isset($columns["session_id"])?$values[$columns["session_id"]]:"",
+                                    "admin_id"=>isset($usernames[$admin_id])?$usernames[$admin_id]->id:"",
+                                    "fullname"=>isset($columns["fullname"])?preg_replace('/\s+/', ' ', $values[$columns["fullname"]]):"",
+                                    "address"=> isset($columns["address"])?preg_replace('/\s+/', '',$values[$columns["address"]] ):"",
+                                    "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
+                                    "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
+                                    "province"=>isset($columns["province"])?preg_replace('/\s+/', '',$values[$columns["province"]] ):"",
+                                    "pay_method"=>$pay_method,
+                                    "product_id"=>$product_id,
+                                    "product_code"=>$product_code,
+                                    "product_title"=>$product_title,
+                                    "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:""),
+                                    "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:""),
+                                    "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
+                                    "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
+                                    "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
+                                    "count"=>$count,
+                                    "total_count"=>$total_count,
+                                    "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
+                                    "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
+                                    "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
+                                    "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:""),
+                                    "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:""),
+                                    "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:""),
+                                    "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:"",
+                                    "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
+                                    "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
+                                    "updated_at"=>$date_time,
+                                    "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
+                                    "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
+                                    "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
+                                    "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
+                                    "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
+                                    "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
+                                ];
+                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
+                                //$_data["sort"] = $model->admin_id * 10000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($_data['order_create_date']);
+                                $validator = Validator::make($_data,$check);
+                                if (!$validator->fails()) {
+                                    $_ = [$values,$_data,$columns];
+                                    if(isset($columns["id"]) && !empty($values[$columns["id"]])){
+                                        $where = ['id'=>$values[$columns["id"]]];
 
+                                        DB::table('shop_order_excel')->where($where)->update($_data);
+                                        $this->log('shop_js:excel',"edit",[
+                                            'id'=>$values[$columns["id"]],
+                                            'change'=>$order['oldData'][$key],
+                                        ]);
+                                    }
+                                    $_[] = $where;
+                                    $logs[$name][] =$_;
+                                }
                             }
                         }catch (\Exception $ex){
-                            $logs[$name][] = $ex->getMessage();
+                            $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
                         }
                     }
                 }
-                return response()->json(['url'=>route('backend:shop_ja:order:excel:show'),'logs'=>$logs]);
+                if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
+                    foreach ($datas as $name=>$order){
+                        $k = $this->GetToken()."-".Auth::user()->id.':edit:'.$name.':'.$data['id'];
+                        Cache::forget($k);
+                    }
+                }else{
+                    foreach ($datas as $name=>$order){
+                        $k = $this->GetToken()."-".Auth::user()->id.':create:'.$name.':0';
+                        Cache::forget($k);
+                    }
+                }
+                return response()->json($datas);
+
             }else if($data['act'] == "save"){
                 $datas = json_decode($data['datas'],true);
 
@@ -1372,7 +1478,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
 
                         $datas[$result->company][] = [
-                            $result->public,
+                            $result->public==1,
                             $result->order_image,
                             $result->order_create_date,
                             $pay_method,
@@ -1424,7 +1530,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $total_price = $result->total_price;
                         $total_price_buy = $result->total_price_buy;
                         $datas[$result->company][] = [
-                            $result->public,
+                            $result->public==1,
                             $result->order_image,
                             $result->order_create_date,
                             $pay_method,
@@ -1502,7 +1608,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 //                        }
 
                         $datas[$result->company][] = [
-                            $result->public,
+                            $result->public==1,
                             $result->order_image,
                             $result->order_create_date,
                             $pay_method,
@@ -1578,7 +1684,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
 
                         $datas[$result->company][] = [
-                            $result->public,
+                            $result->public==1,
                             $result->order_image,
                             $result->order_create_date,
                             $pay_method,
@@ -1754,7 +1860,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
             $model->key_date =$date;
             $model->detail = $this->GetData($datas,true);
-            return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company]);
+            $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+            return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company,'admin'=>$users]);
         }
     }
     public function delete ($id){

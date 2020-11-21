@@ -66,7 +66,6 @@
 {!! Form::close() !!}
 @section('extra-script')
     @include('shop_ja::componer.excel', array())
-
     <script>
         $(document).ready(function () {
             let changeDate = 0;
@@ -143,6 +142,9 @@
         });
     </script>
     <script>
+
+        let datamodelOld = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
+
         function Save(status) {
             if(status === true){
                 let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
@@ -165,19 +167,48 @@
                 });
             }else{
                 let datas = {};
-                $("#spreadsheet .jexcel_tab_link").each(function () {
-                    let  worksheet = this.getAttribute('data-spreadsheet');
+
+               // $("#spreadsheet .jexcel_tab_link").each(function () {
+                    let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                    let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
                     let data = spreadsheet.jexcel[worksheet].options.data;
-                    let name = this.textContent;
+                    let name = _spreadsheet.textContent;
                     let _columns = [];
                     for(let k in  columnsAll[name] ){
                         _columns.push(k);
                     }
+                    let oldData = [];
+
+                    if(datamodelOld.hasOwnProperty(name)){
+                        oldData = datamodelOld[name];
+                    }
+
+                    let dataNew = [];
+                    let dataOldNew = [];
+                    if(oldData.length > 0 ){
+                        for(let i in oldData){
+                           if(data[i][columnsAll[name]["id"].index] === oldData[i][columnsAll[name]["id"].index]){
+                               let valNew = [];
+                               for(let ii in oldData[i]){
+                                  if(!(oldData[i][ii]===data[i][ii])){
+                                      valNew.push(
+                                          [oldData[i][ii],data[i][ii],_columns[ii]]
+                                      );
+                                  }
+                               }
+                               if(valNew.length){
+                                   dataNew.push(data[i]);
+                                   dataOldNew.push(valNew);
+                               }
+                           }
+                        }
+                    }
                     datas[name] = {
-                        data:data,
-                        columns:_columns
+                        data:dataNew,
+                        columns:_columns,
+                        oldData:dataOldNew
                     };
-                });
+               // });
                 let form_store = $("#form_store");
                 $.ajax({
                     type: "POST",
@@ -189,9 +220,7 @@
                         'id':'{{isset($model)?$model->id:0}}',
                         'type':'{{isset($model)?'edit':'create'}}'} ,
                     success: function (data) {
-                        if(data.hasOwnProperty('url')){
-                            window.location.replace(data.url);
-                        }
+                       location.reload();
                     },
                 });
             }
@@ -206,9 +235,11 @@
             console.log(name);
             console.log(data);
             let _columns = [];
+
             for(let k in  columnsAll[name] ){
                 _columns.push(k);
             }
+
             $.ajax({
                 type: "POST",
                 url:"{{ route('backend:shop_ja:order:excel:export') }}",
@@ -223,7 +254,7 @@
                     type:"export"
                 },
                 success: function (data) {
-                    console.log(data);
+
                     if(data.hasOwnProperty('link')){
                         window.location.replace(data.link);
                     }

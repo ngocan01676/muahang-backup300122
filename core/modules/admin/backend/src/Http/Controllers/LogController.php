@@ -37,6 +37,7 @@ class LogController extends \Zoe\Http\ControllerBackend
         $models->orderBy('id', 'desc');
 
         $admins = new \stdClass();
+
         return $this->render('log.list', [
             'models' => $models->paginate($item),
             'callback' => [
@@ -51,6 +52,32 @@ class LogController extends \Zoe\Http\ControllerBackend
                        $admins->{$model->admin_id} =  $results[0]->username;
                        return $admins->{$model->admin_id};
                    }
+                },
+                "getData"=>function($model){
+                    if($model->name == "shop_js:excel"){
+                        $datas = json_decode($model->datas,true) ;
+                            $html = "<table class='table-bordered table-bordered' style=\" width: 100%;\">";
+
+                            $html.="<tr>";
+                                $html.="<td style=\"vertical-align: middle;\">".$datas["id"]."</td>";
+                                $html.="<td>";
+                                    $html.= "<table class='table-bordered table-bordered' style=\" width: 100%;\">";
+                                        $html.="<tr><th>Dữ liệu cũ</th><th>Dữ liệu mới</th><th>Cột</th></tr>";
+                                        $html.="<tr>";
+                                            foreach ($datas['change'] as $key=>$value){
+                                                $html.="<td>".$value[0]."</td>";
+                                                $html.="<td>".$value[1]."</td>";
+                                                $html.="<td>".$value[2]."</td>";
+                                            }
+                                        $html.="</tr>";
+                                    $html.="</table>";
+                                $html.="</td>";
+                            $html.="</tr>";
+                        $html.="</table>";
+                        return $html;
+                    }else{
+                        return "<pre>".$model->datas."</pre>";
+                    }
                 }
             ]
         ]);
