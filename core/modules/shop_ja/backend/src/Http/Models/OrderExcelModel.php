@@ -121,7 +121,7 @@ class OrderExcelModel extends Model
                ->where('order_create_date','<=',$date." 23:59:59")->orderBy('sort');
 
            if($type == 2){
-               $shop_order_excel->where('export',0);
+               //$shop_order_excel->where('export',0);
            }
            $shop_order_excel = $shop_order_excel->get()->all();
 
