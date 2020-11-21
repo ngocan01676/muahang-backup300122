@@ -66,17 +66,20 @@ class LogController extends \Zoe\Http\ControllerBackend
                                 $html.="<td>";
                                     $html.= "<table class='table-bordered table-bordered' style=\" width: 100%;\">";
                                         $html.="<tr><th>Dữ liệu cũ</th><th>Dữ liệu mới</th><th>Cột</th></tr>";
-                                        $html.="<tr>";
+
                                             foreach ($datas['change'] as $key=>$value){
+                                                $html.="<tr>";
                                                 $html.="<td>".$value[0]."</td>";
                                                 $html.="<td>".$value[1]."</td>";
                                                 $html.="<td>".$value[2]."</td>";
+                                                $html.="</tr>";
                                             }
-                                        $html.="</tr>";
+
                                     $html.="</table>";
                                 $html.="</td>";
                             $html.="</tr>";
                         $html.="</table>";
+
                         return $html;
                     }else{
                         return "<pre>".$model->datas."</pre>";

@@ -404,6 +404,18 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }else if($data['act'] == "save"){
                 $datas = json_decode($data['datas'],true);
 
+                $lock =  DB::table('shop_order_excel_lock')
+                    ->where('action',2)
+                    ->where('date',$data['date'])
+//                    ->where('date','>=',date('Y-m-d')." 00:00:00")
+//                    ->where('date','<=',date('Y-m-d')." 23:59:59")
+                    ->limit(1)
+                    ->orderBy('updated_at','desc')->get()->all();
+                if(isset($lock[0])){
+                    if($data['auto'] == false)
+                    request()->session()->flash('errors',z_language('Đã khóa nhập file ngày hôm này'));
+                    return response()->json(['reload'=>true]);
+                }
                 $type = 'create';
                 if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
                     $model = OrderExcelModel::find($data['id']);
@@ -417,6 +429,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                 $date_time = date('Y-m-d H:i:s');
                 $model->date_time = $date_time;
+
                 $model->name =\Illuminate\Support\Str::random(50);
 
                 $model->status =  1;
@@ -1309,7 +1322,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $shop_products = DB::table('shop_product')->where('category_id',$category['id'])->orderBy('order_index',"desc")->get()->all();
 
             $this->data['products'][$category['name']] = [];
-            $lock =  DB::table('shop_order_excel_lock')->where('name',$category['name'])->limit(1)->orderBy('updated_at','desc')->get()->all();
+            $lock =  DB::table('shop_order_excel_lock')->limit(1)->orderBy('updated_at','desc')->get()->all();
             $this->data['locks'][$category['name']] = isset($lock[0])?$lock[0]:[];
             try{
                 foreach($shop_products as $shop_product){
@@ -1821,19 +1834,22 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         if(empty($date) && empty($company) && empty($hour)){
             if($request->isMethod('post')){
                 $data = $request->all();
+                $date = explode("/",$data['dateview']);
+                $date = $date[2].'-'.$date[1].'-'.$date[0];
                 if($data['action']<3){
                     $admin_id = Auth::user()->id;
+
                     DB::table('shop_order_excel_lock')->updateOrInsert(
                         [
                             'name'=>$data['name'],
-                            'date'=>date('Y-m-d',strtotime($data['dateview'])),
+                            'date'=>date('Y-m-d',strtotime($date)),
                             'admin_id'=>$admin_id
                         ]
                         ,
                         [
                             'name'=>$data['name'],
                             'admin_id'=>$admin_id,
-                            'date'=>date('Y-m-d',strtotime($data['dateview'])),
+                            'date'=>date('Y-m-d',strtotime($date)),
                             'hour'=>$data['time'],
                             'action'=>$data['action'],
                             'updated_at'=>date('Y-m-d H:i:s'),

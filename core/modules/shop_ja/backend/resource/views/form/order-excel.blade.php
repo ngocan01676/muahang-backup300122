@@ -58,6 +58,11 @@
                 </td>
             </tr>
         </table>
+        @if (session('errors'))
+            <div class="alert alert-danger">
+                {{ session('errors') }}
+            </div><br/>
+        @endif
         <div id="spreadsheet"></div>
         <div>
             {{--<table>--}}
@@ -6442,6 +6447,7 @@
                         act:"save",
                         tab:name,
                         token:token,
+                        auto:auto,
                         date:stringDate,
                         'id':'{{isset($model)?$model->id:0}}',
                         'type':'{{isset($model)?'edit':'create'}}'} ,
@@ -6452,6 +6458,8 @@
                         }else{
                             if(data.hasOwnProperty('url')){
                                 window.location.replace(data.url);
+                            }else if(data.hasOwnProperty('reload')){
+                                location.reload();
                             }
                         }
 
