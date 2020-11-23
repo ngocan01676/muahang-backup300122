@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" afterDir="false" />
-    </list>
+    <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
     <ignored path="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir/" />
@@ -124,8 +122,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="1322" column="41" lean-forward="true" selection-start-line="1322" selection-start-column="41" selection-end-line="1322" selection-end-column="41" />
+            <state relative-caret-position="537">
+              <caret line="1532" column="94" selection-start-line="1532" selection-start-column="94" selection-end-line="1532" selection-end-column="94" />
               <folding>
                 <element signature="e#31#61#0#PHP" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
@@ -165,12 +163,12 @@
       <find>store</find>
       <find>lock</find>
       <find>show</find>
-      <find>KU</find>
       <find>の注文分-福井精米様御中</find>
       <find>import</find>
       <find>YAMADA</find>
       <find>$images[] = [str_replace(url('/'), &quot;&quot;, $image), $order_info];</find>
       <find>$spreadsheet-&gt;createSheet();</find>
+      <find>KU</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -527,7 +525,7 @@
       <path value="$PROJECT_DIR$/vendor/erusev/parsedown" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="260" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -694,7 +692,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31187000" />
+    <option name="totallyTimeSpent" value="31414000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -910,8 +908,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="1322" column="41" lean-forward="true" selection-start-line="1322" selection-start-column="41" selection-end-line="1322" selection-end-column="41" />
+        <state relative-caret-position="537">
+          <caret line="1532" column="94" selection-start-line="1532" selection-start-column="94" selection-end-line="1532" selection-end-column="94" />
           <folding>
             <element signature="e#31#61#0#PHP" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />

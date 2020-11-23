@@ -1530,7 +1530,7 @@ class Excel
                 $total_ship_cou += (int)(isset($columns_value['order_ship_cou']) ? $values[$columns_value['order_ship_cou']] : "0");
                 $total_order_price += (int)(isset($columns_value['order_price']) ? $values[$columns_value['order_price']] : "0");
 
-                $count = (isset($columns_value['count']) ? $values[$columns_value['count']] : "0");
+                $count = (isset($columns_value['count']) ? $values[$columns_value['total_count']] : "0");
                 $sheet1->setCellValue("A".$start,$order_id);
                 $sheet1->setCellValue("B".$start,$count);
 
