@@ -186,22 +186,21 @@ class Excel
                     $nameColList[$value[1]] = $key;
                 }
             }
-            var_dump($nameColList);
-            dd($datas);
+
             $n = count($datas);
             $html = "";
             $results = [];
 
             if ($type == "YAMADA" || $type == "FUKUI" || $type == "OHGA" || $type == "KOGYJA" || $type == "KURICHIKU") {
                 $i = 3;
-                $order_tracking = $nameColList['order_tracking'];
+                $order_tracking_index = $nameColList['order_tracking'];
                 if ($type == "FUKUI") {
                     $i = 7;
-                    $order_tracking+=2;
+                    $order_tracking_index+=2;
                 }
                 for (; $i < $n; $i++) {
-                    if(isset($datas[$i][$order_tracking])) continue;
-                    $order_tracking = trim(rtrim($datas[$i][$order_tracking]));
+                    if(isset($datas[$i][$order_tracking_index])) continue;
+                    $order_tracking = trim(rtrim($datas[$i][$order_tracking_index]));
                     var_dump("order_tracking:".$order_tracking);
                     $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
 
