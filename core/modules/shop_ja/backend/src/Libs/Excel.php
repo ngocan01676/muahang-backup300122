@@ -198,12 +198,14 @@ class Excel
                 }
                 for (; $i < $n; $i++) {
                     $order_tracking = trim(rtrim($datas[$i][$nameColList['order_tracking']]));
-                
+                    var_dump($order_tracking);
                     $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
 
                     if (!empty($order_tracking)) {
                         $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
+
                         $fullname = preg_replace('/\s+/', ' ', $fullname);
+                        var_dump($fullname);
                         if (!empty($fullname) && $fullname != "配送先氏名") {
                             $item = [
                                 'data' => $datas[$i],
