@@ -69,13 +69,13 @@ return [
                     "header" => true,
 
                 ],
-                "theme" => [
-                    "name" => z_language('Themes', false),
-                    "pos" => 2,
-                    "url" => "backend:theme:list",
-                    "header" => true,
-
-                ],
+//                "theme" => [
+//                    "name" => z_language('Themes', false),
+//                    "pos" => 2,
+//                    "url" => "backend:theme:list",
+//                    "header" => true,
+//
+//                ],
                 "media" => [
                     "name" => z_language('Media', false),
                     "pos" => 2,
