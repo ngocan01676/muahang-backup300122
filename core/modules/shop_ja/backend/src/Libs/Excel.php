@@ -186,7 +186,7 @@ class Excel
                     $nameColList[$value[1]] = $key;
                 }
             }
-            dd($datas);
+
             $n = count($datas);
             $html = "";
             $results = [];
@@ -194,12 +194,11 @@ class Excel
             if ($type == "YAMADA" || $type == "FUKUI" || $type == "OHGA" || $type == "KOGYJA" || $type == "KURICHIKU") {
                 $i = 3;
                 if ($type == "FUKUI") {
-                    $i = 6;
+                    $i = 7;
                 }
                 for (; $i < $n; $i++) {
-
                     $order_tracking = trim(rtrim($datas[$i][$nameColList['order_tracking']]));
-
+                
                     $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
 
                     if (!empty($order_tracking)) {
