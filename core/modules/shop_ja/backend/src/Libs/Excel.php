@@ -199,6 +199,7 @@ class Excel
                     $order_tracking+=2;
                 }
                 for (; $i < $n; $i++) {
+                    if(isset($datas[$i][$order_tracking])) continue;
                     $order_tracking = trim(rtrim($datas[$i][$order_tracking]));
                     var_dump("order_tracking:".$order_tracking);
                     $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
