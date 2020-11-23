@@ -284,13 +284,13 @@ class Excel
                         }
                     }
 
-                    $html .= "<tr class='" . $class . "' >" . json_encode($where);
+                    $html .= "<tr class='" . $class . "' >";
                     if ($class == "update") {
                         $html .= "<td>[" . $count . "]<div style='display: none'><textarea class='value'>" . json_encode(['create' => $_result[0]->order_create_date, 'id' => $_result[0]->id, 'checking' => $value['checking']]) . "</textarea></div></td>";
                     } else {
                         $html .= "<td>[" . $count . "]</td>";
                     }
-//                    $html.="<td>".json_encode($where)."</td>";
+                    $html .= "<td>" . json_encode($where) . "</td>";
                     foreach ($value['data'] as $k => $val) {
                         $html .= "<td>" . $val . "</td>";
                     }
