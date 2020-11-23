@@ -306,8 +306,7 @@ class Excel
                    // if ($class == "update") {
                         $html .= "<td>[" . $count . "]<div style='display: none'><textarea class='value'>" .
                             json_encode([
-                                'create' => $_result[0]->order_create_date,
-                                'id' => $_result[0]->id,
+                                'create' => date('Y-m-d H:i:s'),
                                 'checking' => $value['checking'],
                                 'ids'=> $value['ids'],
                             ]) . "</textarea></div></td>";
