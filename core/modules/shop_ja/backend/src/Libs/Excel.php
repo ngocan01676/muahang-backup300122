@@ -227,7 +227,7 @@ class Excel
                         }
                     }
                 }
-                
+
                 $category = get_category_type("shop-ja:product:category");
 
                 $ship = get_category_type("shop-ja:japan:category:com-ship");
@@ -975,9 +975,13 @@ class Excel
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->createSheet();
-        $spreadsheet->getSheet(1)->setTitle('Sheet2');
+
 
         $sheet->setTitle("Sheet1");
+
+        $sheet1 = $spreadsheet->getSheet(1);
+        $sheet1->setTitle('Sheet2');
+
         $spreadsheet->getProperties()
             ->setTitle('PHP Download Example')
             ->setSubject('A PHPExcel example')
@@ -1106,11 +1110,17 @@ class Excel
             }
             $image = (isset($columns_value['image']) ? $values[$columns_value['image']] : "");
             $order_id = (isset($columns_value['id']) ? $values[$columns_value['id']] : "");
+
             $ids[$order_id] = 1;
             $order_info = (isset($columns_value['order_info']) ? $values[$columns_value['order_info']] : "");
             if (!empty($image)) {
                 $images[] = [str_replace(url('/'), "", $image), $order_info];
             }
+
+            $count = (isset($columns_value['count']) ? $values[$columns_value['count']] : "0");
+            $sheet1->setCellValue("A".$start,$order_id);
+            $sheet1->setCellValue("B".$start,$count);
+
             foreach ($colums as $key => $value) {
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
                 if (is_array($value[1])) {
