@@ -186,7 +186,7 @@ class Excel
                     $nameColList[$value[1]] = $key;
                 }
             }
-
+            dd($datas);
             $n = count($datas);
             $html = "";
             $results = [];
