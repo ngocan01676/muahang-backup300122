@@ -200,7 +200,7 @@ class Excel
                 }
                 echo $i;
                 for (; $i < $n; $i++) {
-                    echo $order_tracking_index;
+                    echo "[".$order_tracking_index."]";
                     var_dump($datas[$i]);
                     if(isset($datas[$i][$order_tracking_index])) continue;
 
