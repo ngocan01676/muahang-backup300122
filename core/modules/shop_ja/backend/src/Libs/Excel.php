@@ -226,6 +226,7 @@ class Excel
                         }
                     }
                 }
+                dd($results);
                 $category = get_category_type("shop-ja:product:category");
 
                 $ship = get_category_type("shop-ja:japan:category:com-ship");
@@ -234,11 +235,11 @@ class Excel
                 foreach ($category as $item) {
                     if ($item->name == $type) {
                         if (isset($ship[$item->data["ship"]])) {
-
                             $nameShip = $ship[$item->data["ship"]]->name;
                         }
                     }
                 }
+
                 $html = "<table class='table table-bordered'>";
                 $html .= "<tr>";
                 $html .= "<td class='text-center'><h2>Công Ty</h2></td>";
@@ -253,6 +254,7 @@ class Excel
                     $fullname = trim(rtrim($value['data'][$nameColList['fullname']]));
                     $fullname = preg_replace('/\s+/', ' ', $fullname);
                     $address = preg_replace('/\s+/', '', trim(rtrim($value['data'][$nameColList['address']])));
+
                     $where = [
                         'fullname' => $fullname,
                         'address' => $address,
@@ -265,6 +267,7 @@ class Excel
                         'pay_method' => $this->getValuePayMethod(trim(rtrim($value['data'][$nameColList['payMethod']]))),
                         'count' => trim(rtrim($value['data'][$nameColList['count']])),
                     ];
+
                     $_result = DB::table('shop_order_excel')->where($where)
                         ->where('order_create_date', '>=', date('Y-m-d', strtotime('-1 day', $this->date_export)) . ' 00:00:00')
                         ->where('order_create_date', '<=', date('Y-m-d', $this->date_export) . ' 23:59:59')
@@ -283,22 +286,19 @@ class Excel
                             }
                         }
                     }
-
                     $html .= "<tr class='" . $class . "' >";
                     if ($class == "update") {
                         $html .= "<td>[" . $count . "]<div style='display: none'><textarea class='value'>" . json_encode(['create' => $_result[0]->order_create_date, 'id' => $_result[0]->id, 'checking' => $value['checking']]) . "</textarea></div></td>";
                     } else {
                         $html .= "<td>[" . $count . "]</td>";
                     }
-                    $html .= "<td>" . json_encode($where) . "</td>";
+                    $html .= "<td>" . json_encode($where,JSON_UNESCAPED_UNICODE ) . "</td>";
                     foreach ($value['data'] as $k => $val) {
                         $html .= "<td>" . $val . "</td>";
                     }
                     $html .= "</tr>";
                 }
                 $html .= "</table></div>";
-
-
             }
         }
         return $html;
