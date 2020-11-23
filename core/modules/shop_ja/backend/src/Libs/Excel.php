@@ -302,7 +302,7 @@ class Excel
 //                        }
 //                    }
                     $html .= "<tr class='" . $class . "' >";
-                //    if ($class == "update") {
+                    if ($class == "update") {
                         $html .= "<td>[" . $count . "]<div style='display: none'><textarea class='value'>" .
                             json_encode([
                                 'create' => $_result[0]->order_create_date,
@@ -310,9 +310,9 @@ class Excel
                                 'checking' => $value['checking'],
                                 'ids'=> $value['ids'],
                             ]) . "</textarea></div></td>";
-                  //  } else {
-                      //  $html .= "<td>[" . $count . "]</td>";
-                 //   }
+                    } else {
+                        $html .= "<td>[" . $count . "]</td>";
+                    }
 //                    $html .= "<td>" . json_encode($where,JSON_UNESCAPED_UNICODE ) . "</td>";
                     foreach ($value['data'] as $k => $val) {
                         $html .= "<td>" . $val . "</td>";
