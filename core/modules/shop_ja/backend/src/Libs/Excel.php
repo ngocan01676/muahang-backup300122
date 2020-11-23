@@ -277,7 +277,7 @@ class Excel
                     ];
 
                     $_result = DB::table('shop_order_excel')->where($where)
-                        ->where('order_create_date', '>=', date('Y-m-d', strtotime('-1 day', $this->date_export)) . ' 00:00:00')
+                        ->where('order_create_date', '>=', date('Y-m-d', $this->date_export) . ' 00:00:00')
                         ->where('order_create_date', '<=', date('Y-m-d', $this->date_export) . ' 23:59:59')
                         ->where('export', 1)
                         ->get()->all();
