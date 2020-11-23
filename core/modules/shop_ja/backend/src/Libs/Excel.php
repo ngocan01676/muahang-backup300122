@@ -284,7 +284,7 @@ class Excel
                         }
                     }
 
-                    $html .= "<tr class='" . $class . "'>";
+                    $html .= "<tr class='" . $class . "' >" . json_encode($where);
                     if ($class == "update") {
                         $html .= "<td>[" . $count . "]<div style='display: none'><textarea class='value'>" . json_encode(['create' => $_result[0]->order_create_date, 'id' => $_result[0]->id, 'checking' => $value['checking']]) . "</textarea></div></td>";
                     } else {
