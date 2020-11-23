@@ -1306,29 +1306,29 @@ class Excel{
                 ["配送先都道府県",'province',14,9],//Tỉnh/TP
                 ["配送先住所",['callback'=>function($index,$value){return preg_replace('/\s+/', '',$value );},'key'=>'address'],18,9],//Địa chỉ giao hàng
                 ["配送先氏名",['callback'=>function($index,$value){return preg_replace('/\s+/', ' ',$value );},'key'=>'fullname'],18,9],//Họ tên người nhận
-//                ["品番",['callback'=>
-//                    function($index,$product_id,$a,$values) use($products,$columns_value){
-//                    try{
-//                        $array_product = explode(";",$product_id);
-//                    }catch (\Exception $ex) {
-//                        $array_product = [];
-//                    }
-//                    $product_code = "";$product_title = "";
-//                    $count = (isset($columns_value["count"])?$values[$columns_value["count"]]:"");
-//                    try{
-//                        $array_count = json_decode($count,true);
-//                    }catch (\Exception $ex) {
-//                        $array_count = [];
-//                    }
-//                    foreach ($array_product as $pro_id){
-//                            if(isset( $products[$pro_id]) && isset($array_count[$pro_id]) && $array_count[$pro_id] > 0){
-//                                $product_code.= $products[$pro_id]->code.",";
-//                                $product_title.= $products[$pro_id]->title.",";
-//                            }
-//                    }
-//                    return rtrim($product_code,',');
-//                    },'key'=>'product_id'],10,9
-//                ],//H
+                ["品番",['callback'=>
+                    function($index,$product_id,$a,$values) use($products,$columns_value){
+                    try{
+                        $array_product = explode(";",$product_id);
+                    }catch (\Exception $ex) {
+                        $array_product = [];
+                    }
+                    $product_code = "";$product_title = "";
+                    $count = (isset($columns_value["count"])?$values[$columns_value["count"]]:"");
+                    try{
+                        $array_count = json_decode($count,true);
+                    }catch (\Exception $ex) {
+                        $array_count = [];
+                    }
+                    foreach ($array_product as $pro_id){
+                            if(isset( $products[$pro_id]) && isset($array_count[$pro_id]) && $array_count[$pro_id] > 0){
+                                $product_code.= $products[$pro_id]->code.",";
+                                $product_title.= $products[$pro_id]->title.",";
+                            }
+                    }
+                    return rtrim($product_code,',');
+                    },'key'=>'product_id'],10,9
+                ],//H
                 ["商品名",
                     ['callback'=>function($index,$product_id,$a,$values) use($products,$columns_value){
                         try{
