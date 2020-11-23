@@ -949,6 +949,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
 
         $this->GetCache('show',0,$company);
+
         $model = new OrderExcelModel();
 
         $datas = $model->searchAll(Auth::user()->id,[
@@ -958,13 +959,14 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             'zipcode'=>$zipcode,
         ]);
         $model->detail = $this->GetData($datas,true);
-
+        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
         return $this->render('order-excel.search',[
             'fullname'=>$fullname,
             'address'=>$address,
             'cate'=>$cate_id,
             'zipcode'=>$zipcode,
-            'model'=>$model
+            'model'=>$model,
+            'admin'=>$users
         ]);
     }
     public function list(Request $request){

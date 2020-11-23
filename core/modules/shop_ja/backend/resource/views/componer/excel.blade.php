@@ -723,7 +723,7 @@
     admin:{
      title: '{!! z_language("Admin") !!}',//T
      type: 'text',
-     width:'1px',
+     width:'100px',
     },
     group:{
      title: '{!! z_language("group") !!}',//T
@@ -1765,7 +1765,7 @@
     admin:{
      title: '{!! z_language("Người tạo") !!}',//T title: '',//T title: 'Position',//T
      type: 'text',
-     width:'1px',
+     width:'100px',
     },
     group:{
      title: '{!! z_language("Đơn gộp") !!}',//T title: '',//T title: 'Position',//T
@@ -3310,7 +3310,7 @@
     admin:{
      title: '{!! z_language("Admin") !!}',//T
      type: 'text',
-     width:'1px',
+     width:'100px',
     },
     group:{
      title: '{!! z_language("group") !!}',//T
@@ -4331,7 +4331,7 @@
     admin:{
      title: '{!! z_language("Admin") !!}',//T
      type: 'text',
-     width:'1px',
+     width:'100px',
     },
     group:{
      title: '{!! z_language("group") !!}',//T
@@ -5348,7 +5348,7 @@
     admin:{
      title: '{!! z_language("Admin") !!}',//T
      type: 'text',
-     width:'1px',
+     width:'100px',
     },
     group:{
      title: '{!! z_language("group") !!}',//T

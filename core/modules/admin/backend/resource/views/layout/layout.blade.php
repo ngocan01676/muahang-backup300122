@@ -3,7 +3,7 @@
         ->where('date_start','<=',date('Y-m-d H:i:s'))
         ->where('date_end','>=',date('Y-m-d H:i:s'))->get()->all();
 @endphp
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -52,8 +52,7 @@
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
 
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAAAWCAMAAAB68gtgAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAFdQTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADpeTbQAAAB10Uk5TAGB/bz8wII+/QIAQT8D/z/BwUK+f79/QoOCwkF+BHl0QAAACnUlEQVR4nJ2Vi46rIBCG0Raqsoxga0Hc93/OMxfw0m1zNjtJkxHh45+fwSrF0bSXq1a/CNPeurbfHofWVEBdbr/arrtdDjQHHGPH8XEb04EPeoKpcO645sFsTDpL2TQLCp4Xe4aXGD6wmxkirfBOnhNNjpj0lCxlF+8KrRaYYXHrQEEL8gc2CLsBgQfwODlgBXNcOMEssU9m8DtcF+tUmGFp3rMnJNE0PTNHafC9DLloy7tprrNtji/r0UT/AY2iil8DLOxmhGliV4K3WuzBYsK+4Ly+n2GtQ/32zl45Rb8EqoKWPVa10n5mnhCKT1wN3F6g1RLwU7XgCWOZNKBirMaIvYdCcKtIxuZMZ1YcRgnP7zfsBLE6T50FrqU0U+pJKHh7mo1C8JXqPa7C46ta4A3edtIKrJs6xiQ6IlQSzeLI4VMTaeoYPE+nIh6ELY3Ib/IPvB0h7RUDPQxYKW6T8bQCLT+54sgGLHBoqB7eZQuTtiv1g02VkcgVtFrIi4i//nApFNGcTJyWQZLTxTM40G3sJxy6cpGedUDCg314LXfwVTjd64G9LvB1V2tc1YK64z6u2RQ0IpPj/eiMeoVP4gLCl1ySnhrqKD+GyvaHbxVytBLLHcyuqYMVPhgc51G6/dMOR/2XHZNkpwxQr2UvHNI/Z1rEVyP13OZSXFpxhudUmnSDY8lwr92sxZaVj9per5fHU6pDuB7JqERw+6CtoygwY6LhVOH5AJev5P1yNfZ6k22pqcfT13aF73ZmycbPX21syrSnse2cGDpVeKiJKjq3aLj806ecJQW3lupMiqn+12zvrXQTey4tEatn3OIcoRhOVz3hp7yhn/oYZnVOFPd5GxGmDW77l2twmhtMOc1l/dW/51+iCf+f89f4BxaRLthcsZ1JAAAAAElFTkSuQmCC"
-                     alt="">
+                <img src="{!! url('/logo.jpg') !!}"/>
             </span>
             {{--<span class="logo-lg"><b>Zoe</b>CMS</span>--}}
         </a>
@@ -68,7 +67,7 @@
             </a>
             @if(count($rsAnnounce))
 
-                <marquee direction = "right" style="width: 50%;display: inline-block; height: 100%; padding: 6px;">
+                <marquee direction="right" style="width: 50%;display: inline-block; height: 100%; padding: 6px;">
                     @foreach($rsAnnounce as $val)
                         <strong>★ {!! $val->message !!} ★</strong>&nbsp;&nbsp;
                     @endforeach
@@ -79,46 +78,46 @@
                     <li>
 
                     </li>
-                    {{--<!-- Messages: style can be found in dropdown.less-->--}}
-                    {{--<li class="dropdown messages-menu">--}}
-                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
-                            {{--<i class="fa fa-envelope-o"></i>--}}
-                            {{--<span class="label label-success">4</span>--}}
-                        {{--</a>--}}
-                        {{--<ul class="dropdown-menu">--}}
-                            {{--<li class="header">You have 4 messages</li>--}}
-                            {{--<li>--}}
-                                {{--<!-- inner menu: contains the actual data -->--}}
-                                {{--<ul class="menu">--}}
-                                    {{--<li><!-- start message -->--}}
-                                        {{--<a href="#">--}}
-                                            {{--<div class="pull-left">--}}
-                                            {{--<img src="../../dist/img/user2-160x160.jpg" class="img-circle"--}}
-                                            {{--alt="User Image">--}}
-                                            {{--</div>--}}
-                                            {{--<h4>--}}
-                                                {{--Support Team--}}
-                                                {{--<small><i class="fa fa-clock-o"></i> 5 mins</small>--}}
-                                            {{--</h4>--}}
-                                            {{--<p>Why not buy a new awesome theme?</p>--}}
-                                        {{--</a>--}}
-                                    {{--</li>--}}
-                                    {{--<!-- end message -->--}}
-                                {{--</ul>--}}
-                            {{--</li>--}}
-                            {{--<li class="footer"><a href="#">See All Messages</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
-                    <!-- Notifications: style can be found in dropdown.less -->
-                   <li>
-                       @php $languages = config('zoe.language');
-                       @endphp
-                       <select class="form-control site_language" name="site_language" onchange="genderChanged(this)">
-                           @foreach($languages as $language)
-                               <option {!! app()->getLocale() == $language['lang'] ?"selected":"" !!} value="{!! $language['lang'] !!}">{!! $language['label']; !!}</option>
-                           @endforeach
-                       </select>
-                   </li>
+                {{--<!-- Messages: style can be found in dropdown.less-->--}}
+                {{--<li class="dropdown messages-menu">--}}
+                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
+                {{--<i class="fa fa-envelope-o"></i>--}}
+                {{--<span class="label label-success">4</span>--}}
+                {{--</a>--}}
+                {{--<ul class="dropdown-menu">--}}
+                {{--<li class="header">You have 4 messages</li>--}}
+                {{--<li>--}}
+                {{--<!-- inner menu: contains the actual data -->--}}
+                {{--<ul class="menu">--}}
+                {{--<li><!-- start message -->--}}
+                {{--<a href="#">--}}
+                {{--<div class="pull-left">--}}
+                {{--<img src="../../dist/img/user2-160x160.jpg" class="img-circle"--}}
+                {{--alt="User Image">--}}
+                {{--</div>--}}
+                {{--<h4>--}}
+                {{--Support Team--}}
+                {{--<small><i class="fa fa-clock-o"></i> 5 mins</small>--}}
+                {{--</h4>--}}
+                {{--<p>Why not buy a new awesome theme?</p>--}}
+                {{--</a>--}}
+                {{--</li>--}}
+                {{--<!-- end message -->--}}
+                {{--</ul>--}}
+                {{--</li>--}}
+                {{--<li class="footer"><a href="#">See All Messages</a></li>--}}
+                {{--</ul>--}}
+                {{--</li>--}}
+                <!-- Notifications: style can be found in dropdown.less -->
+                    <li>
+                        @php $languages = config('zoe.language');
+                        @endphp
+                        <select class="form-control site_language" name="site_language" onchange="genderChanged(this)">
+                            @foreach($languages as $language)
+                                <option {!! app()->getLocale() == $language['lang'] ?"selected":"" !!} value="{!! $language['lang'] !!}">{!! $language['label']; !!}</option>
+                            @endforeach
+                        </select>
+                    </li>
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
@@ -131,52 +130,54 @@
                                 <ul class="menu">
                                     <li>
                                         @foreach($rsAnnounce as $val)
-                                        <a href="{!! route('backend:announce:list') !!}">
-                                            <i class="fa fa-users text-aqua"></i> {!! $val->title !!}
-                                            {{--{!! $val->message !!} -  {!! $val->updated_at !!}--}}
-                                        </a>
+                                            <a href="{!! route('backend:announce:list') !!}">
+                                                <i class="fa fa-users text-aqua"></i> {!! $val->title !!}
+                                                {{--{!! $val->message !!} -  {!! $val->updated_at !!}--}}
+                                            </a>
                                         @endforeach
                                     </li>
                                 </ul>
                             </li>
-                            <li class="footer"><a href="{!! route('backend:announce:list') !!}">{!! z_language('Xem tất cả') !!}</a></li>
+                            <li class="footer"><a
+                                        href="{!! route('backend:announce:list') !!}">{!! z_language('Xem tất cả') !!}</a>
+                            </li>
                         </ul>
                     </li>
                     <!-- Tasks: style can be found in dropdown.less -->
-                    {{--<li class="dropdown tasks-menu">--}}
-                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
-                            {{--<i class="fa fa-flag-o"></i>--}}
-                            {{--<span class="label label-danger">9</span>--}}
-                        {{--</a>--}}
-                        {{--<ul class="dropdown-menu">--}}
-                            {{--<li class="header">You have 9 tasks</li>--}}
-                            {{--<li>--}}
-                                {{--<!-- inner menu: contains the actual data -->--}}
-                                {{--<ul class="menu">--}}
-                                    {{--<li><!-- Task item -->--}}
-                                        {{--<a href="#">--}}
-                                            {{--<h3>--}}
-                                                {{--Design some buttons--}}
-                                                {{--<small class="pull-right">20%</small>--}}
-                                            {{--</h3>--}}
-                                            {{--<div class="progress xs">--}}
-                                                {{--<div class="progress-bar progress-bar-aqua" style="width: 20%"--}}
-                                                     {{--role="progressbar"--}}
-                                                     {{--aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">--}}
-                                                    {{--<span class="sr-only">20% Complete</span>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--</a>--}}
-                                    {{--</li>--}}
-                                    {{--<!-- end task item -->--}}
-                                {{--</ul>--}}
-                            {{--</li>--}}
-                            {{--<li class="footer">--}}
-                                {{--<a href="#">View all tasks</a>--}}
-                            {{--</li>--}}
-                        {{--</ul>--}}
-                    {{--</li>--}}
-                    <!-- User Account: style can be found in dropdown.less -->
+                {{--<li class="dropdown tasks-menu">--}}
+                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
+                {{--<i class="fa fa-flag-o"></i>--}}
+                {{--<span class="label label-danger">9</span>--}}
+                {{--</a>--}}
+                {{--<ul class="dropdown-menu">--}}
+                {{--<li class="header">You have 9 tasks</li>--}}
+                {{--<li>--}}
+                {{--<!-- inner menu: contains the actual data -->--}}
+                {{--<ul class="menu">--}}
+                {{--<li><!-- Task item -->--}}
+                {{--<a href="#">--}}
+                {{--<h3>--}}
+                {{--Design some buttons--}}
+                {{--<small class="pull-right">20%</small>--}}
+                {{--</h3>--}}
+                {{--<div class="progress xs">--}}
+                {{--<div class="progress-bar progress-bar-aqua" style="width: 20%"--}}
+                {{--role="progressbar"--}}
+                {{--aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">--}}
+                {{--<span class="sr-only">20% Complete</span>--}}
+                {{--</div>--}}
+                {{--</div>--}}
+                {{--</a>--}}
+                {{--</li>--}}
+                {{--<!-- end task item -->--}}
+                {{--</ul>--}}
+                {{--</li>--}}
+                {{--<li class="footer">--}}
+                {{--<a href="#">View all tasks</a>--}}
+                {{--</li>--}}
+                {{--</ul>--}}
+                {{--</li>--}}
+                <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             {{--<img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">--}}
@@ -228,7 +229,7 @@
                     </li>
                     <!-- Control Sidebar Toggle Button -->
                     {{--<li>--}}
-                        {{--<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>--}}
+                    {{--<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>--}}
                     {{--</li>--}}
                 </ul>
             </div>
@@ -253,25 +254,25 @@
             @if(count($rsAnnounce)>0)
 
                 {{--<div id="announce" class="box box-default box-solid">--}}
-                    {{--<div class="box-header with-border">--}}
-                        {{--<h3 class="box-title">{!! z_language('Thông báo') !!}</h3>--}}
+                {{--<div class="box-header with-border">--}}
+                {{--<h3 class="box-title">{!! z_language('Thông báo') !!}</h3>--}}
 
-                        {{--<div class="box-tools pull-right">--}}
-                            {{--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>--}}
-                            {{--</button>--}}
-                        {{--</div>--}}
-                        {{--<!-- /.box-tools -->--}}
-                    {{--</div>--}}
-                    {{--<!-- /.box-header -->--}}
-                    {{--<div class="box-body">--}}
+                {{--<div class="box-tools pull-right">--}}
+                {{--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>--}}
+                {{--</button>--}}
+                {{--</div>--}}
+                {{--<!-- /.box-tools -->--}}
+                {{--</div>--}}
+                {{--<!-- /.box-header -->--}}
+                {{--<div class="box-body">--}}
 
-                            {{--@foreach($rsAnnounce as $val)--}}
-                                {{--<h5 style="padding: 0; margin: 0;"><i class="icon fa fa-check"></i> {!! $val->title !!} </h5>--}}
-                            {{--&nbsp;&nbsp;&nbsp; {!! $val->message !!} -  {!! $val->updated_at !!}--}}
-                            {{--@endforeach--}}
+                {{--@foreach($rsAnnounce as $val)--}}
+                {{--<h5 style="padding: 0; margin: 0;"><i class="icon fa fa-check"></i> {!! $val->title !!} </h5>--}}
+                {{--&nbsp;&nbsp;&nbsp; {!! $val->message !!} -  {!! $val->updated_at !!}--}}
+                {{--@endforeach--}}
 
-                    {{--</div>--}}
-                    {{--<!-- /.box-body -->--}}
+                {{--</div>--}}
+                {{--<!-- /.box-body -->--}}
                 {{--</div>--}}
 
             @endif
@@ -290,196 +291,196 @@
     </footer>
 
     <!-- Control Sidebar -->
-    {{--<aside class="control-sidebar control-sidebar-light">--}}
-        {{--<!-- Create the tabs -->--}}
-        {{--<ul class="nav nav-tabs nav-justified control-sidebar-tabs">--}}
-            {{--<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>--}}
+{{--<aside class="control-sidebar control-sidebar-light">--}}
+{{--<!-- Create the tabs -->--}}
+{{--<ul class="nav nav-tabs nav-justified control-sidebar-tabs">--}}
+{{--<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>--}}
 
-            {{--<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>--}}
-        {{--</ul>--}}
-        {{--<!-- Tab panes -->--}}
-        {{--<div class="tab-content">--}}
-            {{--<!-- Home tab content -->--}}
-            {{--<div class="tab-pane" id="control-sidebar-home-tab">--}}
-                {{--<h3 class="control-sidebar-heading">Recent Activity</h3>--}}
-                {{--<ul class="control-sidebar-menu">--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<i class="menu-icon fa fa-birthday-cake bg-red"></i>--}}
+{{--<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>--}}
+{{--</ul>--}}
+{{--<!-- Tab panes -->--}}
+{{--<div class="tab-content">--}}
+{{--<!-- Home tab content -->--}}
+{{--<div class="tab-pane" id="control-sidebar-home-tab">--}}
+{{--<h3 class="control-sidebar-heading">Recent Activity</h3>--}}
+{{--<ul class="control-sidebar-menu">--}}
+{{--<li>--}}
+{{--<a href="javascript:void(0)">--}}
+{{--<i class="menu-icon fa fa-birthday-cake bg-red"></i>--}}
 
-                            {{--<div class="menu-info">--}}
-                                {{--<h4 class="control-sidebar-subheading">Langdon's Birthday</h4>--}}
+{{--<div class="menu-info">--}}
+{{--<h4 class="control-sidebar-subheading">Langdon's Birthday</h4>--}}
 
-                                {{--<p>Will be 23 on April 24th</p>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<i class="menu-icon fa fa-user bg-yellow"></i>--}}
+{{--<p>Will be 23 on April 24th</p>--}}
+{{--</div>--}}
+{{--</a>--}}
+{{--</li>--}}
+{{--<li>--}}
+{{--<a href="javascript:void(0)">--}}
+{{--<i class="menu-icon fa fa-user bg-yellow"></i>--}}
 
-                            {{--<div class="menu-info">--}}
-                                {{--<h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>--}}
+{{--<div class="menu-info">--}}
+{{--<h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>--}}
 
-                                {{--<p>New phone +1(800)555-1234</p>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<i class="menu-icon fa fa-envelope-o bg-light-blue"></i>--}}
+{{--<p>New phone +1(800)555-1234</p>--}}
+{{--</div>--}}
+{{--</a>--}}
+{{--</li>--}}
+{{--<li>--}}
+{{--<a href="javascript:void(0)">--}}
+{{--<i class="menu-icon fa fa-envelope-o bg-light-blue"></i>--}}
 
-                            {{--<div class="menu-info">--}}
-                                {{--<h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>--}}
+{{--<div class="menu-info">--}}
+{{--<h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>--}}
 
-                                {{--<p>nora@example.com</p>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<i class="menu-icon fa fa-file-code-o bg-green"></i>--}}
+{{--<p>nora@example.com</p>--}}
+{{--</div>--}}
+{{--</a>--}}
+{{--</li>--}}
+{{--<li>--}}
+{{--<a href="javascript:void(0)">--}}
+{{--<i class="menu-icon fa fa-file-code-o bg-green"></i>--}}
 
-                            {{--<div class="menu-info">--}}
-                                {{--<h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>--}}
+{{--<div class="menu-info">--}}
+{{--<h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>--}}
 
-                                {{--<p>Execution time 5 seconds</p>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                {{--</ul>--}}
-                {{--<!-- /.control-sidebar-menu -->--}}
+{{--<p>Execution time 5 seconds</p>--}}
+{{--</div>--}}
+{{--</a>--}}
+{{--</li>--}}
+{{--</ul>--}}
+{{--<!-- /.control-sidebar-menu -->--}}
 
-                {{--<h3 class="control-sidebar-heading">Tasks Progress</h3>--}}
-                {{--<ul class="control-sidebar-menu">--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<h4 class="control-sidebar-subheading">--}}
-                                {{--Custom Template Design--}}
-                                {{--<span class="label label-danger pull-right">70%</span>--}}
-                            {{--</h4>--}}
+{{--<h3 class="control-sidebar-heading">Tasks Progress</h3>--}}
+{{--<ul class="control-sidebar-menu">--}}
+{{--<li>--}}
+{{--<a href="javascript:void(0)">--}}
+{{--<h4 class="control-sidebar-subheading">--}}
+{{--Custom Template Design--}}
+{{--<span class="label label-danger pull-right">70%</span>--}}
+{{--</h4>--}}
 
-                            {{--<div class="progress progress-xxs">--}}
-                                {{--<div class="progress-bar progress-bar-danger" style="width: 70%"></div>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<h4 class="control-sidebar-subheading">--}}
-                                {{--Update Resume--}}
-                                {{--<span class="label label-success pull-right">95%</span>--}}
-                            {{--</h4>--}}
+{{--<div class="progress progress-xxs">--}}
+{{--<div class="progress-bar progress-bar-danger" style="width: 70%"></div>--}}
+{{--</div>--}}
+{{--</a>--}}
+{{--</li>--}}
+{{--<li>--}}
+{{--<a href="javascript:void(0)">--}}
+{{--<h4 class="control-sidebar-subheading">--}}
+{{--Update Resume--}}
+{{--<span class="label label-success pull-right">95%</span>--}}
+{{--</h4>--}}
 
-                            {{--<div class="progress progress-xxs">--}}
-                                {{--<div class="progress-bar progress-bar-success" style="width: 95%"></div>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<h4 class="control-sidebar-subheading">--}}
-                                {{--Laravel Integration--}}
-                                {{--<span class="label label-warning pull-right">50%</span>--}}
-                            {{--</h4>--}}
+{{--<div class="progress progress-xxs">--}}
+{{--<div class="progress-bar progress-bar-success" style="width: 95%"></div>--}}
+{{--</div>--}}
+{{--</a>--}}
+{{--</li>--}}
+{{--<li>--}}
+{{--<a href="javascript:void(0)">--}}
+{{--<h4 class="control-sidebar-subheading">--}}
+{{--Laravel Integration--}}
+{{--<span class="label label-warning pull-right">50%</span>--}}
+{{--</h4>--}}
 
-                            {{--<div class="progress progress-xxs">--}}
-                                {{--<div class="progress-bar progress-bar-warning" style="width: 50%"></div>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<h4 class="control-sidebar-subheading">--}}
-                                {{--Back End Framework--}}
-                                {{--<span class="label label-primary pull-right">68%</span>--}}
-                            {{--</h4>--}}
+{{--<div class="progress progress-xxs">--}}
+{{--<div class="progress-bar progress-bar-warning" style="width: 50%"></div>--}}
+{{--</div>--}}
+{{--</a>--}}
+{{--</li>--}}
+{{--<li>--}}
+{{--<a href="javascript:void(0)">--}}
+{{--<h4 class="control-sidebar-subheading">--}}
+{{--Back End Framework--}}
+{{--<span class="label label-primary pull-right">68%</span>--}}
+{{--</h4>--}}
 
-                            {{--<div class="progress progress-xxs">--}}
-                                {{--<div class="progress-bar progress-bar-primary" style="width: 68%"></div>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                {{--</ul>--}}
-                {{--<!-- /.control-sidebar-menu -->--}}
+{{--<div class="progress progress-xxs">--}}
+{{--<div class="progress-bar progress-bar-primary" style="width: 68%"></div>--}}
+{{--</div>--}}
+{{--</a>--}}
+{{--</li>--}}
+{{--</ul>--}}
+{{--<!-- /.control-sidebar-menu -->--}}
 
-            {{--</div>--}}
-            {{--<!-- /.tab-pane -->--}}
-            {{--<!-- Stats tab content -->--}}
-            {{--<div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>--}}
-            {{--<!-- /.tab-pane -->--}}
-            {{--<!-- Settings tab content -->--}}
-            {{--<div class="tab-pane" id="control-sidebar-settings-tab">--}}
-                {{--<form method="post">--}}
-                    {{--<h3 class="control-sidebar-heading">General Settings</h3>--}}
+{{--</div>--}}
+{{--<!-- /.tab-pane -->--}}
+{{--<!-- Stats tab content -->--}}
+{{--<div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>--}}
+{{--<!-- /.tab-pane -->--}}
+{{--<!-- Settings tab content -->--}}
+{{--<div class="tab-pane" id="control-sidebar-settings-tab">--}}
+{{--<form method="post">--}}
+{{--<h3 class="control-sidebar-heading">General Settings</h3>--}}
 
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Report panel usage--}}
-                            {{--<input type="checkbox" class="pull-right" checked>--}}
-                        {{--</label>--}}
+{{--<div class="form-group">--}}
+{{--<label class="control-sidebar-subheading">--}}
+{{--Report panel usage--}}
+{{--<input type="checkbox" class="pull-right" checked>--}}
+{{--</label>--}}
 
-                        {{--<p>--}}
-                            {{--Some information about this general settings option--}}
-                        {{--</p>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
+{{--<p>--}}
+{{--Some information about this general settings option--}}
+{{--</p>--}}
+{{--</div>--}}
+{{--<!-- /.form-group -->--}}
 
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Allow mail redirect--}}
-                            {{--<input type="checkbox" class="pull-right" checked>--}}
-                        {{--</label>--}}
+{{--<div class="form-group">--}}
+{{--<label class="control-sidebar-subheading">--}}
+{{--Allow mail redirect--}}
+{{--<input type="checkbox" class="pull-right" checked>--}}
+{{--</label>--}}
 
-                        {{--<p>--}}
-                            {{--Other sets of options are available--}}
-                        {{--</p>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
+{{--<p>--}}
+{{--Other sets of options are available--}}
+{{--</p>--}}
+{{--</div>--}}
+{{--<!-- /.form-group -->--}}
 
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Expose author name in posts--}}
-                            {{--<input type="checkbox" class="pull-right" checked>--}}
-                        {{--</label>--}}
+{{--<div class="form-group">--}}
+{{--<label class="control-sidebar-subheading">--}}
+{{--Expose author name in posts--}}
+{{--<input type="checkbox" class="pull-right" checked>--}}
+{{--</label>--}}
 
-                        {{--<p>--}}
-                            {{--Allow the user to show his name in blog posts--}}
-                        {{--</p>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
+{{--<p>--}}
+{{--Allow the user to show his name in blog posts--}}
+{{--</p>--}}
+{{--</div>--}}
+{{--<!-- /.form-group -->--}}
 
-                    {{--<h3 class="control-sidebar-heading">Chat Settings</h3>--}}
+{{--<h3 class="control-sidebar-heading">Chat Settings</h3>--}}
 
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Show me as online--}}
-                            {{--<input type="checkbox" class="pull-right" checked>--}}
-                        {{--</label>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
+{{--<div class="form-group">--}}
+{{--<label class="control-sidebar-subheading">--}}
+{{--Show me as online--}}
+{{--<input type="checkbox" class="pull-right" checked>--}}
+{{--</label>--}}
+{{--</div>--}}
+{{--<!-- /.form-group -->--}}
 
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Turn off notifications--}}
-                            {{--<input type="checkbox" class="pull-right">--}}
-                        {{--</label>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
+{{--<div class="form-group">--}}
+{{--<label class="control-sidebar-subheading">--}}
+{{--Turn off notifications--}}
+{{--<input type="checkbox" class="pull-right">--}}
+{{--</label>--}}
+{{--</div>--}}
+{{--<!-- /.form-group -->--}}
 
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Delete chat history--}}
-                            {{--<a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>--}}
-                        {{--</label>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
-                {{--</form>--}}
-            {{--</div>--}}
-            {{--<!-- /.tab-pane -->--}}
-        {{--</div>--}}
-    {{--</aside>--}}
-    <!-- /.control-sidebar -->
+{{--<div class="form-group">--}}
+{{--<label class="control-sidebar-subheading">--}}
+{{--Delete chat history--}}
+{{--<a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>--}}
+{{--</label>--}}
+{{--</div>--}}
+{{--<!-- /.form-group -->--}}
+{{--</form>--}}
+{{--</div>--}}
+{{--<!-- /.tab-pane -->--}}
+{{--</div>--}}
+{{--</aside>--}}
+<!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
@@ -544,23 +545,23 @@
     });
 </script>
 @if(count($rsAnnounce)>0)
-<script>
-    $(document).ready(function () {
+    <script>
+        $(document).ready(function () {
 
-        setTimeout(function () {
-            if($("#announce button.btn i").hasClass('fa-minus')){
-                $("#announce button.btn").trigger('click');
-            }
-        },5000);
-    })
-</script>
+            setTimeout(function () {
+                if ($("#announce button.btn i").hasClass('fa-minus')) {
+                    $("#announce button.btn").trigger('click');
+                }
+            }, 5000);
+        })
+    </script>
 @endif
 <script>
-    function genderChanged(obj)
-    {
-        let url = "{!! route('backend:language:set_lang',['lang'=>"LANG"]) !!}".replace('LANG',$(obj).val());
-        window.location.href = url+'?ref={!! base64_encode(url()->current()) !!}';
+    function genderChanged(obj) {
+        let url = "{!! route('backend:language:set_lang',['lang'=>"LANG"]) !!}".replace('LANG', $(obj).val());
+        window.location.href = url + '?ref={!! base64_encode(url()->current()) !!}';
     }
+
     $(document).ready(function () {
 
         $('.sidebar-menu').tree();
