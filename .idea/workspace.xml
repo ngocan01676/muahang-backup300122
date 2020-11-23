@@ -138,12 +138,12 @@
       <file leaf-file-name="Excel.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2322">
-              <caret line="1108" column="53" lean-forward="false" selection-start-line="1108" selection-start-column="53" selection-end-line="1108" selection-end-column="53" />
+            <state relative-caret-position="305">
+              <caret line="1297" column="21" lean-forward="false" selection-start-line="1297" selection-start-column="21" selection-end-line="1297" selection-end-column="21" />
               <folding>
                 <element signature="e#31#61#0#PHP" expanded="true" />
-                <marker date="1606095102416" expanded="true" signature="11432:11466" ph="..." />
-                <marker date="1606095102416" expanded="true" signature="13846:13859" ph="..." />
+                <marker date="1606095244597" expanded="true" signature="11432:11466" ph="..." />
+                <marker date="1606095244597" expanded="true" signature="13846:13859" ph="..." />
               </folding>
             </state>
           </provider>
@@ -171,7 +171,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>FU</find>
       <find>FUKU</find>
       <find>sort</find>
       <find>FUKUI</find>
@@ -201,6 +200,7 @@
       <find>sear</find>
       <find>order_date</find>
       <find>YAMADA</find>
+      <find>$image = (isset($columns_value['image'])</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -767,12 +767,12 @@
       <workItem from="1605838828496" duration="2992000" />
       <workItem from="1605939804768" duration="396000" />
       <workItem from="1598813428640" duration="895000" />
-      <workItem from="1606094232459" duration="833000" />
+      <workItem from="1606094232459" duration="965000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28580000" />
+    <option name="totallyTimeSpent" value="28712000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="32" y="23" width="1648" height="1027" extended-state="0" />
@@ -1076,12 +1076,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2322">
-          <caret line="1108" column="53" lean-forward="false" selection-start-line="1108" selection-start-column="53" selection-end-line="1108" selection-end-column="53" />
+        <state relative-caret-position="305">
+          <caret line="1297" column="21" lean-forward="false" selection-start-line="1297" selection-start-column="21" selection-end-line="1297" selection-end-column="21" />
           <folding>
             <element signature="e#31#61#0#PHP" expanded="true" />
-            <marker date="1606095102416" expanded="true" signature="11432:11466" ph="..." />
-            <marker date="1606095102416" expanded="true" signature="13846:13859" ph="..." />
+            <marker date="1606095244597" expanded="true" signature="11432:11466" ph="..." />
+            <marker date="1606095244597" expanded="true" signature="13846:13859" ph="..." />
           </folding>
         </state>
       </provider>

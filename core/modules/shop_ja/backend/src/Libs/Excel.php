@@ -480,7 +480,9 @@ class Excel
             $order_id = (isset($columns_value['id']) ? $values[$columns_value['id']] : "");
             $ids[$order_id] = 1;
             $order_info = (isset($columns_value['order_info']) ? $values[$columns_value['order_info']] : "");
-            $images[] = [$image, $order_info];
+            if (!empty($image)) {
+                $images[] = [str_replace(url('/'), "", $image), $order_info];
+            }
             foreach ($colums as $key => $value) {
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
                 if (is_array($value[1])) {
@@ -804,7 +806,9 @@ class Excel
             $order_id = (isset($columns_value['id']) ? $values[$columns_value['id']] : "");
             $ids[$order_id] = 1;
             $order_info = (isset($columns_value['order_info']) ? $values[$columns_value['order_info']] : "");
-            $images[] = [$image, $order_info];
+            if (!empty($image)) {
+                $images[] = [str_replace(url('/'), "", $image), $order_info];
+            }
             foreach ($colums as $key => $value) {
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
                 if (is_array($value[1])) {
@@ -1106,7 +1110,7 @@ class Excel
             $ids[$order_id] = 1;
             $order_info = (isset($columns_value['order_info']) ? $values[$columns_value['order_info']] : "");
             if (!empty($image)) {
-                $images[] = [str_replace(url('/'), "/", $image), $order_info];
+                $images[] = [str_replace(url('/'), "", $image), $order_info];
             }
             foreach ($colums as $key => $value) {
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
@@ -1291,7 +1295,7 @@ class Excel
 //        if( $this->file->isDirectory(public_path().$pathZip)){
 //            $this->file->deleteDirectory(public_path().$pathZip,true);
 //        }
-        return ['link1' => url($path . '/' . $zipFileName), 'images' => $images, "ids" => $ids];
+        return ['link' => url($path . '/' . $zipFileName), 'images' => $images, "ids" => $ids];
 
     }
 
@@ -1503,8 +1507,10 @@ class Excel
                 $image = (isset($columns_value['image']) ? $values[$columns_value['image']] : "");
 
                 $order_info = (isset($columns_value['order_info']) ? $values[$columns_value['order_info']] : "");
-                $images[] = [$image, $order_info];
 
+                if (!empty($image)) {
+                    $images[] = [str_replace(url('/'), "", $image), $order_info];
+                }
                 $total_order_ship += (int)(isset($columns_value['order_ship']) ? $values[$columns_value['order_ship']] : "0");
                 $total_order_total_price += (int)(isset($columns_value['order_total_price']) ? $values[$columns_value['order_total_price']] : "0");
                 $total_order_total_price_buy += (int)(isset($columns_value['order_total_price_buy']) ? $values[$columns_value['order_total_price_buy']] : "0");
@@ -1898,7 +1904,9 @@ class Excel
                     $image = (isset($columns_value['image']) ? $_values[$columns_value['image']] : "");
                     $order_info = (isset($columns_value['order_info']) ? $_values[$columns_value['order_info']] : "");
 
-                    $images[] = [$image, $order_info];
+                    if (!empty($image)) {
+                        $images[] = [str_replace(url('/'), "", $image), $order_info];
+                    }
 
 
                     if ($pay_Method == $typeMethod) {
