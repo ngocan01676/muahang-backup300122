@@ -276,6 +276,7 @@ class Excel
                         'count' => trim(rtrim($value['data'][$nameColList['count']])),
                     ];
 
+                    
                     $_result = DB::table('shop_order_excel')->where($where)
                         ->where('order_create_date', '>=', date('Y-m-d', $this->date_export) . ' 00:00:00')
                         ->where('order_create_date', '<=', date('Y-m-d', $this->date_export) . ' 23:59:59')
@@ -302,7 +303,7 @@ class Excel
 //                        }
 //                    }
                     $html .= "<tr class='" . $class . "' >";
-                    if ($class == "update") {
+                   // if ($class == "update") {
                         $html .= "<td>[" . $count . "]<div style='display: none'><textarea class='value'>" .
                             json_encode([
                                 'create' => $_result[0]->order_create_date,
@@ -310,9 +311,9 @@ class Excel
                                 'checking' => $value['checking'],
                                 'ids'=> $value['ids'],
                             ]) . "</textarea></div></td>";
-                    } else {
+                   // } else {
                         $html .= "<td>[" . $count . "]</td>";
-                    }
+                 //   }
 //                    $html .= "<td>" . json_encode($where,JSON_UNESCAPED_UNICODE ) . "</td>";
                     foreach ($value['data'] as $k => $val) {
                         $html .= "<td>" . $val . "</td>";
