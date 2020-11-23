@@ -20,34 +20,34 @@ return [
                     "url" => "backend:language:list",
                     "icon" => "fa fa-language"
                 ],
-                "menu" => [
-                    "name" => z_language("Menu", false),
-                    "pos" => 1,
-                    "url" => "backend:menu:list",
-                    "icon" => "fa fa-language"
-                ],
-                "layout" => [
-                    "name" => z_language("Layout", false),
-                    "pos" => 1,
-                    "url" => "backend:layout:list",
-                    "icon" => "fa fa-list-alt",
-                    "items" => [
-                        [
-                            "name" => z_language("Layout", false),
-                            "url" => "backend:layout:list",
-                        ],
-                        [
-                            "name" => z_language("Build", false),
-                            "url" => "backend:layout:build",
-                        ],
-                    ]
-                ],
-                "page" => [
-                    "name" => z_language("Page", false),
-                    "pos" => 1,
-                    "url" => "backend:page:list",
-                    "icon" => "fa fa-file-text"
-                ],
+//                "menu" => [
+//                    "name" => z_language("Menu", false),
+//                    "pos" => 1,
+//                    "url" => "backend:menu:list",
+//                    "icon" => "fa fa-language"
+//                ],
+//                "layout" => [
+//                    "name" => z_language("Layout", false),
+//                    "pos" => 1,
+//                    "url" => "backend:layout:list",
+//                    "icon" => "fa fa-list-alt",
+//                    "items" => [
+//                        [
+//                            "name" => z_language("Layout", false),
+//                            "url" => "backend:layout:list",
+//                        ],
+//                        [
+//                            "name" => z_language("Build", false),
+//                            "url" => "backend:layout:build",
+//                        ],
+//                    ]
+//                ],
+//                "page" => [
+//                    "name" => z_language("Page", false),
+//                    "pos" => 1,
+//                    "url" => "backend:page:list",
+//                    "icon" => "fa fa-file-text"
+//                ],
                 "component" => [
                     "name" => z_language('Component', false),
                     "pos" => 2,
