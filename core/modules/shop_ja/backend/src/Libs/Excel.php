@@ -282,19 +282,25 @@ class Excel
                         ->where('export', 1)
                         ->get()->all();
 
-                    $count = count($_result);
 
-                    $class = ($count == 1 ? 'update' : (($count == 0) ? 'empty' : 'two'));
-
-                    if ($class == "update") {
-                        if (!empty($_result[0]->order_tracking)) {
-                            if (json_encode($value['checking']) == $_result[0]->order_tracking) {
-                                $class = 'oke';
-                            } else {
-                                $class = 'conflict';
-                            }
+                    $countSum = 0;
+                    foreach ($value['checking'] as $k=>$checking){
+                        if(isset($value['ids'][$k])){
+                            $countSum++;
                         }
                     }
+                    $count = count($value['checking']);
+                    $class = ($countSum == $count ? 'update' : (($count == 0) ? 'empty' : 'two'));
+
+//                    if ($class == "update") {
+//                        if (!empty($_result[0]->order_tracking)) {
+//                            if (json_encode($value['checking']) == $_result[0]->order_tracking) {
+//                                $class = 'oke';
+//                            } else {
+//                                $class = 'conflict';
+//                            }
+//                        }
+//                    }
                     $html .= "<tr class='" . $class . "' >";
                 //    if ($class == "update") {
                         $html .= "<td>[" . $count . "]<div style='display: none'><textarea class='value'>" .
