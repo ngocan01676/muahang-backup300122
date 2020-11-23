@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/logo.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php" afterPath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
@@ -146,11 +144,11 @@
         <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="230">
-              <caret line="54" column="37" lean-forward="false" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="37" />
+              <caret line="54" column="44" lean-forward="false" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="44" />
               <folding>
-                <marker date="1606095627831" expanded="true" signature="9:214" ph="..." />
-                <marker date="1606095627831" expanded="true" signature="108:145" ph="..." />
-                <marker date="1606095627831" expanded="true" signature="163:198" ph="..." />
+                <marker date="1606095727364" expanded="true" signature="9:214" ph="..." />
+                <marker date="1606095727364" expanded="true" signature="108:145" ph="..." />
+                <marker date="1606095727364" expanded="true" signature="163:198" ph="..." />
               </folding>
             </state>
           </provider>
@@ -745,12 +743,12 @@
       <workItem from="1605838828496" duration="2992000" />
       <workItem from="1605939804768" duration="396000" />
       <workItem from="1598813428640" duration="895000" />
-      <workItem from="1606094232459" duration="1253000" />
+      <workItem from="1606094232459" duration="1333000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29000000" />
+    <option name="totallyTimeSpent" value="29080000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="32" y="23" width="1648" height="1027" extended-state="0" />
@@ -1067,11 +1065,11 @@
     <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="54" column="37" lean-forward="false" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="37" />
+          <caret line="54" column="44" lean-forward="false" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="44" />
           <folding>
-            <marker date="1606095627831" expanded="true" signature="9:214" ph="..." />
-            <marker date="1606095627831" expanded="true" signature="108:145" ph="..." />
-            <marker date="1606095627831" expanded="true" signature="163:198" ph="..." />
+            <marker date="1606095727364" expanded="true" signature="9:214" ph="..." />
+            <marker date="1606095727364" expanded="true" signature="108:145" ph="..." />
+            <marker date="1606095727364" expanded="true" signature="163:198" ph="..." />
           </folding>
         </state>
       </provider>

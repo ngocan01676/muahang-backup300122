@@ -52,7 +52,7 @@
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
 
-                <img src="logo.jpg"/>
+                <img src="{!! url('/logo.jpg') !!}"/>
             </span>
             {{--<span class="logo-lg"><b>Zoe</b>CMS</span>--}}
         </a>
