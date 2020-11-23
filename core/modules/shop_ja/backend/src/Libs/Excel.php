@@ -290,7 +290,7 @@ class Excel
                         }
                     }
                     $count = count($value['checking']);
-                    $class = ($countSum == $count ? 'update' : (($count == 0) ? 'empty' : 'two'));
+                    $class = ($countSum == $count || count($_result)>0 ? 'update' : (($count == 0) ? 'empty' : 'two'));
 
 //                    if ($class == "update") {
 //                        if (!empty($_result[0]->order_tracking)) {
