@@ -1,17 +1,17 @@
 @section("content")
     @php $_option =  array ('refresh' => '1', 'image' =>
-                                                         array (
-                                                         'resize' => '1',
-                                                             'action' => 'php',
-                                                             'platforms' =>
-                                                                 array (
-                                                                 0 => 'mobile',
-                                                                 1 => 'tablet',
-                                                             ),
-                                                             'pc' => '100',
-                                                             'mobile' => '55',
-                                                             'tablet' => '65',
-                                                          )
+         array (
+         'resize' => '1',
+             'action' => 'php',
+             'platforms' =>
+                 array (
+                 0 => 'mobile',
+                 1 => 'tablet',
+             ),
+             'pc' => '100',
+             'mobile' => '55',
+             'tablet' => '65',
+          )
         );
     @endphp
     <div class="section section-breadcrumbs">
