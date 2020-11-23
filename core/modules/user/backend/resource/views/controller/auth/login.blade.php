@@ -34,6 +34,7 @@
     <div class="login-logo">
         <img src="{!! url('/logo.jpg') !!}" alt="" style="width: 150px">
     </div>
+    
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">{!! @z_language(["Sign in to start your session"]) !!}</p>
