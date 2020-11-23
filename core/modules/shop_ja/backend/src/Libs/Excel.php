@@ -187,6 +187,7 @@ class Excel
                 }
             }
             var_dump($nameColList);
+            dd($datas);
             $n = count($datas);
             $html = "";
             $results = [];
