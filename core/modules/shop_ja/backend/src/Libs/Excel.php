@@ -1105,7 +1105,9 @@ class Excel
             $order_id = (isset($columns_value['id']) ? $values[$columns_value['id']] : "");
             $ids[$order_id] = 1;
             $order_info = (isset($columns_value['order_info']) ? $values[$columns_value['order_info']] : "");
-            $images[] = [$image, $order_info];
+            if (!empty($image)) {
+                $images[] = [str_replace(url('/'), "/", $image), $order_info];
+            }
             foreach ($colums as $key => $value) {
                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
                 if (is_array($value[1])) {
@@ -1239,7 +1241,6 @@ class Excel
             [$filename . '.xlsx', public_path() . $path2]
         ];
         foreach ($images as $image) {
-
             if (!empty($image[0]) && file_exists(public_path() . "/" . $image[0])) {
 
                 $pathinfo = pathinfo(public_path() . "/" . $image[0]);
