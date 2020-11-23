@@ -1251,18 +1251,17 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     DB::beginTransaction();
                     try{
                         foreach ($lists as $list){
-                            DB::table('shop_order_excel')->where("id",$list['id'])->update(['order_tracking'=>json_encode($list['checking'])]);
-                            foreach ($list['checking'] as $checking){
+                            foreach ($list['checking'] as $key=>$checking){
+                                DB::table('shop_order_excel')->where("id",$list['ids'][$key])->update(['order_tracking'=>json_encode($list['checking'])]);
                                 DB::table('shop_order_excel_tracking')
                                     ->updateOrInsert(
                                         [
-                                            'order_id'=>$list['id'],
+                                            'order_id'=>$list['ids'][$key],
                                             'type'=>$input['ship'],
                                             'company'=>$input['com'],
-                                           // 'tracking_id'=>$checking,
                                             'created_at'=>$list['create']
                                         ],
-                                        ['data'=>'[]','tracking_id'=>(int)$checking,'status'=>0,'updated_at'=>date('Y-m-d')]);
+                                        ['data'=>'[]','tracking_id'=>$checking,'status'=>0,'updated_at'=>date('Y-m-d')]);
                             }
 
                         }

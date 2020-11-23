@@ -166,11 +166,15 @@ class Excel
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
         $spreadsheet = $reader->load($inputFileName);
         $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet1 = $spreadsheet->getSheet(1);
+        $datas1 = $sheet1->toArray();
         $datas = $sheet->toArray();
 
         $type = $this->checkTypeCom($OriginalName);
 
         $html = "";
+
         if (isset($this->DataCol[$type])) {
             $colums = $this->DataCol[$type];
             foreach ($colums as $key => $value) {
@@ -202,6 +206,7 @@ class Excel
                     if(!isset($datas[$i][$order_tracking_index])) continue;
                     $order_tracking = trim(rtrim($datas[$i][$order_tracking_index]));
                     $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
+
                     if (!empty($order_tracking)) {
                         $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
                         $fullname = preg_replace('/\s+/', ' ', $fullname);
@@ -210,24 +215,28 @@ class Excel
                             $item = [
                                 'data' => $datas[$i],
                                 'checking' => [$order_tracking],
+                                'ids'=>[isset($datas1[$i][0])?$datas1[$i][0]:0]
                             ];
                             for ($j = $i + 1; $j < $count + $i; $j++) {
 
+                                if(!isset($datas[$j][$nameColList['fullname']])) continue;
+
                                 $_fullname = trim(rtrim($datas[$j][$nameColList['fullname']]));
                                 $_fullname = preg_replace('/\s+/', ' ', $_fullname);
+
                                 if (strlen($_fullname) > 0) {
                                     break;
                                 } else {
                                     $order_tracking = trim(rtrim($datas[$j][$nameColList['order_tracking']]));
                                     if (strlen($order_tracking) > 0)
                                         $item['checking'][] = $order_tracking;
+                                        $item['ids'][] =isset($datas1[$i][0])?$datas1[$i][0]:0;
                                 }
                             }
                             $results[] = $item;
                         }
                     }
                 }
-
                 $category = get_category_type("shop-ja:product:category");
 
                 $ship = get_category_type("shop-ja:japan:category:com-ship");
@@ -274,6 +283,7 @@ class Excel
                         ->get()->all();
 
                     $count = count($_result);
+
                     $class = ($count == 1 ? 'update' : (($count == 0) ? 'empty' : 'two'));
 
                     if ($class == "update") {
@@ -286,12 +296,18 @@ class Excel
                         }
                     }
                     $html .= "<tr class='" . $class . "' >";
-                    if ($class == "update") {
-                        $html .= "<td>[" . $count . "]<div style='display: none'><textarea class='value'>" . json_encode(['create' => $_result[0]->order_create_date, 'id' => $_result[0]->id, 'checking' => $value['checking']]) . "</textarea></div></td>";
-                    } else {
-                        $html .= "<td>[" . $count . "]</td>";
-                    }
-                    $html .= "<td>" . json_encode($where,JSON_UNESCAPED_UNICODE ) . "</td>";
+                //    if ($class == "update") {
+                        $html .= "<td>[" . $count . "]<div style='display: none'><textarea class='value'>" .
+                            json_encode([
+                                'create' => $_result[0]->order_create_date,
+                                'id' => $_result[0]->id,
+                                'checking' => $value['checking'],
+                                'ids'=> $value['ids'],
+                            ]) . "</textarea></div></td>";
+                  //  } else {
+                      //  $html .= "<td>[" . $count . "]</td>";
+                 //   }
+//                    $html .= "<td>" . json_encode($where,JSON_UNESCAPED_UNICODE ) . "</td>";
                     foreach ($value['data'] as $k => $val) {
                         $html .= "<td>" . $val . "</td>";
                     }
