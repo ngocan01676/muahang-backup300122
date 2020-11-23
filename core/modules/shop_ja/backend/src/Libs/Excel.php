@@ -227,7 +227,7 @@ class Excel
                         }
                     }
                 }
-                dd($results);
+                
                 $category = get_category_type("shop-ja:product:category");
 
                 $ship = get_category_type("shop-ja:japan:category:com-ship");
