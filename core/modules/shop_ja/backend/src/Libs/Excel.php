@@ -198,19 +198,12 @@ class Excel
                     $i = 7;
                     $order_tracking_index+=2;
                 }
-                echo $i;
                 for (; $i < $n; $i++) {
-                    echo "[".$order_tracking_index."]";
-                    var_dump($datas[$i]);
                     if(!isset($datas[$i][$order_tracking_index])) continue;
-
                     $order_tracking = trim(rtrim($datas[$i][$order_tracking_index]));
-                    var_dump("order_tracking=".$order_tracking_index.":".$order_tracking);
                     $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
-
                     if (!empty($order_tracking)) {
                         $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
-
                         $fullname = preg_replace('/\s+/', ' ', $fullname);
                         var_dump("fullname:".$fullname);
                         if (!empty($fullname) && $fullname != "配送先氏名") {
