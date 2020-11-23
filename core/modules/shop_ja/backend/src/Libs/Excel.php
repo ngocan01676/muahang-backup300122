@@ -205,7 +205,7 @@ class Excel
                     if (!empty($order_tracking)) {
                         $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
                         $fullname = preg_replace('/\s+/', ' ', $fullname);
-                        var_dump("fullname:".$fullname);
+
                         if (!empty($fullname) && $fullname != "配送先氏名") {
                             $item = [
                                 'data' => $datas[$i],
@@ -263,8 +263,6 @@ class Excel
                         'phone' => trim(rtrim($value['data'][$nameColList['phone']])),
                         'zipcode' => trim(rtrim($value['data'][$nameColList['zipcode']])),
                         'province' => trim(rtrim($value['data'][$nameColList['province']])),
-//                        'product_code'=>trim(rtrim($value['data'][$nameColList['product_id']])),
-//                        'product_title'=>trim(rtrim($value['data'][$nameColList['product_name']])),
                         'pay_method' => $this->getValuePayMethod(trim(rtrim($value['data'][$nameColList['payMethod']]))),
                         'count' => trim(rtrim($value['data'][$nameColList['count']])),
                     ];
