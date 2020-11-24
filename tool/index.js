@@ -249,18 +249,21 @@ async function JAPAN_POST(tracking){
 
         try{
             let countEmpty = 0;
-            console.log('AddQueue:');
+
+
             for(let name in databaseData){
                 let trackingIds = [];
                 let count = 0;
                 for(let index in databaseData[name]){
                     if(!databaseLock.hasOwnProperty(index)){
                         databaseLock[index] = new Date();
+
                         trackingIds.push({
                             id:index,
                             key:index.replace(/-+/g, ""),
                             data:databaseData[name][index],
                         });
+
                         count++;
                         if(count > 0){
                             break;
@@ -271,6 +274,7 @@ async function JAPAN_POST(tracking){
                     pushData.push({name:name,data:trackingIds});
                 }
             }
+            console.log('AddQueue:'+pushData.length+" "+moment().format("YYYY-MM-DD HH:mm:ss"));
             if(pushData.length === 0){
                 GetData(function () {
 

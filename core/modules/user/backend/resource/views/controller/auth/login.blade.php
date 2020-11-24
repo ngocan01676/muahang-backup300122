@@ -32,8 +32,9 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>Zoe</b>CMS</a>
+        <img src="{!! url('/logo.jpg') !!}" alt="" style="width: 150px">
     </div>
+
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">{!! @z_language(["Sign in to start your session"]) !!}</p>
