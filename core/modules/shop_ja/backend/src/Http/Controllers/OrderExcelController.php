@@ -1541,7 +1541,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->comment,
                         ];
 
-                    }else  if($result->company == "KOGYJA"){
+                    }else  if($result->company == "KOGYJA" || $result->company == "KURICHIKU1"){
                         $pay_method = "";
                         if($result->pay_method == 1){
                             $pay_method = "代金引換";
