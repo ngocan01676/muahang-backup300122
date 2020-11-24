@@ -1,8 +1,6 @@
 @php
     $category =  get_category_type("shop-ja:product:category");
-    $a = new stdClass();
-    $a->name = "KURICHIKU1";
-    $category[] = $a;
+
 
     $keys =  [
             ['timeCreate',3.29,'ngày đặt hàng'],

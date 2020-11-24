@@ -8,6 +8,9 @@
     @breadcrumb()@endbreadcrumb
     @php
         $category =  get_category_type("shop-ja:product:category");
+       $a = new stdClass();
+    $a->name = "KURICHIKU1";
+    $category[] = $a;
     @endphp
     <div class="box box-default box-solid">
         <div class="box-header with-border">
