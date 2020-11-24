@@ -125,22 +125,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="2799" column="12" lean-forward="true" selection-start-line="2796" selection-start-column="10" selection-end-line="2799" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="1601" column="29" selection-start-line="1601" selection-start-column="29" selection-end-line="1601" selection-end-column="29" />
+            <state relative-caret-position="332">
+              <caret line="6130" column="15" lean-forward="true" selection-start-line="6128" selection-start-column="13" selection-end-line="6130" selection-end-column="15" />
               <folding>
-                <element signature="e#45353#48097#0#HTML" />
-                <element signature="e#51443#55777#0#HTML" />
-                <element signature="e#55916#60975#0#HTML" />
-                <element signature="e#61049#65272#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
@@ -153,11 +140,19 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="1603" column="33" selection-start-line="1603" selection-start-column="33" selection-end-line="1603" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>export</find>
       <find>conflict</find>
       <find>moda</find>
       <find>modal-default</find>
@@ -187,6 +182,7 @@
       <find>importBtn</find>
       <find>parent.removeClass('has_error');</find>
       <find>if(!parent.hasClass('has_error')){</find>
+      <find>$colorder_link.addClass('bor-error');</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -701,12 +697,12 @@
       <workItem from="1605838828496" duration="2992000" />
       <workItem from="1605939804768" duration="396000" />
       <workItem from="1606189216151" duration="1322000" />
-      <workItem from="1606192780473" duration="2239000" />
+      <workItem from="1606192780473" duration="2399000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38548000" />
+    <option name="totallyTimeSpent" value="38708000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -950,20 +946,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="2799" column="12" lean-forward="true" selection-start-line="2796" selection-start-column="10" selection-end-line="2799" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="1601" column="29" selection-start-line="1601" selection-start-column="29" selection-end-line="1601" selection-end-column="29" />
+        <state relative-caret-position="332">
+          <caret line="6130" column="15" lean-forward="true" selection-start-line="6128" selection-start-column="13" selection-end-line="6130" selection-end-column="15" />
           <folding>
-            <element signature="e#45353#48097#0#HTML" />
-            <element signature="e#51443#55777#0#HTML" />
-            <element signature="e#55916#60975#0#HTML" />
-            <element signature="e#61049#65272#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
@@ -972,6 +957,13 @@
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="1603" column="33" selection-start-line="1603" selection-start-column="33" selection-end-line="1603" selection-end-column="33" />
         </state>
       </provider>
     </entry>

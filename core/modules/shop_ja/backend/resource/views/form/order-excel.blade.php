@@ -1599,6 +1599,9 @@
                             let order_link = value[columns.order_link.index]+"".trim();
                             if(order_link.length === 0){
                                 $colorder_link.addClass('bor-error');
+                                if(!parent.hasClass('has_error')){
+                                    parent.addClass('has_error');
+                                }
                             }
                         }
 
@@ -2926,6 +2929,9 @@
                                 let order_link = value[columns.order_link.index]+"".trim();
                                 if(order_link.length === 0){
                                     $colorder_link.addClass('bor-error');
+                                    if(!parent.hasClass('has_error')){
+                                        parent.addClass('has_error');
+                                    }
                                 }
                             }
                         }
@@ -4205,6 +4211,9 @@
                             let order_link = value[columns.order_link.index]+"".trim();
                             if(order_link.length === 0){
                                 $colorder_link.addClass('bor-error');
+                                if(!parent.hasClass('has_error')){
+                                    parent.addClass('has_error');
+                                }
                             }
                         }
                         parent.removeClass('has_export');
@@ -5236,6 +5245,9 @@
                             let order_link = value[columns.order_link.index]+"".trim();
                             if(order_link.length === 0){
                                 $colorder_link.addClass('bor-error');
+                                if(!parent.hasClass('has_error')){
+                                    parent.addClass('has_error');
+                                }
                             }
                         }
                         parent.removeClass('has_export');
@@ -6243,6 +6255,9 @@
                                 let order_link = value[columns.order_link.index]+"".trim();
                                 if(order_link.length === 0){
                                     $colorder_link.addClass('bor-error');
+                                    if(!parent.hasClass('has_error')){
+                                        parent.addClass('has_error');
+                                    }
                                 }
                             }
                        // }
