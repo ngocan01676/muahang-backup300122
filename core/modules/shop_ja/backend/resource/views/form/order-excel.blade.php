@@ -3101,7 +3101,7 @@
             };
         }
         function KURICHIKU1() {
-            let sheetName = "KURICHIKU";
+            let sheetName = "KURICHIKU1";
             let data = [];
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
@@ -3113,7 +3113,7 @@
             if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
                 data = datamodel[sheetName];
             }
-            let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
+            let dropdown = dataproduct.hasOwnProperty("KURICHIKU")?dataproduct["KURICHIKU"]:{};
             let index = 0;
 
             let columns = {
