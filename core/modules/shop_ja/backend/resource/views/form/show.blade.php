@@ -67,6 +67,7 @@
 @section('extra-script')
     @include('shop_ja::componer.excel', array())
     <script>
+
         $(document).ready(function () {
             let changeDate = 0;
             let changeDate1 = 0;
