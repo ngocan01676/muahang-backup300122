@@ -1588,15 +1588,17 @@
                             $col.addClass('bor-error')
                         }
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
-                        $col.removeClass('bor-error')
+                        $col.removeClass('bor-error');
+
+                        $colorder_link = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_link.index, row])));
+                        $colorder_link.removeClass('bor-error');
+
                         if(_fullname.length <= 0){
                             $col.addClass('bor-error')
                         }else{
-                            if(!parent.hasClass('has_error')){
-                                let order_link = value[columns.order_link.index]+"".trim();
-                                if(order_link.length === 0){
-                                    parent.addClass('has_error');
-                                }
+                            let order_link = value[columns.order_link.index]+"".trim();
+                            if(order_link.length === 0){
+                                $colorder_link.addClass('bor-error');
                             }
                         }
 
@@ -2914,15 +2916,16 @@
                                 $col.addClass('bor-error')
                             }
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
-                            $col.removeClass('bor-error')
+                            $col.removeClass('bor-error');
+                            $colorder_link = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_link.index, row])));
+                            $colorder_link.removeClass('bor-error');
+
                             if(_fullname.length <= 0){
                                 $col.addClass('bor-error')
                             }else{
-                                if(!parent.hasClass('has_error')){
-                                    let order_link = value[columns.order_link.index]+"".trim();
-                                    if(order_link.length === 0){
-                                        parent.addClass('has_error');
-                                    }
+                                let order_link = value[columns.order_link.index]+"".trim();
+                                if(order_link.length === 0){
+                                    $colorder_link.addClass('bor-error');
                                 }
                             }
                         }
@@ -4191,15 +4194,17 @@
                             $col.addClass('bor-error')
                         }
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
-                        $col.removeClass('bor-error')
+                        $col.removeClass('bor-error');
+
+                        $colorder_link = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_link.index, row])));
+                        $colorder_link.removeClass('bor-error');
+
                         if(_fullname.length <= 0){
                             $col.addClass('bor-error')
                         }else{
-                            if(!parent.hasClass('has_error')){
-                                let order_link = value[columns.order_link.index]+"".trim();
-                                if(order_link.length === 0){
-                                    parent.addClass('has_error');
-                                }
+                            let order_link = value[columns.order_link.index]+"".trim();
+                            if(order_link.length === 0){
+                                $colorder_link.addClass('bor-error');
                             }
                         }
                         parent.removeClass('has_export');
@@ -5220,15 +5225,17 @@
                             $col.addClass('bor-error')
                         }
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
-                        $col.removeClass('bor-error')
+                        $col.removeClass('bor-error');
+
+                        $colorder_link = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_link.index, row])));
+                        $colorder_link.removeClass('bor-error');
+
                         if(_fullname.length <= 0){
                             $col.addClass('bor-error')
                         }else{
-                            if(!parent.hasClass('has_error')){
-                                let order_link = value[columns.order_link.index]+"".trim();
-                                if(order_link.length === 0){
-                                    parent.addClass('has_error');
-                                }
+                            let order_link = value[columns.order_link.index]+"".trim();
+                            if(order_link.length === 0){
+                                $colorder_link.addClass('bor-error');
                             }
                         }
                         parent.removeClass('has_export');
@@ -6225,15 +6232,17 @@
                                 $col.addClass('bor-error')
                             }
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
-                            $col.removeClass('bor-error')
+                            $col.removeClass('bor-error');
+
+                        $colorder_link = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_link.index, row])));
+                        $colorder_link.removeClass('bor-error');
+
                             if(_fullname.length <= 0){
                                 $col.addClass('bor-error')
                             }else{
-                                if(!parent.hasClass('has_error')){
-                                    let order_link = value[columns.order_link.index]+"".trim();
-                                    if(order_link.length === 0){
-                                        parent.addClass('has_error');
-                                    }
+                                let order_link = value[columns.order_link.index]+"".trim();
+                                if(order_link.length === 0){
+                                    $colorder_link.addClass('bor-error');
                                 }
                             }
                        // }
