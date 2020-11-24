@@ -77,7 +77,16 @@
     <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
+<div class="fb-comments" data-href="<?php url('/admin/login') ;?>" data-width="100%" data-numposts="10"></div>
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=1893395424106374";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <!-- jQuery 3 -->
 <script src="{{asset('module/admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
