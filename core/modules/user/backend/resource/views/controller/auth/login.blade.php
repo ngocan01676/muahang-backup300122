@@ -77,10 +77,9 @@
     <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-<div class="fb-comment-embed" data-href="{!! url('admin/login') !!}" data-include-parent="false" data-width=""></div>
+<div class="fb-comments" data-href="http://ql.betogaizin.com/admin/login" data-numposts="5" data-width=""></div>
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=207522139456821&autoLogAppEvents=1" nonce="3OaXQhUZ"></script>
-
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=726897057427545&autoLogAppEvents=1" nonce="cO0qlUJm"></script>
 
 
 <!-- jQuery 3 -->
