@@ -1569,6 +1569,14 @@
                             }
                         }
 
+                        if(!parent.hasClass('has_error')){
+                            let order_link = value[columns.order_link.index]+"".trim();
+                            if(order_link.length === 0){
+                                self.addClass('has_error');
+                            }
+                        }
+
+
                         let _province = value[columns.province.index]+"".trim();
                         let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                         let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
@@ -2887,7 +2895,12 @@
                                     self.addClass('has_error');
                                 }
                             }
-
+                            if(!parent.hasClass('has_error')){
+                                let order_link = value[columns.order_link.index]+"".trim();
+                                if(order_link.length === 0){
+                                    self.addClass('has_error');
+                                }
+                            }
                             let _province = value[columns.province.index]+"".trim();
                             let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                             let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
@@ -4157,6 +4170,12 @@
                                 self.addClass('has_error');
                             }
                         }
+                        if(!parent.hasClass('has_error')){
+                            let order_link = value[columns.order_link.index]+"".trim();
+                            if(order_link.length === 0){
+                                self.addClass('has_error');
+                            }
+                        }
                         let _province = value[columns.province.index]+"".trim();
                         let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                         let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
@@ -5178,7 +5197,12 @@
                                 self.addClass('has_error');
                             }
                         }
-
+                        if(!parent.hasClass('has_error')){
+                            let order_link = value[columns.order_link.index]+"".trim();
+                            if(order_link.length === 0){
+                                self.addClass('has_error');
+                            }
+                        }
                         let _province = value[columns.province.index]+"".trim();
                         let _address = value[columns.address.index]+"".trim();
                         let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
@@ -6169,6 +6193,12 @@
                             let order_info = value[columns.order_info.index];
                             let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
                             if(img.length === 0 || order_info.length === 0){
+                                self.addClass('has_error');
+                            }
+                        }
+                        if(!parent.hasClass('has_error')){
+                            let order_link = value[columns.order_link.index]+"".trim();
+                            if(order_link.length === 0){
                                 self.addClass('has_error');
                             }
                         }
