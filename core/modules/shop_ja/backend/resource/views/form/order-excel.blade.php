@@ -7784,8 +7784,8 @@
                 sheets.push( Object.assign(KURICHIKU(config),config));
         }
 
-        if(!statusCompnay.hasOwnProperty('KURICHIKU')){
-            if(options.hasOwnProperty('KURICHIKU') && options.KURICHIKU.status == 1)
+        if(!statusCompnay.hasOwnProperty('KURICHIKU1')){
+            if(options.hasOwnProperty('KURICHIKU1') && options.KURICHIKU1.status == 1)
                 sheets.push( Object.assign(KURICHIKU1(config),config));
         }
 

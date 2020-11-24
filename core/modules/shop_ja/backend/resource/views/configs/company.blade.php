@@ -1,5 +1,8 @@
 @php
    $category =  get_category_type("shop-ja:product:category");
+   $a = new stdClass();
+   $a->name = "KURICHIKU1";
+   $category[] = $a;
 @endphp
 <table class="table table-bordered">
     <tbody>
