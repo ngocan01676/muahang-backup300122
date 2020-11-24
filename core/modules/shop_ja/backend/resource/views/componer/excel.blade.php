@@ -1440,12 +1440,7 @@
         self.addClass('has_error');
        }
       }
-         if(!parent.hasClass('has_error')){
-             let order_link = value[columns.order_link.index]+"".trim();
-             if(order_link.length === 0){
-                 parent.addClass('has_error');
-             }
-         }
+
       let _province = value[columns.province.index]+"".trim();
       let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
       let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
@@ -1465,6 +1460,13 @@
       $col.removeClass('bor-error')
       if(_fullname.length <= 0){
        $col.addClass('bor-error')
+      }else{
+          if(!parent.hasClass('has_error')){
+              let order_link = value[columns.order_link.index]+"".trim();
+              if(order_link.length === 0){
+                  parent.addClass('has_error');
+              }
+          }
       }
 
       parent.removeClass('has_export');
@@ -2764,12 +2766,7 @@
          self.addClass('has_error');
         }
        }
-          if(!parent.hasClass('has_error')){
-              let order_link = value[columns.order_link.index]+"".trim();
-              if(order_link.length === 0){
-                  parent.addClass('has_error');
-              }
-          }
+
        let _province = value[columns.province.index]+"".trim();
        let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
        let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
@@ -2789,6 +2786,13 @@
        $col.removeClass('bor-error')
        if(_fullname.length <= 0){
         $col.addClass('bor-error')
+       }else{
+           if(!parent.hasClass('has_error')){
+               let order_link = value[columns.order_link.index]+"".trim();
+               if(order_link.length === 0){
+                   parent.addClass('has_error');
+               }
+           }
        }
       }
       parent.removeClass('has_export');
@@ -4039,12 +4043,7 @@
         self.addClass('has_error');
        }
       }
-         if(!parent.hasClass('has_error')){
-             let order_link = value[columns.order_link.index]+"".trim();
-             if(order_link.length === 0){
-                 parent.addClass('has_error');
-             }
-         }
+
       let _province = value[columns.province.index]+"".trim();
       let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
       let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
@@ -4064,6 +4063,13 @@
       $col.removeClass('bor-error')
       if(_fullname.length <= 0){
        $col.addClass('bor-error')
+      }else{
+          if(!parent.hasClass('has_error')){
+              let order_link = value[columns.order_link.index]+"".trim();
+              if(order_link.length === 0){
+                  parent.addClass('has_error');
+              }
+          }
       }
       parent.removeClass('has_export');
       let _export = value[columns.export.index];
@@ -5066,12 +5072,7 @@
         self.addClass('has_error');
        }
       }
-         if(!parent.hasClass('has_error')){
-             let order_link = value[columns.order_link.index]+"".trim();
-             if(order_link.length === 0){
-                 parent.addClass('has_error');
-             }
-         }
+
       let _province = value[columns.province.index]+"".trim();
       let _address = value[columns.address.index]+"".trim();
       let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
@@ -5091,6 +5092,13 @@
       $col.removeClass('bor-error')
       if(_fullname.length <= 0){
        $col.addClass('bor-error')
+      }else{
+          if(!parent.hasClass('has_error')){
+              let order_link = value[columns.order_link.index]+"".trim();
+              if(order_link.length === 0){
+                  parent.addClass('has_error');
+              }
+          }
       }
       parent.removeClass('has_export');
       let _export = value[columns.export.index];
@@ -6066,12 +6074,7 @@
         self.addClass('has_error');
        }
       }
-         if(!parent.hasClass('has_error')){
-             let order_link = value[columns.order_link.index]+"".trim();
-             if(order_link.length === 0){
-                 parent.addClass('has_error');
-             }
-         }
+
       let _product_id = value[columns.product_id.index];
 
       //if(parseInt(_product_id)>0){
@@ -6095,6 +6098,13 @@
       $col.removeClass('bor-error')
       if(_fullname.length <= 0){
        $col.addClass('bor-error')
+      }else{
+          if(!parent.hasClass('has_error')){
+              let order_link = value[columns.order_link.index]+"".trim();
+              if(order_link.length === 0){
+                  parent.addClass('has_error');
+              }
+          }
       }
       // }
 
