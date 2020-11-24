@@ -1572,7 +1572,7 @@
                         if(!parent.hasClass('has_error')){
                             let order_link = value[columns.order_link.index]+"".trim();
                             if(order_link.length === 0){
-                                self.addClass('has_error');
+                                parent.addClass('has_error');
                             }
                         }
 
@@ -2898,7 +2898,7 @@
                             if(!parent.hasClass('has_error')){
                                 let order_link = value[columns.order_link.index]+"".trim();
                                 if(order_link.length === 0){
-                                    self.addClass('has_error');
+                                    parent.addClass('has_error');
                                 }
                             }
                             let _province = value[columns.province.index]+"".trim();
@@ -4173,7 +4173,7 @@
                         if(!parent.hasClass('has_error')){
                             let order_link = value[columns.order_link.index]+"".trim();
                             if(order_link.length === 0){
-                                self.addClass('has_error');
+                                parent.addClass('has_error');
                             }
                         }
                         let _province = value[columns.province.index]+"".trim();
@@ -5200,7 +5200,7 @@
                         if(!parent.hasClass('has_error')){
                             let order_link = value[columns.order_link.index]+"".trim();
                             if(order_link.length === 0){
-                                self.addClass('has_error');
+                                parent.addClass('has_error');
                             }
                         }
                         let _province = value[columns.province.index]+"".trim();
@@ -6199,7 +6199,7 @@
                         if(!parent.hasClass('has_error')){
                             let order_link = value[columns.order_link.index]+"".trim();
                             if(order_link.length === 0){
-                                self.addClass('has_error');
+                                parent.addClass('has_error');
                             }
                         }
                         let _product_id = value[columns.product_id.index];
