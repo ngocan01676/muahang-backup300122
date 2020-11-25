@@ -43,7 +43,7 @@
 <div class="box box-default box-solid">
 
     <div class="box-body">
-
+        <strong id="log-save">Time lưu: <span class="time"></span> </strong>
         <table class="table">
             <tr>
                 <td style="width: 10%"><input type="text" class="form-control" id="copyData" placeholder="Copy"></td>
@@ -7960,7 +7960,7 @@
 
                     success: function (data) {
                         if(auto){
-
+                            $("#log-save .time").html((new Date).toDateString());
                         }else{
                             if(data.hasOwnProperty('url')){
                                 window.location.replace(data.url);

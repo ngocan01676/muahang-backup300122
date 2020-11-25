@@ -156,14 +156,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="8065" column="17" selection-start-line="8065" selection-start-column="17" selection-end-line="8065" selection-end-column="17" />
+            <state relative-caret-position="495">
+              <caret line="7962" column="79" selection-start-line="7962" selection-start-column="79" selection-end-line="7962" selection-end-column="79" />
               <folding>
                 <element signature="e#1898#1916#0#HTML" expanded="true" />
                 <element signature="e#2016#2033#0#HTML" expanded="true" />
                 <element signature="e#2129#2147#0#HTML" expanded="true" />
                 <element signature="e#2310#2331#0#HTML" expanded="true" />
                 <element signature="e#3647#3654#1#HTML" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -589,12 +597,12 @@
       <workItem from="1605939804768" duration="396000" />
       <workItem from="1606189216151" duration="1322000" />
       <workItem from="1606192780473" duration="7278000" />
-      <workItem from="1606318627487" duration="138000" />
+      <workItem from="1606318627487" duration="508000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65806000" />
+    <option name="totallyTimeSpent" value="66176000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -939,14 +947,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="8065" column="17" selection-start-line="8065" selection-start-column="17" selection-end-line="8065" selection-end-column="17" />
+        <state relative-caret-position="495">
+          <caret line="7962" column="79" selection-start-line="7962" selection-start-column="79" selection-end-line="7962" selection-end-column="79" />
           <folding>
             <element signature="e#1898#1916#0#HTML" expanded="true" />
             <element signature="e#2016#2033#0#HTML" expanded="true" />
             <element signature="e#2129#2147#0#HTML" expanded="true" />
             <element signature="e#2310#2331#0#HTML" expanded="true" />
             <element signature="e#3647#3654#1#HTML" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
