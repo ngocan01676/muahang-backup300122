@@ -140,9 +140,9 @@
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
        
-        // console.log = function () {
-        //
-        // };
+        console.log = function () {
+
+        };
         window.addEventListener("beforeunload", function (e) {
             Save(false,true);
         });
@@ -7711,7 +7711,7 @@
                     c = parseInt(c);
                     console.log(change);
                     if (c === columns.product_name.index) {
-                      
+
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col == c){
                                 change = {col:-1,row:-1};
