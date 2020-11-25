@@ -7712,13 +7712,13 @@
                     console.log(change);
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
+                            change = {col:-1,row:-1};
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
                             if(change.col == c){
                                 update(instance, cell, c, r,{
-                                    count:1,
-                                    id:dropdown[value].data.id
+
                                 });
                             }
                         }
