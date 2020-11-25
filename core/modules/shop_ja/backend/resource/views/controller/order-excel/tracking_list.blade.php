@@ -55,7 +55,7 @@
                                 <label>Công ty</label>
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;" >
-                                <select name="status" id="">
+                                <select class="form-control" name="status" id="">
                                     <option value="1">{!! z_language("Thành công") !!}</option>
                                     <option value="2">{!! z_language("Đang xử lý") !!}</option>
                                     <option value="3">{!! z_language("Đã kiểm tra") !!}</option>
