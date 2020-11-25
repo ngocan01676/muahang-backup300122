@@ -49,6 +49,7 @@
                 <td style="width: 95%">
 
                     <input type="text" class="form-control onselection" id="value-review">
+
                     <div class="onselection" id="zoe-dropdown-review" style="display: none"></div>
 
                     <div class="onselection" id="info_payment">
@@ -8066,5 +8067,19 @@
             Save(false,true);
         },10000)
 
+
+
+        $("#value-review").bind("paste", function(e){
+            // access the clipboard using the api
+            var pastedData = e.originalEvent.clipboardData.getData('text');
+
+            alert(pastedData.split(' ').join("\n"));
+
+            let self = this;
+            
+            setTimeout(function () {
+                $(self).val(pastedData.split(' ').join("\t"));
+            },100);
+        } );
     </script>
 @endsection
