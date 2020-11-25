@@ -1054,12 +1054,24 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $table = "<table class='table table-bordered company' style='padding: 0;margin: 0;'><tr>";
                     foreach ($categorys as $k=>$value){
                        if( in_array($value['name'],['SOFTBANK','GTN'])) continue;
-                       $count = DB::table('shop_order_excel')
-                            ->where('company',$value['name'])
-                            ->where('admin_id',$admin_id)
-                            ->where('fullname','!=','')
-                            ->where('order_create_date','>=',$model->key_date.' 00:00:00')
-                            ->where('order_create_date','<=',$model->key_date.' 23:59:59')->count();
+                       if($value['name'] == "KOGYJA"){
+                           $count = DB::table('shop_order_excel')
+                               ->where('company',$value['name'])
+                               ->where('admin_id',$admin_id)
+                               ->where('type','Info')
+                               ->where('fullname','!=','')
+                               ->where('order_create_date','>=',$model->key_date.' 00:00:00')
+                               ->where('order_create_date','<=',$model->key_date.' 23:59:59')->count();
+                       }else{
+                           $count = DB::table('shop_order_excel')
+                               ->where('company',$value['name'])
+                               ->where('admin_id',$admin_id)
+                               ->where('fullname','!=','')
+                               ->where('order_create_date','>=',$model->key_date.' 00:00:00')
+                               ->where('order_create_date','<=',$model->key_date.' 23:59:59')->count();
+                       }
+
+
                         $table.= "<td style='width: ".(100/count($categorys))."%'><span style='font-size: 15px;padding: 5px;display: inline-block'>".$value['name']."</span><span class=\"badge bg-light-blue\">".$count."</span></td>";
                     }
                     $table.= "</tr></table>";
