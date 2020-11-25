@@ -8106,12 +8106,10 @@
                 alert(dataNew.join("\n"));
                 value = dataNew.join("\t");
             }
-
             setTimeout(function () {
                 $(self).val(value);
                 $(self).select();
-            },100);
-
+            },50);
         } );
     </script>
 @endsection

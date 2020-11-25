@@ -2,19 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/.jscsrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/.jshintrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/.travis.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/CHANGELOG.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/bower.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/gulpfile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/src/string-mask.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/module/admin/assets/string-mask/test/string-mask.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
@@ -137,8 +124,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="656">
-              <caret line="8107" column="13" lean-forward="true" selection-start-line="8107" selection-start-column="13" selection-end-line="8107" selection-end-column="13" />
+            <state relative-caret-position="724">
+              <caret line="8111" column="18" lean-forward="true" selection-start-line="8111" selection-start-column="18" selection-end-line="8111" selection-end-column="18" />
               <folding>
                 <element signature="e#1898#1915#0#HTML" expanded="true" />
                 <element signature="e#1897#1914#0#HTML" expanded="true" />
@@ -752,7 +739,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65334000" />
+    <option name="totallyTimeSpent" value="65530000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1101,8 +1088,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="656">
-          <caret line="8107" column="13" lean-forward="true" selection-start-line="8107" selection-start-column="13" selection-end-line="8107" selection-end-column="13" />
+        <state relative-caret-position="724">
+          <caret line="8111" column="18" lean-forward="true" selection-start-line="8111" selection-start-column="18" selection-end-line="8111" selection-end-column="18" />
           <folding>
             <element signature="e#1898#1915#0#HTML" expanded="true" />
             <element signature="e#1897#1914#0#HTML" expanded="true" />
