@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/tests/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tool/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/tool/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
@@ -122,60 +124,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
+        <entry file="file://$PROJECT_DIR$/tests/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26316">
-              <caret line="1562" column="40" selection-start-line="1562" selection-start-column="40" selection-end-line="1562" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132379">
-              <caret line="7789" column="73" selection-start-line="7789" selection-start-column="73" selection-end-line="7789" selection-end-column="73" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/configs/company.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="26" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/configs/excel.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/user/backend/resource/views/configs/config.blade.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/user/option.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+            <state relative-caret-position="544">
+              <caret line="32" column="25" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -183,24 +135,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tool/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="31" lean-forward="true" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+            <state relative-caret-position="308">
+              <caret line="215" column="153" selection-start-line="215" selection-start-column="153" selection-end-line="215" selection-end-column="153" />
+              <folding>
+                <element signature="n#!!block;n#YAMATO#0" />
+                <element signature="n#!!block;n#SAGAWA#0" />
+                <element signature="n#!!block;n#JAPAN_POST#0" />
+              </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/show.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
-              <caret line="69" selection-start-line="69" selection-end-line="69" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel1.blade.php">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -266,6 +209,7 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/configs/excel.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/user/option.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
+        <option value="$PROJECT_DIR$/tests/index.html" />
         <option value="$PROJECT_DIR$/tool/index.js" />
       </list>
     </option>
@@ -736,7 +680,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44660000" />
+    <option name="totallyTimeSpent" value="45495000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1018,6 +962,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132379">
           <caret line="7789" column="73" selection-start-line="7789" selection-start-column="73" selection-end-line="7789" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="25" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tool/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="215" column="153" selection-start-line="215" selection-start-column="153" selection-end-line="215" selection-end-column="153" />
+          <folding>
+            <element signature="n#!!block;n#YAMATO#0" />
+            <element signature="n#!!block;n#SAGAWA#0" />
+            <element signature="n#!!block;n#JAPAN_POST#0" />
+          </folding>
         </state>
       </provider>
     </entry>
