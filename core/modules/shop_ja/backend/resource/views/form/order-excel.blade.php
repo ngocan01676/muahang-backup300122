@@ -139,11 +139,13 @@
     <script>
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
-        //
-        // console.log = function () {
-        //
-        // };
+       
+        console.log = function () {
 
+        };
+        window.addEventListener("beforeunload", function (e) {
+            Save(false,true);
+        });
     </script>
 
     <style>
