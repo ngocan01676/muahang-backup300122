@@ -440,6 +440,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $model->token =  rand();
 
                 $logs = [];
+                $deletes = [];
 
                 $oke = $model->save();
                 $ids = [
@@ -448,6 +449,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 foreach ($datas as $name=>$order){
 
                     $logs[$name] = [];
+                    $deletes[$name] = [];
 
                     $check =  [
                         'fullname' => 'required',
@@ -602,12 +604,18 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }
 
                                 }
+                                $deletes[$name] =  DB::table('shop_order_excel')
+                                ->where('company',$name)
+                                ->where('admin_id',$model->admin_id)
+                                ->where('session_id',$model->id)
+                                ->where('updated_at','!=',$date_time)->count();
                                 DB::table('shop_order_excel')
                                     ->where('company',$name)
                                     ->where('admin_id',$model->admin_id)
                                     ->where('session_id',$model->id)
                                     ->where('updated_at','!=',$date_time)
                                     ->delete();
+
                         }catch (\Exception $ex){
                             $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
                         }
@@ -752,6 +760,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                      DB::table('shop_order_excel')->updateOrInsert($where,$_data);
                                 }
                             }
+
+                            $deletes[$name] =  DB::table('shop_order_excel')
+                                ->where('company',$name)
+                                ->where('admin_id',$model->admin_id)
+                                ->where('session_id',$model->id)
+                                ->where('updated_at','!=',$date_time)->count();
+
                              DB::table('shop_order_excel')
                                 ->where('company',$name)
                                 ->where('session_id',$model->id)
@@ -777,7 +792,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                     }
                     $this->log('shop_js:orderExcel',$type,['id' => $model->id]);
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs]);
+                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs,'deletes'=>$deletes]);
                 }
                 else
                     return response()->json($datas);
