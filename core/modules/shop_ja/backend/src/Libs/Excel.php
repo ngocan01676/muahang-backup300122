@@ -208,9 +208,9 @@ class Excel
                     echo $order_tracking_index;
 
                     if(!isset($datas[$i][$order_tracking_index])) continue;
-                    var_dump($datas[$i][$order_tracking_index]);
+                  
                     $order_tracking = trim(rtrim($datas[$i][$order_tracking_index]));
-                    var_dump($order_tracking);
+
                     $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
 
                     if (!empty($order_tracking)) {
@@ -244,7 +244,7 @@ class Excel
                     }
                 }
                 $category = get_category_type("shop-ja:product:category");
-               
+
                 $ship = get_category_type("shop-ja:japan:category:com-ship");
                 $nameShip = "";
 
