@@ -85,6 +85,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         $datas[$key]["count"]++;
                         $datas[$key]["rate"]+= $value->order_price;
                     }
+                    
                     if(empty($company) || $company == 'KOGYJA') {
                         $excel = DB::table('shop_order_excel');
                         $excel->where('fullname', '!=', '');
