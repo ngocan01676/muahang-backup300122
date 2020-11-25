@@ -226,7 +226,7 @@ async function JAPAN_POST(tracking){
                     if(!_databaseData.hasOwnProperty(results[key].type)){
                         _databaseData[results[key].type] = {};
                     }
-                    _databaseData[results[key].type][results[key].tracking_id] =results[key];
+                    _databaseData[results[key].type][results[key].tracking_id] = results[key];
                     count++;
                 }
                 console.log('Data:'+count);
@@ -235,7 +235,7 @@ async function JAPAN_POST(tracking){
 
                 for(let name in databaseData){
                     for(let index in databaseData[name]){
-                        conn.query('UPDATE `cms_shop_order_excel_tracking` SET count+=1,`status` = \'2\',`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
+                        conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',`status` = \'2\',`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
                     }
                 }
                 databaseLock = {};
