@@ -8063,10 +8063,7 @@
 
         setInterval(function () {
             Save(false,true);
-        },10000)
-
-
-
+        },10000);
 
         $("#copyData").bind("paste", function(e){
             // access the clipboard using the api
