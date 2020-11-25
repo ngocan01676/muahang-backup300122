@@ -139,13 +139,22 @@
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
        
-        // console.log = function () {
-        //
-        // };
+        console.log = function () {
+
+        };
         window.addEventListener("beforeunload", function (e) {
             Save(false,true);
         });
-        let userId = {!! auth()->user()->id !!}
+        function makeid(length) {
+            var result           = '';
+            var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for ( var i = 0; i < length; i++ ) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+        let userId = '{!! auth()->user()->id !!}:'+makeid(5);
     </script>
 
     <style>
