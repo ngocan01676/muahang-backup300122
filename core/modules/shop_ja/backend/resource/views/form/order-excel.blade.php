@@ -46,7 +46,7 @@
 
         <table class="table">
             <tr>
-                <td style="width: 5%"><input type="text" class="form-control" id="copyData" placeholder="Copy"></td>
+                <td style="width: 10%"><input type="text" class="form-control" id="copyData" placeholder="Copy"></td>
                 <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
                 <td style="width: 95%">
                     <input type="text" class="form-control onselection" id="value-review">
@@ -8066,6 +8066,7 @@
 
 
 
+
         $("#copyData").bind("paste", function(e){
             // access the clipboard using the api
             var pastedData = e.originalEvent.clipboardData.getData('text');
@@ -8076,6 +8077,7 @@
 
             setTimeout(function () {
                 $(self).val(pastedData.split(' ').join("\t"));
+                $(self).select();
             },100);
 
         } );
