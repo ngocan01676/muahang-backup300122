@@ -7927,7 +7927,7 @@
                 $("#spreadsheet .jexcel_tab_link").each(function () {
                     let  worksheet = this.getAttribute('data-spreadsheet');
                     let data = spreadsheet.jexcel[worksheet].options.data;
-                    console.log(spreadsheet.jexcel[worksheet].options);
+
                     let name = this.textContent;
                     let _columns = [];
                     for(let k in  columnsAll[name] ){
