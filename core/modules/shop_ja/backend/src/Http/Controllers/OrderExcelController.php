@@ -442,7 +442,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $logs = [];
 
                 $oke = $model->save();
+                $ids = [
 
+                ];
                 foreach ($datas as $name=>$order){
 
                     $logs[$name] = [];
@@ -568,7 +570,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 //                                        DB::table('shop_order_excel')->insert($_data);
 
                                         if(isset($columns["id"]) && !empty($values[$columns["id"]])){
-                                            $where = ['id'=>$values[$columns["id"]]];
+                                            $id = $values[$columns["id"]];
+                                            if(is_numeric($id)){
+                                                $where = ['id'=>$values[$columns["id"]]];
+                                            }else{
+                                                $where = ['key_id'=>$values[$columns["id"]]];
+                                                $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
+                                            }
                                         }else{
                                             $where = [
                                                 'session_id' => $_data['session_id'],
@@ -587,16 +595,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                                 "sort"=> $_data["sort"],
                                             ];
                                             $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
+
                                         }
                                         $_[] = $where;
-
-
                                         DB::table('shop_order_excel')->updateOrInsert($where,$_data);
-
                                     }
                                     $logs[$name][] =$_;
                                 }
-
                                 DB::table('shop_order_excel')
                                     ->where('company',$name)
                                     ->where('admin_id',$model->admin_id)
@@ -625,14 +630,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 if($name== "KURICHIKU"){
                                     $product_id = (isset($columns["product_id"])?$values[$columns["product_id"]]:"");
                                     $count = (isset($columns["count"])?$values[$columns["count"]]:"");
-
                                     try{
                                         $array_count = json_decode($count,true);
                                     }catch (\Exception $ex) {
                                         $array_count = [];
                                     }
-
-
                                     try{
                                         $array_product = explode(";",$product_id);
                                     }catch (\Exception $ex) {
@@ -724,7 +726,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 if (!$validator->fails()) {
                                     $_ = [$values,$_data,$columns];
                                     if(isset($columns["id"]) && !empty($values[$columns["id"]])){
-                                        $where = ['id'=>$values[$columns["id"]]];
+                                        $id = $values[$columns["id"]];
+                                        if(is_numeric($id)){
+                                            $where = ['id'=>$values[$columns["id"]]];
+                                        }else{
+                                            $where = ['key_id'=>$values[$columns["id"]]];
+                                            $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
+                                        }
                                     }else{
                                         $where = [
                                             'session_id' => $_data['session_id'],

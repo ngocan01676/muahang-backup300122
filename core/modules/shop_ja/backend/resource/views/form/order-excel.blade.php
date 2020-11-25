@@ -139,12 +139,13 @@
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
        
-        console.log = function () {
-
-        };
+        // console.log = function () {
+        //
+        // };
         window.addEventListener("beforeunload", function (e) {
             Save(false,true);
         });
+        let userId = {!! auth()->user()->id !!}
     </script>
 
     <style>
@@ -903,6 +904,14 @@
                 let total_price =  0;
 
                 let valueRow =  instance.jexcel.getRowData(r);
+
+                let idOrder = valueRow[columns.id.index]+"";
+
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
+
+
                 let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
                 data.payMethod = payMethod;
                 data.sheetName = sheetName;
@@ -957,7 +966,7 @@
                                 break
                             }
                         }
-                        console.log(11111111111111);
+
                         if(!isNaN(token)){
                             Row = token;
                         }
@@ -2045,6 +2054,8 @@
                 console.log(data);
                 let valueRow =  instance.jexcel.getRowData(r);
 
+
+
                 if(isNaN(data.count) || data.count === 0 ){
 
                     if(
@@ -2187,6 +2198,7 @@
 
                 for(let i = value.start ; i < value.end ; i++){
                     let _data =  instance.jexcel.getRowData(i);
+
                     if(i == value.start){
                         keyGroup.push([_data[columns.fullname.index],_data[columns.address.index],_data[columns.province.index]]);
                     }
@@ -2231,11 +2243,24 @@
                         keyGroup.push([product_id,_count , i]);
                     }
                 }
+
+
+
+
+
                 let stringKey = $.md5(JSON.stringify(keyGroup));
                 let position=0;
                 for(let i = value.start ; i <= value.end ; i++){
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.position.index, i]),position++);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.token.index, i]),stringKey);
+                    let _data =  instance.jexcel.getRowData(i);
+                    let idOrder = _data[columns.id.index]+"";
+
+                    if(idOrder === "" || idOrder.trim().length === 0){
+                        instance.jexcel.setValue(
+                            jexcel.getColumnNameFromId([columns.id.index, i]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+i));
+                    }
+
                 }
                 console.log(stringKey);
                 console.log(keyGroup);
@@ -3478,7 +3503,11 @@
                 data.province =   data.province.trim();
                 console.log(data);
                 let valueRow =  instance.jexcel.getRowData(r);
+                let idOrder = valueRow[columns.id.index]+"";
 
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
                 if(isNaN(data.count) || data.count === 0 ){
 
                     if(
@@ -4966,6 +4995,14 @@
 
 
                 let valueRow =  instance.jexcel.getRowData(r);
+
+                let idOrder = valueRow[columns.id.index]+"";
+
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
+
+
                 let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
 
                 data.payMethod = payMethod;
@@ -5984,6 +6021,14 @@
                 let total_price =  0;
 
                 let valueRow =  instance.jexcel.getRowData(r);
+
+
+                let idOrder = valueRow[columns.id.index]+"";
+
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
+
                 let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
                 data.payMethod = payMethod;
                 data.sheetName = sheetName;
@@ -6939,7 +6984,7 @@
                     width:'30px',
                 },
                 id:{
-                    title: '{!! z_language("ID") !!}ID',//T
+                    title: '{!! z_language("ID") !!}',//T
                     type: 'text',
                     width:'100px',
                 },
@@ -7014,6 +7059,13 @@
                 let total_price =  0;
                
                 let valueRow =  instance.jexcel.getRowData(r);
+
+                let idOrder = valueRow[columns.id.index]+"";
+
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
+
                 let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
                 data.payMethod = payMethod;
                 data.sheetName = sheetName;
@@ -7022,6 +7074,7 @@
                 console.log("price_buy_sale:"+price_buy_sale);
                 let total_price_buy_all = 0;
                 let Row = -1;
+
                 if(dropdown.hasOwnProperty(data.id)){
 
                     let product = dropdown[data.id];
