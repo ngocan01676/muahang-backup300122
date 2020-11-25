@@ -169,8 +169,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="144" column="45" selection-start-line="144" selection-start-column="33" selection-end-line="144" selection-end-column="45" />
+            <state relative-caret-position="408">
+              <caret line="156" column="60" selection-start-line="156" selection-start-column="60" selection-end-line="156" selection-end-column="60" />
               <folding>
                 <element signature="e#1898#1916#0#HTML" expanded="true" />
                 <element signature="e#2016#2033#0#HTML" expanded="true" />
@@ -616,12 +616,12 @@
       <workItem from="1605939804768" duration="396000" />
       <workItem from="1606189216151" duration="1322000" />
       <workItem from="1606192780473" duration="7278000" />
-      <workItem from="1606318627487" duration="5541000" />
+      <workItem from="1606318627487" duration="5581000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71209000" />
+    <option name="totallyTimeSpent" value="71249000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -970,8 +970,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="144" column="45" selection-start-line="144" selection-start-column="33" selection-end-line="144" selection-end-column="45" />
+        <state relative-caret-position="408">
+          <caret line="156" column="60" selection-start-line="156" selection-start-column="60" selection-end-line="156" selection-end-column="60" />
           <folding>
             <element signature="e#1898#1916#0#HTML" expanded="true" />
             <element signature="e#2016#2033#0#HTML" expanded="true" />

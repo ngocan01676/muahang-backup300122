@@ -154,7 +154,7 @@
             }
             return result;
         }
-        let userId = '{!! auth()->user()->id !!}:'+makeid(5);
+        let userId = '{!! auth()->user()->id !!}:'+makeid(10);
     </script>
 
     <style>
