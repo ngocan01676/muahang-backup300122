@@ -8071,26 +8071,21 @@
         $("#copyData").bind("paste", function(e){
             // access the clipboard using the api
             var pastedData = e.originalEvent.clipboardData.getData('text');
-
-
-
             let self = this;
-
             var formatter = new StringMask("000-0000", { reverse: true });
             let a  = pastedData.split(' ');
-            console.log(a);
+
             var result = formatter.apply(a[0]);
             var value = "";
+
             if(result.length>0){
-                value = pastedData.split(' ').join("\t");
                 alert(pastedData.split(' ').join("\n"));
+                value = pastedData.split(' ').join("\t");
             }else{
                 let index = 0;
                 let dataNew = [];
                 let i = a.length-1 ;
                 for(; i>=0;i--){
-
-
                     if(index == 3){
                         break;
                     }else{
@@ -8103,13 +8098,13 @@
                     fullname+=a[i]+" ";
                 }
                 dataNew  = [fullname.trim(" ")].concat(dataNew.reverse());
-                alert(dataNew.join("\n"));
                 value = dataNew.join("\t");
+                alert(dataNew.join("\n"));
             }
             setTimeout(function () {
                 $(self).val(value);
                 $(self).select();
-            },50);
+            },90);
         } );
     </script>
 @endsection
