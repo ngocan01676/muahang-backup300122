@@ -95,7 +95,7 @@ async function SAGAWA(tracking){
                             Text : $(td[2]).text().trim().replace(/\s+/g, " "),
                         };
                         Trackings[key].Status = 3;
-                        if(Trackings[key].Text.indexOf('Delivered:')>=0){
+                        if(Trackings[key].Text.indexOf('Delivered')>=0){
                             Trackings[key].Status = 1;
                         }
                     }
