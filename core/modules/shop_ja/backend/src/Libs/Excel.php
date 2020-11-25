@@ -205,7 +205,7 @@ class Excel
                 }
 
                 for (; $i < $n; $i++) {
-                    
+
                     if(!isset($datas[$i][$order_tracking_index])) continue;
 
                     $order_tracking = trim(rtrim($datas[$i][$order_tracking_index]));
