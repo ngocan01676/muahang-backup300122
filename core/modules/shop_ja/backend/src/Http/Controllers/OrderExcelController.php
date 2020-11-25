@@ -1174,7 +1174,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 //            $models->where('description', 'like', '%' . $filter['des'].'%');
 //        }
         if (!empty($status) || $status != "") {
-            $models->where('status', $status);
+            $models->where('status', $status == -1?0:$status);
         }
         $models->orderBy('id', 'desc');
         return $this->render('order-excel.tracking_list', [

@@ -56,6 +56,8 @@
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;" >
                                 <select class="form-control" name="status" id="">
+                                    <option value="">{!! z_language("Tất cả") !!}</option>
+                                    <option value="-1">{!! z_language("Đợi xử lý") !!}</option>
                                     <option value="1">{!! z_language("Thành công") !!}</option>
                                     <option value="2">{!! z_language("Đang xử lý") !!}</option>
                                     <option value="3">{!! z_language("Đã kiểm tra") !!}</option>
