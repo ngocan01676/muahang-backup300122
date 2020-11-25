@@ -144,7 +144,7 @@
 
         };
         window.addEventListener("beforeunload", function (e) {
-            var confirmationMessage = "\o/";
+            var confirmationMessage = "Bạn hãy ấn lưu trước khi tắt tab";
 
             (e || window.event).returnValue = confirmationMessage; //Gecko + IE
             return confirmationMessage;                            //Webkit, Safari, Chrome
