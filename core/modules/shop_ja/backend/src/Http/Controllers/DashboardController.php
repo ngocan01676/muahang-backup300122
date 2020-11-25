@@ -23,6 +23,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                     $type = $data['type'];
                     DB::connection()->enableQueryLog();
                     $company = $data['conpany'];
+
                     $admin_id = base64_decode($data['user_id']);
                     $results = [];
                     if($company != 'KOGYJA'){

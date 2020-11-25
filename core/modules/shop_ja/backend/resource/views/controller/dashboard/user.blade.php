@@ -146,7 +146,7 @@
                     <div class="form-group">
                         <label>{!! z_language("Công ty") !!}:</label>
                         <div class="input-group">
-                            <select id="conpany" class="form-control" onchange="ChangeActionCompany(this)">
+                            <select id="conpany" class="form-control" onchange="charts_line()">
                                 <option value="">{!! z_language("Tổng") !!}</option>
                                 @foreach($analytics['category'] as $category=>$values)
                                     <option value="{!! $category !!}">{!! $category !!}</option>
