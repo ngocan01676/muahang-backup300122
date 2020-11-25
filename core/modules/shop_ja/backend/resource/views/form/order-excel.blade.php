@@ -8023,6 +8023,21 @@
                     success: function (data) {
                         if(auto){
                             $("#log-save .time").html((moment().format("DD/MM/YYYY, h:mm:ss a")));
+                            if(data.hasOwnProperty('logs')){
+                                let errro = 0;
+                                for(let i in data["logs"]){
+                                    if(data["logs"].hasOwnProperty(i)){
+                                        if(data["logs"][i].length > 0 ){
+                                            errro++;
+                                        }
+                                    }
+                                }
+                            }
+                            if(errro > 0){
+                                $.growl.error({ message: "{!! z_language('Có lỗi vui lòng load lại trang') !!}" });
+                            }else{
+                                $.growl.notice({ message: "{!! z_language('Cập nhật thành công') !!}" });
+                            }
                         }else{
                             if(data.hasOwnProperty('url')){
                                 window.location.replace(data.url);
