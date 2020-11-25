@@ -596,7 +596,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }
                                     $logs[$name][] =$_;
                                 }
-                                DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
+
+                                DB::table('shop_order_excel')
+                                    ->where('company',$name)
+                                    ->where('admin_id',$model->admin_id)
+                                    ->where('session_id',$model->id)
+                                    ->where('updated_at','!=',$date_time)
+                                    ->delete();
                         }catch (\Exception $ex){
                             $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
                         }
@@ -730,7 +736,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             "province"=>$_data["province"],
                                             "address"=>$_data["address"],
                                             "sort"=> $_data["sort"],
-//                                            "order_create_date"=> $_data["order_create_date"],
+                                            "order_create_date"=> $_data["order_create_date"],
                                         ];
                                         $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
                                     }
@@ -739,7 +745,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                      DB::table('shop_order_excel')->updateOrInsert($where,$_data);
                                 }
                             }
-                            DB::table('shop_order_excel')->where('company',$name)->where('session_id',$model->id)->where('updated_at','!=',$date_time)->delete();
+                            DB::table('shop_order_excel')
+                                ->where('company',$name)
+                                ->where('session_id',$model->id)
+                                ->where('admin_id',$model->admin_id)
+                                ->where('updated_at','!=',$date_time)->delete();
                         }catch (\Exception $ex){
 
                             $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
