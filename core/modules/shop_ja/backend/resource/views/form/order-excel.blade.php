@@ -43,19 +43,16 @@
 <div class="box box-default box-solid">
 
     <div class="box-body">
+       
         <table class="table">
             <tr>
                 <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
                 <td style="width: 95%">
-
                     <input type="text" class="form-control onselection" id="value-review">
-
                     <div class="onselection" id="zoe-dropdown-review" style="display: none"></div>
-
                     <div class="onselection" id="info_payment">
 
                     </div>
-
                 </td>
             </tr>
         </table>
@@ -8071,15 +8068,18 @@
 
         $("#value-review").bind("paste", function(e){
             // access the clipboard using the api
-            var pastedData = e.originalEvent.clipboardData.getData('text');
+            if($("#col-row-review").val().length == 0){
+                var pastedData = e.originalEvent.clipboardData.getData('text');
 
-            alert(pastedData.split(' ').join("\n"));
+                alert(pastedData.split(' ').join("\n"));
 
-            let self = this;
-            
-            setTimeout(function () {
-                $(self).val(pastedData.split(' ').join("\t"));
-            },100);
+                let self = this;
+
+                setTimeout(function () {
+                    $(self).val(pastedData.split(' ').join("\t"));
+                },100);
+            }
+
         } );
     </script>
 @endsection
