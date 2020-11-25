@@ -229,6 +229,7 @@ async function JAPAN_POST(tracking){
                     _databaseData[results[key].type][results[key].tracking_id] = results[key];
                     count++;
                 }
+                
                 console.log('Data:'+count);
 
                 databaseData = _databaseData;
