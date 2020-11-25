@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -130,15 +131,24 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="636" column="37" selection-start-line="636" selection-start-column="37" selection-end-line="636" selection-end-column="37" />
+            <state relative-caret-position="3579">
+              <caret line="601" column="37" lean-forward="true" selection-start-line="601" selection-start-column="37" selection-end-line="601" selection-end-column="37" />
               <folding>
                 <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="2736" column="20" selection-start-line="2736" selection-start-column="20" selection-end-line="2736" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -166,11 +176,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="156" column="60" selection-start-line="156" selection-start-column="60" selection-end-line="156" selection-end-column="60" />
+            <state relative-caret-position="320">
+              <caret line="8124" selection-start-line="8124" selection-end-line="8124" />
               <folding>
                 <element signature="e#1898#1916#0#HTML" expanded="true" />
                 <element signature="e#2016#2033#0#HTML" expanded="true" />
@@ -261,8 +271,8 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/show.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
       </list>
     </option>
   </component>
@@ -616,12 +626,12 @@
       <workItem from="1605939804768" duration="396000" />
       <workItem from="1606189216151" duration="1322000" />
       <workItem from="1606192780473" duration="7278000" />
-      <workItem from="1606318627487" duration="5581000" />
+      <workItem from="1606318627487" duration="6945000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71249000" />
+    <option name="totallyTimeSpent" value="72613000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -957,21 +967,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="636" column="37" selection-start-line="636" selection-start-column="37" selection-end-line="636" selection-end-column="37" />
-          <folding>
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="156" column="60" selection-start-line="156" selection-start-column="60" selection-end-line="156" selection-end-column="60" />
+        <state relative-caret-position="320">
+          <caret line="8124" selection-start-line="8124" selection-end-line="8124" />
           <folding>
             <element signature="e#1898#1916#0#HTML" expanded="true" />
             <element signature="e#2016#2033#0#HTML" expanded="true" />
@@ -992,6 +991,24 @@
             <element signature="e#357417#362476#0#HTML" />
             <element signature="e#362550#367140#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="2736" column="20" selection-start-line="2736" selection-start-column="20" selection-end-line="2736" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3579">
+          <caret line="601" column="37" lean-forward="true" selection-start-line="601" selection-start-column="37" selection-end-line="601" selection-end-column="37" />
+          <folding>
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
