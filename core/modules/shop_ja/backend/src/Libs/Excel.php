@@ -2087,7 +2087,7 @@ class Excel
                             }
                         }
                         if ($startRow != $start) {
-                            $start++;
+
                             $_1 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["product_id"] + 1) . $startRow;
                             $_2 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"] + 1) . ($start - 2);
                             $sheet->getStyle($_1 . ':' . $_2)->applyFromArray(array(
@@ -2115,6 +2115,7 @@ class Excel
                                 ];
                                 $spreadsheet->getActiveSheet()->getStyle($nameCol . $startRow)->applyFromArray($styleArray);
                             }
+                            $start++;
                         }
                     }
                 }
