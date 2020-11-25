@@ -163,10 +163,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             $order['data'][$key1][$columns["payMethod"]] = $values[$columns["payMethod"]];
                                             $order['data'][$key1][$columns["zipcode"]] = $values[$columns["zipcode"]];
                                             $order['data'][$key1][$columns["order_date"]] = $values[$columns["order_date"]];
-                                            if($values1[$columns["type"]] == "Footer"){
-                                                $oke = true;
-                                                $order['data'][$key1][$columns["position"]] = (int) $order['data'][$key1][$columns["position"]] - 1;
-                                            }
+                                            $order['data'][$key1][$columns["admin"]] = $values[$columns["admin"]];
+//                                            if($values1[$columns["type"]] == "Footer"){
+//                                                $oke = true;
+//                                                $order['data'][$key1][$columns["position"]] = (int) $order['data'][$key1][$columns["position"]] - 1;
+//                                            }
                                         }
                                     }
                                 }
@@ -195,10 +196,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }
                                 $admin_id = isset($columns["admin"])?$values[$columns["admin"]]:"";
                                 $_data = [
-                                    "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
-                                    "company"=>$name,
-                                    "session_id"=> isset($columns["session_id"])?$values[$columns["session_id"]]:"",
-                                    "admin_id"=>isset($usernames[$admin_id])?$usernames[$admin_id]->id:"",
+//                                    "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
+//                                    "company"=>$name,
+//                                    "session_id"=> isset($columns["session_id"])?$values[$columns["session_id"]]:"",
+//                                    "admin_id"=>isset($usernames[$admin_id])?$usernames[$admin_id]->id:"",
                                     "fullname"=>isset($columns["fullname"])?preg_replace('/\s+/', ' ', $values[$columns["fullname"]]):"",
                                     "address"=> isset($columns["address"])?preg_replace('/\s+/', '',$values[$columns["address"]] ):"",
                                     "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
@@ -224,7 +225,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:"",
                                     "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
-                                    "updated_at"=>$date_time,
+//                                    "updated_at"=>$date_time,
                                     "type"=>isset($columns["type"]) && !empty($values[$columns["type"]])?$values[$columns["type"]]:"Item",
                                     "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
                                     "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
@@ -234,17 +235,20 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                     "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                 ];
-                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date(' H:i:s');
+//                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date(' H:i:s');
                                 $_ = [$values,$_data,$columns];
+
                                 if ($product_id > 0 && $_data['type'] == "Item" || $_data['type'] == "Footer" || $_data['type'] == "Info") {
                                     if(isset($columns["id"]) && !empty($values[$columns["id"]])){
                                         $where = ['id'=>$values[$columns["id"]]];
-                                        DB::table('shop_order_excel')->where($where)->update($_data);
+
+                                        $status = DB::table('shop_order_excel')->where($where)->update($_data);
+                                        $logs[$name][] = [$status,$_data];
                                         $this->log('shop_js:excel:change',"edit",[
                                             'id'=>$values[$columns["id"]],
                                             'company'=>$name,
                                             'username'=>$admin_id,
-                                            'create_date'=>$_data['order_create_date'],
+                                            'create_date'=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
                                             'change'=>$order['oldData'][$key],
                                         ]);
                                     }
@@ -361,7 +365,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                     "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                 ];
-                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
+//                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
                                 //$_data["sort"] = $model->admin_id * 10000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($_data['order_create_date']);
                                 $validator = Validator::make($_data,$check);
                                 if (!$validator->fails()) {
@@ -399,7 +403,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         Cache::forget($k);
                     }
                 }
-                return response()->json($datas);
+                return response()->json([$logs,$datas]);
 
             }else if($data['act'] == "save"){
                 $datas = json_decode($data['datas'],true);

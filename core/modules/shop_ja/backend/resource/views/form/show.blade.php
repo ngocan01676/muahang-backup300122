@@ -168,7 +168,7 @@
                 });
             }else{
                 let datas = {};
-
+                console.log(111111);
                // $("#spreadsheet .jexcel_tab_link").each(function () {
                     let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
                     let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
@@ -210,6 +210,9 @@
                         oldData:dataOldNew
                     };
                // });
+
+                console.log(datas);
+
                 let form_store = $("#form_store");
                 $.ajax({
                     type: "POST",
