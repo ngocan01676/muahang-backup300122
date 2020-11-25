@@ -38,8 +38,9 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $excel->where('company', '!=', 'KOGYJA');
                         }
                         if($type == 'week'){
-                            $date_start = date('Y-m').'-01';
-                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+                            $date_start = date("Y-m-d", strtotime('monday this week'));
+                            $date_end = date("Y-m-d", strtotime('sunday this week'));
+
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }
@@ -94,8 +95,10 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         }
                         $excel->where('company', 'KOGYJA');
                         if($type == 'week'){
-                            $date_start = date('Y-m').'-01';
-                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+
+                            $date_start = date("Y-m-d", strtotime('monday this week'));
+                            $date_end = date("Y-m-d", strtotime('sunday this week'));
+
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }
@@ -170,9 +173,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $excel->where('company', '!=', 'KOGYJA');
                         }
                         if($type == 'week'){
-                            $date_start = date('Y-m-d', strtotime('+7 day',strtotime('Last Monday', time())));
-                            $date_end = date('Y-m-d', strtotime('Next Sunday', time()));
-
+                            $date_start = date("Y-m-d", strtotime('monday this week'));
+                            $date_end = date("Y-m-d", strtotime('sunday this week'));
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }
