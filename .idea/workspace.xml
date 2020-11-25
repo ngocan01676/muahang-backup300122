@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tool/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/tool/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/tracking_list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/tracking_list.blade.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -137,11 +135,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="604">
-              <caret line="1209" column="18" lean-forward="true" selection-start-line="1209" selection-start-column="18" selection-end-line="1209" selection-end-column="18" />
+            <state relative-caret-position="655">
+              <caret line="1176" column="44" selection-start-line="1176" selection-start-column="37" selection-end-line="1176" selection-end-column="44" />
               <folding>
                 <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
@@ -150,11 +148,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="341" column="97" selection-start-line="341" selection-start-column="97" selection-end-line="341" selection-end-column="97" />
+            <state relative-caret-position="313">
+              <caret line="329" column="17" lean-forward="true" selection-start-line="329" selection-start-column="17" selection-end-line="329" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/tracking_list.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="57" column="52" selection-start-line="57" selection-start-column="46" selection-end-line="57" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -248,6 +255,7 @@
         <option value="$PROJECT_DIR$/tool/index.js" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/tracking_list.blade.php" />
       </list>
     </option>
   </component>
@@ -773,7 +781,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48636000" />
+    <option name="totallyTimeSpent" value="48783000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1075,21 +1083,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="329" column="17" lean-forward="true" selection-start-line="329" selection-start-column="17" selection-end-line="329" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/tracking_list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="57" column="52" selection-start-line="57" selection-start-column="46" selection-end-line="57" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="1209" column="18" lean-forward="true" selection-start-line="1209" selection-start-column="18" selection-end-line="1209" selection-end-column="18" />
+        <state relative-caret-position="655">
+          <caret line="1176" column="44" selection-start-line="1176" selection-start-column="37" selection-end-line="1176" selection-end-column="44" />
           <folding>
             <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="341" column="97" selection-start-line="341" selection-start-column="97" selection-end-line="341" selection-end-column="97" />
         </state>
       </provider>
     </entry>
