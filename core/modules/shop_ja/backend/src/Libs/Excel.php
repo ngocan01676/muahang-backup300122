@@ -1970,7 +1970,7 @@ class Excel
 
                             $type = (isset($columns_value['type']) ? $values[$columns_value['type']] : "");
                             if ($type == "Footer") {
-                                $start = $start - 1;
+                               $start = $start - 1;
                             }
                             $order_id = (isset($columns_value['id']) ? $values[$columns_value['id']] : "");
                             $ids[$order_id] = 1;
@@ -2080,7 +2080,7 @@ class Excel
                                     }
                                 }
 
-                                $start++;
+                                $start+=2;
                             }
                             if ($type == "Footer") {
                                 break;
