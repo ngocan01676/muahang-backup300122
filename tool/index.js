@@ -51,7 +51,7 @@ function YAMATO(tracking){
                                 Text : $(td[4]).text().trim().replace(/\s+/g, " "),
                             };
                             Trackings[key].Status = 3;
-                            if(Trackings[key].Text === "Delivered"){
+                            if(Trackings[key].Text.indexOf("Delivered") >=0){
                                 Trackings[key].Status = 1;
                             }
                         }
@@ -146,7 +146,7 @@ async function JAPAN_POST(tracking){
                                         Text : $(td[3]).text().trim().replace(/\s+/g, " "),
                                     };
                                     Trackings[key].Status = 3;
-                                    if(Trackings[key].Text === "お届け先にお届け済み"){
+                                    if(Trackings[key].Text.indexOf("お届け先にお届け済み")>=0){
                                         Trackings[key].Status = 1;
                                     }
                                 }
