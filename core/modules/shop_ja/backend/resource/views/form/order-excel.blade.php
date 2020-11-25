@@ -125,6 +125,7 @@
 <!-- /.modal -->
 {!! Form::close() !!}
 @section('extra-script')
+    <script src="{{ asset('module/admin/assets/string-mask/src/string-mask.js?v='.time()) }}"></script>
     <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js?v='.time()) }}"></script>
     <script src="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.js?v='.time()) }}"></script>
     <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.css') }}" type="text/css" />
@@ -138,9 +139,9 @@
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
        
-        console.log = function () {
-
-        };
+        // console.log = function () {
+        //
+        // };
         window.addEventListener("beforeunload", function (e) {
             Save(false,true);
         });
@@ -8071,12 +8072,43 @@
             // access the clipboard using the api
             var pastedData = e.originalEvent.clipboardData.getData('text');
 
-            alert(pastedData.split(' ').join("\n"));
+
 
             let self = this;
 
+            var formatter = new StringMask("000-0000", { reverse: true });
+            let a  = pastedData.split(' ');
+            console.log(a);
+            var result = formatter.apply(a[0]);
+            var value = "";
+            if(result.length>0){
+                value = pastedData.split(' ').join("\t");
+                alert(pastedData.split(' ').join("\n"));
+            }else{
+                let index = 0;
+                let dataNew = [];
+                let i = a.length-1 ;
+                for(; i>=0;i--){
+
+
+                    if(index == 3){
+                        break;
+                    }else{
+                        dataNew.push(a[i]);
+                    }
+                    index++;
+                }
+                let fullname = "";
+                for(; i>=0;i--){
+                    fullname+=a[i]+" ";
+                }
+                dataNew  = [fullname.trim(" ")].concat(dataNew.reverse());
+                alert(dataNew.join("\n"));
+                value = dataNew.join("\t");
+            }
+
             setTimeout(function () {
-                $(self).val(pastedData.split(' ').join("\t"));
+                $(self).val(value);
                 $(self).select();
             },100);
 
