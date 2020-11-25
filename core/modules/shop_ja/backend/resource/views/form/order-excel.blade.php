@@ -7960,7 +7960,7 @@
 
                     success: function (data) {
                         if(auto){
-                            $("#log-save .time").html((new Date).toDateString());
+                            $("#log-save .time").html((moment().format("DD/MM/YYYY, h:mm:ss a")));
                         }else{
                             if(data.hasOwnProperty('url')){
                                 window.location.replace(data.url);
