@@ -2080,13 +2080,14 @@ class Excel
                                     }
                                 }
 
-                                $start+=2;
+                                $start++;
                             }
                             if ($type == "Footer") {
                                 break;
                             }
                         }
                         if ($startRow != $start) {
+                            $start++;
                             $_1 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["product_id"] + 1) . $startRow;
                             $_2 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"] + 1) . ($start - 2);
                             $sheet->getStyle($_1 . ':' . $_2)->applyFromArray(array(
