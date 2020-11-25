@@ -46,7 +46,7 @@
 
         <table class="table">
             <tr>
-                <td style="width: 5%"><input type="text" class="form-control" id="copyData"></td>
+                <td style="width: 5%"><input type="text" class="form-control" id="copyData" placeholder="Copy"></td>
                 <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
                 <td style="width: 95%">
                     <input type="text" class="form-control onselection" id="value-review">
