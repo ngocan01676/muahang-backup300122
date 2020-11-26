@@ -599,6 +599,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
 
                                         }
+                                        $ids[$name][] = [$where,$_data];
                                         $_[] = $where;
                                         DB::table('shop_order_excel')->updateOrInsert($where,$_data);
                                     }
@@ -756,7 +757,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         ];
                                         $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
                                     }
-
+                                    $ids[$name][] = [$where,$_data];
                                      DB::table('shop_order_excel')->updateOrInsert($where,$_data);
                                 }
                             }
@@ -792,7 +793,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                     }
                     $this->log('shop_js:orderExcel',$type,['id' => $model->id]);
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs,'deletes'=>$deletes]);
+                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs,'deletes'=>$deletes,"ids"=>$ids]);
                 }
                 else
                     return response()->json($datas);

@@ -2262,12 +2262,14 @@
                 for(let i = value.start ; i <= value.end ; i++){
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.position.index, i]),position++);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.token.index, i]),stringKey);
+
                     let _data =  instance.jexcel.getRowData(i);
                     let idOrder = _data[columns.id.index]+"";
 
                     if(idOrder === "" || idOrder.trim().length === 0){
                         instance.jexcel.setValue(
-                            jexcel.getColumnNameFromId([columns.id.index, i]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+i));
+                            jexcel.getColumnNameFromId([columns.id.index, i]),
+                            $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+i+"-"+makeid(10)));
                     }
 
                 }
