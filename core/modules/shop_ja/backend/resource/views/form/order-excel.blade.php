@@ -211,7 +211,7 @@
         }
         .jexcel tbody tr.info {
             background-color: #FFFF00 !important;
-
+            font-weight: bold;
         }
         .jexcel tbody tr.info td:first-child{
             color: #000000;
