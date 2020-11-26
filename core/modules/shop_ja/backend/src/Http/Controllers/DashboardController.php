@@ -147,6 +147,11 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $datas[$key]["rate"] += $value->order_price;
                         }
                     }
+                    usort($datas, function ($element1,$element2) use ($type){
+                        $datetime1 = strtotime($element1[$type]);
+                        $datetime2 = strtotime($element2[$type]);
+                        return $datetime1 - $datetime2;
+                    });
                     $response = [
                         "lists"=>$datas,
                         "sql"=>logs_sql(),

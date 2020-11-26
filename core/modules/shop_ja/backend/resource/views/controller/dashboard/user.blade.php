@@ -314,7 +314,7 @@
                 },
                 success: function (datas) {
                     $("#line-chart-reward_free").empty();
-                    console.log(Object.values(datas.lists));
+
                     new Morris.Line({
                         element: 'line-chart-reward_free',
                         // resize: true,
