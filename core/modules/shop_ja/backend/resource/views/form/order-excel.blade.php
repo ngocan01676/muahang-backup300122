@@ -217,7 +217,8 @@
             color: #000000;
         }
         .jexcel tbody tr.footer {
-            background-color: #FFFF00 !important;
+            background-color: #0002ff !important;
+            color: #ffffff;
         }
         .jexcel tbody tr.group-cell td{
 
