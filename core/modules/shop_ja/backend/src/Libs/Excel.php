@@ -2071,6 +2071,7 @@ class Excel
 //
 //                                        ),
 //                                    ) );
+
                                     foreach (["B", "U"] as $col) {
                                         $sheet->getStyle($col . $start)->applyFromArray(array(
                                             'font' => array(
@@ -2115,7 +2116,9 @@ class Excel
                                 ];
                                 $spreadsheet->getActiveSheet()->getStyle($nameCol . $startRow)->applyFromArray($styleArray);
                             }
+
                             $start++;
+
                             $sheet->setCellValue('I' . $start, '※1キロずつの小分けをお願いします。');
                             $sheet->getStyle('I' . $start)->applyFromArray(array(
                                     'font' => array(
@@ -2125,6 +2128,7 @@ class Excel
                                     ),
                                 )
                             );
+                            $start++;
                         }
                     }
                 }
