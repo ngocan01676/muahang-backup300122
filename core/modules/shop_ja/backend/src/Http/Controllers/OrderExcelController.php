@@ -563,7 +563,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date(' H:i:s');
 
-                                    $_data["sort"] = $model->admin_id * 1000000 + ($key+1) * $model->admin_id + $_data["order_index"];
+                                    $_data["sort"] = $model->admin_id * 1000000 + ($key+1) * $model->admin_id + $_data["order_index"] + + strtotime($model->date_time);
 
                                     $validator = Validator::make($_data,$check);
                                      $_ = [$values,$_data,$columns];
@@ -728,7 +728,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
 
-                                $_data["sort"] = $model->admin_id * 1000000 + ($key+1) * $model->admin_id + $_data["order_index"];
+                                $_data["sort"] = $model->admin_id * 1000000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($model->date_time);
 
                                 $validator = Validator::make($_data,$check);
 
