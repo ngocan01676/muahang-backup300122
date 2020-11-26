@@ -2168,6 +2168,7 @@ class Excel
             $start += 2;
             $dataRow = [];
         }
+        $sheet->setCellValue('I' . ($start-2), '');
         $writer = new Xlsx($spreadsheet);
 
         $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
