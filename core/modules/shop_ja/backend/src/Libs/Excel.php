@@ -2116,6 +2116,15 @@ class Excel
                                 $spreadsheet->getActiveSheet()->getStyle($nameCol . $startRow)->applyFromArray($styleArray);
                             }
                             $start++;
+                            $sheet->setCellValue('I' . $start, '※1キロずつの小分けをお願いします。');
+                            $sheet->getStyle('I' . $start)->applyFromArray(array(
+                                    'font' => array(
+
+                                        'name' => 'Times New Roman',
+                                        'color' => array('rgb' => 'ff1100'),
+                                    ),
+                                )
+                            );
                         }
                     }
                 }
@@ -2151,16 +2160,6 @@ class Excel
                         ),
                     )
                 );
-            }else{
-                $styleArray = array(
-                    'font' => array(
-                        'size' => 9,
-                        'name' => 'ＭＳ Ｐゴシック',
-                        'color' => array('rgb' => 'ff0000'),
-                    ));
-                $sheet->setCellValue( "I".$start, '※1キロずつの小分けをお願いします。');
-                $sheet->getStyle("I".$start)->applyFromArray($styleArray);
-                $start++;
             }
             $start += 2;
             $dataRow = [];
