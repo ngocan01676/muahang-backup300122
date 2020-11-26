@@ -8039,7 +8039,7 @@
                                 if(errro > 0){
                                     $.growl.error({ message: "{!! z_language('Có lỗi vui lòng load lại trang') !!}" });
                                 }else{
-                                    $.growl.notice({ message: "{!! z_language('Cập nhật thành công') !!}" });
+                                   // $.growl.notice({ message: "{!! z_language('Cập nhật thành công') !!}" });
                                 }
                             }
 

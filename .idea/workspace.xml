@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -121,11 +121,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="220" column="26" selection-start-line="220" selection-start-column="26" selection-end-line="220" selection-end-column="26" />
+            <state relative-caret-position="333">
+              <caret line="8041" column="37" selection-start-line="8041" selection-start-column="37" selection-end-line="8041" selection-end-column="37" />
               <folding>
                 <element signature="e#1974#1992#0#HTML" expanded="true" />
                 <element signature="e#2092#2109#0#HTML" expanded="true" />
@@ -148,11 +148,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="605">
-              <caret line="2171" column="48" selection-start-line="2171" selection-start-column="48" selection-end-line="2171" selection-end-column="48" />
+            <state relative-caret-position="-1806">
+              <caret line="2108" column="109" selection-start-line="2108" selection-start-column="97" selection-end-line="2108" selection-end-column="109" />
               <folding>
                 <element signature="e#31#61#0#PHP" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
@@ -192,7 +192,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>if(!parent.hasClass('has_error')){</find>
       <find>$colorder_link.addClass('bor-error');</find>
       <find>yamada</find>
       <find>KURICHIKU</find>
@@ -222,6 +221,7 @@
       <find>group</find>
       <find>columns.token.index</find>
       <find>YAMADA</find>
+      <find>※1キロずつの小分けをお願いします。</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -253,8 +253,8 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/show.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
       </list>
     </option>
   </component>
@@ -764,7 +764,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79607000" />
+    <option name="totallyTimeSpent" value="80402000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1087,10 +1087,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1806">
+          <caret line="2108" column="109" selection-start-line="2108" selection-start-column="97" selection-end-line="2108" selection-end-column="109" />
+          <folding>
+            <element signature="e#31#61#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="220" column="26" selection-start-line="220" selection-start-column="26" selection-end-line="220" selection-end-column="26" />
+        <state relative-caret-position="333">
+          <caret line="8041" column="37" selection-start-line="8041" selection-start-column="37" selection-end-line="8041" selection-end-column="37" />
           <folding>
             <element signature="e#1974#1992#0#HTML" expanded="true" />
             <element signature="e#2092#2109#0#HTML" expanded="true" />
@@ -1108,17 +1119,6 @@
             <element signature="e#354929#355179#0#HTML" />
             <element signature="e#355199#378019#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="2171" column="48" selection-start-line="2171" selection-start-column="48" selection-end-line="2171" selection-end-column="48" />
-          <folding>
-            <element signature="e#31#61#0#PHP" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
