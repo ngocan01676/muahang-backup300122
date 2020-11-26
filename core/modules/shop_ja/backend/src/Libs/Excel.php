@@ -2169,7 +2169,7 @@ class Excel
             $dataRow = [];
         }
 
-        $sheet->setCellValue('I' . ($start-2), 'demo');
+        $sheet->setCellValue('I' . ($start-3), '');
 
         $writer = new Xlsx($spreadsheet);
 
