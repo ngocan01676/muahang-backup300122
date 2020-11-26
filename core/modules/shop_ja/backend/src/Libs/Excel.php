@@ -1852,8 +1852,8 @@ class Excel
                     'name' => 'ＭＳ Ｐゴシック',
                     'color' => array('rgb' => 'ff0000'),
                 ));
-            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(2) . $start, '※1キロずつの小分けをお願いします。');
-            $sheet->getStyle(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(2) . $start)->applyFromArray($styleArray);
+            $sheet->setCellValue( "I".$start, '※1キロずつの小分けをお願いします。');
+            $sheet->getStyle("I".$start)->applyFromArray($styleArray);
 
             $start++;
             $colums = [
