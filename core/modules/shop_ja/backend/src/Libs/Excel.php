@@ -2151,6 +2151,16 @@ class Excel
                         ),
                     )
                 );
+            }else{
+                $styleArray = array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ));
+                $sheet->setCellValue( "I".$start, '※1キロずつの小分けをお願いします。');
+                $sheet->getStyle("I".$start)->applyFromArray($styleArray);
+                $start++;
             }
             $start += 2;
             $dataRow = [];
