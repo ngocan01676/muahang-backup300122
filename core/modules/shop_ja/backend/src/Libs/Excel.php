@@ -2211,23 +2211,28 @@ class Excel
                     $file_image = $pathinfo['filename'] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        for ($i = 1; $i < 100; $i++) {
-                            $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
-                            $newName = $pathZip . '/' . $file_image;
-                            if (!$this->file->exists(public_path() . '/' . $newName)) {
-                                break;
+                        if(md5_file(public_path() . '/' . $newName) != public_path() . "/" . $image[0]){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
                             }
                         }
                     }
                 } else {
                     $file_image = $image[1] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
+
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        for ($i = 1; $i < 100; $i++) {
-                            $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
-                            $newName = $pathZip . '/' . $file_image;
-                            if (!$this->file->exists(public_path() . '/' . $newName)) {
-                                break;
+                        if(md5_file(public_path() . '/' . $newName) != public_path() . "/" . $image[0]){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
                             }
                         }
                     }
