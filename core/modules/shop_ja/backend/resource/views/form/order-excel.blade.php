@@ -1313,7 +1313,7 @@
                                             }
                                             table+="</table></td>";
                                             table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
                                             table+='<td>'+val.order_link+'</td>';
                                             table+="</tr>";
                                         }
@@ -2519,7 +2519,7 @@
                                             }
                                             table+="</table></td>";
                                             table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
                                             table+='<td>'+val.order_link+'</td>';
                                             table+="</tr>";
                                         }
@@ -3957,7 +3957,7 @@
                                             }
                                             table+="</table></td>";
                                             table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
                                             table+='<td>'+val.order_link+'</td>';
                                             table+="</tr>";
                                         }
@@ -5386,7 +5386,7 @@
                                             }
                                             table+="</table></td>";
                                             table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
                                             table+='<td>'+val.order_link+'</td>';
                                             table+="</tr>";
                                         }
@@ -6441,7 +6441,7 @@
                                             }
                                             table+="</table></td>";
                                             table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
                                             table+='<td>'+val.order_link+'</td>';
                                             table+="</tr>";
                                         }
@@ -7417,7 +7417,7 @@
                             let company = parent.company;
 
 
-
+                            let count_errro = 0;
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
                                 let table = "<table class=\"table table-bordered\">";
@@ -7441,6 +7441,7 @@
                                     for(let com in info[pos]){
                                         if(com!=company) continue;
                                         for(let index in info[pos][com]){
+                                            count_errro++;
                                             let val = info[pos][com][index];
                                             table+="<tr>";
                                             table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
@@ -7463,7 +7464,7 @@
                                             }
                                             table+="</table></td>";
                                             table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
                                             table+='<td>'+val.order_link+'</td>';
                                             table+="</tr>";
                                         }
@@ -7473,6 +7474,7 @@
                                 table+="</table>";
                                 dom.html(table);
                             }
+
                             $('#modal-default').modal('show');
                         }
                     });
@@ -8131,8 +8133,13 @@
                                 let row = $(spreadsheet.jexcel[worksheet].getCell(jexcel.getColumnNameFromId([0, index])));
                                 if(row){
                                     let p =  row.parent();
-                                    p.data('info',data["lists"][index]);  p.find('.jexcel_row').addClass('open_popup');
-                                    p.data('company',data["company"]);  p.find('.jexcel_row').addClass('open_popup');
+                                    let a = data["lists"][index][2];
+                                    let b = data["lists"][index][3];
+                                    
+                                    if(a && b && ( a.length>0 || b.length >0)){
+                                        p.data('info',data["lists"][index]);  p.find('.jexcel_row').addClass('open_popup');
+                                        p.data('company',data["company"]);  p.find('.jexcel_row').addClass('open_popup');
+                                    }
                                 }
                             }
                         }
