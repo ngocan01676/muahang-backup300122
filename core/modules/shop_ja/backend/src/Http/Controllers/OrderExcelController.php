@@ -1841,11 +1841,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          $rs2 = DB::table('shop_order_excel')
                              ->where('order_create_date',">=",date('Y-m-d',strtotime('-7 day')))
                              ->where('order_create_date','<=',date('Y-m-d H:i:s'));
-
                          if(isset($v['address'])){
                              $rs2->where('address',$v['address']);
                          }
-
                          if(isset($v['province'])){
                              $rs2->where('province',$v['province']);
                          }
@@ -1879,8 +1877,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }
                             }
                          }
-
-                         $datas[$k] = $dataItem;
+                         $datas[$k]['datas'] = $dataItem;
+                         $datas[$k]['count'] =$count;
                      }
                  }
 
