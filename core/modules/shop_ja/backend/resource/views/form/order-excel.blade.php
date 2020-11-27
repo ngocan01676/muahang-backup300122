@@ -173,7 +173,7 @@
         }
         .open_popup{
             cursor: pointer;
-            color: #ffffff;
+            color: yellow;
             font-weight: bold;
             font-size: 20px;
             background: red;

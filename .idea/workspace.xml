@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -125,8 +124,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="7476" column="38" selection-start-line="7476" selection-start-column="15" selection-end-line="7476" selection-end-column="38" />
+            <state relative-caret-position="315">
+              <caret line="175" column="26" selection-start-line="175" selection-start-column="26" selection-end-line="175" selection-end-column="26" />
               <folding>
                 <element signature="e#25603#74801#0#HTML" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
@@ -279,10 +278,10 @@
       <find>total_count</find>
       <find>cofi</find>
       <find>table+='&lt;td&gt;'+(val.public == 1?&quot;Đơn&quot;:&quot;Nháp&quot;)+'&lt;/td&gt;';</find>
-      <find>open_popup</find>
       <find>conflict</find>
       <find>YAMADA</find>
       <find>onload: function (e) {</find>
+      <find>open_popup</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -817,12 +816,12 @@
       <workItem from="1606318627487" duration="7507000" />
       <workItem from="1606442748057" duration="6151000" />
       <workItem from="1606471210743" duration="1647000" />
-      <workItem from="1606495741745" duration="2072000" />
+      <workItem from="1606495741745" duration="2121000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91789000" />
+    <option name="totallyTimeSpent" value="91838000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1166,8 +1165,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="7476" column="38" selection-start-line="7476" selection-start-column="15" selection-end-line="7476" selection-end-column="38" />
+        <state relative-caret-position="315">
+          <caret line="175" column="26" selection-start-line="175" selection-start-column="26" selection-end-line="175" selection-end-column="26" />
           <folding>
             <element signature="e#25603#74801#0#HTML" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
