@@ -1826,7 +1826,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          }else{
                              $rs1->where('company',$data['company']);
                          }
-                         $dataItem['3'] = $model-> RenderData($rs1->get()->all(),false);
+                         $dataItem['3'] = $model-> RenderData($rs1->orderBy('sort')->get()->all(),false);
 
                          $rs2 = DB::table('shop_order_excel')
                              ->where('order_create_date',">=",date('Y-m-d',strtotime('-7 day')))
@@ -1842,7 +1842,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          }else{
                              $rs2->where('company',$data['company']);
                          }
-                         $dataItem['2'] = $model->RenderData($rs2->get()->all(),false);
+                         $dataItem['2'] = $model->RenderData($rs2->orderBy('sort')->get()->all(),false);
 
                          foreach ($dataItem as $key=>$values){
                             foreach ($values as $_key=>$_val){
