@@ -71,19 +71,25 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         $key = '';
                         if ($type == 'month') {
                             $key = date('Y-m', strtotime($value->order_create_date)) . "-01";
+                            $score = strtotime($key);
                         } else if ($type == 'year') {
                             $key = date('Y', strtotime($value->order_create_date));
+                            $score = strtotime($key);
                         }else if ($type == 'week') {
                             list($start_date, $end_date) = $this->x_week_range($value->order_create_date);
                             $key = $start_date.' '.$end_date;
-                        }else{
+                            $score = strtotime($start_date)+strtotime($end_date);
+                        }
+                        else{
                             $key = date('Y-m-d', strtotime($value->order_create_date));
+                            $score = strtotime($key);
                         }
                         if(!isset($datas[$key])){
                             $datas[$key] = [
                                 "count"=>0,
                                 "rate"=>0,
-                                $type =>$key
+                                $type =>$key,
+                                "score"=>$score
                             ];
                         }
                         $datas[$key]["count"]++;
@@ -129,7 +135,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
                         foreach ($results as $key => $value) {
                             $key = '';
-                            $score = 0;
+
                             if ($type == 'month') {
                                 $key = date('Y-m', strtotime($value->order_create_date)) . "-01";
                                 $score = strtotime($key);
@@ -143,6 +149,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             }
                             else{
                                 $key = date('Y-m-d', strtotime($value->order_create_date));
+                                $score = strtotime($key);
                             }
                             if (!isset($datas[$key])) {
                                 $datas[$key] = [
