@@ -2209,6 +2209,7 @@ class Excel
         if ($this->file->isDirectory(public_path() . $pathZip)) {
             $this->file->deleteDirectory(public_path() . $pathZip, true);
         }
+
         if (!$this->file->isDirectory(public_path() . $pathZip)) {
             $this->file->makeDirectory(public_path() . $pathZip);
         }

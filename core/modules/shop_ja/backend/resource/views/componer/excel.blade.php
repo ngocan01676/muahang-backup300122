@@ -1926,7 +1926,7 @@
 
       data.count = 1;
      }else{
-      data.count = 0;
+      data.count = 1;
      }
     }
     let total_price_buy =  0;
