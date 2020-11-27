@@ -2274,6 +2274,6 @@ class Excel
 //        if( $this->file->isDirectory(public_path().$pathZip)){
 //            $this->file->deleteDirectory(public_path().$pathZip,true);
 //        }
-        return ['link1' => url($path . '/' . $zipFileName), 'images' => $images, 'ids' => $ids];
+        return ['link' => url($path . '/' . $zipFileName), 'images' => $images, 'ids' => $ids];
     }
 }
