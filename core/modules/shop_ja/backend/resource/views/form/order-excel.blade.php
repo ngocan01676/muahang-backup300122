@@ -2875,11 +2875,11 @@
                     let c = parseInt(col);
 
                     cell.style.overflow = 'hidden';
-
+                    if (c === columns.image.index && val.length>0) {
+                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
+                    }
                     if(columns.id.index === c ){
-                        if (c === columns.image.index && val.length>0) {
-                            cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
-                        }
+
 
                         let v = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
                         if(v == -1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.add('error');
