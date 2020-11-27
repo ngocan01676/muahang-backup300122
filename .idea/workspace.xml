@@ -125,8 +125,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="723">
-              <caret line="2080" column="105" selection-start-line="2080" selection-start-column="105" selection-end-line="2080" selection-end-column="105" />
+            <state relative-caret-position="706">
+              <caret line="2088" lean-forward="true" selection-start-line="2088" selection-end-line="2088" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#85604#89227#0#HTML" />
@@ -148,8 +148,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="1928" column="90" selection-start-line="1928" selection-start-column="90" selection-end-line="1928" selection-end-column="90" />
+            <state relative-caret-position="604">
+              <caret line="1932" column="6" lean-forward="true" selection-start-line="1932" selection-start-column="6" selection-end-line="1932" selection-end-column="6" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -285,8 +285,8 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" />
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" />
       </list>
     </option>
   </component>
@@ -1007,12 +1007,12 @@
       <workItem from="1606189216151" duration="1322000" />
       <workItem from="1606192780473" duration="7278000" />
       <workItem from="1606318627487" duration="7507000" />
-      <workItem from="1606442748057" duration="3969000" />
+      <workItem from="1606442748057" duration="4235000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85888000" />
+    <option name="totallyTimeSpent" value="86154000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1340,8 +1340,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="1928" column="90" selection-start-line="1928" selection-start-column="90" selection-end-line="1928" selection-end-column="90" />
+        <state relative-caret-position="604">
+          <caret line="1932" column="6" lean-forward="true" selection-start-line="1932" selection-start-column="6" selection-end-line="1932" selection-end-column="6" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -1356,8 +1356,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="2080" column="105" selection-start-line="2080" selection-start-column="105" selection-end-line="2080" selection-end-column="105" />
+        <state relative-caret-position="706">
+          <caret line="2088" lean-forward="true" selection-start-line="2088" selection-end-line="2088" />
           <folding>
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#85604#89227#0#HTML" />
