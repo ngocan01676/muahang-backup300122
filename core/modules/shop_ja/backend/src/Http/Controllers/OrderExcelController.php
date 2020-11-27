@@ -1809,9 +1809,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                       $count = 0;
                      foreach ($data['data'] as $k=>$v){
                          $dataItem = [];
-                         $rs1 = DB::table('shop_order_excel')->where('company',$data["company"])
+                         $rs1 = DB::table('shop_order_excel')
                              ->where('order_create_date',">=",date('Y-m-d',
                                  strtotime('-7 day')))->where('order_create_date','<=',date('Y-m-d H:i:s'));
+
                          if(isset($v['fullname'])){
                              $rs1->where('fullname',$v['fullname']);
                          }
@@ -1836,15 +1837,19 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          $rs1 = $rs1->orderBy('sort')->get()->all();
                          $dataItem['3'] = $model-> RenderData($rs1,false);
                          $count+=count($rs1);
+
                          $rs2 = DB::table('shop_order_excel')
                              ->where('order_create_date',">=",date('Y-m-d',strtotime('-7 day')))
                              ->where('order_create_date','<=',date('Y-m-d H:i:s'));
+
                          if(isset($v['address'])){
                              $rs2->where('address',$v['address']);
                          }
+
                          if(isset($v['province'])){
                              $rs2->where('province',$v['province']);
                          }
+
                          if(isset($v['id'])){
                              if(is_numeric($v['id'])){
                                  $rs2->where('id',"!=",$v['id']);
@@ -1852,11 +1857,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                  $rs2->where('key_id',"!=",$v['id']);
                              }
                          }
+
                          if($data['company'] == "YAMADA" || $data['company'] == 'FUKUI' || $data['company']  == 'OHGA' ){
                              $rs2->whereIn('company',['YAMADA','FUKUI','OHGA']);
                          }else{
                              $rs2->where('company',$data['company']);
                          }
+
                          $rs2 = $rs2->orderBy('sort')->get()->all();
                          $dataItem['2'] = $model->RenderData($rs2,false);
                          $count+=count($rs2);
