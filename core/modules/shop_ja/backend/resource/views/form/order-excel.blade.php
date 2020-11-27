@@ -44,6 +44,7 @@
 
     <div class="box-body">
         <strong id="log-save">Time lưu: <span class="time"></span> </strong>
+        <strong id="log-save">Time Check: <span class="travelTime"></span> </strong>
         <table class="table">
             <tr>
                 <td style="width: 10%"><input type="text" class="form-control" id="copyData" placeholder="Copy"></td>
@@ -8204,7 +8205,8 @@
                 data:{
                     act:"conflict",
                     company:name,
-                    data:datas
+                    data:datas,
+
                 },
                 success: function (data) {
                     if(data.company === name){
@@ -8228,6 +8230,8 @@
                             }
                         }
                     }
+                    var travelTime = moment().add(5000, 'seconds').format('hh:mm A');
+                    $(".travelTime").html(travelTime);
                 },
             });
             console.log(datas);
@@ -8240,6 +8244,7 @@
 
         setInterval(function () {
             CheckData();
+
         },5000);
 
         setInterval(function () {

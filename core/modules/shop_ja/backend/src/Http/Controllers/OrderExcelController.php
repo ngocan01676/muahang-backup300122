@@ -1882,7 +1882,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                      }
                  }
 
-                return response()->json(["count"=>$count,'lists'=>$datas,'company'=>$data["company"]]);
+                return response()->json(['lists'=>$datas,'company'=>$data["company"]]);
             }
         }
 

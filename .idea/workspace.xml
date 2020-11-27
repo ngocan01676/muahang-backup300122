@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -121,11 +122,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="1334" column="84" selection-start-line="1334" selection-start-column="84" selection-end-line="1334" selection-end-column="84" />
+            <state relative-caret-position="541">
+              <caret line="8233" column="52" selection-start-line="8233" selection-start-column="52" selection-end-line="8233" selection-end-column="52" />
               <folding>
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
@@ -205,11 +206,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="893">
-              <caret line="1842" column="83" selection-start-line="1842" selection-start-column="83" selection-end-line="1842" selection-end-column="83" />
+            <state relative-caret-position="485">
+              <caret line="1884" column="41" selection-start-line="1884" selection-start-column="41" selection-end-line="1884" selection-end-column="41" />
               <folding>
                 <element signature="e#2993#3899#0#PHP" />
                 <element signature="e#52644#61835#0#PHP" />
@@ -257,8 +258,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>console.log(spreadsheet.jexcel[worksheet].options);</find>
-      <find>save</find>
       <find>order_date</find>
       <find>importBtn</find>
       <find>value-review</find>
@@ -287,6 +286,8 @@
       <find>YAMADA</find>
       <find>onload: function (e) {</find>
       <find>open_popup</find>
+      <find>table+='&lt;td&gt;'+val.order_link+'&lt;/td&gt;';</find>
+      <find>onload</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -318,8 +319,8 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
       </list>
     </option>
   </component>
@@ -821,12 +822,12 @@
       <workItem from="1606318627487" duration="7507000" />
       <workItem from="1606442748057" duration="6151000" />
       <workItem from="1606471210743" duration="1647000" />
-      <workItem from="1606495741745" duration="2500000" />
+      <workItem from="1606495741745" duration="2887000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92217000" />
+    <option name="totallyTimeSpent" value="92604000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1145,33 +1146,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="1842" column="83" selection-start-line="1842" selection-start-column="83" selection-end-line="1842" selection-end-column="83" />
-          <folding>
-            <element signature="e#2993#3899#0#PHP" />
-            <element signature="e#52644#61835#0#PHP" />
-            <element signature="e#61856#63143#0#PHP" />
-            <element signature="e#63148#68797#0#PHP" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="e#68802#71538#0#PHP" />
-            <element signature="e#71543#75196#0#PHP" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="e#75201#76286#0#PHP" />
-            <element signature="e#76291#79248#0#PHP" />
-            <element signature="e#79253#79534#0#PHP" />
-            <element signature="e#79539#84870#0#PHP" />
-            <element signature="e#84875#85243#0#PHP" />
-            <element signature="e#85248#99531#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="1334" column="84" selection-start-line="1334" selection-start-column="84" selection-end-line="1334" selection-end-column="84" />
+        <state relative-caret-position="541">
+          <caret line="8233" column="52" selection-start-line="8233" selection-start-column="52" selection-end-line="8233" selection-end-column="52" />
           <folding>
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
@@ -1207,6 +1185,29 @@
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="1884" column="41" selection-start-line="1884" selection-start-column="41" selection-end-line="1884" selection-end-column="41" />
+          <folding>
+            <element signature="e#2993#3899#0#PHP" />
+            <element signature="e#52644#61835#0#PHP" />
+            <element signature="e#61856#63143#0#PHP" />
+            <element signature="e#63148#68797#0#PHP" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="e#68802#71538#0#PHP" />
+            <element signature="e#71543#75196#0#PHP" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="e#75201#76286#0#PHP" />
+            <element signature="e#76291#79248#0#PHP" />
+            <element signature="e#79253#79534#0#PHP" />
+            <element signature="e#79539#84870#0#PHP" />
+            <element signature="e#84875#85243#0#PHP" />
+            <element signature="e#85248#99531#0#PHP" />
           </folding>
         </state>
       </provider>
