@@ -628,11 +628,13 @@ class Excel
                     $file_image = $pathinfo['filename'] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        for ($i = 1; $i < 100; $i++) {
-                            $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
-                            $newName = $pathZip . '/' . $file_image;
-                            if (!$this->file->exists(public_path() . '/' . $newName)) {
-                                break;
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -640,11 +642,13 @@ class Excel
                     $file_image = $image[1] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        for ($i = 1; $i < 100; $i++) {
-                            $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
-                            $newName = $pathZip . '/' . $file_image;
-                            if (!$this->file->exists(public_path() . '/' . $newName)) {
-                                break;
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -961,11 +965,13 @@ class Excel
                     $file_image = $pathinfo['filename'] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        for ($i = 1; $i < 100; $i++) {
-                            $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
-                            $newName = $pathZip . '/' . $file_image;
-                            if (!$this->file->exists(public_path() . '/' . $newName)) {
-                                break;
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -973,11 +979,13 @@ class Excel
                     $file_image = $image[1] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        for ($i = 1; $i < 100; $i++) {
-                            $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
-                            $newName = $pathZip . '/' . $file_image;
-                            if (!$this->file->exists(public_path() . '/' . $newName)) {
-                                break;
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -1298,11 +1306,13 @@ class Excel
                     $file_image = $pathinfo['filename'] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        for ($i = 1; $i < 100; $i++) {
-                            $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
-                            $newName = $pathZip . '/' . $file_image;
-                            if (!$this->file->exists(public_path() . '/' . $newName)) {
-                                break;
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -1310,11 +1320,13 @@ class Excel
                     $file_image = $image[1] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        for ($i = 1; $i < 100; $i++) {
-                            $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
-                            $newName = $pathZip . '/' . $file_image;
-                            if (!$this->file->exists(public_path() . '/' . $newName)) {
-                                break;
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -1755,11 +1767,13 @@ class Excel
                     $file_image = $pathinfo['filename'] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        for ($i = 1; $i < 100; $i++) {
-                            $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
-                            $newName = $pathZip . '/' . $file_image;
-                            if (!$this->file->exists(public_path() . '/' . $newName)) {
-                                break;
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -1767,11 +1781,13 @@ class Excel
                     $file_image = $image[1] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        for ($i = 1; $i < 100; $i++) {
-                            $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
-                            $newName = $pathZip . '/' . $file_image;
-                            if (!$this->file->exists(public_path() . '/' . $newName)) {
-                                break;
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -2238,7 +2254,6 @@ class Excel
                         }
                     }
                 }
-
                 $this->file->copy(public_path() . "/" . $image[0], public_path() . '/' . $newName);
                 $files[] = [
                     $file_image, public_path() . '/' . $newName
