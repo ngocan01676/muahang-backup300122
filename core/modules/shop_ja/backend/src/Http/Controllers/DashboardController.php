@@ -58,7 +58,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }else{
 
-                            $date_start = date('Y').$month.'-01';
+                            $date_start = date('Y').'-'.($month<10?"0".$month:$month).'-01';
                             $date_end = date('Y-m-d',strtotime('last day of this month', strtotime($date_start)));
 
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
@@ -118,8 +118,9 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }else{
-                            $date_start = date('Y-m').'-01';
-                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+                            $date_start = date('Y').'-'.($month<10?"0".$month:$month).'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', strtotime($date_start)));
+
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                             $type = "day";
