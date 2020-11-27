@@ -1331,10 +1331,10 @@
                                             }
                                         }
                                         table+="</table></td>";
-                                        table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                        table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
                                         table+='<td>'+val.order_link+'</td>';
-                                        table+='<td>'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
                                         table+="</tr>";
                                     }
                                 }
@@ -2549,10 +2549,10 @@
                                             }
                                         }
                                         table+="</table></td>";
-                                        table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                        table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
                                         table+='<td>'+val.order_link+'</td>';
-                                        table+='<td>'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
                                         table+="</tr>";
                                     }
                                 }
@@ -3999,10 +3999,10 @@
                                             }
                                         }
                                         table+="</table></td>";
-                                        table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                        table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
                                         table+='<td>'+val.order_link+'</td>';
-                                        table+='<td>'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
                                         table+="</tr>";
                                     }
                                 }
@@ -5440,10 +5440,10 @@
                                             }
                                         }
                                         table+="</table></td>";
-                                        table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                        table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
                                         table+='<td>'+val.order_link+'</td>';
-                                        table+='<td>'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
                                         table+="</tr>";
                                     }
                                 }
@@ -6507,10 +6507,10 @@
                                             }
                                         }
                                         table+="</table></td>";
-                                        table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                        table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
                                         table+='<td>'+val.order_link+'</td>';
-                                        table+='<td>'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
                                         table+="</tr>";
                                     }
                                 }
@@ -7541,10 +7541,10 @@
                                                 }
                                             }
                                             table+="</table></td>";
-                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"đã xuất":"chưa xuất")+'</td>';
+                                            table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                            table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
                                             table+='<td>'+val.order_link+'</td>';
-                                            table+='<td>'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</td>';
+                                            table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
                                             table+="</tr>";
                                         }
                                     }
