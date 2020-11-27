@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
@@ -198,8 +199,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="654">
-              <caret line="203" column="98" lean-forward="true" selection-start-line="202" selection-start-column="26" selection-end-line="203" selection-end-column="98" />
+            <state relative-caret-position="280">
+              <caret line="187" column="98" selection-start-line="187" selection-start-column="98" selection-end-line="187" selection-end-column="98" />
             </state>
           </provider>
         </entry>
@@ -618,12 +619,12 @@
       <workItem from="1606318627487" duration="7507000" />
       <workItem from="1606442748057" duration="6151000" />
       <workItem from="1606471210743" duration="1647000" />
-      <workItem from="1606495741745" duration="4570000" />
+      <workItem from="1606495741745" duration="4866000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94287000" />
+    <option name="totallyTimeSpent" value="94583000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1014,8 +1015,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="654">
-          <caret line="203" column="98" lean-forward="true" selection-start-line="202" selection-start-column="26" selection-end-line="203" selection-end-column="98" />
+        <state relative-caret-position="280">
+          <caret line="187" column="98" selection-start-line="187" selection-start-column="98" selection-end-line="187" selection-end-column="98" />
         </state>
       </provider>
     </entry>
