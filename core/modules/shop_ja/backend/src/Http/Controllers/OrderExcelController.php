@@ -1806,7 +1806,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $datas = [];
                  if(isset($data['data'])){
                      $model = new OrderExcelModel();
-
+                      $count = 0;
                      foreach ($data['data'] as $k=>$v){
                          $dataItem = [];
                          $rs1 = DB::table('shop_order_excel')->where('company',$data["company"])
@@ -1826,8 +1826,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          }else{
                              $rs1->where('company',$data['company']);
                          }
-                         $dataItem['3'] = $model-> RenderData($rs1->orderBy('sort')->get()->all(),false);
-
+                         $rs1 = $rs1->orderBy('sort')->get()->all();
+                         $dataItem['3'] = $model-> RenderData($rs1,false);
+                         $count+=count($rs1);
                          $rs2 = DB::table('shop_order_excel')
                              ->where('order_create_date',">=",date('Y-m-d',strtotime('-7 day')))
                              ->where('order_create_date','<=',date('Y-m-d H:i:s'));
@@ -1842,8 +1843,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          }else{
                              $rs2->where('company',$data['company']);
                          }
-                         $dataItem['2'] = $model->RenderData($rs2->orderBy('sort')->get()->all(),false);
-
+                         $rs2 = $rs2->orderBy('sort')->get()->all();
+                         $dataItem['2'] = $model->RenderData($rs2,false);
+                         $count+=count($rs2);
                          foreach ($dataItem as $key=>$values){
                             foreach ($values as $_key=>$_val){
                                 if($_key == "KOGYJA"){
@@ -1856,11 +1858,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }
                             }
                          }
+
                          $datas[$k] = $dataItem;
                      }
                  }
 
-                return response()->json(['lists'=>$datas,'company'=>$data["company"]]);
+                return response()->json(["count"=>$count,'lists'=>$datas,'company'=>$data["company"]]);
             }
         }
 
