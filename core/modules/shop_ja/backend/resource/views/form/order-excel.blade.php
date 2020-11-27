@@ -174,7 +174,7 @@
             cursor: pointer;
             color: #dd8c1a;
             font-weight: bold;
-            font-size: 20;
+            font-size: 20px;
         }
         .jexcel thead .jexcel_nested td[data-column="0,1,2"] ,  .jexcel thead .jexcel_nested td[data-column="3,4"]{
             background: red !important;
