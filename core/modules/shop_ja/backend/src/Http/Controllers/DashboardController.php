@@ -129,13 +129,17 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
                         foreach ($results as $key => $value) {
                             $key = '';
+                            $score = 0;
                             if ($type == 'month') {
                                 $key = date('Y-m', strtotime($value->order_create_date)) . "-01";
+                                $score = strtotime($key);
                             } else if ($type == 'year') {
                                 $key = date('Y', strtotime($value->order_create_date));
+                                $score = strtotime($key);
                             }else if ($type == 'week') {
                                 list($start_date, $end_date) = $this->x_week_range($value->order_create_date);
                                 $key = $start_date.' '.$end_date;
+                                $score = strtotime($start_date)+strtotime($end_date);
                             }
                             else{
                                 $key = date('Y-m-d', strtotime($value->order_create_date));
@@ -144,7 +148,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                                 $datas[$key] = [
                                     "count" => 0,
                                     "rate" => 0,
-                                    $type => $key
+                                    $type => $key,
+                                    "score"=>$score
                                 ];
                             }
                             $datas[$key]["count"]++;
@@ -152,8 +157,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         }
                     }
                     usort($datas, function ($element1,$element2) use ($type){
-                        $datetime1 = strtotime($element1[$type]);
-                        $datetime2 = strtotime($element2[$type]);
+                        $datetime1 = strtotime($element1["score"]);
+                        $datetime2 = strtotime($element2["score"]);
                         return $datetime1 - $datetime2;
                     });
                     $response = [
@@ -233,8 +238,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         }
                         $excel->where('company', 'KOGYJA');
                         if($type == 'week'){
-                            $date_start = date("Y-m-d", strtotime('monday this week'));
-                            $date_end = date("Y-m-d", strtotime('sunday this week'));
+                            $date_start = date('Y-m').'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }
@@ -263,7 +268,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                                 $datas[$key] = [
                                     "count" => 0,
                                     "rate" => 0,
-                                    $type => $key
+                                    $type => $key,
                                 ];
                                 $datas[$key]['name'] = $roles[$key]->username;
 
