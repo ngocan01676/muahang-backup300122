@@ -2078,6 +2078,7 @@
                         data.count = 1;
                     }else{
                         data.count = 1;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
                     }
                 }
                 let total_price_buy =  0;
