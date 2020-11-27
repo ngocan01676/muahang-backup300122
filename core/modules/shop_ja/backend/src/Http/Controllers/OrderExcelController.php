@@ -1821,6 +1821,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          if(isset($v['province'])){
                              $rs1->where('province',$v['province']);
                          }
+                         if(isset($v['id'])){
+                             if(is_numeric($v['id'])){
+                                 $rs1->where('id',"!=",$v['id']);
+                             }else{
+                                 $rs1->where('key_id',"!=",$v['id']);
+                             }
+                         }
                          if($data['company'] == "YAMADA" || $data['company'] == 'FUKUI' || $data['company']  == 'OHGA' ){
                              $rs1->whereIn('company',['YAMADA','FUKUI','OHGA']);
                          }else{
@@ -1837,6 +1844,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                          }
                          if(isset($v['province'])){
                              $rs2->where('province',$v['province']);
+                         }
+                         if(isset($v['id'])){
+                             if(is_numeric($v['id'])){
+                                 $rs2->where('id',"!=",$v['id']);
+                             }else{
+                                 $rs2->where('key_id',"!=",$v['id']);
+                             }
                          }
                          if($data['company'] == "YAMADA" || $data['company'] == 'FUKUI' || $data['company']  == 'OHGA' ){
                              $rs2->whereIn('company',['YAMADA','FUKUI','OHGA']);

@@ -8117,6 +8117,9 @@
                 if(val[cols.fullname.index].length > 0){
                     row.fullname = val[cols.fullname.index];
                 }
+                if(val[cols.fullname.index].length > 0){
+                    row.id = val[cols.id.index];
+                }
                 if(Object.keys(row).length >0){
                     datas[i] = row;
                 }
@@ -8138,7 +8141,7 @@
                                     let a = data["lists"][index][2];
                                     let b = data["lists"][index][3];
                                     p.find('.jexcel_row').removeClass('open_popup');
-                                    
+
                                     if(data["count"]>0){
                                         p.data('info',data["lists"][index]);  p.find('.jexcel_row').addClass('open_popup');
                                         p.data('company',data["company"]);  p.find('.jexcel_row').addClass('open_popup');
