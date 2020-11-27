@@ -157,6 +157,18 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
+                        <label>{!! z_language("Tháng ") !!}:</label>
+                        <div class="input-group">
+                            <select id="month" class="form-control" onchange="charts_line()">
+                                @foreach([1,2,3,4,5,6,7,8,10,11,12] as $category=>$values)
+                                    <option @if(date('m') == $values) selected @endif value="{!! $values !!}">{!! $values !!}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
                         <label>{!! z_language("Kiểu Ngày") !!}:</label>
                         <div class="input-group">
                             <input checked name="type" type="radio" value="day" onchange="charts_line()"> {!! z_language('Ngày') !!}
@@ -300,6 +312,7 @@
             }
             let user_id = $("#user_id").val();
             let conpany = $("#conpany").val();
+            let month = $("#month").val();
 
             $.ajax({
                 type: "POST",
@@ -308,6 +321,7 @@
                     date_start:dates[0][2]+'-'+dates[0][0]+'-'+dates[0][1],
                     date_end:dates[1][2]+'-'+dates[1][0]+'-'+dates[1][1],
                     user_id:user_id,
+                    month:month,
                     conpany:conpany,
                     type:$('input[name=type]:checked').val(),
                     act:"line"
