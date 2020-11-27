@@ -43,17 +43,25 @@
 <div class="box box-default box-solid">
 
     <div class="box-body">
-        <strong id="log-save">Time lưu: <span class="time"></span> </strong>
-        <strong id="log-save">Time Check: <span class="travelTime"></span> </strong>
+
         <table class="table">
             <tr>
+
                 <td style="width: 10%"><input type="text" class="form-control" id="copyData" placeholder="Copy"></td>
                 <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
-                <td style="width: 95%">
+                <td>
                     <input type="text" class="form-control onselection" id="value-review">
                     <div class="onselection" id="zoe-dropdown-review" style="display: none"></div>
                     <div class="onselection" id="info_payment">
                     </div>
+                </td>
+                <td class="text-center" style="width: 100px">Thơi gian lưu Auto</td>
+                <td class="text-center" id="log-save" style="width: 100px">
+                    <span class="time">0</span>
+                </td>
+                <td class="text-center" style="width: 100px">Thơi gian kiểm tra</td>
+                <td class="text-center" style="width: 100px">
+                    <span class="travelTime">0</span>
                 </td>
             </tr>
         </table>
@@ -8113,7 +8121,8 @@
 
                     success: function (data) {
                         if(auto){
-                            $("#log-save .time").html((moment().format("DD/MM/YYYY, h:mm:ss a")));
+                            let travelTime = moment().add(10, 'seconds').format('DD/MM/YY hh:mm A');
+                            $("#log-save .time").html(travelTime);
 
                             if(data.hasOwnProperty('logs')){
                                 let errro = 0;
@@ -8230,7 +8239,7 @@
                             }
                         }
                     }
-                    var travelTime = moment().add(5000, 'seconds').format('hh:mm A');
+                    var travelTime = moment().add(5, 'seconds').format('DD/MM/YY hh:mm A');
                     $(".travelTime").html(travelTime);
                 },
             });
