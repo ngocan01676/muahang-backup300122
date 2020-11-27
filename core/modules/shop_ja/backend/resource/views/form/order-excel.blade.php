@@ -1785,14 +1785,14 @@
                     title: '{!! z_language("SL Size") !!}',//K SL
                     type: 'numeric',
                     width:'100px',
-                    value:0,
+                    value:1,
                     // row:"0",
                 },
                 total_count:{
                     title: '{!! z_language("SL") !!}',//K SL
                     type: 'numeric',
                     width:'100px',
-                    value:1,
+                    value:37,
                     // row:"0",
                 },
                 price:{

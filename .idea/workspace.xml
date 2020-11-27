@@ -122,11 +122,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="706">
-              <caret line="2088" lean-forward="true" selection-start-line="2088" selection-end-line="2088" />
+            <state relative-caret-position="153">
+              <caret line="1790" column="29" lean-forward="true" selection-start-line="1790" selection-start-column="13" selection-end-line="1790" selection-end-column="29" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#85604#89227#0#HTML" />
@@ -145,11 +145,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="604">
-              <caret line="1932" column="6" lean-forward="true" selection-start-line="1932" selection-start-column="6" selection-end-line="1932" selection-end-column="6" />
+            <state relative-caret-position="527">
+              <caret line="1638" column="12" selection-start-line="1638" selection-start-column="12" selection-end-line="1638" selection-end-column="12" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
@@ -224,8 +224,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>福井精米様御中</find>
-      <find>import</find>
       <find>tracking</find>
       <find>if (c === columns.product_name.index) {</find>
       <find>ChangeActionCompany</find>
@@ -254,6 +252,8 @@
       <find>KOGYJA</find>
       <find>ko</find>
       <find>function update(instance, cell, c, r, value,cb) {</find>
+      <find>total_count</find>
+      <find>total_count:{</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -1007,12 +1007,12 @@
       <workItem from="1606189216151" duration="1322000" />
       <workItem from="1606192780473" duration="7278000" />
       <workItem from="1606318627487" duration="7507000" />
-      <workItem from="1606442748057" duration="4235000" />
+      <workItem from="1606442748057" duration="4506000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86154000" />
+    <option name="totallyTimeSpent" value="86425000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1338,11 +1338,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="1932" column="6" lean-forward="true" selection-start-line="1932" selection-start-column="6" selection-end-line="1932" selection-end-column="6" />
+        <state relative-caret-position="153">
+          <caret line="1790" column="29" lean-forward="true" selection-start-line="1790" selection-start-column="13" selection-end-line="1790" selection-end-column="29" />
           <folding>
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#85604#89227#0#HTML" />
+            <element signature="e#107426#111764#0#HTML" />
+            <element signature="e#111903#128605#0#HTML" />
+            <element signature="e#128679#132976#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
@@ -1354,16 +1359,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="706">
-          <caret line="2088" lean-forward="true" selection-start-line="2088" selection-end-line="2088" />
+        <state relative-caret-position="527">
+          <caret line="1638" column="12" selection-start-line="1638" selection-start-column="12" selection-end-line="1638" selection-end-column="12" />
           <folding>
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#85604#89227#0#HTML" />
-            <element signature="e#107426#111764#0#HTML" />
-            <element signature="e#111903#128605#0#HTML" />
-            <element signature="e#128679#132976#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
