@@ -157,9 +157,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         }
                     }
                     usort($datas, function ($element1,$element2) use ($type){
-                        $datetime1 = strtotime($element1["score"]);
-                        $datetime2 = strtotime($element2["score"]);
-                        return $datetime1 - $datetime2;
+                        return $element1["score"] - $element2["score"];
                     });
                     $response = [
                         "lists"=>$datas,
