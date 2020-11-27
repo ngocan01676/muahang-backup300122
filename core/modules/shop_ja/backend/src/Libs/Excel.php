@@ -2201,6 +2201,7 @@ class Excel
         $files = [
             [$filename . '.xlsx', public_path() . $path2]
         ];
+        $md5 = [];
         foreach ($images as $image) {
 
             if (!empty($image[0]) && file_exists(public_path() . "/" . $image[0])) {
@@ -2211,7 +2212,8 @@ class Excel
                     $file_image = $pathinfo['filename'] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        if(md5_file(public_path() . '/' . $newName) != public_path() . "/" . $image[0]){
+
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
                             for ($i = 1; $i < 100; $i++) {
                                 $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
                                 $newName = $pathZip . '/' . $file_image;
@@ -2224,9 +2226,8 @@ class Excel
                 } else {
                     $file_image = $image[1] . '.' . $pathinfo['extension'];
                     $newName = $pathZip . '/' . $file_image;
-
                     if ($this->file->exists(public_path() . '/' . $newName)) {
-                        if(md5_file(public_path() . '/' . $newName) != public_path() . "/" . $image[0]){
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
                             for ($i = 1; $i < 100; $i++) {
                                 $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
                                 $newName = $pathZip . '/' . $file_image;
@@ -2258,6 +2259,6 @@ class Excel
 //        if( $this->file->isDirectory(public_path().$pathZip)){
 //            $this->file->deleteDirectory(public_path().$pathZip,true);
 //        }
-        return ['link1' => url($path . '/' . $zipFileName), 'images' => $images, 'ids' => $ids];
+        return ['link1' => url($path . '/' . $zipFileName), 'images' => $images, 'ids' => $ids,'md5'=>];
     }
 }
