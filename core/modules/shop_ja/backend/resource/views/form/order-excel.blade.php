@@ -172,9 +172,10 @@
         }
         .open_popup{
             cursor: pointer;
-            color: #dd8c1a;
+            color: #ffffff;
             font-weight: bold;
             font-size: 20px;
+            background: red;
         }
         .jexcel thead .jexcel_nested td[data-column="0,1,2"] ,  .jexcel thead .jexcel_nested td[data-column="3,4"]{
             background: red !important;
