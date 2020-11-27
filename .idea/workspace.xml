@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -150,8 +147,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="689">
-              <caret line="1928" column="20" selection-start-line="1928" selection-start-column="20" selection-end-line="1928" selection-end-column="20" />
+            <state relative-caret-position="621">
+              <caret line="1924" column="87" selection-start-line="1924" selection-start-column="87" selection-end-line="1924" selection-end-column="87" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1000,12 +1006,12 @@
       <workItem from="1606189216151" duration="1322000" />
       <workItem from="1606192780473" duration="7278000" />
       <workItem from="1606318627487" duration="7507000" />
-      <workItem from="1606442748057" duration="3906000" />
+      <workItem from="1606442748057" duration="3937000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85825000" />
+    <option name="totallyTimeSpent" value="85856000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1354,8 +1360,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="689">
-          <caret line="1928" column="20" selection-start-line="1928" selection-start-column="20" selection-end-line="1928" selection-end-column="20" />
+        <state relative-caret-position="621">
+          <caret line="1924" column="87" selection-start-line="1924" selection-start-column="87" selection-end-line="1924" selection-end-column="87" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

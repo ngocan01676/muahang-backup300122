@@ -1923,7 +1923,6 @@
              (valueRow[columns.product_name.index]+"").trim()!="0" &&
              (valueRow[columns.product_id.index]+"").trim()!="0"){
       instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
-
       data.count = 1;
      }else{
       data.count = 1;
