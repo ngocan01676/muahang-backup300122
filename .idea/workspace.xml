@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/betogaizin.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/betogaizin.xlsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -120,151 +120,7 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="62" column="40" selection-start-line="62" selection-start-column="40" selection-end-line="62" selection-end-column="40" />
-              <folding>
-                <element signature="e#1974#1992#0#HTML" expanded="true" />
-                <element signature="e#2454#2474#0#HTML" expanded="true" />
-                <element signature="e#2503#2521#0#HTML" expanded="true" />
-                <element signature="e#2640#2660#0#HTML" expanded="true" />
-                <element signature="e#2599#2619#0#HTML" expanded="true" />
-                <element signature="e#25603#74801#0#HTML" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#74829#149016#0#HTML" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#149047#222748#0#HTML" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#222778#279507#0#HTML" />
-                <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#279533#329041#0#HTML" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#329789#337830#0#HTML" />
-                <element signature="e#338083#338835#0#HTML" />
-                <element signature="e#338893#354111#0#HTML" />
-                <element signature="e#354366#355600#0#HTML" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27659">
-              <caret line="1627" column="21" selection-start-line="1627" selection-start-column="21" selection-end-line="1627" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="316" column="19" selection-start-line="316" selection-start-column="19" selection-end-line="316" selection-end-column="19" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="e#15548#17367#0#HTML" />
-                <element signature="e#17417#18319#0#HTML" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="91" column="47" selection-start-line="91" selection-start-column="47" selection-end-line="91" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38165">
-              <caret line="2250" column="38" selection-start-line="2250" selection-start-column="38" selection-end-line="2250" selection-end-column="38" />
-              <folding>
-                <element signature="e#31#61#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="1884" column="41" selection-start-line="1884" selection-start-column="41" selection-end-line="1884" selection-end-column="41" />
-              <folding>
-                <element signature="e#2993#3899#0#PHP" />
-                <element signature="e#52644#61835#0#PHP" />
-                <element signature="e#61856#63143#0#PHP" />
-                <element signature="e#63148#68797#0#PHP" />
-                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="e#68802#71538#0#PHP" />
-                <element signature="e#71543#75196#0#PHP" />
-                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="e#75201#76286#0#PHP" />
-                <element signature="e#76291#79248#0#PHP" />
-                <element signature="e#79253#79534#0#PHP" />
-                <element signature="e#79539#84870#0#PHP" />
-                <element signature="e#84875#85243#0#PHP" />
-                <element signature="e#85248#99531#0#PHP" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/OrderExcelModel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/module/admin/assets/string-mask/src/string-mask.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66028">
-              <caret line="3897" column="1" selection-start-line="3897" selection-start-column="1" selection-end-line="3897" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -333,6 +189,227 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" />
       </list>
     </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/public/module/admin/assets/string-mask/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/assets/tagging/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/Flot/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap-colorpicker/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap-datepicker/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap-daterangepicker/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/chart.js/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/ckeditor/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/eve-raphael/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/ion.rangeSlider/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/jquery-knob/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/jquery-slimscroll/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/jquery-ui/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/morris.js/package.json" />
+      <path value="$PROJECT_DIR$/public/module/admin/bower_components/select2/package.json" />
+      <path value="$PROJECT_DIR$/public/module/blog/plugins/camohub-jquery-sortable-lists/package.json" />
+      <path value="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/package.json" />
+      <path value="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/package.json" />
+      <path value="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/package.json" />
+      <path value="$PROJECT_DIR$/public/plugins/layout/plugins/code-prettify/package.json" />
+      <path value="$PROJECT_DIR$/public/plugins/layout/plugins/jquery-ui-1.12.1.custom/package.json" />
+      <path value="$PROJECT_DIR$/public/plugins/layout/plugins/js-beautify-1.7.5/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/Flot/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-colorpicker/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-datepicker/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-daterangepicker/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/chart.js/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/ckeditor/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/eve-raphael/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/ion.rangeSlider/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/jquery-knob/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/jquery-slimscroll/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/jquery-ui/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/morris.js/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/bower_components/select2/package.json" />
+      <path value="$PROJECT_DIR$/public/tmp/AdminLTE-2.4.15/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/@types/node/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/@types/yauzl/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/abab/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/acorn-globals/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/acorn-walk/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/acorn/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/agent-base/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/ajv/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/asn1/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/assert-plus/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/asynckit/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/aws-sign2/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/aws4/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/balanced-match/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/base64-js/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/bcrypt-pbkdf/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/bignumber.js/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/bl/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/boolbase/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/brace-expansion/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/browser-process-hrtime/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/buffer-crc32/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/buffer/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/caseless/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/cheerio/node_modules/parse5/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/cheerio/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/chownr/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/combined-stream/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/concat-map/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/core-util-is/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/css-select/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/css-what/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/cssom/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/cssstyle/node_modules/cssom/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/cssstyle/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/dashdash/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/data-urls/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/debug/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/decimal.js/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/deep-is/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/delayed-stream/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/devtools-protocol/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/dom-serializer/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/domelementtype/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/domexception/node_modules/webidl-conversions/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/domexception/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/domhandler/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/domutils/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/ecc-jsbn/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/encoding-japanese/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/end-of-stream/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/entities/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/escodegen/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/esprima/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/estraverse/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/esutils/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/extend/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/extract-zip/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/extsprintf/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/fast-deep-equal/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/fast-json-stable-stringify/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/fast-levenshtein/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/fd-slicer/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/find-up/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/forever-agent/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/form-data/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/fs-constants/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/fs.realpath/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/get-stream/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/getpass/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/glob/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/har-schema/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/har-validator/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/html-encoding-sniffer/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/htmlparser2/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/http-signature/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/https-proxy-agent/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/iconv-lite/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/ieee754/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/inflight/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/inherits/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/ip-regex/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/is-potential-custom-element-name/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/is-typedarray/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/isarray/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/isstream/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/jquery/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/jsbn/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/jsdom/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/json-schema-traverse/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/json-schema/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/json-stringify-safe/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/jsprim/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/levn/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/locate-path/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/lodash.sortby/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/lodash/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/mime-db/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/mime-types/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/minimatch/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/mkdirp-classic/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/moment/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/ms/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/mysql/node_modules/readable-stream/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/mysql/node_modules/safe-buffer/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/mysql/node_modules/string_decoder/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/mysql/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/node-fetch/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/nth-check/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/nwsapi/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/oauth-sign/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/once/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/optionator/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/p-limit/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/p-locate/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/p-try/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/parse5/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/path-exists/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/path-is-absolute/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/pend/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/performance-now/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/pkg-dir/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/prelude-ls/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/process-nextick-args/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/progress/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/proxy-from-env/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/psl/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/pump/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/punycode/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/puppeteer/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/qs/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/readable-stream/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/request-promise-core/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/request-promise-native/node_modules/tough-cookie/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/request-promise-native/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/request/node_modules/tough-cookie/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/request/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/rimraf/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/safe-buffer/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/safer-buffer/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/saxes/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/simple-node-logger/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/source-map/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/sqlstring/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/sshpk/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/stealthy-require/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/string_decoder/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/symbol-tree/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/tar-fs/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/tar-stream/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/through/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/tough-cookie/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/tr46/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/tunnel-agent/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/tweetnacl/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/type-check/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/unbzip2-stream/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/uri-js/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/util-deprecate/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/uuid/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/verror/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/w3c-hr-time/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/w3c-xmlserializer/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/webidl-conversions/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/whatwg-encoding/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/whatwg-mimetype/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/whatwg-url/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/word-wrap/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/wrappy/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/ws/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/xml-name-validator/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/xmlchars/package.json" />
+      <path value="$PROJECT_DIR$/tool/node_modules/yauzl/package.json" />
+    </packageJsonPaths>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -619,17 +696,17 @@
       <workItem from="1606442748057" duration="6151000" />
       <workItem from="1606471210743" duration="1647000" />
       <workItem from="1606495741745" duration="5318000" />
+      <workItem from="1606528869510" duration="254000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95035000" />
+    <option name="totallyTimeSpent" value="95289000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2803838" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2835821" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -652,6 +729,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/composer.json">
@@ -894,10 +974,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1207">
+          <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27659">
           <caret line="1627" column="21" selection-start-line="1627" selection-start-column="21" selection-end-line="1627" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5372">
+          <caret line="330" selection-start-line="330" selection-end-line="330" />
         </state>
       </provider>
     </entry>
@@ -907,6 +1001,27 @@
           <caret line="2250" column="38" selection-start-line="2250" selection-start-column="38" selection-end-line="2250" selection-end-column="38" />
           <folding>
             <element signature="e#31#61#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14484">
+          <caret line="1882" column="18" selection-start-line="1882" selection-start-column="18" selection-end-line="1882" selection-end-column="18" />
+          <folding>
+            <element signature="e#2993#3899#0#PHP" />
+            <element signature="e#52644#61835#0#PHP" />
+            <element signature="e#61856#63143#0#PHP" />
+            <element signature="e#63148#68797#0#PHP" />
+            <element signature="e#68802#71538#0#PHP" />
+            <element signature="e#71543#75196#0#PHP" />
+            <element signature="e#75201#76286#0#PHP" />
+            <element signature="e#76291#79248#0#PHP" />
+            <element signature="e#79253#79534#0#PHP" />
+            <element signature="e#79539#84870#0#PHP" />
+            <element signature="e#84875#85243#0#PHP" />
+            <element signature="e#85248#99531#0#PHP" />
           </folding>
         </state>
       </provider>
@@ -928,94 +1043,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="1884" column="41" selection-start-line="1884" selection-start-column="41" selection-end-line="1884" selection-end-column="41" />
-          <folding>
-            <element signature="e#2993#3899#0#PHP" />
-            <element signature="e#52644#61835#0#PHP" />
-            <element signature="e#61856#63143#0#PHP" />
-            <element signature="e#63148#68797#0#PHP" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="e#68802#71538#0#PHP" />
-            <element signature="e#71543#75196#0#PHP" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="e#75201#76286#0#PHP" />
-            <element signature="e#76291#79248#0#PHP" />
-            <element signature="e#79253#79534#0#PHP" />
-            <element signature="e#79539#84870#0#PHP" />
-            <element signature="e#84875#85243#0#PHP" />
-            <element signature="e#85248#99531#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="62" column="40" selection-start-line="62" selection-start-column="40" selection-end-line="62" selection-end-column="40" />
-          <folding>
-            <element signature="e#1974#1992#0#HTML" expanded="true" />
-            <element signature="e#2454#2474#0#HTML" expanded="true" />
-            <element signature="e#2503#2521#0#HTML" expanded="true" />
-            <element signature="e#2640#2660#0#HTML" expanded="true" />
-            <element signature="e#2599#2619#0#HTML" expanded="true" />
-            <element signature="e#25603#74801#0#HTML" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#74829#149016#0#HTML" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#149047#222748#0#HTML" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#222778#279507#0#HTML" />
-            <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#279533#329041#0#HTML" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#329789#337830#0#HTML" />
-            <element signature="e#338083#338835#0#HTML" />
-            <element signature="e#338893#354111#0#HTML" />
-            <element signature="e#354366#355600#0#HTML" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="316" column="19" selection-start-line="316" selection-start-column="19" selection-end-line="316" selection-end-column="19" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#15548#17367#0#HTML" />
-            <element signature="e#17417#18319#0#HTML" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="91" column="47" selection-start-line="91" selection-start-column="47" selection-end-line="91" selection-end-column="47" />
+        <state relative-caret-position="314">
+          <caret line="107" column="44" lean-forward="true" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
         </state>
       </provider>
     </entry>
