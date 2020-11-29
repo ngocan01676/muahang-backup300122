@@ -35,7 +35,7 @@ class ModuleController extends \Zoe\Http\ControllerBackend
         $config_zoe = config('zoe');
         $relativePath = base_path($config_zoe['structure']['module']) . DIRECTORY_SEPARATOR . $module;
         require_once $relativePath . DIRECTORY_SEPARATOR.'Module.php';
-        $name = 'Module' . ucwords($module);
+        $name = 'Module' . ucwords(Str::of($module)->camel());
         $class = '\\' . $name . '\\Module';
         return new $class();
     }
