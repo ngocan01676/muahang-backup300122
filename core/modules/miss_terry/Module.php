@@ -8,8 +8,8 @@ use Illuminate\Database\Schema\Blueprint;
 use \Illuminate\Database\Query\Builder;
 class Module extends ZModule
 {
-    public static $name = "Shop Ja";
-    public static $description = "Shop Ja";
+    public static $name = "Missterry";
+    public static $description = "Missterry";
     public static $require = [];
     public static $dev = true;
 
