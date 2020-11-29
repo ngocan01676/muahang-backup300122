@@ -1,10 +1,10 @@
 <?php
-$name ="miss-terry";
+$key ="miss_terry";
 return [
     "sidebars" => [
-        "backend:$name:room:list" => [
+        "backend:$key:room:list" => [
             "name" => z_language("Quản lý room",false),
-            "url" => "backend:$name:room:list",
+            "url" => "backend:$key:room:list",
             "pos" => 2,
             "header" => true,
             "icon"=>"fa fa-inbox",

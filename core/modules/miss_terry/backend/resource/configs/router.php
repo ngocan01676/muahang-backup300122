@@ -1,11 +1,12 @@
 <?php
 $name ="miss-terry";
+$key = 'miss_terry';
 $url = md5($name);
 $namespace = "MissTerry\Http\Controllers";
 return [
     'routers' => [
         'backend' => [
-            $name.':room' => [
+            $key.':room' => [
                 "namespace" => $namespace,
                 "controller" => "RoomController",
                 "sub_prefix" => "/$url/room",
@@ -15,6 +16,9 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
+                    "create"=>[
+                        'url'=>'/create'
+                    ]
                 ]
             ],
          ]

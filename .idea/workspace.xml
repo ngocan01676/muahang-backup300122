@@ -2,13 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/configs.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/router.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/sidebar.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/missterry/backend/resource/views/controller/room/list.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/room/JUNGLE.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/missterry/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/missterry/Module.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ModuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ModuleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/configs.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/configs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/controller/room/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/controller/room/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/miss_terry/backend/src/Http/Controllers/RoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/src/Http/Controllers/RoomController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/Applications/89921048_2616166438710099_624937695986057216_o.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/Pictures/58dfddf152a2a3fcfab3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/Pictures/89921048_2616166438710099_624937695986057216_o.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/Pictures/Design/89921048_2616166438710099_624937695986057216_o.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/Pictures/Design/abc.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/Pictures/fb.PNG" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -128,42 +136,55 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/router.php">
+        <entry file="file://$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/controller/room/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="20" />
+            <state relative-caret-position="51">
+              <caret line="3" column="78" selection-start-line="3" selection-start-column="78" selection-end-line="3" selection-end-column="78" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/sidebar.php">
+        <entry file="file://$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/form/room.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+            <state relative-caret-position="626">
+              <caret line="497" column="13" selection-start-line="497" selection-start-column="13" selection-end-line="497" selection-end-column="13" />
+              <folding>
+                <element signature="e#1492#1513#0#HTML" expanded="true" />
+                <element signature="e#3330#3351#0#HTML" expanded="true" />
+                <element signature="e#2337#8485#0#HTML" />
+                <element signature="e#17584#19817#0#HTML" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
+        <entry file="file://$PROJECT_DIR$/core/modules/blog/backend/src/Http/Controllers/PostController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="84" column="10" lean-forward="true" selection-start-line="78" selection-start-column="4" selection-end-line="84" selection-end-column="10" />
+            <state relative-caret-position="221">
+              <caret line="19" column="62" lean-forward="true" selection-start-line="17" selection-start-column="6" selection-end-line="19" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/views/controller/room/list.blade.php">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/core/modules/miss_terry/backend/src/Http/Controllers/RoomController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
+              <folding>
+                <element signature="e#44#72#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/src/Http/Controllers/RoomController.php">
+        <entry file="file://$PROJECT_DIR$/core/modules/blog/backend/resource/views/controller/post/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            <state>
+              <caret selection-end-line="9" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -186,6 +207,9 @@
       <find>page</find>
       <find>row-title</find>
       <find>product_id</find>
+      <find>Illuminate\Support\Str</find>
+      <find>current_language</find>
+      <find>wrap_rows</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -210,13 +234,21 @@
         <option value="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/PageController.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php" />
         <option value="$PROJECT_DIR$/core/themes/zoe/frontend/resource/views/controller/blog/post/lists.blade.php" />
-        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/core/modules/missterry/Module.php" />
         <option value="$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/configs.php" />
         <option value="$PROJECT_DIR$/core/modules/missterry/backend/src/Http/Controllers/IndexController.php" />
         <option value="$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/router.php" />
         <option value="$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/sidebar.php" />
+        <option value="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ModuleController.php" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/sidebar.php" />
+        <option value="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/configs.php" />
+        <option value="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/controller/room/list.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/router.php" />
+        <option value="$PROJECT_DIR$/core/modules/miss_terry/backend/src/Http/Controllers/RoomController.php" />
+        <option value="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/controller/room/create.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/form/room.blade.php" />
       </list>
     </option>
   </component>
@@ -373,30 +405,6 @@
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
               <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="missterry" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="missterry" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -404,7 +412,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="missterry" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -413,7 +421,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="missterry" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="configs" type="462c0819:PsiDirectoryNode" />
@@ -423,7 +431,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="missterry" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
@@ -433,7 +441,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="missterry" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
@@ -444,7 +452,138 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="missterry" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="post" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="Comment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="configs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
@@ -456,7 +595,18 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="missterry" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -465,7 +615,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="missterry" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
@@ -475,7 +625,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="missterry" type="462c0819:PsiDirectoryNode" />
+              <item name="miss_terry" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
@@ -493,114 +643,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="configs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="shop_ja" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
               <item name="user" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Providers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
@@ -622,12 +665,19 @@
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="configs" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="tmp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="uploads" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
@@ -650,12 +700,13 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\zoecms\core\modules\missterry\backend\resource\configs" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\zoecms\core\modules\missterry\backend\src\Http" />
       <recent name="C:\xampp\htdocs\zoecms\core\modules\missterry" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\zoecms\public\uploads\Room" />
+      <recent name="C:\xampp\htdocs\zoecms\core\modules\missterry\backend\resource\configs" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -688,7 +739,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20739000" />
+    <option name="totallyTimeSpent" value="25871000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -719,134 +770,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/ship.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="36" column="84" selection-start-line="36" selection-start-column="84" selection-end-line="36" selection-end-column="109" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/role/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-296" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/src/ViewComposers/SidebarComposer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="6" lean-forward="true" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/zoe/Http/Middleware/PermissionMiddleware.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="61" column="25" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/role/premission.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="150" column="40" lean-forward="true" selection-start-line="150" selection-start-column="40" selection-end-line="150" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/elfinder.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/sidebar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="39" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="4" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/announce.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1581" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/layout.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-971" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="143" lean-forward="true" selection-start-line="27" selection-start-column="120" selection-end-line="27" selection-end-column="143" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/export.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/configs/option.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="73" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="108" selection-start-line="18" selection-start-column="108" selection-end-line="18" selection-end-column="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/src/Http/Controllers/RoleController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="48" column="46" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/src/Providers/AppServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="82" selection-start-line="14" selection-start-column="69" selection-end-line="14" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/PageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="135" column="1" lean-forward="true" selection-start-line="135" selection-start-column="1" selection-end-line="135" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tmp/lang.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="52" column="15" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24599">
@@ -948,13 +871,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="20" lean-forward="true" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/user/frontend/resource/configs/configs.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -971,23 +887,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/configs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/missterry/Module.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
-          <folding>
-            <element signature="e#33#56#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/configs.php" />
+    <entry file="file://$PROJECT_DIR$/core/modules/missterry/Module.php" />
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -995,34 +896,175 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/src/Http/Controllers/RoomController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/views/controller/room/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/src/Http/Controllers/RoomController.php" />
+    <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/views/controller/room/list.blade.php" />
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="84" column="10" lean-forward="true" selection-start-line="78" selection-start-column="4" selection-end-line="84" selection-end-column="10" />
+          <caret line="84" column="10" selection-start-line="78" selection-start-column="4" selection-end-line="84" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/router.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/router.php" />
+    <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/sidebar.php" />
+    <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="20" />
+        <state relative-caret-position="255">
+          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/missterry/backend/resource/configs/sidebar.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ModuleController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="53" column="70" selection-start-line="53" selection-start-column="70" selection-end-line="53" selection-end-column="70" />
+          <folding>
+            <element signature="e#42#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Str.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="20" lean-forward="true" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/user/frontend/resource/views/controller/user/info.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="8" column="14" lean-forward="true" selection-end-line="49" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/blog/backend/resource/views/controller/post/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="65" column="18" lean-forward="true" selection-end-line="80" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/blog/frontend/src/Http/Controllers/PostController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/resource/configs/configs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="74" column="10" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="74" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="36" lean-forward="true" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/zoe/Http/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/blog/backend/resource/configs/router.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/src/Http/Controllers/MemberController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/configs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/controller/room/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/blog/backend/resource/views/plugins/Comment/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/blog/backend/resource/views/form/post.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1309">
+          <caret line="116" column="30" lean-forward="true" selection-end-line="387" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/blog/backend/resource/views/controller/post/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="9" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/blog/backend/src/Http/Controllers/PostController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="62" lean-forward="true" selection-start-line="17" selection-start-column="6" selection-end-line="19" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/miss_terry/backend/src/Http/Controllers/RoomController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
+          <folding>
+            <element signature="e#44#72#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/controller/room/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="78" selection-start-line="3" selection-start-column="78" selection-end-line="3" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/form/room.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="626">
+          <caret line="497" column="13" selection-start-line="497" selection-start-column="13" selection-end-line="497" selection-end-column="13" />
+          <folding>
+            <element signature="e#1492#1513#0#HTML" expanded="true" />
+            <element signature="e#3330#3351#0#HTML" expanded="true" />
+            <element signature="e#2337#8485#0#HTML" />
+            <element signature="e#17584#19817#0#HTML" />
+          </folding>
         </state>
       </provider>
     </entry>
