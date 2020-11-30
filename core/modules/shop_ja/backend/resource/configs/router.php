@@ -200,7 +200,7 @@ return [
             'shop_ja:order:excel' => [
                 "namespace" => "ShopJa\Http\Controllers",
                 "controller" => "OrderExcelController",
-                "sub_prefix" => "/shop-ja/order/excel-form",
+                "sub_prefix" => "/shop-ja/order/excel",
                 "guard" => "backend",
                 "acl"=> "shop_ja:order:excel",
                 "name"=>"Hóa đơn",
