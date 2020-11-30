@@ -18,8 +18,8 @@
                 'columns' => [
                     'lists' => [
                         'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
-                        'get_title_lang' => ['label' => z_language('Tiêu đề', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha'],
-                        'image' => ['label' => z_language('Ảnh', false), 'type' => 'text', 'primary' => true, 'order_by' => 'amount'],
+                        'title' => ['label' => z_language('Tiêu đề', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha'],
+                        'HtmlImg' => ['label' => z_language('Ảnh', false),'callback'=>'HtmlImg', 'type' => 'text', 'primary' => true, 'order_by' => 'amount'],
                         'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status', 'order_by' => 'amount'],
                         'created_at' => ['label' => z_language('Thơi gian tạo', false), 'type' => 'date'],
                         'updated_at' => ['label' => z_language('Thời gian sửa', false), 'type' => 'date']

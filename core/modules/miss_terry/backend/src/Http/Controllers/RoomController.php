@@ -1,7 +1,11 @@
 <?php
 namespace MissTerry\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
+use MissTerry\Http\Models\Room\RoomModel;
 class RoomController extends \Zoe\Http\ControllerBackend
 {
     public function init()
@@ -80,8 +84,8 @@ class RoomController extends \Zoe\Http\ControllerBackend
         } else {
             $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
         }
-         $models->join('miss_room_translation as rt', 'rt.room_id', '=', 'room.id');
-         $models->where('rt.lang_code', $lang);
+//         $models->join('miss_room_translation as rt', 'rt.room_id', '=', 'room.id');
+//         $models->where('rt.lang_code', $lang);
 
         $models->select($select);
         $models = $models->paginate($item, ['*'], 'page', $page);
@@ -92,9 +96,8 @@ class RoomController extends \Zoe\Http\ControllerBackend
             "route" => $route,
             'parameter' => $parameter,
             'callback' => [
-                "GetTitle" => function ($model) use ($lang) {
-                    $rs = DB::table('miss_room_translation as t')->where('room_id', $model->id)->where('lang_code', $lang)->get('title');
-                    return $rs && count($rs) > 0 ? $rs[0]->title : "Empty";
+                "HtmlImg" => function ($model) use ($lang) {
+                    return "<img style='width:150px' src='".$model->image."'/>";
                 }
             ],
         ]);
@@ -104,5 +107,83 @@ class RoomController extends \Zoe\Http\ControllerBackend
     {
         $this->getCrumb()->breadcrumb('Tạo Phòng', route('backend:miss_terry:room:create'));
         return $this->render('room.create', ['item' => []]);
+    }
+    public function edit($id)
+    {
+        $this->getCrumb()->breadcrumb('Post Edit', route('backend:blog:post:create'));
+        $item = RoomModel::find($id);
+        if (isset($this->data['configs']['post']['language']['multiple'])) {
+            $trans = $item->table_translation()->where(['room_id' => $id])->get();
+            foreach ($trans as $tran) {
+                $item->offsetSet("title_" . $tran->lang_code, $tran->title);
+                $item->offsetSet("description_" . $tran->lang_code, $tran->description);
+                $item->offsetSet("content_" . $tran->lang_code, $tran->content);
+            }
+        }
+
+        return $this->render('room.edit', ["item" => $item, "lang_active" => $this->data['current_language']]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'image' => 'required',
+            'time' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'content' => 'required',
+        ], [
+            'image.required' => 'The Image is Required.',
+        ]);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        if (isset($data['id']) && !empty($data['id'])) {
+            $model = RoomModel::find($data['id']);
+        } else {
+            $model = new RoomModel();
+        }
+
+        $model->slug = \Illuminate\Support\Str::slug($data['title'], '-');
+        $model->image = $data['image'];
+        $model->status = $data['status'];
+        $model->admin_id = Auth::user()->id;
+
+        $model->title = $data['title'];
+        $model->description = $data['description'];
+        $model->content = $data['content'];
+        $model->config = $data['config'];
+        $model->difficult = $data['difficult'];
+
+        DB::beginTransaction();
+        try {
+            $model->save();
+            foreach ($this->data['language'] as $lang => $_language) {
+                if (isset($data['title_' . $lang])) {
+                    $model->table_translation()->updateOrInsert(
+                        [
+                            'room_id' => $model->id,
+                            'lang_code' => $lang
+                        ],
+                        [
+                            'title' => $data['title_' . $lang],
+                            'description' => $data['description_' . $lang],
+                            'content' => $data['content_' . $lang]
+                        ]
+                    );
+                }
+            }
+            DB::commit();
+            return redirect(route('backend:miss_terry:room:edit', ['id' => $model->id]));
+        } catch (\Exception $ex) {
+            $validator->getMessageBag()->add('id', $ex->getMessage());
+            DB::rollBack();
+        }
+        return back()
+            ->withErrors($validator)
+            ->withInput();
     }
 }

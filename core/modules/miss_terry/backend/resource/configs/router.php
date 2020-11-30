@@ -18,7 +18,18 @@ return [
                     ],
                     "create"=>[
                         'url'=>'/create'
-                    ]
+                    ],
+                    "edit" => [
+                        'url' => '/edit/{id}'
+                    ],
+                    'store' => [
+                        'url' => '/store',
+                        'method' => ['post']
+                    ],
+                    'delete' => [
+                        'url' => '/delete',
+                        'method' => ['post']
+                    ],
                 ]
             ],
          ]

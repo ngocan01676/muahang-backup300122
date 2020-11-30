@@ -1,28 +1,39 @@
 @if(isset($item))
-    {!! Form::model($item, ['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store']) !!}
+    {!! Form::model($item, ['method' => 'POST','route' => ['backend:miss_terry:room:store'],'id'=>'form_store']) !!}
     {!! Form::hidden('id') !!}
 @else
-    {!! Form::open(['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store']) !!}
+    {!! Form::open(['method' => 'POST','route' => ['backend:miss_terry:room:store'],'id'=>'form_store']) !!}
 @endif
 
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <div class="col-md-9">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div><br/>
+    @endif
     <div class="nav-tabs-custom">
-
         @if(isset($configs['post']['language']['multiple']))
             <ul class="nav nav-tabs" {{$current_language}}>
                 <li class="active"><a href="#tab_info" data-toggle="tab">{!! z_language("Thông tin chung") !!}</a></li>
+                <li><a href="#tab_media" data-toggle="tab">{!! z_language("Thư viện ảnh") !!}</a></li>
                 @foreach($language as $lang=>$_language)
                     @if(isset($configs['post']['language']['lists']) &&(is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) && in_array($_language['lang'],$configs['post']['language']['lists'])))
                         <li {{$lang}}><a href="#tab_{{$lang}}"
-                                                                                                       data-toggle="tab"><span
+                                         data-toggle="tab"><span
                                         class="flag-icon flag-icon-{{$_language['flag']}}"></span></a></li>
                     @endif
                 @endforeach
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_info">
-                    <div style="display: none"><textarea id="Data" class="form-control" placeholder="Cấu hình" cols="5" rows="5" name="config"></textarea></div>
+                    <div style="display: none">
+                        <textarea id="Data" class="form-control" placeholder="Cấu hình" cols="5" rows="5" name="config">{!! $item?$item->config:'{}' !!}</textarea>
+                    </div>
                     <table class="table table-borderless">
                         <tbody>
                         <tr>
@@ -37,20 +48,32 @@
                         </tr>
                         <tr>
                             <td>
+                                {!! Form::label('difficult', z_language("Độ khó"), ['class' => 'time']) !!}
+
+                                {!! Form::radio('difficult', '5' , true) !!} 5
+                                {!! Form::radio('difficult', '4',false) !!} 4
+                                {!! Form::radio('difficult', '3',false) !!} 3
+                                {!! Form::radio('difficult', '2',false) !!} 2
+                                {!! Form::radio('difficult', '1',false) !!} 1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <table class="table table-bordered wrap_rows" id="wrap">
                                     <thead>
                                        <tr>
                                            <th class="text-center">{!! z_language("STT") !!}</th>
                                            <th class="text-center">{!! z_language("Số người") !!}</th>
-                                           <th class="text-center">{!! z_language("T2-T6 (Trước 17h)") !!}</th>
-                                           <th class="text-center">{!! z_language("T6 (Sau 17h)") !!}</th>
+                                           <th class="text-center">{!! z_language("T2-T6 trước 17:00") !!}</th>
+                                           <th class="text-center">{!! z_language("T6-CN sau 17:00") !!}</th>
                                            <th class="text-center">{!! z_language("Giá ngày lễ") !!}</th>
                                        </tr>
+
                                        <tr class="template" data-index="@INDEX@">
                                            <td class="text-center">0</td>
                                            <td><input data-key="user" data-name="data[@INDEX@].user" class="data form-control text" placeholder="{!! z_language('Số người') !!}" type="text"></td>
-                                           <td><input data-key="price1" data-name="data[@INDEX@].price1" class="data form-control value" placeholder="{!! z_language("T2-T6 (Trước 17h)") !!}" type="text"></td>
-                                           <td><input data-key="price2" data-name="data[@INDEX@].price2" class="data form-control value" placeholder="{!! z_language("T6 (Sau 17h)") !!}" type="text"></td>
+                                           <td><input data-key="price1" data-name="data[@INDEX@].price1" class="data form-control value" placeholder="{!! z_language("T2-T6 trước 17:00") !!}" type="text"></td>
+                                           <td><input data-key="price2" data-name="data[@INDEX@].price2" class="data form-control value" placeholder="{!! z_language("T6-CN sau 17:00") !!}" type="text"></td>
                                            <td><input data-key="price3" data-name="data[@INDEX@].price3" class="data form-control value" placeholder="{!! z_language("Giá ngày lễ") !!}" type="text"></td>
                                            <td class="text-center">
                                                <button type="button" data-id="#wrap" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
@@ -67,24 +90,18 @@
                         </tbody>
                     </table>
                 </div>
-
+                <div class="tab-pane clearfix" id="tab_media">
+                    <span><button type="button" class="btn btn-sm pull-right">Add</button> </span>
+                </div>
                 @foreach($language as $lang=>$_language)
                     @if(isset($configs['post']['language']['lists']) && (is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) &&  in_array($_language['lang'],$configs['post']['language']['lists'])) )
                         <div class="tab-pane" id="tab_{{$lang}}">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div><br/>
-                            @endif
+
                             <table class="table table-borderless">
                                 <tbody>
                                 <tr>
                                     <td>
-                                        {!! Form::label('id_title', 'Name', ['class' => 'title']) !!}
+                                        {!! Form::label('id_title', z_language('Tiêu đề'), ['class' => 'title']) !!}
                                         @if($current_language == $lang)
                                             {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
                                         @else
@@ -94,7 +111,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        {!! Form::label('id_description', 'Description', ['class' => 'description']) !!}
+                                        {!! Form::label('id_description', z_language('Mô tả'), ['class' => 'description']) !!}
                                         @if($current_language == $lang)
                                             {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
                                         @else
@@ -104,6 +121,7 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        {!! Form::label($lang.'_id_description', z_language('Quy định của phòng chơi'), ['class' => 'description']) !!}
                                         @if($current_language == $lang)
                                             {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
                                         @else
@@ -112,6 +130,8 @@
                                         <script>
                                             var editor_config = {
                                                     path_absolute: "/",
+                                                    height: "500",
+                                                    width: "calc(100% - 2px)",
                                                     selector: "textarea.my-editor",
                                                     plugins: [
                                                         "advlist autolink lists link image charmap print preview hr anchor pagebreak",
@@ -180,20 +200,23 @@
                 <tr>
                     <td>
                         {!! Form::label('id_title', 'Name', ['class' => 'title']) !!}
-                        {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
+                        {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Tiêu đề']) !!}
                     </td>
                 </tr>
                 <tr>
                     <td>
                         {!! Form::label('id_description', 'Description', ['class' => 'description']) !!}
-                        {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
+                        {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Mô tả','cols'=>5,'rows'=>5]) !!}
                     </td>
                 </tr>
                 <tr>
                     <td>
+                        {!! Form::label('id_description', 'Description', ['class' => 'description']) !!}
                         {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
                         <script>
                             var editor_config = {
+                                height: "100%",
+                                width: "calc(100% - 2px)",
                                     path_absolute: "/",
                                     selector: "textarea.my-editor",
                                     plugins: [
@@ -248,33 +271,12 @@
     </div>
 </div>
 <div class="col-md-3">
-    <div class="box box box-zoe">
-        <div class="box-body">
 
-            {!! Form::label('id_tag', 'Tag', ['class' => 'tag']) !!} *
-            {!! Form::text('tag',null, ['class' => 'form-control','placeholder'=>'Tag']) !!}
-        </div>
-    </div>
-    <div class="box box box-zoe">
-        <div class="box-body">
-
-            {!! Form::label('id_tag', 'Category', ['class' => 'Category']) !!} *
-            {!! Form::CategoriesNestable($nestables,$item?$item->category:[],"category") !!}
-
-        </div>
-    </div>
     <div class="box box box-zoe">
         <div class="box-body">
             {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
             {!! Form::radio('status', '1' , true) !!} Yes
             {!! Form::radio('status', '0',false) !!} No
-        </div>
-    </div>
-    <div class="box box box-zoe">
-        <div class="box-body">
-            {!! Form::label('id_status', 'Featured', ['class' => 'status']) !!}
-            {!! Form::radio('featured', '1' , true) !!} Yes
-            {!! Form::radio('featured', '0',false) !!} No
         </div>
     </div>
 
@@ -357,11 +359,8 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/boostrap-multi-select/css/bootstrap-multiselect.css') }}">
     <script src="{{ asset('module/admin/assets/boostrap-multi-select/js/bootstrap-multiselect.js') }}"></script>
-
-
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/tagging/css/amsify.suggestags.css') }}">
     <script src="{{ asset('module/admin/assets/tagging/js/jquery.amsify.suggestags.js') }}"></script>
-
     <script type="text/javascript">
 
         String.prototype.trimRight = function(charlist) {
@@ -374,12 +373,15 @@
                 let _data = JSON.parse(data);
                 $(".wrap_rows").find('tbody').empty();
                 let index = 0;
-                for(let k in _data){
-                    template($("#wrap"),_data[k],index++);
-                }
+                $("#wrap").mask("{!! z_language('Waiting...') !!}");
+                    for(let k in _data){
+                        template($("#wrap"),_data[k],index++);
+                    }
+                $("#wrap").unmask();
             }
         }
         (function () {
+
             renderData($("#Data").val() );
         })();
         function beforeSave(parent) {
@@ -495,7 +497,7 @@
             }else{
                 $("#Data").html(JSON.stringify(data.data));
             }
-           // document.getElementById('form_store').submit();
+           document.getElementById('form_store').submit();
         }
         $(document).ready(function () {
 
