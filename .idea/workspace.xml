@@ -4,6 +4,7 @@
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -123,46 +124,22 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="2201" lean-forward="true" selection-start-line="2201" selection-end-line="2201" />
-              <folding>
-                <element signature="e#31#61#0#PHP" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="255">
+              <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="1160" column="39" selection-start-line="1160" selection-start-column="39" selection-end-line="1160" selection-end-column="39" />
+            <state relative-caret-position="2355">
+              <caret line="1504" column="60" selection-start-line="1504" selection-start-column="60" selection-end-line="1504" selection-end-column="60" />
               <folding>
-                <element signature="e#2993#3899#0#PHP" />
-                <element signature="e#52644#61835#0#PHP" />
-                <element signature="e#61856#63143#0#PHP" />
-                <element signature="e#63148#68797#0#PHP" />
-                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="e#71543#75196#0#PHP" />
-                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="e#75201#76286#0#PHP" />
-                <element signature="e#76291#79248#0#PHP" />
-                <element signature="e#79253#79534#0#PHP" />
-                <element signature="e#79539#84870#0#PHP" />
-                <element signature="e#84875#85243#0#PHP" />
-                <element signature="e#85248#99531#0#PHP" />
+                <element signature="e#31#61#0#PHP" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -196,12 +173,12 @@
       <find>travelTime</find>
       <find>moment().add(5, 'seconds')</find>
       <find>OHGA</find>
-      <find>KU</find>
       <find>FUKU</find>
       <find>KO</find>
       <find>KOGYJA</find>
       <find>export</find>
       <find>'/uploads/exports/'</find>
+      <find>KU</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -233,8 +210,8 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" />
       </list>
     </option>
   </component>
@@ -760,7 +737,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97712000" />
+    <option name="totallyTimeSpent" value="98487000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1094,21 +1071,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="2201" lean-forward="true" selection-start-line="2201" selection-end-line="2201" />
+        <state relative-caret-position="2355">
+          <caret line="1504" column="60" selection-start-line="1504" selection-start-column="60" selection-end-line="1504" selection-end-column="60" />
           <folding>
             <element signature="e#31#61#0#PHP" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>

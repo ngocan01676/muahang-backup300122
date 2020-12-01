@@ -1501,7 +1501,9 @@ class Excel
                 ["仕入金額", 'order_total_price', 15, 9],//Giá bán
                 ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
                 ["手数料", 'order_ship_cou', 15, 9],
-                ["余分金", 'order_price', 15, 9],
+                ["余分金", ['callback' => function ($index, $val) use ($_dateNhan) {
+                    return "=P$index-N$index-O$index-Q$index";//$val;
+                }, 'key' => 'order_price'], 15, 9],
                 ["追跡番号", 'order_tracking', 15, 9],
                 ["振込み情報", 'order_info', 25, 9],
             ];
