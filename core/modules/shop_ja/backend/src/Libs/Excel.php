@@ -2095,7 +2095,6 @@ class Excel
                                 ));
 
                                 if ($pay_Method == "銀行振込") {
-
 //                                    $sheet->getStyle('A'.($start).':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
 //                                        'font'  => array(
 //                                            'size'  => 9,
@@ -2103,6 +2102,7 @@ class Excel
 //                                            'color' => array('rgb' => '0070c0'),
 //                                        ),
 //                                    ) );
+
                                     foreach (["B", "U"] as $col) {
                                         $sheet->getStyle($col . $start)->applyFromArray(array(
                                             'font' => array(
@@ -2110,7 +2110,6 @@ class Excel
                                             ),
                                         ));
                                     }
-
                                 } else if ($payMethod == "決済不要") {
 //                                    $sheet->getStyle('A'.$start.':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
 //                                        'font'  => array(
