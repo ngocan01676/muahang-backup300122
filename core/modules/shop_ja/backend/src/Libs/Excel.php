@@ -2162,7 +2162,7 @@ class Excel
                                     'name' => 'ＭＳ Ｐゴシック',
                                 )
                             ));
-                            $sheet->setCellValue("S" .$startRow,"SUM(S".$startRow . ":S".($start - 2));
+                            $sheet->setCellValue("S" .($start-1),"=SUM(S".$startRow . ":S".($start - 2).")");
                             foreach (["timeCreate", "fullname", "payMethod", 'zipcode', 'province', 'address', 'phone', 'order_date', 'order_hours'] as $col) {
                                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList[$col] + 1);
                                 $spreadsheet->getActiveSheet()->mergeCells($nameCol . $startRow . ":" . $nameCol . ($start - 2));
