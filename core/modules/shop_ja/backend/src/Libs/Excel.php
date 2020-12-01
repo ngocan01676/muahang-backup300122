@@ -781,7 +781,9 @@ class Excel
             ["別途送料", 'order_ship', 15, 9],//N
             ["仕入金額", 'order_total_price', 15, 9],//O
             ["代引き請求金額", 'order_total_price_buy', 15, 9],//P
-            ["代引き手数料", 'order_ship_cou', 15, 9],//Q
+            ["代引き手数料", ['callback' => function ($index, $value) use ($date_export) {
+                return empty($value)?0:$value;
+            }, 'key' => 'order_ship_cou'], 15, 9],//Q
             ["紹介料",['callback' => function ($index, $date) use ($date_export) {
                 return "=P$index-J$index*K$index-N$index-Q$index";
             }, 'key' => 'order_price'] , 15, 9],//R
