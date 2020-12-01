@@ -1925,7 +1925,7 @@ class Excel
                     return "8:00 ~ 12:00" == $value ? "午前中" : $value;
                 }, 'key' => 'order_hours'], 15, 9],//Giờ nhận
                 ["送料", 'order_ship', 15, 9],//Phí ship
-                ["梱包材", 'total_count', 15, 9,PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC],//Tổng giá nhập
+                ["梱包材", 'total_count', 15, 9,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC],//Tổng giá nhập
                 ["仕入金額", 'order_total_price', 15, 9],//Giá bán
                 ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
                 ["手数料",  ['callback' => function ($index, $value) use ($date_export) {
