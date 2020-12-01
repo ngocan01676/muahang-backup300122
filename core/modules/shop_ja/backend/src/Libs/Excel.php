@@ -1930,7 +1930,7 @@ class Excel
                 ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
                 ["手数料", 'order_ship_cou', 15, 9],
                 ["余分金", ['callback' => function ($index, $value,$a,$vals) use ($columns_value) {
-                    return $vals[$columns_value['type']]=='Info'?"=Q$index-N$index-P$index-R$index-O$index":"";
+                    return $vals[$columns_value['type']]=='Info'?"=Q$index-N$index-P$index-R$index-O$index":$value;
                 }, 'key' => 'order_price'], 15, 9],//
                 ["追跡番号", 'order_tracking', 15, 9],
                 ["振込み情報", 'order_info', 25, 9],
