@@ -1285,9 +1285,17 @@ class Excel
         );
         $writer = new Xlsx($spreadsheet);
         if($datas['type'] != "demo"){
-            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+            if ($name == "AMAZON") {
+                $path = '/uploads/exports/AMAZON';
+            }else{
+                $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+            }
+
         }else{
-            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+            if ($name == "AMAZON")
+                $path = '/uploads/demo/AMAZON' ;
+            else
+                $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
         }
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
