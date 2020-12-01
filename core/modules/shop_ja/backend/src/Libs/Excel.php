@@ -1898,7 +1898,7 @@ class Excel
                 ));
             $sheet->setCellValue( "I".$start, '※1キロずつの小分けをお願いします。');
             $sheet->getStyle("I".$start)->applyFromArray($styleArray);
-
+            $columns_value = array_flip($datas['columns']);
             $start++;
             $colums = [
                 ["注文日", ['callback' => function ($index, $date) use ($date_export) {
@@ -1929,8 +1929,8 @@ class Excel
                 ["仕入金額", 'order_total_price', 15, 9],//Giá bán
                 ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
                 ["手数料", 'order_ship_cou', 15, 9],
-                ["余分金", ['callback' => function ($index, $value) use ($date_export) {
-                    return "=Q$index-N$index-P$index-R$index-O$index";
+                ["余分金", ['callback' => function ($index, $value,$a,$vals) use ($columns_value) {
+                    return $vals[$columns_value['type']]=='Info'?"=Q$index-N$index-P$index-R$index-O$index":"";
                 }, 'key' => 'order_price'], 15, 9],//
                 ["追跡番号", 'order_tracking', 15, 9],
                 ["振込み情報", 'order_info', 25, 9],
@@ -1981,7 +1981,7 @@ class Excel
                 )
             );
             $start++;
-            $columns_value = array_flip($datas['columns']);
+
 
 
             foreach ($datas['datas'] as $key => $_values) {
