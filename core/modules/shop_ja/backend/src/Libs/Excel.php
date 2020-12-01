@@ -430,9 +430,16 @@ class Excel
             }, 'key' => 'address'], 18, 9], // G Địa chỉ giao hàng
             ["配送先電話番号", 'phone', 10, 9], // H Số điện thoại
             ["別途送料", 'order_ship', 15, 9], //I Phí Ship
-            ["紹介料", ['callback' => function ($index, $value, $a, $values) use ($columns_value) {
-                return $values[$columns_value['payMethod']] == "銀行振込" ? $value : (int)$value + 330;
-            }, 'key' => 'order_price'], 15, 9],// Lợi nhuận J
+            ["紹介料", [
+//                'callback' => function ($index, $value, $a, $values) use ($columns_value) {
+//                    return $values[$columns_value['payMethod']] == "銀行振込" ? $value : (int)$value + 330;
+//                }
+                'callback' => function ($index, $value, $a, $values) use ($columns_value) {
+                    return '=IF(N'.$index.'="","",K'.$index.'-N'.$index.'*O'.$index.'-I'.$index.')';//$values[$columns_value['payMethod']] == "銀行振込" ? $value : (int)$value + 330;
+                }
+                ,
+                'key' => 'order_price'],
+                15, 9],// Lợi nhuận J
             ["仕入金額", 'order_total_price_buy', 15, 9], // Tổng giá đơn hàng K
             ["品番", ['product' => ['product_id', 'code']], 10, 9], // Mã sản phẩm L
             ["商品名", ['product' => ['product_id', 'title']], 18, 9], // Tên sản phẩm M
@@ -775,7 +782,9 @@ class Excel
             ["仕入金額", 'order_total_price', 15, 9],//O
             ["代引き請求金額", 'order_total_price_buy', 15, 9],//P
             ["代引き手数料", 'order_ship_cou', 15, 9],//Q
-            ["紹介料", 'order_price', 15, 9],//R
+            ["紹介料",['callback' => function ($index, $date) use ($date_export) {
+                return '=IF(J'.$index.'="","",P'.$index.'-J'.$index.'*K'.$index.'-N'.$index.'-Q'.$index.')';
+            }, 'key' => 'order_price'] , 15, 9],//R
             ["追跡番号", 'order_tracking', 15, 9],//S
             ["振込み情報", 'order_info', 25, 9],//T
 //            ["", 'order_link', 25, 9],//U
@@ -1111,7 +1120,9 @@ class Excel
             ["仕入金額", 'order_total_price', 6.43, 9],//O
             ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
             ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
-            ["紹介料", 'order_price', 5.43, 9],//R
+            ["紹介料", ['callback' => function ($index, $date) use ($date_export) {
+                return '=IF(J'.$index.'="","",P'.$index.'-J'.$index.'*K'.$index.'-N'.$index.'-Q'.$index.')';
+            }, 'key' => 'order_price'], 5.43, 9],//R =IF(J4="","",P4-J4*K4-N4-Q4)
             ["追跡番号", 'order_tracking', 4.86, 9],//S
             ["振込み情報", 'order_info', 8.57, 9],//T
 //            ["",'order_link',25,9],//U
@@ -1918,7 +1929,9 @@ class Excel
                 ["仕入金額", 'order_total_price', 15, 9],//Giá bán
                 ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
                 ["手数料", 'order_ship_cou', 15, 9],
-                ["余分金", 'order_price', 15, 9],
+                ["余分金", ['callback' => function ($index, $value) use ($date_export) {
+                    return "=Q$index-N$index-P$index-R$index-O$index";
+                }, 'key' => 'order_price'], 15, 9],//
                 ["追跡番号", 'order_tracking', 15, 9],
                 ["振込み情報", 'order_info', 25, 9],
             ];

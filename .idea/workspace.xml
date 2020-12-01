@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" afterDir="false" />
     </list>
@@ -135,8 +134,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2355">
-              <caret line="1504" column="60" selection-start-line="1504" selection-start-column="60" selection-end-line="1504" selection-end-column="60" />
+            <state relative-caret-position="570">
+              <caret line="1123" column="105" selection-start-line="1123" selection-start-column="105" selection-end-line="1123" selection-end-column="105" />
               <folding>
                 <element signature="e#31#61#0#PHP" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
@@ -149,7 +148,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>makeid</find>
       <find>FUKUI</find>
       <find>sort</find>
       <find>group</find>
@@ -172,13 +170,14 @@
       <find>conflict</find>
       <find>travelTime</find>
       <find>moment().add(5, 'seconds')</find>
-      <find>OHGA</find>
-      <find>FUKU</find>
-      <find>KO</find>
       <find>KOGYJA</find>
       <find>export</find>
       <find>'/uploads/exports/'</find>
       <find>KU</find>
+      <find>FU</find>
+      <find>FUKU</find>
+      <find>KO</find>
+      <find>OHGA</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -737,7 +736,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98487000" />
+    <option name="totallyTimeSpent" value="99249000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1080,8 +1079,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2355">
-          <caret line="1504" column="60" selection-start-line="1504" selection-start-column="60" selection-end-line="1504" selection-end-column="60" />
+        <state relative-caret-position="570">
+          <caret line="1123" column="105" selection-start-line="1123" selection-start-column="105" selection-end-line="1123" selection-end-column="105" />
           <folding>
             <element signature="e#31#61#0#PHP" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
