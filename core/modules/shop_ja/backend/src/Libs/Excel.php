@@ -532,15 +532,15 @@ class Excel
                         if (isset($products[$id]) && property_exists($products[$id], $conf[1])) {
                             $_val = $products[$id]->{$conf[1]};
                         }
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $conf = $value[1]['callback'];
                         $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start, $values]);
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     }
                 } else {
                     $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
-                    $sheet->setCellValue($nameCol . $start, $v);
+                    $sheet->setCellValue($nameCol . $start, trim($v));
                     if ($value[1] == "payMethod") {
                         $payMethod = $v;
                     }
@@ -872,15 +872,15 @@ class Excel
                         if (isset($products[$id]) && property_exists($products[$id], $conf[1])) {
                             $_val = $products[$id]->{$conf[1]};
                         }
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $conf = $value[1]['callback'];
                         $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start]);
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     }
                 } else {
                     $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
-                    $sheet->setCellValue($nameCol . $start, $v);
+                    $sheet->setCellValue($nameCol . $start, trim($v));
                     if ($value[1] == "payMethod") {
                         $payMethod = $v;
                     }
@@ -1197,21 +1197,21 @@ class Excel
                         if ($_val == "0") {
                             $_val = "";
                         }
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $conf = $value[1]['callback'];
                         $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start]);
                         if ($_val == "0") {
                             $_val = "";
                         }
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     }
                 } else {
                     $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
                     if ($v == "0") {
                         $v = "";
                     }
-                    $sheet->setCellValue($nameCol . $start, $v);
+                    $sheet->setCellValue($nameCol . $start, trim($v));
                     if ($value[1] == "payMethod") {
                         $payMethod = $v;
                     }
@@ -1609,15 +1609,15 @@ class Excel
                             if (isset($products[$id]) && property_exists($products[$id], $conf[1])) {
                                 $_val = $products[$id]->{$conf[1]};
                             }
-                            $sheet->setCellValue($nameCol . $start, $_val);
+                            $sheet->setCellValue($nameCol . $start, trim($_val));
                         } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                             $conf = $value[1]['callback'];
                             $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start, $values]);
-                            $sheet->setCellValue($nameCol . $start, $_val);
+                            $sheet->setCellValue($nameCol . $start, trim($_val));
                         }
                     } else {
                         $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
-                        $sheet->setCellValue($nameCol . $start, $v);
+                        $sheet->setCellValue($nameCol . $start, trim($v));
                         $_val = $v;
                         if ($value[1] == "payMethod") {
                             $payMethod = $v;
@@ -2044,7 +2044,7 @@ class Excel
                                             }
                                         }
                                         if ($_val == "0") $_val = "";
-                                        $sheet->setCellValue($nameCol . $start, $_val);
+                                        $sheet->setCellValue($nameCol . $start, trim($_val));
                                     } else {
                                         if ($type == "Footer") {
                                             if (!($value[1] == "count" || $value[1] == "order_price" || $value[1] == "order_total_price")) continue;
@@ -2063,7 +2063,7 @@ class Excel
                                             $payMethod = $v;
                                         }
                                         if ($v == "0") $v = "";
-                                        $sheet->setCellValue($nameCol . $start, $v);
+                                        $sheet->setCellValue($nameCol . $start, trim($v));
                                     }
                                 }
                             }
