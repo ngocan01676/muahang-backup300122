@@ -2106,7 +2106,7 @@ class Excel
                                     foreach (["B", "U"] as $col) {
                                         $sheet->getStyle($col . $start)->applyFromArray(array(
                                             'font' => array(
-//                                                'color' => array('rgb' => '0070c0'),
+                                                'color' => array('rgb' => '0070c0'),
                                             ),
                                         ));
                                     }
