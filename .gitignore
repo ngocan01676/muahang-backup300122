@@ -12,5 +12,5 @@ npm-debug.log
 yarn-error.log
 /nbproject/private/
 public/uploads/
-/.idea
+.idea
 tool/node_modules/
