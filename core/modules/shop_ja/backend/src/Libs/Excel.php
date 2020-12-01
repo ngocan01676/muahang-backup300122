@@ -2043,7 +2043,7 @@ class Excel
                                                 $_val = "";
                                             }
                                         }
-                                        if ($_val == "0") $_val = "";
+                                        //if ($_val == "0") $_val = "";
                                         $sheet->setCellValue($nameCol . $start, trim($_val));
                                     } else {
                                         if ($type == "Footer") {
@@ -2062,7 +2062,7 @@ class Excel
                                         if ($value[1] == "payMethod") {
                                             $payMethod = $v;
                                         }
-                                        if ($v == "0") $v = "";
+                                       // if ($v == "0") $v = "";
                                         $sheet->setCellValue($nameCol . $start, trim($v));
                                     }
                                 }
