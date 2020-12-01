@@ -1122,7 +1122,7 @@ class Excel
             ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
             ["紹介料", ['callback' => function ($index, $date) use ($date_export) {
                 return '=IF(J'.$index.'="","",P'.$index.'-J'.$index.'*K'.$index.'-N'.$index.'-Q'.$index.')';
-            }, 'key' => 'order_price'], 5.43, 9],//R =IF(J4="","",P4-J4*K4-N4-Q4)
+            }, 'key' => 'order_price'], 5.43, 9],//R =IF(J4="","",P4-J4*K4-N4-Q4) P4-J4*K4-N4-Q4
             ["追跡番号", 'order_tracking', 4.86, 9],//S
             ["振込み情報", 'order_info', 8.57, 9],//T
 //            ["",'order_link',25,9],//U
@@ -1195,21 +1195,21 @@ class Excel
                             $_val = $products[$id]->{$conf[1]};
                         }
                         if ($_val == "0") {
-                            $_val = "";
+                            //$_val = "";
                         }
                         $sheet->setCellValue($nameCol . $start, trim($_val));
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $conf = $value[1]['callback'];
                         $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start]);
                         if ($_val == "0") {
-                            $_val = "";
+                           // $_val = "";
                         }
                         $sheet->setCellValue($nameCol . $start, trim($_val));
                     }
                 } else {
                     $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
                     if ($v == "0") {
-                        $v = "";
+                      //  $v = "";
                     }
                     $sheet->setCellValue($nameCol . $start, trim($v));
                     if ($value[1] == "payMethod") {
