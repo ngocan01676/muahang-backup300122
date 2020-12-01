@@ -783,7 +783,7 @@ class Excel
             ["代引き請求金額", 'order_total_price_buy', 15, 9],//P
             ["代引き手数料", 'order_ship_cou', 15, 9],//Q
             ["紹介料",['callback' => function ($index, $date) use ($date_export) {
-                return "P$index-J$index*K$index-N$index-Q$index";
+                return "=P$index-J$index*K$index-N$index-Q$index";
             }, 'key' => 'order_price'] , 15, 9],//R
             ["追跡番号", 'order_tracking', 15, 9],//S
             ["振込み情報", 'order_info', 25, 9],//T
@@ -1121,7 +1121,7 @@ class Excel
             ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
             ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
             ["紹介料", ['callback' => function ($index, $date) use ($date_export) {
-                return "P$index-J$index*K$index-N$index-Q$index";
+                return "=P$index-J$index*K$index-N$index-Q$index";
             }, 'key' => 'order_price'], 5.43, 9],//R =IF(J4="","",P4-J4*K4-N4-Q4) P4-J4*K4-N4-Q4
             ["追跡番号", 'order_tracking', 4.86, 9],//S
             ["振込み情報", 'order_info', 8.57, 9],//T
