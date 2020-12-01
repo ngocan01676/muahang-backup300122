@@ -2140,7 +2140,6 @@ class Excel
                                 $start++;
                             }
                             if ($type == "Footer") {
-                                 
                                 break;
                             }
                         }
@@ -2148,6 +2147,7 @@ class Excel
 
                             $_1 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["product_id"] + 1) . $startRow;
                             $_2 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"] + 1) . $startRow;
+
                             $sheet->getStyle($_1 . ':' . $_2)->applyFromArray(array(
 
 //                                'borders' => [
@@ -2162,6 +2162,7 @@ class Excel
                                     'name' => 'ＭＳ Ｐゴシック',
                                 )
                             ));
+                            $sheet->setCellValue("S" .$startRow,"=SUM(S".$startRow . ":S".($start - 2));
                             foreach (["timeCreate", "fullname", "payMethod", 'zipcode', 'province', 'address', 'phone', 'order_date', 'order_hours'] as $col) {
                                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList[$col] + 1);
                                 $spreadsheet->getActiveSheet()->mergeCells($nameCol . $startRow . ":" . $nameCol . ($start - 2));
