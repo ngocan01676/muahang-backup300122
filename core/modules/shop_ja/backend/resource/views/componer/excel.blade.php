@@ -540,6 +540,12 @@
      width:"50px",
      hide:true,
     },
+       order_info:{
+           title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+           type: 'text',
+           width:'100px',
+           key:"demo",
+       },
     timeCreate:{
      title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
      type: 'calendar',
@@ -603,6 +609,11 @@
      width:'100px',
      value:"",
     },
+       order_link:{
+           title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+           type: 'text',
+           width:'100px',
+       },
     product_id:{
      title: '{!! z_language("Mã SP") !!}',//H Mã SP
      type: 'text',
@@ -685,17 +696,8 @@
      width:'100px',
      key:"demo",
     },
-    order_link:{
-     title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
-     type: 'text',
-     width:'100px',
-    },
-    order_info:{
-     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
-     type: 'text',
-     width:'100px',
-     key:"demo",
-    },
+
+
     one_address: {
      type: 'checkbox',
      title:'{!! z_language("Cùng địa chỉ") !!}'
@@ -1564,6 +1566,12 @@
      width:"50px",
      hide:true,
     },
+       order_info:{
+           title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+           type: 'text',
+           width:'100px',
+           key:"demo",
+       },
     timeCreate:{
      title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
      type: 'calendar',
@@ -1615,6 +1623,11 @@
      width:'150px',
      key:"demo",
     },
+       order_link:{
+           title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+           type: 'text',
+           width:'100px',
+       },
     product_id:{
      title: '{!! z_language("Mã SP") !!}',//H Mã SP
      type: 'text',
@@ -1731,17 +1744,8 @@
      key:"demo",
      row:"0",
     },
-    order_link:{
-     title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
-     type: 'text',
-     width:'100px',
-    },
-    order_info:{
-     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
-     type: 'text',
-     width:'100px',
-     key:"demo",
-    },
+
+
     one_address: {
      type: 'checkbox',
      title:'{!! z_language("Cùng địa chỉ") !!}'
@@ -3123,6 +3127,12 @@
      width:"50px",
      hide:true,
     },
+     order_info:{
+           title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+           type: 'text',
+           width:'100px',
+           key:"demo",
+     },
     timeCreate:{
      title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
      type: 'calendar',
@@ -3171,6 +3181,11 @@
      width:'150px',
      key:"demo",
     },
+       order_link:{
+           title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+           type: 'text',
+           width:'100px',
+       },
     product_id:{
      title: '{!! z_language("Mã SP") !!}',//H Mã SP
      type: 'text',
@@ -3300,17 +3315,8 @@
      width:'100px',
      key:"demo",
     },
-    order_link:{
-     title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
-     type: 'text',
-     width:'100px',
-    },
-    order_info:{
-     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
-     type: 'text',
-     width:'100px',
-     key:"demo",
-    },
+
+
     one_address: {
      type: 'checkbox',
      title:'{!! z_language("Cùng địa chỉ") !!}'
@@ -4190,6 +4196,13 @@
      width:"50px",
      hide:true,
     },
+
+       order_info:{
+           title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+           type: 'text',
+           width:'100px',
+           key:"demo",
+       },
     timeCreate:{
      title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
      type: 'calendar',
@@ -4238,6 +4251,11 @@
      width:'150px',
      key:"demo",
     },
+       order_link:{
+           title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+           type: 'text',
+           width:'100px',
+       },
     product_id:{
      title: '{!! z_language("Mã SP") !!}',//H Mã SP
      type: 'text',
@@ -4334,17 +4352,7 @@
      width:'100px',
      key:"demo",
     },
-    order_link:{
-     title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
-     type: 'text',
-     width:'100px',
-    },
-    order_info:{
-     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
-     type: 'text',
-     width:'100px',
-     key:"demo",
-    },
+
     one_address: {
      type: 'checkbox',
      title:'{!! z_language("Cùng địa chỉ") !!}'
@@ -5217,6 +5225,12 @@
      width:"50px",
      hide:true,
     },
+       order_info:{
+           title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+           type: 'text',
+           width:'100px',
+           key:"demo",
+       },
     timeCreate:{
      title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
      type: 'calendar',
@@ -5265,6 +5279,11 @@
      width:'150px',
      key:"demo",
     },
+       order_link:{
+           title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+           type: 'text',
+           width:'100px',
+       },
     product_id:{
      title: '{!! z_language("Mã SP") !!}',//H Mã SP
      type: 'text',
@@ -5362,17 +5381,8 @@
      width:'100px',
      key:"demo",
     },
-    order_link:{
-     title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
-     type: 'text',
-     width:'100px',
-    },
-    order_info:{
-     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
-     type: 'text',
-     width:'100px',
-     key:"demo",
-    },
+
+
     one_address: {
      type: 'checkbox',
      title:'{!! z_language("Cùng địa chỉ") !!}',
