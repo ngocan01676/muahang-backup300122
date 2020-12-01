@@ -2171,7 +2171,7 @@ class Excel
                                 ];
                                 $spreadsheet->getActiveSheet()->getStyle($nameCol . $startRow)->applyFromArray($styleArray);
                             }
-                            $sheet->setCellValue('O' . $start, "=SUM(".$_1 . ':' . $_2.")");
+                            $sheet->setCellValue('S' . $start, "=SUM(".$_1 . ':' . $_2.")");
                             $start++;
 
                             $sheet->setCellValue('I' . $start, '※1キロずつの小分けをお願いします。');
