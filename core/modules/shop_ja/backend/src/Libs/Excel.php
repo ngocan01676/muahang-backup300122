@@ -2093,6 +2093,7 @@ class Excel
 //                                        'color' => array('rgb' => '0070c0'),
                                     ),
                                 ));
+                                
                                 if ($pay_Method == "銀行振込") {
 
 //                                    $sheet->getStyle('A'.($start).':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
