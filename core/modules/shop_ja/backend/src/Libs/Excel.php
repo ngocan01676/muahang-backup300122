@@ -589,7 +589,11 @@ class Excel
 //        $sheet->setCellValue("Q".$start, "=SUM(Q".$defaultStart.":Q".($start-1).")");
 
         $writer = new Xlsx($spreadsheet);
-        $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        if($datas['type'] != "demo"){
+            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }else{
+            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
@@ -926,7 +930,11 @@ class Excel
         }
 
         $writer = new Xlsx($spreadsheet);
-        $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        if($datas['type'] != "demo"){
+            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }else{
+            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
@@ -1265,7 +1273,11 @@ class Excel
             )
         );
         $writer = new Xlsx($spreadsheet);
-        $path = '/uploads/exports/' . $name;
+        if($datas['type'] != "demo"){
+            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }else{
+            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
@@ -1727,8 +1739,11 @@ class Excel
         }
 
         $writer = new Xlsx($spreadsheet);
-
-        $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        if($datas['type'] != "demo"){
+            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }else{
+            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
@@ -2189,10 +2204,16 @@ class Excel
 
         $writer = new Xlsx($spreadsheet);
 
-        $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        if($datas['type'] != "demo"){
+            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }else{
+            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
+
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
+
         $path = $path . '/' . date('Y-m-d', $this->date_export);
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
