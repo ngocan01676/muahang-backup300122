@@ -158,7 +158,7 @@
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="417">
-              <caret line="2164" column="104" lean-forward="true" selection-start-line="2164" selection-start-column="104" selection-end-line="2164" selection-end-column="104" />
+              <caret line="2164" column="65" lean-forward="true" selection-start-line="2164" selection-start-column="65" selection-end-line="2164" selection-end-column="65" />
               <folding>
                 <element signature="e#31#61#0#PHP" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
@@ -505,12 +505,12 @@
       <workItem from="1606471210743" duration="1647000" />
       <workItem from="1606495741745" duration="5318000" />
       <workItem from="1606528869510" duration="254000" />
-      <workItem from="1606835539173" duration="1084000" />
+      <workItem from="1606835539173" duration="1182000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97690000" />
+    <option name="totallyTimeSpent" value="97788000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -839,7 +839,7 @@
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
-          <caret line="2164" column="104" lean-forward="true" selection-start-line="2164" selection-start-column="104" selection-end-line="2164" selection-end-column="104" />
+          <caret line="2164" column="65" lean-forward="true" selection-start-line="2164" selection-start-column="65" selection-end-line="2164" selection-end-column="65" />
           <folding>
             <element signature="e#31#61#0#PHP" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
