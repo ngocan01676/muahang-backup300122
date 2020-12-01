@@ -2139,7 +2139,7 @@ class Excel
                                 $start++;
                             }
                             if ($type == "Footer") {
-                                $sheet->setCellValue('S' . $start, "=SUM(S".$startRow . ':S' . $startRow.")");
+                                $sheet->setCellValue('S' . $start, "=SUM(S".$startRow . ':S' . ($start-1).")");
                                 break;
                             }
                         }
