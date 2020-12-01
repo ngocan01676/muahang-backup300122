@@ -2093,7 +2093,6 @@ class Excel
 //                                        'color' => array('rgb' => '0070c0'),
                                     ),
                                 ));
-
                                 if ($pay_Method == "銀行振込") {
 //                                    $sheet->getStyle('A'.($start).':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
 //                                        'font'  => array(
@@ -2102,10 +2101,11 @@ class Excel
 //                                            'color' => array('rgb' => '0070c0'),
 //                                        ),
 //                                    ) );
-
                                     foreach (["B", "U"] as $col) {
+
                                         $sheet->getStyle($col . $start)->applyFromArray(array(
                                             'font' => array(
+                                                'size' => 20,
                                                 'color' => array('rgb' => '0070c0'),
                                             ),
                                         ));
@@ -2126,7 +2126,6 @@ class Excel
 //
 //                                        ),
 //                                    ) );
-
 //                                    foreach (["B", "U"] as $col) {
 //                                        $sheet->getStyle($col . $start)->applyFromArray(array(
 //                                            'font' => array(
@@ -2135,7 +2134,6 @@ class Excel
 //                                        ));
 //                                    }
                                 }
-
                                 $start++;
                             }
                             if ($type == "Footer") {
@@ -2143,12 +2141,9 @@ class Excel
                             }
                         }
                         if ($startRow != $start) {
-
                             $_1 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["product_id"] + 1) . $startRow;
                             $_2 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"] + 1) . $startRow;
-
                             $sheet->getStyle($_1 . ':' . $_2)->applyFromArray(array(
-
 //                                'borders' => [
 //                                    'allBorders' => array(
 //                                        'borderStyle' => Border::BORDER_DOTTED,
@@ -2164,6 +2159,7 @@ class Excel
                             $sheet->setCellValue("S" .($start-1),"=SUM(S".$startRow . ":S".($start - 2).")");
                             $sheet->setCellValue("K" .($start-1),"=SUM(K".$startRow . ":K".($start - 2).")");
                             $sheet->setCellValue("P" .($start-1),"=SUM(P".$startRow . ":P".($start - 2).")");
+
                             foreach (["timeCreate", "fullname", "payMethod", 'zipcode', 'province', 'address', 'phone', 'order_date', 'order_hours'] as $col) {
                                 $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList[$col] + 1);
                                 $spreadsheet->getActiveSheet()->mergeCells($nameCol . $startRow . ":" . $nameCol . ($start - 2));
@@ -2175,9 +2171,7 @@ class Excel
                                 ];
                                 $spreadsheet->getActiveSheet()->getStyle($nameCol . $startRow)->applyFromArray($styleArray);
                             }
-
                             $start++;
-
                             $sheet->setCellValue('I' . $start, '※1キロずつの小分けをお願いします。');
                             $sheet->getStyle('I' . $start)->applyFromArray(array(
                                     'font' => array(
