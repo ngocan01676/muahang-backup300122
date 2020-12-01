@@ -133,8 +133,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="2064" column="41" selection-start-line="2064" selection-start-column="41" selection-end-line="2064" selection-end-column="41" />
+            <state relative-caret-position="298">
+              <caret line="785" column="63" selection-start-line="785" selection-start-column="63" selection-end-line="785" selection-end-column="63" />
               <folding>
                 <element signature="e#31#61#0#PHP" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
@@ -156,7 +156,6 @@
       <find>total_count</find>
       <find>cofi</find>
       <find>table+='&lt;td&gt;'+(val.public == 1?&quot;Đơn&quot;:&quot;Nháp&quot;)+'&lt;/td&gt;';</find>
-      <find>YAMADA</find>
       <find>onload: function (e) {</find>
       <find>open_popup</find>
       <find>table+='&lt;td&gt;'+val.order_link+'&lt;/td&gt;';</find>
@@ -170,13 +169,14 @@
       <find>FU</find>
       <find>FUKU</find>
       <find>KO</find>
-      <find>OHGA</find>
       <find>FUKUI</find>
       <find>getAlignment()-&gt;setHorizontal</find>
       <find>$sheet-&gt;setCellValue</find>
       <find>yamada</find>
       <find>Ohga</find>
       <find>KOGYJA</find>
+      <find>YAMADA</find>
+      <find>OHGA</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -735,7 +735,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100612000" />
+    <option name="totallyTimeSpent" value="100695000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1078,8 +1078,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="2064" column="41" selection-start-line="2064" selection-start-column="41" selection-end-line="2064" selection-end-column="41" />
+        <state relative-caret-position="298">
+          <caret line="785" column="63" selection-start-line="785" selection-start-column="63" selection-end-line="785" selection-end-column="63" />
           <folding>
             <element signature="e#31#61#0#PHP" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
