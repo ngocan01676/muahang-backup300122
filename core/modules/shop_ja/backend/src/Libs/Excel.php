@@ -73,7 +73,7 @@ class Excel
                 ["紹介料", 'order_price', 15, 9],//R
                 ["追跡番号", 'order_tracking', 15, 9],//S
                 ["振込み情報", 'order_info', 25, 9],//T
-                ["", 'order_link', 25, 9],//U
+//                ["", 'order_link', 25, 9],//U
             ],
             "YAMADA" => [
                 ["注文日", ['callback' => function ($index, $date) {
@@ -438,7 +438,7 @@ class Excel
             ["商品名", ['product' => ['product_id', 'title']], 18, 9], // Tên sản phẩm M
             ["単価", 'price', 15, 9], // Giá nhập N
             ["数量", 'count', 15, 9], // Số lượng O
-            ["", '', 15, 9], // Số lượng O
+            ["追跡番号", '', 15, 9], // Số lượng O
             ["", 'order_info', 15, 9], // Số lượng O
         ];
         $start = 7;
@@ -774,7 +774,7 @@ class Excel
             ["紹介料", 'order_price', 15, 9],//R
             ["追跡番号", 'order_tracking', 15, 9],//S
             ["振込み情報", 'order_info', 25, 9],//T
-            ["", 'order_link', 25, 9],//U
+//            ["", 'order_link', 25, 9],//U
         ];
         $start = 3;
         $nameColList = [];
@@ -1373,7 +1373,7 @@ class Excel
             ->setCreator('php-download.com')
             ->setLastModifiedBy('php-download.com');
 
-        $sheet->setCellValue('B1', '株式会社クリチク　様 注文フォーマット');
+        //$sheet->setCellValue('B1', '株式会社クリチク　様 注文フォーマット');
 
 
         $styleArray = array(
@@ -2088,13 +2088,13 @@ class Excel
 //                                        ),
 //                                    ) );
 
-                                    foreach (["B", "U"] as $col) {
-                                        $sheet->getStyle($col . $start)->applyFromArray(array(
-                                            'font' => array(
-                                                'color' => array('rgb' => '0070c0'),
-                                            ),
-                                        ));
-                                    }
+//                                    foreach (["B", "U"] as $col) {
+//                                        $sheet->getStyle($col . $start)->applyFromArray(array(
+//                                            'font' => array(
+//                                                'color' => array('rgb' => '0000'),
+//                                            ),
+//                                        ));
+//                                    }
                                 }
 
                                 $start++;
