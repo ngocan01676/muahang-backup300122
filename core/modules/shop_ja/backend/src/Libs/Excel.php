@@ -2105,7 +2105,7 @@ class Excel
 
                                         $sheet->getStyle($col . $start)->applyFromArray(array(
                                             'font' => array(
-                                                'size' => 20,
+                                                'size' => 9,
                                                 'color' => array('rgb' => '0070c0'),
                                             ),
                                         ));
