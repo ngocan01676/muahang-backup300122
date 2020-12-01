@@ -73,7 +73,7 @@ class Excel
                 ["紹介料", 'order_price', 15, 9],//R
                 ["追跡番号", 'order_tracking', 15, 9],//S
                 ["振込み情報", 'order_info', 25, 9],//T
-                ["", 'order_link', 25, 9],//U
+//                ["", 'order_link', 25, 9],//U
             ],
             "YAMADA" => [
                 ["注文日", ['callback' => function ($index, $date) {
@@ -430,22 +430,29 @@ class Excel
             }, 'key' => 'address'], 18, 9], // G Địa chỉ giao hàng
             ["配送先電話番号", 'phone', 10, 9], // H Số điện thoại
             ["別途送料", 'order_ship', 15, 9], //I Phí Ship
-            ["紹介料", ['callback' => function ($index, $value, $a, $values) use ($columns_value) {
-                return $values[$columns_value['payMethod']] == "銀行振込" ? $value : (int)$value + 330;
-            }, 'key' => 'order_price'], 15, 9],// Lợi nhuận J
+            ["紹介料", [
+//                'callback' => function ($index, $value, $a, $values) use ($columns_value) {
+//                    return $values[$columns_value['payMethod']] == "銀行振込" ? $value : (int)$value + 330;
+//                }
+                'callback' => function ($index, $value, $a, $values) use ($columns_value) {
+                    return '=IF(N'.$index.'="","",K'.$index.'-N'.$index.'*O'.$index.'-I'.$index.')';//$values[$columns_value['payMethod']] == "銀行振込" ? $value : (int)$value + 330;
+                }
+                ,
+                'key' => 'order_price'],
+                15, 9],// Lợi nhuận J
             ["仕入金額", 'order_total_price_buy', 15, 9], // Tổng giá đơn hàng K
             ["品番", ['product' => ['product_id', 'code']], 10, 9], // Mã sản phẩm L
             ["商品名", ['product' => ['product_id', 'title']], 18, 9], // Tên sản phẩm M
             ["単価", 'price', 15, 9], // Giá nhập N
             ["数量", 'count', 15, 9], // Số lượng O
-            ["", '', 15, 9], // Số lượng O
+            ["追跡番号", '', 15, 9], // Số lượng O
             ["", 'order_info', 15, 9], // Số lượng O
         ];
         $start = 7;
         $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . $start)->applyFromArray($style_header);
         $nameColList = [];
 
-        $sheet->getStyle(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL);
+       // $sheet->getStyle(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL);
 
         foreach ($colums as $key => $value) {
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
@@ -525,15 +532,15 @@ class Excel
                         if (isset($products[$id]) && property_exists($products[$id], $conf[1])) {
                             $_val = $products[$id]->{$conf[1]};
                         }
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $conf = $value[1]['callback'];
                         $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start, $values]);
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     }
                 } else {
                     $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
-                    $sheet->setCellValue($nameCol . $start, $v);
+                    $sheet->setCellValue($nameCol . $start, trim($v));
                     if ($value[1] == "payMethod") {
                         $payMethod = $v;
                     }
@@ -589,7 +596,11 @@ class Excel
 //        $sheet->setCellValue("Q".$start, "=SUM(Q".$defaultStart.":Q".($start-1).")");
 
         $writer = new Xlsx($spreadsheet);
-        $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        if($datas['type'] != "demo"){
+            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }else{
+            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
@@ -771,10 +782,12 @@ class Excel
             ["仕入金額", 'order_total_price', 15, 9],//O
             ["代引き請求金額", 'order_total_price_buy', 15, 9],//P
             ["代引き手数料", 'order_ship_cou', 15, 9],//Q
-            ["紹介料", 'order_price', 15, 9],//R
+            ["紹介料",['callback' => function ($index, $date) use ($date_export) {
+                return "=P$index-J$index*K$index-N$index-Q$index";
+            }, 'key' => 'order_price'] , 15, 9],//R
             ["追跡番号", 'order_tracking', 15, 9],//S
             ["振込み情報", 'order_info', 25, 9],//T
-            ["", 'order_link', 25, 9],//U
+//            ["", 'order_link', 25, 9],//U
         ];
         $start = 3;
         $nameColList = [];
@@ -859,15 +872,15 @@ class Excel
                         if (isset($products[$id]) && property_exists($products[$id], $conf[1])) {
                             $_val = $products[$id]->{$conf[1]};
                         }
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $conf = $value[1]['callback'];
                         $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start]);
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     }
                 } else {
                     $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
-                    $sheet->setCellValue($nameCol . $start, $v);
+                    $sheet->setCellValue($nameCol . $start, trim($v));
                     if ($value[1] == "payMethod") {
                         $payMethod = $v;
                     }
@@ -926,7 +939,11 @@ class Excel
         }
 
         $writer = new Xlsx($spreadsheet);
-        $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        if($datas['type'] != "demo"){
+            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }else{
+            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
@@ -1103,7 +1120,9 @@ class Excel
             ["仕入金額", 'order_total_price', 6.43, 9],//O
             ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
             ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
-            ["紹介料", 'order_price', 5.43, 9],//R
+            ["紹介料", ['callback' => function ($index, $date) use ($date_export) {
+                return "=P$index-J$index*K$index-N$index-Q$index";
+            }, 'key' => 'order_price'], 5.43, 9],//R =IF(J4="","",P4-J4*K4-N4-Q4) P4-J4*K4-N4-Q4
             ["追跡番号", 'order_tracking', 4.86, 9],//S
             ["振込み情報", 'order_info', 8.57, 9],//T
 //            ["",'order_link',25,9],//U
@@ -1176,23 +1195,23 @@ class Excel
                             $_val = $products[$id]->{$conf[1]};
                         }
                         if ($_val == "0") {
-                            $_val = "";
+                            //$_val = "";
                         }
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $conf = $value[1]['callback'];
                         $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start]);
                         if ($_val == "0") {
-                            $_val = "";
+                           // $_val = "";
                         }
-                        $sheet->setCellValue($nameCol . $start, $_val);
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
                     }
                 } else {
                     $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
                     if ($v == "0") {
-                        $v = "";
+                      //  $v = "";
                     }
-                    $sheet->setCellValue($nameCol . $start, $v);
+                    $sheet->setCellValue($nameCol . $start, trim($v));
                     if ($value[1] == "payMethod") {
                         $payMethod = $v;
                     }
@@ -1265,7 +1284,11 @@ class Excel
             )
         );
         $writer = new Xlsx($spreadsheet);
-        $path = '/uploads/exports/' . $name;
+        if($datas['type'] != "demo"){
+            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }else{
+            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
@@ -1373,7 +1396,7 @@ class Excel
             ->setCreator('php-download.com')
             ->setLastModifiedBy('php-download.com');
 
-        $sheet->setCellValue('B1', '株式会社クリチク　様 注文フォーマット');
+        //$sheet->setCellValue('B1', '株式会社クリチク　様 注文フォーマット');
 
 
         $styleArray = array(
@@ -1489,7 +1512,9 @@ class Excel
                 ["仕入金額", 'order_total_price', 15, 9],//Giá bán
                 ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
                 ["手数料", 'order_ship_cou', 15, 9],
-                ["余分金", 'order_price', 15, 9],
+                ["余分金", ['callback' => function ($index, $val) use ($_dateNhan) {
+                    return "=P$index-N$index-O$index-Q$index";//$val;
+                }, 'key' => 'order_price'], 15, 9],
                 ["追跡番号", 'order_tracking', 15, 9],
                 ["振込み情報", 'order_info', 25, 9],
             ];
@@ -1584,15 +1609,15 @@ class Excel
                             if (isset($products[$id]) && property_exists($products[$id], $conf[1])) {
                                 $_val = $products[$id]->{$conf[1]};
                             }
-                            $sheet->setCellValue($nameCol . $start, $_val);
+                            $sheet->setCellValue($nameCol . $start, trim($_val));
                         } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                             $conf = $value[1]['callback'];
                             $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start, $values]);
-                            $sheet->setCellValue($nameCol . $start, $_val);
+                            $sheet->setCellValue($nameCol . $start, trim($_val));
                         }
                     } else {
                         $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
-                        $sheet->setCellValue($nameCol . $start, $v);
+                        $sheet->setCellValue($nameCol . $start, trim($v));
                         $_val = $v;
                         if ($value[1] == "payMethod") {
                             $payMethod = $v;
@@ -1727,8 +1752,11 @@ class Excel
         }
 
         $writer = new Xlsx($spreadsheet);
-
-        $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        if($datas['type'] != "demo"){
+            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }else{
+            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
@@ -1870,7 +1898,7 @@ class Excel
                 ));
             $sheet->setCellValue( "I".$start, '※1キロずつの小分けをお願いします。');
             $sheet->getStyle("I".$start)->applyFromArray($styleArray);
-
+            $columns_value = array_flip($datas['columns']);
             $start++;
             $colums = [
                 ["注文日", ['callback' => function ($index, $date) use ($date_export) {
@@ -1897,11 +1925,17 @@ class Excel
                     return "8:00 ~ 12:00" == $value ? "午前中" : $value;
                 }, 'key' => 'order_hours'], 15, 9],//Giờ nhận
                 ["送料", 'order_ship', 15, 9],//Phí ship
-                ["梱包材", 'total_count', 15, 9],//Tổng giá nhập
+                ["梱包材",['callback' => function ($index, $value) use ($date_export) {
+                    return empty($value)?0:$value;
+                }, 'key' => 'total_count'] , 15, 9],//Tổng giá nhập
                 ["仕入金額", 'order_total_price', 15, 9],//Giá bán
                 ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
-                ["手数料", 'order_ship_cou', 15, 9],
-                ["余分金", 'order_price', 15, 9],
+                ["手数料",  ['callback' => function ($index, $value) use ($date_export) {
+                    return empty($value)?0:$value;
+                }, 'key' => 'order_ship_cou'], 15, 9],
+                ["余分金", ['callback' => function ($index, $value,$a,$vals) use ($columns_value) {
+                    return "=Q$index-N$index-P$index-R$index-O$index";
+                }, 'key' => 'order_price'], 15, 9],//
                 ["追跡番号", 'order_tracking', 15, 9],
                 ["振込み情報", 'order_info', 25, 9],
             ];
@@ -1951,7 +1985,7 @@ class Excel
                 )
             );
             $start++;
-            $columns_value = array_flip($datas['columns']);
+
 
 
             foreach ($datas['datas'] as $key => $_values) {
@@ -2008,13 +2042,13 @@ class Excel
                                             }
                                         } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                                             $conf = $value[1]['callback'];
-                                            $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start]);
+                                            $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start,$values]);
                                             if (($value[1]['key'] == "timeCreate" || $value[1]['key'] == "order_date") && $type != "Info") {
                                                 $_val = "";
                                             }
                                         }
-                                        if ($_val == "0") $_val = "";
-                                        $sheet->setCellValue($nameCol . $start, $_val);
+                                        //if ($_val == "0") $_val = "";
+                                        $sheet->setCellValue($nameCol . $start, trim($_val));
                                     } else {
                                         if ($type == "Footer") {
                                             if (!($value[1] == "count" || $value[1] == "order_price" || $value[1] == "order_total_price")) continue;
@@ -2032,8 +2066,13 @@ class Excel
                                         if ($value[1] == "payMethod") {
                                             $payMethod = $v;
                                         }
-                                        if ($v == "0") $v = "";
-                                        $sheet->setCellValue($nameCol . $start, $v);
+                                       // if ($v == "0") $v = "";
+                                        if(isset($value[4])){
+                                            $sheet->setCellValueExplicit($nameCol . $start, trim($v),$value[4]);
+                                        }else{
+                                            $sheet->setCellValue($nameCol . $start, trim($v));
+                                        }
+
                                     }
                                 }
                             }
@@ -2088,25 +2127,26 @@ class Excel
 //                                        ),
 //                                    ) );
 
-                                    foreach (["B", "U"] as $col) {
-                                        $sheet->getStyle($col . $start)->applyFromArray(array(
-                                            'font' => array(
-                                                'color' => array('rgb' => '0070c0'),
-                                            ),
-                                        ));
-                                    }
+//                                    foreach (["B", "U"] as $col) {
+//                                        $sheet->getStyle($col . $start)->applyFromArray(array(
+//                                            'font' => array(
+//                                                'color' => array('rgb' => '0000'),
+//                                            ),
+//                                        ));
+//                                    }
                                 }
 
                                 $start++;
                             }
                             if ($type == "Footer") {
+                                 
                                 break;
                             }
                         }
                         if ($startRow != $start) {
 
                             $_1 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["product_id"] + 1) . $startRow;
-                            $_2 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"] + 1) . ($start - 2);
+                            $_2 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"] + 1) . $startRow;
                             $sheet->getStyle($_1 . ':' . $_2)->applyFromArray(array(
 
 //                                'borders' => [
@@ -2189,10 +2229,16 @@ class Excel
 
         $writer = new Xlsx($spreadsheet);
 
-        $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        if($datas['type'] != "demo"){
+            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }else{
+            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
+
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
+
         $path = $path . '/' . date('Y-m-d', $this->date_export);
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);

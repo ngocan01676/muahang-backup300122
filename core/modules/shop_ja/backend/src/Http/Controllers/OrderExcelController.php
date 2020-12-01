@@ -1552,6 +1552,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $datas[$result->company][] = [
                             $result->public==1,
                             $result->order_image,
+                            $result->order_info,
                             $result->order_create_date,
                             $pay_method,
                             !empty($result->order_date)?date('Y-m-d',strtotime($result->order_date)):"",
@@ -1561,6 +1562,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->province,
                             $result->address,
                             $result->phone,
+                            $result->order_link,
                             $result->product_id,
                             $result->product_id,
                             $result->count,
@@ -1574,8 +1576,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $order_profit,
                             (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
                             $result->order_tracking,
-                            $result->order_link,
-                            $result->order_info,
+
+
                             $result->one_address==1,
                             $result->id,
                             $result->session_id,
@@ -1604,6 +1606,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $datas[$result->company][] = [
                             $result->public==1,
                             $result->order_image,
+                            $result->order_info,
                             $result->order_create_date,
                             $pay_method,
                             $result->phone,
@@ -1611,6 +1614,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->province,
                             $result->address,
                             $result->fullname,
+                            $result->order_link,
                             $result->product_id,
                             $result->product_id,
                             $result->count,
@@ -1627,8 +1631,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $order_profit,
                             $result->type == "Info"?$result->rate:0,
                             $result->order_tracking,
-                            $result->order_link,
-                            $result->order_info,
+
+
                             $result->one_address==1,
                             $result->id,
                             $result->type,
@@ -1682,6 +1686,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $datas[$result->company][] = [
                             $result->public==1,
                             $result->order_image,
+                            $result->order_info,
                             $result->order_create_date,
                             $pay_method,
                             $result->phone,
@@ -1689,6 +1694,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->province,
                             $result->address,
                             $result->fullname,
+                            $result->order_link,
                             $result->product_id,
                             $result->product_id,
                             $result->count,
@@ -1705,8 +1711,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $order_profit,
                             (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
                             $result->order_tracking,
-                            $result->order_link,
-                            $result->order_info,
+
+
                             $result->one_address==1,
                             $result->id,
                             $result->session_id,
@@ -1758,6 +1764,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $datas[$result->company][] = [
                             $result->public==1,
                             $result->order_image,
+                            $result->order_info,
                             $result->order_create_date,
                             $pay_method,
                             $result->phone,
@@ -1765,6 +1772,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->province,
                             $result->address,
                             $result->fullname,
+                            $result->order_link,
                             $result->product_id,
                             $result->product_id,
                             $result->count,
@@ -1780,8 +1788,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $order_profit,
                             (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
                             $result->order_tracking,
-                            $result->order_link,
-                            $result->order_info,
+
+
                             $result->one_address==1,
                             $result->id,
                             $result->session_id,
