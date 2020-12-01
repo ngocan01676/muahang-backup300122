@@ -781,9 +781,7 @@ class Excel
             ["別途送料", 'order_ship', 15, 9],//N
             ["仕入金額", 'order_total_price', 15, 9],//O
             ["代引き請求金額", 'order_total_price_buy', 15, 9],//P
-            ["代引き手数料", ['callback' => function ($index, $value) use ($date_export) {
-                return empty($value)?0:$value;
-            }, 'key' => 'order_ship_cou'], 15, 9],//Q
+            ["代引き手数料", 'order_ship_cou', 15, 9],//Q
             ["紹介料",['callback' => function ($index, $date) use ($date_export) {
                 return "=P$index-J$index*K$index-N$index-Q$index";
             }, 'key' => 'order_price'] , 15, 9],//R
@@ -1930,7 +1928,9 @@ class Excel
                 ["梱包材", 'total_count', 15, 9],//Tổng giá nhập
                 ["仕入金額", 'order_total_price', 15, 9],//Giá bán
                 ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
-                ["手数料", 'order_ship_cou', 15, 9],
+                ["手数料",  ['callback' => function ($index, $value) use ($date_export) {
+                    return empty($value)?0:$value;
+                }, 'key' => 'order_ship_cou'], 15, 9],
                 ["余分金", ['callback' => function ($index, $value,$a,$vals) use ($columns_value) {
                     return "=Q$index-N$index-P$index-R$index-O$index";
                 }, 'key' => 'order_price'], 15, 9],//
