@@ -2093,7 +2093,7 @@ class Excel
 //                                        'color' => array('rgb' => '0070c0'),
                                     ),
                                 ));
-                                
+
                                 if ($pay_Method == "銀行振込") {
 
 //                                    $sheet->getStyle('A'.($start).':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
@@ -2106,7 +2106,7 @@ class Excel
                                     foreach (["B", "U"] as $col) {
                                         $sheet->getStyle($col . $start)->applyFromArray(array(
                                             'font' => array(
-                                                'color' => array('rgb' => '0070c0'),
+//                                                'color' => array('rgb' => '0070c0'),
                                             ),
                                         ));
                                     }
@@ -2157,7 +2157,7 @@ class Excel
 //                                    ),
 //                                ],
                                 'font' => array(
-                                    'color' => array('rgb' => '0070c0'),
+//                                    'color' => array('rgb' => '0070c0'),
                                     'size' => 9,
                                     'name' => 'ＭＳ Ｐゴシック',
                                 )
