@@ -1992,8 +1992,8 @@ class Excel
                 $type = ((isset($columns_value['type']) ? $_values[$columns_value['type']] : ""));
 
                 if ($type == "Info") {
-
-                    $pay_Method = $this->getValuePayMethod(isset($columns_value['payMethod']) ? $_values[$columns_value['payMethod']] : "");
+                    $payMethod = isset($columns_value['payMethod']) ? $_values[$columns_value['payMethod']] : "";
+                    $pay_Method = $this->getValuePayMethod($payMethod);
 
                     $image = (isset($columns_value['image']) ? $_values[$columns_value['image']] : "");
                     $order_info = (isset($columns_value['order_info']) ? $_values[$columns_value['order_info']] : "");
@@ -2093,7 +2093,7 @@ class Excel
 //                                        'color' => array('rgb' => '0070c0'),
                                     ),
                                 ));
-                                if ($pay_Method == "銀行振込") {
+                                if ($payMethod == "銀行振込") {
 //                                    $sheet->getStyle('A'.($start).':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
 //                                        'font'  => array(
 //                                            'size'  => 9,
