@@ -2038,7 +2038,7 @@ class Excel
                                             }
                                         } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                                             $conf = $value[1]['callback'];
-                                            $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start]);
+                                            $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start,$values]);
                                             if (($value[1]['key'] == "timeCreate" || $value[1]['key'] == "order_date") && $type != "Info") {
                                                 $_val = "";
                                             }
