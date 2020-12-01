@@ -2139,13 +2139,14 @@ class Excel
                                 $start++;
                             }
                             if ($type == "Footer") {
+                                $sheet->setCellValue('S' . $start, "=SUM(S".$startRow . ':S' . $startRow.")");
                                 break;
                             }
                         }
                         if ($startRow != $start) {
 
                             $_1 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["product_id"] + 1) . $startRow;
-                            $_2 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"] + 1) . ($start - 2);
+                            $_2 = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList["count"] + 1) . $startRow;
                             $sheet->getStyle($_1 . ':' . $_2)->applyFromArray(array(
 
 //                                'borders' => [
@@ -2171,7 +2172,7 @@ class Excel
                                 ];
                                 $spreadsheet->getActiveSheet()->getStyle($nameCol . $startRow)->applyFromArray($styleArray);
                             }
-                            $sheet->setCellValue('S' . $start, "=SUM(".$_1 . ':' . $_2.")");
+
                             $start++;
 
                             $sheet->setCellValue('I' . $start, '※1キロずつの小分けをお願いします。');
