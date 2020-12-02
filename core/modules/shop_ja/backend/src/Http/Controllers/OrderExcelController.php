@@ -1962,8 +1962,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
             $this->getCrumb()->breadcrumb(z_language("Xuất :COMPANY",["COMPANY"=>$company]), route('backend:shop_ja:order:excel:show'));
             $model = new OrderExcelModel();
+            DB::enableQueryLog();
             $datas = $model->ShowAll(Auth::user()->id,$date,$company,$type);
-
+            echo logs_sql();
             $model->key_date =$date;
             $model->detail = $this->GetData($datas,true);
             $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
