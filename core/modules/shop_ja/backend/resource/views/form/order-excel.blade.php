@@ -8093,11 +8093,14 @@
                 });
             }else{
                 let datas = {};
+                let companeys = {};
                 $("#spreadsheet .jexcel_tab_link").each(function () {
                     let  worksheet = this.getAttribute('data-spreadsheet');
                     let data = spreadsheet.jexcel[worksheet].options.data;
 
                     let name = this.textContent;
+                    companeys[name] = this;
+                    $(companeys[name]).removeClass('error');
                     let _columns = [];
                     for(let k in  columnsAll[name] ){
                         _columns.push(k);
@@ -8106,6 +8109,7 @@
                         data:data,
                         columns:_columns
                     };
+
                 });
                 let form_store = $("#form_store");
 
@@ -8139,6 +8143,7 @@
                                     if(data["logs"].hasOwnProperty(i)){
                                         if(data["logs"][i].length > 0 ){
                                             errro++;
+                                            $(companeys[i]).addClass("error");
                                         }
                                     }
                                 }
