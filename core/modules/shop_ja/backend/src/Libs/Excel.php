@@ -1577,7 +1577,7 @@ class Excel
             $start++;
 
             $products = DB::table('shop_product')->get()->keyBy('id')->all();
-
+            $startIndex = $start;
             foreach ($datas['datas'] as $key => $values) {
                 $payMethod = (isset($columns_value['payMethod']) ? $values[$columns_value['payMethod']] : "");
 
@@ -1673,7 +1673,7 @@ class Excel
             }
 
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship'] + 1);
-            $sheet->setCellValue($nameCol . $start, $total_order_ship);
+            $sheet->setCellValue($nameCol . $start, "SUM($nameCol$startIndex:".$nameCol.($start-1).")");
             $sheet->getStyle($nameCol . $start)->applyFromArray(array(
                     'font' => array(
                         'size' => 9,
@@ -1683,7 +1683,7 @@ class Excel
                 )
             );
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_total_price'] + 1);
-            $sheet->setCellValue($nameCol . $start, $total_order_total_price);
+            $sheet->setCellValue($nameCol . $start, "SUM($nameCol$startIndex:".$nameCol.($start-1).")");
             $sheet->getStyle($nameCol . $start)->applyFromArray(array(
                     'font' => array(
                         'size' => 9,
@@ -1693,7 +1693,7 @@ class Excel
                 )
             );
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_total_price_buy'] + 1);
-            $sheet->setCellValue($nameCol . $start, $total_order_total_price_buy);
+            $sheet->setCellValue($nameCol . $start, "SUM($nameCol$startIndex:".$nameCol.($start-1).")");
             $sheet->getStyle($nameCol . $start)->applyFromArray(array(
                     'font' => array(
                         'size' => 9,
@@ -1703,7 +1703,7 @@ class Excel
                 )
             );
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship_cou'] + 1);
-            $sheet->setCellValue($nameCol . $start, $total_ship_cou);
+            $sheet->setCellValue($nameCol . $start, "SUM($nameCol$startIndex:".$nameCol.($start-1).")");
             $sheet->getStyle($nameCol . $start)->applyFromArray(array(
                     'font' => array(
                         'size' => 9,
@@ -1713,7 +1713,7 @@ class Excel
                 )
             );
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_price'] + 1);
-            $sheet->setCellValue($nameCol . $start, $total_order_price);
+            $sheet->setCellValue($nameCol . $start, "SUM($nameCol$startIndex:".$nameCol.($start-1).")");
             $sheet->getStyle($nameCol . $start)->applyFromArray(array(
                     'font' => array(
                         'size' => 9,
