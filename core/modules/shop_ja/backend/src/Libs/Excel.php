@@ -1702,6 +1702,7 @@ class Excel
                     ),
                 )
             );
+
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship_cou'] + 1);
             $sheet->setCellValue($nameCol . $start, "SUM($nameCol$startIndex:".$nameCol.($start-1).")");
             $sheet->getStyle($nameCol . $start)->applyFromArray(array(
@@ -1722,6 +1723,7 @@ class Excel
                     ),
                 )
             );
+
             $start++;
             if ($typeMethod == 0) {
 //                $start+=2;
