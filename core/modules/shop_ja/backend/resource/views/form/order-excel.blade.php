@@ -2095,8 +2095,6 @@
                 console.log(data);
                 let valueRow =  instance.jexcel.getRowData(r);
 
-
-
                 if(isNaN(data.count) || data.count === 0 ){
 
                     if(

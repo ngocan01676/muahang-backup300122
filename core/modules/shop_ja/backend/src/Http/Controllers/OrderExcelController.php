@@ -540,7 +540,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
                                         "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
                                         "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
-                                        "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:0),
+                                        "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:null),
                                         "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
                                         "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
                                         "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
@@ -570,6 +570,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     if ($product_id > 0 && $_data['type'] == "Item" || $_data['type'] == "Footer" || $_data['type'] == "Info") {
 //                                        $logs[$name][] = $_data;
 //                                        DB::table('shop_order_excel')->insert($_data);
+                                        $where = [];
 
                                         if(isset($columns["id"]) && !empty($values[$columns["id"]])){
                                             $id = $values[$columns["id"]];
@@ -579,29 +580,32 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                                 $where = ['key_id'=>$values[$columns["id"]]];
                                                 $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
                                             }
-                                        }else{
-                                            $where = [
-                                                'session_id' => $_data['session_id'],
-                                                'admin_id' => $_data['admin_id'],
-                                                'fullname'=>$_data['fullname'],
-                                                "company"=>$_data["company"],
-                                                "zipcode"=>$_data["zipcode"],
-                                                "phone"=>$_data["phone"],
-                                                "address"=>$_data["address"],
-                                                "province"=>$_data["province"],
-                                                "pay_method"=>$_data["pay_method"],
-                                                "order_hours"=>$_data["order_hours"],
-                                                "order_date"=>$_data["order_date"],
-                                                "order_index"=>$_data["order_index"],
-                                                "type"=> $_data["type"],
-                                                "sort"=> $_data["sort"],
-                                            ];
-                                            $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
-
                                         }
+//                                        else{
+//                                            $where = [
+//                                                'session_id' => $_data['session_id'],
+//                                                'admin_id' => $_data['admin_id'],
+//                                                'fullname'=>$_data['fullname'],
+//                                                "company"=>$_data["company"],
+//                                                "zipcode"=>$_data["zipcode"],
+//                                                "phone"=>$_data["phone"],
+//                                                "address"=>$_data["address"],
+//                                                "province"=>$_data["province"],
+//                                                "pay_method"=>$_data["pay_method"],
+//                                                "order_hours"=>$_data["order_hours"],
+//                                                "order_date"=>$_data["order_date"],
+//                                                "order_index"=>$_data["order_index"],
+//                                                "type"=> $_data["type"],
+//                                                "sort"=> $_data["sort"],
+//                                            ];
+//                                            $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
+//
+//                                        }
                                         $ids[$name][] = [$where,$_data];
                                         $_[] = $where;
-                                        DB::table('shop_order_excel')->updateOrInsert($where,$_data);
+                                        if(count($where) > 0){
+                                            DB::table('shop_order_excel')->updateOrInsert($where,$_data);
+                                        }
                                     }
 
                                 }
