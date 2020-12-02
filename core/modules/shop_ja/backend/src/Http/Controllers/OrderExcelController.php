@@ -148,9 +148,48 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                     if($name== "KOGYJA"){
                         try{
+
+//                            foreach ($order['data'] as $key=>$values){
+//                                if($values[$columns["type"]] == "Info"){
+//                                    $oke = false;
+//                                    foreach ($order['data'] as $key1=>$values1){
+//                                        if ($key1!=$key && $values1[$columns["token"]] == $values[$columns["token"]]) {
+//                                            $order['data'][$key1][$columns["status"]] =  $values[$columns["status"]];
+//                                            $order['data'][$key1][$columns["timeCreate"]] = $values[$columns["timeCreate"]];
+//                                            $order['data'][$key1][$columns["session_id"]] = $values[$columns["session_id"]];
+//                                            $order['data'][$key1][$columns["fullname"]] = $values[$columns["fullname"]];
+//                                            $order['data'][$key1][$columns["address"]] = $values[$columns["address"]];
+//                                            $order['data'][$key1][$columns["phone"]] = $values[$columns["phone"]];
+//                                            $order['data'][$key1][$columns["province"]] = $values[$columns["province"]];
+//                                            $order['data'][$key1][$columns["payMethod"]] = $values[$columns["payMethod"]];
+//                                            $order['data'][$key1][$columns["zipcode"]] = $values[$columns["zipcode"]];
+//                                            $order['data'][$key1][$columns["order_date"]] = $values[$columns["order_date"]];
+//                                            $order['data'][$key1][$columns["admin"]] = $values[$columns["admin"]];
+//                                        }
+//                                    }
+//                                }
+//                            }
+                            $dataNew = [];
                             foreach ($order['data'] as $key=>$values){
                                 if($values[$columns["type"]] == "Info"){
                                     $oke = false;
+
+                                    $dateNewRow = [];
+                                    $dateNewRow[$key] = $values;
+                                    $id = $values[$columns["id"]];
+                                    $error = 0;
+
+                                    $_count = (int)(isset($columns["count"]) ? $values[$columns["count"]] : null);
+
+                                    if($_count < 0 ){
+                                        $error++;
+                                    }
+                                    if(is_numeric($id)){
+                                        $idsOrder[$values[$columns["id"]]] = "id";
+                                    }else{
+                                        $idsOrder[$values[$columns["id"]]] = "key";
+                                    }
+
                                     foreach ($order['data'] as $key1=>$values1){
                                         if ($key1!=$key && $values1[$columns["token"]] == $values[$columns["token"]]) {
                                             $order['data'][$key1][$columns["status"]] =  $values[$columns["status"]];
@@ -163,16 +202,38 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             $order['data'][$key1][$columns["payMethod"]] = $values[$columns["payMethod"]];
                                             $order['data'][$key1][$columns["zipcode"]] = $values[$columns["zipcode"]];
                                             $order['data'][$key1][$columns["order_date"]] = $values[$columns["order_date"]];
-                                            $order['data'][$key1][$columns["admin"]] = $values[$columns["admin"]];
-//                                            if($values1[$columns["type"]] == "Footer"){
-//                                                $oke = true;
-//                                                $order['data'][$key1][$columns["position"]] = (int) $order['data'][$key1][$columns["position"]] - 1;
-//                                            }
+
+                                            if($values1[$columns["type"]] == "Footer"){
+                                                $oke = true;
+                                                $dateNewRow[$key1] =  $order['data'][$key1];
+                                                $_count = (int)(isset($columns["count"]) ? $values1[$columns["count"]] : null);
+                                                if($_count < 0 ){
+                                                    $error++;
+                                                }
+                                            }else if(isset($columns["type"]) && isset($values1[$columns["type"]]) && !empty(trim($values1[$columns["type"]]))){
+                                                $dateNewRow[$key1] = $order['data'][$key1];
+                                                $_count = (int)(isset($columns["count"]) ? $values1[$columns["count"]] : null);
+                                                if($_count < 0 ){
+                                                    $error++;
+                                                }
+                                            }
+                                            $id = $values1[$columns["id"]];
+                                            if(is_numeric($id)){
+                                                $idsOrder[$values1[$columns["id"]]] = "id";
+                                            }else{
+                                                $idsOrder[$values1[$columns["id"]]] = "key";
+                                            }
                                         }
+                                    }
+                                    if($error == 0){
+                                        $dataNew[$key] = $dateNewRow;
+                                    }else{
+                                        $logs[$name][] = "Có lỗi sai số lượng";
                                     }
                                 }
                             }
-                            foreach ($order['data'] as $key=>$values){
+                            foreach ($dataNew as $valuesNew) {
+                                foreach ($valuesNew as $key => $values) {
                                 $pay_method = 0;
                                 if($values[$columns["payMethod"]] == "代金引換"){
                                     $pay_method = 1;
@@ -254,6 +315,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }
                                 }
                             }
+                          }
                         }catch (\Exception $ex){
                             $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
                         }
@@ -480,7 +542,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 ->where('company',$name)
                                 ->where('admin_id',$model->admin_id)
                                 ->where('session_id',$model->id)->get()->keyBy('id')->all();
-
                             $idsOrder = [
 
                             ];
@@ -544,10 +605,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     if($error == 0){
                                         $dataNew[$key] = $dateNewRow;
                                     }else{
-                                        $logs[$name][] = "Có lỗi sái số lượng";
+                                        $logs[$name][] = "Có lỗi sai số lượng";
                                     }
                                 }
                             }
+
                             foreach ($dataNew as $valuesNew) {
                                 foreach ($valuesNew as $key => $values) {
                                     $pay_method = 0;
