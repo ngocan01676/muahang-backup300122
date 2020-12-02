@@ -540,7 +540,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
                                         "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
                                         "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
-                                        "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:null),
+                                        "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:0),
                                         "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
                                         "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
                                         "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
