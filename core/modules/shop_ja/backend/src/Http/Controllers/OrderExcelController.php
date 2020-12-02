@@ -520,7 +520,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $product_code = $_product[$product_id]['data']['code'];
                                         $product_title = $_product[$product_id]['data']['title'];
                                     }
-
                                     $_data = [
                                         "order_create_date"=>$model->key_date,
                                         "company"=>$name,
@@ -566,12 +565,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     $_data["sort"] = $model->admin_id * 1000000 + ($key+1) * $model->admin_id + $_data["order_index"]  + strtotime($model->key_date);
 
                                     $validator = Validator::make($_data,$check);
+
                                      $_ = [$values,$_data,$columns];
                                     if ($product_id > 0 && $_data['type'] == "Item" || $_data['type'] == "Footer" || $_data['type'] == "Info") {
 //                                        $logs[$name][] = $_data;
 //                                        DB::table('shop_order_excel')->insert($_data);
                                         $where = [];
-
                                         if(isset($columns["id"]) && !empty($values[$columns["id"]])){
                                             $id = $values[$columns["id"]];
                                             if(is_numeric($id)){
