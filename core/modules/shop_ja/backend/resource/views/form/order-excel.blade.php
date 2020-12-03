@@ -2435,6 +2435,7 @@
         //    console.log(data);
             console.log(config);
             let _data = InitData(data,config,columns_index,sheetName);
+            let default_data = InitData([],config,columns_index,sheetName);
            console.log(columns_index);
            console.log(_data);
             let change = {col:-1,row:-1};
@@ -2932,9 +2933,11 @@
 
                         let v = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
                         if(v == -1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.add('error');
+
                         else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.remove('error');
 
                         let value = instance.jexcel.getRowData(row);
+
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
 
                         let pos_start_end = indexFist(instance.jexcel,row);
@@ -3043,6 +3046,7 @@
                                 parentType.addClass('action')
                             }
                         }
+
                         //indexFist(instance.jexcel,row);
                     }
                 },
@@ -3088,7 +3092,7 @@
 
                                 r = parseInt(r);
                                 let index = indexFist(instance.jexcel,r);
-
+                                console.log(index);
 
 
                                 if(index.start < r && index.end > r){
@@ -3109,6 +3113,7 @@
                                     instance.jexcel.insertRow(1, parseInt(index.end));
 
                                     parentRowEnd = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index,  index.end ]))).parent();
+
                                     if(!parentRow.hasClass('footer')){
                                         parentRowEnd.addClass('action');
                                         parentRowEnd.addClass('footer');
@@ -3120,7 +3125,21 @@
 
                                 for(let i = index.start; i < index.end; i++ ){
                                     let valueRow =  instance.jexcel.getRowData(i);
+                                    if(i == index.start){
 
+                                        if(valueRow[columns.payMethod.index].toString().length == 0){
+                                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.payMethod.index,i]),default_data[0][columns.payMethod.index]);
+                                        }
+                                        if(valueRow[columns.phone.index].toString().length == 0){
+                                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.phone.index,i]),default_data[0][columns.phone.index]);
+                                        }
+                                        if(valueRow[columns.order_date.index].toString().length == 0){
+                                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_date.index,i]),default_data[0][columns.order_date.index]);
+                                        }
+                                        if(valueRow[columns.order_hours.index].toString().length == 0){
+                                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_hours.index,i]),default_data[0][columns.order_hours.index]);
+                                        }
+                                    }
                                     if(IsEmpty(valueRow)){
                                         insert = false;
                                         break;
