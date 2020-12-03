@@ -1460,7 +1460,7 @@
                                     SaveEvent[sheetName].save  = true;
                                     SaveEvent[sheetName].count++;
                                     SaveEvent[sheetName].check = true;
-
+                                    start = true;
                                 }
                             });
                         }
@@ -1685,7 +1685,7 @@
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
                     console.log(change);
-
+                    start = true;
                     SaveEvent[sheetName].save  = true;
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
@@ -2729,7 +2729,7 @@
                                     SaveEvent[sheetName].save  = true;
                                     SaveEvent[sheetName].count++;
                                     SaveEvent[sheetName].check = true;
-
+                                    start = true;
                                 }
                             });
                         }
@@ -3096,7 +3096,7 @@
                     SaveEvent[sheetName].save  = true;
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
-
+                    start = true;
                     if( (value+"").trim().length === 0){
                         if(lock.hasOwnProperty(r)){
                            // update_count(instance, cell, c, r,{});
@@ -4211,7 +4211,7 @@
                                             }
                                         }
                                     }
-
+                                    start = true;
                                     SaveEvent[sheetName].save  = true;
                                     SaveEvent[sheetName].count++;
                                     SaveEvent[sheetName].check = true;
@@ -4578,7 +4578,7 @@
                     SaveEvent[sheetName].save  = true;
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
-
+                    start = true;
 
                     if( (value+"").trim().length === 0){
                         if(lock.hasOwnProperty(r)){
@@ -5641,7 +5641,7 @@
                                     SaveEvent[sheetName].save  = true;
                                     SaveEvent[sheetName].count++;
                                     SaveEvent[sheetName].check = true;
-
+                                    start = true;
 
                                 }
                             });
@@ -5877,7 +5877,7 @@
                     SaveEvent[sheetName].save  = true;
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
-
+                    start = true;
                     c = parseInt(c);
                     console.log(change);
                     console.log();
@@ -6944,7 +6944,7 @@
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
-
+                    start = true;
                     SaveEvent[sheetName].save  = true;
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
@@ -7773,7 +7773,7 @@
                                     SaveEvent[sheetName].save  = true;
                                     SaveEvent[sheetName].count++;
                                     SaveEvent[sheetName].check = true;
-
+                                    start = true;
 
                                 }
                             });
@@ -7992,7 +7992,7 @@
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
-
+                    start = true;
                     SaveEvent[sheetName].save  = true;
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
@@ -8423,6 +8423,7 @@
            $(document).on("click","#spreadsheet .jexcel_tab_link",function () {
                let self = this;
                lastActive = $(self).text();
+               start = true;
                CheckData();
                Save_Action(true,function () {
 
@@ -8434,6 +8435,7 @@
         let timeAction = 2500;
 
         setInterval(function () {
+            if(start == false) return;
             CheckData();
         },timeAction*3);
 
@@ -8450,6 +8452,7 @@
             cb();
         }
         setInterval(function () {
+            if(start == false) return;
             Save_Action(true,function () {
 
             });

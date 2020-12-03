@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -134,7 +133,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
@@ -167,11 +166,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="8401" column="71" selection-start-line="8401" selection-start-column="71" selection-end-line="8401" selection-end-column="71" />
+            <state relative-caret-position="220">
+              <caret line="8454" column="38" selection-start-line="8454" selection-start-column="38" selection-end-line="8454" selection-end-column="38" />
               <folding>
                 <element signature="e#18573#20859#0#HTML" />
                 <element signature="e#20924#22856#0#HTML" />
@@ -188,7 +187,6 @@
                 <element signature="e#63586#67809#0#HTML" />
                 <element signature="e#67886#73217#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#76122#151180#0#HTML" />
                 <element signature="e#76883#85845#0#HTML" />
                 <element signature="e#86097#86848#0#HTML" />
                 <element signature="e#86966#90589#0#HTML" />
@@ -201,13 +199,11 @@
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#142584#151154#0#HTML" />
                 <element signature="e#151211#225774#0#HTML" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#225804#283395#0#HTML" />
                 <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
@@ -261,8 +257,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>YAMADA</find>
-      <find>order_price</find>
       <find>let columns = {</find>
       <find>order_link:{</find>
       <find>KOGYJA</find>
@@ -286,11 +280,13 @@
       <find>SaveEvent[</find>
       <find>OHGA</find>
       <find>store</find>
-      <find>SaveEvent[sheetName].save</find>
       <find>conflict</find>
       <find>save</find>
-      <find>conflic</find>
       <find>Save_Action</find>
+      <find>conflic</find>
+      <find>data</find>
+      <find>onchange:function</find>
+      <find>SaveEvent[sheetName].save</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -324,8 +320,8 @@
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/OrderExcelModel.php" />
         <option value="$PROJECT_DIR$/lib/zoe/Http/Controller.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" />
+        <option value="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" />
       </list>
     </option>
   </component>
@@ -974,12 +970,12 @@
       <workItem from="1606495741745" duration="5318000" />
       <workItem from="1606528869510" duration="1451000" />
       <workItem from="1606787422824" duration="1221000" />
-      <workItem from="1606961581269" duration="21072000" />
+      <workItem from="1606961581269" duration="21971000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137174000" />
+    <option name="totallyTimeSpent" value="138073000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1308,10 +1304,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="72" column="34" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
+          <folding>
+            <element signature="e#1204#1966#0#PHP" />
+            <element signature="e#1971#2230#0#PHP" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="8401" column="71" selection-start-line="8401" selection-start-column="71" selection-end-line="8401" selection-end-column="71" />
+        <state relative-caret-position="220">
+          <caret line="8454" column="38" selection-start-line="8454" selection-start-column="38" selection-end-line="8454" selection-end-column="38" />
           <folding>
             <element signature="e#18573#20859#0#HTML" />
             <element signature="e#20924#22856#0#HTML" />
@@ -1328,7 +1337,6 @@
             <element signature="e#63586#67809#0#HTML" />
             <element signature="e#67886#73217#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#76122#151180#0#HTML" />
             <element signature="e#76883#85845#0#HTML" />
             <element signature="e#86097#86848#0#HTML" />
             <element signature="e#86966#90589#0#HTML" />
@@ -1341,13 +1349,11 @@
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#142584#151154#0#HTML" />
             <element signature="e#151211#225774#0#HTML" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#225804#283395#0#HTML" />
             <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
@@ -1383,19 +1389,6 @@
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#395703#396793#0#HTML" />
             <element signature="e#399944#401244#0#HTML" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="72" column="34" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
-          <folding>
-            <element signature="e#1204#1966#0#PHP" />
-            <element signature="e#1971#2230#0#PHP" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
