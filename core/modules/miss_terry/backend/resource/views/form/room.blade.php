@@ -4,7 +4,11 @@
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:miss_terry:room:store'],'id'=>'form_store']) !!}
 @endif
-
+<style>
+    .mce-notification-inner{
+        display: none !important;
+    }
+</style>
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <div class="col-md-9">
     @if ($errors->any())
@@ -91,7 +95,7 @@
                     </table>
                 </div>
                 <div class="tab-pane clearfix" id="tab_media">
-                    <span><button type="button" class="btn btn-sm pull-right">Add</button> </span>
+                    <span><button type="button" class="btn btn-sm pull-right" onclick="openElfinderMedia(this)">Add</button> </span>
                 </div>
                 @foreach($language as $lang=>$_language)
                     @if(isset($configs['post']['language']['lists']) && (is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) &&  in_array($_language['lang'],$configs['post']['language']['lists'])) )
@@ -129,6 +133,7 @@
                                         @endif
                                         <script>
                                             var editor_config = {
+
                                                     path_absolute: "/",
                                                     height: "500",
                                                     width: "calc(100% - 2px)",
@@ -146,7 +151,7 @@
                                                         var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
                                                         var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
 
-                                                        var cmsURL = '{{route('backend:elfinder:tinymce4')}}' + '?field_name=' + field_name;
+                                                        var cmsURL = '{{route('backend:elfinder:tinymce4')}}' + '?target=' + 'l1_' + btoa('room/content').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.').replace(/\.+$/, '');
                                                         console.log(cmsURL);
                                                         if (type === 'image') {
                                                             cmsURL = cmsURL + "&type=Images";
@@ -291,7 +296,7 @@
                     </a>
                     {!! Form::hidden('image',null, []) !!}
                 </div>
-                <a href="#" onclick="openElfinder(this);" class="btn_gallery">
+                <a href="javascript:void(0)" onclick="openElfinder(this);" class="btn_gallery">
                     Choose image
                 </a>
 
@@ -381,7 +386,6 @@
             }
         }
         (function () {
-
             renderData($("#Data").val() );
         })();
         function beforeSave(parent) {
@@ -484,6 +488,7 @@
                 tr.addClass('Error');
             }
         }
+
         function Save(){
             $(".wrap_rows tbody").each(function () {
                 beforeSave($(this));
@@ -521,13 +526,79 @@
             console.log($(self).closest('.preview-image-wrapper').find('img').attr('src', 'http://placehold.jp/150x150.png'));
         }
 
-        function openElfinder(self) {
+        function openElfinderMedia(self) {
             $('#elfinderShow').modal();
+            var path = 'media';
+            var volumeId = 'l1_';
+           
+
             $('#elfinder').elfinder({
                 debug: false,
                 width: '100%',
                 height: '80%',
                 cssAutoLoad: false,
+                startPathHash : 'l1_' + btoa('room/media').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.').replace(/\.+$/, ''),
+                customData: {
+                    _token: '{{ csrf_token() }}',
+                   
+                },
+                useBrowserHistory : false,
+                commandsOptions: {
+                    getfile: {
+                        onlyPath: true,
+                        folders: false,
+                        multiple: false,
+                        oncomplete: 'destroy'
+                    },
+                    ui: 'uploadbutton'
+                },
+                mimeDetect: 'internal',
+                onlyMimes: [
+                    'image/jpeg',
+                    'image/jpg',
+                    'image/png',
+                    'image/gif'
+                ],
+                ui: ['toolbar', 'path', 'stat'],
+                rememberLastDir: false,
+                url: '{{ route("backend:elfinder:showConnector") }}',
+                soundPath: '{{ asset('module/admin/assets/elfinder/sounds') }}',
+                getFileCallback: function (file) {
+                    console.log(file);
+                    $('#elfinderShow').modal('hide');
+                },
+                resizable: false,
+                uiOptions: {
+                    toolbar: [
+                        ['home', 'up'],
+                        ['upload'],
+                        ['quicklook'],
+                    ],
+                    tree: {
+                        openRootOnLoad: true,
+                        syncTree: true
+                    },
+                    navbar: {
+                        minWidth: 150,
+                        maxWidth: 500
+                    },
+                    cwd: {
+                        oldSchool: false
+                    }
+                }
+            }).elfinder('instance');
+        }
+        function openElfinder(self) {
+            $('#elfinderShow').modal();
+       
+            $('#elfinder').elfinder({
+                debug: false,
+                width: '100%',
+                height: '80%',
+                cssAutoLoad: false,
+                useBrowserHistory : false,
+                startPathHash : 'l1_' + btoa('room/icon').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.').replace(/\.+$/, ''),
+                
                 customData: {
                     _token: '{{ csrf_token() }}'
                 },
@@ -549,18 +620,15 @@
                 ],
                 ui: ['toolbar', 'path', 'stat'],
                 rememberLastDir: false,
-                url: '{{ route("backend:elfinder:showConnector") }}?image=1',
+                url: '{{ route("backend:elfinder:showConnector") }}?target=l1_cm9vbS9pY29u&cmd=open',
                 soundPath: '{{ asset('module/admin/assets/elfinder/sounds') }}',
                 getFileCallback: function (file) {
                     console.log(file);
-
                     var preview_image_wrapper = $(".preview-image-wrapper");
                     preview_image_wrapper.show();
-                    console.log(file.url);
-
-                    preview_image_wrapper.find("img").attr('src', file.url);
-                    preview_image_wrapper.find("[name='image']").val(file.url);
-
+                    console.log(file.path);
+                    preview_image_wrapper.find("img").attr('src', "/"+file.path);
+                    preview_image_wrapper.find("[name='image']").val(file.path);
                     $('#elfinderShow').modal('hide');
                 },
                 resizable: false,
