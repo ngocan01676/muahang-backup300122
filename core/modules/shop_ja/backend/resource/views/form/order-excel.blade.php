@@ -8309,7 +8309,7 @@
            isCheck = false;
            $(".btnInfo").trigger('click');
        },2000);
-        let timeAction = 5000;
+        let timeAction = 4000;
         setInterval(function () {
             if(isCheck === true) {
                 if(old_Count_Save == countSave){
@@ -8333,7 +8333,7 @@
         }
         setInterval(function () {
             Save_Action();
-        },timeAction*1.5);
+        },timeAction+1000);
         let siteTitle = '{!! $_title !!}';
 
         window.addEventListener('blur', () => {
