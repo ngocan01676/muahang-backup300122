@@ -8309,7 +8309,7 @@
            isCheck = false;
            $(".btnInfo").trigger('click');
        },2000);
-        let timeAction = 500;
+        let timeAction = 5000;
         setInterval(function () {
             if(isCheck === true) {
                 if(old_Count_Save == countSave){
