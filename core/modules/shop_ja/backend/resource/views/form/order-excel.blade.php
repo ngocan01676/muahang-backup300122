@@ -2295,7 +2295,7 @@
 
 
 
-                let stringKey = $.md5(JSON.stringify(keyGroup));
+                let stringKey = $.md5(JSON.stringify(keyGroup)+makeid(20));
                 let position=0;
                 for(let i = value.start ; i <= value.end ; i++){
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.position.index, i]),position++);

@@ -550,7 +550,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                                 if($values[$columns["type"]] == "Info"){
                                     $oke = false;
-
                                     $dateNewRow = [];
                                     $dateNewRow[$key] = $values;
                                     $id = $values[$columns["id"]];
