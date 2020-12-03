@@ -8428,14 +8428,7 @@
         let timeAction = 2500;
 
         setInterval(function () {
-            if(SaveEvent[lastActive].check){
-                if(SaveEvent[lastActive].count == SaveEvent[lastActive].count_last){
-                    SaveEvent[lastActive].check = false;
-                    CheckData();
-                }else{
-                    SaveEvent[lastActive].count_last = SaveEvent[lastActive].count
-                }
-            }
+            CheckData();
         },timeAction);
 
         function Save_Action(one,cb){

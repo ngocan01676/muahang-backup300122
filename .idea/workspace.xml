@@ -167,8 +167,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="8450" column="17" selection-start-line="8450" selection-start-column="17" selection-end-line="8450" selection-end-column="17" />
+            <state relative-caret-position="554">
+              <caret line="8441" column="17" lean-forward="true" selection-start-line="8441" selection-start-column="17" selection-end-line="8441" selection-end-column="17" />
               <folding>
                 <element signature="e#18573#20859#0#HTML" />
                 <element signature="e#20924#22856#0#HTML" />
@@ -973,12 +973,12 @@
       <workItem from="1606495741745" duration="5318000" />
       <workItem from="1606528869510" duration="1451000" />
       <workItem from="1606787422824" duration="1221000" />
-      <workItem from="1606961581269" duration="20075000" />
+      <workItem from="1606961581269" duration="20561000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136177000" />
+    <option name="totallyTimeSpent" value="136663000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1320,8 +1320,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="8450" column="17" selection-start-line="8450" selection-start-column="17" selection-end-line="8450" selection-end-column="17" />
+        <state relative-caret-position="554">
+          <caret line="8441" column="17" lean-forward="true" selection-start-line="8441" selection-start-column="17" selection-end-line="8441" selection-end-column="17" />
           <folding>
             <element signature="e#18573#20859#0#HTML" />
             <element signature="e#20924#22856#0#HTML" />
