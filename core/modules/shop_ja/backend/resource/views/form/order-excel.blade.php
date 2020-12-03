@@ -361,6 +361,11 @@
         let isCheck = false;
         let isSave = false;
         let countSave = 0;
+
+        let SaveEvent = {
+
+        };
+
         let datacache = {!! json_encode($excels_data,JSON_UNESCAPED_UNICODE ) !!}
         let dataproduct = {!! json_encode($products,JSON_UNESCAPED_UNICODE ) !!}
         let datamodel = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
@@ -667,7 +672,12 @@
         function FUKUI(config) {
             let  sheetName  =  'FUKUI';
             let data = [];
-
+            SaveEvent[sheetName] = {
+                save : false,
+                count : 0,
+                check:true,
+                count_last:-1
+            };
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
                     {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
@@ -1445,8 +1455,11 @@
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                                    isCheck = true;
-                                    isSave = true;countSave++;
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+
                                 }
                             });
                         }
@@ -1671,8 +1684,12 @@
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
                     console.log(change);
-                    isCheck = true;
-                    isSave = true;countSave++;
+
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
+
+
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
 
@@ -1721,9 +1738,14 @@
                 },
             };
         }
-
         function KOGYJA() {
             let sheetName = "KOGYJA";
+            SaveEvent[sheetName] = {
+                save : false,
+                count : false,
+                check:false,
+                count_last:-1
+            };
             let data = [];
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
@@ -2702,8 +2724,11 @@
                                             }
                                         }
                                     }
-                                    isCheck = true;
-                                    isSave = true;countSave++;
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+
                                 }
                             });
                         }
@@ -3066,7 +3091,11 @@
                   //   console.log("value:"+value);
                    //  console.log(columns_index[c]);
                     // console.log(change);
-                    isCheck = true; isSave = true;countSave++;
+
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
+
                     if( (value+"").trim().length === 0){
                         if(lock.hasOwnProperty(r)){
                            // update_count(instance, cell, c, r,{});
@@ -3218,6 +3247,12 @@
         }
         function KURICHIKU1() {
             let sheetName = "KURICHIKU1";
+            SaveEvent[sheetName] = {
+                save : false,
+                count : false,
+                check:false,
+                count_last:-1
+            };
             let data = [];
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
@@ -4175,8 +4210,11 @@
                                             }
                                         }
                                     }
-                                    isCheck = true;
-                                    isSave = true;countSave++;
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+
                                 }
                             });
                         }
@@ -4536,7 +4574,11 @@
                     //   console.log("value:"+value);
                     //  console.log(columns_index[c]);
                     // console.log(change);
-                    isCheck = true; isSave = true;countSave++;
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
+
+
                     if( (value+"").trim().length === 0){
                         if(lock.hasOwnProperty(r)){
                             // update_count(instance, cell, c, r,{});
@@ -4674,7 +4716,12 @@
         function KURICHIKU() {
             let  sheetName  =  'KURICHIKU';
             let data = [];
-
+            SaveEvent[sheetName] = {
+                save : false,
+                count : false,
+                check:false,
+                count_last:-1
+            };
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
                     {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
@@ -5589,8 +5636,12 @@
                                 onclick:function() {
 
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                                    isCheck = true;
-                                    isSave = true;countSave++;
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+
+
                                 }
                             });
                         }
@@ -5821,7 +5872,11 @@
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
-                    isCheck = true; isSave = true;countSave++;
+
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
+
                     c = parseInt(c);
                     console.log(change);
                     console.log();
@@ -5879,11 +5934,15 @@
 
             };
         }
-
         function OHGA() {
             let  sheetName  =  'OHGA';
             let data = [];
-
+            SaveEvent[sheetName] = {
+                save : false,
+                count : 0,
+                check:false,
+                count_last:-1
+            };
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
                     {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
@@ -6660,8 +6719,11 @@
                                 onclick:function() {
 
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                                    isCheck = true;
-                                    isSave = true;countSave++;
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+
                                 }
                             });
                         }
@@ -6882,7 +6944,9 @@
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
 
-                    isCheck = true; isSave = true;countSave++;
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
 
@@ -6934,9 +6998,13 @@
             };
         }
         function YAMADA(sheetName) {
-
             let data = [];
-
+            SaveEvent[sheetName] = {
+                save : false,
+                count : 0,
+                check:false,
+                count_last:-1
+            };
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
                 {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
@@ -7700,8 +7768,12 @@
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                                    isCheck = true;
-                                    isSave = true;countSave++;
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+
+
                                 }
                             });
                         }
@@ -7919,8 +7991,10 @@
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
-                    isCheck = true; isSave = true;countSave++;
-                    console.log(change);
+
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
 
                     if (c === columns.product_name.index) {
 
@@ -8111,7 +8185,8 @@
                 console.log("out");
             });
         });
-        function Save(status,auto) {
+
+        function Save(status,auto,one) {
             if(!(auto === true)){
                 let oke =  confirm('{!! z_language('Bạn muốn lưu') !!}');
                 if(!oke) return;
@@ -8138,23 +8213,48 @@
             }else{
                 let datas = {};
                 let companeys = {};
+
+
+                let _spreadsheet_active = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+
+                let name_active = _spreadsheet_active.textContent;
+
+
+                let countCampany = 0;
+               
                 $("#spreadsheet .jexcel_tab_link").each(function () {
                     let  worksheet = this.getAttribute('data-spreadsheet');
                     let data = spreadsheet.jexcel[worksheet].options.data;
-
                     let name = this.textContent;
                     companeys[name] = this;
                     $(companeys[name]).removeClass('error');
                     let _columns = [];
+
                     for(let k in  columnsAll[name] ){
                         _columns.push(k);
                     }
-                    datas[name] = {
-                        data:data,
-                        columns:_columns
-                    };
-
+                    if(SaveEvent.hasOwnProperty(name)){
+                        if(SaveEvent[name].save){
+                            SaveEvent[name].save = false;
+                            SaveEvent[name].count = 0;
+                            SaveEvent[name].count_last = -1;
+                            console.info("Name 2:"+name);
+                            datas[name] = {
+                                data:data,
+                                columns:_columns
+                            };
+                            countCampany++;
+                        }
+                    }else{
+                        datas[name] = {
+                            data:data,
+                            columns:_columns
+                        };
+                        countCampany++;
+                        console.info("Name 1:"+name);
+                    }
                 });
+                if(countCampany === 0) return;
                 let form_store = $("#form_store");
 
 
@@ -8216,8 +8316,7 @@
 
            let data = spreadsheet.jexcel[worksheet].options.data;
            let name = _spreadsheet.textContent;
-           console.log(name);
-           console.log(data);
+
            let _columns = [];
            for(let k in  columnsAll[name] ){
                _columns.push(k);
@@ -8304,47 +8403,74 @@
             console.log(datas);
         }
        let start = true;
+       let lastActive = "";
+
        setTimeout(function () {
            CheckData();
            isCheck = false;
+           let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+           let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+           lastActive = _spreadsheet.textContent;
+
            $(".btnInfo").trigger('click');
+
+           $(document).on("click","#spreadsheet .jexcel_tab_link",function () {
+               let self = this;
+               lastActive = $(self).text();
+
+               Save_Action(true,function () {
+
+               });
+
+           });
        },2000);
-        let timeAction = 4000;
+
+        let timeAction = 2500;
+
         setInterval(function () {
-            if(isCheck === true) {
-                if(old_Count_Save == countSave){
-                    isCheck = false;
+            if(SaveEvent[lastActive].check){
+                if(SaveEvent[lastActive].count == SaveEvent[lastActive].count_last){
+                    SaveEvent[lastActive].check = false;
                     CheckData();
+                }else{
+                    SaveEvent[lastActive].count_last = SaveEvent[lastActive].count
                 }
             }
         },timeAction);
-        let old_Count_Save = -1;
-        function Save_Action(){
-            if(isSave === true) {
-                if(old_Count_Save === countSave){
-                    isSave = false;
-                    old_Count_Save = -1;
-                    countSave = 0;
-                    Save(false,true);
-                }else{
-                    old_Count_Save = countSave;
+
+        function Save_Action(one){
+            if(SaveEvent.hasOwnProperty(lastActive)){
+                if(SaveEvent[lastActive].save){
+                    if(SaveEvent[lastActive].count == SaveEvent[lastActive].count_last){
+                        Save(false,true,one);
+                    }else{
+                        SaveEvent[lastActive].count_last = SaveEvent[lastActive].count
+                    }
                 }
             }
+            cb();
         }
         setInterval(function () {
-            Save_Action();
+            Save_Action(true,function () {
+
+            });
         },timeAction+1000);
+
         let siteTitle = '{!! $_title !!}';
 
         window.addEventListener('blur', () => {
             document.title = siteTitle+ ' Come back! :c';
             start = false;
-            Save_Action();
+            Save_Action("",function () {
+
+            });
         });
         window.addEventListener('focus', () => {
             document.title = siteTitle;
             start = true;
-            Save_Action();
+            Save_Action("",function () {
+
+            });
         });
         $("#copyData").bind("paste", function(e){
             // access the clipboard using the api
