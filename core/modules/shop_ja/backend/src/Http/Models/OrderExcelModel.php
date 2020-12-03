@@ -9,7 +9,7 @@ class OrderExcelModel extends Model
 {
     protected $table = 'shop_order_excel_session';
     protected $fillable = [];
-    public function RenderData($ressult ,$def = true){
+    public function RenderData($ressult ,$def = true,$sort = true){
         $datas = [
 
         ];
@@ -24,11 +24,12 @@ class OrderExcelModel extends Model
         $dataNew = [];
 
         if(count($datas)>0) {
-
             foreach ($datas as $key=>$values){
-                usort($values, function ($a, $b) {
-                    return ($a->pay_method) - $b->pay_method;
-                });
+                if($sort){
+                    usort($values, function ($a, $b) {
+                        return ($a->pay_method) - $b->pay_method;
+                    });
+                }
                 $dataNew[$key] = $values;
             }
 
@@ -99,7 +100,7 @@ class OrderExcelModel extends Model
     public function GetDetails($compay){
         $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)
             ->orderBy('id','ASC')->orderBy('sort','ASC')->get()->all();
-        return $this->RenderData($shop_order_excel);
+        return $this->RenderData($shop_order_excel,true,false);
     }
     public function ShowAll($user_id,$date,$company,$type){
 //        $lists = DB::table('shop_order_excel_session')
