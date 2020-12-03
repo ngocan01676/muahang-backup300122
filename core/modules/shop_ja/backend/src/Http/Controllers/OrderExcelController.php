@@ -1951,6 +1951,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function edit(Request $request){
         $data = $request->all();
+
         if(isset($data['act'])){
             if($data['act'] == "conflict"){
                 $admin_id = Auth::user()->id;
@@ -2042,7 +2043,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $model = OrderExcelModel::find($id);
         $this->GetCache('edit',$id,"",$model->key_date);
         $results = $model->GetDetails("");
-
+        $this->title = $model->key_date;
         $model->detail = $this->GetData($results,false);
 
         $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();

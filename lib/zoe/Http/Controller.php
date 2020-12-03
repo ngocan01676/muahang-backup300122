@@ -16,6 +16,7 @@ class Controller extends BaseController
     public $view = [];
     public $asset = [];
     public $breadcrumb = [];
+    public $title = "Admin";
     protected $layout = 'backend::layout.layout';
     public function __construct()
     {
@@ -71,7 +72,7 @@ class Controller extends BaseController
         }else{
             $this->view = view($this->layout);
             View::share('_breadcrumb', $this->breadcrumb);
-
+            View::share('_title',$this->title);
             $this->view->nest("content",$keyView,$data);
         }
         return $this->view;
