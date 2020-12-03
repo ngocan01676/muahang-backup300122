@@ -358,7 +358,8 @@
             },
 
         };
-
+        let isCheck = false;
+        let isSave = false;
         let datacache = {!! json_encode($excels_data,JSON_UNESCAPED_UNICODE ) !!}
         let dataproduct = {!! json_encode($products,JSON_UNESCAPED_UNICODE ) !!}
         let datamodel = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
@@ -1667,6 +1668,8 @@
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
                     console.log(change);
+                    isCheck = true;
+                    isSave = true;
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
 
@@ -3057,6 +3060,7 @@
                   //   console.log("value:"+value);
                    //  console.log(columns_index[c]);
                     // console.log(change);
+                    isCheck = true; isSave = true;
                     if( (value+"").trim().length === 0){
                         if(lock.hasOwnProperty(r)){
                            // update_count(instance, cell, c, r,{});
@@ -4524,6 +4528,7 @@
                     //   console.log("value:"+value);
                     //  console.log(columns_index[c]);
                     // console.log(change);
+                    isCheck = true; isSave = true;
                     if( (value+"").trim().length === 0){
                         if(lock.hasOwnProperty(r)){
                             // update_count(instance, cell, c, r,{});
@@ -5805,7 +5810,7 @@
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
-                   
+                    isCheck = true; isSave = true;
                     c = parseInt(c);
                     console.log(change);
                     console.log();
@@ -6863,6 +6868,7 @@
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
                     console.dir(JSON.stringify([change,value]));
+                    isCheck = true; isSave = true;
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
 
@@ -7897,7 +7903,9 @@
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
+                    isCheck = true; isSave = true;
                     console.log(change);
+
                     if (c === columns.product_name.index) {
 
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
@@ -8282,30 +8290,33 @@
        let start = true;
        setTimeout(function () {
            CheckData();
-
+           isCheck = false;
            $(".btnInfo").trigger('click');
-
        },2000);
 
         setInterval(function () {
-            if(start == false) return;
-            CheckData();
-        },5000);
+            if(isCheck === true) {
+                isCheck = false;
+                CheckData();
+            }
+        },2000);
 
         setInterval(function () {
-            if(start == false) return;
-            Save(false,true);
-        },10000);
+            if(isSave === true) {
+                isSave = false;
+                Save(false,true);
+            }
+        },5000);
+
         let siteTitle = '{!! $_title !!}';
 
         window.addEventListener('blur', () => {
             document.title = siteTitle+ ' Come back! :c';
-            Save(false,true);
-            start = false;
+            start = false;isSave = true;
         });
         window.addEventListener('focus', () => {
-            document.title =siteTitle; start = true;
-            Save(false,true);
+            document.title = siteTitle;
+            start = true;isSave = true;
         });
         $("#copyData").bind("paste", function(e){
             // access the clipboard using the api
