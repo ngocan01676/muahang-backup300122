@@ -8448,7 +8448,6 @@
                     }
                 }
             }
-            cb();
         }
         setInterval(function () {
             Save_Action(true,function () {
