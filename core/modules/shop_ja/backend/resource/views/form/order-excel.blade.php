@@ -8284,7 +8284,7 @@
            CheckData();
 
            $(".btnInfo").trigger('click');
-           
+
        },2000);
 
         setInterval(function () {
@@ -8297,16 +8297,16 @@
             Save(false,true);
         },10000);
         let siteTitle = '{!! $_title !!}';
-        window.addEventListener('blur', () => {
 
+        window.addEventListener('blur', () => {
             document.title = siteTitle+ ' Come back! :c';
+            Save(false,true);
             start = false;
         });
         window.addEventListener('focus', () => {
             document.title =siteTitle; start = true;
+            Save(false,true);
         });
-
-
         $("#copyData").bind("paste", function(e){
             // access the clipboard using the api
             var pastedData = e.originalEvent.clipboardData.getData('text');
