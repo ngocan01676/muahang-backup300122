@@ -2043,7 +2043,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $model = OrderExcelModel::find($id);
         $this->GetCache('edit',$id,"",$model->key_date);
         $results = $model->GetDetails("");
-        $this->title = $model->key_date;
+        $this->title = date('d-m-Y',strtotime($model->key_date));
         $model->detail = $this->GetData($results,false);
 
         $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
