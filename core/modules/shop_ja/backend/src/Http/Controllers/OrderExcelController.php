@@ -547,6 +547,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             ];
 
                             foreach ($order['data'] as $key=>$values){
+
                                 if($values[$columns["type"]] == "Info"){
                                     $oke = false;
 
@@ -565,7 +566,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }else{
                                         $idsOrder[$values[$columns["id"]]] = "key";
                                     }
-
+                                    $footer = false;
                                     foreach ($order['data'] as $key1=>$values1){
                                         if ($key1!=$key && $values1[$columns["token"]] == $values[$columns["token"]]) {
                                             $order['data'][$key1][$columns["status"]] =  $values[$columns["status"]];
@@ -587,6 +588,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                                 if($_count < 0 ){
                                                     $error++;
                                                 }
+                                                $footer = true;
                                             }else if(isset($columns["type"]) && isset($values1[$columns["type"]]) && !empty(trim($values1[$columns["type"]]))){
                                                 $dateNewRow[$key1] = $order['data'][$key1];
                                                 $_count = (int)(isset($columns["count"]) ? $values1[$columns["count"]] : null);
@@ -601,6 +603,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                                 $idsOrder[$values1[$columns["id"]]] = "key";
                                             }
                                         }
+                                    }
+                                    if($footer == false){
+                                        $error++;
                                     }
                                     if($error == 0){
                                         $dataNew[$key] = $dateNewRow;
