@@ -168,8 +168,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="8223" column="15" selection-start-line="8223" selection-start-column="15" selection-end-line="8223" selection-end-column="15" />
+            <state relative-caret-position="577">
+              <caret line="8421" lean-forward="true" selection-start-line="8421" selection-end-line="8421" />
               <folding>
                 <element signature="e#18573#20859#0#HTML" />
                 <element signature="e#20924#22856#0#HTML" />
@@ -239,6 +239,8 @@
                 <element signature="e#376165#381778#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
                 <element signature="e#393515#395651#0#HTML" />
+                <element signature="e#395703#396793#0#HTML" />
+                <element signature="e#396823#399617#0#HTML" />
                 <element signature="e#399944#401244#0#HTML" />
               </folding>
             </state>
@@ -971,12 +973,12 @@
       <workItem from="1606495741745" duration="5318000" />
       <workItem from="1606528869510" duration="1451000" />
       <workItem from="1606787422824" duration="1221000" />
-      <workItem from="1606961581269" duration="19227000" />
+      <workItem from="1606961581269" duration="19353000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135329000" />
+    <option name="totallyTimeSpent" value="135455000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1319,8 +1321,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="8223" column="15" selection-start-line="8223" selection-start-column="15" selection-end-line="8223" selection-end-column="15" />
+        <state relative-caret-position="577">
+          <caret line="8421" lean-forward="true" selection-start-line="8421" selection-end-line="8421" />
           <folding>
             <element signature="e#18573#20859#0#HTML" />
             <element signature="e#20924#22856#0#HTML" />
@@ -1390,6 +1392,8 @@
             <element signature="e#376165#381778#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
             <element signature="e#393515#395651#0#HTML" />
+            <element signature="e#395703#396793#0#HTML" />
+            <element signature="e#396823#399617#0#HTML" />
             <element signature="e#399944#401244#0#HTML" />
           </folding>
         </state>

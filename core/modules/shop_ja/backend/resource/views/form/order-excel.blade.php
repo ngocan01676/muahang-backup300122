@@ -8221,7 +8221,7 @@
 
 
                 let countCampany = 0;
-               
+
                 $("#spreadsheet .jexcel_tab_link").each(function () {
                     let  worksheet = this.getAttribute('data-spreadsheet');
                     let data = spreadsheet.jexcel[worksheet].options.data;
@@ -8417,7 +8417,7 @@
            $(document).on("click","#spreadsheet .jexcel_tab_link",function () {
                let self = this;
                lastActive = $(self).text();
-
+               CheckData();
                Save_Action(true,function () {
 
                });
