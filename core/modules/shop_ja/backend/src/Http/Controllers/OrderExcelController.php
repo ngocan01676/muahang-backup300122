@@ -614,7 +614,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 }
                             }
 
-                            foreach ($dataNew as $valuesNew) {
+                            foreach ($dataNew as $keyNew=>$valuesNew) {
                                 foreach ($valuesNew as $key => $values) {
                                     $pay_method = 0;
 
@@ -681,7 +681,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d', strtotime($_data['order_create_date'])) . " " . date(' H:i:s');
 
-                                    $_data["sort"] = $model->admin_id * 1000000 + ($key + 1) * $model->admin_id + $_data["order_index"] + strtotime($model->key_date);
+                                    $_data["sort"] = $model->admin_id * 1000000 + ($key + 1 + $keyNew ) * $model->admin_id + $_data["order_index"] + strtotime($model->key_date);
 
                                     $validator = Validator::make($_data, $check);
 
