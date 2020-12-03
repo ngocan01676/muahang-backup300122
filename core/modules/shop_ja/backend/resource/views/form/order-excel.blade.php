@@ -8279,20 +8279,33 @@
             });
             console.log(datas);
         }
+       let start = true;
        setTimeout(function () {
            CheckData();
-           $(".btnInfo").trigger('click');
 
+           $(".btnInfo").trigger('click');
+           
        },2000);
 
         setInterval(function () {
+            if(start == false) return;
             CheckData();
-
         },5000);
 
         setInterval(function () {
+            if(start == false) return;
             Save(false,true);
         },10000);
+        let siteTitle = '{!! $_title !!}';
+        window.addEventListener('blur', () => {
+
+            document.title = siteTitle+ ' Come back! :c';
+            start = false;
+        });
+        window.addEventListener('focus', () => {
+            document.title =siteTitle; start = true;
+        });
+
 
         $("#copyData").bind("paste", function(e){
             // access the clipboard using the api
