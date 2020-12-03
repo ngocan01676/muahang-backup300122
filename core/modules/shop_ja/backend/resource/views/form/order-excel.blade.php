@@ -165,6 +165,7 @@
         }
         let userId = '{!! auth()->user()->id !!}:'+makeid(10);
         let _session_id = {!! $model->id !!};
+        let _version = {!! $version !!};
     </script>
 
     <style>
@@ -8292,7 +8293,7 @@
                                     }
                                 }
                                 if(errro > 0){
-                                    $.growl.error({ message: "{!! z_language('Có lỗi vui lòng load lại trang') !!}" });
+                                    $.growl.error({ message: "{!! z_language('Có lỗi load lại trang') !!}" });
                                 }else{
                                    // $.growl.notice({ message: "{!! z_language('Cập nhật thành công') !!}" });
                                 }
@@ -8394,6 +8395,11 @@
                                     }
                                 }
                             }
+                        }
+                    }
+                    if(data.hasOwnProperty('version')){
+                        if(_version && _version!=data['version']){
+                            $.growl.error({ message: "{!! z_language('Hãy lưu lại và load lại trang có update mới') !!}" });
                         }
                     }
                     var travelTime = moment().add(5, 'seconds').format('DD/MM/YY hh:mm A');

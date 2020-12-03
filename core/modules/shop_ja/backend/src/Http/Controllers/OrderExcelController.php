@@ -18,7 +18,6 @@ use Zoe\Config;
 
 class OrderExcelController extends \Zoe\Http\ControllerBackend
 {
-
     private function IF_End($val,$conf){
 
         if( $conf->equal_end === "<=" && $val <= $conf->value_end){
@@ -70,6 +69,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $this->data['configs'] = config_get("config", "shopja");
         $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
         $this->file = new \Illuminate\Filesystem\Filesystem();
+
+        $this->data['version'] =10;
     }
     public function getCrumb()
     {
@@ -2036,7 +2037,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                      }
                  }
 
-                return response()->json(['lists'=>$datas,'company'=>$data["company"]]);
+                return response()->json(["version"=>$this->data['version'],'lists'=>$datas,'company'=>$data["company"]]);
             }
         }
 
