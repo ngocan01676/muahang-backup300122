@@ -8300,23 +8300,27 @@
                 CheckData();
             }
         },2000);
-
-        setInterval(function () {
+        function Save_Action(){
             if(isSave === true) {
                 isSave = false;
                 Save(false,true);
             }
+        }
+        setInterval(function () {
+            Save_Action();
         },5000);
 
         let siteTitle = '{!! $_title !!}';
 
         window.addEventListener('blur', () => {
             document.title = siteTitle+ ' Come back! :c';
-            start = false;isSave = true;
+            start = false;
+            Save_Action();
         });
         window.addEventListener('focus', () => {
             document.title = siteTitle;
-            start = true;isSave = true;
+            start = true;
+            Save_Action();
         });
         $("#copyData").bind("paste", function(e){
             // access the clipboard using the api
