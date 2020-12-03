@@ -1958,13 +1958,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $datas = [];
                  if(isset($data['data'])){
                      $model = new OrderExcelModel();
-                      $count = 0;
+
                      foreach ($data['data'] as $k=>$v){
                          $dataItem = [];
                          $rs1 = DB::table('shop_order_excel')
                              ->where('order_create_date',">=",date('Y-m-d',
                                  strtotime('-7 day')))->where('order_create_date','<=',date('Y-m-d H:i:s'));
-
+                         $count = 0;
                          if(isset($v['fullname'])){
                              $rs1->where('fullname',$v['fullname']);
                          }
