@@ -8438,7 +8438,7 @@
             }
         },timeAction);
 
-        function Save_Action(one){
+        function Save_Action(one,cb){
             if(SaveEvent.hasOwnProperty(lastActive)){
                 if(SaveEvent[lastActive].save){
                     if(SaveEvent[lastActive].count == SaveEvent[lastActive].count_last){
@@ -8448,6 +8448,7 @@
                     }
                 }
             }
+            cb();
         }
         setInterval(function () {
             Save_Action(true,function () {
