@@ -8429,7 +8429,7 @@
 
         setInterval(function () {
             CheckData();
-        },timeAction);
+        },timeAction*3);
 
         function Save_Action(one,cb){
             if(SaveEvent.hasOwnProperty(lastActive)){
