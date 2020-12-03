@@ -508,10 +508,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $ids = [
 
                 ];
+                $ids_sort = [];
                 foreach ($datas as $name=>$order){
 
                     $logs[$name] = [];
                     $deletes[$name] = [];
+                    $ids_sort[$name] = [];
 
                     $check =  [
                         'fullname' => 'required',
@@ -682,6 +684,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     $_data['order_create_date'] = date('Y-m-d', strtotime($_data['order_create_date'])) . " " . date(' H:i:s');
 
                                     $_data["sort"] = $model->admin_id * 1000000 + ($key + 1 + $keyNew ) * $model->admin_id + $_data["order_index"] + strtotime($model->key_date);
+                                    $ids_sort[$name][$keyNew] = [$key,$keyNew,$_data["sort"]];
 
                                     $validator = Validator::make($_data, $check);
 
@@ -871,6 +874,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             $where = ['key_id'=>$values[$columns["id"]]];
                                             $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
                                         }
+                                        $ids_sort[$id] = $_data["sort"];
                                     }else{
                                         $where = [
                                             'session_id' => $_data['session_id'],
@@ -922,7 +926,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                     }
                     $this->log('shop_js:orderExcel',$type,['id' => $model->id]);
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),'logs'=>$logs,'deletes'=>$deletes,"ids"=>$ids]);
+                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit',
+                        ['id' => $model->id]),'logs'=>$logs,'deletes'=>$deletes,"ids"=>$ids,'ids_sort'=>$ids_sort]);
                 }
                 else
                     return response()->json($datas);
