@@ -136,10 +136,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="1966" column="36" selection-start-line="1966" selection-start-column="36" selection-end-line="1966" selection-end-column="36" />
+            <state relative-caret-position="537">
+              <caret line="106" column="9" lean-forward="true" selection-start-line="106" selection-start-column="9" selection-end-line="106" selection-end-column="9" />
               <folding>
-                <element signature="e#2993#3899#0#PHP" />
                 <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
               </folding>
@@ -973,12 +972,12 @@
       <workItem from="1606495741745" duration="5318000" />
       <workItem from="1606528869510" duration="1451000" />
       <workItem from="1606787422824" duration="1221000" />
-      <workItem from="1606961581269" duration="19553000" />
+      <workItem from="1606961581269" duration="19921000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135655000" />
+    <option name="totallyTimeSpent" value="136023000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1389,10 +1388,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="1966" column="36" selection-start-line="1966" selection-start-column="36" selection-end-line="1966" selection-end-column="36" />
+        <state relative-caret-position="537">
+          <caret line="106" column="9" lean-forward="true" selection-start-line="106" selection-start-column="9" selection-end-line="106" selection-end-column="9" />
           <folding>
-            <element signature="e#2993#3899#0#PHP" />
             <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
           </folding>
