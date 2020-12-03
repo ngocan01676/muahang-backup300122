@@ -6881,7 +6881,7 @@
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
-                    console.dir(JSON.stringify([change,value]));
+
                     isCheck = true; isSave = true;countSave++;
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
