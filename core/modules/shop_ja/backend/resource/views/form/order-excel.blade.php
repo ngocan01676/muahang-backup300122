@@ -360,6 +360,7 @@
         };
         let isCheck = false;
         let isSave = false;
+        let countSave = 0;
         let datacache = {!! json_encode($excels_data,JSON_UNESCAPED_UNICODE ) !!}
         let dataproduct = {!! json_encode($products,JSON_UNESCAPED_UNICODE ) !!}
         let datamodel = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
@@ -1444,6 +1445,8 @@
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                    isCheck = true;
+                                    isSave = true;countSave++;
                                 }
                             });
                         }
@@ -1669,7 +1672,7 @@
                     c = parseInt(c);
                     console.log(change);
                     isCheck = true;
-                    isSave = true;
+                    isSave = true;countSave++;
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
 
@@ -2665,6 +2668,7 @@
                         // }
 
                         if (obj.options.allowDeleteRow === true) {
+
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
@@ -2698,6 +2702,8 @@
                                             }
                                         }
                                     }
+                                    isCheck = true;
+                                    isSave = true;countSave++;
                                 }
                             });
                         }
@@ -3060,7 +3066,7 @@
                   //   console.log("value:"+value);
                    //  console.log(columns_index[c]);
                     // console.log(change);
-                    isCheck = true; isSave = true;
+                    isCheck = true; isSave = true;countSave++;
                     if( (value+"").trim().length === 0){
                         if(lock.hasOwnProperty(r)){
                            // update_count(instance, cell, c, r,{});
@@ -4169,6 +4175,8 @@
                                             }
                                         }
                                     }
+                                    isCheck = true;
+                                    isSave = true;countSave++;
                                 }
                             });
                         }
@@ -4528,7 +4536,7 @@
                     //   console.log("value:"+value);
                     //  console.log(columns_index[c]);
                     // console.log(change);
-                    isCheck = true; isSave = true;
+                    isCheck = true; isSave = true;countSave++;
                     if( (value+"").trim().length === 0){
                         if(lock.hasOwnProperty(r)){
                             // update_count(instance, cell, c, r,{});
@@ -5579,7 +5587,10 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
+
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                    isCheck = true;
+                                    isSave = true;countSave++;
                                 }
                             });
                         }
@@ -5810,7 +5821,7 @@
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
-                    isCheck = true; isSave = true;
+                    isCheck = true; isSave = true;countSave++;
                     c = parseInt(c);
                     console.log(change);
                     console.log();
@@ -6647,7 +6658,10 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
+
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                    isCheck = true;
+                                    isSave = true;countSave++;
                                 }
                             });
                         }
@@ -6868,7 +6882,7 @@
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
                     console.dir(JSON.stringify([change,value]));
-                    isCheck = true; isSave = true;
+                    isCheck = true; isSave = true;countSave++;
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
 
@@ -7686,6 +7700,8 @@
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                    isCheck = true;
+                                    isSave = true;countSave++;
                                 }
                             });
                         }
@@ -7903,7 +7919,7 @@
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
-                    isCheck = true; isSave = true;
+                    isCheck = true; isSave = true;countSave++;
                     console.log(change);
 
                     if (c === columns.product_name.index) {
@@ -8293,23 +8309,31 @@
            isCheck = false;
            $(".btnInfo").trigger('click');
        },2000);
-
+        let timeAction = 500;
         setInterval(function () {
             if(isCheck === true) {
-                isCheck = false;
-                CheckData();
+                if(old_Count_Save == countSave){
+                    isCheck = false;
+                    CheckData();
+                }
             }
-        },2000);
+        },timeAction);
+        let old_Count_Save = -1;
         function Save_Action(){
             if(isSave === true) {
-                isSave = false;
-                Save(false,true);
+                if(old_Count_Save === countSave){
+                    isSave = false;
+                    old_Count_Save = -1;
+                    countSave = 0;
+                    Save(false,true);
+                }else{
+                    old_Count_Save = countSave;
+                }
             }
         }
         setInterval(function () {
             Save_Action();
-        },5000);
-
+        },timeAction*1.5);
         let siteTitle = '{!! $_title !!}';
 
         window.addEventListener('blur', () => {

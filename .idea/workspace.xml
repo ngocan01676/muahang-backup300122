@@ -168,8 +168,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="526">
-              <caret line="8321" column="25" lean-forward="true" selection-start-line="8321" selection-start-column="25" selection-end-line="8321" selection-end-column="25" />
+            <state relative-caret-position="350">
+              <caret line="5592" column="62" selection-start-line="5592" selection-start-column="62" selection-end-line="5592" selection-end-column="62" />
               <folding>
                 <element signature="e#18573#20859#0#HTML" />
                 <element signature="e#20924#22856#0#HTML" />
@@ -192,21 +192,20 @@
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-                <element signature="e#114464#131166#0#HTML" />
-                <element signature="e#131240#135537#0#HTML" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#142584#151154#0#HTML" />
                 <element signature="e#151211#225774#0#HTML" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="e#225804#283395#0#HTML" />
                 <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#283421#333791#0#HTML" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
@@ -241,10 +240,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>travelTime</find>
-      <find>moment().add(5, 'seconds')</find>
-      <find>export</find>
-      <find>'/uploads/exports/'</find>
       <find>KU</find>
       <find>FU</find>
       <find>FUKU</find>
@@ -271,6 +266,10 @@
       <find>store</find>
       <find>KO</find>
       <find>onchange:function(instance, cell, c, r, value) {</find>
+      <find>isSave</find>
+      <find>isSave = false;</find>
+      <find>isSave = true;</find>
+      <find>obj.options.allowDeleteRow</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -954,12 +953,12 @@
       <workItem from="1606495741745" duration="5318000" />
       <workItem from="1606528869510" duration="1451000" />
       <workItem from="1606787422824" duration="1221000" />
-      <workItem from="1606961581269" duration="13471000" />
+      <workItem from="1606961581269" duration="14192000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129573000" />
+    <option name="totallyTimeSpent" value="130294000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1302,8 +1301,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="8321" column="25" lean-forward="true" selection-start-line="8321" selection-start-column="25" selection-end-line="8321" selection-end-column="25" />
+        <state relative-caret-position="350">
+          <caret line="5592" column="62" selection-start-line="5592" selection-start-column="62" selection-end-line="5592" selection-end-column="62" />
           <folding>
             <element signature="e#18573#20859#0#HTML" />
             <element signature="e#20924#22856#0#HTML" />
@@ -1326,21 +1325,20 @@
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
-            <element signature="e#114464#131166#0#HTML" />
-            <element signature="e#131240#135537#0#HTML" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#142584#151154#0#HTML" />
             <element signature="e#151211#225774#0#HTML" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="e#225804#283395#0#HTML" />
             <element signature="n#style#0;n#th#2;n#tr#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#9;n#tr#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+            <element signature="e#283421#333791#0#HTML" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#strong#0;n#td#0;n#!!top" expanded="true" />
