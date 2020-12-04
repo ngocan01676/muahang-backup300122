@@ -39,7 +39,7 @@
                                 <option value="right">right</option>
                             </select>
                         </td>
-                         
+
                     </tr>
                     @endforeach
                 </table>
