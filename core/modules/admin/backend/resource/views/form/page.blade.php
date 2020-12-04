@@ -52,7 +52,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+                        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
                         {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
                         <script>
 
