@@ -2,7 +2,7 @@
     <h1>
         &starf; {!! @z_language(["Manager Email Template"]) !!}
         <small>it all starts here</small>
-        <a href="{{ route::has($config['url']['create'])?route($config['url']['create']):route('backend:email_template:create')}}"
+        <a href="{{ route::has($url.':create')?route($url.':create'):route('backend:email_template:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
         @btn_option(["config"=>['name'=>$option]])
         @slot('label')
@@ -16,7 +16,7 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
-    @component('backend::layout.component.list',['name'=>$option,'models'=>$models,"callback"=>$callback])
+    @component('backend::layout.component.list',['name'=>$option,'models'=>$models,"callback"=>$callback,'configs'=>$configs])
     @endcomponent
 @endsection
 @push('links')

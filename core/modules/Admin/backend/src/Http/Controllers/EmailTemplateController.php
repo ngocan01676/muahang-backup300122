@@ -1,7 +1,7 @@
 <?php
 
 namespace Admin\Http\Controllers;
-use Admin\Http\Models\PageModel;
+use Admin\Http\Models\EmailTemplateModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
     public function list(Request $request)
     {
         $group = isset($request->route()->defaults['group']) ? $request->route()->defaults['group'] : 'backend';
-        $type = isset($request->route()->defaults['type']) ? $request->route()->defaults['type'] : 'default';
+        $id_key = isset($request->route()->defaults['id_key']) ? $request->route()->defaults['id_key'] : 'default';
         $option = isset($request->route()->defaults['option']) ? $request->route()->defaults['option'] : 'core:module:admin:email-template';
 
 
@@ -30,7 +30,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $status = $request->query('status', "");
         $date = $request->query('date', "");
 
-        $config = config_get('option', $type);
+        $config = config_get('option', $id_key);
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
 
         $models = DB::table('email_template');
@@ -45,18 +45,26 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $urlCurrentName = request()->route()->getName();
         $arr = explode(':',$urlCurrentName);
         unset($arr[count($arr)-1]);
-        $config = [
-            'url'=>[
-                'create'=>implode(':',$arr).':create',
-                'edit'=>implode(':',$arr).':edit',
+        $url = implode(':',$arr);
+
+        $configs = [
+            'config'=>[
+                'pagination'=>[
+                    'router'=>[
+                        'edit' => ['label' => z_language('Edit', false), 'name' => $url.':edit', 'par' => ['id' => 'id']],
+                        'preview'=>false,
+
+                    ]
+                ]
             ]
         ];
 
         return $this->render(
             'email-template.list',[
+                    'url'=>$url,
                     'option'=>$option,
-                    'config'=>$config,
-                    'type'=>$type,
+                    'configs'=>$configs,
+                    'id_key'=>$id_key,
                     'models' => $models->paginate($item),
                     'urlCurrentName'=>$urlCurrentName,
                     'callback'=>[
@@ -72,27 +80,39 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
     {
 
         $group = isset($request->route()->defaults['group']) ? $request->route()->defaults['group'] : 'backend';
-        $type = isset($request->route()->defaults['type']) ? $request->route()->defaults['type'] : 'default';
+        $id_key = isset($request->route()->defaults['id_key']) ? $request->route()->defaults['id_key'] : 'default';
         $option = isset($request->route()->defaults['option']) ? $request->route()->defaults['option'] : 'core:module:admin:email-template';
         $sidebar = isset($request->route()->defaults['sidebar']) ? $request->route()->defaults['sidebar'] : '';
 
         $this->sidebar($sidebar);
 
-        $this->getcrumb()->breadcrumb(z_language('Create Email Template'), false);
-        $configs = isset($this->app->getConfig()->configs['controllers'][get_class($this)][$type])?$this->app->getConfig()->configs['controllers'][get_class($this)][$type]:[];
+        $this->getcrumb()->breadcrumb(z_language('Create'), false);
+        $configs = isset($this->app->getConfig()->configs['controllers'][get_class($this)][$id_key])?$this->app->getConfig()->configs['controllers'][get_class($this)][$id_key]:[];
         return $this->render('email-template.create', [
-            'configs'=>$configs
+            'configs'=>$configs,'id_key'=>$id_key
         ]);
     }
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $this->getcrumb()->breadcrumb("Edit Page", false);
-        $page = PageModel::find($id);
-        return $this->render('email-template.edit', ["page" => $page]);
+        $this->getcrumb()->breadcrumb(z_language('Edit'), false);
+        $model = EmailTemplateModel::find($request->id);
+        $group = isset($request->route()->defaults['group']) ? $request->route()->defaults['group'] : 'backend';
+        $id_key = isset($request->route()->defaults['id_key']) ? $request->route()->defaults['id_key'] : 'default';
+        $option = isset($request->route()->defaults['option']) ? $request->route()->defaults['option'] : 'core:module:admin:email-template';
+        $sidebar = isset($request->route()->defaults['sidebar']) ? $request->route()->defaults['sidebar'] : '';
+
+        $this->sidebar($sidebar);
+
+
+        $configs = isset($this->app->getConfig()->configs['controllers'][get_class($this)][$id_key])?$this->app->getConfig()->configs['controllers'][get_class($this)][$id_key]:[];
+        return $this->render('email-template.edit', [
+            "model" => $model,
+            'configs'=>$configs,'id_key'=>$id_key
+        ]);
     }
     public function delete()
     {
-
+        
     }
 
     public function status()
@@ -104,54 +124,35 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
     {
         $items = $request->all();
         $filter = [
-            'title' => 'required|max:255',
+            'name' => 'required|max:255',
             'content' => 'required',
-            'description' => 'required',
         ];
         $type = "create";
         if (isset($items) && isset($items['id'])) {
-            $page = PageModel::find($items['id']);
-            if($page->slug != $items['slug']){
-                $filter['slug'] = 'required|max:255|unique:page';
-            }
+            $model = EmailTemplateModel::find($items['id']);
             $type = "edit";
         } else {
-            $page = new PageModel();
-            $filter['slug'] = 'required|max:255|unique:page';
+            $model = new EmailTemplateModel();
         }
-
         $validator = Validator::make($items,$filter, [
-            'title.required' => z_language('The title field is required.'),
+            'name.required' => z_language('The title field is required.'),
             'content.required' => z_language('The content field is required.'),
-            'content.description' => z_language('The description field is required.'),
-            'slug.required' => z_language('The slug field is required.'),
-            'slug.unique' => z_language('The slug has already been taken.'),
         ]);
-
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-        try {
-            $slug = Str::slug($items['title'], '-');
-            $page->title = $items['title'];
-
-            $page->slug = isset($items['slug'])?$items['slug']:$slug;
-            $page->description = $items['description'];
-            $page->content = htmlspecialchars_decode($items['content']);
-            $page->status = $items['status'];
-            $page->save();
-            $file = new \Illuminate\Filesystem\Filesystem();
-            $path = storage_path('app/views/pages/');
-            if (!$file->isDirectory($path)) {
-                $file->makeDirectory($path);
+        if (!$validator->fails()) {
+            try {
+                $model->name = $items['name'];
+                $model->content = htmlspecialchars_decode($items['content']);
+                $model->status = $items['status'];
+                $model->parameters = $items['parameters'];
+                $model->config = '[]';
+                $model->data = '[]';
+                $model->id_key =  $items['id_key'];
+                $model->save();
+                $request->session()->flash('success', $type == "create"?z_language('Email Template is added successfully'):z_language('Email Template is updated successfully'));
+                return back();
+            }catch (\Exception $ex){
+                $validator->getMessageBag()->add('name', $ex->getMessage());
             }
-            $file->put($path . '/' . $slug . '.blade.php', $page->content);
-            $request->session()->flash('success', $type == "create"?z_language('Page is added successfully'):z_language('Page is updated successfully'));
-            return back();
-        }catch (\Exception $ex){
-            $validator->getMessageBag()->add('name', $ex->getMessage());
         }
         return back()
             ->withErrors($validator)

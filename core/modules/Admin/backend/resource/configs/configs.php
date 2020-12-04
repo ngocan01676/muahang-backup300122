@@ -57,7 +57,6 @@ return [
             ]
         ],
         'controllers'=>[
-
             'Admin\Http\Controllers\EmailTemplateController'=>[
                 'default'=>[
                     [
@@ -143,9 +142,10 @@ return [
                 'columns' => [
                     'lists' => [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
-                        'title' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true],
+                        'name' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true],
+                        'parameters' => ['label' => z_language('Parameters', false), 'type' => 'text'],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status'],
-                        'id_key' => ['label' => z_language('Group', false), 'type' => 'status'],
+                        'id_key' => ['label' => z_language('Group', false), 'type' => 'text'],
                         'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
                         'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date']
                     ],
@@ -153,9 +153,8 @@ return [
                 'pagination' => [
                     'item' => 20,
                     'router' => [
-                        'edit' => ['label' => z_language('Edit', false), 'name' => "backend:page:edit", 'par' => ['id' => 'id']],
-                        'preview' => ['label' => z_language('Preview', false), 'name' => "backend:page:edit", 'par' => ['id' => 'id']],
-                        'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:page:delete", 'par' => ['id' => 'id']],
+                        'edit' => ['label' => z_language('Edit', false), 'name' => "backend:email_template:edit", 'par' => ['id' => 'id']],
+                        'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:email_template:delete", 'par' => ['id' => 'id']],
                     ]
                 ],
                 'config' => [

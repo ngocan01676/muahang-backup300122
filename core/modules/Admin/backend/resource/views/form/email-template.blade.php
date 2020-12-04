@@ -13,17 +13,19 @@
             @flash_message()@endflash_message
 
             @if(isset($model))
-                {!! Form::model($model, ['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
-                {!! Form::hidden('id') !!}
+                {!! Form::model($model, ['method' => 'POST','route' => ['backend:email_template:store'],'id'=>'form_store']) !!}
+                {!! Form::hidden('id') !!} {!! Form::hidden('id_key') !!}
             @else
-                {!! Form::open(['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
+                {!! Form::open(['method' => 'POST','route' => ['backend:email_template:store'],'id'=>'form_store']) !!}
+                {!! Form::hidden('id_key',$id_key) !!}
             @endif
+
             <table class="table table-borderless">
                 <tbody>
                     <tr>
                         <td>
-                            {!! Form::label('id_title', z_language('Email Name'), ['class' => 'name']) !!}
-                            {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>z_language('Email Name')]) !!}
+                            {!! Form::label('name', z_language('Email Name'), ['class' => 'name']) !!}
+                            {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Email Name')]) !!}
                         </td>
                     </tr>
                     <tr>
@@ -53,6 +55,7 @@
                                 let parameters = JSON.parse($('#parameters').val());
                                 let config = {
                                     selector: "textarea.my-editor",
+                                    height : "480",
                                     menu : {
                                         file   : {title : 'File'  , items : 'newdocument'},
                                         edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
@@ -61,24 +64,21 @@
                                         format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
                                         table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
                                         tools  : {title : 'Tools' , items : 'spellchecker code'},
-                                        // newmenu: {title : 'New Menu', items : 'newmenuitem newmenuitem1'}
                                     },
                                     menubar: '',
                                     setup: function(editor) {
 
                                             editor.on('change', function(e) {
-                                                console.log('the event object ', e);
-                                                console.log('the editor object ', editor);
-
                                                 let content = editor.getContent();
-                                                console.log('the content ', content);
+                                                console.log(content);
                                                 for(let key in parameters){
-                                                    console.log((content.indexOf('{@'+key+'@}')));
-                                                    console.log((content.includes('{@'+key+'@}')));
-                                                    if(content.indexOf('{@'+key+'@}') !== -1 || content.includes('{@'+key+'@}')){
+                                                    if(!(content.indexOf('{@'+key+'@}') !== -1 || content.includes('{@'+key+'@}'))){
+                                                       delete parameters[key];
                                                         console.log(key);
                                                     }
                                                 }
+                                                console.log(parameters);
+                                                $('#parameters').val(JSON.stringify(parameters));
                                             });
 
                                             @php

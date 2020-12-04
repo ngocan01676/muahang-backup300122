@@ -41,11 +41,15 @@ return [
             "router" => [
                 "list" => [
                     "url" => "/",
-                    'defaults' => ["type" => "Plugin:Contact:Email"]
+                    'defaults' => ["id_key" => "Plugin:Contact:Email"]
                 ],
                 "create" => [
                     "url" => "/create",
-                    'defaults' => ["type" => "Plugin:Contact:Email",'sidebar'=>'backend:plugin:Contact:Email:list']
+                    'defaults' => ["id_key" => "Plugin:Contact:Email",'sidebar'=>'backend:plugin:Contact:Email:list']
+                ],
+                "edit" => [
+                    "url" => "/edit/{id}",
+                    'defaults' => ["id_key" => "Plugin:Contact:Email",'sidebar'=>'backend:plugin:Contact:Email:list']
                 ],
             ]
         ]

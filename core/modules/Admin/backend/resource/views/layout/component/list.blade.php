@@ -7,6 +7,9 @@
         $data = $option[$name];
         $_data = config_get('option',$name);
         $data['data'] = isset($data['data'])?array_merge($data['data'],$_data):$_data;
+        if(isset($configs) && is_array($configs)){
+             $data = (new \Zoe\Config($data))->merge(new \Zoe\Config($configs))->getArrayCopy();
+        }
         $parameter = isset($parameter)?$parameter:[];
         $aliases_acl = $app->getPermissions()->aliases;
 
@@ -91,7 +94,9 @@
                                                     @isset($data['config']['pagination']['router'])
                                                         @php  $n = count($data['config']['pagination']['router'])-1; $i=0; @endphp
                                                         @foreach($data['config']['pagination']['router'] as $id=>$router)
+                                                            @continue($router == false)
                                                             @php
+
                                                                 $oke = true;
                                                                 if (isset($aliases_acl[$router['name']])) {
                                                                     $acl = $aliases_acl[$router['name']];

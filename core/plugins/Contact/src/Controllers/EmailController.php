@@ -32,6 +32,6 @@ class EmailController extends \Zoe\Http\ControllerBackend
                     return "<a href='".$url."'>".$url."</a>";
                 }
             ]
-        ],'pluginContactForm');
+        ],'pluginContact');
     }
 }

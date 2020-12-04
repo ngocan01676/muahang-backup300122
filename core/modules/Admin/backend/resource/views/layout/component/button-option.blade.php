@@ -37,7 +37,6 @@
             var myModalOption = $("#myModalOption");
             var FormModal  = myModalOption.find("form");
             var dataOption = {!! json_encode($data) !!};
-            console.log(dataOption);
             $('.btnSaveOption').click(function () {
                 myModalOption.modal('toggle');
                 var data = FormModal.zoe_inputs('get');

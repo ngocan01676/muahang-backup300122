@@ -9,14 +9,21 @@
                 <table class="table table-bordered">
                     @foreach($configs['config']["columns"]['lists'] as $val=>$columns)
                     <tr>
-                        <td><input type="checkbox" name="data.columns[{!! $val !!}]" value="{!! $val !!}"> {!! isset($columns['label'])?$columns['label']:"Empty" !!}</td>
-                        <td><input type="text" name="data.widths[{!! $val !!}]">%</td>
+                        <td class="text-left" width="200px">
+                            <input type="checkbox" name="data.columns[{!! $val !!}]" value="{!! $val !!}">
+                            {!! isset($columns['label'])?$columns['label']:"Empty" !!}
+                        </td>
                         <td>
+                            <div class="input-group">
+                                <input class="form-control" type="text" name="data.widths[{!! $val !!}]">
+                                <span class="input-group-addon">{!! isset($configs['data']['units'][$val])?$configs['data']['units'][$val]:'%' !!}</span>
+                            </div>
+                        </td>
+                        <td width="80px">
                             <select class="form-control" name="data.units[{!! $val !!}]">
                                 <option value="%">%</option>
-                                <option value="px">Px</option>
-
-                                <option value="em">Em</option>
+                                <option value="px">px</option>
+                                <option value="em">em</option>
                             </select>
                         </td>
                     </tr>
