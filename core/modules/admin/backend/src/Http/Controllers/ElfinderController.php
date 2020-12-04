@@ -12,12 +12,13 @@ class ElfinderController extends \Zoe\Http\ControllerBackend
 
     public function list()
     {
+
         return $this->render('elfinder.list', ['dir' => 'module/admin/assets/elfinder', 'locale' => app()->getLocale()]);
     }
 
-    public function tinymce4()
+    public function tinymce4(Request $request)
     {
-        return $this->render('elfinder.tinymce4', ['dir' => 'module/admin/assets/elfinder', 'locale' => app()->getLocale()]);
+        return $this->render('elfinder.tinymce4', ['target'=>$request->target?$request->target:"",'dir' => 'module/admin/assets/elfinder', 'locale' => app()->getLocale()]);
     }
     function show_preg_match($list, $path = '',$permission,$role){
         $html = "";
@@ -138,6 +139,9 @@ class ElfinderController extends \Zoe\Http\ControllerBackend
         };
         $username = auth()->user()->username;
         $opts = array(
+
+            
+
             // 'debug' => true,
             'roots' => array(
                 // Items volume
@@ -179,8 +183,10 @@ class ElfinderController extends \Zoe\Http\ControllerBackend
                 ),
             )
         );
+
         $connector = new \elFinderConnector(new \elFinder($opts));
         $connector->run();
+
     }
     function expandDirectoriesMatrix($base_dir, $level = 0) {
         $directories = array();

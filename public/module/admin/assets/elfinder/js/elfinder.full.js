@@ -5528,7 +5528,7 @@
 
             // calculate elFinder node z-index
             self.zIndexCalc();
-
+            
             // send initial request and start to pray >_<
             self.trigger('init')
                 .request({
