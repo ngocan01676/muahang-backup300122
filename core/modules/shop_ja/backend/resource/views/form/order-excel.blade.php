@@ -854,7 +854,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -1941,7 +1942,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -3448,7 +3450,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -5047,7 +5050,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -6118,7 +6122,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -7181,7 +7186,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'80px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
