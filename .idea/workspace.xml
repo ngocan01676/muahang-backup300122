@@ -2,7 +2,391 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/EmailTemplateController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/Plugin.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/configs/component.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/configs/configs.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/configs/router.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/configs/sidebar.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/components/comment/component.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/components/comment/config.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/components/comment/configs/data.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/components/comment/configs/template.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/components/comment/main.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/components/comment/views/main.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/email/list.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/form/list.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/list.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/src/Controllers/EmailController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/plugins/Contact/src/Controllers/FormController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/zoe.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/zoe.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/Module.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/configs/component.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/component.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/configs/configs.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/configs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/configs/language.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/language.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/configs/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/configs/sidebar-1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/configs/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/stubs/layout.stubs" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/stubs/layout.stubs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/components/configs/data-builder.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/components/configs/data-builder.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/components/configs/image.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/components/configs/image.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/components/configs/language.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/components/configs/language.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/components/configs/template.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/components/configs/template.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/configs/category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/configs/category.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/configs/config.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/configs/config.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/configs/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/configs/layout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/configs/media/premission.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/configs/media/premission.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/configs/option.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/configs/option.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/announce/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/announce/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/announce/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/announce/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/announce/lists.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/announce/lists.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/backup/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/backup/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/category/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/category/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/category/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/category/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/component/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/component/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/configuration/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/configuration/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/dashboard/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/dashboard/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/dashboard/media.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/dashboard/media.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/dashboard/router.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/dashboard/router.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/elfinder/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/elfinder/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/elfinder/permission.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/elfinder/permission.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/elfinder/tinymce4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/elfinder/tinymce4.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/error/not_found.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/error/not_found.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/language/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/language/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/layout/ajax/component.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/ajax/component.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/layout/ajax/config.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/ajax/config.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/layout/ajax/config/template.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/ajax/config/template.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/layout/ajax/grid.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/ajax/grid.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/layout/ajax/widget.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/ajax/widget.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/layout/build.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/build.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/layout/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/layout/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/layout/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/log/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/log/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/menu/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/menu/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/menu/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/module/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/module/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/plugin/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/plugin/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/sidebar/lists.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/sidebar/lists.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/theme/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/theme/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/developer-tools/toolbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/developer-tools/toolbar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/announce.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/announce.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/layout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/page.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/breadcrumb.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/breadcrumb.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/button-option.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/button-option.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/flash-message.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/flash-message.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/elfinder.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/elfinder.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/form/btn-save.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/form/btn-save.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/layout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/pagination/pagination.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/pagination/pagination.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Core/Config.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Core/Config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/AnnounceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/AnnounceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/BackupController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/BackupController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ComponentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/ComponentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ConfigurationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/ConfigurationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/DatabaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/DatabaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ElfinderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/ElfinderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ErrorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/ErrorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/LanguageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/LanguageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/LayoutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/LayoutController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/LogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/LogController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/MenuController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/MenuController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ModuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/ModuleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/PageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/PluginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/PluginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/SidebarController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/SidebarController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ThemeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/ThemeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Models/AnnounceModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Models/AnnounceModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Models/Categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Models/Categories.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Models/Layout.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Models/Layout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Models/LogModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Models/LogModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Models/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Models/Menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Models/PageModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Models/PageModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Models/Tag.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Models/Tag.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Lib/CategoryNestable.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Lib/CategoryNestable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Lib/Database.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Lib/Database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Lib/GirdBladeHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Lib/GirdBladeHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Lib/Layout.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Lib/Layout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Lib/LayoutBlade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Lib/LayoutBlade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Lib/LayoutRender.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Lib/LayoutRender.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Lib/ViewHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Lib/ViewHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/frontend/resource/configs/component.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/frontend/resource/configs/component.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/frontend/resource/configs/configs.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/frontend/resource/configs/configs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/frontend/resource/views/components/content/component.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/frontend/resource/views/components/content/component.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/frontend/resource/views/components/content/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/frontend/resource/views/components/content/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/admin/frontend/resource/views/components/content/views/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/menu/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/Module.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/resource/configs/configs.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/configs/configs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/resource/configs/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/configs/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/resource/configs/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/configs/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/resource/views/configs/post-option.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/configs/post-option.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/resource/views/configs/post.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/configs/post.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/resource/views/controller/post/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/controller/post/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/resource/views/controller/post/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/controller/post/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/resource/views/controller/post/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/controller/post/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/resource/views/form/post.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/form/post.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/resource/views/plugins/Comment/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/plugins/Comment/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/src/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/src/Http/Controllers/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/src/Http/Controllers/PostLangController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/src/Http/Controllers/PostLangController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/src/Http/Models/Post/PostCategoryModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/src/Http/Models/Post/PostCategoryModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/src/Http/Models/Post/PostModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/src/Http/Models/Post/PostModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/src/Http/Models/Post/PostTranslationModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/src/Http/Models/Post/PostTranslationModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/backend/src/Http/Requests/FormDataPostRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/src/Http/Requests/FormDataPostRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/frontend/resource/configs/configs.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/frontend/resource/configs/configs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/frontend/resource/configs/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/frontend/resource/configs/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/frontend/resource/views/controller/post/lists.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/frontend/resource/views/controller/post/lists.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/frontend/resource/views/widget/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/frontend/resource/views/widget/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/blog/frontend/src/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/frontend/src/Http/Controllers/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/Module.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/componer/excel.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/configs/company.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/com-ship.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/ship.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/show.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/category/status.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/email-template.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/export.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/frontend/resource/views/components/content/views/view.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/list.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/create.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/export.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/components/comment/views/list-new.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/imports.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/list.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/search.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/show-select.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/show.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/tracking.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order-excel/tracking_list.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order/create.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order/edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/order/list.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/product/create.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/product/edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/product/list.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/ship/create.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/ship/edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/ship/lists.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/sim/create.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/sim/edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/sim/export.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/sim/lists.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/sim/show.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/user/list.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/user/option.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/product.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/ship.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/show.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/sim.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/CategoryController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/DashboardController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/ExcelController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/ProductController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/ShipController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/SimController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/UserController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/OrderExcelModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/OrderModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/ProductModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/ShipModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/SimModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/CategoryNestable.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/CategoryNestableShip.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/CategoryShipNestable.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Tracking.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/Module.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/configs/configs.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/configs/configs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/configs/providers.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/configs/providers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/configs/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/configs/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/configs/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/configs/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/configs/config.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/configs/config.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/member/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/member/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/member/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/role/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/role/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/role/error.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/error.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/role/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/role/premission.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/premission.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/user/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/user/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/user/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/form/role.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/form/role.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/resource/views/form/user.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/form/user.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/Http/Controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/Http/Controllers/MemberController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/Http/Controllers/MemberController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/Http/Controllers/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/Http/Controllers/RoleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/Http/Model/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/Http/Model/Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/Http/Model/Member.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/Http/Model/Member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/Http/Model/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/Http/Model/Permission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/Http/Model/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/Http/Model/Role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/Providers/ComposerServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/Providers/ComposerServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/ViewComposers/SidebarComposer.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/ViewComposers/SidebarComposer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/frontend/resource/configs/configs.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/frontend/resource/configs/configs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/frontend/resource/configs/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/frontend/resource/configs/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/frontend/resource/views/controller/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/frontend/resource/views/controller/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/frontend/resource/views/controller/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/frontend/resource/views/controller/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/frontend/resource/views/controller/user/info.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/frontend/resource/views/controller/user/info.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/frontend/resource/views/widget/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/frontend/resource/views/widget/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/frontend/src/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/frontend/src/Http/Controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/user/frontend/src/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/frontend/src/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/zoe/Http/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/zoe/Http/Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/admin/assets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/module/admin/assets/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_MTIyODg5ODg0XzE4OTM1NjAyOTMxNjUyMF83NzA1NDM0MDc5OTc2NTk0MjE2X24uanBn1605248296.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_QXBwbGljYXRpb25zLzg5OTIxMDQ4XzI2MTYxNjY0Mzg3MTAwOTlfNjI0OTM3Njk1OTg2MDU3MjE2X28uanBn1605641403.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_QXBwbGljYXRpb25zLzg5OTIxMDQ4XzI2MTYxNjY0Mzg3MTAwOTlfNjI0OTM3Njk1OTg2MDU3MjE2X28uanBn1605665629.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkv5L6d6aC85Lq65ZCNLiBET0FOIFZBTiAg5qeYIDI0IOaXpeOBqyAgNjI4MCAg5YaG5YWl6YeR5riI44G_LmpwZw1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkv5L6d6aC85Lq65ZCNLiBET0FOIFZBTiAg5qeYIDI0IOaXpeOBqyAgNjI4MCAg5YaG5YWl6YeR5riI44G_LmpwZw1605091882.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvMTAwODY1MTM2XzExMzczNDkxMzMzMDgwMjlfNDI3Njk0ODI4MDQwMDY3NDgxNl9uLnBuZw1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvMTAwODY1MTM2XzExMzczNDkxMzMzMDgwMjlfNDI3Njk0ODI4MDQwMDY3NDgxNl9uLnBuZw1605091881.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvMTBfMDAwMDAwMDAwMjMzLnBuZw1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvMTBfMDAwMDAwMDAwMjMzLnBuZw1605091882.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvNDFrU2xzdU1uWEwuanBn1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvNDFrU2xzdU1uWEwuanBn1605091882.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvZmU5YWFiNjAtNGMwMi00YjQ3LThkMDEtZjZkOTY1ZTY2ZjkyLmpwZw1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvZmU5YWFiNjAtNGMwMi00YjQ3LThkMDEtZjZkOTY1ZTY2ZjkyLmpwZw1605091882.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvZmpkZ2ouUE5H1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvZmpkZ2ouUE5H1605091882.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvbm9rYTMuanBn1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gRlVLVUkvbm9rYTMuanBn1605091882.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gT0hHQS80MWtTbHN1TW5YTC5qcGc1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gT0hHQS80MWtTbHN1TW5YTC5qcGc1605091883.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gT0hHQS8xNjY0MTU3M18xNDE0NzQzNzMxOTAwODEzXzQ3ODAyNTE2MjIwOTU3MTYzNTJfbi5wbmc1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gT0hHQS8xNjY0MTU3M18xNDE0NzQzNzMxOTAwODEzXzQ3ODAyNTE2MjIwOTU3MTYzNTJfbi5wbmc1605091883.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gT0hHQS8xNzM1MjcwMF83NTk4MDY4NTA4NDIyMzFfNzA5OTIxMTA1X24uanBn1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gT0hHQS8xNzM1MjcwMF83NTk4MDY4NTA4NDIyMzFfNzA5OTIxMTA1X24uanBn1605091882.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gT0hHQS9I4bqhbmcgTmjhuqV0LmpwZw1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gT0hHQS9I4bqhbmcgTmjhuqV0LmpwZw1605091883.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBL-S-nemgvOS6uuWQjS4gSE9BTkcgVCDmp5ggIDI05pel44GrNjM4MCDlhoblhaXph5HmuIjjgb8uanBn1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBL-S-nemgvOS6uuWQjS4gSE9BTkcgVCDmp5ggIDI05pel44GrNjM4MCDlhoblhaXph5HmuIjjgb8uanBn1605091884.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBL3lhbWFkYTFfMjAxNzEwMjExMTMyNDguanBn1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBL3lhbWFkYTFfMjAxNzEwMjExMTMyNDguanBn1605091883.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBL3lhbWFkYTFfMjAxNzExMTAxNjQ1MTIuanBn1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBL3lhbWFkYTFfMjAxNzExMTAxNjQ1MTIuanBn1605091884.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBL3lhbWFkYTFfMjAxODAxMTMxMzI5MjguanBn1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBL3lhbWFkYTFfMjAxODAxMTMxMzI5MjguanBn1605091884.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBL3lhbWFkYTFfMjAxODEyMDQxNzM4MzMuanBn1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBL3lhbWFkYTFfMjAxODEyMDQxNzM4MzMuanBn1605091884.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBLzA1ODBiYTJkYzY2ZTM5MzA2MDdmLmpwZw1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBLzA1ODBiYTJkYzY2ZTM5MzA2MDdmLmpwZw1605091883.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBLzY3Njg3MjU3XzIzMzIxNTUzNTY5OTcyNjRfODM5MzcyMjkxMDkxMjU0NDc2OF9uLmpwZw1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBLzY3Njg3MjU3XzIzMzIxNTUzNTY5OTcyNjRfODM5MzcyMjkxMDkxMjU0NDc2OF9uLmpwZw1605091883.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBLzcwNDEzODkxXzExMDg2NjcxNDU5OTk0NTJfNjA4ODk0Mzg1NTI5MjM4MzIzMl9uLmpwZw1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBLzcwNDEzODkxXzExMDg2NjcxNDU5OTk0NTJfNjA4ODk0Mzg1NTI5MjM4MzIzMl9uLmpwZw1605091883.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBLzgxb3h4UXZoZUNMLl9BQ19TTDE1MDBfLmpwZw1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBLzgxb3h4UXZoZUNMLl9BQ19TTDE1MDBfLmpwZw1605091883.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBLzk1MjE4NDY0Xzk4Mzk1NjM1NTM1NDA0N18zMDQ5NTUyNzk0NTAwNDY0NjQwX28uanBn1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R-G6oE8gWUFNQURBLzk1MjE4NDY0Xzk4Mzk1NjM1NTM1NDA0N18zMDQ5NTUyNzk0NTAwNDY0NjQwX28uanBn1605091883.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS80NTU1LlBORw1598758575.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS80NTU1LlBORw1605091880.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS82NTM0OTU4OF8yNjMxNjMxODEwMTg4MzM2Xzg1NjYzNDk5NTE2MjAwODc4MDhfbi5wbmc1605579209.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS8xMDU3NDAzMDVfNjYzMTE1MDg3NjE0OTcyXzgwMjg5OTk5NzA2Njg2MzcyMTlfby5qcGc1598678308.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS8xMDU3NDAzMDVfNjYzMTE1MDg3NjE0OTcyXzgwMjg5OTk5NzA2Njg2MzcyMTlfby5qcGc1605091880.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS8xOTcxNS5qcGc1598758428.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS8xOTcxNS5qcGc1605091880.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS8zMzAyMDM2Ml8yMDk2MzU0MjYzOTc1OTUzXzM0NTIwMjg1OTYzNTExMzk4NDBfbi5qcGc1598758093.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS8zMzAyMDM2Ml8yMDk2MzU0MjYzOTc1OTUzXzM0NTIwMjg1OTYzNTExMzk4NDBfbi5qcGc1605091880.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS8zNTI4Mzc1Ml8xNjU4MjA2ODc2MDY5MzRfODA1OTE3NDUyNTEwOTAxMDQzMl9uLmpwZw1598758053.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS8zNTI4Mzc1Ml8xNjU4MjA2ODc2MDY5MzRfODA1OTE3NDUyNTEwOTAxMDQzMl9uLmpwZw1605091880.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS91bm5hbWVkLmpwZw1598757440.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS91bm5hbWVkLmpwZw1605091881.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS9UcuG7qW5nICsgVHLDoG5nLmpwZw1598757379.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS9UcuG7qW5nICsgVHLDoG5nLmpwZw1605091881.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS9mdHR0MTIzLlBORw1598758889.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_R8OAIERBSS9mdHR0MTIzLlBORw1605091881.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL-ixmui2syAxLmpwZw1598938319.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL01BIEhFTy5qcGc1598943660.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL01vbmcgZ2lvIGhlbyBjYXQgc2FuLmpwZw1598938471.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0JBIENISSBDTyBEQS5qcGc1598939010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0JBIENISSBDTyBEQSBUSEFJIE5ITy5qcGc1598939140.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0JBUCBIRU8gQ0hBTiBUUlVPQy5qcGc1598943589.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0JhcGJvMi5qcGc1598944878.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0RBVSBIRU8uanBn1598944300.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0RVSSBCTy5qcGc1598944967.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0RVSSBIRU8uanBn1598944044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0RVT0kgQk8uanBn1598945012.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0dBIE5PTi5qcGc1598945304.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0dBTiBIRU8uanBn1598943894.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0fDgk4gQsOSLmpwZw1598944757.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0hFTyBTVUEuanBn1598944518.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0xPTkcgTk9OLmpwZw1598938667.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0xVT0kgQk8uanBn1598944684.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0xVT0kgSEVPLmpwZw1598943785.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL0xvbmcgZ2lhIGhlby5qcGc1598938569.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL1NBQ0ggQk8uanBn1598944815.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL1NVT04gSEVPLnBuZw1598943716.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL1NVT04gU1VOIEhFVCBDQVQgTkhPLmpwZw1598938852.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL1NVT04gU1VOLnBuZw1598938766.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL1RISVQgQkEgQ0hJIEtIT05HIERBLmpwZw1598939219.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL1RISVQgVEhBTiBIRU8uanBn1598944233.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL1RJTSBIRU8uanBn1598944117.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL1Ro4buLdCBkaeG7gW0gZ2FuIGhlbyAyLmpwZw1598938234.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL1ZBSSBIRU8uanBn1598943507.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL1ZJVCBOR1VZRU4gQ09OLmpwZw1598945184.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_S09HWUpBL21pbWkuanBn1598939340.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_U0lNL1llbGxvdyBhbmQgQmxhY2sgVmludGFnZSBCZWF1dHkgTG9nby5wbmc1601990304.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_U0lNL1llbGxvdyBhbmQgQmxhY2sgVmludGFnZSBCZWF1dHkgTG9nby5wbmc1605091888.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_U0lNL3NpbS05MC1nYi0xMi10aGFuZy5qcGc1601990304.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_U0lNL3NpbS05MC1nYi0xMi10aGFuZy5qcGc1605091888.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_U0lNL3NpbS0xMDBnYi0xMi10aGFuZy5qcGc1601990304.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_U0lNL3NpbS0xMDBnYi0xMi10aGFuZy5qcGc1605091888.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_UGljdHVyZXMvNThkZmRkZjE1MmEyYTNmY2ZhYjMuanBn1605642304.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_UGljdHVyZXMvODk5MjEwNDhfMjYxNjE2NjQzODcxMDA5OV82MjQ5Mzc2OTU5ODYwNTcyMTZfby5qcGc1605542356.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_UGljdHVyZXMvRGVzaWduLzg5OTIxMDQ4XzI2MTYxNjY0Mzg3MTAwOTlfNjI0OTM3Njk1OTg2MDU3MjE2X28uanBn1605542325.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_UGljdHVyZXMvZmIuUE5H1605642323.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_VXNlcnMvYWRtaW4vODk5MjEwNDhfMjYxNjE2NjQzODcxMDA5OV82MjQ5Mzc2OTU5ODYwNTcyMTZfby5qcGc1605541437.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_ZXhwb3J0cy9GVUtVSS8yMDIwLTA5LTI2LzA55pyIMjbml6Xjga7ms6jmlofliIYt56aP5LqV57K-57Gz5qeY5b6h5LitL1Z1IGh1eSB0dWFuLnBuZw1601111774.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_ZXhwb3J0cy9GVUtVSS8yMDIwLTA5LTI2LzA55pyIMjbml6Xjga7ms6jmlofliIYt56aP5LqV57K-57Gz5qeY5b6h5LitL2FkMzY2NDFlZGY0NmJjYmUyMjRmN2RmMTEwMjhkMjRjLnBuZw1601111649.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_ZXhwb3J0cy9GVUtVSS8yMDIwLTEwLTI0LzEw5pyIMjTml6Xjga7ms6jmlofliIYt56aP5LqV57K-57Gz5qeY5b6h5LitL1Z1IG5nb2MgbWluaC5wbmc1604310218.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_ZXhwb3J0cy9GVUtVSS8yMDIwLTEwLTI0LzEw5pyIMjTml6Xjga7ms6jmlofliIYt56aP5LqV57K-57Gz5qeY5b6h5LitL2FiYy5wbmc1604308617.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_ZXhwb3J0cy9GVUtVSS8yMDIwLTEwLTI0LzEw5pyIMjTml6Xjga7ms6jmlofliIYt56aP5LqV57K-57Gz5qeY5b6h5LitL2M1NzlmMTYzNTlkY2YyYTcxNWY5NWQ1MmY5OGExODM4LnBuZw1604308636.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_ZXhwb3J0cy9GVUtVSS8yMDIwLTEwLTI0LzEw5pyIMjTml6Xjga7ms6jmlofliIYt56aP5LqV57K-57Gz5qeY5b6h5LitL2RlZi5wbmc1604308617.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_ZXhwb3J0cy9GVUtVSS8yMDIwLTEwLTI0LzEw5pyIMjTml6Xjga7ms6jmlofliIYt56aP5LqV57K-57Gz5qeY5b6h5LitL3RyaW5oIHZhbi5wbmc1604310218.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_ZXhwb3J0cy9GVUtVSS8yMDIwLTEwLTI0LzEw5pyIMjTml6Xjga7ms6jmlofliIYt56aP5LqV57K-57Gz5qeY5b6h5LitLzI3NmY3NzI5Y2MxYjExMjIxNzJmMzAzZTA2MGMxMDhjLnBuZw1604308636.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_ZXhwb3J0cy9ZQU1BREEvMjAyMC0wOS0yNy_moKrlvI_kvJrnpL7jg6Tjg57jg4At5qeYLeOBruOBiuexs-OBruazqOaWh-WIhjA55pyIMjfml6UvVnUgbmdvYyBtaW5oLnBuZw1601193350.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_aW1hZ2VzL09IR0EvMjMxNDIzNDk5ODUxZjQ4OTMxY2NmOTJlYjVlZTE2YjUuanBlZw1601028275.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_aW1hZ2VzL09IR0EvYjYzZWVmZTE0NjA3YmU1ZjQ2M2JjYzU4MGQ0MjBmNmIuanBlZw1601028199.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_aW1hZ2VzL09IR0EvZGQzOWMxNTA2NGM0ZGYxMjdlOWFkNTExYTczODI2YTcuanBlZw1601028430.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_aW1hZ2VzL0ZVS1VJL2FkMzY2NDFlZGY0NmJjYmUyMjRmN2RmMTEwMjhkMjRjLnBuZw1601111645.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9KVU5HTEUucG5n1606666561.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9jb250ZW50L2ZiLlBORw1607020730.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9jb250ZW50L2luLlBORw1607020730.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9jb250ZW50L3R3LlBORw1607020730.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9jb250ZW50L3lvdXR1YmUuUE5H1607020730.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9pY29uL0pVTkdMRS5wbmc1607009364.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9tZWRpYS8yNDk1OTEyNF8xMzQwOTQ5NDM5MzA2ODBfOTk1NDgyOTE0MTIxMzAxMDU3X28tODg4eDUwMC5qcGc1607013685.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9tZWRpYS8yNTA3MzI1OF8xMzQwOTUwODM5MzA2NjZfMTAyMDk2MTA1NDQxMDUxNDYzOV9vLTg4OHg2NjYuanBn1607013685.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/room/content/fb.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/room/content/in.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/room/content/tw.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/room/content/youtube.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/room/icon/JUNGLE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/room/media/24959124_134094943930680_995482914121301057_o-888x500.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/room/media/25073258_134095083930666_1020961054410514639_o-888x666.jpg" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -121,42 +505,114 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/create.blade.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/edit.blade.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/list.blade.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/configs/router.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="108" selection-start-line="18" selection-start-column="108" selection-end-line="18" selection-end-column="108" />
+            <state relative-caret-position="619">
+              <caret line="43" column="113" selection-start-line="43" selection-start-column="113" selection-end-line="43" selection-end-column="113" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php">
+        <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/configs/sidebar.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="54" column="120" selection-start-line="54" selection-start-column="120" selection-end-line="54" selection-end-column="120" />
+            <state relative-caret-position="340">
+              <caret line="20" column="71" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/configs.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1275">
+              <caret line="90" column="13" lean-forward="true" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
               <folding>
-                <element signature="e#0#6#0" expanded="true" />
+                <element signature="e#30#387#1#PHP" />
+                <element signature="e#407#608#1#PHP" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.env">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/email-template.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="19" lean-forward="true" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+            <state relative-caret-position="214">
+              <caret line="36" column="106" selection-start-line="36" selection-start-column="106" selection-end-line="36" selection-end-column="106" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/router.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="354" column="27" selection-start-line="354" selection-start-column="13" selection-end-line="354" selection-end-column="27" />
+              <folding>
+                <element signature="e#84#1021#1#PHP" />
+                <element signature="e#1049#1942#1#PHP" />
+                <element signature="e#1966#2851#1#PHP" />
+                <element signature="e#2879#3588#1#PHP" />
+                <element signature="e#3614#5799#1#PHP" />
+                <element signature="e#5828#6217#1#PHP" />
+                <element signature="e#6880#7529#1#PHP" />
+                <element signature="e#7555#8054#1#PHP" />
+                <element signature="e#8080#8579#1#PHP" />
+                <element signature="e#8604#9100#1#PHP" />
+                <element signature="e#9124#9714#1#PHP" />
+                <element signature="e#9737#10265#1#PHP" />
+                <element signature="e#10291#10825#1#PHP" />
+                <element signature="e#10852#11351#1#PHP" />
+                <element signature="e#11379#12276#1#PHP" />
+                <element signature="e#12301#12671#1#PHP" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/Blog/backend/resource/configs/router.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="500">
+              <caret line="56" column="15" lean-forward="true" selection-start-line="56" selection-start-column="15" selection-end-line="56" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="571">
+              <caret line="61" column="36" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/sidebar.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/EmailTemplateController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="76" column="61" selection-start-line="76" selection-start-column="54" selection-end-line="76" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/sidebar.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1713">
+              <caret line="111" column="18" lean-forward="true" selection-start-line="111" selection-start-column="18" selection-end-line="111" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -171,7 +627,6 @@
       <find>FUKUI</find>
       <find>modal-default</find>
       <find>::Value</find>
-      <find>lists_sidebar</find>
       <find>Auth</find>
       <find>guard</find>
       <find>$.ajaxSetup</find>
@@ -180,6 +635,18 @@
       <find>row-title</find>
       <find>product_id</find>
       <find>room</find>
+      <find>.skin-black-light .sidebar-menu .treeview-menu &gt; .treeview.active</find>
+      <find>breadcrumb</find>
+      <find>View::composer</find>
+      <find>User\ViewComposers</find>
+      <find>+</find>
+      <find>fa fa-circle-o</find>
+      <find>ca</find>
+      <find>lists_sidebar</find>
+      <find>newmenuitem</find>
+      <find>$this-&gt;sidebar</find>
+      <find>sidebar_current</find>
+      <find>sidebar</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -188,13 +655,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/configs/router.php" />
-        <option value="$PROJECT_DIR$/core/helper.php" />
-        <option value="$PROJECT_DIR$/public/module/admin/assets/style.css" />
-        <option value="$PROJECT_DIR$/core/plugins/MegaMenu/resource/configs/router.php" />
-        <option value="$PROJECT_DIR$/core/modules/user/backend/src/Http/Controllers/RoleController.php" />
-        <option value="$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/role/premission.blade.php" />
-        <option value="$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/list.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/configs/option.blade.php" />
@@ -206,6 +666,46 @@
         <option value="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ModuleController.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php" />
         <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/config/zoe.php" />
+        <option value="$PROJECT_DIR$/core/plugins/ContactForm/resource/configs/component.php" />
+        <option value="$PROJECT_DIR$/core/plugins/ContactForm/Plugin.php" />
+        <option value="$PROJECT_DIR$/public/module/admin/assets/style.css" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/configs/media/premission.blade.php" />
+        <option value="$PROJECT_DIR$/core/plugins/ContactForm/src/Controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/core/plugins/ContactForm/resource/configs/configs.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/list.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/src/View/AppTableView.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/Module.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/src/Providers/AppServiceProvider.php" />
+        <option value="$PROJECT_DIR$/core/plugins/ContactForm/src/Controllers/EmailTemplateController.php" />
+        <option value="$PROJECT_DIR$/core/plugins/ContactForm/src/Controllers/EmailController.php" />
+        <option value="$PROJECT_DIR$/core/plugins/ContactForm/resource/configs/router.php" />
+        <option value="$PROJECT_DIR$/core/plugins/ContactForm/resource/configs/sidebar.php" />
+        <option value="$PROJECT_DIR$/core/plugins/ContactForm/resource/views/controller/email/list.blade.php" />
+        <option value="$PROJECT_DIR$/core/plugins/ContactForm/resource/views/controller/index/list.blade.php" />
+        <option value="$PROJECT_DIR$/core/plugins/Contact/src/Controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/core/plugins/Contact/Plugin.php" />
+        <option value="$PROJECT_DIR$/core/plugins/Contact/src/Controllers/EmailController.php" />
+        <option value="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/email/list.blade.php" />
+        <option value="$PROJECT_DIR$/core/plugins/Contact/src/Controllers/FormController.php" />
+        <option value="$PROJECT_DIR$/core/plugins/Contact/resource/configs/configs.php" />
+        <option value="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/list.blade.php" />
+        <option value="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/form/list.blade.php" />
+        <option value="$PROJECT_DIR$/core/plugins/Contact/resource/configs/sidebar.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/sidebar.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/EmailController.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/router.php" />
+        <option value="$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/edit.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/create.blade.php" />
+        <option value="$PROJECT_DIR$/lib/zoe/Http/Controller.php" />
+        <option value="$PROJECT_DIR$/lib/zoe/Providers/RouteServiceProvider.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/list.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/configs.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/email-template.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/sidebar.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/EmailTemplateController.php" />
+        <option value="$PROJECT_DIR$/core/plugins/Contact/resource/configs/router.php" />
       </list>
     </option>
   </component>
@@ -366,14 +866,14 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -381,7 +881,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -390,7 +890,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="configs" type="462c0819:PsiDirectoryNode" />
@@ -400,7 +900,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
@@ -410,7 +910,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
@@ -421,7 +921,19 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="email-template" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
@@ -433,7 +945,7 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
@@ -444,13 +956,164 @@
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Blog" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="configs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Blog" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="Contact" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="Contact" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="Contact" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+              <item name="configs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="zoe" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="zoe" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="zoe" type="462c0819:PsiDirectoryNode" />
+              <item name="Providers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="tmp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -463,8 +1126,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\zoecms\backup" />
-      <recent name="C:\xampp\htdocs\zoecms" />
+      <recent name="C:\xampp\htdocs\zoecms\core\modules\Admin\backend\resource\views\controller\email-template" />
+      <recent name="C:\xampp\htdocs\zoecms\core\plugins\Contact\resource\views\controller\form" />
+      <recent name="C:\xampp\htdocs\zoecms\core\plugins\Contact\src\Controllers" />
+      <recent name="C:\xampp\htdocs\zoecms\core\plugins\ContactForm\resource\views\controller\email" />
+      <recent name="C:\xampp\htdocs\zoecms\core\plugins\ContactForm\src\Controllers" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -497,7 +1163,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18916000" />
+    <option name="totallyTimeSpent" value="37569000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -507,7 +1173,7 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.26218852" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.7906724" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -531,309 +1197,347 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/order-excel.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3153">
-          <caret line="1029" column="61" selection-start-line="1029" selection-start-column="61" selection-end-line="1029" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="29" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Style/Alignment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="15" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Tracking.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/User/Module.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="209" column="29" selection-start-line="209" selection-start-column="29" selection-end-line="209" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Models/OrderExcelModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="120" column="81" selection-start-line="120" selection-start-column="77" selection-end-line="120" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/form/ship.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="36" column="84" selection-start-line="36" selection-start-column="84" selection-end-line="36" selection-end-column="109" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/role/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-296" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/src/ViewComposers/SidebarComposer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="6" lean-forward="true" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/zoe/Http/Middleware/PermissionMiddleware.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/User/backend/resource/configs/providers.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="36" />
+          <caret line="3" column="89" selection-start-line="3" selection-start-column="66" selection-end-line="3" selection-end-column="89" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="61" column="25" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/resource/views/controller/role/premission.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="150" column="40" lean-forward="true" selection-start-line="150" selection-start-column="40" selection-end-line="150" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/elfinder.blade.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/User/backend/resource/configs/configs.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/sidebar.blade.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/View/AppTableView.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="39" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="4" selection-end-column="39" />
+        <state relative-caret-position="289">
+          <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/announce.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1581" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/layout.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-971" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/configs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="143" lean-forward="true" selection-start-line="27" selection-start-column="120" selection-end-line="27" selection-end-column="143" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/user.blade.php">
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/views/components/comment/main.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/export.blade.php">
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/views/components/comment/component.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/views/controller/dashboard/list.blade.php">
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/Module.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="19" />
+        <state relative-caret-position="1360">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
+          <folding>
+            <element signature="e#25#51#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/configs/option.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="73" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/src/Http/Controllers/RoleController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="48" column="46" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/src/Providers/AppServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="82" selection-start-line="14" selection-start-column="69" selection-end-line="14" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/PageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="135" column="1" lean-forward="true" selection-start-line="135" selection-start-column="1" selection-end-line="135" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tmp/lang.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="52" column="15" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24599">
-          <caret line="1461" selection-start-line="1461" selection-end-line="1461" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/ProductController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2312">
-          <caret line="140" column="51" lean-forward="true" selection-start-line="140" selection-start-column="12" selection-end-line="140" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/user/backend/src/Http/Controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/component/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4301">
-          <caret line="273" column="24" selection-start-line="273" selection-start-column="24" selection-end-line="273" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/layout/layout.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8942">
-          <caret line="526" column="20" selection-start-line="526" selection-start-column="20" selection-end-line="526" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/configs/configs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2193">
-          <caret line="129" column="40" lean-forward="true" selection-start-line="129" selection-start-column="40" selection-end-line="129" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/db.php">
+    <entry file="file://$PROJECT_DIR$/lib/zoe/Application.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/themes/zoe/frontend/resource/stubs/layout.stubs">
+    <entry file="file://$PROJECT_DIR$/lib/zoe/AssetManager.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/themes/zoe/frontend/resource/views/layout/head.blade.php">
+    <entry file="file://$PROJECT_DIR$/lib/zoe/Providers/AppServiceProvider.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+        <state relative-caret-position="-612" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Providers/AppServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/themes/zoe/frontend/resource/views/controller/user/auth/login.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/themes/zoe/frontend/resource/views/controller/user/auth/register.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/themes/zoe/frontend/resource/views/controller/home/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/themes/zoe/frontend/resource/views/controller/blog/post/lists.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="55" lean-forward="true" selection-start-line="34" selection-start-column="55" selection-end-line="34" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Libs/Excel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-395">
-          <caret line="1150" column="38" selection-start-line="1150" selection-start-column="38" selection-end-line="1150" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="84" column="10" lean-forward="true" selection-start-line="78" selection-start-column="4" selection-end-line="84" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Str.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ModuleController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="37" column="36" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/lib/zoe/Providers/AssetManagerServiceProvider.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <caret line="16" column="11" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="16" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backup/cms (11).sql">
+    <entry file="file://$PROJECT_DIR$/core/plugins/ContactForm/src/Controllers/EmailTemplateController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backup/zoecms.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/console.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/page/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="108" selection-start-line="18" selection-start-column="108" selection-end-line="18" selection-end-column="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="54" column="120" selection-start-line="54" selection-start-column="120" selection-end-line="54" selection-end-column="120" />
+        <state relative-caret-position="612">
+          <caret line="36" column="1" lean-forward="true" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
           <folding>
+            <element signature="e#47#79#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/EmailTemplateController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="755">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+          <folding>
+            <element signature="e#42#74#0#PHP" expanded="true" />
+            <element signature="e#658#1624#0#PHP" />
+            <element signature="e#1629#1791#0#PHP" />
+            <element signature="e#2085#4402#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/ContactForm/resource/views/controller/email/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/views/components/comment/config.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/src/Controllers/EmailController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/email/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="48" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/configs/component.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/src/Controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="82" selection-start-line="18" selection-start-column="82" selection-end-line="18" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/form/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/form/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="82" selection-start-line="18" selection-start-column="82" selection-end-line="18" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/Plugin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/src/Controllers/FormController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="8" column="20" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tmp/note.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/CategoryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="150" column="8" selection-start-line="150" selection-start-column="8" selection-end-line="150" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Blog/backend/resource/configs/sidebar.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/PageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="51" column="13" lean-forward="true" selection-start-line="45" selection-start-column="12" selection-end-line="51" selection-end-column="13" />
+          <folding>
+            <element signature="e#42#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="39" lean-forward="true" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/page.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="568">
+          <caret line="157" column="21" lean-forward="true" selection-start-line="52" selection-start-column="14" selection-end-line="157" selection-end-column="21" />
+          <folding>
+            <element signature="e#2858#9558#0#HTML" />
             <element signature="e#0#6#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="19" lean-forward="true" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/User/backend/src/ViewComposers/SidebarComposer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/zoe/Http/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/zoe/Providers/RouteServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="26" lean-forward="true" selection-start-column="26" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="39" lean-forward="true" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/configs/configs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="6" lean-forward="true" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/layout.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="354" column="27" selection-start-line="354" selection-start-column="13" selection-end-line="354" selection-end-column="27" />
+          <folding>
+            <element signature="e#84#1021#1#PHP" />
+            <element signature="e#1049#1942#1#PHP" />
+            <element signature="e#1966#2851#1#PHP" />
+            <element signature="e#2879#3588#1#PHP" />
+            <element signature="e#3614#5799#1#PHP" />
+            <element signature="e#5828#6217#1#PHP" />
+            <element signature="e#6880#7529#1#PHP" />
+            <element signature="e#7555#8054#1#PHP" />
+            <element signature="e#8080#8579#1#PHP" />
+            <element signature="e#8604#9100#1#PHP" />
+            <element signature="e#9124#9714#1#PHP" />
+            <element signature="e#9737#10265#1#PHP" />
+            <element signature="e#10291#10825#1#PHP" />
+            <element signature="e#10852#11351#1#PHP" />
+            <element signature="e#11379#12276#1#PHP" />
+            <element signature="e#12301#12671#1#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="571">
+          <caret line="61" column="36" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/sidebar.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1713">
+          <caret line="111" column="18" lean-forward="true" selection-start-line="111" selection-start-column="18" selection-end-line="111" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/configs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="90" column="13" lean-forward="true" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
+          <folding>
+            <element signature="e#30#387#1#PHP" />
+            <element signature="e#407#608#1#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/email-template.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="36" column="106" selection-start-line="36" selection-start-column="106" selection-end-line="36" selection-end-column="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/EmailTemplateController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="76" column="61" selection-start-line="76" selection-start-column="54" selection-end-line="76" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Blog/backend/resource/configs/router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="56" column="15" lean-forward="true" selection-start-line="56" selection-start-column="15" selection-end-line="56" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/configs/sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="71" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/configs/router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="619">
+          <caret line="43" column="113" selection-start-line="43" selection-start-column="113" selection-end-line="43" selection-end-column="113" />
         </state>
       </provider>
     </entry>

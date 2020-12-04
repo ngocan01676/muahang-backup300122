@@ -5,7 +5,7 @@ return [
         'plugin' => 'core/plugins',
         'theme' => 'core/themes'
     ],
-    'modules' => ['admin', 'user'],
+    'modules' => ['Admin', 'User'],
     'plugins' => ['Comment', 'MegaMenu'],
     'providers' => [
 

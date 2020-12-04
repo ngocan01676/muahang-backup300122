@@ -21,14 +21,16 @@ class ControllerBackend extends Controller
         $data = array_merge($this->data, $data);
         $request = request();
         $keyName = app()->getKey("_view_alias");
-        $_view_alias = isset($request->route()->defaults[$keyName]) ? $request->route()->defaults[$keyName] : "";
+        $_view_alias = isset($request->route()->defaults[$keyName]) ? $request->route()->defaults[$keyName] : $key;
         if (isset($alias['backend'][$view])) {
             $keyView = $alias['backend'][$view];
         }else if (isset($alias['backend'][$_view_alias . ":" . $view])) {
             $keyView = $alias['backend'][$_view_alias . ":" . $view];
-        } else if (isset($_view_alias)) {
+        } else if (!empty($_view_alias)) {
             $keyView = $_view_alias . '::controller.' . $view;
-        } else {
+        } else if (!empty($key)) {
+            $keyView = $key . '::controller.' . $view;
+        }else{
             $keyView = $view;
         }
         return $this->_render($keyView, $data, $key);

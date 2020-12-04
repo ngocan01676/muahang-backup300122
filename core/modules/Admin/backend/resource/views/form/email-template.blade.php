@@ -1,0 +1,134 @@
+<div class="col-md-12">
+    <div class="box box box-zoe">
+        <div class="box-body">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br/>
+            @endif
+            @flash_message()@endflash_message
+
+            @if(isset($model))
+                {!! Form::model($model, ['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
+                {!! Form::hidden('id') !!}
+            @else
+                {!! Form::open(['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
+            @endif
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td>
+                            {!! Form::label('id_title', z_language('Email Name'), ['class' => 'name']) !!}
+                            {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>z_language('Email Name')]) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('parameters', z_language('Parameters'), ['class' => 'parameters']) !!}
+                            {!! Form::text('parameters',isset($model)?null:'{}', ['readonly'=>1,'class' => 'form-control','placeholder'=>z_language('Parameters')]) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
+                            @section('extra-script')
+                            <script src="https://cdn.tiny.cloud/1/dy2gprztto8u1yfz0albwqwz2pqfl5bn0bl1rbbyse4x3x3u/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script>
+
+                                @php
+                                $menus = [];
+                                foreach($configs as $config){
+                                    $items = [];
+                                    foreach($config as $key=>$_config){
+                                        $items[$key] = ['title'=>$_config,'key'=>'@{'.$key.'}@'];
+                                    }
+                                    $title = '{'.implode("} , {",$config).'}';
+                                    $menus[md5($title)] = ['title'=>$title,'items'=>$items];
+                                }
+                                @endphp
+                            <script>
+                                let parameters = JSON.parse($('#parameters').val());
+                                let config = {
+                                    selector: "textarea.my-editor",
+                                    menu : {
+                                        file   : {title : 'File'  , items : 'newdocument'},
+                                        edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+                                        insert : {title : 'Insert', items : 'link media | template hr'},
+                                        view   : {title : 'View'  , items : 'visualaid'},
+                                        format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
+                                        table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
+                                        tools  : {title : 'Tools' , items : 'spellchecker code'},
+                                        // newmenu: {title : 'New Menu', items : 'newmenuitem newmenuitem1'}
+                                    },
+                                    menubar: '',
+                                    setup: function(editor) {
+
+                                            editor.on('change', function(e) {
+                                                console.log('the event object ', e);
+                                                console.log('the editor object ', editor);
+
+                                                let content = editor.getContent();
+                                                console.log('the content ', content);
+                                                for(let key in parameters){
+                                                    console.log((content.indexOf('{@'+key+'@}')));
+                                                    console.log((content.includes('{@'+key+'@}')));
+                                                    if(content.indexOf('{@'+key+'@}') !== -1 || content.includes('{@'+key+'@}')){
+                                                        console.log(key);
+                                                    }
+                                                }
+                                            });
+
+                                            @php
+                                                foreach ($menus as $key=>$menu){
+                                                    foreach ($menu['items'] as $key1=>$menu1){
+                                                        echo "editor.addMenuItem('$key1', {
+                                                                text: '{$menu1['title']}',
+                                                                context: '$key',
+                                                                onclick: function (a,b) {
+                                                                     if(!parameters.hasOwnProperty('$key1')){
+                                                                        parameters['$key1'] = 1;
+                                                                        $('#parameters').val(JSON.stringify(parameters));
+                                                                     }
+                                                                     editor.insertContent('{@$key1@}');
+                                                                }
+                                                            });";
+
+                                                   }
+                                               }
+                                            @endphp
+                                            }
+                                        };
+                                        @php
+                                            foreach ($menus as $key=>$menu){
+                                                echo 'config.menubar+=" '.$key.'";';
+                                                echo 'config.menu["'.$key.'"]='.json_encode(['title'=>$menu['title'],'items'=>implode(' ',array_keys($menu['items']))]).';'."\n";
+                                            }
+                                            echo 'console.log(config);';
+                                @endphp
+                                tinymce.init(config);
+                            </script>
+                            @endsection
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('status_id', z_language('Status'), ['class' => 'status']) !!}
+                            {!! Form::radio('status', '1' , true) !!} {!! z_language('Yes') !!}
+                            {!! Form::radio('status', '0',false) !!} {!! z_language('No') !!}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
+@section('extra-script')
+    <script type="text/javascript">
+
+    </script>
+@endsection
