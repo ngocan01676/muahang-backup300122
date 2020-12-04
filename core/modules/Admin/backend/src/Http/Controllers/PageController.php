@@ -65,9 +65,19 @@ class PageController extends \Zoe\Http\ControllerBackend
         return $this->render('page.edit', ["page" => $page]);
     }
 
-    public function delete()
+    public function delete(Request $request)
     {
-
+        $id = $request->id;
+        $ref = $request->ref;
+        $model = PageModel::find($id);
+        if($model){
+            $model->delete();
+        }
+        if($ref){
+            return redirect($ref);
+        }else{
+            return redirect(route("backend:page:list", []));
+        }
     }
 
     public function status()

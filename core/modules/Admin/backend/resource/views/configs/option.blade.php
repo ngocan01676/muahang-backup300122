@@ -7,13 +7,19 @@
             </td>
             <td>
                 <table class="table table-bordered">
+                    <tr>
+                        <th>{!! z_language('Name') !!}</th>
+                        <th class="text-center">{!! z_language('Width') !!}</th>
+                        <th class="text-center">{!! z_language('Unit') !!}</th>
+                        <th class="text-center">{!! z_language('Align') !!}</th>
+                    </tr>
                     @foreach($configs['config']["columns"]['lists'] as $val=>$columns)
                     <tr>
-                        <td class="text-left" width="200px">
+                        <td class="text-left">
                             <input type="checkbox" name="data.columns[{!! $val !!}]" value="{!! $val !!}">
                             {!! isset($columns['label'])?$columns['label']:"Empty" !!}
                         </td>
-                        <td>
+                        <td width="100px">
                             <div class="input-group">
                                 <input class="form-control" type="text" name="data.widths[{!! $val !!}]">
                                 <span class="input-group-addon">{!! isset($configs['data']['units'][$val])?$configs['data']['units'][$val]:'%' !!}</span>
@@ -26,6 +32,14 @@
                                 <option value="em">em</option>
                             </select>
                         </td>
+                        <td width="120px">
+                            <select class="form-control" name="data.align[{!! $val !!}]">
+                                <option value="center">center</option>
+                                <option value="left">left</option>
+                                <option value="right">right</option>
+                            </select>
+                        </td>
+                         
                     </tr>
                     @endforeach
                 </table>

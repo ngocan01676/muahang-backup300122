@@ -51,7 +51,8 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
             'config'=>[
                 'pagination'=>[
                     'router'=>[
-                        'edit' => ['label' => z_language('Edit', false), 'name' => $url.':edit', 'par' => ['id' => 'id']],
+                        'edit' => ['name' => $url.':edit'],
+                        'trash' => [ 'name' => $url.':delete'],
                         'preview'=>false,
 
                     ]
@@ -96,6 +97,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
     {
         $this->getcrumb()->breadcrumb(z_language('Edit'), false);
         $model = EmailTemplateModel::find($request->id);
+
         $group = isset($request->route()->defaults['group']) ? $request->route()->defaults['group'] : 'backend';
         $id_key = isset($request->route()->defaults['id_key']) ? $request->route()->defaults['id_key'] : 'default';
         $option = isset($request->route()->defaults['option']) ? $request->route()->defaults['option'] : 'core:module:admin:email-template';
@@ -110,9 +112,20 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
             'configs'=>$configs,'id_key'=>$id_key
         ]);
     }
-    public function delete()
+    public function delete(Request $request)
     {
-        
+        $id = $request->id;
+        $ref = $request->ref;
+        $sidebar = isset($request->route()->defaults['sidebar']) ? $request->route()->defaults['sidebar'] : '';
+        $model = EmailTemplateModel::find($id);
+        if($model){
+            $model->delete();
+        }
+        if($ref){
+            return redirect($ref);
+        }else{
+            return redirect(route($sidebar, []));
+        }
     }
 
     public function status()

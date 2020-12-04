@@ -149,6 +149,9 @@ return [
                         'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
                         'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date']
                     ],
+                    'config'=>[
+
+                    ]
                 ],
                 'pagination' => [
                     'item' => 20,

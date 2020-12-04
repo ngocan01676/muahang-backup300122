@@ -51,6 +51,11 @@ return [
                     "url" => "/edit/{id}",
                     'defaults' => ["id_key" => "Plugin:Contact:Email",'sidebar'=>'backend:plugin:Contact:Email:list']
                 ],
+                "delete" => [
+                    "url" => "/delete",
+                    "method" => ['post'],
+                    'defaults' => ["id_key" => "Plugin:Contact:Email",'sidebar'=>'backend:plugin:Contact:Email:list']
+                ],
             ]
         ]
     ]
