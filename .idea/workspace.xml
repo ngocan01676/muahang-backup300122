@@ -2,44 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/Module.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/configs.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/router.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/configs/sidebar.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/controller/room/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/controller/room/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/controller/room/list.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/resource/views/form/room.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/src/Http/Controllers/MediaController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/src/Http/Controllers/RoomController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/modules/miss_terry/backend/src/Http/Models/Room/RoomModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9KVU5HTEUucG5n1606666561.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9jb250ZW50L2ZiLlBORw1607020730.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9jb250ZW50L2luLlBORw1607020730.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9jb250ZW50L3R3LlBORw1607020730.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9jb250ZW50L3lvdXR1YmUuUE5H1607020730.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9pY29uL0pVTkdMRS5wbmc1607009364.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9tZWRpYS8yNDk1OTEyNF8xMzQwOTQ5NDM5MzA2ODBfOTk1NDgyOTE0MTIxMzAxMDU3X28tODg4eDUwMC5qcGc1607013685.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/.tmb/l1_cm9vbS9tZWRpYS8yNTA3MzI1OF8xMzQwOTUwODM5MzA2NjZfMTAyMDk2MTA1NDQxMDUxNDYzOV9vLTg4OHg2NjYuanBn1607013685.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/room/content/in.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/room/content/tw.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/room/content/youtube.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/room/icon/JUNGLE.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/room/media/24959124_134094943930680_995482914121301057_o-888x500.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/room/media/25073258_134095083930666_1020961054410514639_o-888x666.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env1" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/elfinder/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/elfinder/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/elfinder/tinymce4.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/controller/elfinder/tinymce4.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ElfinderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ElfinderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ModuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ModuleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/module/admin/assets/elfinder/js/elfinder.full.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/module/admin/assets/elfinder/js/elfinder.full.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/Applications/89921048_2616166438710099_624937695986057216_o.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/Pictures/58dfddf152a2a3fcfab3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/Pictures/89921048_2616166438710099_624937695986057216_o.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/Pictures/Design/89921048_2616166438710099_624937695986057216_o.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/Pictures/Design/abc.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/Pictures/fb.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/room/content/fb.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -177,7 +140,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="384">
@@ -185,6 +148,15 @@
               <folding>
                 <element signature="e#0#6#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.env">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" column="19" lean-forward="true" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -232,8 +204,8 @@
         <option value="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/PageController.php" />
         <option value="$PROJECT_DIR$/core/themes/zoe/frontend/resource/views/controller/blog/post/lists.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/src/Http/Controllers/ModuleController.php" />
-        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php" />
+        <option value="$PROJECT_DIR$/.env" />
       </list>
     </option>
   </component>
@@ -525,10 +497,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18829000" />
+    <option name="totallyTimeSpent" value="18916000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29957357" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -817,13 +790,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backup/cms (11).sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
@@ -861,6 +827,13 @@
           <folding>
             <element signature="e#0#6#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="19" lean-forward="true" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
         </state>
       </provider>
     </entry>
