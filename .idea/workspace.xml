@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
     <ignored path="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir/" />
@@ -144,7 +142,7 @@
         <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="384">
-              <caret line="54" column="170" selection-start-line="54" selection-start-column="170" selection-end-line="54" selection-end-column="170" />
+              <caret line="54" column="120" selection-start-line="54" selection-start-column="120" selection-end-line="54" selection-end-column="120" />
               <folding>
                 <element signature="e#0#6#0" expanded="true" />
               </folding>
@@ -488,7 +486,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18452000" />
+    <option name="totallyTimeSpent" value="18572000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -821,7 +819,7 @@
     <entry file="file://$PROJECT_DIR$/core/modules/admin/backend/resource/views/form/page.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
-          <caret line="54" column="170" selection-start-line="54" selection-start-column="170" selection-end-line="54" selection-end-column="170" />
+          <caret line="54" column="120" selection-start-line="54" selection-start-column="120" selection-end-line="54" selection-end-column="120" />
           <folding>
             <element signature="e#0#6#0" expanded="true" />
           </folding>
