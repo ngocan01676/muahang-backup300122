@@ -9,10 +9,10 @@ use Illuminate\Support\Str;
 use Validator;
 class EmailTemplateController extends \Zoe\Http\ControllerBackend
 {
-    public function getCrumb()
+    public function getCrumb($url = "")
     {
 
-        $this->breadcrumb(z_language("Email Template"), route('backend:email_template:list'));
+        $this->breadcrumb(z_language("Email Template"), route(empty($url)?'backend:email_template:list':$url));
         return $this;
     }
     public function ajax(Request $request){
@@ -25,7 +25,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $option = isset($request->route()->defaults['option']) ? $request->route()->defaults['option'] : 'core:module:admin:email-template';
 
 
-        $this->getcrumb();
+
         $search = $request->query('search', "");
         $status = $request->query('status', "");
         $date = $request->query('date', "");
@@ -40,10 +40,14 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
+        if($id_key !="default"){
+            $models->where('id_key',  $id_key);
+        }
         $models->orderBy('id', 'desc');
 
         $urlCurrentName = request()->route()->getName();
         $arr = explode(':',$urlCurrentName);
+        $this->getcrumb($urlCurrentName);
         unset($arr[count($arr)-1]);
         $url = implode(':',$arr);
 
@@ -86,7 +90,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $sidebar = isset($request->route()->defaults['sidebar']) ? $request->route()->defaults['sidebar'] : '';
 
         $this->sidebar($sidebar);
-
+        $this->getcrumb($sidebar);
         $this->getcrumb()->breadcrumb(z_language('Create'), false);
         $configs = isset($this->app->getConfig()->configs['controllers'][get_class($this)][$id_key])?$this->app->getConfig()->configs['controllers'][get_class($this)][$id_key]:[];
         return $this->render('email-template.create', [
@@ -102,7 +106,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $id_key = isset($request->route()->defaults['id_key']) ? $request->route()->defaults['id_key'] : 'default';
         $option = isset($request->route()->defaults['option']) ? $request->route()->defaults['option'] : 'core:module:admin:email-template';
         $sidebar = isset($request->route()->defaults['sidebar']) ? $request->route()->defaults['sidebar'] : '';
-
+        $this->getcrumb($sidebar);
         $this->sidebar($sidebar);
 
 

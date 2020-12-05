@@ -238,12 +238,8 @@ body {
 .listMain .row-actions {
     color: #ddd;
     font-size: 13px;
-    padding: 2px 0 0;
-    position: absolute;
-    left: 0;
-    bottom: 0;
     display: none;
-
+    text-align: left;
 }
 
 .listMain .row-actions .trash a {
@@ -295,7 +291,8 @@ body {
 
 .listMain .table tbody tr td.column {
     position: relative;
-    padding: 12px 0px 15px 18px;
+    padding: 5px 0px 4px 3px;
+    height: 49px;
 }
 
 .listMain .table tbody tr td span.label-text {
