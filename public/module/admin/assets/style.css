@@ -164,7 +164,12 @@ body {
 .skin-black-light .sidebar-menu .treeview-menu > li > a:hover {
     color: #00b9eb;
 }
-
+.treeview.menu-open > ul.treeview-menu > li > ul.treeview-menu{
+    background: #191e23;
+}
+.treeview.menu-open > ul.treeview-menu > li.menu-open.active > a{
+    border-bottom: 1px solid #32373c;
+}
 .skin-black-light .sidebar-menu > li > a:hover, .skin-black-light .sidebar-menu > li:hover > a {
     background-color: #191e23;
     color: #00b9eb;
