@@ -3,20 +3,25 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2020 at 06:25 PM
+-- Generation Time: Dec 07, 2020 at 12:21 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- PHP Version: 7.4.3
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
+
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `missterry`
 --
+
 -- --------------------------------------------------------
 
 --
@@ -376,7 +381,8 @@ INSERT INTO `cms_config` (`id`, `name`, `type`, `data`) VALUES
 (142, '/Downloads/', 'Elfinder:permission', 'a:1:{s:4:\"data\";a:2:{s:4:\"path\";s:11:\"/Downloads/\";s:4:\"role\";a:1:{s:10:\"premission\";a:5:{i:1;s:1:\"1\";i:2;s:1:\"0\";i:3;s:1:\"0\";i:4;s:1:\"0\";i:5;s:1:\"0\";}}}}'),
 (143, 'core:module:miss_terry:room', 'option', 'a:1:{s:4:\"data\";a:4:{s:7:\"columns\";a:6:{s:2:\"id\";s:2:\"id\";s:5:\"title\";s:5:\"title\";s:7:\"HtmlImg\";s:7:\"HtmlImg\";s:6:\"status\";s:6:\"status\";s:10:\"created_at\";s:10:\"created_at\";s:10:\"updated_at\";s:10:\"updated_at\";}s:6:\"widths\";a:6:{s:2:\"id\";N;s:5:\"title\";N;s:7:\"HtmlImg\";N;s:6:\"status\";N;s:10:\"created_at\";N;s:10:\"updated_at\";N;}s:5:\"units\";a:6:{s:2:\"id\";s:1:\"%\";s:5:\"title\";s:1:\"%\";s:7:\"HtmlImg\";s:1:\"%\";s:6:\"status\";s:1:\"%\";s:10:\"created_at\";s:1:\"%\";s:10:\"updated_at\";s:1:\"%\";}s:10:\"pagination\";a:1:{s:4:\"item\";s:2:\"20\";}}}'),
 (144, '/room/', 'Elfinder:permission', 'a:1:{s:4:\"data\";a:2:{s:4:\"path\";s:6:\"/room/\";s:4:\"role\";a:1:{s:10:\"premission\";a:1:{i:1;s:1:\"4\";}}}}'),
-(145, 'core:module:admin:email-template', 'option', 'a:1:{s:4:\"data\";a:5:{s:7:\"columns\";a:7:{s:2:\"id\";s:2:\"id\";s:4:\"name\";s:4:\"name\";s:10:\"parameters\";s:10:\"parameters\";s:6:\"status\";s:6:\"status\";s:6:\"id_key\";s:6:\"id_key\";s:10:\"created_at\";s:10:\"created_at\";s:10:\"updated_at\";s:10:\"updated_at\";}s:6:\"widths\";a:7:{s:2:\"id\";N;s:4:\"name\";N;s:10:\"parameters\";N;s:6:\"status\";N;s:6:\"id_key\";N;s:10:\"created_at\";N;s:10:\"updated_at\";N;}s:5:\"units\";a:7:{s:2:\"id\";s:1:\"%\";s:4:\"name\";s:1:\"%\";s:10:\"parameters\";s:1:\"%\";s:6:\"status\";s:1:\"%\";s:6:\"id_key\";s:1:\"%\";s:10:\"created_at\";s:1:\"%\";s:10:\"updated_at\";s:1:\"%\";}s:5:\"align\";a:7:{s:2:\"id\";s:6:\"center\";s:4:\"name\";s:6:\"center\";s:10:\"parameters\";s:6:\"center\";s:6:\"status\";s:6:\"center\";s:6:\"id_key\";s:6:\"center\";s:10:\"created_at\";s:6:\"center\";s:10:\"updated_at\";s:6:\"center\";}s:10:\"pagination\";a:1:{s:4:\"item\";s:2:\"20\";}}}');
+(145, 'core:module:admin:email-template', 'option', 'a:1:{s:4:\"data\";a:5:{s:7:\"columns\";a:7:{s:2:\"id\";s:2:\"id\";s:4:\"name\";s:4:\"name\";s:10:\"parameters\";s:10:\"parameters\";s:6:\"status\";s:6:\"status\";s:6:\"id_key\";s:6:\"id_key\";s:10:\"created_at\";s:10:\"created_at\";s:10:\"updated_at\";s:10:\"updated_at\";}s:6:\"widths\";a:7:{s:2:\"id\";N;s:4:\"name\";N;s:10:\"parameters\";N;s:6:\"status\";N;s:6:\"id_key\";N;s:10:\"created_at\";N;s:10:\"updated_at\";N;}s:5:\"units\";a:7:{s:2:\"id\";s:1:\"%\";s:4:\"name\";s:1:\"%\";s:10:\"parameters\";s:1:\"%\";s:6:\"status\";s:1:\"%\";s:6:\"id_key\";s:1:\"%\";s:10:\"created_at\";s:1:\"%\";s:10:\"updated_at\";s:1:\"%\";}s:5:\"align\";a:7:{s:2:\"id\";s:6:\"center\";s:4:\"name\";s:6:\"center\";s:10:\"parameters\";s:6:\"center\";s:6:\"status\";s:6:\"center\";s:6:\"id_key\";s:6:\"center\";s:10:\"created_at\";s:6:\"center\";s:10:\"updated_at\";s:6:\"center\";}s:10:\"pagination\";a:1:{s:4:\"item\";s:2:\"20\";}}}'),
+(146, '/Media/', 'Elfinder:permission', 'a:1:{s:4:\"data\";a:2:{s:4:\"path\";s:7:\"/Media/\";s:4:\"role\";a:1:{s:10:\"premission\";a:1:{i:1;s:1:\"3\";}}}}');
 
 -- --------------------------------------------------------
 
@@ -2923,7 +2929,7 @@ CREATE TABLE `cms_miss_room` (
 --
 
 INSERT INTO `cms_miss_room` (`id`, `slug`, `title`, `description`, `content`, `admin_id`, `difficult`, `image`, `status`, `order_index`, `time`, `config`, `views`, `created_at`, `updated_at`) VALUES
-(1, 'secrets-of-the-jungle', 'Secrets of the Jungle', '“Bạn cùng đồng đội bất ngờ bị bỏ rơi trong rừng.\r\nBạn chỉ có 60 phút trước khi bị Khu Rừng nuốt chửng…”', '<h2><strong>Quy định của ph&ograve;ng chơi Miss Terry-Escape Rooms</strong></h2>\r\n<ol>\r\n<li>Bạn c&oacute; 60 ph&uacute;t để tho&aacute;t khỏi ph&ograve;ng chơi. Tất cả những manh mối bạn cần để giải m&atilde; c&aacute;c c&acirc;u đố đều nằm trong căn ph&ograve;ng n&agrave;y. C&aacute;c bạn kh&ocirc;ng được sử dụng c&aacute;c thiết bị c&ocirc;ng nghệ như điện thoại, m&aacute;y t&iacute;nh,&hellip; trong l&uacute;c đang ở trong ph&ograve;ng ph&ograve;ng chơi.</li>\r\n<li>Đ&acirc;y l&agrave; một tr&ograve; chơi tr&iacute; tuệ. Ph&ograve;ng chơi ẩn chứa những b&iacute; mật v&agrave; bạn phải giải m&atilde; bằng khả năng tư duy logic, quan s&aacute;t, ph&aacute;n đo&aacute;n t&igrave;nh huống nhưng bạn kh&ocirc;ng được sử dụng sức mạnh.</li>\r\n<li>Bạn c&oacute; thể dừng cuộc chơi bất cứ l&uacute;c n&agrave;o nhưng số tiền c&aacute;c bạn bỏ ra để chơi sẽ kh&ocirc;ng được ho&agrave;n trả lại.</li>\r\n<li>Bạn c&oacute; 3 lần trợ gi&uacute;p miễn ph&iacute; bằng c&aacute;ch hỏi sự gợi &yacute; từ Game Master trong suốt thời gian chơi để bạn c&oacute; thể ho&agrave;n th&agrave;nh lượt chơi.</li>\r\n<li>Bạn ho&agrave;n to&agrave;n tự nguyện tham gia chơi tại Miss Terry,&nbsp;v&igrave; thế ch&uacute;ng t&ocirc;i kh&ocirc;ng chịu tr&aacute;ch nhiệm với những nguy cơ xảy ra trong l&uacute;c c&aacute;c bạn đang tham gia tr&ograve; chơi thực tế n&agrave;y.</li>\r\n<li>Bạn kh&ocirc;ng được chuyển dịch, nhấc hay giẫm đạp l&ecirc;n những đồ vật c&oacute; d&aacute;n logo của Miss Terry.</li>\r\n<li>Những người sử dụng rượu v&agrave; c&aacute;c chất g&acirc;y nghiện kh&ocirc;ng được tham gia chơi.</li>\r\n<li>Bạn c&oacute; tr&aacute;ch nhiệm giữ b&iacute; mật nội dung tr&ograve; chơi cũng như c&aacute;c manh mối, lời giải,&hellip; khi ra khỏi ph&ograve;ng chơi để những người chơi kh&aacute;c đều c&oacute; thể được thưởng thức sự bất ngờ, th&uacute; vị của tr&ograve; chơi giống như bạn.</li>\r\n<li>Kh&ocirc;ng được mang đồ ăn v&agrave; thức uống v&agrave;o ph&ograve;ng chơi.</li>\r\n<li>Tất cả c&aacute;c thiết bị ghi &acirc;m v&agrave; ghi h&igrave;nh (như m&aacute;y ảnh, m&aacute;y quay, m&aacute;y ghi &acirc;m) sẽ kh&ocirc;ng được mang v&agrave;o ph&ograve;ng chơi.</li>\r\n<li>Mọi manh mối đều được t&igrave;m thấy trong ph&ograve;ng chơi v&agrave; kh&ocirc;ng cần d&ugrave;ng đến vũ lực. V&igrave; thế, bạn phải chịu tr&aacute;ch nhiệm đền b&ugrave; đối với mọi sự t&aacute;c động l&agrave;m hỏng, vỡ, g&atilde;y &hellip; c&aacute;c đồ vật trong ph&ograve;ng chơi do bạn g&acirc;y ra.</li>\r\n<li>Mọi sự sao ch&eacute;p nội dung tr&ograve; chơi, những thiết kế về c&aacute;c chi tiết trong ph&ograve;ng, c&acirc;u đố, manh mối, của ph&ograve;ng chơi &hellip; đều vi phạm bản quyền của Miss Terry v&agrave; bạn sẽ phải chịu tr&aacute;ch nhiệm trước ph&aacute;p luật nếu vi phạm điều n&agrave;y.</li>\r\n<li>Nếu bạn vi phạm bất cứ điều g&igrave; trong số những điều tr&ecirc;n, bạn sẽ phải rời khỏi ph&ograve;ng chơi ngay lập tức m&agrave; kh&ocirc;ng được ho&agrave;n trả tiền hoặc được đền b&ugrave;.</li>\r\n</ol>', 1, 4, '/uploads/room/icon/JUNGLE.png', 1, 0, 0, '{\"1\":{\"user\":\"2\",\"price1\":\"100\",\"price2\":\"200\",\"price3\":\"5000\"},\"2\":{\"user\":\"3-6\",\"price1\":\"200\",\"price2\":\"500\",\"price3\":\"1000\"}}', 0, '2020-11-30 16:48:55', '2020-12-03 16:39:03');
+(1, 'secrets-of-the-jungle', 'Secrets of the Jungle', '“Bạn cùng đồng đội bất ngờ bị bỏ rơi trong rừng.\r\nBạn chỉ có 60 phút trước khi bị Khu Rừng nuốt chửng…”', '<h2><strong>Quy định của ph&ograve;ng chơi Miss Terry-Escape Rooms</strong></h2>\r\n<ol>\r\n<li>Bạn c&oacute; 60 ph&uacute;t để tho&aacute;t khỏi ph&ograve;ng chơi. Tất cả những manh mối bạn cần để giải m&atilde; c&aacute;c c&acirc;u đố đều nằm trong căn ph&ograve;ng n&agrave;y. C&aacute;c bạn kh&ocirc;ng được sử dụng c&aacute;c thiết bị c&ocirc;ng nghệ như điện thoại, m&aacute;y t&iacute;nh,&hellip; trong l&uacute;c đang ở trong ph&ograve;ng ph&ograve;ng chơi.</li>\r\n<li>Đ&acirc;y l&agrave; một tr&ograve; chơi tr&iacute; tuệ. Ph&ograve;ng chơi ẩn chứa những b&iacute; mật v&agrave; bạn phải giải m&atilde; bằng khả năng tư duy logic, quan s&aacute;t, ph&aacute;n đo&aacute;n t&igrave;nh huống nhưng bạn kh&ocirc;ng được sử dụng sức mạnh.</li>\r\n<li>Bạn c&oacute; thể dừng cuộc chơi bất cứ l&uacute;c n&agrave;o nhưng số tiền c&aacute;c bạn bỏ ra để chơi sẽ kh&ocirc;ng được ho&agrave;n trả lại.</li>\r\n<li>Bạn c&oacute; 3 lần trợ gi&uacute;p miễn ph&iacute; bằng c&aacute;ch hỏi sự gợi &yacute; từ Game Master trong suốt thời gian chơi để bạn c&oacute; thể ho&agrave;n th&agrave;nh lượt chơi.</li>\r\n<li>Bạn ho&agrave;n to&agrave;n tự nguyện tham gia chơi tại Miss Terry,&nbsp;v&igrave; thế ch&uacute;ng t&ocirc;i kh&ocirc;ng chịu tr&aacute;ch nhiệm với những nguy cơ xảy ra trong l&uacute;c c&aacute;c bạn đang tham gia tr&ograve; chơi thực tế n&agrave;y.</li>\r\n<li>Bạn kh&ocirc;ng được chuyển dịch, nhấc hay giẫm đạp l&ecirc;n những đồ vật c&oacute; d&aacute;n logo của Miss Terry.</li>\r\n<li>Những người sử dụng rượu v&agrave; c&aacute;c chất g&acirc;y nghiện kh&ocirc;ng được tham gia chơi.</li>\r\n<li>Bạn c&oacute; tr&aacute;ch nhiệm giữ b&iacute; mật nội dung tr&ograve; chơi cũng như c&aacute;c manh mối, lời giải,&hellip; khi ra khỏi ph&ograve;ng chơi để những người chơi kh&aacute;c đều c&oacute; thể được thưởng thức sự bất ngờ, th&uacute; vị của tr&ograve; chơi giống như bạn.</li>\r\n<li>Kh&ocirc;ng được mang đồ ăn v&agrave; thức uống v&agrave;o ph&ograve;ng chơi.</li>\r\n<li>Tất cả c&aacute;c thiết bị ghi &acirc;m v&agrave; ghi h&igrave;nh (như m&aacute;y ảnh, m&aacute;y quay, m&aacute;y ghi &acirc;m) sẽ kh&ocirc;ng được mang v&agrave;o ph&ograve;ng chơi.</li>\r\n<li>Mọi manh mối đều được t&igrave;m thấy trong ph&ograve;ng chơi v&agrave; kh&ocirc;ng cần d&ugrave;ng đến vũ lực. V&igrave; thế, bạn phải chịu tr&aacute;ch nhiệm đền b&ugrave; đối với mọi sự t&aacute;c động l&agrave;m hỏng, vỡ, g&atilde;y &hellip; c&aacute;c đồ vật trong ph&ograve;ng chơi do bạn g&acirc;y ra.</li>\r\n<li>Mọi sự sao ch&eacute;p nội dung tr&ograve; chơi, những thiết kế về c&aacute;c chi tiết trong ph&ograve;ng, c&acirc;u đố, manh mối, của ph&ograve;ng chơi &hellip; đều vi phạm bản quyền của Miss Terry v&agrave; bạn sẽ phải chịu tr&aacute;ch nhiệm trước ph&aacute;p luật nếu vi phạm điều n&agrave;y.</li>\r\n<li>Nếu bạn vi phạm bất cứ điều g&igrave; trong số những điều tr&ecirc;n, bạn sẽ phải rời khỏi ph&ograve;ng chơi ngay lập tức m&agrave; kh&ocirc;ng được ho&agrave;n trả tiền hoặc được đền b&ugrave;.</li>\r\n</ol>', 1, 4, '/uploads/room/icon/JUNGLE.png', 1, 0, 0, '{\"1\":{\"user\":\"2\",\"price1\":\"100\",\"price2\":\"200\",\"price3\":\"5000\"},\"2\":{\"user\":\"3-6\",\"price1\":\"200\",\"price2\":\"500\",\"price3\":\"1000\"}}', 0, '2020-11-30 16:48:55', '2020-12-07 10:03:09');
 
 -- --------------------------------------------------------
 
@@ -2961,7 +2967,8 @@ CREATE TABLE `cms_module` (
 INSERT INTO `cms_module` (`id`, `name`, `version`, `data`, `status`, `create_at`) VALUES
 (29, 'blog', '1.0.0', 'a:1:{s:7:\"require\";a:1:{i:0;s:7:\"Comment\";}}', 1, '2019-10-18 18:30:50'),
 (30, 'shop_ja', '1.0.0', 'a:1:{s:7:\"require\";a:1:{i:0;s:7:\"Comment\";}}', 0, '2020-11-12 04:07:55'),
-(31, 'miss_terry', '1.0.0', 'a:1:{s:7:\"require\";a:0:{}}', 1, '2020-11-29 15:40:58');
+(31, 'miss_terry', '1.0.0', 'a:1:{s:7:\"require\";a:0:{}}', 1, '2020-11-29 15:40:58'),
+(32, 'MissTerry', '1.0.0', 'a:1:{s:7:\"require\";a:0:{}}', 1, '2020-12-07 03:57:02');
 
 -- --------------------------------------------------------
 
@@ -3068,6 +3075,20 @@ CREATE TABLE `cms_permissions_user` (
 
 INSERT INTO `cms_permissions_user` (`id`, `user_id`, `name`, `guard_name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 3, 'user', 'backend', 1, '2019-08-01 17:00:00', '2019-08-01 17:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_plugin_gallery`
+--
+
+CREATE TABLE `cms_plugin_gallery` (
+  `key_id` varchar(150) NOT NULL,
+  `key_group` varchar(150) NOT NULL,
+  `data` text NOT NULL,
+  `update_time` datetime NOT NULL,
+  `create_time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -3334,6 +3355,12 @@ ALTER TABLE `cms_permissions_user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `cms_plugin_gallery`
+--
+ALTER TABLE `cms_plugin_gallery`
+  ADD UNIQUE KEY `key_id` (`key_id`,`key_group`);
+
+--
 -- Indexes for table `cms_role`
 --
 ALTER TABLE `cms_role`
@@ -3411,7 +3438,7 @@ ALTER TABLE `cms_comments`
 -- AUTO_INCREMENT for table `cms_config`
 --
 ALTER TABLE `cms_config`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `cms_email_template`
@@ -3453,7 +3480,7 @@ ALTER TABLE `cms_miss_room`
 -- AUTO_INCREMENT for table `cms_module`
 --
 ALTER TABLE `cms_module`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `cms_page`
