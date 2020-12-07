@@ -193,13 +193,16 @@ return [
                 "acl"=>'configuration',
                 "router" => [
                     "list" => [
-                        "url" => "/{type?}",
+                        "url" => "/tab/{type?}",
                     ],
                     "ajax" => [
                         "url" => "/ajax", "method" => ['post'],
                     ],
                     "action" => [
                         "url" => "/action", "method" => ['post'],
+                    ],
+                    "register" => [
+                        "url" => "/register",
                     ],
                 ]
             ],
@@ -362,6 +365,7 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
+
                     "create" => [
                         "url" => "/create",
                     ],

@@ -54,13 +54,26 @@
                             @isset($data['data']['columns'][$k])
                                 @continue(isset($route[$k]))
                                 @if($model!=null && property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) || $k =="actions" )
+                                    @php
+                                        $style = "";
+                                        if(isset($data['data']['widths'][$k])){
+                                            $style.='width:'.$data['data']['widths'][$k]."".$data['data']['units'][$k].';';
+                                        }
+                                        if(isset($data['data']['align'][$k])){
+                                            $style.='text-align:'.$data['data']['align'][$k].';';
+                                        }
+                                        if(!empty($style)){
+                                            $style = rtrim($style,';');
+                                            $style = ' style="'.$style.'" ';
+                                        }
+                                    @endphp
                                 @if('id'== $columns['type'])
-                                    <th class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!} @isset($columns['order_by']) column-order_by @endisset {{list_text_aligin($columns)}}">
+                                    <th {!! empty($style)?"":$style !!} class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!} @isset($columns['order_by']) column-order_by @endisset {{list_text_aligin($columns)}}">
                                         {{z_language($columns['label'])}}
                                         {!! sort_type(isset($columns['order_by'])?$columns['order_by']:"",$k,$parameter) !!}
                                     </th>
                                 @else
-                                    <th class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!} @isset($columns['order_by']) column-order_by @endisset {{list_text_aligin($columns)}}">
+                                    <th {!! empty($style)?"":$style !!} class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!} @isset($columns['order_by']) column-order_by @endisset {{list_text_aligin($columns)}}">
                                         {{z_language($columns['label'])}}
                                         @isset($columns['order_by'])
                                             {!! sort_type(isset($columns['order_by'])?$columns['order_by']:"",$k,$parameter) !!}
@@ -85,8 +98,21 @@
                                               $model->{$key} = call_user_func_array($callback[$columns['callback']],[$model]);
                                             @endphp
                                         @endif
+                                        @php
+                                            $style = "";
+                                            if(isset($data['data']['widths'][$key])){
+                                                $style.='width:'.$data['data']['widths'][$key]."".$data['data']['units'][$key].';';
+                                            }
+                                            if(isset($data['data']['align'][$key])){
+                                                $style.='text-align:'.$data['data']['align'][$key].';';
+                                            }
+                                            if(!empty($style)){
+                                                $style = rtrim($style,';');
+                                                $style = ' style="'.$style.'" ';
+                                            }
+                                        @endphp
                                         @if('title'== $columns['type'])
-                                            <td scope="col" @isset($data['data']['widths'][$key]) style="width: {!! $data['data']['widths'][$key] !!}{!! $data['data']['units'][$key] !!}" @endisset
+                                            <td scope="col" {!! empty($style)?"":$style !!}
                                                 class="column column-primary column-name {{list_text_aligin($columns)}}">
                                                 <strong><a class="row-title"
                                                            href="#">@php echo list_label($model->{$key},$columns,$data,$model); @endphp</a></strong>
@@ -106,7 +132,7 @@
                                                                     }
                                                                 }
                                                             @endphp
-                                                                @continue($oke == false);
+                                                                @continue($oke == false)
                                                             @php
                                                                 $par = isset($route)?$route:[];
                                                                 foreach ($router['par'] as $k=>$v){
@@ -115,24 +141,20 @@
                                                                 $key_form = md5(rand(1,10000) . rand(1,10000));
                                                             @endphp
                                                             <span class="{{$id}}">
-                                                             @isset($router['method'])
-                                                                            <form id="{{$id}}-form-{{$key_form}}"
-                                                                                  action="{{route($router['name'],$par)}}"
-                                                                                  method="{{$router['method']}}"
-                                                                                  style="display: none;">
-                                                                                <input name="_ref" type="hidden" value="{!! base64_encode(url()->current()); !!}">
-                                                                                @foreach($par as $_k=>$_v)
-                                                                                <input name="_{!! $_k !!}" type="hidden" value="{!! $_v; !!}">
-                                                                                @endforeach
-                                                                                            @csrf
-                                                                                        </form>
-                                                                        <a  href="#"
-                                                                               onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn xóa bảng ghi này') !!}')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{$router['label']}} </a> {{$i++<$n?"|":""}}
-                                                                        @else
-
-                                                                            <a {!! isset($router['hide'])?'style="display:none"':"" !!} href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{($i++<$n)?"  | ":""}}
-                                                                        @endif
-                                                        </span>
+                                                                @isset($router['method'])
+                                                                <form id="{{$id}}-form-{{$key_form}}" action="{{route($router['name'],$par)}}" method="{{$router['method']}}" style="display: none;">
+                                                                    <input name="_ref" type="hidden" value="{!! base64_encode(url()->current()); !!}">
+                                                                    @csrf
+                                                                    @foreach($par as $_k=>$_v)
+                                                                        <input name="_{!! $_k !!}" type="hidden" value="{!! $_v; !!}">
+                                                                    @endforeach
+                                                                </form>
+                                                                <a  href="#"
+                                                                       onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn xóa bảng ghi này') !!}')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{$router['label']}} </a> {{++$i<$n?"|":""}}
+                                                                @else
+                                                                    <a {!! isset($router['hide'])?'style="display:none"':"" !!} href="{{route($router['name'],$par)}}"> {{$router['label']}} </a> {{(++$i<$n)?"  | ":""}}
+                                                                @endif
+                                                             </span>
                                                         @endforeach
                                                     @endisset
                                                 </div>
@@ -144,15 +166,15 @@
                                             </td>
                                         @elseif($columns['type'] == 'id')
 
-                                            <td @isset($data['data']['widths'][$key]) style="width: {!! $data['data']['widths'][$key] !!}{!! $data['data']['units'][$key] !!}" @endisset class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
+                                            <td {!! empty($style)?"":$style !!} class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
                                         @elseif($columns['type'] == 'action')
-                                            <td @isset($data['data']['widths'][$key]) style="width: {!! $data['data']['widths'][$key] !!}{!! $data['data']['units'][$key] !!}" @endisset>
+                                            <td {!! empty($style)?"":$style !!}>
                                                  @foreach($columns['lists'] as $lists)
                                                         {!! render_attr($lists,$model)  !!}
                                                  @endforeach
                                             </td>
                                         @else
-                                            <td data="col" @isset($data['data']['widths'][$key]) style="width: {!! $data['data']['widths'][$key] !!}{!! $data['data']['units'][$key] !!}" @endisset
+                                            <td data="col" {!! empty($style)?"":$style !!}
                                                 class="column @isset($columns['primary']) column-primary @endisset {{list_text_aligin($columns)}}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
                                         @endif
                                     @endisset

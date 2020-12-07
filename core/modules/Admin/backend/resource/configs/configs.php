@@ -203,7 +203,6 @@ return [
                     'item' => 20,
                     'router' => [
                         'edit' => ['label' => z_language('Edit', false), 'name' => "backend:page:edit", 'par' => ['id' => 'id']],
-                        'preview' => ['label' => z_language('Preview', false), 'name' => "backend:page:edit", 'par' => ['id' => 'id']],
                         'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:page:delete", 'par' => ['id' => 'id']],
                     ]
                 ],
@@ -374,4 +373,9 @@ return [
             ]
         ]
     ],
+    'registers'=>[
+        'Admin\Http\Controllers\EmailTemplateController'=>[
+            'Contact:Email'=>'Plugin:Contact:Email'
+        ]
+    ]
 ];
