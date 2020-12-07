@@ -9,6 +9,6 @@ class IndexController extends \Zoe\Http\ControllerBackend
 {
     public function list(Request $request)
     {
-        echo "demo";
+       return  $this->render('index.list',[]);
     }
 }

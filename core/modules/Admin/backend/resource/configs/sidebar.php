@@ -91,7 +91,6 @@ return [
                 ],
             ]
         ],
-
         "media" => [
             "name" => z_language('Media', false),
             "pos" => 8,
@@ -113,6 +112,12 @@ return [
                 [
                     "name" => z_language('Permalink', false),
                     "url" => "backend:dashboard:router",
+                ],
+                "register" => [
+                    "name" => z_language("Register", false),
+                    "pos" => 2,
+                    "url" => "backend:configuration:register",
+                    "icon" => "fa fa-book",
                 ],
             ]
         ],

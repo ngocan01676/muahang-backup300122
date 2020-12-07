@@ -373,4 +373,9 @@ return [
             ]
         ]
     ],
+    'registers'=>[
+        'Admin\Http\Controllers\EmailTemplateController'=>[
+            'Contact:Email'=>'Plugin:Contact:Email'
+        ]
+    ]
 ];

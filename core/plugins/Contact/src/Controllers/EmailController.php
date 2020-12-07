@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Validator;
 class EmailController extends \Zoe\Http\ControllerBackend
 {
+
     public function list(Request $request)
     {
         $search = $request->query('search', "");

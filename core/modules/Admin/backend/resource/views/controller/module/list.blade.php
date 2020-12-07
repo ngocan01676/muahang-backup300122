@@ -6,109 +6,114 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
-    @foreach($lists as $module=>$list)
-        <div class="item col-lg-4 col-md-6 col-sm-6 col-12">
-            <div class="box" data-sys="{{$list['system']}}" data-module="{!! $module !!}"
-                 data-name="{!! $list['name'] !!}">
-                <div class="box-header with-border">
-                    <i class="fa fa-bookmark"
-                       @if(isset($lists_install[$module]) || $list['system']) style="color: green" @endif></i>
-                    <h3 class="box-title">{!! $list['name'] !!}</h3>
-                    <div class="pull-right"> <span
-                                class="author"><i>{!! $list['author'] !!}</i></span></div>
-                </div>
-                <div class="box-body">
-                    <div class="icon col-lg-4 text-center">
-                        <div style="position: relative">
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAMAAAAL34HQAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAEtQTFRFMjIyPz8/srKyZWVlf39/mJiYWVlZ8vLy////TExMpqamzMzM2dnZ5eXlv7+/fn5+2NjYi4uL8/PzcnJymZmZ5ubms7OzjIyMpaWlBQNpXQAAA2JJREFUeJztl8uS4yAMRUNM22Acd4b40f//paMXdhZ2V6XCZDb3bOIEAkK6EvLlAgAAAAAAAAAAAAAAAAAAAAAAAAAAAPgc7tr8Muq/3McseabtQne+c6RR/0FrNvoQQn86mmh0qO4vfxu/7dGl+5+j9WOmnePJ/x80ltvaVrEnwk2WdXd+/jqYNP3irpnGHrWt8kEQbSzymA5mOXLX7XyBpbZVjVqV+XnV58OcY3cdB4qclWsLy3Uhj3bcNswsk/l4IrlrOhrgv6yVrbqMJNak2nD33PIeh5tLgI+iy2l4fJA3eLCossawpyD1p6HiqUfiaosuK0Ih7GXhkUVGbhpMZUdzadrBz/0/cFbPYl31vMNAPzwl1XTvdr+t6cqlS5/Djd1jg7k4y49dqlO8omhqlEq5cgI2m3ylgt0swRxP6To1y6sSKaZX/SbudSzQ0FWxK4mIM4fBdeylqZQHugP5QglJDGOr8prELLr/OOQU/jDoUF9OkfNxbXmRRu4TJ4Hr5WoZTT/uxoWiIal5M5YulyR+SXoLTRr5aHfSwBns5rN0eYlZdMSB81ElNZt+e7t7E6dBYyV20MRQ99jMVX2mRsYq4vd6UFZ8u+g9bDcP5+bM4ROzkglOKhr706nA2JGDDMVgYycl7yXUWXJSc1ZjxXQpEpvp46H1Q0MeLVXNWRbDRb55cdy7rNapkDPSoqIws1jOYqbjKTSeeWLPu067sth+rzEU1/kqLRftrRWKzbJzrpr7TSn1npwQy3U0c9RmibKozVJklVqR3TX0Ne7rtXQKeWtrSn0wHbPFXgqTMxPFRq95mtRUtn/iopZq1AZe0ZQgvYx7Nmsy/zwsbJakXruFeBmXQdMxai2lKUn04N5uBv3WjTw1ftZTefVe7LK6gjdbZc7E2p4GN6jhTSi/yjHc+5dP2lrzsPdLVk2jmNXepD+fxJVtJ7Ing5Onn5fNLP5o7dv8trPcfu8/9aPJinwfUvsTBjl7ZPvbzl4hBtUh3YBWia3X7h7f1wpvGc3eKYS9YSlmXfochtJE+Xz/6eaypR/VJY28b8x2oInypkYiurRVZFqyOK5Nm4VPL19xSuvJlm0u+ddU6ubjvk6zayK+uHz8Py/5AAAAAAAAAAAAAAAAAAAAAAAAAAAAACD8BSzEJ+/eaD9uAAAAAElFTkSuQmCC"
-                                 class="img-thumbnail img-responsive img-rounded" alt="Responsive Image"/>
-                            <span style="position: absolute;bottom: 5px;right: 13%;color: #fff"> v<strong>{!! $list['version'] !!}</strong></span>
+    <div style="width: 95%;margin: 0 auto">
+        <div class="row">
+            @foreach($lists as $module=>$list)
+                <div class="item col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="box" data-sys="{{$list['system']}}" data-module="{!! $module !!}"
+                         data-name="{!! $list['name'] !!}">
+                        <div class="box-header with-border">
+                            <i class="fa fa-bookmark"
+                               @if(isset($lists_install[$module]) || $list['system']) style="color: green" @endif></i>
+                            <h3 class="box-title">{!! $list['name'] !!}</h3>
+                            <div class="pull-right"> <span
+                                        class="author"><i>{!! $list['author'] !!}</i></span></div>
                         </div>
-                        @if($list['system'] == true)
-                            <span class="label label-success">{!! z_language('System') !!}</span>
-                        @else
-                            <span class="label label-primary">{!! z_language('Install') !!}</span>
-                        @endif
+                        <div class="box-body">
+                            <div class="icon col-lg-4 text-center">
+                                <div style="position: relative">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAMAAAAL34HQAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAEtQTFRFMjIyPz8/srKyZWVlf39/mJiYWVlZ8vLy////TExMpqamzMzM2dnZ5eXlv7+/fn5+2NjYi4uL8/PzcnJymZmZ5ubms7OzjIyMpaWlBQNpXQAAA2JJREFUeJztl8uS4yAMRUNM22Acd4b40f//paMXdhZ2V6XCZDb3bOIEAkK6EvLlAgAAAAAAAAAAAAAAAAAAAAAAAAAAAPgc7tr8Muq/3McseabtQne+c6RR/0FrNvoQQn86mmh0qO4vfxu/7dGl+5+j9WOmnePJ/x80ltvaVrEnwk2WdXd+/jqYNP3irpnGHrWt8kEQbSzymA5mOXLX7XyBpbZVjVqV+XnV58OcY3cdB4qclWsLy3Uhj3bcNswsk/l4IrlrOhrgv6yVrbqMJNak2nD33PIeh5tLgI+iy2l4fJA3eLCossawpyD1p6HiqUfiaosuK0Ih7GXhkUVGbhpMZUdzadrBz/0/cFbPYl31vMNAPzwl1XTvdr+t6cqlS5/Djd1jg7k4y49dqlO8omhqlEq5cgI2m3ylgt0swRxP6To1y6sSKaZX/SbudSzQ0FWxK4mIM4fBdeylqZQHugP5QglJDGOr8prELLr/OOQU/jDoUF9OkfNxbXmRRu4TJ4Hr5WoZTT/uxoWiIal5M5YulyR+SXoLTRr5aHfSwBns5rN0eYlZdMSB81ElNZt+e7t7E6dBYyV20MRQ99jMVX2mRsYq4vd6UFZ8u+g9bDcP5+bM4ROzkglOKhr706nA2JGDDMVgYycl7yXUWXJSc1ZjxXQpEpvp46H1Q0MeLVXNWRbDRb55cdy7rNapkDPSoqIws1jOYqbjKTSeeWLPu067sth+rzEU1/kqLRftrRWKzbJzrpr7TSn1npwQy3U0c9RmibKozVJklVqR3TX0Ne7rtXQKeWtrSn0wHbPFXgqTMxPFRq95mtRUtn/iopZq1AZe0ZQgvYx7Nmsy/zwsbJakXruFeBmXQdMxai2lKUn04N5uBv3WjTw1ftZTefVe7LK6gjdbZc7E2p4GN6jhTSi/yjHc+5dP2lrzsPdLVk2jmNXepD+fxJVtJ7Ing5Onn5fNLP5o7dv8trPcfu8/9aPJinwfUvsTBjl7ZPvbzl4hBtUh3YBWia3X7h7f1wpvGc3eKYS9YSlmXfochtJE+Xz/6eaypR/VJY28b8x2oInypkYiurRVZFqyOK5Nm4VPL19xSuvJlm0u+ddU6ubjvk6zayK+uHz8Py/5AAAAAAAAAAAAAAAAAAAAAAAAAAAAACD8BSzEJ+/eaD9uAAAAAElFTkSuQmCC"
+                                         class="img-thumbnail img-responsive img-rounded" alt="Responsive Image"/>
+                                    <span style="position: absolute;bottom: 5px;right: 13%;color: #fff"> v<strong>{!! $list['version'] !!}</strong></span>
+                                </div>
+                                @if($list['system'] == true)
+                                    <span class="label label-success">{!! z_language('System') !!}</span>
+                                @else
+                                    <span class="label label-primary">{!! z_language('Install') !!}</span>
+                                @endif
 
-                    </div>
-                    <div class="info col-lg-8" style="position: relative">
-                        <div class="description">
-                            {!! $list['description'] !!}
-                        </div>
-                        @if(count($list['require']))
-                            <div class="plugins">
-                                @php
-                                    $i = 0;
-                                @endphp
-                                @foreach($list['require'] as $_plugin=>$require)
-                                    <div>
-                                        <td>
-                                            <strong>{{ ++$i }}</strong> {!! $require==1?'<span class="plugin label label-success" data-plugin="'.$_plugin.'" data-status="1">'.$_plugin.'</span>':($require==2?'<span class="plugin label label-default" data-plugin="'.$_plugin.'" data-status="2">'.$_plugin.'</span>':'<span class="plugin label label-warning" data-plugin="'.$_plugin.'" data-status="0">'.$_plugin.'</span>') !!}
-                                        </td>
+                            </div>
+                            <div class="info col-lg-8" style="position: relative">
+                                <div class="description">
+                                    {!! $list['description'] !!}
+                                </div>
+                                @if(count($list['require']))
+                                    <div class="plugins">
+                                        @php
+                                            $i = 0;
+                                        @endphp
+                                        @foreach($list['require'] as $_plugin=>$require)
+                                            <div>
+                                                <td>
+                                                    <strong>{{ ++$i }}</strong> {!! $require==1?'<span class="plugin label label-success" data-plugin="'.$_plugin.'" data-status="1">'.$_plugin.'</span>':($require==2?'<span class="plugin label label-default" data-plugin="'.$_plugin.'" data-status="2">'.$_plugin.'</span>':'<span class="plugin label label-warning" data-plugin="'.$_plugin.'" data-status="0">'.$_plugin.'</span>') !!}
+                                                </td>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
+                                @endif
                             </div>
-                        @endif
+                        </div>
+                        <div class="box-footer">
+                            <div class="actions col-lg-12">
+
+                                @if($list['system'] == false)
+                                    <div class="app-uninstall" @if(!isset($lists_install[$module])) style="display:none" @endif>
+                                        <a href="javascript:void(0);" class="btn btn-xs btn-danger btnAction pull-right"
+                                           data-act="uninstall"
+                                           data-module="{!! $module !!}">
+                                            <i class="fa fa-remove"></i> {!! z_language('UnInstall') !!}
+                                        </a>
+
+                                        <a href="javascript:void(0);" class="btn btn-xs bg-orange btnAction pull-left"
+                                           data-act="export"
+                                           step="0"
+                                           datas='{}'
+                                           data-page="1"
+                                           data-module="{!! $module !!}">
+                                            <i class="fa fa-cloud-download"></i> {!! z_language('Export') !!}
+                                            (<strong>0</strong>)
+                                        </a>
+                                        <a href="javascript:void(0);" class="btn btn-xs bg-navy btnAction pull-left"
+                                           data-act="import"
+                                           step="0"
+                                           datas='{}'
+                                           data-page="1"
+                                           data-module="{!! $module !!}"
+                                           configs='@json($list["configs"])'
+                                        >
+                                            <i class="fa fa-cloud-upload"></i> {!! z_language('Import') !!} (<strong>0</strong>)
+                                        </a>
+                                    </div>
+                                    <div class="app-install" @if(isset($lists_install[$module])) style="display:none" @endif>
+                                        {{--<a href="javascript:void(0);" class="btn bg-orange btn-xs  btnAction pull-left"--}}
+                                           {{--data-act="remove"--}}
+                                           {{--data-module="{!! $module !!}"> <i--}}
+                                                    {{--class="fa fa-remove"></i> {!! z_language('Remove') !!}--}}
+                                        {{--</a>--}}
+                                        <a href="javascript:void(0);" class="btn bg-navy btn-xs btnAction pull-right"
+                                           data-act="install"
+                                           data-module="{!! $module !!}"> <i
+                                                    class="fa fa-cogs"></i> {!! z_language('Install') !!}
+                                        </a>
+                                    </div>
+                                @else
+                                    &nbsp;
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="box-footer">
-
-                    <div class="actions col-lg-12">
-
-                        @if($list['system'] == false)
-                            <div class="app-uninstall" @if(!isset($lists_install[$module])) style="display:none" @endif>
-                                <a href="javascript:void(0);" class="btn btn-xs btn-danger btnAction pull-right"
-                                   data-act="uninstall"
-                                   data-module="{!! $module !!}">
-                                    <i class="fa fa-remove"></i> {!! z_language('UnInstall') !!}
-                                </a>
-
-                                <a href="javascript:void(0);" class="btn btn-xs bg-orange btnAction pull-left"
-                                   data-act="export"
-                                   step="0"
-                                   datas='{}'
-                                   data-page="1"
-                                   data-module="{!! $module !!}">
-                                    <i class="fa fa-cloud-download"></i> {!! z_language('Export') !!}
-                                    (<strong>0</strong>)
-                                </a>
-                                <a href="javascript:void(0);" class="btn btn-xs bg-navy btnAction pull-left"
-                                   data-act="import"
-                                   step="0"
-                                   datas='{}'
-                                   data-page="1"
-                                   data-module="{!! $module !!}"
-                                   configs='@json($list["configs"])'
-                                >
-                                    <i class="fa fa-cloud-upload"></i> {!! z_language('Import') !!} (<strong>0</strong>)
-                                </a>
-                            </div>
-                            <div class="app-install" @if(isset($lists_install[$module])) style="display:none" @endif>
-                                <a href="javascript:void(0);" class="btn bg-orange btn-xs  btnAction pull-left"
-                                   data-act="remove"
-                                   data-module="{!! $module !!}"> <i
-                                            class="fa fa-remove"></i> {!! z_language('Remove') !!}
-                                </a>
-                                <a href="javascript:void(0);" class="btn bg-navy btn-xs btnAction pull-right"
-                                   data-act="install"
-                                   data-module="{!! $module !!}"> <i
-                                            class="fa fa-cogs"></i> {!! z_language('Install') !!}
-                                </a>
-                            </div>
-                        @else
-                            &nbsp;
-                        @endif
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
-    @endforeach
+    </div>
+
 @endsection
 @push('links')
     <style>
         .item .box {
             border-top: 3px solid #0c0c0c;
             border-radius: 0px;
+            min-height: 250px;
         }
 
         .item .box-title {

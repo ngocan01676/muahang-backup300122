@@ -65,4 +65,11 @@ class ConfigurationController extends \Zoe\Http\ControllerBackend
 
         return $this->render('configuration.list');
     }
+    public function register(){
+        $configs = $this->app->getConfig()->registers;
+
+        return $this->render('configuration.register',[
+            'lists'=>$configs,
+        ]);
+    }
 }
