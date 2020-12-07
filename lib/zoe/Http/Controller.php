@@ -68,14 +68,33 @@ class Controller extends BaseController
     {
         $request = request();
         if($request->ajax()){
+
             $this->view = view()->make($keyView,$data);
             return response()->json(['views'=>$this->view->renderSections()]);
         }else{
             $this->view = view($this->layout);
-            View::share('_breadcrumb', $this->breadcrumb);
 
+            $composers = $this->app->getConfig()->composers;
+
+            foreach ($composers as $clazz=>$composer){
+                if(!class_exists($clazz)) continue;
+                $_views = [];
+                foreach ($composer as $_view=>$_composer){
+                    $_views[] = $_composer['view'];
+                }
+
+                if(count($_views)>0){
+                    View::composer(
+                        $_views,
+                        $clazz
+                    );
+                }
+            }
+
+            View::share('_breadcrumb', $this->breadcrumb);
             $this->view->nest("content",$keyView,$data);
         }
+
         return $this->view;
     }
 }

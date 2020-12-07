@@ -23,12 +23,11 @@
                 @php $i = 0 @endphp
                 @foreach($lists as $key=>$_lists)
                     @foreach($_lists as $_key=>$__list)
+
                         <tr>
                             <td class="text-center">{!! ++$i; !!}</td>
                             <td class="text-left">{{$key}}</td>
-                            <td class="text-left">{{$_key}}</td>
-                            <td class="text-center">{{$__list}}</td>
-                            <td class="text-center"><input type="checkbox" value="{!! $__list !!}" name="off[{!! $_key !!}]"></td>
+
                         </tr>
                     @endforeach
                 @endforeach

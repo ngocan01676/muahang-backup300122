@@ -6,5 +6,5 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
-    @include('miss_terry::form.room')
+    @include('MissTerry::form.room')
 @endsection

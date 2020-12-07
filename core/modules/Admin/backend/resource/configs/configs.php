@@ -375,7 +375,11 @@ return [
     ],
     'registers'=>[
         'Admin\Http\Controllers\EmailTemplateController'=>[
-            'Contact:Email'=>'Plugin:Contact:Email'
+            'Plugin:Contact:Email'=>[
+                'composer'=>[],
+                'key'=>'Contact:Email'
+            ]
         ]
-    ]
+    ],
+
 ];

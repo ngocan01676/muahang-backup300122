@@ -1,5 +1,5 @@
 <?php
-namespace ModuleMissterry;
+namespace ModuleMissTerry;
 use Admin\Lib\Database;
 use Zoe\Module as ZModule;
 use Illuminate\Support\Facades\DB;

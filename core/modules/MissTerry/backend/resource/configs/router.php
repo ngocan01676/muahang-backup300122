@@ -11,7 +11,7 @@ return [
                 "controller" => "RoomController",
                 "sub_prefix" => "/$url/room",
                 "guard" => "backend",
-                "acl"=> "miss_terry:room",
+                "acl"=> "MissTerry:room",
                 "router" => [
                     "list" => [
                         "url" => "/",

@@ -2,7 +2,7 @@
     $name = 'miss_terry';
     return [
         'views' => [
-            'paths' => ['miss_terry' => 'backend'],
+            'paths' => ['MissTerry' => 'backend'],
             'alias' => [
 
             ],
@@ -63,10 +63,36 @@
 
             ]
         ],
-         'configs' => [
+        ],
+        'configs' => [
             'lists'=>[
 
             ]
         ],
+        'registers'=>[
+            'PluginGallery\Controllers\IndexController'=>[
+                'MissTerry:Room'=>[
+                    'view'=>'gallery',
+                    'use'=>[
+                        'tab'=>z_language('Gallery',false)
+                    ],
+                    'data'=>[
+
+                    ],
+                    'configs'=>[
+
+                    ]
+                ]
+            ]
+        ],
+        'composers'=>[
+            'PluginGallery\Views\GalleryComposer'=>[
+                'MissTerry:Room'=>[
+                    'view'=>'MissTerry::form.room',
+                    'data'=>[],
+                    'config'=>[]
+                ]
+            ]
+        ]
     ]
-];
+;
