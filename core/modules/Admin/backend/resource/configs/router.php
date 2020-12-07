@@ -165,6 +165,9 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
+                    "run"=>[
+                        "url"=>'/'.md5('run:ComponentController'),"method" => ['post'],
+                    ]
                 ]
             ],
             'category' => [

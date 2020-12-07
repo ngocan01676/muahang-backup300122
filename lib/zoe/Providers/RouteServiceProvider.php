@@ -167,9 +167,11 @@ class RouteServiceProvider extends ServiceProvider
                 if (isset($configRouter['data'][$alias]['cache']) && $configRouter['data'][$alias]['cache'] != 0) {
                     $middleware[] = 'cache.response:' . $alias . "," . $configRouter['data'][$alias]['cache'];
                 }
-//                echo "<pre>";
-//                echo $alias;
-//                print_r($middleware);
+
+
+
+
+
                 $r->middleware($middleware);
             }
         }

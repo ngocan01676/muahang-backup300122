@@ -53,3 +53,40 @@ var _parseJSON = function (json) {
         return {};
     }
 }
+function Click() {
+    this.handlers = [];  // observers
+}
+Click.prototype = {
+    subscribe: function(fn) {
+        this.handlers.push(fn);
+    },
+    unsubscribe: function(fn) {
+        this.handlers = this.handlers.filter(
+            function(item) {
+                if (item !== fn) {
+                    return item;
+                }
+            }
+        );
+    },
+    fire: function(o, thisObj) {
+        var scope = thisObj || window;
+        var arr = [];
+
+        this.handlers.forEach(function(item) {
+             let resulted = item.call(scope, o);
+             if(resulted instanceof Promise){
+                 arr.push(resulted);
+             }
+        });
+
+        console.log(arr);
+
+        Promise.all(arr).then(function (t) {
+            console.log(t);
+            thisObj();
+        }).catch(function (t) {
+            console.log(t);
+        });
+    }
+};

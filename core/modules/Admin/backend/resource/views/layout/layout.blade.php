@@ -490,8 +490,8 @@
 @stack('extra-content')
 <!-- jQuery 3 -->
 <script src="{{asset('module/admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
-
 <script src="{{asset('module/admin/assets/zoe.jquery.inputs.js')}}"></script>
+<script src="{{asset('module/admin/assets/jQuery-MD5/jquery.md5.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('module/admin/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- SlimScroll -->
@@ -517,6 +517,9 @@
 {{--<script src="{{asset('module/admin/developer-tools/toolbar.js')}}"></script>--}}
 
 <script type="text/javascript">
+
+    var clicks = new Click();
+
     $(document).ready(function () {
         $.ajaxSetup({
             headers: {

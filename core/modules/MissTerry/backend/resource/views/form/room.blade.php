@@ -24,7 +24,7 @@
         @if(isset($configs['post']['language']['multiple']))
             <ul class="nav nav-tabs" {{$current_language}}>
                 <li class="active"><a href="#tab_info" data-toggle="tab">{!! z_language("Thông tin chung") !!}</a></li>
-                @isset($Gallery)
+                @isset($GalleryComposer)
                 <li><a href="#tab_media" data-toggle="tab">{!! z_language("Thư viện ảnh") !!}</a></li>
                 @endisset
                 @foreach($language as $lang=>$_language)
@@ -96,10 +96,9 @@
                         </tbody>
                     </table>
                 </div>
-                @isset($Gallery)
+                @isset($GalleryComposer)
                 <div class="tab-pane clearfix" id="tab_media">
-                    <span><button type="button" class="btn btn-sm pull-right" onclick="openElfinderMedia(this)">Add</button> </span>
-                    {!! $Gallery !!}
+                    {!! $GalleryComposer !!}
                 </div>
                 @endisset
                 @foreach($language as $lang=>$_language)
@@ -372,7 +371,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/tagging/css/amsify.suggestags.css') }}">
     <script src="{{ asset('module/admin/assets/tagging/js/jquery.amsify.suggestags.js') }}"></script>
     <script type="text/javascript">
-
         String.prototype.trimRight = function(charlist) {
             if (charlist === undefined)
                 charlist = "\s";
@@ -493,109 +491,26 @@
                 tr.addClass('Error');
             }
         }
-
         function Save(){
             $(".wrap_rows tbody").each(function () {
                 beforeSave($(this));
             });
             let form_store = $("#form_store");
-
             let data = form_store.zoe_inputs('get');
-
             if(!data.hasOwnProperty('data') || data.data.length === 0){
                 $("#Data").html('[]');
             }else{
                 $("#Data").html(JSON.stringify(data.data));
             }
-           document.getElementById('form_store').submit();
-        }
-        $(document).ready(function () {
-
-            // $('#category-select').multiselect();
-            var tags = [];
-            $('input[name="tag"]').amsifySuggestags({
-                type: 'bootstrap',
-                suggestions: ['Black', 'White', 'Red', 'Blue', 'Green', 'Orange'],
-                afterAdd: function (value) {
-                    console.log()
-                },
-                afterRemove: function (value) {
-                    // after remove
-                },
-
+            clicks.fire(data,function (t) {
+                console.log(data);
             });
-
-        });
-
+        }
         function btn_remove_image(self) {
             console.log($(self).closest('.preview-image-wrapper').find('img').attr('src', 'http://placehold.jp/150x150.png'));
         }
-
-        function openElfinderMedia(self) {
-            $('#elfinderShow').modal();
-            var path = 'media';
-            var volumeId = 'l1_';
-           
-
-            $('#elfinder').elfinder({
-                debug: false,
-                width: '100%',
-                height: '80%',
-                cssAutoLoad: false,
-                startPathHash : 'l1_' + btoa('room/media').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.').replace(/\.+$/, ''),
-                customData: {
-                    _token: '{{ csrf_token() }}',
-                   
-                },
-                useBrowserHistory : false,
-                commandsOptions: {
-                    getfile: {
-                        onlyPath: true,
-                        folders: false,
-                        multiple: false,
-                        oncomplete: 'destroy'
-                    },
-                    ui: 'uploadbutton'
-                },
-                mimeDetect: 'internal',
-                onlyMimes: [
-                    'image/jpeg',
-                    'image/jpg',
-                    'image/png',
-                    'image/gif'
-                ],
-                ui: ['toolbar', 'path', 'stat'],
-                rememberLastDir: false,
-                url: '{{ route("backend:elfinder:showConnector") }}',
-                soundPath: '{{ asset('module/admin/assets/elfinder/sounds') }}',
-                getFileCallback: function (file) {
-                    console.log(file);
-                    $('#elfinderShow').modal('hide');
-                },
-                resizable: false,
-                uiOptions: {
-                    toolbar: [
-                        ['home', 'up'],
-                        ['upload'],
-                        ['quicklook'],
-                    ],
-                    tree: {
-                        openRootOnLoad: true,
-                        syncTree: true
-                    },
-                    navbar: {
-                        minWidth: 150,
-                        maxWidth: 500
-                    },
-                    cwd: {
-                        oldSchool: false
-                    }
-                }
-            }).elfinder('instance');
-        }
         function openElfinder(self) {
             $('#elfinderShow').modal();
-       
             $('#elfinder').elfinder({
                 debug: false,
                 width: '100%',
@@ -603,7 +518,6 @@
                 cssAutoLoad: false,
                 useBrowserHistory : false,
                 startPathHash : 'l1_' + btoa('room/icon').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.').replace(/\.+$/, ''),
-                
                 customData: {
                     _token: '{{ csrf_token() }}'
                 },

@@ -87,10 +87,13 @@
         ],
         'composers'=>[
             'PluginGallery\Views\GalleryComposer'=>[
-                'MissTerry:Room'=>[
-                    'view'=>'MissTerry::form.room',
+                'MissTerry::form.room'=>[
+                    'file'=>'MissTerry::form.room',
+                    'router'=>'backend:miss_terry:room:store',
                     'data'=>[],
-                    'config'=>[]
+                    'config'=>[
+                        'open'=>'room/media'
+                    ]
                 ]
             ]
         ]

@@ -16,7 +16,6 @@ class RoomController extends \Zoe\Http\ControllerBackend
         $this->data['current_language'] =
             isset($this->data['configs']['room']['language']['default']) ? $this->data['configs']['room']['language']['default'] : "vi";
     }
-
     public function getCrumb()
     {
         return $this;
@@ -33,13 +32,10 @@ class RoomController extends \Zoe\Http\ControllerBackend
             $page = 1;
         }
         $parameter = $data;
-
         $route = [];
-
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
         $item = 1;
         $select = [
-
             'room.id',
             'room.title',
             'room.image',
@@ -146,7 +142,6 @@ class RoomController extends \Zoe\Http\ControllerBackend
         } else {
             $model = new RoomModel();
         }
-
         $model->slug = \Illuminate\Support\Str::slug($data['title'], '-');
         $model->image = $data['image'];
         $model->status = $data['status'];
@@ -157,7 +152,6 @@ class RoomController extends \Zoe\Http\ControllerBackend
         $model->content = $data['content'];
         $model->config = $data['config'];
         $model->difficult = $data['difficult'];
-
         DB::beginTransaction();
         try {
             $model->save();
@@ -177,7 +171,7 @@ class RoomController extends \Zoe\Http\ControllerBackend
                 }
             }
             DB::commit();
-            return redirect(route('backend:miss_terry:room:edit', ['id' => $model->id]));
+            return back();
         } catch (\Exception $ex) {
             $validator->getMessageBag()->add('id', $ex->getMessage());
             DB::rollBack();

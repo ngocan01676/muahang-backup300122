@@ -68,7 +68,6 @@ class Controller extends BaseController
     {
         $request = request();
         if($request->ajax()){
-
             $this->view = view()->make($keyView,$data);
             return response()->json(['views'=>$this->view->renderSections()]);
         }else{
@@ -80,9 +79,8 @@ class Controller extends BaseController
                 if(!class_exists($clazz)) continue;
                 $_views = [];
                 foreach ($composer as $_view=>$_composer){
-                    $_views[] = $_composer['view'];
+                    $_views[] = $_composer['file'];
                 }
-
                 if(count($_views)>0){
                     View::composer(
                         $_views,
@@ -90,11 +88,9 @@ class Controller extends BaseController
                     );
                 }
             }
-
             View::share('_breadcrumb', $this->breadcrumb);
             $this->view->nest("content",$keyView,$data);
         }
-
         return $this->view;
     }
 }
