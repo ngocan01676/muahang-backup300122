@@ -9,7 +9,7 @@ use Admin\Http\Models\AnnounceModel;
 class AnnounceController extends \Zoe\Http\ControllerBackend{
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Thông báo"), route('backend:announce:list'));
+        $this->breadcrumb(z_language("Thông báo"), ('backend:announce:list'));
         return $this;
     }
     public function init()

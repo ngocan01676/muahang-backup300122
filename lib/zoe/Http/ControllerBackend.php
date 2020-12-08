@@ -12,7 +12,7 @@ class ControllerBackend extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->breadcrumb->home = ['name' => z_language('Home'), 'uri' => route('backend:dashboard:list')];
+        $this->breadcrumb->home = ['name' => z_language('Home'), 'uri' => ('backend:dashboard:list')];
         $this->breadcrumb->child = new Config();
     }
     public function render($view, $data = [], $key = "backend")

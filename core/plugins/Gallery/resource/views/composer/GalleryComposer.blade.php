@@ -47,7 +47,7 @@
         }
         #GalleryComposer .main .card{
             position: relative;
-            min-height: 246px;
+            min-height: 175px;
             background: #dedede;
             margin: 15px 5px;
         }

@@ -9,6 +9,19 @@
         $urlCurrentNameTemp = implode(":",$listsNav);
         $_sidebar_parent_key = isset($sidebar_current)?$sidebar_current:"";
 
+        if(empty($_sidebar_parent_key)){
+            $lists = array_values($_breadcrumb->child->getArrayCopy());
+            for($i=count($lists)-1 ; $i >= 0 ; $i--){
+
+                if($urlCurrentName == $lists[$i]['uri'] || $lists[$i]['uri'] == false){
+                    if($i - 1 >=0){
+                        $_sidebar_parent_key = $lists[$i-1]['uri'];
+                    }
+                    break;
+                }
+            }
+        }
+
         $locks = [];
     @endphp
     <section class="sidebar">
@@ -144,7 +157,7 @@
                         @else
                             @if (route::has($sidebar['url']))
                             @php
-                                $bool_active = $urlCurrentName == $sidebar['url'] || $urlCurrentNameTemp== $sidebar['url'];
+                                $bool_active = $urlCurrentName == $sidebar['url'] || $urlCurrentNameTemp== $sidebar['url'] || $_sidebar_parent_key == $sidebar['url'];
                                 if($bool_active == false && isset($sidebar['key'])){
                                     $bool_active = $_sidebar_parent_key == $sidebar['url'];
                                 }

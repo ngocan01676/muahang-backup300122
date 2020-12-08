@@ -11,7 +11,7 @@ class ModuleController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Module"), route('backend:module:list'));
+        $this->breadcrumb(z_language("Module"), ('backend:module:list'));
         return $this;
     }
 

@@ -12,7 +12,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
     public function getCrumb($url = "")
     {
 
-        $this->breadcrumb(z_language("Email Template"), route(empty($url)?'backend:email_template:list':$url));
+        $this->breadcrumb(z_language("Email Template"), (empty($url)?'backend:email_template:list':$url));
         return $this;
     }
     public function ajax(Request $request){

@@ -26,7 +26,7 @@ class PluginController extends \Zoe\Http\ControllerBackend
 
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Plugin"), route('backend:plugin:list'));
+        $this->breadcrumb(z_language("Plugin"), ('backend:plugin:list'));
         return $this;
     }
 

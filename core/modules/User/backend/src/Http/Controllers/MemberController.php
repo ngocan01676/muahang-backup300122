@@ -13,7 +13,7 @@ class MemberController extends \Zoe\Http\ControllerBackend
     public function getCrumb()
     {
         $this->sidebar('backend:member:list');
-        $this->breadcrumb(z_language('Membership'), route('backend:member:list'));
+        $this->breadcrumb(z_language('Membership'), ('backend:member:list'));
         return $this;
     }
     public function list(Request $request)

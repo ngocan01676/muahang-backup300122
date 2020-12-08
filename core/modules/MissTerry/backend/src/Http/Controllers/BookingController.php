@@ -6,25 +6,26 @@ use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use MissTerry\Http\Models\Room\RoomModel;
-class RoomController extends \Zoe\Http\ControllerBackend
+class BookingController extends \Zoe\Http\ControllerBackend
 {
     public function init()
     {
         $this->data['language'] = config('zoe.language');
         $this->data['nestables'] = config_get("category", "blog:category");
         $this->data['configs'] = config_get("config", "blog");
+        $this->data['miss_room'] = DB::table('miss_room')->get()->keyBy('id')->all();
         $this->data['current_language'] =
             isset($this->data['configs']['room']['language']['default']) ? $this->data['configs']['room']['language']['default'] : "vi";
     }
     public function getCrumb()
     {
-        $this->breadcrumb('List Room',('backend:miss_terry:room:list'));
+        $this->breadcrumb('List Room',('backend:miss_terry:booking:list'));
         return $this;
     }
     public function list(Request $request){
         $search = $request->query('search', "");
         $status = $request->query('status', "");
-        $this->data['key'] = "core:module:miss_terry:room";
+        $this->data['key'] = "core:module:miss_terry:booking";
         $config = config_get('option',  $this->data['key']);
         $data = $request->query();
 
@@ -35,30 +36,18 @@ class RoomController extends \Zoe\Http\ControllerBackend
         $parameter = $data;
         $route = [];
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+        $item = 1;
+        $select = [];
 
-        $select = [
-            'room.id',
-            'room.title',
-            'room.image',
-            'room.status',
-            'room.views',
-            'room.created_at',
-            'room.updated_at'];
+        $models = DB::table('miss_booking as b');
 
-        $models = DB::table('miss_room as room');
+//        if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
+//
+//            $models->where('title', 'like', '%' . $search . '%');
+//        }
 
-        if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
-
-            $models->where('t.title', 'like', '%' . $search . '%');
-            $select['t.title'] = 't.title';
-        }
-        if (isset($parameter["filter"]['type']) && !empty($parameter['filter']['type'])) {
-            $models->where('type', $parameter['filter']['type']);
-        }
-        if (isset($parameter["filter"]['date']) && !empty($parameter['filter']['date'])) {
-            $date = strtotime($parameter['filter']['date']);
-            $models->where('created_at',">=", date('Y-m-d',$date).' 00:00:00');
-            $models->where('created_at',"<=", date('Y-m-d',$date).' 23:59:59');
+        if (isset($parameter["filter"]['room']) && !empty($parameter['filter']['room'])) {
+            $models->where('room_id', $parameter['filter']['room']);
         }
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
@@ -77,29 +66,29 @@ class RoomController extends \Zoe\Http\ControllerBackend
             unset($parameter['action']);
         }
         $lang = $this->data['current_language'];
-
-        if ($parameter['order_by']['col'] == "title") {
-            if (!isset($select['t.title'])) {
-                $select['t.title'] = 't.title';
-            }
-            $models->orderBy("t." . $parameter['order_by']['col'], $parameter['order_by']['type']);
-        } else {
-            $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
-        }
-//         $models->join('miss_room_translation as rt', 'rt.room_id', '=', 'room.id');
-//         $models->where('rt.lang_code', $lang);
-
-        $models->select($select);
+//        $models->select([]);
         $models = $models->paginate($item, ['*'], 'page', $page);
         $models->appends($parameter);
 
-        return $this->render('room.list', [
+        $miss_room = $this->data['miss_room'];
+        $miss_user = DB::table('user')->get()->keyBy('id')->all();
+
+        return $this->render('booking.list', [
             'models' => $models,
             "route" => $route,
             'parameter' => $parameter,
             'callback' => [
-                "HtmlImg" => function ($model) use ($lang) {
-                    return "<img style='width:150px' src='".url($model->image)."'/>";
+                "get_room" => function ($model) use ($lang,$miss_room) {
+                    if(isset($miss_room[$model->room_id])){
+                        return $miss_room[$model->room_id]->title;
+                    }
+                    return z_language('Empty');
+                },
+                "get_user" => function ($model) use ($lang,$miss_user) {
+                    if($model->user_id > 0){
+                        return $miss_user[$model->user_id]->name;
+                    }
+                    return $model->fullname;
                 }
             ],
         ]);
@@ -107,12 +96,12 @@ class RoomController extends \Zoe\Http\ControllerBackend
     }
     public function create()
     {
-        $this->getCrumb()->breadcrumb('Create Room', ('backend:miss_terry:room:create'));
-        return $this->render('room.create', ['item' => []]);
+        $this->getCrumb()->breadcrumb('Create Booking', ('backend:miss_terry:booking:create'));
+        return $this->render('booking.create', ['item' => []]);
     }
     public function edit($id)
     {
-        $this->getCrumb()->breadcrumb(z_language('Edit Room'), ('backend:miss_terry:room:edit'));
+        $this->getCrumb()->breadcrumb(z_language('Edit Booking'), ('backend:miss_terry:booking:edit'));
         $item = RoomModel::find($id);
         if (isset($this->data['configs']['post']['language']['multiple'])) {
             $trans = $item->table_translation()->where(['room_id' => $id])->get();
@@ -123,7 +112,7 @@ class RoomController extends \Zoe\Http\ControllerBackend
             }
         }
 
-        return $this->render('room.edit', ["item" => $item, "lang_active" => $this->data['current_language']]);
+        return $this->render('booking.edit', ["item" => $item, "lang_active" => $this->data['current_language']]);
     }
 
     public function store(Request $request)

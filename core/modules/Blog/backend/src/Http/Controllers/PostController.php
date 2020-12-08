@@ -24,7 +24,7 @@ class PostController extends \Zoe\Http\ControllerBackend
     public function getCrumb()
     {
         $this->sidebar('backend:blog:post:list');
-        $this->breadcrumb("Post", route('backend:blog:post:list'));
+        $this->breadcrumb("Post", ('backend:blog:post:list'));
         return $this;
     }
 
@@ -107,14 +107,14 @@ class PostController extends \Zoe\Http\ControllerBackend
 
     public function create()
     {
-        $this->getCrumb()->breadcrumb('Post Create', route('backend:blog:post:create'));
+        $this->getCrumb()->breadcrumb('Post Create', ('backend:blog:post:create'));
         return $this->render('post.create', ['item' => []], 'blog');
     }
 
     public function edit($id)
     {
 
-        $this->getCrumb()->breadcrumb('Post Edit', route('backend:blog:post:create'));
+        $this->getCrumb()->breadcrumb('Post Edit', ('backend:blog:post:create'));
         $item = PostModel::find($id);
         if (isset($this->data['configs']['post']['language']['multiple'])) {
             $trans = PostTranslationModel::where(['post_id' => $id])->get();

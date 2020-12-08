@@ -12,7 +12,7 @@ class UserController extends \Zoe\Http\ControllerBackend
     public function getCrumb()
     {
         $this->sidebar('backend:user:list');
-        $this->breadcrumb("Tài khoản quản trị", route('backend:user:list'));
+        $this->breadcrumb("Tài khoản quản trị", ('backend:user:list'));
         return $this;
     }
 

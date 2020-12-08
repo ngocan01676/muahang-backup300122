@@ -16,7 +16,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function getCrumb()
     {
 
-        $this->breadcrumb(z_language("Layout"), route('backend:layout:list'));
+        $this->breadcrumb(z_language("Layout"), ('backend:layout:list'));
         return $this;
     }
     public function getListType($type)

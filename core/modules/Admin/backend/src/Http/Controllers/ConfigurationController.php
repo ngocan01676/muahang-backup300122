@@ -11,7 +11,7 @@ class ConfigurationController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Configuration"), route('backend:configuration:list'));
+        $this->breadcrumb(z_language("Configuration"), ('backend:configuration:list'));
         return $this;
     }
 

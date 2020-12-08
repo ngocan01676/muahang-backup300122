@@ -1,0 +1,25 @@
+Admin
+ - Quản lý phòng chơi: Tên, Nhóm người,
+   Thời gian, Độ khó, Thông tin phòng chơi,
+   Quy định, Thư viện hình ảnh, Giờ chơi,
+   bảng giá(giá thường/ ngày khuyến mãi),
+   Mẫu email(admin/email khách hàng)
+ - Quản lý booking: List theo phòng, theo danh sách đã đăng ký. cho phép sửa đổi hoặc hủy thông tin đã booking
+ - Quản lý người chơi: (Các thông tin cơ bản kèm thêm Nhật ký booking ng dùng/ thống kê các thông số người dùng đó đã booking bao nhiêu lần/ total sao, và Điểm thưởng để sau mỗi lần booking có thể cộng điểm thưởng, Ghi chú/ thông báo tới
+ - Quản lý báo cáo: Doanh thu lọc theo từng phòng theo ngày giờ tháng/ngày/năm hoặc theo từng chương trình khuyến mãi...
+ - Quản lý ticket
+ - Chat
+
+Người dùng:
+ - Quản lý thông tin cá nhân
+ - Quản lý booking
+ - Ưu đãi dành riêng cho bạn(tin khuyến mãi)
+ - Gửi ticket
+ - Thống kê
+
+Trang chủ
+Giới thiệu
+Liên hệ
+Tin tức
+Khuyến mãi
+Phòng chơi

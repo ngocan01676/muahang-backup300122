@@ -11,7 +11,7 @@ class CategoryController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
-        $this->breadcrumb("Category List", route('backend:category:list'));
+        $this->breadcrumb("Category List", ('backend:category:list'));
         return $this;
     }
 
@@ -161,12 +161,12 @@ class CategoryController extends \Zoe\Http\ControllerBackend
             }
             if (isset(app()->getConfig()['modules']['admin.category'][$type]['breadcrumb'])) {
                 $breadcrumb = (app()->getConfig()['modules']['admin.category'][$type]['breadcrumb']);
-                $this->breadcrumb($breadcrumb['name'], route($breadcrumb['route']));
+                $this->breadcrumb($breadcrumb['name'], ($breadcrumb['route']));
             }
         } else {
             $this->getCrumb();
         }
-        $this->breadcrumb("Category", route('backend:layout:list'));
+        $this->breadcrumb("Category", ('backend:layout:list'));
         $this->data['category'] = get_category_type($type);
         $obj_nestable = null;
         if(!empty($class_nestable) && class_exists($class_nestable)){

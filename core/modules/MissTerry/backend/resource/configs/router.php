@@ -32,6 +32,32 @@ return [
                     ],
                 ]
             ],
+            $key.':booking' => [
+                "namespace" => $namespace,
+                "controller" => "BookingController",
+                "sub_prefix" => "/$url/booking",
+                "guard" => "backend",
+                "acl"=> "MissTerry:booking",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "create"=>[
+                        'url'=>'/create'
+                    ],
+                    "edit" => [
+                        'url' => '/edit/{id}'
+                    ],
+                    'store' => [
+                        'url' => '/store',
+                        'method' => ['post']
+                    ],
+                    'delete' => [
+                        'url' => '/delete',
+                        'method' => ['post']
+                    ],
+                ]
+            ],
          ]
     ]
 ];

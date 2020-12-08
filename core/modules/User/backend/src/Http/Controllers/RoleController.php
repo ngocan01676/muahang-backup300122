@@ -11,7 +11,7 @@ class RoleController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
-        $this->breadcrumb("Tài khoản quản trị", route('backend:user:list'));
+        $this->breadcrumb("Role Group", ('backend:user:role:list'));
         return $this;
     }
     public function list()
@@ -23,6 +23,7 @@ class RoleController extends \Zoe\Http\ControllerBackend
     }
     public function permission($id,$guard,Request $request)
     {
+        $this->getcrumb()->breadcrumb(z_language("Premission"), false);
         $modelRole = new Role();
         if($request->isXmlHttpRequest()){
 

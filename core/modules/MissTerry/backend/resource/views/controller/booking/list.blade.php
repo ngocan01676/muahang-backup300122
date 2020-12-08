@@ -1,8 +1,9 @@
 @section('content-header')
+
     <h1>
         &starf; {!! @z_language(["Quản lý phòng"]) !!}
         <small>it all starts here</small>
-        <a href="{{route('backend:miss_terry:room:create')}}"
+        <a href="{{route('backend:miss_terry:booking:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
         @btn_option(["config"=>['name'=>$key]])
         @slot('label')
@@ -23,11 +24,14 @@
                     <div class="row">
                         <div class="col-sm-4" style="padding:0">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
-                                <label>Id</label>
+                                <label>{!! z_language("Room") !!}</label>
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;">
-                                <input type="text" name="filter.id" class="form-control" id="user_id"
-                                       placeholder="Id">
+                                <select name="filter.room" class="form-control">
+                                    @foreach($miss_room as $_miss_room)
+                                    <option value="{!! $_miss_room->id !!}">{!! $_miss_room->title !!}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-4" style="padding:0">
@@ -35,22 +39,19 @@
                                 <label>Name</label>
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;">
-                                <input type="text" name="filter.name" class="form-control" id="username"
+                                <input type="text" name="filter.fullname" class="form-control"
                                        placeholder="Name">
                             </div>
                         </div>
-
                         <div class="col-sm-4" style="padding:0">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
-                                <label>Lang</label>
+                                <label>Date</label>
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;">
-                                <select name="lang" class="form-control">
-                                    <option value="1">d</option>
-                                </select>
+                                <input type="date" name="filter.date" class="form-control"
+                                       placeholder="Name">
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-sm-12">
