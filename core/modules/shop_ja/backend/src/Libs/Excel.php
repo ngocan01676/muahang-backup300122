@@ -195,7 +195,7 @@ class Excel
             $html = "";
             $results = [];
 
-            if ($type == "YAMADA" || $type == "FUKUI" || $type == "OHGA" || $type == "KOGYJA" || $type == "KURICHIKU") {
+            if ($type == "YAMADA" || $type == "FUKUI" || $type == "OHGA" || $type == "KOGYJA" || $type == "KURICHIKU" || $type == "BANH_CHUNG") {
                 $i = 3;
                 $order_tracking_index = $nameColList['order_tracking'];
 
@@ -1305,7 +1305,7 @@ class Excel
             $this->file->makeDirectory(public_path() . $path);
         }
 
-        if ($name == "AMAZON") {
+        if ($name == "AMAZON") {//AMAZONの注文分[MONTH]月[DAY]日
             $filename = 'の注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
         } else {
             $filename = '株式会社ヤマダ-様-のお米の注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
@@ -1387,9 +1387,9 @@ class Excel
 
     }
 
-    public function KURICHIKU($datas)
+    public function KURICHIKU($datas,$name, $formatFileName)
     {
-        $name = "KURICHIKU";
+        //$name = "KURICHIKU";
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->createSheet();
@@ -1762,11 +1762,20 @@ class Excel
         }
 
         $writer = new Xlsx($spreadsheet);
-        if($datas['type'] != "demo"){
-            $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        if($name == "BANH_CHUNG"){
+            if($datas['type'] != "demo"){
+                $path = '/uploads/exports/BANH_CHUNG';
+            }else{
+                $path = '/uploads/demo/BANH_CHUNG';
+            }
         }else{
-            $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+            if($datas['type'] != "demo"){
+                $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+            }else{
+                $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+            }
         }
+        
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
@@ -1777,7 +1786,12 @@ class Excel
         }
         // 株式会社クリチク-様-11月03日注文分
         //  $filename ='株式会社クリチク-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
-        $filename = '株式会社クリチク-様-' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日注文分';
+        if($name == "BANH_CHUNG"){//BANH_CHUNGの注文分[MONTH]月[DAY]日
+            $filename = '/BANH_CHUNGの注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
+        }else{
+            $filename = '株式会社クリチク-様-' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日注文分';
+        }
+
 
         $path = $path . '/' . $filename;
         if (!$this->file->isDirectory(public_path() . $path)) {
