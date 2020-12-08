@@ -73,7 +73,7 @@ class Controller extends BaseController
         }else{
             $this->view = view($this->layout);
 
-            $composers = $this->app->getConfig()->composers;
+            $composers = app()->getConfig()->composers;
 
             foreach ($composers as $clazz=>$composer){
                 if(!class_exists($clazz)) continue;

@@ -21,6 +21,19 @@
             <td>
                 <div class="row main">
 
+                    @isset($GalleryComposer['datas']['images'])
+                        @foreach($GalleryComposer['datas']['images'] as $image)
+                            <div class="col-md-3 item {!! md5($image) !!}">
+                                <div class="card">
+                                    <input type="hidden" value="{!! $image !!}" name="{!! $GalleryComposer['name'] !!}.images[]">
+                                    <img class="thumbnail img-responsive" src="/{!! $image !!}" alt="">
+                                    <div class="tool">
+                                        <button onclick="{!! $GalleryComposer['name'] !!}_remove(this)" class="btn btn-danger btn-xs" type="button"><i class="fa fa-remove"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endisset
                 </div>
             </td>
         </tr>
@@ -34,6 +47,9 @@
         }
         #GalleryComposer .main .card{
             position: relative;
+            min-height: 246px;
+            background: #dedede;
+            margin: 15px 5px;
         }
         #GalleryComposer .main .card .tool{
             position: absolute;
@@ -126,6 +142,7 @@
              return new Promise((resolve, reject) => {
                  let _data = {!! json_encode($GalleryComposer['token']) !!};
                  console.log(data);
+                 _data.id = data.id;
                  _data.data = data["{!! $GalleryComposer['name'] !!}"];
                  console.log(_data);
                   $.ajax({

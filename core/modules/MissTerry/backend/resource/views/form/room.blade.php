@@ -24,9 +24,9 @@
         @if(isset($configs['post']['language']['multiple']))
             <ul class="nav nav-tabs" {{$current_language}}>
                 <li class="active"><a href="#tab_info" data-toggle="tab">{!! z_language("Thông tin chung") !!}</a></li>
-                @isset($GalleryComposer)
+                @if(!empty($GalleryComposer))
                 <li><a href="#tab_media" data-toggle="tab">{!! z_language("Thư viện ảnh") !!}</a></li>
-                @endisset
+                @endif
                 @foreach($language as $lang=>$_language)
                     @if(isset($configs['post']['language']['lists']) &&(is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) && in_array($_language['lang'],$configs['post']['language']['lists'])))
                         <li {{$lang}}><a href="#tab_{{$lang}}"
@@ -96,11 +96,11 @@
                         </tbody>
                     </table>
                 </div>
-                @isset($GalleryComposer)
+                @if(!empty($GalleryComposer))
                 <div class="tab-pane clearfix" id="tab_media">
                     {!! $GalleryComposer !!}
                 </div>
-                @endisset
+                @endif
                 @foreach($language as $lang=>$_language)
                     @if(isset($configs['post']['language']['lists']) && (is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) &&  in_array($_language['lang'],$configs['post']['language']['lists'])) )
                         <div class="tab-pane" id="tab_{{$lang}}">
@@ -504,6 +504,7 @@
             }
             clicks.fire(data,function (t) {
                 console.log(data);
+                $("#form_store").submit();
             });
         }
         function btn_remove_image(self) {
