@@ -1775,7 +1775,7 @@ class Excel
                 $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
             }
         }
-        
+
         if (!$this->file->isDirectory(public_path() . $path)) {
             $this->file->makeDirectory(public_path() . $path);
         }
