@@ -38,6 +38,15 @@
             </td>
         </tr>
     </table>
+    <div class="modal fade" id="{!! $GalleryComposer["name"] !!}elfinderShow">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body" style="overflow: hidden">
+                    <div id="{!! $GalleryComposer['name'] !!}elfinder"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @push('links')
     <style>
@@ -80,9 +89,9 @@
             $(self).closest('.item').remove();
         }
         function {!! $GalleryComposer['name'] !!}_openElfinderMedia(self) {
-            $('#elfinderShow').modal();
+            $('#{!! $GalleryComposer["name"] !!}elfinderShow').modal();
 
-            $('#elfinder').elfinder({
+            $('#{!! $GalleryComposer["name"] !!}elfinder').elfinder({
                 debug: false,
                 width: '100%',
                 height: '80%',
@@ -115,7 +124,7 @@
                 getFileCallback: function (file) {
 
                     {!! $GalleryComposer['name'] !!}_template(file.path);
-                    $('#elfinderShow').modal('hide');
+                    $('#{!! $GalleryComposer["name"] !!}elfinderShow').modal('hide');
                 },
                 resizable: false,
                 uiOptions: {

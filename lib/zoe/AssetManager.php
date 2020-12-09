@@ -31,5 +31,26 @@ class AssetManager{
         }
         return $this;
     }
+    public function render($type){
 
+        if($type == 'js'){
+            if(isset($this->assets[$type])){
+                foreach ($this->assets[$type] as $name=>$files){
+                    foreach ($files as $file=>$index){
+                        if(!empty($file))
+                           echo '<script src="'.asset($file).'"></script>';
+                    }
+                }
+            }
+        }else{
+            if(isset($this->assets[$type])){
+                foreach ($this->assets[$type] as $name=>$files){
+                    foreach ($files as $file=>$index){
+                        if(!empty($file))
+                          echo '<link rel="stylesheet" href="'.asset($file).'">';
+                    }
+                }
+            }
+        }
+    }
 }

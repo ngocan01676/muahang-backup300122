@@ -9,7 +9,7 @@ class GalleryComposer extends \Zoe\Views\ComposerView
     public $data = [];
     public $clazz;
     public function init(){
-        $this->clazz = get_class($this);
+       $this->config($this);
     }
     public function store($data){
         DB::table('plugin_gallery')->updateOrInsert([
@@ -25,12 +25,12 @@ class GalleryComposer extends \Zoe\Views\ComposerView
     {
         $dataView = $view->getData();
 
-        if(isset($this->composers[$this->clazz][$view->name()])){
-            $composer = $this->composers[$this->clazz][$view->name()];
+        if(isset($this->composers[$this->namespace][$view->name()])){
+            $composer = $this->composers[$this->namespace][$view->name()];
 
             $data['GalleryComposer'] = $composer;
             $data['GalleryComposer']['name'] = 'GalleryComposer';
-            $data['GalleryComposer']['token'] = $this->token($view->name(),$data['GalleryComposer']['name'], $this->clazz);
+            $data['GalleryComposer']['token'] = $this->token($view->name(),$data['GalleryComposer']['name'], $this->namespace);
             if(isset($dataView['item']) && $dataView['item']){
                $rs = DB::table('plugin_gallery')->where('key_id',$dataView['item']->id)
                     ->where('key_group',$data['GalleryComposer']['token']['key'])->where('name',$data['GalleryComposer']['token']['name'])->get()->all();

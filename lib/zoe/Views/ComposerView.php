@@ -2,10 +2,17 @@
 namespace Zoe\Views;
 abstract class ComposerView{
     protected $composers = [];
+    public $namespace = "";
+    public $class = "";
     public function __construct()
     {
         $this->composers = app()->getConfig()->composers;
         $this->init();
+    }
+    public function config($self){
+        $this->namespace = get_class($self);
+        $path = explode('\\', $this->namespace);
+        $this->class = array_pop($path);
     }
     abstract public function init();
     public function isToken($token){

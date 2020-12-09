@@ -11,6 +11,14 @@
             'namespaces' => [
                 'MissTerry' => 'backend'
             ],
+            'configs'=>[
+                'MissTerry'=>[
+                    'room_times'=>[
+                        '09:00','10:30','12:00','13:30','15:00',
+                        '16:30','18:00','19:30','21:00'
+                    ]
+                ]
+            ]
         ],
         'options' => [
             'core:module:'.$name.":room" => [
@@ -147,6 +155,47 @@
                     'data'=>[],
                     'config'=>[
                         'open'=>'room/media'
+                    ]
+                ]
+            ],
+            'PluginAdminCore\Views\DataComposer'=>[
+                'MissTerry::form.room'=>[
+                    'file'=>'MissTerry::form.room',
+                    'item'=>true,
+                    'router'=>'backend:miss_terry:room:store',
+                    'data'=>[],
+                    'variable'=>'MissTerry_DataComposer',
+                    'config'=>[
+                       'name'=>'times',
+
+                       'columns'=>[
+                           [
+                               'type'=>'text',
+                               'name'=>'date',
+                               'label'=>z_language('Time'),
+                               'plugin'=>[
+                                    ''
+                               ],
+                               'head'=>[
+
+                               ],
+                               'body'=>[
+                                   'class'=>'timepicker'
+                               ]
+                           ],
+                           [
+                               'label'=>z_language('Status'),
+                               'head'=>[
+                                   'style'=>'width:150px'
+                               ],
+                               'type'=>'radio',
+                               'name'=>'status',
+                               'data'=>[
+                                   '1'=>z_language('Yes',false),
+                                   '2'=>z_language('No',false),
+                                ]
+                           ]
+                       ]
                     ]
                 ]
             ]

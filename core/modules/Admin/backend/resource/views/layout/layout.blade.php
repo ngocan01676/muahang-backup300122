@@ -39,7 +39,9 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @AssetRender('css')
     @stack('links')
+
 </head>
 <body class="hold-transition skin-black-light sidebar-mini">
 <!-- Site wrapper -->
@@ -595,6 +597,7 @@
 
     });
 </script>
+@AssetRender('js')
 @stack('scriptsTop');
 @stack('scripts')
 @section('extra-script')

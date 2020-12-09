@@ -6,7 +6,7 @@ return [
         'theme' => 'core/themes'
     ],
     'modules' => ['Admin', 'User'],
-    'plugins' => ['Comment', 'MegaMenu'],
+    'plugins' => ['Comment', 'MegaMenu','AdminCore'],
     'providers' => [
 
     ],

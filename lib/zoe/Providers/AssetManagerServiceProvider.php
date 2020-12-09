@@ -5,24 +5,28 @@ use Illuminate\Support\Facades\Blade;
 class AssetManagerServiceProvider extends ServiceProvider{
     public function register()
     {
-       // $this->mergeConfigFrom($configPath, 'asset-manager');
         $this->app->singleton('asset-manager', function () {;
             return new \Zoe\AssetManager([]);
         });
     }
     public function boot(){
-        Blade::directive('css', function ($expression) {
+        Blade::directive('AssetCss', function ($expression) {
             $expression = $this->parseExpression($expression);
-            return "<?php echo app('asset-manager')->css($expression) ?>";
+            return "<?php app('asset-manager')->css($expression) ?>";
         });
-        Blade::directive('js', function ($expression) {
+
+        Blade::directive('AssetJs', function ($expression) {
             $expression = $this->parseExpression($expression);
-            return "<?php echo app('asset-manager')->js($expression) ?>";
+            return "<?php app('asset-manager')->js($expression) ?>";
+        });
+        Blade::directive('AssetRender', function ($expression) {
+            $expression = $this->parseExpression($expression);
+            return "<?php app('asset-manager')->render($expression) ?>";
         });
     }
     protected function parseExpression($expression)
     {
-        if (starts_with($expression, '(')) {
+        if (substr($expression, 0,1) == '(') {
             $expression = substr($expression, 1, -1);
         }
         //$expression = str_replace(["'"], '', $expression);

@@ -9,7 +9,7 @@
         display: none !important;
     }
 </style>
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/dy2gprztto8u1yfz0albwqwz2pqfl5bn0bl1rbbyse4x3x3u/tinymce/4/tinymce.min.js"></script>
 <div class="col-md-9">
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -24,6 +24,9 @@
         @if(isset($configs['post']['language']['multiple']))
             <ul class="nav nav-tabs" {{$current_language}}>
                 <li class="active"><a href="#tab_info" data-toggle="tab">{!! z_language("Thông tin chung") !!}</a></li>
+                @if(!empty($MissTerry_DataComposer))
+                <li><a href="#tab_time" data-toggle="tab">{!! z_language("Thời gian") !!}</a></li>
+                @endif
                 @if(!empty($GalleryComposer))
                 <li><a href="#tab_media" data-toggle="tab">{!! z_language("Thư viện ảnh") !!}</a></li>
                 @endif
@@ -51,11 +54,12 @@
                                     {!! Form::number('time',null, ['class' => 'form-control','placeholder'=>z_language("Thời gian")]) !!}
                                 @endif
                             </td>
+
                         </tr>
+
                         <tr>
                             <td>
                                 {!! Form::label('difficult', z_language("Độ khó"), ['class' => 'time']) !!}
-
                                 {!! Form::radio('difficult', '5' , true) !!} 5
                                 {!! Form::radio('difficult', '4',false) !!} 4
                                 {!! Form::radio('difficult', '3',false) !!} 3
@@ -64,28 +68,28 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td colspan="2">
                                 <table class="table table-bordered wrap_rows" id="wrap">
                                     <thead>
-                                       <tr>
-                                           <th class="text-center">{!! z_language("STT") !!}</th>
-                                           <th class="text-center">{!! z_language("Số người") !!}</th>
-                                           <th class="text-center">{!! z_language("T2-T6 trước 17:00") !!}</th>
-                                           <th class="text-center">{!! z_language("T6-CN sau 17:00") !!}</th>
-                                           <th class="text-center">{!! z_language("Giá ngày lễ") !!}</th>
-                                       </tr>
+                                    <tr>
+                                        <th class="text-center">{!! z_language("STT") !!}</th>
+                                        <th class="text-center">{!! z_language("Số người") !!}</th>
+                                        <th class="text-center">{!! z_language("T2-T6 trước 17:00") !!}</th>
+                                        <th class="text-center">{!! z_language("T6-CN sau 17:00") !!}</th>
+                                        <th class="text-center">{!! z_language("Giá ngày lễ") !!}</th>
+                                    </tr>
 
-                                       <tr class="template" data-index="@INDEX@">
-                                           <td class="text-center">0</td>
-                                           <td><input data-key="user" data-name="data[@INDEX@].user" class="data form-control text" placeholder="{!! z_language('Số người') !!}" type="text"></td>
-                                           <td><input data-key="price1" data-name="data[@INDEX@].price1" class="data form-control value" placeholder="{!! z_language("T2-T6 trước 17:00") !!}" type="text"></td>
-                                           <td><input data-key="price2" data-name="data[@INDEX@].price2" class="data form-control value" placeholder="{!! z_language("T6-CN sau 17:00") !!}" type="text"></td>
-                                           <td><input data-key="price3" data-name="data[@INDEX@].price3" class="data form-control value" placeholder="{!! z_language("Giá ngày lễ") !!}" type="text"></td>
-                                           <td class="text-center">
-                                               <button type="button" data-id="#wrap" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
-                                               <button style="display: none" type="button" data-id="#wrap" class="remove btn btn-danger btn-xs" onclick="remove(this)">Xóa</button>
-                                           </td>
-                                       </tr>
+                                    <tr class="template" data-index="@INDEX@">
+                                        <td class="text-center">0</td>
+                                        <td><input data-key="user" data-name="data[@INDEX@].user" class="data form-control text" placeholder="{!! z_language('Số người') !!}" type="text"></td>
+                                        <td><input data-key="price1" data-name="data[@INDEX@].price1" class="data form-control value" placeholder="{!! z_language("T2-T6 trước 17:00") !!}" type="text"></td>
+                                        <td><input data-key="price2" data-name="data[@INDEX@].price2" class="data form-control value" placeholder="{!! z_language("T6-CN sau 17:00") !!}" type="text"></td>
+                                        <td><input data-key="price3" data-name="data[@INDEX@].price3" class="data form-control value" placeholder="{!! z_language("Giá ngày lễ") !!}" type="text"></td>
+                                        <td class="text-center">
+                                            <button type="button" data-id="#wrap" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
+                                            <button style="display: none" type="button" data-id="#wrap" class="remove btn btn-danger btn-xs" onclick="remove(this)">Xóa</button>
+                                        </td>
+                                    </tr>
                                     </thead>
                                     <tbody>
 
@@ -96,6 +100,11 @@
                         </tbody>
                     </table>
                 </div>
+                @if(!empty($MissTerry_DataComposer))
+                    <div class="tab-pane" id="tab_time">
+                        {!! $MissTerry_DataComposer !!}
+                    </div>
+                @endif
                 @if(!empty($GalleryComposer))
                 <div class="tab-pane clearfix" id="tab_media">
                     {!! $GalleryComposer !!}
@@ -137,7 +146,6 @@
                                         @endif
                                         <script>
                                             var editor_config = {
-
                                                     path_absolute: "/",
                                                     height: "500",
                                                     width: "calc(100% - 2px)",
@@ -151,10 +159,8 @@
                                                     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
                                                     relative_urls: false,
                                                     file_browser_callback: function (field_name, url, type, win) {
-
                                                         var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
                                                         var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-
                                                         var cmsURL = '{{route('backend:elfinder:tinymce4')}}' + '?target=' + 'l1_' + btoa('room/content').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.').replace(/\.+$/, '');
                                                         console.log(cmsURL);
                                                         if (type === 'image') {
@@ -294,7 +300,7 @@
             {!! Form::label('id_status', 'Image', ['class' => 'status']) !!}
             <div class="image-wrapper">
                 <div class="preview-image-wrapper">
-                    <img src="{{$item?$item->image:'http://placehold.jp/150x150.png'}}" alt="" height="150px">
+                    <img src="{{$item?url($item->image):'http://placehold.jp/150x150.png'}}" alt="" height="150px">
                     <a onclick="btn_remove_image(this)" class="btn_remove_image" title="Remove image">
                         <i class="fa fa-times"></i>
                     </a>
@@ -348,8 +354,12 @@
         .template .remove{
             display: none  !important;
         }
+        .template .add{
+            margin: 0 auto;
+        }
         .Element .remove{
             display: block  !important;
+            margin: 0 auto;
         }
         .template .add{
             display: block  !important;
@@ -492,9 +502,11 @@
             }
         }
         function Save(){
+
             $(".wrap_rows tbody").each(function () {
                 beforeSave($(this));
             });
+
             let form_store = $("#form_store");
             let data = form_store.zoe_inputs('get');
             if(!data.hasOwnProperty('data') || data.data.length === 0){
@@ -503,7 +515,6 @@
                 $("#Data").html(JSON.stringify(data.data));
             }
             clicks.fire(data,function (t) {
-                console.log(data);
                 $("#form_store").submit();
             });
         }

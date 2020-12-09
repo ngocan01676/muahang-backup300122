@@ -43,6 +43,24 @@
                         {!! Form::text('count',null, ['class' => 'form-control','placeholder'=>z_language('Booking Count')]) !!}
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        {!! Form::label('booking_date', z_language('Booking Date'), ['class' => 'booking_date']) !!}
+                        {!! Form::text('booking_date',null, ['class' => 'form-control','placeholder'=>z_language('Booking Date')]) !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {!! Form::label('booking_time', z_language('Booking Time'), ['class' => 'booking_time']) !!}
+                        {!! Form::text('booking_time',null, ['class' => 'form-control','placeholder'=>z_language('Booking Time')]) !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {!! Form::label('price', z_language('Booking Price'), ['class' => 'price']) !!}
+                        {!! Form::text('price',null, ['class' => 'form-control','placeholder'=>z_language('Booking Price')]) !!}
+                    </td>
+                </tr>
 
                 <tr>
                     <td>
@@ -66,7 +84,21 @@
 </div>
 
 @section('extra-script')
-    <script type="text/javascript">
+    <script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
 
+    <script src="{{ asset('module/admin/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('module/admin/plugins/timepicker/bootstrap-timepicker.min.css') }}">
+
+    <script>
+        $(document).ready(function () {
+            $datepicker = $('#booking_date').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+            });
+            $datepicker.datepicker('setDate', new Date());
+
+
+        });
     </script>
 @endsection
