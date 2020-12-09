@@ -11,8 +11,8 @@
                 </div><br/>
             @endif
             @flash_message()@endflash_message
-            @if(isset($page))
-                {!! Form::model($page, ['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
+            @if(isset($model))
+                {!! Form::model($model, ['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
                 {!! Form::hidden('id') !!}
             @else
                 {!! Form::open(['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
@@ -45,6 +45,16 @@
                 </tr>
                 <tr>
                     <td>
+                        {!! Form::label('room_id', z_language('Booking Room'), ['class' => 'room_id']) !!}
+                        <select name="room_id" id="room_id" class="form-control">
+                            @foreach($miss_room as $key=>$value)
+                                <option data-prices='{!! $value->prices !!}' data-times='{!! $value->times !!}' value="{!! $key !!}">{!! $value->title !!}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         {!! Form::label('booking_date', z_language('Booking Date'), ['class' => 'booking_date']) !!}
                         {!! Form::text('booking_date',null, ['class' => 'form-control','placeholder'=>z_language('Booking Date')]) !!}
                     </td>
@@ -52,7 +62,21 @@
                 <tr>
                     <td>
                         {!! Form::label('booking_time', z_language('Booking Time'), ['class' => 'booking_time']) !!}
-                        {!! Form::text('booking_time',null, ['class' => 'form-control','placeholder'=>z_language('Booking Time')]) !!}
+
+                        <select name="booking_time" id="booking_time" class="form-control">
+                            @if(isset($model) && isset($miss_room[$model->room_id]))
+                                @php
+                                    $times = json_decode( $miss_room[$model->room_id]->times,true);
+
+                                @endphp
+                                @foreach($times as $key=>$value)
+
+                                    <option {!!$model && $value['date'] == $model->booking_time !!} value="{!! $value['date'] !!}">{!! $value['date'] !!}</option>
+                                @endforeach
+                            @else
+                                <option value="0">{!! z_language("Booking Price") !!}</option>
+                            @endif
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -61,7 +85,6 @@
                         {!! Form::text('price',null, ['class' => 'form-control','placeholder'=>z_language('Booking Price')]) !!}
                     </td>
                 </tr>
-
                 <tr>
                     <td>
                         {!! Form::label('sex', z_language('Booking Sex'), ['class' => 'status']) !!}
@@ -97,8 +120,14 @@
                 format: 'dd/mm/yyyy',
             });
             $datepicker.datepicker('setDate', new Date());
-
-
+            $("#room_id").change(function () {
+                console.log('111111');
+                var element = $(this).find('option:selected');
+                let prices = JSON.parse(element.attr('data-prices'));
+                let times = JSON.parse(element.attr('data-times'));
+                console.log(prices);
+                console.log(times);
+            });
         });
     </script>
 @endsection

@@ -156,7 +156,7 @@ class RoomController extends \Zoe\Http\ControllerBackend
         $model->title = $data['title'];
         $model->description = $data['description'];
         $model->content = $data['content'];
-        $model->config = $data['config'];
+        $model->prices = $data['prices'];
         $model->difficult = $data['difficult'];
         $model->times = isset($data['times'])?$data['times']:'[]';
         DB::beginTransaction();

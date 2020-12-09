@@ -79,8 +79,9 @@ class Controller extends BaseController
                 if(!class_exists($clazz)) continue;
                 $_views = [];
                 foreach ($composer as $_view=>$_composer){
-                    $_views[] = $_composer['file'];
+                    $_views[] = $_view;
                 }
+
                 if(count($_views)>0){
                     View::composer(
                         $_views,

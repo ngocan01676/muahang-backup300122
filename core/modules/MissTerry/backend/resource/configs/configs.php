@@ -77,7 +77,7 @@
                         'lists' => [
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
                             'get_room' => ['label' => z_language('Tên phòng', false),'callback'=>'get_room', 'type' => 'text', 'primary' => true],
-                            'get_user' => ['label' => z_language('Tên khách hàng', false),'callback'=>'get_user', 'type' => 'text'],
+                            'get_user' => ['label' => z_language('Tên khách hàng', false),'callback'=>'get_user', 'type' => 'title'],
                             'booking_date' => ['label' => z_language('Ngày chơi', false),'callback'=>'get_user', 'type' => 'text'],
                             'booking_time' => ['label' => z_language('Khung thời gian', false),'callback'=>'get_user', 'type' => 'text'],
                             'count' => ['label' => z_language('Số người chơi', false), 'type' => 'status', 'order_by' => 'amount'],
@@ -160,43 +160,76 @@
             ],
             'PluginAdminCore\Views\DataComposer'=>[
                 'MissTerry::form.room'=>[
-                    'file'=>'MissTerry::form.room',
-                    'item'=>true,
-                    'router'=>'backend:miss_terry:room:store',
-                    'data'=>[],
-                    'variable'=>'MissTerry_DataComposer',
-                    'config'=>[
-                       'name'=>'times',
+                    [
+                        'file'=>'MissTerry::form.room',
+                        'item'=>true,
+                        'router'=>'backend:miss_terry:room:store',
+                        'data'=>[],
+                        'variable'=>'MissTerry_DataComposer',
+                        'config'=>[
+                            'name'=>'times',
+                            'columns'=>[
+                                [
+                                    'type'=>'text',
+                                    'name'=>'date',
+                                    'label'=>z_language('Time'),
+                                    'plugin'=>[
+                                        ''
+                                    ],
+                                    'head'=>[
 
-                       'columns'=>[
-                           [
-                               'type'=>'text',
-                               'name'=>'date',
-                               'label'=>z_language('Time'),
-                               'plugin'=>[
-                                    ''
-                               ],
-                               'head'=>[
-
-                               ],
-                               'body'=>[
-                                   'class'=>'timepicker'
-                               ]
-                           ],
-                           [
-                               'label'=>z_language('Status'),
-                               'head'=>[
-                                   'style'=>'width:150px'
-                               ],
-                               'type'=>'radio',
-                               'name'=>'status',
-                               'data'=>[
-                                   '1'=>z_language('Yes',false),
-                                   '2'=>z_language('No',false),
+                                    ],
+                                    'body'=>[
+                                        'class'=>'timepicker'
+                                    ]
+                                ],
+                                [
+                                    'label'=>z_language('Status'),
+                                    'head'=>[
+                                        'style'=>'width:150px'
+                                    ],
+                                    'type'=>'radio',
+                                    'name'=>'status',
+                                    'data'=>[
+                                        '1'=>z_language('Yes',false),
+                                        '2'=>z_language('No',false),
+                                    ]
                                 ]
-                           ]
-                       ]
-                    ]
+                            ]
+                        ]
+                    ],
+                    [
+                        'item'=>true,
+                        'router'=>'backend:miss_terry:room:store',
+                        'data'=>[],
+                        'variable'=>'MissTerry_DataComposer_Price',
+                        'config'=>[
+                            'name'=>'prices',
+                            'index'=>'user',
+                            'columns'=>[
+                                [
+                                    'type'=>'text',
+                                    'name'=>'user',
+                                    'label'=>z_language('Số người'),
+                                ],
+                                [
+                                    'type'=>'text',
+                                    'name'=>'price1',
+                                    'label'=>z_language('T2-T6 trước 17:00'),
+                                ],
+                                [
+                                    'type'=>'text',
+                                    'name'=>'price2',
+                                    'label'=>z_language('T6-CN sau 17:00'),
+                                ],
+                                [
+                                    'type'=>'text',
+                                    'name'=>'price3',
+                                    'label'=>z_language('Giá ngày lễ'),
+                                ],
+                            ]
+                        ]
+                    ],
                 ]
             ]
         ]

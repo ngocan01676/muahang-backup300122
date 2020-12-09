@@ -41,7 +41,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_info">
                     <div style="display: none">
-                        <textarea id="Data" class="form-control" placeholder="Cấu hình" cols="5" rows="5" name="config">{!! $item?$item->config:'{}' !!}</textarea>
+                        <textarea id="Data" class="form-control" placeholder="Cấu hình" cols="5" rows="5" name="prices">{!! $item?$item->prices:'{}' !!}</textarea>
                     </div>
                     <table class="table table-borderless">
                         <tbody>
@@ -54,7 +54,6 @@
                                     {!! Form::number('time',null, ['class' => 'form-control','placeholder'=>z_language("Thời gian")]) !!}
                                 @endif
                             </td>
-
                         </tr>
 
                         <tr>
@@ -69,32 +68,9 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <table class="table table-bordered wrap_rows" id="wrap">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">{!! z_language("STT") !!}</th>
-                                        <th class="text-center">{!! z_language("Số người") !!}</th>
-                                        <th class="text-center">{!! z_language("T2-T6 trước 17:00") !!}</th>
-                                        <th class="text-center">{!! z_language("T6-CN sau 17:00") !!}</th>
-                                        <th class="text-center">{!! z_language("Giá ngày lễ") !!}</th>
-                                    </tr>
-
-                                    <tr class="template" data-index="@INDEX@">
-                                        <td class="text-center">0</td>
-                                        <td><input data-key="user" data-name="data[@INDEX@].user" class="data form-control text" placeholder="{!! z_language('Số người') !!}" type="text"></td>
-                                        <td><input data-key="price1" data-name="data[@INDEX@].price1" class="data form-control value" placeholder="{!! z_language("T2-T6 trước 17:00") !!}" type="text"></td>
-                                        <td><input data-key="price2" data-name="data[@INDEX@].price2" class="data form-control value" placeholder="{!! z_language("T6-CN sau 17:00") !!}" type="text"></td>
-                                        <td><input data-key="price3" data-name="data[@INDEX@].price3" class="data form-control value" placeholder="{!! z_language("Giá ngày lễ") !!}" type="text"></td>
-                                        <td class="text-center">
-                                            <button type="button" data-id="#wrap" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
-                                            <button style="display: none" type="button" data-id="#wrap" class="remove btn btn-danger btn-xs" onclick="remove(this)">Xóa</button>
-                                        </td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
+                                @isset($MissTerry_DataComposer_Price)
+                                        {!! $MissTerry_DataComposer_Price !!}
+                                @endisset
                             </td>
                         </tr>
                         </tbody>
@@ -386,127 +362,7 @@
                 charlist = "\s";
             return this.replace(new RegExp("[" + charlist + "]+$"), "");
         };
-        function renderData(data) {
-            if(data.length > 0){
-                let _data = JSON.parse(data);
-                $(".wrap_rows").find('tbody').empty();
-                let index = 0;
-                $("#wrap").mask("{!! z_language('Waiting...') !!}");
-                    for(let k in _data){
-                        template($("#wrap"),_data[k],index++);
-                    }
-                $("#wrap").unmask();
-            }
-        }
-        (function () {
-            renderData($("#Data").val() );
-        })();
-        function beforeSave(parent) {
-            let trs = parent.find('tr.Element');
-            let count = 1;
-            trs.each(function () {
-                if(!$(this).hasClass('template')){
-                    let elements = $(this).find('.data');
-                    let _index = "";
-                    elements.each(function (index) {
-                        if(this.hasAttribute('data-index')){
-                            _index+= $(this).val().trim()+"_";
-                        }
-                    });
-                    if(_index.length === 0)
-                        _index = count++;
-                    else
-                        _index = _index.trimRight("_");
-                    $(this).attr('data-index',_index);
-                    $(this).find("td").first().empty().html(_index);
-                    elements.each(function () {
-                        $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index))
-                    });
-                }
-            });
-        }
-        function template(tbody,vals,index) {
-            let template = tbody.find('.template').clone();
-            template.removeClass('template');
-            template.find("td").first().empty().html(index+1);
-            template.addClass('Element');
-
-            template.find('.data').each(function () {
-                $(this).removeAttr('name');
-                let key = $(this).attr('data-key');
-                let tagName = ($(this).prop("tagName").toLowerCase());
-                if(tagName === 'select'){
-                    if(vals.hasOwnProperty(key)){
-                        $(this).find('option').each(function () {
-                            if($(this).attr('value') === vals[key])
-                                $(this).attr('selected','selected');
-                        });
-                    }
-
-                }else if(tagName === 'input'){
-                    if(vals.hasOwnProperty(key)){
-                        $(this).val(vals[key]);
-                    }
-                }
-            });
-
-            tbody.append(template);
-
-            beforeSave(tbody);
-
-            tbody.find('.template').find('.data').each(function () {
-                $(this).removeAttr('name');
-
-                if($(this).hasClass('uint')){
-                    // $(this).find('option').first().attr('selected',true);
-                }else{
-                    $(this).val('');
-                }
-            });
-        }
-        function remove(self) {
-            let _this = $(self);
-            let parent = _this.parent().parent();
-            let wrap = parent.closest(".wrap_rows").find('tbody');
-            parent.remove();
-            beforeSave(wrap);
-        }
-        function add(self){
-            let _this = $(self);
-            let parent = _this.closest(_this.attr('data-id'));
-            let tbody = parent.find('tbody');
-            let trs = tbody.find("tr");
-            console.log(parent);
-            trs.each(function () {
-                $(this).removeClass('Error');
-            });
-            let tr = parent.find('.template');
-            let vals = {
-
-            };
-            tr.removeClass('Error');
-            tr.find('input').each(function () {
-                vals[$(this).attr('data-key')] = $(this).val();
-            });
-            let oke = true;
-            for(let i in vals){
-                if(vals[i].toString().length === 0){
-                    oke = false;
-                    break;
-                }
-            }
-            if(oke){
-                template(parent,vals,trs.length);
-            }else{
-                tr.addClass('Error');
-            }
-        }
         function Save(){
-
-            $(".wrap_rows tbody").each(function () {
-                beforeSave($(this));
-            });
-
             let form_store = $("#form_store");
             let data = form_store.zoe_inputs('get');
             if(!data.hasOwnProperty('data') || data.data.length === 0){

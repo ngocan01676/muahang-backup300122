@@ -101,10 +101,20 @@
             let From = $("<form></form>").html(parent.clone());
             let dataJson = From.zoe_inputs('get');
 
-            console.log(dataJson);
             if(dataJson.hasOwnProperty("{!! $DataComposer['config']['name'] !!}")){
-                $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").html(JSON.stringify(dataJson["{!! $DataComposer['config']['name'] !!}"]));
-                $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").val(JSON.stringify(dataJson["{!! $DataComposer['config']['name'] !!}"]));
+                dataJson = dataJson["{!! $DataComposer['config']['name'] !!}"];
+                let dataNewJson = {};
+                @if(isset($DataComposer['config']['index']))
+                    for(let i in dataJson){
+                        if(dataJson[i].hasOwnProperty("{!! $DataComposer['config']['index'] !!}")){
+                            dataNewJson[dataJson[i]["{!! $DataComposer['config']['index'] !!}"]] = dataJson[i];
+                        }
+                    }
+                @else
+                 dataNewJson = dataJson;
+                @endif
+                $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").html(JSON.stringify(dataNewJson));
+                $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").val(JSON.stringify(dataNewJson));
             }
         }
         clicks.subscribe(function () {
@@ -202,8 +212,6 @@
                     delete cols[i];
                 }
             }
-            console.log(cols);
-            console.log(vals);
 
             if(oke && Object.values(cols).length == 0){
                 {!! $DataComposer['key'].'_' !!}template(parent,vals,trs.length);

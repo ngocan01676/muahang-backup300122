@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
-use MissTerry\Http\Models\Room\RoomModel;
+use MissTerry\Http\Models\BookingModel;
 class BookingController extends \Zoe\Http\ControllerBackend
 {
     public function init()
@@ -60,7 +60,6 @@ class BookingController extends \Zoe\Http\ControllerBackend
             if (isset($parameter['action'])) {
                 $parameter['order_by']['type'] = isset($parameter['order_by']['type']) && $parameter['order_by']['type'] == "desc" ? "asc" : "desc";
             }
-
         }
         if (isset($parameter['action'])) {
             unset($parameter['action']);
@@ -92,7 +91,6 @@ class BookingController extends \Zoe\Http\ControllerBackend
                 }
             ],
         ]);
-
     }
     public function create()
     {
@@ -102,17 +100,8 @@ class BookingController extends \Zoe\Http\ControllerBackend
     public function edit($id)
     {
         $this->getCrumb()->breadcrumb(z_language('Edit Booking'), ('backend:miss_terry:booking:edit'));
-        $item = RoomModel::find($id);
-        if (isset($this->data['configs']['post']['language']['multiple'])) {
-            $trans = $item->table_translation()->where(['room_id' => $id])->get();
-            foreach ($trans as $tran) {
-                $item->offsetSet("title_" . $tran->lang_code, $tran->title);
-                $item->offsetSet("description_" . $tran->lang_code, $tran->description);
-                $item->offsetSet("content_" . $tran->lang_code, $tran->content);
-            }
-        }
-
-        return $this->render('booking.edit', ["item" => $item, "lang_active" => $this->data['current_language']]);
+        $model = BookingModel::find($id);
+        return $this->render('booking.edit', ["model" => $model]);
     }
 
     public function store(Request $request)
