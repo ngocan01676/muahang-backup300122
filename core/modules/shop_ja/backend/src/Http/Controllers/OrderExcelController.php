@@ -184,7 +184,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                                     $_count = (int)(isset($columns["count"]) ? $values[$columns["count"]] : null);
 
-                                    if($_count < 0 ){
+                                    if($_count <= 0 ){
                                         $error++;
                                     }
                                     if(is_numeric($id)){
