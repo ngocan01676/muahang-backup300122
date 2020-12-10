@@ -103,10 +103,37 @@ class BookingController extends \Zoe\Http\ControllerBackend
         $model = BookingModel::find($id);
         return $this->render('booking.edit', ["model" => $model]);
     }
-
     public function store(Request $request)
     {
         $data = $request->all();
+        if(isset($data['act']) && isset($data['data']) ){
+
+            $date = explode('/',$data['data']['booking_date']);
+            $results = [];
+            if($data['act'] == 'check_all_date'){
+                $results = DB::table('miss_booking')
+                    ->where('booking_date',$date[2].'-'.$date[1].'-'.$date[0])
+                    ->where('room_id',$data['data']['room_id'])
+                    ->where('status',1);
+                if(isset($data['data']['id']) && $data['data']['id'] >0 ){
+                    $results->where('id','!=',$data['data']['id']);
+                }
+                $results = $results->get()->all();
+                return response()->json(['status'=>count($results)==0,'results'=>$results]);
+            }else{
+                $results = DB::table('miss_booking')
+                    ->where('booking_time',$data['data']['booking_time'])
+                    ->where('booking_date',$date[2].'-'.$date[1].'-'.$date[0])
+                    ->where('room_id',$data['data']['room_id'])
+                    ->where('status',1);
+                if(isset($data['data']['id']) && $data['data']['id'] >0 ){
+                    $results->where('id','!=',$data['data']['id']);
+                }
+                $results = $results->get()->all();
+                return response()->json(['status'=>count($results)==0,'results'=>isset($results[0])?$results[0]:[]]);
+            }
+
+        }
         $validator = Validator::make($data, [
             'image' => 'required',
             'time' => 'required',

@@ -74,7 +74,7 @@ Click.prototype = {
         var arr = [];
 
         this.handlers.forEach(function(item) {
-             let resulted = item.call(scope, o);
+             var resulted = item.call(scope, o);
              if(resulted instanceof Promise){
                  arr.push(resulted);
              }

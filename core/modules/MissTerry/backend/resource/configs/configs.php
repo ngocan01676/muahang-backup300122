@@ -168,13 +168,16 @@
                         'variable'=>'MissTerry_DataComposer',
                         'config'=>[
                             'name'=>'times',
+                            'filter_data'=> <<<'EOT'
+                            (function(data){return data;})
+EOT,
                             'columns'=>[
                                 [
                                     'type'=>'text',
                                     'name'=>'date',
                                     'label'=>z_language('Time'),
                                     'plugin'=>[
-                                        ''
+
                                     ],
                                     'head'=>[
 

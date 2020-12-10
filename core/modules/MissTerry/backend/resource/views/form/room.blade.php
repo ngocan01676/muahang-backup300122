@@ -1,8 +1,8 @@
 @if(isset($item))
-    {!! Form::model($item, ['method' => 'POST','route' => ['backend:miss_terry:room:store'],'id'=>'form_store']) !!}
+    {!! Form::model($item, ['method' => 'POST','route' => ['backend:miss_terry:room:store'],'id'=>'form_store','class'=>'submit']) !!}
     {!! Form::hidden('id') !!}
 @else
-    {!! Form::open(['method' => 'POST','route' => ['backend:miss_terry:room:store'],'id'=>'form_store']) !!}
+    {!! Form::open(['method' => 'POST','route' => ['backend:miss_terry:room:store'],'id'=>'form_store','class'=>'submit']) !!}
 @endif
 <style>
     .mce-notification-inner{
@@ -362,16 +362,14 @@
                 charlist = "\s";
             return this.replace(new RegExp("[" + charlist + "]+$"), "");
         };
+
         function Save(){
             let form_store = $("#form_store");
-            let data = form_store.zoe_inputs('get');
-            if(!data.hasOwnProperty('data') || data.data.length === 0){
-                $("#Data").html('[]');
-            }else{
-                $("#Data").html(JSON.stringify(data.data));
-            }
-            clicks.fire(data,function (t) {
-                $("#form_store").submit();
+            clicks.fire(form_store,function (t) {
+                let data = form_store.zoe_inputs('get');
+                if(form_store.hasClass('submit')){
+                    $("#form_store").submit();
+                }
             });
         }
         function btn_remove_image(self) {

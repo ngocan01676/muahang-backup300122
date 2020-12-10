@@ -53,13 +53,13 @@
 @endpush
 @push('scripts')
     <script>
-
-        $timepicker = $("#{!! $DataComposer['key'].'_wrap' !!} .timepicker").timepicker({
-            showInputs: false,
-            showMeridian: false,
-            minuteStep: 5 ,
+        $(document).ready(function () {
+            $timepicker = $("#{!! $DataComposer['key'].'_wrap' !!} .timepicker").timepicker({
+                showInputs: false,
+                showMeridian: false,
+                minuteStep: 5 ,
+            });
         });
-
         function {!! $DataComposer['key'].'_' !!}renderData(data) {
             if(typeof data == "object"){
                 $("#{!! $DataComposer['key'].'_wrap' !!}").find('tbody').empty();
@@ -75,7 +75,7 @@
             {!! $DataComposer['key'].'_' !!}renderData({!! $DataComposer['values'] !!});
         })();
         function {!! $DataComposer['key'].'_' !!}beforeSave(parent) {
-
+            let dataNewJson = {};
             let trs = parent.find('tr.Element');
             let count = 1;
             trs.each(function () {
@@ -100,10 +100,9 @@
             });
             let From = $("<form></form>").html(parent.clone());
             let dataJson = From.zoe_inputs('get');
-
             if(dataJson.hasOwnProperty("{!! $DataComposer['config']['name'] !!}")){
                 dataJson = dataJson["{!! $DataComposer['config']['name'] !!}"];
-                let dataNewJson = {};
+
                 @if(isset($DataComposer['config']['index']))
                     for(let i in dataJson){
                         if(dataJson[i].hasOwnProperty("{!! $DataComposer['config']['index'] !!}")){
@@ -113,12 +112,16 @@
                 @else
                  dataNewJson = dataJson;
                 @endif
+                @if(isset($DataComposer['config']['filter_data']))
+                    dataNewJson = {!! $DataComposer['config']['filter_data'].'(dataNewJson);' !!}
+                @endif
                 $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").html(JSON.stringify(dataNewJson));
                 $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").val(JSON.stringify(dataNewJson));
             }
+            return dataNewJson;
         }
-        clicks.subscribe(function () {
-            {!! $DataComposer['key'].'_' !!}beforeSave($("#{!! $DataComposer['key'].'_wrap' !!}"));
+        clicks.subscribe(function (form) {
+            let data = {!! $DataComposer['key'].'_' !!}beforeSave($("#{!! $DataComposer['key'].'_wrap' !!}"));
         });
         function {!! $DataComposer['key'].'_' !!}template(tbody,vals,index) {
             let template = tbody.find(".{!! $DataComposer['key'].'_' !!}template").clone();
@@ -225,5 +228,6 @@
                 tr.addClass('Error');
             }
         }
+
     </script>
 @endpush
