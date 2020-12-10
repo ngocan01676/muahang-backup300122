@@ -68,7 +68,7 @@ class MemberController extends \Zoe\Http\ControllerBackend
     public function edit($id)
     {
         $this->getcrumb();
-        $roles = DB::table('role')->where('guard_name','backend')->get()->all();
+        $roles = DB::table('role')->where('guard_name','web')->get()->all();
         $this->data['roles'] = [];
         foreach ($roles as $role){
             $this->data['roles'][$role->id] = $role->name;
@@ -82,7 +82,7 @@ class MemberController extends \Zoe\Http\ControllerBackend
     public function create()
     {
         $this->getcrumb();
-        $roles = DB::table('role')->where('guard_name','backend')->get()->all();
+        $roles = DB::table('role')->where('guard_name','web')->get()->all();
         $this->data['roles'] = [];
         foreach ($roles as $role){
             $this->data['roles'][$role->id] = $role->name;

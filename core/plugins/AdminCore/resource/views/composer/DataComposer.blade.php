@@ -59,6 +59,15 @@
                 showMeridian: false,
                 minuteStep: 5 ,
             });
+            $("#{!! $DataComposer['key'].'_wrap' !!} tbody").sortable({
+                start: function(evt, ui) {
+                     ui.item.addClass('sortable_move');
+                },
+                stop: function(evt, ui) {
+                    ui.item.removeClass('sortable_move');
+                    {!! $DataComposer['key'].'_' !!}beforeSave(ui.item.parent())
+                }
+            });
         });
         function {!! $DataComposer['key'].'_' !!}renderData(data) {
             if(typeof data == "object"){
@@ -78,11 +87,14 @@
             let dataNewJson = {};
             let trs = parent.find('tr.Element');
             let count = 1;
+            let arr = [];
             trs.each(function () {
                 if(!$(this).hasClass("{!! $DataComposer['key'].'_' !!}template")){
                     let elements = $(this).find('.data');
                     let _index = "";
                     elements.each(function (index) {
+                        let checked = $(this).is(':checked');
+
                         if(this.hasAttribute('data-index')){
                             _index+= $(this).val().trim()+"_";
                         }
@@ -93,10 +105,44 @@
                         _index = _index.trimRight("_");
                     $(this).attr('data-index',_index);
                     $(this).find("td").first().empty().html(_index);
-                    elements.each(function () {
-                        $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index));
-                    });
+                    let group = {};
+
+                    let a = new Promise(function (resolve, reject) {
+                         elements.each(function () {
+                             let type = $(this).attr('type');
+                             if(type === 'radio' || type === 'checkbox'){
+                                 let name = $(this).attr('name');
+                                 if(!group.hasOwnProperty(name)){
+                                     group[name] = [];
+                                 }
+                                 let checked = $(this).is(':checked');
+
+                                 group[name].push([$(this),checked]);
+                             }else{
+                                 $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index));
+                             }
+                         });
+                         resolve({index:_index,lists:group});
+                     });
+                    arr.push(a);
                 }
+            });
+            Promise.all(arr).then(function (t) {
+                for(let ii in t){
+                    let group = t[ii].lists;
+                    let _index = t[ii].index;
+
+                    console.log(group);
+
+                    for(let i in group){
+                        for(let j in group[i]){
+                            let _this = group[i][j][0];
+                            _this.attr('name',_this.attr('data-name').replace("@INDEX@",_index));
+                            _this.prop("checked",group[i][j][1]);
+                        }
+                    }
+                }
+
             });
             let From = $("<form></form>").html(parent.clone());
             let dataJson = From.zoe_inputs('get');
@@ -121,6 +167,7 @@
             return dataNewJson;
         }
         clicks.subscribe(function (form) {
+
             let data = {!! $DataComposer['key'].'_' !!}beforeSave($("#{!! $DataComposer['key'].'_wrap' !!}"));
         });
         function {!! $DataComposer['key'].'_' !!}template(tbody,vals,index) {

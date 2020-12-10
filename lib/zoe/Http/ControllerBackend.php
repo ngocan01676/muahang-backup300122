@@ -15,7 +15,7 @@ class ControllerBackend extends Controller
         $this->breadcrumb->home = ['name' => z_language('Home'), 'uri' => ('backend:dashboard:list')];
         $this->breadcrumb->child = new Config();
     }
-    public function render($view, $data = [], $key = "backend")
+    public function render($view, $data = [], $key = "")
     {
         $alias = app()->getConfig()['views']['alias'];
         $data = array_merge($this->data, $data);
@@ -26,9 +26,9 @@ class ControllerBackend extends Controller
             $keyView = $alias['backend'][$view];
         }else if (isset($alias['backend'][$_view_alias . ":" . $view])) {
             $keyView = $alias['backend'][$_view_alias . ":" . $view];
-        } else if (!empty($_view_alias)) {
+        } else if (!empty($_view_alias) && View::exists($_view_alias . '::controller.' . $view)) {
             $keyView = $_view_alias . '::controller.' . $view;
-        } else if (!empty($key)) {
+        } else if (!empty($key) && View::exists($key . '::controller.' . $view)) {
             $keyView = $key . '::controller.' . $view;
         }else{
             $keyView = $view;

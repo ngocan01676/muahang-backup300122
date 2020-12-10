@@ -362,13 +362,12 @@
                 charlist = "\s";
             return this.replace(new RegExp("[" + charlist + "]+$"), "");
         };
-
         function Save(){
             let form_store = $("#form_store");
             clicks.fire(form_store,function (t) {
                 let data = form_store.zoe_inputs('get');
                 if(form_store.hasClass('submit')){
-                    $("#form_store").submit();
+                   $("#form_store").submit();
                 }
             });
         }

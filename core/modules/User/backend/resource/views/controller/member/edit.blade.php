@@ -6,5 +6,5 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
-    @include('user::form.user')
+    @include('user::form.member')
 @endsection

@@ -58,6 +58,17 @@ return [
                     ],
                 ]
             ],
+            'member' => [
+                "namespace" => $namespace,
+                "controller" => "MemberController",
+                "acl" => "user:role",
+                "guard" => "backend",
+                "router" => [
+                    "list" => [
+                        "url" => "/"
+                    ],
+                ]
+            ],
          ]
     ]
 ];

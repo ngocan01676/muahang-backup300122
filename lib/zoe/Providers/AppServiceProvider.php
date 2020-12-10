@@ -154,14 +154,14 @@ class AppServiceProvider extends ServiceProvider
             foreach ($modules as $module) {
                 $this->InitModule($module);
             }
+
             $modules = DB::table('module')
                 ->select()->where('status', 1)->get();
-
             foreach ($modules as $module) {
                 $this->InitModule($module->name, false);
             }
-
         }
+
     }
 
     public function providers()

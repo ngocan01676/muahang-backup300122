@@ -12,10 +12,10 @@
             @endif
             @flash_message()@endflash_message
             @if(isset($model))
-                {!! Form::model($model, ['method' => 'POST','route' => ['backend:miss_terry:booking:store'],'id'=>'form_store']) !!}
+                {!! Form::model($model, ['method' => 'POST','route' => ['backend:miss_terry:booking:store'],'id'=>'form_store','class'=>'submit']) !!}
                 {!! Form::hidden('id') !!}
             @else
-                {!! Form::open(['method' => 'POST','route' => ['backend:miss_terry:booking:store'],'id'=>'form_store']) !!}
+                {!! Form::open(['method' => 'POST','route' => ['backend:miss_terry:booking:store'],'id'=>'form_store','class'=>'submit']) !!}
             @endif
             <table class="table table-borderless">
                 <tbody>
@@ -62,7 +62,7 @@
                 <tr>
                     <td>
                         {!! Form::label('booking_time', z_language('Booking Time'), ['class' => 'booking_time']) !!}
-                        <span class="booking_time_value" data-time="{!! $model ?$model->booking_time:"" !!}">
+                        <span class="booking_time_value" data-time="{!! isset($model) ?$model->booking_time:"" !!}">
                             @if(isset($model) && isset($miss_room[$model->room_id]))
                                 @php
                                     $times = json_decode( $miss_room[$model->room_id]->times,true);
@@ -106,13 +106,11 @@
 @section('extra-script')
     <script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
-
     <script src="{{ asset('module/admin/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('module/admin/plugins/timepicker/bootstrap-timepicker.min.css') }}">
-
     <script>
-        let event = {};
         let last_time = "";
+        let event = {};
 
         function change_booking_room_id() {
             let time = $("input[name='booking_time']:checked").val();
@@ -137,7 +135,6 @@
             }
             $(".booking_time_value").html(html);
         }
-
         function change_booking(){
             let time = $("input[name='booking_time']:checked").val();
             let element = $("#room_id").find('option:selected');
@@ -163,6 +160,7 @@
                 }
                 console.log(price);
                 console.log(prices[count]);
+                $("#price").val(price);
             }
             $.ajax({
                 'url':"{!! route('backend:miss_terry:booking:store') !!}",
@@ -173,7 +171,7 @@
                         'booking_time':time,
                         'room_id':$("#room_id").val(),
                         'booking_date':booking_date,
-                        'id':'{!! $model?$model->id:0 !!}'
+                        'id':'{!! isset($model)?$model->id:0 !!}'
                     }
                 },
                 'success':function (data) {
@@ -195,7 +193,7 @@
                     'data':{
                         'room_id':$("#room_id").val(),
                         'booking_date':booking_date,
-                        'id':'{!! $model?$model->id:0 !!}'
+                        'id':'{!! isset($model)?$model->id:0 !!}'
                     }
                 },
                 'success':function (data) {
@@ -211,20 +209,34 @@
                 }
             });
         }
+        function Save(){
+            let form_store = $("#form_store");
+            clicks.fire(form_store,function (t) {
+                let data = form_store.zoe_inputs('get');
+                if(form_store.hasClass('submit')){
+                    $("#form_store").submit();
+                }
+            });
+        }
+
         $(document).ready(function () {
             $datepicker = $('#booking_date').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
             });
-            $datepicker.datepicker('setDate',{!! $model?"'".date('d-m-Y',strtotime($model->booking_date))."'":'new Date()' !!});
+            $datepicker.datepicker('setDate',{!! isset($model) ?"'".date('d-m-Y',strtotime($model->booking_date))."'":'new Date()' !!});
             $("#room_id").change(function () {
-                console.log('111111');
+
                 var element = $(this).find('option:selected');
                 let prices = JSON.parse(element.attr('data-prices'));
                 let times = JSON.parse(element.attr('data-times'));
                 console.log(prices);
                 console.log(times);
             });
+            change_booking_room_id();
+            setInterval(function () {
+               console.log();
+            },5000);
         });
     </script>
 @endsection
