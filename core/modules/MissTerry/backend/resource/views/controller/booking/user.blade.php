@@ -53,7 +53,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">{!! z_language('Cash Booking') !!}</span>
-                    <span class="info-box-number">{!!  isset($analytics['cash'][0])?$analytics['cash'][0]['cash']:0 !!}</span>
+                    <span class="info-box-number">{!!  isset($analytics['cash'][0])?$analytics['cash'][0]['coin']:0 !!}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

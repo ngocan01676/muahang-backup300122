@@ -24,8 +24,6 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $id_key = isset($request->route()->defaults['id_key']) ? $request->route()->defaults['id_key'] : 'default';
         $option = isset($request->route()->defaults['option']) ? $request->route()->defaults['option'] : 'core:module:admin:email-template';
 
-
-
         $search = $request->query('search', "");
         $status = $request->query('status', "");
         $date = $request->query('date', "");
@@ -95,7 +93,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $configs = isset($this->app->getConfig()->configs['controllers'][get_class($this)][$id_key])?$this->app->getConfig()->configs['controllers'][get_class($this)][$id_key]:[];
         return $this->render('email-template.create', [
             'configs'=>$configs,'id_key'=>$id_key
-        ]);
+        ],$group);
     }
     public function edit(Request $request)
     {
@@ -114,7 +112,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         return $this->render('email-template.edit', [
             "model" => $model,
             'configs'=>$configs,'id_key'=>$id_key
-        ]);
+        ],$group);
     }
     public function delete(Request $request)
     {

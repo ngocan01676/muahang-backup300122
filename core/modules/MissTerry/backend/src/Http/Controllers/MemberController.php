@@ -58,7 +58,7 @@ class MemberController extends \User\Http\Controllers\MemberController{
             'callback'=>[
                 "coin"=>function($model){
                    $rs = DB::table('miss_user_meta')->where('user_id',$model->id)->get()->all();
-                   return isset($rs[0])?$rs[0]:0;
+                   return isset($rs[0])?$rs[0]->coin:0;
                 },
                 "btn_booking"=>function($model){
                     return "<a href='".route('backend:'.\ModuleMissTerry\Module::$key.':booking:user',['id'=>$model->id,'username'=>base_64_en($model->username)])."'><button class='btn btn-xs btn-primary'><i class='fa fa-eye'></i></button></a> ";

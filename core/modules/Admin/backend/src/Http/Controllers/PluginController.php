@@ -35,7 +35,7 @@ class PluginController extends \Zoe\Http\ControllerBackend
         $config_zoe = config('zoe');
         $relativePath = base_path($config_zoe['structure']['plugin']) . DIRECTORY_SEPARATOR . $plugin;
         require_once $relativePath . '/Plugin.php';
-        $class = '\\' . $plugin . '\\Plugin';
+        $class = '\\Plugin' . $plugin . '\\Plugin';
         return new $class();
     }
 
@@ -103,7 +103,7 @@ class PluginController extends \Zoe\Http\ControllerBackend
                 continue;
             }
             if (file_exists($relativePath . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "Plugin.php")) {
-                $class = '\\' . $plugin . '\\Plugin';
+                $class = '\\Plugin' . $plugin . '\\Plugin';
                 if (!class_exists($class)) {
                     require_once $relativePath . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "Plugin.php";
                 }
