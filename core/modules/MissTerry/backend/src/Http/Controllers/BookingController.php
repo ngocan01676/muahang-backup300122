@@ -42,7 +42,7 @@ class BookingController extends \Zoe\Http\ControllerBackend
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
         $select = [];
         $models = DB::table('miss_booking as b');
-        $models->where('user_id',1);
+        $models->where('user_id',$user_id);
 //        $models->where('	user_id',$user_id);
 
 //        if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
@@ -77,9 +77,25 @@ class BookingController extends \Zoe\Http\ControllerBackend
 
         $this->data['analytics'] = [];
 
+        $date_start = "";
+        $date_end = "";
 
-        
+        $count = DB::table('miss_booking')->where('user_id',$user_id)->where('status',1);
 
+        if(!empty($date_start) && !empty($date_end)){
+            $count->where('created_at','>=',$date_start.' 00:00:00');
+            $count->where('created_at','<=',$date_end.' 00:00:00');
+        }
+
+        $this->data['analytics']['count'] = $count->count('id');
+
+        $count = DB::table('miss_booking')->where('user_id',$user_id)->where('status',1);
+        if(!empty($date_start) && !empty($date_end)){
+            $count->where('created_at','>=',$date_start.' 00:00:00');
+            $count->where('created_at','<=',$date_end.' 00:00:00');
+        }
+        $this->data['analytics']['price'] = $count->sum('price');
+        $this->data['analytics']['cash'] = DB::table('miss_user_meta')->where('user_id')->select('coin')->limit(1)->get()->all();
 
         return $this->render('booking.user', [
             'models' => $models,
