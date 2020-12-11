@@ -73,6 +73,14 @@ class BookingController extends \Zoe\Http\ControllerBackend
 
         $miss_room = $this->data['miss_room'];
         $miss_user = DB::table('user')->get()->keyBy('id')->all();
+
+
+        $this->data['analytics'] = [];
+
+
+        
+
+
         return $this->render('booking.user', [
             'models' => $models,
             "route" => $route,
