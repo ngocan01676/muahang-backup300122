@@ -59,7 +59,6 @@ class AuthController extends \Zoe\Http\ControllerBackend
     public function postLogin(Request $request)
     {
         $this->validateLogin($request);
-
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
@@ -68,6 +67,7 @@ class AuthController extends \Zoe\Http\ControllerBackend
             $this->log('auth','login',$request->all());
             return $this->sendLoginResponse($request);
         }
+
         $this->incrementLoginAttempts($request);
         return $this->sendFailedLoginResponse($request);
     }

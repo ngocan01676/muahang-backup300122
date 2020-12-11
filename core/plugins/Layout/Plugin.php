@@ -1,6 +1,6 @@
 <?php
 
-namespace Layout;
+namespace PluginLayout;
 
 use Zoe\Module as ZModule;
 

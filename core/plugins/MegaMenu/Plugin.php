@@ -1,6 +1,6 @@
 <?php
 
-namespace MegaMenu;
+namespace PluginMegaMenu;
 
 use Zoe\Module as ZModule;
 

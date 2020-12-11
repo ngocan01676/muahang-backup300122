@@ -22,6 +22,7 @@ class RoomController extends \Zoe\Http\ControllerBackend
         return $this;
     }
     public function list(Request $request){
+        $this->getCrumb();
         $search = $request->query('search', "");
         $status = $request->query('status', "");
         $this->data['key'] = "core:module:miss_terry:room";

@@ -36,7 +36,7 @@ return [
         ]
     ],
     'language' => [
-//        'en_us' => ['flag' => 'gb', 'lang' => 'en-us', 'label' => 'English (United States)'],
+        'en_us' => ['flag' => 'gb', 'lang' => 'en-us', 'label' => 'English (United States)'],
         'vi' => ['flag' => 'vn', 'lang' => 'vi', 'label' => 'Viet Nam'],
         'jp' => ['flag' => 'jp', 'lang' => 'jp', 'label' => 'Japanese'],
 //        'zh_cn' => ['flag' => 'cn', 'lang' => 'zh-cn', 'label' => 'Chinese (PRC)'],

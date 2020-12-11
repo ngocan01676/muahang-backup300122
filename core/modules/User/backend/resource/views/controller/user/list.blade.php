@@ -9,7 +9,7 @@
             {{@z_language(["Option"])}}
         @endslot
         @slot('header')
-            {{@z_language(["Layout Option"])}}
+            {{@z_language(["Option"])}}
         @endslot
         @endbtn_option
     </h1>

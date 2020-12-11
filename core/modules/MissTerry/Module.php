@@ -13,10 +13,11 @@ class Module extends ZModule
     public static $require = [];
     public static $dev = true;
 
+    public static $key = "miss_terry";
+    public static $router = 'miss-terry';
     public function Init()
     {
         $this->path = __DIR__;
-
     }
 
     public function import($step = true, $settings = [], $datas = [])

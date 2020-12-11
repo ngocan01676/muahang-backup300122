@@ -323,7 +323,7 @@ class AppServiceProvider extends ServiceProvider
 
         if (file_exists($relativePath . '/Plugin.php')) {
             require_once $relativePath . '/Plugin.php';
-            $class = '\\' . $plugin . '\\Plugin';
+            $class = '\\Plugin' . $plugin . '\\Plugin';
             $object = new $class();
 
             if ($this->app->getConfig(true)->cache == 0) {

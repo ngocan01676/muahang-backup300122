@@ -41,7 +41,8 @@ class ControllerBackend extends Controller
     }
     public function breadcrumb($name, $router)
     {
-        return $this->breadcrumb->child->add([$name => ["name" => $name, "uri" => $router]]);
+        $this->breadcrumb->child->add([$name => ["name" => $name, "uri" => $router]]);
+        return $this;
     }
     public function log($name,$action,$data){
         unset($data['_token']);

@@ -1,6 +1,6 @@
 <?php
-$name ="miss-terry";
-$key = 'miss_terry';
+$name = \ModuleMissTerry\Module::$router;
+$key = \ModuleMissTerry\Module::$key;
 $url = md5($name);
 $namespace = "MissTerry\Http\Controllers";
 return [
@@ -52,6 +52,9 @@ return [
                         'url' => '/store',
                         'method' => ['post']
                     ],
+                    "user" => [
+                        "url" => "/user/{id}/{username}"
+                    ],
                     'delete' => [
                         'url' => '/delete',
                         'method' => ['post']
@@ -67,6 +70,7 @@ return [
                     "list" => [
                         "url" => "/"
                     ],
+
                 ]
             ],
          ]

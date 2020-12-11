@@ -16,7 +16,7 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
-    @component('backend::layout.component.list',['name'=>'core:member:list','models'=>$models,'route'=>$route,'parameter'=>$parameter])
+    @component('backend::layout.component.list',['name'=>'core:member:list','models'=>$models,'route'=>$route,'parameter'=>$parameter,"callback"=>isset($callback)?$callback:[]])
         @slot("tool")
             <div class="box-body">
                 <div class="col-md-12" style="padding:0">

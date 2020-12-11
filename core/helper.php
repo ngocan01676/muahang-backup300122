@@ -1010,3 +1010,9 @@ function show_preg_match_1($list, $path = '',$permission,$role){
     }
     return trim($html,"|");
 }
+function base_64_en($string){
+    return rtrim(strtr(base64_encode($string), '+/=', '-_.'), '.');
+}
+function base_64_de($string){
+    return  base64_decode(strtr($string, '-_.', '+/='));
+}

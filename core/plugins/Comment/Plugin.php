@@ -1,6 +1,6 @@
 <?php
 
-namespace Comment;
+namespace PluginComment;
 
 use Zoe\Module as ZModule;
 

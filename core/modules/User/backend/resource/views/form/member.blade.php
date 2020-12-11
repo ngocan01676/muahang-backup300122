@@ -1,8 +1,8 @@
 @if(isset($model))
-    {!! Form::model($model, ['method' => 'POST','route' => ['backend:user:store'],'id'=>'form_store']) !!}
+    {!! Form::model($model, ['method' => 'POST','route' => ['backend:member:store'],'id'=>'form_store']) !!}
     {!! Form::hidden('id') !!}
 @else
-    {!! Form::open(['method' => 'POST','route' => ['backend:user:store'],'id'=>'form_store']) !!}
+    {!! Form::open(['method' => 'POST','route' => ['backend:member:store'],'id'=>'form_store']) !!}
 @endif
 <div class="col-md-12">
     <div class="box box box-zoe">
@@ -32,31 +32,37 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    {!! Form::label('name', z_language('Tên'), ['class' => 'name']) !!}
-                                    {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Tên')]) !!}
+                                    {!! Form::label('name', z_language('Member Name'), ['class' => 'name']) !!}
+                                    {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Member Name')]) !!}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    {!! Form::label('username', z_language('Tên tài khoản'), ['class' => 'username']) !!}
-                                    {!! Form::text('username',null, ['class' => 'form-control','placeholder'=>z_language('Tên tài khoản')]) !!}
+                                    {!! Form::label('username', z_language('Member Username'), ['class' => 'username']) !!}
+                                    {!! Form::text('username',null, ['class' => 'form-control','placeholder'=>z_language('Member Username')]) !!}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    {!! Form::label('password', z_language('Mật khẩu'), ['class' => 'password']) !!}
+                                    {!! Form::label('email', z_language('Member Email'), ['class' => 'username']) !!}
+                                    {!! Form::text('email',null, ['class' => 'form-control','placeholder'=>z_language('Member Email')]) !!}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {!! Form::label('password', z_language('Member Password'), ['class' => 'password']) !!}
                                     {{ Form::password('password', array('id' => 'password', "class" => "form-control")) }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    {!! Form::label('role_id', z_language('Nhóm Quyền'), ['class' => 'role_id']) !!}
+                                    {!! Form::label('role_id', z_language('Member Role'), ['class' => 'role_id']) !!}
                                     {!! Form::select('role_id', $roles , null,['class'=>'form-control']); !!}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    {!! Form::label('status', 'Status', ['class' => 'status']) !!} &nbsp;
+                                    {!! Form::label('status', z_language('Member Status'), ['class' => 'status']) !!} &nbsp;
                                     {!! Form::radio('status', '1' , true) !!} Yes
                                     {!! Form::radio('status', '0',false) !!} No
                                 </td>

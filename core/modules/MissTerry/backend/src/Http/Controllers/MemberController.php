@@ -49,11 +49,22 @@ class MemberController extends \User\Http\Controllers\MemberController{
         $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
         $models = $models->paginate($item, ['*'], 'page', $page);
         $models->appends($parameter);
-
+        $user_meta = new \stdClass();
+        $user_meta->meta = [];
         return $this->render('member.list', [
             'models' => $models,
             "route" => $route,
-            'parameter' => $parameter
+            'parameter' => $parameter,
+            'callback'=>[
+                "coin"=>function($model){
+                   $rs = DB::table('miss_user_meta')->where('user_id',$model->id)->get()->all();
+                   return isset($rs[0])?$rs[0]:0;
+                },
+                "btn_booking"=>function($model){
+                    return "<a href='".route('backend:'.\ModuleMissTerry\Module::$key.':booking:user',['id'=>$model->id,'username'=>base_64_en($model->username)])."'><button class='btn btn-xs btn-primary'><i class='fa fa-eye'></i></button></a> ";
+                }
+            ]
         ],"user");
     }
+
 }

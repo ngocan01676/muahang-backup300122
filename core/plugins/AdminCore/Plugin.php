@@ -1,5 +1,5 @@
 <?php
-namespace AdminCore;
+namespace PluginAdminCore;
 use Zoe\Module as ZModule;
 class Plugin extends ZModule
 {

@@ -22,7 +22,79 @@ class BookingController extends \Zoe\Http\ControllerBackend
         $this->breadcrumb('List Room',('backend:miss_terry:booking:list'));
         return $this;
     }
+    public function user(Request $request){
+        $user_id = $request->id;
+        $user_name = base_64_de($request->username);
+        $this->breadcrumb(z_language('Membership'), ('backend:member:list'))
+            ->breadcrumb(z_language('Info Booking : :USERNAME',['USERNAME'=>$user_name]),'backend:'.\ModuleMissTerry\Module::$key.':booking:user');
+
+        $search = $request->query('search', "");
+        $status = $request->query('status', "");
+        $this->data['key'] = "core:module:miss_terry:booking:user";
+        $config = config_get('option',  $this->data['key']);
+        $data = $request->query();
+        $page = null;
+        if (isset($data['action'])) {
+            $page = 1;
+        }
+        $parameter = $data;
+        $route = [];
+        $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
+        $select = [];
+        $models = DB::table('miss_booking as b');
+        $models->where('user_id',1);
+//        $models->where('	user_id',$user_id);
+
+//        if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
+//
+//            $models->where('title', 'like', '%' . $search . '%');
+//        }
+
+        if (isset($parameter["filter"]['room']) && !empty($parameter['filter']['room'])) {
+            $models->where('room_id', $parameter['filter']['room']);
+        }
+        if (!empty($status) || $status != "") {
+            $models->where('status', $status);
+        }
+        if (!isset($parameter['order_by'])) {
+            $parameter['order_by']['col'] = 'id';
+            $parameter['order_by']['type'] = 'desc';
+        } else {
+            if (isset($parameter['action'])) {
+                $parameter['order_by']['type'] = isset($parameter['order_by']['type']) && $parameter['order_by']['type'] == "desc" ? "asc" : "desc";
+            }
+        }
+        if (isset($parameter['action'])) {
+            unset($parameter['action']);
+        }
+        $lang = $this->data['current_language'];
+        $models = $models->paginate($item, ['*'], 'page', $page);
+        $models->appends($parameter);
+
+        $miss_room = $this->data['miss_room'];
+        $miss_user = DB::table('user')->get()->keyBy('id')->all();
+        return $this->render('booking.user', [
+            'models' => $models,
+            "route" => $route,
+            'parameter' => $parameter,
+            'callback' => [
+                "get_room" => function ($model) use ($lang,$miss_room) {
+                    if(isset($miss_room[$model->room_id])){
+                        return $miss_room[$model->room_id]->title;
+                    }
+                    return z_language('Empty');
+                },
+                "get_user" => function ($model) use ($lang,$miss_user) {
+                    if($model->user_id > 0){
+                        return $miss_user[$model->user_id]->name;
+                    }
+                    return $model->fullname;
+                }
+            ],
+        ],'MissTerry');
+    }
     public function list(Request $request){
+        $this->getCrumb();
         $search = $request->query('search', "");
         $status = $request->query('status', "");
         $this->data['key'] = "core:module:miss_terry:booking";

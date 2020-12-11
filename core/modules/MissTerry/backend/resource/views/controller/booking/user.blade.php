@@ -1,11 +1,10 @@
 @section('content-header')
-
     <h1>
         &starf; {!! @z_language(["Manager Booking"]) !!}
         <small>it all starts here</small>
         <a href="{{route('backend:miss_terry:booking:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
-        @btn_option(["config"=>['name'=>$key]])
+        @btn_option(["config"=>['name'=>$key,'extend'=>'core:module:'.(\ModuleMissTerry\Module::$key).':booking']])
         @slot('label')
             {{@z_language(["Option"])}}
         @endslot
@@ -17,6 +16,64 @@
 @endsection
 @section('content')
     @breadcrumb()@endbreadcrumb
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">CPU Traffic</span>
+                    <span class="info-box-number">90<small>%</small></span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Likes</span>
+                    <span class="info-box-number">41,410</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Sales</span>
+                    <span class="info-box-number">760</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">New Members</span>
+                    <span class="info-box-number">2,000</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+    </div>
     @component('backend::layout.component.list',['name'=>$key,'models'=>$models,'route'=>$route,'parameter'=>$parameter,'callback'=>$callback])
         @slot("tool")
             <div class="box-body">
@@ -29,7 +86,7 @@
                             <div class="col-sm-8" style="padding:0;text-align: center;">
                                 <select name="filter.room" class="form-control">
                                     @foreach($miss_room as $_miss_room)
-                                    <option value="{!! $_miss_room->id !!}">{!! $_miss_room->title !!}</option>
+                                        <option value="{!! $_miss_room->id !!}">{!! $_miss_room->title !!}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Faq;
+namespace PluginFaq;
 
 use Zoe\Module as ZModule;
 

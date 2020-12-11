@@ -1,6 +1,6 @@
 <?php
 
-namespace Builder;
+namespace PluginBuilder;
 
 use Zoe\Module as ZModule;
 

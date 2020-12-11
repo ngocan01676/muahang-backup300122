@@ -29,7 +29,7 @@ class SidebarComposer
     public function compose(View $view)
     {
 
-        $sidebars = Cache::remember('sidebars:' . $this->user->keyCache(), 60 , function () {
+        $sidebars = Cache::remember('sidebars:' . $this->user->keyCache(), 1 , function () {
             $app = app();
             $sidebars = $app->getConfig()->sidebars;
             $aliases_acl = $app->getPermissions()->aliases;

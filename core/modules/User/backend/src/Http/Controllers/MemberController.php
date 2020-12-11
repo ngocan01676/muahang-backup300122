@@ -63,7 +63,7 @@ class MemberController extends \Zoe\Http\ControllerBackend
             'models' => $models,
             "route" => $route,
             'parameter' => $parameter
-        ]);
+        ],'user');
     }
     public function edit($id)
     {
@@ -76,7 +76,7 @@ class MemberController extends \Zoe\Http\ControllerBackend
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
         $model = Member::find($id);
 
-        return $this->render('user.edit', ["model" => $model]);
+        return $this->render('member.edit', ["model" => $model],'user');
     }
 
     public function create()
@@ -87,7 +87,7 @@ class MemberController extends \Zoe\Http\ControllerBackend
         foreach ($roles as $role){
             $this->data['roles'][$role->id] = $role->name;
         }
-        return $this->render('member.create');
+        return $this->render('member.create',[],'user');
     }
 
     public function delete(Request $request)
@@ -106,15 +106,33 @@ class MemberController extends \Zoe\Http\ControllerBackend
     }
     public function store(Request $request){
         $data = $request->all();
-        $validator = Validator::make($data, [
+        $filter = [
             'name' => 'required|max:255',
-            'username' => 'required|max:255|unique:admin',
-            'password' => 'required|min:6',
             'role_id' => 'required',
-        ], [
+        ];
+        $type = 'create';
+        if (isset($data['id']) && !empty($data['id'])) {
+            $model = Member::find($data['id']);
+            $type = 'edit';
+            if(!empty($data['password']))
+                $filter['password'] = 'required|min:6';
+            if($model->username != $data['username']){
+                $filter['username'] = 'required|max:255|unique:user';
+            }
+            if($model->email != $data['email']){
+                $filter['email'] = 'required|max:255|unique:user';
+            }
+        } else {
+            $model = new Member();
+            $filter['password'] = 'required|min:6';
+            $filter['username'] = 'required|max:255|unique:user';
+            $filter['email'] = 'required|max:255|unique:user';
+        }
+        $validator = Validator::make($data, $filter, [
             'name.required' => z_language('Tên  không được phép bỏ trống.'),
             'username.required' => z_language('Tài khoản không được phép bỏ trống.'),
             'username.unique' => z_language('Tài khoản đã tồn tại.'),
+            'email.unique' => z_language('Địa chỉ Email đã tồn tại.'),
             'password.required' => z_language('Mật khẩu không được phép bỏ trống.'),
             'role_id.required' => z_language('Nhóm quyền không được phép bỏ trống.'),
         ]);
@@ -123,20 +141,13 @@ class MemberController extends \Zoe\Http\ControllerBackend
                 ->withErrors($validator)
                 ->withInput();
         }
-        $type = 'create';
-        if (isset($data['id']) && !empty($data['id'])) {
-            $model = Member::find($data['id']);
-            $type = 'edit';
-        } else {
-            $model = new Member();
-        }
         try {
             $model->name = $data['name'];
             $model->username = $data['username'];
             $model->password = Hash::make( $data['password']);
             $model->role_id = $data['role_id'];
-
             $model->save();
+            $request->session()->flash('success', $type == "create"?z_language('Member is added successfully'):z_language('Member is updated successfully'));
             $this->log('user:user',$type,['id'=>$model->id]);
             return redirect(route('backend:member:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
