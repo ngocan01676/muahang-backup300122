@@ -1,15 +1,10 @@
 <?php
-
 namespace User\Http\Controllers;
-
 use App\Admin;
 use Validator;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
 class AuthController extends \Zoe\Http\ControllerBackend
 {
     /*
@@ -23,7 +18,6 @@ class AuthController extends \Zoe\Http\ControllerBackend
     |
     */
 
-    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login / registration.

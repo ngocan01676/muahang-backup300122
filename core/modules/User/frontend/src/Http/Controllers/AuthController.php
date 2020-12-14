@@ -1,15 +1,14 @@
 <?php
 
 namespace UserFront\Http\Controllers;
-
 use Validator;
 use Illuminate\Http\Request;
-use Auth;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+//use Auth;
+//use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 class AuthController extends \Zoe\Http\ControllerFront
 {
-    use AuthenticatesUsers;
+//    use AuthenticatesUsers;
     protected $redirectTo = '/';
 
     public function username()
