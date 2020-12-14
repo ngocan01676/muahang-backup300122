@@ -20,7 +20,7 @@ class ElfinderController extends \Zoe\Http\ControllerBackend
     {
         return $this->render('elfinder.tinymce4', ['target'=>$request->target?$request->target:"",'dir' => 'module/admin/assets/elfinder', 'locale' => app()->getLocale()]);
     }
-    function show_preg_match($list, $path = '',$permission,$role){
+    function show_preg_match($list, $path = '',$permission = '',$role = ''){
         $html = "";
         $_path = $path;
         foreach ($list as $directory){

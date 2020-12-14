@@ -1,10 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Blade;
-
 use Illuminate\Support\Facades\DB;
-
 
 function ZoeExtension($file)
 {

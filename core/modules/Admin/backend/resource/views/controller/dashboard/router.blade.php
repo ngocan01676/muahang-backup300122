@@ -12,6 +12,7 @@
     <x-breadcrumb/>
 
     @function(view_item ($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,$status,$controllers,$controller))
+
     <li>
         <i class="fa fa-gears @if($status) bg-blue @else @endif"></i>
 
@@ -25,6 +26,7 @@
             <div class="timeline-body">
                 @php
                     $url = $uri;
+
                     if(isset($datas['data'][$name]['uri'])){
                         $url = $datas['data'][$name]['uri'];
                     }
@@ -44,12 +46,12 @@
 
                         <strong class="view">{!! asset('/') !!}
                             <span
-                                    data-uri="{!! $uri !!}">{!! $url !!}</span></strong>
+  data-uri="{!! $uri !!}">{!! $url !!}</span></strong>
                         <span class="input" style="display: none">
                             <input type="text"
-                                   @if($url == $uri) data-name="data[{!! $name !!}].uri"
-                                   @else name="data[{!! $name !!}].uri" @endif
-                                   value="{!! $url !!}"></span>
+                                   @if($url == $uri) data-name="data[{!! var_dump($name) !!}].uri"
+                                   @else name="data[{!! var_dump($name) !!}].uri" @endif
+                                   value="{!! var_dump($url) !!}"></span>
                         &nbsp;
                         <button type="button" onclick="changeUri(this)">edit</button>
                     </div>
@@ -182,6 +184,7 @@
         </div>
     </li>
     @endfunction
+
     <div class="row">
         <div class="col-md-12 routers_wrap">
             <!-- The time line -->
@@ -230,10 +233,10 @@
                         @endif
                     @endforeach
                     @if(isset($datas['data']))
-                       
+                        @dump($datas)
                         @foreach($datas['data'] as $name=>$route)
 
-                            @if(!isset($urls[$route['data']['name']]))
+                            @if(isset($route['data']) && !isset($urls[$route['data']['name']]))
                                 @php
                                     
                                    $middlewares = json_decode($route['data']['middleware'],true);
@@ -246,7 +249,12 @@
                                         $controller = $routes[$name]['action']['controller'];
                                     }
                                 @endphp
-                                @view_item($name,$middlewares,$route['data']['uri'],$layouts,$listsRolePremission,$datas,false,$controllers,$controller)
+
+                                @view_item(
+                                $name,
+                                $middlewares,
+                                isset($route['data'])&&is_array(isset($route['data']))?$route['data']['uri']:"",
+                                $layouts,$listsRolePremission,$datas,false,$controllers,$controller)
                             @endif
                         @endforeach
                     @endif

@@ -42,13 +42,20 @@ class DashboardController extends \Zoe\Http\ControllerBackend
             $pathinfo = pathinfo($value);
             $namespace = extract_namespace($value);
             $clazz = $namespace . '\\' . $pathinfo['filename'];
-            $methodParent = get_class_methods(get_parent_class($clazz));
-            $methodClass = get_class_methods($clazz);
-            foreach ($methodClass as $method){
-                if(!in_array($method,$methodParent) && (substr($method, 0, 3) == 'get' || substr($method, 0, 4) == 'post')){
-                    $controllers[$clazz.'@'.$method] = $namespace;
+            try{
+                if(class_exists($clazz)){
+                    $methodParent = get_class_methods(get_parent_class($clazz));
+                    $methodClass = get_class_methods($clazz);
+                    foreach ($methodClass as $method){
+                        if(!in_array($method,$methodParent) && (substr($method, 0, 3) == 'get' || substr($method, 0, 4) == 'post')){
+                            $controllers[$clazz.'@'.$method] = $namespace;
+                        }
+                    }
                 }
+            }catch (\Exception $ex){
+                echo $clazz;
             }
+
         }
         $data = $request->all();
         if ($request->isMethod('post')) {

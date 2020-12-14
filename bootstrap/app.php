@@ -14,7 +14,7 @@
 $app = new \Zoe\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
-require __DIR__ . '/../core/helper.php';
+require_once __DIR__ . '/../core/helper.php';
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
