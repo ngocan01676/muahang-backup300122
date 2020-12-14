@@ -5,7 +5,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     <div style="width: 95%;margin: 0 auto">
         <div class="row">
             @foreach($lists as $module=>$list)

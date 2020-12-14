@@ -1,4 +1,6 @@
-@php $option = app()->getConfig()->options; @endphp
+@php $option = app()->getConfig()->options;
+
+@endphp
 @if(isset($config['name']) && (isset($option[$config['name']]) || isset($config['extend']) && isset($option[$config['extend']]) ))
 @php
     if(isset($config['extend']) && isset($option[$config['extend']])){

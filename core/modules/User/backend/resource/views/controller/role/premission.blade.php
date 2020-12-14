@@ -6,7 +6,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     @php
         $names = [
             'list'=> z_language('List'),

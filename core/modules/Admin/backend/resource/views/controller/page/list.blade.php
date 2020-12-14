@@ -4,18 +4,19 @@
         <small>it all starts here</small>
         <a href="{{route('backend:page:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
-        @btn_option(["config"=>['name'=>'core:page']])
-        @slot('label')
-            {{@z_language(["Option"])}}
-        @endslot
-        @slot('header')
-            {{@z_language(["Option"])}}
-        @endslot
-        @endbtn_option
+
+        <x-btnOption :config="['name'=>'core:page']">
+            <x-slot name="label">
+                {{@z_language(["Option"])}}
+            </x-slot>
+            <x-slot name="header">
+                {{@z_language(["Option"])}}
+            </x-slot>
+        </x-btnOption>
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     @component('backend::layout.component.list',['name'=>'core:page','models'=>$models,"callback"=>$callback])
     @endcomponent
 @endsection

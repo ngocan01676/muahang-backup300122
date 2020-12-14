@@ -26,8 +26,7 @@
                 </div>
             </div>
         @endif
-
-        @flash_message()@endflash_message
+        <x-flash_message/>
         <div class="box box box-zoe" id="sectionList">
             <div class="box-header with-border">
                 <div class="box-tools">

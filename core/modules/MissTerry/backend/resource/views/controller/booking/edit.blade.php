@@ -5,6 +5,6 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     @include('MissTerry::form.booking')
 @endsection

@@ -5,7 +5,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     @foreach($lists as $module=>$list)
         <div class="item col-lg-4 col-md-6 col-sm-6 col-12">
             <div class="box" data-sys="{{$list['system']}}" data-module="{!! $module !!}"

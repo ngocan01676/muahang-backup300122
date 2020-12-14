@@ -5,7 +5,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     <div class="box box_zoe">
         <div class="box-header">
             <h3 class="box-title">{!! z_language("Register") !!}</h3>

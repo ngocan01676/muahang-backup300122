@@ -10,7 +10,7 @@
                     </ul>
                 </div><br/>
             @endif
-            @flash_message()@endflash_message
+            <x-flash_message/>
             @if(isset($model))
                 {!! Form::model($model, ['method' => 'POST','route' => ['backend:miss_terry:booking:store'],'id'=>'form_store','class'=>'submit']) !!}
                 {!! Form::hidden('id') !!}

@@ -4,18 +4,18 @@
         <small>it all starts here</small>
         <a href="{{route('backend:miss_terry:booking:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
-        @btn_option(["config"=>['name'=>$key,'extend'=>'core:module:'.(\ModuleMissTerry\Module::$key).':booking']])
-        @slot('label')
-            {{@z_language(["Option"])}}
-        @endslot
-        @slot('header')
-            {{@z_language(["Layout Option"])}}
-        @endslot
-        @endbtn_option
+        <x-btnOption :config="['name'=>$key,'extend'=>'core:module:'.(\ModuleMissTerry\Module::$key).':booking']">
+            <x-slot name="label">
+                {{@z_language(["Option"])}}
+            </x-slot>
+            <x-slot name="header">
+                {{@z_language(["Option"])}}
+            </x-slot>
+        </x-btnOption>
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">

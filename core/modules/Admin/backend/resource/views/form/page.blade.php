@@ -10,7 +10,7 @@
                     </ul>
                 </div><br/>
             @endif
-            @flash_message()@endflash_message
+            <x-flash_message/>
             @if(isset($page))
                 {!! Form::model($page, ['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
                 {!! Form::hidden('id') !!}

@@ -115,6 +115,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         Blade::directive('function', function ($expression) {
+
             if (!preg_match("/^\s*([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)/", $expression, $matches)) {
                 throw new \Exception("Invalid function name given in blade template: '$expression' is invalid");
             }
@@ -137,7 +138,6 @@ class AppServiceProvider extends ServiceProvider
             }
             return "<?php function $name ( $params  \$__env ) { ?>";
         });
-
         Blade::directive('return', function ($expression) {
             return "<?php return ($expression); ?>";
         });

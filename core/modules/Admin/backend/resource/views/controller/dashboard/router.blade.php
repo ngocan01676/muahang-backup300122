@@ -9,7 +9,7 @@
 
 @section('content')
 
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
 
     @function(view_item ($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,$status,$controllers,$controller))
     <li>
