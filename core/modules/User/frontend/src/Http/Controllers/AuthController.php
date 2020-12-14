@@ -20,34 +20,27 @@ class AuthController extends \Zoe\Http\ControllerFront
     {
         $this->middleware('guest:frontend')->except('logout');
     }
-
     protected function attemptLogin(Request $request)
     {
+
         return Auth::guard('frontend')->attempt(
-            $this->credentials($request), $request->filled('remember')
+            $request->only('username', 'password'), $request->filled('remember')
         );
     }
-
     public function postLogin(Request $request)
     {
-        $this->validateLogin($request);
-
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-            return $this->sendLockoutResponse($request);
-        }
         if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
+            $request->session()->regenerate();
+            return redirect()->intended('/');
         }
-        $this->incrementLoginAttempts($request);
-        return $this->sendFailedLoginResponse($request);
+        return back()->withErrors([
+            'username' => 'The provided credentials do not match our records .',
+        ]);
     }
-
     public function getRegister()
     {
         return view('auth.register');
     }
-
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -65,7 +58,7 @@ class AuthController extends \Zoe\Http\ControllerFront
     }
     public function postLogout(Request $request)
     {
-        $this->guard("frontend")->logout();
+        Auth::guard("frontend")->logout();
         $request->session()->invalidate();
         return redirect('/login');
     }

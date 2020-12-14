@@ -38,11 +38,11 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'user',
         ],
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'user',
             'hash' => false,
         ],
         'backend' => [
@@ -51,7 +51,7 @@ return [
         ],
         'frontend' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'user',
         ],
     ],
     /*
@@ -72,7 +72,7 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'user' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],

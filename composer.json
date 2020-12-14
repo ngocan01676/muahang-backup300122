@@ -12,15 +12,16 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.5",
+        "jenssegers/agent": "^2.6",
         "laravel/framework": "^8.12",
+        "laravel/jetstream": "^1.6",
         "laravel/tinker": "^2.5",
-		"intervention/image": "^2.5",
-		"jenssegers/agent": "^2.6",
-		"laravelcollective/html": "^6.0",
-		"matthiasmullie/minify": "^1.3",
-		"melbahja/seo": "^1.0",
-		"studio-42/elfinder": "^2.1",
-		"phpoffice/phpspreadsheet": "dev-master"
+        "laravelcollective/html": "^6.0",
+        "matthiasmullie/minify": "^1.3",
+        "melbahja/seo": "^1.0",
+        "phpoffice/phpspreadsheet": "dev-master",
+        "studio-42/elfinder": "^2.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
