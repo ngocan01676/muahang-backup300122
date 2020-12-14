@@ -57,7 +57,11 @@
                                 $_lists[$k]['index'] = $k;
                             }
                             usort($_lists,function( $a , $b ){
-                                return isset($a['order']) && isset($a['order'])?$a['order']-$b['order']:0;
+                                if(isset($a['order']) && isset($a['order'])){
+                                    if($a['order'] > $b['order']) return 1;
+                                    if($a['order'] < $b['order']) return -1;
+                                }
+                                return 0;
                             });
                         @endphp
                         @foreach($_lists as $columns)

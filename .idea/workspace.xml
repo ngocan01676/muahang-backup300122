@@ -3,66 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/zoecms.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/zoecms.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/announce/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/announce/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/announce/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/announce/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/announce/lists.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/announce/lists.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/backup/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/backup/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/category/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/category/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/category/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/category/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/configuration/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/configuration/register.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/dashboard/router.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/dashboard/router.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/build.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/build.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/log/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/log/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/menu/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/menu/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/module/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/module/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/page/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/plugin/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/plugin/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/sidebar/lists.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/sidebar/lists.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/theme/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/theme/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/email-template.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/email-template.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/page.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/form/page.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/button-option.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/button-option.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/helper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/src/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/controller/post/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/controller/post/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/controller/post/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/controller/post/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/controller/post/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Blog/backend/resource/views/controller/post/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/booking/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/booking/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/booking/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/booking/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/booking/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/booking/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/booking/user.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/booking/user.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/room/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/room/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/room/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/room/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/room/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/controller/room/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/form/booking.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/form/booking.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/premission.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/role/premission.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/email/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/email/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/form/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/form/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Gallery/resource/views/controller/index/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Gallery/resource/views/controller/index/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/zoe/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/zoe/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/LanguageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/LanguageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/User/backend/src/ViewComposers/SidebarComposer.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/User/backend/src/ViewComposers/SidebarComposer.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -179,34 +123,68 @@
   <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/storage/framework/views/1d04c027d1cd93cad01aa85e69e618f9cbc75958.php">
+        <entry file="file://$PROJECT_DIR$/app/User.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Backend.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2924">
-              <caret line="35" column="76" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="76" />
+            <state relative-caret-position="221">
+              <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/storage/framework/views/1fc0e2f748b0c0ba7c056d04db374d93b99bcc86.php">
+        <entry file="file://$PROJECT_DIR$/core/helper.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1530" />
+            <state relative-caret-position="156">
+              <caret line="244" column="1" lean-forward="true" selection-start-line="244" selection-start-column="1" selection-end-line="244" selection-end-column="1" />
+            </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/storage/framework/views/322a26c40121b9b8d17936ccff9b63b484c27d0c.php">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/list.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="199">
+              <caret line="61" column="74" selection-start-line="61" selection-start-column="74" selection-end-line="61" selection-end-column="74" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/LanguageController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="97">
+              <caret line="223" column="8" selection-start-line="223" selection-start-column="8" selection-end-line="223" selection-end-column="8" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/storage/framework/views/a5a84070c5fdf93b18b92580eb3a725cd796e79e.php">
+        <entry file="file://$PROJECT_DIR$/core/modules/User/backend/src/ViewComposers/SidebarComposer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+            <state relative-caret-position="80">
+              <caret line="64" column="13" lean-forward="true" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -215,7 +193,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>change_booking_date</find>
       <find>postLogin</find>
       <find>Trang chủ</find>
       <find>trang chủ</find>
@@ -245,6 +222,7 @@
       <find>endfunction</find>
       <find>Blade::component(&quot;fun</find>
       <find>function</find>
+      <find>usort</find>
     </findStrings>
     <dirStrings>
       <dir>C:\xampp\htdocs\zoecms\vendor\studio-42\elfinder</dir>
@@ -256,10 +234,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/dashboard/router.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/create.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/email-template/edit.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/build.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/create.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/layout/edit.blade.php" />
         <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/menu/show.blade.php" />
@@ -307,6 +281,10 @@
         <option value="$PROJECT_DIR$/storage/logs/laravel-2020-12-14.log" />
         <option value="$PROJECT_DIR$/storage/app/views/layouts/theme/zoe/layout-home.blade.php" />
         <option value="$PROJECT_DIR$/lib/zoe/Providers/AppServiceProvider.php" />
+        <option value="$PROJECT_DIR$/core/helper.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/LanguageController.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/list.blade.php" />
+        <option value="$PROJECT_DIR$/core/modules/User/backend/src/ViewComposers/SidebarComposer.php" />
       </list>
     </option>
   </component>
@@ -318,47 +296,6 @@
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
-      <path value="$PROJECT_DIR$/../example-app/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/assets/tagging/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/Flot/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/bootstrap-colorpicker/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/bootstrap-datepicker/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/bootstrap-daterangepicker/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/bootstrap/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/chart.js/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/ckeditor/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/eve-raphael/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/ion.rangeSlider/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/jquery-knob/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/jquery-slimscroll/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/jquery-ui/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/morris.js/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/bower_components/select2/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/admin/plugins/vakata-jstree/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/blog/plugins/camohub-jquery-sortable-lists/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/shop-ja/assets/jexcel/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/shop-ja/assets/jsuites/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/module/shop-ja/assets/morris.js/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/plugins/layout/plugins/code-prettify/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/plugins/layout/plugins/jquery-ui-1.12.1.custom/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/plugins/layout/plugins/js-beautify-1.7.5/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/Flot/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-colorpicker/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-datepicker/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap-daterangepicker/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/bootstrap/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/chart.js/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/ckeditor/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/eve-raphael/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/ion.rangeSlider/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/jquery-knob/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/jquery-slimscroll/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/jquery-ui/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/morris.js/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/bower_components/select2/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/public/tmp/AdminLTE-2.4.15/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/vendor/facade/ignition/package.json" />
-      <path value="$PROJECT_DIR$/../example-app/vendor/studio-42/elfinder/package.json" />
       <path value="$PROJECT_DIR$/public/module/admin/assets/tagging/package.json" />
       <path value="$PROJECT_DIR$/public/module/admin/bower_components/Flot/package.json" />
       <path value="$PROJECT_DIR$/public/module/admin/bower_components/bootstrap-colorpicker/package.json" />
@@ -547,7 +484,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -558,44 +494,23 @@
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="storage" type="462c0819:PsiDirectoryNode" />
+              <item name="backup" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="storage" type="462c0819:PsiDirectoryNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="storage" type="462c0819:PsiDirectoryNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="sessions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="storage" type="462c0819:PsiDirectoryNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="testing" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="storage" type="462c0819:PsiDirectoryNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -652,6 +567,7 @@
       <workItem from="1607652383226" duration="13905000" />
       <workItem from="1607911724027" duration="3530000" />
       <workItem from="1607920053588" duration="902000" />
+      <workItem from="1607937739675" duration="1174000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <created>1607103031376</created>
@@ -664,18 +580,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144072000" />
+    <option name="totallyTimeSpent" value="145246000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24200426" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24466951" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="TypeScript" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.17678958" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.49946696" visible="true" weight="0.63015187" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -686,10 +601,11 @@
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50053304" side_tool="true" weight="0.59219086" />
+      <window_info anchor="bottom" id="TypeScript" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32995737" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -703,55 +619,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="a" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/9eb327313c9dc15c9ab3b905ab28812799121b2d.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/configs/option.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-816" />
@@ -766,10 +633,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
           <caret line="22" column="44" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="44" />
-          <folding>
-            <element signature="e#921#939#0#HTML" expanded="true" />
-            <element signature="e#1224#1245#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -972,44 +835,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/2ff8cf8f2e0c78b9dcf988e84671669cc989ae43.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/0b7a96194e5daec3a15ddb5ee81a4efb24a6abf5.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="113" column="6" lean-forward="true" selection-start-line="113" selection-start-column="6" selection-end-line="113" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/5f72c12e8796bda3496aa4b3c19d4d2e33aeefb1.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2662" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/54c872aaaa9f685e6bed9a15649882f74d3f66e5.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="63" lean-forward="true" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/80abebb4e8a8c733dc7c20f40dbef33660fba9af.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/84b0f765e73f73ecbab5ded46acdf033d47eb81c.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/2ff8cf8f2e0c78b9dcf988e84671669cc989ae43.php" />
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/0b7a96194e5daec3a15ddb5ee81a4efb24a6abf5.php" />
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/5f72c12e8796bda3496aa4b3c19d4d2e33aeefb1.php" />
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/54c872aaaa9f685e6bed9a15649882f74d3f66e5.php" />
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/80abebb4e8a8c733dc7c20f40dbef33660fba9af.php" />
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/84b0f765e73f73ecbab5ded46acdf033d47eb81c.php" />
     <entry file="file://$PROJECT_DIR$/storage/framework/views/1d04c027d1cd93cad01aa85e69e618f9cbc75958.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2924">
+        <state relative-caret-position="595">
           <caret line="35" column="76" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="76" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/1fc0e2f748b0c0ba7c056d04db374d93b99bcc86.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1530" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/storage/framework/views/322a26c40121b9b8d17936ccff9b63b484c27d0c.php">
@@ -1019,6 +855,54 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/1fc0e2f748b0c0ba7c056d04db374d93b99bcc86.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/User.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Backend.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="244" column="1" lean-forward="true" selection-start-line="244" selection-start-column="1" selection-end-line="244" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="61" column="74" selection-start-line="61" selection-start-column="74" selection-end-line="61" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/LanguageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="223" column="8" selection-start-line="223" selection-start-column="8" selection-end-line="223" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/User/backend/src/ViewComposers/SidebarComposer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="64" column="13" lean-forward="true" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
         </state>
       </provider>
     </entry>
