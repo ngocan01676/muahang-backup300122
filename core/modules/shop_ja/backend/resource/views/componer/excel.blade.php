@@ -1328,7 +1328,7 @@
       let vals = val.trim().split(' ');
       console.log(vals);
 
-      let a = val.trim();
+      let a = val.trim()+"";
       let b = ["様","日に","円入金済み"];
 
       vals = [];
@@ -2663,7 +2663,7 @@
 
       //NGUYEN V 様 00 日に 0000 円入金済み
       let vals = val.trim().split(' ');
-      let a = val.trim();
+      let a = val.trim()+"";
       let b = ["様","日に","円入金済み"];
 
       vals = [];
@@ -3977,7 +3977,7 @@
 
        //NGUYEN V 様 00 日に 0000 円入金済み
        let vals = val.trim().split(' ');
-       let a = val.trim();
+       let a = val.trim()+"";
        let b = ["様","日に","円入金済み"];
 
        vals = [];
@@ -5174,7 +5174,7 @@
 
                       //NGUYEN V 様 00 日に 0000 円入金済み
                       let vals = val.trim().split(' ');
-                   let a = val.trim();
+                   let a = val.trim()+"";
                    let b = ["様","日に","円入金済み"];
 
                    vals = [];
@@ -6221,7 +6221,7 @@
 
       //NGUYEN V 様 00 日に 0000 円入金済み
       let vals = val.trim().split(' ');
-      let a = val.trim();
+      let a = val.trim()+"";
       let b = ["様","日に","円入金済み"];
 
       vals = [];
@@ -7248,7 +7248,7 @@
       //依頼人名. NGUYEN V 様  00 日に 0000 円入金済み
 
       let vals = val.trim().split(' ');
-      let a = val.trim();
+      let a = val.trim()+"";
       let b = ["依頼人名.","様","日に","円入金済み"];
 
       vals = [];
