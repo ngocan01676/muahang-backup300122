@@ -1520,7 +1520,21 @@
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
                         let vals = val.trim().split(' ');
-                        console.log(vals);
+                        let a = val.trim()+"";
+                        let b = ["様","日に","円入金済み"];
+                        vals=[];
+                        if(a.length > 0){
+
+                            for(let i = 0; i<b.length;i++){
+                                let results = a.split(b[i]);
+                                if(results.length == 0) break;
+                                a = results[1];
+                                let val = results[0].trim();
+                                if(val.length > 0){
+                                    vals.push(val);
+                                }
+                            }
+                        }
                         $("#info_payment").show();
                         let html  = "<table>";
                         html+="<tr>";
@@ -1533,7 +1547,7 @@
                         html+='様';
                         html+="</th>";
                         html+="<th>";
-                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -1541,7 +1555,7 @@
                         html+="</th>";
 
                         html+="<th>";
-                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -2893,7 +2907,21 @@
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
                         let vals = val.trim().split(' ');
-                        console.log(vals);
+                        let a = val.trim()+"";
+                        let b = ["様","日に","円入金済み"];
+                        vals=[];
+                        if(a.length > 0){
+
+                            for(let i = 0; i<b.length;i++){
+                                let results = a.split(b[i]);
+                                if(results.length == 0) break;
+                                a = results[1];
+                                let val = results[0].trim();
+                                if(val.length > 0){
+                                    vals.push(val);
+                                }
+                            }
+                        }
                         $("#info_payment").show();
                         let html  = "<table>";
                         html+="<tr>";
@@ -2906,7 +2934,7 @@
                         html+='様';
                         html+="</th>";
                         html+="<th>";
-                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -2914,7 +2942,7 @@
                         html+="</th>";
 
                         html+="<th>";
-                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -4380,7 +4408,21 @@
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
                         let vals = val.trim().split(' ');
-                        console.log(vals);
+                        let a = val.trim()+"";
+                        let b = ["様","日に","円入金済み"];
+                        vals=[];
+                        if(a.length > 0){
+
+                            for(let i = 0; i<b.length;i++){
+                                let results = a.split(b[i]);
+                                if(results.length == 0) break;
+                                a = results[1];
+                                let val = results[0].trim();
+                                if(val.length > 0){
+                                    vals.push(val);
+                                }
+                            }
+                        }
                         $("#info_payment").show();
                         let html  = "<table>";
                         html+="<tr>";
@@ -4393,7 +4435,7 @@
                         html+='様';
                         html+="</th>";
                         html+="<th>";
-                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -4401,7 +4443,7 @@
                         html+="</th>";
 
                         html+="<th>";
-                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -5720,7 +5762,21 @@
 
                                 //NGUYEN V 様 00 日に 0000 円入金済み
                                 let vals = val.trim().split(' ');
-                                console.log(vals);
+                                let a = val.trim()+"";
+                                let b = ["様","日に","円入金済み"];
+                                vals=[];
+                                if(a.length > 0){
+
+                                    for(let i = 0; i<b.length;i++){
+                                        let results = a.split(b[i]);
+                                        if(results.length == 0) break;
+                                        a = results[1];
+                                        let val = results[0].trim();
+                                        if(val.length > 0){
+                                            vals.push(val);
+                                        }
+                                    }
+                                }
                                 $("#info_payment").show();
                                 let html  = "<table>";
                                 html+="<tr>";
@@ -5733,7 +5789,7 @@
                                 html+='様';
                                 html+="</th>";
                                 html+="<th>";
-                                html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                                html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                                 html+="</th>";
 
                                 html+="<th>";
@@ -5741,7 +5797,7 @@
                                 html+="</th>";
 
                                 html+="<th>";
-                                html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                                html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                                 html+="</th>";
 
                                 html+="<th>";
@@ -6942,7 +6998,21 @@
 
                             //NGUYEN V 様 00 日に 0000 円入金済み
                             let vals = val.trim().split(' ');
-                            console.log(vals);
+                            let a = val.trim()+"";
+                            let b = ["様","日に","円入金済み"];
+                            vals=[];
+                            if(a.length > 0){
+
+                                for(let i = 0; i<b.length;i++){
+                                    let results = a.split(b[i]);
+                                    if(results.length == 0) break;
+                                    a = results[1];
+                                    let val = results[0].trim();
+                                    if(val.length > 0){
+                                        vals.push(val);
+                                    }
+                                }
+                            }
                             $("#info_payment").show();
                             let html  = "<table>";
                             html+="<tr>";
@@ -6955,7 +7025,7 @@
                             html+='様';
                             html+="</th>";
                             html+="<th>";
-                            html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                            html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                             html+="</th>";
 
                             html+="<th>";
@@ -6963,7 +7033,7 @@
                             html+="</th>";
 
                             html+="<th>";
-                            html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                            html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                             html+="</th>";
 
                             html+="<th>";
@@ -8014,7 +8084,21 @@
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
                         let vals = val.trim().split(' ');
-                        console.log(vals);
+                        let a = val.trim()+"";
+                        let b = ["様","日に","円入金済み"];
+                        vals=[];
+                        if(a.length > 0){
+
+                            for(let i = 0; i<b.length;i++){
+                                let results = a.split(b[i]);
+                                if(results.length == 0) break;
+                                a = results[1];
+                                let val = results[0].trim();
+                                if(val.length > 0){
+                                    vals.push(val);
+                                }
+                            }
+                        }
                         $("#info_payment").show();
                         let html  = "<table>";
                         html+="<tr>";
@@ -8027,7 +8111,7 @@
                         html+='様';
                         html+="</th>";
                         html+="<th>";
-                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -8035,7 +8119,7 @@
                         html+="</th>";
 
                         html+="<th>";
-                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -9063,7 +9147,22 @@
                         //依頼人名. NGUYEN V 様  00 日に 0000 円入金済み
 
                         let vals = val.trim().split(' ');
-                        console.log(vals);
+                        let a = val.trim()+"";
+                        let b = ["依頼人名.","様","日に","円入金済み"];
+
+                        vals=[];
+                        if(a.length > 0){
+
+                            for(let i = 0; i<b.length;i++){
+                                let results = a.split(b[i]);
+                                if(results.length == 0) break;
+                                a = results[1];
+                                let val = results[0].trim();
+                                if(val.length > 0){
+                                    vals.push(val);
+                                }
+                            }
+                        }
                         $("#info_payment").show();
                         let html  = "<table>";
                          html+="<tr>";
@@ -9071,19 +9170,19 @@
                                 html+='依頼人名.';
                             html+="</th>";
                             html+="<th>";
-                            html+='<input type="text" class="form-control name" value="'+(vals[1]?vals[1]:"")+'">';
+                            html+='<input type="text" class="form-control name" value="'+(vals[0]?vals[0]:"")+'">';
                             html+="</th>";
                             html+="<th>";
                             html+='様';
                             html+="</th>";
                             html+="<th>";
-                            html+='<input type="text" class="form-control date" value="'+(vals[3]?vals[3]:"")+'">';
+                            html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                             html+="</th>";
                             html+="<th>";
                             html+='日に';
                             html+="</th>";
                             html+="<th>";
-                            html+='<input type="text" class="form-control price" value="'+(vals[5]?vals[5]:"")+'">';
+                            html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                             html+="</th>";
                             html+="<th>";
                             html+='円入金済み';
