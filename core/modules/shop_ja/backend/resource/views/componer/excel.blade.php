@@ -1331,14 +1331,17 @@
       let a = val.trim()+"";
       let b = ["様","日に","円入金済み"];
 
-      vals = [];
-      for(let i = 0; i<b.length;i++){
-       let results = a.split(b[i]);
-       if(results.length == 0) break;
-       a = results[1];
-       let val = results[0].trim();
-       if(val.length > 0){
-        vals.push(val);
+      vals=[];
+      if(a.length > 0){
+
+       for(let i = 0; i<b.length;i++){
+        let results = a.split(b[i]);
+        if(results.length == 0) break;
+        a = results[1];
+        let val = results[0].trim();
+        if(val.length > 0){
+         vals.push(val);
+        }
        }
       }
 
@@ -2665,16 +2668,18 @@
       let vals = val.trim().split(' ');
       let a = val.trim()+"";
       let b = ["様","日に","円入金済み"];
-
       vals = [];
-      for(let i = 0; i<b.length;i++){
-       let results = a.split(b[i]);
-       if(results.length == 0) break;
-       a = results[1];
-       let val = results[0].trim();
-       if(val.length > 0){
-        vals.push(val);
-       }
+      if(a.length > 0){
+
+        for(let i = 0; i<b.length;i++){
+         let results = a.split(b[i]);
+         if(results.length == 0) break;
+         a = results[1];
+         let val = results[0].trim();
+         if(val.length > 0){
+          vals.push(val);
+         }
+        }
       }
       $("#info_payment").show();
       let html  = "<table>";
@@ -3979,15 +3984,17 @@
        let vals = val.trim().split(' ');
        let a = val.trim()+"";
        let b = ["様","日に","円入金済み"];
+       vals=[];
+       if(a.length > 0){
 
-       vals = [];
-       for(let i = 0; i<b.length;i++){
-        let results = a.split(b[i]);
-        if(results.length == 0) break;
-        a = results[1];
-        let val = results[0].trim();
-        if(val.length > 0){
-         vals.push(val);
+        for(let i = 0; i<b.length;i++){
+         let results = a.split(b[i]);
+         if(results.length == 0) break;
+         a = results[1];
+         let val = results[0].trim();
+         if(val.length > 0){
+          vals.push(val);
+         }
         }
        }
        $("#info_payment").show();
@@ -5177,14 +5184,17 @@
                    let a = val.trim()+"";
                    let b = ["様","日に","円入金済み"];
 
-                   vals = [];
-                   for(let i = 0; i<b.length;i++){
-                    let results = a.split(b[i]);
-                    if(results.length == 0) break;
-                    a = results[1];
-                    let val = results[0].trim();
-                    if(val.length > 0){
-                     vals.push(val);
+                   vals=[];
+                   if(a.length > 0){
+
+                    for(let i = 0; i<b.length;i++){
+                     let results = a.split(b[i]);
+                     if(results.length == 0) break;
+                     a = results[1];
+                     let val = results[0].trim();
+                     if(val.length > 0){
+                      vals.push(val);
+                     }
                     }
                    }
                       $("#info_payment").show();
@@ -6224,14 +6234,17 @@
       let a = val.trim()+"";
       let b = ["様","日に","円入金済み"];
 
-      vals = [];
-      for(let i = 0; i<b.length;i++){
-       let results = a.split(b[i]);
-       if(results.length == 0) break;
-       a = results[1];
-       let val = results[0].trim();
-       if(val.length > 0){
-        vals.push(val);
+      vals=[];
+      if(a.length > 0){
+
+       for(let i = 0; i<b.length;i++){
+        let results = a.split(b[i]);
+        if(results.length == 0) break;
+        a = results[1];
+        let val = results[0].trim();
+        if(val.length > 0){
+         vals.push(val);
+        }
        }
       }
       $("#info_payment").show();
@@ -7251,15 +7264,17 @@
       let a = val.trim()+"";
       let b = ["依頼人名.","様","日に","円入金済み"];
 
-      vals = [];
-      for(let i = 0; i<b.length;i++){
-       let results = a.split(b[i]);
-       if(results.length == 0) break;
-       a = results[1];
+      vals=[];
+      if(a.length > 0){
 
-       let val = results[0].trim();
-       if(val.length > 0){
-        vals.push(val);
+       for(let i = 0; i<b.length;i++){
+        let results = a.split(b[i]);
+        if(results.length == 0) break;
+        a = results[1];
+        let val = results[0].trim();
+        if(val.length > 0){
+         vals.push(val);
+        }
        }
       }
       $("#info_payment").show();
