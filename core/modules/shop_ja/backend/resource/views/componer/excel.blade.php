@@ -1334,6 +1334,7 @@
       vals = [];
       for(let i = 0; i<b.length;i++){
        let results = a.split(b[i]);
+       if(results.length == 0) break;
        a = results[1];
        let val = results[0].trim();
        if(val.length > 0){
@@ -2668,6 +2669,7 @@
       vals = [];
       for(let i = 0; i<b.length;i++){
        let results = a.split(b[i]);
+       if(results.length == 0) break;
        a = results[1];
        let val = results[0].trim();
        if(val.length > 0){
@@ -3981,6 +3983,7 @@
        vals = [];
        for(let i = 0; i<b.length;i++){
         let results = a.split(b[i]);
+        if(results.length == 0) break;
         a = results[1];
         let val = results[0].trim();
         if(val.length > 0){
@@ -5177,6 +5180,7 @@
                    vals = [];
                    for(let i = 0; i<b.length;i++){
                     let results = a.split(b[i]);
+                    if(results.length == 0) break;
                     a = results[1];
                     let val = results[0].trim();
                     if(val.length > 0){
@@ -6223,6 +6227,7 @@
       vals = [];
       for(let i = 0; i<b.length;i++){
        let results = a.split(b[i]);
+       if(results.length == 0) break;
        a = results[1];
        let val = results[0].trim();
        if(val.length > 0){
@@ -7249,7 +7254,9 @@
       vals = [];
       for(let i = 0; i<b.length;i++){
        let results = a.split(b[i]);
+       if(results.length == 0) break;
        a = results[1];
+
        let val = results[0].trim();
        if(val.length > 0){
         vals.push(val);
