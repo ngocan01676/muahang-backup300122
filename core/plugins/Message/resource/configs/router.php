@@ -1,7 +1,7 @@
 <?php
 return [
     'routers' => [
-        'Message:List' => [
+        'Message' => [
             "namespace" => "PluginMessage\Controllers",
             "controller" => "IndexController",
             "sub_prefix" => "/message",
@@ -10,6 +10,9 @@ return [
                 "list" => [
                     "url" => "/"
                 ],
+                "ajax"=>[
+                    "url"=>'/ajax', "method" => ['post'],
+                ]
             ]
         ]
     ]

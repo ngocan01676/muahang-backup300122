@@ -598,7 +598,7 @@
     });
 </script>
 @AssetRender('js')
-@stack('scriptsTop');
+@stack('scriptsTop')
 @stack('scripts')
 @section('extra-script')
 @show

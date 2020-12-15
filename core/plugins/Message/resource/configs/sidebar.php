@@ -3,9 +3,9 @@ return [
     "sidebars" => [
         "plugin:item" => [
             "items" => [
-                "Contact" => [
-                    "name" => z_language("Contact"),
-                    "url" => "backend:plugin:Message:List",
+                "Message" => [
+                    "name" => z_language("Message"),
+                    "url" => "backend:plugin:Message:list",
                 ],
             ]
         ]
