@@ -3186,7 +3186,6 @@
 
                                 r = parseInt(r);
                                 let index = indexFist(instance.jexcel,r);
-                                console.log(index);
 
 
                                 if(index.start < r && index.end > r){
@@ -3252,13 +3251,18 @@
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.product_id.index || c === columns.one_address.index){
                         if(change.col == c){
                             if(c === columns.zipcode.index){
+
                                 change = {col:columns.province.index,row:r};
+
                             }else{
                                 change.col =  {col:-1,row:-1};
+
                                 let index = indexFist(instance.jexcel,r);
+                                console.info(index);
                                 update(instance, cell, c, r,index,function () {
                                     update_count(instance, cell, c, r,index);
                                 });
+
                             }
                         }
                     }else if(c === columns.fullname.index || c === columns.address.index ||
@@ -3266,6 +3270,7 @@
 
                         if(change.col == c && (value+"").length > 0){
                             change.col =  {col:-1,row:-1};
+
                             let index = indexFist(instance.jexcel,r);
                             update(instance, cell, c, r,index,function () {
                                 update_count(instance, cell, c, r,index);
@@ -3276,9 +3281,11 @@
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
                             let index = indexFist(instance.jexcel,r);
+
                             update(instance, cell, c, r,index,function () {
                                 update_count(instance, cell, c, r,index);
                             });
+
                         }else {
 
                             let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
