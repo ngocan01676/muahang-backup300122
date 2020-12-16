@@ -3241,7 +3241,7 @@
                     //    console.log("=>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
                     c = parseInt(c);
 
-                    console.info(indexFist(instance.jexcel,r));
+
                     if (c === columns.product_name.index) {
 
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
@@ -3332,6 +3332,10 @@
 
                         if(change.col == c){
                             if(c === columns.zipcode.index){
+
+                                console.info(indexFist(instance.jexcel,r));
+
+
                                 change = {col:columns.province.index,row:r};
 
                             }else{
