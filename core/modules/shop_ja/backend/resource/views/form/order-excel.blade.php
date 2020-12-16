@@ -5974,12 +5974,8 @@
                         if(change.col == c){
                             if(c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
                                 change = {col:columns.province.index,row:r};
-
                                 let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-
                                 if(_province.length > 0){
-
-
                                     if(!checkShip.hasOwnProperty(r)){
                                         checkShip[r] = {};
                                         if(!checkShip.hasOwnProperty(_province)){
@@ -5999,12 +5995,21 @@
                         }
                     }else if(c == columns.province.index){
 
-                        let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-
                         if(change.col == c){
-
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
+                        }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        change.col =  {col:-1,row:-1};
+
+                                        update(instance, cell, c, r,{});
+                                    }
+                                }
+                            }
                         }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
@@ -7238,6 +7243,7 @@
                             }
                         }
                     }else if(c === columns.province.index){
+
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
