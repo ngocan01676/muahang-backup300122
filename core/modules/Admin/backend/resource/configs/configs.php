@@ -8,6 +8,10 @@ return [
             'dashboard.router'=>'backend::controller.dashboard.router',
             'dashboard.media'=>'backend::controller.dashboard.media'
         ],
+        'layouts'=>[
+            'default' => 'backend::layout.layout',
+        ],
+        'default'=>'default'
     ],
     'packages' => [
         'namespaces' => [

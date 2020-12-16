@@ -2,18 +2,229 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/layout/layout.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/FortifyServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/FortifyServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/JetstreamServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/JetstreamServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/configs.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/configs.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/layout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Message/resource/configs/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Message/resource/configs/router.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Message/resource/configs/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Message/resource/configs/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/create.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/AnnounceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/AnnounceController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/plugins/Message/src/Controllers/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Message/src/Controllers/IndexController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/zoe/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/zoe/Providers/RouteServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/zoe/Http/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/zoe/Http/Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/docs/.nojekyll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/docs/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/docs/assets/css/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/docs/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/docs/index.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/docs/sidebar.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/autocomplete/jquery.autocomplete.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/autocomplete/jquery.autocomplete.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/autocomplete/license.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/WEBCOMPONENT.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/dist/jexcel.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/dist/jexcel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/dist/jexcel.theme.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/lang/de_DE.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/lang/en_GB.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/lang/fr_FR.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/lang/pt_BR.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/lang/zh_CN.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/src/compile.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/src/css/jexcel.datatables.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/src/js/jexcel.core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/src/js/jexcel.extensions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/src/js/jexcel.formulas.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/webcomponent-spreadsheet.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/dist/jsuites.basic.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/dist/jsuites.basic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/dist/jsuites.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/dist/jsuites.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/dist/jsuites.layout.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/dist/jsuites.layout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/dist/jsuites.mobile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/dist/jsuites.mobile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/dist/jsuites.webcomponents.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/a.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/ajax.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/alert.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/animation.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/animation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/buttons.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/calendar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/calendar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/calendar.webcomponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/color.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/color.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/color.webcomponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/contextmenu.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/contextmenu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/contextmenu.webcomponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/dialog.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/dialog.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/dropdown.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/dropdown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/editor.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/editor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/editor.webcomponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/files.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/helpers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/image.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/layout.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/lazyloading.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/loading.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/loading.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/mask.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/modal.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/modal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/modal.webcomponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/notification.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/notification.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/picker.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/picker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/progressbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/progressbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/rating.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/rating.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/rating.webcomponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/refresh.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/refresh.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/render.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/slider.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/slider.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/sorting.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/tabs.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/tabs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/tags.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/tags.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/tags.webcomponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/template.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/template.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/toolbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/src/toolbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/.bower.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/Gruntfile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/bower.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/bower.travis.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/_template.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/area-as-line.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/area.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/bar-colors.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/bar-no-axes.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/bar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/days.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/decimal-custom-hover.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/diagonal-xlabels-bar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/diagonal-xlabels.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/donut-colors.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/donut-formatter.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/donut.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/dst.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/events.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/goals.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/lib/example.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/lib/example.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/months-no-smooth.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/negative.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/no-grid.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/non-continuous.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/non-date.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/quarters.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/resize.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/stacked_bars.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/timestamps.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/updating.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/weeks.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/examples/years.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/less/morris.core.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/lib/morris.area.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/lib/morris.bar.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/lib/morris.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/lib/morris.donut.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/lib/morris.grid.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/lib/morris.hover.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/lib/morris.line.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/morris.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/morris.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/morris.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/area/area_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/bar/bar_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/bar/colours.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/commas_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/donut/donut_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/grid/auto_grid_lines_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/grid/set_data_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/grid/y_label_format_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/hover_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/label_series_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/line/line_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/pad_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/lib/parse_time_spec.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/specs.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/support/placeholder.coffee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/viz/examples.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/viz/exemplary/area0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/viz/exemplary/bar0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/viz/exemplary/line0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/viz/exemplary/stacked_bar0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/viz/run.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/spec/viz/visual_specs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/.bower.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/bower.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/dev/banner.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/dev/raphael.amd.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/dev/raphael.core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/dev/raphael.svg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/dev/raphael.vml.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/dev/test/svg/dom.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/dev/test/vml/dom.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/license.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/raphael.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/raphael.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/raphael.no-deps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/raphael.no-deps.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/raphael/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/CHANGELOG.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/LICENSE-MIT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/css/bootstrap-editable.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/img/clear.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/img/loading.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/address/address.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/address/address.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/wysihtml5-0.3.0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/wysihtml5-0.3.0.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/wysihtml5/bootstrap-wysihtml5-0.0.2/wysiwyg-color.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/inputs-ext/wysihtml5/wysihtml5.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/js/bootstrap-editable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/module/shop-ja/assets/x-editable/js/bootstrap-editable.min.js" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -149,26 +360,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/router.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/configs/sidebar.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="57" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="57" />
+            <state relative-caret-position="707">
+              <caret line="159" column="15" lean-forward="true" selection-start-line="159" selection-start-column="15" selection-end-line="159" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -176,17 +369,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/plugins/Message/src/Controllers/IndexController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="17" column="43" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/configs/router.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+            <state relative-caret-position="544">
+              <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -195,9 +379,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>route::has</find>
-      <find>route::has($sidebar['url']))</find>
-      <find>btn_option</find>
       <find>flash_message</find>
       <find>@breadcrumb()</find>
       <find>@btn_option</find>
@@ -225,6 +406,9 @@
       <find>router</find>
       <find>Route cache cleared!</find>
       <find>for serialization. Another route has already been</find>
+      <find>AppLayout</find>
+      <find>Click</find>
+      <find>var clicks = new Click();</find>
     </findStrings>
     <dirStrings>
       <dir>C:\xampp\htdocs\zoecms\vendor\studio-42\elfinder</dir>
@@ -238,11 +422,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/create.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/member/edit.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/create.blade.php" />
-        <option value="$PROJECT_DIR$/core/modules/User/backend/resource/views/controller/user/edit.blade.php" />
-        <option value="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/create.blade.php" />
         <option value="$PROJECT_DIR$/core/plugins/Contact/resource/views/controller/index/edit.blade.php" />
         <option value="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/create.blade.php" />
         <option value="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/edit.blade.php" />
@@ -285,8 +464,13 @@
         <option value="$PROJECT_DIR$/core/plugins/Message/resource/configs/sidebar.php" />
         <option value="$PROJECT_DIR$/app/Providers/FortifyServiceProvider.php" />
         <option value="$PROJECT_DIR$/app/Providers/JetstreamServiceProvider.php" />
-        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/layout.blade.php" />
         <option value="$PROJECT_DIR$/core/plugins/Message/resource/configs/router.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/AnnounceController.php" />
+        <option value="$PROJECT_DIR$/lib/zoe/Http/Controller.php" />
+        <option value="$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/layout/layout.blade.php" />
+        <option value="$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/configs.php" />
+        <option value="$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/layout.blade.php" />
         <option value="$PROJECT_DIR$/core/plugins/Message/src/Controllers/IndexController.php" />
         <option value="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php" />
       </list>
@@ -317,9 +501,6 @@
       <path value="$PROJECT_DIR$/public/module/admin/bower_components/select2/package.json" />
       <path value="$PROJECT_DIR$/public/module/admin/plugins/vakata-jstree/package.json" />
       <path value="$PROJECT_DIR$/public/module/blog/plugins/camohub-jquery-sortable-lists/package.json" />
-      <path value="$PROJECT_DIR$/public/module/shop-ja/assets/jexcel/package.json" />
-      <path value="$PROJECT_DIR$/public/module/shop-ja/assets/jsuites/package.json" />
-      <path value="$PROJECT_DIR$/public/module/shop-ja/assets/morris.js/package.json" />
       <path value="$PROJECT_DIR$/public/plugins/layout/plugins/code-prettify/package.json" />
       <path value="$PROJECT_DIR$/public/plugins/layout/plugins/jquery-ui-1.12.1.custom/package.json" />
       <path value="$PROJECT_DIR$/public/plugins/layout/plugins/js-beautify-1.7.5/package.json" />
@@ -488,7 +669,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -504,90 +684,7 @@
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="View" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="View" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="configs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
@@ -609,15 +706,6 @@
               <item name="plugins" type="462c0819:PsiDirectoryNode" />
               <item name="Message" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="plugins" type="462c0819:PsiDirectoryNode" />
-              <item name="Message" type="462c0819:PsiDirectoryNode" />
-              <item name="resource" type="462c0819:PsiDirectoryNode" />
-              <item name="configs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
@@ -669,23 +757,69 @@
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="zoe" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
               <item name="zoecms" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="dist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zoecms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zoecms" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="tmp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -696,19 +830,19 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.2.7\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\zoecms\core\modules\MissTerry\backend\resource\views\layout" />
+      <recent name="C:\xampp\htdocs\zoecms" />
+      <recent name="C:\xampp\htdocs\zoecms\app" />
+      <recent name="C:\xampp\htdocs\example-app" />
+      <recent name="C:\xampp\htdocs\zoecms\app\Exceptions" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\zoecms\core\modules\MissTerry\backend\resource\views\controller\booking" />
       <recent name="C:\xampp\htdocs\zoecms\core\modules\MissTerry\backend\src\Http\Models" />
       <recent name="C:\xampp\htdocs\zoecms\backup" />
       <recent name="C:\xampp\htdocs\zoecms" />
       <recent name="C:\xampp\htdocs\zoecms\core" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\zoecms" />
-      <recent name="C:\xampp\htdocs\zoecms\app" />
-      <recent name="C:\xampp\htdocs\example-app" />
-      <recent name="C:\xampp\htdocs\zoecms\app\Exceptions" />
-      <recent name="C:\xampp\htdocs\zoecms\core\plugins\Message\resource" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -745,6 +879,7 @@
       <workItem from="1607937739675" duration="4974000" />
       <workItem from="1608006298756" duration="28000" />
       <workItem from="1608018368574" duration="7558000" />
+      <workItem from="1608084946219" duration="9767000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <created>1607103031376</created>
@@ -757,12 +892,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156632000" />
+    <option name="totallyTimeSpent" value="166399000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -795,85 +931,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="a" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Backend.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/User/backend/src/ViewComposers/SidebarComposer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="71" column="12" selection-start-line="71" selection-start-column="12" selection-end-line="71" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/LanguageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="223" column="8" selection-start-line="223" selection-start-column="8" selection-end-line="223" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/component/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/zoe/Hooks/AbstractHookEvent.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/zoe/Hooks/Actions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="23" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/helper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#7#44#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bootstrap/app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="33" column="16" lean-forward="true" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/ElfinderController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="12" column="26" lean-forward="true" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/profile/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/DashboardController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="46" column="77" selection-start-line="46" selection-start-column="77" selection-end-line="46" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/dashboard/router.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/api.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -971,13 +1028,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="28" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/laravelcollective/html/src/FormBuilder.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -1020,9 +1070,6 @@
     <entry file="file://$PROJECT_DIR$/app/View/Components/GuestLayout.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/View/Components/AppLayout.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Providers/AuthServiceProvider.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1059,24 +1106,10 @@
     <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/layout.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1537">
-          <caret line="603" column="5" lean-forward="true" selection-start-line="603" selection-start-column="5" selection-end-line="603" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/router.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
-          <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/configs/router.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+          <caret line="21" column="52" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -1087,17 +1120,113 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/configs/router.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/Components/AppLayout.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/stubs/layout.stubs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/controller/announce/lists.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="8" lean-forward="true" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/MissTerry/backend/src/Http/Controllers/BookingController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="117" column="20" selection-start-line="117" selection-start-column="11" selection-end-line="117" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/src/Http/Controllers/AnnounceController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="54" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/zoe/Http/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="75" column="55" selection-start-line="75" selection-start-column="55" selection-end-line="75" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="28" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/MissTerry/backend/resource/views/layout/layout.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/zoe/Http/ControllerBackend.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/resource/themes/zoe/thumb/mobile/55/_theme_zoe_img_blog1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/resource/themes/zoe/thumb/mobile/55/_theme_zoe_img_blog2.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/resource/themes/zoe/thumb/mobile/55/_theme_zoe_img_blog3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/configs/configs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/module/admin/assets/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="935">
+          <caret line="55" column="9" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/modules/Admin/backend/resource/views/layout/layout.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="557">
+          <caret line="511" selection-start-line="511" selection-end-line="512" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/plugins/Message/src/Controllers/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="17" column="43" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="43" />
+        <state relative-caret-position="544">
+          <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="707">
+          <caret line="159" column="15" lean-forward="true" selection-start-line="159" selection-start-column="15" selection-end-line="159" selection-end-column="15" />
         </state>
       </provider>
     </entry>

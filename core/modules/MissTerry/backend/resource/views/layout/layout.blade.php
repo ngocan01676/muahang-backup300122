@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Blank Page</title>
+    <title>MissTerry</title>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -509,6 +509,7 @@
 
 
 <!-- AdminLTE for demo purposes -->
+<script src="{{asset('module/admin/dist/js/demo.js')}}"></script>
 <script src="{{asset('module/admin/assets/main.js')}}"></script>
 
 {{--<script src="{{asset('module/admin/developer-tools/toolbar.js')}}"></script>--}}

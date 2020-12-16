@@ -18,16 +18,14 @@
                         </div>
                     </div>
                     <div class="box-body">
-                            <div class="direct-chat-messages" id="message-list">
-
-                            </div>
+                            <div class="direct-chat-messages" id="message-list"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9" id="content-message">
                 <div class="box box-warning direct-chat direct-chat-warning">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Direct Chat</h3>
+                        <h3 class="box-title">{!! z_language("Content Message") !!}</h3>
                         <div class="box-tools pull-right">
                             <span data-toggle="tooltip" title="" class="badge bg-yellow" data-original-title="3 New Messages">3</span>
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -39,70 +37,7 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <div class="direct-chat-messages">
-                            <!-- Message. Default to the left -->
-                            <div class="direct-chat-msg">
-                                <div class="direct-chat-info clearfix">
-                                    <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                                    <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                                </div>
-                                <!-- /.direct-chat-info -->
-                                <img class="direct-chat-img" src="{!! asset('module/admin/dist/img/user1-128x128.jpg') !!}" alt="message user image">
-                                <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
-                                    Is this template really for free? That's unbelievable!
-                                </div>
-                                <!-- /.direct-chat-text -->
-                            </div>
-                            <!-- /.direct-chat-msg -->
-
-                            <!-- Message to the right -->
-                            <div class="direct-chat-msg right">
-                                <div class="direct-chat-info clearfix">
-                                    <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                                    <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                                </div>
-                                <!-- /.direct-chat-info -->
-                                <img class="direct-chat-img" src="{!! asset('module/admin/dist/img/user3-128x128.jpg') !!}" alt="message user image">
-                                <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
-                                    You better believe it!
-                                </div>
-                                <!-- /.direct-chat-text -->
-                            </div>
-                            <!-- /.direct-chat-msg -->
-
-                            <!-- Message. Default to the left -->
-                            <div class="direct-chat-msg">
-                                <div class="direct-chat-info clearfix">
-                                    <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                                    <span class="direct-chat-timestamp pull-right">23 Jan 5:37 pm</span>
-                                </div>
-                                <!-- /.direct-chat-info -->
-                                <img class="direct-chat-img" src="{!! asset('module/admin/dist/img/user1-128x128.jpg') !!}" alt="message user image">
-                                <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
-                                    Working with AdminLTE on a great new app! Wanna join?
-                                </div>
-                                <!-- /.direct-chat-text -->
-                            </div>
-                            <!-- /.direct-chat-msg -->
-
-                            <!-- Message to the right -->
-                            <div class="direct-chat-msg right">
-                                <div class="direct-chat-info clearfix">
-                                    <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                                    <span class="direct-chat-timestamp pull-left">23 Jan 6:10 pm</span>
-                                </div>
-                                <!-- /.direct-chat-info -->
-                                <img class="direct-chat-img" src="{!! asset('module/admin/dist/img/user3-128x128.jpg') !!}" alt="message user image">
-                                <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
-                                    I would love to.
-                                </div>
-                                <!-- /.direct-chat-text -->
-                            </div>
-                            <!-- /.direct-chat-msg -->
+                        <div class="direct-chat-messages" id="message-detail">
 
                         </div>
                     </div>
@@ -111,7 +46,7 @@
                             <div class="input-group">
                                 <input type="text" name="message" placeholder="Type Message ..." class="form-control">
                                 <span class="input-group-btn">
-                                <button type="button" class="btn btn-warning btn-flat">Send</button>
+                                <button type="button" onclick="send_message()" class="btn btn-warning btn-flat">{!! z_language('Send') !!}</button>
                               </span>
                             </div>
                         </form>
@@ -129,23 +64,118 @@
 @endpush
 @push('scripts')
     <script>
+        let current_active = null;
+        let scroll_run = false;
+        let template_right = function(data){
+            let html = '<div class="direct-chat-msg right">' +
+                '<div class="direct-chat-info clearfix">' +
+                '<span class="direct-chat-name pull-right">Admin</span>' +
+                '<span class="direct-chat-timestamp pull-left">'+data.created_at+'</span>' +
+                '</div>' +
+                '<img class="direct-chat-img" src="http://localhost:8000/module/admin/dist/img/user3-128x128.jpg" alt="message user image">' +
+                '<div class="direct-chat-text">\n'+ data.content+'</div></div>';
+            return html;
+        };
+        function send_message(self) {
+            if(current_active == null) return;
+            let id = current_active.id;
+            let fullname =  current_active.fullname;
+            let message = $("input[name=\"message\"]").val();
+            $("input[name=\"message\"]").val("");
+            $.ajax({
+                url:'{!! route('backend:plugin:Message:ajax') !!}',
+                type:"POST",
+                data:{
+                    act:"save",
+                    id:id,
+                    message:message,
+                    admin:"",
+                },
+                success:function (data) {
+                    $("#message-detail").append(template_right(data.result));
+
+                    $("#message-detail").animate({ scrollTop: $('#message-detail').prop("scrollHeight")}, 1000);
+                }
+            });
+        }
+
+        function get_detail(self){
+            let load = false;
+            if(self){
+                current_active = $(self).data();
+
+                load = true;
+            }
+            if(current_active == null) return;
+            let id = current_active.id;
+            let fullname =  current_active.fullname;
+            let template_left = function(data){
+                let html = '<div class="direct-chat-msg">' +
+                    '<div class="direct-chat-info clearfix">' +
+                    '<span class="direct-chat-name pull-left">'+fullname+'</span>' +
+                    '<span class="direct-chat-timestamp pull-right">'+data.created_at+'</span>' +
+                    '</div>' +
+                    '<img class="direct-chat-img" src="http://localhost:8000/module/admin/dist/img/user1-128x128.jpg" alt="message user image"><div class="direct-chat-text">\n' + data.content+
+                    '</div></div>';
+                return html;
+            };
+            let scroll = $('#message-detail').scrollTop();
+
+            if(load) {$("#content-message .box-body").mask('loading');}
+            $.ajax({
+                url:'{!! route('backend:plugin:Message:ajax') !!}',
+                type:"POST",
+                data:{
+                    act:"detail",
+                    id:id
+                },
+                success:function (data) {
+                    let html = "";
+                    let scrollNew = $('#message-detail').prop("scrollHeight");
+                    console.log(scrollNew);
+                    for(let i in data.results){
+                        if(data.results[i].user_id == 1){
+                            html+=template_left(data.results[i]);
+                        }else{
+                            html+=template_right(data.results[i]);
+                        }
+                    }
+                    $("#message-detail").html(html);
+                    if(load) $("#content-message .box-body").unmask();
+                    console.log(scrollNew - scroll*2)
+                    console.log(scroll*2)
+                    if(load || scrollNew - scroll*2 < 50 ){
+                        console.log(1111111111);
+                        if(scroll_run == false){
+                            $("#message-detail").animate({ scrollTop: $('#message-detail').prop("scrollHeight")}, 1000);
+                        }
+
+                    }
+                }
+            });
+        }
         $(document).ready(function () {
+            $( "#message-detail" ).on("scrollstop",function(){
+                alert("Stopped scrolling!");
+            });
+            $( "#message-detail" ).scroll(function() {
+                scroll_run = true;
+            });
             function GetList(){
-                let template = function(){
-                    let html = ' <a href="#">\n' +
+                let template = function(data){
+                    let html = ' <a data-id="'+data.id+'" data-fullname="'+data.fullname+'" href="#" onclick = "get_detail(this)" >\n' +
 '                                        <div class="direct-chat-msg">\n' +
 '                                            <div class="direct-chat-info clearfix">\n' +
-'                                                <span class="direct-chat-name pull-left">Alexander Pierce</span>\n' +
-'                                                <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>\n' +
+'                                                <span class="direct-chat-name pull-left">'+data.fullname+'</span>\n' +
+'                                                <span class="direct-chat-timestamp pull-right">'+data.created_at+'</span>\n' +
 '                                            </div>\n' +
 '                                            <img class="direct-chat-img" src="{!! asset('module/admin/dist/img/user1-128x128.jpg') !!}" alt="message user image">\n' +
-'                                            <div class="direct-chat-text">\n' +
-'                                                Is this template really for free? That\'s unbelievable!\n' +
-'                                            </div>\n' +
+'                                            <div class="direct-chat-text">'+data.last_message+'</div>' +
 '                                        </div>\n' +
 '                                    </a>';
                     return html;
                 };
+
                 $.ajax({
                     url:'{!! route('backend:plugin:Message:ajax') !!}',
                     type:"POST",
@@ -156,7 +186,7 @@
                         console.log(data);
                         let html = "";
                         for(let i in data.results){
-                            html+=template();
+                            html+=template(data.results[i]);
                         }
                         $("#message-list").html(html);
                     }
@@ -173,7 +203,8 @@
                     success:function (data) {
                         $("#newMessage").html(data.count);
                     }
-                })
+                });
+               get_detail(false);
             },3000);
         });
     </script>
