@@ -5941,6 +5941,18 @@
                                 parent.addClass('has_export');
                             }
                         }
+
+                        console.info(checkShip);
+                        
+                        if(_province.length > 0){
+                            if(!checkShip.hasOwnProperty(r)){
+                                checkShip[r] = {};
+                                if(!checkShip.hasOwnProperty(_province)){
+                                    update(instance, cell, c, r,{});
+                                }
+                            }
+                        }
+
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
@@ -5949,7 +5961,6 @@
                     SaveEvent[sheetName].check = true;
                     start = true;
                     c = parseInt(c);
-
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col === c){
@@ -6002,17 +6013,6 @@
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
-                        }
-                    }else{
-                        console.info(checkShip);
-                        let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-                        if(_province.length > 0){
-                            if(!checkShip.hasOwnProperty(r)){
-                                checkShip[r] = {};
-                                if(!checkShip.hasOwnProperty(_province)){
-                                    update(instance, cell, c, r,{});
-                                }
-                            }
                         }
                     }
                 },
