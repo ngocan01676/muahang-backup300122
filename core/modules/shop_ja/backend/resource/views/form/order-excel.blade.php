@@ -2152,7 +2152,9 @@
             }
             function update(instance, cell, c, r, value,cb) {
                 console.log("update call:"+r);
-
+                if( value.end === 0){
+                    return ;
+                }
                 let data = {
                     count:parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r]))),
                     id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
@@ -3341,7 +3343,7 @@
                                 if( index.end === 0){
                                     index = createRow(instance, cell, c, r,  columns.product_name.source[0].data.id);
                                 }
-                                
+
                                 update(instance, cell, c, r,index,function () {
                                     update_count(instance, cell, c, r,index);
                                 });
