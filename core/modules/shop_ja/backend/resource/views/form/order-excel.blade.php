@@ -5985,9 +5985,14 @@
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else{
+                       let _data = instance.jexcel.getRowData(r);
+                       if((_data[columns.province.index]+"").length > 0){
+                           change.col =  {col:-1,row:-1};
+                           update(instance, cell, c, r,{});
+                       }
                     }
                 },
-
             };
         }
         function BANH_CHUNG() {
