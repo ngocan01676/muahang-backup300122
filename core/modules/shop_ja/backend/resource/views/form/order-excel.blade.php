@@ -5934,18 +5934,12 @@
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
-
                     SaveEvent[sheetName].save  = true;
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
                     start = true;
                     c = parseInt(c);
-                    console.log(change);
-                    console.log();
-                    console.log("["+c +" "+ r+"] = "+value);
-                    if(value.toString().length == 0){
-                        return;
-                    }
+
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col === c){
@@ -5957,16 +5951,16 @@
 
                               //  instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
                                 change.col =  {col:-1,row:-1};
+
                                 update(instance, cell, c, r,{
 
                                 });
-                                 
                             }
                       //  }
                     }else if(c === columns.total_count.index|| columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
-                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
+                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index || c == columns.fullname.index){
                         if(change.col == c){
-                            if(c === columns.zipcode.index){
+                            if(c == columns.zipcode.index || c == columns.fullname.index){
                                 change = {col:columns.province.index,row:r};
                             }else{
                                 change.col =  {col:-1,row:-1};
