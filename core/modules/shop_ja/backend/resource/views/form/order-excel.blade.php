@@ -5986,11 +5986,7 @@
                             update(instance, cell, c, r,{});
                         }
                     }else{
-                       let data = instance.jexcel.getRowData(r);
-                       if((data[columns.province.index]+"").length > 0){
-                           change.col =  {col:-1,row:-1};
-                           update(instance, cell, c, r,{});
-                       }
+                      
                     }
                 },
 
