@@ -8819,12 +8819,13 @@
                     }
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
-
-
                     if(!checkShip.hasOwnProperty(r)){
                         checkShip[r] = {};
                     }
                     if($province.length > 0){
+
+                        checkShip[r] = {};
+                        
                         checkShip[r][$province] = price_ship;
                     }else{
                         delete checkShip[r];
