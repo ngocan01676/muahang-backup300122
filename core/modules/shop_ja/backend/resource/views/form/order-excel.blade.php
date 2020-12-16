@@ -6005,7 +6005,6 @@
                                     checkShip[r] = {};
                                     if(!checkShip.hasOwnProperty(_province)){
                                         change.col =  {col:-1,row:-1};
-
                                         update(instance, cell, c, r,{});
                                     }
                                 }
