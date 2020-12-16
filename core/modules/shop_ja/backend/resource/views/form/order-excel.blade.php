@@ -3335,7 +3335,11 @@
 
                                 console.info(indexFist(instance.jexcel,r));
 
-
+                                if( index.end === 0){
+                                    let index = createRow(instance, cell, c, r, value);
+                                    console.log(index);
+                                    console.info(indexFist(instance.jexcel,r));
+                                }
                                 change = {col:columns.province.index,row:r};
 
                             }else{
