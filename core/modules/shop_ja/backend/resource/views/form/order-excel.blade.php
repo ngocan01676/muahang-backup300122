@@ -5994,6 +5994,7 @@
                         }
                     }else if(c === columns.province.index){
                         if(change.col == c){
+                            console.info("province");
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
