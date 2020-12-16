@@ -4902,6 +4902,9 @@
                     cell.innerHTML = value;
                 }
             };
+            let checkShip = {
+
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -5177,7 +5180,9 @@
                     id:value.hasOwnProperty('id')?value.id.toString():instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])).toString(),
                     province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
                 };
+
                 data.province = data.province.trim();
+
                 data.id = data.id.split(';');
 
                 console.log(data);
@@ -5394,6 +5399,16 @@
                     }
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
+
+
+                    if(!checkShip.hasOwnProperty(r)){
+                        if($province.length > 0){
+                            checkShip[r] = [$province,price_ship];
+                        }else{
+                            delete checkShip[r];
+                        }
+                    }
+
                     return {
                         order_ship:parseInt(price_ship === -1 ? 0 :price_ship),
                         order_ship_cou:parseInt($ship_cou)
@@ -5459,9 +5474,7 @@
                 //     }
             }
             let _data = InitData(data,config,columns_index,sheetName);
-
             let click = false;
-
             let nestedHeaders = [];
             if(locks .hasOwnProperty(sheetName)){
                 let _lock  = locks [sheetName];
@@ -5508,7 +5521,6 @@
                     }
                 ]
             }
-
             return {
                 sheetName:sheetName,
                 rowResize:true,
@@ -5962,6 +5974,14 @@
                         if(change.col == c){
                             if(c == columns.phone.index || c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
                                 change = {col:columns.province.index,row:r};
+                                let valueRow =  instance.jexcel.getRowData(r);
+
+                                if(valueRow[columns.province.index].length > 0){
+                                    change.col =  {col:-1,row:-1};
+                                    update(instance, cell, c, r,{
+
+                                    });
+                                }
                             }else{
                                 change.col =  {col:-1,row:-1};
                                 update(instance, cell, c, r,{
@@ -5985,11 +6005,8 @@
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
-                    }else{
-                      
                     }
                 },
-
             };
         }
         function BANH_CHUNG() {
