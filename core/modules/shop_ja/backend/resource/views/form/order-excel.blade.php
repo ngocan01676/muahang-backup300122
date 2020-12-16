@@ -5948,6 +5948,9 @@
 
                     c = parseInt(c);
                     console.info(c);
+                    if(c === 7){
+                        console.info(c == columns.province.index);
+                    }
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col === c){
