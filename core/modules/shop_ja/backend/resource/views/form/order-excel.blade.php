@@ -5944,6 +5944,7 @@
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
                     start = true;
+                    console.info(value);
                     c = parseInt(c);
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
