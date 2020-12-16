@@ -5943,12 +5943,12 @@
                         }
 
                         console.info(checkShip);
-                        
+
                         if(_province.length > 0){
-                            if(!checkShip.hasOwnProperty(r)){
-                                checkShip[r] = {};
+                            if(!checkShip.hasOwnProperty(row)){
+                                checkShip[row] = {};
                                 if(!checkShip.hasOwnProperty(_province)){
-                                    update(instance, cell, c, r,{});
+                                    update(instance, cell, col, row,{});
                                 }
                             }
                         }
