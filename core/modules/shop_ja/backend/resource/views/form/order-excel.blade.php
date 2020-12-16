@@ -5962,7 +5962,6 @@
 
                               //  instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
                                 change.col =  {col:-1,row:-1};
-
                                 update(instance, cell, c, r,{
 
                                 });
@@ -8826,9 +8825,7 @@
                     }
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
-                    if(!checkShip.hasOwnProperty(r)){
-                        checkShip[r] = {};
-                    }
+
                     if($province.length > 0){
                         checkShip[r] = {};
                         checkShip[r][$province] = price_ship;
@@ -9396,7 +9393,17 @@
                         if(change.col == c){
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
-                         }
+                         }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        update(instance, cell, c, r,{});
+                                    }
+                                }
+                            }
+                        }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
@@ -9409,17 +9416,6 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                          }
-                    }else{
-                        let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-                        if(_province.length > 0){
-
-                            if(!checkShip.hasOwnProperty(r)){
-                                checkShip[r] = {};
-                                if(!checkShip.hasOwnProperty(_province)){
-                                    update(instance, cell, c, r,{});
-                                }
-                            }
-                        }
                     }
                 },
             };
