@@ -3253,75 +3253,75 @@
 
 
 
-                                let thisRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([c, r]))).parent();
-                                if(thisRow.hasClass('footer')){
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([c, r]),"");
-                                    return;
-                                }
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+                                // let thisRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([c, r]))).parent();
+                                // if(thisRow.hasClass('footer')){
+                                //     instance.jexcel.setValue(jexcel.getColumnNameFromId([c, r]),"");
+                                //     return;
+                                // }
+                                // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
+                                // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
+                                // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+                                //
+                                // r = parseInt(r);
+                                // let index = indexFist(instance.jexcel,r);
+                                //
+                                //
+                                // if(index.start < r && index.end > r){
+                                //     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, r]),"Item");
+                                // }
+                                //
+                                // let parentRowEnd = null;
+                                // let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, index.start]))).parent();
+                                //
+                                // if(!parentRow.hasClass('info')){
+                                //     parentRow.addClass('info');
+                                //     parentRow.addClass('action');
+                                //     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, index.start]),"Info");
+                                // }
+                                // let insert = true;
+                                // if( index.end === 0){
+                                //     index.end =  parseInt(r)+1;
+                                //     instance.jexcel.insertRow(1, parseInt(index.end));
+                                //
+                                //     parentRowEnd = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index,  index.end ]))).parent();
+                                //
+                                //     if(!parentRow.hasClass('footer')){
+                                //         parentRowEnd.addClass('action');
+                                //         parentRowEnd.addClass('footer');
+                                //         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, index.end]),"Footer");
+                                //     }
+                                //     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index,index.end]),1);
+                                //     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, index.end]),1);
+                                // }
+                                //
+                                // for(let i = index.start; i < index.end; i++ ){
+                                //     let valueRow =  instance.jexcel.getRowData(i);
+                                //     if(i == index.start){
+                                //
+                                //         if(valueRow[columns.payMethod.index].toString().length == 0){
+                                //             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.payMethod.index,i]),default_data[0][columns.payMethod.index]);
+                                //         }
+                                //         if(valueRow[columns.phone.index].toString().length == 0){
+                                //             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.phone.index,i]),default_data[0][columns.phone.index]);
+                                //         }
+                                //         if(valueRow[columns.order_date.index].toString().length == 0){
+                                //             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_date.index,i]),default_data[0][columns.order_date.index]);
+                                //         }
+                                //         if(valueRow[columns.order_hours.index].toString().length == 0){
+                                //             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_hours.index,i]),default_data[0][columns.order_hours.index]);
+                                //         }
+                                //     }
+                                //     if(IsEmpty(valueRow)){
+                                //         insert = false;
+                                //         break;
+                                //     }
+                                // }
+                                // if(insert){
+                                //     instance.jexcel.insertRow(1, parseInt(index.end-1));
+                                //     index.end++;
+                                // }
 
-                                r = parseInt(r);
-                                let index = indexFist(instance.jexcel,r);
-
-
-                                if(index.start < r && index.end > r){
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, r]),"Item");
-                                }
-
-                                let parentRowEnd = null;
-                                let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, index.start]))).parent();
-
-                                if(!parentRow.hasClass('info')){
-                                    parentRow.addClass('info');
-                                    parentRow.addClass('action');
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, index.start]),"Info");
-                                }
-                                let insert = true;
-                                if( index.end === 0){
-                                    index.end =  parseInt(r)+1;
-                                    instance.jexcel.insertRow(1, parseInt(index.end));
-
-                                    parentRowEnd = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index,  index.end ]))).parent();
-
-                                    if(!parentRow.hasClass('footer')){
-                                        parentRowEnd.addClass('action');
-                                        parentRowEnd.addClass('footer');
-                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, index.end]),"Footer");
-                                    }
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index,index.end]),1);
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, index.end]),1);
-                                }
-
-                                for(let i = index.start; i < index.end; i++ ){
-                                    let valueRow =  instance.jexcel.getRowData(i);
-                                    if(i == index.start){
-
-                                        if(valueRow[columns.payMethod.index].toString().length == 0){
-                                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.payMethod.index,i]),default_data[0][columns.payMethod.index]);
-                                        }
-                                        if(valueRow[columns.phone.index].toString().length == 0){
-                                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.phone.index,i]),default_data[0][columns.phone.index]);
-                                        }
-                                        if(valueRow[columns.order_date.index].toString().length == 0){
-                                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_date.index,i]),default_data[0][columns.order_date.index]);
-                                        }
-                                        if(valueRow[columns.order_hours.index].toString().length == 0){
-                                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_hours.index,i]),default_data[0][columns.order_hours.index]);
-                                        }
-                                    }
-                                    if(IsEmpty(valueRow)){
-                                        insert = false;
-                                        break;
-                                    }
-                                }
-                                if(insert){
-                                    instance.jexcel.insertRow(1, parseInt(index.end-1));
-                                    index.end++;
-                                }
-
-                              //  let index = createRow(instance, cell, c, r, value);
+                               let index = createRow(instance, cell, c, r, value);
 
                                 update(instance, cell, c, r ,index,function () {
                                     update_count(instance, cell, c, r,index);
@@ -3334,10 +3334,7 @@
                             if(c === columns.zipcode.index){
                                 let index = indexFist(instance.jexcel,r);
                                 if( index.end === 0){
-
                                     index = createRow(instance, cell, c, r,  columns.product_name.source[0].data.id);
-                                    console.log(index);
-                                    console.info(indexFist(instance.jexcel,r));
                                 }
                                 change = {col:columns.province.index,row:r};
 
