@@ -3280,8 +3280,7 @@
                                 update_count(instance, cell, c, r,index);
                             });
                         }else {
-
-
+                            
                             let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
                             if(_province.length > 0){
                                 if(!checkShip.hasOwnProperty(r)){
