@@ -9407,9 +9407,10 @@
                             update(instance, cell, c, r,{});
                          }
                     }else{
-                        console.info(checkShip);
+
                         let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
                         if(_province.length > 0){
+                            console.info(checkShip);
                             if(!checkShip.hasOwnProperty(r)){
                                 checkShip[r] = {};
                                 if(!checkShip.hasOwnProperty(_province)){
