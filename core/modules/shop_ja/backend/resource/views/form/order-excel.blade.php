@@ -5944,6 +5944,7 @@
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
                     start = true;
+                    console.info(c);
                     console.info(value);
                     c = parseInt(c);
                     if (c === columns.product_name.index) {
