@@ -6005,17 +6005,7 @@
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
-                    }else{
-                        let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-                        if(_province.length > 0){
-                            if(!checkShip.hasOwnProperty(r)){
-                                checkShip[r] = {};
-                                if(!checkShip.hasOwnProperty(_province)){
-                                    update(instance, cell, c, r,{});
-                                }
-                            }
-                        }
-                    }
+                    } 
                 },
             };
         }
