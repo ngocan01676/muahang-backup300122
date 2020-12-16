@@ -5994,8 +5994,11 @@
                             }
                         }
                     }else if(c === columns.province.index){
+                        let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                        console.info("province 1:"+_province);
+
                         if(change.col == c){
-                            console.info("province");
+                            console.info("province 2");
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
