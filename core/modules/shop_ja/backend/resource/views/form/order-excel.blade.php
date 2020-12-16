@@ -3240,6 +3240,8 @@
 
                     //    console.log("=>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
                     c = parseInt(c);
+
+                    console.info(indexFist(instance.jexcel,r));
                     if (c === columns.product_name.index) {
 
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
@@ -3327,12 +3329,11 @@
                         }
                     }else if(c === columns.count.index || c === columns.zipcode.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.product_id.index || c === columns.one_address.index){
+
                         if(change.col == c){
                             if(c === columns.zipcode.index){
-
                                 change = {col:columns.province.index,row:r};
-                                let index = indexFist(instance.jexcel,r);
-                                console.info(index);
+
                             }else{
                                 change.col =  {col:-1,row:-1};
 
