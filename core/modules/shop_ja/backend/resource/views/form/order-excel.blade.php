@@ -9416,6 +9416,8 @@
                                 if(!checkShip.hasOwnProperty(_province)){
                                     update(instance, cell, c, r,{});
                                 }
+                            }else if(!checkShip[r].hasOwnProperty(_province)){
+                                update(instance, cell, c, r,{});
                             }
                         }
                     }
