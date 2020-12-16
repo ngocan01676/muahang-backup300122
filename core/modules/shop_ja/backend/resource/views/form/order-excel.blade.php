@@ -2062,7 +2062,7 @@
                 }
             }
 
-            function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all) {
+            function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all,r) {
 
                 let configShip = dataship.hasOwnProperty("cate_"+$category_id)?dataship["cate_"+$category_id]:[];
                 console.log(configShip);
@@ -2444,7 +2444,7 @@
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.group.index, value.start]), isNaN(Group)?"":Group);
 
                 if(dropdown.hasOwnProperty(product_id)){
-                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCountAll,province,totalPriceBuy,payMethod,total_price_buy_all);
+                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCountAll,province,totalPriceBuy,payMethod,total_price_buy_all,r);
                 }
                 let v = 0;
 
@@ -3280,7 +3280,7 @@
                                 update_count(instance, cell, c, r,index);
                             });
                         }else {
-                            
+
                             let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
                             if(_province.length > 0){
                                 if(!checkShip.hasOwnProperty(r)){
