@@ -1750,12 +1750,6 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
-                    }else{
-                        let _data = instance.jexcel.getRowData(r);
-                        if((_data[columns.province.index]+"").length > 0){
-                            change.col =  {col:-1,row:-1};
-                            update(instance, cell, c, r,{});
-                        }
                     }
                 },
             };
@@ -3276,12 +3270,8 @@
                                 update_count(instance, cell, c, r,index);
                             });
                         }
-                    }else{
-                        let _data = instance.jexcel.getRowData(r);
-                        if((_data[columns.province.index]+"").length > 0){
-                            change.col =  {col:-1,row:-1};
-                            update(instance, cell, c, r,{});
-                        }
+                    }else if(c === columns.total_count.index){
+                        console.log('count');
                     }
                 },
             };
@@ -4763,12 +4753,8 @@
                                 update_count(instance, cell, c, r,index);
                             });
                         }
-                    }else{
-                        let _data = instance.jexcel.getRowData(r);
-                        if((_data[columns.province.index]+"").length > 0){
-                            change.col =  {col:-1,row:-1};
-                            update(instance, cell, c, r,{});
-                        }
+                    }else if(c === columns.total_count.index){
+                        console.log('count');
                     }
                 },
             };
@@ -6000,13 +5986,14 @@
                             update(instance, cell, c, r,{});
                         }
                     }else{
-                       let _data = instance.jexcel.getRowData(r);
-                       if((_data[columns.province.index]+"").length > 0){
+                       let data = instance.jexcel.getRowData(r);
+                       if((data[columns.province.index]+"").length > 0){
                            change.col =  {col:-1,row:-1};
                            update(instance, cell, c, r,{});
                        }
                     }
                 },
+
             };
         }
         function BANH_CHUNG() {
@@ -7240,12 +7227,6 @@
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
-                    }else{
-                        let _data = instance.jexcel.getRowData(r);
-                        if((_data[columns.province.index]+"").length > 0){
-                            change.col =  {col:-1,row:-1};
-                            update(instance, cell, c, r,{});
-                        }
                     }
                 },
 
@@ -8326,12 +8307,6 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
-                    }else{
-                        let _data = instance.jexcel.getRowData(r);
-                        if((_data[columns.province.index]+"").length > 0){
-                            change.col =  {col:-1,row:-1};
-                            update(instance, cell, c, r,{});
-                        }
                     }
                 },
             };
@@ -9395,12 +9370,6 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                          }
-                    }else{
-                        let _data = instance.jexcel.getRowData(r);
-                        if((_data[columns.province.index]+"").length > 0){
-                            change.col =  {col:-1,row:-1};
-                            update(instance, cell, c, r,{});
-                        }
                     }
                 },
             };
