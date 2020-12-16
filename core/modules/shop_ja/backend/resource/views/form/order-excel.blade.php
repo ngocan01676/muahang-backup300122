@@ -6007,18 +6007,14 @@
                         let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
                         let _fullname = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.fullname.index, r]));
 
-                        if(_province.length > 0 && _fullname.length > 0){
+                        if(_province.length > 0){
                             console.info(checkShip);
-                            let okeRun = false;
-                            if(checkShip.hasOwnProperty(r)){
+                            if(!checkShip.hasOwnProperty(r)){
+                                checkShip[r] = {};
                                 if(!checkShip.hasOwnProperty(_province)){
-                                    okeRun = true;
+                                    update(instance, cell, c, r,{});
                                 }
-                            }else{
-                                okeRun = true;
-                            }
-                            if(okeRun){
-                                update(instance, cell, c, r,{});
+                                delete checkShip[r];
                             }
                         }
                     }
