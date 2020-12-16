@@ -2562,9 +2562,9 @@
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([c, r]),"");
                     return;
                 }
-                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
-                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
-                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]),dropdown.hasOwnProperty(value)?dropdown[value].data.id:0);
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown.hasOwnProperty(value)?dropdown[value].data.price:0);
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown.hasOwnProperty(value)?dropdown[value].data.price_buy:0);
 
                 r = parseInt(r);
                 let index = indexFist(instance.jexcel,r);
