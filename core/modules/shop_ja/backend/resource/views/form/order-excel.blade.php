@@ -5944,7 +5944,7 @@
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
                     start = true;
-                    console.info(c);
+                    console.info(change);
                     console.info(value);
                     c = parseInt(c);
                     if (c === columns.product_name.index) {
@@ -6005,7 +6005,7 @@
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
-                    } 
+                    }
                 },
             };
         }
