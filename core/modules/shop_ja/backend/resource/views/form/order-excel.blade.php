@@ -5941,18 +5941,6 @@
                                 parent.addClass('has_export');
                             }
                         }
-
-                        console.info(checkShip);
-
-                        if(_province.length > 0){
-                            if(!checkShip.hasOwnProperty(row)){
-                                checkShip[row] = {};
-                                if(!checkShip.hasOwnProperty(_province)){
-                                    update(instance, cell, col, row,{});
-                                }
-                            }
-                        }
-
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
@@ -6013,6 +6001,17 @@
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
+                        }
+                    }else{
+                        console.info(checkShip);
+                        let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                        if(_province.length > 0){
+                            if(!checkShip.hasOwnProperty(r)){
+                                checkShip[r] = {};
+                                if(!checkShip.hasOwnProperty(_province)){
+                                    update(instance, cell, c, r,{});
+                                }
+                            }
                         }
                     }
                 },
