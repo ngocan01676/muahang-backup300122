@@ -8358,7 +8358,9 @@
 
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+            let checkShip = {
 
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -8818,6 +8820,17 @@
 
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
+
+
+                    if(!checkShip.hasOwnProperty(r)){
+                        checkShip[r] = {};
+                    }
+                    if($province.length > 0){
+                        checkShip[r][$province] = price_ship;
+                    }else{
+                        delete checkShip[r];
+                    }
+
                     return {order_ship:parseInt(price_ship === -1?0:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
 
@@ -9394,6 +9407,17 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                          }
+                    }else{
+                        console.info(checkShip);
+                        let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                        if(_province.length > 0){
+                            if(!checkShip.hasOwnProperty(r)){
+                                checkShip[r] = {};
+                                if(!checkShip.hasOwnProperty(_province)){
+                                    update(instance, cell, c, r,{});
+                                }
+                            }
+                        }
                     }
                 },
             };
