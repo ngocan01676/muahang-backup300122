@@ -5971,13 +5971,16 @@
                         if(change.col == c){
                             if(c == columns.phone.index || c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
                                 change = {col:columns.province.index,row:r};
-                                let valueRow =  instance.jexcel.getRowData(r);
+                                let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
 
-                                if(valueRow[columns.province.index].length > 0){
+                                if(_province.length > 0){
                                     change.col =  {col:-1,row:-1};
-                                    update(instance, cell, c, r,{
-
-                                    });
+                                    if(!checkShip.hasOwnProperty(r)){
+                                        checkShip[r] = {};
+                                        if(!checkShip.hasOwnProperty(_province)){
+                                            update(instance, cell, c, r,{});
+                                        }
+                                    }
                                 }
                             }else{
                                 change.col =  {col:-1,row:-1};
