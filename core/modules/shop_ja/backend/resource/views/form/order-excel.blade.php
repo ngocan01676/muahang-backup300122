@@ -5947,7 +5947,7 @@
                     start = true;
 
                     c = parseInt(c);
-                    console.info(c);
+
                     if(c === 7){
                         console.info(c == columns.province.index);
                     }
@@ -5962,7 +5962,7 @@
 
                               //  instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
                                 change.col =  {col:-1,row:-1};
-                                console.info(11111);
+
                                 update(instance, cell, c, r,{
 
                                 });
@@ -5976,40 +5976,34 @@
                                 change = {col:columns.province.index,row:r};
 
                                 let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-                                 console.info(c);
-                                 console.info(change);
-                                 console.info(_province);
+
                                 if(_province.length > 0){
 
-                                    console.info("call:"+_province);
-                                    console.info(checkShip);
 
                                     if(!checkShip.hasOwnProperty(r)){
                                         checkShip[r] = {};
                                         if(!checkShip.hasOwnProperty(_province)){
                                             change.col =  {col:-1,row:-1};
-                                            console.info(2222);
+
                                             update(instance, cell, c, r,{});
                                         }
                                     }
                                 }
                             }else{
                                 change.col =  {col:-1,row:-1};
-                                console.info(3333);
+
                                 update(instance, cell, c, r,{
 
                                 });
                             }
                         }
                     }else if(c == columns.province.index){
-                        console.info("=>>>>>province 1:");
+
                         let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-                        console.info("=>>>>>province 1:"+_province);
 
                         if(change.col == c){
-                            console.info("province 2");
+
                             change.col =  {col:-1,row:-1};
-                            console.info(444);
                             update(instance, cell, c, r,{});
                         }
                     }else if(c === columns.payMethod.index){
@@ -6021,7 +6015,7 @@
                         }
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
-                            console.info(555);
+
                             update(instance, cell, c, r,{});
                         }
                     }
@@ -7231,7 +7225,7 @@
 
                         }
                         //  }
-                    }else if(c === columns.total_count.index|| columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
+                    }else if(c === columns.total_count.index|| c === columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
                             if(c === columns.zipcode.index){
@@ -8309,7 +8303,7 @@
                                 });
                             }
                         }
-                    }else if(c === columns.count.index || columns.zipcode.index || c === columns.price_buy_sale.index ||
+                    }else if(c === columns.count.index || c === columns.zipcode.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
                             if(c === columns.zipcode.index){
