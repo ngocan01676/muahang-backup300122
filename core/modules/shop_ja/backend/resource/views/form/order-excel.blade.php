@@ -6005,6 +6005,8 @@
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else if(!checkShip.hasOwnProperty(r)){
+                        update(instance, cell, c, r,{});
                     }
                 },
             };
