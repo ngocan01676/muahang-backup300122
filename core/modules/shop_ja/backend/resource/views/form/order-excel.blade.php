@@ -5515,6 +5515,7 @@
                     }
                 ]
             }
+            console.info(columns);
             return {
                 sheetName:sheetName,
                 rowResize:true,
@@ -5946,6 +5947,7 @@
                     start = true;
 
                     c = parseInt(c);
+
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col === c){
