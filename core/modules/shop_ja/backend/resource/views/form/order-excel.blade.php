@@ -3331,7 +3331,8 @@
                             if(c === columns.zipcode.index){
 
                                 change = {col:columns.province.index,row:r};
-
+                                let index = indexFist(instance.jexcel,r);
+                                console.info(index);
                             }else{
                                 change.col =  {col:-1,row:-1};
 
