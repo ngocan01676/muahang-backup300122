@@ -5947,7 +5947,7 @@
                     start = true;
 
                     c = parseInt(c);
-
+                    console.info(c);
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col === c){
@@ -5995,7 +5995,8 @@
                                 });
                             }
                         }
-                    }else if(c === columns.province.index){
+                    }else if(c == columns.province.index){
+
                         let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
                         console.info("province 1:"+_province);
 
