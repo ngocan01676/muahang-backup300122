@@ -5970,7 +5970,8 @@
                                 change = {col:columns.province.index,row:r};
 
                                 let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-                                 console.info(change);
+                                 console.info(c);
+                                 console.info(change.col);
                                 if(_province.length > 0){
 
                                     console.info("call:"+_province);
