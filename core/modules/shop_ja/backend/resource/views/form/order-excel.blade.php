@@ -1750,6 +1750,12 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else{
+                        let _data = instance.jexcel.getRowData(r);
+                        if((_data[columns.province.index]+"").length > 0){
+                            change.col =  {col:-1,row:-1};
+                            update(instance, cell, c, r,{});
+                        }
                     }
                 },
             };
@@ -3270,8 +3276,12 @@
                                 update_count(instance, cell, c, r,index);
                             });
                         }
-                    }else if(c === columns.total_count.index){
-                        console.log('count');
+                    }else{
+                        let _data = instance.jexcel.getRowData(r);
+                        if((_data[columns.province.index]+"").length > 0){
+                            change.col =  {col:-1,row:-1};
+                            update(instance, cell, c, r,{});
+                        }
                     }
                 },
             };
@@ -4753,8 +4763,12 @@
                                 update_count(instance, cell, c, r,index);
                             });
                         }
-                    }else if(c === columns.total_count.index){
-                        console.log('count');
+                    }else{
+                        let _data = instance.jexcel.getRowData(r);
+                        if((_data[columns.province.index]+"").length > 0){
+                            change.col =  {col:-1,row:-1};
+                            update(instance, cell, c, r,{});
+                        }
                     }
                 },
             };
@@ -7226,6 +7240,12 @@
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else{
+                        let _data = instance.jexcel.getRowData(r);
+                        if((_data[columns.province.index]+"").length > 0){
+                            change.col =  {col:-1,row:-1};
+                            update(instance, cell, c, r,{});
+                        }
                     }
                 },
 
@@ -8306,6 +8326,12 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else{
+                        let _data = instance.jexcel.getRowData(r);
+                        if((_data[columns.province.index]+"").length > 0){
+                            change.col =  {col:-1,row:-1};
+                            update(instance, cell, c, r,{});
+                        }
                     }
                 },
             };
@@ -9369,6 +9395,12 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                          }
+                    }else{
+                        let _data = instance.jexcel.getRowData(r);
+                        if((_data[columns.province.index]+"").length > 0){
+                            change.col =  {col:-1,row:-1};
+                            update(instance, cell, c, r,{});
+                        }
                     }
                 },
             };
