@@ -5949,7 +5949,7 @@
                     SaveEvent[sheetName].check = true;
                     start = true;
                     c = parseInt(c);
-                    console.info(checkShip);
+
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col === c){
@@ -6008,6 +6008,7 @@
                         let _fullname = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.fullname.index, r]));
 
                         if(_province.length > 0 && _fullname.length > 0){
+                            console.info(checkShip);
                             let okeRun = false;
                             if(checkShip.hasOwnProperty(r)){
                                 if(!checkShip.hasOwnProperty(_province)){
