@@ -6004,9 +6004,10 @@
                             update(instance, cell, c, r,{});
                         }
                     }else{
-
                         let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-                        if(_province.length > 0){
+                        let _fullname = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.fullname.index, r]));
+
+                        if(_province.length > 0 && _fullname.length > 0){
                             let okeRun = false;
                             if(checkShip.hasOwnProperty(r)){
                                 if(!checkShip.hasOwnProperty(_province)){
@@ -6015,8 +6016,9 @@
                             }else{
                                 okeRun = true;
                             }
-                            if(okeRun)
+                            if(okeRun){
                                 update(instance, cell, c, r,{});
+                            }
                         }
                     }
                 },
