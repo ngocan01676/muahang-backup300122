@@ -694,7 +694,9 @@
 
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+            let checkShip = {
 
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -1160,6 +1162,10 @@
 
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
+                    if($province.length > 0){
+                        checkShip[r] = {};
+                        checkShip[r][$province] = price_ship;
+                    }
                     return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
 
@@ -1738,6 +1744,16 @@
                         if(change.col == c){
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
+                        }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        update(instance, cell, c, r,{});
+                                    }
+                                }
+                            }
                         }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
@@ -1775,7 +1791,9 @@
             }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+            let checkShip = {
 
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -2124,6 +2142,10 @@
                 }
                 let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
+                if($province.length > 0){
+                    checkShip[r] = {};
+                    checkShip[r][$province] = price_ship;
+                }
                 return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou)};
             }
 
@@ -3255,6 +3277,21 @@
                             update(instance, cell, c, r,index,function () {
                                 update_count(instance, cell, c, r,index);
                             });
+                        }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        change.col =  {col:-1,row:-1};
+                                        let index = indexFist(instance.jexcel,r);
+                                        update(instance, cell, c, r,index,function () {
+                                            update_count(instance, cell, c, r,index);
+                                        });
+
+                                    }
+                                }
+                            }
                         }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
@@ -3297,7 +3334,9 @@
             }
             let dropdown = dataproduct.hasOwnProperty("KURICHIKU")?dataproduct["KURICHIKU"]:{};
             let index = 0;
+            let checkShip = {
 
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -3646,6 +3685,10 @@
                 }
                 let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
+                if($province.length > 0){
+                    checkShip[r] = {};
+                    checkShip[r][$province] = price_ship;
+                }
                 return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou)};
             }
 
@@ -4759,7 +4802,6 @@
                 },
             };
         }
-
         function KURICHIKU() {
             let  sheetName  =  'KURICHIKU';
             let data = [];
@@ -6167,6 +6209,9 @@
                     cell.innerHTML = value;
                 }
             };
+            let checkShip = {
+
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -6659,6 +6704,10 @@
                     }
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
+                    if($province.length > 0){
+                        checkShip[r] = {};
+                        checkShip[r][$province] = price_ship;
+                    }
                     return {
                         order_ship:parseInt(price_ship === -1 ? 0 :price_ship),
                         order_ship_cou:parseInt($ship_cou)
@@ -7245,6 +7294,16 @@
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
+                        }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        update(instance, cell, c, r,{});
+                                    }
+                                }
+                            }
                         }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
@@ -7262,7 +7321,6 @@
 
             };
         }
-
         function OHGA() {
             let  sheetName  =  'OHGA';
             let data = [];
@@ -7287,7 +7345,9 @@
 
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+            let checkShip = {
 
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -7750,6 +7810,10 @@
 
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
+                    if($province.length > 0){
+                        checkShip[r] = {};
+                        checkShip[r][$province] = price_ship;
+                    }
                     return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
@@ -8323,6 +8387,16 @@
                         if(change.col == c){
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
+                        }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        update(instance, cell, c, r,{});
+                                    }
+                                }
+                            }
                         }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
