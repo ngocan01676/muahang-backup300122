@@ -8817,7 +8817,6 @@
                             }
                         }
                     }
-
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
 
