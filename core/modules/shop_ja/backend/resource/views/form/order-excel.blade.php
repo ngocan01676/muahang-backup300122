@@ -5968,7 +5968,8 @@
                                 });
                             }
                       //  }
-                    }else if(c === columns.total_count.index|| columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
+                    }else if(
+                        c === columns.total_count.index || c === columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index ||c === columns.phone.index|| c === columns.fullname.index|| c === columns.address.index){
                         if(change.col == c){
                             if(c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
