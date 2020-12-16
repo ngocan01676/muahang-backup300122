@@ -3329,12 +3329,9 @@
                         }
                     }else if(c === columns.count.index || c === columns.zipcode.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.product_id.index || c === columns.one_address.index){
-
                         if(change.col == c){
                             if(c === columns.zipcode.index){
-
                                 console.info(indexFist(instance.jexcel,r));
-
                                 if( index.end === 0){
                                     let index = createRow(instance, cell, c, r, value);
                                     console.log(index);
