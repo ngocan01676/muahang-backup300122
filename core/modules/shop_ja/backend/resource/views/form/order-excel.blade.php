@@ -5944,7 +5944,7 @@
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
                     start = true;
-                 
+
                     c = parseInt(c);
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
@@ -5970,6 +5970,7 @@
                                 change = {col:columns.province.index,row:r};
 
                                 let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                                 console.info(change);
                                 if(_province.length > 0){
 
                                     console.info("call:"+_province);
