@@ -5962,7 +5962,7 @@
 
                               //  instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
                                 change.col =  {col:-1,row:-1};
-
+                                console.info(11111);
                                 update(instance, cell, c, r,{
 
                                 });
@@ -5987,12 +5987,14 @@
                                         checkShip[r] = {};
                                         if(!checkShip.hasOwnProperty(_province)){
                                             change.col =  {col:-1,row:-1};
+                                            console.info(2222);
                                             update(instance, cell, c, r,{});
                                         }
                                     }
                                 }
                             }else{
                                 change.col =  {col:-1,row:-1};
+                                console.info(3333);
                                 update(instance, cell, c, r,{
 
                                 });
@@ -6006,6 +6008,7 @@
                         if(change.col == c){
                             console.info("province 2");
                             change.col =  {col:-1,row:-1};
+                            console.info(444);
                             update(instance, cell, c, r,{});
                         }
                     }else if(c === columns.payMethod.index){
@@ -6017,6 +6020,7 @@
                         }
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
+                            console.info(555);
                             update(instance, cell, c, r,{});
                         }
                     }
