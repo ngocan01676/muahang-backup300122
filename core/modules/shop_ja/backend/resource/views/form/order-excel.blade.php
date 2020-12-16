@@ -5969,9 +5969,10 @@
                             if(c == columns.phone.index || c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
                                 change = {col:columns.province.index,row:r};
                                 let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-                                console.info("call:"+_province);
-                                console.info(checkShip);
+
                                 if(_province.length > 0){
+                                    console.info("call:"+_province);
+                                    console.info(checkShip);
                                     if(!checkShip.hasOwnProperty(r)){
                                         checkShip[r] = {};
                                         if(!checkShip.hasOwnProperty(_province)){
