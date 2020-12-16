@@ -5958,9 +5958,9 @@
                             }
                       //  }
                     }else if(c === columns.total_count.index|| columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
-                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index || c == columns.fullname.index|| c == columns.address.index){
+                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index ||c == columns.phone.index|| c == columns.fullname.index|| c == columns.address.index){
                         if(change.col == c){
-                            if(c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
+                            if(c == columns.phone.index || c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
                                 change = {col:columns.province.index,row:r};
                             }else{
                                 change.col =  {col:-1,row:-1};
