@@ -3331,9 +3331,9 @@
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.product_id.index || c === columns.one_address.index){
                         if(change.col == c){
                             if(c === columns.zipcode.index){
-                                console.info(indexFist(instance.jexcel,r));
+                                let index = indexFist(instance.jexcel,r);
                                 if( index.end === 0){
-                                    let index = createRow(instance, cell, c, r, value);
+                                     index = createRow(instance, cell, c, r, value);
                                     console.log(index);
                                     console.info(indexFist(instance.jexcel,r));
                                 }
