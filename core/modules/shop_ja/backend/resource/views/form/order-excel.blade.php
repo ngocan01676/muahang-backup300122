@@ -5174,7 +5174,7 @@
                 }
             }
             function update(instance, cell, c, r, value) {
-                console.log("update call");
+                console.info("update call:"+c);
                 let data = {
                     count:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r])),
                     id:value.hasOwnProperty('id')?value.id.toString():instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])).toString(),
