@@ -6005,16 +6005,12 @@
                         }
                     }else{
                         let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-                        let _fullname = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.fullname.index, r]));
-
                         if(_province.length > 0){
-                            console.info(checkShip);
                             if(!checkShip.hasOwnProperty(r)){
                                 checkShip[r] = {};
                                 if(!checkShip.hasOwnProperty(_province)){
                                     update(instance, cell, c, r,{});
                                 }
-                                delete checkShip[r];
                             }
                         }
                     }
