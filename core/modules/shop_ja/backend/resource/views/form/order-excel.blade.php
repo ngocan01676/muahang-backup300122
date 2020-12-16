@@ -2162,7 +2162,7 @@
                 };
 
                 data.province =   data.province.trim();
-                console.log(data);
+
                 let valueRow =  instance.jexcel.getRowData(r);
 
                 if(isNaN(data.count) || data.count === 0 ){
