@@ -5944,8 +5944,7 @@
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
                     start = true;
-                    console.info(change);
-                    console.info(value);
+                 
                     c = parseInt(c);
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
@@ -5967,13 +5966,15 @@
                     }else if(c === columns.total_count.index|| columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index ||c == columns.phone.index|| c == columns.fullname.index|| c == columns.address.index){
                         if(change.col == c){
-                            if(c == columns.phone.index || c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
+                            if(c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
                                 change = {col:columns.province.index,row:r};
-                                let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
 
+                                let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
                                 if(_province.length > 0){
+
                                     console.info("call:"+_province);
                                     console.info(checkShip);
+
                                     if(!checkShip.hasOwnProperty(r)){
                                         checkShip[r] = {};
                                         if(!checkShip.hasOwnProperty(_province)){
