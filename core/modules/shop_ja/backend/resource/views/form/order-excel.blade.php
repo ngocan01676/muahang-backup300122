@@ -5951,7 +5951,7 @@
                     SaveEvent[sheetName].check = true;
                     start = true;
                     c = parseInt(c);
-
+                    console.info(checkShip);
                     if (c === columns.product_name.index) {
                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col === c){
