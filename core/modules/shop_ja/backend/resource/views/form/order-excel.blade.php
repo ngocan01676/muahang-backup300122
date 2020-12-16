@@ -3333,7 +3333,8 @@
                             if(c === columns.zipcode.index){
                                 let index = indexFist(instance.jexcel,r);
                                 if( index.end === 0){
-                                     index = createRow(instance, cell, c, r, value);
+
+                                    index = createRow(instance, cell, c, r,  columns.product_name.source[0].data.id);
                                     console.log(index);
                                     console.info(indexFist(instance.jexcel,r));
                                 }
