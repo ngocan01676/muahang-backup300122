@@ -8823,12 +8823,8 @@
                         checkShip[r] = {};
                     }
                     if($province.length > 0){
-                        if(price_ship == -1){
-                            delete checkShip[r];
-                        }else{
-                            checkShip[r] = {};
-                            checkShip[r][$province] = price_ship;
-                        }
+                        checkShip[r] = {};
+                        checkShip[r][$province] = price_ship;
                     }else{
                         delete checkShip[r];
                     }
