@@ -6020,17 +6020,6 @@
                         if(change.col == c){
                             if(c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
                                 change = {col:columns.province.index,row:r};
-                                let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
-                                if(_province.length > 0){
-                                    if(!checkShip.hasOwnProperty(r)){
-                                        checkShip[r] = {};
-                                        if(!checkShip.hasOwnProperty(_province)){
-                                            change.col =  {col:-1,row:-1};
-
-                                            update(instance, cell, c, r,{});
-                                        }
-                                    }
-                                }
                             }else{
                                 change.col =  {col:-1,row:-1};
 
