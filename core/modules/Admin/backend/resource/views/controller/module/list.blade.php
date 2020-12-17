@@ -9,6 +9,7 @@
     <div style="width: 95%;margin: 0 auto">
         <div class="row">
             @foreach($lists as $module=>$list)
+                @php $module = $list['key']; @endphp
                 <div class="item col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="box" data-sys="{{$list['system']}}" data-module="{!! $module !!}"
                          data-name="{!! $list['name'] !!}">

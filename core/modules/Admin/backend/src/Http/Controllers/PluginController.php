@@ -97,7 +97,15 @@ class PluginController extends \Zoe\Http\ControllerBackend
         $relativePath = base_path($config_zoe['structure']['plugin']);
         $lists_folder = scandir($relativePath);
         $array = [];
-        $this->data['lists_install'] = config_get('plugin', "lists");
+        $list_plugins  = config_get('plugin', "lists");
+        $lists_install = collect(DB::table('module')->select()->where('status', 1)->get())->keyBy('name');
+        $lists_install = $lists_install->map(function ($i) {
+            $i->data = unserialize($i->data);
+            return $i;
+        });
+
+        $lists_install = $lists_install->toArray();
+        $this->data['lists_install'] = $list_plugins;
         foreach ($lists_folder as $plugin) {
             if ($plugin == "." || $plugin == "..") {
                 continue;
@@ -112,7 +120,8 @@ class PluginController extends \Zoe\Http\ControllerBackend
                     "description" => $class::$description ? $class::$description : $plugin,
                     "version" => $class::$version,
                     "author" => $class::$author,
-                    "require" => []
+                    "require" => [],
+                    "key" => $plugin,
                 ];
                 foreach ($class::$require as $_plugin => $_type) {
                     if (file_exists($relativePath . DIRECTORY_SEPARATOR . $_plugin . DIRECTORY_SEPARATOR . "Plugin.php")) {
@@ -123,14 +132,27 @@ class PluginController extends \Zoe\Http\ControllerBackend
                 }
             }
         }
-        $this->data['lists'] = $array;
-        $modules = collect(DB::table('module')->select()->where('status', 1)->get())->keyBy('name');
-        $modules = $modules->map(function ($i) {
-            $i->data = unserialize($i->data);
-            return $i;
-        });
-        $this->data['modules_install'] = $modules->toArray();
 
+        usort($array,function($a,$b) use($list_plugins){
+
+            $status = $a['key'] > $b['key']? 1 : -1 ;
+            if($status == 1){
+                if(isset($list_plugins[$a['key']]) && !isset($list_plugins[$b['key']])){
+                    return -1;
+                }
+            }else if($status == -1){
+
+                if(!isset($list_plugins[$a['key']]) && isset($list_plugins[$b['key']])){
+                    return 1;
+                }
+                if($a['key'] == $b['key']){
+                    return 0;
+                }
+            }
+            return $status;
+        });
+        $this->data['lists'] = $array;
+        $this->data['modules_install'] = $lists_install;
         return $this->render('plugin.list');
     }
 }

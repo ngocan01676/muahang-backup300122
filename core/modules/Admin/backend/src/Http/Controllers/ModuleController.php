@@ -172,7 +172,8 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                         "author" => $class::$author,
                         "system" => $system,
                         "require" => [],
-                        "configs" => $configs
+                        "configs" => $configs,
+                        "key"=>$module
                     ];
                     foreach ($class::$require as $plugin) {
                         if (file_exists($relativePluginPath . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "Plugin.php")) {
@@ -184,9 +185,36 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                 }
             }
         }
-        $this->data['lists'] = $array;
+        $lists_install = collect(DB::table('module')->select()->where('status', 1)->get())->keyBy('name');
 
-        $this->data['lists_install'] = collect(DB::table('module')->select()->where('status', 1)->get())->keyBy('name');
+        usort($array,function($a,$b) use($lists_install){
+            if($b['system'] && $a['system']){
+                $status = $a['key'] > $b['key']? 1 : -1 ;
+                return $status == -1?($a['key'] == $b['key']?0:-1):$status;
+            }else if($a['system'] && $b['system'] == false){
+                return -1;
+            }else if($a['system'] == false && $b['system']){
+                return 1;
+            }else{
+                $status = $a['key'] > $b['key']? 1 : -1 ;
+                if($status == 1){
+                    if(isset($lists_install[$a['key']]) && !isset($lists_install[$b['key']])){
+                        return -1;
+                    }
+                }else if($status == -1){
+
+                    if(!isset($lists_install[$a['key']]) && isset($lists_install[$b['key']])){
+                        return 1;
+                    }
+                    if($a['key'] == $b['key']){
+                        return 0;
+                    }
+                }
+                return $status;
+            }
+        });
+        $this->data['lists'] = $array;
+        $this->data['lists_install'] =$lists_install;
         return $this->render('module.list');
     }
 }
