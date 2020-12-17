@@ -4,6 +4,6 @@ use App\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        \Zoe\Console\Commands\MakePlugin::class
+        Commands\MakePlugin::class
     ];
 }
