@@ -5596,7 +5596,6 @@
                    // total_price_buy = total_price_buy;
                     console.log(total_price_buy);
                     if(total_price_buy === 0 || total_price === 0){ return;}
-
                     if(payMethod == 3){
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
                         let a = (0 - parseInt(total_price) - parseInt(price_ship)) - 330;
