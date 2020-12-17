@@ -5197,7 +5197,7 @@
                     title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:-1
                 },
                 order_total_price:{
                     title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
