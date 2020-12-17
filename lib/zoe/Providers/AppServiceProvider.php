@@ -326,13 +326,14 @@ class AppServiceProvider extends ServiceProvider
             $class = '\\Plugin' . $plugin . '\\Plugin';
             $object = new $class();
 
+            $this->app->_plugins[$plugin] = $object;
+
             if ($this->app->getConfig(true)->cache == 0) {
                 $this->plugin($plugin, $object, $absolute_path);
             }
-//         $this->app->_plugin[$module] = $object;
+
         }
     }
-
     public function plugin($plugin, $object, $absolute_path)
     {
         $fileConfig = $object->FileConfig();

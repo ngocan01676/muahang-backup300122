@@ -169,18 +169,16 @@
                                 <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "1") checked
                                        @endif type="radio" name="data[{!! $name !!}].status"
                                        value="1">
-                                On
+
                                 <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "2") checked
                                        @endif type="radio" name="data[{!! $name !!}].status"
                                        value="2">
-                                Off
+                                {!! z_language('Off') !!}
                             </div>
                         </td>
                     </tr>
                 </table>
-
             </div>
-
         </div>
     </li>
     @endfunction
@@ -217,7 +215,6 @@
                         @php  $arr_name =  explode(':',$route['name']);
                         @endphp
                         @continue(empty($route['name']))
-
                         @if( ("frontend"==$arr_name[0] || "frontend"!=$arr_name[0] && $arr_name[0]!="backend") )
                             @if(in_array('GET',$route['methods']))
                                 @php
@@ -233,14 +230,12 @@
                         @endif
                     @endforeach
                     @if(isset($datas['data']))
-                        @dump($datas)
+
                         @foreach($datas['data'] as $name=>$route)
 
                             @if(isset($route['data']) && !isset($urls[$route['data']['name']]))
                                 @php
-                                    
-                                   $middlewares = json_decode($route['data']['middleware'],true);
-
+                                    $middlewares = json_decode($route['data']['middleware'],true);
                                     $middlewares  = is_array($middlewares)?$middlewares:[];
                                     $controller = "";
                                     if(isset($route['data']['controller'])){
@@ -249,12 +244,7 @@
                                         $controller = $routes[$name]['action']['controller'];
                                     }
                                 @endphp
-
-                                @view_item(
-                                $name,
-                                $middlewares,
-                                isset($route['data'])&&is_array(isset($route['data']))?$route['data']['uri']:"",
-                                $layouts,$listsRolePremission,$datas,false,$controllers,$controller)
+                                @view_item($name, $middlewares, isset($route['data'])&&is_array(isset($route['data']))?$route['data']['uri']:"",$layouts,$listsRolePremission,$datas,false,$controllers,$controller)
                             @endif
                         @endforeach
                     @endif
@@ -271,9 +261,13 @@
     <script>
         function SaveLayout() {
             var saveForm = $("#saveForm").zoe_inputs('get');
+            $("#saveForm").mask('{!! z_language("Writing") !!}');
             $.ajax({
-                method: "Post", data: saveForm, success: function (data) {
-                    console.log($("#saveForm").html($(data.views['content']).find('#saveForm ul')));
+                method: "Post",
+                data: saveForm,
+                success: function (data) {
+                    $("#saveForm").html($(data.views['content']).find('#saveForm ul'));
+                    $("#saveForm").unmask();
                 }
             });
         }

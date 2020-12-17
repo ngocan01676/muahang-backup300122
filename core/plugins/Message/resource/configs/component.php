@@ -1,8 +1,6 @@
 <?php
 return [
     "components" => [
-       "components"=>[
-
-       ]
+        "components"=>["chat-box"=>['layout'=>'layout']]
     ]
 ];

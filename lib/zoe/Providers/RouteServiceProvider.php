@@ -37,7 +37,6 @@ class RouteServiceProvider extends ServiceProvider
                 $this->app['router']->getRoutes()->refreshActionLookups();
             });
         }
-
         $this->InitRouters();
 
         view()->share('time_exe', microtime(true) - $this->app->time_start);
@@ -52,7 +51,9 @@ class RouteServiceProvider extends ServiceProvider
         if (isset($config['frontend']) && isset($this->app->getConfig()->routers['frontend'])) {
             $this->InitRouter('frontend', $this->app->getConfig()->routers['frontend'], $config['frontend']);
         }
-
+        foreach ($this->app->_plugins as $plugin){
+            $plugin->router();
+        }
     }
 
     public function InitRouter($guard, $routers, $config)
