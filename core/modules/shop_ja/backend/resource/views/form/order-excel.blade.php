@@ -3570,7 +3570,7 @@
                     title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
-                    value:0,
+                    value:-1,
                     // row:"0",
                 },
                 order_total_price:{
