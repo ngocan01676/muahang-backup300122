@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/plugins/Message/resource/views/components/chat-box/views/main.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Message/resource/views/components/chat-box/views/main.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/plugins/Message/src/Controllers/FrontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/plugins/Message/src/Controllers/FrontController.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
@@ -183,8 +181,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/plugins/Message/src/Controllers/FrontController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="636">
-              <caret line="74" selection-start-line="74" selection-end-line="74" selection-end-column="50" />
+            <state relative-caret-position="483">
+              <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
               <folding>
                 <element signature="e#44#78#0#PHP" expanded="true" />
               </folding>
@@ -722,7 +720,7 @@
       <workItem from="1608006298756" duration="28000" />
       <workItem from="1608018368574" duration="7558000" />
       <workItem from="1608084946219" duration="9767000" />
-      <workItem from="1608167962259" duration="18338000" />
+      <workItem from="1608167962259" duration="18410000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <created>1607103031376</created>
@@ -735,7 +733,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184737000" />
+    <option name="totallyTimeSpent" value="184809000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1056,8 +1054,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/plugins/Message/src/Controllers/FrontController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="74" selection-start-line="74" selection-end-line="74" selection-end-column="50" />
+        <state relative-caret-position="483">
+          <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
           <folding>
             <element signature="e#44#78#0#PHP" expanded="true" />
           </folding>

@@ -63,6 +63,7 @@ class FrontController extends \Zoe\Http\ControllerFront
         }
         return ['results'=>$results];
     }
+    
     public function save(Request $request){
         $data = $request->all();
         $dataSave = [];
