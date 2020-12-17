@@ -2471,7 +2471,7 @@
                 console.log("totalPriceBuy:"+totalPriceBuy);
 
                 if(payMethod == 3){
-                    totalPriceBuy = 0;
+                    totalPriceBuy = 0;confShipCou.order_ship_cou = 0;
                 }else{
                     if(one_address){
                         confShipCou.order_ship_cou = 0;
