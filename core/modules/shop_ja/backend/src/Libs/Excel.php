@@ -546,7 +546,7 @@ class Excel
                     }
                 }
             }
-            if ($payMethod == "銀行振込") {
+            if ($payMethod == "銀行振込" || $payMethod == "決済不要") {
                 $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . '' . $start)->applyFromArray(array(
                     'font' => array(
 
@@ -894,7 +894,7 @@ class Excel
                     'name' => 'ＭＳ Ｐゴシック',
                 ),
             ));
-            if ($payMethod == "銀行振込") {
+            if ($payMethod == "銀行振込" || $payMethod == "決済不要") {
                 $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . '' . $start)->applyFromArray(array(
                     'font' => array(
                         'size' => 9,
@@ -1217,7 +1217,7 @@ class Excel
                     }
                 }
             }
-            if ($payMethod == "銀行振込") {
+            if ($payMethod == "銀行振込" || $payMethod == "決済不要") {
                 $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . '' . $start)->applyFromArray(array(
                     'font' => array(
                         'size' => 9,
@@ -1642,7 +1642,7 @@ class Excel
                     ),
                 ));
 
-                if ($payMethod == "銀行振込") {
+                if ($payMethod == "銀行振込" || $payMethod == "決済不要") {
                     foreach (["B", "H", "I", "J", "S"] as $col) {
                         $sheet->getStyle($col . $start)->applyFromArray(array(
                             'font' => array(
@@ -2117,7 +2117,7 @@ class Excel
 //                                        'color' => array('rgb' => '0070c0'),
                                     ),
                                 ));
-                                if ($payMethod == "銀行振込") {
+                                if ($payMethod == "銀行振込" || $payMethod == "決済不要") {
 //                                    $sheet->getStyle('A'.($start).':'. PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)).''.$start)->applyFromArray( array(
 //                                        'font'  => array(
 //                                            'size'  => 9,
