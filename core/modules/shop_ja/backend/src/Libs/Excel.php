@@ -1438,6 +1438,7 @@ class Excel
         $_dateNhan = new \stdClass();
         $_dateNhan->date = $this->date;
         $postions = [2,1];
+        $logs = [];
         for ($typeMethod1 = 0; $typeMethod1 < count($postions); $typeMethod1++) {
             $typeMethod = $postions[$typeMethod1];
             $total_order_ship = 0;
@@ -1585,6 +1586,9 @@ class Excel
                 if (empty($values[$columns_value['fullname']])) {
                     continue;
                 }
+                if(isset($logs[$key])){
+                    continue;
+                }
                 $_checktypeMethod = $this->getValuePayMethod($payMethod);
                 if ($typeMethod != $_checktypeMethod) {
                     if( $typeMethod == 2 && $_checktypeMethod == 3){
@@ -1593,7 +1597,7 @@ class Excel
                         continue;
                     }
                 }
-
+                $logs[$key] = 1;
                 $order_id = (isset($columns_value['id']) ? $values[$columns_value['id']] : "");
                 $ids[$order_id] = 1;
                 $image = (isset($columns_value['image']) ? $values[$columns_value['image']] : "");
