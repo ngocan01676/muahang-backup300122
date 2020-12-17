@@ -6861,7 +6861,7 @@
 
                     if(payMethod == 3){
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
-                        let a = (0 - parseInt(total_price) - parseInt(price_ship)) - 330;
+                        let a = (0 - parseInt(total_price) - parseInt(price_ship));
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
                     }else if(payMethod == 2){
