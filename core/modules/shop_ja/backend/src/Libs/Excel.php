@@ -1437,8 +1437,8 @@ class Excel
         $date_export->date = $this->date_export;
         $_dateNhan = new \stdClass();
         $_dateNhan->date = $this->date;
-        $postions = [3,2,1];
-        for ($typeMethod1 = 0; $typeMethod1 < 3; $typeMethod1++) {
+        $postions = [2,1];
+        for ($typeMethod1 = 0; $typeMethod1 < count($postions); $typeMethod1++) {
             $typeMethod = $postions[$typeMethod1];
             $total_order_ship = 0;
             $total_order_total_price = 0;
@@ -1585,9 +1585,13 @@ class Excel
                 if (empty($values[$columns_value['fullname']])) {
                     continue;
                 }
+
                 if ($typeMethod != $this->getValuePayMethod($payMethod)) {
-                    continue;
+                    if($typeMethod == 1){
+                        continue;
+                    }
                 }
+
                 $order_id = (isset($columns_value['id']) ? $values[$columns_value['id']] : "");
                 $ids[$order_id] = 1;
                 $image = (isset($columns_value['image']) ? $values[$columns_value['image']] : "");
