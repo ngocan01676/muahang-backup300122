@@ -1585,9 +1585,9 @@ class Excel
                 if (empty($values[$columns_value['fullname']])) {
                     continue;
                 }
-
-                if ($typeMethod != $this->getValuePayMethod($payMethod)) {
-                    if($typeMethod == 1){
+                $_checktypeMethod = $this->getValuePayMethod($payMethod);
+                if ($typeMethod != $_checktypeMethod) {
+                    if($_checktypeMethod == 1){
                         continue;
                     }
                 }
