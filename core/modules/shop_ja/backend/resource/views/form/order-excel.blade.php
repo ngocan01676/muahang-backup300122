@@ -1665,11 +1665,20 @@
                         let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                         let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
+                        let _order_ship = parseInt(value[columns.order_ship.index]);
+
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                        $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                         $col.removeClass('bor-error');
+                        $col_order_ship.removeClass('bor-error');
+
                         if(_province.length <= 0){
                             $col.addClass('bor-error')
+                        }else{
+                            if(isNaN(_order_ship) || _order_ship < 0){
+                                $col_order_ship.addClass('bor-error');
+                            }
                         }
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                         $col.removeClass('bor-error')
@@ -3156,11 +3165,20 @@
                             let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                             let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
-                            let $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            let _order_ship = parseInt(value[columns.order_ship.index]);
+
+                            $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                             $col.removeClass('bor-error');
+                            $col_order_ship.removeClass('bor-error');
+
                             if(_province.length <= 0){
                                 $col.addClass('bor-error')
+                            }else{
+                                if(isNaN(_order_ship) || _order_ship < 0){
+                                    $col_order_ship.addClass('bor-error');
+                                }
                             }
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                             $col.removeClass('bor-error')
@@ -4699,11 +4717,20 @@
                             let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                             let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
-                            let $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            let _order_ship = parseInt(value[columns.order_ship.index]);
+
+                            $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                             $col.removeClass('bor-error');
+                            $col_order_ship.removeClass('bor-error');
+
                             if(_province.length <= 0){
                                 $col.addClass('bor-error')
+                            }else{
+                                if(isNaN(_order_ship) || _order_ship < 0){
+                                    $col_order_ship.addClass('bor-error');
+                                }
                             }
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                             $col.removeClass('bor-error')
@@ -6040,11 +6067,20 @@
                         let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                         let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
+                        let _order_ship = parseInt(value[columns.order_ship.index]);
+
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                        $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                         $col.removeClass('bor-error');
+                        $col_order_ship.removeClass('bor-error');
+
                         if(_province.length <= 0){
                             $col.addClass('bor-error')
+                        }else{
+                            if(isNaN(_order_ship) || _order_ship < 0){
+                                $col_order_ship.addClass('bor-error');
+                            }
                         }
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                         $col.removeClass('bor-error')
@@ -7294,11 +7330,20 @@
                         let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                         let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
+                        let _order_ship = parseInt(value[columns.order_ship.index]);
+
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                        $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                         $col.removeClass('bor-error');
+                        $col_order_ship.removeClass('bor-error');
+
                         if(_province.length <= 0){
                             $col.addClass('bor-error')
+                        }else{
+                            if(isNaN(_order_ship) || _order_ship < 0){
+                                $col_order_ship.addClass('bor-error');
+                            }
                         }
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                         $col.removeClass('bor-error')
@@ -8396,11 +8441,20 @@
                         let _address = value[columns.address.index]+"".trim();
                         let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
+                        let _order_ship = parseInt(value[columns.order_ship.index]);
+
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                        $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                         $col.removeClass('bor-error');
+                        $col_order_ship.removeClass('bor-error');
+
                         if(_province.length <= 0){
                             $col.addClass('bor-error')
+                        }else{
+                            if(isNaN(_order_ship) || _order_ship < 0){
+                                $col_order_ship.addClass('bor-error');
+                            }
                         }
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                         $col.removeClass('bor-error')
@@ -9473,11 +9527,20 @@
                             let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                             let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
+                            let _order_ship = parseInt(value[columns.order_ship.index]);
+
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                             $col.removeClass('bor-error');
+                            $col_order_ship.removeClass('bor-error');
+
                             if(_province.length <= 0){
                                 $col.addClass('bor-error')
+                            }else{
+                                if(isNaN(_order_ship) || _order_ship < 0){
+                                    $col_order_ship.addClass('bor-error');
+                                }
                             }
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                             $col.removeClass('bor-error')
