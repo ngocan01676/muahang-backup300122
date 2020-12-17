@@ -7338,7 +7338,7 @@
                 product_name:{
                     title: '{!! z_language("Tên SP") !!}',//I Tên SP
                     type:'dropdown',
-                    source:Object.values(dropdown),
+                    source:Object.values(dropdown).sort(function(x,y){return y.data.order_index - x.data.order_index}),
                     autocomplete:true,
                     width:'140px',
                     value:['product','this','source',0,'id']
