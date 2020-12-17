@@ -1437,8 +1437,9 @@ class Excel
         $date_export->date = $this->date_export;
         $_dateNhan = new \stdClass();
         $_dateNhan->date = $this->date;
-        for ($typeMethod = 2; $typeMethod >= 1; $typeMethod--) {
-
+        $postions = [3,2,1];
+        for ($typeMethod1 = 0; $typeMethod1 < 3; $typeMethod1++) {
+            $typeMethod = $postions[$typeMethod1];
             $total_order_ship = 0;
             $total_order_total_price = 0;
             $total_order_total_price_buy = 0;
