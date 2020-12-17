@@ -1775,6 +1775,9 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else if(c === columns.status.index){
+                        change = {col:-1,row:-1};
+                        update(instance, cell, c, r,{});
                     }
                 },
             };
@@ -3422,6 +3425,12 @@
                                 update_count(instance, cell, c, r,index);
                             });
                         }
+                    }else if(c === columns.status.index){
+                        change.col =  {col:-1,row:-1};
+                        let index = indexFist(instance.jexcel,r);
+                        update(instance, cell, c, r,index,function () {
+                            update_count(instance, cell, c, r,index);
+                        });
                     }
                 },
             };
@@ -4920,6 +4929,12 @@
                         }
                     }else if(c === columns.total_count.index){
                         console.log('count');
+                    }else if(c === columns.status.index){
+                        change.col =  {col:-1,row:-1};
+                        let index = indexFist(instance.jexcel,r);
+                        update(instance, cell, c, r,index,function () {
+                            update_count(instance, cell, c, r,index);
+                        });
                     }
                 },
             };
@@ -6183,6 +6198,9 @@
 
                             update(instance, cell, c, r,{});
                         }
+                    }else if(c === columns.status.index){
+                        change = {col:-1,row:-1};
+                        update(instance, cell, c, r,{});
                     }
                 },
             };
@@ -7445,6 +7463,9 @@
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else if(c === columns.status.index){
+                        change = {col:-1,row:-1};
+                        update(instance, cell, c, r,{});
                     }
                 },
 
@@ -8549,6 +8570,9 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else if(c === columns.status.index){
+                        change = {col:-1,row:-1};
+                        update(instance, cell, c, r,{});
                     }
                 },
             };
@@ -9637,6 +9661,9 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                          }
+                    }else if(c === columns.status.index){
+                        change = {col:-1,row:-1};
+                        update(instance, cell, c, r,{});
                     }
                 },
             };
