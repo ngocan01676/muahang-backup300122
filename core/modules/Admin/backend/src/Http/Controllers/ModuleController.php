@@ -60,6 +60,7 @@ class ModuleController extends \Zoe\Http\ControllerBackend
                                 'status' => 1,
                                 'create_at' => date('Y-m-d H:i:s')
                             ]);
+                            $response['class'] = $class;
                             $response['status'] = true;
                             DB::commit();
                         } else {

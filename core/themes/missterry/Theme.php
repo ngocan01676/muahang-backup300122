@@ -1,18 +1,15 @@
 <?php
-
-namespace ZoeTheme;
-
+namespace MissTerryTheme;
 use Zoe\Module as ZModule;
-
 class Theme extends ZModule
 {
     public static $require = [
-        'blog' => 'module'
+        'Blog' => 'module',
+        'MissTerry' => 'module',
+        'Message' => 'plugin',
     ];
-
     public function Init()
     {
-        // TODO: Implement Init() method.
         $this->path = __DIR__;
     }
 
