@@ -10,6 +10,7 @@ use Jenssegers\Agent\Agent;
 class Application extends App
 {
     public $_modules = [];
+    public $_plugins = [];
 
     public $is_admin = false;
 
@@ -41,7 +42,7 @@ class Application extends App
         $this->_configs = new \stdClass();
         $this->_configs->cache = 0;
         $this->_configs->data = new Config();
-
+        $this->_plugins = [];
         $this->_components = new \stdClass();
         $this->_components->cache = 0;
         $this->_components->data = new \stdClass();

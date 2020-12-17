@@ -17,7 +17,8 @@ class ControllerBackend extends Controller
     }
     public function render($view, $data = [], $key = "")
     {
-        $alias = app()->getConfig()['views']['alias'];
+        $confView = app()->getConfig()['views'];
+        $alias = $confView['alias'];
         $data = array_merge($this->data, $data);
         $request = request();
         $keyName = app()->getKey("_view_alias");
@@ -32,6 +33,12 @@ class ControllerBackend extends Controller
             $keyView = $key . '::controller.' . $view;
         }else{
             $keyView = $view;
+        }
+
+        if(isset($confView['default']) && isset($confView['layouts'][$confView['default']])){
+            if(View::exists($confView['layouts'][$confView['default']])){
+                $this->layout = $confView['layouts'][$confView['default']];
+            }
         }
         return $this->_render($keyView, $data, $key);
     }

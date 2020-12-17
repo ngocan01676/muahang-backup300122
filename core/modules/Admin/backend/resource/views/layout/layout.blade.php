@@ -1,7 +1,5 @@
 @php
-    $rsAnnounce = \Illuminate\Support\Facades\DB::table('announce')->where('status',1)
-        ->where('date_start','<=',date('Y-m-d H:i:s'))
-        ->where('date_end','>=',date('Y-m-d H:i:s'))->get()->all();
+    $rsAnnounce = \Illuminate\Support\Facades\DB::table('announce')->where('status',1)  ->where('date_start','<=',date('Y-m-d H:i:s')) ->where('date_end','>=',date('Y-m-d H:i:s'))->get()->all();
 @endphp
 <!DOCTYPE html>
 <html>
@@ -20,8 +18,7 @@
     <link rel="stylesheet" href="{{asset('module/admin/bower_components/Ionicons/css/ionicons.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('module/admin/dist/css/AdminLTE.min.css')}}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
+
     <link rel="stylesheet" href="{{asset('module/admin/dist/css/skins/_all-skins.min.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/style.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/loadding/css/jquery-loading.css')}}">
@@ -41,7 +38,6 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     @AssetRender('css')
     @stack('links')
-
 </head>
 <body class="hold-transition skin-black-light sidebar-mini">
 <!-- Site wrapper -->
@@ -513,7 +509,6 @@
 
 
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('module/admin/dist/js/demo.js')}}"></script>
 <script src="{{asset('module/admin/assets/main.js')}}"></script>
 
 {{--<script src="{{asset('module/admin/developer-tools/toolbar.js')}}"></script>--}}
@@ -554,7 +549,6 @@
 @if(count($rsAnnounce)>0)
 <script>
     $(document).ready(function () {
-
         setTimeout(function () {
             if($("#announce button.btn i").hasClass('fa-minus')){
                 $("#announce button.btn").trigger('click');

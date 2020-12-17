@@ -25,7 +25,9 @@ abstract class Module
     {
 
     }
+    public function router(){
 
+    }
     public function FileConfig()
     {
         return ["configs", "router", "sidebar", "providers", "component", "language"];
@@ -101,4 +103,5 @@ abstract class Module
     {
 
     }
+
 }
