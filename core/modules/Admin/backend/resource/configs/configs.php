@@ -101,6 +101,7 @@ return [
                     'lists' => [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
                         'name' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha'],
+                        'theme' => ['label' => z_language('Theme', false), 'type' => 'text', 'order_by' => 'alpha'],
                         'type' => ['label' => z_language('Type', false), 'type' => 'type', 'order_by' => 'amount'],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status', 'order_by' => 'amount'],
                         'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],

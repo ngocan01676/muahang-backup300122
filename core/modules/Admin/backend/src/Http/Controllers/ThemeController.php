@@ -88,7 +88,8 @@ class ThemeController extends \Zoe\Http\ControllerBackend
                         "version" => $class::$version,
                         "author" => $class::$author,
                         "system" => $system,
-                        "require" => []
+                        "require" => [],
+                        "key"=>$theme
                     ];
                     foreach ($class::$require as $name => $type) {
                         if ($type == "plugin") {
@@ -109,8 +110,27 @@ class ThemeController extends \Zoe\Http\ControllerBackend
                 }
             }
         }
+        $theme = config_get('theme', "active");
+        usort($array,function($a,$b) use($theme){
+
+            $status = $a['key'] > $b['key']? 1 : -1 ;
+            if($status == 1){
+                if($a['key'] == $theme){
+                    return -1;
+                }
+            }else if($status == -1){
+                if($b['key'] == $theme){
+                    return 1;
+                }
+                if($a['key'] == $b['key']){
+                    return 0;
+                }
+            }
+            return $status;
+        });
         $this->data['lists'] = $array;
-        $this->data['lists_install'] = config_get('theme', "active");
+        $this->data['lists_install'] = $theme;
+
         return $this->render('theme.list');
     }
 }
