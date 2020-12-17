@@ -1587,7 +1587,7 @@ class Excel
                 }
                 $_checktypeMethod = $this->getValuePayMethod($payMethod);
                 if ($typeMethod != $_checktypeMethod) {
-                    if($_checktypeMethod == 1){
+                    if( $typeMethod == 2 && $_checktypeMethod == 1){
                         continue;
                     }
                 }
