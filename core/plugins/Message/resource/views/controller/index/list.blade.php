@@ -167,9 +167,9 @@
         }
         function get_detail(self){
             let load = false;
+
             if(self){
                 current_active = $(self).data();
-
                 load = true;
             }
             if(current_active == null) return;
@@ -211,8 +211,7 @@
                     }
                     $("#message-detail").html(html);
                     if(load) $("#content-message .box-body").unmask();
-                    console.log(scrollNew - scroll*2)
-                    console.log(scroll*2)
+
                     if(load || scrollNew - scroll*2 < 50 ){
                         console.log(1111111111);
                         if(scroll_run == false){

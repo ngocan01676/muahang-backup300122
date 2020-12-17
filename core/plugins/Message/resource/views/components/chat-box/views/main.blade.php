@@ -298,17 +298,20 @@
     };
 
     function {!! "action_".$id !!}save() {
+        let message = $("{!! "#message_".$id !!} .chatbox__message");
         $.ajax({
             url:"{!! route('plugin:message:save') !!}",
             type:"post",
             data: {
                 data:{
-                    message:$("{!! "#message_".$id !!} .chatbox__message").val()
+                    message:message.val()
                 },
                 check:confData{!! $id !!},
             },
             success:function (data) {
+                message.val("");
                 $("#message_{!! $id !!} .chatbox__body").append(template_right{!! $id !!}(data.result));
+                $("#message_{!! $id !!} .chatbox__body").animate({ scrollTop:  $("#message_{!! $id !!} .chatbox__body").prop("scrollHeight")}, 1000);
             }
         });
     }
@@ -364,6 +367,7 @@
                             }
                         }
                         $("#message_{!! $id !!} .chatbox__body").html(html);
+                        $("#message_{!! $id !!} .chatbox__body").animate({ scrollTop:  $("#message_{!! $id !!} .chatbox__body").prop("scrollHeight")}, 1000);
                     }
                 });
             }

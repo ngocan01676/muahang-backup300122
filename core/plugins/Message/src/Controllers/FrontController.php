@@ -68,6 +68,12 @@ class FrontController extends \Zoe\Http\ControllerFront
         $dataSave = [];
 
         if(isset($data["check"]['key']) && $data["check"]['key'] == md5('MESSAGE:'.$data["check"]['id'].':'.config('app.key'))){
+            DB::table('plugin_message_list')->where('id',$data["check"]['id'])->update([
+                'admin_read'=>0,
+                'last_message'=>$data['data']['message'],
+                'last_type'=>1,
+                'updated_at'=>date('Y-m-d H:i:s'),
+            ]);
             $dataSave = [
                 'mess_id'=>$data["check"]['id'],
                 'user_id'=>1,
