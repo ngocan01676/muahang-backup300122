@@ -135,15 +135,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="486">
-              <caret line="217" column="120" lean-forward="true" selection-start-line="217" selection-start-column="27" selection-end-line="217" selection-end-column="120" />
-              <folding>
-                <element signature="e#47#54#1" expanded="true" />
-                <element signature="e#48#55#1" expanded="true" />
-              </folding>
+              <caret line="217" column="120" selection-start-line="217" selection-start-column="27" selection-end-line="217" selection-end-column="120" />
             </state>
           </provider>
         </entry>
@@ -178,11 +174,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/plugins/Message/src/Controllers/FrontController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
+            <state relative-caret-position="398">
+              <caret line="64" column="5" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
               <folding>
                 <element signature="e#44#78#0#PHP" expanded="true" />
               </folding>
@@ -198,7 +194,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/app.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
+            <state relative-caret-position="2057">
               <caret line="121" column="8" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="8" />
             </state>
           </provider>
@@ -207,7 +203,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/plugins/Message/Plugin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
+            <state relative-caret-position="221">
               <caret line="16" column="121" selection-start-line="16" selection-start-column="121" selection-end-line="16" selection-end-column="121" />
               <folding>
                 <element signature="e#31#65#0#PHP" expanded="true" />
@@ -228,7 +224,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
+            <state relative-caret-position="43588">
               <caret line="2582" column="20" selection-start-line="2582" selection-start-column="20" selection-end-line="2582" selection-end-column="20" />
             </state>
           </provider>
@@ -528,7 +524,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -660,6 +655,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -721,6 +717,7 @@
       <workItem from="1608018368574" duration="7558000" />
       <workItem from="1608084946219" duration="9767000" />
       <workItem from="1608167962259" duration="18410000" />
+      <workItem from="1608257098539" duration="608000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <created>1607103031376</created>
@@ -733,13 +730,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184809000" />
+    <option name="totallyTimeSpent" value="185417000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2553305" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -779,9 +776,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/views/components/chat-box/views/list-new.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/views/components/chat-box/views/list-new.blade.php" />
     <entry file="file://$PROJECT_DIR$/core/plugins/Comment/resource/views/components/comment/configs/data.blade.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -983,10 +978,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/app.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="2582" column="20" selection-start-line="2582" selection-start-column="20" selection-end-line="2582" selection-end-column="20" />
+        <state relative-caret-position="2057">
+          <caret line="121" column="8" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Message/Plugin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="121" selection-start-line="16" selection-start-column="121" selection-end-line="16" selection-end-column="121" />
+          <folding>
+            <element signature="e#31#65#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -997,13 +1005,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/app.php">
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="121" column="8" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="8" />
+        <state relative-caret-position="43588">
+          <caret line="2582" column="20" selection-start-line="2582" selection-start-column="20" selection-end-line="2582" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/plugins/Message/src/Controllers/FrontController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="64" column="5" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
+          <folding>
+            <element signature="e#44#78#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1011,16 +1026,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="84" selection-start-line="7" selection-start-column="84" selection-end-line="7" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/plugins/Message/Plugin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="121" selection-start-line="16" selection-start-column="121" selection-end-line="16" selection-end-column="121" />
-          <folding>
-            <element signature="e#31#65#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1034,17 +1039,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="217" column="120" lean-forward="true" selection-start-line="217" selection-start-column="27" selection-end-line="217" selection-end-column="120" />
-          <folding>
-            <element signature="e#47#54#1" expanded="true" />
-            <element signature="e#48#55#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/views/components/chat-box/views/main.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="605">
@@ -1052,13 +1046,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/plugins/Message/src/Controllers/FrontController.php">
+    <entry file="file://$PROJECT_DIR$/core/plugins/Message/resource/views/controller/index/list.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
-          <folding>
-            <element signature="e#44#78#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="486">
+          <caret line="217" column="120" selection-start-line="217" selection-start-column="27" selection-end-line="217" selection-end-column="120" />
         </state>
       </provider>
     </entry>
