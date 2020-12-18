@@ -31,3 +31,5 @@ https://alex-d.github.io/Trumbowyg/documentation/plugins/#plugin-resizimg
 
 
 https://github.com/tsayen/dom-to-image
+
+https://pmbanhang.phongtran.info/
