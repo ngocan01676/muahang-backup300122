@@ -54,6 +54,7 @@ class RouteServiceProvider extends ServiceProvider
         foreach ($this->app->_plugins as $plugin){
             $plugin->router();
         }
+        //dd($this->app->getConfig());
     }
 
     public function InitRouter($guard, $routers, $config)

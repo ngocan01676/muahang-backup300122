@@ -1,6 +1,6 @@
 <?php
 
-namespace ZoeTheme\Helper;
+namespace MissTerryTheme\Helper;
 class GirdBladeHelper extends \Admin\Lib\GirdBladeHelper
 {
     public function CallBackTag()

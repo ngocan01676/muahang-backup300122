@@ -288,6 +288,19 @@ EOT,
                         ]
                     ],
                 ]
+            ],
+            'PluginSeo\Views\MetaComposer'=>[
+                "MissTerry::form.room"=>[
+                    [
+                        'item'=>true,
+                        'lang'=>['config'=>"blog","key"=>'post'],
+                        'router'=>'backend:miss_terry:room:store',
+                        'data'=>[],
+                        'variable'=>'MissTerry_MetaComposer_Seo',
+                        'config'=>[],
+
+                    ]
+                ]
             ]
         ]
     ]

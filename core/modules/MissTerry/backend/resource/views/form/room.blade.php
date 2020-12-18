@@ -55,7 +55,6 @@
                                 @endif
                             </td>
                         </tr>
-
                         <tr>
                             <td>
                                 {!! Form::label('difficult', z_language("Độ khó"), ['class' => 'time']) !!}
@@ -87,9 +86,9 @@
                 </div>
                 @endif
                 @foreach($language as $lang=>$_language)
+
                     @if(isset($configs['post']['language']['lists']) && (is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) &&  in_array($_language['lang'],$configs['post']['language']['lists'])) )
                         <div class="tab-pane" id="tab_{{$lang}}">
-
                             <table class="table table-borderless">
                                 <tbody>
                                 <tr>
@@ -172,6 +171,10 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            @php
+                                $var = "MissTerry_MetaComposer_Seo_".$lang;
+                            @endphp
+                            {!! $$var  ?? "" !!}
                         </div>
                     @endif
                 @endforeach

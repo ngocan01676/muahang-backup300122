@@ -1,6 +1,5 @@
 <?php
-
-namespace ZoeTheme\Helper;
+namespace MissTerryTheme\Helper;
 class ViewHelper extends \Admin\Lib\ViewHelper
 {
     public function layout_content($option = [], $key = "content")

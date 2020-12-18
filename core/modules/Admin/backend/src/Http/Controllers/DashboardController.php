@@ -57,16 +57,21 @@ class DashboardController extends \Zoe\Http\ControllerBackend
             }
 
         }
+
         $data = $request->all();
         if ($request->isMethod('post')) {
             config_set('router', 'frontend', ['data' => $data]);
         }
+
         $listsRole = Role::where('guard_name', 'web')->get();
+
         $listsRolePremission = [];
+
         foreach ($listsRole as $item) {
             $listsRolePremission[$item->id] = Permission::where('role_id', $item->id)->get();
         }
-        $layouts = \Admin\Http\Models\Layout::where('type_group', 'theme')->where('type', 'layout')->orderBy("updated_at", "desc")->get();
+        $theme = config_get('theme', "active");
+        $layouts = \Admin\Http\Models\Layout::where('type_group', 'theme')->where('type', 'layout')->where('theme',$theme)->orderBy("updated_at", "desc")->get();
 
         return $this->render('dashboard.router', [
             'listsRolePremission' => $listsRolePremission,

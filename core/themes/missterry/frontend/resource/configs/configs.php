@@ -10,23 +10,23 @@ return [
     ],
     'packages' => [
         'namespaces' => [
-            'ZoeTheme' => 'frontend'
+            'MissTerryTheme' => 'frontend'
         ],
         'providers' => [
 
         ]
     ],
     'modules' => [
-        'admin.layout' => [
+        'plugin.layout' => [
             'theme' => [
                 'value' => 'theme',
                 'label' => 'theme',
                 'layout' => [
-                    'GirdBladeHelper' => '\ZoeTheme\Helper\GirdBladeHelper',
-                    'ViewHelper' => '\ZoeTheme\Helper\ViewHelper'
+                    'GirdBladeHelper' => '\MissTerryTheme\Helper\GirdBladeHelper',
+                    'ViewHelper' => '\MissTerryTheme\Helper\ViewHelper'
                 ],
-                'template' => 'core/themes/zoe/frontend/resource/stubs/layout.stubs',
-                'module' => 'zoe',
+                'template' => 'core/themes/missterry/frontend/resource/stubs/layout.stubs',
+                'module' => 'missterry',
                 'conf' => [
                     't' => 'frontend',
                     'm' => 'theme'

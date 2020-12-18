@@ -90,3 +90,55 @@ Click.prototype = {
         });
     }
 };
+function wordCount(val) {
+    var wom = val.match(/\S+/g);
+    return {
+        charactersNoSpaces: val.replace(/\s+/g, '').length,
+        characters: val.length,
+        words: wom ? wom.length : 0,
+        lines: val.split(/\r*\n/).length
+    };
+}
+$(document).ready(function () {
+    function eventWord(){
+        let wc = wordCount($(this).val());
+        console.log(wc);
+        let max = $(this).attr('wordCount-max');
+        let charcounter = $(this).attr('wordCount-charcounter');
+        let template = $(this).attr('wordCount-template');
+        let val = $(this).val();
+        max = max?max:-1;
+        console.log(charcounter);
+        if(charcounter){
+            let count = max?(max-wc.characters):wc.characters;
+
+            count = count<0?0:count;
+            let dom = $(this).parent().find(charcounter);
+
+            dom.show();
+            if(template){
+                dom.text(template.replace('[NUMBER]',count));
+            }else{
+                dom.text(count);
+            }
+
+        }
+        if(max !== -1){
+            if(wc.characters > max){
+                $(this).val(val.slice(0, -1));
+            }
+        }
+    }
+   $(".wordCount").each(function () {
+
+       $(this).focusin(eventWord);
+       $(this).keypress(eventWord);
+       $(this).focusout(function () {
+           let charcounter = $(this).attr('wordCount-charcounter');
+           if(charcounter){
+               $(this).parent().find(charcounter).hide();
+           }
+       });
+   });
+});
+

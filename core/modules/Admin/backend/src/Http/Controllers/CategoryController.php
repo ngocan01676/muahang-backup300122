@@ -166,7 +166,7 @@ class CategoryController extends \Zoe\Http\ControllerBackend
         } else {
             $this->getCrumb();
         }
-        $this->breadcrumb("Category", ('backend:layout:list'));
+        $this->breadcrumb("Category", ('backend:category:list'));
         $this->data['category'] = get_category_type($type);
         $obj_nestable = null;
         if(!empty($class_nestable) && class_exists($class_nestable)){

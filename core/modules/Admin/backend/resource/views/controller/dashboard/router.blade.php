@@ -1,7 +1,7 @@
 @section('content-header')
     <h1>
         {!! @z_language(["Manager Layout"]) !!}
-        <button onclick="SaveLayout(this)" url="{{route('backend:layout:ajax')}}" id="saveLayout" type="button"
+        <button onclick="SaveLayout(this)" url="{{route('backend:plugin:layout:ajax')}}" id="saveLayout" type="button"
                 class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
 
     </h1>
@@ -26,7 +26,6 @@
             <div class="timeline-body">
                 @php
                     $url = $uri;
-
                     if(isset($datas['data'][$name]['uri'])){
                         $url = $datas['data'][$name]['uri'];
                     }
@@ -34,7 +33,6 @@
                     if(isset($datas['data'][$name]['controller'])){
                         $_controller = $datas['data'][$name]['controller'];
                     }
-
                 @endphp
                 <input type="hidden" name="data[{!! $name !!}].data.name" value="{!! $name !!}">
                 <input type="hidden" name="data[{!! $name !!}].data.uri" value="{!! $uri !!}">
@@ -44,14 +42,15 @@
                     <div class="col-md-1"><span class="label label-default">uri</span></div>
                     <div class="col-md-11">
 
-                        <strong class="view">{!! asset('/') !!}
-                            <span
-  data-uri="{!! $uri !!}">{!! $url !!}</span></strong>
+                        <strong class="view">
+                            <span data-domain="{!! $uri=="/"?url(''):asset("/") !!}" data-uri="{!! $uri !!}" data-url="{!! $url !!}">{!! $uri=="/"?url(''):asset("/") !!}{!! $url !!}</span>
+                        </strong>
                         <span class="input" style="display: none">
+                            <span class="domain"></span>
                             <input type="text"
-                                   @if($url == $uri) data-name="data[{!! var_dump($name) !!}].uri"
-                                   @else name="data[{!! var_dump($name) !!}].uri" @endif
-                                   value="{!! var_dump($url) !!}"></span>
+                                   @if($url == $uri) data-name="data[{!! ($name) !!}].uri"
+                                   @else name="data[{!! ($name) !!}].uri" @endif
+                                   value="{!! ($url) !!}"></span>
                         &nbsp;
                         <button type="button" onclick="changeUri(this)">edit</button>
                     </div>
@@ -206,22 +205,33 @@
                             'methods'=>$route->methods
                             ]];
                          });
+
                          $keyName = app()->getKey("_alias");
                          $lists = [];
                          $urls = [];
 
                     @endphp
                     @foreach($routes as $name=>$route)
-                        @php  $arr_name =  explode(':',$route['name']);
+                        @php
+                            $arr_name =  explode(':',$route['name']);
+                            $typeCheck = gettype(strpos($route['name'],'ignition.'));
+
                         @endphp
+
+                        @continue($typeCheck == "integer")
                         @continue(empty($route['name']))
+
+                        @php  $arr_name =  explode(':',$route['name']);
+
+                        @endphp
                         @if( ("frontend"==$arr_name[0] || "frontend"!=$arr_name[0] && $arr_name[0]!="backend") )
                             @if(in_array('GET',$route['methods']))
                                 @php
-                                    $middlewares = $route['action']['middleware'];
-                                    $uri = isset($datas['data'][$name]['data']['uri']) ?$datas['data'][$name]['data']['uri']:$route['uri'];
-                                    $lists[$name] = 1;
-                                    $urls[$name] = $name;
+
+                                       $middlewares = $route['action']['middleware'];
+                                       $uri = isset($datas['data'][$name]['data']['uri']) ?$datas['data'][$name]['data']['uri']:$route['uri'];
+                                       $lists[$name] = 1;
+                                       $urls[$name] = $name;
                                 @endphp
                                 @view_item($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,true,$controllers,$route['action']['controller'])
                             @else
@@ -230,10 +240,9 @@
                         @endif
                     @endforeach
                     @if(isset($datas['data']))
-
                         @foreach($datas['data'] as $name=>$route)
-
                             @if(isset($route['data']) && !isset($urls[$route['data']['name']]))
+                                @continue(!Route::has($name))
                                 @php
                                     $middlewares = json_decode($route['data']['middleware'],true);
                                     $middlewares  = is_array($middlewares)?$middlewares:[];
@@ -274,16 +283,23 @@
 
         function changeUri(_this) {
             var parent = $(_this).parent();
+
             var input = parent.find('.input');
             var view = parent.find('.view');
+            var span = view.find("span");
             if (input.is(":hidden")) {
                 view.find('span').hide();
+
+                input.find('.domain').html(span.attr('data-domain'));
                 input.val(view.find('span').text()).show();
             } else {
                 var views = $('.routers .router .view span');
-                var span = view.find("span");
+
                 var oke = true;
+
+
                 var _input = input.find('input');
+
                 var val = _input.val();
                 views.each(function () {
                     if ($(this).text() === val && span.attr('data-uri') !== $(this).attr('data-uri')) {
@@ -298,7 +314,7 @@
                         _input.attr('data-name', _input.attr('name'));
                         _input.removeAttr('name');
                     }
-                    span.text(val);
+                    span.text(span.attr('data-domain') + val);
                     span.show();
                     input.hide();
                 } else {

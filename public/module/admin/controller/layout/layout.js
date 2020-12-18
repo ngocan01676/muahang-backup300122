@@ -224,11 +224,14 @@ function configuration(self) {
                 compiler.blade = Object.values(compiler.blade);
             }
         }
+        let typeGroup =$("#formInfo input[name='type_group']:checked").val();
+
         $.ajax({
             url: $("#layout").attr('uriconfig'),
             type: "POST",
             data: {
-                config: config
+                config: config,
+                type:typeGroup
             },
             success: function (data) {
                 var a = bootpopup({

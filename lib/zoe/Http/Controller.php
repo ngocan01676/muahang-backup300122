@@ -71,16 +71,15 @@ class Controller extends BaseController
             $this->view = view()->make($keyView,$data);
             return response()->json(['views'=>$this->view->renderSections()]);
         }else{
-
             $this->view = view($this->layout);
             $composers = app()->getConfig()->composers;
             foreach ($composers as $clazz=>$composer){
                 if(!class_exists($clazz)) continue;
+
                 $_views = [];
                 foreach ($composer as $_view=>$_composer){
                     $_views[] = $_view;
                 }
-
                 if(count($_views)>0){
                     View::composer(
                         $_views,

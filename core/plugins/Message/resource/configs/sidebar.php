@@ -9,17 +9,5 @@ return [
                 ],
             ]
         ]
-    ],
-    'frontend' => [
-        'plugin:message:front' => [
-            "namespace" => "PluginMessage\FrontController",
-            "controller" => "PostController",
-            "router" => [
-                "lists" => [
-                    "url" => "blog/post",
-                    "action"=>'getLists'
-                ],
-            ]
-        ]
     ]
 ];

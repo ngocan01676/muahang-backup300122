@@ -73,22 +73,22 @@ return [
                     "url" => "backend:menu:list",
                     "icon" => "fa fa-language"
                 ],
-                "layout" => [
-                    "name" => z_language("Layout", false),
-                    "pos" => 1,
-                    "url" => "backend:layout:list",
-                    "icon" => "fa fa-list-alt",
-                    "items" => [
-                        [
-                            "name" => z_language("Layout", false),
-                            "url" => "backend:layout:list",
-                        ],
-                        [
-                            "name" => z_language("Build", false),
-                            "url" => "backend:layout:build",
-                        ],
-                    ]
-                ],
+//                "layout" => [
+//                    "name" => z_language("Layout", false),
+//                    "pos" => 1,
+//                    "url" => "backend:layout:list",
+//                    "icon" => "fa fa-list-alt",
+//                    "items" => [
+//                        [
+//                            "name" => z_language("Layout", false),
+//                            "url" => "backend:layout:list",
+//                        ],
+//                        [
+//                            "name" => z_language("Build", false),
+//                            "url" => "backend:layout:build",
+//                        ],
+//                    ]
+//                ],
             ]
         ],
         "media" => [

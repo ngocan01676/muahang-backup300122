@@ -1,6 +1,5 @@
 <?php
-
-namespace ZoeTheme\Http\Controllers;
+namespace MissTerryTheme\Http\Controllers;
 class HomeController extends \Zoe\Http\ControllerFront
 {
     public function getLists()

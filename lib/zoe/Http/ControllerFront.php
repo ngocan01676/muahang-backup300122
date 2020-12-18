@@ -7,7 +7,9 @@ class ControllerFront extends Controller
     public function render($view, $data = [], $layout = 'home', $key = "theme")
     {
         $request = request();
+
         $theme = config_get('theme', "active");
+
         $keyNameLayout = app()->getKey("_layout");
         $layout = isset($request->route()->defaults[$keyNameLayout]) ? $request->route()->defaults[$keyNameLayout] : $layout;
 

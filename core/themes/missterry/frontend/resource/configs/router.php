@@ -3,7 +3,7 @@ return [
     'routers' => [
         'frontend' => [
             'home' => [
-                "namespace" => "ZoeTheme\Http\Controllers",
+                "namespace" => "MissTerryTheme\Http\Controllers",
                 "controller" => "HomeController",
                 "router" => [
                     "lists" => [

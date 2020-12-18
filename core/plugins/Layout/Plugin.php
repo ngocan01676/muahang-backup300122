@@ -1,5 +1,4 @@
 <?php
-
 namespace PluginLayout;
 
 use Zoe\Module as ZModule;
