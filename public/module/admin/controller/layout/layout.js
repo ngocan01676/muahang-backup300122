@@ -609,7 +609,14 @@ function SaveLayout(self) {
             info: $("#formInfo").zoe_inputs("get")
         },
         success: function (data) {
-            var json = JSON.parse(data);
+            let json = {};
+            console.log(data);
+            if(typeof data != "object"){
+                json = JSON.parse(data);
+            }else{
+                json = data;
+            }
+
             if (json.hasOwnProperty('id')) {
                 $("#id").val(json.id);
             }

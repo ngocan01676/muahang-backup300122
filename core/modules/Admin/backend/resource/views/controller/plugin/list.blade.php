@@ -9,6 +9,7 @@
     <div class="plugins">
       <div class="row">
           @foreach($lists as $plugin=>$list)
+              @php $plugin = $list['key']; @endphp
               <div class="item col-lg-3 col-md-6 col-sm-6 col-12">
                   <div class="box {!! $plugin !!}">
                       <div class="box-header with-border">
@@ -97,7 +98,7 @@
         .item .box {
             border-top: 3px solid #0c0c0c;
             border-radius: 0px;
-            min-height: 250px;
+            min-height: 290px;
         }
 
         .item .box-title {

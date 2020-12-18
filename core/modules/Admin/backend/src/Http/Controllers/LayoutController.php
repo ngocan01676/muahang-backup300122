@@ -660,7 +660,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             unset($parameter['action']);
         }
         $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
-
+        $models->orderBy('theme', 'desc');
         $models = $models->paginate($item, ['*'], 'page', $page);
         $models->appends($parameter);
 

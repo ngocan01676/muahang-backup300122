@@ -7,6 +7,7 @@
 @section('content')
     <x-breadcrumb/>
     @foreach($lists as $module=>$list)
+        @php $module = $list['key']; @endphp
         <div class="item col-lg-4 col-md-6 col-sm-6 col-12">
             <div class="box" data-sys="{{$list['system']}}" data-module="{!! $module !!}"
                  data-name="{!! $list['name'] !!}">
@@ -55,14 +56,14 @@
                     </div>
                     <div class="actions col-lg-7 text-right">
                         @if($list['system'] == false)
-                            <div class="app-uninstall" @if(!$lists_install==$module) style="display:none" @endif>
+                            <div class="app-uninstall" @if(!($lists_install == $module)) style="display:none" @endif>
                                 <a href="javascript:void(0);" class="btn btn-xs btn-danger btnAction"
                                    data-act="uninstall"
                                    data-theme="{!! $module !!}">
                                     <i class="fa fa-remove"></i> {!! z_language('UnInstall') !!}
                                 </a>
                             </div>
-                            <div class="app-install" @if($lists_install==$module) style="display:none" @endif>
+                            <div class="app-install" @if($lists_install == $module) style="display:none" @endif>
                                 <a href="javascript:void(0);" class="btn bg-orange btn-xs  btnAction" data-act="remove"
                                    data-theme="{!! $module !!}"> <i
                                             class="fa fa-remove"></i> {!! z_language('Remove') !!}
