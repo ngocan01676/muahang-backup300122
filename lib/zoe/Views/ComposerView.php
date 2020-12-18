@@ -33,7 +33,6 @@ abstract class ComposerView{
     }
     public function genConfig($configs){
         $datas = [];
-
         foreach ($configs as $key=>$value){
             if(isset($value["lang"]['config']) && isset($value["lang"]['key'])){
               $_config =  config_get("config", $value["lang"]['config']);
