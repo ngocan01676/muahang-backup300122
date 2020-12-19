@@ -297,7 +297,9 @@ EOT,
                         'router'=>'backend:miss_terry:room:store',
                         'data'=>[],
                         'variable'=>'MissTerry_MetaComposer_Seo',
-                        'config'=>[],
+                        'config'=>[
+                            'name'=>'meta',
+                        ],
 
                     ]
                 ]

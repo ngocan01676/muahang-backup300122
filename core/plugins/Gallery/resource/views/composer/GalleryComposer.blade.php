@@ -151,10 +151,10 @@
             let data = form.zoe_inputs('get');
              return new Promise((resolve, reject) => {
                  let _data = {!! json_encode($GalleryComposer['token']) !!};
-                 console.log(data);
+
                  _data.id = data.id;
                  _data.data = data["{!! $GalleryComposer['name'] !!}"];
-                 console.log(_data);
+
                   $.ajax({
                       type:"post",
                       url:"{!! route('backend:component:run') !!}",

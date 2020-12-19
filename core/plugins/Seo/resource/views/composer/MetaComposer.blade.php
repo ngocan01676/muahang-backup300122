@@ -1,3 +1,11 @@
+@php
+    $namePrefix = "";
+    $name = "";
+    if(isset($MetaComposer['lang'])){
+        $name = $MetaComposer['lang']['label'];
+        $namePrefix = $name.'.';
+    }
+@endphp
 <div class="box box-default collapsed-box box-solid">
     <div class="box-header with-border">
         <h3 class="box-title">{!! z_language("Seo Meta") !!}</h3>
@@ -5,12 +13,11 @@
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
             </button>
         </div>
-        <!-- /.box-tools -->
     </div>
-    <!-- /.box-header -->
-
+    <div style="display: none">
+        <textarea name="{!! $name !!}_{!! $MetaComposer['config']['name'] !!}"></textarea>
+    </div>
     <div class="box-body">
-        @zoe_name_vi(demo,$MetaComposer)
         <table class="table table-borderless" id="{!! $MetaComposer['id'].'_wrap' !!}">
             <tr>
                 <th style="vertical-align: middle;text-align: center">{!! z_language("Link") !!}</th>
@@ -34,7 +41,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Site Title <small><span class="charcounter"></span></small></label>
-                                                    <input type="text" name="title"
+                                                    <input type="text" name="{!! $namePrefix !!}Base.title"
                                                            class="form-control wordCount"
                                                            wordCount-max="70"
                                                            wordCount-charcounter=".charcounter"
@@ -44,7 +51,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Image</label>
-                                                    <input type="text" name="image" class="form-control">
+                                                    <input type="text" name="{!! $namePrefix !!}Base.image" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -54,14 +61,14 @@
                                                             wordCount-max="150"
                                                             wordCount-charcounter=".charcounter"
                                                             wordCount-template="(Characters left: [NUMBER])"
-                                                            id="description" name="description" class="form-control wordCount" rows="3"></textarea>
+                                                            id="description" name="{!! $namePrefix !!}Base.description" class="form-control wordCount" rows="3"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group required">
                                                     <label>Site Keywords (Separate with commas)</label>
-                                                    <textarea  name="keywords" class="form-control" rows="3" placeholder="keyword1, keyword2, keyword3"></textarea>
+                                                    <textarea  name="{!! $namePrefix !!}Base.keywords" class="form-control" rows="3" placeholder="keyword1, keyword2, keyword3"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,7 +76,7 @@
                                             <div class="col-md-6">
                                                 <label>Allow robots to index your website?</label>
 
-                                                <select name="robotsIndex" class="form-control">
+                                                <select name="{!! $namePrefix !!}Base.robotsIndex" class="form-control">
                                                     <option value="index">Yes</option>
                                                     <option value="noindex">No</option>
                                                 </select>
@@ -77,7 +84,7 @@
                                             <div class="col-md-6">
                                                 <label>Allow robots to follow all links?</label>
 
-                                                <select name="robotsLinks" class="form-control">
+                                                <select name="{!! $namePrefix !!}Base.robotsLinks" class="form-control">
                                                     <option value="follow">Yes</option>
                                                     <option value="nofollow">No</option>
                                                 </select>
@@ -87,7 +94,7 @@
                                             <div class="col-md-6">
                                                 <label>What type of content will your site display?</label>
 
-                                                <select name="contentType" class="form-control">
+                                                <select name="{!! $namePrefix !!}Base.contentType" class="form-control">
                                                     <option value="text/html; charset=utf-8">UTF-8</option>
                                                     <option value="text/html; charset=utf-16">UTF-16</option>
                                                     <option value="text/html; charset=iso-8859-1">ISO-8859-1</option>
@@ -97,7 +104,7 @@
                                             <div class="col-md-6">
                                                 <label>What is your site primary language?</label>
 
-                                                <select name="language" class="form-control">
+                                                <select name="{!! $namePrefix !!}Base.language" class="form-control">
                                                     <option value="English">English</option>
                                                     <option value="French">French</option>
                                                     <option value="Spanish">Spanish</option>
@@ -113,14 +120,14 @@
                                         </div>
                                         <div class="text-center" style="margin-bottom: 30px;"><b>(Optional Meta Tags)</b></div>
                                         <div class="form-group form-inline">
-                                            <input type="checkbox" value="yes" name="revisit">
+                                            <input type="checkbox" value="yes" name="{!! $namePrefix !!}Base.revisit">
                                             Search engines should revisit this page after &nbsp;
-                                            <input type="text" class="form-control" style="min-width:10%;" name="revisitdays">  &nbsp; days.
+                                            <input type="text" class="form-control" style="min-width:10%;" name="{!! $namePrefix !!}Base.revisitdays">  &nbsp; days.
                                         </div>
                                         <div class="form-group form-inline">
-                                            <input type="checkbox" value="yes" name="author">
+                                            <input type="checkbox" value="yes" name="{!! $namePrefix !!}Base.author">
                                             Author:
-                                            <input type="text" class="form-control" name="authorname" style="min-width:50%;">
+                                            <input type="text" class="form-control" name="{!! $namePrefix !!}Base.authorname" style="min-width:50%;">
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="{!! $MetaComposer['id'] !!}tab_2">
@@ -128,7 +135,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Site Title <small><span class="charcounter"></span></small></label>
-                                                    <input type="text" name="OpenGraph.site_name"
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.site_name"
                                                            class="form-control wordCount"
                                                            wordCount-max="70"
                                                            wordCount-charcounter=".charcounter"
@@ -138,31 +145,31 @@
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Image</label>
-                                                    <input type="text" name="OpenGraph.image" class="form-control">
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.image" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Image</label>
-                                                    <input type="text" name="OpenGraph.url" class="form-control">
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.url" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Video</label>
-                                                    <input type="text" name="OpenGraph.video" class="form-control">
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.video" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Find your Facebook user ID with this tool</label>
-                                                    <input type="text" name="OpenGraph.video" class="form-control">
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.video" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Find your Facebook App ID here</label>
-                                                    <input type="text" name="OpenGraph.video" class="form-control">
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.video" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -171,27 +178,27 @@
                                         <div class="col-md-12">
                                             <div class="form-group required">
                                                 <label>Publisher’s handle</label>
-                                                <input type="text" name="Twitter.publisher_handle"
+                                                <input type="text" name="{!! $namePrefix !!}Twitter.publisher_handle"
                                                        class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group required">
                                                 <label>Article author’s handle</label>
-                                                <input type="text" name="Twitter.author_handle" class="form-control">
+                                                <input type="text" name="{!! $namePrefix !!}Twitter.author_handle" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group required">
                                                 <label>Preview Image</label>
-                                                <input type="text" name="Twitter.image" class="form-control">
+                                                <input type="text" name="{!! $namePrefix !!}Twitter.image" class="form-control">
                                                 <i>Maximum dimension: 1024px x 512px; minimum dimension: 440px x 220px</i>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group required">
                                                 <label>Video/Audio Player Source</label>
-                                                <input type="text" name="Twitter.image" class="form-control">
+                                                <input type="text" name="{!! $namePrefix !!}Twitter.image" class="form-control">
                                                 <i>HTTPS URL to an iFrame player</i>
                                             </div>
                                         </div>
@@ -201,7 +208,6 @@
                         </td>
                     </table>
                 </td>
-
             </tr>
         </table>
     </div>
@@ -209,16 +215,22 @@
 </div>
 @push('scripts')
     <script>
+        $(document).ready(function () {
+            let form = $("<form></form>");
+            let dom = $("{!! "#".$MetaComposer['id'].'_wrap' !!}").clone();
+            form.html(dom);
+            form.zoe_inputs('set',{!! json_encode([$name=>$MetaComposer['values']]) !!});
+            $("{!! "#".$MetaComposer['id'].'_wrap' !!}").parent().html(form.find("{!! "#".$MetaComposer['id'].'_wrap' !!}"));
+        });
         clicks.subscribe(function (form) {
-            let data = form.zoe_inputs('get');
-
             return new Promise((resolve, reject) => {
+                let data = form.zoe_inputs('get');
+                form.removeClass('submit');
+
                 let _data = @json($MetaComposer['token']);
-
                 _data.id = data.id;
-                _data.data = data["{!! $MetaComposer['name'] !!}"];
+                _data.data = data["{!! $name !!}"];
                 console.log(_data);
-
                 $.ajax({
                     type:"post",
                     url:"{!! route('backend:component:run') !!}",

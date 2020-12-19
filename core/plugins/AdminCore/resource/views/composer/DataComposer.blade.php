@@ -132,7 +132,6 @@
                     let group = t[ii].lists;
                     let _index = t[ii].index;
 
-                    console.log(group);
 
                     for(let i in group){
                         for(let j in group[i]){

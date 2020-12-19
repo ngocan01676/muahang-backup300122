@@ -11,8 +11,18 @@ class MetaComposer extends \Zoe\Views\ComposerView
     public function init(){
         $this->config($this);
     }
-    public function store($data){
-
+    public function get_meta_key($lang,$data){
+        return $data['id'].":".$data['key'].":".$lang;
+    }
+    public function store($post){
+        $data = isset($post['data']) && is_array($post['data'])?$post['data']:[];
+        $lang = isset($post['lang']['code']) ?$post['lang']['code']:"all";
+        $meta_key = $this->get_meta_key($lang,$post);
+        DB::table('plugin_seo_meta')
+            ->updateOrInsert(
+                ['meta_key'=>$meta_key,'lang'=>$lang],
+                ['create_time'=>date('Y-m-d'),'data'=>json_encode($data)
+                ]);
     }
     public function key($id,$conf){
         return $id;
@@ -26,20 +36,26 @@ class MetaComposer extends \Zoe\Views\ComposerView
             foreach ($config as $composer){
                 $data[$this->class] = $composer;
                 $data[$this->class]['name'] = $this->class;
-                $data[$this->class]['token'] = $this->token($view->name(),$this->class, $this->namespace);
+                $dataPost = $this->token($view->name(),$this->class, $this->namespace,$composer);
                 $name = isset($composer['variable'])?$composer['variable']:$this->class;
                 $data[$this->class]['key'] = $this->class.'_'.md5($this->class.'-'.$name.'-'.rand(1000,9999));
                 $item =$dataView['item']? $dataView['item']->toArray():[];
-                $values = "";
-                if(isset($composer['config']['name'])){
-                    $values =
-                        old($composer['config']['name'],
-                            isset($dataView['item']) && isset($item[$composer['config']['name']]) ? $item[$composer['config']['name']]:'[]');
-                }
-                $data[$this->class]['values'] = $values;
+
                 if(isset($dataView['item']) && $dataView['item']){
 
+
+                    $dataPost['id'] = $dataView['item']->id;
+                    $lang = isset($dataPost['lang']['code']) ?$dataPost['lang']['code']:"all";
+                    $meta_key = $this->get_meta_key($lang, $dataPost);
+                    $resutls = DB::table('plugin_seo_meta')->where('meta_key',$meta_key)->get()->all();
+                    if(isset($resutls[0])){
+                        $data[$this->class]['values'] = json_decode($resutls[0]->data,true);
+                    }else{
+                        $data[$this->class]['values'] = [];
+                    }
+
                 }
+                $data[$this->class]['token'] = $dataPost;
                 $logs[] = $data;
                 if(isset($dataView['item']) && $dataView['item'] || isset($composer['item']) && $composer['item']){
                     $view->with($name,

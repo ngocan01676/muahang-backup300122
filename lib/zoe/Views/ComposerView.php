@@ -16,19 +16,21 @@ abstract class ComposerView{
     }
     abstract public function init();
     public function isToken($token){
-        $data = $this->token($token['key'],$token['name'],$token['name']);
+        $data = $this->token($token['key'],$token['name'],$token['name'],$token);
         return $data['token'] == $token['token'];
     }
-    public function token($key,$name,$class){
-
+    public function token($key,$name,$class,$config = []){
         $data['name'] = $name;
         $data['key'] = $key;
         $data['class'] = $class;
+        $data['lang'] = isset($config['lang'])?$config['lang']:[];
         $token = "";
+
         foreach($data as $k=>$value){
-            $token = md5($k.'-'.$value.'-'.$token);
+            $token= md5($k.'-'.json_encode([$value]).'-'.$token);
         }
         $data['token'] = $token;
+
         return $data;
     }
     public function genConfig($configs){
