@@ -15,7 +15,7 @@ class ControllerBackend extends Controller
         $this->breadcrumb->home = ['name' => z_language('Home'), 'uri' => ('backend:dashboard:list')];
         $this->breadcrumb->child = new Config();
     }
-    public function render($view, $data = [], $key = "")
+    public function render($view, $data = [], $key = "",$layout = "")
     {
         $confView = app()->getConfig()['views'];
         $alias = $confView['alias'];
@@ -36,10 +36,13 @@ class ControllerBackend extends Controller
         }else{
             $keyView = $view;
         }
-
-        if(isset($confView['default']) && isset($confView['layouts'][$confView['default']])){
-            if(View::exists($confView['layouts'][$confView['default']])){
-                $this->layout = $confView['layouts'][$confView['default']];
+        if(!empty($layout)){
+            $this->layout = $layout;
+        }else{
+            if(isset($confView['default']) && isset($confView['layouts'][$confView['default']])){
+                if(View::exists($confView['layouts'][$confView['default']])){
+                    $this->layout = $confView['layouts'][$confView['default']];
+                }
             }
         }
         return $this->_render($keyView, $data, $key);

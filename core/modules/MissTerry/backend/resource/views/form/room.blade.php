@@ -299,7 +299,9 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
-                <div id="elfinder"></div>
+                <div id="elfinder">
+                    <div></div>
+                </div>
             </div>
         </div>
     </div>
@@ -377,6 +379,7 @@
         function btn_remove_image(self) {
             console.log($(self).closest('.preview-image-wrapper').find('img').attr('src', 'http://placehold.jp/150x150.png'));
         }
+
         function openElfinder(self) {
             $('#elfinderShow').modal();
             $('#elfinder').elfinder({
@@ -407,7 +410,7 @@
                 ],
                 ui: ['toolbar', 'path', 'stat'],
                 rememberLastDir: false,
-                url: '{{ route("backend:elfinder:showConnector") }}?target=l1_cm9vbS9pY29u&cmd=open',
+                url: '{{ route("backend:elfinder:showConnector") }}',
                 soundPath: '{{ asset('module/admin/assets/elfinder/sounds') }}',
                 getFileCallback: function (file) {
                     console.log(file);
@@ -439,5 +442,6 @@
                 }
             }).elfinder('instance');
         }
+
     </script>
 @endpush

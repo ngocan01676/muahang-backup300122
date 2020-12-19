@@ -53,6 +53,7 @@ abstract class ComposerView{
                     }
               }
             }else{
+                $value['id'] = 'id_'.md5(json_encode($value));
                 $datas[] = $value;
             }
         }

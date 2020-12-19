@@ -12,10 +12,10 @@
             @endif
             <x-flash_message/>
             @if(isset($page))
-                {!! Form::model($page, ['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
+                {!! Form::model($page, ['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store','class'=>'submit']) !!}
                 {!! Form::hidden('id') !!}
             @else
-                {!! Form::open(['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store']) !!}
+                {!! Form::open(['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store','class'=>'submit']) !!}
             @endif
             <table class="table table-borderless">
                 <tbody>
@@ -156,6 +156,11 @@
                     </td>
 
                 </tr>
+                <tr>
+                    <td>
+                        {!! $Page_MetaComposer_Seo??"" !!}
+                    </td>
+                </tr>
                 </tbody>
             </table>
             {!! Form::close() !!}
@@ -165,6 +170,15 @@
 
 @section('extra-script')
     <script type="text/javascript">
-
+        function Save(){
+            let form_store = $("#form_store");
+            console.log("Save");
+            clicks.fire(form_store,function (t) {
+                let data = form_store.zoe_inputs('get');
+                if(form_store.hasClass('submit')){
+                    $("#form_store").submit();
+                }
+            });
+        }
     </script>
 @endsection

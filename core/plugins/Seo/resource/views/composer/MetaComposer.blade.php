@@ -1,10 +1,10 @@
 @php
     $namePrefix = "";
-    $name = "";
+    $name = "all";
     if(isset($MetaComposer['lang'])){
         $name = $MetaComposer['lang']['label'];
-        $namePrefix = $name.'.';
     }
+    $namePrefix = $name.'.';
 @endphp
 <div class="box box-default collapsed-box box-solid">
     <div class="box-header with-border">
@@ -49,10 +49,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <div class="form-group required">
-                                                    <label>Image</label>
-                                                    <input type="text" name="{!! $namePrefix !!}Base.image" class="form-control">
-                                                </div>
+                                                <x-InputImageMedia path="Meta/Base" name="{!! $namePrefix.'Base.image' !!}"/>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group required">
@@ -145,12 +142,12 @@
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Image</label>
-                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.image" class="form-control">
+                                                    <x-InputImageMedia path="Meta/OpenGraph" name="{!! $namePrefix.'OpenGraph.image' !!}"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group required">
-                                                    <label>Image</label>
+                                                    <label>Url</label>
                                                     <input type="text" name="{!! $namePrefix !!}OpenGraph.url" class="form-control">
                                                 </div>
                                             </div>
@@ -191,7 +188,8 @@
                                         <div class="col-md-12">
                                             <div class="form-group required">
                                                 <label>Preview Image</label>
-                                                <input type="text" name="{!! $namePrefix !!}Twitter.image" class="form-control">
+
+                                                <x-InputImageMedia path="Meta/Twitter" name="{!! $namePrefix.'Twitter.image' !!}"/>
                                                 <i>Maximum dimension: 1024px x 512px; minimum dimension: 440px x 220px</i>
                                             </div>
                                         </div>
@@ -222,15 +220,17 @@
             form.zoe_inputs('set',{!! json_encode([$name=>$MetaComposer['values']]) !!});
             $("{!! "#".$MetaComposer['id'].'_wrap' !!}").parent().html(form.find("{!! "#".$MetaComposer['id'].'_wrap' !!}"));
         });
+
         clicks.subscribe(function (form) {
             return new Promise((resolve, reject) => {
-                let data = form.zoe_inputs('get');
-                form.removeClass('submit');
 
+                let data = form.zoe_inputs('get');
                 let _data = @json($MetaComposer['token']);
+
                 _data.id = data.id;
                 _data.data = data["{!! $name !!}"];
                 console.log(_data);
+
                 $.ajax({
                     type:"post",
                     url:"{!! route('backend:component:run') !!}",

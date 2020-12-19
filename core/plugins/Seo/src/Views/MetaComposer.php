@@ -32,19 +32,21 @@ class MetaComposer extends \Zoe\Views\ComposerView
         $dataView = $view->getData();
 
         if(isset($this->composers[$this->namespace][$view->name()])){
+
             $config = $this->genConfig($this->composers[$this->namespace][$view->name()]);
+
             foreach ($config as $composer){
                 $data[$this->class] = $composer;
                 $data[$this->class]['name'] = $this->class;
                 $dataPost = $this->token($view->name(),$this->class, $this->namespace,$composer);
                 $name = isset($composer['variable'])?$composer['variable']:$this->class;
                 $data[$this->class]['key'] = $this->class.'_'.md5($this->class.'-'.$name.'-'.rand(1000,9999));
-                $item =$dataView['item']? $dataView['item']->toArray():[];
-
-                if(isset($dataView['item']) && $dataView['item']){
 
 
-                    $dataPost['id'] = $dataView['item']->id;
+                if(isset($composer['item']) && isset($dataView[$composer['item']]) && $dataView[$composer['item']]){
+                    $item = $dataView[$composer['item']]? $dataView[$composer['item']]->toArray():[];
+
+                    $dataPost['id'] = $item['id'];
                     $lang = isset($dataPost['lang']['code']) ?$dataPost['lang']['code']:"all";
                     $meta_key = $this->get_meta_key($lang, $dataPost);
                     $resutls = DB::table('plugin_seo_meta')->where('meta_key',$meta_key)->get()->all();
@@ -57,6 +59,7 @@ class MetaComposer extends \Zoe\Views\ComposerView
                 }
                 $data[$this->class]['token'] = $dataPost;
                 $logs[] = $data;
+
                 if(isset($dataView['item']) && $dataView['item'] || isset($composer['item']) && $composer['item']){
                     $view->with($name,
                         $view->getFactory()->make(
