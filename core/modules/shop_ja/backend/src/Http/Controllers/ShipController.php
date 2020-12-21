@@ -46,7 +46,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
 //        if (!empty($status) || $status != "") {
 //            $models->where('status', $status);
 //        }
-        $models->orderBy('value_end', 'asc');
+//        $models->orderBy('value_end', 'asc');
         $models->orderBy('category_id','asc');
         $category =  get_category_type('shop-ja:product:category');
         $units = config('shop_ja.configs.lists_uint');
