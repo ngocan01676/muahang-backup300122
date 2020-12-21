@@ -65,7 +65,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group required">
                                                     <label>Site Keywords (Separate with commas)</label>
-                                                    <textarea  name="{!! $namePrefix !!}Base.keywords" class="form-control" rows="3" placeholder="keyword1, keyword2, keyword3"></textarea>
+                                                    <textarea  name="{!! $namePrefix !!}Base.keywords" class="keywords form-control" rows="3" placeholder="keyword1, keyword2, keyword3"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -212,6 +212,8 @@
     <!-- /.box-body -->
 </div>
 @push('scripts')
+    <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/tagging/css/amsify.suggestags.css') }}">
+    <script src="{{ asset('module/admin/assets/tagging/js/jquery.amsify.suggestags.js') }}"></script>
     <script>
         $(document).ready(function () {
             let form = $("<form></form>");
@@ -219,6 +221,19 @@
             form.html(dom);
             form.zoe_inputs('set',{!! json_encode([$name=>$MetaComposer['values']]) !!});
             $("{!! "#".$MetaComposer['id'].'_wrap' !!}").parent().html(form.find("{!! "#".$MetaComposer['id'].'_wrap' !!}"));
+        });
+        $(document).ready(function () {
+            var tags = [];
+            $('{!! "#".$MetaComposer['id'].'_wrap' !!} .keywords').amsifySuggestags({
+                type: 'bootstrap',
+                suggestions: ['Black', 'White', 'Red', 'Blue', 'Green', 'Orange'],
+                afterAdd: function (value) {
+
+                },
+                afterRemove: function (value) {
+
+                },
+            });
         });
 
         clicks.subscribe(function (form) {

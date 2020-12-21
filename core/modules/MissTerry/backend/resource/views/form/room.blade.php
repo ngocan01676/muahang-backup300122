@@ -9,7 +9,7 @@
         display: none !important;
     }
 </style>
-<script src="https://cdn.tiny.cloud/1/dy2gprztto8u1yfz0albwqwz2pqfl5bn0bl1rbbyse4x3x3u/tinymce/4/tinymce.min.js"></script>
+<script src="{!! config('zoe.tiny') !!}"></script>
 <div class="col-md-9">
     @if ($errors->any())
         <div class="alert alert-danger">

@@ -4,8 +4,7 @@
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store']) !!}
 @endif
-
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="{!! config('zoe.tiny') !!}"></script>
 <div class="col-md-9">
     <div class="nav-tabs-custom">
 
@@ -13,14 +12,11 @@
             <ul class="nav nav-tabs" {{$current_language}}>
                 @foreach($language as $lang=>$_language)
                     @if(isset($configs['post']['language']['lists']) &&(is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) && in_array($_language['lang'],$configs['post']['language']['lists'])))
-                        <li {{$lang}} {{$_language['lang'] == $current_language?"class=active":""}}><a href="#tab_{{$lang}}"
-                                                                                data-toggle="tab"><span
-                                        class="flag-icon flag-icon-{{$_language['flag']}}"></span></a></li>
+                        <li {{$lang}} {{$_language['lang'] == $current_language?"class=active":""}}><a href="#tab_{{$lang}}" data-toggle="tab"><span class="flag-icon flag-icon-{{$_language['flag']}}"></span></a></li>
                     @endif
                 @endforeach
             </ul>
             <div class="tab-content">
-
                 @foreach($language as $lang=>$_language)
                     @if(isset($configs['post']['language']['lists']) && (is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) &&  in_array($_language['lang'],$configs['post']['language']['lists'])) )
                         <div class="tab-pane {{$_language['lang'] == $current_language?" active":""}}" id="tab_{{$lang}}">

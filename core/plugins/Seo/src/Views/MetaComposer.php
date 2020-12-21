@@ -45,7 +45,6 @@ class MetaComposer extends \Zoe\Views\ComposerView
 
                 if(isset($composer['item']) && isset($dataView[$composer['item']]) && $dataView[$composer['item']]){
                     $item = $dataView[$composer['item']]? $dataView[$composer['item']]->toArray():[];
-
                     $dataPost['id'] = $item['id'];
                     $lang = isset($dataPost['lang']['code']) ?$dataPost['lang']['code']:"all";
                     $meta_key = $this->get_meta_key($lang, $dataPost);
@@ -55,19 +54,21 @@ class MetaComposer extends \Zoe\Views\ComposerView
                     }else{
                         $data[$this->class]['values'] = [];
                     }
-
-                }
-                $data[$this->class]['token'] = $dataPost;
-                $logs[] = $data;
-
-                if(isset($dataView['item']) && $dataView['item'] || isset($composer['item']) && $composer['item']){
-                    $view->with($name,
-                        $view->getFactory()->make(
-                            isset($composer['view']) &&  view()->exists($composer['view'])?$composer['view']:'pluginSeo::composer.MetaComposer',$data)
-                    );
+                    $data[$this->class]['token'] = $dataPost;
+                    $logs[] = $data;
+                    if(isset($dataView['item']) && $dataView['item'] || isset($composer['item']) && $composer['item']){
+                        $view->with($name,
+                            $view->getFactory()->make(
+                                isset($composer['view']) &&  view()->exists($composer['view'])?$composer['view']:'pluginSeo::composer.MetaComposer',$data)
+                        );
+                    }else{
+                        $view->with($name,"");
+                    }
                 }else{
                     $view->with($name,"");
                 }
+
+
             }
         }
 //        $dataView = $view->getData();

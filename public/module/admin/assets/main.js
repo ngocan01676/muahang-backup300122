@@ -129,16 +129,25 @@ $(document).ready(function () {
             }
         }
     }
-   $(".wordCount").each(function () {
 
-       $(this).focusin(eventWord);
-       $(this).keypress(eventWord);
-       $(this).focusout(function () {
-           let charcounter = $(this).attr('wordCount-charcounter');
-           if(charcounter){
-               $(this).parent().find(charcounter).hide();
-           }
-       });
+   // $(".wordCount").each(function () {
+   //
+   //     $(this).focusin(eventWord);
+   //     $(this).keypress(eventWord);
+   //     $(this).focusout(function () {
+   //         let charcounter = $(this).attr('wordCount-charcounter');
+   //         if(charcounter){
+   //             $(this).parent().find(charcounter).hide();
+   //         }
+   //     });
+   // });
+   $(document).on('focusin','.wordCount',eventWord);
+   $(document).on('keypress','.wordCount',eventWord);
+   $(document).on('focusout','.wordCount',function () {
+       let charcounter = $(this).attr('wordCount-charcounter');
+       if(charcounter){
+           $(this).parent().find(charcounter).hide();
+       }
    });
 });
 

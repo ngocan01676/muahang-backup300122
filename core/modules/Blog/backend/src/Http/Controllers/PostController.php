@@ -118,14 +118,13 @@ class PostController extends \Zoe\Http\ControllerBackend
         $item = PostModel::find($id);
         if (isset($this->data['configs']['post']['language']['multiple'])) {
             $trans = PostTranslationModel::where(['post_id' => $id])->get();
-
             foreach ($trans as $tran) {
                 $item->offsetSet("title_" . $tran->lang_code, $tran->title);
                 $item->offsetSet("description_" . $tran->lang_code, $tran->description);
                 $item->offsetSet("content_" . $tran->lang_code, $tran->content);
             }
         }
-        $item->offsetSet("tag", implode($item->getTag(), ','));
+        $item->offsetSet("tag", implode( ',',$item->getTag()));
         $item->offsetSet("category", $item->getCategory());
 
         return $this->render('post.edit', ["item" => $item, "lang_active" => $this->data['current_language']], 'blog');
