@@ -67,7 +67,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
                     if(isset($units[$model->unit])){
                         $html =" ".$units[$model->unit];
                     }
-                    return "IF([Số lượng] ".$model->equal_start.$model->value_start.' và [Số lượng]'.$model->equal_end.' '.$model->value_end.$html.")";
+                    return "([SL] ".$model->equal_start.$model->value_start.' và[SL]'.$model->equal_end.' '.$model->value_end.") ".$html;
                 },
                 'GetUnit'=>function($model) use($units){
                     $html = "Tất cả";
