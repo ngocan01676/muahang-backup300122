@@ -12,4 +12,5 @@ yarn-error.log
 /nbproject/private/
 .idea
 tool/node_modules/
-.idea/**/workspace.xml
+/tmp/
+/.idea/workspace.xml
