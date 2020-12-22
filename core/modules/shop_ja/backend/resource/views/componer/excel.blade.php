@@ -1187,7 +1187,7 @@
     ],
     contextMenu: function(obj, x, y, e) {
      var items = [];
-
+        return items;
      if (y == null) {
       // Insert a new column
       if (obj.options.allowInsertColumn === true) {
@@ -2391,7 +2391,7 @@
     ],
     contextMenu: function(obj, x, y, e) {
      var items = [];
-
+        return items;
      if (y == null) {
       // Insert a new column
       // if (obj.options.allowInsertColumn === true) {
@@ -3829,7 +3829,7 @@
     ],
     contextMenu: function(obj, x, y, e) {
      var items = [];
-
+        return items;
      if (y == null) {
       // Insert a new column
       if (obj.options.allowInsertColumn === true) {
@@ -5028,7 +5028,7 @@
           ],
           contextMenu: function(obj, x, y, e) {
               var items = [];
-
+              return items;
               if (y == null) {
                   // Insert a new column
                   if (obj.options.allowInsertColumn === true) {
@@ -6091,6 +6091,7 @@
     ],
     contextMenu: function(obj, x, y, e) {
      var items = [];
+        return items;
      if (y == null) {
       // Insert a new column
       if (obj.options.allowInsertColumn === true) {
@@ -7121,8 +7122,8 @@
      nestedHeaders
     ],
     contextMenu: function(obj, x, y, e) {
-     var items = [];
-
+     var items = [];  return items;
+     return items;
      if (y == null) {
       // Insert a new column
       if (obj.options.allowInsertColumn === true) {
