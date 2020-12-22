@@ -10,18 +10,16 @@ class RouterComposer extends \Zoe\Views\ComposerView
     public function init(){
         $this->config($this);
     }
+
     public function store($data){
 
     }
     public function compose(View $view)
     {
         $dataView = $view->getData();
-
         $logs = [];
-
         if(isset($this->composers[$this->namespace][$view->name()])){
             foreach ($this->composers[$this->namespace][$view->name()] as $composer){
-
                 $data[$this->class] = $composer;
                 $data[$this->class]['name'] = $this->class;
                 $data[$this->class]['token'] = $this->token($view->name(),$this->class, $this->namespace);

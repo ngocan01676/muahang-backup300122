@@ -50,18 +50,23 @@ class MenuController extends \Zoe\Http\ControllerBackend
                             $menu = new Menu();
                             $create = true;
                         }
+
                         $slug = Str::slug($data['name'], '-');
+
                         $menu->name = $data['name'];
                         $menu->slug = $slug;
+
                         $menu->parent_id = 0;
                         $menu->description = $data['description'];
                         $menu->status = $data['status'];
                         $menu->type = $data['type'];
+                        $menu->type_link = $data['type_link'];
                         $menu->icon = "";
                         $menu->featured = $data['featured'];
                         $menu->order = 0;
                         $menu->is_default = 0;
                         $menu->data = isset($data["data"]) && is_array($data["data"]) ? serialize($data["data"]) : serialize([]);
+
                         $menu->save();
                         return response()->json(['success' => $data]);
                     } else {
@@ -95,7 +100,9 @@ class MenuController extends \Zoe\Http\ControllerBackend
             } else if ($post['act'] == "nestable") {
                 $data = $post['data'];
                 $type = $data['type'];
-                $this->data['menu'] = get_category_type($type);
+
+                $this->data['menu'] = get_menu_type($type);
+
                 echo $this->nestable(config_get("menu", $type), 0, true);
             }
         }
@@ -106,26 +113,35 @@ class MenuController extends \Zoe\Http\ControllerBackend
     private function nestable($nestable, $parent_id = 0, $root = false)
     {
         $html = '<ol class="dd-list">';
+
         foreach ($nestable as $key => $item) {
             if (isset($this->data['menu'][$item['id']])) {
                 $html .= '<li class="dd-item dd3-item" data-id="' . $item['id'] . '" data-name="' . $this->data['menu'][$item['id']]->name . '" parent_id="' . $parent_id . '">';
                 $html .= '<div class="dd-handle dd3-handle"></div>
-		        <div class="dd3-content">' . $this->data['category'][$item['id']]->name . '</div>';
+		        <div class="dd3-content">' . $this->data['menu'][$item['id']]->name . '</div>';
                 $html .= "<div class='dd3-tool'><button class='btn btn-primary btn-xs edit'>" . "<i class='fa fa-edit'></i>" . "</button><button class='btn  btn-default btn-xs delete'>" . "<i class='fa fa-remove'></i>" . "</button></div>";
                 unset($this->data['category'][$item['id']]);
                 if (isset($item["children"])) {
-                    $html .= $this->nestable($item["children"], $item['id']);
+                    $html .= $this->nestable($item["children"], $item['id'],false);
                 }
                 $html .= '</li>';
             }
         }
+
         if ($root) {
             foreach ($this->data['menu'] as $k => $item) {
-                $html .= '<li class="dd-item dd3-item" data-id="' . $item->id . '" data-name="' . $item->name . '" parent_id="0">';
-                $html .= '<div class="dd-handle dd3-handle"></div>
-		        <div class="dd3-content">' . $item->name . '</div>';
-                $html .= "<div class='dd3-tool'><button class='btn btn-primary btn-xs edit'>" . "<i class='fa fa-edit'></i>" . "</button><button class='btn  btn-default btn-xs delete'>" . "<i class='fa fa-remove'></i>" . "</button></div>";
-                $html .= '</li>';
+                $oke = true;
+                foreach ($nestable as $key=>$value){
+                    if($item->id == $value['id']){
+                        $oke = false;break;
+                    }
+                }
+                if($oke){
+                    $html .= '<li class="dd-item dd3-item" data-id="' . $item->id . '" data-name="' . $item->name . '" parent_id="0">';
+                    $html .= '<div class="dd-handle dd3-handle"></div><div class="dd3-content">' . $item->name . '</div>';
+                    $html .= "<div class='dd3-tool'><button class='btn btn-primary btn-xs edit'>" . "<i class='fa fa-edit'></i>" . "</button><button class='btn  btn-default btn-xs delete'>" . "<i class='fa fa-remove'></i>" . "</button></div>";
+                    $html .= '</li>';
+                }
             }
         }
         $html .= '</ol>';
@@ -135,6 +151,7 @@ class MenuController extends \Zoe\Http\ControllerBackend
     public function show(Request $request)
     {
         $type = isset($request->route()->defaults['type']) ? $request->route()->defaults['type'] : 'menu';
+
         $views = "";
         if (isset(app()->getConfig()['modules']['admin.menu'][$type]['views'])) {
             if (isset(app()->getConfig()['modules']['admin.menu'][$type]['views'])) {
@@ -148,14 +165,16 @@ class MenuController extends \Zoe\Http\ControllerBackend
             $this->getCrumb();
         }
         $this->breadcrumb("Menu", ('backend:menu:list'));
-        $this->data['menu'] = get_menu_type($type);
-        $this->data['nestable'] = $this->nestable(config_get("menu", $type), 0, true);
 
+        $this->data['menu'] = get_menu_type($type);
+
+
+
+        $this->data['nestable'] = $this->nestable(config_get("menu", $type), 0, true);
         $this->data['type'] = $type;
         $this->data['views'] = $views;
         $this->data['pages'] = \Admin\Http\Models\PageModel::where('status',1)->get();
-
-        return $this->render('menu.show');
+        return $this->render('menu.show',[],'backend');
     }
     public function list(){
         return $this->render('menu.list');

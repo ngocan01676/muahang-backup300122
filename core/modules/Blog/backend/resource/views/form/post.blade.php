@@ -1,8 +1,8 @@
 @if(isset($item))
-    {!! Form::model($item, ['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store']) !!}
+    {!! Form::model($item, ['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store','class'=>'submit']) !!}
     {!! Form::hidden('id') !!}
 @else
-    {!! Form::open(['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store']) !!}
+    {!! Form::open(['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store','class'=>'submit']) !!}
 @endif
 <script src="{!! config('zoe.tiny') !!}"></script>
 <div class="col-md-9">
@@ -101,15 +101,14 @@
                                                         });
 
                                                     }
-                                                }
-                                            ;
-
+                                                };
                                             tinymce.init(editor_config);
                                         </script>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
+                            @Zoe_Variable_Lang(Post_MetaComposer_Seo,$lang)
                         </div>
                     @endif
                 @endforeach
@@ -378,6 +377,18 @@
                     }
                 }
             }).elfinder('instance');
+        }
+    </script>
+    <script type="text/javascript">
+        function Save(){
+            let form_store = $("#form_store");
+            console.log("Save");
+            clicks.fire(form_store,function (t) {
+                let data = form_store.zoe_inputs('get');
+                if(form_store.hasClass('submit')){
+                    $("#form_store").submit();
+                }
+            });
         }
     </script>
 @endpush

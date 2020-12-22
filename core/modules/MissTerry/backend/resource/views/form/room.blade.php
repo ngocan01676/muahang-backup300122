@@ -171,10 +171,7 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            @php
-                                $var = "MissTerry_MetaComposer_Seo_".$lang;
-                            @endphp
-                            {!! $$var  ?? "" !!}
+                            @Zoe_Variable_Lang(MissTerry_MetaComposer_Seo,$lang)
                         </div>
                     @endif
                 @endforeach

@@ -57,7 +57,7 @@
                     <tr>
                         <td>
                             {!! Form::label('Content Type', z_language('Content Type'), ['class' => 'name']) !!}
-                            {!! Form::select('type',
+                            {!! Form::select('type_link',
                                 array(
                                      '' => z_language('Select Content Type'),
                                      'page' => z_language('Content Page'),
@@ -98,7 +98,7 @@
                                     ];
                                 });
 
-                                $type = 'frontend';
+                                $_type = 'frontend';
                             @endphp
                             <div class="input-group">
                                 <select class="selectChange form-control">
@@ -106,7 +106,7 @@
                                         @php
                                             $arr_name =  explode(':',$route['name']);
                                         @endphp
-                                        @continue($type!=$arr_name[0] && $arr_name[0]!="login" && $arr_name[0]!="register")
+                                        @continue($_type!=$arr_name[0] && $arr_name[0]!="login" && $arr_name[0]!="register")
 
                                         @continue(!in_array("GET",$route['method']))
                                         <option value="{!! $route['name'] !!}" data-uri="{!! $route['uri'] !!}">
@@ -526,11 +526,6 @@
                 });
             });
             $("#nestable").on("click", '.delete', function () {
-
-
-
-
-
                 var dd_item = $(this).closest('.dd-item');
                 var children = dd_item.children('ol.dd-list');
 
@@ -542,21 +537,33 @@
                     icon: 'fa fa-question-circle',
                     animation: 'scale',
                     top:0,
-                    confirm: function () {
-                        if (children.length > 0) {
-                            var parent = dd_item.parent();
-                            parent.append(children.html());
-                            dd_item.remove();
-                        } else {
-                            dd_item.remove();
-                        }
-                        SavePosition(dd_item.data('id'), function (data) {
-                            if (data.error == 0) {
+                    buttons: {
+                        yes: {
+                            isHidden: false, // hide the button
+                            keys: ['y'],
+                            action: function () {
+                                if (children.length > 0) {
+                                    var parent = dd_item.parent();
+                                    parent.append(children.html());
+                                    dd_item.remove();
+                                } else {
+                                    dd_item.remove();
+                                }
+                                SavePosition(dd_item.data('id'), function (data) {
+                                    if (data.error == 0) {
 
-                            } else {
-                                ResetNestable();
+                                    } else {
+                                        ResetNestable();
+                                    }
+                                });
                             }
-                        });
+                        },
+                        no: {
+                            keys: ['N'],
+                            action: function () {
+                                $.alert('You clicked No.');
+                            }
+                        },
                     }
                 });
             });

@@ -160,13 +160,13 @@
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Find your Facebook user ID with this tool</label>
-                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.video" class="form-control">
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.facebook_user" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Find your Facebook App ID here</label>
-                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.video" class="form-control">
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.facebook_app" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -196,7 +196,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group required">
                                                 <label>Video/Audio Player Source</label>
-                                                <input type="text" name="{!! $namePrefix !!}Twitter.image" class="form-control">
+                                                <input type="text" name="{!! $namePrefix !!}Twitter.video" class="form-control">
                                                 <i>HTTPS URL to an iFrame player</i>
                                             </div>
                                         </div>

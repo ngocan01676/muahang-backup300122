@@ -136,11 +136,19 @@ class CategoryController extends \Zoe\Http\ControllerBackend
         }
         if ($root) {
             foreach ($this->data['category'] as $k => $item) {
-                $html .= '<li class="dd-item dd3-item" data-id="' . $item->id . '" data-name="' . $item->name . '" parent_id="0">';
-                $html .= '<div class="dd-handle dd3-handle"></div>
-		        <div class="dd3-content">' . $item->name . '</div>';
-                $html .= "<div class='dd3-tool'><button class='btn btn-primary btn-xs edit'>" . "<i class='fa fa-edit'></i>" . "</button><button class='btn  btn-default btn-xs delete'>" . "<i class='fa fa-remove'></i>" . "</button></div>";
-                $html .= '</li>';
+                $oke = true;
+                foreach ($nestable as $key=>$value){
+                    if($item->id == $value['id']){
+                        $oke = false;break;
+                    }
+                }
+                if($oke){
+                    $html .= '<li class="dd-item dd3-item" data-id="' . $item->id . '" data-name="' . $item->name . '" parent_id="0">';
+                    $html .= '<div class="dd-handle dd3-handle"></div>
+                    <div class="dd3-content">' . $item->name . '</div>';
+                    $html .= "<div class='dd3-tool'><button class='btn btn-primary btn-xs edit'>" . "<i class='fa fa-edit'></i>" . "</button><button class='btn  btn-default btn-xs delete'>" . "<i class='fa fa-remove'></i>" . "</button></div>";
+                    $html .= '</li>';
+                }
             }
         }
         $html .= '</ol>';
@@ -182,7 +190,7 @@ class CategoryController extends \Zoe\Http\ControllerBackend
         $this->data['is_slug'] = $is_slug;
         $this->data['views'] = $views;
         $this->data['class_nestable'] = base64_encode($class_nestable);
-        return $this->render($view_render);
+        return $this->render($view_render,[],'backend');
     }
 
     public function list()

@@ -28,6 +28,12 @@ return [
             "header" => true,
              "icon"=>"fa fa-inbox",
         ],
-
+        "backend:$key:menu" => [
+            "name" => z_language("Menu",false),
+            "url" => "backend:$key:menu:show",
+            "pos" => 2,
+            "header" => true,
+            "icon"=>"fa fa-inbox",
+        ],
     ]
 ];

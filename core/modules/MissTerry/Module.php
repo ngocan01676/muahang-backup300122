@@ -19,13 +19,10 @@ class Module extends ZModule
     {
         $this->path = __DIR__;
     }
-
     public function import($step = true, $settings = [], $datas = [])
     {
 
     }
-
-
     public function uninstall($func = null, $posts = [])
     {
 

@@ -16,12 +16,9 @@ class DataComposer extends \Zoe\Views\ComposerView
     public function compose(View $view)
     {
         $dataView = $view->getData();
-
         $logs = [];
-
         if(isset($this->composers[$this->namespace][$view->name()])){
             foreach ($this->composers[$this->namespace][$view->name()] as $composer){
-
                 $data[$this->class] = $composer;
                 $data[$this->class]['name'] = $this->class;
                 $data[$this->class]['token'] = $this->token($view->name(),$this->class, $this->namespace);
@@ -43,8 +40,6 @@ class DataComposer extends \Zoe\Views\ComposerView
                     $view->with($name,"");
                 }
             }
-
         }
-
     }
 }
