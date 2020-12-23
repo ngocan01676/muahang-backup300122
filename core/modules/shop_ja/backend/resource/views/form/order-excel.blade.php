@@ -39,9 +39,7 @@
         </div>
     </div>
 </div>
-
 <div class="box box-default box-solid">
-
     <div class="box-body">
 
         <table class="table">
@@ -93,11 +91,9 @@
         height: 85%;
         padding: 0;
     }
-
     .modal-content {
         /*height: 99%;*/
     }
-
 </style>
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
@@ -362,11 +358,9 @@
         let isCheck = false;
         let isSave = false;
         let countSave = 0;
-
         let SaveEvent = {
 
         };
-
         let datacache = {!! json_encode($excels_data,JSON_UNESCAPED_UNICODE ) !!}
         let dataproduct = {!! json_encode($products,JSON_UNESCAPED_UNICODE ) !!}
         let datamodel = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
@@ -1162,11 +1156,22 @@
 
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
+
                     if($province.length > 0){
                         checkShip[r] = {};
                         checkShip[r][$province] = price_ship;
                     }
-                    return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
+
+                    let dom = instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
+
+                    dom.classList.remove('error');
+                    if(price_ship < 0){
+                        dom.classList.add('error');
+                    }
+
+                    return {order_ship:
+                                parseInt(price_ship == -1 ? 0 : price_ship
+                            ),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
 
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
@@ -6490,7 +6495,6 @@
                     options: { format:'DD/MM/YYYY'},
                     value:['date','nowSum',2],
                     width:'100px',
-
                 },
                 order_hours:{
                     title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
