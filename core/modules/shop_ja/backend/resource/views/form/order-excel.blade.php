@@ -5586,16 +5586,19 @@
                         checkShip[r][$province] = price_ship;
                     }
                     return {
-                        order_ship:parseInt(price_ship === -1 ? 0 :price_ship),
+                        order_ship:parseInt(price_ship === -1 ? price_ship :price_ship),
                         order_ship_cou:parseInt($ship_cou)
                     };
                 }
                 function setInterest(price_ship,order_ship_cou,total_price_buy,total_count){
+                    if(price_ship < 0){
+                        price_ship = 0;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),-1);
+                    }else{
+                        price_ship = price_ship * total_count;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    }
 
-                    price_ship = price_ship * total_count;
-                    console.log("price_ship:"+price_ship);
-                    console.log("total_price_buy:"+total_price_buy);
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
                    // total_price_buy = total_price_buy;
                     console.log(total_price_buy);
                     if(total_price_buy === 0 || total_price === 0){ return;}
