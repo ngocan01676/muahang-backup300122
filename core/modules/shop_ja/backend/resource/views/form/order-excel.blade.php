@@ -1162,7 +1162,7 @@
                         checkShip[r][$province] = price_ship;
                     }
 
-                    let dom = instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
+                    let dom = instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, r]));
 
                     dom.classList.remove('error');
                     if(price_ship < 0){
