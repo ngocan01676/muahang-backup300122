@@ -1498,7 +1498,9 @@ class Excel
                                 if (isset($array_count[$pro_id])) {
                                     $kg = $array_count[$pro_id];
                                 }
-                                if ($products[$pro_id]->unit == 5) {
+                                if ($products[$pro_id]->unit == 1) {
+                                    $product_title .= $products[$pro_id]->title . " " . $kg . " cái" . '、';
+                                }else if ($products[$pro_id]->unit == 5) {
                                     $product_title .= str_replace('鶏羽', "鶏" . $kg . "羽", $products[$pro_id]->title) . '、';
                                 } else if ($products[$pro_id]->unit == 4) {
                                     $product_title .= $products[$pro_id]->title . '、';

@@ -369,7 +369,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }
                                     $product_code = rtrim($product_code,',');
                                     $product_title = rtrim($product_title,',');
-
+                                    $product_title = "";
                                     $total_count = isset($columns["total_count"])?(int)$values[$columns["total_count"]]:"1";
 
 //                                    if(is_array($array_count)){

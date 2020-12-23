@@ -576,7 +576,7 @@
     order_hours:{
      title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
      type: 'dropdown',
-     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
+     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
      value:['product','this','source',4],
      width:'150px',
     },
@@ -1187,7 +1187,7 @@
     ],
     contextMenu: function(obj, x, y, e) {
      var items = [];
-
+        return items;
      if (y == null) {
       // Insert a new column
       if (obj.options.allowInsertColumn === true) {
@@ -2391,7 +2391,7 @@
     ],
     contextMenu: function(obj, x, y, e) {
      var items = [];
-
+        return items;
      if (y == null) {
       // Insert a new column
       // if (obj.options.allowInsertColumn === true) {
@@ -3829,7 +3829,7 @@
     ],
     contextMenu: function(obj, x, y, e) {
      var items = [];
-
+        return items;
      if (y == null) {
       // Insert a new column
       if (obj.options.allowInsertColumn === true) {
@@ -4496,7 +4496,7 @@
           order_hours:{
               title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
               type: 'dropdown',
-              source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
+              source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
               value:['product','this','source',4],
               width:'150px',
           },
@@ -5028,7 +5028,7 @@
           ],
           contextMenu: function(obj, x, y, e) {
               var items = [];
-
+              return items;
               if (y == null) {
                   // Insert a new column
                   if (obj.options.allowInsertColumn === true) {
@@ -5547,7 +5547,7 @@
     order_hours:{
      title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
      type: 'dropdown',
-     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
+     source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
      value:['product','this','source',4],
      width:'150px',
     },
@@ -6091,6 +6091,7 @@
     ],
     contextMenu: function(obj, x, y, e) {
      var items = [];
+        return items;
      if (y == null) {
       // Insert a new column
       if (obj.options.allowInsertColumn === true) {
@@ -7121,8 +7122,8 @@
      nestedHeaders
     ],
     contextMenu: function(obj, x, y, e) {
-     var items = [];
-
+     var items = [];  return items;
+     return items;
      if (y == null) {
       // Insert a new column
       if (obj.options.allowInsertColumn === true) {
