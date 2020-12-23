@@ -2163,7 +2163,7 @@
                     checkShip[r][$province] = price_ship;
                 }
 
-                return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou)};
+                return {order_ship:parseInt(price_ship == -1?price_ship:price_ship),order_ship_cou:parseInt($ship_cou)};
             }
             function update(instance, cell, c, r, value,cb) {
                 console.log("update call:"+r);
@@ -2396,7 +2396,7 @@
                 }
                 console.log(stringKey);
                 console.log(keyGroup);
-                let confShipCou = {order_ship:0,order_ship_cou:0};
+                let confShipCou = {order_ship:-1,order_ship_cou:0};
 
                 console.log("product_id:"+product_id);
 
@@ -2474,7 +2474,8 @@
                 console.log("totalPriceBuy:"+totalPriceBuy);
 
                 if(payMethod == 3){
-                    totalPriceBuy = 0;confShipCou.order_ship_cou = 0;
+                    totalPriceBuy = 0;
+                    confShipCou.order_ship_cou = 0;
                 }else{
                     if(one_address){
                         confShipCou.order_ship_cou = 0;
@@ -2488,8 +2489,12 @@
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, value.end]),totalPrice);
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, value.start]),totalPriceBuy);
+                if(confShipCou.order_ship < 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, value.start]),-1);
+                }else{
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, value.start]),confShipCou.order_ship);
+                }
 
-                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, value.start]),confShipCou.order_ship);
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, value.start]),confShipCou.order_ship_cou);
                 _data =  instance.jexcel.getRowData(value.start);
