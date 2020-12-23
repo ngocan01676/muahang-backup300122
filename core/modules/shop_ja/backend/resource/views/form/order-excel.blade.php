@@ -1168,8 +1168,13 @@
                 }
 
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
-                    price_ship = price_ship * data.count;
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    if(price_ship < 0){
+                        price_ship = 0;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),-1);
+                    }else{
+                        price_ship = price_ship * data.count;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    }
 
                    // total_price = total_price+price_ship;
                     total_price_buy = total_price_buy+price_ship;
