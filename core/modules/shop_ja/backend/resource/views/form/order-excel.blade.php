@@ -1162,16 +1162,8 @@
                         checkShip[r][$province] = price_ship;
                     }
 
-                    let dom = instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, r]));
-                    let parent = $(dom).parent();
-                    parent.removeClass('has_error');
-                    dom.classList.remove('error');
-                    if(price_ship < 0){
-                        dom.classList.add('error');
-                        parent.addClass('has_error');
-                    }
                     return {order_ship:
-                                parseInt(price_ship == -1 ? 0 : price_ship
+                                parseInt(price_ship == -1 ? price_ship : price_ship
                             ),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
 
