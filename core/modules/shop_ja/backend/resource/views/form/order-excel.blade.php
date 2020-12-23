@@ -1168,7 +1168,7 @@
                     if(price_ship < 0){
                         dom.classList.add('error');
                     }
-
+                    console.info(price_ship);
                     return {order_ship:
                                 parseInt(price_ship == -1 ? 0 : price_ship
                             ),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
