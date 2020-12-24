@@ -1302,9 +1302,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }else  if($data['name'] == "FUKUI"){
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->FUKUI($data);
-            }else  if($data['name'] == "KURICHIKU" || $data['name'] == "BANH_CHUNG"){
+            }else  if($data['name'] == "KURICHIKU"){
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->KURICHIKU($data,$data['name'],'AMAZONの注文分[MONTH]月[DAY]日');
+            } else if($data['name'] == "BANH_CHUNG"){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output =$excel->BANH_CHUNG($data,$data['name'],'AMAZONの注文分[MONTH]月[DAY]日');
             }
             if(isset($output['ids']) && isset($data['type']) && $data['type'] != "demo"){
                 DB::beginTransaction();
