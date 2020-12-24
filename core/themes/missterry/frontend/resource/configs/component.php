@@ -8,10 +8,10 @@ return [
                 'com' => 'content',
                 'layout' => 'layout'
             ],
-            'mega-menu' => [
-                "name" => "MegaMenu",
+            'menu' => [
+                "name" => "AdminCore",
                 "type" => "plugin",
-                'com' => 'mega-menu',
+                'com' => 'menu',
                 'layout' => 'layout'
             ],
             "thumbnail-image" => [
@@ -19,21 +19,21 @@ return [
             ]
         ],
         "widgets" => [
-            'menu-extras' => [
-                'layout' => 'widget'
-            ],
+//            'menu-extras' => [
+//                'layout' => 'widget'
+//            ],
             'slider' => [
                 'layout' => 'widget'
             ],
-            'coverage' => [
-                'layout' => 'widget'
-            ],
-            'services' => [
-                'layout' => 'widget'
-            ],
-            'our-clients' => [
-                'layout' => 'widget'
-            ],
+//            'coverage' => [
+//                'layout' => 'widget'
+//            ],
+//            'services' => [
+//                'layout' => 'widget'
+//            ],
+//            'our-clients' => [
+//                'layout' => 'widget'
+//            ],
         ]
     ]
 ];

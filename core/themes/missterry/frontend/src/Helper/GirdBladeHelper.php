@@ -1,5 +1,4 @@
 <?php
-
 namespace MissTerryTheme\Helper;
 class GirdBladeHelper extends \Admin\Lib\GirdBladeHelper
 {
@@ -8,38 +7,20 @@ class GirdBladeHelper extends \Admin\Lib\GirdBladeHelper
         return require __DIR__ . '/../../resource/configs/gird.php';
     }
 
-    public function layout_body($content, $option = [])
+    public function layout_wrapper($content, $option = [])
     {
-        return "<div id='app'>" . $content . "</div>";
+        return "<div id='wrapper'>" . $content . "</div>";
     }
-
+    public function layout_header($content, $option = [])
+    {
+        return "<header id=\"header\" class=\"header transparent has-transparent header-full-width has-sticky sticky-shrink\">" . $content . "</header>";
+    }
     public function layout_main($content, $option = [])
     {
-        return "<div class='py-4'>" . $content . "</div>";
+        return "<main id=\"main\" class=\"dark dark-page-wrapper\">" . $content . "</main>";
     }
-
-    public function layout_card($content, $option = [])
+    public function layout_footer($content, $option = [])
     {
-        $html = '<div class="card">';
-        $par = [];
-        if (isset($option['cfg']['title']) && !empty($option['cfg']['title'])) {
-            $html .= '<div class="card-header">{{$option["cfg"]["title"]}}</div>';
-            $par['$option'] = var_export($option, true);
-        }
-        $html .= '<div class="card-body">' . $content . '</div></div>';
-        return count($par) > 0 ? $this->func($html, $par) : $html;
-    }
-
-    public function layout_container($content, $option = [])
-    {
-        return '<div class="container"><div class="row justify-content-center"><div class="col-md-8">' . $content . '</div></div></div>';
-    }
-
-    public function layout_mainmenu($content, $option = [])
-    {
-        return '<div class="mainmenu-wrapper"><div class="container">' . $content . '</div></div>';
-    }
-    public function layout_homepageSlider($content, $option = []    ){
-
+        return " <footer id=\"footer\" class=\"footer-wrapper\">" . $content . "</footer>";
     }
 }

@@ -566,13 +566,14 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     function getPartial($id)
     {
         $theme = config_get('theme', "active");
-        $rs = DB::table('layout')->select()->where(['type' => 'partial'])->get()->toArray();
+        $rs = DB::table('layout')->select()->where('theme',$theme)->where(['type' => 'partial'])->get()->toArray();
+
         $array = [];
         foreach ($rs as $val) {
             if ($id == $val->id) {
                 continue;
             }
-            $item = component_create('zoe', [], [], [], 'partial');
+            $item = component_create($theme, [], [], [], 'partial');
             $item["name"] = $val->name;
             $item["option"]['stg']['id'] = $val->id;
             $item["option"]['stg']['token'] = $val->token;
@@ -725,6 +726,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
         $use = $this->getListType($type);
         $obj_layout = new \Admin\Lib\LayoutBlade();
+
         return $this->render("layout.edit", [
             'model' => $model,
             "content" => $content,

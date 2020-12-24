@@ -482,7 +482,7 @@ class AppServiceProvider extends ServiceProvider
             }
             $this->app->getComponents()->config->add([$prefix . ":" . $view . ":" . $component => $config_component]);
         } else {
-            echo $_file . "<BR>";
+            echo $_file . "<BR>".__LINE__.'-'.__FILE__;
         }
     }
 
