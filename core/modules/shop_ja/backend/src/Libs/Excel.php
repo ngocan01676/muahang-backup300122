@@ -1546,7 +1546,7 @@ class Excel
                 }, 'key' => 'order_hours'], 15, 9],//Giờ nhận
                 ["送料", 'order_ship', 15, 9],//Phí ship
                 ["仕入金額", 'order_total_price', 15, 9],//Giá bán 仕入金額
-                [$typeMethod == 1?"振込み金額":"代引き金額", 'order_total_price_buy', 15, 9],//Giá bán 振込み金額
+                [$typeMethod == 2?"振込み金額":"代引き金額", 'order_total_price_buy', 15, 9],//Giá bán 振込み金額
                 ["手数料", 'order_ship_cou', 15, 9],
                 ["余分金", ['callback' => function ($index, $val) use ($_dateNhan) {
                     return "=P$index-N$index-O$index-Q$index";//$val;
