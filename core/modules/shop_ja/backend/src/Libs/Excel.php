@@ -1594,7 +1594,7 @@ class Excel
 //            $orders = [
 //
 //            ];
-            $sheet->getStyle("O" . $start)->applyFromArray(array(
+            $sheet->getStyle("P" . $start)->applyFromArray(array(
                     'font' => array(
                         'size' => 9,
                         'name' => 'ＭＳ Ｐゴシック',
@@ -2090,7 +2090,7 @@ class Excel
 //            $orders = [
 //
 //            ];
-            $sheet->getStyle("O" . $start)->applyFromArray(array(
+            $sheet->getStyle("P" . $start)->applyFromArray(array(
                     'font' => array(
                         'size' => 9,
                         'name' => 'ＭＳ Ｐゴシック',
