@@ -51,6 +51,20 @@
                      'status'=>1
                 ),
                 'stg'=>array(
+                    'col'=>array('3','3','3','3'),
+                    'type'=>'gird'
+                ),
+                'opt'=>$optionGrid
+            )
+        ),
+        array(
+            'option'=>array(
+                'cfg'=>array(
+                     'compiler'=>[],
+                     'tag'=>'none',
+                     'status'=>1
+                ),
+                'stg'=>array(
                     'col'=>array('9','3'),
                      'type'=>'gird'
                 ),
@@ -75,92 +89,94 @@
     <div class="box-body">
         <div class="row">
             <div class="col-xs-2">
-                <div class="panel-group accordion sidebar-nav clearfix" id="accordion-grid">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a class="menu-item"
-                                   data-toggle="collapse"
-                                   data-parent="#accordion-grid"
-                                   href="#menu-grid-accordion-grid">Grid</a>
-                            </h4>
+                <div id="left">
+                    <div class="panel-group accordion sidebar-nav clearfix" id="accordion-grid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="menu-item"
+                                       data-toggle="collapse"
+                                       data-parent="#accordion-grid"
+                                       href="#menu-grid-accordion-grid">Grid</a>
+                                </h4>
+                            </div>
+                            <div id="menu-grid-accordion-grid" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <?php  foreach ($girds as $gird): ?>
+                                                <?php echo Admin\Lib\LayoutRender::rows($gird, false); ?>
+                                            <?php
+                                    endforeach;
+                                    ?>
+                                </div>
+                            </div>
                         </div>
-                        <div id="menu-grid-accordion-grid" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <?php  foreach ($girds as $gird): ?>
-                                            <?php echo Admin\Lib\LayoutRender::rows($gird, false); ?>
-                                        <?php
-                                endforeach;
+                    </div>
+                    <?php
+                    $components = app()->getComponents()->info;
+
+                    $components_config = app()->getComponents()->config;
+
+                    foreach (['layout' => 'Layout', 'theme' => 'Theme', 'widget' => 'Widget'] as $module=>$label):
+
+                    ?>
+                    <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="menu-item"
+                                       data-toggle="collapse"
+                                       data-parent="#accordion-<?php echo $module; ?>"
+                                       href="#menu-accordion-<?php echo $module; ?>"><?php echo $label; ?></a>
+                                </h4>
+                            </div>
+                            <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
+                                <?php
+                                foreach ($components as $name => $component) {
+
+                                    $option = $component['option'];
+                                    $_cfg = new Zoe\Config($option["cfg"]);
+                                    $option["stg"]['name'] = $component['name'];
+                                    if (is_array($component['main'])) {
+                                        $option["stg"]['main'] = $component['main'];
+                                    }
+    //                                $option["stg"]['system'] = $module;
+                                    if (isset($components_config[$name])) {
+                                        //$option['cfg'] = array_merge();
+                                        $_config = $components_config[$name]["configs"];
+    //                                    dump( $components_config[$name]);
+                                        $_cfg->add($components_config[$name]["cfg"]);
+                                        foreach ($_config as $__config) {
+                                            $_prefix = "";
+                                            if (isset($__config["prefix"])) {
+                                                if (empty($__config["prefix"])) {
+                                                    $__data = $__config["data"];
+                                                } else {
+                                                    $__data = [$__config["prefix"] => $__config["data"]];
+                                                }
+                                            } else {
+                                                $__data = isset($__config["data"]) ? $__config["data"] : [];
+                                            }
+                                            $_cfg->add(["config" => $__data]);
+                                        }
+                                        if (isset($components_config[$name]["compiler"])) {
+                                            $_cfg->add(["compiler" => $components_config[$name]["compiler"]]);
+                                        }
+                                        $_cfg->add(["data" => []]);
+                                        $option["cfg"] = $_cfg->getArrayCopy();
+                                        $option["opt"] = $components_config[$name]["data"];
+                                    }
+                                    if ($option['stg']["layout"] == $module) {
+
+                                        echo \Admin\Lib\LayoutRender::plugin($option, false);
+                                    }
+
+                                }
                                 ?>
                             </div>
                         </div>
                     </div>
+                    <?php endforeach; ?>
                 </div>
-                <?php
-                $components = app()->getComponents()->info;
-
-                $components_config = app()->getComponents()->config;
-
-                foreach (['layout' => 'Layout', 'theme' => 'Theme', 'widget' => 'Widget'] as $module=>$label):
-
-                ?>
-                <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a class="menu-item"
-                                   data-toggle="collapse"
-                                   data-parent="#accordion-<?php echo $module; ?>"
-                                   href="#menu-accordion-<?php echo $module; ?>"><?php echo $label; ?></a>
-                            </h4>
-                        </div>
-                        <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
-                            <?php
-                            foreach ($components as $name => $component) {
-
-                                $option = $component['option'];
-                                $_cfg = new Zoe\Config($option["cfg"]);
-                                $option["stg"]['name'] = $component['name'];
-                                if (is_array($component['main'])) {
-                                    $option["stg"]['main'] = $component['main'];
-                                }
-//                                $option["stg"]['system'] = $module;
-                                if (isset($components_config[$name])) {
-                                    //$option['cfg'] = array_merge();
-                                    $_config = $components_config[$name]["configs"];
-//                                    dump( $components_config[$name]);
-                                    $_cfg->add($components_config[$name]["cfg"]);
-                                    foreach ($_config as $__config) {
-                                        $_prefix = "";
-                                        if (isset($__config["prefix"])) {
-                                            if (empty($__config["prefix"])) {
-                                                $__data = $__config["data"];
-                                            } else {
-                                                $__data = [$__config["prefix"] => $__config["data"]];
-                                            }
-                                        } else {
-                                            $__data = isset($__config["data"]) ? $__config["data"] : [];
-                                        }
-                                        $_cfg->add(["config" => $__data]);
-                                    }
-                                    if (isset($components_config[$name]["compiler"])) {
-                                        $_cfg->add(["compiler" => $components_config[$name]["compiler"]]);
-                                    }
-                                    $_cfg->add(["data" => []]);
-                                    $option["cfg"] = $_cfg->getArrayCopy();
-                                    $option["opt"] = $components_config[$name]["data"];
-                                }
-                                if ($option['stg']["layout"] == $module) {
-
-                                    echo \Admin\Lib\LayoutRender::plugin($option, false);
-                                }
-
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <?php endforeach; ?>
             </div>
             <div class="col-xs-8 no-padding">
                 <div class="col-xs-12" style="min-height: 500px;margin-top: 10px">
@@ -246,6 +262,7 @@
                 <?php
                 $module = "Partial";
                 ?>
+                <div id="right">
                 <div class="panel-group accordion sidebar-nav clearfix" id="accordion-<?php echo $module; ?>">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -293,6 +310,8 @@
                         </div>
                     </div>
                 </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -423,6 +442,27 @@
         $(document).ready(function () {
             $("#formInfo").zoe_inputs("set", @json($info));
 
+        });
+        $(function() {
+            function scroll($id){
+                var $sidebar   = $($id),
+                    $window    = $(window),
+                    offset     = $sidebar.offset(),
+                    topPadding = 15;
+                $window.scroll(function() {
+                    if ($window.scrollTop() > offset.top) {
+                        $sidebar.stop().animate({
+                            marginTop: $window.scrollTop() - offset.top + topPadding
+                        });
+                    } else {
+                        $sidebar.stop().animate({
+                            marginTop: 0
+                        });
+                    }
+                });
+            }
+            scroll("#left");
+            scroll("#right");
         });
     </script>
 @endpush

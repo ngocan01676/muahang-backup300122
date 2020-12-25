@@ -13,7 +13,7 @@ class ControllerFront extends Controller
         $keyNameLayout = app()->getKey("_layout");
         $layout = isset($request->route()->defaults[$keyNameLayout]) ? $request->route()->defaults[$keyNameLayout] : $layout;
 
-        $this->layout = "zoe::layouts.theme." . $theme . '.layout-' . $layout;
+        $this->layout = "$theme::layouts.theme." . $theme . '.layout-' . $layout;
 
         $alias = app()->getConfig()['views']['alias'];
         $data = array_merge($this->data, $data);

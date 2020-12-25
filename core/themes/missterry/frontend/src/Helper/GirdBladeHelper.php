@@ -23,4 +23,49 @@ class GirdBladeHelper extends \Admin\Lib\GirdBladeHelper
     {
         return " <footer id=\"footer\" class=\"footer-wrapper\">" . $content . "</footer>";
     }
+    public function layout_gird_home_REASONS_FAQS($content, $option = []){
+        $id = md5($content);
+        return ' <section class="section" id="section_'.$id.'_2035033026">
+                <div class="bg section-bg fill bg-fill  bg-loaded" >
+                    <div class="section-bg-overlay absolute fill"></div>
+                </div>
+                <div class="section-content relative">
+                   <div class="row" id="row-'.$id.'">'.$content.'</div>
+                </div>
+                <style>
+                    #section_'.$id.'_2035033026 {
+                        padding-top: 30px;
+                        padding-bottom: 30px;
+                    }
+                    #section_'.$id.'_2035033026 .section-bg-overlay {
+                        background-color: rgba(0,0,0,.5);
+                    }
+                </style>
+            </section>';
+    }
+    public function layout_gird_footer($content, $option = []){
+        $id = md5($content);
+        return '
+               <section class="section ft dark" id="section_1170359526'.$id.'">
+            <div class="bg section-bg fill bg-fill  " >
+                <div class="section-bg-overlay absolute fill"></div>
+            </div>
+            <div class="section-content relative">
+                <div class="row bt1"  id="row-985093673'.$id.'">'.$content.'</div>
+            </div>
+            <style>
+                #section_1170359526'.$id.' {
+                    padding-top: 30px;
+                    padding-bottom: 30px;
+                }
+                #section_1170359526'.$id.' .section-bg-overlay {
+                    background-color: rgba(0, 0, 0, 0);
+                }
+                #section_1170359526'.$id.' .section-bg.bg-loaded {
+                    background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/bg.jpg);
+                }
+            </style>
+        </section>
+        ';
+    }
 }

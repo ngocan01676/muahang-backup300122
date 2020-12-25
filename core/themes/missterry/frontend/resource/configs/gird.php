@@ -7,7 +7,4 @@ return [
             return "</selector>";
         }
     },
-    "app" => function ($type) {
-
-    }
 ];

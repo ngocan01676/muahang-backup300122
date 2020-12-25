@@ -12,6 +12,7 @@ return component_config($_opt_,
     ),
     component_config_views([
         'main' => ["label" => "Main", "view" => "main"],
+        'footer' => ["label" => "Footer", "view" => "footer"],
     ]),
     ["name" => "Menu","view"=>""]
 );

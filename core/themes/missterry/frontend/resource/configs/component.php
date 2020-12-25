@@ -31,9 +31,36 @@ return [
 //            'services' => [
 //                'layout' => 'widget'
 //            ],
-//            'our-clients' => [
-//                'layout' => 'widget'
-//            ],
+            'our-room' => [
+                'layout' => 'widget'
+            ],
+            'faqs' => [
+                'layout' => 'widget'
+            ],
+            'reasons' => [
+                'layout' => 'widget'
+            ],
+            'People-Talk-About-Us' => [
+                'layout' => 'widget'
+            ],
+            'Home-Blog'=>[
+                'layout' => 'widget'
+            ],
+            'Footer-Map'=>[
+                'layout' => 'widget'
+            ],
+            'Footer-OUR-FRIENDS'=>[
+                'layout' => 'widget'
+            ],
+            'Footer-AboutUs'=>[
+                'layout' => 'widget'
+            ],
+            'Footer-ALL-CHALLENGES'=>[
+                'layout' => 'widget'
+            ],
+            'Footer-OFFERS-AND-DEALS'=>[
+                'layout' => 'widget'
+            ],
         ]
     ]
 ];

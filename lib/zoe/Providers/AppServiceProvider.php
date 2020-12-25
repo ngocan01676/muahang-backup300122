@@ -577,7 +577,8 @@ class AppServiceProvider extends ServiceProvider
                 $this->loadViewsFrom(base_path($_view['path']), $_view['alias']);
             }
         }
-        $this->loadViewsFrom(storage_path('app/views'), "zoe");
+        $theme = config_get('theme', "active", "");
+        $this->loadViewsFrom(storage_path('app/views'), $theme);
     }
 
 }

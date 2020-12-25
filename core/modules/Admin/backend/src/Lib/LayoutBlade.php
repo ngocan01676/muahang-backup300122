@@ -225,11 +225,11 @@ class LayoutBlade extends Layout
 
     public function partial($option, $index = '')
     {
-
+        $theme = config_get('theme', "active", "");
         $rs = layout_get($option['stg']['id']);
         if ($rs != null) {
             $this->BuilData($rs->content, $option['stg']['id']);
-            $content = "@includeIf('zoe::layouts.theme." . config_get('theme', "active") . '.' . $this->FilenamePartial($rs->slug, $option['stg']['token']) . "', [])" . PHP_EOL;
+            $content = "@includeIf('$theme::layouts.theme." . config_get('theme', "active") . '.' . $this->FilenamePartial($rs->slug, $option['stg']['token']) . "', [])" . PHP_EOL;
             return $this->girds($content, $option);
         }
         return '';
@@ -251,11 +251,12 @@ class LayoutBlade extends Layout
                             $block = true;
                             $class = "";
                             $id = "";
-                            if (isset($option['opt']['attr']['class']) && !empty($option['opt']['attr']['class'])) {
-                                $class = " class='" . $option['opt']['attr']['class'] . "'";
+                            //opt.col[0].attr.class
+                            if (isset($option['opt']['col'][0]['attr']['class']) && !empty($option['opt']['col'][0]['attr']['class'])) {
+                                $class = " class='" . $option['opt']['col'][0]['attr']['class'] . "'";
                             }
-                            if (isset($option['opt']['attr']['id']) && !empty($option['opt']['attr']['id'])) {
-                                $id = " id='" . $option['opt']['attr']['id'] . "'";
+                            if (isset($option['opt']['col'][0]['attr']['id']) && !empty($option['opt']['col'][0]['attr']['id'])) {
+                                $id = " id='" . $option['opt']['col'][0]['attr']['id'] . "'";
                             }
                             $html .= "<div" . $class . $id . ">";
                         }

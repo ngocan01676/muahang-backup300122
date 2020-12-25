@@ -52,13 +52,16 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         }
     }
 
-    private function GetMethod($obj, $prefix = "layout_")
+    private function GetMethod($obj , $TypeAction , $prefix = "layout_")
     {
         $data = [];
         $class_name = get_class($obj);
         $methods = get_class_methods($class_name);
         foreach ($methods as $method) {
             if (substr($method, 0, 7) == $prefix) {
+//                if(substr($method, 7, strlen($TypeAction)) == $TypeAction){
+//
+//                }
                 $data[$method] = substr($method, 7);
             }
         }
@@ -67,7 +70,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     public function ajaxFormConfig(Request $request)
     {
-        $alise = "backend::controller.layout.ajax.config";
+        $alise = "pluginLayout::controller.layout.ajax.config";
         $templates = [
             "template" => ["file" => $alise . ".template", "label" => "Template", "data" => []],
         ];
@@ -85,13 +88,13 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
 //        $components_config = app()->getComponents()->config;
 //        dd($items);
-
+        $TypeAction = $items['config']['stg']['type'];
         if (isset($items['config']['stg'])) {
             if (isset($items['config']['stg']['system'])) {
                 $stg = $items['config']['stg'];
                 $data['compiler'] = [];
-                $data["compiler"]['grid'] = $this->GetMethod($this->GetGridBlade($use));
-                $data["compiler"]['blade'] = $this->GetMethod($this->GetViewHelperBlade($use));
+                $data["compiler"]['grid'] = $this->GetMethod($this->GetGridBlade($use),$TypeAction);
+                $data["compiler"]['blade'] = $this->GetMethod($this->GetViewHelperBlade($use),$TypeAction);
 
                 $data["config"] = [
                     "compiler" => isset($items["config"]['cfg']['compiler']) ? $items["config"]['cfg']['compiler'] : []
@@ -195,8 +198,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                 } else {
 
                     $data['compiler'] = [];
-                    $data["compiler"]['grid'] = $this->GetMethod($this->GetGridBlade($use));
-                    $data["compiler"]['blade'] = $this->GetMethod($this->GetViewHelperBlade($use));
+                    $data["compiler"]['grid'] = $this->GetMethod($this->GetGridBlade($use),$TypeAction);
+                    $data["compiler"]['blade'] = $this->GetMethod($this->GetViewHelperBlade($use),$TypeAction);
 
                     $data["config"] = [
                         "compiler" => isset($items["config"]['cfg']['compiler']) ? $items["config"]['cfg']['compiler'] : []
@@ -213,8 +216,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             } else {
                 $data['compiler'] = [];
 
-                $data["compiler"]['grid'] = $this->GetMethod($this->GetGridBlade($use));
-                $data["compiler"]['blade'] = $this->GetMethod($this->GetViewHelperBlade($use));
+                $data["compiler"]['grid'] = $this->GetMethod($this->GetGridBlade($use),$TypeAction);
+                $data["compiler"]['blade'] = $this->GetMethod($this->GetViewHelperBlade($use),$TypeAction);
                 $data['tags'] = array_keys($this->GetGridBlade($use)->CallBackTag());
 
                 $data["configs"] = [
@@ -227,10 +230,11 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
                 $data['views']["gird"] = [
                     'label' => "Gird",
-                    'view' => "backend::controller.layout.ajax.grid",
+                    'view' => "pluginLayout::controller.layout.ajax.grid",
                     'data' => []
                 ];
                 $data['type'] = 'grid';
+
 //                $data['views']["temp"] = app()->getComponents()->template["template"];;
                 return $this->render('layout.ajax.config', $data);
             }
@@ -419,6 +423,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function ajaxBuild(Request $request)
     {
         $items = $request->all();
+        $theme = config_get('theme', "active", "");
         if (isset($items['act']) && isset($items['id'])) {
             $model = \Admin\Http\Models\Layout::find($items['id']);
             if ($model) {
@@ -435,7 +440,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                             $fileName = $obj_layout->FilenameLayout($model->slug, $model);
                         }
                         $data_path = $obj_layout->initPath($model->type_group);
-                        $FileNameBlade = view()->exists("zoe::" . $data_path['prefix'] . $fileName) ? view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::" . $data_path['prefix'] . $fileName)) : "";
+                        $FileNameBlade = view()->exists("$theme::" . $data_path['prefix'] . $fileName) ? view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::" . $data_path['prefix'] . $fileName)) : "";
 
                         if (!empty($FileNameBlade)) {
                             $FileNamePhp = config('view.compiled') . "/" . sha1($FileNameBlade) . ".php";
@@ -454,7 +459,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
                             $fileName = $obj_layout->FilenameLayout($model->slug, $model);
                         }
                         $data_path = $obj_layout->initPath($model->type_group);
-                        $FileNameBlade = view()->exists("zoe::" . $data_path['prefix'] . $fileName) ? view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::" . $data_path['prefix'] . $fileName)) : "";
+                        $FileNameBlade = view()->exists("$theme::" . $data_path['prefix'] . $fileName) ? view()->getFinder()->find(\Illuminate\View\ViewName::normalize("zoe::" . $data_path['prefix'] . $fileName)) : "";
                         $data = ["content" => ""];
 
                         if (!empty($FileNameBlade)) {
@@ -479,6 +484,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
     public function saveFile($model, $layout)
     {
+        $theme = config_get('theme', "active", "");
         $obj_layout = new \Admin\Lib\LayoutBlade();
         $use = $this->getListType($model->type_group);
 
@@ -497,7 +503,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $obLevel = ob_get_level();
         try {
             ob_start();
-            echo view('zoe::' . $filename);
+            echo view($theme.'::' . $filename);
             $content = ob_get_contents();
             ob_clean();
             $filename = $obj_layout->render($model->type_group, $template, $layout, $model->slug, $model->token, $model->type);
@@ -766,8 +772,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function build(Request $request)
     {
         $this->getcrumb()->breadcrumb("Build Layout", false);
-
-        $lists = \Admin\Http\Models\Layout::where('type_group', 'theme')->orderBy("updated_at", "desc")->get();
+        $theme = config_get('theme', "active", "");
+        $lists = \Admin\Http\Models\Layout::where('theme', $theme)->orderBy("updated_at", "desc")->get();
 
         return $this->render('layout.build', ['lists' => $lists]);
     }
