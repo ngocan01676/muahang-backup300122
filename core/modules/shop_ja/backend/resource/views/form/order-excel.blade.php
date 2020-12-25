@@ -737,8 +737,8 @@
                 order_hours:{
                     title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
                     type: 'dropdown',
-                    source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
-                    value:['product','this','source',4],
+                    source:['8:00 ~ 12:00','12:00～14:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
+                    value:['product','this','source',5],
                     width:'150px',
                 },
                 fullname:{
@@ -6506,8 +6506,8 @@
                 order_hours:{
                     title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
                     type: 'dropdown',
-                    source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
-                    value:['product','this','source',4],
+                    source:['8:00 ~ 12:00','12:00～14:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
+                    value:['product','this','source',5],
                     width:'150px',
                 },
                 order_ship:{
@@ -7620,8 +7620,8 @@
                 order_hours:{
                     title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
                     type: 'dropdown',
-                    source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
-                    value:['product','this','source',4],
+                    source:['8:00 ~ 12:00','12:00～14:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
+                    value:['product','this','source',5],
                     width:'150px',
                 },
                 order_ship:{
