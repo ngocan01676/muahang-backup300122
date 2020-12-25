@@ -73,6 +73,7 @@ class Excel
                 ["紹介料", 'order_price', 15, 9],//R
                 ["追跡番号", 'order_tracking', 15, 9],//S
                 ["振込み情報", 'order_info', 25, 9],//T
+                ["", 'comment', 15, 9], // Số lượng O
 //                ["", 'order_link', 25, 9],//U
             ],
             "YAMADA" => [
@@ -472,6 +473,7 @@ class Excel
             ["数量", 'count', 15, 9], // Số lượng O
             ["追跡番号", '', 15, 9], // Số lượng O
             ["", 'order_info', 15, 9], // Số lượng O
+            ["", 'comment', 15, 9], // Số lượng O
         ];
         $start = 7;
         $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . $start)->applyFromArray($style_header);
@@ -812,6 +814,7 @@ class Excel
             }, 'key' => 'order_price'] , 15, 9],//R
             ["追跡番号", 'order_tracking', 15, 9],//S
             ["振込み情報", 'order_info', 25, 9],//T
+            ["", 'comment', 15, 9], // Số lượng O
 //            ["", 'order_link', 25, 9],//U
         ];
         $start = 3;
@@ -1150,6 +1153,7 @@ class Excel
             }, 'key' => 'order_price'], 5.43, 9],//R =IF(J4="","",P4-J4*K4-N4-Q4) P4-J4*K4-N4-Q4
             ["追跡番号", 'order_tracking', 4.86, 9],//S
             ["振込み情報", 'order_info', 8.57, 9],//T
+            ["", 'comment', 15, 9], // Số lượng O
 //            ["",'order_link',25,9],//U
         ];
         $start = 3;
@@ -1553,6 +1557,7 @@ class Excel
                 }, 'key' => 'order_price'], 15, 9],
                 ["追跡番号", 'order_tracking', 15, 9],
                 ["振込み情報", 'order_info', 25, 9],
+                ["", 'comment', 15, 9], // Số lượng O
             ];
             $nameColList = [];
 
@@ -2049,6 +2054,7 @@ class Excel
                 }, 'key' => 'order_price'], 15, 9],
                 ["追跡番号", 'order_tracking', 15, 9],
                 ["振込み情報", 'order_info', 25, 9],
+                ["", 'comment', 15, 9], // Số lượng O
             ];
             $nameColList = [];
 
@@ -2495,6 +2501,7 @@ class Excel
                 }, 'key' => 'order_price'], 15, 9],//
                 ["追跡番号", 'order_tracking', 15, 9],
                 ["振込み情報", 'order_info', 25, 9],
+                ["", 'comment', 15, 9], // Số lượng O
             ];
 
             $nameColList = [];
