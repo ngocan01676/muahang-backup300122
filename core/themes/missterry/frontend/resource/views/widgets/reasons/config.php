@@ -7,6 +7,9 @@ return component_config($_opt_,
     ),
     component_config_configs(
         [
+            'image' => [
+                'template' => 'image',
+            ],
             "temp" => ["template" => "template", "data" => ["count" => 3]],
             "data" => ["view" => "data", "label" => "Data", "data" => ['count' => 4, 'key' => "lists"]],
         ]
