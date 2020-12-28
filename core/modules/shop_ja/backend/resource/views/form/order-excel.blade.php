@@ -10137,8 +10137,8 @@
             if(result.length>0){
                 let index = 0;
                 let dataNew = [];
-                let i = a.length-1 ;
-                for(; i>=0;i--){
+                let i = 0;
+                for(; i<a.length;i++){
                     if(index == 3){
                         break;
                     }else{
@@ -10147,7 +10147,7 @@
                     index++;
                 }
                 let fullname = "";
-                for(; i>=0;i--){
+                for(; i<a.length;i++){
                     fullname+=a[i]+" ";
                 }
                 dataNew  = [fullname.trim(" ")].concat(dataNew.reverse());
