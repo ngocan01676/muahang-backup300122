@@ -10153,7 +10153,7 @@
                 dataNew  = [fullname.trim(" ")].concat(dataNew.reverse());
                 value = dataNew.join("\t");
                 alert(dataNew.join("\n"));
-                value = pastedData.split(' ').join("\t");
+                
             }else{
                 let index = 0;
                 let dataNew = [];
