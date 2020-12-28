@@ -10139,7 +10139,7 @@
                 let dataNew = [];
                 let i = 0;
                 for(; i<a.length;i++){
-                    if(index == 2){
+                    if(index == 4){
                         break;
                     }else{
                         dataNew.push(a[i]);
