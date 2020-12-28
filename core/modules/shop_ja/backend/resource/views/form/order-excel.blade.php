@@ -9628,9 +9628,7 @@
                     SaveEvent[sheetName].save  = true;
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
-                    console.info(c);
-                    console.info(change);
-                    console.info(value);
+
                     if (c === columns.product_name.index) {
 
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
@@ -10137,7 +10135,24 @@
             var value = "";
 
             if(result.length>0){
-                alert(pastedData.split(' ').join("\n"));
+                let index = 0;
+                let dataNew = [];
+                let i = a.length-1 ;
+                for(; i>=0;i--){
+                    if(index == 3){
+                        break;
+                    }else{
+                        dataNew.push(a[i]);
+                    }
+                    index++;
+                }
+                let fullname = "";
+                for(; i>=0;i--){
+                    fullname+=a[i]+" ";
+                }
+                dataNew  = [fullname.trim(" ")].concat(dataNew.reverse());
+                value = dataNew.join("\t");
+                alert(dataNew.join("\n"));
                 value = pastedData.split(' ').join("\t");
             }else{
                 let index = 0;
