@@ -1753,6 +1753,7 @@
                             }
                         }
                     }else if(c === columns.province.index){
+
                         if(change.col == c){
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
@@ -9657,6 +9658,8 @@
                         }        
                     }else if(c === columns.province.index){
                         if(change.col == c){
+                            console.info(change);
+                            console.info(value);
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                          }else{
