@@ -10150,10 +10150,10 @@
                 for(; i<a.length;i++){
                     fullname+=a[i]+" ";
                 }
-                dataNew  = [fullname.trim(" ")].concat(dataNew.reverse());
+                dataNew.push(fullname);
                 value = dataNew.join("\t");
                 alert(dataNew.join("\n"));
-                
+
             }else{
                 let index = 0;
                 let dataNew = [];
