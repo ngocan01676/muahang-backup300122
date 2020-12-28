@@ -9628,7 +9628,9 @@
                     SaveEvent[sheetName].save  = true;
                     SaveEvent[sheetName].count++;
                     SaveEvent[sheetName].check = true;
-
+                    console.info(c);
+                    console.info(change);
+                    console.info(value);
                     if (c === columns.product_name.index) {
 
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
@@ -9658,8 +9660,7 @@
                         }        
                     }else if(c === columns.province.index){
                         if(change.col == c){
-                            console.info(change);
-                            console.info(value);
+
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                          }else{
