@@ -413,9 +413,9 @@
                     console.log(file);
                     var preview_image_wrapper = $(".preview-image-wrapper");
                     preview_image_wrapper.show();
-                    console.log(file.path);
-                    preview_image_wrapper.find("img").attr('src', "/"+file.path);
-                    preview_image_wrapper.find("[name='image']").val(file.path);
+
+                    preview_image_wrapper.find("img").attr('src', "/"+file.path.split("\\").join("/"));
+                    preview_image_wrapper.find("[name='image']").val("/"+file.path.split("\\").join("/"));
                     $('#elfinderShow').modal('hide');
                 },
                 resizable: false,

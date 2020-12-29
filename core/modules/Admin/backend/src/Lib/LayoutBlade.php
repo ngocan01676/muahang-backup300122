@@ -72,7 +72,7 @@ class LayoutBlade extends Layout
 
     public function addInclude($stg)
     {
-        $theme = config('zoe.theme');
+        $theme = config_get('theme', "active", "");
         $path = "";
         switch ($stg['system']) {
             case "theme":
@@ -170,9 +170,13 @@ class LayoutBlade extends Layout
             if ($option['cfg']['public'] == "1" && $option['cfg']['dynamic'] == "1") {
                 $stringFunc .= "@php \$option = get_config_component('" . $option['cfg']['id'] . "',\$option) @endphp" . PHP_EOL;
             }
+
             if ($option['cfg']['func'] != "No Action") {
+
                 $this->addInclude($option['stg']);
+
                 $stringFunc .= "@php \$data = run_component('" . $option['cfg']['func'] . "',\$option) @endphp" . PHP_EOL;
+
             } else {
                 $stringFunc .= "@php \$data = \$option; @endphp" . PHP_EOL;
             }

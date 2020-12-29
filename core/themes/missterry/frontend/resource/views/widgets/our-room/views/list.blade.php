@@ -552,13 +552,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="rooms-w col-xs-12">
-                    @for($i = 0; $i < 8 ; $i++)
-                        <a href="https://kadroom.com/en/room/back-to-the-future/"
+                    @foreach($data as $i=>$row)
+                        <a href="{!! route('frontend:home:room-detail',['slug'=>$row->slug]) !!}"
                            itemscope="itemscope" itemtype="http://schema.org/EntertainmentBusiness"
                            class="room b-lazy room-6023
                             @switch($i%4) @case(0) red @break @case(1) yellow @break @case(2) blue @break @default green @endswitch
                            new tag-20467 tag-22240 tag-20097 tag-20094 tag-20112 tag-8484  b-loaded"
-                           style="background-image: url(https://kadroom.com/wp-content/uploads/2020/08/VK-plashka-kadroom.jpg);">
+                           style="background-image: url('{!! url($row->image) !!}');" image="{!! url($row->image) !!}" test="https://kadroom.com/wp-content/uploads/2020/08/VK-plashka-kadroom.jpg">
    <span itemprop="image" itemscope="itemscope" itemtype="http://schema.org/ImageObject">
       <link href="https://kadroom.com/wp-content/uploads/2020/07/NVZB-plashka.jpg" itemprop="contentUrl">
       <link href="https://kadroom.com/wp-content/uploads/2020/07/NVZB-plashka.jpg" itemprop="url">
@@ -576,7 +576,7 @@
                             </div>
                             <div class="room-header">
                                 <div title="60 minutes" class="room-duration"><i class="icon-chronometer"></i>
-                                    60                                                        min.
+                                    {!! $row->time !!}                                                        min.
                                 </div>
                                 <div title="2-4(5) players" class="room-players"><i class="icon-user"></i>
                                     2-4(5)
@@ -584,8 +584,8 @@
                             </div>
                             <div class="room-icon"><i class="icon-car"></i></div>
                             <div class="room-name ">
-                                Back to the Future
-                                <div>Back to the Future</div>
+                                 {!! $row->title !!}
+                                <div>{!! $row->title !!}</div>
                             </div>
                             <div class="room-with-actor room-announce-btn room-new-quest">
                                 new room
@@ -609,7 +609,7 @@
                                 <meta content="ул. Рыбальская, 3" itemprop="streetAddress">
                             </div>
                         </a>
-                    @endfor
+                    @endforeach
                     </div>
                 </div>
             </div>

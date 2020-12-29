@@ -16,6 +16,11 @@ return [
                         "guard" => "",
                         "action"=>'getRoom'
                     ],
+                    "room-detail" => [
+                        "url" => "/rooms/detail/{slug}",
+                        "guard" => "",
+                        "action"=>'getRoomDetail'
+                    ],
                     "pricing" => [
                         "url" => "/pricing",
                         "guard" => "",
