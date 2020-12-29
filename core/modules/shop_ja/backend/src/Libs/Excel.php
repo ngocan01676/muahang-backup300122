@@ -220,7 +220,7 @@ class Excel
             $n = count($datas);
             $html = "";
             $results = [];
-            dump($datas);
+            dump($datas);die;
             if ($type == "YAMADA" || $type == "FUKUI" || $type == "OHGA" || $type == "KOGYJA" || $type == "KURICHIKU" || $type == "BANH_CHUNG") {
                 $i = 3;
                 $order_tracking_index = $nameColList['order_tracking'];
