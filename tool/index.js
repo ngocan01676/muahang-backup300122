@@ -88,7 +88,7 @@ async function SAGAWA(tracking){
             let Trackings = {};
 
             $("form table.ichiran-bg-esrc").each(function () {
-                
+
                 $(this).find('tr').each(function () {
                     let _tr = $(this);
                     let td = _tr.find('td');
