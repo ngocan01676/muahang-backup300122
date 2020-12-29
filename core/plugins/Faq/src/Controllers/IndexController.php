@@ -92,7 +92,7 @@ class IndexController extends \Zoe\Http\ControllerBackend
                 $file->makeDirectory($path);
             }
             $file->put($path . '/' . $slug . '.blade.php', $page->content);
-            $request->session()->flash('success', $type == "create"?z_language('Page is added successfully'):z_language('Page is updated successfully'));
+            $request->session()->flash('success', $type == "create"?z_language('Faq is added successfully'):z_language('Faq is updated successfully'));
             return back();
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('name', $ex->getMessage());
