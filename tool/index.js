@@ -139,7 +139,10 @@ async function JAPAN_POST(tracking){
         await page.waitForSelector('#content');
         setTimeout(async function () {
             const inner_html = await page.evaluate(() => document.querySelector('body').innerHTML);
-            console.log(inner_html);
+            fs.writeFile(__dirname+'/logs/JAPAN_POST.html', inner_html, function (err) {
+                if (err) return console.log(err);
+                console.log('SAGAWA.html');
+            });
             let $ = cheerio.load(inner_html);
             let Trackings = {};
             $("#content form table").each(function () {
