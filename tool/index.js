@@ -297,6 +297,7 @@ async function JAPAN_POST(tracking){
             if(pushData.length > 0){
                 lock = true;
                 let data = pushData.shift();
+                console.dir(data);
                 if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
                     console.log("Date:"+(moment().format("YYYY-MM-DD HH:mm:ss"))+data.name);
 
