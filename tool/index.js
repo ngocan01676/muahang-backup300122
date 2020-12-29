@@ -249,7 +249,7 @@ async function JAPAN_POST(tracking){
             let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:ss");
 
             // var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status < 10 and count<10 and (updated_at <= '"+timeEnd+"' or status=0) order by updated_at LIMIT 0,20";
-            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status<10 and (updated_at <= '"+timeEnd+"' or status = 2 and updated_at = '"+moment().format("YYYY-MM-DD")+"') order by updated_at LIMIT 0,20";
+            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status<10 and (updated_at <= '"+timeEnd+"' or status = 2 and updated_at >= '"+moment().format("YYYY-MM-DD")+" 00:00:00' and updated_at <= '"+moment().format("YYYY-MM-DD")+" 23:59:59') order by updated_at LIMIT 0,20";
             console.log(sql);
 
             let rows = {};
@@ -341,6 +341,7 @@ async function JAPAN_POST(tracking){
                 if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
                     console.log("Date:"+(moment().format("YYYY-MM-DD HH:mm:ss"))+data.name);
                     if(data.name === "YAMATO"){
+
                         YAMATO(data.data).then(function (vals) {
                             lock = false;
                             console.log("\n"+data.name+' sucesss \n');
