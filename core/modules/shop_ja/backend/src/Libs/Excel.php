@@ -368,6 +368,8 @@ class Excel
             return "YAMADA";
         } else if (strpos($name, 'の注文分-福井精米様御中')) {
             return "FUKUI";
+        }else if (strpos($name, "BANH_CHUNGの注文分") !== false) {
+            return "BANH_CHUNG";
         }
     }
 
