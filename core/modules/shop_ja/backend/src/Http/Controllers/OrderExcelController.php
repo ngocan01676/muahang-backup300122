@@ -1444,9 +1444,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $lists = isset( $input['lists'])? $input['lists']:[];
                     DB::beginTransaction();
                     $stringDate = explode('/',$input['date']);
-                    $date =isset($stringDate[0]) && count($stringDate) > 2?$stringDate[2].'-'.$stringDate[1].'-'.$stringDate[0]:date('Y-m-d');
-                    echo $date;
-                    die;
+                    $date =isset($stringDate[0]) && count($stringDate) > 2? $stringDate[2].'-'.$stringDate[1].'-'.$stringDate[0]:date('Y-m-d');
+
                     try{
                         foreach ($lists as $list){
                             foreach ($list['checking'] as $key=>$checking){
@@ -1470,7 +1469,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             ],
                                             [
                                                 'data'=>'[]',
-                                                'created_at'=>date('H:i:s'),
+                                                'created_at'=>$date.' '.date('H:i:s'),
                                                 'tracking_id'=>$checking,
                                                 'status'=>0,
                                                 'updated_at'=>date('Y-m-d H:i:s',strtotime('-1 day',time()))

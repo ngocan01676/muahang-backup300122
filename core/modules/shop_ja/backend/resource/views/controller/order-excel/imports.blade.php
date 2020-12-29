@@ -138,8 +138,7 @@
             $("#results .update").each(function () {
                 lists.push(JSON.parse($(this).find('textarea.value').val()));
             });
-
-            lists = [];
+ 
             $.ajax({
                 type: "POST",
                 data: {
