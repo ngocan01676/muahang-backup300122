@@ -31,11 +31,16 @@ function YAMATO(tracking){
             let _index = parseInt(index)+1;
             await page.$eval('input[name="number'+((_index)<10?'0'+_index:_index)+'"]', (el,val) => el.value = val,tracking[index].id);
         }
+
         await page.click('input[name="sch"]');
         await page.waitForSelector('#main',3000);
+
         setTimeout(async function () {
+
             const inner_html = await page.evaluate(() => document.querySelector('body').innerHTML);
+
             let $ = cheerio.load(inner_html);
+
             let Trackings = {};
             $("form table").each(function () {
                 if($(this).attr('width') !== "no"){
@@ -81,6 +86,7 @@ async function SAGAWA(tracking){
             const inner_html = await page.evaluate(() => document.querySelector('body').innerHTML);
             let $ = cheerio.load(inner_html);
             let Trackings = {};
+            console.log(inner_html);
             $("form table.ichiran-bg-esrc").each(function () {
                 $(this).find('tr').each(function () {
                     let _tr = $(this);
