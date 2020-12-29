@@ -1446,24 +1446,32 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     try{
                         foreach ($lists as $list){
                             foreach ($list['checking'] as $key=>$checking){
-                                DB::table('shop_order_excel')->where("id",$list['ids'][$key])->update(['order_tracking'=>json_encode($list['checking'])]);
-                                DB::table('shop_order_excel_tracking')
-                                    ->updateOrInsert(
-                                        [
-                                            'order_id'=>$list['ids'][$key],
-                                            'type'=>$input['ship'],
-                                            'company'=>$input['com'],
-                                        ],
-                                        [
-                                            'data'=>'[]',
-                                            'created_at'=>date('Y-m-d H:i:s'),
-                                            'tracking_id'=>$checking,
-                                            'status'=>0,
-                                            'updated_at'=>date('Y-m-d H:i:s',strtotime('-1 day',time()))
-                                        ]
-                                    );
-                            }
+                                $count = DB::table('shop_order_excel_tracking')->where([
+                                    'order_id'=>$list['ids'][$key],
+                                    'type'=>$input['ship'],
+                                    'company'=>$input['com'],
+                                    'status'=> 1
+                                ])->count();
 
+                                if($count == 0){
+                                    DB::table('shop_order_excel')->where("id",$list['ids'][$key])->update(['order_tracking'=>json_encode($list['checking'])]);
+                                    DB::table('shop_order_excel_tracking')
+                                        ->updateOrInsert(
+                                            [
+                                                'order_id'=>$list['ids'][$key],
+                                                'type'=>$input['ship'],
+                                                'company'=>$input['com'],
+                                            ],
+                                            [
+                                                'data'=>'[]',
+                                                'created_at'=>date('Y-m-d H:i:s'),
+                                                'tracking_id'=>$checking,
+                                                'status'=>0,
+                                                'updated_at'=>date('Y-m-d H:i:s',strtotime('-1 day',time()))
+                                            ]
+                                    );
+                                }
+                            }
                         }
                         DB::commit();
                     }catch (\Exception $ex){
