@@ -61,6 +61,7 @@
                                     <option value="1">{!! z_language("Thành công") !!}</option>
                                     <option value="2">{!! z_language("Đang xử lý") !!}</option>
                                     <option value="3">{!! z_language("Đã kiểm tra") !!}</option>
+                                    <option value="10">{!! z_language("Sai mã") !!}</option>
                                 </select>
                             </div>
                         </div>

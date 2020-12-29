@@ -362,6 +362,7 @@
                                     '2' => z_language('Đang kiểm tra', false),
                                     '0' => z_language('Chưa kiểm tra', false),
                                     '3' => z_language('Đã kiểm tra', false),
+                                    '10' => z_language('Sai mã', false),
                                 ],
                                 'type' => [
                                     'name' => 'label',
