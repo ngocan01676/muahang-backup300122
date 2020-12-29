@@ -85,7 +85,7 @@ async function SAGAWA(tracking){
        await page.click('input[name="main:toiStart"]');
         setTimeout(async function () {
             const inner_html = await page.evaluate(() => document.querySelector('body').innerHTML);
-            fs.writeFile(__dirname+'logs/SAGAWA.html', inner_html, function (err) {
+            fs.writeFile(__dirname+'/logs/SAGAWA.html', inner_html, function (err) {
                 if (err) return console.log(err);
                 console.log('SAGAWA.html');
             });
