@@ -1411,7 +1411,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                        if(isset($resutls[0])){
                            $html.='<table class="table table-bordered" style="background: #dedede">';
                            $html.='<tr>';
-                           $html.='<td><label class="label label-default">'.$resutls[0]->order_create_date.'</label></td>';
+                           $html.='<td><label class="label label-default">'.date('d-m-Y',strtotime($resutls[0]->order_create_date)).'</label></td>';
                            $html.='<td><label class="label label-default">'.$resutls[0]->fullname.'</label></td>';
                            $html.='<td><label class="label label-default">'.$resutls[0]->order_link.'</label></td>';
                            $html.='</tr>';
