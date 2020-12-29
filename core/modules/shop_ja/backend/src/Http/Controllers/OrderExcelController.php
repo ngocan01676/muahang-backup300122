@@ -1443,6 +1443,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 if($input['type'] == "import"){
                     $lists = isset( $input['lists'])? $input['lists']:[];
                     DB::beginTransaction();
+                    $stringDate = explode('/',$input['date']);
+                    $date =isset($stringDate[0]) && count($stringDate) > 2?$stringDate[2].'-'.$stringDate[1].'-'.$stringDate[0]:date('Y-m-d');
+                    echo $date;
+                    die;
                     try{
                         foreach ($lists as $list){
                             foreach ($list['checking'] as $key=>$checking){
@@ -1455,6 +1459,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 ])->count();
 
                                 if($count == 0){
+
                                     DB::table('shop_order_excel')->where("id",$list['ids'][$key])->update(['order_tracking'=>json_encode($list['checking'])]);
                                     DB::table('shop_order_excel_tracking')
                                         ->updateOrInsert(
@@ -1465,7 +1470,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             ],
                                             [
                                                 'data'=>'[]',
-                                                'created_at'=>date('Y-m-d H:i:s'),
+                                                'created_at'=>date('H:i:s'),
                                                 'tracking_id'=>$checking,
                                                 'status'=>0,
                                                 'updated_at'=>date('Y-m-d H:i:s',strtotime('-1 day',time()))
