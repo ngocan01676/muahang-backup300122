@@ -255,6 +255,7 @@ async function JAPAN_POST(tracking){
                 }
                 databaseLock = {};
                 conn.end();
+                lock = false;
                 Cb();
             });
 
