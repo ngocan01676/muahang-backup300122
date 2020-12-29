@@ -22,7 +22,7 @@ console.log("Time:"+moment().format("YYYY-MM-DD HH:mm:ss"));
 let timeEnd = moment().add('-30','minutes').format("YYYY-MM-DD hh:mm:ss");
 console.log(timeEnd);
 
-function YAMATO(tracking){
+async function YAMATO(tracking){
     return new  Promise (async function (resolve, reject) {
         let page = pages["YAMATO"];
         await page.goto('http://track.kuronekoyamato.co.jp/english/tracking', { waitUntil: 'networkidle2' });
@@ -221,7 +221,7 @@ async function JAPAN_POST(tracking){
         conn.connect(function (err){
             if (err) throw err.stack;
             let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:ss");
-            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and count<10 and (updated_at <= '"+timeEnd+"' or status=0 ) order by updated_at LIMIT 0,20";
+            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and count<10 and (status = 2 or updated_at <= '"+timeEnd+"' or status=0) order by updated_at LIMIT 0,20";
 
             console.log(sql);
 
