@@ -139,12 +139,14 @@
                 lists.push(JSON.parse($(this).find('textarea.value').val()));
             });
 
+            lists = [];
             $.ajax({
                 type: "POST",
                 data: {
                     'type':"import",
                     'com':$("#company").text(),
                     'ship':$("#ship").text().toUpperCase(),
+                    'date':$datepicker.val(),
                     lists:lists,
                 },
                 success: function (data) {
