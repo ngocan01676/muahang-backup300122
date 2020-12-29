@@ -220,18 +220,19 @@ class Excel
             $n = count($datas);
             $html = "";
             $results = [];
-            dump($datas);die;
+
             if ($type == "YAMADA" || $type == "FUKUI" || $type == "OHGA" || $type == "KOGYJA" || $type == "KURICHIKU" || $type == "BANH_CHUNG") {
                 $i = 3;
+                if($type == "KURICHIKU" || $type == "BANH_CHUNG" ){
+                    $i = 2;
+                }
                 $order_tracking_index = $nameColList['order_tracking'];
-
                 if ($type == "FUKUI") {
                     $i = 7;
                    // $order_tracking_index+=2;
                 }
 
                 for (; $i < $n; $i++) {
-
                     if(!isset($datas[$i][$order_tracking_index])) continue;
 
                     $order_tracking = trim(rtrim($datas[$i][$order_tracking_index]));
