@@ -1446,13 +1446,15 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     try{
                         foreach ($lists as $list){
                             foreach ($list['checking'] as $key=>$checking){
+
                                 $count = DB::table('shop_order_excel_tracking')->where([
                                     'order_id'=>$list['ids'][$key],
                                     'type'=>$input['ship'],
                                     'company'=>$input['com'],
                                     'status'=> 1
                                 ])->count();
-
+                                var_dump($count);
+                                die;
                                 if($count == 0){
                                     DB::table('shop_order_excel')->where("id",$list['ids'][$key])->update(['order_tracking'=>json_encode($list['checking'])]);
                                     DB::table('shop_order_excel_tracking')
