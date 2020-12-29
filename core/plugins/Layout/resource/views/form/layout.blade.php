@@ -131,15 +131,22 @@
                             </div>
                             <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
                                 <?php
-                                    dd($components);
+
                                 foreach ($components as $name => $component) {
 
                                     $option = $component['option'];
                                     $_cfg = new Zoe\Config($option["cfg"]);
                                     $option["stg"]['name'] = $component['name'];
-                                    if (is_array($component['main'])) {
-                                        $option["stg"]['main'] = $component['main'];
+                                    if(isset($component['main'])){
+                                        if (is_array($component['main'])) {
+                                            $option["stg"]['main'] = $component['main'];
+                                        }else{
+                                            $option["stg"]['main'] = [$component['main']];
+                                        }
+                                    }else{
+                                        $option["stg"]['main'] = [];
                                     }
+
     //                                $option["stg"]['system'] = $module;
                                     if (isset($components_config[$name])) {
                                         //$option['cfg'] = array_merge();

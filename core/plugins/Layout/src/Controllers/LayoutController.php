@@ -135,8 +135,13 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
                 if (isset($items['config']['stg']['name'])) {
 
-                    if (isset($components_info[$prefix . $items['config']['stg']['name']]['main']) && is_array($components_info[$prefix . $items['config']['stg']['name']]['main'])) {
-                        $data["func"] = array_merge($data["func"], $components_info[$prefix . $items['config']['stg']['name']]['main']);
+                    if (isset($components_info[$prefix . $items['config']['stg']['name']]['main'])) {
+                        if(is_array($components_info[$prefix . $items['config']['stg']['name']]['main'])){
+                            $data["func"] = array_merge($data["func"], $components_info[$prefix . $items['config']['stg']['name']]['main']);
+                        }else{
+                            $data["func"][$components_info[$prefix . $items['config']['stg']['name']]['main']] = $components_info[$prefix . $items['config']['stg']['name']]['main'];
+                        }
+
                     }
                     if (isset($components_conf[$prefix . $items['config']['stg']['name']])) {
                         $config = $components_conf[$prefix . $items['config']['stg']['name']];
