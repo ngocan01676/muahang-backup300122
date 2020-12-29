@@ -19,6 +19,9 @@ class GirdBladeHelper extends \Admin\Lib\GirdBladeHelper
     {
         return "<main id=\"main\" class=\"dark dark-page-wrapper\">" . $content . "</main>";
     }
+    public function layout_content($content,$option = []){
+        return '<div id="content" role="main">'.$content.'</div>';
+    }
     public function layout_footer($content, $option = [])
     {
         return " <footer id=\"footer\" class=\"footer-wrapper\">" . $content . "</footer>";

@@ -6,4 +6,10 @@ class HomeController extends \Zoe\Http\ControllerFront
     {
         return $this->render('home.list', []);
     }
+    public function getRoom(){
+        return $this->render('home.room', []);
+    }
+    public function getPricing(){
+        return $this->render('home.pricing', []);
+    }
 }

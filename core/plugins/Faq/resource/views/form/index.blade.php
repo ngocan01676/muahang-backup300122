@@ -27,14 +27,14 @@
                     </tr>
                     <tr>
                         <td>
-                            {!! Form::label('id_description', z_language('Faq Content'), ['class' => 'description']) !!}
-                            {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=> z_language('Faq Content'),'cols'=>5,'rows'=>5]) !!}
+                            {!! Form::label('label_description', z_language('Faq Content'), ['class' => 'label_content']) !!}
+                            {!! Form::textarea('content',null, ['class' => 'form-control','placeholder'=> z_language('Faq Content'),'cols'=>5,'rows'=>5]) !!}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             {!! Form::label('id_order', z_language('Faq Order'), ['class' => 'title']) !!}
-                            {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>z_language('Faq Order')]) !!}
+                            {!! Form::text('order',null, ['class' => 'form-control','placeholder'=>z_language('Faq Order')]) !!}
                         </td>
                     </tr>
                     <tr>

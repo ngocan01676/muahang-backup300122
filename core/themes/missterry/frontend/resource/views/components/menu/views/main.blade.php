@@ -8,7 +8,7 @@
     <div id="masthead" class="header-main nav-dark">
         <div class="header-inner flex-row container logo-left medium-logo-center" role="navigation">
             <div id="logo" class="flex-col logo">
-                <a href="https://demo.missterry.vn/" title="Miss Terry® Escape Rooms - Unravel The Mystery!" rel="home">
+                <a href="{!! url('/') !!}" title="Miss Terry® Escape Rooms - Unravel The Mystery!" rel="home">
                     <img width="272" height="68" src="https://demo.missterry.vn/wp-content/themes/flatsome/assets/img/logo.png" class="header_logo header-logo" alt="Miss Terry® Escape Rooms"/><img  width="272" height="68" src="https://demo.missterry.vn/wp-content/uploads/2020/12/logo-long-3.png" class="header-logo-dark" alt="Miss Terry® Escape Rooms"/></a>
             </div>
             <!-- Mobile Left Elements -->

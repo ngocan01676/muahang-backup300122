@@ -540,12 +540,13 @@
     }
     @endverbatim
 </style>
+
 <section class="section" id="section_{!! md5(json_encode($data)) !!}">
     <div class="bg section-bg fill bg-fill  bg-loaded" >
     </div>
     <div class="section-content relative b-rooms-home">
         <div class="container section-title-container" >
-            <h3 class="section-title section-title-normal"><b></b><span class="section-title-main" style="font-size:150%;">OUR ROOMS</span><b></b></h3>
+            <h3 class="section-title section-title-normal"><b></b><span class="section-title-main" style="font-size:150%;">{!! isset($data['data']['title'])?$data['data']['title']:"OUR ROOMS" !!}</span><b></b></h3>
         </div>
         <div class="container">
             <div class="row">

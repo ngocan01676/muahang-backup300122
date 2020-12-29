@@ -45,11 +45,11 @@ class IndexController extends \Zoe\Http\ControllerBackend
         ],'PluginContact');
     }
     public function create(){
-        $this->getcrumb()->breadcrumb(z_language("Create Page"), false);
+        $this->getcrumb()->breadcrumb(z_language("Create Faq"), false);
         return $this->render('index.create', []);
     }
     public function edit($id){
-        $this->getcrumb()->breadcrumb(z_language("Edit Page"), false);
+        $this->getcrumb()->breadcrumb(z_language("Edit Faq"), false);
         $model = FaqModel::find($id);
         return $this->render('index.edit', ["model" => $model]);
     }
@@ -59,7 +59,6 @@ class IndexController extends \Zoe\Http\ControllerBackend
         $filter = [
             'title' => 'required|max:255',
             'content' => 'required',
-            'description' => 'required',
         ];
         $type = "create";
         if (isset($items) && isset($items['id'])) {
@@ -73,29 +72,22 @@ class IndexController extends \Zoe\Http\ControllerBackend
             'content.required' => z_language('The content field is required.'),
             'content.description' => z_language('The description field is required.'),
         ]);
-
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
         try {
-            $slug = Str::slug($items['title'], '-');
             $page->title = $items['title'];
-
-            $page->slug = isset($items['slug'])?$items['slug']:$slug;
-            $page->description = $items['description'];
-            $page->content = htmlspecialchars_decode($items['content']);
+            $page->content = $items['content'];
             $page->status = $items['status'];
+            $page->order = isset($items['order'])?(int)($items['order']):0;
+
+
+
             $page->save();
-            $file = new \Illuminate\Filesystem\Filesystem();
-            $path = storage_path('app/views/pages/');
-            if (!$file->isDirectory($path)) {
-                $file->makeDirectory($path);
-            }
-            $file->put($path . '/' . $slug . '.blade.php', $page->content);
             $request->session()->flash('success', $type == "create"?z_language('Faq is added successfully'):z_language('Faq is updated successfully'));
             return back();
         }catch (\Exception $ex){
-            $validator->getMessageBag()->add('name', $ex->getMessage());
+            $validator->getMessageBag()->add('title', $ex->getMessage());
         }
         return back()
             ->withErrors($validator)

@@ -87,7 +87,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
 
 //        $components_config = app()->getComponents()->config;
-//        dd($items);
+
         $TypeAction = $items['config']['stg']['type'];
         if (isset($items['config']['stg'])) {
             if (isset($items['config']['stg']['system'])) {

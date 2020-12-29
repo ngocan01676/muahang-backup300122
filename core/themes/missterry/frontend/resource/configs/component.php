@@ -61,6 +61,9 @@ return [
             'Footer-OFFERS-AND-DEALS'=>[
                 'layout' => 'widget'
             ],
+            'Room-banner'=>[
+                'layout' => 'widget'
+            ],
         ]
     ]
 ];

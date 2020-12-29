@@ -131,6 +131,7 @@
                             </div>
                             <div id="menu-accordion-<?php echo $module; ?>" class="panel-collapse collapse">
                                 <?php
+                                    dd($components);
                                 foreach ($components as $name => $component) {
 
                                     $option = $component['option'];
