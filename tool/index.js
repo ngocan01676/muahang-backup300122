@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 var cheerio = require('cheerio');
+fs = require('fs');
 const pages = {};
 const opts = {
     errorEventName:'error',
@@ -84,6 +85,10 @@ async function SAGAWA(tracking){
        await page.click('input[name="main:toiStart"]');
         setTimeout(async function () {
             const inner_html = await page.evaluate(() => document.querySelector('body').innerHTML);
+            fs.writeFile('SAGAWA.html', inner_html, function (err) {
+                if (err) return console.log(err);
+                console.log('Hello World > helloworld.txt');
+            });
             let $ = cheerio.load(inner_html);
             let Trackings = {};
 
@@ -132,6 +137,7 @@ async function JAPAN_POST(tracking){
         await page.waitForSelector('#content');
         setTimeout(async function () {
             const inner_html = await page.evaluate(() => document.querySelector('body').innerHTML);
+            console.log(inner_html);
             let $ = cheerio.load(inner_html);
             let Trackings = {};
             $("#content form table").each(function () {
