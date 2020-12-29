@@ -1413,8 +1413,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                            $html.='<tr>';
                            $html.='<td><label class="label label-default">'.date('d-m-Y',strtotime($resutls[0]->order_create_date)).'</label></td>';
                            $html.='<td><label class="label label-default">'.$resutls[0]->fullname.'</label></td>';
-                           $html.='<td><label class="label label-default"><a href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
-                           $html.='<td><label class="label label-default"><a href="#">Kiểm tra</a></label></td>';
+                           $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
+                           $html.='<td><label class="label label-default"><a target="_blank" href="#">Kiểm tra</a></label></td>';
                            $html.='</tr>';
                            $html.='</table>';
                        }
