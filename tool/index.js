@@ -86,12 +86,14 @@ async function SAGAWA(tracking){
             const inner_html = await page.evaluate(() => document.querySelector('body').innerHTML);
             let $ = cheerio.load(inner_html);
             let Trackings = {};
-            console.log(inner_html);
+
             $("form table.ichiran-bg-esrc").each(function () {
+                
                 $(this).find('tr').each(function () {
                     let _tr = $(this);
                     let td = _tr.find('td');
                     let id = $(td[0]).find('input').val();
+
                     if(id){
                         id = id.trim().replace(/\n/g, ' ');
                         let key = id.replace(/-+/g, "");
