@@ -170,6 +170,16 @@ async function JAPAN_POST(tracking){
                                     }
                                 }
                             }
+                        }else{
+                            let id = $(td[0]).text();
+                            id = id.trim().replace(/\n/g, ' ').replace(/\s+/g, " ");
+                            let key = id.replace(/-/g, "");
+                            Trackings[key] = {
+                                Id : id ,
+                                Date : "",
+                                Text : $(td[1]).text(),
+                            };
+                            Trackings[key].Status = 10;
                         }
                     }
                 });
@@ -337,13 +347,11 @@ async function JAPAN_POST(tracking){
 
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
-
                                     if(vals[0][vals[1][i].key].Status){
                                          sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }
-
                                     pool.query(sql,function () {
 
                                     });
