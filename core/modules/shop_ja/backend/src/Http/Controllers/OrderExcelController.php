@@ -1373,6 +1373,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $models->where('status', 3);
         }
         $models->orderBy('id', 'desc');
+        $configs = [
+            "YAMATO"=>"http://track.kuronekoyamato.co.jp/english/tracking",
+            "SAGAWA"=>"http://k2k.sagawa-exp.co.jp/p/sagawa/web/okurijosearcheng.jsp",
+            "JAPAN_POST"=>"https://trackings.post.japanpost.jp/services/srv/search/input"
+        ];
         return $this->render('order-excel.tracking_list', [
             'models' => $models->paginate($item),
             'callback' => [
@@ -1404,7 +1409,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }
                     return z_language("Đợi đến lượt");
                 },
-                "get_info"=>function($model){
+                "get_info"=>function($model) use($configs){
                     $html = "";
                     if($model->status > 2 && $model->status< 10) {
                        $resutls = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
@@ -1414,7 +1419,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                            $html.='<td><label class="label label-default">'.date('d-m-Y',strtotime($resutls[0]->order_create_date)).'</label></td>';
                            $html.='<td><label class="label label-default">'.$resutls[0]->fullname.'</label></td>';
                            $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
-                           $html.='<td><label class="label label-default"><a target="_blank" href="#">Kiểm tra</a></label></td>';
+                           $html.='<td><label class="label label-default"><a target="_blank" href="'.(isset($configs[$resutls[0]->type])?$configs[$resutls[0]->type]:"#").'">Kiểm tra</a></label></td>';
                            $html.='</tr>';
                            $html.='</table>';
                        }
