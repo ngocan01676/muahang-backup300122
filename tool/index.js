@@ -110,6 +110,8 @@ async function SAGAWA(tracking){
                         Trackings[key].Status = 3;
                         if(Trackings[key].Text.indexOf('Delivered')>=0){
                             Trackings[key].Status = 1;
+                        }else if(Trackings[key].Text.indexOf('Incorrect')>=0){
+                            Trackings[key].Status = 10;
                         }
                     }
                 });
