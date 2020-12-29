@@ -231,6 +231,10 @@ async function JAPAN_POST(tracking){
                 if (err) throw err;
                 let count =0;
                 for(let key in results){
+                    let trangid = results[key].tracking_id;
+                    if(trangid == "キャンセル"){
+                        continue;
+                    }
                     if(!_databaseData.hasOwnProperty(results[key].type)){
                         _databaseData[results[key].type] = {};
                     }
