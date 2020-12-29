@@ -220,7 +220,9 @@ async function JAPAN_POST(tracking){
         });
         conn.connect(function (err){
             if (err) throw err.stack;
+
             let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:ss");
+
             var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and count<10 and (status = 2 or updated_at <= '"+timeEnd+"' or status=0) order by updated_at LIMIT 0,20";
 
             console.log(sql);
@@ -267,6 +269,7 @@ async function JAPAN_POST(tracking){
             for(let name in databaseData){
                 let trackingIds = [];
                 let count = 0;
+
                 for(let index in databaseData[name]){
                     if(!databaseLock.hasOwnProperty(index)){
                         databaseLock[index] = new Date();
@@ -276,7 +279,6 @@ async function JAPAN_POST(tracking){
                             key:index.replace(/-+/g, ""),
                             data:databaseData[name][index],
                         });
-
                         count++;
                         if(count > 0){
                             break;
