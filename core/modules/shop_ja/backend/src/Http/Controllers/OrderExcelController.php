@@ -1404,6 +1404,22 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }
                     return z_language("Đợi đến lượt");
                 },
+                "get_info"=>function($model){
+                    $html = "";
+                    if($model->status > 2 && $model->status< 10) {
+                       $resutls = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
+                       if(isset($resutls[0])){
+                           $html.='<table class="table table-bordered" style="background: #dedede">';
+                           $html.='<tr>';
+                           $html.='<td><label class="label label-default">'.$resutls[0]->order_create_date.'</label></td>';
+                           $html.='<td><label class="label label-default">'.$resutls[0]->fullname.'</label></td>';
+                           $html.='<td><label class="label label-default">'.$resutls[0]->order_link.'</label></td>';
+                           $html.='</tr>';
+                           $html.='</table>';
+                       }
+                    }
+                    return $html;
+                }
             ]
         ]);
     }

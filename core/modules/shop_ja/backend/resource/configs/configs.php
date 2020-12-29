@@ -341,6 +341,7 @@
                             'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status'],
                             'count' => ['label' => z_language('Số lần', false), 'type' => 'number'],
                             'get_results' => ['label' => z_language('Kết quả', false), 'type' => 'text','callback' => "get_results"],
+                            'get_info' => ['label' => z_language('Thông tin', false), 'type' => 'text','callback' => "get_info"],
                             'GetTimeCheck' => ['label' => z_language('Thơi gian chờ', false), 'type' => 'text','callback' => "GetTimeCheck"],
                             'created_at' => ['label' => z_language('Ngày đăng', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Ngày nhập', false), 'type' => 'date'],
