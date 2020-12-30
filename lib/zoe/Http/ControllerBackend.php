@@ -14,6 +14,7 @@ class ControllerBackend extends Controller
         parent::__construct();
         $this->breadcrumb->home = ['name' => z_language('Home'), 'uri' => ('backend:dashboard:list')];
         $this->breadcrumb->child = new Config();
+        $this->app->isAdmin = true;
     }
     public function render($view, $data = [], $key = "",$layout = "")
     {

@@ -40,7 +40,6 @@
         </div>
     </div>
 
-
     </div>
     </div>
 
@@ -197,14 +196,14 @@
                         </div>
                     </div>
 
-                    <div class="mobile_schedule">
-                        <div id="app-filter-rooms">
-                            <ribbon-component></ribbon-component>
-                            <div class="container booking-schedule-w">
-                                <schedule-component :rooms-ids="[5600]" sort-method="5600"></schedule-component>
-                            </div>
-                        </div>
-                    </div>
+                    {{--<div class="mobile_schedule">--}}
+                        {{--<div id="app-filter-rooms">--}}
+                            {{--<ribbon-component></ribbon-component>--}}
+                            {{--<div class="container booking-schedule-w">--}}
+                                {{--<schedule-component :rooms-ids="[5600]" sort-method="5600"></schedule-component>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                     <div class="desktop_schedule">
                         <div id="calendar" class="js-room owl-carousel calendar"
                              data-name="Indiana Jones: Scythian Gold"
@@ -269,7 +268,7 @@
                                 $_timeBet = strtotime($dateTime.' 17:00:00');
                                 $is_disabled = strtotime($dateTime.' 23:59:59') < time();
                             @endphp
-                            <div class="item day">
+                            <div class="item day{!! $isNow?" now $dateTime":"" !!}">
                                 <div class="day-header">
                                     <div class="date">{!! $day !!} {!! $months[$month] !!}</div>
                                     <div class="weekday">{!! isset($weeks[$week])?$weeks[$week]:$week !!}</div>
@@ -297,8 +296,9 @@
 
                                                 if($isNow){
                                                     if($_timeNumber < time()){
-                                                        $class = "disabled";
+                                                        $class.= " disabled";
                                                     }
+
                                                 }
                                                 if($_timeNumber > $_timeBet){
                                                     $class.=" middle";
@@ -398,7 +398,8 @@
     <script src="{!! asset('theme/missterry/plugin/OwlCarousel/owl.carousel.min.js') !!}"></script>
     <script>
         jQuery(document).ready(function(){
-            jQuery(".owl-carousel").owlCarousel(
+            let sync2 = jQuery(".owl-carousel");
+            sync2.owlCarousel(
                 {
                     singleItem:!0,
                     nav:!0,
@@ -406,20 +407,26 @@
                     navText:"",
                     loop:!0,
                     margin:10,
-                    autoplay:!0,
+                    autoplay:false,
                     autoplayTimeout:3e3,
                     autoplayHoverPause:!0,
                     autoplaySpeed:600,
                     responsiveRefreshRate:200,
-                    onInitialized:function(){},
+                    onInitialized:function(e){
+                        let count = jQuery('.owl-carousel .owl-item.active').length;
+                        setTimeout(function () {
+                            let d = parseInt('{!! date('d') !!}');
+                            sync2.trigger("to.owl.carousel", [count == 1 ?d:d-parseInt(count/2), 1])
+                        },100);
+                    },
                     responsive:{
                         0:{
-                            items:1,
+                            items:2,
                             nav:!1,
                             stagePadding:25
                         },
                         640:{
-                            items:2,nav:!1
+                            items:3,nav:!1
                         },
                         980:{
                             items:5,nav:!0
@@ -428,7 +435,27 @@
                             items:7,nav:!0
                         }
                         },
-                    lazyLoad:!0})
+                    lazyLoad:!0}).on('changed.owl.carousel', function (el) {
+                            // var current = el.item.index;
+                            //
+                            // console.info(current);
+                            //
+                            // sync2
+                            //     .find(".owl-item")
+                            //     .removeClass("current")
+                            //     .eq(current)
+                            //     .addClass("current");
+                            // var onscreen = sync2.find('.owl-item.active').length - 1;
+                            // var start = sync2.find('.owl-item.active').first().index();
+                            // var end = sync2.find('.owl-item.active').last().index();
+                            //
+                            // if (current > end) {
+                            //     sync2.data('owl.carousel').to(current, 100, true);
+                            // }
+                            // if (current < start) {
+                            //     sync2.data('owl.carousel').to(current - onscreen, 100, true);
+                            // }
+                        })
         });
     </script>
 @endsection

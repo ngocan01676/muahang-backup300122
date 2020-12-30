@@ -553,7 +553,7 @@
                 <div class="col-12">
                     <div class="rooms-w col-xs-12">
                     @foreach($data as $i=>$row)
-                        <a href="{!! route('frontend:'.(empty($_language)?'home':'home-'.$_language).':room-detail',['slug'=>$row->slug]) !!}"
+                        <a href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug]) !!}"
                            itemscope="itemscope" itemtype="http://schema.org/EntertainmentBusiness"
                            class="room b-lazy room-6023
                             @switch($i%4) @case(0) red @break @case(1) yellow @break @case(2) blue @break @default green @endswitch

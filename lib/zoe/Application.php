@@ -33,6 +33,9 @@ class Application extends App
     private $_agent;
     public $_theme;
     public $site_language;
+    public $config_language = [];
+    public $isAdmin = false;
+
     public function __construct(?string $basePath = null)
     {
         $this->_agent = new Agent();
@@ -74,7 +77,19 @@ class Application extends App
             return $data;
         });
         $config = config_get("config", "system");
+
         $this->site_language = isset($config['core']['site_language'])?$config['core']['site_language']:'vi';
+
+        $request = request();
+
+        $lang = isset($request->route()->defaults["lang"]) ? $request->route()->defaults["lang"] : "";
+        $languages = config('zoe.language');
+        $language = isset($languages[$lang])?$languages[$lang]:['router'=>''];
+        $this->config_language = $language;
+
+        if(isset( $this->config_language['lang'])){
+            $this->site_language =  $this->config_language['lang'];
+        }
     }
     public function getLocale(){
         return  session('lang', $this->site_language);

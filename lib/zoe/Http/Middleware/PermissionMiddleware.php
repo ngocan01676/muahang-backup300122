@@ -12,6 +12,7 @@ class PermissionMiddleware
 
     public function handle($request, Closure $next, $permission = "")
     {
+
         $permissions = explode("-",$permission);
         if(isset($permissions[0]) && isset($permissions[1])){
             if (Auth::guard($permissions[0])->check()) {

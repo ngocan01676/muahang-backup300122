@@ -669,11 +669,16 @@ function gen_uuid()
         mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
     );
 }
+
 function z_language($key, $par = [], $__env = null, $tag = "")
 {
     $html = $key;
     if (is_array($par)) {
-        $_lang_name_ = app()->getLocale();
+        if(app()->isAdmin){
+            $_lang_name_ = app()->getLocale();
+        }else{
+            $_lang_name_ = app()->site_language;
+        }
         $_langs_ = app()->getLanguage();
         $html = isset($_langs_[$_lang_name_][$key]) && !empty($_langs_[$_lang_name_][$key]) ? $_langs_[$_lang_name_][$key] : $key;
         if (is_array($par)) {
@@ -683,6 +688,10 @@ function z_language($key, $par = [], $__env = null, $tag = "")
         }
     }
     return !empty($tag)?"<span class='-lang-'>".$html."</span>":$html;
+}
+function router_frontend_lang($name, $parameters = [], $absolute = true){
+    $router =  app()->config_language['router']?app()->config_language['router'].'_'.$name:$name;
+    return route('frontend:'.$router,$parameters,$absolute);
 }
 function acl_alias($key){
     return "Acl:".$key;
