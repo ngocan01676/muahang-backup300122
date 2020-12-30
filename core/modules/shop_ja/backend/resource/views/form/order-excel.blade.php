@@ -9375,6 +9375,8 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
+                                    console.info(obj.getSelectedRows().length);
+                                    console.info(y);
                                     if(obj.getSelectedRows().length){
                                         obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
 
