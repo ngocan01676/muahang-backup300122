@@ -29,6 +29,9 @@ $routers = [];
 
 $routers['home'] = $home;
 
+
+$language = config('zoe.language');
+$selects = ['en_us','vi'];
 foreach (['vi','en'] as $lang){
     $fruitsArrayObject = (new ArrayObject($home))->getArrayCopy();
     foreach ($fruitsArrayObject['router'] as $key=>$value){

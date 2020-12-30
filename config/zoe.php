@@ -37,10 +37,10 @@ return [
         ]
     ],
     'language' => [
-        'en_us' => ['flag' => 'gb', 'lang' => 'en-us', 'label' => 'English (United States)'],
-        'vi' => ['flag' => 'vn', 'lang' => 'vi', 'label' => 'Viet Nam'],
-        'jp' => ['flag' => 'jp', 'lang' => 'jp', 'label' => 'Japanese'],
-        'zh_cn' => ['flag' => 'cn', 'lang' => 'zh-cn', 'label' => 'Chinese (PRC)'],
+        'en_us' => ['flag' => 'gb', 'lang' => 'en-us', 'label' => 'English (United States)','uri'=>'en'],
+        'vi' => ['flag' => 'vn', 'lang' => 'vi', 'label' => 'Viet Nam','uri'=>'vi'],
+        'jp' => ['flag' => 'jp', 'lang' => 'jp', 'label' => 'Japanese','uri'=>'jp'],
+        'zh_cn' => ['flag' => 'cn', 'lang' => 'zh-cn', 'label' => 'Chinese (PRC)','uri'=>'cn'],
     ],
 //    'language_data' => include base_path('tmp/lang.php'),
 ];
