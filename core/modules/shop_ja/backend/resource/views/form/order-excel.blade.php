@@ -9376,12 +9376,15 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
-                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                    if(obj.getSelectedRows().length){
+                                        obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
 
-                                    SaveEvent[sheetName].save  = true;
-                                    SaveEvent[sheetName].count++;
-                                    SaveEvent[sheetName].check = true;
-                                    start = true;
+                                        SaveEvent[sheetName].save  = true;
+                                        SaveEvent[sheetName].count++;
+                                        SaveEvent[sheetName].check = true;
+                                        start = true;
+                                    }
+
 
                                 }
                             });
