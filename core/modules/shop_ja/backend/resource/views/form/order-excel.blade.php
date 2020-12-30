@@ -9371,7 +9371,6 @@
                                 }
                             });
                         }
-
                         if (obj.options.allowDeleteRow === true) {
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
