@@ -416,7 +416,17 @@ function render_attr($option,$model){
     }
     return "<".$tag.$attr.">".$html."</".$tag.">";
 }
-function config_get($type, $name, $default = [])
+function configs_get($type,$default = []){
+    $results = DB::table('config')->where(['type' => $type])->get()->all();
+    if (!$results) return $default;
+    $data = [];
+    foreach ($results as $k=>$v){
+        $rs = unserialize($v->data);
+        $data[$v->name] = isset($rs['data']) ? $rs['data'] : $default;
+    }
+    return $data;
+}
+function config_get($type, $name = "", $default = [])
 {
     $rs = DB::table('config')->where(['type' => $type, 'name' => $name])->first();
     if (!$rs) return $default;
@@ -543,25 +553,146 @@ function gen_uuid()
         mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
     );
 }
-
-function z_language($key, $par = [], $__env = null)
+function z_language($key, $par = [], $__env = null, $tag = "")
 {
+    $html = $key;
     if (is_array($par)) {
         $_lang_name_ = app()->getLocale();
         $_langs_ = app()->getLanguage();
-
         $html = isset($_langs_[$_lang_name_][$key]) && !empty($_langs_[$_lang_name_][$key]) ? $_langs_[$_lang_name_][$key] : $key;
         if (is_array($par)) {
             foreach ($par as $k => $v) {
                 $html = str_replace(":" . $k, $v, $html);
             }
         }
-
-        return $html;
     }
-    return $key;
+    return !empty($tag)?"<span class='-lang-'>".$html."</span>":$html;
 }
+function acl_alias($key){
+    return "Acl:".$key;
+}
+function find_acl($string_blade, $sub_path, $string_find = "z_language"){
+    $array = [];
+    preg_match_all('/' . $string_find . '\((.*?)\)/', $string_blade, $match);
+    if (isset($match[1])) {
+        foreach ($match[1] as $val) {
+            $key_val = trim($val, "]");
+            $key_val = trim($key_val, "[");
+            $key_val = trim($key_val, '"\'');
+//                $val = trim($val, '[false');
+            $key_val = trim($key_val, '"\', ');
 
+            if (substr($key_val, -5) == "false") {
+                $key_val = substr($key_val, 0, strlen($key_val) - 5);
+                $key_val = trim($key_val, '"\', ');
+            }
+            $key_val = trim($key_val);
+            if (substr($key_val, 0, 1) == "$") {
+                continue;
+            }
+            $Arr = explode("',", $key_val);
+            if (count($Arr) == 2) {
+                $key_val = $Arr[0];
+            } else {
+                $Arr = explode("\",", $key_val);
+                if (count($Arr) == 2) {
+                    $key_val = $Arr[0];
+                }
+            }
+            $key_val = trim($key_val, '"\', ');
+
+            $key = md5($key_val.'-'.$string_find);
+            $value = [
+                "value" => "",
+                "path" => $sub_path,
+                "name" => $key_val,
+                "key"=> md5($key)
+            ];
+            $array[md5($key)] = $value;
+        }
+    }
+    return $array;
+}
+function lang_all_key(){
+    return Cache::remember('lang_all_key:static', 1, function()
+    {
+        $results = [];
+        $results = get_dir_contents(base_path('core'), '/\.php$/', $results);
+        $file = new \Illuminate\Filesystem\Filesystem();
+        $array = [
+
+        ];
+        $system_modules = config('zoe.modules');
+        $modules = DB::table('module')
+            ->select()->where('status', 1)->pluck('name')->all();
+
+        $plugins = config_get('plugin', 'lists');
+
+        foreach ($results as $_file) {
+            $name = str_replace(base_path(), "", $_file);
+            $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
+            if (count($sub_path) > 2) {
+                if (
+                    $sub_path[1] == "modules" && !in_array($sub_path[2], $system_modules) && !in_array($sub_path[2], $modules) ||
+                    $sub_path[1] == "plugins" && !isset($plugins[$sub_path[2]])
+                ) {
+                    continue;
+                }
+            }
+
+            $string_blade = $file->get($_file);
+            $array = array_merge($array, find_acl($string_blade, $sub_path,"z_language"));
+        }
+        return $array;
+    });
+}
+function auth_key_cache($guard,$roleId){
+    return $guard.":".$roleId;
+}
+function acl_all_key(){
+    return Cache::remember('acl_all_key:static', 60, function()
+    {
+        $results = [];
+        $results = get_dir_contents(base_path('core'), '/\.php$/', $results);
+        $file = new \Illuminate\Filesystem\Filesystem();
+        $array = [
+
+        ];
+        $system_modules = config('zoe.modules');
+        $modules = DB::table('module')
+            ->select()->where('status', 1)->pluck('name')->all();
+        $plugins = config_get('plugin', 'lists');
+        foreach ($results as $_file) {
+            $name = str_replace(base_path(), "", $_file);
+            $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
+            if (count($sub_path) > 2) {
+                if (
+                    $sub_path[1] == "modules" && !in_array($sub_path[2], $system_modules) && !in_array($sub_path[2], $modules) ||
+                    $sub_path[1] == "plugins" && !isset($plugins[$sub_path[2]])
+                ) {
+                    continue;
+                }
+            }
+            $string_blade = $file->get($_file);
+            $array = array_merge($array, find_acl($string_blade, $sub_path,"acl_alias"));
+        }
+        return $array;
+    });
+}
+function get_dir_contents($dir, $filter = '', &$results = array())
+{
+    $files = scandir($dir);
+
+    foreach ($files as $key => $value) {
+        $path = realpath($dir . DIRECTORY_SEPARATOR . $value);
+        if (!is_dir($path)) {
+            if (empty($filter) || preg_match($filter, $path)) $results[] = $path;
+        } elseif ($value != "." && $value != "..") {
+            get_dir_contents($path, $filter, $results);
+        }
+    }
+    return $results;
+}
 function get_config_component($id, $config = [])
 {
     return [];
@@ -777,4 +908,105 @@ function convertDotToArray($array) {
         }
     }
     return $newArray;
+}
+function logs_sql(){
+    $sqls = "";
+    foreach (DB::getQueryLog() as $k=>$v){
+        $sql = $v['query'];
+        foreach ($v['bindings'] as $binding) {
+            if (is_string($binding)) {
+                $binding = "'{$binding}'";
+            } elseif ($binding === null) {
+                $binding = 'NULL';
+            } elseif ($binding instanceof Carbon) {
+                $binding = "'{$binding->toDateTimeString()}'";
+            } elseif ($binding instanceof DateTime) {
+                $binding = "'{$binding->format('Y-m-d H:i:s')}'";
+            }
+            $sql = preg_replace("/\?/", $binding, $sql, 1);
+
+        }
+        $sqls.= $sql."<BR>";
+    }
+    return $sqls;
+}
+function expand_directories_matrix($base_dir, $level = 0) {
+    $directories = array();
+    foreach(scandir($base_dir) as $file) {
+        if($file == '.' || $file == '..' || $file == '.quarantine' || $file ==".tmb") continue;
+        $dir = $base_dir.DIRECTORY_SEPARATOR.$file;
+        if(is_dir($dir)) {
+            $directories[]= array(
+                'level' => $level,
+                'name' => $file,
+                'dir' => $dir,
+                'path' => pathinfo($dir),
+                'children' => expand_directories_matrix($dir, $level +1)
+            );
+        }
+    }
+    return $directories;
+}
+function show_preg_match($list, $path = '',$permission,$role){
+    $html = "";
+    $_path = $path;
+    foreach ($list as $directory){
+        $__path = $_path.$directory['name'].'/';
+        if(isset($permission[$__path]['role']['premission'][$role])){
+
+            if($permission[$__path]['role']['premission'][$role] == "0"){
+                $html.= $directory['name']."(\/|\/.+)";
+            }else{
+                $html.= $directory['name']."(/|";
+                if(count($directory['children']) && ($permission[$__path]['role']['premission'][$role] == "1" || $permission[$__path]['role']['premission'][$role] == "3")){
+                    if($directory['level'] < 2){
+                        $html.="/([^/]+|";
+                        $html.=show_preg_match($directory['children'], $__path,$permission,$role);
+                        $html = trim($html,"|");
+                        $html.=")";
+                    }else{
+                        $html.='/.+';
+                    }
+                }else{
+                    if($permission[$__path]['role']['premission'][$role] == "2" || $permission[$__path]['role']['premission'][$role] == "3")
+                        $html.='/.+';
+                }
+                $html.=")|";
+            }
+        }
+    }
+    return trim($html,"|");
+}
+function show_preg_match_1($list, $path = '',$permission,$role){
+    $html = "";
+    $_path = $path;
+    foreach ($list as $directory){
+        $__path = $_path.$directory['name'].'/';
+        if(isset($permission[$__path]['role']['premission'][$role]) && $permission[$__path]['role']['premission'][$role] > 0){
+            if($permission[$__path]['role']['premission'][$role] != 4){
+                $html.= $directory['name']."(/";
+                if($permission[$__path]['role']['premission'][$role] == 1){
+                    $html.="|/([^/]+";$html.=")";
+                }else{
+                    if(count($directory['children'])){
+                        if($directory['level'] < 2){
+                            $html.="|/([^/]+|";
+                            $html.=show_preg_match_1($directory['children'], $__path,$permission,$role);
+                            $html = trim($html,"|");
+                            $html.=")";
+                        }else{
+                            $html.='|/.+';
+                        }
+                    }else{
+                        $html.='|/.+';
+                    }
+                }
+                $html.=")|";
+            }
+            else {
+                $html.= $directory['name']."(\/|\/.+)";
+            }
+        }
+    }
+    return trim($html,"|");
 }

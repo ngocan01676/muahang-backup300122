@@ -31,7 +31,7 @@ class Application extends App
     public $key = "";
     private $_agent;
     public $_theme;
-
+    public $site_language;
     public function __construct(?string $basePath = null)
     {
         $this->_agent = new Agent();
@@ -72,8 +72,12 @@ class Application extends App
             }
             return $data;
         });
+        $config = config_get("config", "system");
+        $this->site_language = isset($config['core']['site_language'])?$config['core']['site_language']:'vi';
     }
-
+    public function getLocale(){
+        return  session('lang', $this->site_language);
+    }
     public function getTheme()
     {
         return $this->_theme;

@@ -17,9 +17,11 @@ class Controller extends BaseController
     public $asset = [];
     public $breadcrumb = [];
     protected $layout = 'backend::layout.layout';
+    public $app;
     public function __construct()
     {
-        $this->asset = app()->make('asset-manager');
+        $this->app = app();
+        $this->asset = $this->app->make('asset-manager');
         $this->breadcrumb = new \stdClass();
         $this->init();
     }

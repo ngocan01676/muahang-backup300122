@@ -1,10 +1,10 @@
 <?php
 
 namespace Zoe\Http;
-
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
 use Zoe\Config;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 class ControllerBackend extends Controller
 {
     protected $layout = 'backend::layout.layout';
@@ -21,14 +21,16 @@ class ControllerBackend extends Controller
         $data = array_merge($this->data, $data);
         $request = request();
         $keyName = app()->getKey("_view_alias");
-        $_view_alias = isset($request->route()->defaults[$keyName]) ? $request->route()->defaults[$keyName] : "";
+        $_view_alias = isset($request->route()->defaults[$keyName]) ? $request->route()->defaults[$keyName] : $key;
         if (isset($alias['backend'][$view])) {
             $keyView = $alias['backend'][$view];
         }else if (isset($alias['backend'][$_view_alias . ":" . $view])) {
             $keyView = $alias['backend'][$_view_alias . ":" . $view];
-        } else if (isset($_view_alias)) {
+        } else if (!empty($_view_alias)) {
             $keyView = $_view_alias . '::controller.' . $view;
-        } else {
+        } else if (!empty($key)) {
+            $keyView = $key . '::controller.' . $view;
+        }else{
             $keyView = $view;
         }
         return $this->_render($keyView, $data, $key);
@@ -55,5 +57,16 @@ class ControllerBackend extends Controller
             return DB::table('log')->insert(['ips'=>$this->getOriginalClientIp(),'name'=>$name,'admin_id'=>Auth::user()->id,'actions'=>$action,'datas'=>json_encode($data)]);
         }
 
+    }
+    public function sidebar($name){
+        View::share('sidebar_current', $name);
+    }
+    public function IsAcl($routerName){
+        $aliases_acl = app()->getPermissions()->aliases;
+        if(isset($aliases_acl[$routerName])){
+            $acl = $aliases_acl[$routerName];
+            return Auth::guard("backend")->user()->IsAcl($acl);
+        }
+        return true;
     }
 }

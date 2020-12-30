@@ -4,6 +4,9 @@ return [
     'views' => [
         'path' => '/resource/views',
     ],
+    "class_maps" => [
+        "PluginMegaMenu\Controllers\IndexController" => "/Controllers/IndexController.php"
+    ],
     'modules' => [
         'admin.layout' => [
             'plugin:mega-menu:layout' => [

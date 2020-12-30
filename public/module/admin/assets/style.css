@@ -1,6 +1,9 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
+#show-lang .-lang-{
+    border-bottom: 2px dotted #dedede;
+}
 .req{
     color: red;
 }
@@ -149,8 +152,8 @@ body {
 
 .skin-black-light .sidebar-menu .treeview-menu > .treeview.active > a,
 .skin-black-light .sidebar-menu .treeview-menu > .treeview.active > a:hover {
-    background-color: transparent;
-    color: #fff;
+   // background-color: transparent;
+   // color: #fff;
 }
 
 .skin-black-light .sidebar-menu .treeview-menu > .treeview.active > .treeview-menu .active a {
@@ -161,7 +164,12 @@ body {
 .skin-black-light .sidebar-menu .treeview-menu > li > a:hover {
     color: #00b9eb;
 }
-
+.treeview.menu-open > ul.treeview-menu > li > ul.treeview-menu{
+    background: #191e23;
+}
+.treeview.menu-open > ul.treeview-menu > li.menu-open.active > a{
+    border-bottom: 1px solid #32373c;
+}
 .skin-black-light .sidebar-menu > li > a:hover, .skin-black-light .sidebar-menu > li:hover > a {
     background-color: #191e23;
     color: #00b9eb;
@@ -235,12 +243,8 @@ body {
 .listMain .row-actions {
     color: #ddd;
     font-size: 13px;
-    padding: 2px 0 0;
-    position: absolute;
-    left: 0;
-    bottom: 0;
     display: none;
-
+    text-align: left;
 }
 
 .listMain .row-actions .trash a {
@@ -292,7 +296,8 @@ body {
 
 .listMain .table tbody tr td.column {
     position: relative;
-    padding: 12px 0px 15px 18px;
+    padding: 5px 0px 4px 3px;
+    height: 49px;
 }
 
 .listMain .table tbody tr td span.label-text {
@@ -337,12 +342,19 @@ body {
 .table-borderless > thead > tr > th {
     border: none;
 }
-
 .notifyjs-wrapper .notifyjs-bootstrap-base {
     text-align: left;
     display: inline-block;
 }
-
+.box-header{
+    padding: 23px;
+}
+.treeview .treeview-menu> li.active{
+    border: 1px solid;
+}
+.menu-open .treeview-menu> li.active{
+    border: none;
+}
 @media (min-width: 768px) {
     .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu > li:hover > a > span {
         top: 0;

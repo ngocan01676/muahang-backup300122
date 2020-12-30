@@ -5,7 +5,7 @@ return [
         'plugin' => 'core/plugins',
         'theme' => 'core/themes'
     ],
-    'modules' => ['admin', 'user'],
+    'modules' => ['Admin', 'User'],
     'plugins' => ['Comment', 'MegaMenu'],
     'providers' => [
 
@@ -30,14 +30,16 @@ return [
     ],
     'theme' => 'zoe',
     'cache' => [
-        "status" => false
+        "status" => false,
+        "ttl"=>[
+            'sidebars'=>60,
+        ]
     ],
     'language' => [
-        'en_us' => ['flag' => 'gb', 'lang' => 'en-us', 'label' => 'English (United States)'],
+//        'en_us' => ['flag' => 'gb', 'lang' => 'en-us', 'label' => 'English (United States)'],
         'vi' => ['flag' => 'vn', 'lang' => 'vi', 'label' => 'Viet Nam'],
         'jp' => ['flag' => 'jp', 'lang' => 'jp', 'label' => 'Japanese'],
-        'zh_cn' => ['flag' => 'cn', 'lang' => 'zh-cn', 'label' => 'Chinese (PRC)'],
+//        'zh_cn' => ['flag' => 'cn', 'lang' => 'zh-cn', 'label' => 'Chinese (PRC)'],
     ],
     'language_data' => include base_path('tmp/lang.php'),
-
 ];

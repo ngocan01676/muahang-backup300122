@@ -42,13 +42,10 @@ class AppServiceProvider extends ServiceProvider
 //        });
         $this->app->key = md5(config('app.key'));
         $this->app->ReadCache();
-
         $this->app->InitLanguage();
-
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
 
         });
-
         $this->file = new \Illuminate\Filesystem\Filesystem();
         $time_start = microtime(true);
         $this->blade();
@@ -328,6 +325,7 @@ class AppServiceProvider extends ServiceProvider
             require_once $relativePath . '/Plugin.php';
             $class = '\\' . $plugin . '\\Plugin';
             $object = new $class();
+
             if ($this->app->getConfig(true)->cache == 0) {
                 $this->plugin($plugin, $object, $absolute_path);
             }
@@ -339,6 +337,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $fileConfig = $object->FileConfig();
         $relativePath = base_path($absolute_path);
+
         foreach ($fileConfig as $file) {
             $_file = $relativePath . "/resource/configs/" . $file . ".php";
 //            echo $_file;
