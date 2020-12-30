@@ -2015,10 +2015,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                              $rs1->where('fullname', preg_replace('/\s+/', ' ',trim($v['fullname'])));
                          }
                          if(isset($v['address'])){
-                             $rs1->where('address',preg_replace('/\s+/', ' ',trim($v['address'])));
+                             $rs1->where('address',preg_replace('/\s+/', '',trim($v['address'])));
                          }
                          if(isset($v['province'])){
-                             $rs1->where('province',preg_replace('/\s+/', ' ',trim($v['province'])));
+                             $rs1->where('province',preg_replace('/\s+/', '',trim($v['province'])));
                          }
                          if(isset($v['id'])){
                              if(is_numeric($v['id'])){
@@ -2040,10 +2040,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                              ->where('order_create_date',">=",date('Y-m-d',strtotime('-7 day')))
                              ->where('order_create_date','<=',date('Y-m-d H:i:s'));
                          if(isset($v['address'])){
-                             $rs2->where('address',preg_replace('/\s+/', ' ',trim($v['address'])));
+                             $rs2->where('address',preg_replace('/\s+/', '',trim($v['address'])));
                          }
                          if(isset($v['province'])){
-                             $rs2->where('province',preg_replace('/\s+/', ' ',trim($v['province'])));
+                             $rs2->where('province',preg_replace('/\s+/', '',trim($v['province'])));
                          }
 
                          if(isset($v['id'])){
