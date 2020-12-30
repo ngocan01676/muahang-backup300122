@@ -2009,13 +2009,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                  strtotime('-7 day')))->where('order_create_date','<=',date('Y-m-d H:i:s'));
                          $count = 0;
                          if(isset($v['fullname'])){
-                             $rs1->where('fullname',$v['fullname']);
+                             $rs1->where('fullname',trim($v['fullname']));
                          }
                          if(isset($v['address'])){
-                             $rs1->where('address',$v['address']);
+                             $rs1->where('address',trim($v['address']));
                          }
                          if(isset($v['province'])){
-                             $rs1->where('province',$v['province']);
+                             $rs1->where('province',trim($v['province']));
                          }
                          if(isset($v['id'])){
                              if(is_numeric($v['id'])){
@@ -2037,10 +2037,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                              ->where('order_create_date',">=",date('Y-m-d',strtotime('-7 day')))
                              ->where('order_create_date','<=',date('Y-m-d H:i:s'));
                          if(isset($v['address'])){
-                             $rs2->where('address',$v['address']);
+                             $rs2->where('address',trim($v['address']));
                          }
                          if(isset($v['province'])){
-                             $rs2->where('province',$v['province']);
+                             $rs2->where('province',trim($v['province']));
                          }
 
                          if(isset($v['id'])){
