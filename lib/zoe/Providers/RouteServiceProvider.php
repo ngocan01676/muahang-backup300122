@@ -162,8 +162,11 @@ class RouteServiceProvider extends ServiceProvider
 
                 $r->defaults($keyPrivate . "_view_alias", $_view_alias);
 
-                if (isset($configRouter['data'][$alias]['layout'])) {
-                    $r->defaults($keyPrivate . "_layout", $configRouter['data'][$alias]['layout']);
+                $alias_layout = isset($_route['layout'][0])?str_replace(":".$_route['layout'][1].":",":".$_route['layout'][0].":",$alias):$alias;
+
+                if (isset($configRouter['data'][$alias_layout]['layout'])) {
+
+                    $r->defaults($keyPrivate . "_layout", $configRouter['data'][$alias_layout]['layout']);
                 }
                 $r->name($alias);
                 if(isset($_route['wheres'])){
@@ -178,6 +181,7 @@ class RouteServiceProvider extends ServiceProvider
                 $r->middleware($middleware);
             }
         }
+
         $this->app->WriteCache();
     }
 

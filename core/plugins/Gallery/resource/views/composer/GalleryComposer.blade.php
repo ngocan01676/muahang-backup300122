@@ -123,7 +123,7 @@
                 soundPath: '{{ asset('module/admin/assets/elfinder/sounds') }}',
                 getFileCallback: function (file) {
 
-                    {!! $GalleryComposer['name'] !!}_template(file.path);
+                    {!! $GalleryComposer['name'] !!}_template(file.path.split("\\").join("/"));
                     $('#{!! $GalleryComposer["name"] !!}elfinderShow').modal('hide');
                 },
                 resizable: false,

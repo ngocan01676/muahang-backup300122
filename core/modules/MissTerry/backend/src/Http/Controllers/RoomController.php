@@ -132,12 +132,14 @@ class RoomController extends \Zoe\Http\ControllerBackend
         $data = $request->all();
         $validator = Validator::make($data, [
             'image' => 'required',
+            'background' => 'required',
             'time' => 'required',
             'title' => 'required',
             'description' => 'required',
             'content' => 'required',
         ], [
-            'image.required' => 'The Image is Required.',
+            'image.required' => z_language('The Image is Required.'),
+            'background.required' => z_language('The Image is Required.'),
         ]);
         if ($validator->fails()) {
             return back()
@@ -151,6 +153,7 @@ class RoomController extends \Zoe\Http\ControllerBackend
         }
         $model->slug = \Illuminate\Support\Str::slug($data['title'], '-');
         $model->image = $data['image'];
+        $model->background = $data['background'];
         $model->status = $data['status'];
         $model->admin_id = Auth::user()->id;
 

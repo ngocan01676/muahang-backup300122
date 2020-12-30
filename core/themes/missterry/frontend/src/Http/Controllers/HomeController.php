@@ -1,5 +1,7 @@
 <?php
 namespace MissTerryTheme\Http\Controllers;
+use Illuminate\Support\Facades\DB;
+
 class HomeController extends \Zoe\Http\ControllerFront
 {
     public function getLists()
@@ -12,7 +14,34 @@ class HomeController extends \Zoe\Http\ControllerFront
     public function getPricing(){
         return $this->render('home.pricing', []);
     }
-    public function getRoomDetail(){
-        return $this->render('home.detail', []);
+    public function getRoomDetail($slug){
+
+        $results = DB::table('miss_room')->get()->where('status',1)->where('slug',$slug)->all();
+
+        if(isset($results[0])){
+            $result = $results[0];
+
+            $images = DB::table('plugin_gallery')
+                ->where('name','GalleryComposer')
+                ->where('key_group','MissTerry::form.room')->where('key_id',$result->id)->get()->all();
+
+            $result->prices = json_decode($result->prices,true);
+            $result->times = json_decode($result->times,true);
+
+            if(isset($this->_language['code'])){
+                 DB::table('miss_room_translation')->where('lang_code',$this->_language['code'])->where('room_id',$result->id);
+            }
+
+
+            if(isset($images[0])){
+                $images[0]->data = unserialize($images[0]->data);
+                $result->images =  $images[0];
+            }else{
+                $result->images = [];
+            }
+            return $this->render('home.detail', ['result'=> $result]);
+        }else{
+            redirect('/error/404');
+        }
     }
 }

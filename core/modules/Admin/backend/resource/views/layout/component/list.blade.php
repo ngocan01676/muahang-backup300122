@@ -132,7 +132,7 @@
                                                 class="column column-primary column-name {{list_text_aligin($columns)}}">
                                                 <strong><a class="row-title"
                                                            href="#">@php echo list_label($model->{$key},$columns,$data,$model); @endphp</a></strong>
-                                                <div class="row-actions text-center">
+                                                <div class="row-actions text-center" style="padding: 10px 10px 0px 0px;">
                                                     @isset($data['config']['pagination']['router'])
                                                         @php  $n = count($data['config']['pagination']['router'])-1; $i=0; @endphp
                                                         @foreach($data['config']['pagination']['router'] as $id=>$router)
@@ -156,7 +156,7 @@
                                                                 }
                                                                 $key_form = md5(rand(1,10000) . rand(1,10000));
                                                             @endphp
-                                                            <span class="{{$id}}">
+                                                            <span class="{{$id}}" style="margin: 5px">
                                                                 @isset($router['method'])
                                                                 <form id="{{$id}}-form-{{$key_form}}" action="{{route($router['name'],$par)}}" method="{{$router['method']}}" style="display: none;">
                                                                     <input name="_ref" type="hidden" value="{!! base64_encode(url()->current()); !!}">

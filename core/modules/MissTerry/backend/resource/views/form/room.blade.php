@@ -265,7 +265,7 @@
 
     <div class="box box box-zoe">
         <div class="box-body">
-            {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
+            {!! Form::label('id_status', z_language('Status'), ['class' => 'status']) !!}
             {!! Form::radio('status', '1' , true) !!} Yes
             {!! Form::radio('status', '0',false) !!} No
         </div>
@@ -273,14 +273,32 @@
 
     <div class="box box box-zoe">
         <div class="box-body">
-            {!! Form::label('id_status', 'Image', ['class' => 'status']) !!}
-            <div class="image-wrapper">
+            {!! Form::label('id_image', z_language('Image'), ['class' => 'image']) !!}
+            <div class="image-wrapper" data-path='room/icon'>
                 <div class="preview-image-wrapper">
                     <img src="{{$item?url($item->image):'http://placehold.jp/150x150.png'}}" alt="" height="150px">
                     <a onclick="btn_remove_image(this)" class="btn_remove_image" title="Remove image">
                         <i class="fa fa-times"></i>
                     </a>
                     {!! Form::hidden('image',null, []) !!}
+                </div>
+                <a href="javascript:void(0)" onclick="openElfinder(this);" class="btn_gallery">
+                    Choose image
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <div class="box box box-zoe">
+        <div class="box-body">
+            {!! Form::label('id_background', z_language('Background'), ['class' => 'backgorund']) !!}
+            <div class="image-wrapper" data-path='room/background'>
+                <div class="preview-image-wrapper">
+                    <img src="{{$item?url($item->background):'http://placehold.jp/150x150.png'}}" alt="" height="150px">
+                    <a onclick="btn_remove_image(this)" class="btn_remove_background" title="Remove image">
+                        <i class="fa fa-times"></i>
+                    </a>
+                    {!! Form::hidden('background',null, []) !!}
                 </div>
                 <a href="javascript:void(0)" onclick="openElfinder(this);" class="btn_gallery">
                     Choose image
@@ -374,10 +392,18 @@
             });
         }
         function btn_remove_image(self) {
-            console.log($(self).closest('.preview-image-wrapper').find('img').attr('src', 'http://placehold.jp/150x150.png'));
+
+            let parent = $(self).parent();
+
+            var preview_image_wrapper = parent.find(".preview-image-wrapper");
+            console.log(preview_image_wrapper);
+            parent.find("img").attr('src', 'http://placehold.jp/150x150.png');
+            parent.find("[type='hidden']").val("");
         }
 
         function openElfinder(self) {
+            let parent = $(self).parent();
+
             $('#elfinderShow').modal();
             $('#elfinder').elfinder({
                 debug: false,
@@ -385,7 +411,7 @@
                 height: '80%',
                 cssAutoLoad: false,
                 useBrowserHistory : false,
-                startPathHash : 'l1_' + btoa('room/icon').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.').replace(/\.+$/, ''),
+                startPathHash : 'l1_' + btoa(parent.attr('data-path')).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.').replace(/\.+$/, ''),
                 customData: {
                     _token: '{{ csrf_token() }}'
                 },
@@ -410,12 +436,10 @@
                 url: '{{ route("backend:elfinder:showConnector") }}',
                 soundPath: '{{ asset('module/admin/assets/elfinder/sounds') }}',
                 getFileCallback: function (file) {
-                    console.log(file);
-                    var preview_image_wrapper = $(".preview-image-wrapper");
+                    var preview_image_wrapper = parent.find(".preview-image-wrapper");
                     preview_image_wrapper.show();
-
-                    preview_image_wrapper.find("img").attr('src', "/"+file.path.split("\\").join("/"));
-                    preview_image_wrapper.find("[name='image']").val("/"+file.path.split("\\").join("/"));
+                    parent.find("img").attr('src', "/"+file.path.split("\\").join("/"));
+                    parent.find("[type='hidden']").val("/"+file.path.split("\\").join("/"));
                     $('#elfinderShow').modal('hide');
                 },
                 resizable: false,
