@@ -1388,61 +1388,61 @@
 
                     if (y == null) {
                         // Insert a new column
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnBefore,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 1);
-                                }
-                            });
-                        }
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnAfter,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 0);
-                                }
-                            });
-                        }
-
-                        // Delete a column
-                        if (obj.options.allowDeleteColumn === true) {
-                            items.push({
-                                title:obj.options.text.deleteSelectedColumns,
-                                onclick:function() {
-                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                                }
-                            });
-                        }
-
-                        // // Rename column
-                        // if (obj.options.allowRenameColumn === true) {
+                        // if (obj.options.allowInsertColumn === true) {
                         //     items.push({
-                        //         title:obj.options.text.renameThisColumn,
+                        //         title:obj.options.text.insertANewColumnBefore,
                         //         onclick:function() {
-                        //             obj.setHeader(x);
+                        //             obj.insertColumn(1, parseInt(x), 1);
                         //         }
                         //     });
                         // }
-
-                        // Sorting
-                        if (obj.options.columnSorting == true) {
-
-                            items.push({ type:'line' });
-
-                            items.push({
-                                title:obj.options.text.orderAscending,
-                                onclick:function() {
-                                    obj.orderBy(x, 0);
-                                }
-                            });
-                            items.push({
-                                title:obj.options.text.orderDescending,
-                                onclick:function() {
-                                    obj.orderBy(x, 1);
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // Delete a column
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // // Rename column
+                        // // if (obj.options.allowRenameColumn === true) {
+                        // //     items.push({
+                        // //         title:obj.options.text.renameThisColumn,
+                        // //         onclick:function() {
+                        // //             obj.setHeader(x);
+                        // //         }
+                        // //     });
+                        // // }
+                        //
+                        // // Sorting
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
                     } else {
                         // Insert new row
                         if (obj.options.allowInsertRow === true) {
@@ -5801,61 +5801,61 @@
 
                     if (y == null) {
                         // Insert a new column
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnBefore,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 1);
-                                }
-                            });
-                        }
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnAfter,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 0);
-                                }
-                            });
-                        }
-
-                        // Delete a column
-                        if (obj.options.allowDeleteColumn === true) {
-                            items.push({
-                                title:obj.options.text.deleteSelectedColumns,
-                                onclick:function() {
-                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                                }
-                            });
-                        }
-
-                        // // Rename column
-                        // if (obj.options.allowRenameColumn === true) {
+                        // if (obj.options.allowInsertColumn === true) {
                         //     items.push({
-                        //         title:obj.options.text.renameThisColumn,
+                        //         title:obj.options.text.insertANewColumnBefore,
                         //         onclick:function() {
-                        //             obj.setHeader(x);
+                        //             obj.insertColumn(1, parseInt(x), 1);
                         //         }
                         //     });
                         // }
-
-                        // Sorting
-                        if (obj.options.columnSorting == true) {
-
-                            items.push({ type:'line' });
-
-                            items.push({
-                                title:obj.options.text.orderAscending,
-                                onclick:function() {
-                                    obj.orderBy(x, 0);
-                                }
-                            });
-                            items.push({
-                                title:obj.options.text.orderDescending,
-                                onclick:function() {
-                                    obj.orderBy(x, 1);
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // Delete a column
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // // Rename column
+                        // // if (obj.options.allowRenameColumn === true) {
+                        // //     items.push({
+                        // //         title:obj.options.text.renameThisColumn,
+                        // //         onclick:function() {
+                        // //             obj.setHeader(x);
+                        // //         }
+                        // //     });
+                        // // }
+                        //
+                        // // Sorting
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
                     } else {
                         // Insert new row
                         if (obj.options.allowInsertRow === true) {
@@ -7069,61 +7069,61 @@
 
                     if (y == null) {
                         // Insert a new column
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnBefore,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 1);
-                                }
-                            });
-                        }
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnAfter,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 0);
-                                }
-                            });
-                        }
-
-                        // Delete a column
-                        if (obj.options.allowDeleteColumn === true) {
-                            items.push({
-                                title:obj.options.text.deleteSelectedColumns,
-                                onclick:function() {
-                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                                }
-                            });
-                        }
-
-                        // // Rename column
-                        // if (obj.options.allowRenameColumn === true) {
+                        // if (obj.options.allowInsertColumn === true) {
                         //     items.push({
-                        //         title:obj.options.text.renameThisColumn,
+                        //         title:obj.options.text.insertANewColumnBefore,
                         //         onclick:function() {
-                        //             obj.setHeader(x);
+                        //             obj.insertColumn(1, parseInt(x), 1);
                         //         }
                         //     });
                         // }
-
-                        // Sorting
-                        if (obj.options.columnSorting == true) {
-
-                            items.push({ type:'line' });
-
-                            items.push({
-                                title:obj.options.text.orderAscending,
-                                onclick:function() {
-                                    obj.orderBy(x, 0);
-                                }
-                            });
-                            items.push({
-                                title:obj.options.text.orderDescending,
-                                onclick:function() {
-                                    obj.orderBy(x, 1);
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // Delete a column
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // // Rename column
+                        // // if (obj.options.allowRenameColumn === true) {
+                        // //     items.push({
+                        // //         title:obj.options.text.renameThisColumn,
+                        // //         onclick:function() {
+                        // //             obj.setHeader(x);
+                        // //         }
+                        // //     });
+                        // // }
+                        //
+                        // // Sorting
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
                     } else {
                         // Insert new row
                         if (obj.options.allowInsertRow === true) {
@@ -8199,61 +8199,61 @@
                     var items = [];
                     if (y == null) {
                         // Insert a new column
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnBefore,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 1);
-                                }
-                            });
-                        }
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnAfter,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 0);
-                                }
-                            });
-                        }
-
-                        // Delete a column
-                        if (obj.options.allowDeleteColumn === true) {
-                            items.push({
-                                title:obj.options.text.deleteSelectedColumns,
-                                onclick:function() {
-                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                                }
-                            });
-                        }
-
-                        // // Rename column
-                        // if (obj.options.allowRenameColumn === true) {
+                        // if (obj.options.allowInsertColumn === true) {
                         //     items.push({
-                        //         title:obj.options.text.renameThisColumn,
+                        //         title:obj.options.text.insertANewColumnBefore,
                         //         onclick:function() {
-                        //             obj.setHeader(x);
+                        //             obj.insertColumn(1, parseInt(x), 1);
                         //         }
                         //     });
                         // }
-
-                        // Sorting
-                        if (obj.options.columnSorting == true) {
-
-                            items.push({ type:'line' });
-
-                            items.push({
-                                title:obj.options.text.orderAscending,
-                                onclick:function() {
-                                    obj.orderBy(x, 0);
-                                }
-                            });
-                            items.push({
-                                title:obj.options.text.orderDescending,
-                                onclick:function() {
-                                    obj.orderBy(x, 1);
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // Delete a column
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // // Rename column
+                        // // if (obj.options.allowRenameColumn === true) {
+                        // //     items.push({
+                        // //         title:obj.options.text.renameThisColumn,
+                        // //         onclick:function() {
+                        // //             obj.setHeader(x);
+                        // //         }
+                        // //     });
+                        // // }
+                        //
+                        // // Sorting
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
                     } else {
                         // Insert new row
                         if (obj.options.allowInsertRow === true) {
@@ -9299,61 +9299,61 @@
 
                     if (y == null) {
                         // Insert a new column
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnBefore,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 1);
-                                }
-                            });
-                        }
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnAfter,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 0);
-                                }
-                            });
-                        }
-
-                        // Delete a column
-                        if (obj.options.allowDeleteColumn === true) {
-                            items.push({
-                                title:obj.options.text.deleteSelectedColumns,
-                                onclick:function() {
-                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                                }
-                            });
-                        }
-
-                        // // Rename column
-                        // if (obj.options.allowRenameColumn === true) {
+                        // if (obj.options.allowInsertColumn === true) {
                         //     items.push({
-                        //         title:obj.options.text.renameThisColumn,
+                        //         title:obj.options.text.insertANewColumnBefore,
                         //         onclick:function() {
-                        //             obj.setHeader(x);
+                        //             obj.insertColumn(1, parseInt(x), 1);
                         //         }
                         //     });
                         // }
-
-                        // Sorting
-                        if (obj.options.columnSorting == true) {
-
-                            items.push({ type:'line' });
-
-                            items.push({
-                                title:obj.options.text.orderAscending,
-                                onclick:function() {
-                                    obj.orderBy(x, 0);
-                                }
-                            });
-                            items.push({
-                                title:obj.options.text.orderDescending,
-                                onclick:function() {
-                                    obj.orderBy(x, 1);
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // Delete a column
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // // Rename column
+                        // // if (obj.options.allowRenameColumn === true) {
+                        // //     items.push({
+                        // //         title:obj.options.text.renameThisColumn,
+                        // //         onclick:function() {
+                        // //             obj.setHeader(x);
+                        // //         }
+                        // //     });
+                        // // }
+                        //
+                        // // Sorting
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
                     } else {
                         // Insert new row
                         if (obj.options.allowInsertRow === true) {
