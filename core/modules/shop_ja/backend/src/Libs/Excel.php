@@ -206,7 +206,7 @@ class Excel
 
         foreach ($datas1 as $_row){
             if(!is_null($_row[0])){
-                $dataRowDatabase[$_row[0]] = DB::table('shop_order_excel')->where('id',$_row[0]);
+                $dataRowDatabase[$_row[0]] = DB::table('shop_order_excel')->where('id',$_row[0])->get()->all();
             }
         }
         dd($dataRowDatabase);
