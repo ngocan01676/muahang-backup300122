@@ -276,6 +276,7 @@ class Excel
                                     $item['ids'][] = $id_tracking;
                                     $item['database'] = (array)$dataRowDatabase[$id_tracking][0];
                                     $item['='] = 1;
+                                    unset($dataRowDatabase[$id_tracking]);
                                 }
                             }
                             if(!isset($item['ids'][0])){
@@ -286,6 +287,7 @@ class Excel
                                         $item['ids'][] = $_tran_id;
                                         $item['database'] = (array)$_value[0];
                                         $item['foreach'] = 1;
+                                        unset($dataRowDatabase[$_tran_id]);
                                         break;
                                     }
                                 }
