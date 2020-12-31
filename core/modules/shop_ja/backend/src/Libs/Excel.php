@@ -281,6 +281,7 @@ class Excel
                                         $_value[0]->address == $address &&
                                         $payMethod == $this->NumberToStringPayMethod($_value[0]->pay_method)){
                                         $item['ids'][] = $_tran_id;
+                                        $item['database'] = (array)$_value[0];
                                         break;
                                     }
                                 }
