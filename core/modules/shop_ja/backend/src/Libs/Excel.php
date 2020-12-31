@@ -214,9 +214,7 @@ class Excel
             if(!is_null($_row[0])){
                 $dataRowDatabase[$_row[0]] = DB::table('shop_order_excel')->where('id',$_row[0])->get()->all();
             }
-
         }
-
         if (isset($this->DataCol[$type])) {
             $colums = $this->DataCol[$type];
             foreach ($colums as $key => $value) {
@@ -256,10 +254,12 @@ class Excel
                     $count = (int)trim(rtrim($datas[$i][$nameColList['count']]));
 
                     if (!empty($order_tracking)) {
-                        $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
-                        $payMethod = trim(rtrim($datas[$i][$nameColList['payMethod']]));
-                        $fullname = preg_replace('/\s+/', ' ', $fullname);
 
+                        $payMethod = trim(rtrim($datas[$i][$nameColList['payMethod']]));
+                        $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
+                        $fullname = preg_replace('/\s+/', ' ', $fullname);
+                        $address = trim(rtrim($datas[$i][$nameColList['address']]));
+                        $address = preg_replace('/\s+/', '', $address);
                         if (!empty($fullname) && $fullname != "配送先氏名") {
                             $item = [
                                 'data' => $datas[$i],
@@ -268,11 +268,17 @@ class Excel
                             ];
                             $id_tracking = isset($datas1[$i][0])?$datas1[$i][0]:0;
                             if(isset($dataRowDatabase[$id_tracking][0])){
-                                if($dataRowDatabase[$id_tracking][0]->fullname == $fullname && $payMethod == $this->NumberToStringPayMethod($dataRowDatabase[$id_tracking][0]->pay_method)){
+                                if(
+                                    $dataRowDatabase[$id_tracking][0]->fullname == $fullname &&
+                                    $dataRowDatabase[$id_tracking][0]->address == $address &&
+                                    $payMethod == $this->NumberToStringPayMethod($dataRowDatabase[$id_tracking][0]->pay_method)
+                                ){
                                     $item['ids'][] = $id_tracking;
                                 }
                                 foreach ($dataRowDatabase as $_tran_id=>$_value){
-                                    if($_value[0]->fullname == $fullname && $payMethod == $this->NumberToStringPayMethod($_value[0]->pay_method)){
+                                    if($_value[0]->fullname == $fullname &&
+                                        $_value[0]->address == $address &&
+                                        $payMethod == $this->NumberToStringPayMethod($_value[0]->pay_method)){
                                         $item['ids'][] = $_tran_id;
                                         break;
                                     }
