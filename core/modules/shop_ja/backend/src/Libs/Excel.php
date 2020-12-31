@@ -204,12 +204,13 @@ class Excel
         $html = "";
         $dataRowDatabase = [];
 
-        foreach ($datas1 as $_row){
+        foreach ($datas1 as $k=>$_row){
             if(!is_null($_row[0])){
                 $dataRowDatabase[$_row[0]] = DB::table('shop_order_excel')->where('id',$_row[0])->get()->all();
             }
+
         }
-        dd($dataRowDatabase);
+
         if (isset($this->DataCol[$type])) {
             $colums = $this->DataCol[$type];
             foreach ($colums as $key => $value) {
@@ -256,12 +257,22 @@ class Excel
                             $item = [
                                 'data' => $datas[$i],
                                 'checking' => [$order_tracking],
-                                'ids'=>[isset($datas1[$i][0])?$datas1[$i][0]:0]
+                                'ids'=>[]
                             ];
+                            $id_tracking = isset($datas1[$i][0])?$datas1[$i][0]:0;
+                            if(isset($dataRowDatabase[$id_tracking][0])){
+                                if($dataRowDatabase[$id_tracking][0]->fullname == $fullname){
+                                    $item['ids'][] = $id_tracking;
+                                }
+                                foreach ($dataRowDatabase as $_tran_id=>$_value){
+                                    if($_value[0]->fullname == $fullname){
+                                        $item['ids'][] = $_tran_id;
+                                        break;
+                                    }
+                                }
+                            }
                             for ($j = $i + 1; $j < $count + $i; $j++) {
-
                                 if(!isset($datas[$j][$nameColList['fullname']])) continue;
-
                                 $_fullname = trim(rtrim($datas[$j][$nameColList['fullname']]));
                                 $_fullname = preg_replace('/\s+/', ' ', $_fullname);
 
@@ -278,6 +289,7 @@ class Excel
                         }
                     }
                 }
+                
                 $category = get_category_type("shop-ja:product:category");
 
                 $ship = get_category_type("shop-ja:japan:category:com-ship");
