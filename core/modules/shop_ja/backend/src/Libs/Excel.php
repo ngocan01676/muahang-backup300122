@@ -376,6 +376,7 @@ class Excel
                                 'create' => date('Y-m-d H:i:s'),
                                 'checking' => $value['checking'],
                                 'ids'=> $value['ids'],
+                                'database'=> $value['database'],
                             ]) . "</textarea></div></td>";
                    // } else {
                         $html .= "<td>[" . $count . "]</td>";
