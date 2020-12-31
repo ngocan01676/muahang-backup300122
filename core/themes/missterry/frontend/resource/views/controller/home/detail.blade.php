@@ -1,5 +1,37 @@
 @section("content")
+    @php
 
+        $prices =  array_keys($result->prices);
+        $n = count($prices);
+
+        $label_price = ["low","middle","high", "extra" , "discount" ];
+
+
+        if($n == 1){
+             $label = $prices[0];// 2-4(5)
+        }else{
+             $label = $prices[0].'-'.$prices[$n-1];// 2-4(5)
+             if($prices[$n-2]!=$prices[0]){
+                $label.='('.$prices[$n-2].')';
+             }
+        }
+        $difficulty = "";
+        switch ($result->difficult){
+            case 2:
+                $difficulty="easy";
+            break;
+            case 3:
+                $difficulty="hard";
+            break;
+            case 4:
+                 $difficulty="medium";
+            break;
+            case 5:
+                 $difficulty="very_hard";
+            break;
+        }
+
+    @endphp
     <section class="section" id="section_272694562">
     <div class="bg section-bg fill bg-fill bg-loaded"></div>
     <div class="section-content relative">
@@ -18,11 +50,56 @@
             <h1 style="text-align: center;"><strong>{!! z_language($result->title,[]) !!}</strong></h1>
             <div class="img has-hover x md-x lg-x y md-y lg-y" id="image_1852028076">
                 <div class="img-inner dark">
-                    <img width="756" height="64"
-                         src="https://demo.missterry.vn/wp-content/uploads/2020/12/dm.jpg"
-                         class="attachment-original size-original" alt="" loading="lazy"
-                         srcset="https://demo.missterry.vn/wp-content/uploads/2020/12/dm.jpg 756w, https://demo.missterry.vn/wp-content/uploads/2020/12/dm-300x25.jpg 300w"
-                         sizes="(max-width: 756px) 100vw, 756px">
+
+                    <div class="b-room red">
+                        <div class="room-main">
+                            <div class="room-w">
+                                <div class="room-info-w ">
+                                    <div class="room-icon">
+
+                                        <i class="icon-lotr"></i>
+                                    </div>
+
+
+
+                                    <div class="info-additionally">
+                                        <div class="room-duration" data-toggle="tooltip" data-placement="top" title="" data-original-title="60 minutes">
+                                            <i class="icon-chronometer"></i>
+                                            {!! $result->time !!} {!! z_language("Phút") !!}
+                                        </div>
+
+                                        <div class="room-players" data-toggle="tooltip" data-placement="top" title="" data-original-title=" {!! $label !!}    players">
+                                            <i class="icon-user"></i>
+                                            {!! $label !!}                   </div>
+
+                                        <div class="room-age" data-toggle="tooltip" data-placement="top" title="" data-original-title="12+">
+                                            {!! $result->year_old !!}+                        </div>
+
+                                        <div class="room-difficulty {!! $difficulty !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="{!! $difficulty !!}">
+                                            <i class="icon-lock"></i>
+                                            <i class="icon-lock"></i>
+                                            <i class="icon-lock"></i>
+                                            <i class="icon-lock"></i>
+                                            <i class="icon-lock"></i>
+                                        </div>
+
+
+
+                                        <div class="room-services">
+
+                                            <i class="fas fa-wifi{!! $result->wifi == 0? " fas-disabled":"" !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="WIFI"></i>
+                                            <i class="fas fa-parking{!! $result->parking == 0? " fas-disabled":"" !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Parking"></i>
+                                            <i class="fas fa-person-booth{!! $result->waiting_area == 0? " fas-disabled":"" !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Waiting area"></i>
+                                            <i class="fas fa-coffee{!! $result->drink == 0? " fas-disabled":"" !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Coffee"></i>
+                                            <i class="fas fa-battery-three-quarters{!! $result->pin == 0? " fas-disabled":"" !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Battery charge"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <style>
@@ -32,7 +109,7 @@
                 </style>
             </div>
 
-            <p>{!! z_language('Add: Floor 10, 381 Doi can St, Ba Dinh Dist, Hanoi') !!}</p>
+            <p>{!! $result->address !!}</p>
             <p>{!! z_language('Chỉ từ: :PRICE VNĐ / Người',['PRICE'=>isset($result->prices[1]['price1'])?number_format($result->prices[1]['price1']):z_language('Liên Hệ')]) !!}</p>
             <a href="#price" target="_self" class="button primary" style="border-radius:15px;">
                 <span>{!! z_language("Đặt phòng ngay") !!}</span>
@@ -175,26 +252,9 @@
     </div>
     <div>
 
-
         <div id="js-schedule" class="b-schedule user_mode">
             <div class="container">
                 <div class="container-inner">
-                    <div class="schedule-top-wrapper">
-                        <div class="schedule__header">
-                            <div class="schedule__header-left">
-                                <div class="header__legend">
-                                    <div class="price low">600 <span>UAH</span>
-                                    </div>
-                                    <div class="price middle">700 <span>UAH</span>
-                                    </div>
-                                    <div class="price high">900 <span>UAH</span>
-                                    </div>
-                                </div>
-                                <meta content="от 600 до 900 UAH" itemprop="priceRange" />
-                            </div>
-
-                        </div>
-                    </div>
 
                     {{--<div class="mobile_schedule">--}}
                         {{--<div id="app-filter-rooms">--}}
@@ -204,6 +264,44 @@
                             {{--</div>--}}
                         {{--</div>--}}
                     {{--</div>--}}
+                    <div class="schedule-top-wrapper">
+                        <div class="schedule__header">
+                            <div class="schedule__header-left" style="text-align: center;margin: 0 auto;">
+                                <table style="border: none !important;">
+                                    <tr>
+                                        <td>T2-T6 trước 17:00</td>
+                                        <td>T6-CN sau 17:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="
+    padding: 10px;
+">
+                                            <div class="header__legend">
+                                                &nbsp;
+                                                @foreach($result->prices as $key=>$val)
+                                                    <div class="price {!! $label_price[$key%count($label_price)] !!}">{!! number_format($val['price1']/1000) !!}K<span>/1 VNĐ</span></div> &nbsp;
+                                                @endforeach
+                                                &nbsp;
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="header__legend">
+                                                &nbsp;
+                                                @foreach($result->prices as $key=>$val)
+                                                    <div class="price {!! $label_price[$key%count($label_price)] !!}">{!! number_format($val['price2']/1000) !!}K<span>/1 VNĐ</span></div> &nbsp;
+                                                @endforeach
+                                                &nbsp;
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <meta content="от 600 до 900 UAH" itemprop="priceRange" />
+                            </div>
+
+                        </div>
+                    </div>
+
                     <div class="desktop_schedule">
                         <div id="calendar" class="js-room owl-carousel calendar"
                              data-name="Indiana Jones: Scythian Gold"
@@ -265,8 +363,19 @@
                                 $dateTime = $monthYear.'-'.$day;
                                 $week =  date('N', strtotime($dateTime));
                                 $isNow = $day == $dayNow;
-                                $_timeBet = strtotime($dateTime.' 17:00:00');
+                                $_timeBet_17 = strtotime($dateTime.' 17:00:00');
+                                $_timeBet_9 = strtotime($dateTime.' 09:00:00');
+                                $_timeBet_12 = strtotime($dateTime.' 12:00:00');
+                                $_timeBet_19 = strtotime($dateTime.' 19:00:00');
+
+
                                 $is_disabled = strtotime($dateTime.' 23:59:59') < time();
+                                $price_max = end($result->prices);
+
+
+
+
+
                             @endphp
                             <div class="item day{!! $isNow?" now $dateTime":"" !!}">
                                 <div class="day-header">
@@ -286,32 +395,43 @@
                                         {{--</div>--}}
                                         {{--<div class="book_label">Booking</div>--}}
                                     {{--</div>--}}
+
                                     @foreach($result->times as $time)
                                         @php
-                                           if($is_disabled){
-                                                $class = "disabled";
-                                           }else{
-                                                $class = "available";
-                                                $_timeNumber = strtotime($dateTime.' '.$time['date']);
-
-                                                if($isNow){
-                                                    if($_timeNumber < time()){
-                                                        $class.= " disabled";
+                                             $price = 0;
+                                             if($is_disabled){
+                                                  $class = "disabled";
+                                             }else{
+                                                  $class = "available";
+                                                  $_timeNumber = strtotime($dateTime.' '.$time['date']);
+                                                  if($isNow){
+                                                      if($_timeNumber < time()){
+                                                          $class.= " disabled";
+                                                      }
+                                                  }
+                                                  if($_timeNumber > $_timeBet_17){
+                                                      $class.=" middle";
+                                                  }else{
+                                                      $class.=" low";
+                                                  }
+                                                  if($week < 5){
+                                                    $price = $price_max['price1'];
+                                                  }else if($week == 5){
+                                                    if($_timeNumber > $_timeBet_17){
+                                                        $price = $price_max['price2'];
+                                                    }else{
+                                                        $price = $price_max['price1'];
                                                     }
-
-                                                }
-                                                if($_timeNumber > $_timeBet){
-                                                    $class.=" middle";
-                                                }else{
-                                                    $class.=" low";
-                                                }
-                                           }
+                                                  }else{
+                                                        $price = $price_max['price1'];
+                                                  }
+                                             }
                                         @endphp
                                         <div class="calendar__item {!! $class !!} actor_0" data-id="" data-datetime="{!! $dateTime !!} {!! $time['date'] !!}">
                                             <div class="item__time">{!! $time['date'] !!}</div>
-                                            <div class="item__price">700<span class="price__currency">грн</span>
+                                            <div class="item__price">{!! $price !!}<span class="price__currency">VNĐ</span>
                                             </div>
-                                            <div class="book_label">Booking</div>
+                                            <div class="book_label">{!! number_format($price) !!}/1 VNĐ</div>
                                         </div>
                                     @endforeach
                                 </div>
@@ -319,11 +439,10 @@
                             @endfor
                         </div>
                         <div class="text-center gradient-button mb-4">
-                            <a href="#price" target="_self" class="button primary" style="border-radius:15px;">
-                                <span>{!! z_language('Đặt phòng ngay') !!}</span>
-                                <i class="icon-play"></i></a>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -458,5 +577,84 @@
                         })
         });
     </script>
+    <style>
+        .b-room .room-main .room-w .room-info-w .info-additionally {
+            background: rgba(0,0,0,.8);
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 24px;
+            color: #fff;
+            margin-top: 15px;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally>div {
+            padding: 8px;
+            margin: 0 10px;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally .room-difficulty {
+            height: 52px;
+            display: flex;
+            align-items: center;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally .room-difficulty i {
+            font-size: 16px;
+            display: inline-block;
+            margin: 0 2px;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally .room-difficulty.easy i:nth-child(n+3),.b-room .room-main .room-w .room-info-w .info-additionally .room-difficulty.hard i:nth-child(n+5),.b-room .room-main .room-w .room-info-w .info-additionally .room-difficulty.medium i:nth-child(n+4),.b-room .room-main .room-w .room-info-w .info-additionally .room-difficulty.very_hard i:nth-child(n+6) {
+            color: #dadada;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally .room-fear {
+            height: 52px;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            text-transform: uppercase;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally .room-fear:not([class*=scary]) {
+            text-shadow: 0 0 10px #000,0 0 10px #000,0 0 5px #000;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally .room-fear .m-no_scary {
+            font-weight: 700;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally .room-fear i {
+            font-size: 16px;
+            display: inline-block;
+            margin: 0 2px;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally .room-fear.almost_scary i:nth-child(n+3),.b-room .room-main .room-w .room-info-w .info-additionally .room-fear.horror_scary i:nth-child(n+6),.b-room .room-main .room-w .room-info-w .info-additionally .room-fear.not_scary i:nth-child(n+2),.b-room .room-main .room-w .room-info-w .info-additionally .room-fear.scary i:nth-child(n+4),.b-room .room-main .room-w .room-info-w .info-additionally .room-fear.very_scary i:nth-child(n+5) {
+            color: #dadada;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally .room-services {
+            display: flex;
+            vertical-align: center;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px solid #8c8d8d;
+            padding: 0 0 0 10px;
+            font-size: 20px;
+        }
+
+        .b-room .room-main .room-w .room-info-w .info-additionally .room-services i {
+            height: 52px;
+            margin: 0 10px;
+            float: left;
+            display: flex;
+            align-items: center;
+        }
+
+    </style>
 @endsection
 

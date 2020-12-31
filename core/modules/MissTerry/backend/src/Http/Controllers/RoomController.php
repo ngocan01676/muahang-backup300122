@@ -120,10 +120,11 @@ class RoomController extends \Zoe\Http\ControllerBackend
             foreach ($trans as $tran) {
                 $item->offsetSet("title_" . $tran->lang_code, $tran->title);
                 $item->offsetSet("description_" . $tran->lang_code, $tran->description);
+                $item->offsetSet("info_" . $tran->lang_code, $tran->info);
+                $item->offsetSet("address_" . $tran->lang_code, $tran->address);
                 $item->offsetSet("content_" . $tran->lang_code, $tran->content);
             }
         }
-
         return $this->render('room.edit', ["item" => $item, "lang_active" => $this->data['current_language']]);
     }
 
@@ -158,16 +159,30 @@ class RoomController extends \Zoe\Http\ControllerBackend
         $model->admin_id = Auth::user()->id;
 
         $model->title = $data['title'];
+        $model->address = $data['address'];
+        $model->info = $data['info'];
         $model->description = $data['description'];
         $model->content = $data['content'];
         $model->prices = $data['prices'];
         $model->difficult = $data['difficult'];
+        $model->time = $data['time'];
+
+        $model->wifi = isset($data['wifi'])?$data['wifi']:0;
+        $model->parking = isset($data['parking'])?$data['parking']:0;
+        $model->pin = isset($data['pin'])?$data['pin']:0;
+        $model->drink = isset($data['drink'])?$data['drink']:0;
+        $model->waiting_area = isset($data['waiting_area'])?$data['waiting_area']:0;
+        $model->year_old = isset($data['year_old'])?$data['year_old']:0;
+
         $model->times = isset($data['times'])?$data['times']:'[]';
         DB::beginTransaction();
+
         try {
             $model->save();
             foreach ($this->data['language'] as $lang => $_language) {
+
                 if (isset($data['title_' . $lang])) {
+
                     $model->table_translation()->updateOrInsert(
                         [
                             'room_id' => $model->id,
@@ -175,10 +190,13 @@ class RoomController extends \Zoe\Http\ControllerBackend
                         ],
                         [
                             'title' => $data['title_' . $lang],
+                            'info' => $data['info_' . $lang],
+                            'address' => $data['address_' . $lang],
                             'description' => $data['description_' . $lang],
                             'content' => $data['content_' . $lang]
                         ]
                     );
+
                 }
             }
             DB::commit();

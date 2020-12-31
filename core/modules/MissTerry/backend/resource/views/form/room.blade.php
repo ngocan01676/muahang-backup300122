@@ -57,14 +57,35 @@
                         </tr>
                         <tr>
                             <td>
-                                {!! Form::label('difficult', z_language("Độ khó"), ['class' => 'time']) !!}
-                                {!! Form::radio('difficult', '5' , true) !!} 5
-                                {!! Form::radio('difficult', '4',false) !!} 4
-                                {!! Form::radio('difficult', '3',false) !!} 3
-                                {!! Form::radio('difficult', '2',false) !!} 2
-                                {!! Form::radio('difficult', '1',false) !!} 1
+                                {!! Form::label('time', z_language("Độ tuổi"), ['class' => 'time']) !!}
+                                @if($current_language == $lang)
+                                    {!! Form::number('year_old',null, ['class' => 'form-control','placeholder'=>z_language("Độ tuổi")]) !!}
+                                @else
+                                    {!! Form::number('year_old',null, ['class' => 'form-control','placeholder'=>z_language("Độ tuổi")]) !!}
+                                @endif
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+
+                                {!! Form::checkbox('wifi', '1' ) !!}
+                                {!! Form::label('wifi', z_language("Mạng wifi"), ['class' => 'wifi']) !!}
+
+
+                                {!! Form::checkbox('parking', '1' ) !!}
+                                {!! Form::label('PARKING', z_language("Bãi đỗ xe"), ['class' => 'parking']) !!}
+
+                                {!! Form::checkbox('waiting_area', '1' ) !!}
+                                {!! Form::label('waiting_area', z_language("Phòng chờ"), ['class' => 'parking']) !!}
+
+                                {!! Form::checkbox('pin', '1' ) !!}
+                                {!! Form::label('pin', z_language("Sạc pin"), ['class' => 'pin']) !!}
+
+                                {!! Form::checkbox('drink', '1' ) !!}
+                                {!! Form::label('drink', z_language("Đồ uống"), ['class' => 'pin']) !!}
+                            </td>
+                        </tr>
+
                         <tr>
                             <td colspan="2">
                                 @isset($MissTerry_DataComposer_Price)
@@ -98,6 +119,28 @@
                                             {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
                                         @else
                                             {!! Form::text('title_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {!! Form::label('id_title', z_language('Ghi chú'), ['class' => 'title']) !!}
+                                        @if($current_language == $lang)
+                                            {!! Form::text('info',null, ['class' => 'form-control','placeholder'=> z_language('Ghi chú')]) !!}
+                                        @else
+                                            {!! Form::text('info_'.$lang.'',null, ['class' => 'form-control','placeholder'=> z_language('Ghi chú')]) !!}
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+
+                                        @if($current_language == $lang)
+                                            {!! Form::label('address', z_language('Địa chỉ'), ['class' => 'address']) !!}
+                                            {!! Form::text('address',null, ['class' => 'form-control','placeholder'=> z_language('Địa chỉ')]) !!}
+                                        @else
+                                            {!! Form::label('address_'.$lang, z_language('Địa chỉ'), ['class' => 'address']) !!}
+                                            {!! Form::text('address_'.$lang.'',null, ['class' => 'form-control','placeholder'=> z_language('Địa chỉ')]) !!}
                                         @endif
                                     </td>
                                 </tr>
@@ -265,12 +308,32 @@
 
     <div class="box box box-zoe">
         <div class="box-body">
+            <table class="table table-bordered">
+                <tr>
+                    <td>{!! Form::label('difficult', z_language("Độ khó"), ['class' => 'time']) !!}</td>
+                    <td>5 {!! Form::radio('difficult', '5' , true) !!}</td>
+                    <td>4 {!! Form::radio('difficult', '4',false) !!}</td>
+                    <td>3 {!! Form::radio('difficult', '3',false) !!}</td>
+                    <td>2 {!! Form::radio('difficult', '2',false) !!}</td>
+                    <td>1 {!! Form::radio('difficult', '1',false) !!}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="box box box-zoe">
+        <div class="box-body">
             {!! Form::label('id_status', z_language('Status'), ['class' => 'status']) !!}
             {!! Form::radio('status', '1' , true) !!} Yes
             {!! Form::radio('status', '0',false) !!} No
         </div>
     </div>
-
+    <div class="box box box-zoe">
+        <div class="box-body">
+            {!! Form::label('id_new', z_language('Room mới'), ['class' => 'status']) !!}
+            {!! Form::radio('new', '1' , true) !!} Yes
+            {!! Form::radio('new', '0',false) !!} No
+        </div>
+    </div>
     <div class="box box box-zoe">
         <div class="box-body">
             {!! Form::label('id_image', z_language('Image'), ['class' => 'image']) !!}

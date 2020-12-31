@@ -552,22 +552,45 @@
             <div class="row">
                 <div class="col-12">
                     <div class="rooms-w col-xs-12">
-                    @foreach($data as $i=>$row)
+                    @foreach($data['results'] as $i=>$row)
+                        @php
+                            $prices =  array_keys(json_decode($row->prices,true));
+                            $n = count($prices);
+
+                            if($n == 1){
+                                 $label = $prices[0];// 2-4(5)
+                            }else{
+                                 $label = $prices[0].'-'.$prices[$n-1];// 2-4(5)
+                                 if($prices[$n-2]!=$prices[0]){
+                                    $label.='('.$prices[$n-2].')';
+                                 }
+                            }
+                            $difficulty = "";
+                            switch ($row->difficult){
+                                case 2:
+                                    $difficulty="easy";
+                                break;
+                                case 3:
+                                    $difficulty="hard";
+                                break;
+                                case 4:
+                                     $difficulty="medium";
+                                break;
+                                case 5:
+                                     $difficulty="very_hard";
+                                break;
+                            }
+                        @endphp
                         <a href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug]) !!}"
                            itemscope="itemscope" itemtype="http://schema.org/EntertainmentBusiness"
                            class="room b-lazy room-6023
                             @switch($i%4) @case(0) red @break @case(1) yellow @break @case(2) blue @break @default green @endswitch
                            new tag-20467 tag-22240 tag-20097 tag-20094 tag-20112 tag-8484  b-loaded"
                            style="background-image: url('{!! url($row->image) !!}');" image="{!! url($row->image) !!}" test="https://kadroom.com/wp-content/uploads/2020/08/VK-plashka-kadroom.jpg">
-   <span itemprop="image" itemscope="itemscope" itemtype="http://schema.org/ImageObject">
-      <link href="https://kadroom.com/wp-content/uploads/2020/07/NVZB-plashka.jpg" itemprop="contentUrl">
-      <link href="https://kadroom.com/wp-content/uploads/2020/07/NVZB-plashka.jpg" itemprop="url">
-   </span>
-                            <meta content="" itemprop="name">
-                            <meta content="2-4(5)" itemprop="maximumAttendeeCapacity">
-                            <meta content="UAH" itemprop="currenciesAccepted">
-                            <meta content="Cash, Credit Card" itemprop="paymentAccepted">
-                            <meta content="+38 098 641 94 34" itemprop="telephone">
+   {{--<span itemprop="image" itemscope="itemscope" itemtype="http://schema.org/ImageObject">--}}
+      {{--<link href="https://kadroom.com/wp-content/uploads/2020/07/NVZB-plashka.jpg" itemprop="contentUrl">--}}
+      {{--<link href="https://kadroom.com/wp-content/uploads/2020/07/NVZB-plashka.jpg" itemprop="url">--}}
+   {{--</span>--}}
                             <div class="room-loader">
                                 <div></div>
                                 <div></div>
@@ -576,10 +599,10 @@
                             </div>
                             <div class="room-header">
                                 <div title="60 minutes" class="room-duration"><i class="icon-chronometer"></i>
-                                    {!! $row->time !!}                                                        min.
+                                    {!! $row->time !!} {!! z_language('Phút') !!}
                                 </div>
                                 <div title="2-4(5) players" class="room-players"><i class="icon-user"></i>
-                                    2-4(5)
+                                   {!! $label !!}
                                 </div>
                             </div>
                             <div class="room-icon"><i class="icon-car"></i></div>
@@ -587,26 +610,27 @@
                                  {!! $row->title !!}
                                 <div>{!! $row->title !!}</div>
                             </div>
-                            <div class="room-with-actor room-announce-btn room-new-quest">
-                                new room
-                            </div>
+                            @if($row->new)
+                                <div class="room-with-actor room-announce-btn room-new-quest">
+                                    new room
+                                </div>
+                            @endif
                             <div class="room-params">
-                                <div title="" class="room-difficulty medium">
-                                    <div class="room-difficulty-txt">Complexity</div>
+                                <div title="" class="room-difficulty {!! $difficulty !!}">
+                                    <div class="room-difficulty-txt">{!! z_language("Độ khó") !!}</div>
                                     <i class="icon-lock"></i>
                                     <i class="icon-lock"></i>
                                     <i class="icon-lock"></i>
                                     <i class="icon-lock"></i>
                                     <i class="icon-lock"></i>
                                 </div>
-                                <div class="room-fear"><span class="room-fear-txt m-no_scary">Not scary</span></div>
+                                @if(!empty($row->info))
+                                    <div class="room-fear"><span class="room-fear-txt m-no_scary">{!! $row->info !!}</span></div>
+                                @endif
                             </div>
                             <div itemprop="address" itemscope="itemscope" itemtype="http://schema.org/PostalAddress" class="room-footer">
-                                <i class="icon-metro"></i> <span>Arsenalna</span>
-                                3 Rybalska str.
-                                <meta content="Украина" itemprop="addressCountry">
-                                <meta content="Киев" itemprop="addressLocality">
-                                <meta content="ул. Рыбальская, 3" itemprop="streetAddress">
+                                <i class="icon-metro"></i>
+                                <span>{!! $row->address !!}</span>
                             </div>
                         </a>
                     @endforeach

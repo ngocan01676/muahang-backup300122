@@ -19,10 +19,13 @@ class HomeController extends \Zoe\Http\ControllerFront
         $results = DB::table('miss_room')->get()->where('status',1)->where('slug',$slug)->all();
 
         if(count($results)  == 1){
+
             $result = array_pop($results);
+
             $images = DB::table('plugin_gallery')
                 ->where('name','GalleryComposer')
                 ->where('key_group','MissTerry::form.room')->where('key_id',$result->id)->get()->all();
+
             $result->prices = json_decode($result->prices,true);
             $result->times = json_decode($result->times,true);
             if(isset($this->_language['lang'])){
