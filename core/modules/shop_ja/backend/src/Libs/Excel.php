@@ -315,7 +315,7 @@ class Excel
 
                 $ship = get_category_type("shop-ja:japan:category:com-ship");
                 $nameShip = "";
-                dd($results);
+
                 foreach ($category as $item) {
                     if ($item->name == $type) {
                         if (isset($ship[$item->data["ship"]])) {
@@ -383,7 +383,7 @@ class Excel
                                 'create' => date('Y-m-d H:i:s'),
                                 'checking' => $value['checking'],
                                 'ids'=> $value['ids'],
-                                'database'=> $value['database'],
+                                
                             ]) . "</textarea></div></td>";
                    // } else {
                         $html .= "<td>[" . $count . "]</td>";
