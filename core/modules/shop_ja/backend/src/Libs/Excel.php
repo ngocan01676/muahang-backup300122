@@ -274,6 +274,7 @@ class Excel
                                     $payMethod == $this->NumberToStringPayMethod($dataRowDatabase[$id_tracking][0]->pay_method)
                                 ){
                                     $item['ids'][] = $id_tracking;
+                                    $item['database'] = (array)$dataRowDatabase[$id_tracking][0];
                                 }
                                 foreach ($dataRowDatabase as $_tran_id=>$_value){
                                     if($_value[0]->fullname == $fullname &&
