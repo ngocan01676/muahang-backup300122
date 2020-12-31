@@ -275,6 +275,7 @@ class Excel
                                 ){
                                     $item['ids'][] = $id_tracking;
                                     $item['database'] = (array)$dataRowDatabase[$id_tracking][0];
+                                    $item['='] = 1;
                                 }
                                 foreach ($dataRowDatabase as $_tran_id=>$_value){
                                     if($_value[0]->fullname == $fullname &&
@@ -282,6 +283,7 @@ class Excel
                                         $payMethod == $this->NumberToStringPayMethod($_value[0]->pay_method)){
                                         $item['ids'][] = $_tran_id;
                                         $item['database'] = (array)$_value[0];
+                                        $item['foreach'] = 1;
                                         break;
                                     }
                                 }
