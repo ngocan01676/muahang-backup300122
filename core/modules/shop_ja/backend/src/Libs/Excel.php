@@ -202,8 +202,14 @@ class Excel
         $type = $this->checkTypeCom($OriginalName);
 
         $html = "";
+        $dataRowDatabase = [];
 
-        dd($datas1);
+        foreach ($datas1 as $_row){
+            if(!is_null($_row[0])){
+                $dataRowDatabase[$_row[0]] = DB::table('shop_order_excel')->where('id',$_row[0]);
+            }
+        }
+        dd($dataRowDatabase);
 
         if (isset($this->DataCol[$type])) {
             $colums = $this->DataCol[$type];
