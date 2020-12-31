@@ -186,6 +186,12 @@ class Excel
         if ($val === "決済不要") return 3;
         return 0;
     }
+    function NumberToStringPayMethod($val){
+        if ($val == 1) return '代金引換';
+        if ($val == 2) return '銀行振込';
+        if ($val == 3) return '決済不要';
+        return 0;
+    }
 
     public function Read($OriginalName, $inputFileName, $inputFileType)
     {
@@ -251,6 +257,7 @@ class Excel
 
                     if (!empty($order_tracking)) {
                         $fullname = trim(rtrim($datas[$i][$nameColList['fullname']]));
+                        $payMethod = trim(rtrim($datas[$i][$nameColList['payMethod']]));
                         $fullname = preg_replace('/\s+/', ' ', $fullname);
 
                         if (!empty($fullname) && $fullname != "配送先氏名") {
@@ -261,11 +268,11 @@ class Excel
                             ];
                             $id_tracking = isset($datas1[$i][0])?$datas1[$i][0]:0;
                             if(isset($dataRowDatabase[$id_tracking][0])){
-                                if($dataRowDatabase[$id_tracking][0]->fullname == $fullname){
+                                if($dataRowDatabase[$id_tracking][0]->fullname == $fullname && $payMethod == $this->NumberToStringPayMethod($dataRowDatabase[$id_tracking][0]->pay_method)){
                                     $item['ids'][] = $id_tracking;
                                 }
                                 foreach ($dataRowDatabase as $_tran_id=>$_value){
-                                    if($_value[0]->fullname == $fullname){
+                                    if($_value[0]->fullname == $fullname && $payMethod == $this->NumberToStringPayMethod($_value[0]->pay_method)){
                                         $item['ids'][] = $_tran_id;
                                         break;
                                     }
@@ -289,7 +296,7 @@ class Excel
                         }
                     }
                 }
-                
+
                 $category = get_category_type("shop-ja:product:category");
 
                 $ship = get_category_type("shop-ja:japan:category:com-ship");
