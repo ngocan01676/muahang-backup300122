@@ -210,7 +210,6 @@ class Excel
             }
         }
         dd($dataRowDatabase);
-
         if (isset($this->DataCol[$type])) {
             $colums = $this->DataCol[$type];
             foreach ($colums as $key => $value) {
