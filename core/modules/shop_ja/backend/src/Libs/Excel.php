@@ -194,12 +194,16 @@ class Excel
         $sheet = $spreadsheet->getSheet(0);
 
         $sheet1 = $spreadsheet->getSheet(1);
+
         $datas1 = $sheet1->toArray();
+
         $datas = $sheet->toArray();
 
         $type = $this->checkTypeCom($OriginalName);
 
         $html = "";
+
+        dd($datas1);
 
         if (isset($this->DataCol[$type])) {
             $colums = $this->DataCol[$type];
