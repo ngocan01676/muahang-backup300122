@@ -396,12 +396,20 @@
                                                       if($_timeNumber < time()){
                                                           $class.= " disabled";
                                                       }
-                                                  }
-                                                  if($_timeNumber > $_timeBet_17){
-                                                      $class.=" middle";
+                                                      if($_timeNumber > $_timeBet_17){
+                                                          $class.=" high";
+                                                      }else{
+                                                          $class.=" extra";
+                                                      }
                                                   }else{
-                                                      $class.=" low";
+                                                        if($_timeNumber > $_timeBet_17){
+                                                          $class.=" middle";
+                                                      }else{
+                                                          $class.=" low";
+                                                      }
                                                   }
+
+
                                                   if($week < 5){
                                                     $price = $price_max['price1'];
                                                   }else if($week == 5){
