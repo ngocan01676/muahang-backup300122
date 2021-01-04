@@ -1462,17 +1462,17 @@
                         }
 
                         if (obj.options.allowDeleteRow === true) {
-                            // items.push({
-                            //     title:obj.options.text.deleteSelectedRows,
-                            //     onclick:function() {
-                            //         obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            //
-                            //         SaveEvent[sheetName].save  = true;
-                            //         SaveEvent[sheetName].count++;
-                            //         SaveEvent[sheetName].check = true;
-                            //         start = true;
-                            //     }
-                            // });
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+                                    start = true;
+                                }
+                            });
                         }
 
                         if (x) {
@@ -2823,46 +2823,46 @@
 
                         if (obj.options.allowDeleteRow === true) {
 
-                            // items.push({
-                            //     title:obj.options.text.deleteSelectedRows,
-                            //     onclick:function() {
-                            //
-                            //         let index = indexFist(obj,y);
-                            //
-                            //         if(index.start ===  index.end){
-                            //             obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            //
-                            //         }else{
-                            //             let type = obj.getValue(jexcel.getColumnNameFromId([columns.type.index, y]));
-                            //             console.log(type);
-                            //             change = {col:-1,row:-1};
-                            //             if(type === "Info" || type ==="Footer"){
-                            //                     let count = 0;
-                            //                     for(let i = index.start; i <= index.end;i++){
-                            //                         count++;
-                            //                     }
-                            //                     obj.deleteRow(index.start,count);
-                            //             }else{
-                            //                 let count = parseInt( obj.getValue(jexcel.getColumnNameFromId([columns.count.index, y])));
-                            //                 if(!isNaN(count)){
-                            //                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            //                     let _instance = {
-                            //                         jexcel:obj
-                            //                     };
-                            //                     index.end = index.end - 1;
-                            //                     update(_instance, null, columns.count.index, index.start ,{},function () {
-                            //                         update_count(_instance, null ,columns.count.index, index.start,index);
-                            //                     });
-                            //                 }
-                            //             }
-                            //         }
-                            //
-                            //         SaveEvent[sheetName].save  = true;
-                            //         SaveEvent[sheetName].count++;
-                            //         SaveEvent[sheetName].check = true;
-                            //         start = true;
-                            //     }
-                            // });
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+
+                                    let index = indexFist(obj,y);
+
+                                    if(index.start ===  index.end){
+                                        obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    }else{
+                                        let type = obj.getValue(jexcel.getColumnNameFromId([columns.type.index, y]));
+                                        console.log(type);
+                                        change = {col:-1,row:-1};
+                                        if(type === "Info" || type ==="Footer"){
+                                                let count = 0;
+                                                for(let i = index.start; i <= index.end;i++){
+                                                    count++;
+                                                }
+                                                obj.deleteRow(index.start,count);
+                                        }else{
+                                            let count = parseInt( obj.getValue(jexcel.getColumnNameFromId([columns.count.index, y])));
+                                            if(!isNaN(count)){
+                                                obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                                let _instance = {
+                                                    jexcel:obj
+                                                };
+                                                index.end = index.end - 1;
+                                                update(_instance, null, columns.count.index, index.start ,{},function () {
+                                                    update_count(_instance, null ,columns.count.index, index.start,index);
+                                                });
+                                            }
+                                        }
+                                    }
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+                                    start = true;
+                                }
+                            });
                         }
 
                         // if (x) {
@@ -4383,46 +4383,46 @@
                         // }
 
                         if (obj.options.allowDeleteRow === true) {
-                            // items.push({
-                            //     title:obj.options.text.deleteSelectedRows,
-                            //     onclick:function() {
-                            //
-                            //         let index = indexFist(obj,y);
-                            //
-                            //         if(index.start ===  index.end){
-                            //             obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            //
-                            //         }else{
-                            //             let type = obj.getValue(jexcel.getColumnNameFromId([columns.type.index, y]));
-                            //             console.log(type);
-                            //             change = {col:-1,row:-1};
-                            //             if(type === "Info" || type ==="Footer"){
-                            //                 let count = 0;
-                            //                 for(let i = index.start; i <= index.end;i++){
-                            //                     count++;
-                            //                 }
-                            //                 obj.deleteRow(index.start,count);
-                            //             }else{
-                            //                 let count = parseInt( obj.getValue(jexcel.getColumnNameFromId([columns.count.index, y])));
-                            //                 if(!isNaN(count)){
-                            //                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            //                     let _instance = {
-                            //                         jexcel:obj
-                            //                     };
-                            //                     index.end = index.end - 1;
-                            //                     update(_instance, null, columns.count.index, index.start ,{},function () {
-                            //                         update_count(_instance, null ,columns.count.index, index.start,index);
-                            //                     });
-                            //                 }
-                            //             }
-                            //         }
-                            //         start = true;
-                            //         SaveEvent[sheetName].save  = true;
-                            //         SaveEvent[sheetName].count++;
-                            //         SaveEvent[sheetName].check = true;
-                            //
-                            //     }
-                            // });
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+
+                                    let index = indexFist(obj,y);
+
+                                    if(index.start ===  index.end){
+                                        obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    }else{
+                                        let type = obj.getValue(jexcel.getColumnNameFromId([columns.type.index, y]));
+                                        console.log(type);
+                                        change = {col:-1,row:-1};
+                                        if(type === "Info" || type ==="Footer"){
+                                            let count = 0;
+                                            for(let i = index.start; i <= index.end;i++){
+                                                count++;
+                                            }
+                                            obj.deleteRow(index.start,count);
+                                        }else{
+                                            let count = parseInt( obj.getValue(jexcel.getColumnNameFromId([columns.count.index, y])));
+                                            if(!isNaN(count)){
+                                                obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                                let _instance = {
+                                                    jexcel:obj
+                                                };
+                                                index.end = index.end - 1;
+                                                update(_instance, null, columns.count.index, index.start ,{},function () {
+                                                    update_count(_instance, null ,columns.count.index, index.start,index);
+                                                });
+                                            }
+                                        }
+                                    }
+                                    start = true;
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+
+                                }
+                            });
                         }
 
                         // if (x) {
@@ -5875,19 +5875,19 @@
                         }
 
                         if (obj.options.allowDeleteRow === true) {
-                            // items.push({
-                            //     title:obj.options.text.deleteSelectedRows,
-                            //     onclick:function() {
-                            //
-                            //         obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            //
-                            //         SaveEvent[sheetName].save  = true;
-                            //         SaveEvent[sheetName].count++;
-                            //         SaveEvent[sheetName].check = true;
-                            //         start = true;
-                            //
-                            //     }
-                            // });
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+                                    start = true;
+
+                                }
+                            });
                         }
 
                         if (x) {
@@ -7143,19 +7143,19 @@
                         }
 
                         if (obj.options.allowDeleteRow === true) {
-                            // items.push({
-                            //     title:obj.options.text.deleteSelectedRows,
-                            //     onclick:function() {
-                            //
-                            //         obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            //
-                            //         SaveEvent[sheetName].save  = true;
-                            //         SaveEvent[sheetName].count++;
-                            //         SaveEvent[sheetName].check = true;
-                            //         start = true;
-                            //
-                            //     }
-                            // });
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+                                    start = true;
+
+                                }
+                            });
                         }
 
                         if (x) {
@@ -8273,18 +8273,18 @@
                         }
 
                         if (obj.options.allowDeleteRow === true) {
-                            // items.push({
-                            //     title:obj.options.text.deleteSelectedRows,
-                            //     onclick:function() {
-                            //
-                            //         obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            //
-                            //         SaveEvent[sheetName].save  = true;
-                            //         SaveEvent[sheetName].count++;
-                            //         SaveEvent[sheetName].check = true;
-                            //
-                            //     }
-                            // });
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+
+                                }
+                            });
                         }
 
                         if (x) {
@@ -9372,23 +9372,23 @@
                             });
                         }
                         if (obj.options.allowDeleteRow === true) {
-                            // items.push({
-                            //     title:obj.options.text.deleteSelectedRows,
-                            //     onclick:function() {
-                            //         console.info(obj.getSelectedRows().length);
-                            //         console.info(y);
-                            //         if(obj.getSelectedRows().length){
-                            //             obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-                            //
-                            //             SaveEvent[sheetName].save  = true;
-                            //             SaveEvent[sheetName].count++;
-                            //             SaveEvent[sheetName].check = true;
-                            //             start = true;
-                            //         }
-                            //
-                            //
-                            //     }
-                            // });
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+                                    console.info(obj.getSelectedRows().length);
+                                    console.info(y);
+                                    if(obj.getSelectedRows().length){
+                                        obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                        SaveEvent[sheetName].save  = true;
+                                        SaveEvent[sheetName].count++;
+                                        SaveEvent[sheetName].check = true;
+                                        start = true;
+                                    }
+
+
+                                }
+                            });
                         }
 
                         if (x) {
