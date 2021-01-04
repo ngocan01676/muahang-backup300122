@@ -635,12 +635,9 @@
                     nav:!0,
                     dots:!1,
                     navText:"",
-                    loop:!0,
+                    loop:false,
                     margin:10,
                     autoplay:false,
-                    autoplayTimeout:3e3,
-                    autoplayHoverPause:!0,
-                    autoplaySpeed:600,
                     responsiveRefreshRate:200,
                     onInitialized:function(e){
                         let count = jQuery('.owl-carousel .owl-item.active').length;
