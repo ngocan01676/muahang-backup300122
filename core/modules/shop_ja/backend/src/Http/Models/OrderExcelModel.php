@@ -170,7 +170,7 @@ class OrderExcelModel extends Model
                                 $value1->address = "";
                                 $value1->zipcode = "";
                                 $value1->province = "";
-                                
+
                                 if($value1->type =="Item") {
                                     $value1->type = "Item";
                                     $value1->total_count = "";

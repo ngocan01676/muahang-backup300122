@@ -645,6 +645,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $product_title = $_product[$product_id]['data']['title'];
                                     }
                                     $_data = [
+                                        "form_index"=>$key,
                                         "order_create_date" => $model->key_date,
                                         "company" => $name,
                                         "session_id" => $model->id,
@@ -832,6 +833,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     }
                                 }
                                 $_data = [
+                                    "form_index"=>$key,
                                     "order_create_date"=>$model->key_date,
                                     "company"=>$name,
                                     "session_id"=>$model->id,
