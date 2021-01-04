@@ -468,14 +468,11 @@
 
     <div class="container section-title-container"><h3 class="section-title section-title-center"><b></b><span class="section-title-main" style="font-size:150%;">{!! z_language('Miss Terry – Quy định') !!}</span><b></b></h3></div>
     <div class="row align-center" id="row-738561661">
-
     <div id="col-943032991" class="col medium-10 small-12 large-10">
         <div class="col-inner">
             {!! $result->content !!}
         </div>
     </div>
-
-
     </div>
     <div class="row align-center" id="row-2076524606">
 
@@ -495,32 +492,115 @@
     </div>
 
 
-    <style>
-    #section_294952785 {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    }
-    </style>
+
     </section>
     <div class="pop-up2" style="display: none;">
         <div class="header">
-            Demo popup 2
+            {!! z_language($result->title,[]) !!}  <a href="javascript:void(0);" class="close">Close</a>
         </div>
         <div class="content">
-            <p>
-                Demo popup 2 content<br>
-                Demo popup 2 content<br>
-                Demo popup 2 content<br>
-                Demo popup 2 content<br>
-                Demo popup 2 content<br>
-                Demo popup 2 content<br>
-                Demo popup 2 content<br>
-                Demo popup 2 content
-            </p>
+             <div class="row">
+                 <div class="col-md-6">
+                     <form action="" method="post" class="wpcf7-form init" novalidate="novalidate">
+                         <div class="row contact-cho">
+                             <div class="col-lg-6">
+                                 <h5>Họ và tên :</h5>
+                                 <p>
+                                      <span class="wpcf7-form-control-wrap ten">
+                                      <input type="text" name="ten" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span>
+                                 </p>
+                             </div>
+                             <div class="col-lg-6">
+                                 <h5>Số điện thoại</h5>
+                                 <p>    <span class="wpcf7-form-control-wrap sdt"><input type="text" name="sdt" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span>
+                                 </p>
+                             </div>
+                             <div class="col-lg-6">
+                                 <h5>Địa chỉ Email</h5>
+                                 <p>
+                                    <span class="wpcf7-form-control-wrap e-mail">
+                                    <input type="email" name="e-mail" value=""
+                                           size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
+                                           aria-required="true" aria-invalid="false">
+                                    </span>
+                                 </p>
+                             </div>
+                             <div class="col-lg-6">
+                                 <h5>Giới tính</h5>
+                                 <p>
+                                    <span class="wpcf7-form-control-wrap menu-234">
+                                       <select name="menu-234" class="wpcf7-form-control wpcf7-select" id="gender" aria-invalid="false">
+                                          <option value="--Nam--"> -- Nam -- </option>
+                                          <option value="Nữ">Nữ</option>
+                                          <option value="Khác">Khác</option>
+                                       </select>
+                                    </span>
+                                 </p>
+                             </div>
+                             <div class="col-lg-6">
+                                 <h5>Số người chơi:</h5>
+                                 <p>
+                                    <span class="wpcf7-form-control-wrap menu-238">
+                                       <select name="menu-238" onchange="checkprice(this)" class="box-price wpcf7-form-control wpcf7-select" aria-invalid="false">
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                       </select>
+                                    </span>
+                                 </p>
+                             </div>
+                             <div class="col-lg-12">
+                                 <p>
+                                     <input type="submit" name="submitform" value="Gửi thông tin" class="wpcf7-form-control wpcf7-submit">
+                                     <span class="ajax-loader"></span>
+                                 </p>
+                             </div>
+                         </div>
+                     </form>
+                 </div>
+                 <div class="col-md-6">
+                     <table class="table table-bordered" style="margin: 50px auto;">
+                         <tbody>
+                         <tr>
+                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Phòng đã chọn</font></font></td>
+                             <td>
+                                 <font style="vertical-align: inherit;">
+                                     <font style="vertical-align: inherit;">
+                                         <div id="show_game">Secrets of the Jungle</div>
+                                     </font>
+                                 </font>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Địa chỉ</font></font></td>
+                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                                         Tầng 10, 381 Đội Cấn, Ba Đình, HN						</font></font>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ngày chơi</font></font></td>
+                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">07/01/2021</font></font></td>
+                         </tr>
+                         <tr>
+                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Khung thời gian</font></font></td>
+                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">10:15</font></font></td>
+                         </tr>
+                         <tr>
+                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Số người chơi</font></font></td>
+                             <td id="numbernc">2</td>
+                         </tr>
+                         <tr>
+                             <td style="border-bottom: 0px !important;" class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tổng Giá (VND)</font></font></td>
+                             <td id="total-price" style="border-bottom: 0px !important;">400.000 đ</td>
+                         </tr>
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
         </div>
-        <div class="footer">
-            <a href="" class="button close">Close pop-up</a>
-        </div>
+
     </div>
 @endsection
 @section('extra-script')
@@ -536,7 +616,16 @@
     <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/plugins/highlightjs/highlight.min.js') !!}"></script>
     <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/src/mobilepopup.min.js') !!}"></script>
     <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/common.js') !!}"></script>
-
+    <style>
+        #section_294952785 {
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        .mobilepopup.open .mobilepopup-outer .mobilepopup-inner .content{
+            background: url({!! $result->background !!});
+            padding-top:20px ;
+        }
+    </style>
     <script>
         jQuery(document).ready(function(){
             let sync2 = jQuery(".owl-carousel");
@@ -560,7 +649,7 @@
 
                             console.log(d-parseInt(count/2)-parseInt(count/3));
 
-                            sync2.trigger("to.owl.carousel", [count == 1 ?d:d-parseInt(count/2)-2, 1])
+                            sync2.trigger("to.owl.carousel", [count == 1 ?d:d-count, 1])
                         },100);
                     },
                     responsive:{
