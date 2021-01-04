@@ -156,9 +156,9 @@ class OrderExcelModel extends Model
                     if($value->type == "Info"){
                         $group =  (int)$value->group;
                         if(is_null($value->group) || empty($value->group)){
-                            $value->sort = $value->sort + 10000000;
+                            $value->sort = $value->sort + 1000000*$value->admin_id;
                         }else{
-                            $value->sort = $value->sort + 10000000 + ($group+5) * $value->order_index * 100;
+                            $value->sort = $value->sort + 1000000*$value->admin_id* + ($group+5) * $value->order_index * 100;
                         }
                         $row = [$value];
 
@@ -177,7 +177,7 @@ class OrderExcelModel extends Model
                                 $value1->province = "";
 
                                 if(is_null($value->group) || empty($value->group)){
-                                    $value1->sort = $value1->sort + 10000000 + ($group+5) * $value1->order_index * 100;
+                                    $value1->sort = $value1->sort + 1000000 * $value->admin_id + ($group+5) * $value1->order_index * 100;
                                 }
                                 if($value1->type =="Item") {
                                     $value1->type = "Item";
@@ -199,9 +199,11 @@ class OrderExcelModel extends Model
                         foreach ($row as $k=>$v){
                             $KOGYJA[] = $v;
                         }
-
                     }
                 }
+                usort($KOGYJA, function ($a, $b) {
+                    return ($a->sort) - $b->sort;
+                });
                 $dataNew['KOGYJA'] = $KOGYJA;
             }
         }
