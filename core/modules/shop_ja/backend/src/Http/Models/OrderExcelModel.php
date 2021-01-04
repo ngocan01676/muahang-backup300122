@@ -157,7 +157,7 @@ class OrderExcelModel extends Model
                         $group =  (int)$value->group;
 
                         if($group == 0 || is_null($value->group)){
-                            $value->sort = $value->sort * 50 + $value->admin_id * 100 + $value->admin_id*100000;
+                            $value->sort = $value->sort *50 +  $value->admin_id * 10000;
                         }
                         $row = [$value];
 
@@ -177,7 +177,7 @@ class OrderExcelModel extends Model
                                 $group =  (int)$value1->group;
 
                                 if($group == 0 || is_null($value1->group)){
-                                    $value1->sort = $value1->sort * $group + $value1->admin_id * 100 + $value->admin_id*100000;
+                                    $value1->sort = $value1->sort * $group + $value1->admin_id * 100 + $value->admin_id *10000;
                                 }
                                 if($value1->type =="Item") {
                                     $value1->type = "Item";
