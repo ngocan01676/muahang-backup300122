@@ -1465,6 +1465,9 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
 
                                     SaveEvent[sheetName].save  = true;
@@ -2826,7 +2829,9 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
-
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     let index = indexFist(obj,y);
 
                                     if(index.start ===  index.end){
@@ -4386,7 +4391,9 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
-
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     let index = indexFist(obj,y);
 
                                     if(index.start ===  index.end){
@@ -5878,7 +5885,9 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
-
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
 
                                     SaveEvent[sheetName].save  = true;
@@ -7146,7 +7155,9 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
-
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
 
                                     SaveEvent[sheetName].save  = true;
@@ -8276,7 +8287,9 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
-
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
 
                                     SaveEvent[sheetName].save  = true;
@@ -9375,19 +9388,15 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
-                                    console.info("getSelectedRows:"+obj.getSelectedRows().length);
-                                    console.info("getSelectedColumns:"+obj.getSelectedColumns().length);
-                                    console.info("y:"+y);
-                                    if(obj.getSelectedRows().length){
-                                        obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
-
-                                        SaveEvent[sheetName].save  = true;
-                                        SaveEvent[sheetName].count++;
-                                        SaveEvent[sheetName].check = true;
-                                        start = true;
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
                                     }
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
 
-
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+                                    start = true;
                                 }
                             });
                         }
