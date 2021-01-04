@@ -46,6 +46,7 @@
                 <tr>
                     <td>
                         {!! Form::label('room_id', z_language('Booking Room'), ['class' => 'room_id']) !!}
+
                         <select onchange="change_booking_room_id()" name="room_id" id="room_id" class="form-control">
                             @foreach($miss_room as $key=>$value)
                                 <option data-prices='{!! $value->prices !!}' data-times='{!! $value->times !!}' value="{!! $key !!}">{!! $value->title !!}</option>

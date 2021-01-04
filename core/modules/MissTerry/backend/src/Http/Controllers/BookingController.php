@@ -18,12 +18,8 @@ class BookingController extends \Zoe\Http\ControllerBackend
             isset($this->data['configs']['room']['language']['default']) ? $this->data['configs']['room']['language']['default'] : config('zoe.default_lang');
 
         $select = [
-            'room.id',
-            'room.image',
-            'room.status',
-            'room.views',
-            'room.created_at',
-            'room.updated_at',
+            'room.*',
+
             'rt.title'
         ];
         $miss_room = DB::table('miss_room as room');
