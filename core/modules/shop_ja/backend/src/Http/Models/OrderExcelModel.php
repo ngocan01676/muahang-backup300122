@@ -154,6 +154,11 @@ class OrderExcelModel extends Model
 
                 foreach ($dataNew['KOGYJA'] as $k=>$value){
                     if($value->type == "Info"){
+                        $group =  (int)$value->group;
+
+                        if($group == 0 || is_null($value->group)){
+                            $value->sort = $value->sort * 100 + $value->admin_id*100 + $value->admin_id;
+                        }
                         $row = [$value];
 
                         foreach ($dataNew['KOGYJA'] as $kk=>$value1){
@@ -169,7 +174,11 @@ class OrderExcelModel extends Model
                                 $value1->address = "";
                                 $value1->zipcode = "";
                                 $value1->province = "";
+                                $group =  (int)$value1->group;
 
+                                if($group == 0 || is_null($value1->group)){
+                                    $value1->sort = $value1->sort * $group + $value1->admin_id * 100 + $value->admin_id;
+                                }
                                 if($value1->type =="Item") {
                                     $value1->type = "Item";
                                     $value1->total_count = "";
@@ -179,12 +188,13 @@ class OrderExcelModel extends Model
                                     $value1->product_id = "";
                                     $value1->total_count = "";
                                 }
+
                                 $row[] = $value1;
                             }
                         }
 
                         usort($row, function ($a, $b) {
-                            return ($a->order_index) - $b->order_index;
+                            return ($a->sort) - $b->sort;
                         });
                         foreach ($row as $k=>$v){
                             $KOGYJA[] = $v;
