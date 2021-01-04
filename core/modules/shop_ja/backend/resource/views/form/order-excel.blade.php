@@ -9388,7 +9388,9 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
+
                                     console.log(obj.getSelectedColumns().length);
+                                    
                                     if(obj.getSelectedColumns().length < 1){
                                         return;
                                     }
