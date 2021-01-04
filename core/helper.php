@@ -73,10 +73,11 @@ function get_thumbnails($file, $width = 160, $full_url = true) {
     if (file_exists($absolute_path_file) && is_file($absolute_path_file) && check_type_image($absolute_path_file) && $width > 0) {
         $thumnail_relative_path = dirname($file) . "/thumbs/{$width}/";
         $thumnail_file_name = $thumnail_relative_path . basename($file);
-        $thumbnail_url = ($full_url ? url('/')  : '') . $thumnail_file_name;
+        $thumbnail_url = ($full_url ? url($thumnail_file_name)  : '/'.$thumnail_file_name);
 
         // Style file thumbnails investigation already exists. If exists returns thumbnails
         if (file_exists($thumbnail_absolute_file = public_path('/')  . $thumnail_file_name)) {
+
             return $thumbnail_url;
         }
 
