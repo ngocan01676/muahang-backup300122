@@ -513,7 +513,6 @@
             <a href="" class="button close">Close pop-up</a>
         </div>
     </div>
-
 @endsection
 @section('extra-script')
     <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/OwlCarousel/assets/owl.carousel.min.css') !!}">
