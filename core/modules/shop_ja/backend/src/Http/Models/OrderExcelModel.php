@@ -177,7 +177,7 @@ class OrderExcelModel extends Model
                                 $value1->province = "";
 
                                 if(is_null($value->group) || empty($value->group)){
-                                    $value->sort = $value1->sort + 10000000 + ($group+5) * $value1->order_index * 100;
+                                    $value1->sort = $value1->sort + 10000000 + ($group+5) * $value1->order_index * 100;
                                 }
                                 if($value1->type =="Item") {
                                     $value1->type = "Item";
