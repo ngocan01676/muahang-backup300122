@@ -337,15 +337,16 @@
                                  z_language("Tháng 11"),
                                  z_language("Tháng 12"),
                                 ];
-                                $n = date('d',$month_end);
+                                $n =(int) date('d',$month_end);
                                 $i = 1;
 
                             @endphp
                             @for(; $i<=$n;$i++)
+                                @continue($i < $dayNow);
                             @php
-
                                 $i = (int) $i;
                                 $day = ($i<10?"0".$i:$i);
+
                                 $dateTime = $monthYear.'-'.$day;
                                 $week = (int) date('N', strtotime($dateTime));
 
