@@ -155,11 +155,10 @@ class OrderExcelModel extends Model
                 foreach ($dataNew['KOGYJA'] as $k=>$value){
                     if($value->type == "Info"){
                         $group =  (int)$value->group;
-
-                        if($group == 0 || is_null($value->group)){
-                            $value->sort = $value->sort + 100000 + $value->admin_id * 10000;
+                        if(is_null($value->group) || empty($value->group)){
+                            $value->sort = $value->sort + 10000000;
                         }else{
-                            $value->sort = $value->sort + 1000000 + $value->admin_id * 10000 + $group * $value->order_index * 10;
+                            $value->sort = $value->sort + 10000000 + ($group+5) * $value->order_index * 100;
                         }
                         $row = [$value];
 
@@ -177,8 +176,8 @@ class OrderExcelModel extends Model
                                 $value1->zipcode = "";
                                 $value1->province = "";
 
-                                if($group == 0 || is_null($value->group)){
-                                    $value->sort = $value1->sort + 1000000 + $value1->admin_id * 10000 + $group * $value1->order_index * 10;
+                                if(is_null($value->group) || empty($value->group)){
+                                    $value->sort = $value1->sort + 10000000 + ($group+5) * $value1->order_index * 100;
                                 }
                                 if($value1->type =="Item") {
                                     $value1->type = "Item";
