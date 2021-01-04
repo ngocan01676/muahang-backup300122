@@ -360,12 +360,13 @@
                                 $is_disabled = strtotime($dateTime.' 23:59:59') < time();
                                 $price_max = end($result->prices);
 
+                                $d_m_Y = date('d-m-Y',strtotime($dateTime));
 
 
 
 
                             @endphp
-                            <div class="item day{!! $isNow?" now $dateTime":"" !!}">
+                            <div class="item day{!! $isNow?" now date-$d_m_Y":" date-$d_m_Y" !!}" data-week="{!! $week !!}">
                                 <div class="day-header">
                                     <div class="date">{!! $day !!} {!! $months[$month] !!}</div>
                                     <div class="weekday">{!! isset($weeks[$week]) ? $weeks[$week] : $week !!}</div>
@@ -408,26 +409,33 @@
                                                           $class.=" low";
                                                       }
                                                   }
-
-
+                                                  $key = 'price1';
                                                   if($week < 5){
                                                     $price = $price_max['price1'];
+
                                                   }else if($week == 5){
                                                     if($_timeNumber > $_timeBet_17){
                                                         $price = $price_max['price2'];
+                                                          $key = 'price2';
                                                     }else{
                                                         $price = $price_max['price1'];
+                                                         $key = 'price1';
                                                     }
                                                   }else{
                                                         $price = $price_max['price1'];
+                                                        $key = 'price2';
                                                   }
                                              }
                                         @endphp
-                                        <div class="calendar__item popup-demo {!! $class !!} actor_0" data-id="" data-datetime="{!! $dateTime !!} {!! $time['date'] !!}">
+                                        <div
+                                                class="calendar__item popup-demo {!! $class !!} actor_0"
+                                                data-key="{!! $key !!}"
+                                                data-id="{!! $result->id !!}"
+                                                data-date="{!! $d_m_Y !!}"
+                                                data-time="{!! $time['date'] !!}">
                                             <div class="item__time">{!! $time['date'] !!}</div>
-                                            <div class="item__price">{!! $price !!}<span class="price__currency">VNĐ</span>
-                                            </div>
-                                            <div class="book_label">{!! number_format($price) !!}/1 VNĐ</div>
+                                            <div class="item__price">{!! $price !!}<span class="price__currency">VNĐ</span></div>
+                                            <div class="book_label">{!! number_format($price) !!}/1 người VNĐ</div>
                                         </div>
                                     @endforeach
                                 </div>
@@ -495,27 +503,33 @@
 
     </section>
     <div class="pop-up2" style="display: none;">
+        <div class="head">
+            <div class="col-md-12 text-center" style="padding: 10px; background: #060606;"><h3>{!! z_language("Thông tin đặt phòng") !!}</h3></div>
+        </div>
+        <div class="content ">
+             <div class="row booking-summary">
 
-        <div class="content">
-            {!! z_language($result->title,[]) !!}  <a href="javascript:void(0);" class="close">Close</a>
-             <div class="row">
                  <div class="col-md-6">
                      <form action="" method="post" class="wpcf7-form init" novalidate="novalidate">
+
                          <div class="row contact-cho">
                              <div class="col-lg-6">
-                                 <h5>Họ và tên :</h5>
+                                 <h5>{!! z_language('Họ và tên') !!} :</h5>
                                  <p>
                                       <span class="wpcf7-form-control-wrap ten">
-                                      <input type="text" name="ten" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span>
+                                      <input type="text" name="fullname" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span>
                                  </p>
                              </div>
                              <div class="col-lg-6">
-                                 <h5>Số điện thoại</h5>
-                                 <p>    <span class="wpcf7-form-control-wrap sdt"><input type="text" name="sdt" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span>
+                                 <h5>{!! z_language('Số điện thoại') !!} :</h5>
+                                 <p>
+                                     <span class="wpcf7-form-control-wrap sdt">
+                                         <input type="text" name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                     </span>
                                  </p>
                              </div>
                              <div class="col-lg-6">
-                                 <h5>Địa chỉ Email</h5>
+                                 <h5>{!! z_language('Địa chỉ Email') !!}:</h5>
                                  <p>
                                     <span class="wpcf7-form-control-wrap e-mail">
                                     <input type="email" name="e-mail" value=""
@@ -525,22 +539,23 @@
                                  </p>
                              </div>
                              <div class="col-lg-6">
-                                 <h5>Giới tính</h5>
+                                 <h5>{!! z_language('Giới tính') !!}:</h5>
                                  <p>
                                     <span class="wpcf7-form-control-wrap menu-234">
-                                       <select name="menu-234" class="wpcf7-form-control wpcf7-select" id="gender" aria-invalid="false">
-                                          <option value="--Nam--"> -- Nam -- </option>
-                                          <option value="Nữ">Nữ</option>
-                                          <option value="Khác">Khác</option>
+                                       <select name="sex" class="wpcf7-form-control wpcf7-select" id="gender" aria-invalid="false">
+                                          <option value="1">Nam</option>
+                                          <option value="2">Nữ</option>
+                                          <option value="3">Khác</option>
                                        </select>
                                     </span>
                                  </p>
                              </div>
                              <div class="col-lg-6">
-                                 <h5>Số người chơi:</h5>
+                                 <h5>{!! z_language('Số người chơi') !!}:</h5>
                                  <p>
                                     <span class="wpcf7-form-control-wrap menu-238">
-                                       <select name="menu-238" onchange="checkprice(this)" class="box-price wpcf7-form-control wpcf7-select" aria-invalid="false">
+                                       <select name="number" onchange="checkprice(this)" class="box-price wpcf7-form-control wpcf7-select" aria-invalid="false">
+                                          <option value="0">{!! z_language('Chọn số người') !!}</option>
                                           <option value="2">2</option>
                                           <option value="3">3</option>
                                           <option value="4">4</option>
@@ -550,60 +565,63 @@
                                     </span>
                                  </p>
                              </div>
-
+                             <div class="col-lg-12">
+                                 <p>
+                                     <input type="button" onclick="onClick()" name="submitform" value="Gửi thông tin" class="wpcf7-form-control wpcf7-submit">
+                                     <span class="ajax-loader"></span>
+                                 </p>
+                             </div>
                          </div>
                      </form>
                  </div>
-                 <div class="col-md-6">
-                     <table class="table table-bordered" style="margin: 50px auto;">
+                 <div class="col-md-6 ">
+                     <table class="table table-bordered" style="margin: 0 auto">
                          <tbody>
                          <tr>
-                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Phòng đã chọn</font></font></td>
+                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{!! z_language('Phòng đã chọn') !!}</font></font></td>
                              <td>
                                  <font style="vertical-align: inherit;">
                                      <font style="vertical-align: inherit;">
-                                         <div id="show_game">Secrets of the Jungle</div>
+                                         <div id="show_game">{!! z_language($result->title,[]) !!}</div>
                                      </font>
                                  </font>
                              </td>
                          </tr>
                          <tr>
-                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Địa chỉ</font></font></td>
-                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                         Tầng 10, 381 Đội Cấn, Ba Đình, HN						</font></font>
+                             <td class="labels">{!! z_language('Địa chỉ') !!}</td>
+                             <td>{!! $result->address !!}</td>
+                         </tr>
+                         <tr>
+                             <td class="labels">{!! z_language('Ngày chơi') !!}</td>
+                             <td class="form-info-date">{!! date('d-m-Y') !!}</td>
+                         </tr>
+                         <tr>
+                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{!! z_language('Khung thời gian') !!}</font></font></td>
+                             <td class="form-info-time">00:00</td>
+                         </tr>
+                         <tr>
+                             <td class="labels">
+                                 {!! z_language('Số người chơi') !!}
                              </td>
+                             <td class="form-info-number">0</td>
                          </tr>
                          <tr>
-                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ngày chơi</font></font></td>
-                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">07/01/2021</font></font></td>
-                         </tr>
-                         <tr>
-                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Khung thời gian</font></font></td>
-                             <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">10:15</font></font></td>
-                         </tr>
-                         <tr>
-                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Số người chơi</font></font></td>
-                             <td id="numbernc">2</td>
-                         </tr>
-                         <tr>
-                             <td style="border-bottom: 0px !important;" class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tổng Giá (VND)</font></font></td>
-                             <td id="total-price" style="border-bottom: 0px !important;">400.000 đ</td>
+                             <td style="border-bottom: 0px !important;" class="labels"><font style="vertical-align: inherit;">
+                                     <font style="vertical-align: inherit;">{!! z_language('Tổng Giá (VND)') !!}</font></font>
+                             </td>
+                             <td class="form-info-total-price" style="border-bottom: 0px !important;">0 đ</td>
                          </tr>
                          </tbody>
                      </table>
                  </div>
-                 <div class="col-lg-12">
-                     <p>
-                         <input type="submit" name="submitform" value="Gửi thông tin" class="wpcf7-form-control wpcf7-submit">
-                         <span class="ajax-loader"></span>
-                     </p>
-                 </div>
+
              </div>
         </div>
 
     </div>
 @endsection
 @section('extra-script')
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeSNSAaAAAAAPnoqpze0F2jMRW9CUMCP8ypmUeg"></script>
     <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/OwlCarousel/assets/owl.carousel.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/OwlCarousel/assets/owl.theme.default.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('theme/missterry/css/style.css') !!}">
@@ -623,12 +641,75 @@
         }
         .mobilepopup.open .mobilepopup-outer .mobilepopup-inner .content{
             background: url({!! $result->background !!});
-            padding-top:20px ;
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-top:50px ;
+        }
+        .booking-summary .table tr td.labels {
+            background: #060606;
+            color: #F2CF0A;
+            vertical-align: top;
+            min-width: 150px;
+        }
+        .booking-summary .table tr td {
+            background: #000;
+            padding: 16.9px 20px;
+            border-bottom: 1px solid #232323;
+            border-top: 0;
+            color: #FFF;
+        }
+        .booking-summary .table tr td.labels {
+            background: #060606;
+            color: #F2CF0A;
+            vertical-align: top;
+            min-width: 150px;
         }
     </style>
     <script>
+        function onClick() {
+
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LeSNSAaAAAAAPnoqpze0F2jMRW9CUMCP8ypmUeg', {action: 'submit'}).then(function(token) {
+                    var datas =jQuery(".mobilepopup  form" ).serializeArray();
+                    jQuery.ajax({
+                        url:"{!! route('frontend:room:register_form') !!}",
+                        method:"POST",
+                        data:{
+                            recaptcha_token:token,
+                            data:datas
+                        }
+                    });
+                });
+            });
+        }
+        function checkprice(self){
+            let configs = @json($result->prices);
+            let val = jQuery(self).val();
+
+            let config = {};
+
+            for(let i in configs){
+                if(configs[i].keys.includes(val) || configs[i].keys.length == 2 && configs[i].keys[0]< val && configs[i].keys[1] > val  ){
+                    config = configs[i];
+                    break;
+                }
+            }
+            let dom = jQuery(".mobilepopup");
+            let date = dom.find('.form-info-date').text();
+            let data_item =  jQuery("#calendar").find(".date-"+date);
+            let conf_date =  data_item.find('.actor_0').data();
+            var price = 0;
+            if(conf_date && config.hasOwnProperty(conf_date.key)){
+                price = config[conf_date.key];
+            }
+            dom.find('.form-info-total-price').text(price);
+            dom.find('.form-info-number').text(val);
+        }
         jQuery(document).ready(function(){
             let sync2 = jQuery(".owl-carousel");
+
             sync2.owlCarousel(
                 {
                     singleItem:!0,

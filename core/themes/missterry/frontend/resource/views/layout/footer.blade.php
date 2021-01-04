@@ -14,6 +14,37 @@
 </script>
 <script type='text/javascript' src='https://demo.missterry.vn/wp-content/themes/flatsome/assets/js/flatsome.js?ver=3.13.0' id='flatsome-js-js'></script>
 <script type='text/javascript' src='https://demo.missterry.vn/wp-includes/js/wp-embed.min.js?ver=5.6' id='wp-embed-js'></script>
+
+
+<script>
+    jQuery(document).ready(function () {
+        jQuery.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN':jQuery('meta[name="csrf-token"]').attr('content'),
+            },
+            error: function (jqXHR, exception) {
+                // if (jqXHR.status === 0) {
+                //     alert('Not connect.\n Verify Network.');
+                // } else if (jqXHR.status == 404) {
+                //     alert('Requested page not found. [404]');
+                // } else if (jqXHR.status == 500) {
+                //     alert('Internal Server Error [500].');
+                // } else if (exception === 'parsererror') {
+                //     alert('Requested JSON parse failed.');
+                // } else if (exception === 'timeout') {
+                //     alert('Time out error.');
+                // } else if (exception === 'abort') {
+                //     alert('Ajax request aborted.');
+                // } else {
+                //     alert('Uncaught Error.\n' + jqXHR.responseText);
+                // }
+            }
+        });
+
+    });
+</script>
+
+
 @stack('scriptsTop')
 @stack('scripts')
 @section('extra-script')

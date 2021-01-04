@@ -13,7 +13,7 @@
     <link rel="profile" href="http://gmpg.org/xfn/11" />
     <link rel="pingback" href="https://demo.missterry.vn/xmlrpc.php" />
     <script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <title>Miss Terry® Escape Rooms - Unravel The Mystery!</title>

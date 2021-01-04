@@ -1,7 +1,7 @@
 <?php
 namespace MissTerryTheme\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Http\Request;
 class HomeController extends \Zoe\Http\ControllerFront
 {
     public function getLists()
@@ -70,5 +70,8 @@ class HomeController extends \Zoe\Http\ControllerFront
             redirect('/error/404');
         }
     }
-
+    public function action_register_room(Request $request){
+        $data = $request->all();
+        return json_encode($data);
+    }
 }

@@ -15,7 +15,7 @@ $conf =  [
                 "action"=>'getRoom'
             ],
             "room-detail" => [
-                "url" => "/rooms/detail/{slug}",
+                "url" => "/rooms/{slug}",
                 "guard" => "",
                 "action"=>'getRoomDetail'
             ],
@@ -45,6 +45,18 @@ foreach ($conf as $name=>$router){
         $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
     }
 }
+$routers['room'] =   [
+    "namespace" => "MissTerryTheme\Http\Controllers",
+    "controller" => "HomeController",
+    "router" => [
+         'register_form'=>[
+             "url" => "/register-room-".md5('action_register_room'),
+             "guard" => "",
+             "action"=>'action_register_room',
+             "method"=>['POST']
+         ]
+    ]
+];
 return [
     'routers' => [
         'frontend' => $routers
