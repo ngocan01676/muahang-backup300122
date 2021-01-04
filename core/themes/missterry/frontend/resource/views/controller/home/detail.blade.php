@@ -644,9 +644,8 @@
                         setTimeout(function () {
                             let d = parseInt('{!! date('d') !!}');
 
-                            console.log(d-parseInt(count/2)-parseInt(count/3));
 
-                            sync2.trigger("to.owl.carousel", [count == 1 ?d:d-count, 1])
+                            sync2.trigger("to.owl.carousel", [count < 2 ?d:d-count, 1])
                         },100);
                     },
                     responsive:{
