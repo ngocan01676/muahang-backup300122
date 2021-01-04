@@ -13,9 +13,24 @@ class BookingController extends \Zoe\Http\ControllerBackend
         $this->data['language'] = config('zoe.language');
         $this->data['nestables'] = config_get("category", "blog:category");
         $this->data['configs'] = config_get("config", "blog");
-        $this->data['miss_room'] = DB::table('miss_room')->get()->keyBy('id')->all();
+
         $this->data['current_language'] =
-            isset($this->data['configs']['room']['language']['default']) ? $this->data['configs']['room']['language']['default'] : "vi";
+            isset($this->data['configs']['room']['language']['default']) ? $this->data['configs']['room']['language']['default'] : config('zoe.default_lang');
+
+        $select = [
+            'room.id',
+            'room.image',
+            'room.status',
+            'room.views',
+            'room.created_at',
+            'room.updated_at',
+            'rt.title'
+        ];
+        $miss_room = DB::table('miss_room as room');
+        $miss_room->join('miss_room_translation as rt', 'rt.room_id', '=', 'room.id');
+        $miss_room->where('rt.lang_code',  $this->data['current_language'] );
+        $miss_room->select($select);
+        $this->data['miss_room'] = $miss_room->get()->keyBy('id')->all();
     }
     public function getCrumb()
     {
@@ -166,16 +181,22 @@ class BookingController extends \Zoe\Http\ControllerBackend
         $models->appends($parameter);
 
         $miss_room = $this->data['miss_room'];
+
         $miss_user = DB::table('user')->get()->keyBy('id')->all();
+        $current_language =  $this->data['current_language'];
 
         return $this->render('booking.list', [
             'models' => $models,
             "route" => $route,
             'parameter' => $parameter,
             'callback' => [
-                "get_room" => function ($model) use ($lang,$miss_room) {
+                "get_room" => function ($model) use ($lang,$miss_room,$current_language) {
                     if(isset($miss_room[$model->room_id])){
-                        return $miss_room[$model->room_id]->title;
+                       $translation = DB::table('miss_room_translation')->where('room_id',$model->room_id)->where('lang_code',$current_language)->get()->all();
+                       if(isset($translation[0])){
+                            return $translation[0]->title;
+                       }
+                       return z_language('Empty Lang');
                     }
                     return z_language('Empty');
                 },
