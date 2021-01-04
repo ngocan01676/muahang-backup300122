@@ -641,12 +641,15 @@
                     responsiveRefreshRate:200,
                     onInitialized:function(e){
                         let count = jQuery('.owl-carousel .owl-item.active').length;
-                        setTimeout(function () {
-                            let d = parseInt('{!! date('d') !!}');
+                        if(count > 2){
+                            setTimeout(function () {
+                                let d = parseInt('{!! date('d') !!}');
 
 
-                            sync2.trigger("to.owl.carousel", [count < 2 ?d:d-count, 1])
-                        },100);
+                                sync2.trigger("to.owl.carousel", [count < 2 ?d:d-count, 1])
+                            },100);
+                        }
+
                     },
                     responsive:{
                         0:{
