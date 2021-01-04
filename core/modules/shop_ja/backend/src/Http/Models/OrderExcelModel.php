@@ -157,9 +157,9 @@ class OrderExcelModel extends Model
                         $group =  (int)$value->group;
 
                         if($group == 0 || is_null($value->group)){
-                            $value->sort = $value->sort + $value->admin_id * 100000;
+                            $value->sort = $value->sort + $value->admin_id * 10000000;
                         }else{
-                            $value->sort =$value->sort + $group * $value->order_index * 1000 + $value->admin_id * 100000;
+                            $value->sort =$value->sort + $group * $value->order_index * 10 + $value->admin_id * 10000000;
                         }
                         $row = [$value];
 
@@ -178,7 +178,7 @@ class OrderExcelModel extends Model
                                 $value1->province = "";
 
                                 if($group == 0 || is_null($value->group)){
-                                    $value1->sort = $value1->sort + $group * $value1->order_index * 1000 + $value1->admin_id * 100000;
+                                    $value1->sort = $value1->sort + $group * $value1->order_index * 10 + $value1->admin_id * 10000000;
                                 }
                                 if($value1->type =="Item") {
                                     $value1->type = "Item";
