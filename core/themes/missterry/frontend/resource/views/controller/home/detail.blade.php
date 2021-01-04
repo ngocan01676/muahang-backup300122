@@ -342,7 +342,7 @@
 
                             @endphp
                             @for(; $i<=$n;$i++)
-                                @continue($i < $dayNow);
+                                @continue($i < $dayNow)
                             @php
                                 $i = (int) $i;
                                 $day = ($i<10?"0".$i:$i);
