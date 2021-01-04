@@ -557,7 +557,7 @@
                         let count = jQuery('.owl-carousel .owl-item.active').length;
                         setTimeout(function () {
                             let d = parseInt('{!! date('d') !!}');
-                            sync2.trigger("to.owl.carousel", [count == 1 ?d:d-parseInt(count/2)-1, 1])
+                            sync2.trigger("to.owl.carousel", [count == 1 ?d:d-parseInt(count/4), 1])
                         },100);
                     },
                     responsive:{
