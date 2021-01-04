@@ -8,7 +8,6 @@ function Main(){
     if(isset($config_language['lang'])){
 
         $translation = DB::table('miss_room_translation')->where('lang_code',$config_language['lang'])->get()->keyBy('room_id')->all();
-
         foreach ($results as $key=>$value){
             if(isset($translation[$value->id])){
                 $value->title = $translation[$value->id]->title;

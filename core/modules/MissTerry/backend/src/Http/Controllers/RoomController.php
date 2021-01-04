@@ -13,8 +13,7 @@ class RoomController extends \Zoe\Http\ControllerBackend
         $this->data['language'] = config('zoe.language');
         $this->data['nestables'] = config_get("category", "blog:category");
         $this->data['configs'] = config_get("config", "blog");
-        $this->data['current_language'] =
-            isset($this->data['configs']['room']['language']['default']) ? $this->data['configs']['room']['language']['default'] : "vi";
+        $this->data['current_language'] = isset($this->data['configs']['room']['language']['default']) ? $this->data['configs']['room']['language']['default'] : config('zoe.default_lang');
     }
     public function getCrumb()
     {
@@ -35,17 +34,19 @@ class RoomController extends \Zoe\Http\ControllerBackend
         }
         $parameter = $data;
         $route = [];
+
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
 
         $select = [
             'room.id',
-            'room.title',
+
             'room.image',
             'room.status',
             'room.views',
             'room.created_at',
-            'room.updated_at'];
-
+            'room.updated_at',
+            'rt.title'
+        ];
         $models = DB::table('miss_room as room');
 
         if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
@@ -87,8 +88,9 @@ class RoomController extends \Zoe\Http\ControllerBackend
         } else {
             $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
         }
-//         $models->join('miss_room_translation as rt', 'rt.room_id', '=', 'room.id');
-//         $models->where('rt.lang_code', $lang);
+
+        $models->join('miss_room_translation as rt', 'rt.room_id', '=', 'room.id');
+        $models->where('rt.lang_code', $lang);
 
         $models->select($select);
         $models = $models->paginate($item, ['*'], 'page', $page);
@@ -99,6 +101,9 @@ class RoomController extends \Zoe\Http\ControllerBackend
             "route" => $route,
             'parameter' => $parameter,
             'callback' => [
+                "Title_Lang" => function($model){
+                    return $model->title;
+                },
                 "HtmlImg" => function ($model) use ($lang) {
                     return "<img style='width:150px' src='".url($model->image)."'/>";
                 }
@@ -135,9 +140,9 @@ class RoomController extends \Zoe\Http\ControllerBackend
             'image' => 'required',
             'background' => 'required',
             'time' => 'required',
-            'title' => 'required',
-            'description' => 'required',
-            'content' => 'required',
+//            'title' => 'required',
+//            'description' => 'required',
+//            'content' => 'required',
         ], [
             'image.required' => z_language('The Image is Required.'),
             'background.required' => z_language('The Image is Required.'),
@@ -152,18 +157,20 @@ class RoomController extends \Zoe\Http\ControllerBackend
         } else {
             $model = new RoomModel();
         }
-        $model->slug = \Illuminate\Support\Str::slug($data['title'], '-');
+        $model->slug = \Illuminate\Support\Str::slug(isset($data['title_' . config('zoe.default_lang')]), '-');
         $model->image = $data['image'];
         $model->background = $data['background'];
         $model->status = $data['status'];
         $model->admin_id = Auth::user()->id;
 
-        $model->title = $data['title'];
-        $model->address = $data['address'];
-        $model->info = $data['info'];
-        $model->description = $data['description'];
-        $model->content = $data['content'];
+//        $model->title = $data['title'];
+//        $model->address = $data['address'];
+//        $model->info = $data['info'];
+//        $model->description = $data['description'];
+//        $model->content = $data['content'];
+
         $model->prices = $data['prices'];
+        $model->prices_event = $data['prices_event'];
         $model->difficult = $data['difficult'];
         $model->time = $data['time'];
 
@@ -200,6 +207,7 @@ class RoomController extends \Zoe\Http\ControllerBackend
                 }
             }
             DB::commit();
+
             return back();
         } catch (\Exception $ex) {
             $validator->getMessageBag()->add('id', $ex->getMessage());

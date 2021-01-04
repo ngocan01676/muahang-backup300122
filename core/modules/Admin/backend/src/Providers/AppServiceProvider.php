@@ -11,6 +11,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
+
+        \Event::listen(\Illuminate\Routing\Events\RouteMatched::class, function () {
+
+        });
         Blade::component('backend::layout.component.button-option', 'btnOption');
         Blade::component('backend::layout.component.breadcrumb', 'breadcrumb');
         Blade::component('backend::layout.component.flash-message', 'flash_message');

@@ -41,9 +41,13 @@
     <textarea id="{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}" name="{!! $DataComposer['config']['name'] !!}">{!! $DataComposer['values'] !!}</textarea>
 </div>
 
-@AssetCss("Controller","module/admin/plugins/timepicker/bootstrap-timepicker.min.css")
+@AssetCss("Controller","module/admin/plugins/timepicker/bootstrap-
+
+.min.css")
 @AssetJs("Controller","module/admin/plugins/timepicker/bootstrap-timepicker.min.js")
 
+@AssetJs("Controller","module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")
+@AssetCss("Controller","module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")
 @push('links')
     <style>
         .BgError{
@@ -54,6 +58,11 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
+            $datepicker =  $("#{!! $DataComposer['key'].'_wrap' !!} .datepicker").datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+            });
+         //   $datepicker.datepicker('setDate','new Date()');
             $timepicker = $("#{!! $DataComposer['key'].'_wrap' !!} .timepicker").timepicker({
                 showInputs: false,
                 showMeridian: false,

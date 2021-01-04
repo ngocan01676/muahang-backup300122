@@ -27,6 +27,9 @@
                 @if(!empty($MissTerry_DataComposer))
                 <li><a href="#tab_time" data-toggle="tab">{!! z_language("Thời gian") !!}</a></li>
                 @endif
+                @if(!empty($MissTerry_DataComposer_Price_Event))
+                <li><a href="#tab_time_event" data-toggle="tab">{!! z_language("Ngày lễ") !!}</a></li>
+                @endif
                 @if(!empty($GalleryComposer))
                 <li><a href="#tab_media" data-toggle="tab">{!! z_language("Thư viện ảnh") !!}</a></li>
                 @endif
@@ -67,11 +70,8 @@
                         </tr>
                         <tr>
                             <td>
-
                                 {!! Form::checkbox('wifi', '1' ) !!}
                                 {!! Form::label('wifi', z_language("Mạng wifi"), ['class' => 'wifi']) !!}
-
-
                                 {!! Form::checkbox('parking', '1' ) !!}
                                 {!! Form::label('PARKING', z_language("Bãi đỗ xe"), ['class' => 'parking']) !!}
 
@@ -101,6 +101,11 @@
                         {!! $MissTerry_DataComposer !!}
                     </div>
                 @endif
+                @if(!empty($MissTerry_DataComposer_Price_Event))
+                    <div class="tab-pane" id="tab_time_event">
+                        {!! $MissTerry_DataComposer_Price_Event !!}
+                    </div>
+                @endif
                 @if(!empty($GalleryComposer))
                 <div class="tab-pane clearfix" id="tab_media">
                     {!! $GalleryComposer !!}
@@ -115,7 +120,7 @@
                                 <tr>
                                     <td>
                                         {!! Form::label('id_title', z_language('Tiêu đề'), ['class' => 'title']) !!}
-                                        @if($current_language == $lang)
+                                        @if($current_language == $lang && false)
                                             {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
                                         @else
                                             {!! Form::text('title_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
@@ -125,7 +130,7 @@
                                 <tr>
                                     <td>
                                         {!! Form::label('id_title', z_language('Ghi chú'), ['class' => 'title']) !!}
-                                        @if($current_language == $lang)
+                                        @if($current_language == $lang && false)
                                             {!! Form::text('info',null, ['class' => 'form-control','placeholder'=> z_language('Ghi chú')]) !!}
                                         @else
                                             {!! Form::text('info_'.$lang.'',null, ['class' => 'form-control','placeholder'=> z_language('Ghi chú')]) !!}
@@ -135,7 +140,7 @@
                                 <tr>
                                     <td>
 
-                                        @if($current_language == $lang)
+                                        @if($current_language == $lang && false)
                                             {!! Form::label('address', z_language('Địa chỉ'), ['class' => 'address']) !!}
                                             {!! Form::text('address',null, ['class' => 'form-control','placeholder'=> z_language('Địa chỉ')]) !!}
                                         @else
@@ -147,7 +152,7 @@
                                 <tr>
                                     <td>
                                         {!! Form::label('id_description', z_language('Mô tả'), ['class' => 'description']) !!}
-                                        @if($current_language == $lang)
+                                        @if($current_language == $lang && false)
                                             {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
                                         @else
                                             {!! Form::textarea('description_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
@@ -157,7 +162,7 @@
                                 <tr>
                                     <td>
                                         {!! Form::label($lang.'_id_description', z_language('Quy định của phòng chơi'), ['class' => 'description']) !!}
-                                        @if($current_language == $lang)
+                                        @if($current_language == $lang && false)
                                             {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
                                         @else
                                             {!! Form::textarea('content_'.$lang.'', null, ['class' => 'form-control my-editor']) !!}
@@ -311,11 +316,11 @@
             <table class="table table-bordered">
                 <tr>
                     <td>{!! Form::label('difficult', z_language("Độ khó"), ['class' => 'time']) !!}</td>
-                    <td>5 {!! Form::radio('difficult', '5' , true) !!}</td>
-                    <td>4 {!! Form::radio('difficult', '4',false) !!}</td>
-                    <td>3 {!! Form::radio('difficult', '3',false) !!}</td>
-                    <td>2 {!! Form::radio('difficult', '2',false) !!}</td>
-                    <td>1 {!! Form::radio('difficult', '1',false) !!}</td>
+                    <td class="text-center">5<BR>{!! Form::radio('difficult', '5' , true) !!}</td>
+                    <td class="text-center">4<BR>{!! Form::radio('difficult', '4',false) !!}</td>
+                    <td class="text-center">3<BR>{!! Form::radio('difficult', '3',false) !!}</td>
+                    <td class="text-center">2<BR>{!! Form::radio('difficult', '2',false) !!}</td>
+                    <td class="text-center">1<BR>{!! Form::radio('difficult', '1',false) !!}</td>
                 </tr>
             </table>
         </div>

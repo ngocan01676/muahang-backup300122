@@ -42,5 +42,6 @@ return [
         'jp' => ['flag' => 'jp', 'lang' => 'jp', 'label' => 'Japanese','router'=>'jp'],
         'zh_cn' => ['flag' => 'cn', 'lang' => 'zh_cn', 'label' => 'Chinese (PRC)','router'=>'cn'],
     ],
+    'default_lang'=>'en_us',
 //    'language_data' => include base_path('tmp/lang.php'),
 ];

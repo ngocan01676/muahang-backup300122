@@ -80,7 +80,7 @@
                     'columns' => [
                         'lists' => [
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
-                            'title' => ['label' => z_language('Tiêu đề', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha'],
+                            'Title_Lang' => ['label' => z_language('Tiêu đề', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha','callback'=>'Title_Lang'],
                             'HtmlImg' => ['label' => z_language('Ảnh', false),'callback'=>'HtmlImg', 'type' => 'text', 'primary' => true, 'order_by' => 'amount'],
                             'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status', 'order_by' => 'amount'],
                             'created_at' => ['label' => z_language('Thơi gian tạo', false), 'type' => 'date'],
@@ -279,9 +279,39 @@ EOT,
                                     'name'=>'price2',
                                     'label'=>z_language('T6-CN sau 17:00'),
                                 ],
+//                                [
+//                                    'type'=>'text',
+//                                    'name'=>'price3',
+//                                    'label'=>z_language('Giá ngày lễ'),
+//                                ],
+                            ]
+                        ]
+                    ],
+                    [
+                        'item'=>true,
+                        'router'=>'backend:miss_terry:room:store',
+                        'data'=>[],
+                        'variable'=>'MissTerry_DataComposer_Price_Event',
+                        'config'=>[
+                            'name'=>'prices_event',
+                            'index'=>'user',
+                            'columns'=>[
                                 [
                                     'type'=>'text',
-                                    'name'=>'price3',
+                                    'name'=>'user',
+                                    'label'=>z_language('Số người'),
+                                ],
+                                [
+                                    'type'=>'text',
+                                    'name'=>'date',
+                                    'label'=>z_language('Ngày lễ'),
+                                    'body'=>[
+                                        'class'=>'datepicker'
+                                    ]
+                                ],
+                                [
+                                    'type'=>'text',
+                                    'name'=>'price',
                                     'label'=>z_language('Giá ngày lễ'),
                                 ],
                             ]

@@ -6,7 +6,6 @@
 
         $label_price = ["low","middle","high", "extra" , "discount" ];
 
-
         if($n == 1){
              $label = $prices[0];// 2-4(5)
         }else{
@@ -30,7 +29,6 @@
                  $difficulty="very_hard";
             break;
         }
-
     @endphp
     <section class="section" id="section_272694562">
     <div class="bg section-bg fill bg-fill bg-loaded"></div>
@@ -56,25 +54,20 @@
                             <div class="room-w">
                                 <div class="room-info-w ">
                                     <div class="room-icon">
-
                                         <i class="icon-lotr"></i>
                                     </div>
-
-
-
                                     <div class="info-additionally">
                                         <div class="room-duration" data-toggle="tooltip" data-placement="top" title="" data-original-title="60 minutes">
                                             <i class="icon-chronometer"></i>
                                             {!! $result->time !!} {!! z_language("Phút") !!}
                                         </div>
-
                                         <div class="room-players" data-toggle="tooltip" data-placement="top" title="" data-original-title=" {!! $label !!}    players">
                                             <i class="icon-user"></i>
-                                            {!! $label !!}                   </div>
-
+                                            {!! $label !!}
+                                        </div>
                                         <div class="room-age" data-toggle="tooltip" data-placement="top" title="" data-original-title="12+">
-                                            {!! $result->year_old !!}+                        </div>
-
+                                            {!! $result->year_old !!}+
+                                        </div>
                                         <div class="room-difficulty {!! $difficulty !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="{!! $difficulty !!}">
                                             <i class="icon-lock"></i>
                                             <i class="icon-lock"></i>
@@ -82,11 +75,7 @@
                                             <i class="icon-lock"></i>
                                             <i class="icon-lock"></i>
                                         </div>
-
-
-
                                         <div class="room-services">
-
                                             <i class="fas fa-wifi{!! $result->wifi == 0? " fas-disabled":"" !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="WIFI"></i>
                                             <i class="fas fa-parking{!! $result->parking == 0? " fas-disabled":"" !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Parking"></i>
                                             <i class="fas fa-person-booth{!! $result->waiting_area == 0? " fas-disabled":"" !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Waiting area"></i>
@@ -94,7 +83,6 @@
                                             <i class="fas fa-battery-three-quarters{!! $result->pin == 0? " fas-disabled":"" !!}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Battery charge"></i>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -110,17 +98,14 @@
             </div>
 
             <p>{!! $result->address !!}</p>
-            <p>{!! z_language('Chỉ từ: :PRICE VNĐ / Người',['PRICE'=>isset($result->prices[1]['price1'])?number_format($result->prices[1]['price1']):z_language('Liên Hệ')]) !!}</p>
+            <p>{!! $result->info !!}</p>
             <a href="#price" target="_self" class="button primary" style="border-radius:15px;">
                 <span>{!! z_language("Đặt phòng ngay") !!}</span>
                 <i class="icon-play"></i></a>
         </div>
     </div>
-
     </div>
     </div>
-
-
     <style>
     #section_272694562 {
     padding-top: 30px;
@@ -264,43 +249,43 @@
                             {{--</div>--}}
                         {{--</div>--}}
                     {{--</div>--}}
-                    <div class="schedule-top-wrapper">
-                        <div class="schedule__header">
-                            <div class="schedule__header-left" style="text-align: center;margin: 0 auto;">
-                                <table style="border: none !important;">
-                                    <tr>
-                                        <td>T2-T6 trước 17:00</td>
-                                        <td>T6-CN sau 17:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="
-    padding: 10px;
-">
-                                            <div class="header__legend">
-                                                &nbsp;
-                                                @foreach($result->prices as $key=>$val)
-                                                    <div class="price {!! $label_price[$key%count($label_price)] !!}">{!! number_format($val['price1']/1000) !!}K<span>/1 VNĐ</span></div> &nbsp;
-                                                @endforeach
-                                                &nbsp;
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="header__legend">
-                                                &nbsp;
-                                                @foreach($result->prices as $key=>$val)
-                                                    <div class="price {!! $label_price[$key%count($label_price)] !!}">{!! number_format($val['price2']/1000) !!}K<span>/1 VNĐ</span></div> &nbsp;
-                                                @endforeach
-                                                &nbsp;
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                    {{--<div class="schedule-top-wrapper">--}}
+                        {{--<div class="schedule__header">--}}
+                            {{--<div class="schedule__header-left" style="text-align: center;margin: 0 auto;">--}}
+                                {{--<table style="border: none !important;">--}}
+                                    {{--<tr>--}}
+                                        {{--<td>T2-T6 trước 17:00</td>--}}
+                                        {{--<td>T6-CN sau 17:00</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr>--}}
+                                        {{--<td style="--}}
+    {{--padding: 10px;--}}
+{{--">--}}
+                                            {{--<div class="header__legend">--}}
+                                                {{--&nbsp;--}}
+                                                {{--@foreach($result->prices as $key=>$val)--}}
+                                                    {{--<div class="price {!! $label_price[$key%count($label_price)] !!}">{!! number_format($val['price1']/1000) !!}K<span>/1 VNĐ</span></div> &nbsp;--}}
+                                                {{--@endforeach--}}
+                                                {{--&nbsp;--}}
+                                            {{--</div>--}}
+                                        {{--</td>--}}
+                                        {{--<td>--}}
+                                            {{--<div class="header__legend">--}}
+                                                {{--&nbsp;--}}
+                                                {{--@foreach($result->prices as $key=>$val)--}}
+                                                    {{--<div class="price {!! $label_price[$key%count($label_price)] !!}">{!! number_format($val['price2']/1000) !!}K<span>/1 VNĐ</span></div> &nbsp;--}}
+                                                {{--@endforeach--}}
+                                                {{--&nbsp;--}}
+                                            {{--</div>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                {{--</table>--}}
 
-                                <meta content="от 600 до 900 UAH" itemprop="priceRange" />
-                            </div>
+                                {{--<meta content="от 600 до 900 UAH" itemprop="priceRange" />--}}
+                            {{--</div>--}}
 
-                        </div>
-                    </div>
+                        {{--</div>--}}
+                    {{--</div>--}}
 
                     <div class="desktop_schedule">
                         <div id="calendar" class="js-room owl-carousel calendar"
@@ -322,8 +307,8 @@
                             @php
                                 $month_start = strtotime('first day of this month', time());
                                 $month_end = strtotime('last day of this month', time());
-                                $month = date('m');
-                                $dayNow = date('d');
+                                $month = (int)date('m');
+                                $dayNow = (int)date('d');
                                 $timeNow = time();
                                 $monthYear = date('Y-m');
                                 $weeks = [
@@ -336,6 +321,7 @@
                                     z_language("Thứ bảy"),
                                     z_language("Chủ nhật"),
                                 ];
+
                                 $months = [
                                  z_language("Tháng 1"),
                                  z_language("Tháng 1"),
@@ -361,7 +347,8 @@
                                 $i = (int) $i;
                                 $day = ($i<10?"0".$i:$i);
                                 $dateTime = $monthYear.'-'.$day;
-                                $week =  date('N', strtotime($dateTime));
+                                $week = (int) date('N', strtotime($dateTime));
+
                                 $isNow = $day == $dayNow;
                                 $_timeBet_17 = strtotime($dateTime.' 17:00:00');
                                 $_timeBet_9 = strtotime($dateTime.' 09:00:00');
@@ -380,7 +367,7 @@
                             <div class="item day{!! $isNow?" now $dateTime":"" !!}">
                                 <div class="day-header">
                                     <div class="date">{!! $day !!} {!! $months[$month] !!}</div>
-                                    <div class="weekday">{!! isset($weeks[$week])?$weeks[$week]:$week !!}</div>
+                                    <div class="weekday">{!! isset($weeks[$week]) ? $weeks[$week] : $week !!}</div>
                                 </div>
                                 <div class="list">
                                     {{--<div class="calendar__item low disabled actor_0 " data-id="82139">--}}
@@ -427,7 +414,7 @@
                                                   }
                                              }
                                         @endphp
-                                        <div class="calendar__item {!! $class !!} actor_0" data-id="" data-datetime="{!! $dateTime !!} {!! $time['date'] !!}">
+                                        <div class="calendar__item popup-demo {!! $class !!} actor_0" data-id="" data-datetime="{!! $dateTime !!} {!! $time['date'] !!}">
                                             <div class="item__time">{!! $time['date'] !!}</div>
                                             <div class="item__price">{!! $price !!}<span class="price__currency">VNĐ</span>
                                             </div>
@@ -506,8 +493,26 @@
     }
     </style>
     </section>
-
-
+    <div class="pop-up2" style="display: none;">
+        <div class="header">
+            Demo popup 2
+        </div>
+        <div class="content">
+            <p>
+                Demo popup 2 content<br>
+                Demo popup 2 content<br>
+                Demo popup 2 content<br>
+                Demo popup 2 content<br>
+                Demo popup 2 content<br>
+                Demo popup 2 content<br>
+                Demo popup 2 content<br>
+                Demo popup 2 content
+            </p>
+        </div>
+        <div class="footer">
+            <a href="" class="button close">Close pop-up</a>
+        </div>
+    </div>
 
 @endsection
 @section('extra-script')
@@ -515,6 +520,15 @@
     <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/OwlCarousel/assets/owl.theme.default.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('theme/missterry/css/style.css') !!}">
     <script src="{!! asset('theme/missterry/plugin/OwlCarousel/owl.carousel.min.js') !!}"></script>
+
+    <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/plugins/highlightjs/default.min.css') !!}">
+    <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/src/mobilepopup.min.css') !!}">
+
+
+    <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/plugins/highlightjs/highlight.min.js') !!}"></script>
+    <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/src/mobilepopup.min.js') !!}"></script>
+    <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/common.js') !!}"></script>
+
     <script>
         jQuery(document).ready(function(){
             let sync2 = jQuery(".owl-carousel");

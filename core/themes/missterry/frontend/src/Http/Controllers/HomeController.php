@@ -25,8 +25,22 @@ class HomeController extends \Zoe\Http\ControllerFront
             $images = DB::table('plugin_gallery')
                 ->where('name','GalleryComposer')
                 ->where('key_group','MissTerry::form.room')->where('key_id',$result->id)->get()->all();
-
-            $result->prices = json_decode($result->prices,true);
+            $prices = json_decode($result->prices,true);
+            $result->prices = [];
+            foreach ($prices as $key=>$value){
+                $result->prices[$key] = $value;
+                $result->prices[$key]['keys'] = explode('-',$key);
+            }
+            if(empty($result->prices_event)){
+                $result->prices_event = [];
+            }else{
+                $prices_event = json_decode($result->prices_event,true);
+                $result->prices_event = [];
+                foreach ($prices_event as $key=>$value){
+                    $result->prices_event[$key] = $value;
+                    $result->prices_event[$key]['keys'] = explode('-',$key);
+                }
+            }
             $result->times = json_decode($result->times,true);
             if(isset($this->_language['lang'])){
                 $translation = DB::table('miss_room_translation')->where('lang_code',$this->_language['code'])->where('room_id',$result->id)->get()->all();
@@ -35,6 +49,14 @@ class HomeController extends \Zoe\Http\ControllerFront
                     $result->title = $translation[0]->title;
                     $result->description = $translation[0]->description;
                     $result->content = $translation[0]->content;
+                    $result->address = $translation[0]->address;
+                    $result->info = $translation[0]->info;
+                }else{
+                    $result->title = "";
+                    $result->description = "";
+                    $result->content = "";
+                    $result->info = "";
+                    $result->address  = "";
                 }
             }
             if(isset($images[0])){
@@ -48,4 +70,5 @@ class HomeController extends \Zoe\Http\ControllerFront
             redirect('/error/404');
         }
     }
+
 }

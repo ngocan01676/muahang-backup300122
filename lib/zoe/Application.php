@@ -84,7 +84,7 @@ class Application extends App
 
         $lang = isset($request->route()->defaults["lang"]) ? $request->route()->defaults["lang"] : "";
         $languages = config('zoe.language');
-        $language = isset($languages[$lang])?$languages[$lang]:['router'=>''];
+        $language = isset($languages[$lang])?$languages[$lang]:['router'=>'','lang'=>config('zoe.default_lang')];
         $this->config_language = $language;
 
         if(isset( $this->config_language['lang'])){
