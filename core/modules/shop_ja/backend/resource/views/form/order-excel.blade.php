@@ -9390,8 +9390,8 @@
                                 onclick:function() {
 
                                     console.log(obj.getSelectedColumns().length);
-                                    
-                                    if(obj.getSelectedColumns().length < 1){
+
+                                    if(obj.getSelectedColumns().length < 2){
                                         return;
                                     }
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
