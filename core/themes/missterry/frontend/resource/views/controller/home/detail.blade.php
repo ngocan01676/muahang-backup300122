@@ -495,10 +495,9 @@
 
     </section>
     <div class="pop-up2" style="display: none;">
-        <div class="header">
-            {!! z_language($result->title,[]) !!}  <a href="javascript:void(0);" class="close">Close</a>
-        </div>
+
         <div class="content">
+            {!! z_language($result->title,[]) !!}  <a href="javascript:void(0);" class="close">Close</a>
              <div class="row">
                  <div class="col-md-6">
                      <form action="" method="post" class="wpcf7-form init" novalidate="novalidate">
@@ -551,12 +550,7 @@
                                     </span>
                                  </p>
                              </div>
-                             <div class="col-lg-12">
-                                 <p>
-                                     <input type="submit" name="submitform" value="Gửi thông tin" class="wpcf7-form-control wpcf7-submit">
-                                     <span class="ajax-loader"></span>
-                                 </p>
-                             </div>
+
                          </div>
                      </form>
                  </div>
@@ -598,6 +592,12 @@
                          </tbody>
                      </table>
                  </div>
+                 <div class="col-lg-12">
+                     <p>
+                         <input type="submit" name="submitform" value="Gửi thông tin" class="wpcf7-form-control wpcf7-submit">
+                         <span class="ajax-loader"></span>
+                     </p>
+                 </div>
              </div>
         </div>
 
@@ -635,21 +635,25 @@
                     nav:!0,
                     dots:!1,
                     navText:"",
-                    loop:false,
+                    loop:true,
                     margin:10,
                     autoplay:false,
                     responsiveRefreshRate:200,
                     onInitialized:function(e){
                         let count = jQuery('.owl-carousel .owl-item.active').length;
+
                         if(count > 2){
                             setTimeout(function () {
                                 let d = parseInt('{!! date('d') !!}');
-
-
-                                sync2.trigger("to.owl.carousel", [count < 2 ?d:d-count, 1])
+                                let val = -3;
+                                if(count == 3){
+                                    val = -1;
+                                }else if(count == 5){
+                                    val = -2;
+                                }
+                                sync2.trigger("to.owl.carousel", [val , 1])
                             },100);
                         }
-
                     },
                     responsive:{
                         0:{
@@ -767,7 +771,6 @@
             display: flex;
             align-items: center;
         }
-
     </style>
 @endsection
 
