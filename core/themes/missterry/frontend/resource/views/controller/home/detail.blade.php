@@ -421,7 +421,7 @@
                                                          if(isset($bookings[$time['date']])){
                                                             $class.="available low";
                                                          }else{
-                                                            $class.="available discount popup-demo";
+                                                            $class.="available extra popup-demo";
                                                          }
                                                      }
                                                  }
