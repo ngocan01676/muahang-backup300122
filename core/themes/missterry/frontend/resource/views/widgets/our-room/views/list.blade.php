@@ -832,77 +832,113 @@
         color: #ffd500;
         transition: all .2s ease;
     }
-
 </style>
 <div class="container">
     <div id="quest-schedule" class="">
         <div id="schedule_tab" class="tab_page">
-            <h2 id="schedule-caption">28 December — 18 January</h2>
+            <h2 id="schedule-caption">{!! z_language('SCHEDULE AND PRICE') !!}</h2>
             <div id="schedule" class="single clearfix">
                 <img id="timetable-preloader-image" src="https://media.claustrophobia.com/static/master/img/phobia-images/phobia-logo_short.png" alt="Loading">
                 <div class="timeslots_header">
                     <div class="date_gradient"><img src="https://media.claustrophobia.com/static/master/img/time_gradient.png" width="100%" style="width: 1920px;"></div>
                     <div class="header_lines">
-                        <div class="day_line header_line">
-                            <h3>28 December</h3>
-                            <p>
-                                Monday
-                            </p>
-                        </div>
-                        <div class="day_line header_line">
-                            <h3>29 December</h3>
-                            <p>
-                                Tuesday
-                            </p>
-                        </div>
-                        <div class="day_line header_line">
-                            <h3>30 December</h3>
-                            <p>
-                                Wednesday
-                            </p>
-                        </div>
-                        <div class="day_line header_line">
-                            <h3>31 December</h3>
-                            <p>
-                                Thursday
-                            </p>
-                        </div>
-                        <div class="day_line header_line">
-                            <h3>1 January</h3>
-                            <p>
-                                Friday
-                            </p>
-                        </div>
+                        @foreach($data['results'] as $key=>$row)
+                            @php
+                                $prices =  array_keys(json_decode($row->prices,true));
+                                $n = count($prices);
+                                $row->times = json_decode($row->times,true);
+                                if($n == 1){
+                                     $label = $prices[0];// 2-4(5)
+                                }else{
+                                     $label = $prices[0].'-'.$prices[$n-1];// 2-4(5)
+                                     if($prices[$n-2]!=$prices[0]){
+                                        $label.='('.$prices[$n-2].')';
+                                     }
+                                }
+                                $difficulty = "";
+                                switch ($row->difficult){
+                                    case 2:
+                                        $difficulty="easy";
+                                    break;
+                                    case 3:
+                                        $difficulty="hard";
+                                    break;
+                                    case 4:
+                                         $difficulty="medium";
+                                    break;
+                                    case 5:
+                                         $difficulty="very_hard";
+                                    break;
+                                }
+                            @endphp
+                            <a href="">
+                                <div class="day_line header_line">
+                                    <h3>{!! $row->title !!}</h3>
+                                    <p>{!! $row->time !!} {!! z_language('Phút') !!} , {!! $label !!}</p>
+                                </div>
+                            </a>
+                        @endforeach
+
                     </div>
                 </div>
                 <div class="schedule_body">
+
                     <div class="scroller">
                         <div class="scroller_container">
                             <div class="scroller_inner">
-                                <div class="time_gradient"><img src="https://media.claustrophobia.com/static/master/img/time_gradient.png" width="100%"></div>
+                                <div class="time_gradient">
+                                    <img src="https://media.claustrophobia.com/static/master/img/time_gradient.png" width="100%">
+                                </div>
                                 <div class="schedule_lines">
+                                    @php
+                                      $i = 1;
+                                      $timeAction = time();
+
+                                    @endphp
+                                    @for(; $i <= count($data['results']); $i++)
+                                        @php
+                                            $dateTime = date('d-m-Y',$timeAction);
+                                            $bookings = \Illuminate\Support\Facades\DB::table('miss_booking')
+                                            ->where('room_id',$row->id)
+                                            ->where('booking_date',$dateTime)
+                                            ->get()->keyBy('booking_time')->all();
+
+                                        @endphp
                                     <div class="quest_schedule">
+
                                         <div class="timeslots">
-                                            <div class="slot round_button booked" data-timeslot-id="3647013" style="left: 0.378501%; width: 11.355%;">09:30</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3647014" style="left: 12.9952%; width: 11.355%;">11:10</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3647015" style="left: 25.6119%; width: 11.355%;">12:50</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3647016" style="left: 38.2286%; width: 11.355%;">14:30</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3647017" style="left: 50.8453%; width: 11.355%;">16:10</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3647018" style="left: 63.462%; width: 11.355%;">17:50</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3647019" style="left: 76.0787%; width: 11.355%;">19:30</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3647020" style="left: 88.6954%; width: 11.355%;">21:10</div>
+                                            @php $left = 12; $left_curent = 0.378501; @endphp
+                                            @foreach($row->times as $time)
+                                                <div class="slot round_button booked" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 11.355%;">09:30</div>
+                                                @php $left_curent+= $left; @endphp
+                                            @endforeach
                                         </div>
                                         <div class="pricelines">
+                                            @php
+                                                $left = 12;
+                                                $left_curent = 0.378501;
+                                                $count = count($row->times);
+                                                $class = "";
+                                            @endphp
+                                            @foreach($row->times as $time)
+                                                @php
+
+                                                @endphp
+                                            @endforeach
                                             <div class="price_block" style="left: 0.3785011430734266%; width: 49.46681806207418%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
+                                                <div class="left_line line">
+                                                    <ins style="margin-right: 2.5em;"></ins>
+                                                </div>
                                                 <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
+                                                    <span class="price_value__ticket_system"
+                                                          style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
                                                     3000  <span style="font-size: 110%;">₽</span>
                                                     <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
                                                 </div>
                                                 <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
                                             </div>
-                                            <div class="price_block" style="left: 50.84531920514761%; width: 11.616704526873576%">
+                                            @foreach($row->times as $time)
+                                                <div class="price_block" style="left: 50.84531920514761%; width: 11.616704526873576%">
                                                 <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
                                                 <div class="price_value">
                                                     <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
@@ -911,139 +947,14 @@
                                                 </div>
                                                 <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
                                             </div>
-                                            <div class="price_block" style="left: 63.46202373202119%; width: 35.53797626797882%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    5000  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
-                                    <div class="quest_schedule">
-                                        <div class="timeslots">
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3648228" title="Partial prepay" style="left: 0.378501%; width: 11.355%;">09:30<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button booked" data-timeslot-id="3648229" style="left: 12.9952%; width: 11.355%;">11:10</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3648230" style="left: 25.6119%; width: 11.355%;">12:50</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3648231" style="left: 38.2286%; width: 11.355%;">14:30</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3648232" style="left: 50.8453%; width: 11.355%;">16:10</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3648233" style="left: 63.462%; width: 11.355%;">17:50</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3648234" style="left: 76.0787%; width: 11.355%;">19:30</div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3648235" title="Partial prepay" style="left: 88.6954%; width: 11.355%;">21:10<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                        </div>
-                                        <div class="pricelines">
-                                            <div class="price_block" style="left: 0.3785011430734266%; width: 49.46681806207418%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    3000  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                            <div class="price_block" style="left: 50.84531920514761%; width: 11.616704526873576%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    3500  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                            <div class="price_block" style="left: 63.46202373202119%; width: 35.53797626797882%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    5000  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="quest_schedule">
-                                        <div class="timeslots">
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3649563" title="Partial prepay" style="left: 0.378501%; width: 11.355%;">09:30<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3649564" title="Partial prepay" style="left: 12.9952%; width: 11.355%;">11:10<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3649565" title="Partial prepay" style="left: 25.6119%; width: 11.355%;">12:50<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3649566" title="Partial prepay" style="left: 38.2286%; width: 11.355%;">14:30<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3649567" title="Partial prepay" style="left: 50.8453%; width: 11.355%;">16:10<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3649568" title="Partial prepay" style="left: 63.462%; width: 11.355%;">17:50<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3649569" title="Partial prepay" style="left: 76.0787%; width: 11.355%;">19:30<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3649570" title="Partial prepay" style="left: 88.6954%; width: 11.355%;">21:10<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                        </div>
-                                        <div class="pricelines">
-                                            <div class="price_block" style="left: 0.3785011430734266%; width: 49.46681806207418%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    3000  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                            <div class="price_block" style="left: 50.84531920514761%; width: 11.616704526873576%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    3500  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                            <div class="price_block" style="left: 63.46202373202119%; width: 35.53797626797882%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    5000  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="quest_schedule">
-                                        <div class="timeslots">
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3651432" title="Partial prepay" style="left: 0.378501%; width: 11.355%;">09:30<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3651433" title="Partial prepay" style="left: 12.9952%; width: 11.355%;">11:10<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button booked" data-timeslot-id="3651434" style="left: 25.6119%; width: 11.355%;">12:50</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3651435" style="left: 38.2286%; width: 11.355%;">14:30</div>
-                                            <div class="slot round_button booked" data-timeslot-id="3651436" style="left: 50.8453%; width: 11.355%;">16:10</div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3651437" title="Partial prepay" style="left: 63.462%; width: 11.355%;">17:50<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button booked" data-timeslot-id="3651438" style="left: 76.0787%; width: 11.355%;">19:30</div>
-                                        </div>
-                                        <div class="pricelines">
-                                            <div class="price_block" style="left: 0.3785011430734266%; width: 49.46681806207418%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    3000  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                            <div class="price_block" style="left: 50.84531920514761%; width: 11.616704526873576%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    3500  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                            <div class="price_block" style="left: 63.46202373202119%; width: 35.53797626797882%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    5000  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        @php
+                                            $timeAction = strtotime('+1 day',$timeAction);
+                                        @endphp
+                                    @endfor
+
                                     <div class="quest_schedule">
                                         <div class="timeslots">
                                             <div class="slot round_button requires_prepay" data-timeslot-id="3651442" title="Partial prepay" style="left: 25.6119%; width: 11.355%;">12:50<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
@@ -1072,6 +983,7 @@
                             <div class="scroller__bar"></div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
