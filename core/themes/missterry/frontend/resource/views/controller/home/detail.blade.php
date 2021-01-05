@@ -361,7 +361,11 @@
                                 $price_max = end($result->prices);
 
                                 $d_m_Y = date('d-m-Y',strtotime($dateTime));
-                                $bookings = \Illuminate\Support\Facades\DB::table('miss_booking')->where('room_id',$result->id)->where('booking_date',$dateTime)->get()->keyBy('booking_time')->all();
+                                $bookings = \Illuminate\Support\Facades\DB::table('miss_booking')
+                                ->where('room_id',$result->id)
+                                ->where('booking_date',$dateTime)
+                                ->get()->keyBy('booking_time')->all();
+
                             @endphp
                             <div class="item day{!! $isNow?" now date-$d_m_Y":" date-$d_m_Y" !!}" data-week="{!! $week !!}">
                                 <div class="day-header">
@@ -396,7 +400,11 @@
                                                      }else{
                                                          $class = "available";
                                                         if($_timeNumber > $_timeBet_17){
-                                                         $class.=" high popup-demo";
+                                                             if(isset($bookings[$time['date']])){
+                                                                $class.=" low";
+                                                             }else{
+                                                                  $class.=" high popup-demo";
+                                                             }
                                                          }else{
                                                              if(isset($bookings[$time['date']])){
                                                                 $class.=" low";
@@ -411,7 +419,7 @@
                                                          $class.="available middle popup-demo";
                                                      }else{
                                                          if(isset($bookings[$time['date']])){
-                                                            $class.="available low";
+                                                            $class.=" low";
                                                          }else{
                                                             $class.="available discount popup-demo";
                                                          }
