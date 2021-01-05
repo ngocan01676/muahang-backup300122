@@ -459,7 +459,7 @@
     color: #ddd
 }
 .b-schedule .calendar .day .list .calendar__item.discount .item__time {
-    background-position: -400px -62px
+    background-position: -400px -120px
 }
 .b-schedule .calendar .day .list .calendar__item.discount:hover .item__time {
     background-position: -400px -119px

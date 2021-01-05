@@ -17,7 +17,7 @@ $routers['home'] = [
             "action"=>'getRoom'
         ],
         "room-detail" => [
-            "url" => "/rooms/{slug}",
+            "url" => "/room/{slug}",
             "guard" => "",
             "action"=>'getRoomDetail'
         ],
