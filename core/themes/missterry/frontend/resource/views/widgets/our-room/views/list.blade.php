@@ -252,7 +252,7 @@
         transition: max-height .2s ease-in-out,opacity .5s;
     }
 
-    .b-rooms-home .rooms-w .room:hover .room-params {
+    .b-rooms-home .rooms-w .room .room-params {
         opacity: 1;
         max-height: 200px;
         transition: max-height .5s ease-in-out,opacity .5s;
@@ -407,7 +407,7 @@
         background-color: #960007;
     }
 
-    .b-rooms-home .rooms-w .room.red.m_active,.b-rooms-home .rooms-w .room.red:hover {
+    .b-rooms-home .rooms-w .room.red.m_active,.b-rooms-home .rooms-w .room.red:hover {/*:hover*/
         box-shadow: 0 0 20px 0 #960007,0 0 20px 0 #960007;
     }
 
@@ -832,6 +832,26 @@
         color: #ffd500;
         transition: all .2s ease;
     }
+
+    #schedule .scroller ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    #schedule .scroller ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    #schedule .scroller ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    /* Handle on hover */
+    #schedule .scroller ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
 </style>
 <div class="container">
     <div id="quest-schedule" class="">
@@ -847,6 +867,7 @@
                                 $prices =  array_keys(json_decode($row->prices,true));
                                 $n = count($prices);
                                 $row->times = json_decode($row->times,true);
+                                $row->prices = json_decode($row->prices,true);
                                 if($n == 1){
                                      $label = $prices[0];// 2-4(5)
                                 }else{
@@ -878,7 +899,6 @@
                                 </div>
                             </a>
                         @endforeach
-
                     </div>
                 </div>
                 <div class="schedule_body">
@@ -891,62 +911,151 @@
                                 </div>
                                 <div class="schedule_lines">
                                     @php
-                                      $i = 1;
-                                      $timeAction = time();
 
+                                      $timeAction = time();
+                                      $dayNow = (int) date('d');
                                     @endphp
-                                    @for(; $i <= count($data['results']); $i++)
+                                    @for($i = 1 ; $i <= count($data['results']); $i++)
                                         @php
-                                            $dateTime = date('d-m-Y',$timeAction);
+                                             $dateTime = date('Y-m-d',$timeAction);
+                                             $week = (int) date('N', $timeAction);
+                                             $day = (int) date('d', $timeAction);
+                                             $_timeBet_17 = strtotime($dateTime.' 17:00:00');
                                             $bookings = \Illuminate\Support\Facades\DB::table('miss_booking')
                                             ->where('room_id',$row->id)
                                             ->where('booking_date',$dateTime)
                                             ->get()->keyBy('booking_time')->all();
 
+                                            $price_max = end($row->prices);
+                                        // requires_prepay booked
+                                            $is_disabled = strtotime($dateTime.' 23:59:59') < time();
+                                             $isNow = $day == $dayNow;
                                         @endphp
-                                    <div class="quest_schedule">
+                                    <div class="quest_schedule {!! $dateTime !!}">
 
                                         <div class="timeslots">
-                                            @php $left = 12; $left_curent = 0.378501; @endphp
-                                            @foreach($row->times as $time)
-                                                <div class="slot round_button booked" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 11.355%;">09:30</div>
-                                                @php $left_curent+= $left; @endphp
-                                            @endforeach
-                                        </div>
-                                        <div class="pricelines">
+
                                             @php
                                                 $left = 12;
                                                 $left_curent = 0.378501;
                                                 $count = count($row->times);
                                                 $class = "";
+                                                $count_17_gt = 0;
+                                                $arr_price = [];
+                                                $countItem = 0;
                                             @endphp
                                             @foreach($row->times as $time)
                                                 @php
+                                                    $class = "";
+                                                    $price = 0;
+                                                    $is_hide = false;
+                                                    $is_pay = false;
+                                                    if($is_disabled){
+                                                         $class = "booked";$is_hide = true;
+                                                    }else{
+                                                         $class = "";
+                                                         $_timeNumber = strtotime($dateTime.' '.$time['date']);
+                                                         if($isNow){
+                                                             if($_timeNumber < time()){
+                                                                 $class.= " booked";
+                                                                 $is_hide = true;
+                                                             }else{
+                                                                 $class = "";
+                                                                if($_timeNumber > $_timeBet_17){
+                                                                     if(isset($bookings[$time['date']])){
+                                                                        $class.=" booked pay";
+                                                                        $is_pay = true;
+                                                                     }else{
+                                                                          $class.=" requires_prepay";
+                                                                     }
+                                                                 }else{
+                                                                     if(isset($bookings[$time['date']])){
+                                                                        $class.=" booked";
+                                                                         $is_pay = true;
+                                                                     }else{
+                                                                         $class.=" requires_prepay";
+                                                                     }
+                                                                 }
+                                                             }
 
+                                                         }else{
+                                                               if($_timeNumber > $_timeBet_17){
+                                                                 $class.=" requires_prepay";
+                                                             }else{
+                                                                 if(isset($bookings[$time['date']])){
+                                                                    $class.=" booked"; $is_pay = true;
+                                                                 }else{
+                                                                    $class.=" requires_prepay";
+                                                                 }
+                                                             }
+                                                         }
+                                                             $key = 'price1';
+
+                                                             if($week < 5){
+                                                               $price = $price_max['price1'];
+                                                             }else if($week == 5){
+                                                               if($_timeNumber > $_timeBet_17){
+                                                                   $price = $price_max['price2'];
+                                                                   $key = 'price2 '.$week;
+                                                               }else{
+                                                                   $price = $price_max['price1'];
+                                                                    $key = 'price1 ' .$week;
+                                                               }
+                                                             }else{
+                                                                   $price = $price_max['price2'];
+                                                                   $key = 'price2 '.$week;
+                                                             }
+                                                             if($is_hide == false)
+                                                             {
+                                                                 $countItem++;
+                                                                 if(!isset($arr_price[$price])){
+                                                                    $arr_price[$price] = 0;
+                                                                 }
+                                                                 $arr_price[$price]++;
+                                                             }
+                                                    }
                                                 @endphp
+                                                @if($is_hide == false)
+                                                    @if($is_pay == false) <a href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
+                                                    <div class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 11.355%;">
+                                                        {!! $time['date'] !!}
+                                                        @if($is_pay)
+                                                        <img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay">
+                                                        @endif
+                                                    </div>
+                                                        @if($is_pay == false) </a> @endif
+                                                    @php $left_curent+= $left;  @endphp
+                                                @endif
                                             @endforeach
-                                            <div class="price_block" style="left: 0.3785011430734266%; width: 49.46681806207418%">
-                                                <div class="left_line line">
-                                                    <ins style="margin-right: 2.5em;"></ins>
-                                                </div>
-                                                <div class="price_value">
+                                            @if($countItem == 0)
+                                                <p style="padding: 10px">{!! z_language('Lịch ngày hôm này đã hết') !!}</p>
+                                            @endif
+                                        </div>
+                                        <div class="pricelines">
+
+
+                                            @php
+                                                $leftStyle = 0.3785011430734266;
+                                            @endphp
+                                            @foreach($arr_price as $price=>$count)
+
+                                                <div class="price_block" {!! $count !!} style="left: {!! $leftStyle !!}%; width: {!! ($count)*12 !!}%">
+                                                    <div class="left_line line">
+                                                        <ins style="margin-right: 2.5em;"></ins>
+                                                    </div>
+                                                    <div class="price_value">
                                                     <span class="price_value__ticket_system"
-                                                          style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    3000  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
+                                                          style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">
+                                                        {!! z_language('Từ') !!}
+                                                    </span>
+                                                        {!! number_format($price) !!}  <span style="font-size: 110%;"> VNĐ </span>
+                                                        <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">{!! date('Y-m-d',$timeAction) !!}</span>
+                                                    </div>
+                                                    <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
                                                 </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                            @foreach($row->times as $time)
-                                                <div class="price_block" style="left: 50.84531920514761%; width: 11.616704526873576%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    3500  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
+                                                @php
+                                                    $leftStyle+=($count)*12;
+                                                @endphp
                                             @endforeach
                                         </div>
                                     </div>
@@ -955,27 +1064,6 @@
                                         @endphp
                                     @endfor
 
-                                    <div class="quest_schedule">
-                                        <div class="timeslots">
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3651442" title="Partial prepay" style="left: 25.6119%; width: 11.355%;">12:50<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3651443" title="Partial prepay" style="left: 38.2286%; width: 11.355%;">14:30<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3651444" title="Partial prepay" style="left: 50.8453%; width: 11.355%;">16:10<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3651445" title="Partial prepay" style="left: 63.462%; width: 11.355%;">17:50<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3651446" title="Partial prepay" style="left: 76.0787%; width: 11.355%;">19:30<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                            <div class="slot round_button requires_prepay" data-timeslot-id="3651447" title="Partial prepay" style="left: 88.6954%; width: 11.355%;">21:10<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>
-                                        </div>
-                                        <div class="pricelines">
-                                            <div class="price_block" style="left: 25.611910181680543%; width: 73.38808981831946%">
-                                                <div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>
-                                                <div class="price_value">
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">from</span>
-                                                    7000  <span style="font-size: 110%;">₽</span>
-                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>
-                                                </div>
-                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

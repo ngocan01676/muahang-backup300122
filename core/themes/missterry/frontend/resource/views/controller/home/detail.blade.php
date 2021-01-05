@@ -337,18 +337,16 @@
                                  z_language("Tháng 11"),
                                  z_language("Tháng 12"),
                                 ];
-                                $n =(int) date('d',$month_end);
+                                $n = 30;
                                 $i = 1;
-
+                                $timeAction = time();
                             @endphp
                             @for(; $i<=$n;$i++)
-                                @continue($i < $dayNow)
                             @php
-                                $i = (int) $i;
-                                $day = ($i<10?"0".$i:$i);
 
-                                $dateTime = $monthYear.'-'.$day;
-                                $week = (int) date('N', strtotime($dateTime));
+                                $day =  date('d',$timeAction);
+                                $dateTime = date('Y-m-d',$timeAction);
+                                $week = (int) date('N', $timeAction);
 
                                 $isNow = $day == $dayNow;
                                 $_timeBet_17 = strtotime($dateTime.' 17:00:00');
@@ -455,6 +453,9 @@
                                     @endforeach
                                 </div>
                             </div>
+                                @php
+                                    $timeAction = strtotime('+1 day',$timeAction);
+                                @endphp
                             @endfor
                         </div>
                         <div class="text-center gradient-button mb-4">
