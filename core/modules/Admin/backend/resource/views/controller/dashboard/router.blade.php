@@ -226,6 +226,8 @@
                         @endphp
                         @if( ("frontend"==$arr_name[0] || "frontend"!=$arr_name[0] && $arr_name[0]!="backend") )
                             @if(in_array('GET',$route['methods']))
+                                @continue(isset($route['default']['lang']))
+
                                 @php
 
                                        $middlewares = $route['action']['middleware'];

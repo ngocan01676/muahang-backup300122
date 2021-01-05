@@ -90,7 +90,7 @@ class PageController extends \Zoe\Http\ControllerBackend
         $items = $request->all();
         $filter = [
             'title' => 'required|max:255',
-            'content' => 'required',
+            'router' => 'required',
             'description' => 'required',
         ];
         $type = "create";
@@ -107,8 +107,9 @@ class PageController extends \Zoe\Http\ControllerBackend
 
         $validator = Validator::make($items,$filter, [
             'title.required' => z_language('The title field is required.'),
-            'content.required' => z_language('The content field is required.'),
-            'content.description' => z_language('The description field is required.'),
+            'router.required' => z_language('The title field is required.'),
+//            'content.required' => z_language('The content field is required.'),
+//            'content.description' => z_language('The description field is required.'),
             'slug.required' => z_language('The slug field is required.'),
             'slug.unique' => z_language('The slug has already been taken.'),
         ]);
@@ -124,6 +125,7 @@ class PageController extends \Zoe\Http\ControllerBackend
 
             $page->slug = isset($items['slug'])?$items['slug']:$slug;
             $page->description = $items['description'];
+            $page->router =  Str::slug($items['router'], '_');;
             $page->content = htmlspecialchars_decode($items['content']);
             $page->status = $items['status'];
             $page->save();

@@ -20,7 +20,19 @@ class GirdBladeHelper extends \Admin\Lib\GirdBladeHelper
         return "<main id=\"main\" class=\"dark dark-page-wrapper\">" . $content . "</main>";
     }
     public function layout_content($content,$option = []){
-        return '<div id="content" role="main">'.$content.'</div>';
+        return '<div id="content" role="main">
+            <div id="gap-986994861" class="gap-element clearfix" style="display:block; height:auto;">
+            <style>
+            #gap-986994861 {
+              padding-top: 70px;
+            }
+            @media (min-width:550px) {
+              #gap-986994861 {
+                padding-top: 68px;
+              }
+            }
+            </style>
+	        </div>'.$content.'</div>';
     }
     public function layout_footer($content, $option = [])
     {

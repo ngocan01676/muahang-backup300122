@@ -94,22 +94,28 @@
                                 $routes = collect(\Route::getRoutes())->map(function ($route) { return [
                                     'uri'=> $route->uri(),
                                     'name'=> $route->getName(),
-                                    'method'=> $route->methods
+                                    'method'=> $route->methods,
+                                    'default'=>$route->defaults,
                                     ];
                                 });
 
                                 $_type = 'frontend';
                             @endphp
                             <div class="input-group">
-                                <select class="selectChange form-control">
+                                <select name="router_name" class="selectChange form-control">
                                     @foreach($routes as $route)
                                         @php
                                             $arr_name =  explode(':',$route['name']);
+
                                         @endphp
                                         @continue($_type!=$arr_name[0] && $arr_name[0]!="login" && $arr_name[0]!="register")
-
+                                        @continue(isset($route['default']['lang']))
+                                        @php
+                                            unset($arr_name[0]);
+                                            $alise = implode(":",$arr_name);
+                                        @endphp
                                         @continue(!in_array("GET",$route['method']))
-                                        <option value="{!! $route['name'] !!}" data-uri="{!! $route['uri'] !!}">
+                                        <option value="{!! $alise !!}" data-uri="{!! $route['uri'] !!}">
                                             @php
                                                 echo $route['uri'];
                                             @endphp

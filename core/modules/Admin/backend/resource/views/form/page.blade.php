@@ -37,6 +37,12 @@
                    </div>
                </td>
            </tr>
+            <tr>
+                <td>
+                    {!! Form::label('id_router', z_language('Page router'), ['class' => 'router']) !!}
+                    {!! Form::text('router',null, ['class' => 'form-control','placeholder'=>z_language('Page router')]) !!}
+                </td>
+            </tr>
            <tr>
                <td>
                    {!! Form::label('id_description', z_language('Description'), ['class' => 'description']) !!}

@@ -1287,3 +1287,11 @@
     opacity: 0.6;
     cursor: not-allowed;
 }
+.text-error{
+
+}
+.error .text-error{
+    display: inline-block;
+    color: red;
+    font-size: 10px;
+}

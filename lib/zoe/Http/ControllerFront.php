@@ -38,7 +38,8 @@ class ControllerFront extends Controller
         } else {
             $keyView = $view;
         }
-        View::share('_language', $this->_language['router']);
+
+        View::share('_language', isset($this->_language['router'])?$this->_language['router']:"");
         return $this->_render($keyView, $data, $key);
     }
 }

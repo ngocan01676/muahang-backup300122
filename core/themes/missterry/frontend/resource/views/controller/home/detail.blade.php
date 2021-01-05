@@ -361,10 +361,7 @@
                                 $price_max = end($result->prices);
 
                                 $d_m_Y = date('d-m-Y',strtotime($dateTime));
-
-
-
-
+                                $bookings = \Illuminate\Support\Facades\DB::table('miss_booking')->where('room_id',$result->id)->where('booking_date',$dateTime)->get()->keyBy('booking_time')->all();
                             @endphp
                             <div class="item day{!! $isNow?" now date-$d_m_Y":" date-$d_m_Y" !!}" data-week="{!! $week !!}">
                                 <div class="day-header">
@@ -384,51 +381,61 @@
                                         {{--</div>--}}
                                         {{--<div class="book_label">Booking</div>--}}
                                     {{--</div>--}}
-
                                     @foreach($result->times as $time)
                                         @php
-                                             $price = 0;
-                                             if($is_disabled){
-                                                  $class = "disabled";
-                                             }else{
-                                                  $class = "available";
-                                                  $_timeNumber = strtotime($dateTime.' '.$time['date']);
-                                                  if($isNow){
-                                                      if($_timeNumber < time()){
-                                                          $class.= " disabled";
-                                                      }
-                                                      if($_timeNumber > $_timeBet_17){
-                                                          $class.=" high";
-                                                      }else{
-                                                          $class.=" extra";
-                                                      }
-                                                  }else{
+                                            $class = "";
+                                            $price = 0;
+                                            if($is_disabled){
+                                                 $class = "disabled";
+                                            }else{
+                                                 $class = "";
+                                                 $_timeNumber = strtotime($dateTime.' '.$time['date']);
+                                                 if($isNow){
+                                                     if($_timeNumber < time()){
+                                                         $class.= "disabled";
+                                                     }else{
+                                                         $class = "available";
                                                         if($_timeNumber > $_timeBet_17){
-                                                          $class.=" middle";
-                                                      }else{
-                                                          $class.=" low";
-                                                      }
-                                                  }
-                                                  $key = 'price1';
-                                                  if($week < 5){
-                                                    $price = $price_max['price1'];
+                                                         $class.=" high popup-demo";
+                                                         }else{
+                                                             if(isset($bookings[$time['date']])){
+                                                                $class.=" low";
+                                                             }else{
+                                                                 $class.=" extra popup-demo";
+                                                             }
+                                                         }
+                                                     }
 
-                                                  }else if($week == 5){
-                                                    if($_timeNumber > $_timeBet_17){
-                                                        $price = $price_max['price2'];
-                                                          $key = 'price2';
-                                                    }else{
-                                                        $price = $price_max['price1'];
-                                                         $key = 'price1';
-                                                    }
-                                                  }else{
-                                                        $price = $price_max['price1'];
-                                                        $key = 'price2';
-                                                  }
-                                             }
+                                                 }else{
+                                                       if($_timeNumber > $_timeBet_17){
+                                                         $class.="available middle popup-demo";
+                                                     }else{
+                                                         if(isset($bookings[$time['date']])){
+                                                            $class.="available low";
+                                                         }else{
+                                                            $class.="available discount popup-demo";
+                                                         }
+                                                     }
+                                                 }
+                                                 $key = 'price1';
+                                                 if($week < 5){
+                                                   $price = $price_max['price1'];
+                                                 }else if($week == 5){
+                                                   if($_timeNumber > $_timeBet_17){
+                                                       $price = $price_max['price2'];
+                                                         $key = 'price2 '.$week;
+                                                   }else{
+                                                       $price = $price_max['price1'];
+                                                        $key = 'price1 ' .$week;
+                                                   }
+                                                 }else{
+                                                       $price = $price_max['price2'];
+                                                       $key = 'price2 '.$week;
+                                                 }
+                                            }
                                         @endphp
                                         <div
-                                                class="calendar__item popup-demo {!! $class !!} actor_0"
+                                                class="calendar__item  {!! $class !!} actor_0"
                                                 data-key="{!! $key !!}"
                                                 data-id="{!! $result->id !!}"
                                                 data-date="{!! $d_m_Y !!}"
@@ -517,7 +524,9 @@
                                  <h5>{!! z_language('Họ và tên') !!} :</h5>
                                  <p>
                                       <span class="wpcf7-form-control-wrap ten">
-                                      <input type="text" name="fullname" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></span>
+                                        <input type="text" name="fullname" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                         <span class="text-error"></span>
+                                      </span>
                                  </p>
                              </div>
                              <div class="col-lg-6">
@@ -525,6 +534,7 @@
                                  <p>
                                      <span class="wpcf7-form-control-wrap sdt">
                                          <input type="text" name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                          <span class="text-error"></span>
                                      </span>
                                  </p>
                              </div>
@@ -532,9 +542,10 @@
                                  <h5>{!! z_language('Địa chỉ Email') !!}:</h5>
                                  <p>
                                     <span class="wpcf7-form-control-wrap e-mail">
-                                    <input type="email" name="e-mail" value=""
+                                    <input type="email" name="email" value=""
                                            size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
                                            aria-required="true" aria-invalid="false">
+                                         <span class="text-error"></span>
                                     </span>
                                  </p>
                              </div>
@@ -547,6 +558,23 @@
                                           <option value="2">Nữ</option>
                                           <option value="3">Khác</option>
                                        </select>
+                                         <span class="text-error"></span>
+                                    </span>
+                                 </p>
+                             </div>
+                             <div class="col-lg-6">
+                                 <h5>{!! z_language('Khung thời gian') !!}:</h5>
+                                 <p>
+                                    <span class="wpcf7-form-control-wrap menu-238">
+                                       <select name="time" onchange="onAction(this)" class="box-price wpcf7-form-control wpcf7-select" aria-invalid="false">
+                                          <option value="0">{!! z_language('Khung thời gian') !!}</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                       </select>
+                                       <span class="text-error"></span>
                                     </span>
                                  </p>
                              </div>
@@ -554,7 +582,7 @@
                                  <h5>{!! z_language('Số người chơi') !!}:</h5>
                                  <p>
                                     <span class="wpcf7-form-control-wrap menu-238">
-                                       <select name="number" onchange="checkprice(this)" class="box-price wpcf7-form-control wpcf7-select" aria-invalid="false">
+                                       <select name="number" onchange="onAction(this)" class="box-price wpcf7-form-control wpcf7-select" aria-invalid="false">
                                           <option value="0">{!! z_language('Chọn số người') !!}</option>
                                           <option value="2">2</option>
                                           <option value="3">3</option>
@@ -562,6 +590,7 @@
                                           <option value="5">5</option>
                                           <option value="6">6</option>
                                        </select>
+                                       <span class="text-error"></span>
                                     </span>
                                  </p>
                              </div>
@@ -669,43 +698,73 @@
     </style>
     <script>
         function onClick() {
-
             grecaptcha.ready(function() {
                 grecaptcha.execute('6LeSNSAaAAAAAPnoqpze0F2jMRW9CUMCP8ypmUeg', {action: 'submit'}).then(function(token) {
-                    var datas =jQuery(".mobilepopup  form" ).serializeArray();
+                    var form = jQuery(".mobilepopup  form" );
+                    var datas = form.serializeArray();
+                    var reqData = {};
+                    for(let i = 0; i<datas.length;i++){
+                        reqData[datas[i].name] = datas[i].value;
+                    }
+
+                    let dom = jQuery(".mobilepopup");
+                    let date = dom.find('.form-info-date').text();
+                    let time = dom.find('.form-info-time').text();
+                    reqData['date'] = date;
+                    reqData['time'] = time;
+                    reqData['id'] = '{!! $result->id !!}';
                     jQuery.ajax({
                         url:"{!! route('frontend:room:register_form') !!}",
                         method:"POST",
                         data:{
                             recaptcha_token:token,
-                            data:datas
+                            data:reqData
+                        },
+                        success:function (resData) {
+                            form.find('.error .text-error').empty("");
+                            form.find('.error').removeClass('error');
+                            if(resData.hasOwnProperty('errors')){
+                                for(let i in resData.errors){
+                                    console.log(resData.errors[i]);
+                                    let parent = form.find('[name="'+i+'"]').parent();
+                                    parent.find('.text-error').html(resData.errors[i][0]);
+                                    parent.addClass('error');
+                                }
+                            }else if(resData.hasOwnProperty('success')){
+                                window.location.replace(resData.uri);
+                            }
                         }
                     });
                 });
             });
         }
-        function checkprice(self){
-            let configs = @json($result->prices);
-            let val = jQuery(self).val();
-
+        function onAction(self) {
             let config = {};
+            let configs = @json($result->prices);
+            let dom = jQuery(".mobilepopup");
+
+            let number = dom.find('[name="number"]').val();
+            let time = dom.find('[name="time"]').val();
 
             for(let i in configs){
-                if(configs[i].keys.includes(val) || configs[i].keys.length == 2 && configs[i].keys[0]< val && configs[i].keys[1] > val  ){
+                if(configs[i].keys.includes(number) || configs[i].keys.length == 2 && configs[i].keys[0]< number && configs[i].keys[1] > number  ){
                     config = configs[i];
                     break;
                 }
             }
-            let dom = jQuery(".mobilepopup");
             let date = dom.find('.form-info-date').text();
             let data_item =  jQuery("#calendar").find(".date-"+date);
             let conf_date =  data_item.find('.actor_0').data();
             var price = 0;
+
             if(conf_date && config.hasOwnProperty(conf_date.key)){
                 price = config[conf_date.key];
             }
+
             dom.find('.form-info-total-price').text(price);
-            dom.find('.form-info-number').text(val);
+            dom.find('.form-info-number').text(number);
+            dom.find('.form-info-time').text(time);
+
         }
         jQuery(document).ready(function(){
             let sync2 = jQuery(".owl-carousel");

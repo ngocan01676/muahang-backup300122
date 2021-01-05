@@ -38,6 +38,7 @@ class DashboardController extends \Zoe\Http\ControllerBackend
     {
         $controllers = [];
         $results = getDirContents(base_path('core'), '/frontend(.*?)Controller\.php$/', $results);
+
         foreach ($results as $value) {
             $pathinfo = pathinfo($value);
             $namespace = extract_namespace($value);

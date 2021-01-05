@@ -4,6 +4,7 @@
         $type = "miss_terry:menu";
         $menus = get_menu_type($type);
         $position = config_get("menu", $type);
+
     @endphp
     <div id="masthead" class="header-main nav-dark">
         <div class="header-inner flex-row container logo-left medium-logo-center" role="navigation">
@@ -43,7 +44,11 @@
                             </li>
                         @else
                             <li id="menu-item-{!! $value['id'] !!}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3576 menu-item-design-default">
-                                <a href="https://demo.missterry.vn/escape-room/" class="nav-top-link">{!! $value['name'] !!}</a>
+                                @if($menus[$value['id']]->type_link == "router" && !empty($menus[$value['id']]->router_name))
+                                    <a href="{!! router_frontend_lang($menus[$value['id']]->router_name,[]) !!}" class="nav-top-link">{!! $value['name'] !!}</a>
+                                @else
+                                    <a href="{!! $menus[$value['id']]->router_name !!}" class="nav-top-link">{!! $menus[$value['id']]->name !!}</a>
+                                @endif
                             </li>
                         @endif
                     @endforeach

@@ -61,6 +61,8 @@ class MenuController extends \Zoe\Http\ControllerBackend
                         $menu->status = $data['status'];
                         $menu->type = $data['type'];
                         $menu->type_link = $data['type_link'];
+                        $menu->link = $data['link'];
+                        $menu->router_name = $data['router_name'];
                         $menu->icon = "";
                         $menu->featured = $data['featured'];
                         $menu->order = 0;
@@ -168,12 +170,11 @@ class MenuController extends \Zoe\Http\ControllerBackend
 
         $this->data['menu'] = get_menu_type($type);
 
-
-
         $this->data['nestable'] = $this->nestable(config_get("menu", $type), 0, true);
         $this->data['type'] = $type;
         $this->data['views'] = $views;
-        $this->data['pages'] = \Admin\Http\Models\PageModel::where('status',1)->get();
+        $this->data['pages'] = [];
+
         return $this->render('menu.show',[],'backend');
     }
     public function list(){

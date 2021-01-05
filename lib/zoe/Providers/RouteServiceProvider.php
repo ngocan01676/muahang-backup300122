@@ -2,9 +2,11 @@
 
 namespace Zoe\Providers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -64,8 +66,70 @@ class RouteServiceProvider extends ServiceProvider
         $views_paths = $this->app->getConfig()->views['paths'];
 
         $keyPrivate = $this->app->key;
-        foreach ($routers as $name => $route) {
 
+        if($guard == "frontend"){
+            $language = config('zoe.language');
+            $selects = ['en_us','vi'];
+
+            foreach ($routers as $name => $route) {
+                if(isset($route['language']) && $route['language']){
+                    $url = isset($route['url'])?$route['url']:"";
+                    $extension = isset($route['extension'])?$route['extension']:"";
+                    $action = isset($route['action'])?$route['action']:"";
+
+                    unset($route['language']);
+                    if(!empty($extension)) unset($route['extension']);
+                    if(!empty($url)) unset($route['url']);
+                    if(!empty($action)) unset($route['action']);
+
+                     if($name == "page"){
+                         $pages = DB::table('page')->where('status',1)->get()->all();
+                         $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
+                         if(empty($action)) continue;
+                         foreach ($pages as $key=>$value){
+                             $fruitsArrayObject['router'][$value->router]['url'] = $url.$value->slug.$extension;
+                             $fruitsArrayObject['router'][$value->router]['action'] = $action;
+                             $fruitsArrayObject['router'][$value->router]['defaults'] = ['id'=>$value->id,'router'=>$value->slug];
+                         }
+                         $routers[$name] = $fruitsArrayObject;
+
+                         if ($this->app->is_admin == false || true){
+                             $router = $fruitsArrayObject;
+                             foreach ($selects as $lang){
+                                 if(!isset($language[$lang])){
+                                     continue;
+                                 }
+                                 $fruitsArrayObject = (new \ArrayObject($router))->getArrayCopy();
+                                 foreach ($fruitsArrayObject['router'] as $key=>$value){
+                                     $fruitsArrayObject['router'][$key]['url'] = $language[$lang]['router'].'/'.$fruitsArrayObject['router'][$key]['url'];
+                                     $fruitsArrayObject['router'][$key]['defaults'] = [ 'lang' => $lang];
+                                     $fruitsArrayObject['router'][$key]['layout'] = [$name,$language[$lang]['router'].'_'.$name];
+                                 }
+                                 $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
+                             }
+                         }
+                     }else{
+                         if ($this->app->is_admin == false || true ){
+                             foreach ($selects as $lang){
+                                 if(!isset($language[$lang])){
+                                     continue;
+                                 }
+                                 $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
+                                 foreach ($fruitsArrayObject['router'] as $key=>$value){
+                                     $fruitsArrayObject['router'][$key]['url'] = "/".$language[$lang]['router'].$fruitsArrayObject['router'][$key]['url'];
+                                     $fruitsArrayObject['router'][$key]['defaults'] = [ 'lang' => $lang];
+                                     $fruitsArrayObject['router'][$key]['layout'] = [$name,$language[$lang]['router'].'_'.$name];
+                                 }
+                                 $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
+                             }
+                         }
+                     }
+
+                }
+            }
+
+        }
+        foreach ($routers as $name => $route) {
             if (isset($route['prefix'])) {
                 $prefix = $route['prefix'];
             } else if (isset($route['sub_prefix'])) {

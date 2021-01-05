@@ -57,9 +57,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware("permission", \Zoe\Http\Middleware\PermissionMiddleware::class);
         $this->app['router']->aliasMiddleware("minify", \Zoe\Http\Middleware\Minify::class);
 
-        $prefixAdmin = explode("/", request()->path());
-        $admin_url = config('tigon.url_admin');
-        $this->app->is_admin = isset($prefixAdmin[0]) ? ("/" . $prefixAdmin[0] == $admin_url) : false;
+       // $prefixAdmin = explode("/", request()->path());
+        //$admin_url = config('tigon.url_admin');
+       // $this->app->is_admin = isset($prefixAdmin[0]) ? ("/" . $prefixAdmin[0] == $admin_url) : false;
 
         $this->config_zoe = config('zoe');
 

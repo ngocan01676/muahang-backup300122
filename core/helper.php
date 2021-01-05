@@ -1180,3 +1180,7 @@ function generate_license($suffix = null) {
     }
     return $license_string;
 }
+function formatDateYMD($date,$prefix = '-',$prefixNew = '-'){
+    $date = explode($prefix,$date);
+    return count($date)== 3 ? $date[2].$prefixNew.$date[1].$prefixNew.$date[0]:$date;
+}
