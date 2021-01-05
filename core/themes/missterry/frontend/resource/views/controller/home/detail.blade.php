@@ -419,7 +419,7 @@
                                                          $class.="available middle popup-demo";
                                                      }else{
                                                          if(isset($bookings[$time['date']])){
-                                                            $class.=" low";
+                                                            $class.="available low";
                                                          }else{
                                                             $class.="available discount popup-demo";
                                                          }
