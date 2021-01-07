@@ -247,8 +247,8 @@
     }
 
     .b-rooms-home .rooms-w .room .room-params:not(:hover) {
-        max-height: 0;
-        opacity: 0;
+        max-height: 200px;
+        opacity: 1;
         transition: max-height .2s ease-in-out,opacity .5s;
     }
 
@@ -587,10 +587,7 @@
                             @switch($i%4) @case(0) red @break @case(1) yellow @break @case(2) blue @break @default green @endswitch
                            new tag-20467 tag-22240 tag-20097 tag-20094 tag-20112 tag-8484  b-loaded"
                            style="background-image: url('{!! url($row->image) !!}');" image="{!! url($row->image) !!}" test="https://kadroom.com/wp-content/uploads/2020/08/VK-plashka-kadroom.jpg">
-   {{--<span itemprop="image" itemscope="itemscope" itemtype="http://schema.org/ImageObject">--}}
-      {{--<link href="https://kadroom.com/wp-content/uploads/2020/07/NVZB-plashka.jpg" itemprop="contentUrl">--}}
-      {{--<link href="https://kadroom.com/wp-content/uploads/2020/07/NVZB-plashka.jpg" itemprop="url">--}}
-   {{--</span>--}}
+
                             <div class="room-loader">
                                 <div></div>
                                 <div></div>
