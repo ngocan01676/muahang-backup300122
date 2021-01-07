@@ -661,7 +661,7 @@
            width: 5px;
            height: 5px;
         }
-       
+
         /* Track */
         #schedule .scroller::-webkit-scrollbar-track {
             background: transparent;
