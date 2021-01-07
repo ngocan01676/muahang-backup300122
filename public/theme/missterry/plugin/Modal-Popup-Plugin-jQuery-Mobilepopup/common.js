@@ -24,8 +24,8 @@ jQuery().ready(function(){
         console.log(lists);
         jQuery.mobilepopup({
             targetblock:".pop-up2",
-            width:"65%",
-            height:"450px"
+            width:"80%",
+            height:"650px"
         });
         return false;
     });

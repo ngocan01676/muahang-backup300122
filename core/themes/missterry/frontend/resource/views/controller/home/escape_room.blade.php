@@ -1,4 +1,17 @@
 @section('content')
+    <div id="gap-319930635" class="gap-element clearfix" style="display:block; height:auto;">
+
+        <style>
+            #gap-319930635 {
+                padding-top: 70px;
+            }
+            @media (min-width:550px) {
+                #gap-319930635 {
+                    padding-top: 68px;
+                }
+            }
+        </style>
+    </div>
     <section class="section" id="section_2076450753">
         <div class="bg section-bg fill bg-fill bg-loaded">
 

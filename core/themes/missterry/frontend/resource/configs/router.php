@@ -77,6 +77,11 @@ $routers['home'] = [
             "guard" => "",
             "action"=>'get_list_blog_category'
         ],
+        'franchise'=>[
+            "url" => "/franchise",
+            "guard" => "",
+            "action"=>'get_franchise'
+        ],
     ]
 ];
 //foreach ($conf as $name=>$router){

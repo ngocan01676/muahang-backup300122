@@ -87,7 +87,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             'time' => 'required|regex:/(\d+\:\d+)/',
             'date' => 'required|date_format:d-m-Y',
             'email' => 'required|email|max:255',
-            'sex' => 'required|integer|gt:0|lt:4',
+//            'sex' => 'required|integer|gt:0|lt:4',
             'number' => 'required|integer|gt:0|lt:7',
             'id' => 'required|integer|gt:0',
         ]);
@@ -110,7 +110,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                         'phone'=>$data['data']['phone'],
                         'email'=>$data['data']['email'],
                         'count'=>$data['data']['number'],
-                        'sex'=>$data['data']['sex'],
+                        'sex'=>isset($data['data']['sex'])?$data['data']['sex']:0,
                         'booking_date'=>formatDateYMD($data['data']['date']),
                         'booking_time'=>$data['data']['time'],
                         'status'=>0,
@@ -140,13 +140,8 @@ class HomeController extends \Zoe\Http\ControllerFront
         if(isset($results[0])){
 
         }
-        return '
-            BẠN ĐÃ ĐẶT LỊCH THÀNH CÔNG TRÊN HỆ THỐNG!
-            Chúng tôi vừa gửi một email thông tin chi tiết qua email cho quý khách. 
-            Quý khách vui lòng check email xem lại thông tin và chuẩn bị đến trước giờ chơi 15 phút để làm thủ tục nhận phòng chơi.
-            Cám ơn quý khách đã tin tưởng & sử dụng dịch vụ của Miss Terry – Escape Room, Chúc quý khách có những giây phút trải nghiệm thú vị.
-            Trân trọng cảm ơn!!
-        ';
+        $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');
+        return $this->render('home.register_room_oke');
     }
     public function get_escape_room(){
         return $this->render('home.escape_room');
@@ -246,5 +241,10 @@ class HomeController extends \Zoe\Http\ControllerFront
                 ]
             ]);
         }
+    }
+    public function get_franchise(){
+        $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');
+        $this->addDataGlobal("Blog-featured-title",  z_language('Nhượng quyền thương mại'));
+        return $this->render('home.franchise');
     }
 }

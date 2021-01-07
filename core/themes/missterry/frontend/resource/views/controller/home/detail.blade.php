@@ -524,12 +524,11 @@
         </div>
         <div class="content ">
              <div class="row booking-summary">
-
-                 <div class="col-md-6">
+                 <div class="col medium-6 small-12">
                      <form action="" method="post" class="wpcf7-form init" novalidate="novalidate">
 
                          <div class="row contact-cho">
-                             <div class="col-lg-6">
+                             <div class="col small-12 medium-6  large-6">
                                  <h5>{!! z_language('Họ và tên') !!} :</h5>
                                  <p>
                                       <span class="wpcf7-form-control-wrap ten">
@@ -538,7 +537,7 @@
                                       </span>
                                  </p>
                              </div>
-                             <div class="col-lg-6">
+                             <div class="col medium-6 small-12 large-6">
                                  <h5>{!! z_language('Số điện thoại') !!} :</h5>
                                  <p>
                                      <span class="wpcf7-form-control-wrap sdt">
@@ -547,7 +546,7 @@
                                      </span>
                                  </p>
                              </div>
-                             <div class="col-lg-6">
+                             <div class="col medium-6 small-12 large-6">
                                  <h5>{!! z_language('Địa chỉ Email') !!}:</h5>
                                  <p>
                                     <span class="wpcf7-form-control-wrap e-mail">
@@ -558,20 +557,8 @@
                                     </span>
                                  </p>
                              </div>
-                             <div class="col-lg-6">
-                                 <h5>{!! z_language('Giới tính') !!}:</h5>
-                                 <p>
-                                    <span class="wpcf7-form-control-wrap menu-234">
-                                       <select name="sex" class="wpcf7-form-control wpcf7-select" id="gender" aria-invalid="false">
-                                          <option value="1">Nam</option>
-                                          <option value="2">Nữ</option>
-                                          <option value="3">Khác</option>
-                                       </select>
-                                         <span class="text-error"></span>
-                                    </span>
-                                 </p>
-                             </div>
-                             <div class="col-lg-6">
+
+                             <div class="col medium-6 small-12 large-6">
                                  <h5>{!! z_language('Khung thời gian') !!}:</h5>
                                  <p>
                                     <span class="wpcf7-form-control-wrap menu-238">
@@ -587,7 +574,7 @@
                                     </span>
                                  </p>
                              </div>
-                             <div class="col-lg-6">
+                             <div class="col medium-6 small-12 large-6">
                                  <h5>{!! z_language('Số người chơi') !!}:</h5>
                                  <p>
                                     <span class="wpcf7-form-control-wrap menu-238">
@@ -603,7 +590,16 @@
                                     </span>
                                  </p>
                              </div>
-                             <div class="col-lg-12">
+                             <div class="col small-12 medium-6  large-6">
+                                 <h5>{!! z_language('Ghi chú') !!} :</h5>
+                                 <p>
+                                      <span class="wpcf7-form-control-wrap ten">
+                                        <input type="text" name="note" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                         <span class="text-error"></span>
+                                      </span>
+                                 </p>
+                             </div>
+                             <div class="col small-12">
                                  <p>
                                      <input type="button" onclick="onClick()" name="submitform" value="Gửi thông tin" class="wpcf7-form-control wpcf7-submit">
                                      <span class="ajax-loader"></span>
@@ -612,7 +608,7 @@
                          </div>
                      </form>
                  </div>
-                 <div class="col-md-6 ">
+                 <div class="col medium-6 small-12">
                      <table class="table table-bordered" style="margin: 0 auto">
                          <tbody>
                          <tr>
@@ -652,7 +648,6 @@
                          </tbody>
                      </table>
                  </div>
-
              </div>
         </div>
 
@@ -678,12 +673,16 @@
             padding-bottom: 30px;
         }
         .mobilepopup.open .mobilepopup-outer .mobilepopup-inner .content{
-            background: url({!! $result->background !!});
+            background: url({!! asset("theme/missterry/images/bg.jpg") !!});
             height: 100%;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+            padding: 0 0px;
             padding-top:50px ;
+        }
+        .mobilepopup.open .mobilepopup-outer{
+            background: transparent;
         }
         .booking-summary .table tr td.labels {
             background: #060606;

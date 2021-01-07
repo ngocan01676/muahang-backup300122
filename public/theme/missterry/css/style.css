@@ -1293,7 +1293,7 @@
 .error .text-error{
     display: inline-block;
     color: red;
-    font-size: 10px;
+
 }
 a:hover {
     text-decoration: none;
