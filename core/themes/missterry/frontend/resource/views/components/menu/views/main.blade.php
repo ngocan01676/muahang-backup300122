@@ -33,11 +33,11 @@
                     @foreach($position as $value)
                         @if(isset($value['children']))
                             <li id="menu-item-{!! $value['id'] !!}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3582 menu-item-design-default has-dropdown">
-                                <a href="https://demo.missterry.vn/rooms/" class="nav-top-link">{!! $value['name'] !!}<i class="icon-angle-down" ></i></a>
+                                <a href="https://demo.missterry.vn/rooms/" class="nav-top-link">{!! $menus[$value['id']]->name !!}<i class="icon-angle-down" ></i></a>
                                 <ul class="sub-menu nav-dropdown nav-dropdown-default">
                                     @foreach($value['children'] as $key1=>$value1)
                                         <li id="menu-item-{!! $value1['id'] !!}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3852">
-                                            <a href="https://demo.missterry.vn/room-details/">{!! $value1['name'] !!}</a>
+                                            <a href="https://demo.missterry.vn/room-details/">{!! $menus[$value1['id']]->name !!}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -45,7 +45,7 @@
                         @else
                             <li id="menu-item-{!! $value['id'] !!}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3576 menu-item-design-default">
                                 @if($menus[$value['id']]->type_link == "router" && !empty($menus[$value['id']]->router_name))
-                                    <a href="{!! router_frontend_lang($menus[$value['id']]->router_name,[]) !!}" class="nav-top-link">{!! $value['name'] !!}</a>
+                                    <a href="{!! router_frontend_lang($menus[$value['id']]->router_name,[]) !!}" class="nav-top-link">{!! $menus[$value['id']]->name !!}</a>
                                 @else
                                     <a href="{!! $menus[$value['id']]->router_name !!}" class="nav-top-link">{!! $menus[$value['id']]->name !!}</a>
                                 @endif

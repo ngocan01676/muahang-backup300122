@@ -11,7 +11,7 @@
                     @foreach($position as $value)
                         <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3576">
                             @if($menus[$value['id']]->type_link == "router" && !empty($menus[$value['id']]->router_name))
-                                <a href="{!! router_frontend_lang($menus[$value['id']]->router_name,[]) !!}" class="nav-top-link">{!! $value['name'] !!}</a>
+                                <a href="{!! router_frontend_lang($menus[$value['id']]->router_name,[]) !!}" class="nav-top-link">{!! $menus[$value['id']]->name !!}</a>
                             @else
                                 <a href="{!! $menus[$value['id']]->router_name !!}" class="nav-top-link">{!! $menus[$value['id']]->name !!}</a>
                             @endif
