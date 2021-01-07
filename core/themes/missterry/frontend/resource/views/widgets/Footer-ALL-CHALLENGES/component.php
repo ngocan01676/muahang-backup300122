@@ -1,2 +1,2 @@
 <?php
-return component_create( $module, "MissTerryTheme\FooterAboutUs\Main");
+return component_create( $module, "MissTerryTheme\Footer01\Main");
