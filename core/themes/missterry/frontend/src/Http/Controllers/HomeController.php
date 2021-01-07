@@ -243,7 +243,10 @@ class HomeController extends \Zoe\Http\ControllerFront
         }
     }
     public function get_franchise(){
-        $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');
+
+        $this->addDataGlobal("Blog-featured-style",  1);
+        $this->addDataGlobal("Blog-featured-background",  'theme/missterry/images/IMG_2769-1.jpg');
+        $this->addDataGlobal("Blog-featured-height",  '268px');
         $this->addDataGlobal("Blog-featured-title",  z_language('Nhượng quyền thương mại'));
         return $this->render('home.franchise');
     }
