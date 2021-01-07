@@ -2,13 +2,7 @@
     <div class="bg section-bg fill bg-fill  bg-loaded" >
     </div>
     <div class="section-content relative">
-        <div id="gap-1875343662" class="gap-element clearfix" style="display:block; height:auto;">
-            <style>
-                #gap-1875343662 {
-                    padding-top: 38px;
-                }
-            </style>
-        </div>
+        <div id="gap-1875343662" class="gap-element clearfix" style="display:block; height:auto; padding-top: 38px;"></div>
         <div class="row align-middle"  id="row-1772982369">
             <div id="col-833091100" class="col medium-4 small-12 large-4"  >
                 <div class="col-inner"  >
@@ -43,7 +37,7 @@
             <div id="col-1751508963" class="col medium-8 small-12 large-8"  >
                 <div class="col-inner"  >
                     <div class="container section-title-container" >
-                        <h3 class="section-title section-title-normal"><b></b><span class="section-title-main" style="font-size:150%;">{!! z_language('Miss Terry Blogs') !!}</span><b></b><a href="#" target="">{!! z_language('Xem thêm') !!}<i class="icon-angle-right" ></i></a></h3>
+                        <h3 class="section-title section-title-normal"><b></b><span class="section-title-main" style="font-size:150%;">{!! z_language('Miss Terry Blogs') !!}</span><b></b><a href="{!! router_frontend_lang('home:category',['slug'=>$data['category']->slug]) !!}" target="">{!! z_language('Xem thêm') !!}<i class="icon-angle-right" ></i></a></h3>
                     </div>
                     <div class="row large-columns-2 medium-columns-1 small-columns-2 slider row-slider slider-nav-reveal slider-nav-push"  data-flickity-options='{"imagesLoaded": true, "groupCells": "100%", "dragThreshold" : 5, "cellAlign": "left","wrapAround": true,"prevNextButtons": true,"percentPosition": true,"pageDots": false, "rightToLeft": false, "autoPlay" : false}'>
                         @if(isset($data['results']))

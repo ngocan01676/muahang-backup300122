@@ -225,7 +225,7 @@
     </style>
 </section>
 
-<section class="section" id="section_2112859618">
+<section class="section" id="book">
     <div class="bg section-bg fill bg-fill bg-loaded">
     </div>
     <div class="section-content relative">

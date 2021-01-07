@@ -35,7 +35,6 @@ function Main($config){
         ->get()->all();
 
 
-    $category = [];
     if(isset($config_language['lang'])){
         $translation = DB::table('blog_post_translation')->where('lang_code',$config_language['lang'])->get()->keyBy('_id')->all();
         foreach ($results_featured as $key=>$value){
