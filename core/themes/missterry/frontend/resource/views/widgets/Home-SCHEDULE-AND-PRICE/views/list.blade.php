@@ -656,9 +656,26 @@
         </div>
     </div>
     <style>
-        #section_2112859618 {
-            padding-top: 38px;
-            padding-bottom: 38px;
+
+        #schedule .scroller::-webkit-scrollbar {
+           width: 5px;
+           height: 5px;
         }
+       
+        /* Track */
+        #schedule .scroller::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* Handle */
+        #schedule .scroller::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        #schedule .scroller::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
     </style>
 </section>
