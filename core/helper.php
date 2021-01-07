@@ -720,7 +720,7 @@ function z_language($key, $par = [], $__env = null, $tag = "")
     return !empty($tag)?"<span class='-lang-'>".$html."</span>":$html;
 }
 function router_frontend_lang($name, $parameters = [], $absolute = true){
-    $router =  app()->config_language['router']?app()->config_language['router'].'_'.$name:$name;
+    $router =  isset(app()->config_language['router']) && !empty(app()->config_language['router'])?app()->config_language['router'].'_'.$name:$name;
     return route('frontend:'.$router,$parameters,$absolute);
 }
 function acl_alias($key){
@@ -855,7 +855,7 @@ function get_config_component($id, $config = [])
 
 function run_component($function, $config = [])
 {
-    return call_user_func($function, [$config]);
+    return call_user_func($function, $config);
 }
 
 function create_router_group()

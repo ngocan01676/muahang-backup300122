@@ -64,6 +64,12 @@ return [
             'Room-banner'=>[
                 'layout' => 'widget'
             ],
+            'Blog-featured-title'=>[
+                'layout' => 'widget'
+            ],
+            'Home-SCHEDULE-AND-PRICE'=>[
+                'layout' => 'widget'
+            ],
         ]
     ]
 ];

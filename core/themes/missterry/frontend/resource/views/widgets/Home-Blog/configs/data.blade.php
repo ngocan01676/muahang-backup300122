@@ -7,6 +7,15 @@
         </td>
     </tr>
     <tr>
+        <td><label for="text">{!! z_language("Category") !!}</label></td>
+        <td>
+            @php
+                $nestables = config_get("category", "blog:category");
+            @endphp
+            {!! Form::CategoriesNestableOne($nestables,[],"opt.category_id") !!}
+        </td>
+    </tr>
+    <tr>
         <td><label for="text">{!! z_language("Order By") !!}</label></td>
         <td>
             <select name="opt.order_buy" class="form-control">

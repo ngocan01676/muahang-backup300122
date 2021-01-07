@@ -1,4 +1,4 @@
-<div class="col-inner text-center">
+<div class="col-inner text-center" style=" padding: 26px 0px 0px 0px;">
     <div class="container section-title-container"><h4 class="section-title section-title-normal"><b></b><span class="section-title-main">Offers and deals</span><b></b></h4></div>
 
     <p>Subscribe for exclusive offers and deals!</p>
@@ -21,8 +21,3 @@
     </ul>
 
 </div>
-<style>
-    #col-1450120158 > .col-inner {
-        padding: 26px 0px 0px 0px;
-    }
-</style>

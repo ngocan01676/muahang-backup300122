@@ -50,7 +50,7 @@ class PostController extends \Zoe\Http\ControllerBackend
 
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
 
-        $select = ['rt.title', 'post.id', 'post.image', 'post.status', 'post.views', 'post.created_at', 'post.updated_at'];
+        $select = ['rt.title','post.category_id','post.id', 'post.image', 'post.status', 'post.views', 'post.created_at', 'post.updated_at'];
         $models = DB::table('blog_post as post');
 
         if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
@@ -101,10 +101,11 @@ class PostController extends \Zoe\Http\ControllerBackend
             "route" => $route,
             'parameter' => $parameter,
             'callback' => [
-//                "GetTitle" => function ($model) use ($lang) {
-//                    $rs = DB::table('blog_post_translation as t')->where('post_id', $model->id)->where('lang_code', $lang)->get('title');
-//                    return $rs && count($rs) > 0 ? $rs[0]->title : "Empty";
-//                }
+                "category" => function ($model) use ($lang) {
+
+                    $rs = DB::table('categories_translation as t')->where('_id', $model->category_id)->where('lang_code', $lang)->get('name');
+                    return $rs && count($rs) > 0 ? $rs[0]->name : "Empty";
+                }
             ],
         ]);
 
@@ -130,7 +131,7 @@ class PostController extends \Zoe\Http\ControllerBackend
             }
         }
         $item->offsetSet("tag", implode( ',',$item->getTag()));
-        $item->offsetSet("category", $item->getCategory());
+        //$item->offsetSet("category", $item->getCategory());
 
         return $this->render('post.edit', ["item" => $item, "lang_active" => $this->data['current_language']], 'blog');
     }
@@ -162,7 +163,7 @@ class PostController extends \Zoe\Http\ControllerBackend
         }
         $filter = array_merge($filter,[
             'image' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
         ]);
         $validator = Validator::make($data, $filter, [
             'image.required' => 'The Image is Required.',
@@ -182,6 +183,7 @@ class PostController extends \Zoe\Http\ControllerBackend
         $model->status = $data['status'];
         $model->user_id = 1;
         $model->featured = $data['featured'];
+        $model->category_id = $data['category_id'];
 
         $model->title = isset($data['title'])?$data['title']:"";
 
@@ -216,8 +218,9 @@ class PostController extends \Zoe\Http\ControllerBackend
             }
 
             \Actions::do_action("tag_add", "blog:post", $model->id, $data['tag'], $model->getTag());
-            $category_old = $model->getCategory();
+
             if (isset($data['category'])) {
+                $category_old = $model->getCategory();
                 foreach ($data['category'] as $cate) {
                     $model->table_category()->updateOrInsert(
                         [

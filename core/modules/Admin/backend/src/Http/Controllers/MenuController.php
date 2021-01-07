@@ -123,7 +123,7 @@ class MenuController extends \Zoe\Http\ControllerBackend
                             $validator->getMessageBag()->add('id', $ex->getMessage());
                             DB::rollBack();
                         }
-                        return response()->json(['success' => $data]);
+                        return response()->json(['error' => $validator->errors(), 'data_rules' => $rules]);
                     } else {
                         return response()->json(['error' => $validator->errors(), 'data_rules' => $rules]);
                     }

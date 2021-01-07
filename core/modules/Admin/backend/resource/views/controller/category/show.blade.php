@@ -562,12 +562,8 @@
                     }
                 });
             });
+
             $("#nestable").on("click", '.delete', function () {
-
-
-
-
-
                 var dd_item = $(this).closest('.dd-item');
                 var children = dd_item.children('ol.dd-list');
 
@@ -579,24 +575,38 @@
                     icon: 'fa fa-question-circle',
                     animation: 'scale',
                     top:0,
-                    confirm: function () {
-                        if (children.length > 0) {
-                            var parent = dd_item.parent();
-                            parent.append(children.html());
-                            dd_item.remove();
-                        } else {
-                            dd_item.remove();
-                        }
-                        SavePosition(dd_item.data('id'), function (data) {
-                            if (data.error == 0) {
+                    buttons: {
+                        yes: {
+                            isHidden: false, // hide the button
+                            keys: ['y'],
+                            action: function () {
+                                if (children.length > 0) {
+                                    var parent = dd_item.parent();
+                                    parent.append(children.html());
+                                    dd_item.remove();
+                                } else {
+                                    dd_item.remove();
+                                }
+                                SavePosition(dd_item.data('id'), function (data) {
+                                    if (data.error == 0) {
 
-                            } else {
-                                ResetNestable();
+                                    } else {
+                                        ResetNestable();
+                                    }
+                                });
                             }
-                        });
+                        },
+                        no: {
+                            keys: ['N'],
+                            action: function () {
+                                $.alert('You clicked No.');
+                            }
+                        },
                     }
                 });
             });
+
+
             var updateOutput = function (e) {
                 var list = e.length ? e : $(e.target),
                     output = list.data('output');

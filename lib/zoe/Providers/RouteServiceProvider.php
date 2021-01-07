@@ -72,10 +72,11 @@ class RouteServiceProvider extends ServiceProvider
             $selects = ['en_us','vi'];
 
             foreach ($routers as $name => $route) {
-                if(isset($route['language']) && $route['language']){
+                if(isset($route['language'])){
                     $url = isset($route['url'])?$route['url']:"";
                     $extension = isset($route['extension'])?$route['extension']:"";
                     $action = isset($route['action'])?$route['action']:"";
+                    $languageConfig = $route['language'];
 
                     unset($route['language']);
                     if(!empty($extension)) unset($route['extension']);
@@ -116,7 +117,12 @@ class RouteServiceProvider extends ServiceProvider
                                  }
                                  $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
                                  foreach ($fruitsArrayObject['router'] as $key=>$value){
-                                     $fruitsArrayObject['router'][$key]['url'] = "/".$language[$lang]['router'].$fruitsArrayObject['router'][$key]['url'];
+                                     if(isset($languageConfig[$key][$lang]['uri'])){
+                                        $_url = $languageConfig[$key][$lang]['uri'];
+                                     }else{
+                                         $_url = $fruitsArrayObject['router'][$key]['url'];
+                                     }
+                                     $fruitsArrayObject['router'][$key]['url'] = "/".$language[$lang]['router'].$_url;
                                      $fruitsArrayObject['router'][$key]['defaults'] = [ 'lang' => $lang];
                                      $fruitsArrayObject['router'][$key]['layout'] = [$name,$language[$lang]['router'].'_'.$name];
                                  }

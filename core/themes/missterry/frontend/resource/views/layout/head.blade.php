@@ -147,7 +147,6 @@
     </style>
 
     <link rel='stylesheet' id='wp-block-library-css'  href='https://demo.missterry.vn/wp-includes/css/dist/block-library/style.min.css?ver=5.6' type='text/css' media='all' />
-    <link rel='stylesheet' id='wp-block-library-css'  href='https://missterry.vn/wp-content/themes/congnghevietnam.vn/css/bootstrap.min.css?ver=5.4.4' type='text/css' media='all' />
 
     <link rel='stylesheet' id='contact-form-7-css'  href='https://demo.missterry.vn/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.3.1' type='text/css' media='all' />
     <link rel='stylesheet' id='flatsome-icons-css'  href='{!! asset('theme/missterry/css/flatsome/fl-icons.css?ver=3.12') !!}' type='text/css' media='all' />

@@ -1295,3 +1295,6 @@
     color: red;
     font-size: 10px;
 }
+a:hover {
+    text-decoration: none;
+}

@@ -38,6 +38,7 @@ class GirdBladeHelper extends \Admin\Lib\GirdBladeHelper
     {
         return " <footer id=\"footer\" class=\"footer-wrapper\">" . $content . "</footer>";
     }
+
     public function layout_gird_home_REASONS_FAQS($content, $option = []){
         $id = md5($content);
         return ' <section class="section" id="section_'.$id.'_2035033026">

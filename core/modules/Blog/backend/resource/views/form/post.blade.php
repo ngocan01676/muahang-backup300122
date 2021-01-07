@@ -197,7 +197,7 @@
         <div class="box-body">
 
             {!! Form::label('id_tag', 'Category', ['class' => 'Category']) !!} *
-            {!! Form::CategoriesNestable($nestables,$item?$item->category:[],"category") !!}
+            {!! Form::CategoriesNestableOne($nestables,$item?[$item->category_id=>1]:[],"category_id") !!}
 
         </div>
     </div>

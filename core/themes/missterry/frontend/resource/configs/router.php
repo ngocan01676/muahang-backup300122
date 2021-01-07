@@ -4,7 +4,13 @@ $routers = [];
 $routers['home'] = [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "HomeController",
-    "language"=>true,
+    "language"=>[
+       'blog_people_talk_about_about'=>[
+           'vi'=>[
+               'uri'=>'/khach-hang-noi-ve-chung-toi/{slug}'
+           ],
+       ]
+    ],
     "router" => [
         "lists" => [
             "url" => "/",
@@ -22,7 +28,7 @@ $routers['home'] = [
             "action"=>'getRoomDetail'
         ],
         "pricing" => [
-            "url" => "/pricing.html",
+            "url" => "/pricing",
             "guard" => "",
             "action"=>'getPricing'
         ],
@@ -32,29 +38,44 @@ $routers['home'] = [
             "action"=>'register_room_oke'
         ],
         'escape_room'=>[
-            "url" => "/escape-room.html",
+            "url" => "/escape-room",
             "guard" => "",
             "action"=>'get_escape_room'
         ],
         'faq'=>[
-            "url" => "/faq.html",
+            "url" => "/faq",
             "guard" => "",
             "action"=>'get_faqs'
         ],
         'offer'=>[
-            "url" => "/offer.html",
+            "url" => "/offer",
             "guard" => "",
             "action"=>'get_offer'
         ],
         'news'=>[
-            "url" => "/news.html",
+            "url" => "/news",
             "guard" => "",
             "action"=>'get_news'
         ],
         'contact'=>[
-            "url" => "/contact.html",
+            "url" => "/contact",
             "guard" => "",
             "action"=>'get_contact'
+        ],
+        'blog_people_talk_about_about'=>[
+            "url" => "/people-talk-about-about/{slug}",
+            "guard" => "",
+            "action"=>'get_blog_people_talk_about_about'
+        ],
+        'blog_item'=>[
+            "url" => "/blog/{slug}",
+            "guard" => "",
+            "action"=>'get_blog_item'
+        ],
+        'category'=>[
+            "url" => "/category/{slug}",
+            "guard" => "",
+            "action"=>'get_list_blog_category'
         ],
     ]
 ];
@@ -94,7 +115,7 @@ $routers['page'] = [
     "language"=>true,
     "url"=>'page/',
     "sub_prefix" => "/page",
-    "extension"=>".html",
+
     "action"=>'getList',
     "router" => [
 
