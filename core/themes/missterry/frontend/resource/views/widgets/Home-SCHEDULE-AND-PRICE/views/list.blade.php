@@ -314,8 +314,8 @@
                                                     <div class="timeslots">
 
                                                         @php
-                                                            $left = 9;
-                                                            $left_curent = 5;
+                                                            $left = 8;
+                                                            $left_curent = 3;
                                                             $count = count($row->times);
                                                             $class = "";
                                                             $count_17_gt = 0;
@@ -395,7 +395,7 @@
                                                             @endphp
                                                             @if($is_hide == false)
                                                                 @if($is_pay == false) <a href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
-                                                                    <div class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 8%;">
+                                                                    <div class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
                                                                         {!! $time['date'] !!}
                                                                         @if($is_pay)
                                                                             <img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay">
@@ -413,11 +413,11 @@
 
 
                                                         @php
-                                                            $leftStyle = 5;
+                                                            $leftStyle = 3;
                                                         @endphp
                                                         @foreach($arr_price as $price=>$count)
 
-                                                            <div class="price_block" {!! $count !!} style="left: {!! $leftStyle !!}%; width: {!! ($count)*8.94 !!}%">
+                                                            <div class="price_block" {!! $count !!} style="left: {!! $leftStyle !!}%; width: {!! ($count)*7.8 !!}%">
                                                                 <div class="left_line line">
                                                                     <ins style="margin-right: 2.5em;"></ins>
                                                                 </div>
@@ -432,7 +432,7 @@
                                                                 <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
                                                             </div>
                                                             @php
-                                                                $leftStyle+=($count)*8.94;
+                                                                $leftStyle+=($count)*7.8;
                                                             @endphp
                                                         @endforeach
                                                     </div>
