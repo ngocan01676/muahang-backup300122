@@ -1,2 +1,2 @@
 <?php
-return component_create( $module, "MissTerryTheme\OurRoom\Main");
+return component_create( $module, "MissTerryTheme\Faqs\Main");

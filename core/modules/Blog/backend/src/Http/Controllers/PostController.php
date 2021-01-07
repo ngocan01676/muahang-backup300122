@@ -9,16 +9,19 @@ use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-
+use Illuminate\Support\Str;
 class PostController extends \Zoe\Http\ControllerBackend
 {
 
     public function init()
     {
-        $this->data['language'] = config('zoe.language');
         $this->data['nestables'] = config_get("category", "blog:category");
-        $this->data['configs'] = config_get("config", "blog");
-        $this->data['current_language'] = isset($this->data['configs']['post']['language']['default']) ? $this->data['configs']['post']['language']['default'] : "en";
+        $this->data['language'] = config('zoe.language');
+        $this->data['configs'] = config_get("config", "system");
+        $this->data['current_language'] =
+            isset($this->data['configs']['core']['site_language']) ?
+                $this->data['configs']['core']['site_language'] :
+                config('zoe.default_lang');
     }
 
     public function getCrumb()
@@ -46,14 +49,14 @@ class PostController extends \Zoe\Http\ControllerBackend
         $route = [];
 
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
-        $item = 1;
-        $select = ['post.title', 'post.id', 'post.image', 'post.status', 'post.views', 'post.created_at', 'post.updated_at'];
+
+        $select = ['rt.title', 'post.id', 'post.image', 'post.status', 'post.views', 'post.created_at', 'post.updated_at'];
         $models = DB::table('blog_post as post');
 
         if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
 
-            $models->where('t.title', 'like', '%' . $search . '%');
-            $select['t.title'] = 't.title';
+            $models->where('rt.title', 'like', '%' . $search . '%');
+            $select['rt.title'] = 'rt.title';
         }
         if (isset($parameter["filter"]['type']) && !empty($parameter['filter']['type'])) {
             $models->where('type', $parameter['filter']['type']);
@@ -74,18 +77,20 @@ class PostController extends \Zoe\Http\ControllerBackend
         if (isset($parameter['action'])) {
             unset($parameter['action']);
         }
-        $lang = $this->data['current_language'];
+
 
         if ($parameter['order_by']['col'] == "title") {
-            if (!isset($select['t.title'])) {
-                $select['t.title'] = 't.title';
+            if (!isset($select['rt.title'])) {
+                $select['rt.title'] = 'rt.title';
             }
-            $models->orderBy("t." . $parameter['order_by']['col'], $parameter['order_by']['type']);
+            $models->orderBy("post." . $parameter['order_by']['col'], $parameter['order_by']['type']);
         } else {
             $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
         }
-        // $models->join('blog_post_translation as t', 't.post_id', '=', 'post.id');
-        // $models->where('t.lang_code', $lang);
+
+        $lang = $this->data['current_language'];
+        $models->join('blog_post_translation as rt', 'rt._id', '=', 'post.id');
+        $models->where('rt.lang_code', $lang);
 
         $models->select($select);
         $models = $models->paginate($item, ['*'], 'page', $page);
@@ -116,8 +121,8 @@ class PostController extends \Zoe\Http\ControllerBackend
 
         $this->getCrumb()->breadcrumb('Post Edit', ('backend:blog:post:create'));
         $item = PostModel::find($id);
-        if (isset($this->data['configs']['post']['language']['multiple'])) {
-            $trans = PostTranslationModel::where(['post_id' => $id])->get();
+        if (isset($this->data['configs']['core']['language']['multiple'])) {
+            $trans = PostTranslationModel::where(['_id' => $id])->get();
             foreach ($trans as $tran) {
                 $item->offsetSet("title_" . $tran->lang_code, $tran->title);
                 $item->offsetSet("description_" . $tran->lang_code, $tran->description);
@@ -133,10 +138,33 @@ class PostController extends \Zoe\Http\ControllerBackend
     public function store(Request $request)
     {
         $data = $request->all();
-        $validator = Validator::make($data, [
+
+        $filter = [
+            'title' => 'required',
+            'content' => 'required',
+            'description' => 'required',
+        ];
+        if(isset($this->data['configs']['core']['language']['multiple'])){
+            $newFilter = [];
+            foreach ($this->data['language'] as $lang => $_language) {
+                if(
+                    isset($this->data['configs']['core']['language']['lists']) &&
+                    (is_string($this->data['configs']['core']['language']['lists']) &&
+                        $this->data['configs']['core']['language']['lists'] == $_language['lang']||
+                        is_array($this->data['configs']['core']['language']['lists']) &&  in_array($_language['lang'],$this->data['configs']['core']['language']['lists'])) ){
+                    foreach ($filter as $col=>$value){
+                        $newFilter[$col.'_'.$lang] = $value;
+                    }
+                }
+
+            }
+            $filter = $newFilter;
+        }
+        $filter = array_merge($filter,[
             'image' => 'required',
             'category' => 'required',
-        ], [
+        ]);
+        $validator = Validator::make($data, $filter, [
             'image.required' => 'The Image is Required.',
         ]);
         if ($validator->fails()) {
@@ -149,14 +177,19 @@ class PostController extends \Zoe\Http\ControllerBackend
         } else {
             $model = new PostModel();
         }
-        $model->slug = "demo";
+
         $model->image = $data['image'];
         $model->status = $data['status'];
         $model->user_id = 1;
         $model->featured = $data['featured'];
-        $model->title = $data['title'];
-        $model->description = $data['description'];
-        $model->content = $data['content'];
+
+        $model->title = isset($data['title'])?$data['title']:"";
+
+        $slug = empty($model->title)?"": Str::slug($model->title, '-');
+        $model->slug = $slug;
+
+        $model->description = isset($data['description'])?$data['description']:"";
+        $model->content = isset($data['content'])?$data['content']:"";
 
 
         DB::beginTransaction();
@@ -169,17 +202,19 @@ class PostController extends \Zoe\Http\ControllerBackend
                 if (isset($data['title_' . $lang])) {
                     $model->table_translation()->updateOrInsert(
                         [
-                            'post_id' => $model->id,
+                            '_id' => $model->id,
                             'lang_code' => $lang
                         ],
                         [
                             'title' => $data['title_' . $lang],
+                            'slug' =>  Str::slug($data['title_' . $lang], '-'),
                             'description' => $data['description_' . $lang],
                             'content' => $data['content_' . $lang]
                         ]
                     );
                 }
             }
+
             \Actions::do_action("tag_add", "blog:post", $model->id, $data['tag'], $model->getTag());
             $category_old = $model->getCategory();
             if (isset($data['category'])) {

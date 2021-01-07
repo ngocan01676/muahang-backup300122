@@ -572,14 +572,27 @@ function get_category_type($type)
 {
     $rs = DB::table('categories')->where(['type' => $type])->get();
     $arr = [];
+    $translation = [];
+    $config_language = app()->config_language;
+
+    if(isset($config_language['lang'])){
+        $translation = DB::table('categories_translation')->where('lang_code',$config_language['lang'])->get()->keyBy('_id')->all();
+    }
     foreach ($rs as $k => $v) {
+
         if(!empty($v->data) && ($v->data == 'b:0;' || @unserialize($v->data) !== false)){
             $v->data = unserialize($v->data);
         }else{
             $v->data = [];
         }
+        if(isset($translation[$v->id])){
+            $v->name = $translation[$v->id]->name;
+            $v->slug = $translation[$v->id]->slug;
+            $v->description = $translation[$v->id]->description;
+        }
         $arr[$v->id] = $v;
     }
+
     return $arr;
 }
 
@@ -587,7 +600,23 @@ function get_menu_type($type)
 {
     $rs = DB::table('menu')->where(['type' => $type])->get();
     $arr = [];
+    $translation = [];
+    $config_language = app()->config_language;
+
+    if(isset($config_language['lang'])){
+        $translation = DB::table('menu_translation')->where('lang_code',$config_language['lang'])->get()->keyBy('_id')->all();
+    }
     foreach ($rs as $k => $v) {
+        if(!empty($v->data) && ($v->data == 'b:0;' || @unserialize($v->data) !== false)){
+            $v->data = unserialize($v->data);
+        }else{
+            $v->data = [];
+        }
+        if(isset($translation[$v->id])){
+            $v->name = $translation[$v->id]->name;
+            $v->slug = $translation[$v->id]->slug;
+            $v->description = $translation[$v->id]->description;
+        }
         $arr[$v->id] = $v;
     }
     return $arr;

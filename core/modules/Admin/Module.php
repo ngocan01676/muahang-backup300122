@@ -37,7 +37,7 @@ class Module extends ZModule
         });
 
         \Actions::add_action("tag_add", function ($type, $id_item, $tag, $tags) {
-            dump($type, $id_item, $tag);
+
             $_tags = explode(',', $tag);
             DB::beginTransaction();
             try {

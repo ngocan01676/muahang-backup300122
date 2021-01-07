@@ -45,120 +45,257 @@
                 {!! Form::open(['method' => 'POST','id'=>'form_store']) !!}
                 {!! Form::hidden('type',$type) !!}
                 {!! Form::hidden('id',0) !!}
-                <table class="table table-borderless">
-                    <tbody>
-                    <tr>
-                        <td>
-                            {!! Form::label('name', z_language('Name'), ['class' => 'name']) !!}
-                            {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Name')]) !!}
-                            <span class="error help-block"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('Content Type', z_language('Content Type'), ['class' => 'name']) !!}
-                            {!! Form::select('type_link',
-                                array(
-                                     '' => z_language('Select Content Type'),
-                                     'page' => z_language('Content Page'),
-                                     'router' => z_language('Router'),
-                                     'link' => z_language('External Link'),
-                                 ),
-                                 '',['class'=>'form-control'])
-                            !!}
-                            <span class="error help-block"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('Page', z_language('Page'), ['class' => 'name']) !!}
-                            <select class="selectChange form-control">
-                                @foreach($pages as $page)
-                                    <option value="{!! $page['slug'] !!}">{!! $page['title'] !!}</option>
-                                @endforeach
-                            </select>
-                            <span class="error help-block"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('name', z_language('External Link'), ['class' => 'name']) !!}
-                            {!! Form::text('link',null, ['class' => 'form-control','placeholder'=>z_language('External Link')]) !!}
-                            <span class="error help-block"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('name', z_language('Router'), ['class' => 'name']) !!}
-                            @php
-                                $routes = collect(\Route::getRoutes())->map(function ($route) { return [
-                                    'uri'=> $route->uri(),
-                                    'name'=> $route->getName(),
-                                    'method'=> $route->methods,
-                                    'default'=>$route->defaults,
-                                    ];
-                                });
+                @if(isset($configs['core']['language']['multiple']))
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs" {{$current_language}}>
+                            @foreach($language as $lang=>$_language)
+                                @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                                    <li @if($current_language == $lang) class="active" @endif {{$lang}}><a href="#tab_{{$lang}}" data-toggle="tab"><span
+                                                    class="flag-icon flag-icon-{{$_language['flag']}}"></span></a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                        <div class="tab-content">
+                            @foreach($language as $lang=>$_language)
+                                @if(
+                                isset($configs['core']['language']['lists']) &&
+                                (is_string($configs['core']['language']['lists']) &&
+                                $configs['core']['language']['lists'] == $_language['lang']||
+                                is_array($configs['core']['language']['lists']) &&  in_array($_language['lang'],$configs['core']['language']['lists'])) )
 
-                                $_type = 'frontend';
-                            @endphp
-                            <div class="input-group">
-                                <select name="router_name" class="selectChange form-control">
-                                    @foreach($routes as $route)
-                                        @php
-                                            $arr_name =  explode(':',$route['name']);
+                                    <div  class="tab-pane @if($current_language == $lang) active @endif" id="tab_{{$lang}}">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    {!! Form::label('name_'.$lang, z_language('Name'), ['class' => 'name']) !!}
+                                                    {!! Form::text('name_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Title')]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {!! Form::label('description_'.$lang, z_language('Description'), ['class' => 'description']) !!}
+                                                    {!! Form::textarea('description_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Description'),'cols'=>5,'rows'=>5]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
 
-                                        @endphp
-                                        @continue($_type!=$arr_name[0] && $arr_name[0]!="login" && $arr_name[0]!="register")
-                                        @continue(isset($route['default']['lang']))
-                                        @php
-                                            unset($arr_name[0]);
-                                            $alise = implode(":",$arr_name);
-                                        @endphp
-                                        @continue(!in_array("GET",$route['method']))
-                                        <option value="{!! $alise !!}" data-uri="{!! $route['uri'] !!}">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    <table class="table table-borderless">
+                        <tbody>
+
+                        <tr>
+                            <td>
+                                {!! Form::label('Content Type', z_language('Content Type'), ['class' => 'name']) !!}
+                                {!! Form::select('type_link',
+                                    array(
+                                         '' => z_language('Select Content Type'),
+                                         'page' => z_language('Content Page'),
+                                         'router' => z_language('Router'),
+                                         'link' => z_language('External Link'),
+                                     ),
+                                     '',['class'=>'form-control'])
+                                !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                {!! Form::label('link', z_language('External Link'), ['class' => 'name']) !!}
+                                {!! Form::text('link',null, ['class' => 'form-control','placeholder'=>z_language('External Link')]) !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('router_name', z_language('Router'), ['class' => 'name']) !!}
+                                @php
+                                    $routes = collect(\Route::getRoutes())->map(function ($route) { return [
+                                        'uri'=> $route->uri(),
+                                        'name'=> $route->getName(),
+                                        'method'=> $route->methods,
+                                        'default'=>$route->defaults,
+                                        ];
+                                    });
+
+                                    $_type = 'frontend';
+                                @endphp
+                                <div class="input-group">
+                                    <select name="router_name" class="selectChange form-control">
+                                        @foreach($routes as $route)
                                             @php
-                                                echo $route['uri'];
+                                                $arr_name =  explode(':',$route['name']);
+
                                             @endphp
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <span class="input-group-addon">
+                                            @continue($_type!=$arr_name[0] && $arr_name[0]!="login" && $arr_name[0]!="register")
+                                            @continue(isset($route['default']['lang']))
+                                            @php
+                                                unset($arr_name[0]);
+                                                $alise = implode(":",$arr_name);
+                                            @endphp
+                                            @continue(!in_array("GET",$route['method']))
+                                            <option value="{!! $alise !!}" data-uri="{!! $route['uri'] !!}">
+                                                @php
+                                                    echo $route['uri'];
+                                                @endphp
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <span class="input-group-addon">
                                      <button type="button" class="btn btn-info btn-xs pull-right"
                                              onclick="ChangePar(this);">Param
                                     </button>
                                 </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('description', z_language('Description'), ['class' => 'description']) !!}
-                            {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Mô tả','cols'=>5,'rows'=>5]) !!}
-                            <span class="error help-block"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
-                            {!! Form::radio('status', '1' , true) !!} Yes
-                            {!! Form::radio('status', '0',false) !!} No
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('featured', 'Featured', ['class' => 'featured']) !!}
-                            {!! Form::radio('featured', '1' , false) !!} Yes
-                            {!! Form::radio('featured', '0',true) !!} No
+                                </div>
+                            </td>
+                        </tr>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            @includeIf($views)
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <tr>
+                            <td>
+                                {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
+                                {!! Form::radio('status', '1' , true) !!} Yes
+                                {!! Form::radio('status', '0',false) !!} No
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('featured', 'Featured', ['class' => 'featured']) !!}
+                                {!! Form::radio('featured', '1' , false) !!} Yes
+                                {!! Form::radio('featured', '0',true) !!} No
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @includeIf($views)
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                @else
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td>
+                                {!! Form::label('name', z_language('Name'), ['class' => 'name']) !!}
+                                {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Name')]) !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('Content Type', z_language('Content Type'), ['class' => 'name']) !!}
+                                {!! Form::select('type_link',
+                                    array(
+                                         '' => z_language('Select Content Type'),
+                                         'page' => z_language('Content Page'),
+                                         'router' => z_language('Router'),
+                                         'link' => z_language('External Link'),
+                                     ),
+                                     '',['class'=>'form-control'])
+                                !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('Page', z_language('Page'), ['class' => 'name']) !!}
+                                <select class="selectChange form-control">
+                                    @foreach($pages as $page)
+                                        <option value="{!! $page['slug'] !!}">{!! $page['title'] !!}</option>
+                                    @endforeach
+                                </select>
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('name', z_language('External Link'), ['class' => 'name']) !!}
+                                {!! Form::text('link',null, ['class' => 'form-control','placeholder'=>z_language('External Link')]) !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('name', z_language('Router'), ['class' => 'name']) !!}
+                                @php
+                                    $routes = collect(\Route::getRoutes())->map(function ($route) { return [
+                                        'uri'=> $route->uri(),
+                                        'name'=> $route->getName(),
+                                        'method'=> $route->methods,
+                                        'default'=>$route->defaults,
+                                        ];
+                                    });
+
+                                    $_type = 'frontend';
+                                @endphp
+                                <div class="input-group">
+                                    <select name="router_name" class="selectChange form-control">
+                                        @foreach($routes as $route)
+                                            @php
+                                                $arr_name =  explode(':',$route['name']);
+
+                                            @endphp
+                                            @continue($_type!=$arr_name[0] && $arr_name[0]!="login" && $arr_name[0]!="register")
+                                            @continue(isset($route['default']['lang']))
+                                            @php
+                                                unset($arr_name[0]);
+                                                $alise = implode(":",$arr_name);
+                                            @endphp
+                                            @continue(!in_array("GET",$route['method']))
+                                            <option value="{!! $alise !!}" data-uri="{!! $route['uri'] !!}">
+                                                @php
+                                                    echo $route['uri'];
+                                                @endphp
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <span class="input-group-addon">
+                                     <button type="button" class="btn btn-info btn-xs pull-right"
+                                             onclick="ChangePar(this);">Param
+                                    </button>
+                                </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('description', z_language('Description'), ['class' => 'description']) !!}
+                                {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Mô tả','cols'=>5,'rows'=>5]) !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
+                                {!! Form::radio('status', '1' , true) !!} Yes
+                                {!! Form::radio('status', '0',false) !!} No
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('featured', 'Featured', ['class' => 'featured']) !!}
+                                {!! Form::radio('featured', '1' , false) !!} Yes
+                                {!! Form::radio('featured', '0',true) !!} No
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @includeIf($views)
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                @endif
                 {!! Form::close() !!}
             </div>
             <div class="box-footer">

@@ -74,6 +74,78 @@
                 {!! Form::hidden('is_slug',$is_slug) !!}
                 {!! Form::hidden('id',0) !!}
                 {!! Form::hidden('class_nestable',$class_nestable) !!}
+                @if(isset($configs['core']['language']['multiple']))
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs" {{$current_language}}>
+
+                            @foreach($language as $lang=>$_language)
+                                @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                                    <li @if($current_language == $lang) class="active" @endif {{$lang}}><a href="#tab_{{$lang}}"
+                                                                                                           data-toggle="tab"><span
+                                                    class="flag-icon flag-icon-{{$_language['flag']}}"></span></a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                        <div class="tab-content">
+                            @foreach($language as $lang=>$_language)
+                                @if(
+                                isset($configs['core']['language']['lists']) &&
+                                (is_string($configs['core']['language']['lists']) &&
+                                $configs['core']['language']['lists'] == $_language['lang']||
+                                is_array($configs['core']['language']['lists']) &&  in_array($_language['lang'],$configs['core']['language']['lists'])) )
+
+                                    <div  class="tab-pane @if($current_language == $lang) active @endif" id="tab_{{$lang}}">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    {!! Form::label('name_'.$lang, z_language('Name'), ['class' => 'name']) !!}
+                                                    {!! Form::text('name_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Title')]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {!! Form::label('description_'.$lang, z_language('Description'), ['class' => 'description']) !!}
+                                                    {!! Form::textarea('description_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Description'),'cols'=>5,'rows'=>5]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    <table class="table table-borderless">
+                        <tbody>
+
+                        <tr>
+                            <td>
+                                {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
+                                {!! Form::radio('status', '1' , true) !!} Yes
+                                {!! Form::radio('status', '0',false) !!} No
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('featured', 'Featured', ['class' => 'featured']) !!}
+                                {!! Form::radio('featured', '1' , false) !!} Yes
+                                {!! Form::radio('featured', '0',true) !!} No
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @includeIf($views)
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                @else
                 <table class="table table-borderless">
                     <tbody>
                     <tr>
@@ -116,6 +188,7 @@
                     </tr>
                     </tbody>
                 </table>
+                @endif
                 {!! Form::close() !!}
             </div>
             <div class="box-footer">

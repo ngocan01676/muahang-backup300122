@@ -145,7 +145,18 @@ class HomeController extends \Zoe\Http\ControllerFront
         return $this->render('home.escape_room');
     }
     public function get_faqs(){
-        return $this->render('home.faqs');
+        $results = DB::table('plugin_faq')->where('status',1)->get()->all();
+        $config_language = app()->config_language;
+        if(isset($config_language['lang'])){
+            $translation = DB::table('plugin_faq_translation')->where('lang_code',$config_language['lang'])->get()->keyBy('_id')->all();
+            foreach ($results as $key=>$value){
+                if(isset($translation[$value->id])){
+                    $value->title = $translation[$value->id]->title;
+                    $value->content = $translation[$value->id]->content;
+                }
+            }
+        }
+        return $this->render('home.faqs',['results'=>$results]);
     }
     public function get_offer(){
         return $this->render('home.offer');
