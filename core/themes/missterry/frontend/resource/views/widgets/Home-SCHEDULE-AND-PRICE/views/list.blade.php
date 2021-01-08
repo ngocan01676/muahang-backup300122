@@ -157,7 +157,7 @@
 
     #schedule .scroller_container { /*padding-bottom: 18px;*/ /*background: rgba(210, 210, 20, 0.1);*/ }
 
-    #schedule .scroller_inner { min-width: 1000px; /* TODO: определять автоматически */ width: 100%; }
+    #schedule .scroller_inner { /*min-width: 1000px;*/  width: 100%; }
 
     #schedule .time_gradient { width: 100%; /*margin-left: -160px;*/ height: 15px; line-height: 15px; font-size: 13px; overflow: hidden; position: relative; }
 
@@ -377,7 +377,7 @@
                             <div class="scroller">
                                 <div class="scroller_container">
 
-                                    <div class="scroller_inner" style="padding: 20px 5px;position: relative">
+                                    <div class="scroller_inner" style="padding: 5px 0px;position: relative">
 
                                         <div class="loader">Loading...</div>
 
