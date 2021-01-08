@@ -209,7 +209,7 @@
     </div>
     <div class="section-content relative">
         <div class="container section-title-container"><h3 class="section-title section-title-normal"><b></b><span class="section-title-main" style="font-size:150%;">{!! z_language('SCHEDULE AND PRICE') !!}</span><b></b></h3></div>
-        <div class="container1" style="padding: 15px 20px;width: 95%;margin: 0 auto;">
+        <div class="container1" style="padding: 15px 20px 0px;width: 95%;margin: 0 auto;">
             <div id="quest-schedule" class="">
                 <div id="schedule_tab" class="tab_page">
 
