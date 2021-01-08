@@ -319,9 +319,22 @@ async function JAPAN_POST(tracking){
                 }
                 a.then(function (t) {
 
-                    databaseData = _databaseData;
+                    databaseData = {};
+                    for(let i =0; i < t.length ; i++){
 
-                   console.log(t);
+                        for(let name in t[i]){
+                            if(!databaseData.hasOwnProperty(name)){
+                                databaseData[name] = {};
+                            }
+                            for(let index in t[i][name]){
+                                if(!databaseData[name].hasOwnProperty(t[i][name].tracking_id)){
+                                    databaseData[name][t[i][name].tracking_id] = t[i][name];
+                                }
+                            }
+                        }
+                    }
+                  
+                   console.log(databaseData);
 
 
                     for(let name in databaseData){
