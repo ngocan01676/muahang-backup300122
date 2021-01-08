@@ -401,7 +401,7 @@ async function JAPAN_POST(tracking){
                     pushData.push({name:name,data:trackingIds});
                 }
             }
-            
+
             console.log(name+' AddQueue:'+pushData.length+" "+moment().format("YYYY-MM-DD HH:mm:ss"));
 
             if(pushData.length === 0){
@@ -420,7 +420,7 @@ async function JAPAN_POST(tracking){
 
     setInterval(function () {
         AddQueue('setInterval');
-    },60000);
+    },5000);
 
     setInterval(function () {
         console.log('lock:'+lock + " "+pushData.length);
