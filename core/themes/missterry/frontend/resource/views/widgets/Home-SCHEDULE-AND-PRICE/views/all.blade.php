@@ -1137,6 +1137,7 @@
                     break;
                 }
             }
+            
             var price = 0;
             console.log(key);
             console.log(config);
@@ -1144,7 +1145,7 @@
                 price = config[key];
             }
             console.log(price);
-            
+
             dom.find('.quest-price .current-price span').html(price+" vnđ");
 
         }
