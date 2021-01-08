@@ -90,6 +90,7 @@ class HomeController extends \Zoe\Http\ControllerFront
 //            'sex' => 'required|integer|gt:0|lt:4',
             'number' => 'required|integer|gt:0|lt:7',
             'id' => 'required|integer|gt:0',
+            'price' => 'required|integer|gt:0',
         ]);
         $rules = [];
 
@@ -114,7 +115,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                         'booking_date'=>formatDateYMD($data['data']['date']),
                         'booking_time'=>$data['data']['time'],
                         'status'=>0,
-                        'price'=>0,
+                        'price'=>$data['data']['price'],
                         'created_at'=>date('Y-m-d H:i:s'),
                         'updated_at'=>date('Y-m-d H:i:s'),
                     ]);
