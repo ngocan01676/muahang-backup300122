@@ -111,10 +111,10 @@
                 @for($i = 0 ; $i < count($data['results']); $i++)
                     @php
                         $row = $data['results'][$i];
-                       $prices =  array_keys(json_decode($row->prices,true));
+                       $prices =  array_keys($row->prices);
                        $n = count($prices);
                        $row->times = json_decode($row->times,true);
-                       $row->prices = json_decode($row->prices,true);
+
                        if($n == 1){
                             $label = $prices[0];// 2-4(5)
                        }else{
@@ -235,14 +235,14 @@
                                                      }else if($week == 5){
                                                        if($_timeNumber > $_timeBet_17){
                                                            $price = $price_max['price2'];
-                                                           $key = 'price2 '.$week;
+                                                           $key = 'price2';
                                                        }else{
                                                            $price = $price_max['price1'];
-                                                            $key = 'price1 ' .$week;
+                                                            $key = 'price1';
                                                        }
                                                      }else{
                                                            $price = $price_max['price2'];
-                                                           $key = 'price2 '.$week;
+                                                           $key = 'price2';
                                                      }
                                                      if($is_hide == false)
                                                      {
@@ -256,11 +256,13 @@
                                         @endphp
                                         @if($is_hide == false)
                                             @if($is_pay == false) <a {!! $row->id !!} href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
-                                                <div class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
+                                                <div data-key="{!! $key !!}" data-address="{!! $row->address !!}" data-title="{!! $row->title !!}" data-id="{!! $row->id !!}" data-date="{!! $dateTime !!}" data-time="{!! $time['date'] !!}" class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
                                                     {!! $time['date'] !!}
                                                     @if($is_pay)
-                                                        <img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay">
+                                                        <img class="slot prepay_card"
+                                                             style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay">
                                                     @endif
+                                                    <textarea class="value" style="display: none">{!! json_encode($row->prices) !!}</textarea>
                                                 </div>
                                                 @if($is_pay == false) </a> @endif
                                             @php $left_curent+= $left;  @endphp
@@ -316,83 +318,73 @@
 
 </div>
     </div>
-    <div class="pop-up2" style="display: none;">
-        <div class="content ">
-            <div id="popup" style="opacity: 1;">
-                <div data-habitat="C1">
-                    <div class="popup-background">
-                        <div class="popup-content">
-                            <div class="popup-pane booking-pane">
-                                <div class="popup-close-button"></div>
-                                <div><img class="quest-logo" alt="quest-logo" src="https://media.claustrophobia.com/media/l/akademiyagudini.png"></div>
+    <div class="pop-up2 popup-background" style="display: none;">
+        <div class="header"></div>
+        <div class="content">
+            <div class="">
+                <div class="popup-pane booking-pane">
+                    <form action="" method="post" class="wpcf7-form init" novalidate="novalidate">
+                        <input type="hidden" value="" name="time" class="time-value">
+                        <input type="hidden" value="" name="date" class="date-value">
+                        <input type="hidden" value="" name="key" class="key-value">
+                        <div class="row" style=" text-align: center;display: flex;justify-content: center;align-items: center;">
+                            <div class="col small-12" style="text-align: center;padding: 0 15px 5px;">
+                                <div>
+                                    <img class="quest-logo" alt="quest-logo" src="{!! asset('logo.png') !!}">
+                                </div>
                                 <div class="quest-title">Houdini's Academy</div>
                                 <div class="quest-address">Moscow,  1st Tverskaya-Yamskaya Str., building 7</div>
                                 <div class="quest-time">8 January, 21:00</div>
-                                <div class="quest-info">
-                                    <div class="complexity-locks">
-                                        <div class="complexity-lock locked"></div>
-                                        <div class="complexity-lock locked"></div>
-                                        <div class="complexity-lock locked"></div>
-                                        <div class="complexity-lock locked"></div>
-                                        <div class="complexity-lock unlocked"></div>
+                            </div>
+                            <div class="col medium-8 small-12 large-8">
+                                <span class="wpcf7-form-control-wrap ten">
+                                        <input type="text" name="fullname" placeholder="{!! z_language('Họ và tên') !!}" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                         <span class="text-error"></span>
+                                </span>
+                                <span class="wpcf7-form-control-wrap sdt">
+                                         <input type="text" placeholder="{!! z_language('Số điện thoại') !!}"  name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                          <span class="text-error"></span>
+                                </span>
+                                <span class="wpcf7-form-control-wrap e-mail">
+                                    <input type="email" name="email" value=""
+                                           size="40" placeholder="{!! z_language('Địa chỉ Email') !!}"
+                                           class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
+                                           aria-required="true" aria-invalid="false">
+                                         <span class="text-error"></span>
+                               </span>
+                                <span class="wpcf7-form-control-wrap menu-238">
+                                       <select name="number" onchange="onAction(this)" class="box-price wpcf7-form-control wpcf7-select" aria-invalid="false">
+                                          <option value="0">{!! z_language('Chọn số người') !!}</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                       </select>
+                                       <span class="text-error"></span>
+                                </span>
+                                <span class="wpcf7-form-control-wrap ten">
+                                        <textarea  placeholder="{!! z_language('Ghi chú') !!}" name="note" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></textarea>
+                                        <span class="text-error"></span>
+                                 </span>
+                                <div class="quest-price">
+                                    <div class="current-price">
+                                        <span>0&nbsp;vnđ</span>
                                     </div>
-                                    <div class="players-count">2-4</div>
-                                    <div class="adult-content">12+</div>
-                                    <div>
-                                        <div class="lang-tag">ru</div>
-                                        <div class="lang-tag">en</div>
-                                    </div>
+                                    <div>~ <span>0&nbsp;vnđ</span> / {!! z_language('Người') !!}</div>
                                 </div>
-                                <div class="steps-display-wrapper">
-                                    <div class="steps-display-map">
-                                        <div class="line"></div>
-                                        <div class="dot-left"></div>
-                                        <div class="dot-right"></div>
-                                        <div class="active-dot players"></div>
-                                    </div>
-                                    <div class="steps-names-wrapper">
-                                        <div class="step-name players active">Number of players</div>
-                                        <div class="step-name payment ">Payment method</div>
-                                    </div>
-                                </div>
-                                <div class="players-counter-wrapper">
-                                    <div class="players-info">
-                                        <div>Players</div>
-                                        <div class="booking-option-accompanying-text">Maximum 4</div>
-                                    </div>
-                                    <div class="players-counter">
-                                        <div class="counter-button decrease"></div>
-                                        <div class="current-players-amount">4</div>
-                                        <div class="counter-button increase"></div>
-                                    </div>
-                                </div>
-                                <div class="divider-wrapper empty-divider"></div>
-                                <div class="language-wrapper">
-                                    <div class="language-info">
-                                        <div>Language of the game</div>
-                                        <div class="booking-option-accompanying-text">Select language</div>
-                                    </div>
-                                    <div class="buttons-wrapper">
-                                        <div class="booking-button " title="Russian">ru</div>
-                                        <div class="booking-button pushed" title="English">en</div>
-                                    </div>
-                                </div>
-                                <div class="additional-services-wrapper">
-                                    <div class="divider-wrapper">
-                                        <div class="accompanying-text">Extra services</div>
-                                    </div>
-                                    <div class="services-options-wrapper"></div>
-                                </div>
-                                <div class="current-price"><span>5000&nbsp;₽</span></div>
-                                <div>~ <span>1250&nbsp;₽</span> / person</div>
-                                <div class="taxes-comment">VAT included</div>
-                                <div class="form-button next-step">Next</div>
+                                <p>
+                                    <div class="prices_config" style="display: none"><textarea></textarea></div>
+                                     <input style="background-color: #f4c400;color: #ffffff;margin-top: 15px" type="button" onclick="onClick()" name="submitform" value="{!! z_language('Gửi thông tin') !!}" class="wpcf7-form-control wpcf7-submit">
+                                     <span class="ajax-loader"></span>
+                                </p>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+
     </div>
     <style>
         .round_button,
@@ -1010,9 +1002,152 @@
             background: #555;
         }
     </style>
+    <style>
+        .mobilepopup.open .mobilepopup-outer{
+            border-radius: 10px;
+            background: url({!! asset("theme/missterry/images/bg.jpg") !!}) ;
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            box-shadow: 0 13px 16px 0 rgba(86,87,87,0.23);
+            box-sizing: border-box;
+        }
+        .mobilepopup.open .mobilepopup-outer .button-close:after, .mobilepopup.open .mobilepopup-outer .button-close:before{
+            background: #ffffff;
+        }
+        .mobilepopup.open .mobilepopup-outer .mobilepopup-inner {
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            position: fixed;
+            z-index: 15;
+
+        }
+        .mobilepopup.open .mobilepopup-outer .mobilepopup-inner  .quest-address ,.mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-time,.mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-title{
+            color: #ffffff;
+            padding: 5px 0;
+        }
+        .mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-title{
+            color: #f4c400;
+        }
+        .quest-price{
+            color: #f4c400;
+        }
+        /*.popup-pane {*/
+            /*border-radius: 10px;*/
+            /*background-color: #292239;*/
+            /*box-shadow: 0 13px 16px 0 rgba(86,87,87,0.23);*/
+            /*box-sizing: border-box;*/
+            /*margin: 50px auto;*/
+            /*z-index: 20;*/
+            /*letter-spacing: 0.28px;*/
+            /*line-height: 24px;*/
+            /*cursor: default;*/
+            /*position: relative;*/
+        /*}*/
+        /*.booking-pane {*/
+            /*width: 650px;*/
+            /*min-height: 50vh;*/
+            /*color: white;*/
+            /*font-size: 16px;*/
+            /*text-align: center;*/
+            /*font-weight: 500;*/
+            /*padding: 30px 90px;*/
+        /*}*/
+        /*.popup-close-button {*/
+            /*height: 23px;*/
+            /*width: 23px;*/
+            /*background-image: url(https://media.claustrophobia.com/static/master/build/assets/close.svg);*/
+            /*background-size: cover;*/
+            /*position: absolute;*/
+            /*top: 19.25px;*/
+            /*right: 29.25px;*/
+            /*cursor: pointer;*/
+        /*}*/
+        .quest-logo {
+            margin:0 auto;
+            padding-bottom: 5px;
+        }
+        .quest-title {
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.28px;
+            line-height: 24px;
+            margin-bottom: 5px;
+        }
+        .quest-time {
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 0.46px;
+            line-height: 25px;
+            margin-bottom: 9px;
+        }
+        .quest-info {
+            font-size: 13px;
+            letter-spacing: 0.08px;
+            line-height: 14px;
+            margin-bottom: 46px;
+        }
+        .players-counter-wrapper, .prepay-wrapper, .language-wrapper, .modes-wrapper, .additional-services-wrapper, .additional-services-wrapper .services-options-wrapper .service-option, .payment-type-wrapper {
+            display: flex;
+            justify-content: space-between;
+            margin: 24px 0;
+        }
+        .players-counter-wrapper .players-info, .prepay-wrapper .prepay-info, .language-wrapper .language-info, .modes-wrapper .modes-info, .additional-services-wrapper .additional-services-info, .payment-type-wrapper .payment-info {
+            display: inline-block;
+            text-align: left;
+            position: relative;
+            padding-left: 44px;
+        }
+        .players-counter-wrapper .players-info::before {
+            background-image: url(https://media.claustrophobia.com/static/master/build/assets/player-big-icon.svg);
+            width: 35px;
+        }
+        .booking-pane .booking-option-accompanying-text {
+            color: #5E5372;
+            font-size: 13px;
+            letter-spacing: 0.08px;
+            line-height: 14px;
+        }
+    </style>
 </section>
 @push('scripts')
     <script>
+
+        function onAction(self) {
+
+            let config = null;
+
+
+            let dom = jQuery(".mobilepopup");
+            let configs = dom.find('.prices_config textarea').val();
+            configs = JSON.parse(configs);
+            let number = dom.find('[name="number"]').val();
+            let time = dom.find('[name="time"]').val();
+            let date = dom.find('[name="date"]').val();
+            let key = dom.find('[name="key"]').val();
+
+            console.dir(time);
+
+            for(let i in configs){
+                if(configs[i].keys.includes(number) || configs[i].keys.length == 2 && configs[i].keys[0]< number && configs[i].keys[1] > number  ){
+                    config = configs[i];
+                    break;
+                }
+            }
+            var price = 0;
+            console.log(key);
+            console.log(config);
+            if(config!=null && config.hasOwnProperty(key)){
+                price = config[key];
+            }
+            console.log(price);
+            
+            dom.find('.quest-price .current-price span').html(price+" vnđ");
+
+        }
         function loadDay(self) {
             let schedule =  jQuery('#schedule');
 
@@ -1040,13 +1175,26 @@
 
         jQuery().ready(function(){
 
-            jQuery("body").on("click",".requires_prepay",function(){
+            jQuery("body").on("click",".requires_prepay",function(e){
+                e.preventDefault();
+
                 var data = jQuery(this).data();
-                console.log()
+                console.log(data);
+                var dom = jQuery(".pop-up2");
+
+                dom.find('.quest-time').html(data.date+" , "+data.time);
+                dom.find('.quest-title').html(data.title);
+                dom.find('.quest-address').html(data.address);
+
+                dom.find('.time-value').val(data.time);
+                dom.find('.date-value').val(data.date);
+                dom.find('.key-value').val(data.key);
+
+                dom.find('.prices_config textarea').html(jQuery(this).find('.value').val());
                 jQuery.mobilepopup({
                     targetblock:".pop-up2",
-                    width:"100%",
-                    height:"650px"
+                    width:"35%",
+                    height:"80%"
                 });
                 return false;
             });
