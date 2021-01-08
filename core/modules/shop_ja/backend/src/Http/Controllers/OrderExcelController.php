@@ -1374,7 +1374,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }else{
             $models->where('status', 3);
         }
-        $models->orderBy('id', 'desc');
+        $models->orderBy('updated_at', 'desc');
         $configs = [
             "YAMATO"=>"http://track.kuronekoyamato.co.jp/english/tracking",
             "SAGAWA"=>"http://k2k.sagawa-exp.co.jp/p/sagawa/web/okurijosearcheng.jsp",
