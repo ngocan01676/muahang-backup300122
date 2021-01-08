@@ -195,11 +195,7 @@ class OrderExcelModel extends Model
                     }
                 }
                 usort($KOGYJA, function ($a, $b) {
-                    if($a->pay_method == $b->pay_method){
-                        return $a->sort - $b->sort;
-                    }else{
-                        return $a->pay_method - $b->pay_method;
-                    }
+                    return $a->sort - $b->sort;
                 });
                 $dataNew['KOGYJA'] = $KOGYJA;
             }
