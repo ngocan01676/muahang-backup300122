@@ -882,7 +882,7 @@
                 token:{
                     title: '{!! z_language("Token") !!}',//T
                     type: 'text',
-                    width:'0px',
+                    width:'1px',
                 },
                 admin:{
                     title: '{!! z_language("Admin") !!}',//T
