@@ -170,7 +170,7 @@
 
                                     @php
                                         $left = 8;
-                                        $left_curent = 37.4883;
+                                        $left_curent = 3;
                                         $count = count($row->times);
                                         $class = "";
                                         $count_17_gt = 0;
@@ -267,7 +267,7 @@
 
 
                                     @php
-                                        $leftStyle = 37.4883;
+                                        $leftStyle = 3;
                                     @endphp
                                     @foreach($arr_price as $price=>$count)
 
