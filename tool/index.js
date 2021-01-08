@@ -259,6 +259,7 @@ async function JAPAN_POST(tracking){
 
             let rows = {};
             let _databaseData = {};
+
             conn.query(sql, function (err,results, fields) {
                 if (err) throw err;
                 let count =0;
@@ -320,6 +321,7 @@ async function JAPAN_POST(tracking){
                 a.then(function (t) {
 
                     databaseData = {};
+
                     for(let i =0; i < t.length ; i++){
 
                         for(let name in t[i]){
@@ -333,7 +335,7 @@ async function JAPAN_POST(tracking){
                             }
                         }
                     }
-
+            
                     for(let name in databaseData){
                         for(let index in databaseData[name]){
                             conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',`status` = \'2\',`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
@@ -375,6 +377,7 @@ async function JAPAN_POST(tracking){
 
         try{
             let countEmpty = 0;
+            console.log(databaseData);
             for(let name in databaseData){
                 let trackingIds = [];
                 let count = 0;
@@ -416,6 +419,7 @@ async function JAPAN_POST(tracking){
     setInterval(function () {
         AddQueue('setInterval');
     },60000);
+
     setInterval(function () {
         console.log('lock:'+lock + " "+pushData.length);
         if(lock === false ){
