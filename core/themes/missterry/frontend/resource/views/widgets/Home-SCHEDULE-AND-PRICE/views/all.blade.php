@@ -32,7 +32,7 @@
      z_language("Tháng 11"),
      z_language("Tháng 12"),
     ];
-    $n = 30;
+    $n = 25;
     $i = 1;
     $timeAction = time();
     $month_end = strtotime('last day of this month', time());
