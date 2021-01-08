@@ -522,7 +522,7 @@
                                                         {!! z_language('Từ') !!}
                                                     </span>
                                                                     {!! number_format($price) !!}  <span style="font-size: 110%;"> VNĐ </span>
-                                                                    <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">{!! date('Y-m-d',$timeAction) !!}</span>
+                                                                   <!-- <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">{!! date('Y-m-d',$timeAction) !!}</span>-->
                                                                 </div>
                                                                 <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
                                                             </div>
