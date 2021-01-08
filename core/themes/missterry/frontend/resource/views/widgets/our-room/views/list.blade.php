@@ -561,9 +561,7 @@
                                  $label = $prices[0];// 2-4(5)
                             }else{
                                  $label = $prices[0].'-'.$prices[$n-1];// 2-4(5)
-                                 if($prices[$n-2]!=$prices[0]){
-                                    $label.='('.$prices[$n-2].')';
-                                 }
+
                             }
                             $difficulty = "";
                             switch ($row->difficult){
