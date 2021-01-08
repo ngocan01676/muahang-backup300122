@@ -259,7 +259,6 @@ async function JAPAN_POST(tracking){
 
             let rows = {};
             let _databaseData = {};
-
             conn.query(sql, function (err,results, fields) {
                 if (err) throw err;
                 let count =0;
