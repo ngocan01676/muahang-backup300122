@@ -60,7 +60,7 @@
                     $holiday = false;
 
                 @endphp
-                <div onclick="loadDay(this)" data-day="{!! $day !!}" class="one_day @if($holiday) holiday @endif @if($i == 1) current @endif">
+                <div onclick="loadDay(this)" data-day="{!! $day !!}" class="one_day @if($holiday) holiday @endif @if($i == 1) active current @endif">
                     <div class="date">
                         {!! $day !!}
                     </div>
