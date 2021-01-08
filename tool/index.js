@@ -348,12 +348,10 @@ async function JAPAN_POST(tracking){
             });
         });
     }
-    function AddQueue(){
+    function AddQueue(name){
 
         try{
             let countEmpty = 0;
-
-
             for(let name in databaseData){
                 let trackingIds = [];
                 let count = 0;
@@ -377,7 +375,7 @@ async function JAPAN_POST(tracking){
                     pushData.push({name:name,data:trackingIds});
                 }
             }
-            console.log('AddQueue:'+pushData.length+" "+moment().format("YYYY-MM-DD HH:mm:ss"));
+            console.log(name+' AddQueue:'+pushData.length+" "+moment().format("YYYY-MM-DD HH:mm:ss"));
             if(pushData.length === 0){
                 GetData(function () {
 
@@ -389,10 +387,11 @@ async function JAPAN_POST(tracking){
     }
 
     GetData(function () {
-        AddQueue();
+        AddQueue('Init');
     });
+
     setInterval(function () {
-        AddQueue();
+        AddQueue('setInterval');
     },60000);
     setInterval(function () {
         if(lock === false ){
