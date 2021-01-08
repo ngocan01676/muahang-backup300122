@@ -12,7 +12,8 @@ return component_config($_opt_,
         ]
     ),
     component_config_views([
-        'view' => ["label" => "View", "view" => "list"]
+        'view' => ["label" => "View", "view" => "list"],
+        'all' => ["label" => "All", "view" => "all"]
     ]),
     ["name" => "Our Room", "view" => "view"]
 );
