@@ -255,7 +255,7 @@ async function JAPAN_POST(tracking){
 
             // var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status < 10 and count<10 and (updated_at <= '"+timeEnd+"' or status=0) order by updated_at LIMIT 0,20";
             var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status<10 and (updated_at <= '"+timeEnd+"' or status = 2 and data ='[]' and updated_at >= '"+moment().format("YYYY-MM-DD")+" 00:00:00' and updated_at <= '"+moment().format("YYYY-MM-DD")+" 23:59:59') order by updated_at LIMIT 0,200";
-            console.log("SQL 1 : "+sql);
+            // console.log("SQL 1 : "+sql);
 
             let rows = {};
             let _databaseData = {};
@@ -278,7 +278,7 @@ async function JAPAN_POST(tracking){
 
                 let a;
                 let hour = parseInt(moment().hour().toString());
-                console.log('Data:'+count + " hour:"+hour);
+                // console.log('Data:'+count + " hour:"+hour);
                 if(count < 20 && ( hour === 19 || hour === 10 || hour === 12 || hour === 15 || hour === 17)){
 
                     a = new Promise(function (resolve, reject) {
@@ -286,7 +286,7 @@ async function JAPAN_POST(tracking){
                         timeEnd1 = moment().add('-'+(60),'minutes').format("YYYY-MM-DD HH:mm:ss");
                         let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 and  updated_at <= '"+timeEnd1+"' order by updated_at LIMIT 0,100";
 
-                        console.log("SQL 2 : "+sql1);
+                        // console.log("SQL 2 : "+sql1);
 
                         conn.query(sql1, function (err,results, fields) {
                             if (err){
@@ -307,7 +307,7 @@ async function JAPAN_POST(tracking){
                                     }
                                     count++;
                                 }
-                                console.log('Data 2:'+count + " hour:"+hour);
+                                // console.log('Data 2:'+count + " hour:"+hour);
                                 resolve([___databaseData,_databaseData]);
                             }
                         })
@@ -424,19 +424,19 @@ async function JAPAN_POST(tracking){
     },10000);
 
     setInterval(function () {
-        console.log('lock:'+lock + " "+pushData.length);
+
         if(lock === false ){
             if(pushData.length > 0){
                 lock = true;
                 let data = pushData.shift();
-                console.dir(data);
+
                 if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
-                    console.log("Date:"+(moment().format("YYYY-MM-DD HH:mm:ss"))+data.name);
+
                     if(data.name === "YAMATO"){
 
                         YAMATO(data.data).then(function (vals) {
                             lock = false;
-                            console.log("\n"+data.name+' sucesss \n');
+
                             log.info('YAMATO:'+JSON.stringify(vals));
                             for(let i in vals[1]){
 
@@ -458,7 +458,7 @@ async function JAPAN_POST(tracking){
                     }else if(data.name === "SAGAWA"){
                         SAGAWA(data.data).then(function (vals) {
                             lock = false;
-                            console.log("\n"+data.name+' sucesss \n');
+
                             log.info('SAGAWA:'+ JSON.stringify(vals));
 
                             for(let i in vals[1]){
@@ -482,8 +482,7 @@ async function JAPAN_POST(tracking){
                     }else if(data.name === "JAPAN_POST"){
                         JAPAN_POST(data.data).then(function (vals) {
                             lock = false;
-                            console.log("\n"+data.name+' sucesss \n');
-                            console.log(vals);
+
                             log.info('JAPAN_POST:'+JSON.stringify(vals));
                             for(let i in vals[1]){
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
