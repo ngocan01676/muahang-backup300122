@@ -388,7 +388,7 @@ async function JAPAN_POST(tracking){
         AddQueue('setInterval');
     },60000);
     setInterval(function () {
-        console.log('lock:'+lock);
+        console.log('lock:'+lock + " "+pushData.length);
         if(lock === false ){
             if(pushData.length > 0){
                 lock = true;
