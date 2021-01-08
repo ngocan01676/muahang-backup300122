@@ -530,6 +530,11 @@
                                                                 $leftStyle+=($count)*7.8;
                                                             @endphp
                                                         @endforeach
+                                                        <div class="price_block" 4="" style="left: {!! $leftStyle !!}%; width: 1%">
+                                                            <div class="left_line line">
+                                                                <ins style="margin-right: 3.5em;"></ins>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 @php
