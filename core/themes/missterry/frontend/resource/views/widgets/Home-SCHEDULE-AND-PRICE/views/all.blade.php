@@ -57,9 +57,10 @@
                     $dateTime = date('Y-m-d',$timeAction);
                     $week = date('D', $timeAction);
                     $isNow = $day == $dayNow;
+                    $holiday = true;
 
                 @endphp
-                <div class="one_day holiday current">
+                <div onclick="loadDay(this)" data-day="{!! $day !!}" class="one_day @if($holiday) holiday @endif @if($i == 1) current @endif">
                     <div class="date">
                         {!! $day !!}
                     </div>
@@ -69,7 +70,7 @@
                     $timeAction = strtotime('+1 day',$timeAction);
                 @endphp
             @endfor
-            <div class="selection" style="width: 31px; transform: translateX(13.5px);"></div>
+            <div class="selection" style="width: 37px; transform: translateX(10px);"></div>
         </div>
     </div>
     <div id="schedule_template" class="global clearfix preloaded">
@@ -121,7 +122,12 @@
 
                                     }
                             @endphp
-                <div class="quest_line header_line" data-id="794" data-name="{!! $row->title !!}" data-city="UNKNOWN" data-type="UNKNOWN" data-complexity="UNKNOWN" data-players="2-6  parties" data-length="60">
+                <div class="quest_line header_line" data-id="794" data-name="{!! $row->title !!}"
+                     data-city="UNKNOWN"
+                     data-type="UNKNOWN"
+                     data-complexity="UNKNOWN"
+                     data-players="2-6  parties"
+                     data-length="60">
                     <h3><a href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug]) !!}">{!! $row->title !!}</a></h3>
                     <p>
 
@@ -280,7 +286,7 @@
                                                           style="display: block; font-size: 0.7em; line-height: 1.2em; margin-top: -14px; opacity: 0.7">
                                                         {!! z_language('Từ') !!}
                                                     </span>
-                                                {!! number_format($price) !!}  <span style="font-size: 110%;"> VNĐ </span>
+                                                {!! number_format($price/1000) !!}  <span style="font-size: 110%;"> VNĐ </span>
                                             <!-- <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">{!! date('Y-m-d',$timeAction) !!}</span>-->
                                             </div>
                                             <div class="right_line line"><ins style="margin-left: 3.5em;"></ins></div>
@@ -564,6 +570,9 @@
             margin: -2px;
             -moz-box-sizing: border-box;
             box-sizing: border-box
+        }
+        #line .active{
+            color: #fb0;
         }
         .timeslot,
         .timeslot:visited {
@@ -997,4 +1006,16 @@
         }
 
     </style>
+
 </section>
+@push('scripts')
+    <script>
+        function loadDay(self) {
+            let pos = jQuery(self).position();
+            jQuery(self).parent().find('.active').removeClass('active');
+            jQuery(self).addClass('active');
+            let selection = jQuery("#line .selection");
+            jQuery("#line .selection").css({'transform':'translateX('+(pos.left+selection.width()/3.5)+'px)'});
+        }
+    </script>
+@endpush
