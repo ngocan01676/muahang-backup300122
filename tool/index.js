@@ -419,7 +419,9 @@ async function JAPAN_POST(tracking){
     });
 
     setInterval(function () {
-        AddQueue('setInterval');
+        if(lock === false){
+            AddQueue('setInterval');
+        }
     },5000);
 
     setInterval(function () {
