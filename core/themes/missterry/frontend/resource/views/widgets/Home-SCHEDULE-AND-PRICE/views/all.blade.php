@@ -371,7 +371,7 @@
                                     <div class="current-price">
                                         <span>0&nbsp;vnđ</span>
                                     </div>
-                                    <div>~ <span>0&nbsp;vnđ</span> / {!! z_language('Người') !!}</div>
+                                    <div class="price_human">~ <span>0&nbsp;vnđ</span> / {!! z_language('Người') !!}</div>
                                 </div>
                                 <p>
                                     <div class="prices_config" style="display: none"><textarea></textarea></div>
@@ -1101,16 +1101,7 @@
             position: relative;
             padding-left: 44px;
         }
-        .players-counter-wrapper .players-info::before {
-            background-image: url(https://media.claustrophobia.com/static/master/build/assets/player-big-icon.svg);
-            width: 35px;
-        }
-        .booking-pane .booking-option-accompanying-text {
-            color: #5E5372;
-            font-size: 13px;
-            letter-spacing: 0.08px;
-            line-height: 14px;
-        }
+     
     </style>
 </section>
 @push('scripts')
@@ -1129,7 +1120,6 @@
             let date = dom.find('[name="date"]').val();
             let key = dom.find('[name="key"]').val();
 
-            console.dir(time);
 
             for(let i in configs){
                 if(configs[i].keys.includes(number) || configs[i].keys.length == 2 && configs[i].keys[0]< number && configs[i].keys[1] > number  ){
@@ -1146,7 +1136,8 @@
             }
             console.log(price);
 
-            dom.find('.quest-price .current-price span').html(price+" vnđ");
+            dom.find('.quest-price .current-price span').html(formatMoney(price)+" vnđ");
+            dom.find('.quest-price .price_human span').html(formatMoney(Math.ceil(price/number))+" vnđ");
 
         }
         function loadDay(self) {
