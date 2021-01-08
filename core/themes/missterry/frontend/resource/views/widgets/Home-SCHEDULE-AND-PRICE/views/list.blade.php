@@ -179,9 +179,9 @@
 
     #schedule.vr-schedule .quest_schedule { height: 100px; }
 
-    #schedule .quest_schedule .timeslots { width: 100%; position: relative; /*background: rgba(255, 155, 255, 0.2);*/ height: 31px; }
+    #schedule .quest_schedule .timeslots { width: 100%; position: relative; /*background: rgba(255, 155, 255, 0.2);*/ height: 34px; }
 
-    #schedule .quest_schedule .pricelines { width: 100%; position: relative; /*background: rgba(155, 155, 255, 0.3);*/ height: 11px; }
+    #schedule .quest_schedule .pricelines { width: 100%; position: relative; /*background: rgba(155, 155, 255, 0.3);*/ height: 11px;margin-top: 2px }
 
     #schedule .quest_schedule .slot { position: absolute; padding: 5px 2px 6px 2px; }
 
@@ -514,17 +514,17 @@
 
                                                             <div class="price_block" {!! $count !!} style="left: {!! $leftStyle !!}%; width: {!! ($count)*7.8 !!}%">
                                                                 <div class="left_line line">
-                                                                    <ins style="margin-right: 2.5em;"></ins>
+                                                                    <ins style="margin-right: 3.5em;"></ins>
                                                                 </div>
                                                                 <div class="price_value">
                                                     <span class="price_value__ticket_system"
-                                                          style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -5px; opacity: 0.7">
+                                                          style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -14px; opacity: 0.7">
                                                         {!! z_language('Từ') !!}
                                                     </span>
                                                                     {!! number_format($price) !!}  <span style="font-size: 110%;"> VNĐ </span>
                                                                    <!-- <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">{!! date('Y-m-d',$timeAction) !!}</span>-->
                                                                 </div>
-                                                                <div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>
+                                                                <div class="right_line line"><ins style="margin-left: 3.5em;"></ins></div>
                                                             </div>
                                                             @php
                                                                 $leftStyle+=($count)*7.8;
