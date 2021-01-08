@@ -155,12 +155,9 @@ class OrderExcelModel extends Model
 
             if(isset($dataNew['KOGYJA'])){
                 $KOGYJA = [];
-
                 foreach ($dataNew['KOGYJA'] as $k=>$value){
                     if($value->type == "Info"){
-
                         $row = [$value];
-
                         foreach ($dataNew['KOGYJA'] as $kk=>$value1){
                             if($k != $kk && $value1->token == $value->token )
                             {
