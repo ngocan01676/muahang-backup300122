@@ -687,13 +687,13 @@
 
         #schedule #timetable-preloader-image { display: none; }
 
-        #schedule.preloaded { width: 100%; height: 50vh; background-color: rgba(255, 255, 255, 0.1); -webkit-transition: all 1s ease-in-out; transition: all 1s ease-in-out; display: block; text-align: center; }
+        #schedule.preloaded { width: 100%; height: {!! count($data['results'])*8 !!}vh; background-color: rgba(255, 255, 255, 0.1); -webkit-transition: all 1s ease-in-out; transition: all 1s ease-in-out; display: block; text-align: center; }
 
         #schedule.preloaded .timeslots_header, #schedule.preloaded .schedule_body { opacity: 0; display: none; }
 
         #schedule.preloaded .calendar { display: none; }
 
-        #schedule.preloaded #timetable-preloader-image { display: inline-block; position: relative; top: 15vh; -webkit-animation-name: heartbeat; animation-name: heartbeat; -webkit-animation-duration: 3000ms; animation-duration: 3000ms; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-timing-function: ease-in-out; animation-timing-function: ease-in-out; z-index: 100; }
+        #schedule.preloaded #timetable-preloader-image { display: inline-block; position: relative; top: {!! count($data['results'])*2 !!}vh; -webkit-animation-name: heartbeat; animation-name: heartbeat; -webkit-animation-duration: 3000ms; animation-duration: 3000ms; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-timing-function: ease-in-out; animation-timing-function: ease-in-out; z-index: 100; }
 
         #schedule.preloaded #timetable-preloader-image { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
