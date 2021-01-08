@@ -582,7 +582,7 @@
                         <a href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug]) !!}"
                            itemscope="itemscope" itemtype="http://schema.org/EntertainmentBusiness"
                            class="room b-lazy room-6023
-                            @switch($i%4) @case(0) red @break @case(1) yellow @break @case(2) blue @break @default green @endswitch
+                            @switch(1) @case(0) red @break @case(1) yellow @break @case(2) blue @break @default green @endswitch
                            new tag-20467 tag-22240 tag-20097 tag-20094 tag-20112 tag-8484  b-loaded"
                            style="background-image: url('{!! url($row->image) !!}');" image="{!! url($row->image) !!}" test="https://kadroom.com/wp-content/uploads/2020/08/VK-plashka-kadroom.jpg">
 
