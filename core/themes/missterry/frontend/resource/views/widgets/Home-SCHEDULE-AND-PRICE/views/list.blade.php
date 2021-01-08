@@ -379,7 +379,7 @@
 
                                     <div class="scroller_inner" style="padding: 5px 0px;position: relative">
 
-                                        <div class="loader">Loading...</div>
+                                        <div class="loader" style="display: none"></div>
 
                                         @foreach($data['results'] as $key=>$row)
                                         <div id="tab-{!! $row->id !!}" class="tab-content schedule_lines{!! $active == $row->id ?' active':'' !!}" style="{!! $active == $row->id ?'display: block':'display: none' !!}">
@@ -4729,7 +4729,7 @@
             }
         }
         .schedule_body .loading .loader{
-            display: block;
+            display: block !important;
         }
     </style>
     <script>
