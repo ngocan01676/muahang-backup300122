@@ -19,7 +19,8 @@ var pool  = mysql.createPool({
 });
 
 var moment = require('moment');
-console.log("Time:"+moment().format("YYYY-MM-DD HH:mm:ss"));
+
+console.log("\nRUN == Time:"+moment().format("YYYY-MM-DD HH:mm:ss")+"\n");
 let timeEnd1 = moment().add('-30','minutes').format("YYYY-MM-DD hh:mm:ss");
 console.log(timeEnd1);
 
