@@ -327,13 +327,13 @@ async function JAPAN_POST(tracking){
                                 databaseData[name] = {};
                             }
                             for(let index in t[i][name]){
-                                if(!databaseData[name].hasOwnProperty(t[i][name].tracking_id)){
-                                    databaseData[name][t[i][name].tracking_id] = t[i][name];
+                                if(!databaseData[name].hasOwnProperty(t[i][name][index].tracking_id)){
+                                    databaseData[name][t[i][name][index].tracking_id] = t[i][name][index];
                                 }
                             }
                         }
                     }
-                  
+
                    console.log(databaseData);
 
 
