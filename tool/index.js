@@ -343,9 +343,21 @@ async function JAPAN_POST(tracking){
                     lock = false;
                     conn.end();
                     Cb();
-                }).catch(function () {
-                    conn.end();
-                    databaseData = _databaseData;
+                }).catch(function (t) {
+
+                    for(let i =0; i < t.length ; i++){
+
+                        for(let name in t[i]){
+                            if(!databaseData.hasOwnProperty(name)){
+                                databaseData[name] = {};
+                            }
+                            for(let index in t[i][name]){
+                                if(!databaseData[name].hasOwnProperty(t[i][name][index].tracking_id)){
+                                    databaseData[name][t[i][name][index].tracking_id] = t[i][name][index];
+                                }
+                            }
+                        }
+                    }
                     for(let name in databaseData){
                         for(let index in databaseData[name]){
                             conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',`status` = \'2\',`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
@@ -353,6 +365,7 @@ async function JAPAN_POST(tracking){
                     }
                     databaseLock = {};
                     lock = false;
+                    conn.end();
                     Cb();
                 });
             });
