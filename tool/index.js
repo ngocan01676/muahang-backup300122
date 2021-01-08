@@ -293,31 +293,37 @@ async function JAPAN_POST(tracking){
                                 resolve();
                             }else{
                                 let count = 0;
+                                let ___databaseData = {};
                                 for(let key in results){
                                     let trangid = results[key].tracking_id;
                                     if(trangid.toString() === "キャンセル"){
                                         continue;
                                     }
-                                    if(!_databaseData.hasOwnProperty(results[key].type)){
-                                        _databaseData[results[key].type] = {};
+                                    if(!___databaseData.hasOwnProperty(results[key].type)){
+                                        ___databaseData[results[key].type] = {};
                                     }
-                                    if(!_databaseData[results[key].type].hasOwnProperty(results[key].tracking_id)){
-                                       _databaseData[results[key].type][results[key].tracking_id] = results[key];
+                                    if(!___databaseData[results[key].type].hasOwnProperty(results[key].tracking_id)){
+                                        ___databaseData[results[key].type][results[key].tracking_id] = results[key];
                                     }
                                     count++;
                                 }
                                 console.log('Data 2:'+count + " hour:"+hour);
-                                resolve();
+                                resolve([___databaseData,_databaseData]);
                             }
                         })
                     });
                 }else{
                     a = new Promise(function (resolve, reject) {
-                        resolve();
+                        resolve([_databaseData]);
                     });
                 }
-                a.then(function () {
+                a.then(function (t) {
+
                     databaseData = _databaseData;
+
+                   console.log(t);
+
+
                     for(let name in databaseData){
                         for(let index in databaseData[name]){
                             conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',`status` = \'2\',`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
