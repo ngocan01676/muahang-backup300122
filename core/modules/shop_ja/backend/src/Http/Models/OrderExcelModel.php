@@ -188,7 +188,11 @@ class OrderExcelModel extends Model
                         }
 
                         usort($row, function ($a, $b) {
-                            return ($a->sort) - $b->sort;
+                            if($a->old_pay_method == $b->old_pay_method){
+                                return $a->sort - $b->sort;
+                            }else{
+                                return $a->old_pay_method - $b->old_pay_method;
+                            }
                         });
                         foreach ($row as $k=>$v){
                             $KOGYJA[] = $v;
