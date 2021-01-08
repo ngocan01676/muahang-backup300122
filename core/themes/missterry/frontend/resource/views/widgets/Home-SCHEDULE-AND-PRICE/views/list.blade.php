@@ -738,7 +738,7 @@
                 });
                 scroller_inner.removeClass('loading');
 
-            },(Math.floor(Math.random() * Math.floor(5))+1)*300);
+            },(Math.floor(Math.random() * Math.floor(5))+1)*200);
         }
 
     </script>
