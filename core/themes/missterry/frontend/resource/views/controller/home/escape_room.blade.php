@@ -23,7 +23,7 @@
 
         <div class="section-content relative">
 
-            <div class="container section-title-container"><h3 class="section-title section-title-center"><b></b><span class="section-title-main" style="font-size:150%;">What escape room is</span><b></b></h3></div>
+            <div class="container section-title-container"><h3 class="section-title section-title-center"><b></b><span class="section-title-main" style="font-size:150%;">{!! z_language('What escape room is') !!}</span><b></b></h3></div>
             <div id="text-1454339106" class="text">
 
                 <p>Solve riddles, play in team and try to find a way out of a closed room</p>
