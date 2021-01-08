@@ -57,7 +57,7 @@
                     $dateTime = date('Y-m-d',$timeAction);
                     $week = date('D', $timeAction);
                     $isNow = $day == $dayNow;
-                    $holiday = true;
+                    $holiday = false;
 
                 @endphp
                 <div onclick="loadDay(this)" data-day="{!! $day !!}" class="one_day @if($holiday) holiday @endif @if($i == 1) current @endif">
