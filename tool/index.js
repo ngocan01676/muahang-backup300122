@@ -322,7 +322,6 @@ async function JAPAN_POST(tracking){
                     });
                 }
                 a.then(function () {
-                    conn.end();
                     databaseData = _databaseData;
                     for(let name in databaseData){
                         for(let index in databaseData[name]){
@@ -331,6 +330,7 @@ async function JAPAN_POST(tracking){
                     }
                     databaseLock = {};
                     lock = false;
+                    conn.end();
                     Cb();
                 }).catch(function () {
                     conn.end();
