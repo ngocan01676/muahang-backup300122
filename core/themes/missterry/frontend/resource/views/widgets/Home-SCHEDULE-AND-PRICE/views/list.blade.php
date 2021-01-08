@@ -737,8 +737,8 @@
                     jQuery(element.attr('data-tab')).addClass('active');
                 });
                 scroller_inner.removeClass('loading');
-            },2000);
+            },(Math.floor(Math.random() * Math.floor(5))+1)*300);
         }
-       
+
     </script>
 @endpush
