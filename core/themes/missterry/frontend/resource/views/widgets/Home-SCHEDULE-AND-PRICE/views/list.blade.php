@@ -1,4 +1,3 @@
-
 <style>
     #schedule_template { display: none; }
 
@@ -201,47 +200,29 @@
     }
 
 </style>
-<section class="section" id="section_1429677338">
-    <div class="bg section-bg fill bg-fill bg-loaded">
-
-
-
-
-
-    </div>
-
-    <div class="section-content relative">
-
-
-
-    </div>
-
-
-    <style>
-        #section_1429677338 {
-            padding-top: 38px;
-            padding-bottom: 38px;
-        }
-    </style>
+<section class="section" id="section_1429677338" style="padding-top: 38px;padding-bottom: 38px;">
+    <div class="bg section-bg fill bg-fill bg-loaded"></div>
+    <div class="section-content relative"></div>
 </section>
-
 <section class="section" id="book">
     <div class="bg section-bg fill bg-fill bg-loaded">
     </div>
     <div class="section-content relative">
         <div class="container section-title-container"><h3 class="section-title section-title-normal"><b></b><span class="section-title-main" style="font-size:150%;">{!! z_language('SCHEDULE AND PRICE') !!}</span><b></b></h3></div>
-
         <div class="container1" style="padding: 15px 20px;width: 95%;margin: 0 auto;">
             <div id="quest-schedule" class="">
                 <div id="schedule_tab" class="tab_page">
 
                     <div id="schedule" class="single clearfix">
-                        <img id="timetable-preloader-image" src="https://media.claustrophobia.com/static/master/img/phobia-images/phobia-logo_short.png" alt="Loading">
-                        <div class="timeslots_header">
 
+                        <div class="timeslots_header">
                             <div class="header_lines">
+                                @php $active = 0; @endphp
                                 @foreach($data['results'] as $key=>$row)
                                     @php
+                                        if($active == 0){
+                                            $active = $row->id;
+                                        }
                                         $prices =  array_keys(json_decode($row->prices,true));
                                         $n = count($prices);
                                         $row->times = json_decode($row->times,true);
@@ -270,8 +251,8 @@
                                             break;
                                         }
                                     @endphp
-                                    <a href="">
-                                        <div class="day_line header_line">
+                                    <a href="javascript:void(0);" onclick="loadRoom(this)" data-tab="#tab-{!! $row->id !!}">
+                                        <div class="item day_line header_line{!! $active == $row->id ?' active':'' !!}">
                                             <h3>{!! $row->title !!}</h3>
                                             <p>{!! $row->time !!} {!! z_language('Phút') !!} , {!! $label !!}</p>
                                         </div>
@@ -283,11 +264,13 @@
 
                             <div class="scroller">
                                 <div class="scroller_container">
-                                    <div class="scroller_inner" style="
-    padding: 20px 5px;
-">
 
-                                        <div class="schedule_lines">
+                                    <div class="scroller_inner" style="padding: 20px 5px;position: relative">
+
+                                        <div class="loader">Loading...</div>
+
+                                        @foreach($data['results'] as $key=>$row)
+                                        <div id="tab-{!! $row->id !!}" class="tab-content schedule_lines{!! $active == $row->id ?' active':'' !!}" style="{!! $active == $row->id ?'display: block':'display: none' !!}">
                                             @php
 
                                                 $timeAction = time();
@@ -443,6 +426,7 @@
                                             @endfor
 
                                         </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="scroller__track">
@@ -679,3 +663,82 @@
 
     </style>
 </section>
+@push('scripts')
+    <style>
+        .schedule_body .tab-content{
+            display: none !important;
+        }
+        .schedule_body .tab-content.active{
+            display: block !important;
+        }
+        .loader,
+        .loader:after {
+            border-radius: 50%;
+            width: 5em;
+            height: 5em;
+
+        }
+        .loader {
+            display: none;
+            margin: 100px auto;
+            font-size: 10px;
+            text-indent: -9999em;
+            border-top: 0.2em solid rgba(255, 255, 255, 0.2);
+            border-right: 0.2em solid rgba(255, 255, 255, 0.2);
+            border-bottom: 0.2em solid rgba(255, 255, 255, 0.2);
+            border-left: 0.2em solid #ffffff;
+            -webkit-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-animation: load8 1.1s infinite linear;
+            animation: load8 1.1s infinite linear;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+        @-webkit-keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes load8 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        .schedule_body .loading .loader{
+            display: block;
+        }
+    </style>
+    <script>
+        function loadRoom(self) {
+            let element = jQuery(self);
+            let timeslots_header = element.closest('.timeslots_header');
+            let schedule_body = timeslots_header.parent().find('.schedule_body');
+            let scroller_inner = schedule_body.find('.scroller_inner');
+            scroller_inner.addClass('loading');
+
+            setTimeout(function () {
+                timeslots_header.find('.active').removeClass('active');
+                schedule_body.find('.active').removeClass('active');
+                element.find('.item').addClass('active');
+
+                jQuery(element.attr('data-tab')).fadeOut( "slow", function() {
+                    jQuery(element.attr('data-tab')).addClass('active');
+                });
+                scroller_inner.removeClass('loading');
+            },2000);
+        }
+       
+    </script>
+@endpush
