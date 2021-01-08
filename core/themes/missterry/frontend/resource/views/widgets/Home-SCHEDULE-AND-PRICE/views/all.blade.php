@@ -60,7 +60,7 @@
                     $holiday = false;
 
                 @endphp
-                <div onclick="loadDay(this)" data-day="{!! $day !!}" class="one_day @if($holiday) holiday @endif @if($i == 1) active current @endif">
+                <div onclick="loadDay(this)" data-date="{!! $dateTime !!}" data-day="{!! $day !!}" class="one_day @if($holiday) holiday @endif @if($i == 1) active current @endif">
                     <div class="date">
                         {!! $day !!}
                     </div>
@@ -301,50 +301,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{--<div class="timeslots">--}}
-                                    {{--<div class="slot round_button booked" data-timeslot-id="3662981" style="left: 36.4895%; width: 4.99401%;">09:05</div>--}}
-                                    {{--<div class="slot round_button booked" data-timeslot-id="3662982" style="left: 42.8153%; width: 4.99401%;">10:40</div>--}}
-                                    {{--<div class="slot round_button booked" data-timeslot-id="3662983" style="left: 49.141%; width: 4.99401%;">12:15</div>--}}
-                                    {{--<div class="slot round_button requires_prepay" data-timeslot-id="3662984" title="Partial prepay" style="left: 55.4668%; width: 4.99401%;">13:50<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>--}}
-                                    {{--<div class="slot round_button booked" data-timeslot-id="3662985" style="left: 61.7925%; width: 4.99401%;">15:25</div>--}}
-                                    {{--<div class="slot round_button requires_prepay" data-timeslot-id="3662986" title="Partial prepay" style="left: 68.1183%; width: 4.99401%;">17:00<img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay"></div>--}}
-                                    {{--<div class="slot round_button booked" data-timeslot-id="3662987" style="left: 74.444%; width: 4.99401%;">18:35</div>--}}
-                                    {{--<div class="slot round_button booked" data-timeslot-id="3662988" style="left: 80.7697%; width: 4.99401%;">20:10</div>--}}
-                                    {{--<div class="slot round_button booked" data-timeslot-id="3662989" style="left: 87.0955%; width: 4.99401%;">21:45</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="pricelines">--}}
-                                    {{--<div class="price_block" style="left: 36.489545878945265%; width: 17.977227333200155%">--}}
-                                        {{--<div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>--}}
-                                        {{--<div class="price_value">--}}
-                                            {{--<span class="price_value__ticket_system" style="display: block; font-size: 0.8em; margin-top: -5px; opacity: 0.7">from</span>--}}
-                                            {{--5900 <span style="font-size: 110%;">₽</span>--}}
-                                            {{--<img src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Prepay required">--}}
-                                            {{--<span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="price_block" style="left: 55.46677321214542%; width: 17.977227325209746%">--}}
-                                        {{--<div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>--}}
-                                        {{--<div class="price_value">--}}
-                                            {{--<span class="price_value__ticket_system" style="display: block; font-size: 0.8em; margin-top: -5px; opacity: 0.7">from</span>--}}
-                                            {{--6250 <span style="font-size: 110%;">₽</span>--}}
-                                            {{--<img src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Prepay required">--}}
-                                            {{--<span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="price_block" style="left: 74.44400053735517%; width: 24.555999462644834%">--}}
-                                        {{--<div class="left_line line"><ins style="margin-right: 2.5em;"></ins></div>--}}
-                                        {{--<div class="price_value">--}}
-                                            {{--<span class="price_value__ticket_system" style="display: block; font-size: 0.8em; margin-top: -5px; opacity: 0.7">from</span>--}}
-                                            {{--6450 <span style="font-size: 110%;">₽</span>--}}
-                                            {{--<img src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Prepay required">--}}
-                                            {{--<span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">per team</span>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="right_line line"><ins style="margin-left: 2.5em;"></ins></div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-
                             </div>
                             @endfor
                         </div>
@@ -356,33 +312,6 @@
             </div>
         </div>
     </div>
-    <!--
-    <div id="schedule" class="global clearfix preloaded">
-        <img id="timetable-preloader-image" src="https://media.claustrophobia.com/static/master/img/phobia-images/phobia-logo_short.png" alt="Loading">
-        <div class="timeslots_header">
-            <div class="date_gradient"><ins></ins></div>
-            <div class="header_lines"></div>
-        </div>
-        <div class="schedule_body">
-            <div class="scroller">
-                <div class="scroller_container">
-                    <div class="scroller_inner">
-                        <div class="time_gradient">
-                            <img src="https://media.claustrophobia.com/static/master/img/time_gradient.png" width="100%">
-                            <div class="hours_wrapper">
-                                <div class="hours"></div>
-                            </div>
-                        </div>
-                        <div class="schedule_lines"></div>
-                    </div>
-                </div>
-                <div class="scroller__track">
-                    <div class="scroller__bar"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
 </div>
     </div>
     <style>
@@ -984,38 +913,47 @@
         }
     </style>
     <style>
-
         #schedule .scroller::-webkit-scrollbar {
             width: 5px;
             height: 5px;
         }
-
         /* Track */
         #schedule .scroller::-webkit-scrollbar-track {
             background: transparent;
         }
-
         /* Handle */
         #schedule .scroller::-webkit-scrollbar-thumb {
             background: #888;
         }
-
         /* Handle on hover */
         #schedule .scroller::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
-
     </style>
-
 </section>
 @push('scripts')
     <script>
         function loadDay(self) {
-            let pos = jQuery(self).position();
+            let element = jQuery(self);
+            let pos = element.position();
             jQuery(self).parent().find('.active').removeClass('active');
             jQuery(self).addClass('active');
             let selection = jQuery("#line .selection");
             jQuery("#line .selection").css({'transform':'translateX('+(pos.left+selection.width()/3.5)+'px)'});
+
+            jQuery.ajax({
+                method:"POST",
+                url:"{!! route('frontend:widget:WidgetSchedule') !!}",
+                data:{
+                    date:element.attr('data-date')
+                },
+                success:function (data) {
+                  let content = jQuery(data.views.content);
+                  let schedule_lines = content.find('#schedule .schedule_lines');
+                    jQuery('#schedule .schedule_lines').html(schedule_lines.html());
+                }
+            });
+
         }
     </script>
 @endpush

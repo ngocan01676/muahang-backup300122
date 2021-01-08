@@ -113,7 +113,18 @@ $routers['room'] =   [
          ]
     ]
 ];
-
+$routers['widget'] =   [
+    "namespace" => "MissTerryTheme\Http\Controllers",
+    "controller" => "WidgetController",
+    "router" => [
+        'WidgetSchedule'=>[
+            "url" => "/widget/".md5('WidgetSchedule'),
+            "guard" => "",
+            "action"=>'WidgetSchedule',
+            "method"=>['POST']
+        ]
+    ]
+];
 $routers['page'] = [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "PageController",
