@@ -191,14 +191,14 @@
                                             $is_hide = false;
                                             $is_pay = false;
                                             if($is_disabled){
-                                                 $class = "booked";$is_hide = false;
+                                                 $class = "booked";$is_hide = true;
                                             }else{
                                                  $class = "";
                                                  $_timeNumber = strtotime($dateTime.' '.$time['date']);
                                                  if($isNow){
                                                      if($_timeNumber < time()){
                                                          $class.= " booked";
-                                                         $is_hide = false;
+                                                         $is_hide = true;
                                                      }else{
                                                          $class = "";
                                                         if($_timeNumber > $_timeBet_17){
