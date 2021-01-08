@@ -304,10 +304,10 @@ async function JAPAN_POST(tracking){
                                         continue;
                                     }
                                     if(!_databaseData.hasOwnProperty(results[key].type)){
-                                        _databaseData[results[key].type] = {};
+                                      //  _databaseData[results[key].type] = {};
                                     }
                                     if(!_databaseData[results[key].type].hasOwnProperty(results[key].tracking_id)){
-                                        _databaseData[results[key].type][results[key].tracking_id] = results[key];
+                                      //  _databaseData[results[key].type][results[key].tracking_id] = results[key];
                                     }
                                     count++;
                                 }
