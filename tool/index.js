@@ -334,7 +334,7 @@ async function JAPAN_POST(tracking){
                         }
                     }
 
-                   console.log(databaseData);
+                 
 
 
                     for(let name in databaseData){
