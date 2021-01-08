@@ -541,7 +541,7 @@
     @endverbatim
 </style>
 
-<section class="section" id="section_{!! md5(json_encode($data)) !!}" style=" padding-top: 30px;padding-bottom: 30px;">
+<section class="section" id="section_{!! md5(json_encode($data)) !!}" style=" padding-top: 30px;padding-bottom: 0px;">
     <div class="bg section-bg fill bg-fill  bg-loaded" >
     </div>
     <div class="section-content relative b-rooms-home">
@@ -551,7 +551,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="rooms-w col-xs-12">
+                    <div class="col rooms-w col-xs-12" style="margin: 0;">
                     @foreach($data['results'] as $i=>$row)
                         @php
                             $prices =  array_keys(json_decode($row->prices,true));

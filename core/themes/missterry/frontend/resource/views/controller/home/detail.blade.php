@@ -10,7 +10,7 @@
              $label = $prices[0];// 2-4(5)
         }else{
              $label = $prices[0].'-'.$prices[$n-1];// 2-4(5)
-            
+
         }
         $difficulty = "";
         switch ($result->difficult){
