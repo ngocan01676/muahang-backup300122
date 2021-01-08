@@ -144,7 +144,11 @@ class OrderExcelModel extends Model
 
             foreach ($datas as $key=>$values){
                 usort($values, function ($a, $b) {
-                    return ($a->pay_method) - $b->pay_method;
+                    if($a->pay_method == $b->pay_method){
+                        return $a->sort - $b->sort;
+                    }else{
+                        return $a->pay_method - $b->pay_method;
+                    }
                 });
                 $dataNew[$key] = $values;
             }
