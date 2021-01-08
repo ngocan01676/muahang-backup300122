@@ -156,8 +156,9 @@
                                             $timeAction =  isset($requests['date'])?strtotime($requests['date']):time();
                                             $dayNow = (int) date('d',$timeAction);
                                         @endphp
-                                        @for($i = 1 ; $i <= count($data['results']); $i++)
+                                        @for($i = 0 ; $i < count($data['results']); $i++)
                                             @php
+                                                $row = $data['results'][$i];
                                                 $dateTime = date('Y-m-d',$timeAction);
                                                 $week = (int) date('N', $timeAction);
                                                 $day = (int) date('d', $timeAction);
@@ -168,8 +169,8 @@
                                                ->get()->keyBy('booking_time')->all();
 
                                                $price_max = end($row->prices);
-                                           // requires_prepay booked
                                                $is_disabled = strtotime($dateTime.' 23:59:59') < time();
+
                                                 $isNow = $day == $dayNow;
                                             @endphp
                                             <div class="quest_schedule">
@@ -256,7 +257,7 @@
                                                             }
                                                         @endphp
                                                         @if($is_hide == false)
-                                                            @if($is_pay == false) <a href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
+                                                            @if($is_pay == false) <a {!! $row->id !!} href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
                                                                 <div class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
                                                                     {!! $time['date'] !!}
                                                                     @if($is_pay)

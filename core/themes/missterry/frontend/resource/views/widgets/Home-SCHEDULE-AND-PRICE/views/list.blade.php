@@ -380,14 +380,16 @@
                                         <div class="loader" style="display: none"></div>
 
                                         @foreach($data['results'] as $key=>$row)
+
                                         <div id="tab-{!! $row->id !!}" class="tab-content schedule_lines{!! $active == $row->id ?' active':'' !!}" style="{!! $active == $row->id ?'display: block':'display: none' !!}">
                                             @php
 
                                                 $timeAction = time();
                                                 $dayNow = (int) date('d');
                                             @endphp
-                                            @for($i = 1 ; $i <= count($data['results']); $i++)
+                                            @for($i = 0 ; $i < count($data['results']); $i++)
                                                 @php
+                                                    $row = $data['results'][$i];
                                                     $dateTime = date('Y-m-d',$timeAction);
                                                     $week = (int) date('N', $timeAction);
                                                     $day = (int) date('d', $timeAction);
@@ -487,7 +489,7 @@
                                                                 }
                                                             @endphp
                                                             @if($is_hide == false)
-                                                                @if($is_pay == false) <a href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
+                                                                @if($is_pay == false) <a {!! $row->id !!} href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
                                                                     <div class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
                                                                         {!! $time['date'] !!}
                                                                         @if($is_pay)

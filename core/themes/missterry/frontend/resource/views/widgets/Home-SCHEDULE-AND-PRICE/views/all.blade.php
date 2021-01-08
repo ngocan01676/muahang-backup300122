@@ -73,8 +73,8 @@
             <div class="selection" style="width: 37px; transform: translateX(10px);"></div>
         </div>
     </div>
-    <div id="schedule_template" class="global clearfix preloaded">
-        <img id="timetable-preloader-image" src="https://media.claustrophobia.com/static/master/img/phobia-images/phobia-logo_short.png" alt="Loading">
+    <div id="schedule_template" class="global clearfix">
+        <img id="timetable-preloader-image" src="{!! asset('logo.png') !!}" alt="Loading">
         <div class="timeslots_header">
             <div class="date_gradient"><ins></ins></div>
             <div class="header_lines"></div>
@@ -99,7 +99,7 @@
         </div>
     </div>
     <div id="schedule" class="global clearfix">
-        <img id="timetable-preloader-image" src="https://media.claustrophobia.com/static/master/img/phobia-images/phobia-logo_short.png" alt="Loading">
+        <img id="timetable-preloader-image" src="{!! asset('logo.png') !!}" alt="Loading">
         <div class="timeslots_header">
             <div class="date_gradient">
                 <ins></ins>
@@ -108,21 +108,21 @@
             </div>
             <div class="header_lines">
 
-                @foreach($data['results'] as $key=>$row)
+                @for($i = 0 ; $i < count($data['results']); $i++)
                     @php
+                        $row = $data['results'][$i];
+                       $prices =  array_keys(json_decode($row->prices,true));
+                       $n = count($prices);
+                       $row->times = json_decode($row->times,true);
+                       $row->prices = json_decode($row->prices,true);
+                       if($n == 1){
+                            $label = $prices[0];// 2-4(5)
+                       }else{
+                            $label = $prices[0].'-'.$prices[$n-1];// 2-4(5)
 
-                                    $prices =  array_keys(json_decode($row->prices,true));
-                                    $n = count($prices);
-                                    $row->times = json_decode($row->times,true);
-                                    $row->prices = json_decode($row->prices,true);
-                                    if($n == 1){
-                                         $label = $prices[0];// 2-4(5)
-                                    }else{
-                                         $label = $prices[0].'-'.$prices[$n-1];// 2-4(5)
-
-                                    }
-                            @endphp
-                <div class="quest_line header_line" data-id="794" data-name="{!! $row->title !!}"
+                       }
+                    @endphp
+                <div {!! $row->id !!} class="quest_line header_line" data-id="{!! $row->id !!}" data-name="{!! $row->title !!}"
                      data-city="UNKNOWN"
                      data-type="UNKNOWN"
                      data-complexity="UNKNOWN"
@@ -135,7 +135,7 @@
                         {!! $row->time !!} {!! z_language('Phút') !!}
                     </p>
                 </div>
-                @endforeach
+                @endfor
             </div>
         </div>
         <div class="schedule_body">
@@ -154,8 +154,9 @@
                                 $timeAction = time();
                                 $dayNow = (int) date('d');
                             @endphp
-                            @for($i = 1 ; $i <= count($data['results']); $i++)
+                            @for($i = 0 ; $i < count($data['results']); $i++)
                                     @php
+                                        $row = $data['results'][$i];
                                         $dateTime = date('Y-m-d',$timeAction);
                                         $week = (int) date('N', $timeAction);
                                         $day = (int) date('d', $timeAction);
@@ -254,7 +255,7 @@
                                             }
                                         @endphp
                                         @if($is_hide == false)
-                                            @if($is_pay == false) <a href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
+                                            @if($is_pay == false) <a {!! $row->id !!} href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
                                                 <div class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
                                                     {!! $time['date'] !!}
                                                     @if($is_pay)
@@ -312,6 +313,7 @@
             </div>
         </div>
     </div>
+
 </div>
     </div>
     <style>
@@ -685,13 +687,13 @@
 
         #schedule #timetable-preloader-image { display: none; }
 
-        #schedule.preloaded { width: 100%; height: 70vh; background-color: rgba(255, 255, 255, 0.1); -webkit-transition: all 1s ease-in-out; transition: all 1s ease-in-out; display: block; text-align: center; }
+        #schedule.preloaded { width: 100%; height: 50vh; background-color: rgba(255, 255, 255, 0.1); -webkit-transition: all 1s ease-in-out; transition: all 1s ease-in-out; display: block; text-align: center; }
 
         #schedule.preloaded .timeslots_header, #schedule.preloaded .schedule_body { opacity: 0; display: none; }
 
         #schedule.preloaded .calendar { display: none; }
 
-        #schedule.preloaded #timetable-preloader-image { display: inline-block; position: relative; top: 30vh; -webkit-animation-name: heartbeat; animation-name: heartbeat; -webkit-animation-duration: 3000ms; animation-duration: 3000ms; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-timing-function: ease-in-out; animation-timing-function: ease-in-out; z-index: 100; }
+        #schedule.preloaded #timetable-preloader-image { display: inline-block; position: relative; top: 15vh; -webkit-animation-name: heartbeat; animation-name: heartbeat; -webkit-animation-duration: 3000ms; animation-duration: 3000ms; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-timing-function: ease-in-out; animation-timing-function: ease-in-out; z-index: 100; }
 
         #schedule.preloaded #timetable-preloader-image { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
@@ -934,13 +936,15 @@
 @push('scripts')
     <script>
         function loadDay(self) {
+            let schedule =  jQuery('#schedule');
+
+            schedule.addClass('preloaded');
             let element = jQuery(self);
             let pos = element.position();
             jQuery(self).parent().find('.active').removeClass('active');
             jQuery(self).addClass('active');
             let selection = jQuery("#line .selection");
             jQuery("#line .selection").css({'transform':'translateX('+(pos.left+selection.width()/3.5)+'px)'});
-
             jQuery.ajax({
                 method:"POST",
                 url:"{!! route('frontend:widget:WidgetSchedule') !!}",
@@ -950,10 +954,10 @@
                 success:function (data) {
                   let content = jQuery(data.views.content);
                   let schedule_lines = content.find('#schedule .schedule_lines');
-                    jQuery('#schedule .schedule_lines').html(schedule_lines.html());
+                  jQuery('#schedule .schedule_lines').html(schedule_lines.html());
+                  schedule.removeClass('preloaded');
                 }
             });
-
         }
     </script>
 @endpush
