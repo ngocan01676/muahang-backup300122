@@ -162,6 +162,7 @@ class OrderExcelModel extends Model
                             if($k != $kk && $value1->token == $value->token )
                             {
                                 $value1->order_create_date = "";
+                                $value1->old_pay_method = $value1->pay_method;
                                 $value1->pay_method = "";
                                 $value1->phone = "";
                                 $value1->order_date = "";
