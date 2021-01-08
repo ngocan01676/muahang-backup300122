@@ -20,8 +20,18 @@ var pool  = mysql.createPool({
 
 var moment = require('moment');
 console.log("Time:"+moment().format("YYYY-MM-DD HH:mm:ss"));
-let timeEnd = moment().add('-30','minutes').format("YYYY-MM-DD hh:mm:ss");
-console.log(timeEnd);
+let timeEnd1 = moment().add('-30','minutes').format("YYYY-MM-DD hh:mm:ss");
+console.log(timeEnd1);
+
+let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:ss");
+
+// var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status < 10 and count<10 and (updated_at <= '"+timeEnd+"' or status=0) order by updated_at LIMIT 0,20";
+var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status<10 and (updated_at <= '"+timeEnd+"' or status = 2 and data='[]' and updated_at >= '"+moment().format("YYYY-MM-DD")+" 00:00:00' and updated_at <= '"+moment().format("YYYY-MM-DD")+" 23:59:59') order by updated_at LIMIT 0,20";
+console.log("SQL 1 : "+sql);
+
+let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 and updated_at >= '"+timeEnd+"' order by updated_at LIMIT 0,20";
+console.log("SQL 2 : "+sql1);
+
 
 async function YAMATO(tracking){
     return new  Promise (async function (resolve, reject) {
@@ -250,13 +260,14 @@ async function JAPAN_POST(tracking){
 
             // var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status < 10 and count<10 and (updated_at <= '"+timeEnd+"' or status=0) order by updated_at LIMIT 0,20";
             var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status<10 and (updated_at <= '"+timeEnd+"' or status = 2 and data='[]' and updated_at >= '"+moment().format("YYYY-MM-DD")+" 00:00:00' and updated_at <= '"+moment().format("YYYY-MM-DD")+" 23:59:59') order by updated_at LIMIT 0,20";
-            console.log(sql);
+            console.log("SQL 1 : "+sql);
 
             let rows = {};
             let _databaseData = {};
             conn.query(sql, function (err,results, fields) {
                 if (err) throw err;
                 let count =0;
+
                 for(let key in results){
                     let trangid = results[key].tracking_id;
                     if(trangid == "キャンセル"){
@@ -270,20 +281,67 @@ async function JAPAN_POST(tracking){
                 }
 
                 console.log('Data:'+count);
+                let a;
+                let hour = parseInt(moment().hour().toString());
 
-                databaseData = _databaseData;
+                if(hour === 7 || hour === 10 ){
 
-                for(let name in databaseData){
-                    for(let index in databaseData[name]){
-                        conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',`status` = \'2\',`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
-                    }
+                    a = new Promise(function (resolve, reject) {
+
+                        timeEnd1 = moment().add('-'+(60),'minutes').format("YYYY-MM-DD HH:mm:ss");
+                        let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 and updated_at >= '"+timeEnd+"' AND <='"+timeEnd1+"' order by updated_at LIMIT 0,100";
+
+                        console.log("SQL 2 : "+sql1);
+
+                        conn.query(sql1, function (err,results, fields) {
+                            if (err){
+                                resolve();
+                            }else{
+                                for(let key in results){
+                                    let trangid = results[key].tracking_id;
+                                    if(trangid == "キャンセル"){
+                                        continue;
+                                    }
+                                    if(!_databaseData.hasOwnProperty(results[key].type)){
+                                        _databaseData[results[key].type] = {};
+                                    }
+                                    if(!_databaseData[results[key].type].hasOwnProperty(results[key].tracking_id)){
+                                        _databaseData[results[key].type][results[key].tracking_id] = results[key];
+                                    }
+                                }
+                                resolve();
+                            }
+                        })
+                    });
+                }else{
+                    a = new Promise(function (resolve, reject) {
+                        resolve();
+                    });
                 }
-                databaseLock = {};
-                conn.end();
-                lock = false;
-                Cb();
+                a.then(function () {
+                    conn.end();
+                    databaseData = _databaseData;
+                    for(let name in databaseData){
+                        for(let index in databaseData[name]){
+                            conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',`status` = \'2\',`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
+                        }
+                    }
+                    databaseLock = {};
+                    lock = false;
+                    Cb();
+                }).catch(function () {
+                    conn.end();
+                    databaseData = _databaseData;
+                    for(let name in databaseData){
+                        for(let index in databaseData[name]){
+                            conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',`status` = \'2\',`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
+                        }
+                    }
+                    databaseLock = {};
+                    lock = false;
+                    Cb();
+                });
             });
-
         });
     }
     function AddQueue(){
