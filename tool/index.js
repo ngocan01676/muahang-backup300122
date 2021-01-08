@@ -270,7 +270,7 @@ async function JAPAN_POST(tracking){
 
                 for(let key in results){
                     let trangid = results[key].tracking_id;
-                    if(trangid == "キャンセル"){
+                    if(trangid.toString() === "キャンセル"){
                         continue;
                     }
                     if(!_databaseData.hasOwnProperty(results[key].type)){
@@ -284,12 +284,12 @@ async function JAPAN_POST(tracking){
                 let a;
                 let hour = parseInt(moment().hour().toString());
 
-                if(hour === 7 || hour === 10 ){
+                if(count < 10 && ( hour === 7 || hour === 10)){
 
                     a = new Promise(function (resolve, reject) {
 
                         timeEnd1 = moment().add('-'+(60),'minutes').format("YYYY-MM-DD HH:mm:ss");
-                        let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 and updated_at >= '"+timeEnd+"' AND <='"+timeEnd1+"' order by updated_at LIMIT 0,100";
+                        let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 and updated_at >= '"+timeEnd+"' AND <='"+timeEnd1+"' order by updated_at LIMIT 0,20";
 
                         console.log("SQL 2 : "+sql1);
 
@@ -299,7 +299,7 @@ async function JAPAN_POST(tracking){
                             }else{
                                 for(let key in results){
                                     let trangid = results[key].tracking_id;
-                                    if(trangid == "キャンセル"){
+                                    if(trangid.toString() === "キャンセル"){
                                         continue;
                                     }
                                     if(!_databaseData.hasOwnProperty(results[key].type)){
