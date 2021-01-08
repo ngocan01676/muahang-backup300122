@@ -316,6 +316,84 @@
 
 </div>
     </div>
+    <div class="pop-up2" style="display: none;">
+        <div class="content ">
+            <div id="popup" style="opacity: 1;">
+                <div data-habitat="C1">
+                    <div class="popup-background">
+                        <div class="popup-content">
+                            <div class="popup-pane booking-pane">
+                                <div class="popup-close-button"></div>
+                                <div><img class="quest-logo" alt="quest-logo" src="https://media.claustrophobia.com/media/l/akademiyagudini.png"></div>
+                                <div class="quest-title">Houdini's Academy</div>
+                                <div class="quest-address">Moscow,  1st Tverskaya-Yamskaya Str., building 7</div>
+                                <div class="quest-time">8 January, 21:00</div>
+                                <div class="quest-info">
+                                    <div class="complexity-locks">
+                                        <div class="complexity-lock locked"></div>
+                                        <div class="complexity-lock locked"></div>
+                                        <div class="complexity-lock locked"></div>
+                                        <div class="complexity-lock locked"></div>
+                                        <div class="complexity-lock unlocked"></div>
+                                    </div>
+                                    <div class="players-count">2-4</div>
+                                    <div class="adult-content">12+</div>
+                                    <div>
+                                        <div class="lang-tag">ru</div>
+                                        <div class="lang-tag">en</div>
+                                    </div>
+                                </div>
+                                <div class="steps-display-wrapper">
+                                    <div class="steps-display-map">
+                                        <div class="line"></div>
+                                        <div class="dot-left"></div>
+                                        <div class="dot-right"></div>
+                                        <div class="active-dot players"></div>
+                                    </div>
+                                    <div class="steps-names-wrapper">
+                                        <div class="step-name players active">Number of players</div>
+                                        <div class="step-name payment ">Payment method</div>
+                                    </div>
+                                </div>
+                                <div class="players-counter-wrapper">
+                                    <div class="players-info">
+                                        <div>Players</div>
+                                        <div class="booking-option-accompanying-text">Maximum 4</div>
+                                    </div>
+                                    <div class="players-counter">
+                                        <div class="counter-button decrease"></div>
+                                        <div class="current-players-amount">4</div>
+                                        <div class="counter-button increase"></div>
+                                    </div>
+                                </div>
+                                <div class="divider-wrapper empty-divider"></div>
+                                <div class="language-wrapper">
+                                    <div class="language-info">
+                                        <div>Language of the game</div>
+                                        <div class="booking-option-accompanying-text">Select language</div>
+                                    </div>
+                                    <div class="buttons-wrapper">
+                                        <div class="booking-button " title="Russian">ru</div>
+                                        <div class="booking-button pushed" title="English">en</div>
+                                    </div>
+                                </div>
+                                <div class="additional-services-wrapper">
+                                    <div class="divider-wrapper">
+                                        <div class="accompanying-text">Extra services</div>
+                                    </div>
+                                    <div class="services-options-wrapper"></div>
+                                </div>
+                                <div class="current-price"><span>5000&nbsp;₽</span></div>
+                                <div>~ <span>1250&nbsp;₽</span> / person</div>
+                                <div class="taxes-comment">VAT included</div>
+                                <div class="form-button next-step">Next</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <style>
         .round_button,
         .round_input input,
@@ -959,5 +1037,20 @@
                 }
             });
         }
+
+        jQuery().ready(function(){
+
+            jQuery("body").on("click",".requires_prepay",function(){
+                var data = jQuery(this).data();
+                console.log()
+                jQuery.mobilepopup({
+                    targetblock:".pop-up2",
+                    width:"100%",
+                    height:"650px"
+                });
+                return false;
+            });
+        });
+
     </script>
 @endpush

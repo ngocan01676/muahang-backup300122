@@ -305,7 +305,7 @@
                             @php
                                 $month_start = strtotime('first day of this month', time());
                                 $month_end = strtotime('last day of this month', time());
-                                $month = (int)date('m');
+
                                 $dayNow = (int)date('d');
                                 $timeNow = time();
                                 $monthYear = date('Y-m');
@@ -345,7 +345,7 @@
                                 $day =  date('d',$timeAction);
                                 $dateTime = date('Y-m-d',$timeAction);
                                 $week = (int) date('N', $timeAction);
-
+                                $month = (int)date('m',$timeAction);
                                 $isNow = $day == $dayNow;
                                 $_timeBet_17 = strtotime($dateTime.' 17:00:00');
                                 $_timeBet_9 = strtotime($dateTime.' 09:00:00');
@@ -658,13 +658,10 @@
     <link rel="stylesheet" href="{!! asset('theme/missterry/css/style.css') !!}">
     <script src="{!! asset('theme/missterry/plugin/OwlCarousel/owl.carousel.min.js') !!}"></script>
 
-    <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/plugins/highlightjs/default.min.css') !!}">
-    <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/src/mobilepopup.min.css') !!}">
 
-
-    <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/plugins/highlightjs/highlight.min.js') !!}"></script>
-    <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/src/mobilepopup.min.js') !!}"></script>
     <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/common.js') !!}"></script>
+
+
     <style>
         #section_294952785 {
             padding-top: 30px;

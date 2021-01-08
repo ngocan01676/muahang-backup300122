@@ -934,6 +934,7 @@
             }
         </style>
     </section>
+
 @endsection
 @push('scripts')
     <script>
