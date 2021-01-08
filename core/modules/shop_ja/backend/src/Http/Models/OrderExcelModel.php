@@ -157,6 +157,7 @@ class OrderExcelModel extends Model
                 $KOGYJA = [];
                 foreach ($dataNew['KOGYJA'] as $k=>$value){
                     if($value->type == "Info"){
+                        $value->old_pay_method = $value->pay_method;
                         $row = [$value];
                         foreach ($dataNew['KOGYJA'] as $kk=>$value1){
                             if($k != $kk && $value1->token == $value->token )
@@ -188,6 +189,7 @@ class OrderExcelModel extends Model
                         }
 
                         usort($row, function ($a, $b) {
+
                             if($a->old_pay_method == $b->old_pay_method){
                                 return $a->sort - $b->sort;
                             }else{
