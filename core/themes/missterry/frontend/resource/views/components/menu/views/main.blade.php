@@ -1,4 +1,4 @@
-<div class="header-wrapper stuck">
+<div class="header-wrapper stuck stuck1">
     @php
         $nestable  = \MissTerryTheme\Helper\Nestable::getInstance();
         $type = "miss_terry:menu";
