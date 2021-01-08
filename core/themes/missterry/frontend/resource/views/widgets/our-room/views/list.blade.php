@@ -1,6 +1,6 @@
 <style>
     .b-rooms-home {
-        margin-top: 20px;
+        margin-top: 0px;
     }
 
     .b-rooms-home .booking-schedule-w .schedule__rooms {
