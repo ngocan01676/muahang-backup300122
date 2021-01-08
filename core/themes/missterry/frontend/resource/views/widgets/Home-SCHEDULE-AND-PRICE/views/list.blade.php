@@ -518,7 +518,7 @@
                                                                 </div>
                                                                 <div class="price_value">
                                                     <span class="price_value__ticket_system"
-                                                          style="display: block; font-size: 0.7em; line-height: 0.8em; margin-top: -14px; opacity: 0.7">
+                                                          style="display: block; font-size: 0.7em; line-height: 1.2em; margin-top: -14px; opacity: 0.7">
                                                         {!! z_language('Từ') !!}
                                                     </span>
                                                                     {!! number_format($price) !!}  <span style="font-size: 110%;"> VNĐ </span>
