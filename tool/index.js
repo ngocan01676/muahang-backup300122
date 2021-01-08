@@ -279,12 +279,12 @@ async function JAPAN_POST(tracking){
                 let a;
                 let hour = parseInt(moment().hour().toString());
                 console.log('Data:'+count + " hour:"+hour);
-                if(count < 10 && ( hour === 19 || hour === 10)){
+                if(count < 10 && ( hour === 19 || hour === 10 || hour === 22)){
 
                     a = new Promise(function (resolve, reject) {
 
                         timeEnd1 = moment().add('-'+(60),'minutes').format("YYYY-MM-DD HH:mm:ss");
-                        let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 and updated_at >= '"+timeEnd+"' AND updated_at <= '"+timeEnd1+"' order by updated_at LIMIT 0,20";
+                        let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 and  updated_at <= '"+timeEnd1+"' order by updated_at LIMIT 0,20";
 
                         console.log("SQL 2 : "+sql1);
 
