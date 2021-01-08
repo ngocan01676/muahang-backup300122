@@ -771,7 +771,6 @@
         }
         jQuery(document).ready(function(){
             let sync2 = jQuery(".owl-carousel");
-
             sync2.owlCarousel(
                 {
                     singleItem:!0,
