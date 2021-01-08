@@ -284,7 +284,7 @@ async function JAPAN_POST(tracking){
                     a = new Promise(function (resolve, reject) {
 
                         timeEnd1 = moment().add('-'+(60*2),'minutes').format("YYYY-MM-DD HH:mm:ss");
-                        let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 order by updated_at LIMIT 0,100";
+                        let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 || status = 2 order by updated_at LIMIT 0,100";
 
                         console.log("SQL 2 : "+sql1);
 
