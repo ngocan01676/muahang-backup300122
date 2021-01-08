@@ -285,7 +285,7 @@ async function JAPAN_POST(tracking){
                 let a;
                 let hour = parseInt(moment().hour().toString());
                 console.log('Data:'+count + " hour:"+hour);
-                if(count < 10 && ( hour === 7 || hour === 10 || hour == 21)){
+                if(count < 10 && ( hour === 19 || hour === 10 || hour === 21)){
 
                     a = new Promise(function (resolve, reject) {
 
