@@ -474,7 +474,7 @@ async function JAPAN_POST(tracking){
         }else{
             process.stdout.write('.');
         }
-    },60000);
+    },20000);
 
     console.log('Init Run');
 
