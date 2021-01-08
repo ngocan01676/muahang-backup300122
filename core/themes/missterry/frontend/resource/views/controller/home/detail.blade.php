@@ -783,20 +783,20 @@
                     autoplay:false,
                     responsiveRefreshRate:200,
                     onInitialized:function(e){
-                        let count = jQuery('.owl-carousel .owl-item.active').length;
+                        /*let count = jQuery('.owl-carousel .owl-item.active').length;
 
                         if(count > 2){
                             setTimeout(function () {
-                                let d = parseInt('{!! date('d') !!}');
+                                let d = parseInt("");
                                 let val = -3;
                                 if(count == 3){
                                     val = -1;
                                 }else if(count == 5){
                                     val = -2;
                                 }
-                                sync2.trigger("to.owl.carousel", [val , 1])
+                                //sync2.trigger("to.owl.carousel", [val , 1])
                             },100);
-                        }
+                        }*/
                     },
                     responsive:{
                         0:{
