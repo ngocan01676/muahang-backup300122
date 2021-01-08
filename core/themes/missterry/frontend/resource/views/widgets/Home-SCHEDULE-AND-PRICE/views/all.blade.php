@@ -1101,7 +1101,7 @@
             position: relative;
             padding-left: 44px;
         }
-     
+
     </style>
 </section>
 @push('scripts')
