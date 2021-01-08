@@ -286,7 +286,7 @@
                                                           style="display: block; font-size: 0.7em; line-height: 1.2em; margin-top: -14px; opacity: 0.7">
                                                         {!! z_language('Từ') !!}
                                                     </span>
-                                                {!! number_format($price/1000) !!}  <span style="font-size: 110%;"> VNĐ </span>
+                                                {!! number_format($price/1000) !!}K  <span style="font-size: 110%;"> VNĐ </span>
                                             <!-- <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">{!! date('Y-m-d',$timeAction) !!}</span>-->
                                             </div>
                                             <div class="right_line line"><ins style="margin-left: 3.5em;"></ins></div>
