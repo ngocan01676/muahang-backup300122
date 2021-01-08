@@ -280,11 +280,11 @@ async function JAPAN_POST(tracking){
                     count++;
                 }
 
-                console.log('Data:'+count);
+
                 let a;
                 let hour = parseInt(moment().hour().toString());
-
-                if(count < 10 && ( hour === 7 || hour === 10)){
+                console.log('Data:'+count + " hour:"+hour);
+                if(count < 10 && ( hour === 7 || hour === 10 || hour == 21)){
 
                     a = new Promise(function (resolve, reject) {
 
@@ -297,6 +297,7 @@ async function JAPAN_POST(tracking){
                             if (err){
                                 resolve();
                             }else{
+                                let count = 0;
                                 for(let key in results){
                                     let trangid = results[key].tracking_id;
                                     if(trangid.toString() === "キャンセル"){
@@ -308,7 +309,9 @@ async function JAPAN_POST(tracking){
                                     if(!_databaseData[results[key].type].hasOwnProperty(results[key].tracking_id)){
                                         _databaseData[results[key].type][results[key].tracking_id] = results[key];
                                     }
+                                    count++;
                                 }
+                                console.log('Data 2:'+count + " hour:"+hour);
                                 resolve();
                             }
                         })
