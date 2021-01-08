@@ -175,7 +175,7 @@
 
     #schedule .date_gradient ins { position: relative; text-decoration: none; z-index: 2; }
 
-    #schedule .quest_schedule { /*background: rgba(255, 255, 255, 0.1);*/ position: relative; height: 66px; margin-bottom: 2px; padding: 10px 0px; }
+    #schedule .quest_schedule { /*background: rgba(255, 255, 255, 0.1);*/ position: relative; height: 75px; margin-bottom: 2px; padding: 10px 0px;    margin-top: 3px; }
 
     #schedule.vr-schedule .quest_schedule { height: 100px; }
 
@@ -200,7 +200,7 @@
 
     #schedule .price_block { position: absolute; bottom: -9px; height: 10px; opacity: 0.8; }
 
-    #schedule .price_block .price_value { width: 100%; text-align: center; font-size: 90%; font-weight: 700; line-height: 10px; font-family: 'roboto', sans-serif; }
+    #schedule .price_block .price_value { margin-top: 10px; width: 100%; text-align: center; font-size: 90%; font-weight: 700; line-height: 10px; font-family: 'roboto', sans-serif; }
 
     #schedule .price_block .line { position: absolute; top: 50%; width: 50%; height: 6px; margin-top: -6px; /*background: rgba(255, 255, 255, 0.3);*/ }
 
