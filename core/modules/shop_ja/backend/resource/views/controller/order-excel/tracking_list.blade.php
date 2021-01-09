@@ -117,7 +117,15 @@
     @endif
     <script>
         function updateStatus(self){
+            let data = $(self).data();
+            $(self).hide();
+            $.ajax({
+                type: "POST",
+                data: {act:"updateStatus",id:data.id},
+                success: function (html) {
 
+                }
+            });
         }
         $(document).ready(function () {
             let action = false;

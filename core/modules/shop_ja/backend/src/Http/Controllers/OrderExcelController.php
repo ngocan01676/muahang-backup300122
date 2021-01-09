@@ -1343,6 +1343,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         if(isset($data['pk']) && isset($data['name']) && $data['name'] == "save:note"){
             DB::table('shop_order_excel_tracking')->where('id',$data['pk'])->update(['note'=>$data['value']]);
             return '[]';
+        }else if(isset($data['act']) && $data['act'] == "updateStatus" && isset($data['id']) && !empty($data['id'])){
+            DB::table('shop_order_excel_tracking')->where('id',$data['id'])->update(['status'=>0]);
         }
         $filter = $request->query('filter', []);
         $search = $request->query('search', "");
