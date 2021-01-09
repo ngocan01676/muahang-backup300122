@@ -83,6 +83,7 @@
 
 @endpush
 @push('scripts')
+    <link rel="stylesheet" href="{{asset("module/admin/assets/bootstrap3-editable/css/bootstrap-editable.css")}}">
     <script src="{{asset('module/admin/assets/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
     <script>
         @foreach($models as $model)
