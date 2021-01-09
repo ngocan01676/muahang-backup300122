@@ -347,11 +347,11 @@
                         'lists' => [
                             'get_note' => ['label' => z_language('Ghi chú'), 'type' => 'text','callback' => "get_note"],
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
-                            'get_info_create_order' => ['label' => z_language('Ngày lập'), 'type' => 'text','callback' => "get_info_create_order"],
+                            'get_info_create_order' => ['label' => z_language('Ngày lập | Check cuối'), 'type' => 'text','callback' => "get_info_create_order"],
                             'get_info_fullname' => ['label' => z_language('Tên KH'), 'type' => 'text','callback' => "get_info_fullname"],
                             'tracking_id' => ['label' => z_language('Mã Tracking', false), 'type' => 'text'],
                             'updated_at' => ['label' => z_language('Ngày kiểm tra', false), 'type' => 'date'],
-                            'get_results' => ['label' => z_language('Kết quả', false), 'type' => 'text','callback' => "get_results"],
+                            'get_results' => ['label' => z_language('Ngày | Nội dung', false), 'type' => 'text','callback' => "get_results"],
                             'order_id' => ['label' => z_language('Mã đơn hàng', false), 'type' => 'id', 'primary' => true],
                             'type' => ['label' => z_language('CT chuyển phát', false), 'type' => 'title'],
                             'company' => ['label' => z_language('CT sản phẩm', false), 'type' => 'title'],
