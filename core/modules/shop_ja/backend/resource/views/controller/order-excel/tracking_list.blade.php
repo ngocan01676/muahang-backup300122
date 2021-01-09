@@ -118,6 +118,9 @@
     <script>
         function updateStatus(self){
             let data = $(self).data();
+            if(data.status != 3){
+                return;
+            }
             $(self).hide();
             $.ajax({
                 type: "POST",
