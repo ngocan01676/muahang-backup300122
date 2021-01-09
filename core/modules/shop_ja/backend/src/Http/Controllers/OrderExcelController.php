@@ -1433,7 +1433,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
                         }
                         if(isset($caches->data[$model->order_id][0])){
-                            return "<label class=\"label label-default\">".$caches->data[$model->order_id][0]->order_create_date."</label>".'<BR><label class="label label-default">'.$model->updated_at.'</label>';
+                            return "<label class=\"label label-default\">".date('d-m-Y',$caches->data[$model->order_id][0]->order_create_date)."</label>".'<BR><label class="label label-default">'.$model->updated_at.'</label>';
                         }
                     }
                     return $html;
