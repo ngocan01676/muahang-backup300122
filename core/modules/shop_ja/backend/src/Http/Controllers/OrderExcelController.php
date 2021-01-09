@@ -1460,7 +1460,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
                         }
                         if(isset($caches->data[$model->order_id][0])){
-                            return '<label class="label label-default"><a target="_blank" href="'.(isset($configs[$model->type])?$configs[$model->type]:"#").'">Kiểm tra</a></label>';
+                            return '<label class="label label-default"><a target="_blank" href="'.(isset($configs[$model->type])?$configs[$model->type]:"#").'">'.$model->company.'</a></label>';
                         }
                     }
                     return $html;
@@ -1472,7 +1472,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
                         }
                         if(isset($caches->data[$model->order_id][0])){
-                            return '<label class="label label-default"><a target="_blank" href="'.(isset($configsredeliver[$model->type])?$configsredeliver[$model->type]:"#").'">Gửi lại</a></label>';
+                            return '<label class="label label-default"><a target="_blank" href="'.(isset($configsredeliver[$model->type])?$configsredeliver[$model->type]:"#").'">'.$model->type.'</a></label>';
                         }
                     }
                     return $html;
