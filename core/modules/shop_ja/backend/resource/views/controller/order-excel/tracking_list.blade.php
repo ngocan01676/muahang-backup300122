@@ -95,7 +95,12 @@
     @endcomponent
 @endsection
 @push('links')
-
+    <style>
+        .listMain .table tbody tr td.column {
+            position: relative;
+            padding: 5px 0px 0px 3px;
+        }
+    </style>
 @endpush
 
 @push('scripts')
