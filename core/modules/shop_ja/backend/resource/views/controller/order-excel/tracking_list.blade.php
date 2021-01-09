@@ -91,8 +91,7 @@
         $('#editable_{!! $model->id !!}').editable({
             type:  'textarea',
             pk:    '{!! $model->id !!}',
-            name:"note",
-            action:  'save:note',
+            name:"save:note",
             template: '<table> <tr> <td>Trạng thái</td><td> <select class="form-control" name="status" id=""> <option value="1">check lại</option> <option value="2">không check nữa</option> </select> </td></tr><tr> <td>Note</td><td> <textarea name="note" class="form-control"></textarea> </td></tr></table>',
             url:   '{!! url()->current() !!}',
             title: '{!! z_language('Ghi chú') !!}'
