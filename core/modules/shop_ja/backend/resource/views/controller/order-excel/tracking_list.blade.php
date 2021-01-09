@@ -90,7 +90,8 @@
         $('#editable_{!! $model->id !!}').editable({
             type:  'textarea',
             pk:    '{!! $model->id !!}',
-            name:  'note',
+            name:"note",
+            action:  'save:note',
             url:   '{!! url()->current() !!}',
             title: '{!! z_language('Ghi chú') !!}'
         });
