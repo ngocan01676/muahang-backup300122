@@ -94,7 +94,7 @@
             url:   '{!! url()->current() !!}',
             title: '{!! z_language('Ghi chú') !!}'
         });
-        @@endforeach
+        @endforeach
     </script>
     <script>
         $(document).ready(function () {
