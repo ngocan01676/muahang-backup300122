@@ -17,7 +17,6 @@
     @breadcrumb()@endbreadcrumb
     @component('backend::layout.component.list',['name'=>'module:shop_ja:tracking','models'=>$models,'callback'=>$callback])
         @slot("tool")
-
             <div class="box-body">
                 <div class="col-md-12" style="padding:0">
                     <div class="row" style="padding: 5px">
@@ -77,6 +76,22 @@
                 </div>
             </div>
         @endslot
+        @slot("main")
+            @if(request()->isXmlHttpRequest())
+                <script class="script_editable">
+                    @foreach($models as $model)
+                    $('#editable_{!! $model->id !!}').editable({
+                        type:  'textarea',
+                        pk:    '{!! $model->id !!}',
+                        name:"save:note",
+                        template: '<table> <tr> <td>Trạng thái</td><td> <select class="form-control" name="status" id=""> <option value="1">check lại</option> <option value="2">không check nữa</option> </select> </td></tr><tr> <td>Note</td><td> <textarea name="note" class="form-control"></textarea> </td></tr></table>',
+                        url:   '{!! url()->current() !!}',
+                        title: '{!! z_language('Ghi chú') !!}'
+                    });
+                    @endforeach
+                </script>
+            @endif
+        @endslot
     @endcomponent
 @endsection
 @push('links')
@@ -86,7 +101,7 @@
 @push('scripts')
     <link rel="stylesheet" href="{{asset("module/admin/assets/bootstrap3-editable/css/bootstrap-editable.css")}}">
     <script src="{{asset('module/admin/assets/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
-
+    @if(!request()->isXmlHttpRequest())
     <script class="script_editable">
         @foreach($models as $model)
         $('#editable_{!! $model->id !!}').editable({
@@ -99,7 +114,7 @@
         });
         @endforeach
     </script>
-    
+    @endif
     <script>
         $(document).ready(function () {
             let action = false;

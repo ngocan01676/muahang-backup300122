@@ -143,7 +143,11 @@
                         </tr>
                     @endif
                     </tbody>
+
                 </table>
+                @if(isset($main))
+                    {!! $main !!}
+                @endif
             </div>
             <div class="box-footer clearfix">
                 {{ $models->links('backend::layout.pagination.pagination', []) }}
