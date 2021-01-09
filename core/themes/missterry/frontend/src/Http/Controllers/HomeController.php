@@ -200,7 +200,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             $results = DB::table('categories_translation')->where('_id',12)->where('lang_code',$this->config_language['lang'])->get()->all();
 
             $this->addDataGlobal("Blog-featured-title",$results[0]->name);
-
+            $this->addDataGlobal("Blog-featured-background",  'theme/missterry/images/IMG_2769-1.jpg');
             $models = DB::table('blog_post')->where('blog_post.category_id',$results[0]->_id);
             $models->join('blog_post_translation as rt', 'rt._id', '=', 'blog_post.id');
             $models->where('lang_code',$this->config_language['lang']);
@@ -275,7 +275,7 @@ class HomeController extends \Zoe\Http\ControllerFront
       //  $this->addDataGlobal("Blog-featured-title",$result->title);
         if(isset($this->config_language['lang'])){
             $results = DB::table('categories_translation')->where('slug',$slug)->where('lang_code',$this->config_language['lang'])->get()->all();
-
+            $this->addDataGlobal("Blog-featured-background",  'theme/missterry/images/IMG_2769-1.jpg');
             $this->addDataGlobal("Blog-featured-title",$results[0]->name);
 
             $models = DB::table('blog_post')->where('blog_post.category_id',$results[0]->_id);
