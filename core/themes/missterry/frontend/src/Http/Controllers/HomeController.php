@@ -275,6 +275,8 @@ class HomeController extends \Zoe\Http\ControllerFront
       //  $this->addDataGlobal("Blog-featured-title",$result->title);
         if(isset($this->config_language['lang'])){
             $results = DB::table('categories_translation')->where('slug',$slug)->where('lang_code',$this->config_language['lang'])->get()->all();
+            
+            $this->addDataGlobal("Blog-featured-style",  1);
             $this->addDataGlobal("Blog-featured-background",  'theme/missterry/images/IMG_2769-1.jpg');
             $this->addDataGlobal("Blog-featured-title",$results[0]->name);
 
