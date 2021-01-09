@@ -1339,7 +1339,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function tracking_list(Request $request){
         $this->getcrumb();
-
+        $data = $request->all();
+        if(isset($data['pk']) && isset($data['name']) && $data['name'] == "save:note"){
+            DB::table('shop_order_excel_tracking')->where('id',$data['pk'])->update(['note'=>data['value']]);
+            return '[]';
+        }
         $filter = $request->query('filter', []);
         $search = $request->query('search', "");
         $status = $request->query('status', "");
