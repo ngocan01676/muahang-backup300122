@@ -319,4 +319,10 @@ class HomeController extends \Zoe\Http\ControllerFront
         $this->addDataGlobal("Blog-featured-title",  z_language('Nhượng quyền thương mại'));
         return $this->render('home.franchise');
     }
+    public function get_Tag(){
+
+        $this->addDataGlobal("Blog-featured",  false);
+
+        return $this->render('home.tag');
+    }
 }
