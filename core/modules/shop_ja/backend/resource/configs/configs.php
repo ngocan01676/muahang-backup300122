@@ -355,7 +355,7 @@
                             'order_id' => ['label' => z_language('Mã đơn hàng', false), 'type' => 'id', 'primary' => true],
                             'type' => ['label' => z_language('CT chuyển phát', false), 'type' => 'title'],
                             'company' => ['label' => z_language('CT sản phẩm', false), 'type' => 'title'],
-                            'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status','onClick'=>'updateStatus'],
+                            'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status','onClick'=>'updateStatus(this)'],
                             'get_info_link' => ['label' => z_language('Fb'), 'type' => 'text','callback' => "get_info_link"],
                             'get_info_check' => ['label' => z_language('Kiểm tra'), 'type' => 'text','callback' => "get_info_check"],
                             'get_info_redeliver' => ['label' => z_language('Gửi lại'), 'type' => 'text','callback' => "get_info_redeliver"],

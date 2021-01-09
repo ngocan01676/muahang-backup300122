@@ -116,6 +116,9 @@
     </script>
     @endif
     <script>
+        function updateStatus(self){
+
+        }
         $(document).ready(function () {
             let action = false;
             function myFunction(){
