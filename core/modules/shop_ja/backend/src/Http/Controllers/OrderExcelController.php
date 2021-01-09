@@ -1369,12 +1369,20 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 //        if(isset($filter['des'])){
 //            $models->where('description', 'like', '%' . $filter['des'].'%');
 //        }
+        $value_status = 1;
         if (!empty($status) || $status != "") {
+            $value_status = $status == -1?0:$status;
             $models->where('status', $status == -1?0:$status);
         }else{
+            $value_status = 3;
             $models->where('status', 3);
         }
-        $models->orderBy('updated_at', 'desc');
+        if($value_status == 3){
+            $models->orderBy('created_at', 'asc');
+        }else{
+            $models->orderBy('updated_at', 'desc');
+        }
+
         $configs = [
             "YAMATO"=>"http://track.kuronekoyamato.co.jp/english/tracking",
             "SAGAWA"=>"http://k2k.sagawa-exp.co.jp/p/sagawa/web/okurijosearcheng.jsp",
