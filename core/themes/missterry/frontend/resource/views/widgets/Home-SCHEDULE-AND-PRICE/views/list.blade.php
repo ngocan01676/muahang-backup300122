@@ -335,10 +335,10 @@
                                         if($active == 0){
                                             $active = $row->id;
                                         }
-                                        $prices =  array_keys(json_decode($row->prices,true));
+                                        $prices =  array_keys($row->prices);
                                         $n = count($prices);
                                         $row->times = json_decode($row->times,true);
-                                        $row->prices = json_decode($row->prices,true);
+                                        $row->prices = $row->prices;
                                         if($n == 1){
                                              $label = $prices[0];// 2-4(5)
                                         }else{

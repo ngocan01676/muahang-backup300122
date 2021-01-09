@@ -652,7 +652,7 @@
     </div>
 @endsection
 @section('extra-script')
-    <script src="https://www.google.com/recaptcha/api.js?render=6LeSNSAaAAAAAPnoqpze0F2jMRW9CUMCP8ypmUeg"></script>
+
     <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/OwlCarousel/assets/owl.carousel.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/OwlCarousel/assets/owl.theme.default.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('theme/missterry/css/style.css') !!}">
@@ -702,6 +702,7 @@
     <script>
         function onClick() {
             grecaptcha.ready(function() {
+
                 grecaptcha.execute('6LeSNSAaAAAAAPnoqpze0F2jMRW9CUMCP8ypmUeg', {action: 'submit'}).then(function(token) {
                     var form = jQuery(".mobilepopup  form" );
                     var datas = form.serializeArray();
@@ -771,7 +772,6 @@
         }
         jQuery(document).ready(function(){
             let sync2 = jQuery(".owl-carousel");
-
             sync2.owlCarousel(
                 {
                     singleItem:!0,

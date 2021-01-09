@@ -172,6 +172,7 @@ class BookingController extends \Zoe\Http\ControllerBackend
             unset($parameter['action']);
         }
         $lang = $this->data['current_language'];
+        $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
 //        $models->select([]);
         $models = $models->paginate($item, ['*'], 'page', $page);
         $models->appends($parameter);

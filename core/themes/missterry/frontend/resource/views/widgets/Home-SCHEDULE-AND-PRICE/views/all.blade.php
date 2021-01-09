@@ -55,12 +55,13 @@
                 @php
                     $day =  date('d',$timeAction);
                     $dateTime = date('Y-m-d',$timeAction);
+
                     $week = date('D', $timeAction);
                     $isNow = $day == $dayNow;
                     $holiday = false;
 
                 @endphp
-                <div onclick="loadDay(this)" data-date="{!! $dateTime !!}" data-day="{!! $day !!}" class="one_day @if($holiday) holiday @endif @if($i == 1) active current @endif">
+                <div onclick="loadDay(this)" data-date="{!! date('Y-m-d',$timeAction) !!}" data-day="{!! $day !!}" class="one_day @if($holiday) holiday @endif @if($i == 1) active current @endif">
                     <div class="date">
                         {!! $day !!}
                     </div>
@@ -191,14 +192,14 @@
                                             $is_hide = false;
                                             $is_pay = false;
                                             if($is_disabled){
-                                                 $class = "booked";$is_hide = false;
+                                                 $class = "booked";$is_hide = true;
                                             }else{
                                                  $class = "";
                                                  $_timeNumber = strtotime($dateTime.' '.$time['date']);
                                                  if($isNow){
                                                      if($_timeNumber < time()){
                                                          $class.= " booked";
-                                                         $is_hide = false;
+                                                         $is_hide = true;
                                                      }else{
                                                          $class = "";
                                                         if($_timeNumber > $_timeBet_17){
@@ -256,7 +257,7 @@
                                         @endphp
                                         @if($is_hide == false)
                                             @if($is_pay == false) <a {!! $row->id !!} href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
-                                                <div data-key="{!! $key !!}" data-address="{!! $row->address !!}" data-title="{!! $row->title !!}" data-id="{!! $row->id !!}" data-date="{!! $dateTime !!}" data-time="{!! $time['date'] !!}" class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
+                                                <div data-key="{!! $key !!}" data-address="{!! $row->address !!}" data-title="{!! $row->title !!}" data-id="{!! $row->id !!}" data-date="{!! date('d-m-Y',$timeAction) !!}" data-time="{!! $time['date'] !!}" class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
                                                     {!! $time['date'] !!}
                                                     @if($is_pay)
                                                         <img class="slot prepay_card"
@@ -327,6 +328,8 @@
                         <input type="hidden" value="" name="time" class="time-value">
                         <input type="hidden" value="" name="date" class="date-value">
                         <input type="hidden" value="" name="key" class="key-value">
+                        <input type="hidden" value="" name="id" class="id-value">
+                        <input type="hidden" value="" name="price" class="price-value">
                         <div class="row" style=" text-align: center;display: flex;justify-content: center;align-items: center;">
                             <div class="col small-12" style="text-align: center;padding: 0 15px 5px;">
                                 <div>
@@ -371,7 +374,7 @@
                                     <div class="current-price">
                                         <span>0&nbsp;vnđ</span>
                                     </div>
-                                    <div>~ <span>0&nbsp;vnđ</span> / {!! z_language('Người') !!}</div>
+                                    <div class="price_human">~ <span>0&nbsp;vnđ</span> / {!! z_language('Người') !!}</div>
                                 </div>
                                 <p>
                                     <div class="prices_config" style="display: none"><textarea></textarea></div>
@@ -1017,12 +1020,7 @@
             background: #ffffff;
         }
         .mobilepopup.open .mobilepopup-outer .mobilepopup-inner {
-            width: 100%;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            position: fixed;
-            z-index: 15;
+
 
         }
         .mobilepopup.open .mobilepopup-outer .mobilepopup-inner  .quest-address ,.mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-time,.mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-title{
@@ -1101,20 +1099,58 @@
             position: relative;
             padding-left: 44px;
         }
-        .players-counter-wrapper .players-info::before {
-            background-image: url(https://media.claustrophobia.com/static/master/build/assets/player-big-icon.svg);
-            width: 35px;
-        }
-        .booking-pane .booking-option-accompanying-text {
-            color: #5E5372;
-            font-size: 13px;
-            letter-spacing: 0.08px;
-            line-height: 14px;
-        }
+
     </style>
 </section>
 @push('scripts')
+
     <script>
+
+        function onClick() {
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LeSNSAaAAAAAPnoqpze0F2jMRW9CUMCP8ypmUeg', {action: 'submit'}).then(function(token) {
+                    var form = jQuery(".mobilepopup  form" );
+                    var datas = form.serializeArray();
+                    var reqData = {};
+                    for(let i = 0; i<datas.length;i++){
+                        reqData[datas[i].name] = datas[i].value;
+                    }
+
+                    let dom = jQuery(".mobilepopup");
+                    let number = dom.find('[name="number"]').val();
+                    let time = dom.find('[name="time"]').val();
+                    let date = dom.find('[name="date"]').val();
+                    let id =  dom.find('[name="id"]').val();
+                    let price =  dom.find('[name="price"]').val();
+                    reqData['date'] = date;
+                    reqData['time'] = time;
+                    reqData['id'] = id;
+                    reqData['price'] = price;
+                    jQuery.ajax({
+                        url:"{!! route('frontend:room:register_form') !!}",
+                        method:"POST",
+                        data:{
+                            recaptcha_token:token,
+                            data:reqData
+                        },
+                        success:function (resData) {
+                            form.find('.error .text-error').empty("");
+                            form.find('.error').removeClass('error');
+                            if(resData.hasOwnProperty('errors')){
+                                for(let i in resData.errors){
+                                    console.log(resData.errors[i]);
+                                    let parent = form.find('[name="'+i+'"]').parent();
+                                    parent.find('.text-error').html(resData.errors[i][0]);
+                                    parent.addClass('error');
+                                }
+                            }else if(resData.hasOwnProperty('success')){
+                                window.location.replace(resData.uri);
+                            }
+                        }
+                    });
+                });
+            });
+        }
 
         function onAction(self) {
 
@@ -1129,7 +1165,6 @@
             let date = dom.find('[name="date"]').val();
             let key = dom.find('[name="key"]').val();
 
-            console.dir(time);
 
             for(let i in configs){
                 if(configs[i].keys.includes(number) || configs[i].keys.length == 2 && configs[i].keys[0]< number && configs[i].keys[1] > number  ){
@@ -1145,8 +1180,9 @@
                 price = config[key];
             }
             console.log(price);
-
-            dom.find('.quest-price .current-price span').html(price+" vnđ");
+            dom.find('[name="price"]').val(price);
+            dom.find('.quest-price .current-price span').html(formatMoney(price)+" vnđ");
+            dom.find('.quest-price .price_human span').html(formatMoney(Math.ceil(price/number))+" vnđ");
 
         }
         function loadDay(self) {
@@ -1190,6 +1226,7 @@
                 dom.find('.time-value').val(data.time);
                 dom.find('.date-value').val(data.date);
                 dom.find('.key-value').val(data.key);
+                dom.find('.id-value').val(data.id);
 
                 dom.find('.prices_config textarea').html(jQuery(this).find('.value').val());
                 jQuery.mobilepopup({
