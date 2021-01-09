@@ -1426,7 +1426,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 },
                 "get_info_create_order"=>function($model) use($configs,$caches){
                     $html = "";
-                    if($model->status > 2 && $model->status< 10) {
+                    if(true) {
                         if(!isset($caches->data[$model->order_id])){
                             $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
                         }
@@ -1438,7 +1438,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 },
                 "get_info_fullname"=>function($model) use($configs,$caches){
                     $html = "";
-                    if($model->status > 2 && $model->status< 10) {
+                    if(true) {
                        if(!isset($caches->data[$model->order_id])){
                            $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
                        }
@@ -1450,7 +1450,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 },
                 "get_info_link"=>function($model) use($configs,$caches){
                     $html = "";
-                    if($model->status > 2 && $model->status< 10) {
+                    if(true) {
                         if(!isset($caches->data[$model->order_id])){
                             $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
                         }
@@ -1462,7 +1462,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 },
                 "get_info_check"=>function($model) use($configs,$caches){
                     $html = "";
-                    if($model->status > 2 && $model->status< 10) {
+                    if(true) {
                         if(!isset($caches->data[$model->order_id])){
                             $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
                         }
@@ -1474,7 +1474,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 },
                 "get_info_redeliver"=>function($model) use($configsredeliver,$caches){
                     $html = "";
-                    if($model->status > 2 && $model->status< 10) {
+                    if(true) {
                         if(!isset($caches->data[$model->order_id])){
                             $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
                         }
