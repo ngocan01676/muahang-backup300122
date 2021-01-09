@@ -367,7 +367,7 @@ function list_label($val, $columns, $option, $model = null)
                     }
                 }
                 if(isset($columns['onClick'])){
-                    $label = '<div data-id="'.$model->id.'" class="text-center"><a href="javascript:void(0);" onclick="'.$columns['onClick'].'">' . $label . '</a></div>';
+                    $label = '<div class="text-center"><a data-id="'.$model->id.'" href="javascript:void(0);" onclick="'.$columns['onClick'].'">' . $label . '</a></div>';
                 }else{
                     $label = '<div class="text-center">' . $label . '</div>';
                 }
