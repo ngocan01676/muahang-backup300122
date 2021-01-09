@@ -162,9 +162,71 @@ class HomeController extends \Zoe\Http\ControllerFront
         return $this->render('home.faqs',['results'=>$results]);
     }
     public function get_offer(){
-        return $this->render('home.offer');
+
+        if(isset($this->config_language['lang'])){
+            $results = DB::table('categories_translation')->where('_id',50)->where('lang_code',$this->config_language['lang'])->get()->all();
+
+            $this->addDataGlobal("Blog-featured-title",$results[0]->name);
+
+            $models = DB::table('blog_post')->where('blog_post.category_id',$results[0]->_id);
+            $models->join('blog_post_translation as rt', 'rt._id', '=', 'blog_post.id');
+            $models->where('lang_code',$this->config_language['lang']);
+            $total_records = $models->count();
+
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $limit = 4;
+            $total_page = ceil($total_records / $limit);
+            if ($current_page > $total_page){
+                $current_page = $total_page;
+            }
+            else if ($current_page < 1){
+                $current_page = 1;
+            }
+
+            $start = ($current_page - 1) * $limit;
+            $results = $models->offset($start)->limit($limit)->get()->all();
+
+            return $this->render('home.offer',[
+                'results'=>$results,
+                'pagination'=>[
+                    'current_page'=>$current_page,
+                    'total_page'=>$total_page,
+                ]
+            ]);
+        }
     }
     public function get_news(){
+        if(isset($this->config_language['lang'])){
+            $results = DB::table('categories_translation')->where('_id',12)->where('lang_code',$this->config_language['lang'])->get()->all();
+
+            $this->addDataGlobal("Blog-featured-title",$results[0]->name);
+
+            $models = DB::table('blog_post')->where('blog_post.category_id',$results[0]->_id);
+            $models->join('blog_post_translation as rt', 'rt._id', '=', 'blog_post.id');
+            $models->where('lang_code',$this->config_language['lang']);
+            $total_records = $models->count();
+
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $limit = 4;
+            $total_page = ceil($total_records / $limit);
+            if ($current_page > $total_page){
+                $current_page = $total_page;
+            }
+            else if ($current_page < 1){
+                $current_page = 1;
+            }
+
+            $start = ($current_page - 1) * $limit;
+            $results = $models->offset($start)->limit($limit)->get()->all();
+
+            return $this->render('home.blog-list',[
+                'results'=>$results,
+                'pagination'=>[
+                    'current_page'=>$current_page,
+                    'total_page'=>$total_page,
+                ]
+            ]);
+        }
         return $this->render('home.news');
     }
     public function get_contact(){

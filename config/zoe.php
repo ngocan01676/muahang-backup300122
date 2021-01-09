@@ -37,10 +37,10 @@ return [
         ]
     ],
     'language' => [
-        'en_us' => ['flag' => 'gb', 'lang' => 'en_us', 'label' => 'English (United States)','router'=>'en'],
-        'vi' => ['flag' => 'vn', 'lang' => 'vi', 'label' => 'Viet Nam','router'=>'vi'],
-        'jp' => ['flag' => 'jp', 'lang' => 'jp', 'label' => 'Japanese','router'=>'jp'],
-        'zh_cn' => ['flag' => 'cn', 'lang' => 'zh_cn', 'label' => 'Chinese (PRC)','router'=>'cn'],
+        'en_us' => ['flag' => 'gb', 'lang' => 'en_us', 'label' => 'English (United States)','router'=>'en','date'=>'Y-m-d H:i:s'],
+        'vi' => ['flag' => 'vn', 'lang' => 'vi', 'label' => 'Viet Nam','router'=>'vi','date'=>'Y-m-d H:i:s'],
+        'jp' => ['flag' => 'jp', 'lang' => 'jp', 'label' => 'Japanese','router'=>'jp','date'=>'Y-m-d H:i:s'],
+        'zh_cn' => ['flag' => 'cn', 'lang' => 'zh_cn', 'label' => 'Chinese (PRC)','router'=>'cn','date'=>'Y-m-d H:i:s'],
     ],
     'default_lang'=>'en_us',
 //    'language_data' => include base_path('tmp/lang.php'),

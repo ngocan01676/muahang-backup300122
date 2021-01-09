@@ -9,6 +9,11 @@ $routers['home'] = [
            'vi'=>[
                'uri'=>'/khach-hang-noi-ve-chung-toi/{slug}'
            ],
+       ],
+       'news'=>[
+           'vi'=>[
+               'uri'=>'/tin-tuc'
+           ],
        ]
     ],
     "router" => [

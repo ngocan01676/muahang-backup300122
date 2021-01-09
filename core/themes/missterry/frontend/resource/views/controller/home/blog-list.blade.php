@@ -13,17 +13,15 @@
                                         <div class="box box-normal box-text-bottom box-blog-post has-hover">
                                             <div class="box-image">
                                                 <div class="image-zoom image-cover" style="padding-top:56.25%;">
-                                                    <img width="300" height="183" src="https://demo.missterry.vn/wp-content/uploads/2018/03/comment2-300x183.png" class="attachment-medium size-medium wp-post-image" alt="" loading="lazy" srcset="https://demo.missterry.vn/wp-content/uploads/2018/03/comment2-300x183.png 300w, https://demo.missterry.vn/wp-content/uploads/2018/03/comment2-768x468.png 768w, https://demo.missterry.vn/wp-content/uploads/2018/03/comment2.png 1000w" sizes="(max-width: 300px) 100vw, 300px">  							  							  						</div>
+                                                    <img width="300" height="183" src="{!! get_thumbnails($result->image,300) !!}"
+                                                         class="attachment-medium size-medium wp-post-image" alt="" loading="lazy"
+                                                         srcset="{!! get_thumbnails($result->image,300) !!} 300w, {!! get_thumbnails($result->image,768) !!} 768w, {!! get_thumbnails($result->image,1000) !!} 1000w" sizes="(max-width: 300px) 100vw, 300px">  							  							  						</div>
                                             </div>
                                             <div class="box-text text-center">
                                                 <div class="box-text-inner blog-post-inner">
-
-
                                                     <h5 class="post-title is-large ">{!! $result->title !!}</h5>
-                                                    <div class="post-meta is-small op-8">March 14, 2018</div>					<div class="is-divider"></div>
-
-
-
+                                                    <div class="post-meta is-small op-8">{!! date_lang($result->created_at) !!}</div>
+                                                    <div class="is-divider"></div>
                                                 </div>
                                             </div>
                                         </div>

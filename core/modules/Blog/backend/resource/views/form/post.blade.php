@@ -348,8 +348,8 @@
                     preview_image_wrapper.show();
                     console.log(file.url);
 
-                    preview_image_wrapper.find("img").attr('src', file.url);
-                    preview_image_wrapper.find("[name='image']").val(file.url);
+                    preview_image_wrapper.find("img").attr('src', "/"+file.path.split("\\").join("/"));
+                    preview_image_wrapper.find("[name='image']").val("/"+file.path.split("\\").join("/"));
 
                     $('#elfinderShow').modal('hide');
                 },

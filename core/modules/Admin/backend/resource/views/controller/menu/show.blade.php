@@ -611,7 +611,79 @@
 @push('scripts')
     <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
     <script>
+        function ChangePar(self) {
+            var parent = $(self).closest("td");
+            var valPar = parent.find(".selectChange :selected").attr('data-uri');
 
+            var par = {};
+            var index = 0;
+            //for (var i in arr) {
+            var open = 0;
+            for (var v of valPar) {
+                if (v === "{") {
+                    open = 1;
+                    index++;
+                    par[index] = "";
+                } else if (v === "}") {
+                    open = 2;
+                    index++;
+                } else {
+                    if (open === 1) {
+                        par[index] += v;
+                    }
+                }
+            }
+            if (index > 0) {
+                var opt = {
+                    title: "Add image",
+                    size: "large",
+                    showclose: false,
+                    size_labels: "col-sm-2",
+                    size_inputs: "col-sm-10",
+                    content: [],
+                    before: function (window) {
+                        var val = parent.find('.val').val();
+                        try {
+                            val = JSON.parse(val);
+                        } catch (e) {
+                            val = {};
+                        }
+                        $(window.content).find('form').zoe_inputs('set', val);
+                    },
+                    dismiss: function (event) {
+                        console.log("Dismiss");
+                    },
+                    cancel: function (data, array, event) {
+                        console.log("Cancel");
+                    },
+                    ok: function (data, array, event) {
+                        console.log("OK\n" + JSON.stringify(data));
+                        parent.find('.val').val(JSON.stringify(data));
+                        console.log(valPar);
+                        for (var k in data) {
+                            valPar = valPar.replace(new RegExp('{' + k + '}', 'g'), data[k]);
+                        }
+                        console.log(valPar);
+                        parent.find(".selectChange :selected").html(valPar);
+                    },
+                    complete: function () {
+                        console.log("Complete");
+                    },
+                };
+                for (var i in par) {
+                    opt.content.push({
+                        input: {
+                            type: "text",
+                            label: par[i],
+                            name: par[i],
+                            placeholder: par[i],
+                            value: ""
+                        }
+                    });
+                }
+                bootpopup(opt);
+            }
+        }
         $(document).ready(function () {
             function SavePosition(id, cb) {
                 var e = $('#nestable').data('output', $('#nestable-output'));

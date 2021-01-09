@@ -741,8 +741,15 @@ function z_language_debug($key, $par = [], $__env = null, $tag = "")
     return !empty($tag)?"<span class='-lang-'>".$html."</span>":$html;
 }
 function router_frontend_lang($name, $parameters = [], $absolute = true){
-    $router =  isset(app()->config_language['router']) && !empty(app()->config_language['router'])?app()->config_language['router'].'_'.$name:$name;
+    $config_language = app()->config_language;
+    $router =  isset($config_language['router']) && !empty($config_language['router'])?$config_language['router'].'_'.$name:$name;
     return route('frontend:'.$router,$parameters,$absolute);
+}
+function date_lang($date){
+   $config_language = app()->config_language;
+
+   $format = isset($config_language['date']) && !empty($config_language['date'])?$config_language['date']:'Y-m-d H:i:s';
+   return date($format,strtotime($date));
 }
 function acl_alias($key){
     return "Acl:".$key;
