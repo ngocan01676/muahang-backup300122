@@ -1,21 +1,10 @@
 @section('content')
     <section class="section" id="section_569037123">
-        <div class="bg section-bg fill bg-fill bg-loaded">
-
-
-
-
-
-        </div>
-
+        <div class="bg section-bg fill bg-fill bg-loaded"></div>
         <div class="section-content relative">
-
             <div class="row" id="row-332295208">
-
                 <div id="col-1066817133" class="col small-12 large-12">
                     <div class="col-inner text-center">
-
-
                         <div id="text-609856575" class="text price">
 
                             <h3 class="w-iconbox-title"><i class="fas fa-gift"></i>{!! z_language('BẠN NHẬN ĐƯỢC GÌ KHI MUA NHƯỢNG QUYỀN CỦA CHÚNG TÔI?') !!}</h3>
@@ -30,8 +19,8 @@
                                 <li><span>{!! z_language('Tư vấn phát triển doanh nghiệp sau khi thành lập.') !!}</span></li>
                                 <li><span>{!! z_language('Thương hiệu dễ nhận biết. Hiện tại, hàng chục công ty đang làm việc trên thị trường phòng nhiệm vụ ở Ukraine và châu Âu, và ngày càng khó khăn hơn cho mỗi thương hiệu mới tham gia thị trường.') !!}</span></li>
                             </ol>
-                            <p><span>{!! z_language('Trên thực tế, bạn không cần phải đi tất cả các con đường để khởi động một doanh nghiệp mà chúng tôi đã trải qua.&nbsp;Bạn sẽ có thể tận dụng kinh nghiệm thực tế tích lũy được của chúng tôi và, không phải là không quan trọng, sẽ giúp giảm đáng kể thời gian và chi phí khởi động dự án.') !!}</span></p>
-                            <style>
+                            <p><span>{!! z_language('Trên thực tế, bạn không cần phải đi tất cả các con đường để khởi động một doanh nghiệp mà chúng tôi đã trải qua. Bạn sẽ có thể tận dụng kinh nghiệm thực tế tích lũy được của chúng tôi và, không phải là không quan trọng, sẽ giúp giảm đáng kể thời gian và chi phí khởi động dự án.') !!}</span></p>
+                             <style>
                                 #text-609856575 {
                                     text-align: left;
                                 }

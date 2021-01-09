@@ -7,7 +7,8 @@
             </li>
             <li>
                 <div class="dropdown choose-country">
-                    <a class="#" data-toggle="dropdown" href="#"><img {!! ZoeImage('/theme/zoe/img/flags/gb.png') !!}
+                    <a class="#" data-toggle="dropdown" href="#">
+                        <img {!! ZoeImage('/theme/zoe/img/flags/gb.png') !!}
                                 alt="Great Britain"> UK</a>
                     <ul class="dropdown-menu" role="menu">
                         <li role="menuitem"><a href="#"><img {!! ZoeImage('/theme/zoe/img/flags/us.png') !!}
@@ -20,7 +21,7 @@
                 </div>
             </li>
             @if(auth())
-                <li><a href="/logout">Logout</a></li>
+                <li><a href="/logout">{!! z_language('Logout') !!}</a></li>
             @else
                 <li><a href="/login">Login</a></li>
             @endif

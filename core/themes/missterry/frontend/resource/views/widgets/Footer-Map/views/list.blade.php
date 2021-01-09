@@ -20,7 +20,7 @@
             <div id="col-772906923" class="col medium-4 small-12 large-4"  >
                 <div class="col-inner"  >
                     <a class="button secondary is-link lowercase"  >
-                        <i class="icon-map-pin-fill" ></i>  <span>Add 1: Floor 10, 381 Doi Can Str, Hanoi</span>
+                        <i class="icon-map-pin-fill" ></i>  <span>{!! z_language('Add 1: Floor 10, 381 Doi Can Str, Hanoi') !!}</span>
                     </a>
                     <p><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d59584.505629228996!2d105.81288018518065!3d21.03142149848499!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x62a40c55ed83880!2sMiss%20Terry%20-%20Escape%20Rooms!5e0!3m2!1svi!2s!4v1607939170168!5m2!1svi!2s" width="600" height="150" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></p>
                 </div>
@@ -33,7 +33,7 @@
             <div id="col-1930442005" class="col medium-4 small-12 large-4"  >
                 <div class="col-inner"  >
                     <a class="button secondary is-link lowercase"  >
-                        <i class="icon-map-pin-fill" ></i>  <span>Add 2: Floor 11, 24 Hoang Quoc Viet Str, Hanoi</span>
+                        <i class="icon-map-pin-fill" ></i>  <span>{!! z_language('Add 2: Floor 11, 24 Hoang Quoc Viet Str, Hanoi') !!}</span>
                     </a>
                     <p><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d59584.505629228996!2d105.81288018518065!3d21.03142149848499!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x62a40c55ed83880!2sMiss%20Terry%20-%20Escape%20Rooms!5e0!3m2!1svi!2s!4v1607939170168!5m2!1svi!2s" width="600" height="150" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></p>
                 </div>
