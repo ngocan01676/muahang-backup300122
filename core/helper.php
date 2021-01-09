@@ -366,7 +366,12 @@ function list_label($val, $columns, $option, $model = null)
                         }
                     }
                 }
-                $label = '<div class="text-center">' . $label . '</div>';
+                if(isset($columns['onClick'])){
+                    $label = '<div data-id="'.$model->id.'" class="text-center"><a href="javascript::void();" onclick="'.$columns['onClick'].'">' . $label . '</a></div>';
+                }else{
+                    $label = '<div class="text-center">' . $label . '</div>';
+                }
+
             }
         }
         if (isset($columns['align'])) {
