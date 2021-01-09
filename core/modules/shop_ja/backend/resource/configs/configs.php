@@ -359,7 +359,7 @@
                             'get_info_link' => ['label' => z_language('Fb'), 'type' => 'text','callback' => "get_info_link"],
                             'get_info_check' => ['label' => z_language('Kiểm tra'), 'type' => 'text','callback' => "get_info_check"],
                             'get_info_redeliver' => ['label' => z_language('Gửi lại'), 'type' => 'text','callback' => "get_info_redeliver"],
-                            'get_info_1' => ['label' => '', 'type' => 'text','callback' => "get_info_1"],
+                            'get_info_1' => ['label' => 'FB | Kiểm tra | Gửi lại đơn', 'type' => 'text','callback' => "get_info_1"],
 //                            'count' => ['label' => z_language('Số lần', false), 'type' => 'number'],
 //                            'GetTimeCheck' => ['label' => z_language('Thơi gian chờ', false), 'type' => 'text','callback' => "GetTimeCheck"],
 //                            'created_at' => ['label' => z_language('Ngày đăng', false), 'type' => 'date'],
