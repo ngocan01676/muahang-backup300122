@@ -1485,6 +1485,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }
                     return $html;
                 },
+                "get_note"=>function($model) use($configsredeliver,$caches){
+                    return "<a href=\"#\" class='editable' id='editable_".$model->id."'></a>";
+                }
 //                "get_info_1"=>function($model) use($configs,$configsredeliver){
 //                    $html = "";
 //                    if($model->status > 2 && $model->status< 10) {

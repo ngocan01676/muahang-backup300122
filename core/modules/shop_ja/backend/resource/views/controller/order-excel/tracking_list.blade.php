@@ -83,6 +83,18 @@
 
 @endpush
 @push('scripts')
+    <script src="{{asset('module/admin/assets/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
+    <script>
+        @foreach($models as $model)
+        $('#editable_{!! $model->id !!}').editable({
+            type:  'text',
+            pk:    1,
+            name:  'note',
+            url:   '{!! url()->current() !!}',
+            title: '{!! z_language('Ghi chú') !!}'
+        });
+        @@endforeach
+    </script>
     <script>
         $(document).ready(function () {
             let action = false;
