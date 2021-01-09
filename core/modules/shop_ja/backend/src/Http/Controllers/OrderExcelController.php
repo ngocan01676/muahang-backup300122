@@ -1385,7 +1385,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             "SAGAWA"=>"https://www.sagawa-exp.co.jp/send/redeliver.html",
             "JAPAN_POST"=>"https://trackings.post.japanpost.jp/delivery/deli/"
         ];
-
+        $caches = new \stdClass();
+        $caches->data = [];
         return $this->render('order-excel.tracking_list', [
             'models' => $models->paginate($item),
             'callback' => [
@@ -1416,41 +1417,82 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }
                     return z_language("Đợi đến lượt");
                 },
-                "get_info"=>function($model) use($configs){
+                "get_info_create_order"=>function($model) use($configs,$caches){
                     $html = "";
                     if($model->status > 2 && $model->status< 10) {
-                       $resutls = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
-                       if(isset($resutls[0])){
-                           $html.='<table class="table table-bordered" style="background: #dedede">';
-                           $html.='<tr>';
-                           $html.='<td><label class="label label-default">'.date('d-m-Y',strtotime($resutls[0]->order_create_date)).'</label></td>';
-                           $html.='<td><label class="label label-default">'.$resutls[0]->fullname.'</label></td>';
-                           $html.='<td><label class="label label-default">'.$model->tracking_id.'</label></td>';
-                           $html.='<td><label class="label label-default">'.$model->updated_at.'</label></td>';
-                         //  $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
-                          // $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configs[$model->type])?$configs[$model->type]:"#").'">Kiểm tra</a></label></td>';
-                           $html.='</tr>';
-                           $html.='</table>';
+                        if(!isset($caches->data[$model->order_id])){
+                            $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
+                        }
+                        if(isset($caches->data[$model->order_id][0])){
+                            return $caches->data[$model->order_id][0]->order_create_date;
+                        }
+                    }
+                    return $html;
+                },
+                "get_info_fullname"=>function($model) use($configs,$caches){
+                    $html = "";
+                    if($model->status > 2 && $model->status< 10) {
+                       if(!isset($caches->data[$model->order_id])){
+                           $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
+                       }
+                       if(isset($caches->data[$model->order_id][0])){
+                           return $caches->data[$model->order_id][0]->fullname;
                        }
                     }
                     return $html;
                 },
-                "get_info_1"=>function($model) use($configs,$configsredeliver){
+                "get_info_link"=>function($model) use($configs,$caches){
                     $html = "";
                     if($model->status > 2 && $model->status< 10) {
-                        $resutls = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
-                        if(isset($resutls[0])){
-                            $html.='<table class="table table-bordered" style="background: #dedede">';
-                            $html.='<tr>';
-                            $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
-                            $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configs[$model->type])?$configs[$model->type]:"#").'">Kiểm tra</a></label></td>';
-                            $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configsredeliver[$model->type])?$configsredeliver[$model->type]:"#").'">Đặt lại</a></label></td>';
-                            $html.='</tr>';
-                            $html.='</table>';
+                        if(!isset($caches->data[$model->order_id])){
+                            $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
+                        }
+                        if(isset($caches->data[$model->order_id][0])){
+                            return '<label class="label label-default"><a target="_blank" href="'.$caches->data[$model->order_id][0]->order_link.'">Fb</a></label>';
                         }
                     }
                     return $html;
-                }
+                },
+                "get_info_check"=>function($model) use($configs,$caches){
+                    $html = "";
+                    if($model->status > 2 && $model->status< 10) {
+                        if(!isset($caches->data[$model->order_id])){
+                            $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
+                        }
+                        if(isset($caches->data[$model->order_id][0])){
+                            return '<label class="label label-default"><a target="_blank" href="'.(isset($configs[$model->type])?$configs[$model->type]:"#").'">Kiểm tra</a></label>';
+                        }
+                    }
+                    return $html;
+                },
+                "get_info_redeliver"=>function($model) use($configsredeliver,$caches){
+                    $html = "";
+                    if($model->status > 2 && $model->status< 10) {
+                        if(!isset($caches->data[$model->order_id])){
+                            $caches->data[$model->order_id] = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
+                        }
+                        if(isset($caches->data[$model->order_id][0])){
+                            return '<label class="label label-default"><a target="_blank" href="'.(isset($configsredeliver[$model->type])?$configsredeliver[$model->type]:"#").'">Gửi lại</a></label>';
+                        }
+                    }
+                    return $html;
+                },
+//                "get_info_1"=>function($model) use($configs,$configsredeliver){
+//                    $html = "";
+//                    if($model->status > 2 && $model->status< 10) {
+//                        $resutls = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
+//                        if(isset($resutls[0])){
+//                            $html.='<table class="table table-bordered" style="background: #dedede">';
+//                            $html.='<tr>';
+//                            $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
+//                            $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configs[$model->type])?$configs[$model->type]:"#").'">Kiểm tra</a></label></td>';
+//                            $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configsredeliver[$model->type])?$configsredeliver[$model->type]:"#").'">Đặt lại</a></label></td>';
+//                            $html.='</tr>';
+//                            $html.='</table>';
+//                        }
+//                    }
+//                    return $html;
+//                }
             ]
         ]);
     }
