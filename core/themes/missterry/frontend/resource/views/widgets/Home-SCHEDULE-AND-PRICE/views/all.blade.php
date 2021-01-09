@@ -1137,7 +1137,7 @@
                     break;
                 }
             }
-            
+
             var price = 0;
             console.log(key);
             console.log(config);
