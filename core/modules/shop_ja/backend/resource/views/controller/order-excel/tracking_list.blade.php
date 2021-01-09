@@ -86,7 +86,8 @@
 @push('scripts')
     <link rel="stylesheet" href="{{asset("module/admin/assets/bootstrap3-editable/css/bootstrap-editable.css")}}">
     <script src="{{asset('module/admin/assets/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
-    <script>
+
+    <script class="script_editable">
         @foreach($models as $model)
         $('#editable_{!! $model->id !!}').editable({
             type:  'textarea',
@@ -98,6 +99,7 @@
         });
         @endforeach
     </script>
+    
     <script>
         $(document).ready(function () {
             let action = false;
