@@ -88,8 +88,8 @@
     <script>
         @foreach($models as $model)
         $('#editable_{!! $model->id !!}').editable({
-            type:  'text',
-            pk:    1,
+            type:  'textarea',
+            pk:    '{!! $model->id !!}',
             name:  'note',
             url:   '{!! url()->current() !!}',
             title: '{!! z_language('Ghi chú') !!}'
