@@ -152,6 +152,9 @@ class HomeController extends \Zoe\Http\ControllerFront
         $config_language = app()->config_language;
         if(isset($config_language['lang'])){
             $translation = DB::table('plugin_faq_translation')->where('lang_code',$config_language['lang'])->get()->keyBy('_id')->all();
+            $this->addDataGlobal("Blog-featured-title",z_language('Frequently Asked Questions'));
+            $this->addDataGlobal("Blog-featured-style",2);
+            $this->addDataGlobal("Blog-featured-background", '/theme/missterry/images/IMG_2769-1.jpg');
             foreach ($results as $key=>$value){
                 if(isset($translation[$value->id])){
                     $value->title = $translation[$value->id]->title;

@@ -18,7 +18,7 @@
 
                         <div id="text-609856575" class="text price">
 
-                            <h3 class="w-iconbox-title"><i class="fas fa-gift"></i> BẠN NHẬN ĐƯỢC GÌ KHI MUA NHƯỢNG QUYỀN CỦA CHÚNG TÔI?</h3>
+                            <h3 class="w-iconbox-title"><i class="fas fa-gift"></i>{!! z_language('BẠN NHẬN ĐƯỢC GÌ KHI MUA NHƯỢNG QUYỀN CỦA CHÚNG TÔI?') !!}</h3>
                             <ol>
                                 <li><span>{!! z_language('Tư vấn và hỗ trợ tất cả các khâu của quá trình khởi động dự án: tư vấn pháp lý, tìm kiếm mặt bằng, quy hoạch, cải tạo, hỗ trợ tạo kịch bản.') !!}</span></li>
                                 <li><span>{!! z_language('Tất cả các cơ hội quảng cáo của chúng tôi đều phù hợp với bạn. Và điều này: quảng cáo theo ngữ cảnh, quảng cáo bằng các bài báo, quảng cáo trên Internet và trên TV, quảng cáo trên mạng xã hội, trong chuỗi khách sạn và hơn thế nữa.') !!}</span></li>
@@ -31,7 +31,6 @@
                                 <li><span>{!! z_language('Thương hiệu dễ nhận biết. Hiện tại, hàng chục công ty đang làm việc trên thị trường phòng nhiệm vụ ở Ukraine và châu Âu, và ngày càng khó khăn hơn cho mỗi thương hiệu mới tham gia thị trường.') !!}</span></li>
                             </ol>
                             <p><span>{!! z_language('Trên thực tế, bạn không cần phải đi tất cả các con đường để khởi động một doanh nghiệp mà chúng tôi đã trải qua.&nbsp;Bạn sẽ có thể tận dụng kinh nghiệm thực tế tích lũy được của chúng tôi và, không phải là không quan trọng, sẽ giúp giảm đáng kể thời gian và chi phí khởi động dự án.') !!}</span></p>
-
                             <style>
                                 #text-609856575 {
                                     text-align: left;

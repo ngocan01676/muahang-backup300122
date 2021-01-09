@@ -48,7 +48,7 @@
                 <div class="page-title-inner container align-center text-center flex-row-col medium-flex-wrap">
                     <div class="title-wrapper is-larger flex-col">
                         <h1 class="entry-title mb-0">
-                            News          </h1>
+                            {!! isset($_dataGlobal['Blog-featured-title'])?$_dataGlobal['Blog-featured-title']:"" !!}             </h1>
                     </div>
                     <div class="title-content flex-col">
                         <div class="title-breadcrumbs pb-half pt-half"></div>      </div>
@@ -60,7 +60,11 @@
                         min-height: 268px;
                     }
                     #page-header-1804778628 .title-bg {
-                        background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/IMG_2769-1.jpg);
+                        @if(isset($_dataGlobal['Blog-featured-background']))
+background-image: url({!! asset($_dataGlobal['Blog-featured-background']) !!});
+                        @else
+background-image: url({!! asset("theme/missterry/images/bg.jpg") !!});
+                    @endif
                     }
                     #page-header-1804778628 {
                         background-color: rgb(0,0,0);
