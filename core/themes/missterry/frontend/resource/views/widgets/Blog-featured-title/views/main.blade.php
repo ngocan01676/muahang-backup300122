@@ -35,6 +35,39 @@
                 </style>
             </div>
         </div>
+    @elseif($_dataGlobal['Blog-featured-style'] == 2)
+        <div id="page-header-1804778628" class="page-header-wrapper">
+            <div class="page-title dark featured-title">
+
+                <div class="page-title-bg">
+                    <div class="title-bg fill bg-fill parallax-active" data-parallax-container=".page-title" data-parallax-background="" data-parallax="-">
+                    </div>
+                    <div class="title-overlay fill"></div>
+                </div>
+
+                <div class="page-title-inner container align-center text-center flex-row-col medium-flex-wrap">
+                    <div class="title-wrapper is-larger flex-col">
+                        <h1 class="entry-title mb-0">
+                            News          </h1>
+                    </div>
+                    <div class="title-content flex-col">
+                        <div class="title-breadcrumbs pb-half pt-half"></div>      </div>
+                </div>
+
+
+                <style>
+                    #page-header-1804778628 .page-title-inner {
+                        min-height: 268px;
+                    }
+                    #page-header-1804778628 .title-bg {
+                        background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/IMG_2769-1.jpg);
+                    }
+                    #page-header-1804778628 {
+                        background-color: rgb(0,0,0);
+                    }
+                </style>
+            </div>
+        </div>
     @endif
 @else
     <div id="page-header-441590599" class="page-title blog-featured-title featured-title no-overflow">
