@@ -1380,13 +1380,18 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             "SAGAWA"=>"http://k2k.sagawa-exp.co.jp/p/sagawa/web/okurijosearcheng.jsp",
             "JAPAN_POST"=>"https://trackings.post.japanpost.jp/services/srv/search/input"
         ];
+        $configsredeliver = [
+            "YAMATO"=>"https://syuhai.kuronekoyamato.co.jp/simple_saihai/SERVICE_MENU",
+            "SAGAWA"=>"https://www.sagawa-exp.co.jp/send/redeliver.html",
+            "JAPAN_POST"=>"https://trackings.post.japanpost.jp/delivery/deli/"
+        ];
+
         return $this->render('order-excel.tracking_list', [
             'models' => $models->paginate($item),
             'callback' => [
                 "get_results" => function ($model){
                     $html = "";
                     $data = json_decode($model->data,true);
-
                     if($model->status > 0){
                         $html.='<table class="table table-bordered" style="background: #dedede">';
                         $html.='<tr>';
@@ -1420,11 +1425,29 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                            $html.='<tr>';
                            $html.='<td><label class="label label-default">'.date('d-m-Y',strtotime($resutls[0]->order_create_date)).'</label></td>';
                            $html.='<td><label class="label label-default">'.$resutls[0]->fullname.'</label></td>';
-                           $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
-                           $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configs[$model->type])?$configs[$model->type]:"#").'">Kiểm tra</a></label></td>';
+                           $html.='<td><label class="label label-default">'.$resutls[0]->tracking_id.'</label></td>';
+                           $html.='<td><label class="label label-default">'.$resutls[0]->updated_at.'</label></td>';
+                         //  $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
+                          // $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configs[$model->type])?$configs[$model->type]:"#").'">Kiểm tra</a></label></td>';
                            $html.='</tr>';
                            $html.='</table>';
                        }
+                    }
+                    return $html;
+                },
+                "get_info_1"=>function($model) use($configs,$configsredeliver){
+                    $html = "";
+                    if($model->status > 2 && $model->status< 10) {
+                        $resutls = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
+                        if(isset($resutls[0])){
+                            $html.='<table class="table table-bordered" style="background: #dedede">';
+                            $html.='<tr>';
+                            $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
+                            $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configs[$model->type])?$configs[$model->type]:"#").'">Kiểm tra</a></label></td>';
+                            $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configsredeliver[$model->type])?$configsredeliver[$model->type]:"#").'">Đặt lại</a></label></td>';
+                            $html.='</tr>';
+                            $html.='</table>';
+                        }
                     }
                     return $html;
                 }

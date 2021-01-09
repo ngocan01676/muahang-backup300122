@@ -331,20 +331,32 @@
             ],
             'module:shop_ja:tracking' => [
                 'config' => [
+                    /*
+                        - Ngày đặt
+                        - Tên KH
+                        - Mã tracking
+                        - Thời gian check cuối cùng
+                        - Thông tin check
+                        - Mã đơn hàng
+                        - Cty chuyển phát
+                        - Form
+                        - Link KH
+                        - Trang kiểm tra
+                     */
                     'columns' => [
                         'lists' => [
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
-                            'tracking_id' => ['label' => z_language('Mã kiểm tra', false), 'type' => 'number'],
+                            'get_info' => ['label' => '', 'type' => 'text','callback' => "get_info"],
+                            'get_results' => ['label' => z_language('Kết quả', false), 'type' => 'text','callback' => "get_results"],
                             'order_id' => ['label' => z_language('Mã đơn hàng', false), 'type' => 'id', 'primary' => true],
                             'type' => ['label' => z_language('Cty chuyển phát', false), 'type' => 'title'],
                             'company' => ['label' => z_language('Cty sản phẩm', false), 'type' => 'title'],
                             'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status'],
-                            'count' => ['label' => z_language('Số lần', false), 'type' => 'number'],
-                            'get_results' => ['label' => z_language('Kết quả', false), 'type' => 'text','callback' => "get_results"],
-                            'get_info' => ['label' => z_language('Thông tin', false), 'type' => 'text','callback' => "get_info"],
-                            'GetTimeCheck' => ['label' => z_language('Thơi gian chờ', false), 'type' => 'text','callback' => "GetTimeCheck"],
+                            'get_info_1' => ['label' => '', 'type' => 'text','callback' => "get_info_1"],
+//                            'count' => ['label' => z_language('Số lần', false), 'type' => 'number'],
+//                            'GetTimeCheck' => ['label' => z_language('Thơi gian chờ', false), 'type' => 'text','callback' => "GetTimeCheck"],
                             'created_at' => ['label' => z_language('Ngày đăng', false), 'type' => 'date'],
-                            'updated_at' => ['label' => z_language('Ngày sửa', false), 'type' => 'date'],
+//                            'updated_at' => ['label' => z_language('Ngày sửa', false), 'type' => 'date'],
                         ],
                     ],
                     'pagination' => [
