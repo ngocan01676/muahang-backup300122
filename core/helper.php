@@ -719,6 +719,27 @@ function z_language($key, $par = [], $__env = null, $tag = "")
     }
     return !empty($tag)?"<span class='-lang-'>".$html."</span>":$html;
 }
+function z_language_debug($key, $par = [], $__env = null, $tag = "")
+{
+    $html = $key;
+    if (is_array($par)) {
+        if(app()->isAdmin){
+            $_lang_name_ = app()->getLocale();
+        }else{
+            $_lang_name_ = app()->site_language;
+        }
+
+        $_langs_ = app()->getLanguage();
+
+        $html = isset($_langs_[$_lang_name_][$key]) && !empty($_langs_[$_lang_name_][$key]) ? $_langs_[$_lang_name_][$key] : $key;
+        if (is_array($par)) {
+            foreach ($par as $k => $v) {
+                $html = str_replace(":" . $k, $v, $html);
+            }
+        }
+    }
+    return !empty($tag)?"<span class='-lang-'>".$html."</span>":$html;
+}
 function router_frontend_lang($name, $parameters = [], $absolute = true){
     $router =  isset(app()->config_language['router']) && !empty(app()->config_language['router'])?app()->config_language['router'].'_'.$name:$name;
     return route('frontend:'.$router,$parameters,$absolute);
@@ -769,7 +790,7 @@ function find_acl($string_blade, $sub_path, $string_find = "z_language"){
     return $array;
 }
 function lang_all_key(){
-    return Cache::remember('lang_all_key:static', 1, function()
+    return Cache::remember('lang_all_key:static', 60, function()
     {
         $results = [];
         $results = get_dir_contents(base_path('core'), '/\.php$/', $results);
@@ -798,6 +819,16 @@ function lang_all_key(){
             $string_blade = $file->get($_file);
             $array = array_merge($array, find_acl($string_blade, $sub_path,"z_language"));
         }
+        $results = [];
+        $results = get_dir_contents(base_path('storage/app/views/pages'), '/\.php$/', $results);
+
+        foreach ($results as $_file) {
+            $name = str_replace(base_path(), "", $_file);
+            $sub_path = explode(DIRECTORY_SEPARATOR, trim($name, DIRECTORY_SEPARATOR));
+            $string_blade = $file->get($_file);
+            $array = array_merge($array, find_acl($string_blade, $sub_path,"z_language"));
+        }
+
         return $array;
     });
 }

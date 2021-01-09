@@ -90,7 +90,8 @@ class RouteServiceProvider extends ServiceProvider
                          foreach ($pages as $key=>$value){
                              $fruitsArrayObject['router'][$value->router]['url'] = $url.$value->slug.$extension;
                              $fruitsArrayObject['router'][$value->router]['action'] = $action;
-                             $fruitsArrayObject['router'][$value->router]['defaults'] = ['id'=>$value->id,'router'=>$value->slug];
+                             $fruitsArrayObject['router'][$value->router]['guard'] = "";
+                             $fruitsArrayObject['router'][$value->router]['defaults'] = ['id'=>$value->id,'router'=>$value->router];
                          }
                          $routers[$name] = $fruitsArrayObject;
 
@@ -102,8 +103,10 @@ class RouteServiceProvider extends ServiceProvider
                                  }
                                  $fruitsArrayObject = (new \ArrayObject($router))->getArrayCopy();
                                  foreach ($fruitsArrayObject['router'] as $key=>$value){
+
                                      $fruitsArrayObject['router'][$key]['url'] = $language[$lang]['router'].'/'.$fruitsArrayObject['router'][$key]['url'];
-                                     $fruitsArrayObject['router'][$key]['defaults'] = [ 'lang' => $lang];
+                                     $fruitsArrayObject['router'][$key]['defaults']['lang'] = $lang;
+
                                      $fruitsArrayObject['router'][$key]['layout'] = [$name,$language[$lang]['router'].'_'.$name];
                                  }
                                  $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
@@ -135,6 +138,7 @@ class RouteServiceProvider extends ServiceProvider
             }
 
         }
+
         foreach ($routers as $name => $route) {
             if (isset($route['prefix'])) {
                 $prefix = $route['prefix'];

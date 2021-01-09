@@ -16,14 +16,11 @@ class PageController extends \Zoe\Http\ControllerBackend
         $this->breadcrumb(z_language("Page"), ('backend:page:list'));
         return $this;
     }
-
     public function ajax(Request $request){
         $key = base64_decode($request->header('KEY'));
-
         if(Auth::user()->IsAcl()){
 
         }
-
         return response()->json([]);
     }
     public function list(Request $request)
@@ -123,7 +120,7 @@ class PageController extends \Zoe\Http\ControllerBackend
             $slug = Str::slug($items['title'], '-');
             $page->title = $items['title'];
 
-            $page->slug = isset($items['slug'])?$items['slug']:$slug;
+            $page->slug = isset($items['slug'])?trim($items['slug'],"/"):$slug;
             $page->description = $items['description'];
             $page->router =  Str::slug($items['router'], '_');;
             $page->content = htmlspecialchars_decode($items['content']);
@@ -134,7 +131,7 @@ class PageController extends \Zoe\Http\ControllerBackend
             if (!$file->isDirectory($path)) {
                 $file->makeDirectory($path);
             }
-            $file->put($path . '/' . $slug . '.blade.php', $page->content);
+            $file->put($path . '/' . $page->router  . '.blade.php', html_entity_decode($page->content));
             $request->session()->flash('success', $type == "create"?z_language('Page is added successfully'):z_language('Page is updated successfully'));
             return back();
         }catch (\Exception $ex){

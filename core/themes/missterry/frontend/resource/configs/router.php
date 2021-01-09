@@ -129,9 +129,8 @@ $routers['page'] = [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "PageController",
     "language"=>true,
-    "url"=>'page/',
-    "sub_prefix" => "/page",
-
+    "url"=>'',
+    "sub_prefix" => "/",
     "action"=>'getList',
     "router" => [
 

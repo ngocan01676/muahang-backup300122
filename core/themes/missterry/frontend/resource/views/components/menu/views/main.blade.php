@@ -45,9 +45,10 @@
                         @else
                             <li id="menu-item-{!! $value['id'] !!}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3576 menu-item-design-default">
                                 @if($menus[$value['id']]->type_link == "router" && !empty($menus[$value['id']]->router_name))
+
                                     <a href="{!! router_frontend_lang($menus[$value['id']]->router_name,[]) !!}" class="nav-top-link">{!! $menus[$value['id']]->name !!}</a>
                                 @else
-                                    <a href="{!! $menus[$value['id']]->router_name !!}" class="nav-top-link">{!! $menus[$value['id']]->name !!}</a>
+                                    <a href="{!! $menus[$value['id']]->link !!}" class="nav-top-link">{!! $menus[$value['id']]->name !!}</a>
                                 @endif
                             </li>
                         @endif
