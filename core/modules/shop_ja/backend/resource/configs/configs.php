@@ -345,6 +345,7 @@
                      */
                     'columns' => [
                         'lists' => [
+                            'get_note' => ['label' => z_language('Gửi lại'), 'type' => 'text','callback' => "get_note"],
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
                             'get_info_create_order' => ['label' => z_language('Ngày lập'), 'type' => 'text','callback' => "get_info_create_order"],
                             'get_info_fullname' => ['label' => z_language('Tên KH'), 'type' => 'text','callback' => "get_info_fullname"],
@@ -358,7 +359,7 @@
                             'get_info_link' => ['label' => z_language('Fb'), 'type' => 'text','callback' => "get_info_link"],
                             'get_info_check' => ['label' => z_language('Kiểm tra'), 'type' => 'text','callback' => "get_info_check"],
                             'get_info_redeliver' => ['label' => z_language('Gửi lại'), 'type' => 'text','callback' => "get_info_redeliver"],
-                            'get_note' => ['label' => z_language('Gửi lại'), 'type' => 'text','callback' => "get_note"],
+
 //                            'get_info_1' => ['label' => '', 'type' => 'text','callback' => "get_info_1"],
 //                            'count' => ['label' => z_language('Số lần', false), 'type' => 'number'],
 //                            'GetTimeCheck' => ['label' => z_language('Thơi gian chờ', false), 'type' => 'text','callback' => "GetTimeCheck"],

@@ -1402,12 +1402,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     $html = "";
                     $data = json_decode($model->data,true);
                     if($model->status > 0){
-                        $html.='<table class="table table-bordered" style="background: #dedede">';
-                        $html.='<tr>';
-                        $html.='<td><label class="label label-default">'.(isset($data['Date'])?$data['Date']:z_language('Không xác định')).'</label></td>';
-                        $html.='<td><label class="label label-default">'.(isset($data['Text'])?$data['Text']:z_language('Không xác định')).'</label></td>';
-                        $html.='</tr>';
-                        $html.='</table>';
+                       $html = '<label class="label label-default">'.(isset($data['Date'])?$data['Date']:z_language('Không xác định')).'</label><BR>'.'<label class="label label-default">'.(isset($data['Text'])?$data['Text']:z_language('Không xác định')).'</label>'
                     }
 
                     return $html;
