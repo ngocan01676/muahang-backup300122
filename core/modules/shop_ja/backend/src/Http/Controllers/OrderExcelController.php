@@ -1495,11 +1495,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $resutls = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
                         if(isset($resutls[0])){
                             $html.='<table class="table table-bordered" style="background: #dedede">';
-                            $html.='<tr>';
-                            $html.='<td>Fb</td>';
-                            $html.='<td>Kiểm tra</td>';
-                            $html.='<td>Gửi lại</td>';
-                            $html.='</tr>';
+//                            $html.='<tr>';
+//                            $html.='<td>Fb</td>';
+//                            $html.='<td>Kiểm tra</td>';
+//                            $html.='<td>Gửi lại</td>';
+//                            $html.='</tr>';
                             $html.='<tr>';
                             $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
                             $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configs[$model->type])?$configs[$model->type]:"#").'">'.$model->type.'</a></label></td>';
