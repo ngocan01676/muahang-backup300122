@@ -1488,23 +1488,23 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 },
                 "get_note"=>function($model) use($configsredeliver,$caches){
                     return "<a href=\"#\" class='editable' id='editable_".$model->id."'>".$model->note."</a>";
+                },
+                "get_info_1"=>function($model) use($configs,$configsredeliver){
+                    $html = "";
+                    if($model->status > 2 && $model->status< 10) {
+                        $resutls = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
+                        if(isset($resutls[0])){
+                            $html.='<table class="table table-bordered" style="background: #dedede">';
+                            $html.='<tr>';
+                            $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
+                            $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configs[$model->type])?$configs[$model->type]:"#").'">'.$model->type.'</a></label></td>';
+                            $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configsredeliver[$model->type])?$configsredeliver[$model->type]:"#").'">'.$model->company.'</a></label></td>';
+                            $html.='</tr>';
+                            $html.='</table>';
+                        }
+                    }
+                    return $html;
                 }
-//                "get_info_1"=>function($model) use($configs,$configsredeliver){
-//                    $html = "";
-//                    if($model->status > 2 && $model->status< 10) {
-//                        $resutls = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
-//                        if(isset($resutls[0])){
-//                            $html.='<table class="table table-bordered" style="background: #dedede">';
-//                            $html.='<tr>';
-//                            $html.='<td><label class="label label-default"><a target="_blank" href="'.$resutls[0]->order_link.'">Fb</a></label></td>';
-//                            $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configs[$model->type])?$configs[$model->type]:"#").'">Kiểm tra</a></label></td>';
-//                            $html.='<td><label class="label label-default"><a target="_blank" href="'. (isset($configsredeliver[$model->type])?$configsredeliver[$model->type]:"#").'">Đặt lại</a></label></td>';
-//                            $html.='</tr>';
-//                            $html.='</table>';
-//                        }
-//                    }
-//                    return $html;
-//                }
             ]
         ]);
     }
