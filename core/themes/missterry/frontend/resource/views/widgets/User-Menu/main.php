@@ -6,15 +6,15 @@ function Main($config){
         'lists'=>[
             [
                 'label'=>z_language('Dashboard'),
-                'url'=>'frontend:missterry:user:dashboard'
+                'url'=>'missterry:user:dashboard'
             ],
             [
                 'label'=>z_language('Account Detail'),
-                'url'=>'frontend:missterry:user:info'
+                'url'=>'missterry:user:info'
             ],
             [
                 'label'=>z_language('Orders'),
-                'url'=>'frontend:missterry:user:orders'
+                'url'=>'missterry:user:orders'
             ],
             [
                 'label'=>z_language('Logout'),
