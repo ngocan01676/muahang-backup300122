@@ -9,7 +9,7 @@
 <ul id="my-account-nav" class="account-nav nav nav-line nav-uppercase nav-vertical mt-half">
     @foreach($data['lists'] as $list)
     <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard  {!! isset($_dataGlobal['User-Menu-Router']) && $_dataGlobal['User-Menu-Router'] == $list['url'] ?"is-active active":"" !!}">
-        <a href="{!! router_frontend_lang($list['url']) !!}">{!! $list['label'] !!}</a>
+        <a href="{!! ($list['url']) !!}">{!! $list['label'] !!}</a>
         <!-- empty -->
     </li>
     @endforeach
