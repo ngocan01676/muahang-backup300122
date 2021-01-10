@@ -8,38 +8,38 @@
             <thead>
             <tr>
                 <th class="product-name">
-                     <span class="nobr">Room name</span>
+                     <span class="nobr">{!! z_language('Room name') !!}</span>
                 </th>
                 <th class="product-name">
-                    <span class="nobr">Room date</span>
+                    <span class="nobr">{!! z_language('Room date') !!}</span>
                 </th>
                 <th class="product-name">
-                    <span class="nobr">Room hours</span>
+                    <span class="nobr">{!! z_language('Room hours') !!}</span>
                 </th>
                 <th class="product-name">
-                    <span class="nobr">Room image</span>
+                    <span class="nobr">{!! z_language('Room image') !!}</span>
                 </th>
                 <th class="product-name">
-                    <span class="nobr">Room price</span>
+                    <span class="nobr">{!! z_language('Room price') !!}</span>
                 </th>
                 <th class="product-price">
                    <span class="nobr">
-                     Address
+                     {!! z_language('Address') !!}
                    </span>
                 </th>
                 <th class="product-stock-status">
                    <span class="nobr">
-                    Status
+                      {!! z_language('Status') !!}
                    </span>
                 </th>
                 <th class="product-stock-status">
                    <span class="nobr">
-                    Link Info
+                    {!! z_language('Link Info') !!}
                    </span>
                 </th>
             </tr>
             </thead>
-           
+
             <tbody>
                 @if(count($results) > 0)
                     @foreach($results as $key=>$values)

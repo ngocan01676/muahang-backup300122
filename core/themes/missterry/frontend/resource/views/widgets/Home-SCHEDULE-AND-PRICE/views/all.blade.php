@@ -348,8 +348,9 @@
                                          <input type="text" placeholder="{!! z_language('Số điện thoại') !!}"  name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
                                           <span class="text-error"></span>
                                 </span>
+
                                 <span class="wpcf7-form-control-wrap e-mail">
-                                    <input type="email" name="email" value=""
+                                    <input type="email" name="email" @if(!is_null(auth('frontend')->user()))  value="{!! auth('frontend')->user()->email !!}" @else value="" @endif
                                            size="40" placeholder="{!! z_language('Địa chỉ Email') !!}"
                                            class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
                                            aria-required="true" aria-invalid="false">
