@@ -39,10 +39,26 @@
                 </th>
             </tr>
             </thead>
-            <tbody class="wishlist-items-wrapper">
-                <tr>
-                    <td colspan="6" class="wishlist-empty">No room </td>
-                </tr>
+           
+            <tbody>
+                @if(count($results) > 0)
+                    @foreach($results as $key=>$values)
+                    <tr>
+                        <td>{!! $rooms[$values->room_id]->title !!} </td>
+                        <td><img src="{!! get_thumbnails($rooms[$values->room_id]->image,150) !!}" alt=""></td>
+                        <td>{!! $values->booking_date !!}</td>
+                        <td>{!! $values->booking_time !!}</td>
+                        <td>{!! $values->price !!}</td>
+                        <td>{!! $rooms[$values->room_id]->address !!} </td>
+                        <td>{!! $values->status==1?z_language('Oke'):z_language('pending') !!}</td>
+                        <td><a href="{!! router_frontend_lang('home:room',['slug'=>$rooms[$values->room_id]->slug]) !!}">{!! z_language('Detail room') !!}</a></td>
+                    </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="6" class="wishlist-empty">No room </td>
+                    </tr>
+                @endif
             </tbody>
         </table>
         <div class="yith_wcwl_wishlist_footer">

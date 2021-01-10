@@ -55,18 +55,18 @@
 
                     @if(auth('frontend')->user())
                             <li class="account-item has-icon has-dropdown">
-                                <a href="{!! route('frontend:missterry:user:dashboard') !!}" class="account-link account-login" title="My account">
+                                <a href="{!! router_frontend_lang('missterry:user:dashboard') !!}" class="account-link account-login" title="My account">
                                     <span class="header-account-title">{!! z_language('My account') !!}</span>
                                 </a>
                                 <ul class="nav-dropdown  nav-dropdown-default" style="">
                                     <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard is-active active">
-                                        <a href="{!! route('frontend:missterry:user:dashboard') !!}">{!! z_language('Dashboard') !!}</a>
+                                        <a href="{!! router_frontend_lang('missterry:user:dashboard') !!}">{!! z_language('Dashboard') !!}</a>
                                     </li>
                                     <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--orders">
-                                        <a href="{!! route('frontend:missterry:user:info') !!}">{!! z_language('Account Detail') !!}</a>
+                                        <a href="{!! router_frontend_lang('missterry:user:info') !!}">{!! z_language('Account Detail') !!}</a>
                                     </li>
                                     <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--orders">
-                                        <a href="{!! route('frontend:missterry:user:orders') !!}">{!! z_language('Orders') !!}</a>
+                                        <a href="{!! router_frontend_lang('missterry:user:orders') !!}">{!! z_language('Orders') !!}</a>
                                     </li>
                                     <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--customer-logout">
 

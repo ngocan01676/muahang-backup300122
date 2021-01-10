@@ -172,6 +172,9 @@ $routers['guest:missterry'] = [
 $routers['missterry:user'] = [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "UserController",
+    "language"=>[
+
+    ],
     "router" => [
         "dashboard" => [
             "url" => "/my-account",
@@ -193,6 +196,7 @@ $routers['missterry:user'] = [
         ],
     ]
 ];
+
 return [
     'routers' => [
         'frontend' => $routers

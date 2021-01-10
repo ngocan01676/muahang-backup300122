@@ -114,12 +114,14 @@ class RouteServiceProvider extends ServiceProvider
                          }
                      }else{
                          if ($this->app->is_admin == false || true ){
+
                              foreach ($selects as $lang){
                                  if(!isset($language[$lang])){
                                      continue;
                                  }
                                  $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
                                  foreach ($fruitsArrayObject['router'] as $key=>$value){
+
                                      if(isset($languageConfig[$key][$lang]['uri'])){
                                         $_url = $languageConfig[$key][$lang]['uri'];
                                      }else{
@@ -136,7 +138,7 @@ class RouteServiceProvider extends ServiceProvider
 
                 }
             }
-
+            
         }
 
         foreach ($routers as $name => $route) {
