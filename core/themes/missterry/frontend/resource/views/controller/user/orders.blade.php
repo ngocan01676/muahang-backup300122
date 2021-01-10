@@ -37,6 +37,11 @@
                     {!! z_language('Link Info') !!}
                    </span>
                 </th>
+                <th class="product-stock-status">
+                   <span class="nobr">
+                    {!! z_language('Date Create') !!}
+                   </span>
+                </th>
             </tr>
             </thead>
 
@@ -52,6 +57,7 @@
                         <td>{!! $rooms[$values->room_id]->address !!} </td>
                         <td>{!! $values->status==1?z_language('Oke'):z_language('pending') !!}</td>
                         <td><a href="{!! router_frontend_lang('home:room',['slug'=>$rooms[$values->room_id]->slug]) !!}">{!! z_language('Detail room') !!}</a></td>
+                        <td>{!! $values->created_at !!}</td>
                     </tr>
                     @endforeach
                 @else
