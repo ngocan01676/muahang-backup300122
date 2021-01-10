@@ -329,7 +329,7 @@
                         <input type="hidden" value="" name="date" class="date-value">
                         <input type="hidden" value="" name="key" class="key-value">
                         <input type="hidden" value="" name="id" class="id-value">
-                        <input type="hidden" value="" name="price" class="price-value">
+
                         <div class="row" style=" text-align: center;display: flex;justify-content: center;align-items: center;">
                             <div class="col small-12" style="text-align: center;padding: 0 15px 5px;">
                                 <div>
@@ -370,12 +370,16 @@
                                         <textarea  placeholder="{!! z_language('Ghi chú') !!}" name="note" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></textarea>
                                         <span class="text-error"></span>
                                  </span>
+
                                 <div class="quest-price">
                                     <div class="current-price">
                                         <span>0&nbsp;vnđ</span>
                                     </div>
                                     <div class="price_human">~ <span>0&nbsp;vnđ</span> / {!! z_language('Người') !!}</div>
+                                    <input type="hidden" value="" name="price" class="price-value">
+                                    <span class="text-error"></span>
                                 </div>
+
                                 <p>
                                     <div class="prices_config" style="display: none"><textarea></textarea></div>
                                      <input style="background-color: #f4c400;color: #ffffff;margin-top: 15px" type="button" onclick="onClick()" name="submitform" value="{!! z_language('Gửi thông tin') !!}" class="wpcf7-form-control wpcf7-submit">
@@ -1140,6 +1144,7 @@
                                 for(let i in resData.errors){
                                     console.log(resData.errors[i]);
                                     let parent = form.find('[name="'+i+'"]').parent();
+                                    console.log(parent);
                                     parent.find('.text-error').html(resData.errors[i][0]);
                                     parent.addClass('error');
                                 }

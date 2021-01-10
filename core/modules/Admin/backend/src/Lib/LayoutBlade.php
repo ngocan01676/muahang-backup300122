@@ -246,6 +246,10 @@ class LayoutBlade extends Layout
         if ($row['option']) {
             $option = $row['option'];
             if (isset($option['stg']['col'])) {
+                if($option['opt']['title'] == "debug")
+                {
+                    var_dump($option['opt']['attr']['class']);die;
+                }
                 foreach ($option['stg']['col'] as $key => $gird) {
                     $block = false;
                     if (isset($option['cfg']['tag'])) {
@@ -255,20 +259,20 @@ class LayoutBlade extends Layout
                             $block = true;
                             $class = "";
                             $id = "";
-                            //opt.col[0].attr.class
-                            if (isset($option['opt']['col'][0]['attr']['class']) && !empty($option['opt']['col'][0]['attr']['class'])) {
-                                $class = " class='" . $option['opt']['col'][0]['attr']['class'] . "'";
+
+                            if (isset($option['opt']['col'][$key]['attr']['class']) && !empty($option['opt']['col'][$key]['attr']['class'])) {
+                                $class = " class='" . $option['opt']['col'][$key]['attr']['class'] . "'";
                             }
-                            if (isset($option['opt']['col'][0]['attr']['id']) && !empty($option['opt']['col'][0]['attr']['id'])) {
-                                $id = " id='" . $option['opt']['col'][0]['attr']['id'] . "'";
+                            if (isset($option['opt']['col'][$key]['attr']['id']) && !empty($option['opt']['col'][$key]['attr']['id'])) {
+                                $id = " id='" . $option['opt']['col'][$key]['attr']['id'] . "'";
                             }
                             $html .= "<div" . $class . $id . ">";
                         }
                     }
                     if (isset($row['view'][$key]) && is_array($row['view'][$key])) {
                         foreach ($row['view'][$key] as $_k => $_row) {
-                            if (isset($_row[0]['row'])) {
-                                $html .= $this->rows($_row[0]['row'], $layout, $lever++);
+                            if (isset($_row[$key]['row'])) {
+                                $html .= $this->rows($_row[$key]['row'], $layout, $lever++);
                             } else if (isset($this->widget[$_row])) {
                                 if ($this->widget[$_row]['stg']['type'] == "components" || $this->widget[$_row]['stg']['type'] == "widgets") {
                                     $html .= $this->plugin($this->widget[$_row], $lever . '-' . $key . '-' . $_k);
@@ -285,7 +289,13 @@ class LayoutBlade extends Layout
                     }
                 }
             }
+            if(isset($option['opt']['attr']['class']) && isset($option['opt']['attr']['id'])){
+                if(!empty($option['opt']['attr']['class']) || !empty($option['opt']['attr']['id'])){
+                    $html = "<div".(!empty($option['opt']['attr']['class'])?" class='".$option['opt']['attr']['class']."'":"").(!empty($option['opt']['attr']['id'])?"id='".$option['opt']['attr']['id']."'":"").">".$html."</div>";
+                }
+            }
         }
+
         return $this->girds($html, $option);
     }
 

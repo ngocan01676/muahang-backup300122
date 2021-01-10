@@ -186,6 +186,7 @@ class RouteServiceProvider extends ServiceProvider
                 $middleware = ["web"];
                 $acl = "";
                 $auth_guard = isset($_route["guard"]) ? $_route["guard"] : (isset($route["guard"]) ? $route["guard"] : $guard);
+
                 if (isset($configRouter['data'][$alias]['acl'])) {
                     if ($configRouter['data'][$alias]['acl'] == 'no-login') {
                         $auth_guard = "";
@@ -198,6 +199,7 @@ class RouteServiceProvider extends ServiceProvider
                         }
                     }
                 }
+
                 if (!empty($auth_guard)) {
                     $middleware[] = 'auth:' . $auth_guard;
 

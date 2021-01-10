@@ -146,7 +146,53 @@ $routers['page'] = [
 
     ]
 ];
-
+$routers['guest:missterry'] = [
+    "namespace" => "MissTerryTheme\Http\Controllers",
+    "controller" => "AuthController",
+    "router" => [
+        "login:post:ajax" => [
+            "url" => "/login/action/ajax",
+            "action" => "postLoginAjax",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
+        "register:post:ajax" => [
+            "url" => "/register/action/ajax",
+            "action" => "postRegisterAjax",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
+        'login:form'=>[
+            'url'=>'/login',
+            'action'=>'getLogin',
+            'method'=>['get'],
+        ]
+    ]
+];
+$routers['missterry:user'] = [
+    "namespace" => "MissTerryTheme\Http\Controllers",
+    "controller" => "UserController",
+    "router" => [
+        "dashboard" => [
+            "url" => "/my-account",
+            "action" => "getdashboard",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
+        "info" => [
+            "url" => "/my-account/detail",
+            "action" => "getinfo",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
+        "orders" => [
+            "url" => "/my-account/orders",
+            "action" => "getorders",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
+    ]
+];
 return [
     'routers' => [
         'frontend' => $routers

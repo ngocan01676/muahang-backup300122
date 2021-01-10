@@ -87,4 +87,13 @@ class GirdBladeHelper extends \Admin\Lib\GirdBladeHelper
         </section>
         ';
     }
+    public function layout_user($content,$option = []){
+        return '
+        <div class="page-wrapper my-account mb">
+            <div class="container" role="main">
+                '.$content.'
+            </div>
+        </div>
+        ';
+    }
 }

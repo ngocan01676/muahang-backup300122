@@ -12,6 +12,12 @@ return [
                         "cache" => 5,
                         'action' =>'getInfo'
                     ],
+                    "logout" => [
+                        "url" => "/my-account/logout",
+                        "action" => "postLogout",
+                        "method" => ["post"],
+                        "name" => "logout"
+                    ],
                 ]
             ],
             'guest' => [
@@ -43,12 +49,6 @@ return [
                         "action" => "postRegister",
                         "method" => ["post"],
                         "guard" => ""
-                    ],
-                    "logout" => [
-                        "url" => "/logout",
-                        "action" => "postLogout",
-                        "method" => ["post", "get"],
-                        "name" => "logout"
                     ],
                 ]
             ],

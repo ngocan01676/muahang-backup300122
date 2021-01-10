@@ -19,6 +19,7 @@
 <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/src/mobilepopup.min.js') !!}"></script>
 
 <script src="https://www.google.com/recaptcha/api.js?render=6LeSNSAaAAAAAPnoqpze0F2jMRW9CUMCP8ypmUeg"></script>
+<script src="{!! asset('/theme/missterry/js/main.js') !!}"></script>
 <script>
     function formatMoney(amount, decimalCount = 0, decimal = ".", thousands = ",") {
         try {
