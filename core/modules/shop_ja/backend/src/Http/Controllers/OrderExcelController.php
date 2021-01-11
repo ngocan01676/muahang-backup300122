@@ -1347,7 +1347,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             DB::table('shop_order_excel_tracking')->where('id',$data['id'])->update(['status'=>0]);
             return '[]';
         }else if(isset($data['act']) && $data['act'] == "updateStatusCancel" && isset($data['id']) && !empty($data['id'])){
-         //   DB::table('shop_order_excel_tracking')->where('id',$data['id'])->update(['status'=>10]);
+            DB::table('shop_order_excel_tracking')->where('id',$data['id'])->update(['status'=>10]);
             return '[]';
         }
         $filter = $request->query('filter', []);
