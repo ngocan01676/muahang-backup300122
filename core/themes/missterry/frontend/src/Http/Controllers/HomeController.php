@@ -54,7 +54,6 @@ class HomeController extends \Zoe\Http\ControllerFront
             $result->times = json_decode($result->times,true);
             if(isset($this->_language['lang'])){
                 $translation = DB::table('miss_room_translation')->where('lang_code',$this->_language['code'])->where('room_id',$result->id)->get()->all();
-
                 if(isset($translation[0])){
                     $result->title = $translation[0]->title;
                     $result->description = $translation[0]->description;

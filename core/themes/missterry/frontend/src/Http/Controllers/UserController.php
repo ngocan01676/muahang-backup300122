@@ -52,7 +52,7 @@ class UserController extends \Zoe\Http\ControllerFront
         $total_records = $results->count();
 
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $limit = 6;
+        $limit = 5;
         $total_page = ceil($total_records / $limit);
         if ($current_page > $total_page){
             $current_page = $total_page;
@@ -70,6 +70,39 @@ class UserController extends \Zoe\Http\ControllerFront
         ]]);
     }
     public function get_announce(){
-        return $this->render('user.announce',[]);
+
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $total_page = 0;
+
+        $models = DB::table('announce')->where('status',1);
+        $total_records = $models->count();
+        $limit = 8;
+        $total_page = ceil($total_records / $limit);
+        if ($current_page > $total_page){
+            $current_page = $total_page;
+        }
+        else if ($current_page < 1){
+            $current_page = 1;
+        }
+        $start = ($current_page - 1) * $limit;
+        $results = $models->offset($start)->limit($limit)->get()->all();
+        $config_language = app()->config_language;
+        $translation = [];
+        if(isset($config_language['lang'])){
+            $translation = DB::table('announce_translation')->where('lang_code',$config_language['lang'])->get()->keyBy('_id')->all();
+            foreach ($results as $key=>$value){
+                if(isset($translation[$value->id])){
+                    $value->title = $translation[$value->id]->title;
+                    $value->message = $translation[$value->id]->message;
+                }
+            }
+        }
+        return $this->render('user.announce',[
+            'results'=>$results,
+            'pagination'=>[
+                'current_page'=>$current_page,
+                'total_page'=>$total_page,
+            ]
+        ]);
     }
 }
