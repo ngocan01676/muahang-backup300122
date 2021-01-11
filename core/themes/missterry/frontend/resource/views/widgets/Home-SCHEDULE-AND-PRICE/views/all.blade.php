@@ -371,9 +371,9 @@
                                        <span class="text-error"></span>
                                 </span>
                                 <span class="wpcf7-form-control-wrap ten">
-                                        <textarea  placeholder="{!! z_language('Ghi chú') !!}" name="note" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></textarea>
-                                        <span class="text-error"></span>
-                                 </span>
+                                        <input type="text" name="note" placeholder="{!! z_language('Ghi chú') !!}" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                         <span class="text-error"></span>
+                                </span>
 
                                 <div class="quest-price">
                                     <div class="current-price">
