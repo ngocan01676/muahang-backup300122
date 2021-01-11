@@ -30,6 +30,12 @@
                     </tr>
                     <tr>
                         <td>
+                            {!! Form::label('subject', z_language('Email Subject'), ['class' => 'name']) !!}
+                            {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Email Name')]) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             {!! Form::label('parameters', z_language('Parameters'), ['class' => 'parameters']) !!}
                             {!! Form::text('parameters',isset($model)?null:'{}', ['readonly'=>1,'class' => 'form-control','placeholder'=>z_language('Parameters')]) !!}
                         </td>
@@ -51,6 +57,7 @@
                                     $menus[md5($title)] = ['title'=>$title,'items'=>$items];
                                 }
                                 @endphp
+
                             <script>
                                 let parameters = JSON.parse($('#parameters').val());
                                 let config = {
@@ -67,12 +74,12 @@
                                     },
                                     menubar: '',
                                     setup: function(editor) {
-
+                                            @verbatim
                                             editor.on('change', function(e) {
                                                 let content = editor.getContent();
                                                 console.log(content);
                                                 for(let key in parameters){
-                                                    if(!(content.indexOf('{@'+key+'@}') !== -1 || content.includes('{@'+key+'@}'))){
+                                                    if(!(content.indexOf('{{ $'+key+' }}') !== -1 || content.includes('{{ $'+key+' }}'))){
                                                        delete parameters[key];
                                                         console.log(key);
                                                     }
@@ -80,7 +87,7 @@
                                                 console.log(parameters);
                                                 $('#parameters').val(JSON.stringify(parameters));
                                             });
-
+                                            @endverbatim
                                             @php
                                                 foreach ($menus as $key=>$menu){
                                                     foreach ($menu['items'] as $key1=>$menu1){
@@ -92,7 +99,7 @@
                                                                         parameters['$key1'] = 1;
                                                                         $('#parameters').val(JSON.stringify(parameters));
                                                                      }
-                                                                     editor.insertContent('{@$key1@}');
+                                                                     editor.insertContent('{{ \$$key1 }}');
                                                                 }
                                                             });";
 
@@ -110,6 +117,7 @@
                                 @endphp
                                 tinymce.init(config);
                             </script>
+
                             @endsection
                         </td>
                     </tr>
