@@ -126,7 +126,11 @@
             $(self).hide();
             $.ajax({
                 type: "POST",
-                data: {act:"updateStatus",id:data.id,status:data.status},
+                data: {
+                    act:"updateStatus",
+                    id:data.id,
+                    status:data.status
+                },
                 success: function (html) {
 
                 }
