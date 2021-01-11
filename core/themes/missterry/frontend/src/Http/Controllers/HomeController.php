@@ -142,8 +142,9 @@ class HomeController extends \Zoe\Http\ControllerFront
         $results = DB::table('miss_booking')->where('id',$id)->get()->all();
         if(isset($results[0])){
             $to_email = "mrtrungit@gmail.com";
-            var_dump(Mail::failures());
+
             Mail::to($to_email)->send(new MyEmail($results[0]));
+            dd(Mail::failures());
 //        if(count(Mail::failures()) > 0){
 //            return redirect()->route('mail.view')->with('error','Error in sending mail');
 //        }
