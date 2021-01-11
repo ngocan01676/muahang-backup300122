@@ -32,8 +32,8 @@ class MyEmail extends Mailable
             ->from('tigoncms@gmail.com','Missterry')
             ->subject('this is test email subject')
             ->with([
-                'title'     => "demo",
-                'content'     => "content",
+                'FULL_NAME'     => "anh trung",
+                'ADDRESS'     => "dong anh ha noi",
             ]);
 //        return $this
 //             ->from('Missterry',"Missterry")
