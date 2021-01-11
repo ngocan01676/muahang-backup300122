@@ -144,7 +144,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             $to_email = "mrtrungit@gmail.com";
 
             Mail::to($to_email)->send(new MyEmail($results[0]));
-            dd(Mail::failures());
+            
 //        if(count(Mail::failures()) > 0){
 //            return redirect()->route('mail.view')->with('error','Error in sending mail');
 //        }
