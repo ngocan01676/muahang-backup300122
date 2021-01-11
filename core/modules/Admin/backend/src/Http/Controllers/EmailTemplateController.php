@@ -169,10 +169,12 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
                 if (!$file->isDirectory($path)) {
                     $file->makeDirectory($path);
                 }
-                
+
                 $file->put($path . '/' . Str::slug( $model->name) . '.blade.php', html_entity_decode($model->content));
 
-                $request->session()->flash('success', $type == "create"?z_language('Email Template is added successfully'):z_language('Email Template is updated successfully'));
+                $request->session()->flash('success', $type == "create"?z_language('Email Template is added successfully'):
+                    z_language('Email Template is updated successfully').$path . '/' . Str::slug( $model->name) . '.blade.php'
+                );
                 return back();
             }catch (\Exception $ex){
                 $validator->getMessageBag()->add('name', $ex->getMessage());
