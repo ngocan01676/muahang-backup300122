@@ -70,7 +70,7 @@ $routers['home'] = [
         'blog_people_talk_about_about'=>[
             "url" => "/people-talk-about-about/{slug}",
             "guard" => "",
-            "action"=>'get_blog_people_talk_about_about'
+            "action"=>'get_blog_item'
         ],
         'blog_item'=>[
             "url" => "/blog/{slug}",
