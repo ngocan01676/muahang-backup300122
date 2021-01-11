@@ -22,7 +22,7 @@ class MyEmail extends Mailable
     {
         $theme = app()->getTheme();
         if(isset(app()->config_language['lang'])){
-            return $this->view( $theme.'::emails.booking_'.app()->config_language['lang'])
+            return $this->view( $theme.'::emails.booking')
                 ->from(config('mail.username'),'Missterry')
                 ->subject($this->subject)
                 ->with($this->data);
