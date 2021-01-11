@@ -163,6 +163,14 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
                 $model->data = '[]';
                 $model->id_key =  $items['id_key'];
                 $model->save();
+
+                $file = new \Illuminate\Filesystem\Filesystem();
+                $path = storage_path('app/views/emails/');
+                if (!$file->isDirectory($path)) {
+                    $file->makeDirectory($path);
+                }
+                $file->put($path . '/' . Str::slug( $model->name) . '.blade.php', html_entity_decode($model->content));
+
                 $request->session()->flash('success', $type == "create"?z_language('Email Template is added successfully'):z_language('Email Template is updated successfully'));
                 return back();
             }catch (\Exception $ex){
