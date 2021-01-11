@@ -137,9 +137,10 @@
             });
         }
         function updateStatusCancel(self){
-            var person = confirm("Ban có muốn hủy check đơn "+data.id+" "+);
+            let data = $(self).data();
+            var person = confirm("Ban có muốn hủy check đơn "+data.id+" "+data.tracking);
             if (person == true) {
-                let data = $(self).data();
+
                 $(self).hide();
                 $.ajax({
                     type: "POST",
