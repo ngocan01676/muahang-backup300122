@@ -261,10 +261,14 @@ class HomeController extends \Zoe\Http\ControllerFront
 
         $config_language = app()->config_language;
         $result = [];
+        $tags = [];
         if(isset($config_language['lang'])){
-            $db = DB::table('blog_post_translation')->where('slug',$slug)->get()->all();
+
+            $db = DB::table('blog_post_translation')->where('slug',$slug)->where('lang_code',$config_language['lang'])->get()->all();
+
             if(count($db) > 0){
                 $results = DB::table('blog_post')->where('id',$db[0]->_id)->get()->all();
+
                 if(isset($results[0])){
                     $result = $results[0];
                     $result->title = $db[0]->title;
@@ -272,9 +276,16 @@ class HomeController extends \Zoe\Http\ControllerFront
                     $result->slug = $db[0]->content;
                     $this->addDataGlobal("Blog-featured-title",$result->title);
                 }
+                $results_tag = DB::table('tag_item')->where('item_id',$db[0]->_id)->get()->keyBy('tag_id')->all();
+                $tag_keys = array_keys($results_tag);
+
+                if(isset($tag_keys[0])){
+                    $tags =  DB::table('tag')->whereIn('id',$tag_keys)->get()->all();
+                }
             }
         }
-        return $this->render('home.blog-item',['result'=>$result,'url'=>url()->current()]);
+
+        return $this->render('home.blog-item',['result'=>$result,'url'=>url()->current(),'tags'=>$tags]);
     }
     public function get_list_blog_category($slug){
 
@@ -328,15 +339,16 @@ class HomeController extends \Zoe\Http\ControllerFront
             $rowNew = [];
             $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
             $total_page = 0;
-
+            $model = new \stdClass();
             if(isset($tag[0])){
+                $model = $tag[0];
                 $tag_item = DB::table('tag_item')->where('tag_id',$tag[0]->id)->get()->keyBy('item_id')->all();
                 $arrays_id = array_keys($tag_item);
                 if(isset($arrays_id[0])){
                     $blog_post_translation = DB::table('blog_post_translation')->where('lang_code',$this->config_language['lang'])->whereIn('_id',$arrays_id)->get()->keyBy('_id')->all();
                     $models = DB::table('blog_post')->whereIn('id',$arrays_id);
                     $total_records = $models->count();
-                    $limit = 1;
+                    $limit = 8;
                     $total_page = ceil($total_records / $limit);
                     if ($current_page > $total_page){
                         $current_page = $total_page;
@@ -360,6 +372,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             }
             return $this->render('home.tag',[
                 'items'=>$rowNew,
+                'model'=>$model,
                 'pagination'=>[
                     'current_page'=>$current_page,
                     'total_page'=>$total_page,

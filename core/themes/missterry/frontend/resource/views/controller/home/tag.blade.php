@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="large-12 text-center col">
                     <h1 class="page-title is-large uppercase">
-                        Tag Archives: <span>cách để chiến thắng escape room</span>	</h1>
+                        {!! z_language('Tag Archives') !!}: <span>{!! $model->name !!}</span>	</h1>
                 </div>
             </div>
         </header>
