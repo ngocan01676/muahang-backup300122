@@ -122,13 +122,11 @@
     <script>
         function updateStatus(self){
             let data = $(self).data();
-            if(data.status != 3){
-                return;
-            }
+
             $(self).hide();
             $.ajax({
                 type: "POST",
-                data: {act:"updateStatus",id:data.id},
+                data: {act:"updateStatus",id:data.id,status:data.status},
                 success: function (html) {
 
                 }
@@ -138,9 +136,6 @@
             var person = confirm("Ban có muốn hủy check");
             if (person != null) {
                 let data = $(self).data();
-                if(data.status != 3){
-                    return;
-                }
                 $(self).hide();
                 $.ajax({
                     type: "POST",
