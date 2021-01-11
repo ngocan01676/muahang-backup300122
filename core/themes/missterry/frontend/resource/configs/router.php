@@ -153,7 +153,8 @@ $routers['category'] = [
     ],
     'configs'=>[
         'views'=>[
-            'offer_promos'=>'category.offer'
+            'offer_promos'=>'category.offer',
+            'frequently_asked_questions'=>'category.frequently-asked-questions'
         ],
         'type'=>'blog:category',
         'items'=>[
