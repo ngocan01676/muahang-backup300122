@@ -1418,7 +1418,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     return $html;
                 },
                 "cancelOrder"=>function(){
-                    return '<div class="label-text"><div class="text-center"><a data-status="10" data-id="486" href="javascript:void(0);" onclick="updateStatusCancel(this)"><span class="label label-info">Hủy</span></a></div></div>';
+                    return '<div class="label-text"><div class="text-center"><a data-status="10" data-id="486" href="javascript:void(0);" onclick="updateStatusCancel(this)"><span class="label label-danger">Hủy</span></a></div></div>';
                 },
                 "GetTimeCheck" => function ($model){
                     if($model->status > 1) {

@@ -135,8 +135,7 @@
             });
         }
         function updateStatusCancel(self){
-            var person = prompt("Bạn có muốn hủy kiểm tra");
-
+            var person = confirm("Ban có muốn hủy check");
             if (person != null) {
                 let data = $(self).data();
                 if(data.status != 3){
