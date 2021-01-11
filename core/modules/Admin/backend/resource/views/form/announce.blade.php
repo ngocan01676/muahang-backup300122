@@ -21,76 +21,179 @@
             @else
                 {!! Form::open(['method' => 'POST','route' => ['backend:announce:store'],'id'=>'form_store']) !!}
             @endif
+            @if(isset($configs['core']['language']['multiple']))
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="nav-tabs-custom">
+                                    <ul class="nav nav-tabs" {{$current_language}}>
+                                        @foreach($language as $lang=>$_language)
+                                            @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                                                <li @if($current_language == $lang) class="active" @endif {{$lang}}><a href="#tab_{{$lang}}" data-toggle="tab"><span
+                                                                class="flag-icon flag-icon-{{$_language['flag']}}"></span></a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                    <div class="tab-content">
+                                        @foreach($language as $lang=>$_language)
+                                            @if(
+                                            isset($configs['core']['language']['lists']) &&
+                                            (is_string($configs['core']['language']['lists']) &&
+                                            $configs['core']['language']['lists'] == $_language['lang']||
+                                            is_array($configs['core']['language']['lists']) &&  in_array($_language['lang'],$configs['core']['language']['lists'])) )
 
-            <table class="table table-borderless">
-                <tbody>
-                <tr>
-                    <td>
-                        {!! Form::label('id_title', 'Tiều đề trang', ['class' => 'title']) !!}
-                        {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Tiều đề trang']) !!}
-                    </td>
-                </tr>
+                                            <div  class="tab-pane @if($current_language == $lang) active @endif" id="tab_{{$lang}}">
+                                                    <table class="table table-borderless">
+                                                        <tr>
+                                                            <td>
+                                                                {!! Form::label('id_title_'.$lang, 'Title', ['class' => 'title']) !!}
+                                                                {!! Form::text('title_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Title') ]) !!}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                {!! Form::label('message_'.$lang, z_language('Message'), ['class' => 'message']) !!}
+                                                                {!! Form::textarea('message_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Message'),'cols'=>5,'rows'=>5]) !!}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                            </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        @php $type = isset($model)?Form::value('type',1):1;   @endphp
+                        <tr>
+                            <td>
+                                {!! Form::label('type', 'Trạng thái', ['class' => 'description']) !!}<BR>
+                                {!! Form::radio('type', '1' , $type == 1) !!} Tất cả
+                                {!! Form::radio('type', '2',$type == 2) !!} Quản trị
+                                {!! Form::radio('type', '3',$type == 3) !!} Nhóm quyền
+                                {!! Form::hidden('action_id',null, ['id' => 'action_id']) !!}
+                                @php $action_id = isset($model)?$model->action_id:0 @endphp
+                            </td>
+                        </tr>
+                        <tr id="type_2" style="{!! $type == 2 ?"":"display:none"  !!}">
+                            <td>
+                                {!! Form::label('user', 'Quản trị', ['class' => 'id']) !!}
+                                <select class="form-control" id="role_id">
+                                    @foreach($roles as $role)
+                                        <option {!! $action_id ==$role->id ?"selected":""  !!} value="{!! $role->id !!}">{!! $role->name !!}</option>
+                                    @endforeach
+                                </select>
 
-                @php $type = isset($model)?Form::value('type',1):1;   @endphp
-                <tr>
-                    <td>
-                        {!! Form::label('type', 'Trạng thái', ['class' => 'description']) !!}<BR>
-                        {!! Form::radio('type', '1' , $type == 1) !!} Tất cả
-                        {!! Form::radio('type', '2',$type == 2) !!} Quản trị
-                        {!! Form::radio('type', '3',$type == 3) !!} Nhóm quyền
-                        {!! Form::hidden('action_id',null, ['id' => 'action_id']) !!}
-                        @php $action_id = isset($model)?$model->action_id:0 @endphp
-                    </td>
-                </tr>
-                <tr id="type_2" style="{!! $type == 2 ?"":"display:none"  !!}">
-                    <td>
-                        {!! Form::label('user', 'Quản trị', ['class' => 'id']) !!}
-                        <select class="form-control" id="role_id">
-                            @foreach($roles as $role)
-                                <option {!! $action_id ==$role->id ?"selected":""  !!} value="{!! $role->id !!}">{!! $role->name !!}</option>
-                            @endforeach
-                        </select>
+                            </td>
+                        </tr>
+                        <tr id="type_3" style="{!! $type == 3 ?"":"display:none"  !!}">
+                            <td>
+                                {!! Form::label('role', 'Nhóm quyền', ['class' => 'id']) !!}
+                                <select class="form-control" id="admin_id">
+                                    @foreach($admins as $admin)
+                                        <option {!! $action_id ==$admin->id ?"selected":""  !!} value="{!! $admin->id !!}">{!! $admin->username !!}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
 
-                    </td>
-                </tr>
-                <tr id="type_3" style="{!! $type == 3 ?"":"display:none"  !!}">
-                    <td>
-                        {!! Form::label('role', 'Nhóm quyền', ['class' => 'id']) !!}
-                        <select class="form-control" id="admin_id">
-                            @foreach($admins as $admin)
-                                <option {!! $action_id ==$admin->id ?"selected":""  !!} value="{!! $admin->id !!}">{!! $admin->username !!}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {!! Form::label('message', 'Nội dung', ['class' => 'message']) !!}
-                        {!! Form::textarea('message',null, ['class' => 'form-control','placeholder'=>'Nội dung','cols'=>5,'rows'=>5]) !!}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {!! Form::label('date_start', 'Thời gian bắt đầu', ['class' => 'title']) !!}
-                        {!! Form::text('date_start',null, ['class' => 'form-control datepicker1','placeholder'=>'Thời gian bắt đầu']) !!}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {!! Form::label('date_end', 'Thời gian kết thúc', ['class' => 'title']) !!}
-                        {!! Form::text('date_end',null, ['class' => 'form-control datepicker2','placeholder'=>'Thời gian kết thúc']) !!}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {!! Form::label('id_status', 'Status', ['class' => 'description']) !!}
-                        {!! Form::radio('status', '1' , true) !!} Yes
-                        {!! Form::radio('status', '0',false) !!} No
-                    </td>
-                </tr>
 
-                </tbody>
-            </table>
+
+                        <tr>
+                            <td>
+                                {!! Form::label('date_start', 'Thời gian bắt đầu', ['class' => 'title']) !!}
+                                {!! Form::text('date_start',null, ['class' => 'form-control datepicker1','placeholder'=>'Thời gian bắt đầu']) !!}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('date_end', 'Thời gian kết thúc', ['class' => 'title']) !!}
+                                {!! Form::text('date_end',null, ['class' => 'form-control datepicker2','placeholder'=>'Thời gian kết thúc']) !!}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('id_status', 'Status', ['class' => 'description']) !!}
+                                {!! Form::radio('status', '1' , true) !!} Yes
+                                {!! Form::radio('status', '0',false) !!} No
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+            @else
+                <table class="table table-borderless">
+                    <tbody>
+                    <tr>
+                        <td>
+                            {!! Form::label('id_title', 'Tiều đề trang', ['class' => 'title']) !!}
+                            {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Tiều đề trang']) !!}
+                        </td>
+                    </tr>
+
+                    @php $type = isset($model)?Form::value('type',1):1;   @endphp
+                    <tr>
+                        <td>
+                            {!! Form::label('type', 'Trạng thái', ['class' => 'description']) !!}<BR>
+                            {!! Form::radio('type', '1' , $type == 1) !!} Tất cả
+                            {!! Form::radio('type', '2',$type == 2) !!} Quản trị
+                            {!! Form::radio('type', '3',$type == 3) !!} Nhóm quyền
+                            {!! Form::hidden('action_id',null, ['id' => 'action_id']) !!}
+                            @php $action_id = isset($model)?$model->action_id:0 @endphp
+                        </td>
+                    </tr>
+                    <tr id="type_2" style="{!! $type == 2 ?"":"display:none"  !!}">
+                        <td>
+                            {!! Form::label('user', 'Quản trị', ['class' => 'id']) !!}
+                            <select class="form-control" id="role_id">
+                                @foreach($roles as $role)
+                                    <option {!! $action_id ==$role->id ?"selected":""  !!} value="{!! $role->id !!}">{!! $role->name !!}</option>
+                                @endforeach
+                            </select>
+
+                        </td>
+                    </tr>
+                    <tr id="type_3" style="{!! $type == 3 ?"":"display:none"  !!}">
+                        <td>
+                            {!! Form::label('role', 'Nhóm quyền', ['class' => 'id']) !!}
+                            <select class="form-control" id="admin_id">
+                                @foreach($admins as $admin)
+                                    <option {!! $action_id ==$admin->id ?"selected":""  !!} value="{!! $admin->id !!}">{!! $admin->username !!}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('message', 'Nội dung', ['class' => 'message']) !!}
+                            {!! Form::textarea('message',null, ['class' => 'form-control','placeholder'=>'Nội dung','cols'=>5,'rows'=>5]) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('date_start', 'Thời gian bắt đầu', ['class' => 'title']) !!}
+                            {!! Form::text('date_start',null, ['class' => 'form-control datepicker1','placeholder'=>'Thời gian bắt đầu']) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('date_end', 'Thời gian kết thúc', ['class' => 'title']) !!}
+                            {!! Form::text('date_end',null, ['class' => 'form-control datepicker2','placeholder'=>'Thời gian kết thúc']) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('id_status', 'Status', ['class' => 'description']) !!}
+                            {!! Form::radio('status', '1' , true) !!} Yes
+                            {!! Form::radio('status', '0',false) !!} No
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            @endif
             {!! Form::close() !!}
         </div>
     </div>

@@ -14,16 +14,17 @@
 
         <div class="container section-title-container" >
             <h3 class="section-title section-title-normal"><b></b>
-                <span class="section-title-main" style="font-size:150%;">{!! z_language('KHÁCH HÀNG NÓI VỀ CHÚNG TÔI') !!}</span><b></b><a href="{!! router_frontend_lang('home:category',['slug'=>$data['category']->slug]) !!}" target="">{!! z_language('Đọc thêm') !!}<i class="icon-angle-right" ></i></a></h3>
+                <span class="section-title-main" style="font-size:150%;">{!! z_language('KHÁCH HÀNG NÓI VỀ CHÚNG TÔI') !!}</span><b></b><a href="{!! router_frontend_lang('category:'.$data['category']->router_name) !!}" target="">{!! z_language('Đọc thêm') !!}<i class="icon-angle-right" ></i></a></h3>
         </div>
         <div class="row" id="row-1129124312">
             <div id="col-729000477" class="col small-12 large-12"  >
                 <div class="col-inner"  >
                     <div class="row large-columns-4 medium-columns-1 small-columns-2 slider row-slider slider-nav-reveal slider-nav-push"  data-flickity-options='{"imagesLoaded": true, "groupCells": "100%", "dragThreshold" : 5, "cellAlign": "left","wrapAround": true,"prevNextButtons": true,"percentPosition": true,"pageDots": false, "rightToLeft": false, "autoPlay" : false}'>
                         @foreach($data['results'] as $result)
+
                         <div class="col post-item" >
                             <div class="col-inner">
-                                <a href="{!! router_frontend_lang('home:blog_people_talk_about_about',['slug'=>empty( $result->slug)?$result->id: $result->slug]) !!}" class="plain">
+                                <a href="{!! router_frontend_lang('category_item:'.$data['category']->router_name,['slug'=>empty( $result->slug)?$result->id: $result->slug]) !!}" class="plain">
                                     <div class="box box-normal box-text-bottom box-blog-post has-hover">
                                         <div class="box-image" >
                                             <div class="image-cover" style="padding-top:75%;">

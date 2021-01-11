@@ -57,11 +57,11 @@ $routers['home'] = [
             "guard" => "",
             "action"=>'get_offer'
         ],
-        'news'=>[
-            "url" => "/news",
-            "guard" => "",
-            "action"=>'get_news'
-        ],
+//        'news'=>[
+//            "url" => "/news",
+//            "guard" => "",
+//            "action"=>'get_news'
+//        ],
         'contact'=>[
             "url" => "/contact",
             "guard" => "",
@@ -146,6 +146,36 @@ $routers['page'] = [
 
     ]
 ];
+$routers['category'] = [
+    "namespace" => "MissTerryTheme\Http\Controllers",
+    "controller" => "CategoryController",
+    "language"=>[
+    ],
+    'configs'=>[
+        'views'=>[
+            'offer_promos'=>'category.offer'
+        ],
+        'type'=>'blog:category',
+        'items'=>[
+            "namespace" => "MissTerryTheme\Http\Controllers",
+            "controller" => "CategoryController",
+            "action"=>'get_blog_item',
+            'uri'=>'/{slug}',
+            'url'=>'/',
+            "sub_prefix" => "/",
+            "router" => [
+
+            ]
+        ]
+    ],
+    "sub_prefix" => "/",
+    "action"=>'get_list_blog_category',
+
+    "router" => [
+
+    ]
+];
+
 $routers['guest:missterry'] = [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "AuthController",
@@ -185,6 +215,12 @@ $routers['missterry:user'] = [
         "info" => [
             "url" => "/my-account/detail",
             "action" => "getinfo",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
+        "announce" => [
+            "url" => "/my-account/announce",
+            "action" => "get_announce",
             "method" => ["get","post"],
             "guard" => ""
         ],

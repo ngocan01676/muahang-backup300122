@@ -79,6 +79,10 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         $category->slug = $slug;
 
                         $category->parent_id = 0;
+
+                        $category->router_enabled = isset($data['router_enabled'])?$data['router_enabled']:2;
+                        $category->router_name = isset($data['router_name'])?$data['router_name']:"";
+
                         $category->description = isset($data['description'])?$data['description']:"";
                         $category->status = $data['status'];
                         $category->type = isset($data['type'])?$data['type']:0;

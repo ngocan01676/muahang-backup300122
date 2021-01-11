@@ -66,6 +66,9 @@
                                         <a href="{!! router_frontend_lang('missterry:user:info') !!}">{!! z_language('Account Detail') !!}</a>
                                     </li>
                                     <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--orders">
+                                        <a href="{!! router_frontend_lang('missterry:user:announce') !!}">{!! z_language('Announce') !!}</a>
+                                    </li>
+                                    <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--orders">
                                         <a href="{!! router_frontend_lang('missterry:user:orders') !!}">{!! z_language('Orders') !!}</a>
                                     </li>
                                     <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--customer-logout">

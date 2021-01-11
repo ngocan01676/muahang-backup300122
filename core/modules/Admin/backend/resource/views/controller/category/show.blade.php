@@ -107,6 +107,13 @@
                                             </tr>
                                             <tr>
                                                 <td>
+                                                    {!! Form::label('slug_'.$lang, z_language('Uri'), ['class' => 'name']) !!}
+                                                    {!! Form::text('slug_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Uri')]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
                                                     {!! Form::label('description_'.$lang, z_language('Description'), ['class' => 'description']) !!}
                                                     {!! Form::textarea('description_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Description'),'cols'=>5,'rows'=>5]) !!}
                                                     <span class="error help-block"></span>
@@ -122,20 +129,34 @@
                     </div>
                     <table class="table table-borderless">
                         <tbody>
-
                         <tr>
                             <td>
-                                {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
-                                {!! Form::radio('status', '1' , true) !!} Yes
-                                {!! Form::radio('status', '0',false) !!} No
+                                {!! Form::label('id_router_url', z_language('Router enabled'), ['class' => 'status']) !!}
+                                {!! Form::radio('router_enabled', '1' , true) !!} Yes
+                                {!! Form::radio('router_enabled', '2',false) !!} No
 
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                {!! Form::label('featured', 'Featured', ['class' => 'featured']) !!}
+                                {!! Form::label('router_name', z_language('Router Name'), ['class' => 'name']) !!}
+                                {!! Form::text('router_name',null, ['class' => 'form-control','placeholder'=>z_language('Router Name')]) !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('id_status', z_language('Status'), ['class' => 'status']) !!}
+                                {!! Form::radio('status', '1' , true) !!} Yes
+                                {!! Form::radio('status', '2',false) !!} No
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('featured', z_language('Featured'), ['class' => 'featured']) !!}
                                 {!! Form::radio('featured', '1' , false) !!} Yes
-                                {!! Form::radio('featured', '0',true) !!} No
+                                {!! Form::radio('featured', '2',true) !!} No
                             </td>
                         </tr>
                         <tr>
@@ -544,6 +565,9 @@
                 var data_item = $(this).closest('.dd-item').data();
                 var form_store = $("#form_store");
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+
+
+
                 $.ajax({
                     url: '{{@route('backend:category:ajax')}}',
                     type: "POST",
@@ -554,6 +578,7 @@
                         if (data.hasOwnProperty("data")) {
                             var label = "{{ z_language('Category Edit : :Name')  }}";
                             $("#form-title").html(label.replace(":Name", data.data.name));
+                            console.log(data.data);
                             form_store.zoe_inputs('set', data.data);
                         } else {
 

@@ -9,7 +9,7 @@
                             @foreach($results as $result)
                             <div class="col post-item">
                                 <div class="col-inner">
-                                    <a href="{!! router_frontend_lang('home:blog_item',['slug'=>empty( $result->slug)?$result->id: $result->slug]) !!}" class="plain">
+                                    <a href="{!! router_frontend_lang($router_item,['slug'=>empty( $result->slug)?$result->id: $result->slug]) !!}" class="plain">
                                         <div class="box box-normal box-text-bottom box-blog-post has-hover">
                                             <div class="box-image">
                                                 <div class="image-zoom image-cover" style="padding-top:56.25%;">

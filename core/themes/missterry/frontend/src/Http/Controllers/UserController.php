@@ -50,4 +50,7 @@ class UserController extends \Zoe\Http\ControllerFront
         $results = DB::table('miss_booking')->where('email',$user->email)->get()->all();
         return $this->render('user.orders',['results'=>$results,'rooms'=>$miss_room]);
     }
+    public function get_announce(){
+        return $this->render('user.announce',[]);
+    }
 }
