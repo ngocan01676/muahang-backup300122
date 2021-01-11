@@ -143,9 +143,26 @@ class HomeController extends \Zoe\Http\ControllerFront
         if(isset($results[0])){
 
         }
-
         $to_email = "mrtrungit@gmail.com";
-        Mail::to($to_email)->send(new MyEmail);
+
+        $subject = "Missterry";
+        $data = array('body'=>"Test",'name'=>'Abc');
+
+        Mail::send(' {{ $body }} {{ $name }} ',$data,function ($message)use ($to_email,$subject)
+        {
+            $message->to($to_email)->from('tigoncms@gmail.com', 'XXXX')->subject($subject);
+        });
+        var_dump(Mail::failures());
+//        if(count(Mail::failures()) > 0){
+//            return redirect()->route('mail.view')->with('error','Error in sending mail');
+//        }
+//        else {
+//            return redirect()->route('mail.view')->with('response','Mail Send Successfully');
+//        }
+
+
+
+//        Mail::to($to_email)->send(new MyEmail);
 
 
         $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');

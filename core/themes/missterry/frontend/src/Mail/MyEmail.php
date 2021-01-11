@@ -27,6 +27,9 @@ class MyEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('tigoncms@gmail.com')->html("<p> Your E-mail has been sent successfully. </p>");
+        return $this
+             ->from('Missterry')
+            ->subject("test email")
+            ->html("<p> Your E-mail has been sent successfully. </p>");
     }
 }
