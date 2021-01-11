@@ -15,9 +15,9 @@ class MyEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($booking)
     {
-        //
+        $this->booking = $booking;
     }
 
     /**
@@ -27,9 +27,17 @@ class MyEmail extends Mailable
      */
     public function build()
     {
-        return $this
-             ->from('Missterry')
-            ->subject("test email")
-            ->html("<p> Your E-mail has been sent successfully. </p>");
+        $theme = config_get('theme', "active");
+        return $this->view($theme.'::emails.booking')
+            ->from('tigoncms@gmail.com','Missterry')
+            ->subject('this is test email subject')
+            ->with([
+                'title'     => "demo",
+                'content'     => "content",
+            ]);
+//        return $this
+//             ->from('Missterry',"Missterry")
+//            ->subject("test email")
+//            ->html("<p> Your E-mail has been sent successfully. </p>");
     }
 }
