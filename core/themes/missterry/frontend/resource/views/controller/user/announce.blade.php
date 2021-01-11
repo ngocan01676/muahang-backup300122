@@ -27,7 +27,6 @@
             </li>
             @endforeach
         </ul>
-
     </aside>
     @include('theme::layout.component.pagination',['pagination'=>$pagination])
 @endsection

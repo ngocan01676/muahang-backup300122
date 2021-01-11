@@ -232,7 +232,21 @@ $routers['missterry:user'] = [
         ],
     ]
 ];
+$routers['user:base'] = [
+    "namespace" => "MissTerryTheme\Http\Controllers",
+    "controller" => "UserController",
+    "language"=>[
 
+    ],
+    "router" => [
+        "storeInfo"=>[
+            "url" => "/my-account/info/update",
+            "action" => "storeInfo",
+            "method" => ["post"],
+            "guard" => ""
+        ]
+    ]
+];
 return [
     'routers' => [
         'frontend' => $routers

@@ -6,29 +6,47 @@
     <div class="woocommerce">
         <div class="woocommerce-MyAccount-content">
             <div class="woocommerce-notices-wrapper"></div>
-            <form class="woocommerce-EditAccountForm edit-account" action="" method="post">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br/>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div><br/>
+            @endif
+            {!! Form::model($item, ['method' => 'POST','route' => ['frontend:user:base:storeInfo'],'id'=>'form_store','class'=>'woocommerce-EditAccountForm edit-account']) !!}
+            <form class="woocommerce-EditAccountForm edit-account" action="{!! route('frontend:user:base:storeInfo') !!}" method="post">
 
+                @csrf
 
                 <p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
                     <label for="account_first_name">{!! z_language('First name') !!}&nbsp;
                         <span class="required">*</span>
                     </label>
-                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_first_name" id="account_first_name" autocomplete="given-name" value="{!! $user->first_name !!}">
+                    {!! Form::text('first_name',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>'Title']) !!}
+
                 </p>
                 <p class="woocommerce-form-row woocommerce-form-row--last form-row form-row-last">
                     <label for="account_last_name">{!! z_language('Last name') !!}&nbsp;<span class="required">*</span></label>
-                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_last_name" id="account_last_name" autocomplete="family-name" value="{!! $user->last_name !!}">
+                    {!! Form::text('last_name',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>z_language('Last name')]) !!}
                 </p>
                 <div class="clear"></div>
 
                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                     <label for="account_display_name">{!! z_language('Display name') !!}&nbsp;<span class="required">*</span></label>
-                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="account_display_name" id="account_display_name" value="{!! $user->name !!}"> <span><em>{!! z_language('This will be how your name will be displayed in the account section and in reviews') !!}</em></span>
+                    {!! Form::text('name',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>z_language('Display name')]) !!}
+                     <em>{!! z_language('This will be how your name will be displayed in the account section and in reviews') !!}</em></span>
                 </p>
                 <div class="clear"></div>
 
                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                    <label for="account_email">{!! z_language('Email address') !!}nbsp;<span class="required">*</span></label>
+                    <label for="account_email">{!! z_language('Email address') !!} &nbsp;<span class="required">*</span></label>
                     <input type="email" readonly class="woocommerce-Input woocommerce-Input--email input-text" name="account_email" id="account_email" autocomplete="email" value="{!! $user->email !!}">
                 </p>
 
@@ -37,15 +55,23 @@
 
                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                         <label for="password_current">{!! z_language('Current password (leave blank to leave unchanged)') !!}</label>
-                        <span class="password-input"><input type="password" class="woocommerce-Input woocommerce-Input--password input-text" name="password_current" id="password_current" autocomplete="off"><span class="show-password-input"></span></span>
+                        <span class="password-input">
+                            {{ Form::password('password_current', array('id' => 'password1', "class" => "woocommerce-Input woocommerce-Input--password input-text")) }}
+                             <span class="show-password-input"></span>
+                        </span>
                     </p>
                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                         <label for="password_1">{!! z_language('New password (leave blank to leave unchanged)') !!}</label>
-                        <span class="password-input"><input type="password" class="woocommerce-Input woocommerce-Input--password input-text" name="password_1" id="password_1" autocomplete="off"><span class="show-password-input"></span></span>
+                        <span class="password-input">
+
+                            {{ Form::password('password_1', array('id' => 'password_1', "class" => "woocommerce-Input woocommerce-Input--password input-text")) }}
+                        </span>
                     </p>
                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                         <label for="password_2">{!! z_language('Confirm new password') !!}</label>
-                        <span class="password-input"><input type="password" class="woocommerce-Input woocommerce-Input--password input-text" name="password_2" id="password_2" autocomplete="off"><span class="show-password-input"></span></span>
+                        <span class="password-input">
+                            {{ Form::password('password_2', array('id' => 'password_2', "class" => "woocommerce-Input woocommerce-Input--password input-text")) }}
+                        </span>
                     </p>
                 </fieldset>
                 <div class="clear"></div>

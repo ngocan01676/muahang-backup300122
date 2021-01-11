@@ -3,9 +3,73 @@ namespace MissTerryTheme\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use User\Http\Model\Member;
+use Illuminate\Support\Facades\Hash;
+use Validator;
 class UserController extends \Zoe\Http\ControllerFront
 {
+
+    public function storeInfo(Request $request){
+        $data = $request->all();
+
+        $filter = [
+            'name' => 'required|max:255',
+        ];
+
+        $user = Auth('frontend')->user();
+        if ($user) {
+            $model = Member::find($user->id);
+            $type = 'edit';
+
+            if(!empty($data['password_1']) || !empty($data['password_2'])){
+                $filter['password_1'] = 'required|min:6';
+                $filter['password_2'] = 'required|min:6';
+                $filter['password_current'] = 'required|min:6';
+            }
+            if($model->name != $data['name']){
+                $filter['name'].= '|unique:user';
+            }
+            $validator = Validator::make($data,$filter, [
+            ]);
+            if ($validator->fails()) {
+                return back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            $count = 0;
+            if(isset( $filter['password_current'])){
+                if (!Hash::check($data['password_current'], $model->password)) {
+                    $count++;
+                    $validator->getMessageBag()->add('password_current', z_language('Mật khẩu cũ không đúng'));
+                }
+            }
+            if(isset($data['password_1']) && isset($data['password_2']) &&  $data['password_1'] !=  $data['password_2']){
+                $count++;
+                $validator->getMessageBag()->add('password_1', z_language('Mật khẩu không khớp'));
+            }
+
+            try {
+                if($count == 0){
+                    if(isset($filter['name']))
+                    $model->name = $data['name'];
+                    $model->first_name = $data['first_name'];
+                    $model->last_name = $data['last_name'];
+
+                    if(isset($filter['password_1']))
+                        $model->password = Hash::make( $data['password_1']);
+                    $model->save();
+                    $request->session()->flash('success', $type == "create"?z_language('User is added successfully'):z_language('User is updated successfully'));
+                    return back();
+                }
+            }catch (\Exception $ex){
+                $validator->getMessageBag()->add('name', $ex->getMessage());
+            }
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+    }
+
     public function getdashboard(Request $request)
     {
         $this->addDataGlobal("Blog-featured-style",  2);
@@ -16,11 +80,13 @@ class UserController extends \Zoe\Http\ControllerFront
     }
     public function getinfo(Request $request)
     {
+        $user = Auth('frontend')->user();
         $this->addDataGlobal("Blog-featured-style",  2);
         $this->addDataGlobal("Blog-featured-background",  'theme/missterry/images/IMG_2769-1.jpg');
         $this->addDataGlobal("Blog-featured-title",  z_language('MY ACCOUNT'));
         $this->addDataGlobal("User-Menu-Router",$request->route()->getName());
-        return $this->render('user.info',[]);
+        $item = DB::table('user')->where('id',$user->id)->get()->all();
+        return $this->render('user.info',['item'=>isset($item[0])?$item[0]:null]);
     }
     public function getorders(Request $request){
         $this->addDataGlobal("Blog-featured-style",  2);
