@@ -10,34 +10,22 @@ class MyEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($booking)
+    public $data = [];
+    public $subject = "";
+    public $lang = '';
+    public function __construct($subject,$data)
     {
-        $this->booking = $booking;
+        $this->subject = $subject;
+        $this->data = $data;
     }
-
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        $theme = config_get('theme', "active");
-        return $this->view($theme.'::emails.booking')
-            ->from('tigoncms@gmail.com','Missterry')
-            ->subject('this is test email subject')
-            ->with([
-                'FULL_NAME'     => "anh trung",
-                'ADDRESS'     => "dong anh ha noi",
-            ]);
-//        return $this
-//             ->from('Missterry',"Missterry")
-//            ->subject("test email")
-//            ->html("<p> Your E-mail has been sent successfully. </p>");
+        $theme = app()->getTheme();
+        if(isset(app()->config_language['lang'])){
+            return $this->view( $theme.'::emails.booking_'.app()->config_language['lang'])
+                ->from(config('mail.username'),'Missterry')
+                ->subject($this->subject)
+                ->with($this->data);
+        }
     }
 }

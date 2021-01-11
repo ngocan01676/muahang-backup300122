@@ -67,11 +67,6 @@ return [
                         "TIME"=>z_language('Time',false),
                         "DATE_TIME"=>z_language('Date Time',false)
                     ],
-                    [
-                        "FULL_NAME"=>z_language('Fullname',false),
-                        "PHONE"=>z_language('Phone',false),
-                        "ADDRESS"=>z_language('Address',false)
-                    ],
                 ],
                 "Plugin:Contact:Email"=>[
                     [
@@ -80,15 +75,15 @@ return [
                         "DATE_TIME"=>z_language('Date Time',false)
                     ],
                     [
-                        "FULL_NAME"=>z_language('Fullname',false),
-                        "PHONE"=>z_language('Phone',false),
-                        "ADDRESS"=>z_language('Address',false)
+                        "fullname"=>z_language('Fullname Booking',false),
+                        "phone"=>z_language('Phone Booking',false),
+                        "booking_date"=>z_language('Date Booking',false),
+                        "booking_time"=>z_language('Time Booking',false),
+                        "count"=>z_language('Count Booking',false),
+                        "price"=>z_language('Price Booking',false),
+                        "title"=>z_language('Time Game',false),
+                        "address"=>z_language('Address Game',false),
                     ],
-                    [
-                        "PRICE"=>z_language('Price',false),
-                        "ORDER_ID"=>z_language('Order Id',false),
-                        "EMAIL"=>z_language('Email',false)
-                    ]
                 ]
             ]
         ]

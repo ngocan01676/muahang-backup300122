@@ -139,11 +139,39 @@ class HomeController extends \Zoe\Http\ControllerFront
     }
     public function register_room_oke($slug,$id){
         $id = (int)base_64_de($id)/10000;
-        $results = DB::table('miss_booking')->where('id',$id)->get()->all();
-        if(isset($results[0])){
-            $to_email = "mrtrungit@gmail.com";
+        $miss_booking = DB::table('miss_booking')->where('id',$id)->get()->all();
+        if(isset($miss_booking[0])){
+            $to_email = $miss_booking[0]->email;
+            $results = DB::table('miss_room')->get()->where('status',1)->where('id',$miss_booking[0]->room_id)->all();
+            $result = $results[0];
 
-            Mail::to($to_email)->send(new MyEmail($results[0]));
+            if(isset($this->_language['lang'])){
+                $translation = DB::table('miss_room_translation')->where('lang_code',$this->_language['code'])->where('room_id',$result->id)->get()->all();
+                if(isset($translation[0])){
+                    $result->title = $translation[0]->title;
+                    $result->description = $translation[0]->description;
+                    $result->content = $translation[0]->content;
+                    $result->address = $translation[0]->address;
+                    $result->info = $translation[0]->info;
+                }else{
+                    $result->title = "";
+                    $result->description = "";
+                    $result->content = "";
+                    $result->info = "";
+                    $result->address  = "";
+                }
+            }
+            $data = [
+                'fullname'=>$miss_booking[0]->fullname,
+                'phone'=>$miss_booking[0]->phone,
+                'booking_date'=>$miss_booking[0]->booking_date,
+                'booking_time'=>$miss_booking[0]->booking_time,
+                'price'=>$miss_booking[0]->price,
+                'count'=>$miss_booking[0]->count,
+                'title'=>$result->title,
+                'address'=>$result->address,
+            ];
+            Mail::to($to_email)->send(new MyEmail('Đặt lịch thành công',$data));
         }
         $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');
         return $this->render('home.register_room_oke');
