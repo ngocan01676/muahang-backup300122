@@ -68,5 +68,6 @@
             </tbody>
         </table>
         <div class="yith_wcwl_wishlist_footer">
+            <ul class="page-numbers nav-pagination links text-center"><li><span aria-current="page" class="page-number current">1</span></li><li><a class="page-number" href="https://demo.missterry.vn/tag/escape-room/page/2/">2</a></li><li><a class="next page-number" href="https://demo.missterry.vn/tag/escape-room/page/2/"><i class="icon-angle-right"></i></a></li></ul>
         </div>
 @endsection
