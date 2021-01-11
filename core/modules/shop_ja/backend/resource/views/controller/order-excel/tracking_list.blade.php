@@ -134,6 +134,24 @@
                 }
             });
         }
+        function updateStatusCancel(self){
+            var person = prompt("Bạn có muốn hủy kiểm tra");
+
+            if (person != null) {
+                let data = $(self).data();
+                if(data.status != 3){
+                    return;
+                }
+                $(self).hide();
+                $.ajax({
+                    type: "POST",
+                    data: {act:"updateStatusCancel",id:data.id},
+                    success: function (html) {
+
+                    }
+                });
+            }
+        }
         $(document).ready(function () {
             let action = false;
             function myFunction(){

@@ -1345,6 +1345,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             return '[]';
         }else if(isset($data['act']) && $data['act'] == "updateStatus" && isset($data['id']) && !empty($data['id'])){
             DB::table('shop_order_excel_tracking')->where('id',$data['id'])->update(['status'=>0]);
+            return '[]';
+        }else if(isset($data['act']) && $data['act'] == "updateStatusCancel" && isset($data['id']) && !empty($data['id'])){
+         //   DB::table('shop_order_excel_tracking')->where('id',$data['id'])->update(['status'=>10]);
+            return '[]';
         }
         $filter = $request->query('filter', []);
         $search = $request->query('search', "");
@@ -1412,6 +1416,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }
 
                     return $html;
+                },
+                "cancelOrder"=>function(){
+                    return '<div class="label-text"><div class="text-center"><a data-status="10" data-id="486" href="javascript:void(0);" onclick="updateStatusCancel(this)"><span class="label label-info">Hủy</span></a></div></div>';
                 },
                 "GetTimeCheck" => function ($model){
                     if($model->status > 1) {

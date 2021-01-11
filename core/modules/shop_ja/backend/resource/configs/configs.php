@@ -346,6 +346,7 @@
                     'columns' => [
                         'lists' => [
                             'get_note' => ['label' => z_language('Ghi chú'), 'type' => 'text','callback' => "get_note"],
+                            'cancelOrder' => ['label' => 'Hủy Check', 'type' => 'text','callback' => "cancelOrder"],
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
                             'get_info_create_order' => ['label' => z_language('Ngày lập | Check cuối'), 'type' => 'text','callback' => "get_info_create_order"],
                             'get_info_fullname' => ['label' => z_language('Tên KH'), 'type' => 'text','callback' => "get_info_fullname"],
