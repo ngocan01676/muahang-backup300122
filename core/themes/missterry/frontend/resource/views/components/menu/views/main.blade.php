@@ -80,6 +80,7 @@
                                     </li>
                                 </ul>
                             </li>
+
                     @else
                             <li class="lang-item lang-item-54 lang-item-en current-lang lang-item-first menu-item menu-item-type-custom menu-item-object-custom current_page_item menu-item-home menu-item-3574-en menu-item-design-default">
                                 <a href="https://flatsome3.uxthemes.com/my-account/" class="nav-top-link nav-top-not-logged-in" data-open="#login-form-popup">
@@ -199,13 +200,9 @@
                             <input class="woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password" autocomplete="current-password" />
                             <span class="message-container container alert-color medium-text-center error"></span>
                         </p>
-                        {{--<p class="form-row">--}}
-                            {{--<label class="woocommerce-form__label woocommerce-form__label-for-checkbox woocommerce-form-login__rememberme">--}}
-                                {{--<input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> <span>{!! z_language('Remember me') !!}</span>--}}
-                            {{--</label>--}}
-                            {{--<input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="3b8d83fe55" /><input type="hidden" name="_wp_http_referer" value="/cart/" />--}}
-                            {{--<button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">{!! z_language('Log in') !!}</button>--}}
-                        {{--</p>--}}
+                        <p class="form-row">
+                            <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">{!! z_language('Log in') !!}</button>
+                        </p>
                         <p class="woocommerce-LostPassword lost_password">
                             <a href="/my-account/lost-password/">{!! z_language('Lost your password?') !!}</a>
                         </p>
