@@ -446,8 +446,9 @@
                                                 data-date="{!! $d_m_Y !!}"
                                                 data-time="{!! $time['date'] !!}">
                                             <div class="item__time">{!! $time['date'] !!}</div>
-                                            <div class="item__price">{!! $price !!}<span class="price__currency">VNĐ</span></div>
-                                            <div class="book_label">{!! number_format($price) !!}/1 người VNĐ</div>
+                                            <div class="item__price">{!! $price !!}<span class="price__currency">đ</span></div>
+                                            <div class="book_label">{!! number_format($price) !!}/1 người đ</div>
+                                            <textarea class="value" style="display: none">{!! json_encode($result->prices) !!}</textarea>
                                         </div>
                                     @endforeach
                                 </div>
@@ -501,82 +502,52 @@
 
     <div id="col-664793927" class="col medium-10 small-12 large-10">
         <div class="col-inner text-center">
-
-
             <a href="#price" target="_self" class="button primary" style="border-radius:15px;">
                 <span>{!! z_language('Đặt phòng ngay') !!}</span>
                 <i class="icon-play"></i></a>
 
         </div>
     </div>
-
-
     </div>
     </div>
-
-
-
     </section>
-    <div class="pop-up2" style="display: none;">
-        <div class="head">
-            <div class="col-md-12 text-center" style="padding: 10px; background: #060606;"><h3>{!! z_language("Thông tin đặt phòng") !!}</h3></div>
-        </div>
-        <div class="content ">
-             <div class="row booking-summary">
-                 <div class="col medium-6 small-12">
-                     <form action="" method="post" class="wpcf7-form init" novalidate="novalidate">
+    <div class="pop-up2 popup-background" style="display: none;">
+        <div class="content">
+            <div class="">
+                <div class="popup-pane booking-pane">
+                    <form action="" method="post" class="wpcf7-form init" novalidate="novalidate">
+                        <input type="hidden" value="" name="time" class="time-value">
+                        <input type="hidden" value="" name="date" class="date-value">
+                        <input type="hidden" value="" name="key" class="key-value">
+                        <input type="hidden" value="" name="id" class="id-value">
 
-                         <div class="row contact-cho">
-                             <div class="col small-12 medium-6  large-6">
-                                 <h5>{!! z_language('Họ và tên') !!} :</h5>
-                                 <p>
-                                      <span class="wpcf7-form-control-wrap ten">
-                                        <input type="text" name="fullname" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                        <div class="row" style=" text-align: center;display: flex;justify-content: center;align-items: center;">
+                            <div class="col small-12" style="text-align: center;padding: 0 15px 5px;">
+                                <div>
+                                    <img class="quest-logo" alt="quest-logo" src="{!! asset('logo.png') !!}">
+                                </div>
+                                <div class="quest-title">Houdini's Academy</div>
+                                <div class="quest-address">Moscow,  1st Tverskaya-Yamskaya Str., building 7</div>
+                                <div class="quest-time">8 January, 21:00</div>
+                            </div>
+                            <div class="col medium-8 small-12 large-8">
+                                <span class="wpcf7-form-control-wrap ten">
+                                        <input type="text" name="fullname" placeholder="{!! z_language('Họ và tên') !!}" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
                                          <span class="text-error"></span>
-                                      </span>
-                                 </p>
-                             </div>
-                             <div class="col medium-6 small-12 large-6">
-                                 <h5>{!! z_language('Số điện thoại') !!} :</h5>
-                                 <p>
-                                     <span class="wpcf7-form-control-wrap sdt">
-                                         <input type="text" name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                </span>
+                                <span class="wpcf7-form-control-wrap sdt">
+                                         <input type="text" placeholder="{!! z_language('Số điện thoại') !!}"  name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
                                           <span class="text-error"></span>
-                                     </span>
-                                 </p>
-                             </div>
-                             <div class="col medium-6 small-12 large-6">
-                                 <h5>{!! z_language('Địa chỉ Email') !!}:</h5>
-                                 <p>
-                                    <span class="wpcf7-form-control-wrap e-mail">
-                                    <input type="email" name="email" value=""
-                                           size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
+                                </span>
+
+                                <span class="wpcf7-form-control-wrap e-mail">
+                                    <input type="email" name="email" @if(!is_null(auth('frontend')->user()))  value="{!! auth('frontend')->user()->email !!}" @else value="" @endif
+                                    size="40" placeholder="{!! z_language('Địa chỉ Email') !!}"
+                                           class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
                                            aria-required="true" aria-invalid="false">
                                          <span class="text-error"></span>
-                                    </span>
-                                 </p>
-                             </div>
-
-                             <div class="col medium-6 small-12 large-6">
-                                 <h5>{!! z_language('Khung thời gian') !!}:</h5>
-                                 <p>
-                                    <span class="wpcf7-form-control-wrap menu-238">
-                                       <select name="time" onchange="onAction(this)" class="box-price wpcf7-form-control wpcf7-select" aria-invalid="false">
-                                          <option value="0">{!! z_language('Khung thời gian') !!}</option>
-                                          <option value="2">2</option>
-                                          <option value="3">3</option>
-                                          <option value="4">4</option>
-                                          <option value="5">5</option>
-                                          <option value="6">6</option>
-                                       </select>
-                                       <span class="text-error"></span>
-                                    </span>
-                                 </p>
-                             </div>
-                             <div class="col medium-6 small-12 large-6">
-                                 <h5>{!! z_language('Số người chơi') !!}:</h5>
-                                 <p>
-                                    <span class="wpcf7-form-control-wrap menu-238">
+                               </span>
+                                <span class="wpcf7-form-control-wrap menu-238">
                                        <select name="number" onchange="onAction(this)" class="box-price wpcf7-form-control wpcf7-select" aria-invalid="false">
                                           <option value="0">{!! z_language('Chọn số người') !!}</option>
                                           <option value="2">2</option>
@@ -586,71 +557,131 @@
                                           <option value="6">6</option>
                                        </select>
                                        <span class="text-error"></span>
-                                    </span>
-                                 </p>
-                             </div>
-                             <div class="col small-12 medium-6  large-6">
-                                 <h5>{!! z_language('Ghi chú') !!} :</h5>
-                                 <p>
-                                      <span class="wpcf7-form-control-wrap ten">
-                                        <input type="text" name="note" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
-                                         <span class="text-error"></span>
-                                      </span>
-                                 </p>
-                             </div>
-                             <div class="col small-12">
-                                 <p>
-                                     <input type="button" onclick="onClick()" name="submitform" value="Gửi thông tin" class="wpcf7-form-control wpcf7-submit">
-                                     <span class="ajax-loader"></span>
-                                 </p>
-                             </div>
-                         </div>
-                     </form>
-                 </div>
-                 <div class="col medium-6 small-12">
-                     <table class="table table-bordered" style="margin: 0 auto">
-                         <tbody>
-                         <tr>
-                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{!! z_language('Phòng đã chọn') !!}</font></font></td>
-                             <td>
-                                 <font style="vertical-align: inherit;">
-                                     <font style="vertical-align: inherit;">
-                                         <div id="show_game">{!! z_language($result->title,[]) !!}</div>
-                                     </font>
-                                 </font>
-                             </td>
-                         </tr>
-                         <tr>
-                             <td class="labels">{!! z_language('Địa chỉ') !!}</td>
-                             <td>{!! $result->address !!}</td>
-                         </tr>
-                         <tr>
-                             <td class="labels">{!! z_language('Ngày chơi') !!}</td>
-                             <td class="form-info-date">{!! date('d-m-Y') !!}</td>
-                         </tr>
-                         <tr>
-                             <td class="labels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{!! z_language('Khung thời gian') !!}</font></font></td>
-                             <td class="form-info-time">00:00</td>
-                         </tr>
-                         <tr>
-                             <td class="labels">
-                                 {!! z_language('Số người chơi') !!}
-                             </td>
-                             <td class="form-info-number">0</td>
-                         </tr>
-                         <tr>
-                             <td style="border-bottom: 0px !important;" class="labels"><font style="vertical-align: inherit;">
-                                     <font style="vertical-align: inherit;">{!! z_language('Tổng Giá (VND)') !!}</font></font>
-                             </td>
-                             <td class="form-info-total-price" style="border-bottom: 0px !important;">0 đ</td>
-                         </tr>
-                         </tbody>
-                     </table>
-                 </div>
-             </div>
+                                </span>
+                                <span class="wpcf7-form-control-wrap ten">
+                                        <textarea  placeholder="{!! z_language('Ghi chú') !!}" name="note" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></textarea>
+                                        <span class="text-error"></span>
+                                 </span>
+
+                                <div class="quest-price">
+                                    <div class="current-price">
+                                        <span>0&nbsp;vnđ</span>
+                                    </div>
+                                    <div class="price_human">~ <span>0&nbsp;vnđ</span> / {!! z_language('Người') !!}</div>
+                                    <input type="hidden" value="" name="price" class="price-value">
+                                    <span class="text-error"></span>
+                                </div>
+
+                                <p>
+                                <div class="prices_config" style="display: none"><textarea></textarea></div>
+                                <input style="background-color: #f4c400;color: #ffffff;margin-top: 15px" type="button" onclick="onClick()" name="submitform" value="{!! z_language('Gửi thông tin') !!}" class="wpcf7-form-control wpcf7-submit">
+                                <span class="ajax-loader"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
     </div>
+    <style>
+        .mobilepopup.open .mobilepopup-outer{
+            border-radius: 10px;
+            background: url({!! asset("theme/missterry/images/bg.jpg") !!}) ;
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            box-shadow: 0 13px 16px 0 rgba(86,87,87,0.23);
+            box-sizing: border-box;
+        }
+        .mobilepopup.open .mobilepopup-outer .button-close:after, .mobilepopup.open .mobilepopup-outer .button-close:before{
+            background: #ffffff;
+        }
+        .mobilepopup.open .mobilepopup-outer .mobilepopup-inner {
+
+
+        }
+        .mobilepopup.open .mobilepopup-outer .mobilepopup-inner  .quest-address ,.mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-time,.mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-title{
+            color: #ffffff;
+            padding: 5px 0;
+        }
+        .mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-title{
+            color: #f4c400;
+        }
+        .quest-price{
+            color: #f4c400;
+        }
+        /*.popup-pane {*/
+        /*border-radius: 10px;*/
+        /*background-color: #292239;*/
+        /*box-shadow: 0 13px 16px 0 rgba(86,87,87,0.23);*/
+        /*box-sizing: border-box;*/
+        /*margin: 50px auto;*/
+        /*z-index: 20;*/
+        /*letter-spacing: 0.28px;*/
+        /*line-height: 24px;*/
+        /*cursor: default;*/
+        /*position: relative;*/
+        /*}*/
+        /*.booking-pane {*/
+        /*width: 650px;*/
+        /*min-height: 50vh;*/
+        /*color: white;*/
+        /*font-size: 16px;*/
+        /*text-align: center;*/
+        /*font-weight: 500;*/
+        /*padding: 30px 90px;*/
+        /*}*/
+        /*.popup-close-button {*/
+        /*height: 23px;*/
+        /*width: 23px;*/
+        /*background-image: url(https://media.claustrophobia.com/static/master/build/assets/close.svg);*/
+        /*background-size: cover;*/
+        /*position: absolute;*/
+        /*top: 19.25px;*/
+        /*right: 29.25px;*/
+        /*cursor: pointer;*/
+        /*}*/
+        .quest-logo {
+            margin:0 auto;
+            padding-bottom: 5px;
+            padding-top: 30px;
+        }
+        .quest-title {
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.28px;
+            line-height: 24px;
+            margin-bottom: 5px;
+        }
+        .quest-time {
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 0.46px;
+            line-height: 25px;
+            margin-bottom: 9px;
+        }
+        .quest-info {
+            font-size: 13px;
+            letter-spacing: 0.08px;
+            line-height: 14px;
+            margin-bottom: 46px;
+        }
+        .players-counter-wrapper, .prepay-wrapper, .language-wrapper, .modes-wrapper, .additional-services-wrapper, .additional-services-wrapper .services-options-wrapper .service-option, .payment-type-wrapper {
+            display: flex;
+            justify-content: space-between;
+            margin: 24px 0;
+        }
+        .players-counter-wrapper .players-info, .prepay-wrapper .prepay-info, .language-wrapper .language-info, .modes-wrapper .modes-info, .additional-services-wrapper .additional-services-info, .payment-type-wrapper .payment-info {
+            display: inline-block;
+            text-align: left;
+            position: relative;
+            padding-left: 44px;
+        }
+
+    </style>
 @endsection
 @section('extra-script')
 
@@ -660,7 +691,7 @@
     <script src="{!! asset('theme/missterry/plugin/OwlCarousel/owl.carousel.min.js') !!}"></script>
 
 
-    <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/common.js') !!}"></script>
+{{--    <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/common.js') !!}"></script>--}}
 
 
     <style>
@@ -701,9 +732,8 @@
         }
     </style>
     <script>
-        function onClick() {
+        function onClick1() {
             grecaptcha.ready(function() {
-
                 grecaptcha.execute('6LeSNSAaAAAAAPnoqpze0F2jMRW9CUMCP8ypmUeg', {action: 'submit'}).then(function(token) {
                     var form = jQuery(".mobilepopup  form" );
                     var datas = form.serializeArray();
@@ -743,7 +773,7 @@
                 });
             });
         }
-        function onAction(self) {
+        function onAction1(self) {
             let config = {};
             let configs = @json($result->prices);
             let dom = jQuery(".mobilepopup");
@@ -771,6 +801,115 @@
             dom.find('.form-info-time').text(time);
 
         }
+
+        function onClick() {
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LeSNSAaAAAAAPnoqpze0F2jMRW9CUMCP8ypmUeg', {action: 'submit'}).then(function(token) {
+                    var form = jQuery(".mobilepopup  form" );
+                    var datas = form.serializeArray();
+                    var reqData = {};
+                    for(let i = 0; i<datas.length;i++){
+                        reqData[datas[i].name] = datas[i].value;
+                    }
+
+                    let dom = jQuery(".mobilepopup");
+                    let number = dom.find('[name="number"]').val();
+                    let time = dom.find('[name="time"]').val();
+                    let date = dom.find('[name="date"]').val();
+                    let id =  dom.find('[name="id"]').val();
+                    let price =  dom.find('[name="price"]').val();
+                    reqData['date'] = date;
+                    reqData['time'] = time;
+                    reqData['id'] = id;
+                    reqData['price'] = price;
+                    jQuery.ajax({
+                        url:"{!! route('frontend:room:register_form') !!}",
+                        method:"POST",
+                        data:{
+                            recaptcha_token:token,
+                            data:reqData
+                        },
+                        success:function (resData) {
+                            form.find('.error .text-error').empty("");
+                            form.find('.error').removeClass('error');
+                            if(resData.hasOwnProperty('errors')){
+                                for(let i in resData.errors){
+                                    console.log(resData.errors[i]);
+                                    let parent = form.find('[name="'+i+'"]').parent();
+                                    console.log(parent);
+                                    parent.find('.text-error').html(resData.errors[i][0]);
+                                    parent.addClass('error');
+                                }
+                            }else if(resData.hasOwnProperty('success')){
+                                window.location.replace(resData.uri);
+                            }
+                        }
+                    });
+                });
+            });
+        }
+
+        function onAction(self) {
+
+            let config = null;
+
+
+            let dom = jQuery(".mobilepopup");
+            let configs = dom.find('.prices_config textarea').val();
+            configs = JSON.parse(configs);
+            let number = dom.find('[name="number"]').val();
+            let time = dom.find('[name="time"]').val();
+            let date = dom.find('[name="date"]').val();
+            let key = dom.find('[name="key"]').val();
+
+
+            for(let i in configs){
+                if(configs[i].keys.includes(number) || configs[i].keys.length == 2 && configs[i].keys[0]< number && configs[i].keys[1] > number  ){
+                    config = configs[i];
+                    break;
+                }
+            }
+
+            var price = 0;
+            console.log(key);
+            console.log(config);
+            if(config!=null && config.hasOwnProperty(key)){
+                price = config[key];
+            }
+            console.log(price);
+            dom.find('[name="price"]').val(price);
+            dom.find('.quest-price .current-price span').html(formatMoney(price)+" vnđ");
+            dom.find('.quest-price .price_human span').html(formatMoney(Math.ceil(price/number))+" vnđ");
+
+        }
+        jQuery().ready(function(){
+
+            jQuery("body").on("click",".popup-demo",function(e){
+                e.preventDefault();
+
+                var data = jQuery(this).data();
+                console.log(data);
+                var dom = jQuery(".pop-up2");
+
+                dom.find('.quest-time').html(data.date+" , "+data.time);
+                dom.find('.quest-title').html(data.title);
+                dom.find('.quest-address').html(data.address);
+
+                dom.find('.time-value').val(data.time);
+                dom.find('.date-value').val(data.date);
+                dom.find('.key-value').val(data.key);
+                dom.find('.id-value').val(data.id);
+
+                dom.find('.prices_config textarea').html(jQuery(this).find('.value').val());
+                jQuery.mobilepopup({
+                    targetblock:".pop-up2",
+                    width:"35%",
+                    height:"80%"
+                });
+                return false;
+            });
+        });
+
         jQuery(document).ready(function(){
             let sync2 = jQuery(".owl-carousel");
             sync2.owlCarousel(
