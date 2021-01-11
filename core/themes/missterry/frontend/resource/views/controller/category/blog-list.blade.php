@@ -9,7 +9,7 @@
                             @foreach($results as $result)
                             <div class="col post-item">
                                 <div class="col-inner">
-                                    <a href="{!! router_frontend_lang('home:blog_item',['slug'=>empty( $result->slug)?$result->id: $result->slug]) !!}" class="plain">
+                                    <a href="{!! router_frontend_lang($router_item,['slug'=>empty( $result->slug)?$result->id: $result->slug]) !!}" class="plain">
                                         <div class="box box-normal box-text-bottom box-blog-post has-hover">
                                             <div class="box-image">
                                                 <div class="image-zoom image-cover" style="padding-top:56.25%;">
@@ -32,7 +32,7 @@
                         </div>
                         @if($pagination['current_page'] < $pagination['total_page'])
                         <a onclick="load_more(this)" data-page="{!! $pagination['current_page']+1 !!}" class="button primary load_more" style="border-radius:20px;">
-                            <span>VIEW MORE</span>
+                            <span>{!! z_language('VIEW MORE') !!}</span>
                             <i class="icon-angle-right"></i>
                         </a>
                         @endif

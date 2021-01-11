@@ -1295,12 +1295,16 @@
     cursor: not-allowed;
 }
 .text-error{
-
+    display: inline-block;
+    color: red !important;;
+}
+.text-oke{
+    display: inline-block;
+    color: green !important;
 }
 .error .text-error{
     display: inline-block;
-    color: red;
-
+    color: red !important;
 }
 a:hover {
     text-decoration: none;

@@ -27,6 +27,12 @@ return [
             "url" => "backend:page:list",
             "icon" => "fa fa-book",
         ],
+        "announce" => [
+            "name" => z_language("Announce", false),
+            "pos" => 2,
+            "url" => "backend:announce:list",
+            "icon" => "fa fa-book",
+        ],
         "plugin" => [
             "name" => z_language('Plugins', false),
             "pos" => 3,

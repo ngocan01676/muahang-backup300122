@@ -18,18 +18,15 @@
                         </div>
                     </div>
 
-                    <footer class="entry-meta text-center">
-                        This entry was posted in
-                        <a href="https://demo.missterry.vn/category/frequently-asked-questions/" rel="category tag">Frequently asked questions</a>,
-                        <a href="https://demo.missterry.vn/category/offer/" rel="category tag">Offer</a> and tagged
-                        <a href="https://demo.missterry.vn/tag/escape-room/" rel="tag">escape room</a>,
-
-                        <a href="https://demo.missterry.vn/tag/escape-room-ha-noi/" rel="tag">escape room ha noi</a>,
-                        <a href="https://demo.missterry.vn/tag/gia-ve-escape-room/" rel="tag">gia ve escape room</a>,
-                        <a href="https://demo.missterry.vn/tag/miss-terry-vi/" rel="tag">miss terry</a>,
-                        <a href="https://demo.missterry.vn/tag/miss-terry-escape-room/" rel="tag">miss terry escape room</a>,
-                        <a href="https://demo.missterry.vn/tag/student-discount/" rel="tag">student discount</a>.
-                    </footer>
+                    @if(isset($tags[0]))
+                        <footer class="entry-meta text-center">
+                           {!! z_language('This entry was posted in') !!}<BR>
+                           @foreach($tags as $tag)
+                                @continue(empty($tag->slug))
+                                <a style="color: #f4c400" href="{!! router_frontend_lang('home:tag',['slug'=>$tag->slug]) !!}" rel="category tag">{!! $tag->name !!}</a>
+                           @endforeach
+                        </footer>
+                    @endif
                 </div>
             </article>
             <div id="comments" class="comments-area">

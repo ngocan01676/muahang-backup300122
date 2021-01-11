@@ -22,8 +22,14 @@ function Main($config){
         $category =  DB::table('categories_translation')
             ->where('lang_code',$config_language['lang'])
             ->where('_id',$category_id)
-            ->get()->all();
+            ->get()
+            ->all();
+
         $category = isset($category[0])?$category[0]:[];
+        $category_info = DB::table('categories')->where('id',$category_id)->get()->all();
+
+        $category->router_name = isset($category_info[0])?$category_info[0]->router_name:"";
+
     }
 
     return [

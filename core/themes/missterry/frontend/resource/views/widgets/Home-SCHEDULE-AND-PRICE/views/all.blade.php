@@ -290,7 +290,7 @@
                                                           style="display: block; font-size: 0.7em; line-height: 1.2em; margin-top: -14px; opacity: 0.7">
                                                         {!! z_language('Từ') !!}
                                                     </span>
-                                                {!! number_format($price/1000) !!}K  <span style="font-size: 110%;"> VNĐ </span>
+                                                {!! number_format($price/1000) !!}K  <span style="font-size: 110%;"> vnđ </span>
                                             <!-- <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">{!! date('Y-m-d',$timeAction) !!}</span>-->
                                             </div>
                                             <div class="right_line line"><ins style="margin-left: 3.5em;"></ins></div>
@@ -319,8 +319,11 @@
 
 </div>
     </div>
+
+
+
     <div class="pop-up2 popup-background" style="display: none;">
-        <div class="header"></div>
+
         <div class="content">
             <div class="">
                 <div class="popup-pane booking-pane">
@@ -368,9 +371,9 @@
                                        <span class="text-error"></span>
                                 </span>
                                 <span class="wpcf7-form-control-wrap ten">
-                                        <textarea  placeholder="{!! z_language('Ghi chú') !!}" name="note" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"></textarea>
-                                        <span class="text-error"></span>
-                                 </span>
+                                        <input type="text" name="note" placeholder="{!! z_language('Ghi chú') !!}" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                         <span class="text-error"></span>
+                                </span>
 
                                 <div class="quest-price">
                                     <div class="current-price">
@@ -394,6 +397,7 @@
         </div>
 
     </div>
+
     <style>
         .round_button,
         .round_input input,
@@ -1072,6 +1076,7 @@
         .quest-logo {
             margin:0 auto;
             padding-bottom: 5px;
+            padding-top: 30px;
         }
         .quest-title {
             font-size: 18px;

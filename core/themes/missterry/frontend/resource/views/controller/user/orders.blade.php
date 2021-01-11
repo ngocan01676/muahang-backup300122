@@ -11,13 +11,17 @@
                      <span class="nobr">{!! z_language('Room name') !!}</span>
                 </th>
                 <th class="product-name">
+                    <span class="nobr">{!! z_language('Room image') !!}</span>
+                </th>
+                <th class="product-name">
                     <span class="nobr">{!! z_language('Room date') !!}</span>
                 </th>
                 <th class="product-name">
                     <span class="nobr">{!! z_language('Room hours') !!}</span>
                 </th>
+
                 <th class="product-name">
-                    <span class="nobr">{!! z_language('Room image') !!}</span>
+                    <span class="nobr">{!! z_language('Room count') !!}</span>
                 </th>
                 <th class="product-name">
                     <span class="nobr">{!! z_language('Room price') !!}</span>
@@ -53,7 +57,8 @@
                         <td><img src="{!! get_thumbnails($rooms[$values->room_id]->image,150) !!}" alt=""></td>
                         <td>{!! $values->booking_date !!}</td>
                         <td>{!! $values->booking_time !!}</td>
-                        <td>{!! $values->price !!}</td>
+                        <td>{!! $values->count !!}</td>
+                        <td>{!! number_format($values->price) !!}</td>
                         <td>{!! $rooms[$values->room_id]->address !!} </td>
                         <td>{!! $values->status==1?z_language('Oke'):z_language('pending') !!}</td>
                         <td><a href="{!! router_frontend_lang('home:room',['slug'=>$rooms[$values->room_id]->slug]) !!}">{!! z_language('Detail room') !!}</a></td>
@@ -62,11 +67,12 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="6" class="wishlist-empty">No room </td>
+                        <td colspan="6" class="wishlist-empty">{!! z_language("No room") !!}</td>
                     </tr>
                 @endif
             </tbody>
         </table>
         <div class="yith_wcwl_wishlist_footer">
+            @include('theme::layout.component.pagination',['pagination'=>$pagination])
         </div>
 @endsection

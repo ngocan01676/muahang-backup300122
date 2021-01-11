@@ -162,7 +162,7 @@ class PostController extends \Zoe\Http\ControllerBackend
             $filter = $newFilter;
         }
         $filter = array_merge($filter,[
-            'image' => 'required',
+//            'image' => 'required',
             'category_id' => 'required',
         ]);
         $validator = Validator::make($data, $filter, [

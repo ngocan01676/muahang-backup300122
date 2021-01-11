@@ -9,6 +9,10 @@ function Main($config){
                 'url'=>router_frontend_lang('missterry:user:dashboard')
             ],
             [
+                'label'=>z_language('Announce'),
+                'url'=>router_frontend_lang('missterry:user:announce')
+            ],
+            [
                 'label'=>z_language('Account Detail'),
                 'url'=>router_frontend_lang('missterry:user:info')
             ],

@@ -59,7 +59,7 @@
 
             <div id="col-1030086189" class="col small-12 large-12">
                 <div class="col-inner text-center">
-                    <a href="{!! router_frontend_lang('home:offer') !!}" target="_self" class="button primary is-outline" style="border-radius:20px;">
+                    <a href="{!! router_frontend_lang('category:offer_promos') !!}" target="_self" class="button primary is-outline" style="border-radius:20px;">
                         <span>{!! z_language('Offer & Promos') !!}</span>
                         <i class="icon-angle-right"></i>
                     </a>

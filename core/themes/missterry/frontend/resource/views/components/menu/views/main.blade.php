@@ -66,6 +66,9 @@
                                         <a href="{!! router_frontend_lang('missterry:user:info') !!}">{!! z_language('Account Detail') !!}</a>
                                     </li>
                                     <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--orders">
+                                        <a href="{!! router_frontend_lang('missterry:user:announce') !!}">{!! z_language('Announce') !!}</a>
+                                    </li>
+                                    <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--orders">
                                         <a href="{!! router_frontend_lang('missterry:user:orders') !!}">{!! z_language('Orders') !!}</a>
                                     </li>
                                     <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--customer-logout">
@@ -77,9 +80,10 @@
                                     </li>
                                 </ul>
                             </li>
+
                     @else
                             <li class="lang-item lang-item-54 lang-item-en current-lang lang-item-first menu-item menu-item-type-custom menu-item-object-custom current_page_item menu-item-home menu-item-3574-en menu-item-design-default">
-                                <a href="https://flatsome3.uxthemes.com/my-account/" class="nav-top-link nav-top-not-logged-in" data-open="#login-form-popup">
+                                <a href="#" class="nav-top-link nav-top-not-logged-in" data-open="#login-form-popup">
                                     <i class="icon-user"></i>
                                 </a>
                             </li>
@@ -166,6 +170,18 @@
 </div>
 
 <div id="login-form-popup" class="lightbox-content mfp-hide">
+    <style>
+        #login-form-popup{
+            background: url({!! asset('/theme/missterry/images/bg.jpg') !!}) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        #login-form-popup .woocommerce-form-row label{
+            color: #ffffff !important;
+        }
+    </style>
     <div class="woocommerce-notices-wrapper"></div>
     <div class="account-container lightbox-inner">
         <div class="col2-set row row-divided row-large" id="customer_login">
@@ -185,10 +201,6 @@
                             <span class="message-container container alert-color medium-text-center error"></span>
                         </p>
                         <p class="form-row">
-                            <label class="woocommerce-form__label woocommerce-form__label-for-checkbox woocommerce-form-login__rememberme">
-                                <input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> <span>{!! z_language('Remember me') !!}</span>
-                            </label>
-                            <input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="3b8d83fe55" /><input type="hidden" name="_wp_http_referer" value="/cart/" />
                             <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">{!! z_language('Log in') !!}</button>
                         </p>
                         <p class="woocommerce-LostPassword lost_password">

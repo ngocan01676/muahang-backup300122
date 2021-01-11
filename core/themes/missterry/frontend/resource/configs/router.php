@@ -57,11 +57,11 @@ $routers['home'] = [
             "guard" => "",
             "action"=>'get_offer'
         ],
-        'news'=>[
-            "url" => "/news",
-            "guard" => "",
-            "action"=>'get_news'
-        ],
+//        'news'=>[
+//            "url" => "/news",
+//            "guard" => "",
+//            "action"=>'get_news'
+//        ],
         'contact'=>[
             "url" => "/contact",
             "guard" => "",
@@ -70,7 +70,7 @@ $routers['home'] = [
         'blog_people_talk_about_about'=>[
             "url" => "/people-talk-about-about/{slug}",
             "guard" => "",
-            "action"=>'get_blog_people_talk_about_about'
+            "action"=>'get_blog_item'
         ],
         'blog_item'=>[
             "url" => "/blog/{slug}",
@@ -132,6 +132,12 @@ $routers['widget'] =   [
             "guard" => "",
             "action"=>'WidgetSchedule',
             "method"=>['POST']
+        ],
+        'Subscribe'=>[
+            "url" => "/widget/".md5('Subscribe'),
+            "guard" => "",
+            "action"=>'WidgetSubscribe',
+            "method"=>['POST']
         ]
     ]
 ];
@@ -146,6 +152,37 @@ $routers['page'] = [
 
     ]
 ];
+$routers['category'] = [
+    "namespace" => "MissTerryTheme\Http\Controllers",
+    "controller" => "CategoryController",
+    "language"=>[
+    ],
+    'configs'=>[
+        'views'=>[
+            'offer_promos'=>'category.offer',
+            'frequently_asked_questions'=>'category.frequently-asked-questions'
+        ],
+        'type'=>'blog:category',
+        'items'=>[
+            "namespace" => "MissTerryTheme\Http\Controllers",
+            "controller" => "CategoryController",
+            "action"=>'get_blog_item',
+            'uri'=>'/{slug}',
+            'url'=>'/',
+            "sub_prefix" => "/",
+            "router" => [
+
+            ]
+        ]
+    ],
+    "sub_prefix" => "/",
+    "action"=>'get_list_blog_category',
+
+    "router" => [
+
+    ]
+];
+
 $routers['guest:missterry'] = [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "AuthController",
@@ -188,6 +225,12 @@ $routers['missterry:user'] = [
             "method" => ["get","post"],
             "guard" => ""
         ],
+        "announce" => [
+            "url" => "/my-account/announce",
+            "action" => "get_announce",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
         "orders" => [
             "url" => "/my-account/orders",
             "action" => "getorders",
@@ -196,7 +239,21 @@ $routers['missterry:user'] = [
         ],
     ]
 ];
+$routers['user:base'] = [
+    "namespace" => "MissTerryTheme\Http\Controllers",
+    "controller" => "UserController",
+    "language"=>[
 
+    ],
+    "router" => [
+        "storeInfo"=>[
+            "url" => "/my-account/info/update",
+            "action" => "storeInfo",
+            "method" => ["post"],
+            "guard" => ""
+        ]
+    ]
+];
 return [
     'routers' => [
         'frontend' => $routers

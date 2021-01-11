@@ -11,7 +11,7 @@
                             @foreach($data['featureds'] as $result)
                                  <div class="col post-item" >
                             <div class="col-inner">
-                                <a href="https://demo.missterry.vn/2019/07/19/muc-gia-ve-escape-room/" class="plain">
+                                <a href="{!! router_frontend_lang('category_item:'.$data['category']->router_name,['slug'=>empty( $result->slug)?$result->id: $result->slug]) !!}" class="plain">
                                     <div class="box box-shade dark box-text-bottom box-blog-post has-hover">
                                         <div class="box-image" >
                                             <div class="image-zoom image-cover" style="padding-top:110%;">
@@ -37,14 +37,14 @@
             <div id="col-1751508963" class="col medium-8 small-12 large-8"  >
                 <div class="col-inner"  >
                     <div class="container section-title-container" >
-                        <h3 class="section-title section-title-normal"><b></b><span class="section-title-main" style="font-size:150%;">{!! z_language('Miss Terry Blogs') !!}</span><b></b><a href="{!! router_frontend_lang('home:category',['slug'=>$data['category']->slug]) !!}" target="">{!! z_language('Xem thêm') !!}<i class="icon-angle-right" ></i></a></h3>
+                        <h3 class="section-title section-title-normal"><b></b><span class="section-title-main" style="font-size:150%;">{!! z_language('Miss Terry Blogs') !!}</span><b></b><a href="{!! router_frontend_lang('category:'.$data['category']->router_name) !!}" target="">{!! z_language('Xem thêm') !!}<i class="icon-angle-right" ></i></a></h3>
                     </div>
                     <div class="row large-columns-2 medium-columns-1 small-columns-2 slider row-slider slider-nav-reveal slider-nav-push"  data-flickity-options='{"imagesLoaded": true, "groupCells": "100%", "dragThreshold" : 5, "cellAlign": "left","wrapAround": true,"prevNextButtons": true,"percentPosition": true,"pageDots": false, "rightToLeft": false, "autoPlay" : false}'>
                         @if(isset($data['results']))
                         @foreach($data['results'] as $result)
                         <div class="col post-item" >
                             <div class="col-inner">
-                                <a href="{!! router_frontend_lang('home:blog_item',['slug'=>empty( $result->slug)?$result->id: $result->slug]) !!}" class="plain">
+                                <a href="{!! router_frontend_lang('category_item:'.$data['category']->router_name,['slug'=>empty( $result->slug)?$result->id: $result->slug]) !!}" class="plain">
                                     <div class="box box-normal box-text-bottom box-blog-post has-hover">
                                         <div class="box-image" >
                                             <div class="image-zoom image-cover" style="padding-top:75%;">
