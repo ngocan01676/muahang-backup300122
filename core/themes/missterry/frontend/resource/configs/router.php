@@ -132,6 +132,12 @@ $routers['widget'] =   [
             "guard" => "",
             "action"=>'WidgetSchedule',
             "method"=>['POST']
+        ],
+        'Subscribe'=>[
+            "url" => "/widget/".md5('Subscribe'),
+            "guard" => "",
+            "action"=>'WidgetSubscribe',
+            "method"=>['POST']
         ]
     ]
 ];

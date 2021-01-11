@@ -68,4 +68,26 @@ jQuery(document).ready(function () {
             }
         });
     });
+    jQuery('[value="Subscribe"]').click(function (e) {
+        e.preventDefault();
+        let form = jQuery(this).closest('.wpcf7-form');
+        jQuery.ajax({
+            url:form.attr('action'),
+            type:"POST",
+            data:{
+               'email':form.find('[name="your-name"]').val()
+            },
+            success:function (datas) {
+                console.log(datas);
+                let notifications = form.find('.notifications');
+                notifications.removeClass('text-error');
+                notifications.removeClass('text-oke');
+                if(datas.hasOwnProperty('errors') && datas.errors.hasOwnProperty('email')){
+                    notifications.addClass('text-error').html(datas.errors.email[0]);
+                }else if(datas.hasOwnProperty('oke')){
+                    notifications.addClass('text-oke').html(datas.oke);
+                }
+            }
+        });
+    });
 });
