@@ -137,7 +137,7 @@
             });
         }
         function updateStatusCancel(self){
-            var person = confirm("Ban có muốn hủy check");
+            var person = confirm("Ban có muốn hủy check đơn "+data.id+" "+);
             if (person == true) {
                 let data = $(self).data();
                 $(self).hide();
