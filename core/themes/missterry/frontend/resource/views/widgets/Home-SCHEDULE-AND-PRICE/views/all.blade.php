@@ -319,8 +319,11 @@
 
 </div>
     </div>
+
+
+
     <div class="pop-up2 popup-background" style="display: none;">
-        <div class="header"></div>
+
         <div class="content">
             <div class="">
                 <div class="popup-pane booking-pane">
@@ -1072,6 +1075,7 @@
         .quest-logo {
             margin:0 auto;
             padding-bottom: 5px;
+            padding-top: 30px;
         }
         .quest-title {
             font-size: 18px;

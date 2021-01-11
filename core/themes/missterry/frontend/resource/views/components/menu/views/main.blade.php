@@ -83,7 +83,7 @@
 
                     @else
                             <li class="lang-item lang-item-54 lang-item-en current-lang lang-item-first menu-item menu-item-type-custom menu-item-object-custom current_page_item menu-item-home menu-item-3574-en menu-item-design-default">
-                                <a href="https://flatsome3.uxthemes.com/my-account/" class="nav-top-link nav-top-not-logged-in" data-open="#login-form-popup">
+                                <a href="#" class="nav-top-link nav-top-not-logged-in" data-open="#login-form-popup">
                                     <i class="icon-user"></i>
                                 </a>
                             </li>

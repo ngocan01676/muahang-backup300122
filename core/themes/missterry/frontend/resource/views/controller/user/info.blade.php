@@ -22,9 +22,7 @@
             @endif
             {!! Form::model($item, ['method' => 'POST','route' => ['frontend:user:base:storeInfo'],'id'=>'form_store','class'=>'woocommerce-EditAccountForm edit-account']) !!}
             <form class="woocommerce-EditAccountForm edit-account" action="{!! route('frontend:user:base:storeInfo') !!}" method="post">
-
                 @csrf
-
                 <p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
                     <label for="account_first_name">{!! z_language('First name') !!}&nbsp;
                         <span class="required">*</span>
