@@ -114,12 +114,14 @@ class RouteServiceProvider extends ServiceProvider
                          }
                      }else{
                          if ($this->app->is_admin == false || true ){
+
                              foreach ($selects as $lang){
                                  if(!isset($language[$lang])){
                                      continue;
                                  }
                                  $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
                                  foreach ($fruitsArrayObject['router'] as $key=>$value){
+
                                      if(isset($languageConfig[$key][$lang]['uri'])){
                                         $_url = $languageConfig[$key][$lang]['uri'];
                                      }else{
@@ -136,7 +138,7 @@ class RouteServiceProvider extends ServiceProvider
 
                 }
             }
-
+            
         }
 
         foreach ($routers as $name => $route) {
@@ -186,6 +188,7 @@ class RouteServiceProvider extends ServiceProvider
                 $middleware = ["web"];
                 $acl = "";
                 $auth_guard = isset($_route["guard"]) ? $_route["guard"] : (isset($route["guard"]) ? $route["guard"] : $guard);
+
                 if (isset($configRouter['data'][$alias]['acl'])) {
                     if ($configRouter['data'][$alias]['acl'] == 'no-login') {
                         $auth_guard = "";
@@ -198,6 +201,7 @@ class RouteServiceProvider extends ServiceProvider
                         }
                     }
                 }
+
                 if (!empty($auth_guard)) {
                     $middleware[] = 'auth:' . $auth_guard;
 

@@ -106,7 +106,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                 if($count == 0){
                     $id = DB::table('miss_booking')->insertGetId([
                         'room_id'=>$data['data']['id'],
-                        'user_id'=>0,
+                        'user_id'=>auth('frontend')->user()?auth('frontend')->user()->id:0,
                         'fullname'=>$data['data']['fullname'],
                         'phone'=>$data['data']['phone'],
                         'email'=>$data['data']['email'],

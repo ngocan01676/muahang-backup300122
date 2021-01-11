@@ -70,6 +70,9 @@ return [
             'Home-SCHEDULE-AND-PRICE'=>[
                 'layout' => 'widget'
             ],
+            'User-Menu'=>[
+                'layout' => 'widget'
+            ],
         ]
     ]
 ];

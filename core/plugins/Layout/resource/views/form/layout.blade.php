@@ -70,6 +70,20 @@
                 ),
                 'opt'=>$optionGrid
             )
+        ),
+        array(
+            'option'=>array(
+                'cfg'=>array(
+                     'compiler'=>[],
+                     'tag'=>'none',
+                     'status'=>1
+                ),
+                'stg'=>array(
+                    'col'=>array(3,9),
+                     'type'=>'gird'
+                ),
+                'opt'=>$optionGrid
+            )
         )
     );
 @endphp

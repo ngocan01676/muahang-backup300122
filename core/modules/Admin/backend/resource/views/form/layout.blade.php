@@ -56,7 +56,8 @@
                 ),
                 'opt'=>$optionGrid
             )
-        )
+        ),
+
     );
 @endphp
 

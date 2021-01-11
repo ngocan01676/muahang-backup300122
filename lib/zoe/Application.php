@@ -14,7 +14,6 @@ class Application extends App
 
     public $is_admin = false;
 
-
     private $_configs;
     private $_permissions = [
         'aliases' => [],
