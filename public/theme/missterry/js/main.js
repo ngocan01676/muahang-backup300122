@@ -86,6 +86,7 @@ jQuery(document).ready(function () {
                     notifications.addClass('text-error').html(datas.errors.email[0]);
                 }else if(datas.hasOwnProperty('oke')){
                     notifications.addClass('text-oke').html(datas.oke);
+                    form.find('[name="your-name"]').val("");
                 }
             }
         });
