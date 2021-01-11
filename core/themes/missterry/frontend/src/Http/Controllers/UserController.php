@@ -94,7 +94,7 @@ class UserController extends \Zoe\Http\ControllerFront
         $this->addDataGlobal("Blog-featured-title",  z_language('MY ACCOUNT'));
         $this->addDataGlobal("User-Menu-Router",$request->route()->getName());
 
-        $miss_room = DB::table('miss_room')->where('status',1)->orderBy('id','desc')->get()->keyBy('id')->all();
+        $miss_room = DB::table('miss_room')->where('status',1)->get()->keyBy('id')->all();
 
         $config_language = app()->config_language;
         $translation = [];
@@ -127,7 +127,8 @@ class UserController extends \Zoe\Http\ControllerFront
             $current_page = 1;
         }
         $start = ($current_page - 1) * $limit;
-        $results = $results->offset($start)->limit($limit)->get()->all();
+
+        $results = $results->offset($start)->limit($limit)->orderBy('id','desc')->get()->all();
 
         return $this->render('user.orders',['results'=>$results,'rooms'=>$miss_room,
             'pagination'=>[
