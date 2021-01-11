@@ -47,8 +47,27 @@ class UserController extends \Zoe\Http\ControllerFront
         }
         $user = Auth('frontend')->user();
 
-        $results = DB::table('miss_booking')->where('email',$user->email)->get()->all();
-        return $this->render('user.orders',['results'=>$results,'rooms'=>$miss_room]);
+        $results = DB::table('miss_booking')->where('email',$user->email);
+
+        $total_records = $results->count();
+
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $limit = 10;
+        $total_page = ceil($total_records / $limit);
+        if ($current_page > $total_page){
+            $current_page = $total_page;
+        }
+        else if ($current_page < 1){
+            $current_page = 1;
+        }
+        $start = ($current_page - 1) * $limit;
+        $results = $results->offset($start)->limit($limit)->get()->all();
+
+        return $this->render('user.orders',['results'=>$results,'rooms'=>$miss_room,
+            'pagination'=>[
+            'current_page'=>$current_page,
+            'total_page'=>$total_page,
+        ]]);
     }
     public function get_announce(){
         return $this->render('user.announce',[]);

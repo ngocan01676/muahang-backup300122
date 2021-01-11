@@ -32,7 +32,7 @@
                         </div>
                         @if($pagination['current_page'] < $pagination['total_page'])
                         <a onclick="load_more(this)" data-page="{!! $pagination['current_page']+1 !!}" class="button primary load_more" style="border-radius:20px;">
-                            <span>VIEW MORE</span>
+                            <span>{!! z_language('VIEW MORE') !!}</span>
                             <i class="icon-angle-right"></i>
                         </a>
                         @endif
