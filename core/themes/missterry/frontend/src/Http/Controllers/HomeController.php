@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Str;
+use Mail;
+use MissTerryTheme\Mail\MyEmail;
 class HomeController extends \Zoe\Http\ControllerFront
 {
     public $config_language = [];
@@ -141,6 +143,11 @@ class HomeController extends \Zoe\Http\ControllerFront
         if(isset($results[0])){
 
         }
+
+        $to_email = "mrtrungit@gmail.com";
+        Mail::to($to_email)->send(new MyEmail);
+
+
         $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');
         return $this->render('home.register_room_oke');
     }
