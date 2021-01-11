@@ -144,17 +144,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             $to_email = "mrtrungit@gmail.com";
 
             Mail::to($to_email)->send(new MyEmail($results[0]));
-            
-//        if(count(Mail::failures()) > 0){
-//            return redirect()->route('mail.view')->with('error','Error in sending mail');
-//        }
-//        else {
-//            return redirect()->route('mail.view')->with('response','Mail Send Successfully');
-//        }
         }
-
-
-
         $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');
         return $this->render('home.register_room_oke');
     }
