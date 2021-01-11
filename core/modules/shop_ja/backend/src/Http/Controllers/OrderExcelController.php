@@ -1502,7 +1502,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 },
                 "get_info_1"=>function($model) use($configs,$configsredeliver){
                     $html = "";
-                    if($model->status > 2 && $model->status< 10) {
+
                         $resutls = DB::table('shop_order_excel')->where('id',$model->order_id)->get()->all();
                         if(isset($resutls[0])){
                             $html.='<table class="table table-bordered" style="background: #dedede">';
@@ -1518,7 +1518,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $html.='</tr>';
                             $html.='</table>';
                         }
-                    }
+                   
                     return $html;
                 }
             ]
