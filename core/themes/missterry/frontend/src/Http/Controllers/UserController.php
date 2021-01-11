@@ -52,7 +52,7 @@ class UserController extends \Zoe\Http\ControllerFront
         $total_records = $results->count();
 
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $limit = 10;
+        $limit = 6;
         $total_page = ceil($total_records / $limit);
         if ($current_page > $total_page){
             $current_page = $total_page;
