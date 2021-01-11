@@ -428,23 +428,28 @@
                                                  }else if($week == 5){
                                                    if($_timeNumber > $_timeBet_17){
                                                        $price = $price_max['price2'];
-                                                         $key = 'price2 '.$week;
+                                                         $key = 'price2';
                                                    }else{
                                                        $price = $price_max['price1'];
-                                                        $key = 'price1 ' .$week;
+                                                        $key = 'price1';
                                                    }
                                                  }else{
                                                        $price = $price_max['price2'];
-                                                       $key = 'price2 '.$week;
+                                                       $key = 'price2';
                                                  }
                                             }
                                         @endphp
                                         <div
+
                                                 class="calendar__item  {!! $class !!} actor_0"
                                                 data-key="{!! $key !!}"
                                                 data-id="{!! $result->id !!}"
                                                 data-date="{!! $d_m_Y !!}"
-                                                data-time="{!! $time['date'] !!}">
+                                                data-time="{!! $time['date'] !!}"
+                                                data-address="{!! $result->address !!}"
+                                                data-title="{!! $result->title !!}"
+
+                                        >
                                             <div class="item__time">{!! $time['date'] !!}</div>
                                             <div class="item__price">{!! $price !!}<span class="price__currency">đ</span></div>
                                             <div class="book_label">{!! number_format($price) !!}/1 người đ</div>
