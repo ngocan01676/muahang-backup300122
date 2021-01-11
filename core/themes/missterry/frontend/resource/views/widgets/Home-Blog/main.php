@@ -24,10 +24,12 @@ function Main($config){
             ->where('lang_code',$config_language['lang'])
             ->where('_id',$category_id)
             ->get()->all();
-        $category = isset($category[0])?$category[0]:[];
+        if( isset($category[0])){
+            $category = isset($category[0])?$category[0]:[];
+            $category_info = DB::table('categories')->where('id',$category_id)->get()->all();
+            $category->router_name = isset($category_info[0])?$category_info[0]->router_name:"";
+        }
     }
-
-
     $results_featured = DB::table('blog_post')->where('category_id',$category_id)
         ->where('featured',1)
         ->where('status',1)->limit(1)
