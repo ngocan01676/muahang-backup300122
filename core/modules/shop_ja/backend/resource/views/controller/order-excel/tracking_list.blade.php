@@ -138,7 +138,7 @@
         }
         function updateStatusCancel(self){
             var person = confirm("Ban có muốn hủy check");
-            if (person != null) {
+            if (person == true) {
                 let data = $(self).data();
                 $(self).hide();
                 $.ajax({
