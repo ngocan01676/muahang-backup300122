@@ -139,7 +139,7 @@
                 $(self).hide();
                 $.ajax({
                     type: "POST",
-                    data: {act:"updateStatusCancel",id:data.id},
+                    data: {act:"updateStatusCancel",id:data.id,status:data.status},
                     success: function (html) {
 
                     }
