@@ -320,9 +320,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         return $this->render('home.franchise');
     }
     public function get_Tag(){
-
         $this->addDataGlobal("Blog-featured",  false);
-
         return $this->render('home.tag');
     }
 }
