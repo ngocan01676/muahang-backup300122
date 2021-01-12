@@ -33,7 +33,7 @@ class ControllerFront extends Controller
         }
         $alias = app()->getConfig()['views']['alias'];
         $data = array_merge($this->data, $data);
-
+        var_dump($this->layout);
         $keyName = app()->getKey("_view_alias");
         $_view_alias = isset($request->route()->defaults[$keyName]) ? $request->route()->defaults[$keyName] : "";
 
