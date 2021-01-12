@@ -142,7 +142,6 @@ class HomeController extends \Zoe\Http\ControllerFront
         if(isset($miss_booking[0])){
             $to_email = $miss_booking[0]->email;
             $results = DB::table('miss_room')->where('status',1)->where('id',$miss_booking[0]->room_id)->get()->all();
-
             if(isset($results[0])){
                 $result = $results[0];
                 if(isset($this->_language['lang'])){
@@ -161,7 +160,6 @@ class HomeController extends \Zoe\Http\ControllerFront
                         $result->address  = "";
                     }
                 }
-
                 $data = [
                     'fullname'=>$miss_booking[0]->fullname,
                     'phone'=>$miss_booking[0]->phone,
@@ -173,7 +171,6 @@ class HomeController extends \Zoe\Http\ControllerFront
                     'email'=>$miss_booking[0]->email,
                     'address'=>$result->address,
                 ];
-
                 Mail::to($to_email)->send(new MyEmail('MISS TERRY - ESCAPE ROOMS: XÁC NHẬN ĐẶT PHÒNG',$data));
             }
         }

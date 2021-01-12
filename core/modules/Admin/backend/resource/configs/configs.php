@@ -62,30 +62,13 @@ return [
         'controllers'=>[
             'Admin\Http\Controllers\EmailTemplateController'=>[
                 'default'=>[
-                    [
+                    'formats'=>[
                         "DATE"=>z_language('Date',false),
                         "TIME"=>z_language('Time',false),
                         "DATE_TIME"=>z_language('Date Time',false)
                     ],
                 ],
-                "Plugin:Contact:Email"=>[
-                    [
-                        "DATE"=>z_language('Date',false),
-                        "TIME"=>z_language('Time',false),
-                        "DATE_TIME"=>z_language('Date Time',false)
-                    ],
-                    [
-                        "fullname"=>z_language('Fullname Booking',false),
-                        "phone"=>z_language('Phone Booking',false),
-                        "booking_date"=>z_language('Date Booking',false),
-                        "booking_time"=>z_language('Time Booking',false),
-                        "count"=>z_language('Count Booking',false),
-                        "price"=>z_language('Price Booking',false),
-                        "title"=>z_language('Title Game',false),
-                        "address"=>z_language('Address Game',false),
-                        "email"=>z_language('Email Booking',false),
-                    ],
-                ]
+
             ]
         ]
     ],

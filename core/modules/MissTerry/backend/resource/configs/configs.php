@@ -184,6 +184,30 @@
         'configs' => [
             'lists'=>[
 
+            ],
+            'controllers'=>[
+                'Admin\Http\Controllers\EmailTemplateController'=>[
+                    "Plugin:Contact:Email"=>[
+                        'formats'=>[
+                            'Game'=>[
+                                "address"=>z_language('Address Game',false),
+                                "title"=>z_language('Title Game',false),
+                            ],
+                            'Booking'=>[
+                                "fullname"=>z_language('Fullname Booking',false),
+                                "phone"=>z_language('Phone Booking',false),
+                                "booking_date"=>z_language('Date Booking',false),
+                                "booking_time"=>z_language('Time Booking',false),
+                                "count"=>z_language('Count Booking',false),
+                                "price"=>z_language('Price Booking',false),
+                                "email"=>z_language('Email Booking',false),
+                            ],
+                        ],
+                        'keys'=>[
+                            'booking'=>z_language('Booking',false)
+                        ]
+                    ]
+                ]
             ]
         ],
         'registers'=>[

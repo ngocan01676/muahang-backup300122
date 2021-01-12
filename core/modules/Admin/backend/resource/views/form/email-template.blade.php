@@ -11,7 +11,6 @@
                 </div><br/>
             @endif
             <x-flash_message/>
-
             @if(isset($model))
                 {!! Form::model($model, ['method' => 'POST','route' => ['backend:email_template:store'],'id'=>'form_store']) !!}
                 {!! Form::hidden('id') !!} {!! Form::hidden('id_key') !!}
@@ -19,15 +18,34 @@
                 {!! Form::open(['method' => 'POST','route' => ['backend:email_template:store'],'id'=>'form_store']) !!}
                 {!! Form::hidden('id_key',$id_key) !!}
             @endif
-
             <table class="table table-borderless">
                 <tbody>
                     <tr>
                         <td>
                             {!! Form::label('name', z_language('Email Name'), ['class' => 'name']) !!}
-                            {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Email Name')]) !!}
+                            {!! Form::select('name', $config_formats['keys'],null,['class'=>'form-control']); !!}
                         </td>
                     </tr>
+                    @if(isset($configs['core']['language']['multiple']))
+                        <tr>
+                            <td>
+                                {!! Form::label('name', z_language('Language'), ['class' => 'name']) !!}
+
+                                <select name="lang_code" class="form-control">
+                                @foreach($language as $lang=>$_language)
+                                    @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                                        <option value="{!! $lang !!}" @if(Form::value('lang_code') == $lang) selected="true" @endif>
+                                            <span
+                                                    class="flag-icon flag-icon-{{$_language['flag']}}">
+                                            </span>
+                                            {!! $lang !!}
+                                        </option>
+                                    @endif
+                                @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                    @endif
                     <tr>
                         <td>
                             {!! Form::label('subject', z_language('Email Subject'), ['class' => 'name']) !!}
@@ -48,13 +66,14 @@
 
                                 @php
                                 $menus = [];
-                                foreach($configs as $config){
-                                    $items = [];
-                                    foreach($config as $key=>$_config){
-                                        $items[$key] = ['title'=>$_config,'key'=>'@{'.$key.'}@'];
-                                    }
-                                    $title = '{'.implode("} , {",$config).'}';
-                                    $menus[md5($title)] = ['title'=>$title,'items'=>$items];
+
+                                foreach($config_formats['formats'] as $name=>$formats){
+                                        $items = [];
+                                        foreach($formats as $key=>$_config){
+                                            $items[$key] = ['title'=>$_config,'key'=>'@{'.$key.'}@'];
+                                        }
+                                        $title = $name;
+                                        $menus[md5($title)] = ['title'=>$title,'items'=>$items];
                                 }
                                 @endphp
 
