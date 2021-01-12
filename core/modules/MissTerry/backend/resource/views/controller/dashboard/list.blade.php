@@ -26,7 +26,7 @@
                         <div class="info-box">
                             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-cart-outline"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Tổng đơn đặt</span>
+                                <span class="info-box-text">{!! z_language('Tổng đơn đặt') !!}</span>
                                 <span class="info-box-number">{!! $analytics['total']['total']  !!}<small></small></span>
                             </div>
                             <!-- /.info-box-content -->
@@ -38,7 +38,7 @@
                             <span class="info-box-icon bg-aqua"><i class="ion ion-pricetag"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Tổng tiền</span>
+                                <span class="info-box-text">{!! z_language('Tổng tiền') !!}</span>
                                 <span class="info-box-number">{!! number_format($analytics['total']['price']) !!}<small></small></span>
                             </div>
                             <!-- /.info-box-content -->
@@ -51,7 +51,7 @@
                             <span class="info-box-icon bg-red"><i class="ion ion-ios-cart-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Thành công</span>
+                                <span class="info-box-text">{!! z_language('Thành công') !!}</span>
                                 <span class="info-box-number">{!! $analytics['total']['success'] !!}</span>
                             </div>
                             <!-- /.info-box-content -->
@@ -67,8 +67,20 @@
                             <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Chưa kiểm duyệt</span>
-                                <span class="info-box-number">{!! $analytics['total']['fail'] !!}</span>
+                                <span class="info-box-text">{!! z_language('Chưa kiểm duyệt') !!}</span>
+                                <span class="info-box-number">{!! $analytics['total']['padding'] !!}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning"><i class="ion ion-ios-cart-outline"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">{!! z_language('Hủy đơn') !!}</span>
+                                <span class="info-box-number">{!! $analytics['total']['success'] !!}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
