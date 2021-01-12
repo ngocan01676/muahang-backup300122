@@ -65,7 +65,8 @@ jQuery(document).ready(function () {
                              oke.show();
                              jQuery(".account-register-inner .text-oke").html(datas.oke);
                          }
-
+                        jQuery("#reg_email").val("");
+                        jQuery("#reg_password").val("");
                     }else if(datas.hasOwnProperty('errors')){
                         for(let index in datas.errors){
                             console.log(datas.errors[index]);
