@@ -17,6 +17,11 @@ return [
                         "url" => "/",
                         "acl"=>true
                     ],
+                    'analytics'=>[
+                        "url" => "/analytics",
+                        'method' => ['post'],
+                      
+                    ]
                 ]
             ],
             $key.':room' => [
