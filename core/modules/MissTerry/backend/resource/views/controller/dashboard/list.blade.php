@@ -111,11 +111,11 @@
             </div>
         </div>
     </div>
-    @if(Auth::user()->IsAcl("dashboard:all"))
-        <div class="box box-solid">
+
+    <div class="box box-solid">
             <div class="box-header">
                 <i class="fa fa-th"></i>
-                <h3 class="box-title">{!! z_language('Thông kê đơn') !!}</h3>
+                <h3 class="box-title">{!! z_language('Thông kê đơn đặt thơi gian đặt') !!}</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button> &nbsp;
                     <button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -163,8 +163,57 @@
                 <div class="chart" id="line-chart-reward_free" style="height: 250px;"></div>
             </div>
         </div>
+    <div class="box box-solid" id="booking_date">
+        <div class="box-header">
+            <i class="fa fa-th"></i>
+            <h3 class="box-title">{!! z_language('Thông kê đơn đặt theo ngày đặt') !!}</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button> &nbsp;
+                <button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body border-radius-none">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{!! z_language("Công ty") !!}:</label>
+                        <div class="input-group">
+                            <select   class="form-control conpany" onchange="charts_line_booking_date()">
+                                <option value="">{!! z_language("Tổng") !!}</option>
+                                @foreach($analytics['category'] as $category=>$values)
+                                    <option value="{!! $values['data']->id !!}">{!! $values['data']->title !!}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{!! z_language("Tháng ") !!}:</label>
+                        <div class="input-group">
+                            <select  class="form-control month" onchange="charts_line_booking_date()">
+                                @foreach([1,2,3,4,5,6,7,8,10,11,12] as $category=>$values)
+                                    <option @if(date('m') == $values) selected @endif value="{!! $values !!}">{!! $values !!}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{!! z_language("Kiểu Ngày") !!}:</label>
+                        <div class="input-group">
+                            <input checked name="type" type="radio" value="day" onchange="charts_line_booking_date()"> {!! z_language('Tháng') !!}
+                            <input name="type" type="radio" value="week" onchange="charts_line_booking_date()"> {!! z_language('Tuần') !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart line-chart-reward_booking_date"style="height: 250px;" id="line-chart-reward_booking_date"></div>
+        </div>
+    </div>
 
-    @endif
+
 @endsection
 @push('links')
     <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
@@ -174,9 +223,9 @@
     <script src="{{ asset('module/admin/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 
 
-        <link rel="stylesheet" href="{{ asset('/module/shop-ja/assets/morris.js/morris.css') }}">
-        <script src="{{ asset('/module/shop-ja/assets/raphael/raphael.min.js') }}"></script>
-        <script src="{{ asset('/module/shop-ja/assets/morris.js/morris.min.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('/module/missterry/plugins/morris.js/morris.css') }}">
+        <script src="{{ asset('/module/missterry/plugins/raphael/raphael.min.js') }}"></script>
+        <script src="{{ asset('/module/missterry/plugins/morris.js/morris.min.js') }}"></script>
 
         <!-- FLOT CHARTS -->
         <script src="{{ asset('module/admin/bower_components/Flot/jquery.flot.js') }}"></script>
@@ -196,7 +245,6 @@
             }
 
             function charts_line() {
-
                 let reservation = $("#reservation").val();
                 let dates = reservation.split("-");
                 for(let i=0;i<dates.length;i++){
@@ -205,7 +253,6 @@
                 let user_id = $("#user_id").val();
                 let conpany = $("#conpany").val();
                 let month = $("#month").val();
-
                 $.ajax({
                     type: "POST",
                     url:'{!! route('backend:dashboard:analytics') !!}',
@@ -214,7 +261,7 @@
                         date_end:dates[1][2]+'-'+dates[1][0]+'-'+dates[1][1],
                         user_id:user_id,
                         month:month,
-                        conpany:conpany,
+                        room_id:conpany,
                         type:$('input[name=type]:checked').val(),
                         act:"line"
                     },
@@ -250,7 +297,58 @@
                     },
                 });
             }
+            function charts_line_booking_date() {
+                let reservation = $("#reservation").val();
+                let dates = reservation.split("-");
+                for(let i=0;i<dates.length;i++){
+                    dates[i] = dates[i].trim().split("/");
+                }
 
+                let conpany = $("#booking_date .conpany").val();
+                let month = $("#booking_date .month").val();
+                $.ajax({
+                    type: "POST",
+                    url:'{!! route('backend:dashboard:analytics') !!}',
+                    data: {
+                        date_start:dates[0][2]+'-'+dates[0][0]+'-'+dates[0][1],
+                        date_end:dates[1][2]+'-'+dates[1][0]+'-'+dates[1][1],
+
+                        month:month,
+                        room_id:conpany,
+                        type:$('#booking_date input[name=type]:checked').val(),
+                        act:"line_booking"
+                    },
+                    success: function (datas) {
+                        $("#line-chart-reward_booking_date").empty();
+                        new Morris.Line({
+                            element: 'line-chart-reward_booking_date',
+                            // resize: true,
+                            data:  Object.values(datas.lists),
+                            xkey: datas.xkey,
+                            ykeys: ["count"],
+                            labels: ["Tổng đơn"],
+                            lineColors: ['#00c0ef'],
+                            parseTime: false,
+                            lineWidth: 1,
+                            hideHover: 'auto',
+                            gridTextColor: '#000000',
+                            gridStrokeWidth: 0.4,
+                            pointSize: 5,
+                            pointStrokeColors: ['#efefef'],
+                            gridLineColor: '#efefef',
+                            gridTextFamily: 'Open Sans',
+                            gridTextSize: 10,
+                            xLabelFormat: function (x) {
+                                return x.src[datas.xkey];
+                            }
+                            // dateFormat: function(x) {
+                            //     var month = months[new Date(x).getMonth()];
+                            //     return month;
+                            // },
+                        });
+                    },
+                });
+            }
 
             function ChangeAction(self){
                 let val  = $(self).val();
@@ -339,6 +437,7 @@
             }
             $(document).ready(function () {
                 charts_line();
+                charts_line_booking_date();
                 // charts_circle();
 
 

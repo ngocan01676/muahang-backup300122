@@ -37,14 +37,11 @@ class DashboardController extends DashboardC{
                     DB::connection()->enableQueryLog();
                     $room_id = $data['room_id'];
                     $month = isset($data['month'])?$data['month']:date('m');
-                    $admin_id = base64_decode($data['user_id']);
-                    $results = [];
-
-                    $excel = DB::table('cms_miss_booking');
+                    $excel = DB::table('miss_booking');
                     $excel->where('status','1');
 
                     if(!empty($room_id)){
-                        $excel->where('company',$room_id);
+                        $excel->where('room_id',$room_id);
                     }
                     if($type == 'week'){
                         $date_start = date("Y-m-d", strtotime('monday this week'));
@@ -89,6 +86,71 @@ class DashboardController extends DashboardC{
                         }
                         else{
                             $key = date('Y-m-d', strtotime($value->created_at));
+                            $score = strtotime($key);
+                        }
+                        if(!isset($datas[$key])){
+                            $datas[$key] = [
+                                "count"=>0,
+                                "rate"=>0,
+                                $type =>$key,
+                                "score"=>$score
+                            ];
+                        }
+                        $datas[$key]["count"]++;
+                        $datas[$key]["rate"]+= $value->price;
+                    }
+                    usort($datas, function ($element1,$element2) use ($type){
+                        return $element1["score"] - $element2["score"];
+                    });
+                    $response = [
+                        "lists"=>$datas,
+                        "sql"=>logs_sql(),
+                        'xkey'=>$type
+                    ];
+                }
+            }else  if($data['act'] == 'line_booking'){
+                if(isset($data['type'])){
+                    $type = $data['type'];
+                    DB::connection()->enableQueryLog();
+                    $room_id = $data['room_id'];
+                    $month = isset($data['month'])?$data['month']:date('m');
+                    $excel = DB::table('miss_booking');
+                    $excel->where('status','1');
+
+                    if(!empty($room_id)){
+                        $excel->where('room_id',$room_id);
+                    }
+                    if($type == 'week'){
+                        $date_start = date("Y-m-d", strtotime('monday this week'));
+                        $date_end = date("Y-m-d", strtotime('sunday this week'));
+
+                        $excel->where('booking_date','>=',$date_start." 00:00:00");
+                        $excel->where('booking_date','<=',$date_end." 23:59:59");
+                    }
+                    else{
+                        $date_start = date('Y').'-'.($month<10?"0".$month:$month).'-01';
+                        $date_end = date('Y-m-d',strtotime('last day of this month', strtotime($date_start)));
+                        $excel->where('booking_date','>=',$date_start." 00:00:00");
+                        $excel->where('booking_date','<=',$date_end." 23:59:59");
+                        $type = "day";
+                    }
+                    $results = $excel->orderBy('created_at')->get()->all();
+
+                    foreach ($results as $key=>$value){
+                        $key = '';
+                        if ($type == 'month') {
+                            $key = date('Y-m', strtotime($value->booking_date)) . "-01";
+                            $score = strtotime($key);
+                        } else if ($type == 'year') {
+                            $key = date('Y', strtotime($value->booking_date));
+                            $score = strtotime($key);
+                        }else if ($type == 'week') {
+                            list($start_date, $end_date) = $this->x_week_range($value->booking_date);
+                            $key = $start_date.' '.$end_date;
+                            $score = strtotime($start_date)+strtotime($end_date);
+                        }
+                        else{
+                            $key = date('Y-m-d', strtotime($value->booking_date));
                             $score = strtotime($key);
                         }
                         if(!isset($datas[$key])){
