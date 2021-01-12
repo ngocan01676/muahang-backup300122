@@ -198,11 +198,6 @@ $routers['guest:missterry'] = [
             "action" => "postRegisterAjax",
             "method" => ["get","post"],
             "guard" => ""
-        ],
-        'login:form'=>[
-            'url'=>'/login',
-            'action'=>'getLogin',
-            'method'=>['get'],
         ]
     ]
 ];
