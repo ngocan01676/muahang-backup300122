@@ -31,7 +31,7 @@
                     <tr>
                         <td>
                             {!! Form::label('subject', z_language('Email Subject'), ['class' => 'name']) !!}
-                            {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Email Name')]) !!}
+                            {!! Form::text('subject',null, ['class' => 'form-control','placeholder'=>z_language('Email Name')]) !!}
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +44,7 @@
                         <td>
                             {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
                             @section('extra-script')
-                            <script src="https://cdn.tiny.cloud/1/dy2gprztto8u1yfz0albwqwz2pqfl5bn0bl1rbbyse4x3x3u/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script>
+                            <script src="{!! config('zoe.tiny') !!}" referrerpolicy="origin"></script>
 
                                 @php
                                 $menus = [];
@@ -72,7 +72,7 @@
                                         table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
                                         tools  : {title : 'Tools' , items : 'spellchecker code'},
                                     },
-                                    menubar: '',
+                                    menubar: 'code',
                                     setup: function(editor) {
                                             @verbatim
                                             editor.on('change', function(e) {

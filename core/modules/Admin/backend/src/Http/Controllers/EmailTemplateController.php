@@ -159,6 +159,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
                 $model->name = $items['name'];
                 $model->content = htmlspecialchars_decode($items['content']);
                 $model->status = $items['status'];
+                $model->subject = $items['subject'];
                 $model->parameters = $items['parameters'];
                 $model->config = '[]';
                 $model->data = '[]';

@@ -156,8 +156,9 @@
                             ],
                             'status' => [
                                 'label' => [
-                                    '1' => z_language('Công khai', false),
-                                    '0' => z_language('Ẩn', false),
+                                    '1' => z_language('Thành công', false),
+                                    '3' => z_language('Hủy', false),
+                                    '0' => z_language('Đợi duyệt', false),
                                 ],
                                 'type' => [
                                     'name' => 'label',

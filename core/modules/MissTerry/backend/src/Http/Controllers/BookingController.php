@@ -148,16 +148,21 @@ class BookingController extends \Zoe\Http\ControllerBackend
 
         $models = DB::table('miss_booking as b');
 
-//        if (isset($search) && !empty($search) || isset($parameter["filter"]['name']) && !empty($parameter['filter']['name']) && $search = $parameter['filter']['name']) {
-//
-//            $models->where('title', 'like', '%' . $search . '%');
-//        }
+        if (isset($search) && !empty($search) || isset($parameter["filter"]['fullname']) && !empty($parameter['filter']['fullname']) && $search = $parameter['filter']['fullname']) {
+
+            $models->where('fullname', 'like', '%' . $search . '%');
+        }
 
         if (isset($parameter["filter"]['room']) && !empty($parameter['filter']['room'])) {
             $models->where('room_id', $parameter['filter']['room']);
         }
-        if (!empty($status) || $status != "") {
-            $models->where('status', $status);
+        if (!empty($status) || $status != "" || isset($parameter["filter"]['status']) && !empty($parameter['filter']['status']) && $status = $parameter['filter']['status']) {
+            if($status == 2){
+                $status = 0;
+            }
+            if($status!="all"){
+                $models->where('status', $status);
+            }
         }
         if (!isset($parameter['order_by'])) {
             $parameter['order_by']['col'] = 'id';
