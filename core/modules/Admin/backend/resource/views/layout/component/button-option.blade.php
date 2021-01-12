@@ -3,6 +3,7 @@
 @endphp
 @if(isset($config['name']) && (isset($option[$config['name']]) || isset($config['extend']) && isset($option[$config['extend']]) ))
 @php
+
     if(isset($config['extend']) && isset($option[$config['extend']])){
       $data = $option[$config['extend']];
     }else{

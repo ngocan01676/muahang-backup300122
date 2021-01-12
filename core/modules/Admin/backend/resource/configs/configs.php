@@ -80,6 +80,7 @@ return [
                     'lists' => [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
                         'name' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true],
+                        'view_language' => ['label' => z_language('Language', false), 'type' => 'text','callback' => "view_language"],
                         'parameters' => ['label' => z_language('Parameters', false), 'type' => 'text'],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status'],
                         'id_key' => ['label' => z_language('Group', false), 'type' => 'text'],
@@ -95,6 +96,7 @@ return [
                     'router' => [
                         'edit' => ['label' => z_language('Edit', false), 'name' => "backend:email_template:edit", 'par' => ['id' => 'id']],
                         'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:email_template:delete", 'par' => ['id' => 'id']],
+
                     ]
                 ],
                 'config' => [

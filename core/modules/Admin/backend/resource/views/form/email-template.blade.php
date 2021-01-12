@@ -26,14 +26,14 @@
                             {!! Form::select('name', $config_formats['keys'],null,['class'=>'form-control']); !!}
                         </td>
                     </tr>
-                    @if(isset($configs['core']['language']['multiple']))
+                    @if(isset($configs_system['core']['language']['multiple']))
                         <tr>
                             <td>
                                 {!! Form::label('name', z_language('Language'), ['class' => 'name']) !!}
 
                                 <select name="lang_code" class="form-control">
                                 @foreach($language as $lang=>$_language)
-                                    @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                                    @if(isset($configs_system['core']['language']['lists']) &&(is_string($configs_system['core']['language']['lists']) && $configs_system['core']['language']['lists'] == $_language['lang']|| is_array($configs_system['core']['language']['lists']) && in_array($_language['lang'],$configs_system['core']['language']['lists'])))
                                         <option value="{!! $lang !!}" @if(Form::value('lang_code') == $lang) selected="true" @endif>
                                             <span
                                                     class="flag-icon flag-icon-{{$_language['flag']}}">

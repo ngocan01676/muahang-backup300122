@@ -4,7 +4,8 @@
         <small>it all starts here</small>
         <a href="{{ Route::has($url.':create')?route($url.':create'):route('backend:email_template:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
-        <x-btnOption :config="$option">
+
+        <x-btnOption :config="['name'=>$option]">
             <x-slot name="label">
                 {{@z_language(["Option"])}}
             </x-slot>
@@ -12,7 +13,6 @@
                 {{@z_language(["Option"])}}
             </x-slot>
         </x-btnOption>
-
     </h1>
 @endsection
 @section('content')

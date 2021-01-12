@@ -368,9 +368,11 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
-
                     "create" => [
                         "url" => "/create",
+                    ],
+                    "copy" => [
+                        "url" => "/copy/{id}",
                     ],
                     "edit" => [
                         "url" => "/edit/{id}",

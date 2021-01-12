@@ -150,11 +150,15 @@
                                                             @endphp
                                                                 @continue($oke == false)
                                                             @php
-                                                                $par = isset($route)?$route:[];
-                                                                foreach ($router['par'] as $k=>$v){
-                                                                    $par[$k] = $model->{$v};
-                                                                }
-                                                                $key_form = md5(rand(1,10000) . rand(1,10000));
+                                                                $par = [];
+                                                                    if(isset($router['par'])){
+                                                                        $par = isset($route)?$route:[];
+                                                                        foreach ($router['par'] as $k=>$v){
+                                                                            $par[$k] = $model->{$v};
+                                                                        }
+                                                                    }
+
+                                                                    $key_form = md5(rand(1,10000) . rand(1,10000));
                                                             @endphp
                                                             <span class="{{$id}}" style="margin: 5px">
                                                                 @isset($router['method'])
