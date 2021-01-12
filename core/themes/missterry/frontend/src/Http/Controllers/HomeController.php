@@ -142,8 +142,8 @@ class HomeController extends \Zoe\Http\ControllerFront
         $miss_booking = DB::table('miss_booking')->where('id',$id)->get()->all();
         if(isset($miss_booking[0])){
             $to_email = $miss_booking[0]->email;
-            $results = DB::table('miss_room')->get()->where('status',1)->where('id',$miss_booking[0]->room_id)->all();
-            dd($results);
+            $results = DB::table('miss_room')->get()->where('status',1)->where('id',$miss_booking[0]->room_id)->get()->all();
+            
             if(isset($results[0])){
                 $result = $results[0];
                 if(isset($this->_language['lang'])){
