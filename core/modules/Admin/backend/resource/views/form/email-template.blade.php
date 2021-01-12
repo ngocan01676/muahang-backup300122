@@ -63,6 +63,12 @@
                                 let config = {
                                     selector: "textarea.my-editor",
                                     height : "480",
+                                    plugins: [
+                                        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                                        "searchreplace wordcount visualblocks visualchars code fullscreen",
+                                        "insertdatetime media nonbreaking save table contextmenu directionality",
+                                        "emoticons template paste textcolor colorpicker textpattern"
+                                    ],
                                     menu : {
                                         file   : {title : 'File'  , items : 'newdocument'},
                                         edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
@@ -115,19 +121,8 @@
                                             }
                                             echo 'console.log(config);';
                                 @endphp
-                               // tinymce.init(config);
-                                tinymce.init({
-                                    selector: "textarea.my-editor",  // change this value according to your HTML
-                                    menu: {
-                                        file: {title: 'File', items: 'newdocument'},
-                                        edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
-                                        insert: {title: 'Insert', items: 'link media | template hr'},
-                                        view: {title: 'View', items: 'visualaid'},
-                                        format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
-                                        table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
-                                        tools: {title: 'Tools', items: 'spellchecker code'}
-                                    }
-                                });
+                                 tinymce.init(config);
+
                             </script>
                             @endsection
                         </td>
