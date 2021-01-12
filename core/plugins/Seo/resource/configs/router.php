@@ -1,6 +1,6 @@
 <?php
 return [
-    'routers' => [
+    'backend' => [
         'seo' => [
             "namespace" => "PluginSeo\Controllers",
             "controller" => "IndexController",

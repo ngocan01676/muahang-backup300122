@@ -6,6 +6,19 @@ $namespace = "MissTerry\Http\Controllers";
 return [
     'routers' => [
         'backend' => [
+            'dashboard' => [
+                "namespace" => "MissTerry\Http\Controllers",
+                "controller" => "DashboardController",
+                "prefix" => "/admin",
+                "guard" => "backend",// pải login
+                "acl"=> "dashboard",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                        "acl"=>true
+                    ],
+                ]
+            ],
             $key.':room' => [
                 "namespace" => $namespace,
                 "controller" => "RoomController",

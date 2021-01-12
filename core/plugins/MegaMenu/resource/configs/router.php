@@ -1,6 +1,6 @@
 <?php
 return [
-    'routers' => [
+    'backend' => [
         'mega-menu:layout' => [
             "namespace" => "Admin\Http\Controllers",
             "controller" => "LayoutController",

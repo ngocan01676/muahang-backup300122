@@ -11,7 +11,7 @@ class DashboardController extends \Zoe\Http\ControllerBackend
 {
     public function list(Request $request)
     {
-        return $this->render('dashboard.list');
+        return $this->render('dashboard.list','backend');
     }
     public function media(){
 

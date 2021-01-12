@@ -260,6 +260,12 @@ $routers['guest'] =    [
             "name" => "login",
             "guard" => "",
         ],
+        "login:post" => [
+            "url" => "/login/action/".md5('theme'),
+            "action" => "postLogin",
+            "method" => ["post"],
+            "guard" => ""
+        ],
     ]
 ];
 return [

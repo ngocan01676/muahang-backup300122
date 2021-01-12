@@ -196,7 +196,7 @@
                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                             <label for="email">{!! z_language('Email address') !!}<span class="required">*</span></label>
                             <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="email" id="email" autocomplete="email" value="" />
-                            <span class="message-container container alert-color medium-text-center error"></span>
+
                         </p>
                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                             <label for="password">{!! z_language('Password') !!}&nbsp;<span class="required">*</span></label>

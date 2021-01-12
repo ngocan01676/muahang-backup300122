@@ -71,6 +71,9 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
             ]);
         }
     }
+    public function postLogin(Request $request){
+        return parent::postLogin($request);
+    }
     public function getLoginForm(){
         return $this->render('auth.login');
     }

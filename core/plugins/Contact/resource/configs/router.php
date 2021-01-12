@@ -1,6 +1,6 @@
 <?php
 return [
-    'routers' => [
+    'backend' => [
         'Contact:Form' => [
             "namespace" => "PluginContact\Controllers",
             "controller" => "FormController",

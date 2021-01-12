@@ -1,6 +1,6 @@
 <?php
 return [
-    'routers' => [
+    'backend' => [
         'Message' => [
             "namespace" => "PluginMessage\Controllers",
             "controller" => "IndexController",

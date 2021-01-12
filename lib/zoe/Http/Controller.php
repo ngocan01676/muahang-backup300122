@@ -67,7 +67,10 @@ class Controller extends BaseController
     protected function _render($keyView, $data, $key)
     {
         $request = request();
-        if($request->ajax()){
+        if(empty($this->layout)){
+            $this->view = View::make($keyView,$data);
+            return $this->view->renderSections();
+        }else if($request->ajax()){
             $this->view = view()->make($keyView,$data);
             return response()->json(['views'=>$this->view->renderSections()]);
         }else{

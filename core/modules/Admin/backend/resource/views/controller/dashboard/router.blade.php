@@ -94,6 +94,7 @@
 
                             <select name="data[{!! $name !!}].layout"
                                     class="form-control">
+                                <option value="0">{!! z_language('No Layout') !!}</option>
                                 @foreach($layouts as $layout)
                                     @if( isset($datas['data'][$name]['layout']) && $datas['data'][$name]['layout'] ==$layout['slug'] )
                                         <option selected

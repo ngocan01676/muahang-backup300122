@@ -37,6 +37,7 @@ class ControllerBackend extends Controller
         }else{
             $keyView = $view;
         }
+
         if(!empty($layout)){
             $this->layout = $layout;
         }else{

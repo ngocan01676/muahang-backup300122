@@ -1,6 +1,6 @@
 <?php
 return [
-    'routers' => [
+    'backend' => [
         PluginFaq\Plugin::$configName => [
             "namespace" => "PluginFaq\Controllers",
             "controller" => "IndexController",

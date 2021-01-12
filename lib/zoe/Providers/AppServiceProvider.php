@@ -368,14 +368,25 @@ class AppServiceProvider extends ServiceProvider
                         $data["class_maps"][$plugin] = $class_maps;
                     }
                     $routers = [];
-                    if (isset($data["routers"])) {
-                        foreach ($data["routers"] as $key => $router) {
+                    if (isset($data["backend"])) {
+                        foreach ($data["backend"] as $key => $router) {
                             $routers["backend"]["plugin:" . $key] = $router;
                             if (isset($routers["backend"]["plugin:" . $key]["sub_prefix"])) {
                                 $routers["backend"]["plugin:" . $key]["sub_prefix"] = "/plugin" . $routers["backend"]["plugin:" . $key]["sub_prefix"];
                             }
                             if (!isset($routers["backend"]["plugin:" . $key]['module'])) {
                                 $routers["backend"]["plugin:" . $key]['module'] = ["name" => $plugin, "type" => "plugin"];
+                            }
+                        }
+                    }
+                    if (isset($data["frontend"])) {
+                        foreach ($data["frontend"] as $key => $router) {
+                            $routers["frontend"]["plugin:" . $key] = $router;
+                            if (isset($routers["backend"]["plugin:" . $key]["sub_prefix"])) {
+                                $routers["frontend"]["plugin:" . $key]["sub_prefix"] = $routers["backend"]["plugin:" . $key]["sub_prefix"];
+                            }
+                            if (!isset($routers["frontend"]["plugin:" . $key]['module'])) {
+                                $routers["frontend"]["plugin:" . $key]['module'] = ["name" => $plugin, "type" => "plugin"];
                             }
                         }
                     }

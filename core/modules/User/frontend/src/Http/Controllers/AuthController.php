@@ -24,20 +24,34 @@ class AuthController extends \Zoe\Http\ControllerFront
 
     protected function attemptLogin(Request $request)
     {
-
         return Auth::guard('frontend')->attempt(
             $request->only($this->username(), 'password'), $request->filled('remember')
         );
     }
     public function postLogin(Request $request)
     {
-        if ($this->attemptLogin($request)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/');
-        }
-        return back()->withErrors([
-            $this->username() => 'The provided credentials do not match our records .',
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'email' => 'required|exists:user',
+            'password' => 'required|min:6',
         ]);
+
+        if ($validator->fails() == false) {
+
+            if ($this->attemptLogin($request)) {
+                $request->session()->regenerate();
+                return redirect()->intended('/');
+            }
+            return back()->withInput($request->only($this->username()))->withErrors([
+                $this->username() => z_language('The provided credentials do not match our records .'),
+            ]);
+
+        }else{
+
+             return back()->withErrors($validator)->withInput($request->only($this->username()));
+        }
+
     }
     public function getRegister()
     {

@@ -1,6 +1,6 @@
 <?php
 return [
-    'routers' => [
+    'backend' => [
         'layout' => [
             "namespace" => "PluginLayout\Controllers",
             "controller" => "LayoutController",
