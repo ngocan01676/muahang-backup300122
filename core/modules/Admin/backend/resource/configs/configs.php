@@ -81,8 +81,9 @@ return [
                         "booking_time"=>z_language('Time Booking',false),
                         "count"=>z_language('Count Booking',false),
                         "price"=>z_language('Price Booking',false),
-                        "title"=>z_language('Time Game',false),
+                        "title"=>z_language('Title Game',false),
                         "address"=>z_language('Address Game',false),
+                        "email"=>z_language('Email Booking',false),
                     ],
                 ]
             ]

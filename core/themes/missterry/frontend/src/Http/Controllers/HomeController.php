@@ -169,6 +169,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                     'price'=>$miss_booking[0]->price,
                     'count'=>$miss_booking[0]->count,
                     'title'=>$result->title,
+                    'email'=>$miss_booking[0]->email,
                     'address'=>$result->address,
                 ];
                 Mail::to($to_email)->send(new MyEmail('Đặt lịch thành công',$data));
