@@ -161,6 +161,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                         $result->address  = "";
                     }
                 }
+
                 $data = [
                     'fullname'=>$miss_booking[0]->fullname,
                     'phone'=>$miss_booking[0]->phone,
@@ -172,7 +173,8 @@ class HomeController extends \Zoe\Http\ControllerFront
                     'email'=>$miss_booking[0]->email,
                     'address'=>$result->address,
                 ];
-                Mail::to($to_email)->send(new MyEmail('Đặt lịch thành công',$data));
+
+                Mail::to($to_email)->send(new MyEmail('MISS TERRY - ESCAPE ROOMS: XÁC NHẬN ĐẶT PHÒNG',$data));
             }
         }
         $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');
