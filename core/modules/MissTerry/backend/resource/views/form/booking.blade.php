@@ -93,8 +93,9 @@
                 <tr>
                     <td>
                         {!! Form::label('id_status', 'Booking Status', ['class' => 'status']) !!}
-                        {!! Form::radio('status', '1' , true) !!} {!! z_language('Yes') !!}
-                        {!! Form::radio('status', '0',false) !!} {!! z_language('No') !!}
+                        {!! Form::radio('status', '3' , true) !!} {!! z_language('Hủy') !!}
+                        {!! Form::radio('status', '1' , true) !!} {!! z_language('Duyệt') !!}
+                        {!! Form::radio('status', '0',false) !!} {!! z_language('Chờ duyệt') !!}
                     </td>
                 </tr>
                 </tbody>
