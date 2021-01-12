@@ -69,9 +69,10 @@
                                         insert : {title : 'Insert', items : 'link media | template hr'},
                                         view   : {title : 'View'  , items : 'spellchecker code'},
                                         format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats | removeformat'},
-                                       
+
+                                        tools: {title: 'Tools', items: 'spellchecker code'}
                                     },
-                                    menubar: 'file edit insert view format table tools',
+                                    menubar: 'file edit insert view format tools',
                                     setup: function(editor) {
                                             @verbatim
                                             editor.on('change', function(e) {
