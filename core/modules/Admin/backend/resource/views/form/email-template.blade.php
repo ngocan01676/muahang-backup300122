@@ -23,7 +23,13 @@
                     <tr>
                         <td>
                             {!! Form::label('name', z_language('Email Name'), ['class' => 'name']) !!}
-                            {!! Form::select('name', $config_formats['keys'],null,['class'=>'form-control']); !!}
+                            {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Email Name')]) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!! Form::label('alias', z_language('Email alias'), ['class' => 'alias']) !!}
+                            {!! Form::select('alias', $config_formats['keys'],null,['class'=>'form-control']); !!}
                         </td>
                     </tr>
                     @if(isset($configs_system['core']['language']['multiple']))
@@ -49,7 +55,7 @@
                     <tr>
                         <td>
                             {!! Form::label('subject', z_language('Email Subject'), ['class' => 'name']) !!}
-                            {!! Form::text('subject',null, ['class' => 'form-control','placeholder'=>z_language('Email Name')]) !!}
+                            {!! Form::text('subject',null, ['class' => 'form-control','placeholder'=>z_language('Email Subject')]) !!}
                         </td>
                     </tr>
                     <tr>

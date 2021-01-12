@@ -18,7 +18,7 @@ class MyEmail extends Mailable
     public $results = [];
     public function __construct($name,$data)
     {
-        $this->results = Cache::remember('mail:Plugin:Contact:Email'.$name,1 , function () use($name) {
+        $this->results = Cache::remember('mail:Plugin:Contact:Email:'.$name,60 , function () use($name) {
             $results = DB::table('email_template')->where('name',$name)->where('id_key','Plugin:Contact:Email')->get()->keyBy('lang_code')->all();
             return $results;
         });
@@ -29,7 +29,7 @@ class MyEmail extends Mailable
         if(isset($this->results[app()->config_language['lang']])){
             $info = $this->results[app()->config_language['lang']];
             $theme = app()->getTheme();
-            return $this->view( $theme.'::emails.booking')
+            return $this->view( $theme.'::emails.booking_'.$info->lang_code)
                 ->from(config('mail.username'),'Missterry')
                 ->subject($info->subject)
                 ->with($this->data);

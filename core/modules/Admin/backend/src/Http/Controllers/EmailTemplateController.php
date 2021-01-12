@@ -175,6 +175,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
                 $model->name = $items['name'];
                 $model->content = htmlspecialchars_decode($items['content']);
                 $model->status = $items['status'];
+                $model->alias = $items['alias'];
                 $model->subject = $items['subject'];
                 $model->parameters = $items['parameters'];
                 if(isset($items['lang_code'])){
@@ -182,7 +183,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
                 }else{
                     $model->lang_code = "";
                 }
-                $namefile = Str::slug( $model->name);
+                $namefile = Str::slug($model->alias);
                 if(!empty($model->lang_code)){
                     $namefile.='_'.$model->lang_code;
                 }
