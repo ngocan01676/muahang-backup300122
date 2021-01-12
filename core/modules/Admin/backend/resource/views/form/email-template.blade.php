@@ -117,7 +117,6 @@
                                 @endphp
                                 tinymce.init(config);
                             </script>
-
                             @endsection
                         </td>
                     </tr>
