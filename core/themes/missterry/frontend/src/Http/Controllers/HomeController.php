@@ -15,7 +15,6 @@ class HomeController extends \Zoe\Http\ControllerFront
         $this->config_language = app()->config_language;
 
     }
-
     public function getLists()
     {
         return $this->render('home.list', []);
