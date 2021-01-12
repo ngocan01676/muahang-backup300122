@@ -54,8 +54,7 @@
 
                             <p><i class="fas fa-user-friends" style="font-size: 400%;color:#f4c400"></i></p>
                             <h3> 1</h3>
-                            <p style="font-size: 90%;"><strong>{!! z_language('Gather') !!}<br>
-                                   {!! z_language('a team of 2-6 people') !!}</strong></p>
+                            <p style="font-size: 90%;"><strong>{!! z_language('Gather <br> a team of 2-6 people') !!}</strong></p>
 
                             <style>
                                 #text-3752095938 {
@@ -77,8 +76,8 @@
 
                             <p><i class="far fa-calendar-check" style="font-size: 400%;color:#f4c400"></i></p>
                             <h3> 2</h3>
-                            <p style="font-size: 90%;"><strong>{!! z_language('Choose and') !!}<br>
-                                    {!! z_language('book a quest') !!}</strong></p>
+                            <p style="font-size: 90%;"><strong>{!! z_language('Choose and <br> book a quest') !!}
+                                    </strong></p>
 
                             <style>
                                 #text-3261390139 {
@@ -100,8 +99,7 @@
 
                             <p><i class="fas fa-unlock-alt" style="font-size: 400%;color:#f4c400"></i></p>
                             <h3> 3</h3>
-                            <p style="font-size: 90%;"><strong>{!! z_language('Locked room') !!}<br>
-                                    {!! z_language('full of secrets') !!}</strong></p>
+                            <p style="font-size: 90%;"><strong>{!! z_language('Locked room <br> full of secrets') !!}</strong></p>
 
                             <style>
                                 #text-2865174448 {
@@ -123,7 +121,7 @@
 
                             <p><i class="far fa-clock" style="font-size: 400%;color:#f4c400"></i></p>
                             <h3> 4</h3>
-                            <p style="font-size: 90%;"><strong>{!! z_language('You have 60 minutes') !!} <br>{!! z_language('to find a way out') !!}</strong></p>
+                            <p style="font-size: 90%;"><strong>{!! z_language('You have 60 minutes <br> to find a way out') !!}</strong></p>
 
                             <style>
                                 #text-3894359694 {
