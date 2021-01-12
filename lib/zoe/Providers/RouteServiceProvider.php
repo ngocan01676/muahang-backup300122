@@ -72,6 +72,7 @@ class RouteServiceProvider extends ServiceProvider
         $keyPrivate = $this->app->key;
 
         if($guard == "frontend"){
+           // dump($configRouter);
             $language = config('zoe.language');
             $selects = ['en_us','vi'];
 
@@ -113,8 +114,13 @@ class RouteServiceProvider extends ServiceProvider
                                  foreach ($fruitsArrayObject['router'] as $key=>$value){
                                      $fruitsArrayObject['router'][$key]['url'] = $language[$lang]['router'].'/'.$fruitsArrayObject['router'][$key]['url'];
                                      $fruitsArrayObject['router'][$key]['defaults']['lang'] = $lang;
-
-                                     $fruitsArrayObject['router'][$key]['layout'] = [$name,$language[$lang]['router'].'_'.$name];
+                                     $permission = $name . ':' . $key;
+                                     if (isset($fruitsArrayObject['router']['name'])) {
+                                         $alias = $fruitsArrayObject['router']['name'];
+                                     } else {
+                                         $alias = $guard . ":" . $permission;
+                                     }
+                                     $fruitsArrayObject['router'][$key]['config'] = $alias;
                                  }
                                  $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
                              }
@@ -173,12 +179,16 @@ class RouteServiceProvider extends ServiceProvider
                                  $fruitsArrayObjectItem = (new \ArrayObject($routerConfig['items']))->getArrayCopy();
 
                                  foreach ($categories as $key=>$value){
-                                     $fruitsArrayObjectItem['router'][$value->router_name]['url'] = $fruitsArrayObject['router'][$value->router_name]['url'].$fruitsArrayObjectItem['uri'];
-                                     $fruitsArrayObjectItem['router'][$value->router_name]['action'] =  $fruitsArrayObjectItem['action'];
+                                     $fruitsArrayObjectItem['router'][$value->router_name]['url'] =
+                                         $fruitsArrayObject['router'][$value->router_name]['url'].$fruitsArrayObjectItem['uri'];
+                                     $fruitsArrayObjectItem['router'][$value->router_name]['action'] =
+                                         $fruitsArrayObjectItem['action'];
+
                                      $fruitsArrayObjectItem['router'][$value->router_name]['defaults'] = [
                                          'cate_id'=> $fruitsArrayObject['router'][$value->router_name]['defaults']['id'],
                                          'router'=>$value->router_name.'_item_'.$value->router_name,
                                      ];
+
                                      if(isset($routerConfig['views'][$value->router_name])){
                                          $fruitsArrayObjectItem['router'][$value->router_name]['defaults']['_category_view'] = $routerConfig['views'][$value->router_name];
                                      }
@@ -197,12 +207,20 @@ class RouteServiceProvider extends ServiceProvider
                                                 continue;
                                             }
                                             $fruitsArrayObject = (new \ArrayObject($router))->getArrayCopy();
+
                                             foreach ($fruitsArrayObject['router'] as $key=>$value){
+
                                                 $_url = $fruitsArrayObject['router'][$key]['url'];
+
                                                 $fruitsArrayObject['router'][$key]['url'] = $language[$lang]['router'].'/'.$_url;
                                                 $fruitsArrayObject['router'][$key]['defaults']['lang'] = $lang;
-
-                                                $fruitsArrayObject['router'][$key]['layout'] = [$name,$language[$lang]['router'].'_'.$name];
+                                                $permission = $name . ':' . $key;
+                                                if (isset($fruitsArrayObject['router']['name'])) {
+                                                    $alias = $fruitsArrayObject['router']['name'];
+                                                } else {
+                                                    $alias = $guard . ":" . $permission;
+                                                }
+                                                $fruitsArrayObject['router'][$key]['config'] = $alias;
                                             }
                                             $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
                                         }
@@ -210,6 +228,7 @@ class RouteServiceProvider extends ServiceProvider
                              }
 
                          }
+
                      }else{
                          if ($this->app->is_admin == false || true ){
 
@@ -276,8 +295,9 @@ class RouteServiceProvider extends ServiceProvider
                 } else {
                     $action = $namespace . $controller . $key;
                 }
-                if (isset($configRouter['data'][$alias]['uri'])) {
-                    $link = $configRouter['data'][$alias]['uri'];
+                $keyConfigRouter = isset($_route['config'])?$_route['config']:$alias;
+                if ($keyConfigRouter == $alias && isset($configRouter[$keyConfigRouter]['data']) && isset($configRouter[$keyConfigRouter]['data']['uri'])) {
+                    $link = $configRouter['data'][$keyConfigRouter]['uri'];
                 } else {
                     $link = isset($_route['link']) ? $_route['link'] : (isset($_route['url']) ? $prefix . $_route['url'] : "");
                 }
@@ -288,13 +308,13 @@ class RouteServiceProvider extends ServiceProvider
                 $acl = "";
                 $auth_guard = isset($_route["guard"]) ? $_route["guard"] : (isset($route["guard"]) ? $route["guard"] : $guard);
 
-                if (isset($configRouter['data'][$alias]['acl'])) {
-                    if ($configRouter['data'][$alias]['acl'] == 'no-login') {
+                if (isset($configRouter['data'][$keyConfigRouter]['acl'])) {
+                    if ($configRouter['data'][$keyConfigRouter]['acl'] == 'no-login') {
                         $auth_guard = "";
                     } else {
-                        if ($configRouter['data'][$alias]['acl'] != 'login') {
+                        if ($configRouter['data'][$keyConfigRouter]['acl'] != 'login') {
                             $auth_guard = $guard;
-                            $acl = $configRouter['data'][$alias]['acl'];
+                            $acl = $configRouter['data'][$keyConfigRouter]['acl'];
                         } else {
                             $auth_guard = $guard;
                         }
@@ -319,7 +339,7 @@ class RouteServiceProvider extends ServiceProvider
                     }
                 }
 
-                if (isset($configRouter['data'][$alias]['status']) && $configRouter['data'][$alias]['status'] == 2) {
+                if (isset($configRouter['data'][$keyConfigRouter]['status']) && $configRouter['data'][$keyConfigRouter]['status'] == 2) {
                     continue;
                 }
                 if (isset($_route['form'])) {
@@ -339,11 +359,11 @@ class RouteServiceProvider extends ServiceProvider
 
                 $r->defaults($keyPrivate . "_view_alias", $_view_alias);
 
-                $alias_layout = isset($_route['layout'][0])?str_replace(":".$_route['layout'][1].":",":".$_route['layout'][0].":",$alias):$alias;
+               // $alias_layout = isset($_route['layout'][0])?str_replace(":".$_route['layout'][1].":",":".$_route['layout'][0].":",$alias):$alias;
 
-                if (isset($configRouter['data'][$alias_layout]['layout'])) {
+                if (isset($configRouter['data'][$keyConfigRouter]['layout'])) {
 
-                    $r->defaults($keyPrivate . "_layout", $configRouter['data'][$alias_layout]['layout']);
+                    $r->defaults($keyPrivate . "_layout", $configRouter['data'][$keyConfigRouter]['layout']);
                 }
                 $r->name($alias);
                 if(isset($_route['wheres'])){
@@ -351,8 +371,8 @@ class RouteServiceProvider extends ServiceProvider
                         $r->where($_name, $_exp);
                     }
                 }
-                if (isset($configRouter['data'][$alias]['cache']) && $configRouter['data'][$alias]['cache'] != 0) {
-                    $middleware[] = 'cache.response:' . $alias . "," . $configRouter['data'][$alias]['cache'];
+                if (isset($configRouter['data'][$keyConfigRouter]['cache']) && $configRouter['data'][$keyConfigRouter]['cache'] != 0) {
+                    $middleware[] = 'cache.response:' . $alias . "," . $configRouter['data'][$keyConfigRouter]['cache'];
                 }
 
                 $r->middleware($middleware);
