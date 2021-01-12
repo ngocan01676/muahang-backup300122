@@ -13,7 +13,7 @@ return [
                         'action' =>'getInfo'
                     ],
                     "logout" => [
-                        "url" => "/my-account/logout",
+                        "url" => "/logout",
                         "action" => "postLogout",
                         "method" => ["post"],
                         "name" => "logout"
