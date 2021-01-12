@@ -81,6 +81,7 @@ return [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
                         'subject' => ['label' => z_language('Subject', false), 'type' => 'title', 'primary' => true],
                         'name' => ['label' => z_language('Name', false), 'type' => 'text'],
+                        'alias ' => ['label' => z_language('Alias ', false), 'type' => 'text'],
                         'view_language' => ['label' => z_language('Language', false), 'type' => 'text','callback' => "view_language"],
                         'parameters' => ['label' => z_language('Parameters', false), 'type' => 'text'],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status'],
