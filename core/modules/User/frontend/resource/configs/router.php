@@ -29,7 +29,6 @@ return [
                         "action" => "getLogin",
                         "name" => "login",
                         "guard" => "",
-//                        "cache" => 60
                     ],
                     "register" => [
                         "url" => "/register",

@@ -71,9 +71,8 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
             ]);
         }
     }
-
-    public function getLogin()
-    {
+    public function getLoginForm(){
         return $this->render('auth.login');
     }
+
 }

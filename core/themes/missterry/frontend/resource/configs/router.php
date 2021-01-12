@@ -249,6 +249,19 @@ $routers['user:base'] = [
         ]
     ]
 ];
+
+$routers['guest'] =    [
+    "namespace" => "MissTerryTheme\Http\Controllers",
+    "controller" => "AuthController",
+    "router"=>[
+        "login" => [
+            "url" => "/login",
+            "action" => "getLoginForm",
+            "name" => "login",
+            "guard" => "",
+        ],
+    ]
+];
 return [
     'routers' => [
         'frontend' => $routers
