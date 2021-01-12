@@ -328,29 +328,25 @@ class DashboardController extends DashboardC{
         }
 
         $total = DB::table('miss_booking')->where('status',1);
-
-        if(!empty($date_start) && !empty($date_end)){
-            $total->where('created_at','>=',$date_start." 00:00:00");
-            $total->where('created_at','<=',$date_end." 23:59:59");
-        }
         $this->data['analytics']['total']['success'] = $total->count();
 
-        $total1 = DB::table('miss_booking')->where('status',0);
-
+        $total1 = DB::table('miss_booking')->where('status',3);
         $this->data['analytics']['total']['fail'] = $total1->count();
-        $this->data['analytics']['total']['total'] = $this->data['analytics']['total']['success'] +  $this->data['analytics']['total']['fail'];
+
+        $total1 = DB::table('miss_booking')->where('status',0);
+        $this->data['analytics']['total']['padding'] = $total1->count();
+
+        $this->data['analytics']['total']['total'] = $this->data['analytics']['total']['success'] +  $this->data['analytics']['total']['fail'] +  $this->data['analytics']['total']['padding'];
 
         $total = DB::table('miss_booking')->where('status',1);
-//        if(!empty($date_start) && !empty($date_end)){
-//            $total->where('created_at','>=',$date_start." 00:00:00");
-//            $total->where('created_at','<=',$date_end." 23:59:59");
-//        }
         $this->data['analytics']['total']['price'] = $total->sum('price');
 
 
         $total1 = DB::table('miss_booking')->where('status',1);
+
         $total1->where('created_at','>=',date('Y-m-d')." 00:00:00");
         $total1->where('created_at','<=',date('Y-m-d')." 23:59:59");
+
         $this->data['analytics']['total']['today'] = $total1->count();
 
 //        $total = DB::table('shop_order_excel')
