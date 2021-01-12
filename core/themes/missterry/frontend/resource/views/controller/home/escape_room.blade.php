@@ -149,7 +149,7 @@
                 background-color: rgba(0,0,0,.5);
             }
             #section_2076450753 .section-bg.bg-loaded {
-                background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/bg2.png);
+                background-image: url({!! asset('theme/missterry/images/bg2.png') !!});
             }
         </style>
     </section>
@@ -220,7 +220,7 @@
                 padding-bottom: 30px;
             }
             #section_136289771 .section-bg.bg-loaded {
-                background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/bg2.png);
+                background-image: url({!! asset('theme/missterry/images/bg2.png') !!});
             }
         </style>
     </section>
@@ -330,7 +330,7 @@
                 background-color: rgba(0, 0, 0, 0.4);
             }
             #section_1248639568 .section-bg.bg-loaded {
-                background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/bg2.png);
+                background-image: url({!! asset('theme/missterry/images/bg2.png') !!});
             }
         </style>
     </section>
@@ -371,7 +371,7 @@
                 padding-bottom: 30px;
             }
             #section_1768653234 .section-bg.bg-loaded {
-                background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/bg2.png);
+                background-image: url({!! asset('theme/missterry/images/bg2.png') !!});
             }
         </style>
     </section>

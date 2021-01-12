@@ -81,7 +81,7 @@ class GirdBladeHelper extends \Admin\Lib\GirdBladeHelper
                     background-color: rgba(0, 0, 0, 0);
                 }
                 #section_1170359526'.$id.' .section-bg.bg-loaded {
-                    background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/bg.jpg);
+                    background-image: url('.asset('/theme/missterry/images/bg.jpg').');
                 }
             </style>
         </section>

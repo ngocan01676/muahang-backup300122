@@ -3,7 +3,7 @@
         <div class="row"  id="row-444576127">
             <div id="col-582161583" class="col medium-4 small-12 large-4"  >
                 <div class="col-inner text-center"  >
-                    <p style="text-align: center;"><img src="https://demo.missterry.vn/wp-content/uploads/2020/12/logo-missterry-300x106.png" alt="" width="300" height="106" /> </p>
+                    <p style="text-align: center;"><img src="{!! asset('theme/missterry/images/logo-missterry-300x106.png') !!}" alt="" width="300" height="106" /> </p>
                     <div class="container section-title-container" >
                         <h3 class="section-title section-title-center"><b></b><span class="section-title-main" >UNRAVEL THE MYSTERY</span><b></b></h3>
                     </div>
