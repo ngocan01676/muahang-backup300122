@@ -72,7 +72,7 @@
                                         table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
                                         tools  : {title : 'Tools' , items : 'spellchecker code'},
                                     },
-                                    menubar: 'file edit insert view format table tools',
+                                    menubar: 'file edit insert view format table tools ',
                                     setup: function(editor) {
                                             @verbatim
                                             editor.on('change', function(e) {
