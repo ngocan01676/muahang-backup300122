@@ -52,15 +52,17 @@ jQuery(document).ready(function () {
             },
             success:function (datas) {
                 console.log(datas);
+
                 if(datas.hasOwnProperty('success')){
                     form.find('.error').empty();
                     if(datas.success){
                          jQuery('#email').val(data.email);
 
-                         let oke =  jQuery(".account-register-inner .text-oke");
-                         oke.show();
-
+                         let oke =  jQuery("#login-form-popup .account-register-inner .text-oke");
+                         console.log(oke);
                          if(datas.hasOwnProperty('oke')){
+
+                             oke.show();
                              jQuery(".account-register-inner .text-oke").html(datas.oke);
                          }
 
