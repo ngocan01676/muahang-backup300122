@@ -25,7 +25,7 @@ class ControllerFront extends Controller
         $keyNameLayout = app()->getKey("_layout");
 
         $layout = isset($request->route()->defaults[$keyNameLayout]) ? $request->route()->defaults[$keyNameLayout] : $layout;
-       
+        var_dump($layout);
         if($layout == 0 || empty($layout)){
             $this->layout = "";
         }else{
