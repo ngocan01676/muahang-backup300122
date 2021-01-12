@@ -21,11 +21,9 @@ class MyEmail extends Mailable
     public function build()
     {
         $theme = app()->getTheme();
-        if(isset(app()->config_language['lang'])){
-            return $this->view( $theme.'::emails.booking')
-                ->from(config('mail.username'),'Missterry')
-                ->subject($this->subject)
-                ->with($this->data);
-        }
+        return $this->view( $theme.'::emails.booking')
+            ->from(config('mail.username'),'Missterry')
+            ->subject($this->subject)
+            ->with($this->data);
     }
 }
