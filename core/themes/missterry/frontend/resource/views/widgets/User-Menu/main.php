@@ -20,7 +20,7 @@ function Main($config){
                 'label'=>z_language('Orders'),
                 'url'=>router_frontend_lang('missterry:user:orders')
             ],
-            [
+            'logout'=>[
                 'label'=>z_language('Logout'),
                 'url'=>route('logout')
             ]
