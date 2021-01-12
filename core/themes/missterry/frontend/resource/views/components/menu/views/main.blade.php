@@ -215,6 +215,7 @@
             <div class="col-2 large-6 col pb-0">
                 <div class="account-register-inner">
                     <h3 class="uppercase">{!! z_language('Register') !!}</h3>
+                    <p class="text-oke" style="display: none">{!! z_language('Đăng ký tài khoản thành công!') !!}</p>
                     <form method="post" class="woocommerce-form woocommerce-form-register register" action="{!! route('frontend:guest:missterry:register:post:ajax') !!}" >
                         @csrf
                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
