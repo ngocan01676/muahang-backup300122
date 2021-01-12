@@ -56,11 +56,14 @@ jQuery(document).ready(function () {
                     form.find('.error').empty();
                     if(datas.success){
                          jQuery('#email').val(data.email);
+
                          let oke =  jQuery(".account-register-inner .text-oke");
                          oke.show();
+
                          if(datas.hasOwnProperty('oke')){
                              jQuery(".account-register-inner .text-oke").html(datas.oke);
                          }
+
                     }else if(datas.hasOwnProperty('errors')){
                         for(let index in datas.errors){
                             console.log(datas.errors[index]);

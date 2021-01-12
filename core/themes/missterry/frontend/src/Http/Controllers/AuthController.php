@@ -60,6 +60,7 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
             if($member->save()){
                 return response()->json([
                     "success"=>true,
+                    'oke'=>z_language('Đăng ký tài khoản thành công'),
                     "email"=>$data['email']
                 ]);
             }
