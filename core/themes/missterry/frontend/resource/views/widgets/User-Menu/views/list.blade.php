@@ -20,5 +20,6 @@
             </form>
             <a href="{!! ($list['url']) !!}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">{!! $list['label'] !!}</a>
         </li>
+        @endif
     @endforeach
 </ul>
