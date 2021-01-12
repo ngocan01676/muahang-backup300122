@@ -72,6 +72,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
                 ]
             ]
         ];
+      
         $langConfig = $this->data['language'];
         return $this->render(
             'email-template.list',[
@@ -106,7 +107,8 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $configs = isset($this->app->getConfig()->configs['controllers'][get_class($this)][$id_key])?$this->app->getConfig()->configs['controllers'][get_class($this)][$id_key]:[];
 
         return $this->render('email-template.create', [
-            'config_formats'=>$configs,'id_key'=>$id_key
+            'config_formats'=>$configs,
+            'id_key'=>$id_key
         ],$group);
     }
 
@@ -119,6 +121,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $id_key = isset($request->route()->defaults['id_key']) ? $request->route()->defaults['id_key'] : 'default';
         $option = isset($request->route()->defaults['option']) ? $request->route()->defaults['option'] : 'core:module:admin:email-template';
         $sidebar = isset($request->route()->defaults['sidebar']) ? $request->route()->defaults['sidebar'] : '';
+
         $this->getcrumb($sidebar);
         $this->sidebar($sidebar);
 

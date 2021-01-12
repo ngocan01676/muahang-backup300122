@@ -47,10 +47,7 @@ return [
                     "url" => "/create",
                     'defaults' => ["id_key" => "Plugin:Contact:Email",'sidebar'=>'backend:plugin:Contact:Email:list']
                 ],
-                "copy" => [
-                    "url" => "/create",
-                    'defaults' => ["id_key" => "Plugin:Contact:Email",'sidebar'=>'backend:plugin:Contact:Email:list']
-                ],
+
                 "edit" => [
                     "url" => "/edit/{id}",
                     'defaults' => ["id_key" => "Plugin:Contact:Email",'sidebar'=>'backend:plugin:Contact:Email:list']
