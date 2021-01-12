@@ -89,7 +89,6 @@ class HomeController extends \Zoe\Http\ControllerFront
             'time' => 'required|regex:/(\d+\:\d+)/',
             'date' => 'required|date_format:d-m-Y',
             'email' => 'required|email|max:255',
-//            'sex' => 'required|integer|gt:0|lt:4',
             'number' => 'required|integer|gt:0|lt:7',
             'id' => 'required|integer|gt:0',
             'price' => 'required|integer|gt:0',
@@ -121,7 +120,8 @@ class HomeController extends \Zoe\Http\ControllerFront
                         'created_at'=>date('Y-m-d H:i:s'),
                         'updated_at'=>date('Y-m-d H:i:s'),
                     ]);
-                    $response =  response()->json(['success' => $data,'id'=>$id,'uri'=>router_frontend_lang('home:register_room_oke',['slug'=>Str::slug($data['data']['fullname']),'id'=>base_64_en($id*10000)])]);
+                    $response =  response()->json(['success' => $data,'id'=>$id,
+                        'uri'=>router_frontend_lang('home:register_room_oke',['slug'=>Str::slug($data['data']['fullname']),'id'=>base_64_en($id*10000)])]);
                     DB::commit();
                     return $response;
                 }else{

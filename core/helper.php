@@ -740,7 +740,8 @@ function z_language_debug($key, $par = [], $__env = null, $tag = "")
     }
     return !empty($tag)?"<span class='-lang-'>".$html."</span>":$html;
 }
-function router_frontend_lang($name, $parameters = [], $absolute = true){
+function router_frontend_lang($name, $parameters = [], $absolute = true,$lang = []){
+
     $config_language = app()->config_language;
     $router =  isset($config_language['router']) && !empty($config_language['router'])?$config_language['router'].'_'.$name:$name;
     return route('frontend:'.$router,$parameters,$absolute);
