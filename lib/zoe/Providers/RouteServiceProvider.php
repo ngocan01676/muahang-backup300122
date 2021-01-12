@@ -308,19 +308,23 @@ class RouteServiceProvider extends ServiceProvider
                 $acl = "";
                 $auth_guard = isset($_route["guard"]) ? $_route["guard"] : (isset($route["guard"]) ? $route["guard"] : $guard);
 
-                if (isset($configRouter['data'][$keyConfigRouter]['acl'])) {
-                    if ($configRouter['data'][$keyConfigRouter]['acl'] == 'no-login') {
-                        $auth_guard = "";
-                    } else {
-                        if ($configRouter['data'][$keyConfigRouter]['acl'] != 'login') {
-                            $auth_guard = $guard;
-                            $acl = $configRouter['data'][$keyConfigRouter]['acl'];
+                if($guard == "frontend"){
+                    if (isset($configRouter['data'][$keyConfigRouter]['acl'])) {
+                        if ($configRouter['data'][$keyConfigRouter]['acl'] == 'no-login') {
+                            $auth_guard = "";
                         } else {
-                            $auth_guard = $guard;
+                            if ($configRouter['data'][$keyConfigRouter]['acl'] != 'login') {
+                                $auth_guard = $guard;
+                                $acl = $configRouter['data'][$keyConfigRouter]['acl'];
+                            } else {
+                                $auth_guard = $guard;
+                            }
                         }
+                    }else{
+                        $acl = "";
+                        $auth_guard = "";
                     }
                 }
-
                 if (!empty($auth_guard)) {
                     $middleware[] = 'auth:' . $auth_guard;
 
@@ -338,7 +342,6 @@ class RouteServiceProvider extends ServiceProvider
                         $this->app->getPermissions()->aliases[$alias] = $acl;
                     }
                 }
-
                 if (isset($configRouter['data'][$keyConfigRouter]['status']) && $configRouter['data'][$keyConfigRouter]['status'] == 2) {
                     continue;
                 }
@@ -347,7 +350,6 @@ class RouteServiceProvider extends ServiceProvider
                     $r->name($alias . ":post");
                     $r->middleware($middleware);
                 }
-
                 $r = Route::match($method, $link, $action);
 
                 if (isset($_route['defaults'])) {
@@ -356,11 +358,7 @@ class RouteServiceProvider extends ServiceProvider
                     }
                 }
                 $r->defaults($keyPrivate . "_module", $_module);
-
                 $r->defaults($keyPrivate . "_view_alias", $_view_alias);
-
-               // $alias_layout = isset($_route['layout'][0])?str_replace(":".$_route['layout'][1].":",":".$_route['layout'][0].":",$alias):$alias;
-
                 if (isset($configRouter['data'][$keyConfigRouter]['layout'])) {
 
                     $r->defaults($keyPrivate . "_layout", $configRouter['data'][$keyConfigRouter]['layout']);
