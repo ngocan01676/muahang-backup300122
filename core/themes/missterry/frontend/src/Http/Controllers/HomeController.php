@@ -17,6 +17,7 @@ class HomeController extends \Zoe\Http\ControllerFront
     }
     public function getLists()
     {
+        new MyEmail('booking',[]);
         return $this->render('home.list', []);
     }
     public function getRoom(){
@@ -171,7 +172,8 @@ class HomeController extends \Zoe\Http\ControllerFront
                     'email'=>$miss_booking[0]->email,
                     'address'=>$result->address,
                 ];
-                Mail::to($to_email)->send(new MyEmail('MISS TERRY - ESCAPE ROOMS: XÁC NHẬN ĐẶT PHÒNG',$data));
+
+                Mail::to($to_email)->send(new MyEmail('booking',$data));
             }
         }
         $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');

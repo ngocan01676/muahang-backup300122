@@ -60,7 +60,6 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $this->getcrumb($urlCurrentName);
         unset($arr[count($arr)-1]);
         $url = implode(':',$arr);
-
         $configs = [
             'config'=>[
                 'pagination'=>[
@@ -72,7 +71,6 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
                 ]
             ]
         ];
-      
         $langConfig = $this->data['language'];
         return $this->render(
             'email-template.list',[
@@ -197,9 +195,8 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
                 if (!$file->isDirectory($path)) {
                     $file->makeDirectory($path);
                 }
-
                 $file->put($path . '/' . $namefile . '.blade.php', html_entity_decode($model->content));
-
+                \Illuminate\Support\Facades\Cache::pull('mail:'.$items['id_key'].':'.$model->name);
                 $request->session()->flash('success', $type == "create"?z_language('Email Template is added successfully'):
                     z_language('Email Template is updated successfully')
                 );
