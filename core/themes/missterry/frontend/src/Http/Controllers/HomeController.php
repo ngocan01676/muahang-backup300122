@@ -33,7 +33,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         if(isset($translation[0])){
             $results = DB::table('miss_room')
                 ->where('status',1)
-                ->where('id',$translation[0]['room_id'])
+                ->where('id',$translation[0]->room_id)
                 ->get()
                 ->all();
             if(isset($results[0])){
