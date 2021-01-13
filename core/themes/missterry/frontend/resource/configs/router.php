@@ -133,6 +133,9 @@ $routers['home'] = [
 $routers['widget'] =   [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "WidgetController",
+    "language"=>[
+
+    ],
     "router" => [
         'WidgetSchedule'=>[
             "url" => "/widget/".md5('WidgetSchedule'),

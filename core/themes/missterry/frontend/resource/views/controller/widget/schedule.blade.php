@@ -959,7 +959,7 @@
 
             jQuery.ajax({
                 method:"POST",
-                url:"{!! route('frontend:widget:WidgetSchedule') !!}",
+                url:"{!! router_frontend_lang('widget:WidgetSchedule') !!}",
                 data:{
 
                 }

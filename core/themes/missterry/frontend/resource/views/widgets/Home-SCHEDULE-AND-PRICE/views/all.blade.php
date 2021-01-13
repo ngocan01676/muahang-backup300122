@@ -1218,9 +1218,10 @@
             jQuery(self).addClass('active');
             let selection = jQuery("#line .selection");
             jQuery("#line .selection").css({'transform':'translateX('+(pos.left+selection.width()/3.5)+'px)'});
+
             jQuery.ajax({
                 method:"POST",
-                url:"{!! route('frontend:widget:WidgetSchedule') !!}",
+                url:"{!! router_frontend_lang('widget:WidgetSchedule') !!}",
                 data:{
                     date:element.attr('data-date')
                 },

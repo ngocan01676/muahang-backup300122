@@ -5,7 +5,7 @@
     <p>{!! z_language('Subscribe for exclusive offers and deals!') !!}</p>
     <div role="form" class="wpcf7" lang="vi" dir="ltr" >
         <div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
-        <form action="{!! route('frontend:widget:Subscribe') !!}" method="post" class="wpcf7-form init" novalidate="novalidate" data-status="init">
+        <form action="{!! router_frontend_lang('widget:Subscribe') !!}" method="post" class="wpcf7-form init" novalidate="novalidate" data-status="init">
             <p>
                 <span class="wpcf7-form-control-wrap your-name">
                     <input type="text"
