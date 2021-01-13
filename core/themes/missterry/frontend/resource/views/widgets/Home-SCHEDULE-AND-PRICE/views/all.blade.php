@@ -1250,29 +1250,40 @@
                 dom.find('.time-value').val(data.time);
                 dom.find('.date-value').val(data.date);
                 dom.find('.key-value').val(data.key);
+
+
+                dom.find('.quest-price .current-price span').html(0 + "vnđ");
+                dom.find('.quest-price .price_human span').html(0+ "vnđ");
+                dom.find('.price-value').val(0);
+
+
                 dom.find('.id-value').val(data.id);
 
                 dom.find('.prices_config textarea').html(jQuery(this).find('.value').val());
+
                 try{
                     let dataPrice = JSON.parse(jQuery(this).find('.value').val());
-
+                    dom.find('[name="number"]').val(0);
                     let selects = dom.find('[name="number"] option');
+
                     selects.each(function () {
+
                         let number = parseInt(jQuery(this).attr('value'));
+
+                        jQuery(this).attr('disabled',false);
+
                         if(number > 0){
                             let oke = true;
                             for(let i in dataPrice){
-
                                 if(dataPrice[i].keys.includes(number.toString()) || dataPrice[i].keys.length == 2 && dataPrice[i].keys[0] < number && dataPrice[i].keys[1] > number  ){
                                     oke = false;
                                     break;
                                 }
                             }
                             jQuery(this).attr('disabled',oke);
-                        }else{
-                            jQuery(this).attr('selected','selected');
                         }
                     });
+
                     jQuery.mobilepopup({
                         targetblock:".pop-up2",
                         width:"35%",

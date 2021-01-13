@@ -920,10 +920,15 @@
                 dom.find('.key-value').val(data.key);
                 dom.find('.id-value').val(data.id);
 
+                dom.find('.quest-price .current-price span').html(0 + "vnđ");
+                dom.find('.quest-price .price_human span').html(0+ "vnđ");
+                dom.find('.price-value').val(0);
+
+
                 dom.find('.prices_config textarea').html(jQuery(this).find('.value').val());
                 try{
                     let dataPrice = JSON.parse(jQuery(this).find('.value').val());
-
+                    dom.find('[name="number"]').val(0);
                     let selects = dom.find('[name="number"] option');
                     selects.each(function () {
                         let number = parseInt(jQuery(this).attr('value'));
