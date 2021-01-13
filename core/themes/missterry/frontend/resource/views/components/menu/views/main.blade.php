@@ -152,7 +152,8 @@
                                                 </div>
                                                 <div class="flex-col">
                                                     <button type="submit" class="ux-search-submit submit-button secondary button icon mb-0" aria-label="Submit">
-                                                        <i class="icon-search" ></i>				</button>
+                                                        <i class="icon-search" ></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div class="live-search-results text-left z-top"></div>
@@ -206,9 +207,9 @@
                         <p class="form-row">
                             <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">{!! z_language('Log in') !!}</button>
                         </p>
-                        <p class="woocommerce-LostPassword lost_password">
-                            <a href="/my-account/lost-password/">{!! z_language('Lost your password?') !!}</a>
-                        </p>
+                        {{--<p class="woocommerce-LostPassword lost_password">--}}
+                            {{--<a href="/my-account/lost-password/">{!! z_language('Lost your password?') !!}</a>--}}
+                        {{--</p>--}}
                     </form>
                 </div>
             </div>
