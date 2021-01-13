@@ -157,7 +157,11 @@ class RoomController extends \Zoe\Http\ControllerBackend
         } else {
             $model = new RoomModel();
         }
-        $model->slug = \Illuminate\Support\Str::slug(isset($data['title_' . config('zoe.default_lang')]), '-');
+        if(isset($data['title'])){
+            $model->slug = \Illuminate\Support\Str::slug($data['title'], '-');
+        }else{
+            $model->slug = \Illuminate\Support\Str::slug(isset($data['title_' . config('zoe.default_lang')]), '-');
+        }
         $model->image = $data['image'];
         $model->background = $data['background'];
         $model->status = $data['status'];
