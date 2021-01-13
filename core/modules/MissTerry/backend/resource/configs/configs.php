@@ -319,7 +319,6 @@ EOT,
                         'variable'=>'MissTerry_DataComposer_Price_Event',
                         'config'=>[
                             'name'=>'prices_event',
-                            'index'=>'user',
                             'columns'=>[
                                 [
                                     'type'=>'text',

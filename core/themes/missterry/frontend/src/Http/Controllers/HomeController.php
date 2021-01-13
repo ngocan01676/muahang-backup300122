@@ -47,12 +47,20 @@ class HomeController extends \Zoe\Http\ControllerFront
                 $result->prices_event = [];
             }else{
                 $prices_event = json_decode($result->prices_event,true);
+
                 $result->prices_event = [];
+
                 foreach ($prices_event as $key=>$value){
-                    $result->prices_event[$key] = $value;
-                    $result->prices_event[$key]['keys'] = explode('-',$key);
+
+                    if(!isset($result->prices_event[$value['date']])){
+                        $result->prices_event[$value['date']] = [];
+                    }
+
+                    $result->prices_event[$value['date']][$key] = $value;
+                    $result->prices_event[$value['date']][$key]['keys'] = explode('-',$key);
                 }
             }
+
             $result->times = json_decode($result->times,true);
             if(isset($this->_language['lang'])){
                 $translation = DB::table('miss_room_translation')->where('lang_code',$this->_language['code'])->where('room_id',$result->id)->get()->all();

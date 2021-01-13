@@ -17,6 +17,19 @@ function Main(){
                 $value->prices[$k]['keys'] = explode('-',$k);
             }
 
+            if(empty($value->prices_event)){
+                $value->prices_event = [];
+            }else{
+                $prices_event = json_decode($value->prices_event,true);
+                $value->prices_event = [];
+                foreach ($prices_event as$k=>$v){
+                    if(!isset($result->prices_event[$v['date']])){
+                        $value->prices_event[$v['date']] = [];
+                    }
+                    $value->prices_event[$v['date']][$k] = $v;
+                    $value->prices_event[$v['date']][$k]['keys'] = explode('-',$k);
+                }
+            }
             if(isset($translation[$value->id])){
                 $value->title = $translation[$value->id]->title;
                 $value->address = $translation[$value->id]->address;

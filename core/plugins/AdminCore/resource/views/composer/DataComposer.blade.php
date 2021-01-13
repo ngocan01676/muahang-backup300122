@@ -41,13 +41,11 @@
     <textarea id="{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}" name="{!! $DataComposer['config']['name'] !!}">{!! $DataComposer['values'] !!}</textarea>
 </div>
 
-@AssetCss("Controller","module/admin/plugins/timepicker/bootstrap-
-
-.min.css")
+@AssetCss("Controller","module/admin/plugins/timepicker/bootstrap-timepicker.min.css")
 @AssetJs("Controller","module/admin/plugins/timepicker/bootstrap-timepicker.min.js")
 
-@AssetJs("Controller","module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")
-@AssetCss("Controller","module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")
+{{--@AssetJs("Controller","module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")--}}
+{{--@AssetCss("Controller","module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")--}}
 @push('links')
     <style>
         .BgError{
@@ -57,17 +55,21 @@
 @endpush
 @push('scripts')
     <script>
+        let {!! $DataComposer['key'].'_wrap' !!}configDatePicker = {
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+        };
+        let {!! $DataComposer['key'].'_wrap' !!}configTimepicker = {
+            showInputs: false,
+            showMeridian: false,
+            minuteStep: 5 ,
+        };
         $(document).ready(function () {
-            $datepicker =  $("#{!! $DataComposer['key'].'_wrap' !!} .datepicker").datepicker({
-                autoclose: true,
-                format: 'dd/mm/yyyy',
-            });
-         //   $datepicker.datepicker('setDate','new Date()');
-            $timepicker = $("#{!! $DataComposer['key'].'_wrap' !!} .timepicker").timepicker({
-                showInputs: false,
-                showMeridian: false,
-                minuteStep: 5 ,
-            });
+
+            $datepicker =  $("#{!! $DataComposer['key'].'_wrap' !!} .{!! $DataComposer['key'].'_template' !!} .datepicker").datepicker({!! $DataComposer['key'].'_wrap' !!}configDatePicker);
+
+            $timepicker = $("#{!! $DataComposer['key'].'_wrap' !!} .{!! $DataComposer['key'].'_template' !!} .timepicker").timepicker({!! $DataComposer['key'].'_wrap' !!}configTimepicker);
+
             $("#{!! $DataComposer['key'].'_wrap' !!} tbody").sortable({
                 start: function(evt, ui) {
                      ui.item.addClass('sortable_move');
@@ -77,6 +79,7 @@
                     {!! $DataComposer['key'].'_' !!}beforeSave(ui.item.parent())
                 }
             });
+            {!! $DataComposer['key'].'_' !!}renderData({!! $DataComposer['values'] !!});
         });
         function {!! $DataComposer['key'].'_' !!}renderData(data) {
             if(typeof data == "object"){
@@ -89,86 +92,89 @@
                 $("#{!! $DataComposer['key'].'_wrap' !!}").unmask();
             }
         }
-        (function () {
-            {!! $DataComposer['key'].'_' !!}renderData({!! $DataComposer['values'] !!});
-        })();
+
         function {!! $DataComposer['key'].'_' !!}beforeSave(parent) {
             let dataNewJson = {};
             let trs = parent.find('tr.Element');
             let count = 1;
             let arr = [];
-            trs.each(function () {
-                if(!$(this).hasClass("{!! $DataComposer['key'].'_' !!}template")){
-                    let elements = $(this).find('.data');
-                    let _index = "";
-                    elements.each(function (index) {
-                        let checked = $(this).is(':checked');
+            if(trs.length > 0){
+                trs.each(function () {
+                    if(!$(this).hasClass("{!! $DataComposer['key'].'_' !!}template")){
+                        let elements = $(this).find('.data');
+                        let _index = "";
+                        elements.each(function (index) {
+                            let checked = $(this).is(':checked');
 
-                        if(this.hasAttribute('data-index')){
-                            _index+= $(this).val().trim()+"_";
-                        }
-                    });
-                    if(_index.length === 0)
-                        _index = count++;
-                    else
-                        _index = _index.trimRight("_");
-                    $(this).attr('data-index',_index);
-                    $(this).find("td").first().empty().html(_index);
-                    let group = {};
+                            if(this.hasAttribute('data-index')){
+                                _index+= $(this).val().trim()+"_";
+                            }
+                        });
+                        if(_index.length === 0)
+                            _index = count++;
+                        else
+                            _index = _index.trimRight("_");
+                        $(this).attr('data-index',_index);
+                        $(this).find("td").first().empty().html(_index);
+                        let group = {};
 
-                    let a = new Promise(function (resolve, reject) {
-                         elements.each(function () {
-                             let type = $(this).attr('type');
-                             if(type === 'radio' || type === 'checkbox'){
-                                 let name = $(this).attr('name');
-                                 if(!group.hasOwnProperty(name)){
-                                     group[name] = [];
-                                 }
-                                 let checked = $(this).is(':checked');
+                        let a = new Promise(function (resolve, reject) {
+                            elements.each(function () {
+                                let type = $(this).attr('type');
+                                if(type === 'radio' || type === 'checkbox'){
+                                    let name = $(this).attr('name');
+                                    if(!group.hasOwnProperty(name)){
+                                        group[name] = [];
+                                    }
+                                    let checked = $(this).is(':checked');
 
-                                 group[name].push([$(this),checked]);
-                             }else{
-                                 $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index));
-                             }
-                         });
-                         resolve({index:_index,lists:group});
-                     });
-                    arr.push(a);
-                }
-            });
-            Promise.all(arr).then(function (t) {
-                for(let ii in t){
-                    let group = t[ii].lists;
-                    let _index = t[ii].index;
+                                    group[name].push([$(this),checked]);
+                                }else{
+                                    $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index));
+                                }
+                            });
+                            resolve({index:_index,lists:group});
+                        });
+                        arr.push(a);
+                    }
+                });
+                Promise.all(arr).then(function (t) {
+                    for(let ii in t){
+                        let group = t[ii].lists;
+                        let _index = t[ii].index;
 
 
-                    for(let i in group){
-                        for(let j in group[i]){
-                            let _this = group[i][j][0];
-                            _this.attr('name',_this.attr('data-name').replace("@INDEX@",_index));
-                            _this.prop("checked",group[i][j][1]);
+                        for(let i in group){
+                            for(let j in group[i]){
+                                let _this = group[i][j][0];
+                                _this.attr('name',_this.attr('data-name').replace("@INDEX@",_index));
+                                _this.prop("checked",group[i][j][1]);
+                            }
                         }
                     }
-                }
 
-            });
-            let From = $("<form></form>").html(parent.clone());
-            let dataJson = From.zoe_inputs('get');
-            if(dataJson.hasOwnProperty("{!! $DataComposer['config']['name'] !!}")){
-                dataJson = dataJson["{!! $DataComposer['config']['name'] !!}"];
+                });
+                let From = $("<form></form>").html(parent.clone());
+                let dataJson = From.zoe_inputs('get');
+                if(dataJson.hasOwnProperty("{!! $DataComposer['config']['name'] !!}")){
+                    dataJson = dataJson["{!! $DataComposer['config']['name'] !!}"];
 
-                @if(isset($DataComposer['config']['index']))
-                    for(let i in dataJson){
+                    @if(isset($DataComposer['config']['index']))
+                        for(let i in dataJson){
                         if(dataJson[i].hasOwnProperty("{!! $DataComposer['config']['index'] !!}")){
                             dataNewJson[dataJson[i]["{!! $DataComposer['config']['index'] !!}"]] = dataJson[i];
                         }
                     }
-                @else
-                 dataNewJson = dataJson;
-                @endif
-                @if(isset($DataComposer['config']['filter_data']))
-                    dataNewJson = {!! $DataComposer['config']['filter_data'].'(dataNewJson);' !!}
-                @endif
+                    @else
+                        dataNewJson = dataJson;
+                    @endif
+                            @if(isset($DataComposer['config']['filter_data']))
+                        dataNewJson = {!! $DataComposer['config']['filter_data'].'(dataNewJson);' !!}
+                    @endif
+                    $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").html(JSON.stringify(dataNewJson));
+                    $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").val(JSON.stringify(dataNewJson));
+                }
+            }else{
                 $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").html(JSON.stringify(dataNewJson));
                 $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").val(JSON.stringify(dataNewJson));
             }
@@ -181,15 +187,23 @@
         function {!! $DataComposer['key'].'_' !!}template(tbody,vals,index) {
             let template = tbody.find(".{!! $DataComposer['key'].'_' !!}template").clone();
 
+
             template.removeClass("{!! $DataComposer['key'].'_' !!}template");
             template.find("td").first().empty().html(index+1);
             template.addClass('Element');
+
             template.find('.data').each(function () {
                 $(this).removeAttr('name');
                 let key = $(this).attr('data-key');
                 let tagName = ($(this).prop("tagName").toLowerCase());
                 let type = $(this).prop("type").toLowerCase();
 
+                let datepicker = template.find('.datepicker');
+                if(datepicker.length > 0){
+                    datepicker.removeClass("hasDatepicker").removeAttr('id');
+                    datepicker.datepicker("destroy");
+                    console.log(datepicker);
+                }
                 if(tagName === 'select'){
                     if(vals.hasOwnProperty(key)){
                         $(this).find('option').each(function () {
@@ -199,10 +213,7 @@
                     }
                 }else if(type === 'checkbox' || type === 'radio'){
                     if(vals.hasOwnProperty(key)){
-                        console.log(type);
-                        console.log(vals);
-                        console.log(key);
-                        console.log($(this).val());
+
                         if(vals[key] == $(this).val()){
                             $(this).attr('checked','true');
                         }
@@ -213,8 +224,16 @@
                     }
                 }
             });
+
             tbody.append(template);
+
+            let datepicker = template.find('.datepicker');
+            datepicker.datepicker({!! $DataComposer['key'].'_wrap' !!}configDatePicker);
+            let timepicker = template.find('.timepicker');
+            timepicker.timepicker({!! $DataComposer['key'].'_wrap' !!}configTimepicker);
+
             {!! $DataComposer['key'].'_' !!}beforeSave(tbody);
+
             tbody.find('.template').find('.data').each(function () {
                 $(this).removeAttr('name');
                 if($(this).hasClass('uint')){

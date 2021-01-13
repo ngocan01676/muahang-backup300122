@@ -169,9 +169,12 @@
                                        ->get()->keyBy('booking_time')->all();
 
                                        $price_max = end($row->prices);
-                                   // requires_prepay booked
+
                                        $is_disabled = strtotime($dateTime.' 23:59:59') < time();
                                         $isNow = $day == $dayNow;
+
+                                        $is_Event = isset($row->prices_event[date('m/d/Y',$timeAction)]);
+                                        $dataPriceEvent = $is_Event?$row->prices_event[date('m/d/Y',$timeAction)]:[];
                                     @endphp
                             <div class="quest_schedule">
 
@@ -230,8 +233,14 @@
                                                          }
                                                      }
                                                  }
-                                                     $key = 'price1';
-
+                                                 $key = 'price1';
+                                                  $userCount = 0;
+                                                 if($is_Event){
+                                                        $key = 'price';
+                                                        $price_max = end($dataPriceEvent);
+                                                        $price = $price_max['price'];
+                                                        $userCount = end($price_max['keys']);
+                                                 }else{
                                                      if($week < 5){
                                                        $price = $price_max['price1'];
                                                      }else if($week == 5){
@@ -246,13 +255,15 @@
                                                            $price = $price_max['price2'];
                                                            $key = 'price2';
                                                      }
+                                                     $userCount = end($price_max['keys']);
+                                                  }
                                                      if($is_hide == false)
                                                      {
                                                          $countItem++;
                                                          if(!isset($arr_price[$price])){
-                                                            $arr_price[$price] = 0;
+                                                            $arr_price[$price] = ['count'=>0,'price'=>round($price/$userCount)];
                                                          }
-                                                         $arr_price[$price]++;
+                                                         $arr_price[$price]['count']++;
                                                      }
                                             }
                                         @endphp
@@ -264,7 +275,7 @@
                                                         <img class="slot prepay_card"
                                                              style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay">
                                                     @endif
-                                                    <textarea class="value" style="display: none">{!! json_encode($row->prices) !!}</textarea>
+                                                    <textarea class="value" style="display: none">{!! json_encode(($is_Event?$dataPriceEvent:$row->prices)) !!}</textarea>
                                                 </div>
                                                 @if($is_pay == false) </a> @endif
                                             @php $left_curent+= $left;  @endphp
@@ -280,9 +291,9 @@
                                     @php
                                         $leftStyle = 3;
                                     @endphp
-                                    @foreach($arr_price as $price=>$count)
+                                    @foreach($arr_price as $price=>$_value)
 
-                                        <div class="price_block" {!! $count !!} style="left: {!! $leftStyle !!}%; width: {!! ($count)*7.8 !!}%">
+                                        <div class="price_block" {!! $_value['count'] !!} style="left: {!! $leftStyle !!}%; width: {!! ($count)*7.8 !!}%">
                                             <div class="left_line line">
                                                 <ins style="margin-right: 3.5em;"></ins>
                                             </div>
@@ -291,13 +302,13 @@
                                                           style="display: block; font-size: 0.7em; line-height: 1.2em; margin-top: -14px; opacity: 0.7">
                                                         {!! z_language('Từ') !!}
                                                     </span>
-                                                {!! number_format($price/1000) !!}K  <span style="font-size: 110%;">  </span>
+                                                {!! number_format($_value['price']/1000) !!}K  <span style="font-size: 110%;">  </span>
                                             <!-- <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">{!! date('Y-m-d',$timeAction) !!}</span>-->
                                             </div>
                                             <div class="right_line line"><ins style="margin-left: 3.5em;"></ins></div>
                                         </div>
                                         @php
-                                            $leftStyle+=($count)*7.8;
+                                            $leftStyle+=($_value['count'])*7.8;
                                         @endphp
                                     @endforeach
                                     <div class="price_block" 4="" style="left: {!! $leftStyle !!}%; width: 1%">
@@ -1241,11 +1252,34 @@
                 dom.find('.id-value').val(data.id);
 
                 dom.find('.prices_config textarea').html(jQuery(this).find('.value').val());
-                jQuery.mobilepopup({
-                    targetblock:".pop-up2",
-                    width:"35%",
-                    height:"90%"
-                });
+                try{
+                    let dataPrice = JSON.parse(jQuery(this).find('.value').val());
+
+                    let selects = dom.find('[name="number"] option');
+                    selects.each(function () {
+                        let number = parseInt(jQuery(this).attr('value'));
+                        if(number > 0){
+                            let oke = true;
+                            for(let i in dataPrice){
+
+                                if(dataPrice[i].keys.includes(number.toString()) || dataPrice[i].keys.length == 2 && dataPrice[i].keys[0] < number && dataPrice[i].keys[1] > number  ){
+                                    oke = false;
+                                    break;
+                                }
+                            }
+                            jQuery(this).attr('disabled',oke);
+                        }else{
+                            jQuery(this).attr('selected','selected');
+                        }
+                    });
+                    jQuery.mobilepopup({
+                        targetblock:".pop-up2",
+                        width:"35%",
+                        height:"90%"
+                    });
+                }catch (e) {
+
+                }
                 return false;
             });
         });

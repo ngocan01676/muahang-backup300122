@@ -116,7 +116,7 @@
                                     $prices =  array_keys($row->prices);
                                     $n = count($prices);
                                     $row->times = json_decode($row->times,true);
-                                    $row->prices =$row->prices;
+
                                     if($n == 1){
                                          $label = $prices[0];// 2-4(5)
                                     }else{
@@ -173,6 +173,8 @@
                                                $is_disabled = strtotime($dateTime.' 23:59:59') < time();
 
                                                 $isNow = $day == $dayNow;
+                                                  $is_Event = isset($row->prices_event[date('m/d/Y',$timeAction)]);
+                                                    $dataPriceEvent = $is_Event?$row->prices_event[date('m/d/Y',$timeAction)]:[];
                                             @endphp
                                             <div class="quest_schedule">
 
@@ -233,28 +235,35 @@
                                                                      }
                                                                  }
                                                                      $key = 'price1';
-
-                                                                     if($week < 5){
-                                                                       $price = $price_max['price1'];
-                                                                     }else if($week == 5){
-                                                                       if($_timeNumber > $_timeBet_17){
-                                                                           $price = $price_max['price2'];
-                                                                           $key = 'price2';
-                                                                       }else{
-                                                                           $price = $price_max['price1'];
-                                                                            $key = 'price1';
-                                                                       }
+                                                                     if($is_Event){
+                                                                            $key = 'price';
+                                                                            $price_max = end($dataPriceEvent);
+                                                                            $price = $price_max['price'];
+                                                                            $userCount = end($price_max['keys']);
                                                                      }else{
-                                                                           $price = $price_max['price2'];
-                                                                           $key = 'price2';
-                                                                     }
-                                                                     if($is_hide == false)
+                                                                         if($week < 5){
+                                                                           $price = $price_max['price1'];
+                                                                         }else if($week == 5){
+                                                                           if($_timeNumber > $_timeBet_17){
+                                                                               $price = $price_max['price2'];
+                                                                               $key = 'price2';
+                                                                           }else{
+                                                                               $price = $price_max['price1'];
+                                                                                $key = 'price1';
+                                                                           }
+                                                                         }else{
+                                                                               $price = $price_max['price2'];
+                                                                               $key = 'price2';
+                                                                         }
+                                                                         $userCount = end($price_max['keys']);
+                                                                      }
+                                                                    if($is_hide == false)
                                                                      {
                                                                          $countItem++;
                                                                          if(!isset($arr_price[$price])){
-                                                                            $arr_price[$price] = 0;
+                                                                            $arr_price[$price] = ['count'=>0,'price'=>round($price/$userCount)];
                                                                          }
-                                                                         $arr_price[$price]++;
+                                                                         $arr_price[$price]['count']++;
                                                                      }
                                                             }
                                                         @endphp
@@ -265,7 +274,7 @@
                                                                     @if($is_pay)
                                                                         <img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay">
                                                                     @endif
-                                                                    <textarea class="value" style="display: none">{!! json_encode($row->prices) !!}</textarea>
+                                                                    <textarea class="value" style="display: none">{!! json_encode(($is_Event?$dataPriceEvent:$row->prices)) !!}</textarea>
                                                                 </div>
                                                                 @if($is_pay == false) </a> @endif
                                                             @php $left_curent+= $left;  @endphp
@@ -281,9 +290,9 @@
                                                     @php
                                                         $leftStyle = 3;
                                                     @endphp
-                                                    @foreach($arr_price as $price=>$count)
+                                                    @foreach($arr_price as $price=>$_value)
 
-                                                        <div class="price_block" {!! $count !!} style="left: {!! $leftStyle !!}%; width: {!! ($count)*7.8 !!}%">
+                                                        <div class="price_block" {!! $_value['count'] !!} style="left: {!! $leftStyle !!}%; width: {!! ($count)*7.8 !!}%">
                                                             <div class="left_line line">
                                                                 <ins style="margin-right: 3.5em;"></ins>
                                                             </div>
@@ -292,13 +301,13 @@
                                                           style="display: block; font-size: 0.7em; line-height: 1.2em; margin-top: -14px; opacity: 0.7">
                                                         {!! z_language('Từ') !!}
                                                     </span>
-                                                                {!! number_format($price/1000) !!}K  <span style="font-size: 110%;"></span>
+                                                                {!! number_format($_value['price']/1000) !!}K  <span style="font-size: 110%;"></span>
                                                             <!-- <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">{!! date('Y-m-d',$timeAction) !!}</span>-->
                                                             </div>
                                                             <div class="right_line line"><ins style="margin-left: 3.5em;"></ins></div>
                                                         </div>
                                                         @php
-                                                            $leftStyle+=($count)*7.8;
+                                                            $leftStyle+=($_value['count'])*7.8;
                                                         @endphp
                                                     @endforeach
                                                     <div class="price_block" 4="" style="left: {!! $leftStyle !!}%; width: 1%">

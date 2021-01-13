@@ -322,19 +322,19 @@
                                 ];
 
                                 $months = [
-                                 z_language("Tháng 1"),
-                                 z_language("Tháng 1"),
-                                 z_language("Tháng 2"),
-                                 z_language("Tháng 3"),
-                                 z_language("Tháng 4"),
-                                 z_language("Tháng 5"),
-                                 z_language("Tháng 6"),
-                                 z_language("Tháng 7"),
-                                 z_language("Tháng 8"),
-                                 z_language("Tháng 9"),
-                                 z_language("Tháng 10"),
-                                 z_language("Tháng 11"),
-                                 z_language("Tháng 12"),
+                                     z_language("Tháng 1"),
+                                     z_language("Tháng 1"),
+                                     z_language("Tháng 2"),
+                                     z_language("Tháng 3"),
+                                     z_language("Tháng 4"),
+                                     z_language("Tháng 5"),
+                                     z_language("Tháng 6"),
+                                     z_language("Tháng 7"),
+                                     z_language("Tháng 8"),
+                                     z_language("Tháng 9"),
+                                     z_language("Tháng 10"),
+                                     z_language("Tháng 11"),
+                                     z_language("Tháng 12"),
                                 ];
                                 $n = 30;
                                 $i = 1;
@@ -364,6 +364,9 @@
                                 ->where('booking_date',$dateTime)
                                 ->where('status','!=',3)
                                 ->get()->keyBy('booking_time')->all();
+
+                                $is_Event = isset($result->prices_event[date('m/d/Y',$timeAction)]);
+                                $dataPriceEvent = $is_Event?$result->prices_event[date('m/d/Y',$timeAction)]:[];
                             @endphp
                             <div class="item day{!! $isNow?" now date-$d_m_Y":" date-$d_m_Y" !!}" data-week="{!! $week !!}">
                                 <div class="day-header">
@@ -424,19 +427,30 @@
                                                      }
                                                  }
                                                  $key = 'price1';
-                                                 if($week < 5){
-                                                   $price = $price_max['price1'];
-                                                 }else if($week == 5){
-                                                   if($_timeNumber > $_timeBet_17){
-                                                       $price = $price_max['price2'];
-                                                         $key = 'price2';
-                                                   }else{
-                                                       $price = $price_max['price1'];
-                                                        $key = 'price1';
-                                                   }
+                                                 $userCount = 0;
+                                                 if($is_Event){
+                                                    $key = 'price';
+                                                    $price_max = end($dataPriceEvent);
+                                                    $price = $price_max['price'];
+                                                    $userCount = end($price_max['keys']);
+
                                                  }else{
-                                                       $price = $price_max['price2'];
-                                                       $key = 'price2';
+                                                     if($week < 5){
+                                                       $price = $price_max['price1'];
+
+                                                     }else if($week == 5){
+                                                       if($_timeNumber > $_timeBet_17){
+                                                           $price = $price_max['price2'];
+                                                           $key = 'price2';
+                                                       }else{
+                                                           $price = $price_max['price1'];
+                                                           $key = 'price1';
+                                                       }
+                                                     }else{
+                                                           $price = $price_max['price2'];
+                                                           $key = 'price2';
+                                                     }
+                                                     $userCount = end($price_max['keys']);
                                                  }
                                             }
                                         @endphp
@@ -453,8 +467,10 @@
                                         >
                                             <div class="item__time">{!! $time['date'] !!}</div>
                                             <div class="item__price">{!! $price !!}<span class="price__currency">đ</span></div>
-                                            <div class="book_label">{!! number_format($price) !!}/1 người đ</div>
-                                            <textarea class="value" style="display: none">{!! json_encode($result->prices) !!}</textarea>
+                                            <div class="book_label">{!! z_language('từ') !!} {!! number_format(round($price/$userCount)) !!}/1 {!! z_language('người') !!} đ</div>
+                                            <textarea class="value" style="display: none">
+                                                {!! json_encode(($is_Event?$dataPriceEvent:$result->prices)) !!}
+                                            </textarea>
                                         </div>
                                     @endforeach
                                 </div>
@@ -886,10 +902,8 @@
             dom.find('[name="price"]').val(price);
             dom.find('.quest-price .current-price span').html(formatMoney(price)+" vnđ");
             dom.find('.quest-price .price_human span').html(formatMoney(Math.ceil(price/number))+" vnđ");
-
         }
         jQuery().ready(function(){
-
             jQuery("body").on("click",".popup-demo",function(e){
                 e.preventDefault();
 
@@ -907,11 +921,34 @@
                 dom.find('.id-value').val(data.id);
 
                 dom.find('.prices_config textarea').html(jQuery(this).find('.value').val());
-                jQuery.mobilepopup({
-                    targetblock:".pop-up2",
-                    width:"35%",
-                    height:"90%"
-                });
+                try{
+                    let dataPrice = JSON.parse(jQuery(this).find('.value').val());
+
+                    let selects = dom.find('[name="number"] option');
+                    selects.each(function () {
+                        let number = parseInt(jQuery(this).attr('value'));
+                        if(number > 0){
+                            let oke = true;
+                            for(let i in dataPrice){
+
+                                if(dataPrice[i].keys.includes(number.toString()) || dataPrice[i].keys.length == 2 && dataPrice[i].keys[0] < number && dataPrice[i].keys[1] > number  ){
+                                    oke = false;
+                                    break;
+                                }
+                            }
+                            jQuery(this).attr('disabled',oke);
+                        }else{
+                            jQuery(this).attr('selected','selected');
+                        }
+                    });
+                    jQuery.mobilepopup({
+                        targetblock:".pop-up2",
+                        width:"35%",
+                        height:"90%"
+                    });
+                }catch (e) {
+
+                }
                 return false;
             });
         });
