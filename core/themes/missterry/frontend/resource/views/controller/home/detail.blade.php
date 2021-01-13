@@ -372,6 +372,9 @@
                                 <div class="day-header">
                                     <div class="date">{!! $day !!} {!! $months[$month] !!}</div>
                                     <div class="weekday">{!! isset($weeks[$week]) ? $weeks[$week] : $week !!}</div>
+                                    <div style="width: 100%">
+                                        <div class="{!! $is_Event?'event':'no-event' !!}"></div>
+                                    </div>
                                 </div>
                                 <div class="list">
                                     {{--<div class="calendar__item low disabled actor_0 " data-id="82139">--}}
@@ -548,9 +551,9 @@
                                 <div>
                                     <img class="quest-logo" alt="quest-logo" src="{!! asset('logo.png') !!}">
                                 </div>
-                                <div class="quest-title">Houdini's Academy</div>
-                                <div class="quest-address">Moscow,  1st Tverskaya-Yamskaya Str., building 7</div>
-                                <div class="quest-time">8 January, 21:00</div>
+                                <div class="quest-title"></div>
+                                <div class="quest-address"></div>
+                                <div class="quest-time"></div>
                             </div>
                             <div class="col medium-8 small-12 large-8">
                                 <span class="wpcf7-form-control-wrap ten">
@@ -717,6 +720,12 @@
 
 
     <style>
+        .event {
+            margin: 0 auto;width: 25px;height: 25px;background: url({!! asset('theme/missterry/images/calendar.png') !!}) no-repeat
+        }
+        .no-event{
+            filter: grayscale(100%); margin: 0 auto;width: 25px;height: 25px;background: url({!! asset('theme/missterry/images/calendar.png') !!}) no-repeat
+        }
         #section_294952785 {
             padding-top: 30px;
             padding-bottom: 30px;
@@ -1026,6 +1035,7 @@
         });
     </script>
     <style>
+
         .b-room .room-main .room-w .room-info-w .info-additionally {
             background: rgba(0,0,0,.8);
             border-radius: 50px;
