@@ -354,7 +354,7 @@
 
 
                         <a href="{!! router_frontend_lang('home:room') !!}" target="_self" class="button primary lowercase" style="border-radius:10px;">
-                            <span>{!! z_language('Booknow') !!}</span>
+                            <span>{!! z_language('Book Now') !!}</span>
                             <i class="icon-angle-right"></i></a>
 
                     </div>
