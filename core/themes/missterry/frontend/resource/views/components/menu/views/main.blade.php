@@ -31,7 +31,11 @@
             </div>
             <!-- Right Elements -->
             <div class="flex-col hide-for-medium flex-right">
+                <?php
+                    $url_current = url()->current();
+                ?>
                 <ul class="header-nav header-nav-main nav nav-right  nav-divided nav-size-medium">
+
                     @foreach($position as $value)
                         @if(isset($value['children']))
                             <li id="menu-item-{!! $value['id'] !!}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3582 menu-item-design-default has-dropdown">
@@ -45,13 +49,18 @@
                                 </ul>
                             </li>
                         @else
-                            <li id="menu-item-{!! $value['id'] !!}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3576 menu-item-design-default">
-                                @if($menus[$value['id']]->type_link == "router" && !empty($menus[$value['id']]->router_name))
+                            @php
 
-                                    <a href="{!! router_frontend_lang($menus[$value['id']]->router_name,[]) !!}" class="nav-top-link">{!! $menus[$value['id']]->name !!}</a>
-                                @else
-                                    <a href="{!! $menus[$value['id']]->link !!}" class="nav-top-link">{!! $menus[$value['id']]->name !!}</a>
-                                @endif
+                                if($menus[$value['id']]->type_link == "router" && !empty($menus[$value['id']]->router_name)){
+                                    $_url = router_frontend_lang($menus[$value['id']]->router_name,[]);
+
+                                }else{
+                                    $_url = url($menus[$value['id']]->link);
+
+                                }
+                            @endphp
+                            <li id="menu-item-{!! $value['id'] !!}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3576 menu-item-design-default">
+                                <a href="{!! $_url !!}" class="nav-top-link{!! $url_current == $_url ?' active ':'' !!}">{!! $menus[$value['id']]->name !!}</a>
                             </li>
                         @endif
                     @endforeach

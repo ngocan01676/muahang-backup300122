@@ -741,10 +741,12 @@ function z_language_debug($key, $par = [], $__env = null, $tag = "")
     return !empty($tag)?"<span class='-lang-'>".$html."</span>":$html;
 }
 function router_frontend_lang($name, $parameters = [], $frontend = true){
-
+    return route(router_frontend_lang_name($name,$frontend),$parameters,true);
+}
+function router_frontend_lang_name($name, $frontend = true){
     $config_language = app()->config_language;
     $router =  isset($config_language['router']) && !empty($config_language['router'])?$config_language['router'].'_'.$name:$name;
-    return route(($frontend?'frontend:':"").$router,$parameters,true);
+    return ($frontend?'frontend:':"").$router;
 }
 function date_lang($date){
    $config_language = app()->config_language;
