@@ -412,20 +412,20 @@
     }
 
     .b-rooms-home .rooms-w .room.yellow {
-        border: 1px solid #b57129;
-        color: #b57129;
+        border: 1px solid #f4c400;
+        color: #f4c400;
     }
 
     .b-rooms-home .rooms-w .room.yellow .room-difficulty,.b-rooms-home .rooms-w .room.yellow .room-fear {
-        color: #b57129;
+        color: #f4c400;
     }
 
     .b-rooms-home .rooms-w .room.yellow .m-no_scary,.b-rooms-home .rooms-w .room.yellow .room-fear-substrate,.b-rooms-home .rooms-w .room.yellow .room-with-actor {
-        background-color: #b57129;
+        background-color: #f4c400;
     }
 
     .b-rooms-home .rooms-w .room.yellow.m_active,.b-rooms-home .rooms-w .room.yellow:hover {
-        box-shadow: 0 0 20px 0 #b57129,0 0 20px 0 #b57129;
+        box-shadow: 0 0 20px 0 #f4c400,0 0 20px 0 #f4c400;
     }
 
     .b-rooms-home .rooms-w .room.blue {

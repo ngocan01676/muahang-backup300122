@@ -27,7 +27,7 @@
                     <div class="video-overlay no-click fill visible"></div>
                     <video class="video-bg fill visible" preload playsinline autoplay
                            muted		loop>
-                        <source src="https://demo.missterry.vn/wp-content/uploads/2020/12/Escape-Room.mp4" type="video/mp4">
+                        <source src="{!! asset('/uploads/video/Escape-Room.mp4') !!}" type="video/mp4">
                     </video>
                 </div>
                 <div class="banner-layers container">
@@ -97,7 +97,7 @@
                     background-color: rgb(0,0,0);
                 }
                 #banner-721248265 .bg.bg-loaded {
-                    background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/background.png);
+                    background-image: url({!! asset('theme/missterry/images/background.png') !!});
                 }
             </style>
         </div>
@@ -133,7 +133,7 @@
                     <div class="video-overlay no-click fill visible"></div>
                     <video class="video-bg fill visible" preload playsinline autoplay
                            loop>
-                        <source src="https://demo.missterry.vn/wp-content/uploads/2020/12/Escape-Room.mp4" type="video/mp4">
+                        <source src="{!! asset('/uploads/video/Escape-Room.mp4') !!}" type="video/mp4">
                     </video>
                 </div>
                 <div class="banner-layers container">
@@ -203,7 +203,7 @@
                     background-color: rgb(0,0,0);
                 }
                 #banner-103282956 .bg.bg-loaded {
-                    background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/background-1024x576.png);
+                    background-image: url({!! asset('theme/missterry/images/background-1024x576.png') !!});
                 }
             </style>
         </div>

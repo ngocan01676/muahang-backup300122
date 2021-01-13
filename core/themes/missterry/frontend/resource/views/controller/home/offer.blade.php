@@ -24,7 +24,7 @@
                         min-height: 268px;
                     }
                     #page-header-652988161 .title-bg {
-                        background-image: url(https://demo.missterry.vn/wp-content/uploads/2020/12/IMG_2769-1.jpg);
+                        background-image: url({!! asset('theme/missterry/images/IMG_2769-1.jpg') !!});
                     }
                     #page-header-652988161 {
                         background-color: rgb(0,0,0);

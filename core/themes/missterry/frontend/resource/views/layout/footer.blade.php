@@ -1,19 +1,13 @@
-<script type='text/javascript' id='contact-form-7-js-extra'>
-    /* <![CDATA[ */
-    var wpcf7 = {"apiSettings":{"root":"https:\/\/demo.missterry.vn\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"}};
-    /* ]]> */
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.3/mobile-detect.min.js"></script>
-<script type='text/javascript' src='https://demo.missterry.vn/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=5.3.1' id='contact-form-7-js'></script>
-<script type='text/javascript' src='https://demo.missterry.vn/wp-content/themes/flatsome/inc/extensions/flatsome-live-search/flatsome-live-search.js?ver=3.13.0' id='flatsome-live-search-js'></script>
-<script type='text/javascript' src='https://demo.missterry.vn/wp-includes/js/hoverIntent.min.js?ver=1.8.1' id='hoverIntent-js'></script>
+<script type='text/javascript' src='{!! asset('theme/missterry/plugin/contact-form-7/includes/js/scripts.js?ver=5.3.1') !!}' id='contact-form-7-js'></script>
+<script type='text/javascript' src='{!! asset('theme/missterry/js/hoverIntent.min.js?ver=1.8.1') !!}' id='hoverIntent-js'></script>
 <script type='text/javascript' id='flatsome-js-js-extra'>
     /* <![CDATA[ */
-    var flatsomeVars = {"ajaxurl":"https:\/\/demo.missterry.vn\/wp-admin\/admin-ajax.php","rtl":"","sticky_height":"68","lightbox":{"close_markup":"<button title=\"%title%\" type=\"button\" class=\"mfp-close\"><svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-x\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"><\/line><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"><\/line><\/svg><\/button>","close_btn_inside":false},"user":{"can_edit_pages":false},"i18n":{"mainMenu":"Main Menu"},"options":{"cookie_notice_version":"1"}};
+    var flatsomeVars = {"ajaxurl":"","rtl":"","sticky_height":"68","lightbox":{"close_markup":"<button title=\"%title%\" type=\"button\" class=\"mfp-close\"><svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-x\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"><\/line><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"><\/line><\/svg><\/button>","close_btn_inside":false},"user":{"can_edit_pages":false},"i18n":{"mainMenu":"Main Menu"},"options":{"cookie_notice_version":"1"}};
     /* ]]> */
 </script>
-<script type='text/javascript' src='https://demo.missterry.vn/wp-content/themes/flatsome/assets/js/flatsome.js?ver=3.13.0' id='flatsome-js-js'></script>
-<script type='text/javascript' src='https://demo.missterry.vn/wp-includes/js/wp-embed.min.js?ver=5.6' id='wp-embed-js'></script>
+<script type='text/javascript' src='{!! asset('theme/missterry/flatsome/assets/js/flatsome.js?ver=3.13.0') !!}' id='flatsome-js-js'></script>
+{{--<script type='text/javascript' src='https://demo.missterry.vn/wp-includes/js/wp-embed.min.js?ver=5.6' id='wp-embed-js'></script>--}}
 
 <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/plugins/highlightjs/highlight.min.js') !!}"></script>
 <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/src/mobilepopup.min.js') !!}"></script>

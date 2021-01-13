@@ -35,11 +35,11 @@
                     @foreach($position as $value)
                         @if(isset($value['children']))
                             <li id="menu-item-{!! $value['id'] !!}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3582 menu-item-design-default has-dropdown">
-                                <a href="https://demo.missterry.vn/rooms/" class="nav-top-link">{!! $menus[$value['id']]->name !!}<i class="icon-angle-down" ></i></a>
+                                <a href="#" class="nav-top-link">{!! $menus[$value['id']]->name !!}<i class="icon-angle-down" ></i></a>
                                 <ul class="sub-menu nav-dropdown nav-dropdown-default">
                                     @foreach($value['children'] as $key1=>$value1)
                                         <li id="menu-item-{!! $value1['id'] !!}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3852">
-                                            <a href="https://demo.missterry.vn/room-details/">{!! $menus[$value1['id']]->name !!}</a>
+                                            <a href="#">{!! $menus[$value1['id']]->name !!}</a>
                                         </li>
                                     @endforeach
                                 </ul>
