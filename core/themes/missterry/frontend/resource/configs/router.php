@@ -94,6 +94,7 @@ $routers['home'] = [
         ],
     ]
 ];
+
 //foreach ($conf as $name=>$router){
 //    $routers[$name] = $router;
 //    $language = config('zoe.language');
@@ -111,6 +112,7 @@ $routers['home'] = [
 //        $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
 //    }
 //}
+
 $routers['room'] =   [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "HomeController",
@@ -123,6 +125,17 @@ $routers['room'] =   [
          ]
     ]
 ];
+$routers['guest'] = [
+    'router'=>[
+        'login'=>[
+            'language'=>true
+        ],
+        'register'=>[
+            'language'=>true
+        ]
+    ]
+];
+
 $routers['widget'] =   [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "WidgetController",

@@ -35,7 +35,6 @@ return [
                         "action" => "getRegister",
                         "name" => "register",
                         "guard" => "",
-//                        "cache" => 60
                     ],
                     "login:post" => [
                         "url" => "/login/action",

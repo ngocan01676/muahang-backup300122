@@ -909,7 +909,7 @@
                 jQuery.mobilepopup({
                     targetblock:".pop-up2",
                     width:"35%",
-                    height:"80%"
+                    height:"90%"
                 });
                 return false;
             });
