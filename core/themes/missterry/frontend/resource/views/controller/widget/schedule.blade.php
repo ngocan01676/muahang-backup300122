@@ -261,7 +261,9 @@
                                                                      {
                                                                          $countItem++;
                                                                          if(!isset($arr_price[$price])){
-                                                                            $arr_price[$price] = ['count'=>0,'price'=>round($price/$userCount)];
+                                                                            $priceValue = (int) round($price/$userCount);
+                                                                            $priceValue = $priceValue - $priceValue % (pow(10, strlen($priceValue."")-1));
+                                                                            $arr_price[$price] = ['count'=>0,'price'=>$priceValue];
                                                                          }
                                                                          $arr_price[$price]['count']++;
                                                                      }
@@ -292,7 +294,7 @@
                                                     @endphp
                                                     @foreach($arr_price as $price=>$_value)
 
-                                                        <div class="price_block" {!! $_value['count'] !!} style="left: {!! $leftStyle !!}%; width: {!! ($count)*7.8 !!}%">
+                                                        <div class="price_block" {!! $_value['count'] !!} style="left: {!! $leftStyle !!}%; width: {!! ($_value['count'])*7.8 !!}%">
                                                             <div class="left_line line">
                                                                 <ins style="margin-right: 3.5em;"></ins>
                                                             </div>
