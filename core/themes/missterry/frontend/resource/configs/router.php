@@ -17,7 +17,7 @@ $routers['home'] = [
        ],
        'room-detail'=>[
            'vi'=>[
-               'uri'=>'/phong-choi'
+               'uri'=>'/phong-choi/{slug}'
            ]
        ],
         'room'=>[
