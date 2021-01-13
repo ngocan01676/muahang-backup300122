@@ -125,17 +125,6 @@ $routers['room'] =   [
          ]
     ]
 ];
-$routers['guest'] = [
-    'router'=>[
-        'login'=>[
-            'language'=>true
-        ],
-        'register'=>[
-            'language'=>true
-        ]
-    ]
-];
-
 $routers['widget'] =   [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "WidgetController",
@@ -196,24 +185,13 @@ $routers['category'] = [
     ]
 ];
 
-$routers['guest:missterry'] = [
-    "namespace" => "MissTerryTheme\Http\Controllers",
-    "controller" => "AuthController",
-    "router" => [
-        "login:post:ajax" => [
-            "url" => "/login/action/ajax",
-            "action" => "postLoginAjax",
-            "method" => ["get","post"],
-            "guard" => ""
-        ],
-        "register:post:ajax" => [
-            "url" => "/register/action/ajax",
-            "action" => "postRegisterAjax",
-            "method" => ["get","post"],
-            "guard" => ""
-        ]
-    ]
-];
+//$routers['guest:missterry'] = [
+//    "namespace" => "MissTerryTheme\Http\Controllers",
+//    "controller" => "AuthController",
+//    "router" => [
+//
+//    ]
+//];
 $routers['missterry:user'] = [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "UserController",
@@ -266,6 +244,9 @@ $routers['user:base'] = [
 $routers['guest'] =    [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "AuthController",
+    'language'=>[
+
+    ],
     "router"=>[
         "login" => [
             "url" => "/login",
@@ -279,6 +260,18 @@ $routers['guest'] =    [
             "method" => ["post"],
             "guard" => ""
         ],
+        "login:post:ajax" => [
+            "url" => "/login/action/ajax",
+            "action" => "postLoginAjax",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
+        "register:post:ajax" => [
+            "url" => "/register/action/ajax",
+            "action" => "postRegisterAjax",
+            "method" => ["get","post"],
+            "guard" => ""
+        ]
     ]
 ];
 return [

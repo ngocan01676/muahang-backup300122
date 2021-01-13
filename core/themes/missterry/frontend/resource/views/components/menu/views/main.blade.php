@@ -192,7 +192,7 @@
             <div class="col-1 large-6 col pb-0">
                 <div class="account-login-inner">
                     <h3 class="uppercase">{!! z_language('Login') !!}</h3>
-                    <form data-urlCurrent="{!! url()->current() !!}" class="woocommerce-form woocommerce-form-login login" method="post" action="{!! route('frontend:guest:missterry:login:post:ajax') !!}">
+                    <form data-urlCurrent="{!! url()->current() !!}" class="woocommerce-form woocommerce-form-login login" method="post" action="{!! router_frontend_lang('guest:login:post:ajax') !!}">
                         @csrf
                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                             <label for="email">{!! z_language('Email address') !!}<span class="required">*</span></label>
@@ -217,7 +217,7 @@
                 <div class="account-register-inner">
                     <h3 class="uppercase">{!! z_language('Register') !!}</h3>
                     <p class="text-oke" style="display: none">{!! z_language('Đăng ký tài khoản thành công!') !!}</p>
-                    <form method="post" class="woocommerce-form woocommerce-form-register register" action="{!! route('frontend:guest:missterry:register:post:ajax') !!}" >
+                    <form method="post" class="woocommerce-form woocommerce-form-register register" action="{!! router_frontend_lang('guest:register:post:ajax') !!}" >
                         @csrf
                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                             <label for="reg_email">{!! z_language('Email address') !!}&nbsp;<span class="required">*</span></label>

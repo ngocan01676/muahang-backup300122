@@ -125,9 +125,30 @@ class RouteServiceProvider extends ServiceProvider
                                  $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
                              }
                          }
+                     }else if($name == 'guest') {
+                         foreach ($selects as $lang){
+                             if(!isset($language[$lang])){
+                                 continue;
+                             }
+                             $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
+                             foreach ($fruitsArrayObject['router'] as $key=>$value){
+                                 if(isset($languageConfig[$key][$lang]['uri'])){
+                                     $_url = $languageConfig[$key][$lang]['uri'];
+                                 }else{
+                                     $_url = $fruitsArrayObject['router'][$key]['url'];
+                                 }
+
+                                 if(isset($value['name'])){
+                                     $fruitsArrayObject['router'][$key]['name'] = $language[$lang]['router']."_".$value['name'];
+                                     $alias = $value['name'];
+                                 }
+                                 $fruitsArrayObject['router'][$key]['config'] = $alias;
+                                 $fruitsArrayObject['router'][$key]['url'] = "/".$language[$lang]['router'].$_url;
+                                 $fruitsArrayObject['router'][$key]['defaults'] = [ 'lang' => $lang];
+                             }
+                             $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
+                         }
                      }else if($name == "category"){
-
-
                          $categories = DB::table('categories')
                              ->where('router_enabled',1)
                              ->where('status',1)
@@ -214,12 +235,14 @@ class RouteServiceProvider extends ServiceProvider
 
                                                 $fruitsArrayObject['router'][$key]['url'] = $language[$lang]['router'].'/'.$_url;
                                                 $fruitsArrayObject['router'][$key]['defaults']['lang'] = $lang;
+
                                                 $permission = $name . ':' . $key;
                                                 if (isset($fruitsArrayObject['router']['name'])) {
                                                     $alias = $fruitsArrayObject['router']['name'];
                                                 } else {
                                                     $alias = $guard . ":" . $permission;
                                                 }
+
                                                 $fruitsArrayObject['router'][$key]['config'] = $alias;
                                             }
                                             $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
@@ -246,17 +269,22 @@ class RouteServiceProvider extends ServiceProvider
                                      }
                                      $fruitsArrayObject['router'][$key]['url'] = "/".$language[$lang]['router'].$_url;
                                      $fruitsArrayObject['router'][$key]['defaults'] = [ 'lang' => $lang];
-                                     $fruitsArrayObject['router'][$key]['layout'] = [$name,$language[$lang]['router'].'_'.$name];
+
+                                     $permission = $name . ':' . $key;
+
+                                     if (isset($fruitsArrayObject['router']['name'])) {
+                                         $alias = $fruitsArrayObject['router']['name'];
+                                     } else {
+                                         $alias = $guard . ":" . $permission;
+                                     }
+                                     $fruitsArrayObject['router'][$key]['config'] = $alias;
                                  }
                                  $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
                              }
                          }
                      }
-
                 }
-
             }
-
         }
 
         foreach ($routers as $name => $route) {

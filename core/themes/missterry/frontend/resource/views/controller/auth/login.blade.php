@@ -7,8 +7,7 @@
                         <div class="col-1 large-6 col pb-0">
                             <div class="account-login-inner">
                                 <h3 class="uppercase">{!! z_language('Login') !!}</h3>
-
-                                <form  data-urlCurrent="{!! url()->current() !!}" action="{!! route('frontend:guest:login:post') !!}" class="woocommerce-form woocommerce-form-login login" method="post">
+                                <form  data-urlCurrent="{!! url()->current() !!}" action="{!! router_frontend_lang('guest:login:post') !!}" class="woocommerce-form woocommerce-form-login login" method="post">
                                     @csrf
                                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                         <label for="username">{!! z_language('Email address') !!}&nbsp;<span class="required">*</span></label>
@@ -42,7 +41,7 @@
                             <div class="account-register-inner">
                                 <h3 class="uppercase">{!! z_language('Register') !!}</h3>
                                 <p class="text-oke" style="display: none">{!! z_language('Đăng ký tài khoản thành công!') !!}</p>
-                                <form action="{!! route('frontend:guest:missterry:register:post:ajax') !!}" method="post" class="woocommerce-form woocommerce-form-register register">
+                                <form action="{!! router_frontend_lang('guest:register:post:ajax') !!}" method="post" class="woocommerce-form woocommerce-form-register register">
                                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                         <label for="reg_email">{!! z_language('Email address') !!}&nbsp;<span class="required">*</span></label>
                                         <input type="email" class="woocommerce-Input woocommerce-Input--text input-text" name="email" autocomplete="email" value="">
