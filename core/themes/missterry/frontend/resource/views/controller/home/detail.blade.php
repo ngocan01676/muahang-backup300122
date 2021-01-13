@@ -771,7 +771,7 @@
                     reqData['time'] = time;
                     reqData['id'] = '{!! $result->id !!}';
                     jQuery.ajax({
-                        url:"{!! route('frontend:room:register_form') !!}",
+                        url:"{!! router_frontend_lang('home:register_form') !!}",
                         method:"POST",
                         data:{
                             recaptcha_token:token,
@@ -845,7 +845,7 @@
                     reqData['id'] = id;
                     reqData['price'] = price;
                     jQuery.ajax({
-                        url:"{!! route('frontend:room:register_form') !!}",
+                        url:"{!! router_frontend_lang('home:register_form') !!}",
                         method:"POST",
                         data:{
                             recaptcha_token:token,

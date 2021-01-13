@@ -52,6 +52,12 @@ $routers['home'] = [
             "guard" => "",
             "action"=>'register_room_oke'
         ],
+        'register_form'=>[
+            "url" => "/register-room-".md5('action_register_room'),
+            "guard" => "",
+            "action"=>'action_register_room',
+            "method"=>['POST']
+        ],
         'escape_room'=>[
             "url" => "/escape-room",
             "guard" => "",
@@ -123,18 +129,7 @@ $routers['home'] = [
 //    }
 //}
 
-$routers['room'] =   [
-    "namespace" => "MissTerryTheme\Http\Controllers",
-    "controller" => "HomeController",
-    "router" => [
-         'register_form'=>[
-             "url" => "/register-room-".md5('action_register_room'),
-             "guard" => "",
-             "action"=>'action_register_room',
-             "method"=>['POST']
-         ]
-    ]
-];
+
 $routers['widget'] =   [
     "namespace" => "MissTerryTheme\Http\Controllers",
     "controller" => "WidgetController",
