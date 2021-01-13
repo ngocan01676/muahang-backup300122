@@ -31,7 +31,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
                             $value->prices_event[$v['date']] = [];
                         }
                         $value->prices_event[$v['date']][$k] = $v;
-                        $value->prices_event[$v['date']][$k]['keys'] = explode('-',$k);
+                        $value->prices_event[$v['date']][$k]['keys'] = explode('-',$v['user']);
                     }
                 }
                 if(isset($translation[$value->id])){
