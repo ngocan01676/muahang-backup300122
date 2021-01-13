@@ -14,3 +14,4 @@ yarn-error.log
 tool/node_modules/
 /tmp/
 /.idea/workspace.xml
+/public/uploads/
