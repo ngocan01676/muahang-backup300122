@@ -160,7 +160,7 @@ class RoomController extends \Zoe\Http\ControllerBackend
         if(isset($data['title'])){
             $model->slug = \Illuminate\Support\Str::slug($data['title'], '-');
         }else{
-            $model->slug = \Illuminate\Support\Str::slug(isset($data['title_' . config('zoe.default_lang')]), '-');
+            $model->slug = \Illuminate\Support\Str::slug(isset($data['title_' . config('zoe.default_lang')])?$data['title_' . config('zoe.default_lang')]:"", '-');
         }
         $model->image = $data['image'];
         $model->background = $data['background'];
@@ -201,6 +201,7 @@ class RoomController extends \Zoe\Http\ControllerBackend
                         ],
                         [
                             'title' => $data['title_' . $lang],
+                            'slug' => \Illuminate\Support\Str::slug($data['title_' . $lang],'-'),
                             'info' => $data['info_' . $lang],
                             'address' => $data['address_' . $lang],
                             'description' => $data['description_' . $lang],
