@@ -32,17 +32,13 @@ class MetaComposer extends \Zoe\Views\ComposerView
         $dataView = $view->getData();
 
         if(isset($this->composers[$this->namespace][$view->name()])){
-
             $config = $this->genConfig($this->composers[$this->namespace][$view->name()]);
-
             foreach ($config as $composer){
                 $data[$this->class] = $composer;
                 $data[$this->class]['name'] = $this->class;
                 $dataPost = $this->token($view->name(),$this->class, $this->namespace,$composer);
                 $name = isset($composer['variable'])?$composer['variable']:$this->class;
                 $data[$this->class]['key'] = $this->class.'_'.md5($this->class.'-'.$name.'-'.rand(1000,9999));
-
-
                 if(isset($composer['item']) && isset($dataView[$composer['item']]) && $dataView[$composer['item']]){
                     $item = $dataView[$composer['item']]? $dataView[$composer['item']]->toArray():[];
                     $dataPost['id'] = $item['id'];
@@ -67,8 +63,6 @@ class MetaComposer extends \Zoe\Views\ComposerView
                 }else{
                     $view->with($name,"");
                 }
-
-
             }
         }
 //        $dataView = $view->getData();

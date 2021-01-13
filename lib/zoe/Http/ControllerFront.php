@@ -47,6 +47,6 @@ class ControllerFront extends Controller
 
         View::share("_dataGlobal",$this->dataGlobal);
         View::share('_language', isset($this->_language['router'])?$this->_language['router']:"");
-        return $this->_render($keyView, $data, $key);
+        return $this->_render($keyView, $data, $key,FRONTEND);
     }
 }

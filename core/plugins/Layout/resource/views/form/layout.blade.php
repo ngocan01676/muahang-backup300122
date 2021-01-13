@@ -130,6 +130,8 @@
 
                     $components_config = app()->getComponents()->config;
 
+                    $composers = isset(app()->getConfig()->composers[BACKEND])?app()->getConfig()->composers[BACKEND]:[];
+
                     foreach (['layout' => 'Layout', 'theme' => 'Theme', 'widget' => 'Widget'] as $module=>$label):
 
                     ?>
@@ -258,15 +260,60 @@
                                         @endforeach
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td style="width: 10%">
+                                        <label for="id_title" class="title">composers</label>
+                                    </td>
+                                    <td>
+                                        <select name="data[{!! $name !!}].composers"
+                                                class="form-control">
+                                            <option value="0">{!! z_language('No Component') !!}</option>
+
+                                            @foreach($composers as $_key=>$composers)
+                                                <optgroup label="{!! $_key !!}">
+                                                    @foreach($composers as $__key=>$composer)
+                                                        @if( isset($datas['data'][$name]['composers']) && $datas['data'][$name]['composers'] == $_key )
+                                                            <option selected value="{!! $_key !!}|{!! $__key !!}">{!! $_key !!}|{!! $__key !!}</option>
+                                                        @else
+                                                            <option value="{!! $_key !!}|{!! $__key !!}">{!! $_key !!}|{!! $__key !!}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </optgroup>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
                             </table>
                         </form>
                     </div>
                     <div class="builder">
                         <div id="layout" UriConfig="{{route('backend:plugin:layout:ajax:form_config')}}"
                              UriCom="{{route('backend:plugin:layout:ajax:get_com')}}">
-                            <div class="demo" id="layout_demo" UrlSettingWidget="">
-                                <?php echo \Admin\Lib\LayoutRender::render($content['data'], $content['widget']); ?>
+
+
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab_1" data-toggle="tab">{!! z_language('Layout') !!}</a></li>
+                                    <li><a href="#tab_2" data-toggle="tab">{!! z_language('Composers') !!}</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1">
+                                        <div class="demo" id="layout_demo" UrlSettingWidget="">
+                                            <?php echo \Admin\Lib\LayoutRender::render($content['data'], $content['widget']); ?>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab_2">
+                                        The European languages are members of the same family. Their separate existence is a myth.
+                                        For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
+                                        in their grammar, their pronunciation and their most common words. Everyone realizes why a
+                                        new common language would be desirable: one could refuse to pay expensive translators. To
+                                        achieve this, it would be necessary to have uniform grammar, pronunciation and more common
+                                        words. If several languages coalesce, the grammar of the resulting language is more simple
+                                        and regular than that of the individual languages.
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="source" style="display: none">

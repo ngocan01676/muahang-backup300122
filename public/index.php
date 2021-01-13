@@ -7,7 +7,8 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 session_start();
-
+define('BACKEND','backend');
+define('FRONTEND','frontend');
 define('LARAVEL_START', microtime(true));
 /*
 |--------------------------------------------------------------------------

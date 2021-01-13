@@ -227,136 +227,137 @@
             ]
         ],
         'composers'=>[
-            'PluginGallery\Views\GalleryComposer'=>[
-                'MissTerry::form.room'=>[
-                    'file'=>'MissTerry::form.room',
-                    'router'=>'backend:miss_terry:room:store',
-                    'data'=>[],
-                    'config'=>[
-                        'open'=>'room/media'
-                    ]
-                ]
-            ],
-            'PluginAdminCore\Views\DataComposer'=>[
-                'MissTerry::form.room'=>[
-                    [
+            BACKEND=>[
+                'PluginGallery\Views\GalleryComposer'=>[
+                    'MissTerry::form.room'=>[
                         'file'=>'MissTerry::form.room',
-                        'item'=>true,
                         'router'=>'backend:miss_terry:room:store',
                         'data'=>[],
-                        'variable'=>'MissTerry_DataComposer',
                         'config'=>[
-                            'name'=>'times',
-                            'filter_data'=> <<<'EOT'
+                            'open'=>'room/media'
+                        ]
+                    ]
+                ],
+                'PluginAdminCore\Views\DataComposer'=>[
+                    'MissTerry::form.room'=>[
+                        [
+                            'file'=>'MissTerry::form.room',
+                            'item'=>true,
+                            'router'=>'backend:miss_terry:room:store',
+                            'data'=>[],
+                            'variable'=>'MissTerry_DataComposer',
+                            'config'=>[
+                                'name'=>'times',
+                                'filter_data'=> <<<'EOT'
                             (function(data){return data;})
 EOT,
-                            'columns'=>[
-                                [
-                                    'type'=>'text',
-                                    'name'=>'date',
-                                    'label'=>z_language('Time'),
-                                    'plugin'=>[
+                                'columns'=>[
+                                    [
+                                        'type'=>'text',
+                                        'name'=>'date',
+                                        'label'=>z_language('Time'),
+                                        'plugin'=>[
 
-                                    ],
-                                    'head'=>[
+                                        ],
+                                        'head'=>[
 
+                                        ],
+                                        'body'=>[
+                                            'class'=>'timepicker'
+                                        ]
                                     ],
-                                    'body'=>[
-                                        'class'=>'timepicker'
-                                    ]
-                                ],
-                                [
-                                    'label'=>z_language('Status'),
-                                    'head'=>[
-                                        'style'=>'width:150px'
-                                    ],
-                                    'type'=>'radio',
-                                    'name'=>'status',
-                                    'data'=>[
-                                        '1'=>z_language('Yes',false),
-                                        '2'=>z_language('No',false),
+                                    [
+                                        'label'=>z_language('Status'),
+                                        'head'=>[
+                                            'style'=>'width:150px'
+                                        ],
+                                        'type'=>'radio',
+                                        'name'=>'status',
+                                        'data'=>[
+                                            '1'=>z_language('Yes',false),
+                                            '2'=>z_language('No',false),
+                                        ]
                                     ]
                                 ]
                             ]
-                        ]
-                    ],
-                    [
-                        'item'=>true,
-                        'router'=>'backend:miss_terry:room:store',
-                        'data'=>[],
-                        'variable'=>'MissTerry_DataComposer_Price',
-                        'config'=>[
-                            'name'=>'prices',
-                            'index'=>'user',
-                            'columns'=>[
-                                [
-                                    'type'=>'text',
-                                    'name'=>'user',
-                                    'label'=>z_language('Số người'),
-                                ],
-                                [
-                                    'type'=>'text',
-                                    'name'=>'price1',
-                                    'label'=>z_language('T2-T6 trước 17:00'),
-                                ],
-                                [
-                                    'type'=>'text',
-                                    'name'=>'price2',
-                                    'label'=>z_language('T6-CN sau 17:00'),
-                                ],
+                        ],
+                        [
+                            'item'=>true,
+                            'router'=>'backend:miss_terry:room:store',
+                            'data'=>[],
+                            'variable'=>'MissTerry_DataComposer_Price',
+                            'config'=>[
+                                'name'=>'prices',
+                                'index'=>'user',
+                                'columns'=>[
+                                    [
+                                        'type'=>'text',
+                                        'name'=>'user',
+                                        'label'=>z_language('Số người'),
+                                    ],
+                                    [
+                                        'type'=>'text',
+                                        'name'=>'price1',
+                                        'label'=>z_language('T2-T6 trước 17:00'),
+                                    ],
+                                    [
+                                        'type'=>'text',
+                                        'name'=>'price2',
+                                        'label'=>z_language('T6-CN sau 17:00'),
+                                    ],
 //                                [
 //                                    'type'=>'text',
 //                                    'name'=>'price3',
 //                                    'label'=>z_language('Giá ngày lễ'),
 //                                ],
+                                ]
                             ]
-                        ]
-                    ],
-                    [
-                        'item'=>true,
-                        'router'=>'backend:miss_terry:room:store',
-                        'data'=>[],
-                        'variable'=>'MissTerry_DataComposer_Price_Event',
-                        'config'=>[
-                            'name'=>'prices_event',
-                            'columns'=>[
-                                [
-                                    'type'=>'text',
-                                    'name'=>'user',
-                                    'label'=>z_language('Số người'),
-                                ],
-                                [
-                                    'type'=>'text',
-                                    'name'=>'date',
-                                    'label'=>z_language('Ngày lễ'),
-                                    'body'=>[
-                                        'class'=>'datepicker'
-                                    ]
-                                ],
-                                [
-                                    'type'=>'text',
-                                    'name'=>'price',
-                                    'label'=>z_language('Giá ngày lễ'),
-                                ],
-                            ]
-                        ]
-                    ],
-                ]
-            ],
-            'PluginSeo\Views\MetaComposer'=>[
-                "MissTerry::form.room"=>[
-                    [
-                        'item'=>'item',
-                        'lang'=>['config'=>"blog","key"=>'post'],
-                        'router'=>'backend:miss_terry:room:store',
-                        'data'=>[],
-                        'variable'=>'MissTerry_MetaComposer_Seo',
-                        'config'=>[
-                            'name'=>'meta',
                         ],
-
+                        [
+                            'item'=>true,
+                            'router'=>'backend:miss_terry:room:store',
+                            'data'=>[],
+                            'variable'=>'MissTerry_DataComposer_Price_Event',
+                            'config'=>[
+                                'name'=>'prices_event',
+                                'columns'=>[
+                                    [
+                                        'type'=>'text',
+                                        'name'=>'user',
+                                        'label'=>z_language('Số người'),
+                                    ],
+                                    [
+                                        'type'=>'text',
+                                        'name'=>'date',
+                                        'label'=>z_language('Ngày lễ'),
+                                        'body'=>[
+                                            'class'=>'datepicker'
+                                        ]
+                                    ],
+                                    [
+                                        'type'=>'text',
+                                        'name'=>'price',
+                                        'label'=>z_language('Giá ngày lễ'),
+                                    ],
+                                ]
+                            ]
+                        ],
                     ]
-                ]
+                ],
+                'PluginSeo\Views\MetaComposer'=>[
+                    "MissTerry::form.room"=>[
+                        [
+                            'item'=>'item',
+                            'lang'=>['config'=>"blog","key"=>'post'],
+                            'router'=>'backend:miss_terry:room:store',
+                            'data'=>[],
+                            'variable'=>'MissTerry_MetaComposer_Seo',
+                            'config'=>[
+                                'name'=>'meta',
+                            ]
+                        ]
+                    ]
+                ],
             ],
         ]
     ]

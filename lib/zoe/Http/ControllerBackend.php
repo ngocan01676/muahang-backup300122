@@ -47,7 +47,7 @@ class ControllerBackend extends Controller
                 }
             }
         }
-        return $this->_render($keyView, $data, $key);
+        return $this->_render($keyView, $data, $key, BACKEND );
     }
     protected function list_paginate($table, $option)
     {

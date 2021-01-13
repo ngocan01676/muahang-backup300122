@@ -6,6 +6,7 @@ return [
     "class_maps" => [
         "PluginSeo\Controllers\IndexController" => "/Controllers/IndexController.php",
         "PluginSeo\Views\MetaComposer" => "/Views/MetaComposer.php",
+        "PluginSeo\Views\MetaViewComposer" => "/Views/MetaViewComposer.php",
     ],
     'options' => [
 

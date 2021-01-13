@@ -91,7 +91,6 @@
                             <label for="id_title" class="title">Layout</label>
                         </td>
                         <td>
-
                             <select name="data[{!! $name !!}].layout"
                                     class="form-control">
                                 <option value="0">{!! z_language('No Layout') !!}</option>
@@ -106,6 +105,7 @@
                             </select>
                         </td>
                     </tr>
+
                     <tr>
                         <td style="width: 10%">
                             <label for="id_title" class="title">Controller</label>
@@ -158,18 +158,15 @@
                             </select>
                         </td>
                     </tr>
-
                     <tr>
                         <td>
                             <label for="id_title" class="title">Status</label>
                         </td>
                         <td>
-
                             <div>
                                 <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "1") checked
                                        @endif type="radio" name="data[{!! $name !!}].status"
                                        value="1">
-
                                 <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "2") checked
                                        @endif type="radio" name="data[{!! $name !!}].status"
                                        value="2">

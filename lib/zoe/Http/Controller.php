@@ -64,7 +64,7 @@ class Controller extends BaseController
         $this->view->content = $content;
         return $this->view;
     }
-    protected function _render($keyView, $data, $key)
+    protected function _render($keyView, $data, $key,$type)
     {
         $request = request();
 
@@ -77,18 +77,20 @@ class Controller extends BaseController
         }else{
             $this->view = view($this->layout);
             $composers = app()->getConfig()->composers;
-            foreach ($composers as $clazz=>$composer){
-                if(!class_exists($clazz)) continue;
+            if(isset($composers[$type])){
+                foreach ($composers[$type] as $clazz=>$composer){
+                    if(!class_exists($clazz)) continue;
 
-                $_views = [];
-                foreach ($composer as $_view=>$_composer){
-                    $_views[] = $_view;
-                }
-                if(count($_views)>0){
-                    View::composer(
-                        $_views,
-                        $clazz
-                    );
+                    $_views = [];
+                    foreach ($composer as $_view=>$_composer){
+                        $_views[] = $_view;
+                    }
+                    if(count($_views)>0){
+                        View::composer(
+                            $_views,
+                            $clazz
+                        );
+                    }
                 }
             }
             View::share('_breadcrumb', $this->breadcrumb);

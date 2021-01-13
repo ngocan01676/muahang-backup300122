@@ -105,20 +105,22 @@ return [
         ]
     ],
     'composers'=>[
-        'PluginSeo\Views\MetaComposer'=>[
-            "blog::form.post"=>[
-                [
-                    'item'=>'item',
-                    'lang'=>['config'=>"blog","key"=>'post'],
-                    'router'=>'backend:blog:post:store',
-                    'data'=>[],
-                    'variable'=>'Post_MetaComposer_Seo',
-                    'config'=>[
-                        'name'=>'meta',
-                    ],
+        'backend'=>[
+            'PluginSeo\Views\MetaComposer'=>[
+                "blog::form.post"=>[
+                    [
+                        'item'=>'item',
+                        'lang'=>['config'=>"blog","key"=>'post'],
+                        'router'=>'backend:blog:post:store',
+                        'data'=>[],
+                        'variable'=>'Post_MetaComposer_Seo',
+                        'config'=>[
+                            'name'=>'meta',
+                        ],
 
+                    ]
                 ]
-            ]
-        ],
+            ],
+        ]
     ]
 ];
