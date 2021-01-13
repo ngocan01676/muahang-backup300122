@@ -14,7 +14,17 @@ $routers['home'] = [
            'vi'=>[
                'uri'=>'/tin-tuc'
            ],
-       ]
+       ],
+       'room-detail'=>[
+           'vi'=>[
+               'uri'=>'/phong-choi'
+           ]
+       ],
+        'room'=>[
+            'vi'=>[
+                'uri'=>'/danh-sach-phong-choi'
+            ]
+        ]
     ],
     "router" => [
         "lists" => [
