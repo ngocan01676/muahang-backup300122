@@ -472,7 +472,7 @@
                                         >
                                             <div class="item__time">{!! $time['date'] !!}</div>
                                             <div class="item__price">{!! $price !!}<span class="price__currency">đ</span></div>
-                                            <div {!! $userCount !!} {!! $price !!} class="book_label">{!! z_language('từ') !!} {!! number_format($priceValue) !!}/1 {!! z_language('người') !!} đ</div>
+                                            <div {!! $userCount !!} {!! $price !!} class="book_label">{!! z_language('từ') !!} {!! number_format($priceValue) !!} đ/1 {!! z_language('người') !!}</div>
                                             <textarea class="value" style="display: none">
                                                 {!! json_encode(($is_Event?$dataPriceEvent:$result->prices)) !!}
                                             </textarea>
