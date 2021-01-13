@@ -164,6 +164,7 @@
                                         $_timeBet_17 = strtotime($dateTime.' 17:00:00');
                                        $bookings = \Illuminate\Support\Facades\DB::table('miss_booking')
                                        ->where('room_id',$row->id)
+                                       ->where('status','!=',3)
                                        ->where('booking_date',$dateTime)
                                        ->get()->keyBy('booking_time')->all();
 

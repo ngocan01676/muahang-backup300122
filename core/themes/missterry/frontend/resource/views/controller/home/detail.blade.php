@@ -358,11 +358,12 @@
                                 $price_max = end($result->prices);
 
                                 $d_m_Y = date('d-m-Y',strtotime($dateTime));
+
                                 $bookings = \Illuminate\Support\Facades\DB::table('miss_booking')
                                 ->where('room_id',$result->id)
                                 ->where('booking_date',$dateTime)
+                                ->where('status','!=',3)
                                 ->get()->keyBy('booking_time')->all();
-
                             @endphp
                             <div class="item day{!! $isNow?" now date-$d_m_Y":" date-$d_m_Y" !!}" data-week="{!! $week !!}">
                                 <div class="day-header">

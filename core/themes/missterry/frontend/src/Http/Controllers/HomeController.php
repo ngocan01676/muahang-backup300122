@@ -102,6 +102,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                 $count = DB::table('miss_booking')
                     ->where('room_id',$data['data']['id'])
                     ->where('booking_date',$booking_date)
+                    ->where('status','!=',3)
                     ->where('booking_time',$data['data']['time'])
                     ->count();
                 if($count == 0){
