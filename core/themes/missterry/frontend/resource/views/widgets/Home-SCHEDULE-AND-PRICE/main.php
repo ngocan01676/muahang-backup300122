@@ -32,6 +32,7 @@ function Main(){
             }
             if(isset($translation[$value->id])){
                 $value->title = $translation[$value->id]->title;
+                $value->slug = empty($translation[$value->id]->slug) || is_null($translation[$value->id]->slug)  ?$value->slug:$translation[$value->id]->slug;
                 $value->address = $translation[$value->id]->address;
                 $value->info = $translation[$value->id]->info;
                 $value->description = $translation[$value->id]->description;
