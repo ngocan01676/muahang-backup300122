@@ -121,8 +121,12 @@ class PageController extends \Zoe\Http\ControllerBackend
             $page->title = $items['title'];
 
             $page->slug = isset($items['slug'])?trim($items['slug'],"/"):$slug;
-            $page->description = $items['description'];
             $page->router =  Str::slug($items['router'], '_');;
+            if($page->router == "home" && empty($page->slug)){
+                $page->slug = "/";
+            }
+            $page->description = $items['description'];
+
             $page->content = htmlspecialchars_decode($items['content']);
             $page->status = $items['status'];
             $page->save();
