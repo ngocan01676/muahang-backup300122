@@ -73,6 +73,49 @@
 
                                                             {!! Form::textarea('content_'.$lang, null, ['class' => 'form-control my-editor_'.$lang]) !!}
                                                             <script>
+
+                                                                // tinymce.PluginManager.add('customem', function(editor, url) {
+                                                                //
+                                                                //     editor.addButton('mybutton', {
+                                                                //         title: 'My button',
+                                                                //         class: 'MyCoolBtn',
+                                                                //         text: 'Lang',
+                                                                //         icon: false,
+                                                                //         onclick: function() {
+                                                                //             editor.focus();
+                                                                //
+                                                                //            // tinymce.activeEditor.selection.setContent('<language>'+editor.selection.getContent()+'</language>','text');
+                                                                //            // editor.selection.setContent('<lang>' + editor.selection.getContent() + '</lang>');
+                                                                //         }
+                                                                //     });
+                                                                    // // Add a button that opens a window
+                                                                    // editor.addButton('customEmElementButton', {
+                                                                    //     text: 'Custom EM',
+                                                                    //     icon: false,
+                                                                    //     onclick: function() {
+                                                                    //         // Open window
+                                                                    //         editor.windowManager.open({
+                                                                    //             title: 'Please input text',
+                                                                    //             body: [
+                                                                    //                 {type: 'textbox', name: 'description', label: 'Text'}
+                                                                    //             ],
+                                                                    //             onsubmit: function(e) {
+                                                                    //                 // Insert content when the window form is submitted
+                                                                    //                 editor.insertContent('<emstart>EM Start</emstart><p>' + e.data.description + '</p><emend>EM End</emend>');
+                                                                    //             }
+                                                                    //         });
+                                                                    //     }
+                                                                    // });
+                                                                    //
+                                                                    // // Adds a menu item to the tools menu
+                                                                    // editor.addMenuItem('customEmElementMenuItem', {
+                                                                    //     text: 'Custom EM Element',
+                                                                    //     context: 'tools',
+                                                                    //     onclick: function() {
+                                                                    //         editor.insertContent('<emstart>EM Start</emstart><p>Example text!</p><emend>EM End</emend>');
+                                                                    //     }
+                                                                    // });
+                                                                // });
                                                                 var editor_config = {
                                                                     path_absolute: "/",
                                                                     selector: "textarea.my-editor_{!! $lang !!}",
@@ -80,10 +123,13 @@
                                                                         "advlist autolink lists link image charmap print preview hr anchor pagebreak",
                                                                         "searchreplace wordcount visualblocks visualchars code fullscreen",
                                                                         "insertdatetime media nonbreaking save table contextmenu directionality",
-                                                                        "emoticons template paste textcolor colorpicker textpattern"
+                                                                        "emoticons template paste textcolor colorpicker textpattern"//customem mybutton customEmElementButton
                                                                     ],
                                                                     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
                                                                     relative_urls: false,
+                                                                    extended_valid_elements : "emstart,emend,language",
+                                                                    custom_elements: "emstart,emend,language",
+                                                                    content_css: "/module/admin/plugins/tiny/editor.css",
                                                                     file_browser_callback: function (field_name, url, type, win) {
 
                                                                         var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
@@ -206,9 +252,9 @@
 
         function Save(){
             let form_store = $("#form_store");
-            console.log("Save");
+
             clicks.fire(form_store,function (t) {
-                let data = form_store.zoe_inputs('get');
+
                 if(form_store.hasClass('submit')){
                     $("#form_store").submit();
                 }

@@ -378,7 +378,7 @@
     <script type="text/javascript">
         function Save(){
             let form_store = $("#form_store");
-            console.log("Save");
+
             clicks.fire(form_store,function (t) {
                 let data = form_store.zoe_inputs('get');
                 if(form_store.hasClass('submit')){
