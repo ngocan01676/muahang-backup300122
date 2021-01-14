@@ -49,6 +49,12 @@ class PageController extends \Zoe\Http\ControllerBackend
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
+
+
+        $lang = $this->data['current_language'];
+        $models->join('page_translation as rt', 'rt._id', '=', 'page.id');
+        $models->where('rt.lang_code', $lang);
+
         $models->orderBy('id', 'desc');
         return $this->render('page.list', [
             'models' => $models->paginate($item),

@@ -189,14 +189,9 @@ class PostController extends \Zoe\Http\ControllerBackend
 
         $slug = empty($model->title)?"": Str::slug($model->title, '-');
         $model->slug = $slug;
-
         $model->description = isset($data['description'])?$data['description']:"";
         $model->content = isset($data['content'])?$data['content']:"";
-
-
         DB::beginTransaction();
-
-
         try {
             $model->save();
 
