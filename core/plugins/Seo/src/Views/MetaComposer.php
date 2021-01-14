@@ -12,7 +12,7 @@ class MetaComposer extends \Zoe\Views\ComposerView
         $this->config($this);
     }
     public function get_meta_key($lang,$data){
-        return $data['id'].":".$data['key'].":".$lang;
+        return $data['id'].":".$data['key'];
     }
     public function store($post){
         $data = isset($post['data']) && is_array($post['data'])?$post['data']:[];
@@ -44,7 +44,7 @@ class MetaComposer extends \Zoe\Views\ComposerView
                     $dataPost['id'] = $item['id'];
                     $lang = isset($dataPost['lang']['code']) ?$dataPost['lang']['code']:"all";
                     $meta_key = $this->get_meta_key($lang, $dataPost);
-                    $resutls = DB::table('plugin_seo_meta')->where('meta_key',$meta_key)->get()->all();
+                    $resutls = DB::table('plugin_seo_meta')->where('meta_key',$meta_key)->where('lang',$lang)->get()->all();
                     if(isset($resutls[0])){
                         $data[$this->class]['values'] = json_decode($resutls[0]->data,true);
                     }else{

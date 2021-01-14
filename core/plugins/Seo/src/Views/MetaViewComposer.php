@@ -14,7 +14,9 @@ class MetaViewComposer extends \Zoe\Views\ComposerView
         if(isset($data['content'])){
             $dataContent = $data['content']->getData();
             if(isset($dataContent[$this->class])){
-              $results = DB::table('plugin_seo_meta')->where('meta_key',$dataContent[$this->class]['key'])->get();
+
+              $results = DB::table('plugin_seo_meta')->where('meta_key',$dataContent[$this->class]['key'])->orderBy('lang','desc')->get();
+
               if(count($results) > 0){
                   $_item_ = json_decode($results[0]->data,true);
                   $view->with("MetaViewComposer", $view->getFactory()->make('pluginSeo::composer.MetaViewComposer',['_meta_'=>$_item_]));
