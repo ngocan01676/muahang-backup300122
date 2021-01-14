@@ -27,11 +27,6 @@ $routers['home'] = [
         ]
     ],
     "router" => [
-        "lists" => [
-            "url" => "/",
-            "guard" => "",
-            "action"=>'getLists'
-        ],
         "room" => [
             "url" => "/rooms",
             "guard" => "",
