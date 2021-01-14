@@ -20,14 +20,19 @@ class Controller extends BaseController
     public $app;
     public function __construct()
     {
+
         $this->app = app();
         $this->asset = $this->app->make('asset-manager');
         $this->breadcrumb = new \stdClass();
+
         $this->init();
+
     }
+
     public function init(){
 
     }
+
     function getOriginalClientIp(Request $request = null) : string
     {
         $request = $request ?? request();
@@ -42,6 +47,7 @@ class Controller extends BaseController
         }
         return $ip;
     }
+
     protected function __render($view, $data, $key)
     {
         $alias = app()->getConfig()['views']['alias'];
@@ -76,23 +82,6 @@ class Controller extends BaseController
             return response()->json(['views'=>$this->view->renderSections()]);
         }else{
             $this->view = view($this->layout);
-            $composers = app()->getConfig()->composers;
-            if(isset($composers[$type])){
-                foreach ($composers[$type] as $clazz=>$composer){
-                    if(!class_exists($clazz)) continue;
-
-                    $_views = [];
-                    foreach ($composer as $_view=>$_composer){
-                        $_views[] = $_view;
-                    }
-                    if(count($_views)>0){
-                        View::composer(
-                            $_views,
-                            $clazz
-                        );
-                    }
-                }
-            }
             View::share('_breadcrumb', $this->breadcrumb);
             $this->view->nest("content",$keyView,$data);
         }

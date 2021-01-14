@@ -3,6 +3,7 @@
 namespace Zoe\Providers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\Blade;
@@ -70,9 +71,9 @@ class AppServiceProvider extends ServiceProvider
             return new \MatthiasMullie\Minify\JS();
         });
 
+       // DB::table('layout')->where($this->app->getTheme());
 
         $this->InitModules();
-
         $this->InitPlugins();
         $this->InitTheme();
         $this->autoLoad();
@@ -436,15 +437,12 @@ class AppServiceProvider extends ServiceProvider
         $relativePath = base_path($absolute_path);
 
         if (file_exists($relativePath . '/Theme.php')) {
-
             require_once $relativePath . '/Theme.php';
-
             $class = '\\' . ucwords($theme) . 'Theme\\Theme';
-
             $object = new $class();
-
             $this->module($theme, $object, $absolute_path, "theme", false);
         }
+
     }
 
     public function InitComponent($component, $_file, $_alias, $_opt_, $config, $view = "components")

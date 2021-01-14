@@ -1,6 +1,8 @@
 <?php
 
 namespace Zoe\Http;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 class ControllerFront extends Controller
 {
@@ -19,13 +21,9 @@ class ControllerFront extends Controller
     public function render($view, $data = [], $layout = 'home', $key = "theme")
     {
         $request = request();
-
-        $theme = config_get('theme', "active");
-
+        $theme = app()->getTheme();
         $keyNameLayout = app()->getKey("_layout");
-
         $layout = isset($request->route()->defaults[$keyNameLayout]) ? $request->route()->defaults[$keyNameLayout] : $layout;
-
         if($layout == "0" || empty($layout)){
             $this->layout = "";
         }else{
@@ -45,7 +43,33 @@ class ControllerFront extends Controller
             $keyView = $view;
         }
 
-        View::share("_dataGlobal",$this->dataGlobal);
+        $composers = app()->getConfig()->composers;
+        if(isset($composers[FRONTEND])){
+
+            foreach ($composers[FRONTEND] as $clazz=>$composer){
+                if(!class_exists($clazz)) continue;
+                $_views = [];
+                foreach ($composer as $_view=>$_composer){
+                    $_views[] = $_view;
+                }
+                if(count($_views)>0){
+                    View::composer(
+                        $_views,
+                        $clazz
+                    );
+                }
+            }
+        }
+        $composers_layout = \get_composer_layout($theme);
+        foreach ($composers_layout as $clazz=>$composer){
+            if(!class_exists($clazz)) continue;
+            if(count($composer)>0){
+                View::composer(
+                    $composer,
+                    $clazz
+                );
+            }
+        }
         View::share('_language', isset($this->_language['router'])?$this->_language['router']:"");
         return $this->_render($keyView, $data, $key,FRONTEND);
     }

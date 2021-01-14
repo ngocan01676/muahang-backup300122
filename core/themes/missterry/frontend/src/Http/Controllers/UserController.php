@@ -11,11 +11,9 @@ class UserController extends \Zoe\Http\ControllerFront
 
     public function storeInfo(Request $request){
         $data = $request->all();
-
         $filter = [
             'name' => 'required|max:255',
         ];
-
         $user = Auth('frontend')->user();
         if ($user) {
             $model = Member::find($user->id);

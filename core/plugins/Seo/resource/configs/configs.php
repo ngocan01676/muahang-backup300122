@@ -10,5 +10,12 @@ return [
     ],
     'options' => [
 
+    ],
+    'composers'=>[
+        'layout'=>[
+            'PluginSeo\Views\MetaViewComposer'=>[
+
+            ]
+        ]
     ]
 ];

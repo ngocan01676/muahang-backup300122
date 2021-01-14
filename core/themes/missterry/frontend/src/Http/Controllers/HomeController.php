@@ -16,8 +16,11 @@ class HomeController extends \Zoe\Http\ControllerFront
     }
     public function getLists()
     {
-        new MyEmail('booking',[]);
-        return $this->render('home.list', []);
+        return $this->render('home.list', [
+            'MetaViewComposer'=>[
+                'key'=>'17:blog::form.post:vi',
+            ]
+        ]);
     }
     public function getRoom(){
         return $this->render('home.room', []);

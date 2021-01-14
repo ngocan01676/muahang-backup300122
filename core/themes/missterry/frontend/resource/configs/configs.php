@@ -37,4 +37,18 @@ return [
             ]
         ]
     ],
+    'composers'=>[
+        FRONTEND=>[
+//            'PluginSeo\Views\MetaViewComposer'=>[
+//                "theme::layout.head"=>[
+//                    'data'=>[],
+//                    'variable'=>'MetaViewComposer',
+//                    'config'=>[
+//                        'id'=>'id',
+//                        'type'=>'type'
+//                    ],
+//                ]
+//            ]
+        ]
+    ]
 ];

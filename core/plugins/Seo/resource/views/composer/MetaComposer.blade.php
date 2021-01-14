@@ -141,8 +141,32 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group required">
-                                                    <label>Image</label>
-                                                    <x-InputImageMedia path="Meta/OpenGraph" name="{!! $namePrefix.'OpenGraph.image' !!}"/>
+                                                    <label>Image Url</label>
+                                                    <x-InputImageMedia path="Meta/OpenGraph" name="{!! $namePrefix.'OpenGraph.image.url' !!}"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group required">
+                                                    <label>Image Width</label>
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.image.width" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group required">
+                                                    <label>Image Height</label>
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.image.height" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group required">
+                                                    <label>Alt</label>
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.image.alt" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group required">
+                                                    <label>Type</label>
+                                                    <input type="text" name="{!! $namePrefix !!}OpenGraph.image.type" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">

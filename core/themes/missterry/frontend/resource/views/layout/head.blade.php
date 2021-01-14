@@ -20,23 +20,8 @@
     <meta name="description" content="Trò chơi giải đố 5D giải trí nhập vai hot nhất 2020 - Thử thách khả năng suy luận, óc phán đoán và phản ứng của bạn. Tại MISS TERRY- Escape Rooms, bạn sẽ sống trong một thế giới mà chưa bao giờ bạn nghĩ nó tồn tại..."/>
     <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
     <link rel="canonical" href="{!! url('/') !!}" />
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Miss Terry® Escape Rooms - Unravel The Mystery!">
-    <meta property="og:description" content="Trò chơi giải đố 5D giải trí nhập vai hot nhất 2020 - Thử thách khả năng suy luận, óc phán đoán và phản ứng của bạn. Tại MISS TERRY- Escape Rooms, bạn sẽ sống trong một thế giới mà chưa bao giờ bạn nghĩ nó tồn tại...">
-    <meta property="og:url" content="{!! url('/') !!}">
-    <meta property="og:site_name" content="Miss Terry® Escape Rooms">
-    <meta property="og:updated_time" content="2020-12-17T08:52:24+00:00">
-    <meta property="og:image" content="{!! asset('uploads/Media/background.png') !!}">
-    <meta property="og:image:secure_url" content="{!! asset('uploads/Media/background.png') !!}">
-    <meta property="og:image:width" content="1920">
-    <meta property="og:image:height" content="1080">
-    <meta property="og:image:alt" content="Miss Terry">
-    <meta property="og:image:type" content="image/png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Miss Terry® Escape Rooms - Unravel The Mystery!">
-    <meta name="twitter:description" content="Trò chơi giải đố 5D giải trí nhập vai hot nhất 2020 - Thử thách khả năng suy luận, óc phán đoán và phản ứng của bạn. Tại MISS TERRY- Escape Rooms, bạn sẽ sống trong một thế giới mà chưa bao giờ bạn nghĩ nó tồn tại...">
-    <meta name="twitter:image" content="{!! asset('uploads/Media/background.png') !!}">
+
+    {!! isset($MetaViewComposer)?$MetaViewComposer:"" !!}
 
     <!-- /Rank Math WordPress SEO plugin -->
     <link rel='dns-prefetch' href='//use.fontawesome.com' />
@@ -45,8 +30,6 @@
 
     {{--<link rel="alternate" type="application/rss+xml" title="Miss Terry® Escape Rooms &raquo; Feed" href="https://demo.missterry.vn/feed/" />--}}
     {{--<link rel="alternate" type="application/rss+xml" title="Miss Terry® Escape Rooms &raquo; Comments Feed" href="https://demo.missterry.vn/comments/feed/" />--}}
-
-
 
     <style type="text/css">
         img.wp-smiley,

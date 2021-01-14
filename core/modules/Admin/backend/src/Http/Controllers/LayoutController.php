@@ -530,6 +530,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $model->theme = $theme;
         $layout = isset($items['layout']) ? json_decode($items['layout'], true) : [];
         $model->content = base64_encode(serialize($layout));
+        $model->composers = serialize($items['composers']);
         $results = $this->saveFile($model, $layout);
         return response()->json($results);
 //        $obj_layout = new \Admin\Lib\LayoutBlade();
@@ -694,7 +695,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
             "group" => $use,
-            "listsType" => $this->listsType
+            "listsType" => $this->listsType,
+            "db_composers" => [],
         ]);
     }
 
@@ -706,8 +708,11 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $info = [];
         $model = \Admin\Http\Models\Layout::find($id);
         $this->getcrumb()->breadcrumb(z_language('Edit Layout :name', ["name" => $model->name]), false);
+        $composers = [];
         try {
             $content = unserialize(base64_decode($model->content));
+            $composers = unserialize($model->composers);
+
             $info = $model->toArray();
             unset($info['content']);
             unset($info['data']);
@@ -735,6 +740,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "db_components" => $this->getComponent(),
             'group' => $use,
             "listsType" => $this->listsType,
+            "db_composers" => $composers,
             "sources" => $obj_layout->getContent($model->slug, $model->token, $model->type_group, $model->type)
         ]);
     }

@@ -3,6 +3,7 @@ namespace PluginLayout\Controllers;
 
 use Admin\Http\Models\Layout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
@@ -10,8 +11,6 @@ use Illuminate\Support\Facades\DB;
 class LayoutController extends \Zoe\Http\ControllerBackend
 {
     protected $listsType = ['layout' => 'Layout', 'partial' => 'Partial'];
-
-
     public function getCrumb()
     {
         $this->breadcrumb(z_language("Layout"), ('backend:plugin:layout:list'));
@@ -308,13 +307,9 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             ob_start();
             $repon = ['content' => $stringBlade, 'status' => 1, 'php' => $stringBlade];
             try {
-
                 $repon['data'] = \Admin\Http\Controllers\LanguageController::lang($stringBlade, "", 'zlang');
-
-
                 $langs = app()->getLanguage();
                 $repon['langs'] = [];
-
                 foreach ($repon['data'] as $val_lang) {
                     foreach ($langs as $lang => $value) {
                         if (isset($value[$val_lang["name"]])) {
@@ -505,6 +500,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         }
 
         $filename = $obj_layout->render($model->type_group, $template, $layout, $model->slug, $model->token, $model->type, "test");
+
         $obLevel = ob_get_level();
         try {
             ob_start();
@@ -513,6 +509,9 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             ob_clean();
             $filename = $obj_layout->render($model->type_group, $template, $layout, $model->slug, $model->token, $model->type);
             $model->data = $obj_layout->getData();
+
+            $model->view = $theme.'::'.$filename;
+
             $model->save();
             return (['data' => $obj_layout->getData(), 'error' => "", 'content' => e($content), 'id' => $model->id, 'template' => $template, '' => $use, 'filename' => $filename]);
         } catch (\Exception $ex) {
@@ -542,7 +541,9 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $model->theme = $theme;
         $layout = isset($items['layout']) ? json_decode($items['layout'], true) : [];
         $model->content = base64_encode(serialize($layout));
+        $model->composers = serialize(isset($items['composers'])?$items['composers']:[]);
         $results = $this->saveFile($model, $layout);
+
         return response()->json($results);
 //        $obj_layout = new \Admin\Lib\LayoutBlade();
 //        $obj_layout->ViewHelper = $this->GetViewHelperBlade();
@@ -705,7 +706,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
             "group" => $use,
-            "listsType" => $this->listsType
+            "listsType" => $this->listsType,
+            "db_composers" => [],
         ]);
     }
 
@@ -717,17 +719,21 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $info = [];
         $model = \Admin\Http\Models\Layout::find($id);
         $this->getcrumb()->breadcrumb(z_language('Edit Layout :name', ["name" => $model->name]), false);
+        $composers = [];
         try {
             $content = unserialize(base64_decode($model->content));
+            $composers = unserialize($model->composers);
             $info = $model->toArray();
             unset($info['content']);
             unset($info['data']);
+            unset($info['composers']);
         } catch (\Exception $ex) {
             $content = [
                 "data" => [],
                 "widget" => []
             ];
         }
+
         if (!isset($content['data'])) {
             $content["data"] = [];
         }
@@ -737,6 +743,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
         $use = $this->getListType($type);
         $obj_layout = new \Admin\Lib\LayoutBlade();
+
         return $this->render("layout.edit", [
             'model' => $model,
             "content" => $content,
@@ -745,6 +752,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "db_components" => $this->getComponent(),
             'group' => $use,
             "listsType" => $this->listsType,
+            "db_composers" => $composers,
             "sources" => $obj_layout->getContent($model->slug, $model->token, $model->type_group, $model->type)
         ]);
     }

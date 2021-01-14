@@ -323,7 +323,7 @@ return [
         ]
     ],
     'composers'=>[
-        'backend'=>[
+        BACKEND => [
             'PluginSeo\Views\MetaComposer'=>[
                 "backend::form.page"=>[
                     [
@@ -337,6 +337,7 @@ return [
                     ]
                 ]
             ]
-        ]
+        ],
+
     ]
 ];

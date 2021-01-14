@@ -47,6 +47,22 @@ class ControllerBackend extends Controller
                 }
             }
         }
+        $composers = app()->getConfig()->composers;
+        if(isset($composers[BACKEND])){
+            foreach ($composers[BACKEND] as $clazz=>$composer){
+                if(!class_exists($clazz)) continue;
+                $_views = [];
+                foreach ($composer as $_view=>$_composer){
+                    $_views[] = $_view;
+                }
+                if(count($_views)>0){
+                    View::composer(
+                        $_views,
+                        $clazz
+                    );
+                }
+            }
+        }
         return $this->_render($keyView, $data, $key, BACKEND );
     }
     protected function list_paginate($table, $option)

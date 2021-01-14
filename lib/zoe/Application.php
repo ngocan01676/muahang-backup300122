@@ -12,6 +12,8 @@ class Application extends App
     public $_modules = [];
     public $_plugins = [];
 
+    public $_layouts = [];
+
     public $is_admin = false;
 
     private $_configs;
@@ -109,7 +111,9 @@ class Application extends App
     {
         return $this->_theme;
     }
-
+    public function getLayouts(){
+        return $this->_layouts;
+    }
     public function getAgent()
     {
         return $this->_agent;

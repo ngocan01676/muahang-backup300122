@@ -130,7 +130,7 @@
 
                     $components_config = app()->getComponents()->config;
 
-                    $composers = isset(app()->getConfig()->composers[BACKEND])?app()->getConfig()->composers[BACKEND]:[];
+                    $composers = isset(app()->getConfig()->composers[LAYOUT])?app()->getConfig()->composers[LAYOUT]:[];
 
                     foreach (['layout' => 'Layout', 'theme' => 'Theme', 'widget' => 'Widget'] as $module=>$label):
 
@@ -193,7 +193,6 @@
 
                                         echo \Admin\Lib\LayoutRender::plugin($option, false);
                                     }
-
                                 }
                                 ?>
                             </div>
@@ -260,37 +259,12 @@
                                         @endforeach
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td style="width: 10%">
-                                        <label for="id_title" class="title">composers</label>
-                                    </td>
-                                    <td>
-                                        <select name="data[{!! $name !!}].composers"
-                                                class="form-control">
-                                            <option value="0">{!! z_language('No Component') !!}</option>
-
-                                            @foreach($composers as $_key=>$composers)
-                                                <optgroup label="{!! $_key !!}">
-                                                    @foreach($composers as $__key=>$composer)
-                                                        @if( isset($datas['data'][$name]['composers']) && $datas['data'][$name]['composers'] == $_key )
-                                                            <option selected value="{!! $_key !!}|{!! $__key !!}">{!! $_key !!}|{!! $__key !!}</option>
-                                                        @else
-                                                            <option value="{!! $_key !!}|{!! $__key !!}">{!! $_key !!}|{!! $__key !!}</option>
-                                                        @endif
-                                                    @endforeach
-                                                </optgroup>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
                             </table>
                         </form>
                     </div>
                     <div class="builder">
                         <div id="layout" UriConfig="{{route('backend:plugin:layout:ajax:form_config')}}"
                              UriCom="{{route('backend:plugin:layout:ajax:get_com')}}">
-
-
                             <div class="nav-tabs-custom">
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a href="#tab_1" data-toggle="tab">{!! z_language('Layout') !!}</a></li>
@@ -303,17 +277,19 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="tab_2">
-                                        The European languages are members of the same family. Their separate existence is a myth.
-                                        For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
-                                        in their grammar, their pronunciation and their most common words. Everyone realizes why a
-                                        new common language would be desirable: one could refuse to pay expensive translators. To
-                                        achieve this, it would be necessary to have uniform grammar, pronunciation and more common
-                                        words. If several languages coalesce, the grammar of the resulting language is more simple
-                                        and regular than that of the individual languages.
+                                        <form action="" id="formComposers">
+                                            <ul class="todo-list ui-sortable">
+                                                @foreach($composers as $_key=>$_composers)
+                                                    <li>
+                                                        <input name="c_{!! md5($_key) !!}" type="checkbox" value="{!! base64_encode($_key) !!}">
+                                                        <span class="text">{!! $_key !!}</span>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                       </form>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="source" style="display: none">
@@ -459,18 +435,13 @@
     <link rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
-
     <script src="{{asset('module/admin/bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
-
-
     <script src="{{asset('module/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/codemirror.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/addon/mode/overlay.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/addon/runmode/runmode.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.2/mode/php/php.js"></script>
-
     <script src="{{asset("module/admin/assets/codemirror/mustache.js")}}"></script>
     <script src="{{asset("module/admin/assets/multi-select/js/jquery.multi-select.js")}}"></script>
     <script src="{{asset('module/admin/controller/layout/layout.js')}}"></script>
@@ -510,6 +481,7 @@
 
         $(document).ready(function () {
             $("#formInfo").zoe_inputs("set", @json($info));
+            $("#formComposers").zoe_inputs("set", @json($db_composers));
 
         });
         $(function() {

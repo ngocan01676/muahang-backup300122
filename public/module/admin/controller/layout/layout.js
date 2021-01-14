@@ -596,19 +596,16 @@ function initSnippet(html) {
 }
 
 function SaveLayout(self) {
-    console.log('0');
     DataLayout = [];
     var grids = $("#layout_demo>.grid");
-    console.log('1');
     var layout = saveLayoutJson("#layout_demo");
-    console.log('2');
-    console.log((layout));
     $('#layout_demo').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
     $.ajax({
         type: 'POST',
         url: $(self).attr('url'),
         data: {
             layout: JSON.stringify(layout),
+            composers:$("#formComposers").zoe_inputs('get'),
             info: $("#formInfo").zoe_inputs("get")
         },
         success: function (data) {
