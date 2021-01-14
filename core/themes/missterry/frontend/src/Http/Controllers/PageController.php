@@ -10,7 +10,7 @@ class PageController extends \Zoe\Http\ControllerFront
         $data = $request->route()->defaults;
         $theme =$this->app->getTheme();
         return $this->render('page.list',[
-            'view'=>"$theme::pages.".$data['router'],
+            'view'=>"$theme::pages.".$this->_language['lang'].'_'.$data['router'],
             'MetaViewComposer'=>[
                 'key'=> $data['id'].':backend::form.page',
             ]
