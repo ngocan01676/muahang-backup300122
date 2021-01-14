@@ -1,6 +1,6 @@
 <?php
 namespace Admin\Http\Models;
-use Illuminate\Database\Eloquent\Model;
+use Zoe\Http\Model;
 class PageModel extends Model{
     protected $table = 'page';
 }

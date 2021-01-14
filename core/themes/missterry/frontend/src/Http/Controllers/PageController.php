@@ -8,8 +8,7 @@ class PageController extends \Zoe\Http\ControllerFront
 {
     public function getList(Request $request){
         $data = $request->route()->defaults;
-
-        $theme = config_get('theme', "active");
+        $theme =$this->app->getTheme();
         return $this->render('page.list',[
             'view'=>"$theme::pages.".$data['router'],
             'MetaViewComposer'=>[

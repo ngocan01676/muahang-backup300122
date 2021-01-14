@@ -323,11 +323,15 @@ return [
         ]
     ],
     'composers'=>[
+
+
         BACKEND => [
             'PluginSeo\Views\MetaComposer'=>[
                 "backend::form.page"=>[
                     [
                         'item'=>"page",
+                        'lang'=>['config'=>"blog","key"=>'post'],
+                        'router'=>'backend:page:store',
                         'data'=>[],
                         'variable'=>'Page_MetaComposer_Seo',
                         'config'=>[
