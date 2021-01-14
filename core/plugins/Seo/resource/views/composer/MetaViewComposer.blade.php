@@ -1,3 +1,4 @@
+@if(isset($_meta_['Base']['title']) && $_meta_['Base']['title'])<title>{!! $_meta_['Base']['title'] !!}</title>@endif
 @if(isset($_meta_['Base']['title']) && $_meta_['Base']['title'])<meta name="title" content="{!! $_meta_['Base']['title'] !!}">@endif
 @if(isset($_meta_['Base']['description']) && $_meta_['Base']['description'])<meta name="description" content="{!! $_meta_['Base']['description'] !!}">@endif
 @if(isset($_meta_['Base']['keywords']) && $_meta_['Base']['keywords'])<meta name="keywords" content="{!! $_meta_['Base']['keywords'] !!}">@endif
