@@ -15,14 +15,14 @@
     <script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
+    @if(isset($MetaViewComposer))
+        {!! $MetaViewComposer !!}
+    @else
     <title>Miss Terry® Escape Rooms - Unravel The Mystery!</title>
     <meta name="description" content="Trò chơi giải đố 5D giải trí nhập vai hot nhất 2020 - Thử thách khả năng suy luận, óc phán đoán và phản ứng của bạn. Tại MISS TERRY- Escape Rooms, bạn sẽ sống trong một thế giới mà chưa bao giờ bạn nghĩ nó tồn tại..."/>
     <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
-    <link rel="canonical" href="{!! url('/') !!}" />
-
-    {!! isset($MetaViewComposer)?$MetaViewComposer:"" !!}
-
+    @endif
+     <link rel="canonical" href="{!! url('/') !!}" />
     <!-- /Rank Math WordPress SEO plugin -->
     <link rel='dns-prefetch' href='//use.fontawesome.com' />
     <link rel='dns-prefetch' href='//fonts.googleapis.com' />

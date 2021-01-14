@@ -101,7 +101,6 @@ class PageController extends \Zoe\Http\ControllerBackend
             $page = new PageModel();
             $filter['slug'] = 'required|max:255|unique:page';
         }
-
         $validator = Validator::make($items,$filter, [
             'title.required' => z_language('The title field is required.'),
             'router.required' => z_language('The title field is required.'),
@@ -110,7 +109,6 @@ class PageController extends \Zoe\Http\ControllerBackend
             'slug.required' => z_language('The slug field is required.'),
             'slug.unique' => z_language('The slug has already been taken.'),
         ]);
-
         if ($validator->fails()) {
             return back()
                 ->withErrors($validator)
