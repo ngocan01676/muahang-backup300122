@@ -1,3 +1,5 @@
+@AssetCss('assets','module/admin/assets/tagging/css/amsify.suggestags.css')
+@AssetJs('assets','module/admin/assets/tagging/js/jquery.amsify.suggestags.js')
 @if(isset($item))
     {!! Form::model($item, ['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store','class'=>'submit']) !!}
     {!! Form::hidden('id') !!}
@@ -255,7 +257,6 @@
 @endsection
 @push('links')
     <link rel="stylesheet" href="{{asset("module/admin/assets/flag/css/flag-icon.min.css")}}">
-@endpush
 @push('scripts')
     <style>
         .preview-image-wrapper {
@@ -280,9 +281,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/boostrap-multi-select/css/bootstrap-multiselect.css') }}">
     <script src="{{ asset('module/admin/assets/boostrap-multi-select/js/bootstrap-multiselect.js') }}"></script>
 
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/tagging/css/amsify.suggestags.css') }}">
-    <script src="{{ asset('module/admin/assets/tagging/js/jquery.amsify.suggestags.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

@@ -20,7 +20,6 @@
             @endif
             <table class="table table-borderless">
                 <tbody>
-
                 <tr>
                     <td>
                         <div class="url_slug">
@@ -37,6 +36,36 @@
                     <td>
                         {!! Form::label('id_router', z_language('Page router'), ['class' => 'router']) !!}
                         {!! Form::text('router',null, ['class' => 'form-control','placeholder'=>z_language('Page router')]) !!}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
+                        {!! Form::radio('status', '1' , true) !!} {!! z_language('Yes') !!}
+                        {!! Form::radio('status', '0',false) !!} {!! z_language('No') !!}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="table table-bordered">
+                                <tr>
+                                    <th>{!! z_language('Composers') !!}</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @php $current_composers = isset($page)?$page->composers:[];  $composers = isset(app()->getConfig()->composers[PAGE])?app()->getConfig()->composers[PAGE]:[]; @endphp
+                                        <ul class="todo-list ui-sortable">
+                                            @foreach($composers as $_key=>$_composers)
+                                                <li>
+                                                    <input {!! isset($current_composers[md5($_key)])?'checked ':'' !!} name="composers[{!! md5($_key) !!}]" type="checkbox" value="{!! base64_encode($_key) !!}">
+                                                    <span class="text">{!! $_key !!}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -88,33 +117,33 @@
                                                                 //            // editor.selection.setContent('<lang>' + editor.selection.getContent() + '</lang>');
                                                                 //         }
                                                                 //     });
-                                                                    // // Add a button that opens a window
-                                                                    // editor.addButton('customEmElementButton', {
-                                                                    //     text: 'Custom EM',
-                                                                    //     icon: false,
-                                                                    //     onclick: function() {
-                                                                    //         // Open window
-                                                                    //         editor.windowManager.open({
-                                                                    //             title: 'Please input text',
-                                                                    //             body: [
-                                                                    //                 {type: 'textbox', name: 'description', label: 'Text'}
-                                                                    //             ],
-                                                                    //             onsubmit: function(e) {
-                                                                    //                 // Insert content when the window form is submitted
-                                                                    //                 editor.insertContent('<emstart>EM Start</emstart><p>' + e.data.description + '</p><emend>EM End</emend>');
-                                                                    //             }
-                                                                    //         });
-                                                                    //     }
-                                                                    // });
-                                                                    //
-                                                                    // // Adds a menu item to the tools menu
-                                                                    // editor.addMenuItem('customEmElementMenuItem', {
-                                                                    //     text: 'Custom EM Element',
-                                                                    //     context: 'tools',
-                                                                    //     onclick: function() {
-                                                                    //         editor.insertContent('<emstart>EM Start</emstart><p>Example text!</p><emend>EM End</emend>');
-                                                                    //     }
-                                                                    // });
+                                                                // // Add a button that opens a window
+                                                                // editor.addButton('customEmElementButton', {
+                                                                //     text: 'Custom EM',
+                                                                //     icon: false,
+                                                                //     onclick: function() {
+                                                                //         // Open window
+                                                                //         editor.windowManager.open({
+                                                                //             title: 'Please input text',
+                                                                //             body: [
+                                                                //                 {type: 'textbox', name: 'description', label: 'Text'}
+                                                                //             ],
+                                                                //             onsubmit: function(e) {
+                                                                //                 // Insert content when the window form is submitted
+                                                                //                 editor.insertContent('<emstart>EM Start</emstart><p>' + e.data.description + '</p><emend>EM End</emend>');
+                                                                //             }
+                                                                //         });
+                                                                //     }
+                                                                // });
+                                                                //
+                                                                // // Adds a menu item to the tools menu
+                                                                // editor.addMenuItem('customEmElementMenuItem', {
+                                                                //     text: 'Custom EM Element',
+                                                                //     context: 'tools',
+                                                                //     onclick: function() {
+                                                                //         editor.insertContent('<emstart>EM Start</emstart><p>Example text!</p><emend>EM End</emend>');
+                                                                //     }
+                                                                // });
                                                                 // });
                                                                 var editor_config = {
                                                                     path_absolute: "/",
@@ -189,20 +218,13 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                    @Zoe_Variable_Lang(Page_MetaComposer_Seo,$lang)
+                                                @Zoe_Variable_Lang(Page_MetaComposer_Seo,$lang)
                                             </div>
                                         @endif
                                     @endforeach
                                 </div>
                             </div>
                         @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
-                        {!! Form::radio('status', '1' , true) !!} {!! z_language('Yes') !!}
-                        {!! Form::radio('status', '0',false) !!} {!! z_language('No') !!}
                     </td>
                 </tr>
              </tbody>

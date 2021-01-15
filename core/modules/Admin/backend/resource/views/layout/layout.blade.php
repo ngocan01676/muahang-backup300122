@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{asset('module/admin/bower_components/Ionicons/css/ionicons.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('module/admin/dist/css/AdminLTE.min.css')}}">
-
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css"/>
     <link rel="stylesheet" href="{{asset('module/admin/dist/css/skins/_all-skins.min.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/style.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/loadding/css/jquery-loading.css')}}">
@@ -485,10 +485,10 @@
     <div class="control-sidebar-bg"></div>
 </div>
 {{--@includeIf('backend::developer-tools.toolbar')--}}
-<!-- ./wrapper -->
-@stack('extra-content')
-<!-- jQuery 3 -->
+
 <script src="{{asset('module/admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
 <script src="{{asset('module/admin/assets/zoe.jquery.inputs.js')}}"></script>
 <script src="{{asset('module/admin/assets/jQuery-MD5/jquery.md5.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -597,5 +597,6 @@
 @stack('scripts')
 @section('extra-script')
 @show
+@stack('extra-content')
 </body>
 </html>

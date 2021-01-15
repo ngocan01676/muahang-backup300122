@@ -152,6 +152,7 @@ class HomeController extends \Zoe\Http\ControllerFront
     public function register_room_oke($slug,$id){
         $id = (int)base_64_de($id)/10000;
         $miss_booking = DB::table('miss_booking')->where('id',$id)->get()->all();
+        $dataSend = [];
         if(isset($miss_booking[0])){
             $to_email = $miss_booking[0]->email;
             $results = DB::table('miss_room')->where('status',1)->where('id',$miss_booking[0]->room_id)->get()->all();
@@ -184,12 +185,15 @@ class HomeController extends \Zoe\Http\ControllerFront
                     'email'=>$miss_booking[0]->email,
                     'address'=>$result->address,
                 ];
+                $dataSend['SendMailComposer'] = [
+                    'data'=>$data,
+                    'to_email'=>$to_email,
+                ];
 
-                Mail::to($to_email)->send(new MyEmail('booking',$data));
             }
         }
         $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');
-        return $this->render('home.register_room_oke');
+        return $this->render('home.register_room_oke',$dataSend);
     }
     public function get_escape_room(){
         return $this->render('home.escape_room');

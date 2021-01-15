@@ -67,6 +67,7 @@ window.tinymceElfinder = function(opts) {
                 done();
             } else {
                 // To create elFinder instance
+                console.log(open);
                 elf = elfNode.dialogelfinder(Object.assign({
                     // dialog title
                     title : 'File Manager',
