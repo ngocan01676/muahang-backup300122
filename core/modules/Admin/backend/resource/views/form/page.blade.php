@@ -1,4 +1,15 @@
 <script src="{!! config('zoe.tiny') !!}" referrerpolicy="origin"></script>
+<link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
+
+<script src="https://codemirror.net/lib/codemirror.js"></script>
+<script src="https://codemirror.net/addon/edit/matchbrackets.js"></script>
+<script src="https://codemirror.net/mode/htmlmixed/htmlmixed.js"></script>
+<script src="https://codemirror.net/mode/xml/xml.js"></script>
+<script src="https://codemirror.net/mode/javascript/javascript.js"></script>
+<script src="https://codemirror.net/mode/css/css.js"></script>
+<script src="https://codemirror.net/mode/clike/clike.js"></script>
+<script src="https://codemirror.net/mode/php/php.js"></script>
+
 <div class="col-md-12">
     <div class="box box box-zoe">
         <div class="box-body">
@@ -100,9 +111,20 @@
                                                     <tr>
                                                         <td>
 
-                                                            {!! Form::textarea('content_'.$lang, null, ['class' => 'form-control my-editor_'.$lang]) !!}
+                                                            {!! Form::textarea('content_'.$lang, null, ['id'=>'editorSource_'.$lang,'class' => 'form-control my-editor_'.$lang]) !!}
+                                                            @push('scripts')
                                                             <script>
-
+                                                                $(document).ready(function () {
+                                                                    var editorDom = document.getElementById('editorSource_{!! $lang !!}');
+                                                                    editorSource = CodeMirror.fromTextArea(editorDom, {
+                                                                        lineNumbers: true,
+                                                                        matchBrackets: true,
+                                                                        mode: "application/x-httpd-php",
+                                                                        indentUnit: 4,
+                                                                        indentWithTabs: true
+                                                                    });
+                                                                    editorSource.setSize("100%", "100%");
+                                                                });
                                                                 // tinymce.PluginManager.add('customem', function(editor, url) {
                                                                 //
                                                                 //     editor.addButton('mybutton', {
@@ -208,8 +230,9 @@
 
                                                                     }
                                                                 }
-                                                                tinymce.init(editor_config);
+                                                               // tinymce.init(editor_config);
                                                             </script>
+                                                                @endpush
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -235,7 +258,11 @@
 </div>
 
 @section('extra-script')
+
+
     <script type="text/javascript">
+
+
 
         function change_url(self) {
             let _this = $(self);

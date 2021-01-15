@@ -133,7 +133,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                         'updated_at'=>date('Y-m-d H:i:s'),
                     ]);
                     $response =  response()->json(['success' => $data,'id'=>$id,
-                        'uri'=>router_frontend_lang('home:register_room_oke',['slug'=>Str::slug($data['data']['fullname']),'id'=>base_64_en($id*10000)])]);
+                        'uri'=>router_frontend_lang('page:booking_success',['slug'=>Str::slug($data['data']['fullname']),'id'=>base_64_en($id*10000)])]);
                     DB::commit();
                     return $response;
                 }else{
@@ -189,7 +189,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                     'data'=>$data,
                     'to_email'=>$to_email,
                 ];
-
+               // Mail::to($to_email)->send(new MyEmail('booking',$data));
             }
         }
         $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');
