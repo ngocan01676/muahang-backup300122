@@ -1259,6 +1259,7 @@
 
                 var data = jQuery(this).data();
                 console.log(data);
+
                 var dom = jQuery(".pop-up2");
 
                 dom.find('.quest-time').html(data.date+" , "+data.time);
@@ -1303,13 +1304,14 @@
                     });
                     let w = jQuery(window).width();
                     let h = jQuery(window).height();
+
                     @if(!is_null(auth('frontend')->user()))
-                        w = w*0.4;
-                        h = h*0.85;
+                        w = w*0.35;
+                        h = h*0.65;
                         jQuery.mobilepopup({
                             targetblock:".pop-up2",
-                            width:$(window).width()*0.6+"px",
-                            height:"75%"
+                            width:w+"px",
+                            height:h+"px"
                         });
                     @else
                          w = w*0.35;

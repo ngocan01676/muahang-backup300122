@@ -975,13 +975,13 @@
                     let w = jQuery(window).width();
                     let h = jQuery(window).height();
                     @if(!is_null(auth('frontend')->user()))
-                        w = w*0.4;
-                    h = h*0.85;
-                    jQuery.mobilepopup({
-                        targetblock:".pop-up2",
-                        width:$(window).width()*0.6+"px",
-                        height:"75%"
-                    });
+                        w = w*0.35;
+                        h = h*0.65;
+                        jQuery.mobilepopup({
+                            targetblock:".pop-up2",
+                            width:w+"px",
+                            height:h+"px"
+                        });
                     @else
                         w = w*0.35;
                     h = h*0.80;
