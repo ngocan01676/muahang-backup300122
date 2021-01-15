@@ -116,6 +116,7 @@
                                                             <script>
                                                                 $(document).ready(function () {
                                                                     var editorDom = document.getElementById('editorSource_{!! $lang !!}');
+
                                                                     editorSource = CodeMirror.fromTextArea(editorDom, {
                                                                         lineNumbers: true,
                                                                         matchBrackets: true,
@@ -123,7 +124,7 @@
                                                                         indentUnit: 4,
                                                                         indentWithTabs: true
                                                                     });
-                                                                    myCodeMirror.setSize(800, 500);
+                                                                     editorSource.setSize(null, '100%');
                                                                 });
                                                                 // tinymce.PluginManager.add('customem', function(editor, url) {
                                                                 //

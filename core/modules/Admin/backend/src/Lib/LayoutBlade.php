@@ -246,10 +246,7 @@ class LayoutBlade extends Layout
         if ($row['option']) {
             $option = $row['option'];
             if (isset($option['stg']['col'])) {
-                if($option['opt']['title'] == "debug")
-                {
-                    var_dump($option['opt']['attr']['class']);die;
-                }
+                 
                 foreach ($option['stg']['col'] as $key => $gird) {
                     $block = false;
                     if (isset($option['cfg']['tag'])) {
