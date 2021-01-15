@@ -155,7 +155,7 @@
                         indentWithTabs: true,
                         autoRefresh: true
                     });
-                    CodeMirrorsAll[lang].setSize(null, '900px');
+                    CodeMirrorsAll[lang].setSize($("#form_store").width()*0.98+'px', '900px');
                 })('{!! $lang !!}');
                 @endif
         @endforeach
