@@ -49,7 +49,7 @@ class SendMailComposer extends \Zoe\Views\ComposerView
                         'address'=>$result->address,
                     ];
 
-                   // Mail::to($to_email)->send(new MyEmail('booking',$data));
+                    Mail::to($to_email)->send(new MyEmail('booking',$data));
 
                 }
             }
