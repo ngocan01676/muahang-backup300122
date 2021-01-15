@@ -15,7 +15,7 @@
 <ul id="my-account-nav" class="account-nav nav nav-line nav-uppercase nav-vertical mt-half">
     @foreach($data['lists'] as $name=>$list)
         @if($name == "logout")
-            <li {!! $name !!} class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard">
+            <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard">
                 <form id="logout-form" action="{!! ($list['url']) !!}" method="POST" style="display: none;">
                     @csrf
                 </form>
