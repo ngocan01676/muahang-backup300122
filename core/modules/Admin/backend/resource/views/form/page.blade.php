@@ -123,7 +123,7 @@
                                                                         indentUnit: 4,
                                                                         indentWithTabs: true
                                                                     });
-                                                                    editorSource.setSize("100%", "100%");
+                                                                    myCodeMirror.setSize(500, 300);
                                                                 });
                                                                 // tinymce.PluginManager.add('customem', function(editor, url) {
                                                                 //
