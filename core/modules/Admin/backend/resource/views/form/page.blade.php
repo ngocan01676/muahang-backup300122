@@ -155,16 +155,17 @@
                         indentWithTabs: true,
                         autoRefresh: true
                     });
-                    CodeMirrorsAll[lang].setSize(null, '100%');
+                    CodeMirrorsAll[lang].setSize(null, '900px');
                 })('{!! $lang !!}');
                 @endif
         @endforeach
         $('.nav-tabs a').on('show.bs.tab', function(){
                 let lang = $(this).attr('data-lang');
-                document.getElementById('editorSource_'+$(this).attr('data-lang')).focus();
-                CodeMirrorsAll[$(this).attr('data-lang')].refresh();
-                CodeMirrorsAll[$(this).attr('data-lang')].focus();
-                CodeMirrorsAll[$(this).attr('data-lang')].setCursor(CodeMirrorsAll[$(this).attr('data-lang')].lineCount(), 0);
+                $('#editorSource_'+$(this).attr('data-lang')).focus();
+                CodeMirrorsAll[lang].focus();
+                    setTimeout(function() {
+                        CodeMirrorsAll[lang].refresh();
+                    },1);
         });
         function change_url(self) {
             let _this = $(self);
