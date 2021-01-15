@@ -94,7 +94,7 @@ background-image: url({!! asset("theme/missterry/images/bg.jpg") !!});
         </div>
         <div class="page-title-inner container  flex-row  dark is-large" style="min-height: 300px">
             <div class="flex-col flex-center text-center">
-           
+
                 @if(isset($_dataGlobal['Blog-featured-entry-category']))
                     <h6 class="entry-category is-xsmall">
                         <a href="#" rel="category tag">Frequently asked questions</a>,

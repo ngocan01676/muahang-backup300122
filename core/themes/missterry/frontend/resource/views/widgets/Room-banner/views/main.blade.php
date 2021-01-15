@@ -13,7 +13,7 @@
 
                         <p><img loading="lazy" class="alignnone wp-image-3685"
                                 src="{!! asset('/theme/missterry/images/logo-missterry.png') !!}" alt=""
-                                width="374" height="132" srcset="{!! get_thumbnails('/uploads/logo-missterry.png',750) !!} 750w, {!! get_thumbnails('/uploads/logo-missterry.png',300) !!} 300w" sizes="(max-width: 374px) 100vw, 374px"></p>
+                                width="374" height="132" srcset="{!! get_thumbnails('/theme/missterry/images/logo-missterry.png',750) !!} 750w, {!! get_thumbnails('/theme/missterry/images/logo-missterry.png',300) !!} 300w" sizes="(max-width: 374px) 100vw, 374px"></p>
                         <h3 class="uppercase"><strong>UNRAVEL THE MYSTERY</strong></h3>
                         <p>At MISS TERRY – Escape Rooms you will enter a world you have never thought existed!</p>
                     </div>
