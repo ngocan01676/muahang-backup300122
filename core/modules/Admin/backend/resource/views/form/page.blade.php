@@ -153,15 +153,15 @@
                         mode: "application/x-httpd-php",
                         indentUnit: 4,
                         indentWithTabs: true,
+                        autoRefresh: true
                     });
                     CodeMirrorsAll[lang].setSize(null, '100%');
                 })('{!! $lang !!}');
                 @endif
         @endforeach
         $('.nav-tabs a').on('show.bs.tab', function(){
-                console.log($(this).attr('data-lang'));
+                let lang = $(this).attr('data-lang');
                 document.getElementById('editorSource_'+$(this).attr('data-lang')).focus();
-
                 CodeMirrorsAll[$(this).attr('data-lang')].refresh();
                 CodeMirrorsAll[$(this).attr('data-lang')].focus();
                 CodeMirrorsAll[$(this).attr('data-lang')].setCursor(CodeMirrorsAll[$(this).attr('data-lang')].lineCount(), 0);
