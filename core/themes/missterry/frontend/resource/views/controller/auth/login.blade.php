@@ -10,7 +10,7 @@
                                 <form  data-urlCurrent="{!! url()->current() !!}" action="{!! router_frontend_lang('guest:login:post') !!}" class="woocommerce-form woocommerce-form-login login" method="post">
                                     @csrf
                                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                        <label for="username">{!! z_language('Email address') !!}&nbsp;<span class="required">*</span></label>
+                                        <label for="username">{!! z_language('Phone or Email address') !!}&nbsp;<span class="required">*</span></label>
                                         {!! Form::text('email',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text']) !!}
 
                                         @error("email")
