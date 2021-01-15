@@ -135,10 +135,13 @@
         </div>
     </div>
 </div>
-
 @section('extra-script')
-
-
+    <style>
+        .CodeMirror {
+            border: 1px solid #eee;
+            height: auto;
+        }
+    </style>
     <script type="text/javascript">
         let CodeMirrorsAll = {};
         @foreach($language as $lang=>$_language)
@@ -155,13 +158,14 @@
                 })('{!! $lang !!}');
                 @endif
         @endforeach
-
         $('.nav-tabs a').on('show.bs.tab', function(){
                 console.log($(this).attr('data-lang'));
                 document.getElementById('editorSource_'+$(this).attr('data-lang')).focus();
-                CodeMirrorsAll[$(this).attr('data-lang')].refresh();
-        });
 
+                CodeMirrorsAll[$(this).attr('data-lang')].refresh();
+                CodeMirrorsAll[$(this).attr('data-lang')].focus();
+                CodeMirrorsAll[$(this).attr('data-lang')].setCursor(CodeMirrorsAll[$(this).attr('data-lang')].lineCount(), 0);
+        });
         function change_url(self) {
             let _this = $(self);
             let _parent = _this.closest('.url_slug');
