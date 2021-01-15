@@ -42,7 +42,7 @@ class SendMailComposer extends \Zoe\Views\ComposerView
                         'phone'=>$miss_booking[0]->phone,
                         'booking_date'=>$miss_booking[0]->booking_date,
                         'booking_time'=>$miss_booking[0]->booking_time,
-                        'price'=>$miss_booking[0]->price,
+                        'price'=>number_format($miss_booking[0]->price),
                         'count'=>$miss_booking[0]->count,
                         'title'=>$result->title,
                         'email'=>$miss_booking[0]->email,
