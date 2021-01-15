@@ -313,12 +313,9 @@ class HomeController extends \Zoe\Http\ControllerFront
         $result = [];
         $tags = [];
         if(isset($config_language['lang'])){
-
             $db = DB::table('blog_post_translation')->where('slug',$slug)->where('lang_code',$config_language['lang'])->get()->all();
-
             if(count($db) > 0){
                 $results = DB::table('blog_post')->where('id',$db[0]->_id)->get()->all();
-
                 if(isset($results[0])){
                     $result = $results[0];
                     $result->title = $db[0]->title;

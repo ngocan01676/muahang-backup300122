@@ -88,6 +88,7 @@ class ControllerFront extends Controller
             );
         }
         View::share('_language', isset($this->_language['router'])?$this->_language['router']:"");
+        View::share('_dataGlobal',$this->dataGlobal);
         return $this->_render($keyView, $data, $key,FRONTEND);
     }
 }

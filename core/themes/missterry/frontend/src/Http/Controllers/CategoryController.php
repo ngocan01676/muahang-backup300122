@@ -36,6 +36,7 @@ class CategoryController extends \Zoe\Http\ControllerFront
                     $result->title = $db[0]->title;
                     $result->content = $db[0]->content;
                     $result->slug = $db[0]->content;
+
                     $this->addDataGlobal("Blog-featured-title",$result->title);
                 }
                 $results_tag = DB::table('tag_item')->where('item_id',$db[0]->_id)->get()->keyBy('tag_id')->all();
@@ -46,7 +47,6 @@ class CategoryController extends \Zoe\Http\ControllerFront
                 }
             }
         }
-
         return $this->render('category.blog-item',['result'=>$result,'url'=>url()->current(),'tags'=>$tags]);
     }
     public function get_list_blog_category(Request $request){
