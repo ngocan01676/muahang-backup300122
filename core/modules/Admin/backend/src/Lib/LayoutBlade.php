@@ -246,7 +246,7 @@ class LayoutBlade extends Layout
         if ($row['option']) {
             $option = $row['option'];
             if (isset($option['stg']['col'])) {
-                 
+
                 foreach ($option['stg']['col'] as $key => $gird) {
                     $block = false;
                     if (isset($option['cfg']['tag'])) {

@@ -82,6 +82,8 @@
                                                                 @endverbatim
                                                             </textarea>
                                                             @push('scripts')
+
+
                                                             <script>
                                                                 const mceElf_{!! $lang !!} = new tinymceElfinder({
                                                                     url: '{{ route("backend:elfinder:showConnector") }}',
