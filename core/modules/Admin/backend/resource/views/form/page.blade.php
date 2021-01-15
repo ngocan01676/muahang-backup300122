@@ -111,26 +111,42 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <table class="table-bordered table">
-                                                                <tr>
-                                                                    <td class="text-center">
-                                                                        <a class="btn btn-primary btn-block" href="javascript:autoFormatSelection('{!! $lang !!}')">
-                                                                            Autoformat Selected
-                                                                        </a>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <a class="btn btn-primary btn-block"  href="javascript:commentSelection('{!! $lang !!}',true)">
-                                                                            Comment Selected
-                                                                        </a>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <a class="btn btn-primary btn-block"  href="javascript:commentSelection('{!! $lang !!}',false)">
-                                                                            Uncomment Selected
-                                                                        </a>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                            {!! Form::textarea('content_'.$lang, null, ['id'=>'editorSource_'.$lang,'class' => 'form-control my-editor_'.$lang]) !!}
+                                                            <div class="box box-default box-solid editorSource">
+                                                                <div class="box-header with-border">
+                                                                    <h3 class="box-title">{!! z_language('Content View') !!}</h3>
+                                                                    <div class="box-tools pull-right">
+                                                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="box-body">
+                                                                    <table class="table-bordered table">
+                                                                        <tr>
+                                                                            <td class="text-center">
+                                                                                <a class="btn btn-primary btn-block" href="javascript:selectAll('{!! $lang !!}')">
+                                                                                     Selected All
+                                                                                </a>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <a class="btn btn-primary btn-block" href="javascript:autoFormatSelection('{!! $lang !!}')">
+                                                                                    Autoformat Selected
+                                                                                </a>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <a class="btn btn-primary btn-block"  href="javascript:commentSelection('{!! $lang !!}',true)">
+                                                                                    Comment Selected
+                                                                                </a>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <a class="btn btn-primary btn-block"  href="javascript:commentSelection('{!! $lang !!}',false)">
+                                                                                    Uncomment Selected
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    {!! Form::textarea('content_'.$lang, null, ['id'=>'editorSource_'.$lang,'class' => 'form-control my-editor_'.$lang]) !!}
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -175,10 +191,13 @@
                         autoRefresh: true
                     });
                     CodeMirrorsAll[lang].setSize($("#form_store").width()*0.98+'px', '900px');
-                    CodeMirror.commands["selectAll"](CodeMirrorsAll[lang]);
+                    //CodeMirror.commands["selectAll"](CodeMirrorsAll[lang]);
                 })('{!! $lang !!}');
                 @endif
         @endforeach
+        function selectAll(lang) {
+             CodeMirror.commands["selectAll"](CodeMirrorsAll[lang]);
+        }
         function getSelectedRange(lang) {
             return { from: CodeMirrorsAll[lang].getCursor(true), to: CodeMirrorsAll[lang].getCursor(false) };
         }
@@ -197,6 +216,9 @@
                     setTimeout(function() {
                         CodeMirrorsAll[lang].refresh();
                     },1);
+        });
+        $(".editorSource").on('hidden.bs.collapse', function () {
+            alert('demo');
         });
         function change_url(self) {
             let _this = $(self);
