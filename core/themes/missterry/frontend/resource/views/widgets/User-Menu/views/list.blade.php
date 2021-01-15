@@ -20,7 +20,7 @@
             <a href="{!! ($list['url']) !!}">{!! $list['label'] !!}</a>
         </li>
         @else
-        <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard">
+        <li {!! $name !!} class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard">
             <form id="logout-form" action="{!! ($list['url']) !!}" method="POST" style="display: none;">
                  @csrf
             </form>
