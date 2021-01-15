@@ -138,7 +138,7 @@
 @section('extra-script')
     <style>
         .CodeMirror {
-            border: 1px solid #eee;
+            border: 2px solid #eee;
             height: auto;
         }
     </style>
