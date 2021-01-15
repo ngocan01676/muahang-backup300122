@@ -10,10 +10,10 @@ class AuthController extends \Zoe\Http\ControllerFront
 {
 //    use AuthenticatesUsers;
     protected $redirectTo = '/';
-
+    protected $username = 'username';
     public function username()
     {
-        return 'username';
+        return $this->username;
     }
 
    public function init()
@@ -22,10 +22,10 @@ class AuthController extends \Zoe\Http\ControllerFront
        $this->middleware('guest:frontend')->except('logout');
    }
 
-    protected function attemptLogin(Request $request)
+    protected function attemptLogin($data,Request $request)
     {
         return Auth::guard('frontend')->attempt(
-            $request->only($this->username(), 'password'), $request->filled('remember')
+            $data, $request->filled('remember')
         );
     }
     public function postLogin(Request $request)

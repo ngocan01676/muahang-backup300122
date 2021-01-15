@@ -16,17 +16,29 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
     {
         $data = $request->all();
 
-        $validator =  Validator::make($data, [
-            'email' => 'required|max:255|email',
-            'password' => 'required|min:6',
-        ]);
-
+        $this->username = "username";
+        $filter = ['password' => 'required|min:6'];
+        $dataPos = ['password'=>$data['password']];
+        if(is_numeric($data['email'])){
+            $filder['email'] = 'required|max:15';
+            $dataPos['phone'] = $data['email'];
+        }else  if(!Validator::make($data, [
+            'email' => 'required|max:255|email'
+        ])->fails()){
+            $filder['email'] = 'required|max:255|email';
+            $dataPos['email'] = $data['email'];
+        }
+        else{
+            $filder['email'] = 'required|max:30';
+            $dataPos['username'] = $data['email'];
+        }
+        $validator =  Validator::make($data, $filder);
         if (!$validator->fails()) {
-            if ($this->attemptLogin($request)) {
+            if ($this->attemptLogin($dataPos,$request)) {
                 $request->session()->regenerate();
                 return response()->json([
                     "success"=>true,
-                    "uri"=>url('/')
+                    "uri"=> url('/')
                 ]);
             }
             return response()->json([
@@ -72,7 +84,37 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
         }
     }
     public function postLogin(Request $request){
-        return parent::postLogin($request);
+        $data = $request->all();
+        $this->username = "username";
+        $filter = ['password' => 'required|min:6'];
+        $dataPos = ['password'=>$data['password']];
+        if(is_numeric($data['email'])){
+            $filder['email'] = 'required|max:15';
+            $dataPos['phone'] = $data['email'];
+        }else  if(!Validator::make($data, [
+            'email' => 'required|max:255|email'
+        ])->fails()){
+            $filder['email'] = 'required|max:255|email';
+            $dataPos['email'] = $data['email'];
+        }
+        else{
+            $filder['email'] = 'required|max:30';
+            $dataPos['username'] = $data['email'];
+        }
+        $validator =  Validator::make($data, $filder);
+        if ($validator->fails() == false) {
+            if ($this->attemptLogin($dataPos,$request)) {
+                $request->session()->regenerate();
+                return redirect()->intended('/');
+            }
+            return back()->withInput($request->only($this->username()))->withErrors([
+                $this->username() => z_language('The provided credentials do not match our records .'),
+            ]);
+
+        }else{
+
+            return back()->withErrors($validator)->withInput($request->only($this->username()));
+        }
     }
     public function getLoginForm(){
         return $this->render('auth.login');
