@@ -4,6 +4,7 @@
 <script src="https://codemirror.net/lib/codemirror.js"></script>
 <script src="https://codemirror.net/addon/edit/matchbrackets.js"></script>
 <script src="https://codemirror.net/mode/htmlmixed/htmlmixed.js"></script>
+<script src="https://codemirror.net/2/lib/util/formatting.js"></script>
 <script src="https://codemirror.net/mode/xml/xml.js"></script>
 <script src="https://codemirror.net/mode/javascript/javascript.js"></script>
 <script src="https://codemirror.net/mode/css/css.js"></script>
@@ -110,7 +111,25 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-
+                                                            <table class="table-bordered table">
+                                                                <tr>
+                                                                    <td class="text-center">
+                                                                        <a class="btn btn-primary btn-block" href="javascript:autoFormatSelection('{!! $lang !!}')">
+                                                                            Autoformat Selected
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <a class="btn btn-primary btn-block"  href="javascript:commentSelection('{!! $lang !!}',true)">
+                                                                            Comment Selected
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <a class="btn btn-primary btn-block"  href="javascript:commentSelection('{!! $lang !!}',false)">
+                                                                            Uncomment Selected
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
                                                             {!! Form::textarea('content_'.$lang, null, ['id'=>'editorSource_'.$lang,'class' => 'form-control my-editor_'.$lang]) !!}
                                                         </td>
                                                     </tr>
@@ -156,9 +175,21 @@
                         autoRefresh: true
                     });
                     CodeMirrorsAll[lang].setSize($("#form_store").width()*0.98+'px', '900px');
+                    CodeMirror.commands["selectAll"](CodeMirrorsAll[lang]);
                 })('{!! $lang !!}');
                 @endif
         @endforeach
+        function getSelectedRange(lang) {
+            return { from: CodeMirrorsAll[lang].getCursor(true), to: CodeMirrorsAll[lang].getCursor(false) };
+        }
+        function autoFormatSelection(lang) {
+            var range = getSelectedRange(lang);
+            CodeMirrorsAll[lang].autoFormatRange(range.from, range.to);
+        }
+        function commentSelection(lang,isComment) {
+            var range = getSelectedRange(lang);
+            CodeMirrorsAll[lang].commentRange(isComment, range.from, range.to);
+        }
         $('.nav-tabs a').on('show.bs.tab', function(){
                 let lang = $(this).attr('data-lang');
                 $('#editorSource_'+$(this).attr('data-lang')).focus();
