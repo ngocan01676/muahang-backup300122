@@ -10,7 +10,6 @@
                 <div class="text dark">
 
                     <div class="text-inner text-center">
-
                         <p><img loading="lazy" class="alignnone wp-image-3685"
                                 src="{!! asset('/theme/missterry/images/logo-missterry.png') !!}" alt=""
                                 width="374" height="132" srcset="{!! get_thumbnails('/uploads/logo-missterry.png',750) !!} 750w, {!! get_thumbnails('/uploads/logo-missterry.png',300) !!} 300w" sizes="(max-width: 374px) 100vw, 374px"></p>
