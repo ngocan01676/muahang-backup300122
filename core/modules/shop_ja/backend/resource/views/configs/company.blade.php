@@ -72,6 +72,7 @@
     'position' => 'position',
     'admin' => 'Người đăng',
     'type' => 'Kiểu',
+    'order_rate' => 'Lợi nhuận CTV',
   )
  @endphp
 <table class="table table-bordered">

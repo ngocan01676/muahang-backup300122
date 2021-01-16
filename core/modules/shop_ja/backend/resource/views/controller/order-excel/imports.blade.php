@@ -1,7 +1,7 @@
 @section('content-header')
     <h1>
         {!! @z_language(["Chức năng quản lý đơn hàng Excel"]) !!}
-        <button type="button" class="btn btn-success" id="importBtn">Cập nhật</button>
+        <button type="button" class="btn btn-success" onclick="importBtn();">Cập nhật</button>
     </h1>
 @endsection
 @section('content')
@@ -132,7 +132,7 @@
                 $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
             });
         }
-        $("#importBtn").click(function () {
+        function importBtn(){
             let lists = [];
 
             $("#results .update").each(function () {
@@ -145,12 +145,14 @@
                     'type':"import",
                     'com':$("#company").text(),
                     'ship':$("#ship").text().toUpperCase(),
+                    'date':$datepicker.val(),
                     lists:lists,
                 },
                 success: function (data) {
                     $.growl.notice({ message: "{!! z_language('Cập nhật thành công') !!}" });
                 }
             });
-        });
+        }
+
     </script>
 @endsection

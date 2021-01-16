@@ -142,8 +142,20 @@
                                 <strong>{{z_language('Danh sách trống')}}</strong></td>
                         </tr>
                     @endif
+                        <tfooter>
+                           <tr>
+                               <td>
+                                   @if(isset($main))
+                                       {!! $main !!}
+                                   @endif
+
+                               </td>
+                           </tr>
+                        </tfooter>
                     </tbody>
+
                 </table>
+
             </div>
             <div class="box-footer clearfix">
                 {{ $models->links('backend::layout.pagination.pagination', []) }}

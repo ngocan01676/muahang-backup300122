@@ -46,8 +46,8 @@ class ShipController extends \Zoe\Http\ControllerBackend
 //        if (!empty($status) || $status != "") {
 //            $models->where('status', $status);
 //        }
-        $models->orderBy('value_end', 'asc');
-
+//        $models->orderBy('value_end', 'asc');
+        $models->orderBy('category_id','asc');
         $category =  get_category_type('shop-ja:product:category');
         $units = config('shop_ja.configs.lists_uint');
         return $this->render('ship.lists', [
@@ -67,7 +67,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
                     if(isset($units[$model->unit])){
                         $html =" ".$units[$model->unit];
                     }
-                    return "IF([Số lượng] ".$model->equal_start.$model->value_start.$model->equal_end.' '.$model->value_end.$html.")";
+                    return "([SL] ".$model->equal_start.$model->value_start.' và[SL]'.$model->equal_end.' '.$model->value_end.") ".$html;
                 },
                 'GetUnit'=>function($model) use($units){
                     $html = "Tất cả";

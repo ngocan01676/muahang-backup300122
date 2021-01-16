@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 var cheerio = require('cheerio');
+fs = require('fs');
 const pages = {};
 const opts = {
     errorEventName:'error',
@@ -18,11 +19,16 @@ var pool  = mysql.createPool({
 });
 
 var moment = require('moment');
-console.log("Time:"+moment().format("YYYY-MM-DD HH:mm:ss"));
-let timeEnd = moment().add('-30','minutes').format("YYYY-MM-DD hh:mm:ss");
-console.log(timeEnd);
 
-function YAMATO(tracking){
+console.log("\nRUN == Time:"+moment().format("YYYY-MM-DD HH:mm:ss")+"\n");
+let timeEnd1 = moment().add('-30','minutes').format("YYYY-MM-DD hh:mm:ss");
+console.log(timeEnd1);
+
+let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:ss");
+
+
+
+async function YAMATO(tracking){
     return new  Promise (async function (resolve, reject) {
         let page = pages["YAMATO"];
         await page.goto('http://track.kuronekoyamato.co.jp/english/tracking', { waitUntil: 'networkidle2' });
@@ -31,11 +37,16 @@ function YAMATO(tracking){
             let _index = parseInt(index)+1;
             await page.$eval('input[name="number'+((_index)<10?'0'+_index:_index)+'"]', (el,val) => el.value = val,tracking[index].id);
         }
+
         await page.click('input[name="sch"]');
         await page.waitForSelector('#main',3000);
+
         setTimeout(async function () {
+
             const inner_html = await page.evaluate(() => document.querySelector('body').innerHTML);
+
             let $ = cheerio.load(inner_html);
+
             let Trackings = {};
             $("form table").each(function () {
                 if($(this).attr('width') !== "no"){
@@ -51,8 +62,10 @@ function YAMATO(tracking){
                                 Text : $(td[4]).text().trim().replace(/\s+/g, " "),
                             };
                             Trackings[key].Status = 3;
-                            if(Trackings[key].Text === "Delivered"){
+                            if(Trackings[key].Text.indexOf("Delivered") >=0){
                                 Trackings[key].Status = 1;
+                            }else if(Trackings[key].Text.indexOf("Incorrect") >=0){
+                                Trackings[key].Status = 10;
                             }
                         }
                     });
@@ -79,13 +92,20 @@ async function SAGAWA(tracking){
        await page.click('input[name="main:toiStart"]');
         setTimeout(async function () {
             const inner_html = await page.evaluate(() => document.querySelector('body').innerHTML);
+            fs.writeFile(__dirname+'/logs/SAGAWA.html', inner_html, function (err) {
+                if (err) return console.log(err);
+                console.log('SAGAWA.html');
+            });
             let $ = cheerio.load(inner_html);
             let Trackings = {};
+
             $("form table.ichiran-bg-esrc").each(function () {
+
                 $(this).find('tr').each(function () {
                     let _tr = $(this);
                     let td = _tr.find('td');
                     let id = $(td[0]).find('input').val();
+
                     if(id){
                         id = id.trim().replace(/\n/g, ' ');
                         let key = id.replace(/-+/g, "");
@@ -95,8 +115,10 @@ async function SAGAWA(tracking){
                             Text : $(td[2]).text().trim().replace(/\s+/g, " "),
                         };
                         Trackings[key].Status = 3;
-                        if(Trackings[key].Text.indexOf('Delivered:')>=0){
+                        if(Trackings[key].Text.indexOf('Delivered')>=0){
                             Trackings[key].Status = 1;
+                        }else if(Trackings[key].Text.indexOf('Incorrect')>=0){
+                            Trackings[key].Status = 10;
                         }
                     }
                 });
@@ -124,6 +146,10 @@ async function JAPAN_POST(tracking){
         await page.waitForSelector('#content');
         setTimeout(async function () {
             const inner_html = await page.evaluate(() => document.querySelector('body').innerHTML);
+            fs.writeFile(__dirname+'/logs/JAPAN_POST.html', inner_html, function (err) {
+                if (err) return console.log(err);
+                console.log('SAGAWA.html');
+            });
             let $ = cheerio.load(inner_html);
             let Trackings = {};
             $("#content form table").each(function () {
@@ -146,11 +172,23 @@ async function JAPAN_POST(tracking){
                                         Text : $(td[3]).text().trim().replace(/\s+/g, " "),
                                     };
                                     Trackings[key].Status = 3;
-                                    if(Trackings[key].Text === "お届け先にお届け済み"){
+                                    if(Trackings[key].Text.indexOf("お届け先にお届け済み")>=0){
                                         Trackings[key].Status = 1;
+                                    }else if(Trackings[key].Text.indexOf('Incorrect')>=0){
+                                        Trackings[key].Status = 10;
                                     }
                                 }
                             }
+                        }else{
+                            let id = $(td[0]).text();
+                            id = id.trim().replace(/\n/g, ' ').replace(/\s+/g, " ");
+                            let key = id.replace(/-/g, "");
+                            Trackings[key] = {
+                                Id : id ,
+                                Date : "",
+                                Text : $(td[1]).text(),
+                            };
+                            Trackings[key].Status = 10;
                         }
                     }
                 });
@@ -212,48 +250,137 @@ async function JAPAN_POST(tracking){
         });
         conn.connect(function (err){
             if (err) throw err.stack;
-            let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:ss");
-            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and (updated_at <= '"+timeEnd+"' or status=0 ) LIMIT 0,20";
 
-            console.log(sql);
+            let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:ss");
+
+            // var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status < 10 and count<10 and (updated_at <= '"+timeEnd+"' or status=0) order by updated_at LIMIT 0,20";
+            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status<10 and (updated_at <= '"+timeEnd+"' or status = 2 and data ='[]' and updated_at >= '"+moment().format("YYYY-MM-DD")+" 00:00:00' and updated_at <= '"+moment().format("YYYY-MM-DD")+" 23:59:59') order by updated_at LIMIT 0,200";
+            // console.log("SQL 1 : "+sql);
 
             let rows = {};
             let _databaseData = {};
             conn.query(sql, function (err,results, fields) {
                 if (err) throw err;
                 let count =0;
+
                 for(let key in results){
+                    let trangid = results[key].tracking_id;
+                    if(trangid.toString() === "キャンセル"){
+                        continue;
+                    }
                     if(!_databaseData.hasOwnProperty(results[key].type)){
                         _databaseData[results[key].type] = {};
                     }
-                    _databaseData[results[key].type][results[key].tracking_id] =results[key];
+                    _databaseData[results[key].type][results[key].tracking_id] = results[key];
                     count++;
                 }
-                console.log('Data:'+count);
 
-                databaseData = _databaseData;
 
-                for(let name in databaseData){
-                    for(let index in databaseData[name]){
-                        conn.query('UPDATE `cms_shop_order_excel_tracking` SET `status` = \'2\',`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
-                    }
+                let a;
+                let hour = parseInt(moment().hour().toString());
+                // console.log('Data:'+count + " hour:"+hour);
+                if(count < 20 && ( hour === 19 || hour === 10 || hour === 12 || hour === 15 || hour === 17)){
+
+                    a = new Promise(function (resolve, reject) {
+
+                        timeEnd1 = moment().add('-'+(60),'minutes').format("YYYY-MM-DD HH:mm:ss");
+                        let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 and  updated_at <= '"+timeEnd1+"' order by updated_at LIMIT 0,100";
+
+                        // console.log("SQL 2 : "+sql1);
+
+                        conn.query(sql1, function (err,results, fields) {
+                            if (err){
+                                resolve();
+                            }else{
+                                let count = 0;
+                                let ___databaseData = {};
+                                for(let key in results){
+                                    let trangid = results[key].tracking_id;
+                                    if(trangid.toString() === "キャンセル"){
+                                        continue;
+                                    }
+                                    if(!___databaseData.hasOwnProperty(results[key].type)){
+                                        ___databaseData[results[key].type] = {};
+                                    }
+                                    if(!___databaseData[results[key].type].hasOwnProperty(results[key].tracking_id)){
+                                        ___databaseData[results[key].type][results[key].tracking_id] = results[key];
+                                    }
+                                    count++;
+                                }
+                                // console.log('Data 2:'+count + " hour:"+hour);
+                                resolve([___databaseData,_databaseData]);
+                            }
+                        })
+                    });
+                }else{
+                    a = new Promise(function (resolve, reject) {
+                        resolve([_databaseData]);
+                    });
                 }
-                databaseLock = {};
-                conn.end();
-                Cb();
-            });
+                a.then(function (t) {
 
+                    databaseData = {};
+
+                    for(let i =0; i < t.length ; i++){
+
+                        for(let name in t[i]){
+                            if(!databaseData.hasOwnProperty(name)){
+                                databaseData[name] = {};
+                            }
+                            for(let index in t[i][name]){
+                                if(!databaseData[name].hasOwnProperty(t[i][name][index].tracking_id)){
+                                    databaseData[name][t[i][name][index].tracking_id] = t[i][name][index];
+                                }
+                            }
+                        }
+                    }
+
+                    for(let name in databaseData){
+                        for(let index in databaseData[name]){
+                            conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',`status` = \'2\',data = "[]",`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
+                        }
+                    }
+                    databaseLock = {};
+                    lock = false;
+                    conn.end();
+                    Cb();
+                }).catch(function (t) {
+
+                    for(let i =0; i < t.length ; i++){
+
+                        for(let name in t[i]){
+                            if(!databaseData.hasOwnProperty(name)){
+                                databaseData[name] = {};
+                            }
+                            for(let index in t[i][name]){
+                                if(!databaseData[name].hasOwnProperty(t[i][name][index].tracking_id)){
+                                    databaseData[name][t[i][name][index].tracking_id] = t[i][name][index];
+                                }
+                            }
+                        }
+                    }
+                    for(let name in databaseData){
+                        for(let index in databaseData[name]){
+                            conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',`status` = \'2\',data="[]",`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
+                        }
+                    }
+                    databaseLock = {};
+                    lock = false;
+                    conn.end();
+                    Cb();
+                });
+            });
         });
     }
-    function AddQueue(){
+    function AddQueue(name){
 
         try{
             let countEmpty = 0;
 
-
             for(let name in databaseData){
                 let trackingIds = [];
                 let count = 0;
+
                 for(let index in databaseData[name]){
                     if(!databaseLock.hasOwnProperty(index)){
                         databaseLock[index] = new Date();
@@ -263,7 +390,6 @@ async function JAPAN_POST(tracking){
                             key:index.replace(/-+/g, ""),
                             data:databaseData[name][index],
                         });
-
                         count++;
                         if(count > 0){
                             break;
@@ -274,7 +400,9 @@ async function JAPAN_POST(tracking){
                     pushData.push({name:name,data:trackingIds});
                 }
             }
-            console.log('AddQueue:'+pushData.length+" "+moment().format("YYYY-MM-DD HH:mm:ss"));
+
+            console.log(name+' AddQueue:'+pushData.length+" "+moment().format("YYYY-MM-DD HH:mm:ss"));
+
             if(pushData.length === 0){
                 GetData(function () {
 
@@ -286,36 +414,39 @@ async function JAPAN_POST(tracking){
     }
 
     GetData(function () {
-        AddQueue();
+        AddQueue('Init');
     });
+
     setInterval(function () {
-        AddQueue();
-    },60000);
+        if(lock === false){
+            AddQueue('setInterval');
+        }
+    },10000);
+
     setInterval(function () {
+
         if(lock === false ){
             if(pushData.length > 0){
                 lock = true;
                 let data = pushData.shift();
-                if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
-                    console.log("Date:"+(moment().format("YYYY-MM-DD HH:mm:ss"))+data.name);
 
+                if(data.hasOwnProperty('name') && configs.hasOwnProperty(data.name)){
 
                     if(data.name === "YAMATO"){
+
                         YAMATO(data.data).then(function (vals) {
                             lock = false;
-                            console.log("\n"+data.name+' sucesss \n');
+
                             log.info('YAMATO:'+JSON.stringify(vals));
                             for(let i in vals[1]){
 
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
-
                                     if(vals[0][vals[1][i].key].Status){
                                          sql = "UPDATE `cms_shop_order_excel_tracking` SET `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }else{
                                         sql = "UPDATE `cms_shop_order_excel_tracking` SET  `status` = "+vals[0][vals[1][i].key].Status+",`data`='"+JSON.stringify(vals[0][vals[1][i].key])+"',`updated_at`=now() WHERE `id` = "+vals[1][i].data.id;
                                     }
-
                                     pool.query(sql,function () {
 
                                     });
@@ -327,8 +458,9 @@ async function JAPAN_POST(tracking){
                     }else if(data.name === "SAGAWA"){
                         SAGAWA(data.data).then(function (vals) {
                             lock = false;
-                            console.log("\n"+data.name+' sucesss \n');
+
                             log.info('SAGAWA:'+ JSON.stringify(vals));
+
                             for(let i in vals[1]){
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
                                     let sql;
@@ -350,8 +482,7 @@ async function JAPAN_POST(tracking){
                     }else if(data.name === "JAPAN_POST"){
                         JAPAN_POST(data.data).then(function (vals) {
                             lock = false;
-                            console.log("\n"+data.name+' sucesss \n');
-                            console.log(vals);
+
                             log.info('JAPAN_POST:'+JSON.stringify(vals));
                             for(let i in vals[1]){
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
@@ -374,12 +505,12 @@ async function JAPAN_POST(tracking){
                     }
                 }
             }else{
-
+                lock = false;
             }
         }else{
             process.stdout.write('.');
         }
-    },60000);
+    },13000);
 
     console.log('Init Run');
 

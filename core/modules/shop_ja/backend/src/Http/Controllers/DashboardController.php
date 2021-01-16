@@ -23,6 +23,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                     $type = $data['type'];
                     DB::connection()->enableQueryLog();
                     $company = $data['conpany'];
+                    $month = isset($data['month'])?$data['month']:date('m');
+
                     $admin_id = base64_decode($data['user_id']);
                     $results = [];
                     if($company != 'KOGYJA'){
@@ -38,8 +40,9 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $excel->where('company', '!=', 'KOGYJA');
                         }
                         if($type == 'week'){
-                            $date_start = date('Y-m').'-01';
-                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+                            $date_start = date("Y-m-d", strtotime('monday this week'));
+                            $date_end = date("Y-m-d", strtotime('sunday this week'));
+
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }
@@ -54,8 +57,10 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }else{
-                            $date_start = date('Y-m').'-01';
-                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+
+                            $date_start = date('Y').'-'.($month<10?"0".$month:$month).'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', strtotime($date_start)));
+
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                             $type = "day";
@@ -66,24 +71,31 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         $key = '';
                         if ($type == 'month') {
                             $key = date('Y-m', strtotime($value->order_create_date)) . "-01";
+                            $score = strtotime($key);
                         } else if ($type == 'year') {
                             $key = date('Y', strtotime($value->order_create_date));
+                            $score = strtotime($key);
                         }else if ($type == 'week') {
                             list($start_date, $end_date) = $this->x_week_range($value->order_create_date);
                             $key = $start_date.' '.$end_date;
-                        }else{
+                            $score = strtotime($start_date)+strtotime($end_date);
+                        }
+                        else{
                             $key = date('Y-m-d', strtotime($value->order_create_date));
+                            $score = strtotime($key);
                         }
                         if(!isset($datas[$key])){
                             $datas[$key] = [
                                 "count"=>0,
                                 "rate"=>0,
-                                $type =>$key
+                                $type =>$key,
+                                "score"=>$score
                             ];
                         }
                         $datas[$key]["count"]++;
                         $datas[$key]["rate"]+= $value->order_price;
                     }
+
                     if(empty($company) || $company == 'KOGYJA') {
                         $excel = DB::table('shop_order_excel');
                         $excel->where('fullname', '!=', '');
@@ -94,8 +106,10 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         }
                         $excel->where('company', 'KOGYJA');
                         if($type == 'week'){
-                            $date_start = date('Y-m').'-01';
-                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+
+                            $date_start = date('Y').'-'.($month<10?"0".$month:$month).'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', strtotime($date_start)));
+
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }
@@ -110,8 +124,9 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }else{
-                            $date_start = date('Y-m').'-01';
-                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
+                            $date_start = date('Y').'-'.($month<10?"0".$month:$month).'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', strtotime($date_start)));
+
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                             $type = "day";
@@ -120,28 +135,37 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
 
                         foreach ($results as $key => $value) {
                             $key = '';
+
                             if ($type == 'month') {
                                 $key = date('Y-m', strtotime($value->order_create_date)) . "-01";
+                                $score = strtotime($key);
                             } else if ($type == 'year') {
                                 $key = date('Y', strtotime($value->order_create_date));
+                                $score = strtotime($key);
                             }else if ($type == 'week') {
                                 list($start_date, $end_date) = $this->x_week_range($value->order_create_date);
                                 $key = $start_date.' '.$end_date;
+                                $score = strtotime($start_date)+strtotime($end_date);
                             }
                             else{
                                 $key = date('Y-m-d', strtotime($value->order_create_date));
+                                $score = strtotime($key);
                             }
                             if (!isset($datas[$key])) {
                                 $datas[$key] = [
                                     "count" => 0,
                                     "rate" => 0,
-                                    $type => $key
+                                    $type => $key,
+                                    "score"=>$score
                                 ];
                             }
                             $datas[$key]["count"]++;
                             $datas[$key]["rate"] += $value->order_price;
                         }
                     }
+                    usort($datas, function ($element1,$element2) use ($type){
+                        return $element1["score"] - $element2["score"];
+                    });
                     $response = [
                         "lists"=>$datas,
                         "sql"=>logs_sql(),
@@ -170,9 +194,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $excel->where('company', '!=', 'KOGYJA');
                         }
                         if($type == 'week'){
-                            $date_start = date('Y-m-d', strtotime('+7 day',strtotime('Last Monday', time())));
-                            $date_end = date('Y-m-d', strtotime('Next Sunday', time()));
-
+                            $date_start = date('Y-m').'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }
@@ -220,8 +243,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         }
                         $excel->where('company', 'KOGYJA');
                         if($type == 'week'){
-                            $date_start = date('Y-m-d', strtotime('+7 day',strtotime('Last Monday', time())));
-                            $date_end = date('Y-m-d', strtotime('Next Sunday', time()));
+                            $date_start = date('Y-m').'-01';
+                            $date_end = date('Y-m-d',strtotime('last day of this month', time()));
                             $excel->where('order_create_date','>=',$date_start." 00:00:00");
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }
@@ -250,7 +273,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                                 $datas[$key] = [
                                     "count" => 0,
                                     "rate" => 0,
-                                    $type => $key
+                                    $type => $key,
                                 ];
                                 $datas[$key]['name'] = $roles[$key]->username;
 

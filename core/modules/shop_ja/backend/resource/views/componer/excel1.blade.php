@@ -906,7 +906,7 @@
      }else{
       $ship_cou = 0;
      }
-    }else if(sheetName === "KURICHIKU"){
+    }else if(sheetName === "KURICHIKU" || sheetName === "BANH_CHUNG"){
      if(payMethod === 1){
       if(valueRow[columns.one_address.index]){
        $ship_cou = 0;

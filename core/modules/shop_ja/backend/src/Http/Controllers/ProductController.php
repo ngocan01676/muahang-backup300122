@@ -60,7 +60,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
-        $models->orderBy('id', 'desc');
+        $models->orderBy('order_index', 'desc');
 
         return $this->render('product.list', [
             'models' => $models->paginate($item),

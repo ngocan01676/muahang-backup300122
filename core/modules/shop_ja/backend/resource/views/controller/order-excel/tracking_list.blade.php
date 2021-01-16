@@ -17,7 +17,6 @@
     @breadcrumb()@endbreadcrumb
     @component('backend::layout.component.list',['name'=>'module:shop_ja:tracking','models'=>$models,'callback'=>$callback])
         @slot("tool")
-
             <div class="box-body">
                 <div class="col-md-12" style="padding:0">
                     <div class="row" style="padding: 5px">
@@ -55,7 +54,14 @@
                                 <label>Công ty</label>
                             </div>
                             <div class="col-sm-8" style="padding:0;text-align: center;" >
-                                {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"filter.cate","",["auto-action"=>1]) !!}
+                                <select class="form-control" name="status" id="">
+                                    <option value="">{!! z_language("Tất cả") !!}</option>
+                                    <option value="-1">{!! z_language("Đợi xử lý") !!}</option>
+                                    <option value="1">{!! z_language("Thành công") !!}</option>
+                                    <option value="2">{!! z_language("Đang xử lý") !!}</option>
+                                    <option selected value="3">{!! z_language("Đã kiểm tra") !!}</option>
+                                    <option value="10">{!! z_language("Sai mã") !!}</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -70,13 +76,81 @@
                 </div>
             </div>
         @endslot
+        @slot("main")
+            @if(request()->isXmlHttpRequest())
+                <script class="script_editable">
+                    @foreach($models as $model)
+                    $('#editable_{!! $model->id !!}').editable({
+                        type:  'textarea',
+                        pk:    '{!! $model->id !!}',
+                        name:"save:note",
+                        template: '<table> <tr> <td>Trạng thái</td><td> <select class="form-control" name="status" id=""> <option value="1">check lại</option> <option value="2">không check nữa</option> </select> </td></tr><tr> <td>Note</td><td> <textarea name="note" class="form-control"></textarea> </td></tr></table>',
+                        url:   '{!! url()->current() !!}',
+                        title: '{!! z_language('Ghi chú') !!}'
+                    });
+                    @endforeach
+                </script>
+            @endif
+        @endslot
     @endcomponent
 @endsection
 @push('links')
-
+    <style>
+        .listMain .table tbody tr td.column {
+            position: relative;
+            padding: 5px 0px 0px 3px;
+        }
+    </style>
 @endpush
 @push('scripts')
+    <link rel="stylesheet" href="{{asset("module/admin/assets/bootstrap3-editable/css/bootstrap-editable.css")}}">
+    <script src="{{asset('module/admin/assets/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
+    @if(!request()->isXmlHttpRequest())
+    <script class="script_editable">
+        @foreach($models as $model)
+        $('#editable_{!! $model->id !!}').editable({
+            type:  'textarea',
+            pk:    '{!! $model->id !!}',
+            name:"save:note",
+            template: '<table> <tr> <td>Trạng thái</td><td> <select class="form-control" name="status" id=""> <option value="1">check lại</option> <option value="2">không check nữa</option> </select> </td></tr><tr> <td>Note</td><td> <textarea name="note" class="form-control"></textarea> </td></tr></table>',
+            url:   '{!! url()->current() !!}',
+            title: '{!! z_language('Ghi chú') !!}'
+        });
+        @endforeach
+    </script>
+    @endif
     <script>
+        function updateStatus(self){
+            let data = $(self).data();
+
+            $(self).hide();
+            $.ajax({
+                type: "POST",
+                data: {
+                    act:"updateStatus",
+                    id:data.id,
+                    status:data.status
+                },
+                success: function (html) {
+
+                }
+            });
+        }
+        function updateStatusCancel(self){
+            let data = $(self).data();
+            var person = confirm("Ban có muốn hủy check đơn "+data.id+" "+data.tracking);
+            if (person == true) {
+
+                $(self).hide();
+                $.ajax({
+                    type: "POST",
+                    data: {act:"updateStatusCancel",id:data.id,status:data.status},
+                    success: function (html) {
+
+                    }
+                });
+            }
+        }
         $(document).ready(function () {
             let action = false;
             function myFunction(){

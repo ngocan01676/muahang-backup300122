@@ -102,7 +102,7 @@ class MemberController extends \Zoe\Http\ControllerBackend
         $ref = $request->ref;
         $model = Member::find($id);
         if($model){
-            //  $model->delete();
+            $model->delete();
         }
         if($ref){
             return redirect($ref);

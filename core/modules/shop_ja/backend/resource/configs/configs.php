@@ -331,18 +331,40 @@
             ],
             'module:shop_ja:tracking' => [
                 'config' => [
+                    /*
+                        - Ngày đặt
+                        - Tên KH
+                        - Mã tracking
+                        - Thời gian check cuối cùng
+                        - Thông tin check
+                        - Mã đơn hàng
+                        - Cty chuyển phát
+                        - Form
+                        - Link KH
+                        - Trang kiểm tra
+                     */
                     'columns' => [
                         'lists' => [
+                            'get_note' => ['label' => z_language('Ghi chú'), 'type' => 'text','callback' => "get_note"],
+                            'cancelOrder' => ['label' => 'Hủy Check', 'type' => 'text','callback' => "cancelOrder"],
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true],
-                            'tracking_id' => ['label' => z_language('Mã kiểm tra', false), 'type' => 'number'],
+                            'get_info_create_order' => ['label' => z_language('Ngày lập | Check cuối'), 'type' => 'text','callback' => "get_info_create_order"],
+                            'get_info_fullname' => ['label' => z_language('Tên KH'), 'type' => 'text','callback' => "get_info_fullname"],
+                            'tracking_id' => ['label' => z_language('Mã Tracking', false), 'type' => 'text'],
+                            'updated_at' => ['label' => z_language('Ngày kiểm tra', false), 'type' => 'date'],
+                            'get_results' => ['label' => z_language('Ngày | Nội dung', false), 'type' => 'text','callback' => "get_results"],
                             'order_id' => ['label' => z_language('Mã đơn hàng', false), 'type' => 'id', 'primary' => true],
-                            'type' => ['label' => z_language('Cty chuyển phát', false), 'type' => 'title'],
-                            'company' => ['label' => z_language('Cty sản phẩm', false), 'type' => 'title'],
-                            'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status'],
-                            'get_results' => ['label' => z_language('Kết quả', false), 'type' => 'text','callback' => "get_results"],
-                            'GetTimeCheck' => ['label' => z_language('Thơi gian chờ', false), 'type' => 'text','callback' => "GetTimeCheck"],
-                            'created_at' => ['label' => z_language('Ngày đăng', false), 'type' => 'date'],
-                            'updated_at' => ['label' => z_language('Ngày nhập', false), 'type' => 'date'],
+                            'type' => ['label' => z_language('CT chuyển phát', false), 'type' => 'title'],
+                            'company' => ['label' => z_language('CT sản phẩm', false), 'type' => 'title'],
+                            'status' => ['label' => z_language('Trạng thái', false), 'type' => 'status','onClick'=>'updateStatus(this)'],
+                            'get_info_link' => ['label' => z_language('Fb'), 'type' => 'text','callback' => "get_info_link"],
+                            'get_info_check' => ['label' => z_language('Kiểm tra'), 'type' => 'text','callback' => "get_info_check"],
+                            'get_info_redeliver' => ['label' => z_language('Gửi lại'), 'type' => 'text','callback' => "get_info_redeliver"],
+                            'get_info_1' => ['label' => 'FB | Kiểm tra | Gửi lại đơn', 'type' => 'text','callback' => "get_info_1"],
+//                            'count' => ['label' => z_language('Số lần', false), 'type' => 'number'],
+//                            'GetTimeCheck' => ['label' => z_language('Thơi gian chờ', false), 'type' => 'text','callback' => "GetTimeCheck"],
+//                            'created_at' => ['label' => z_language('Ngày đăng', false), 'type' => 'date'],
+//                            'updated_at' => ['label' => z_language('Ngày sửa', false), 'type' => 'date'],
                         ],
                     ],
                     'pagination' => [
@@ -361,6 +383,7 @@
                                     '2' => z_language('Đang kiểm tra', false),
                                     '0' => z_language('Chưa kiểm tra', false),
                                     '3' => z_language('Đã kiểm tra', false),
+                                    '10' => z_language('Sai mã', false),
                                 ],
                                 'type' => [
                                     'name' => 'label',

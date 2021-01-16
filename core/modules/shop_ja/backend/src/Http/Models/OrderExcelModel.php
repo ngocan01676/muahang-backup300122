@@ -9,7 +9,7 @@ class OrderExcelModel extends Model
 {
     protected $table = 'shop_order_excel_session';
     protected $fillable = [];
-    public function RenderData($ressult ,$def = true){
+    public function RenderData($ressult ,$def = true,$sort = true){
         $datas = [
 
         ];
@@ -24,11 +24,12 @@ class OrderExcelModel extends Model
         $dataNew = [];
 
         if(count($datas)>0) {
-
             foreach ($datas as $key=>$values){
-                usort($values, function ($a, $b) {
-                    return ($a->pay_method) - $b->pay_method;
-                });
+                if($sort){
+                    usort($values, function ($a, $b) {
+                        return ($a->pay_method) - $b->pay_method;
+                    });
+                }
                 $dataNew[$key] = $values;
             }
 
@@ -99,7 +100,7 @@ class OrderExcelModel extends Model
     public function GetDetails($compay){
         $shop_order_excel = DB::table('shop_order_excel')->where('session_id',$this->id)
             ->orderBy('id','ASC')->orderBy('sort','ASC')->get()->all();
-        return $this->RenderData($shop_order_excel);
+        return $this->RenderData($shop_order_excel,true,false);
     }
     public function ShowAll($user_id,$date,$company,$type){
 //        $lists = DB::table('shop_order_excel_session')
@@ -143,22 +144,26 @@ class OrderExcelModel extends Model
 
             foreach ($datas as $key=>$values){
                 usort($values, function ($a, $b) {
-                    return ($a->pay_method) - $b->pay_method;
+                    if($a->pay_method == $b->pay_method){
+                        return $a->sort - $b->sort;
+                    }else{
+                        return $a->pay_method - $b->pay_method;
+                    }
                 });
                 $dataNew[$key] = $values;
             }
 
             if(isset($dataNew['KOGYJA'])){
                 $KOGYJA = [];
-
                 foreach ($dataNew['KOGYJA'] as $k=>$value){
                     if($value->type == "Info"){
+                        $value->old_pay_method = $value->pay_method;
                         $row = [$value];
-
                         foreach ($dataNew['KOGYJA'] as $kk=>$value1){
                             if($k != $kk && $value1->token == $value->token )
                             {
                                 $value1->order_create_date = "";
+                                $value1->old_pay_method = $value1->pay_method;
                                 $value1->pay_method = "";
                                 $value1->phone = "";
                                 $value1->order_date = "";
@@ -178,19 +183,27 @@ class OrderExcelModel extends Model
                                     $value1->product_id = "";
                                     $value1->total_count = "";
                                 }
+
                                 $row[] = $value1;
                             }
                         }
 
                         usort($row, function ($a, $b) {
-                            return ($a->order_index) - $b->order_index;
+
+                            if($a->old_pay_method == $b->old_pay_method){
+                                return $a->sort - $b->sort;
+                            }else{
+                                return $a->old_pay_method - $b->old_pay_method;
+                            }
                         });
                         foreach ($row as $k=>$v){
                             $KOGYJA[] = $v;
                         }
-
                     }
                 }
+                usort($KOGYJA, function ($a, $b) {
+                    return $a->sort - $b->sort;
+                });
                 $dataNew['KOGYJA'] = $KOGYJA;
             }
         }

@@ -39,22 +39,27 @@
         </div>
     </div>
 </div>
-
 <div class="box box-default box-solid">
-
     <div class="box-body">
+
         <table class="table">
             <tr>
-                <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
-                <td style="width: 95%">
 
+                <td style="width: 10%"><input type="text" class="form-control" id="copyData" placeholder="Copy"></td>
+                <td style="width: 5%"><input type="text" class="form-control" readonly id="col-row-review"></td>
+                <td>
                     <input type="text" class="form-control onselection" id="value-review">
                     <div class="onselection" id="zoe-dropdown-review" style="display: none"></div>
-
                     <div class="onselection" id="info_payment">
-
                     </div>
-
+                </td>
+                <td class="text-center" style="width: 100px">Thơi gian lưu Auto</td>
+                <td class="text-center" id="log-save" style="width: 100px">
+                    <span class="time">0</span>
+                </td>
+                <td class="text-center" style="width: 100px">Thơi gian kiểm tra</td>
+                <td class="text-center" style="width: 100px">
+                    <span class="travelTime">0</span>
                 </td>
             </tr>
         </table>
@@ -86,11 +91,9 @@
         height: 85%;
         padding: 0;
     }
-
     .modal-content {
         /*height: 99%;*/
     }
-
 </style>
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
@@ -103,8 +106,8 @@
             <div class="modal-body">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab_2" data-toggle="tab">Địa chỉ và tỉnh</a></li>
-                        <li><a href="#tab_3" data-toggle="tab"> Tên và địa chỉ và tỉnh</a></li>
+                        <li class="active"><a href="#tab_2" data-toggle="tab">tỉnh và Địa chỉ</a></li>
+                        <li><a href="#tab_3" data-toggle="tab"> tỉnh và Địa chỉ và tên</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_2">
@@ -127,6 +130,7 @@
 <!-- /.modal -->
 {!! Form::close() !!}
 @section('extra-script')
+    <script src="{{ asset('module/admin/assets/string-mask/src/string-mask.js?v='.time()) }}"></script>
     <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js?v='.time()) }}"></script>
     <script src="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.js?v='.time()) }}"></script>
     <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.css') }}" type="text/css" />
@@ -139,11 +143,25 @@
     <script>
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
-        //
-        // console.log = function () {
-        //
-        // };
+       
+        console.log = function () {
 
+        };
+        window.addEventListener("beforeunload", function (e) {
+            Save(false,true);
+        });
+        function makeid(length) {
+            var result           = '';
+            var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for ( var i = 0; i < length; i++ ) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+        let userId = '{!! auth()->user()->id !!}:'+makeid(10);
+        let _session_id = {!! $model->id !!};
+        let _version = {!! $version !!};
     </script>
 
     <style>
@@ -161,8 +179,11 @@
         }
         .open_popup{
             cursor: pointer;
-            color: #dd8c1a;
+            color: yellow !important;
             font-weight: bold;
+            font-size: 20px;
+            background: red !important;
+
         }
         .jexcel thead .jexcel_nested td[data-column="0,1,2"] ,  .jexcel thead .jexcel_nested td[data-column="3,4"]{
             background: red !important;
@@ -200,13 +221,14 @@
         }
         .jexcel tbody tr.info {
             background-color: #FFFF00 !important;
-
+            font-weight: bold;
         }
         .jexcel tbody tr.info td:first-child{
             color: #000000;
         }
         .jexcel tbody tr.footer {
-            /*background-color: #FFFF00 !important;*/
+            background-color: #0002ff !important;
+            color: #ffffff;
         }
         .jexcel tbody tr.group-cell td{
 
@@ -333,7 +355,12 @@
             },
 
         };
+        let isCheck = false;
+        let isSave = false;
+        let countSave = 0;
+        let SaveEvent = {
 
+        };
         let datacache = {!! json_encode($excels_data,JSON_UNESCAPED_UNICODE ) !!}
         let dataproduct = {!! json_encode($products,JSON_UNESCAPED_UNICODE ) !!}
         let datamodel = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
@@ -640,7 +667,12 @@
         function FUKUI(config) {
             let  sheetName  =  'FUKUI';
             let data = [];
-
+            SaveEvent[sheetName] = {
+                save : false,
+                count : 0,
+                check:true,
+                count_last:-1
+            };
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
                     {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
@@ -656,7 +688,9 @@
 
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+            let checkShip = {
 
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -667,6 +701,12 @@
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                order_info:{
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                    key:"demo",
                 },
                 timeCreate:{
                     title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
@@ -697,8 +737,8 @@
                 order_hours:{
                     title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
                     type: 'dropdown',
-                    source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
-                    value:['product','this','source',4],
+                    source:['8:00 ~ 12:00','12:00～14:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
+                    value:['product','this','source',5],
                     width:'150px',
                 },
                 fullname:{
@@ -730,6 +770,11 @@
                     type: 'text',
                     width:'100px',
                     value:"",
+                },
+                order_link:{
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
                 },
                 product_id:{
                     title: '{!! z_language("Mã SP") !!}',//H Mã SP
@@ -769,7 +814,7 @@
                     title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:-1
                 },
                 order_total_price:{
                     title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
@@ -805,7 +850,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -813,17 +859,7 @@
                     width:'100px',
                     key:"demo",
                 },
-                order_link:{
-                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                },
-                order_info:{
-                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                    key:"demo",
-                },
+
                 one_address: {
                     type: 'checkbox',
                     title:'{!! z_language("Cùng địa chỉ") !!}'
@@ -846,7 +882,7 @@
                 token:{
                     title: '{!! z_language("Token") !!}',//T
                     type: 'text',
-                    width:'0px',
+                    width:'1px',
                 },
                 admin:{
                     title: '{!! z_language("Admin") !!}',//T
@@ -902,6 +938,14 @@
                 let total_price =  0;
 
                 let valueRow =  instance.jexcel.getRowData(r);
+
+                let idOrder = valueRow[columns.id.index]+"";
+
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
+
+
                 let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
                 data.payMethod = payMethod;
                 data.sheetName = sheetName;
@@ -956,7 +1000,7 @@
                                 break
                             }
                         }
-                        console.log(11111111111111);
+
                         if(!isNaN(token)){
                             Row = token;
                         }
@@ -1112,12 +1156,25 @@
 
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
-                    return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
+
+                    if($province.length > 0){
+                        checkShip[r] = {};
+                        checkShip[r][$province] = price_ship;
+                    }
+
+                    return {order_ship:
+                                parseInt(price_ship == -1 ? price_ship : price_ship
+                            ),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
 
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
-                    price_ship = price_ship * data.count;
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    if(price_ship < 0){
+                        price_ship = 0;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),-1);
+                    }else{
+                        price_ship = price_ship * data.count;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    }
 
                    // total_price = total_price+price_ship;
                     total_price_buy = total_price_buy+price_ship;
@@ -1131,9 +1188,9 @@
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                     if(payMethod == 3){
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]), 0);
-                        // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), 0);
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]), 0);
+                        let a = (parseInt(0) - parseInt(total_price) - parseInt(price_ship));
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
                     }else if(payMethod == 2){
                         let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship));
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
@@ -1244,20 +1301,28 @@
                 onload: function (e) {
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
+                        if(!$(this).hasClass('open_popup')){
+                            return;
+                        }
                         let parent = $(this).parent().data();
+
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            console.log(info);
                             let company = parent.company;
+                            let count_errro = 0;
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
+                                dom.empty();
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
                                 // table+='<td>Mã</td>';
                                 // table+='<td>Phiên</td>';
+
                                 table+='<td>{!! z_language('Người lập') !!}</td>';
-                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
-                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
                                 table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
                                 table+='<td>{!! z_language("Ngày tạo") !!}</td>';
                                 table+='<td>{!! z_language("Số điện thoại") !!}</td>';
                                 table+='<td>{!! z_language("Công ty") !!}</td>';
@@ -1266,40 +1331,48 @@
                                 table+='<td>{!! z_language("Trạng thái") !!}</td>';
                                 table+='<td>{!! z_language("Xuất") !!}</td>';
                                 table+='<td>{!! z_language("Đường dẫn") !!}</td>';
+                                table+='<td>{!! z_language("Form nhập") !!}</td>';
                                 table+="</tr>";
-                                for(let pos in info){
-                                    for(let com in info[pos]){
-                                        if(com!=company) continue;
-                                        for(let index in info[pos][com]){
-                                            let val = info[pos][com][index];
-                                            table+="<tr>";
-                                            table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                //  for(let pos in info){
+                                for(let com in info[tab]){
+                                    // if(com!=company) continue;
+                                    for(let index in info[tab][com]){
+                                        count_errro++;
+                                        let val = info[tab][com][index];
+                                        table+="<tr>";
+                                        table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+
+                                        table+='<td><strong style="color:red">'+val.province+'</strong></td>';
+                                        table+='<td><strong style="color:red">'+val.address+'</strong></td>';
+                                        if(tab == 3){
+                                            table+='<td><strong style="color:red">'+val.fullname+'</strong></td>';
+                                        }else{
                                             table+='<td>'+val.fullname+'</td>';
-                                            table+='<td>'+val.address+'</td>';
-                                            table+='<td>'+val.province+'</td>';
-                                            table+='<td>'+val.order_create_date+'</td>';
-                                            table+='<td>'+val.phone+'</td>';
-                                            table+='<td>'+val.company+'</td>';
-                                            table+= "<td><table class=\"table table-bordered\">";
-                                            table+='<td>'+val.product_title+'</td>';
-                                            table+='<td>'+val.count+'</td>';
-                                            if(val.hasOwnProperty('items')){
-                                                for(let _index in val.items){
-                                                    table+="<tr>";
-                                                    table+='<td>'+val.items[_index].product_title+'</td>';
-                                                    table+='<td>'+val.items[_index].count+'</td>';
-                                                    table+="</tr>";
-                                                }
-                                            }
-                                            table+="</table></td>";
-                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
-                                            table+='<td>'+val.order_link+'</td>';
-                                            table+="</tr>";
                                         }
+
+                                        table+='<td>'+val.order_create_date+'</td>';
+                                        table+='<td>'+val.phone+'</td>';
+                                        table+='<td>'+val.company+'</td>';
+                                        table+= "<td><table class=\"table table-bordered\">";
+                                        table+='<td>'+val.product_title+'</td>';
+                                        table+='<td>'+val.count+'</td>';
+                                        if(val.hasOwnProperty('items')){
+                                            for(let _index in val.items){
+                                                table+="<tr>";
+                                                table+='<td>'+val.items[_index].product_title+'</td>';
+                                                table+='<td>'+val.items[_index].count+'</td>';
+                                                table+="</tr>";
+                                            }
+                                        }
+                                        table+="</table></td>";
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
+                                        table+='<td>'+val.order_link+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
+                                        table+="</tr>";
                                     }
                                 }
-
+                                //  }
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -1315,61 +1388,61 @@
 
                     if (y == null) {
                         // Insert a new column
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnBefore,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 1);
-                                }
-                            });
-                        }
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnAfter,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 0);
-                                }
-                            });
-                        }
-
-                        // Delete a column
-                        if (obj.options.allowDeleteColumn === true) {
-                            items.push({
-                                title:obj.options.text.deleteSelectedColumns,
-                                onclick:function() {
-                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                                }
-                            });
-                        }
-
-                        // // Rename column
-                        // if (obj.options.allowRenameColumn === true) {
+                        // if (obj.options.allowInsertColumn === true) {
                         //     items.push({
-                        //         title:obj.options.text.renameThisColumn,
+                        //         title:obj.options.text.insertANewColumnBefore,
                         //         onclick:function() {
-                        //             obj.setHeader(x);
+                        //             obj.insertColumn(1, parseInt(x), 1);
                         //         }
                         //     });
                         // }
-
-                        // Sorting
-                        if (obj.options.columnSorting == true) {
-
-                            items.push({ type:'line' });
-
-                            items.push({
-                                title:obj.options.text.orderAscending,
-                                onclick:function() {
-                                    obj.orderBy(x, 0);
-                                }
-                            });
-                            items.push({
-                                title:obj.options.text.orderDescending,
-                                onclick:function() {
-                                    obj.orderBy(x, 1);
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // Delete a column
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // // Rename column
+                        // // if (obj.options.allowRenameColumn === true) {
+                        // //     items.push({
+                        // //         title:obj.options.text.renameThisColumn,
+                        // //         onclick:function() {
+                        // //             obj.setHeader(x);
+                        // //         }
+                        // //     });
+                        // // }
+                        //
+                        // // Sorting
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
                     } else {
                         // Insert new row
                         if (obj.options.allowInsertRow === true) {
@@ -1392,7 +1465,15 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+                                    start = true;
                                 }
                             });
                         }
@@ -1451,7 +1532,21 @@
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
                         let vals = val.trim().split(' ');
-                        console.log(vals);
+                        let a = val.trim()+"";
+                        let b = ["様","日に","円入金済み"];
+                        vals=[];
+                        if(a.length > 0){
+
+                            for(let i = 0; i<b.length;i++){
+                                let results = a.split(b[i]);
+                                if(results.length == 0) break;
+                                a = results[1];
+                                let val = results[0].trim();
+                                if(val.length > 0){
+                                    vals.push(val);
+                                }
+                            }
+                        }
                         $("#info_payment").show();
                         let html  = "<table>";
                         html+="<tr>";
@@ -1464,7 +1559,7 @@
                         html+='様';
                         html+="</th>";
                         html+="<th>";
-                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -1472,7 +1567,7 @@
                         html+="</th>";
 
                         html+="<th>";
-                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -1576,11 +1671,20 @@
                         let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                         let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
+                        let _order_ship = parseInt(value[columns.order_ship.index]);
+
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                        $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                         $col.removeClass('bor-error');
+                        $col_order_ship.removeClass('bor-error');
+
                         if(_province.length <= 0){
                             $col.addClass('bor-error')
+                        }else{
+                            if(isNaN(_order_ship) || _order_ship < 0){
+                                $col_order_ship.addClass('bor-error');
+                            }
                         }
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                         $col.removeClass('bor-error')
@@ -1617,6 +1721,12 @@
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
                     console.log(change);
+                    start = true;
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
+
+
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
 
@@ -1624,7 +1734,7 @@
 
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
-
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
                             if(change.col == c){
                                 change = {col:-1,row:-1};
                                 update(instance, cell, c, r,{
@@ -1646,9 +1756,20 @@
                             }
                         }
                     }else if(c === columns.province.index){
+
                         if(change.col == c){
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
+                        }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        update(instance, cell, c, r,{});
+                                    }
+                                }
+                            }
                         }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
@@ -1661,13 +1782,21 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else if(c === columns.status.index){
+                        change = {col:-1,row:-1};
+                        update(instance, cell, c, r,{});
                     }
                 },
             };
         }
-
         function KOGYJA() {
             let sheetName = "KOGYJA";
+            SaveEvent[sheetName] = {
+                save : false,
+                count : false,
+                check:false,
+                count_last:-1
+            };
             let data = [];
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
@@ -1681,7 +1810,9 @@
             }
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+            let checkShip = {
 
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -1692,6 +1823,12 @@
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                order_info:{
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                    key:"demo",
                 },
                 timeCreate:{
                     title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
@@ -1744,6 +1881,11 @@
                     width:'150px',
                     key:"demo",
                 },
+                order_link:{
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                },
                 product_id:{
                     title: '{!! z_language("Mã SP") !!}',//H Mã SP
                     type: 'text',
@@ -1765,14 +1907,14 @@
                     title: '{!! z_language("SL Size") !!}',//K SL
                     type: 'numeric',
                     width:'100px',
-                    value:0,
+                    value:1,
                     // row:"0",
                 },
                 total_count:{
                     title: '{!! z_language("SL") !!}',//K SL
                     type: 'numeric',
                     width:'100px',
-                    value:1,
+                    value:37,
                     // row:"0",
                 },
                 price:{
@@ -1809,7 +1951,7 @@
                     title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
-                    value:0,
+                    value:-1,
                     // row:"0",
                 },
                 order_total_price:{
@@ -1851,7 +1993,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -1860,17 +2003,8 @@
                     key:"demo",
                     row:"0",
                 },
-                order_link:{
-                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                },
-                order_info:{
-                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                    key:"demo",
-                },
+
+
                 one_address: {
                     type: 'checkbox',
                     title:'{!! z_language("Cùng địa chỉ") !!}'
@@ -1947,7 +2081,7 @@
                 }
             }
 
-            function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all) {
+            function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all,r) {
 
                 let configShip = dataship.hasOwnProperty("cate_"+$category_id)?dataship["cate_"+$category_id]:[];
                 console.log(configShip);
@@ -2027,13 +2161,19 @@
                 }
                 let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
-                return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou)};
+
+                if($province.length > 0){
+                    checkShip[r] = {};
+                    checkShip[r][$province] = price_ship;
+                }
+
+                return {order_ship:parseInt(price_ship == -1?price_ship:price_ship),order_ship_cou:parseInt($ship_cou)};
             }
-
-
             function update(instance, cell, c, r, value,cb) {
                 console.log("update call:"+r);
-
+                if( value.end === 0){
+                    return ;
+                }
                 let data = {
                     count:parseInt(instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r]))),
                     id:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])),
@@ -2041,7 +2181,7 @@
                 };
 
                 data.province =   data.province.trim();
-                console.log(data);
+
                 let valueRow =  instance.jexcel.getRowData(r);
 
                 if(isNaN(data.count) || data.count === 0 ){
@@ -2055,9 +2195,16 @@
 
                         data.count = 1;
                     }else{
-                        data.count = 0;
+                        data.count = 1;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
                     }
                 }
+
+                if(isNaN(data.count) || data.count < 1 ){
+                    data.count = 1;
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
+                }
+
                 let total_price_buy =  0;
                 let total_price =  0;
 
@@ -2123,7 +2270,6 @@
                 cb();
 
             }
-
             function isInfo(instance,r) {
                 return instance.getValue(jexcel.getColumnNameFromId([columns.type.index, r])) == "Info";
                 //return $(instance.getCell(jexcel.getColumnNameFromId([columns.product_name.index, r]))).parent().hasClass('info');
@@ -2186,6 +2332,7 @@
 
                 for(let i = value.start ; i < value.end ; i++){
                     let _data =  instance.jexcel.getRowData(i);
+
                     if(i == value.start){
                         keyGroup.push([_data[columns.fullname.index],_data[columns.address.index],_data[columns.province.index]]);
                     }
@@ -2230,15 +2377,30 @@
                         keyGroup.push([product_id,_count , i]);
                     }
                 }
-                let stringKey = $.md5(JSON.stringify(keyGroup));
+
+
+
+
+
+                let stringKey = $.md5(JSON.stringify(keyGroup)+makeid(20));
                 let position=0;
                 for(let i = value.start ; i <= value.end ; i++){
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.position.index, i]),position++);
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.token.index, i]),stringKey);
+
+                    let _data =  instance.jexcel.getRowData(i);
+                    let idOrder = _data[columns.id.index]+"";
+
+                    if(idOrder === "" || idOrder.trim().length === 0){
+                        instance.jexcel.setValue(
+                            jexcel.getColumnNameFromId([columns.id.index, i]),
+                            $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+i+"-"+makeid(10)));
+                    }
+
                 }
                 console.log(stringKey);
                 console.log(keyGroup);
-                let confShipCou = {order_ship:0,order_ship_cou:0};
+                let confShipCou = {order_ship:-1,order_ship_cou:0};
 
                 console.log("product_id:"+product_id);
 
@@ -2300,7 +2462,7 @@
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.group.index, value.start]), isNaN(Group)?"":Group);
 
                 if(dropdown.hasOwnProperty(product_id)){
-                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCountAll,province,totalPriceBuy,payMethod,total_price_buy_all);
+                    confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCountAll,province,totalPriceBuy,payMethod,total_price_buy_all,r);
                 }
                 let v = 0;
 
@@ -2317,6 +2479,7 @@
 
                 if(payMethod == 3){
                     totalPriceBuy = 0;
+                    confShipCou.order_ship_cou = 0;
                 }else{
                     if(one_address){
                         confShipCou.order_ship_cou = 0;
@@ -2330,8 +2493,12 @@
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, value.end]),totalPrice);
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, value.start]),totalPriceBuy);
+                if(confShipCou.order_ship < 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, value.start]),-1);
+                }else{
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, value.start]),confShipCou.order_ship);
+                }
 
-                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, value.start]),confShipCou.order_ship);
 
                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, value.start]),confShipCou.order_ship_cou);
                 _data =  instance.jexcel.getRowData(value.start);
@@ -2360,6 +2527,7 @@
         //    console.log(data);
             console.log(config);
             let _data = InitData(data,config,columns_index,sheetName);
+            let default_data = InitData([],config,columns_index,sheetName);
            console.log(columns_index);
            console.log(_data);
             let change = {col:-1,row:-1};
@@ -2411,6 +2579,77 @@
                     }
                 ]
             }
+            function createRow(instance, cell, c, r, value){
+                let thisRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([c, r]))).parent();
+                if(thisRow.hasClass('footer')){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([c, r]),"");
+                    return;
+                }
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]),dropdown.hasOwnProperty(value)?dropdown[value].data.id:0);
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_name.index, r]),dropdown.hasOwnProperty(value)?dropdown[value].data.id:0);
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown.hasOwnProperty(value)?dropdown[value].data.price:0);
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown.hasOwnProperty(value)?dropdown[value].data.price_buy:0);
+
+                r = parseInt(r);
+                let index = indexFist(instance.jexcel,r);
+
+
+                if(index.start < r && index.end > r){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, r]),"Item");
+                }
+
+                let parentRowEnd = null;
+                let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, index.start]))).parent();
+
+                if(!parentRow.hasClass('info')){
+                    parentRow.addClass('info');
+                    parentRow.addClass('action');
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, index.start]),"Info");
+                }
+                let insert = true;
+                if( index.end === 0){
+                    index.end =  parseInt(r)+1;
+                    instance.jexcel.insertRow(1, parseInt(index.end));
+
+                    parentRowEnd = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index,  index.end ]))).parent();
+
+                    if(!parentRow.hasClass('footer')){
+                        parentRowEnd.addClass('action');
+                        parentRowEnd.addClass('footer');
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, index.end]),"Footer");
+                    }
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index,index.end]),1);
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, index.end]),1);
+                }
+
+                for(let i = index.start; i < index.end; i++ ){
+                    let valueRow =  instance.jexcel.getRowData(i);
+                    if(i == index.start){
+
+                        if(valueRow[columns.payMethod.index].toString().length == 0){
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.payMethod.index,i]),default_data[0][columns.payMethod.index]);
+                        }
+                        if(valueRow[columns.phone.index].toString().length == 0){
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.phone.index,i]),default_data[0][columns.phone.index]);
+                        }
+                        if(valueRow[columns.order_date.index].toString().length == 0){
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_date.index,i]),default_data[0][columns.order_date.index]);
+                        }
+                        if(valueRow[columns.order_hours.index].toString().length == 0){
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_hours.index,i]),default_data[0][columns.order_hours.index]);
+                        }
+                    }
+                    if(IsEmpty(valueRow)){
+                        insert = false;
+                        break;
+                    }
+                }
+                if(insert){
+                    instance.jexcel.insertRow(1, parseInt(index.end-1));
+                    index.end++;
+                }
+                return index;
+            }
             return {
                 sheetName:sheetName,
                 rowResize:true,
@@ -2421,24 +2660,28 @@
                 onload: function (e) {
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
+                        if(!$(this).hasClass('open_popup')){
+                            return;
+                        }
                         let parent = $(this).parent().data();
 
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            console.log(info);
                             let company = parent.company;
-
-
-
+                            let count_errro = 0;
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
+                                dom.empty();
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
                                 // table+='<td>Mã</td>';
                                 // table+='<td>Phiên</td>';
+
                                 table+='<td>{!! z_language('Người lập') !!}</td>';
-                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
-                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
                                 table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
                                 table+='<td>{!! z_language("Ngày tạo") !!}</td>';
                                 table+='<td>{!! z_language("Số điện thoại") !!}</td>';
                                 table+='<td>{!! z_language("Công ty") !!}</td>';
@@ -2447,40 +2690,48 @@
                                 table+='<td>{!! z_language("Trạng thái") !!}</td>';
                                 table+='<td>{!! z_language("Xuất") !!}</td>';
                                 table+='<td>{!! z_language("Đường dẫn") !!}</td>';
+                                table+='<td>{!! z_language("Form nhập") !!}</td>';
                                 table+="</tr>";
-                                for(let pos in info){
-                                    for(let com in info[pos]){
-                                        if(com!=company) continue;
-                                        for(let index in info[pos][com]){
-                                            let val = info[pos][com][index];
-                                            table+="<tr>";
-                                            table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                //  for(let pos in info){
+                                for(let com in info[tab]){
+                                    // if(com!=company) continue;
+                                    for(let index in info[tab][com]){
+                                        count_errro++;
+                                        let val = info[tab][com][index];
+                                        table+="<tr>";
+                                        table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+
+                                        table+='<td><strong style="color:red">'+val.province+'</strong></td>';
+                                        table+='<td><strong style="color:red">'+val.address+'</strong></td>';
+                                        if(tab == 3){
+                                            table+='<td><strong style="color:red">'+val.fullname+'</strong></td>';
+                                        }else{
                                             table+='<td>'+val.fullname+'</td>';
-                                            table+='<td>'+val.address+'</td>';
-                                            table+='<td>'+val.province+'</td>';
-                                            table+='<td>'+val.order_create_date+'</td>';
-                                            table+='<td>'+val.phone+'</td>';
-                                            table+='<td>'+val.company+'</td>';
-                                            table+= "<td><table class=\"table table-bordered\">";
-                                            table+='<td>'+val.product_title+'</td>';
-                                            table+='<td>'+val.count+'</td>';
-                                            if(val.hasOwnProperty('items')){
-                                                for(let _index in val.items){
-                                                    table+="<tr>";
-                                                    table+='<td>'+val.items[_index].product_title+'</td>';
-                                                    table+='<td>'+val.items[_index].count+'</td>';
-                                                    table+="</tr>";
-                                                }
-                                            }
-                                            table+="</table></td>";
-                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
-                                            table+='<td>'+val.order_link+'</td>';
-                                            table+="</tr>";
                                         }
+
+                                        table+='<td>'+val.order_create_date+'</td>';
+                                        table+='<td>'+val.phone+'</td>';
+                                        table+='<td>'+val.company+'</td>';
+                                        table+= "<td><table class=\"table table-bordered\">";
+                                        table+='<td>'+val.product_title+'</td>';
+                                        table+='<td>'+val.count+'</td>';
+                                        if(val.hasOwnProperty('items')){
+                                            for(let _index in val.items){
+                                                table+="<tr>";
+                                                table+='<td>'+val.items[_index].product_title+'</td>';
+                                                table+='<td>'+val.items[_index].count+'</td>';
+                                                table+="</tr>";
+                                            }
+                                        }
+                                        table+="</table></td>";
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
+                                        table+='<td>'+val.order_link+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
+                                        table+="</tr>";
                                     }
                                 }
-
+                                //  }
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -2574,10 +2825,13 @@
                         // }
 
                         if (obj.options.allowDeleteRow === true) {
+
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
-
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     let index = indexFist(obj,y);
 
                                     if(index.start ===  index.end){
@@ -2607,6 +2861,11 @@
                                             }
                                         }
                                     }
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+                                    start = true;
                                 }
                             });
                         }
@@ -2768,7 +3027,21 @@
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
                         let vals = val.trim().split(' ');
-                        console.log(vals);
+                        let a = val.trim()+"";
+                        let b = ["様","日に","円入金済み"];
+                        vals=[];
+                        if(a.length > 0){
+
+                            for(let i = 0; i<b.length;i++){
+                                let results = a.split(b[i]);
+                                if(results.length == 0) break;
+                                a = results[1];
+                                let val = results[0].trim();
+                                if(val.length > 0){
+                                    vals.push(val);
+                                }
+                            }
+                        }
                         $("#info_payment").show();
                         let html  = "<table>";
                         html+="<tr>";
@@ -2781,7 +3054,7 @@
                         html+='様';
                         html+="</th>";
                         html+="<th>";
-                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -2789,7 +3062,7 @@
                         html+="</th>";
 
                         html+="<th>";
-                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -2837,17 +3110,19 @@
                     let c = parseInt(col);
 
                     cell.style.overflow = 'hidden';
-
+                    if (c === columns.image.index && val.length>0) {
+                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
+                    }
                     if(columns.id.index === c ){
-                        if (c === columns.image.index && val.length>0) {
-                            cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
-                        }
+
 
                         let v = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
                         if(v == -1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.add('error');
+
                         else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.remove('error');
 
                         let value = instance.jexcel.getRowData(row);
+
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
 
                         let pos_start_end = indexFist(instance.jexcel,row);
@@ -2907,11 +3182,20 @@
                             let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                             let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
-                            let $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            let _order_ship = parseInt(value[columns.order_ship.index]);
+
+                            $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                             $col.removeClass('bor-error');
+                            $col_order_ship.removeClass('bor-error');
+
                             if(_province.length <= 0){
                                 $col.addClass('bor-error')
+                            }else{
+                                if(isNaN(_order_ship) || _order_ship < 0){
+                                    $col_order_ship.addClass('bor-error');
+                                }
                             }
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                             $col.removeClass('bor-error')
@@ -2956,6 +3240,7 @@
                                 parentType.addClass('action')
                             }
                         }
+
                         //indexFist(instance.jexcel,row);
                     }
                 },
@@ -2966,6 +3251,11 @@
                   //   console.log("value:"+value);
                    //  console.log(columns_index[c]);
                     // console.log(change);
+
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
+                    start = true;
                     if( (value+"").trim().length === 0){
                         if(lock.hasOwnProperty(r)){
                            // update_count(instance, cell, c, r,{});
@@ -2985,64 +3275,88 @@
 
                     //    console.log("=>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
                     c = parseInt(c);
+
+
                     if (c === columns.product_name.index) {
+
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
                             if(change.col == c){
+
                                 change.col =  {col:-1,row:-1};
                                 console.log("Change:"+r);
-                                let thisRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([c, r]))).parent();
-                                if(thisRow.hasClass('footer')){
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([c, r]),"");
-                                    return;
-                                }
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
-
-                                r = parseInt(r);
-                                let index = indexFist(instance.jexcel,r);
 
 
 
-                                if(index.start < r && index.end > r){
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, r]),"Item");
-                                }
+                                // let thisRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([c, r]))).parent();
+                                // if(thisRow.hasClass('footer')){
+                                //     instance.jexcel.setValue(jexcel.getColumnNameFromId([c, r]),"");
+                                //     return;
+                                // }
+                                // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
+                                // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
+                                // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+                                //
+                                // r = parseInt(r);
+                                // let index = indexFist(instance.jexcel,r);
+                                //
+                                //
+                                // if(index.start < r && index.end > r){
+                                //     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, r]),"Item");
+                                // }
+                                //
+                                // let parentRowEnd = null;
+                                // let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, index.start]))).parent();
+                                //
+                                // if(!parentRow.hasClass('info')){
+                                //     parentRow.addClass('info');
+                                //     parentRow.addClass('action');
+                                //     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, index.start]),"Info");
+                                // }
+                                // let insert = true;
+                                // if( index.end === 0){
+                                //     index.end =  parseInt(r)+1;
+                                //     instance.jexcel.insertRow(1, parseInt(index.end));
+                                //
+                                //     parentRowEnd = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index,  index.end ]))).parent();
+                                //
+                                //     if(!parentRow.hasClass('footer')){
+                                //         parentRowEnd.addClass('action');
+                                //         parentRowEnd.addClass('footer');
+                                //         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, index.end]),"Footer");
+                                //     }
+                                //     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index,index.end]),1);
+                                //     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, index.end]),1);
+                                // }
+                                //
+                                // for(let i = index.start; i < index.end; i++ ){
+                                //     let valueRow =  instance.jexcel.getRowData(i);
+                                //     if(i == index.start){
+                                //
+                                //         if(valueRow[columns.payMethod.index].toString().length == 0){
+                                //             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.payMethod.index,i]),default_data[0][columns.payMethod.index]);
+                                //         }
+                                //         if(valueRow[columns.phone.index].toString().length == 0){
+                                //             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.phone.index,i]),default_data[0][columns.phone.index]);
+                                //         }
+                                //         if(valueRow[columns.order_date.index].toString().length == 0){
+                                //             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_date.index,i]),default_data[0][columns.order_date.index]);
+                                //         }
+                                //         if(valueRow[columns.order_hours.index].toString().length == 0){
+                                //             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_hours.index,i]),default_data[0][columns.order_hours.index]);
+                                //         }
+                                //     }
+                                //     if(IsEmpty(valueRow)){
+                                //         insert = false;
+                                //         break;
+                                //     }
+                                // }
+                                // if(insert){
+                                //     instance.jexcel.insertRow(1, parseInt(index.end-1));
+                                //     index.end++;
+                                // }
 
-                                let parentRowEnd = null;
-                                let parentRow = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index, index.start]))).parent();
+                               let index = createRow(instance, cell, c, r, value);
 
-                                if(!parentRow.hasClass('info')){
-                                    parentRow.addClass('info');
-                                    parentRow.addClass('action');
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, index.start]),"Info");
-                                }
-                                let insert = true;
-                                if( index.end === 0){
-                                    index.end =  parseInt(r)+1;
-                                    instance.jexcel.insertRow(1, parseInt(index.end));
-
-                                    parentRowEnd = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.product_name.index,  index.end ]))).parent();
-                                    if(!parentRow.hasClass('footer')){
-                                        parentRowEnd.addClass('action');
-                                        parentRowEnd.addClass('footer');
-                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.type.index, index.end]),"Footer");
-                                    }
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.total_count.index,index.end]),1);
-                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, index.end]),1);
-                                }
-
-                                for(let i = index.start; i < index.end; i++ ){
-                                    let valueRow =  instance.jexcel.getRowData(i);
-
-                                    if(IsEmpty(valueRow)){
-                                        insert = false;
-                                        break;
-                                    }
-                                }
-                                if(insert){
-                                    instance.jexcel.insertRow(1, parseInt(index.end-1));
-                                    index.end++;
-                                }
                                 update(instance, cell, c, r ,index,function () {
                                     update_count(instance, cell, c, r,index);
                                 });
@@ -3052,33 +3366,64 @@
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.product_id.index || c === columns.one_address.index){
                         if(change.col == c){
                             if(c === columns.zipcode.index){
+                                let index = indexFist(instance.jexcel,r);
+                                if( index.end === 0){
+                                    index = createRow(instance, cell, c, r,  columns.product_name.source[0].data.id);
+                                }
                                 change = {col:columns.province.index,row:r};
                             }else{
                                 change.col =  {col:-1,row:-1};
                                 let index = indexFist(instance.jexcel,r);
+
+                                if( index.end === 0){
+                                    index = createRow(instance, cell, c, r,  columns.product_name.source[0].data.id);
+                                }
+
                                 update(instance, cell, c, r,index,function () {
                                     update_count(instance, cell, c, r,index);
                                 });
+
                             }
                         }
                     }else if(c === columns.fullname.index || c === columns.address.index ||
                         c === columns.zipcode.index || c === columns.payMethod.index || c === columns.phone.index ){
-
                         if(change.col == c && (value+"").length > 0){
                             change.col =  {col:-1,row:-1};
                             let index = indexFist(instance.jexcel,r);
+
+                            if( index.end === 0){
+                                index = createRow(instance, cell, c, r,  columns.product_name.source[0].data.id);
+                            }
+
                             update(instance, cell, c, r,index,function () {
                                 update_count(instance, cell, c, r,index);
                             });
-
                         }
                     }else if(c === columns.province.index){
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
                             let index = indexFist(instance.jexcel,r);
+                            if( index.end === 0){
+                                index = createRow(instance, cell, c, r,  columns.product_name.source[0].data.id);
+                            }
                             update(instance, cell, c, r,index,function () {
                                 update_count(instance, cell, c, r,index);
                             });
+
+                        }else {
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        change.col =  {col:-1,row:-1};
+                                        let index = indexFist(instance.jexcel,r);
+                                        update(instance, cell, c, r,index,function () {
+                                            update_count(instance, cell, c, r,index);
+                                        });
+                                    }
+                                }
+                            }
                         }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
@@ -3094,14 +3439,24 @@
                                 update_count(instance, cell, c, r,index);
                             });
                         }
-                    }else if(c === columns.total_count.index){
-                        console.log('count');
+                    }else if(c === columns.status.index){
+                        change.col =  {col:-1,row:-1};
+                        let index = indexFist(instance.jexcel,r);
+                        update(instance, cell, c, r,index,function () {
+                            update_count(instance, cell, c, r,index);
+                        });
                     }
                 },
             };
         }
         function KURICHIKU1() {
             let sheetName = "KURICHIKU1";
+            SaveEvent[sheetName] = {
+                save : false,
+                count : false,
+                check:false,
+                count_last:-1
+            };
             let data = [];
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
@@ -3115,7 +3470,9 @@
             }
             let dropdown = dataproduct.hasOwnProperty("KURICHIKU")?dataproduct["KURICHIKU"]:{};
             let index = 0;
+            let checkShip = {
 
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -3126,6 +3483,12 @@
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                order_info:{
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                    key:"demo",
                 },
                 timeCreate:{
                     title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
@@ -3177,6 +3540,11 @@
                     type: 'text',
                     width:'150px',
                     key:"demo",
+                },
+                order_link:{
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
                 },
                 product_id:{
                     title: '{!! z_language("Mã SP") !!}',//H Mã SP
@@ -3243,7 +3611,7 @@
                     title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
-                    value:0,
+                    value:-1,
                     // row:"0",
                 },
                 order_total_price:{
@@ -3285,7 +3653,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -3294,17 +3663,8 @@
                     key:"demo",
                     row:"0",
                 },
-                order_link:{
-                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                },
-                order_info:{
-                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                    key:"demo",
-                },
+
+
                 one_address: {
                     type: 'checkbox',
                     title:'{!! z_language("Cùng địa chỉ") !!}'
@@ -3461,6 +3821,10 @@
                 }
                 let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
+                if($province.length > 0){
+                    checkShip[r] = {};
+                    checkShip[r][$province] = price_ship;
+                }
                 return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou)};
             }
 
@@ -3477,7 +3841,11 @@
                 data.province =   data.province.trim();
                 console.log(data);
                 let valueRow =  instance.jexcel.getRowData(r);
+                let idOrder = valueRow[columns.id.index]+"";
 
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
                 if(isNaN(data.count) || data.count === 0 ){
 
                     if(
@@ -3855,24 +4223,28 @@
                 onload: function (e) {
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
+                        if(!$(this).hasClass('open_popup')){
+                            return;
+                        }
                         let parent = $(this).parent().data();
 
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            console.log(info);
                             let company = parent.company;
-
-
-
+                            let count_errro = 0;
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
+                                dom.empty();
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
                                 // table+='<td>Mã</td>';
                                 // table+='<td>Phiên</td>';
+
                                 table+='<td>{!! z_language('Người lập') !!}</td>';
-                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
-                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
                                 table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
                                 table+='<td>{!! z_language("Ngày tạo") !!}</td>';
                                 table+='<td>{!! z_language("Số điện thoại") !!}</td>';
                                 table+='<td>{!! z_language("Công ty") !!}</td>';
@@ -3881,40 +4253,48 @@
                                 table+='<td>{!! z_language("Trạng thái") !!}</td>';
                                 table+='<td>{!! z_language("Xuất") !!}</td>';
                                 table+='<td>{!! z_language("Đường dẫn") !!}</td>';
+                                table+='<td>{!! z_language("Form nhập") !!}</td>';
                                 table+="</tr>";
-                                for(let pos in info){
-                                    for(let com in info[pos]){
-                                        if(com!=company) continue;
-                                        for(let index in info[pos][com]){
-                                            let val = info[pos][com][index];
-                                            table+="<tr>";
-                                            table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                //  for(let pos in info){
+                                for(let com in info[tab]){
+                                    // if(com!=company) continue;
+                                    for(let index in info[tab][com]){
+                                        count_errro++;
+                                        let val = info[tab][com][index];
+                                        table+="<tr>";
+                                        table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+
+                                        table+='<td><strong style="color:red">'+val.province+'</strong></td>';
+                                        table+='<td><strong style="color:red">'+val.address+'</strong></td>';
+                                        if(tab == 3){
+                                            table+='<td><strong style="color:red">'+val.fullname+'</strong></td>';
+                                        }else{
                                             table+='<td>'+val.fullname+'</td>';
-                                            table+='<td>'+val.address+'</td>';
-                                            table+='<td>'+val.province+'</td>';
-                                            table+='<td>'+val.order_create_date+'</td>';
-                                            table+='<td>'+val.phone+'</td>';
-                                            table+='<td>'+val.company+'</td>';
-                                            table+= "<td><table class=\"table table-bordered\">";
-                                            table+='<td>'+val.product_title+'</td>';
-                                            table+='<td>'+val.count+'</td>';
-                                            if(val.hasOwnProperty('items')){
-                                                for(let _index in val.items){
-                                                    table+="<tr>";
-                                                    table+='<td>'+val.items[_index].product_title+'</td>';
-                                                    table+='<td>'+val.items[_index].count+'</td>';
-                                                    table+="</tr>";
-                                                }
-                                            }
-                                            table+="</table></td>";
-                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
-                                            table+='<td>'+val.order_link+'</td>';
-                                            table+="</tr>";
                                         }
+
+                                        table+='<td>'+val.order_create_date+'</td>';
+                                        table+='<td>'+val.phone+'</td>';
+                                        table+='<td>'+val.company+'</td>';
+                                        table+= "<td><table class=\"table table-bordered\">";
+                                        table+='<td>'+val.product_title+'</td>';
+                                        table+='<td>'+val.count+'</td>';
+                                        if(val.hasOwnProperty('items')){
+                                            for(let _index in val.items){
+                                                table+="<tr>";
+                                                table+='<td>'+val.items[_index].product_title+'</td>';
+                                                table+='<td>'+val.items[_index].count+'</td>';
+                                                table+="</tr>";
+                                            }
+                                        }
+                                        table+="</table></td>";
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
+                                        table+='<td>'+val.order_link+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
+                                        table+="</tr>";
                                     }
                                 }
-
+                                //  }
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -4011,7 +4391,9 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
-
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     let index = indexFist(obj,y);
 
                                     if(index.start ===  index.end){
@@ -4041,6 +4423,11 @@
                                             }
                                         }
                                     }
+                                    start = true;
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+
                                 }
                             });
                         }
@@ -4202,7 +4589,21 @@
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
                         let vals = val.trim().split(' ');
-                        console.log(vals);
+                        let a = val.trim()+"";
+                        let b = ["様","日に","円入金済み"];
+                        vals=[];
+                        if(a.length > 0){
+
+                            for(let i = 0; i<b.length;i++){
+                                let results = a.split(b[i]);
+                                if(results.length == 0) break;
+                                a = results[1];
+                                let val = results[0].trim();
+                                if(val.length > 0){
+                                    vals.push(val);
+                                }
+                            }
+                        }
                         $("#info_payment").show();
                         let html  = "<table>";
                         html+="<tr>";
@@ -4215,7 +4616,7 @@
                         html+='様';
                         html+="</th>";
                         html+="<th>";
-                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -4223,7 +4624,7 @@
                         html+="</th>";
 
                         html+="<th>";
-                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -4271,11 +4672,11 @@
                     let c = parseInt(col);
 
                     cell.style.overflow = 'hidden';
-
+                    if (c === columns.image.index && val.length>0) {
+                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
+                    }
                     if(columns.id.index === c ){
-                        if (c === columns.image.index && val.length>0) {
-                            cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
-                        }
+
 
                         let v = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
                         if(v == -1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.add('error');
@@ -4341,11 +4742,20 @@
                             let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                             let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
-                            let $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            let _order_ship = parseInt(value[columns.order_ship.index]);
+
+                            $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                             $col.removeClass('bor-error');
+                            $col_order_ship.removeClass('bor-error');
+
                             if(_province.length <= 0){
                                 $col.addClass('bor-error')
+                            }else{
+                                if(isNaN(_order_ship) || _order_ship < 0){
+                                    $col_order_ship.addClass('bor-error');
+                                }
                             }
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                             $col.removeClass('bor-error')
@@ -4400,6 +4810,11 @@
                     //   console.log("value:"+value);
                     //  console.log(columns_index[c]);
                     // console.log(change);
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
+                    start = true;
+
                     if( (value+"").trim().length === 0){
                         if(lock.hasOwnProperty(r)){
                             // update_count(instance, cell, c, r,{});
@@ -4530,6 +4945,12 @@
                         }
                     }else if(c === columns.total_count.index){
                         console.log('count');
+                    }else if(c === columns.status.index){
+                        change.col =  {col:-1,row:-1};
+                        let index = indexFist(instance.jexcel,r);
+                        update(instance, cell, c, r,index,function () {
+                            update_count(instance, cell, c, r,index);
+                        });
                     }
                 },
             };
@@ -4537,7 +4958,12 @@
         function KURICHIKU() {
             let  sheetName  =  'KURICHIKU';
             let data = [];
-
+            SaveEvent[sheetName] = {
+                save : false,
+                count : false,
+                check:false,
+                count_last:-1
+            };
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
                     {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
@@ -4671,6 +5097,9 @@
                     cell.innerHTML = value;
                 }
             };
+            let checkShip = {
+
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -4681,6 +5110,12 @@
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                order_info:{
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                    key:"demo",
                 },
                 timeCreate:{
                     title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
@@ -4729,6 +5164,11 @@
                     type: 'text',
                     width:'150px',
                     key:"demo",
+                },
+                order_link:{
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
                 },
                 product_id:{
                     title: '{!! z_language("Mã SP") !!}',//H Mã SP
@@ -4815,7 +5255,7 @@
                     title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:-1
                 },
                 order_total_price:{
                     title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
@@ -4851,7 +5291,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -4859,10 +5300,1086 @@
                     width:'100px',
                     key:"demo",
                 },
-                order_link:{
-                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+
+
+                one_address: {
+                    type: 'checkbox',
+                    title:'{!! z_language("Cùng địa chỉ") !!}'
+                },
+                id:{
+                    title: '{!! z_language("ID") !!}ID',//T
                     type: 'text',
                     width:'100px',
+                },
+                session_id:{
+                    title: '{!! z_language("SessionId") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                export:{
+                    title: '{!! z_language("Xuất") !!}',//T
+                    type: 'checkbox',
+                    width:'1px',
+                },
+                token:{
+                    title: '{!! z_language("Token") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                admin:{
+                    title: '{!! z_language("Admin") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                group:{
+                    title: '{!! z_language("group") !!}',//T
+                    type: 'text',
+                    width:'1px',
+                },
+                comment:{
+                    title: '{!! z_language("Ghi chú") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
+            };
+            columns.count.editor = customColumn;
+            columnsAll[sheetName] = columns;
+            let columns_index = Object.values(columns);
+            let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
+            let _option = options.hasOwnProperty(sheetName)?options[sheetName]:{};
+            for(var i in columns){
+                columns[i].index = index;
+
+                columns[i].key = i;
+                let v = setDefaultValue(i,columns);
+                if(v[0]){
+                    columns[i].value = v[1];
+                }else{
+                    delete columns[i].value;
+                }
+                index++;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
+                    }
+                }else if(columnsWidth.hasOwnProperty(i) && i!="count"){
+                    columns[i].width =columnsWidth[i].width;
+                }
+            }
+            function update(instance, cell, c, r, value) {
+                console.info("update call:"+c);
+                let data = {
+                    count:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.count.index, r])),
+                    id:value.hasOwnProperty('id')?value.id.toString():instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.product_id.index, r])).toString(),
+                    province:value.hasOwnProperty('province')?value.province:instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r])),
+                };
+
+                data.province = data.province.trim();
+
+                data.id = data.id.split(';');
+
+                console.log(data);
+
+                let count = parseInt(data.count);
+
+                if(!isNaN(count)){
+                    data.count = {};
+                    data.count[data.id[0]] = count;
+                }else{
+                    try{
+                        data.count = JSON.parse(data.count);
+                    }catch (e) {
+                        data.count = {};
+                        data.count[data.id[0]] = 1;
+                    }
+                }
+
+
+
+                let valueRow =  instance.jexcel.getRowData(r);
+
+                let idOrder = valueRow[columns.id.index]+"";
+
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
+
+
+                let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
+
+                data.payMethod = payMethod;
+                data.sheetName = sheetName;
+
+                console.log("payMethod:"+payMethod);
+
+                let price_buy_sale = parseInt(valueRow[columns.price_buy_sale.index]);
+                console.log("price_buy_sale:"+price_buy_sale);
+                let price_buy=0;
+                let price=0;
+
+                let total_price_buy =  0;
+                let total_price =  0;
+                let countNew = {};
+                let totalCount = 0;
+
+                for(let i in data.id){
+                    if(data.id.hasOwnProperty(i)){
+                        if(dropdown.hasOwnProperty(data.id[i])){
+                            let product = dropdown[data.id[i]];
+
+                            let _price = parseInt(product.data.price);
+                            let _price_buy = parseInt(product.data.price_buy);
+
+
+                            if(!data.count.hasOwnProperty(data.id[i])){
+                                data.count[data.id[i]] = 1;
+                            }else{
+                                data.count[data.id[i]] = parseInt(data.count[data.id[i]]);
+                            }
+
+                            price+=_price*data.count[data.id[i]];
+                            price_buy+=_price_buy*data.count[data.id[i]];
+
+                            totalCount+=data.count[data.id[i]];
+                            countNew[data.id[i]] = data.count[data.id[i]];
+
+                            total_price_buy+= _price_buy * data.count[data.id[i]];
+                            total_price+=_price * data.count[data.id[i]];
+                        }
+
+                    }
+                }
+                let product_id = data.id[0];
+
+
+                instance.jexcel.getCell(
+                    jexcel.getColumnNameFromId([columns.count.index, r])).innerHTML = JSON.stringify(countNew);
+
+                let total_count  = parseInt(valueRow[columns.total_count.index]);
+
+                data.total_price = total_price * total_count;
+                data.total_price_buy = total_price_buy * total_count + price_buy_sale;
+
+                total_price_buy =  data.total_price_buy;
+                total_price = data.total_price;
+
+                let total_price_buy_all = 0;
+                let Row = -1;
+                let token = parseInt(valueRow[columns.token.index]);
+                console.log("valueRow[columns.one_address.index]:"+valueRow[columns.one_address.index]);
+                console.log("token:"+token);
+                if(!valueRow[columns.one_address.index]){
+                    total_price_buy_all = total_price_buy;
+                    for(let iii = r+1;iii<10;iii++){
+                        let _data = instance.jexcel.getRowData(iii);
+                        if(_data && _data[columns.one_address.index]){
+                            console.log(_data);
+                            let total = parseInt(_data[columns.order_total_price_buy.index]);
+                            total_price_buy_all+= isNaN(total)?0:total;
+                        }else{
+                            break
+                        }
+                    }
+
+                    if(!isNaN(token)){
+                        Row = token;
+                    }
+                    console.log("Row:"+Row);
+                    token = "";
+                }else{
+                    for(let iii = r-1;iii>=0;iii--){
+                        let _data = instance.jexcel.getRowData(iii);
+                        console.log(data);
+                        if(_data && !_data[columns.one_address.index]){
+                            token = iii;
+                            Row = token;
+                            break
+                        }
+                    }
+                }
+
+                console.log("token:"+token);
+                console.log("Row:"+Row);
+                console.log("total_price_buy_all:"+total_price_buy_all);
+
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.token.index, r]), token);
+
+                total_price_buy =  data.total_price_buy;
+                total_price = data.total_price;
+
+
+
+
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]), price);
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), price_buy);
+
+                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]),  data.total_price);
+
+                function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all) {
+                    if(total_price_buy_all == 0){
+                        total_price_buy_all = $total_price_buy;
+                    }
+                    let configShip = dataship.hasOwnProperty("cate_"+$category_id)?dataship["cate_"+$category_id]:[];
+                    console.log(configShip);
+                    console.log("$count:"+$count);
+                    console.log("$province:"+$province);
+                    console.log("$total_price_buy:"+$total_price_buy);
+                    let arr_ship = [];
+                    for(let i in configShip){
+                        $is_IF_Start = IF_Start($count,configShip[i]);
+                        $is_IF_End =  IF_End($count,configShip[i]);
+                        if($is_IF_Start && $is_IF_End){
+                            $conf  =  configShip[i].config;
+                            for (let ii in $conf){
+                                $val = $conf[ii];
+                                $arr = $val['text'].split("-");
+                                for (let iii in $arr){
+                                    $v = $arr[iii];
+                                    if($province == $v){
+                                        arr_ship.push([configShip[i],$val])
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    console.log(arr_ship);
+                    $price_ship_default  = -1;
+                    $price_ship  = -1;
+                    for (i in arr_ship){
+                        $val = arr_ship[i];
+                        if($val[0].unit == 0 && $price_ship_default==-1){
+                            $price_ship_default =  $val[1]['value'];
+                        }else if($val[0].unit == $product.unit && $price_ship == -1){
+                            $price_ship = $val[1]['value'];
+                        }
+                    }
+
+                    console.log('$price_ship_default:'+$price_ship_default);
+                    console.log('$price_ship:'+$price_ship);
+                    let $ship = categorys[$category_id]?( categorys[$category_id].data.hasOwnProperty('ship'))?categorys[$category_id].data.ship:"-1":"-1";
+
+                    let $ship_cou = -1;
+
+                    let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+                    if(one_address){
+                        payMethod = 2;
+                    }
+                    if( payMethod == 2 || payMethod == 3 ){
+                        $ship_cou = 0;
+                    }else{
+                        for (let i in datadaibiki){
+                            $_val  = datadaibiki[i];
+
+                            if($ship == $_val.id){
+                                for(let ii in $_val.data){
+                                    $units = $_val.data[ii];
+                                    for(let iii in $units){
+                                        $_unit = $units[iii];
+                                        if($_unit){
+                                            $is_IF_Start = IF_Start(total_price_buy_all,$_unit);
+                                            $is_IF_End = IF_End(total_price_buy_all,$_unit);
+                                            if($is_IF_Start && $is_IF_End){
+                                                $ship_cou = $_unit.value;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if($ship_cou != -1){
+                                break;
+                            }
+                        }
+                    }
+                    let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                    $ship_cou = $ship_cou == -1?0:$ship_cou;
+                    if($province.length > 0){
+                        checkShip[r] = {};
+                        checkShip[r][$province] = price_ship;
+                    }
+                    return {
+                        order_ship:parseInt(price_ship === -1 ? price_ship :price_ship),
+                        order_ship_cou:parseInt($ship_cou)
+                    };
+                }
+                function setInterest(price_ship,order_ship_cou,total_price_buy,total_count){
+                    if(price_ship < 0){
+                        price_ship = 0;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),-1);
+                    }else{
+                        price_ship = price_ship * total_count;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    }
+
+                   // total_price_buy = total_price_buy;
+                    console.log(total_price_buy);
+                    if(total_price_buy === 0 || total_price === 0){ return;}
+                    if(payMethod == 3){
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
+                        let a = (0 - parseInt(total_price) - parseInt(price_ship));
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
+                    }else if(payMethod == 2){
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy-330,false );
+                        let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship)) - 330;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
+                    }else{
+                        let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
+                        if(one_address){
+
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy-330,false );
+                            let a = (parseInt(total_price_buy)-330- parseInt(total_price) - parseInt(price_ship)) - 330;
+
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
+                        }else{
+                            console.log("price_ship:"+price_ship);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
+                            let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship) - order_ship_cou);
+
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou,false);
+                        }
+
+                    }
+                    if(Row>-1)
+                    {
+                        console.log("Update:Row"+Row);
+                        update(instance,cell, c, Row, {});
+                    }
+                }
+                 data.count = totalCount;
+                if(dropdown.hasOwnProperty(product_id)){
+                    let confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod,total_price_buy_all);
+
+                    setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330,total_count)
+                }
+
+                //    if(value.hasOwnProperty('lock') && value.lock.indexOf(columns.order_ship.index)){
+
+                //     } else{
+                //         setInterest(parseInt(valueRow[columns.order_ship.index]),parseInt(valueRow[columns.order_ship_cou.index]));
+                //     }
+            }
+            let _data = InitData(data,config,columns_index,sheetName);
+            let click = false;
+            let nestedHeaders = [];
+            if(locks .hasOwnProperty(sheetName)){
+                let _lock  = locks [sheetName];
+                let dateNow = stringDate;
+                if(_lock.action == 2 && _lock.date == dateNow ){
+                    let count = columns_index.length+4;
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày xuất : "+_lock.date  ,
+                        colspan: 3,
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title:  " Giờ xuất :"+_lock.hour ,
+                        colspan: 2,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày tạo :"+_lock.created_at  ,
+                        colspan: 3,
+
+                    });
+                    count = count - 1;
+                    nestedHeaders.push({
+                        title: "Ngày Sửa :" + _lock.updated_at  ,
+                        colspan:3,
+
+                    });
+                    nestedHeaders.push({
+                        title:"" ,
+                        colspan: count,
+                        align:"left"
+                    });
+                }
+
+            }
+            if(nestedHeaders.length ==0){
+                nestedHeaders = [
+                    {
+                        title: "Không khóa",
+                        colspan: columns_index.length+4,
+                        align:"left"
+                    }
+                ]
+            }
+            console.info(columns);
+            return {
+                sheetName:sheetName,
+                rowResize:true,
+                columnDrag:true,
+                columns:Object.values(columns),
+                data:_data,
+                onload: function (e) {
+                    let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
+                    td.click(function () {
+                        if(!$(this).hasClass('open_popup')){
+                            return;
+                        }
+                        let parent = $(this).parent().data();
+
+                        if(parent.hasOwnProperty('info')){
+                            let info = parent.info;
+                            console.log(info);
+                            let company = parent.company;
+                            let count_errro = 0;
+                            for(let tab in info){
+                                let dom = $("#tab_"+tab);
+                                dom.empty();
+                                let table = "<table class=\"table table-bordered\">";
+                                table+="<tr>";
+                                // table+='<td>Mã</td>';
+                                // table+='<td>Phiên</td>';
+
+                                table+='<td>{!! z_language('Người lập') !!}</td>';
+                                table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
+                                table+='<td>{!! z_language("Ngày tạo") !!}</td>';
+                                table+='<td>{!! z_language("Số điện thoại") !!}</td>';
+                                table+='<td>{!! z_language("Công ty") !!}</td>';
+                                table+='<td>{!! z_language("Sản phẩm") !!}</td>';
+
+                                table+='<td>{!! z_language("Trạng thái") !!}</td>';
+                                table+='<td>{!! z_language("Xuất") !!}</td>';
+                                table+='<td>{!! z_language("Đường dẫn") !!}</td>';
+                                table+='<td>{!! z_language("Form nhập") !!}</td>';
+                                table+="</tr>";
+                                //  for(let pos in info){
+                                for(let com in info[tab]){
+                                    // if(com!=company) continue;
+                                    for(let index in info[tab][com]){
+                                        count_errro++;
+                                        let val = info[tab][com][index];
+                                        table+="<tr>";
+                                        table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+
+                                        table+='<td><strong style="color:red">'+val.province+'</strong></td>';
+                                        table+='<td><strong style="color:red">'+val.address+'</strong></td>';
+                                        if(tab == 3){
+                                            table+='<td><strong style="color:red">'+val.fullname+'</strong></td>';
+                                        }else{
+                                            table+='<td>'+val.fullname+'</td>';
+                                        }
+
+                                        table+='<td>'+val.order_create_date+'</td>';
+                                        table+='<td>'+val.phone+'</td>';
+                                        table+='<td>'+val.company+'</td>';
+                                        table+= "<td><table class=\"table table-bordered\">";
+                                        table+='<td>'+val.product_title+'</td>';
+                                        table+='<td>'+val.count+'</td>';
+                                        if(val.hasOwnProperty('items')){
+                                            for(let _index in val.items){
+                                                table+="<tr>";
+                                                table+='<td>'+val.items[_index].product_title+'</td>';
+                                                table+='<td>'+val.items[_index].count+'</td>';
+                                                table+="</tr>";
+                                            }
+                                        }
+                                        table+="</table></td>";
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
+                                        table+='<td>'+val.order_link+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
+                                        table+="</tr>";
+                                    }
+                                }
+                                //  }
+                                table+="</table>";
+                                dom.html(table);
+                            }
+                            $('#modal-default').modal('show');
+                        }
+                    });
+                },
+                nestedHeaders:[
+                    nestedHeaders
+                ],
+                contextMenu: function(obj, x, y, e) {
+                    var items = [];
+
+                    if (y == null) {
+                        // Insert a new column
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnBefore,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 1);
+                        //         }
+                        //     });
+                        // }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // Delete a column
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // // Rename column
+                        // // if (obj.options.allowRenameColumn === true) {
+                        // //     items.push({
+                        // //         title:obj.options.text.renameThisColumn,
+                        // //         onclick:function() {
+                        // //             obj.setHeader(x);
+                        // //         }
+                        // //     });
+                        // // }
+                        //
+                        // // Sorting
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
+                    } else {
+                        // Insert new row
+                        if (obj.options.allowInsertRow === true) {
+                            items.push({
+                                title:obj.options.text.insertANewRowBefore,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y), 1);
+                                }
+                            });
+
+                            items.push({
+                                title:obj.options.text.insertANewRowAfter,
+                                onclick:function() {
+                                    obj.insertRow(1, parseInt(y));
+                                }
+                            });
+                        }
+
+                        if (obj.options.allowDeleteRow === true) {
+                            items.push({
+                                title:obj.options.text.deleteSelectedRows,
+                                onclick:function() {
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
+                                    obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+                                    start = true;
+
+                                }
+                            });
+                        }
+
+                        if (x) {
+                            if (obj.options.allowComments === true) {
+                                items.push({ type:'line' });
+
+                                var title = obj.records[y][x].getAttribute('title') || '';
+
+                                items.push({
+                                    title: title ? obj.options.text.editComments : obj.options.text.addComments,
+                                    onclick:function() {
+                                        obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
+                                    }
+                                });
+
+                                if (title) {
+                                    items.push({
+                                        title:obj.options.text.clearComments,
+                                        onclick:function() {
+                                            obj.setComments([ x, y ], '');
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    return items;
+                },
+                onselection:function (instance, x1, y1, x2, y2, origin) {
+                    if(click === true){
+                        return;
+                    }
+                    click = true;
+
+                    console.log("x1"+x1 +" y1: "+ y1);
+
+                    setTimeout(function () {
+                        click = false;
+
+                        var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
+                        let cell = instance.jexcel.getCell(cellName1);
+                            $(".onselection").hide();
+                            let val = instance.jexcel.getValue(cellName1);
+                            $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
+                             console.log("ACTION");
+                            if(columns_index[x1] && columns_index[x1].type === "dropdown"){
+                                if(cell.classList.contains('editor')){
+                                console.log("val:"+val);
+                                    change = {col:x1,row:y1};
+                                $("#value-review").hide();
+                                $html = $("<div>");
+                                $("#zoe-dropdown-review").show().html($html);
+                                let init = true;
+                                change = {col:x1,row:y1};
+                                init = false;
+                                    // jSuites.dropdown($html[0], {
+                                    //     data:columns_index[x1].source,
+                                    //     value:val,
+                                    //     autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
+                                    //     multiple: columns_index[x1].hasOwnProperty('multiple'),
+                                    //     width:'100%',
+                                    //     onchange:function (el, a, oldValue, Value) {
+                                    //         //instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
+                                    //     },
+                                    // }).setValue(val);
+                                }
+                            }else if(columns_index[x1].key === "order_info"){
+
+                                //NGUYEN V 様 00 日に 0000 円入金済み
+                                let vals = val.trim().split(' ');
+                                let a = val.trim()+"";
+                                let b = ["様","日に","円入金済み"];
+                                vals=[];
+                                if(a.length > 0){
+
+                                    for(let i = 0; i<b.length;i++){
+                                        let results = a.split(b[i]);
+                                        if(results.length == 0) break;
+                                        a = results[1];
+                                        let val = results[0].trim();
+                                        if(val.length > 0){
+                                            vals.push(val);
+                                        }
+                                    }
+                                }
+                                $("#info_payment").show();
+                                let html  = "<table>";
+                                html+="<tr>";
+
+                                html+="<th>";
+                                html+='<input type="text" class="form-control name" value="'+(vals[0]?vals[0]:"")+'">';
+                                html+="</th>";
+
+                                html+="<th>";
+                                html+='様';
+                                html+="</th>";
+                                html+="<th>";
+                                html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
+                                html+="</th>";
+
+                                html+="<th>";
+                                html+='日に';
+                                html+="</th>";
+
+                                html+="<th>";
+                                html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
+                                html+="</th>";
+
+                                html+="<th>";
+                                html+='円入金済み';
+                                html+="</th>";
+
+                                html+="<td>";
+                                html+='&nbsp;<button type="button" class="btn">{!! z_language('Lưu') !!}</button>';
+                                html+="</td>";
+                                html+="</tr>";
+                                html+="</table>";
+                                var dom = $(html);
+                                dom.find('button').click(function () {
+                                    let th = dom.find('tr th');
+                                    let vals = "";
+                                    console.log(th);
+                                    for(let i = 0; i< th.length ; i++){
+                                        if(i%2===0){
+                                            vals+=" "+$(th[i]).find('input').val().trim();
+                                        }else{
+                                            vals+=" "+$(th[i]).text().trim();
+                                        }
+                                    }
+                                    setTimeout(function () {
+                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), vals.trim());
+                                    },1000);
+                                });
+                                $("#info_payment").html(dom);
+                            }
+                            else{
+                                change = {col:x1,row:y1};
+                                $("#value-review").show().val("");
+                                $("#zoe-dropdown-review").hide();
+                                $("#value-review").prop("disabled",false );
+                                if(columns_index[x1] && columns_index[x1].type === "text"){
+                                    if(columns_index[x1].hasOwnProperty('read')){
+                                        $("#value-review").prop( "disabled", true );
+                                    }
+                                }
+                                $("#value-review").show().val(val);
+                            }
+                    },500);
+                },
+                updateTable: function (instance, cell, col, row, val, id) {
+                    let c = parseInt(col);
+
+                    if (c === columns.image.index && val.length>0) {
+                        cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
+                    }
+
+                    cell.style.overflow = 'hidden';
+
+                    if(columns.id.index === c ){
+
+                        let v = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.order_ship.index, row]));
+                        if(v == -1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.add('error');
+                        else instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])).classList.remove('error');
+
+                        let value = instance.jexcel.getRowData(row);
+
+
+                        let count = 0;
+                        let countAddress = 0;
+                        for(let k in instance.jexcel.rows){
+                            let _val  = instance.jexcel.getRowData(k);
+                            if(value[columns.fullname.index].length > 0 && value[columns.fullname.index].replace(/\s+/g, ' ') === _val[columns.fullname.index].replace(/\s+/g, ' ')){
+                                count++;
+                            }
+                            if(value[columns.address.index].length > 0 && value[columns.address.index].replace(/\s/g, '') === _val[columns.address.index].replace(/\s/g, '')){
+                                countAddress++;
+                            }
+                        }
+                        instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.remove('error');
+                        if(count > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])).classList.add('error');
+
+                        instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.remove('error');
+                        if(countAddress > 1) instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])).classList.add('error');
+
+                        let vvv = getValuePayMethod(value[columns.payMethod.index]);
+                        let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, row]))).parent();
+                        parent.removeClass('pay-method-oke');
+                        if(vvv === 2){
+                            parent.addClass('pay-method-oke');
+                        }
+                        parent.removeClass('has_error');
+                        if(vvv === 2){
+                            let img = value[columns.image.index];
+                            let order_info = value[columns.order_info.index];
+                            let self = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.image.index, row]))).parent();
+                            if(img.length === 0 || order_info.length === 0){
+                                self.addClass('has_error');
+                            }
+                        }
+
+                        let _province = value[columns.province.index]+"".trim();
+                        let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
+                        let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
+
+                        let _order_ship = parseInt(value[columns.order_ship.index]);
+
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                        $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
+
+                        $col.removeClass('bor-error');
+                        $col_order_ship.removeClass('bor-error');
+
+                        if(_province.length <= 0){
+                            $col.addClass('bor-error')
+                        }else{
+                            if(isNaN(_order_ship) || _order_ship < 0){
+                                $col_order_ship.addClass('bor-error');
+                            }
+                        }
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
+                        $col.removeClass('bor-error')
+                        if(_address.length <= 0){
+                            $col.addClass('bor-error')
+                        }
+                        $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.fullname.index, row])));
+                        $col.removeClass('bor-error');
+
+                        $colorder_link = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_link.index, row])));
+                        $colorder_link.removeClass('bor-error');
+
+                        if(_fullname.length <= 0){
+                            $col.addClass('bor-error')
+                        }else{
+                            let order_link = value[columns.order_link.index]+"".trim();
+                            if(order_link.length === 0){
+                                $colorder_link.addClass('bor-error');
+                                if(!parent.hasClass('has_error')){
+                                    parent.addClass('has_error');
+                                }
+                            }
+                        }
+                        parent.removeClass('has_export');
+                        let _export = value[columns.export.index];
+                        if((_export+"").toString().length > 0){
+                            if(_export){
+                                parent.addClass('has_export');
+                            }
+                        }
+                    }
+                },
+                onchange:function(instance, cell, c, r, value) {
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
+                    start = true;
+
+                    c = parseInt(c);
+
+                    if(c === 7){
+                        console.info(c == columns.province.index);
+                    }
+                    if (c === columns.product_name.index) {
+                       // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
+                            if(change.col === c){
+                                change.col = {col: -1, row: -1};
+                                console.log("=>>>>>"+value);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), value);
+
+                             //   instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
+
+                              //  instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+                                change.col =  {col:-1,row:-1};
+                                update(instance, cell, c, r,{
+
+                                });
+                            }
+                      //  }
+                    }else if(
+                        c === columns.total_count.index || c === columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
+                        c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index ||c === columns.phone.index|| c === columns.fullname.index|| c === columns.address.index){
+                        if(change.col == c){
+                            if(c == columns.zipcode.index || c == columns.fullname.index || c == columns.address.index){
+                                change = {col:columns.province.index,row:r};
+                            }else{
+                                change.col =  {col:-1,row:-1};
+
+                                update(instance, cell, c, r,{
+
+                                });
+                            }
+                        }
+                    }else if(c == columns.province.index){
+
+                        if(change.col == c){
+                            change.col =  {col:-1,row:-1};
+                            update(instance, cell, c, r,{});
+                        }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        change.col =  {col:-1,row:-1};
+                                        update(instance, cell, c, r,{});
+                                    }
+                                }
+                            }
+                        }
+                    }else if(c === columns.payMethod.index){
+                        let v = getValuePayMethod(value);
+                        let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
+                        parent.removeClass('pay-method-oke');
+                        if(v === 2){
+                            parent.addClass('pay-method-oke');
+                        }
+                        if(change.col == c){
+                            change.col =  {col:-1,row:-1};
+
+                            update(instance, cell, c, r,{});
+                        }
+                    }else if(c === columns.status.index){
+                        change = {col:-1,row:-1};
+                        update(instance, cell, c, r,{});
+                    }
+                },
+            };
+        }
+        function BANH_CHUNG() {
+            let  sheetName  =  'BANH_CHUNG';
+            let data = [];
+            SaveEvent[sheetName] = {
+                save : false,
+                count : false,
+                check:false,
+                count_last:-1
+            };
+
+            {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
+
+                    {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
+                    {{--data = datacache[sheetName].data.data;--}}
+                    {{--console.log("cache")--}}
+                    {{--}--}}
+                    {{--}--}}
+
+            if(data.length === 0 && datamodel.hasOwnProperty(sheetName)){
+                data = datamodel[sheetName];
+            }
+            let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
+            let index = 0;
+            let change = {col:-1,row:-1};
+            let oldData = "";
+            let customColumn = {
+                closeEditor : function(cell, save) {
+                    console.log("closeEditor");
+
+                    return oldData;
+                },
+                openEditor : function(cell) {
+
+                    let dom = $(cell);
+
+                    let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                    let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+
+                    let _jexcel = spreadsheet.jexcel[worksheet];
+
+                    var cellName1 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x'))-1, dom.attr('data-y')]);
+                    var cellName2 = jexcel.getColumnNameFromId([parseInt(dom.attr('data-x')), dom.attr('data-y')]);
+
+                    oldData = (_jexcel.getValue(cellName2)).toString();
+                    let valsProduct = (_jexcel.getValue(cellName1)).toString().split(";");
+
+                    valsProduct.sort(function(a, b){
+                        if(dropdown.hasOwnProperty(a)){
+                            return dropdown[b].data.order_index - dropdown[a].data.order_index;
+                        }
+                    });
+
+                    let valsCount = {};
+                    try{
+                        valsCount = JSON.parse(oldData);
+                    }catch (e) {
+                        valsCount = {};
+                    }
+
+                    let $html = "<table  class='table table-bordered config_count'>";
+                    $html+="<tr><th>Tên</th><th>Tên</th><th style='width: 80px;'>Số lượng</th><th></th><th></th><th></th><<th></th><th>Tên</th><th>Tên</th><th style='width: 80px;'>Số lượng</th></tr>";
+
+
+
+                    let open = false;
+                    let count = 0;
+                    for (let i in valsProduct){
+                        if(dropdown.hasOwnProperty(valsProduct[i])){
+                            let item = dropdown[valsProduct[i]];
+                            if(open === false && count%2 === 0){
+                                $html+="<tr>";open = true;
+                            }
+                            $html+="<td>"+item.name+"</td>";
+                            $html+="<td>"+item.title+"</td>";
+                            $html+="<td><input min=\"1\" max=\"10\" class=\"form-control count\" type='number' data-id='"+valsProduct[i]+"' value='"+(valsCount.hasOwnProperty(valsProduct[i])?valsCount[valsProduct[i]]:0)+"'></td>";
+                            if(count === 0){
+                                $html+="<td colspan=4></td>";
+                            }
+                            count++;
+
+                            if(open === true && count === 2){
+
+                                $html+="</tr>";
+                                open = false;
+                                count = 0;
+                            }
+                        }
+                    }
+                    if(open === true){
+                        $html+="</tr>";
+                        open = false;
+                        count = 0;
+                    }
+                    $html+= "<table>";
+
+                    let action = function () {
+                        let parent = $('.config_count').find('.count');
+                        let vals = {};
+                        parent.each(function () {
+                            let _dom = $(this);
+                            let v = parseInt( _dom.val());
+                            vals[_dom.attr('data-id')] = isNaN(v)?0:v;
+                        });
+                        let data = {};
+                        for (let i in valsProduct){
+                            if(dropdown.hasOwnProperty(valsProduct[i])){
+                                if(vals.hasOwnProperty(valsProduct[i])){
+                                    data[valsProduct[i]] = vals[valsProduct[i]];
+                                }else{
+                                    data[valsProduct[i]] = 1;
+                                }
+                            }
+                        }
+                        cell.innerHTML =JSON.stringify(data);
+                        oldData = cell.innerHTML;
+                        _jexcel.setValue(cellName2,cell.innerHTML);
+                    };
+
+                    bootpopup({
+                        title: "Custom HTML",
+                        size: "large",
+                        showclose: false,
+                        content: [$html],
+                        ok: action,
+                        cancel:function () {
+                            console.log('bootpopup:cancel');
+
+                        },
+                        dismiss:function () {
+                            console.log('bootpopup:dismiss')
+                        },
+                        before: function () {
+                            console.log('bootpopup:before')
+                        }
+                    });
+                },
+                getValue : function(cell) {
+                    return cell.innerHTML;
+                },
+                setValue : function(cell, value) {
+                    cell.innerHTML = value;
+                }
+            };
+            let checkShip = {
+
+            };
+            let columns = {
+                status: {
+                    type: 'checkbox',
+                    title:'{!! z_language('Trạng thái') !!}'
+                },
+                image:{
+                    title:'{!! z_language('Ảnh') !!}',
+                    type:'image',
+                    width:"50px",
+                    hide:true,
                 },
                 order_info:{
                     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
@@ -4870,6 +6387,190 @@
                     width:'100px',
                     key:"demo",
                 },
+                timeCreate:{
+                    title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
+                    type: 'calendar',
+                    width:'100px',
+                    options: { format:'DD/MM/YYYY' },
+                    value:['date','now']
+                },
+                payMethod:{
+                    title: '{!! z_language("Phương thức thanh toán") !!}',//B Phương thức thanh toán
+                    type:'dropdown',
+                    source:[
+                        "代金引換",
+                        "銀行振込",
+                        "決済不要",
+                    ],
+                    width:'130px',
+                    value:['product','this','source',0],
+                },
+                phone:{
+                    title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
+                    type: 'text',
+                    width:'100px',
+                    value:"070-1398-2234",
+                },
+                zipcode:{
+                    title: '{!! z_language("Mã bưu điện") !!}',//D Mã bưu điện
+                    type: 'text',
+                    width:'60px',
+                    key:"demo",
+                },
+                province:{
+                    title: '{!! z_language("Tỉnh/TP") !!}',//E Tỉnh/TP
+                    type: 'text',
+                    width:'200px',
+                    key:"demo",
+                },
+                address:{
+                    title: '{!! z_language("Địa chỉ giao hàng") !!}',//F Địa chỉ giao hàng
+                    type: 'text',
+                    width:'250px',
+                    key:"demo",
+                },
+                fullname:{
+                    title: '{!! z_language("Họ tên người nhận") !!}',//G Họ tên người nhận
+                    type: 'text',
+                    width:'150px',
+                    key:"demo",
+                },
+                order_link:{
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                },
+                product_id:{
+                    title: '{!! z_language("Mã SP") !!}',//H Mã SP
+                    type: 'text',
+                    width:'100px',
+                    read:true,
+                    value:(function () {
+                        $id = "";
+                        for(let index in dropdown){
+                            $id+=dropdown[index].id+";";
+                        }
+                        return $id.trim(";");
+                    })(),
+                },
+                product_name:{
+                    title: '{!! z_language("Tên SP") !!}',//I Tên SP
+                    type:'dropdown',
+                    source:Object.values(dropdown),
+                    autocomplete:true,
+                    multiple: true,
+                    width:'160px',
+                    value:(function () {
+                        $id = "";
+                        for(let index in dropdown){
+                            $id+=dropdown[index].id+";";
+                        }
+                        return $id.trim(";");
+                    })()
+                },
+                count:{
+                    title: '{!! z_language("Loại thịt + SL") !!}',//K SL
+                    type: 'text',
+                    width:'150px',
+                    multiple: true,
+                    value:(function () {
+                        let _count = {};
+                        let _id = 0;
+                        for(let index in dropdown){
+                            if(_id === 0){
+                                _id = dropdown[index].id;
+                                _count[dropdown[index].id] = 1;
+                            }else{
+                                _count[dropdown[index].id] = 0;
+                            }
+
+                        }
+                        return  JSON.stringify(_count);
+                    })()
+                },
+                total_count:{
+                    title: '{!! z_language("SL Tổng") !!}',//K SL  title: '',//K SL Tổng
+                    type: 'numeric',
+                    width:'60px',
+                    value:1,
+                },
+                price:{
+                    title: '{!! z_language("Giá nhập") !!}',//J Giá nhập
+                    type: 'numeric',
+                    width:'100px',
+                    value:['product','product_name','source',0,'data','price'],
+                },
+                price_buy:{
+                    title: '{!! z_language("Giá bán") !!}',//J Giá nhập
+                    type: 'numeric',
+                    width:'100px',
+                    value:['product','product_name','source',0,'data','price_buy'],
+                },
+                order_date:{
+                    title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
+                    type:'calendar',
+                    options: { format:'DD/MM/YYYY'},
+                    value:['date','nowSum',2],
+                    width:'100px',
+                },
+                order_hours:{
+                    title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
+                    type: 'dropdown',
+                    source:['8:00 ~ 12:00','12:00～14:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
+                    value:['product','this','source',5],
+                    width:'150px',
+                },
+                order_ship:{
+                    title: '{!! z_language("Phí ship") !!}',//N Phí ship
+                    type: 'numeric',
+                    width:'100px',
+                    value:-1
+                },
+                order_total_price:{
+                    title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
+                    type: 'numeric',
+                    width:'100px',
+                    value:['product','product_name','source',0,'data','price'],
+                },
+                price_buy_sale:{
+                    title: '{!! z_language("Tăng Giảm") !!}',//J Giá nhập
+                    type: 'numeric',
+                    width:'100px',
+                    value:0,
+                },
+                order_total_price_buy:{
+                    title: '{!! z_language("Total Bán") !!}',//P Giá bán
+                    type: 'numeric',
+                    width:'100px',
+                    value:['product','product_name','source',0,'data','price_buy'],
+                },
+                order_ship_cou:{
+                    title: '{!! z_language("Phí giao hàng") !!}',//P Phí giao hàng
+                    type: 'numeric',
+                    width:'100px',
+                    value:0
+                },
+                order_price:{
+                    title: '{!! z_language("Lợi nhuận") !!}',//P Lợi nhuận
+                    type: 'numeric',
+                    width:'100px',
+                    value:0
+                },
+                order_rate:{
+                    title: '{!! z_language("Lợi nhuận CTV") !!}',//P
+                    type: 'numeric',
+                    width:'100px',
+                    value:0,
+                    readOnly:true,
+                },
+                order_tracking:{
+                    title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
+                    type: 'text',
+                    width:'100px',
+                    key:"demo",
+                },
+
+
                 one_address: {
                     type: 'checkbox',
                     title:'{!! z_language("Cùng địa chỉ") !!}'
@@ -4965,6 +6666,14 @@
 
 
                 let valueRow =  instance.jexcel.getRowData(r);
+
+                let idOrder = valueRow[columns.id.index]+"";
+
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
+
+
                 let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
 
                 data.payMethod = payMethod;
@@ -5151,39 +6860,45 @@
                         }
                     }
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
-                    $ship_cou = $ship_cou == -1?0:$ship_cou;
+                   // $ship_cou = $ship_cou == -1?0:$ship_cou;
+                    $ship_cou = 432;
+                    if($province.length > 0){
+                        checkShip[r] = {};
+                        checkShip[r][$province] = price_ship;
+                    }
                     return {
-                        order_ship:parseInt(price_ship === -1 ? 0 :price_ship),
+                        order_ship:parseInt(price_ship === -1 ? price_ship :price_ship),
                         order_ship_cou:parseInt($ship_cou)
                     };
                 }
                 function setInterest(price_ship,order_ship_cou,total_price_buy,total_count){
-
-                    price_ship = price_ship * total_count;
-                    console.log("price_ship:"+price_ship);
-                    console.log("total_price_buy:"+total_price_buy);
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
-                   // total_price_buy = total_price_buy;
+                    if(price_ship < 0){
+                        price_ship = 0;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),-1);
+                    }else{
+                        price_ship = price_ship * total_count;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    }
+                    // total_price_buy = total_price_buy;
                     console.log(total_price_buy);
                     if(total_price_buy === 0 || total_price === 0){ return;}
 
                     if(payMethod == 3){
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]), 0);
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), 0);
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]), 0);
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
+                        let a = (0 - parseInt(total_price) - parseInt(price_ship));
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
                     }else if(payMethod == 2){
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy-330,false );
-                        let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship)) - 330;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy-432,false );
+                        let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship)) - 432;
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
                     }else{
                         let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
                         if(one_address){
 
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy-330,false );
-                            let a = (parseInt(total_price_buy)-330- parseInt(total_price) - parseInt(price_ship)) - 330;
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy-432,false );
+                            let a = (parseInt(total_price_buy)-432- parseInt(total_price) - parseInt(price_ship)) - 432;
 
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
@@ -5203,11 +6918,11 @@
                         update(instance,cell, c, Row, {});
                     }
                 }
-                 data.count = totalCount;
+                data.count = totalCount;
                 if(dropdown.hasOwnProperty(product_id)){
                     let confShipCou = GetShip(dropdown[product_id].data,dropdown[product_id].data.category_id,totalCount,data.province,total_price_buy,payMethod,total_price_buy_all);
 
-                    setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 330,total_count)
+                    setInterest(confShipCou.order_ship   , confShipCou.order_ship_cou,total_price_buy + 432,total_count)
                 }
 
                 //    if(value.hasOwnProperty('lock') && value.lock.indexOf(columns.order_ship.index)){
@@ -5276,24 +6991,28 @@
                 onload: function (e) {
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
+                        if(!$(this).hasClass('open_popup')){
+                            return;
+                        }
                         let parent = $(this).parent().data();
 
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            console.log(info);
                             let company = parent.company;
-
-
-
+                            let count_errro = 0;
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
+                                dom.empty();
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
                                 // table+='<td>Mã</td>';
                                 // table+='<td>Phiên</td>';
+
                                 table+='<td>{!! z_language('Người lập') !!}</td>';
-                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
-                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
                                 table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
                                 table+='<td>{!! z_language("Ngày tạo") !!}</td>';
                                 table+='<td>{!! z_language("Số điện thoại") !!}</td>';
                                 table+='<td>{!! z_language("Công ty") !!}</td>';
@@ -5302,40 +7021,48 @@
                                 table+='<td>{!! z_language("Trạng thái") !!}</td>';
                                 table+='<td>{!! z_language("Xuất") !!}</td>';
                                 table+='<td>{!! z_language("Đường dẫn") !!}</td>';
+                                table+='<td>{!! z_language("Form nhập") !!}</td>';
                                 table+="</tr>";
-                                for(let pos in info){
-                                    for(let com in info[pos]){
-                                        if(com!=company) continue;
-                                        for(let index in info[pos][com]){
-                                            let val = info[pos][com][index];
-                                            table+="<tr>";
-                                            table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                //  for(let pos in info){
+                                for(let com in info[tab]){
+                                    // if(com!=company) continue;
+                                    for(let index in info[tab][com]){
+                                        count_errro++;
+                                        let val = info[tab][com][index];
+                                        table+="<tr>";
+                                        table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+
+                                        table+='<td><strong style="color:red">'+val.province+'</strong></td>';
+                                        table+='<td><strong style="color:red">'+val.address+'</strong></td>';
+                                        if(tab == 3){
+                                            table+='<td><strong style="color:red">'+val.fullname+'</strong></td>';
+                                        }else{
                                             table+='<td>'+val.fullname+'</td>';
-                                            table+='<td>'+val.address+'</td>';
-                                            table+='<td>'+val.province+'</td>';
-                                            table+='<td>'+val.order_create_date+'</td>';
-                                            table+='<td>'+val.phone+'</td>';
-                                            table+='<td>'+val.company+'</td>';
-                                            table+= "<td><table class=\"table table-bordered\">";
-                                            table+='<td>'+val.product_title+'</td>';
-                                            table+='<td>'+val.count+'</td>';
-                                            if(val.hasOwnProperty('items')){
-                                                for(let _index in val.items){
-                                                    table+="<tr>";
-                                                    table+='<td>'+val.items[_index].product_title+'</td>';
-                                                    table+='<td>'+val.items[_index].count+'</td>';
-                                                    table+="</tr>";
-                                                }
-                                            }
-                                            table+="</table></td>";
-                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
-                                            table+='<td>'+val.order_link+'</td>';
-                                            table+="</tr>";
                                         }
+
+                                        table+='<td>'+val.order_create_date+'</td>';
+                                        table+='<td>'+val.phone+'</td>';
+                                        table+='<td>'+val.company+'</td>';
+                                        table+= "<td><table class=\"table table-bordered\">";
+                                        table+='<td>'+val.product_title+'</td>';
+                                        table+='<td>'+val.count+'</td>';
+                                        if(val.hasOwnProperty('items')){
+                                            for(let _index in val.items){
+                                                table+="<tr>";
+                                                table+='<td>'+val.items[_index].product_title+'</td>';
+                                                table+='<td>'+val.items[_index].count+'</td>';
+                                                table+="</tr>";
+                                            }
+                                        }
+                                        table+="</table></td>";
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
+                                        table+='<td>'+val.order_link+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
+                                        table+="</tr>";
                                     }
                                 }
-
+                                //  }
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -5351,61 +7078,61 @@
 
                     if (y == null) {
                         // Insert a new column
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnBefore,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 1);
-                                }
-                            });
-                        }
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnAfter,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 0);
-                                }
-                            });
-                        }
-
-                        // Delete a column
-                        if (obj.options.allowDeleteColumn === true) {
-                            items.push({
-                                title:obj.options.text.deleteSelectedColumns,
-                                onclick:function() {
-                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                                }
-                            });
-                        }
-
-                        // // Rename column
-                        // if (obj.options.allowRenameColumn === true) {
+                        // if (obj.options.allowInsertColumn === true) {
                         //     items.push({
-                        //         title:obj.options.text.renameThisColumn,
+                        //         title:obj.options.text.insertANewColumnBefore,
                         //         onclick:function() {
-                        //             obj.setHeader(x);
+                        //             obj.insertColumn(1, parseInt(x), 1);
                         //         }
                         //     });
                         // }
-
-                        // Sorting
-                        if (obj.options.columnSorting == true) {
-
-                            items.push({ type:'line' });
-
-                            items.push({
-                                title:obj.options.text.orderAscending,
-                                onclick:function() {
-                                    obj.orderBy(x, 0);
-                                }
-                            });
-                            items.push({
-                                title:obj.options.text.orderDescending,
-                                onclick:function() {
-                                    obj.orderBy(x, 1);
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // Delete a column
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // // Rename column
+                        // // if (obj.options.allowRenameColumn === true) {
+                        // //     items.push({
+                        // //         title:obj.options.text.renameThisColumn,
+                        // //         onclick:function() {
+                        // //             obj.setHeader(x);
+                        // //         }
+                        // //     });
+                        // // }
+                        //
+                        // // Sorting
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
                     } else {
                         // Insert new row
                         if (obj.options.allowInsertRow === true) {
@@ -5428,7 +7155,16 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+                                    start = true;
+
                                 }
                             });
                         }
@@ -5472,107 +7208,119 @@
 
                         var cellName1 = jexcel.getColumnNameFromId([columns_index[x1].index, y1]);
                         let cell = instance.jexcel.getCell(cellName1);
-                            $(".onselection").hide();
-                            let val = instance.jexcel.getValue(cellName1);
-                            $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
-                             console.log("ACTION");
-                            if(columns_index[x1] && columns_index[x1].type === "dropdown"){
-                                if(cell.classList.contains('editor')){
+                        $(".onselection").hide();
+                        let val = instance.jexcel.getValue(cellName1);
+                        $("#col-row-review").data({"x":x1,y:y1}).val(cellName1);
+                        console.log("ACTION");
+                        if(columns_index[x1] && columns_index[x1].type === "dropdown"){
+                            if(cell.classList.contains('editor')){
                                 console.log("val:"+val);
-                                    change = {col:x1,row:y1};
+                                change = {col:x1,row:y1};
                                 $("#value-review").hide();
                                 $html = $("<div>");
                                 $("#zoe-dropdown-review").show().html($html);
                                 let init = true;
                                 change = {col:x1,row:y1};
                                 init = false;
-                                    // jSuites.dropdown($html[0], {
-                                    //     data:columns_index[x1].source,
-                                    //     value:val,
-                                    //     autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
-                                    //     multiple: columns_index[x1].hasOwnProperty('multiple'),
-                                    //     width:'100%',
-                                    //     onchange:function (el, a, oldValue, Value) {
-                                    //         //instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
-                                    //     },
-                                    // }).setValue(val);
-                                }
-                            }else if(columns_index[x1].key === "order_info"){
-
-                                //NGUYEN V 様 00 日に 0000 円入金済み
-                                let vals = val.trim().split(' ');
-                                console.log(vals);
-                                $("#info_payment").show();
-                                let html  = "<table>";
-                                html+="<tr>";
-
-                                html+="<th>";
-                                html+='<input type="text" class="form-control name" value="'+(vals[0]?vals[0]:"")+'">';
-                                html+="</th>";
-
-                                html+="<th>";
-                                html+='様';
-                                html+="</th>";
-                                html+="<th>";
-                                html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
-                                html+="</th>";
-
-                                html+="<th>";
-                                html+='日に';
-                                html+="</th>";
-
-                                html+="<th>";
-                                html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
-                                html+="</th>";
-
-                                html+="<th>";
-                                html+='円入金済み';
-                                html+="</th>";
-
-                                html+="<td>";
-                                html+='&nbsp;<button type="button" class="btn">{!! z_language('Lưu') !!}</button>';
-                                html+="</td>";
-                                html+="</tr>";
-                                html+="</table>";
-                                var dom = $(html);
-                                dom.find('button').click(function () {
-                                    let th = dom.find('tr th');
-                                    let vals = "";
-                                    console.log(th);
-                                    for(let i = 0; i< th.length ; i++){
-                                        if(i%2===0){
-                                            vals+=" "+$(th[i]).find('input').val().trim();
-                                        }else{
-                                            vals+=" "+$(th[i]).text().trim();
-                                        }
-                                    }
-                                    setTimeout(function () {
-                                        instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), vals.trim());
-                                    },1000);
-                                });
-                                $("#info_payment").html(dom);
+                                // jSuites.dropdown($html[0], {
+                                //     data:columns_index[x1].source,
+                                //     value:val,
+                                //     autocomplete: columns_index[x1].hasOwnProperty('autocomplete'),
+                                //     multiple: columns_index[x1].hasOwnProperty('multiple'),
+                                //     width:'100%',
+                                //     onchange:function (el, a, oldValue, Value) {
+                                //         //instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), Value);
+                                //     },
+                                // }).setValue(val);
                             }
-                            else{
-                                change = {col:x1,row:y1};
-                                $("#value-review").show().val("");
-                                $("#zoe-dropdown-review").hide();
-                                $("#value-review").prop("disabled",false );
-                                if(columns_index[x1] && columns_index[x1].type === "text"){
-                                    if(columns_index[x1].hasOwnProperty('read')){
-                                        $("#value-review").prop( "disabled", true );
+                        }else if(columns_index[x1].key === "order_info"){
+
+                            //NGUYEN V 様 00 日に 0000 円入金済み
+                            let vals = val.trim().split(' ');
+                            let a = val.trim()+"";
+                            let b = ["様","日に","円入金済み"];
+                            vals=[];
+                            if(a.length > 0){
+
+                                for(let i = 0; i<b.length;i++){
+                                    let results = a.split(b[i]);
+                                    if(results.length == 0) break;
+                                    a = results[1];
+                                    let val = results[0].trim();
+                                    if(val.length > 0){
+                                        vals.push(val);
                                     }
                                 }
-                                $("#value-review").show().val(val);
                             }
+                            $("#info_payment").show();
+                            let html  = "<table>";
+                            html+="<tr>";
+
+                            html+="<th>";
+                            html+='<input type="text" class="form-control name" value="'+(vals[0]?vals[0]:"")+'">';
+                            html+="</th>";
+
+                            html+="<th>";
+                            html+='様';
+                            html+="</th>";
+                            html+="<th>";
+                            html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
+                            html+="</th>";
+
+                            html+="<th>";
+                            html+='日に';
+                            html+="</th>";
+
+                            html+="<th>";
+                            html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
+                            html+="</th>";
+
+                            html+="<th>";
+                            html+='円入金済み';
+                            html+="</th>";
+
+                            html+="<td>";
+                            html+='&nbsp;<button type="button" class="btn">{!! z_language('Lưu') !!}</button>';
+                            html+="</td>";
+                            html+="</tr>";
+                            html+="</table>";
+                            var dom = $(html);
+                            dom.find('button').click(function () {
+                                let th = dom.find('tr th');
+                                let vals = "";
+                                console.log(th);
+                                for(let i = 0; i< th.length ; i++){
+                                    if(i%2===0){
+                                        vals+=" "+$(th[i]).find('input').val().trim();
+                                    }else{
+                                        vals+=" "+$(th[i]).text().trim();
+                                    }
+                                }
+                                setTimeout(function () {
+                                    instance.jexcel.setValue(jexcel.getColumnNameFromId([x1, y1]), vals.trim());
+                                },1000);
+                            });
+                            $("#info_payment").html(dom);
+                        }
+                        else{
+                            change = {col:x1,row:y1};
+                            $("#value-review").show().val("");
+                            $("#zoe-dropdown-review").hide();
+                            $("#value-review").prop("disabled",false );
+                            if(columns_index[x1] && columns_index[x1].type === "text"){
+                                if(columns_index[x1].hasOwnProperty('read')){
+                                    $("#value-review").prop( "disabled", true );
+                                }
+                            }
+                            $("#value-review").show().val(val);
+                        }
                     },500);
                 },
                 updateTable: function (instance, cell, col, row, val, id) {
                     let c = parseInt(col);
-
                     if (c === columns.image.index && val.length>0) {
                         cell.innerHTML = '<img src="' + val + '" style="width:20px;height:20px">';
                     }
-
                     cell.style.overflow = 'hidden';
 
                     if(columns.id.index === c ){
@@ -5621,11 +7369,20 @@
                         let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                         let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
+                        let _order_ship = parseInt(value[columns.order_ship.index]);
+
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                        $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                         $col.removeClass('bor-error');
+                        $col_order_ship.removeClass('bor-error');
+
                         if(_province.length <= 0){
                             $col.addClass('bor-error')
+                        }else{
+                            if(isNaN(_order_ship) || _order_ship < 0){
+                                $col_order_ship.addClass('bor-error');
+                            }
                         }
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                         $col.removeClass('bor-error')
@@ -5659,7 +7416,11 @@
                     }
                 },
                 onchange:function(instance, cell, c, r, value) {
-                   
+
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
+                    start = true;
                     c = parseInt(c);
                     console.log(change);
                     console.log();
@@ -5668,23 +7429,23 @@
                         return;
                     }
                     if (c === columns.product_name.index) {
-                       // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
-                            if(change.col === c){
-                                change.col = {col: -1, row: -1};
-                                console.log("=>>>>>"+value);
-                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), value);
+                        // if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
+                        if(change.col === c){
+                            change.col = {col: -1, row: -1};
+                            console.log("=>>>>>"+value);
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), value);
 
-                             //   instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
+                            //   instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
 
-                              //  instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
-                                change.col =  {col:-1,row:-1};
-                                update(instance, cell, c, r,{
+                            //  instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+                            change.col =  {col:-1,row:-1};
+                            update(instance, cell, c, r,{
 
-                                });
-                                 
-                            }
-                      //  }
-                    }else if(c === columns.total_count.index|| columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
+                            });
+
+                        }
+                        //  }
+                    }else if(c === columns.total_count.index|| c === columns.zipcode.index || c === columns.count.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
                             if(c === columns.zipcode.index){
@@ -5697,9 +7458,20 @@
                             }
                         }
                     }else if(c === columns.province.index){
+
                         if(change.col == c){
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
+                        }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        update(instance, cell, c, r,{});
+                                    }
+                                }
+                            }
                         }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
@@ -5712,16 +7484,22 @@
                             change.col =  {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else if(c === columns.status.index){
+                        change = {col:-1,row:-1};
+                        update(instance, cell, c, r,{});
                     }
                 },
-
             };
         }
-
         function OHGA() {
             let  sheetName  =  'OHGA';
             let data = [];
-
+            SaveEvent[sheetName] = {
+                save : false,
+                count : 0,
+                check:false,
+                count_last:-1
+            };
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
                     {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
@@ -5737,7 +7515,9 @@
 
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+            let checkShip = {
 
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -5748,6 +7528,12 @@
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                order_info:{
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                    key:"demo",
                 },
                 timeCreate:{
                     title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
@@ -5797,6 +7583,11 @@
                     width:'150px',
                     key:"demo",
                 },
+                order_link:{
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                },
                 product_id:{
                     title: '{!! z_language("Mã SP") !!}',//H Mã SP
                     type: 'text',
@@ -5807,7 +7598,7 @@
                 product_name:{
                     title: '{!! z_language("Tên SP") !!}',//I Tên SP
                     type:'dropdown',
-                    source:Object.values(dropdown),
+                    source:Object.values(dropdown).sort(function(x,y){return y.data.order_index - x.data.order_index}),
                     autocomplete:true,
                     width:'140px',
                     value:['product','this','source',0,'id']
@@ -5841,15 +7632,15 @@
                 order_hours:{
                     title: '{!! z_language("Giờ nhận") !!}',//M Giờ nhận
                     type: 'dropdown',
-                    source:['8:00 ~ 12:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00'],
-                    value:['product','this','source',4],
+                    source:['8:00 ~ 12:00','12:00～14:00','14:00～16:00','16:00～18:00','18:00～20:00','19:00～21:00','20:00～21:00'],
+                    value:['product','this','source',5],
                     width:'150px',
                 },
                 order_ship:{
                     title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:-1
                 },
                 order_total_price:{
                     title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
@@ -5885,7 +7676,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'100px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -5893,17 +7685,8 @@
                     width:'100px',
                     key:"demo",
                 },
-                order_link:{
-                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                },
-                order_info:{
-                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                    key:"demo",
-                },
+
+
                 one_address: {
                     type: 'checkbox',
                     title:'{!! z_language("Cùng địa chỉ") !!}'
@@ -5983,6 +7766,14 @@
                 let total_price =  0;
 
                 let valueRow =  instance.jexcel.getRowData(r);
+
+
+                let idOrder = valueRow[columns.id.index]+"";
+
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
+
                 let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
                 data.payMethod = payMethod;
                 data.sheetName = sheetName;
@@ -6189,11 +7980,21 @@
 
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
-                    return {order_ship:parseInt(price_ship == -1?0:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
+                    if($province.length > 0){
+                        checkShip[r] = {};
+                        checkShip[r][$province] = price_ship;
+                    }
+                    return {order_ship:parseInt(price_ship == -1?price_ship:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
-                    price_ship = price_ship*data.count;
-                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    if(price_ship < 0){
+                        price_ship = 0;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),-1);
+                    }else{
+                        price_ship = price_ship*data.count;
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                    }
+
 
 
                     total_price_buy = total_price_buy+price_ship;
@@ -6206,9 +8007,9 @@
                     instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                     if(payMethod == 3){
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]), 0);
-                        // instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), 0);
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]), 0);
+                        let a = (0 - parseInt(total_price) - parseInt(price_ship));
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
+                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
                     }else if(payMethod == 2){
                         let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship));
 
@@ -6267,7 +8068,7 @@
             let _data = InitData(data,config,columns_index,sheetName);
             let change = {col:-1,row:-1};
             let nestedHeaders = [];
-            if(locks .hasOwnProperty(sheetName)){
+            if(locks.hasOwnProperty(sheetName)){
                 let _lock  = locks [sheetName];
 
                 let dateNow = stringDate;
@@ -6323,24 +8124,28 @@
                 onload: function (e) {
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
+                        if(!$(this).hasClass('open_popup')){
+                            return;
+                        }
                         let parent = $(this).parent().data();
 
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            console.log(info);
                             let company = parent.company;
-
-
-
+                            let count_errro = 0;
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
+                                dom.empty();
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
                                 // table+='<td>Mã</td>';
                                 // table+='<td>Phiên</td>';
+
                                 table+='<td>{!! z_language('Người lập') !!}</td>';
-                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
-                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
                                 table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
                                 table+='<td>{!! z_language("Ngày tạo") !!}</td>';
                                 table+='<td>{!! z_language("Số điện thoại") !!}</td>';
                                 table+='<td>{!! z_language("Công ty") !!}</td>';
@@ -6349,40 +8154,48 @@
                                 table+='<td>{!! z_language("Trạng thái") !!}</td>';
                                 table+='<td>{!! z_language("Xuất") !!}</td>';
                                 table+='<td>{!! z_language("Đường dẫn") !!}</td>';
+                                table+='<td>{!! z_language("Form nhập") !!}</td>';
                                 table+="</tr>";
-                                for(let pos in info){
-                                    for(let com in info[pos]){
-                                        if(com!=company) continue;
-                                        for(let index in info[pos][com]){
-                                            let val = info[pos][com][index];
-                                            table+="<tr>";
-                                            table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+                                //  for(let pos in info){
+                                for(let com in info[tab]){
+                                    // if(com!=company) continue;
+                                    for(let index in info[tab][com]){
+                                        count_errro++;
+                                        let val = info[tab][com][index];
+                                        table+="<tr>";
+                                        table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
+
+                                        table+='<td><strong style="color:red">'+val.province+'</strong></td>';
+                                        table+='<td><strong style="color:red">'+val.address+'</strong></td>';
+                                        if(tab == 3){
+                                            table+='<td><strong style="color:red">'+val.fullname+'</strong></td>';
+                                        }else{
                                             table+='<td>'+val.fullname+'</td>';
-                                            table+='<td>'+val.address+'</td>';
-                                            table+='<td>'+val.province+'</td>';
-                                            table+='<td>'+val.order_create_date+'</td>';
-                                            table+='<td>'+val.phone+'</td>';
-                                            table+='<td>'+val.company+'</td>';
-                                            table+= "<td><table class=\"table table-bordered\">";
-                                            table+='<td>'+val.product_title+'</td>';
-                                            table+='<td>'+val.count+'</td>';
-                                            if(val.hasOwnProperty('items')){
-                                                for(let _index in val.items){
-                                                    table+="<tr>";
-                                                    table+='<td>'+val.items[_index].product_title+'</td>';
-                                                    table+='<td>'+val.items[_index].count+'</td>';
-                                                    table+="</tr>";
-                                                }
-                                            }
-                                            table+="</table></td>";
-                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
-                                            table+='<td>'+val.order_link+'</td>';
-                                            table+="</tr>";
                                         }
+
+                                        table+='<td>'+val.order_create_date+'</td>';
+                                        table+='<td>'+val.phone+'</td>';
+                                        table+='<td>'+val.company+'</td>';
+                                        table+= "<td><table class=\"table table-bordered\">";
+                                        table+='<td>'+val.product_title+'</td>';
+                                        table+='<td>'+val.count+'</td>';
+                                        if(val.hasOwnProperty('items')){
+                                            for(let _index in val.items){
+                                                table+="<tr>";
+                                                table+='<td>'+val.items[_index].product_title+'</td>';
+                                                table+='<td>'+val.items[_index].count+'</td>';
+                                                table+="</tr>";
+                                            }
+                                        }
+                                        table+="</table></td>";
+                                        table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                        table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
+                                        table+='<td>'+val.order_link+'</td>';
+                                        table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
+                                        table+="</tr>";
                                     }
                                 }
-
+                                //  }
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -6397,61 +8210,61 @@
                     var items = [];
                     if (y == null) {
                         // Insert a new column
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnBefore,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 1);
-                                }
-                            });
-                        }
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnAfter,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 0);
-                                }
-                            });
-                        }
-
-                        // Delete a column
-                        if (obj.options.allowDeleteColumn === true) {
-                            items.push({
-                                title:obj.options.text.deleteSelectedColumns,
-                                onclick:function() {
-                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                                }
-                            });
-                        }
-
-                        // // Rename column
-                        // if (obj.options.allowRenameColumn === true) {
+                        // if (obj.options.allowInsertColumn === true) {
                         //     items.push({
-                        //         title:obj.options.text.renameThisColumn,
+                        //         title:obj.options.text.insertANewColumnBefore,
                         //         onclick:function() {
-                        //             obj.setHeader(x);
+                        //             obj.insertColumn(1, parseInt(x), 1);
                         //         }
                         //     });
                         // }
-
-                        // Sorting
-                        if (obj.options.columnSorting == true) {
-
-                            items.push({ type:'line' });
-
-                            items.push({
-                                title:obj.options.text.orderAscending,
-                                onclick:function() {
-                                    obj.orderBy(x, 0);
-                                }
-                            });
-                            items.push({
-                                title:obj.options.text.orderDescending,
-                                onclick:function() {
-                                    obj.orderBy(x, 1);
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // Delete a column
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // // Rename column
+                        // // if (obj.options.allowRenameColumn === true) {
+                        // //     items.push({
+                        // //         title:obj.options.text.renameThisColumn,
+                        // //         onclick:function() {
+                        // //             obj.setHeader(x);
+                        // //         }
+                        // //     });
+                        // // }
+                        //
+                        // // Sorting
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
                     } else {
                         // Insert new row
                         if (obj.options.allowInsertRow === true) {
@@ -6474,7 +8287,15 @@
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+
                                 }
                             });
                         }
@@ -6535,7 +8356,21 @@
 
                         //NGUYEN V 様 00 日に 0000 円入金済み
                         let vals = val.trim().split(' ');
-                        console.log(vals);
+                        let a = val.trim()+"";
+                        let b = ["様","日に","円入金済み"];
+                        vals=[];
+                        if(a.length > 0){
+
+                            for(let i = 0; i<b.length;i++){
+                                let results = a.split(b[i]);
+                                if(results.length == 0) break;
+                                a = results[1];
+                                let val = results[0].trim();
+                                if(val.length > 0){
+                                    vals.push(val);
+                                }
+                            }
+                        }
                         $("#info_payment").show();
                         let html  = "<table>";
                         html+="<tr>";
@@ -6548,7 +8383,7 @@
                         html+='様';
                         html+="</th>";
                         html+="<th>";
-                        html+='<input type="text" class="form-control date" value="'+(vals[2]?vals[2]:"")+'">';
+                        html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -6556,7 +8391,7 @@
                         html+="</th>";
 
                         html+="<th>";
-                        html+='<input type="text" class="form-control price" value="'+(vals[4]?vals[4]:"")+'">';
+                        html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                         html+="</th>";
 
                         html+="<th>";
@@ -6655,11 +8490,20 @@
                         let _address = value[columns.address.index]+"".trim();
                         let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
+                        let _order_ship = parseInt(value[columns.order_ship.index]);
+
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                        $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                         $col.removeClass('bor-error');
+                        $col_order_ship.removeClass('bor-error');
+
                         if(_province.length <= 0){
                             $col.addClass('bor-error')
+                        }else{
+                            if(isNaN(_order_ship) || _order_ship < 0){
+                                $col_order_ship.addClass('bor-error');
+                            }
                         }
                         $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                         $col.removeClass('bor-error')
@@ -6694,7 +8538,10 @@
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
-                    console.dir(JSON.stringify([change,value]));
+                    start = true;
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
                     if (c === columns.product_name.index) {
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
 
@@ -6702,7 +8549,7 @@
 
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
-
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
                             if(change.col === c){
                                 change = {col:-1,row:-1};
                                 update(instance, cell, c, r,{
@@ -6711,7 +8558,7 @@
                                 });
                             }
                         }
-                    }else if(c === columns.count.index || columns.zipcode.index || c === columns.price_buy_sale.index ||
+                    }else if(c === columns.count.index || c === columns.zipcode.index || c === columns.price_buy_sale.index ||
                         c === columns.order_ship.index || c === columns.order_ship_cou.index || c === columns.one_address.index){
                         if(change.col == c){
                             if(c === columns.zipcode.index){
@@ -6727,6 +8574,16 @@
                         if(change.col == c){
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
+                        }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        update(instance, cell, c, r,{});
+                                    }
+                                }
+                            }
                         }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
@@ -6741,14 +8598,21 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                         }
+                    }else if(c === columns.status.index){
+                        change = {col:-1,row:-1};
+                        update(instance, cell, c, r,{});
                     }
                 },
             };
         }
         function YAMADA(sheetName) {
-
             let data = [];
-
+            SaveEvent[sheetName] = {
+                save : false,
+                count : 0,
+                check:false,
+                count_last:-1
+            };
             {{--if(datacache.hasOwnProperty(sheetName) &&  datacache[sheetName].data.data.length > 0){--}}
 
                 {{--if(datacache[sheetName].data.token === token ||  "{!! isset($model)?"edit":"create" !!}" == "create"){--}}
@@ -6764,7 +8628,9 @@
 
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+            let checkShip = {
 
+            };
             let columns = {
                 status: {
                     type: 'checkbox',
@@ -6775,6 +8641,12 @@
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                order_info:{
+                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
+                    key:"demo",
                 },
                 timeCreate:{
                     title: '{!! z_language("Ngày đặt hàng") !!}',//A ngày đặt hàng
@@ -6823,6 +8695,11 @@
                     type: 'text',
                     width:'150px',
                     key:"demo",
+                },
+                order_link:{
+                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
+                    type: 'text',
+                    width:'100px',
                 },
                 product_id:{
                     title: '{!! z_language("Mã SP") !!}',//H Mã SP
@@ -6876,7 +8753,7 @@
                     title: '{!! z_language("Phí ship") !!}',//N Phí ship
                     type: 'numeric',
                     width:'80px',
-                    value:0
+                    value:-1
                 },
                 order_total_price:{
                     title: '{!! z_language("Tổng giá nhập") !!}',//O Tổng giá nhập
@@ -6913,7 +8790,8 @@
                     title: '{!! z_language("Lợi nhuận CTV") !!}',//P
                     type: 'numeric',
                     width:'80px',
-                    value:0
+                    value:0,
+                    readOnly:true,
                 },
                 order_tracking:{
                     title: '{!! z_language("Mã tracking") !!}',//T Mã tracking
@@ -6921,24 +8799,15 @@
                     width:'100px',
                     key:"demo",
                 },
-                order_link:{
-                    title: '{!! z_language("Đường dẫn") !!}',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                },
-                order_info:{
-                    title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
-                    type: 'text',
-                    width:'100px',
-                    key:"demo",
-                },
+
+
                 one_address: {
                     type: 'checkbox',
                     title:'{!! z_language("Cùng địa chỉ") !!}',
                     width:'30px',
                 },
                 id:{
-                    title: '{!! z_language("ID") !!}ID',//T
+                    title: '{!! z_language("ID") !!}',//T
                     type: 'text',
                     width:'100px',
                 },
@@ -7013,6 +8882,13 @@
                 let total_price =  0;
                
                 let valueRow =  instance.jexcel.getRowData(r);
+
+                let idOrder = valueRow[columns.id.index]+"";
+
+                if(idOrder === "" || idOrder.trim().length === 0){
+                    instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.id.index, r]), $.md5(userId+"-"+(new Date().toDateString())+" "+sheetName+" "+r));
+                }
+
                 let payMethod = getValuePayMethod(valueRow[columns.payMethod.index]);
                 data.payMethod = payMethod;
                 data.sheetName = sheetName;
@@ -7021,6 +8897,7 @@
                 console.log("price_buy_sale:"+price_buy_sale);
                 let total_price_buy_all = 0;
                 let Row = -1;
+
                 if(dropdown.hasOwnProperty(data.id)){
 
                     let product = dropdown[data.id];
@@ -7210,15 +9087,26 @@
                             }
                         }
                     }
-
                     let price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
-                    return {order_ship:parseInt(price_ship === -1?0:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
+
+                    if($province.length > 0){
+                        checkShip[r] = {};
+                        checkShip[r][$province] = price_ship;
+                    }
+                    return {order_ship:parseInt(price_ship === -1?price_ship:price_ship),order_ship_cou:parseInt($ship_cou),total_price_buy:$total_price_buy,total_price_buy_all:total_price_buy_all};
                 }
 
                 function setInterest(price_ship,order_ship_cou,total_price_buy){
-                        price_ship = price_ship * data.count;
-                        instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                        if(price_ship < 0){
+                            price_ship = 0;
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),-1);
+                        }else{
+                            price_ship = price_ship * data.count;
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship.index, r]),price_ship);
+                        }
+
+
                         total_price_buy = total_price_buy + price_ship;
                         if(total_price_buy ===0 || total_price == 0){ return;}
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
@@ -7232,9 +9120,9 @@
 
                         if(payMethod == 3){
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), 0);
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]), 0);
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]), 0);
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]), 0);
+                            let a = (0 - parseInt(total_price) - parseInt(price_ship));
+                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                         }else if(payMethod == 2){
                             let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship));
                             instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
@@ -7337,24 +9225,28 @@
                 onload: function (e) {
                     let td  = $(e).find('.jexcel tbody tr').find('td:first-child');
                     td.click(function () {
+                        if(!$(this).hasClass('open_popup')){
+                            return;
+                        }
                         let parent = $(this).parent().data();
 
                         if(parent.hasOwnProperty('info')){
                             let info = parent.info;
+                            console.log(info);
                             let company = parent.company;
-
-
-
+                            let count_errro = 0;
                             for(let tab in info){
                                 let dom = $("#tab_"+tab);
+                                dom.empty();
                                 let table = "<table class=\"table table-bordered\">";
                                 table+="<tr>";
                                 // table+='<td>Mã</td>';
                                 // table+='<td>Phiên</td>';
+
                                 table+='<td>{!! z_language('Người lập') !!}</td>';
-                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
-                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
                                 table+='<td>{!! z_language("Tỉnh") !!}</td>';
+                                table+='<td>{!! z_language("Địa chỉ") !!}</td>';
+                                table+='<td>{!! z_language("Ho Tên") !!}</td>';
                                 table+='<td>{!! z_language("Ngày tạo") !!}</td>';
                                 table+='<td>{!! z_language("Số điện thoại") !!}</td>';
                                 table+='<td>{!! z_language("Công ty") !!}</td>';
@@ -7363,17 +9255,25 @@
                                 table+='<td>{!! z_language("Trạng thái") !!}</td>';
                                 table+='<td>{!! z_language("Xuất") !!}</td>';
                                 table+='<td>{!! z_language("Đường dẫn") !!}</td>';
+                                table+='<td>{!! z_language("Form nhập") !!}</td>';
                                 table+="</tr>";
-                                for(let pos in info){
-                                    for(let com in info[pos]){
-                                        if(com!=company) continue;
-                                        for(let index in info[pos][com]){
-                                            let val = info[pos][com][index];
+                              //  for(let pos in info){
+                                    for(let com in info[tab]){
+                                        // if(com!=company) continue;
+                                        for(let index in info[tab][com]){
+                                            count_errro++;
+                                            let val = info[tab][com][index];
                                             table+="<tr>";
                                             table+='<td>'+(info_admin.hasOwnProperty(val.admin_id)?info_admin[val.admin_id].name:"Không xác định")+'</td>';
-                                            table+='<td>'+val.fullname+'</td>';
-                                            table+='<td>'+val.address+'</td>';
-                                            table+='<td>'+val.province+'</td>';
+
+                                            table+='<td><strong style="color:red">'+val.province+'</strong></td>';
+                                            table+='<td><strong style="color:red">'+val.address+'</strong></td>';
+                                            if(tab == 3){
+                                                table+='<td><strong style="color:red">'+val.fullname+'</strong></td>';
+                                            }else{
+                                                table+='<td>'+val.fullname+'</td>';
+                                            }
+
                                             table+='<td>'+val.order_create_date+'</td>';
                                             table+='<td>'+val.phone+'</td>';
                                             table+='<td>'+val.company+'</td>';
@@ -7389,14 +9289,14 @@
                                                 }
                                             }
                                             table+="</table></td>";
-                                            table+='<td>'+(val.public == 1?"Đơn":"Nháp")+'</td>';
-                                            table+='<td>'+(val.export == 1?"Xuất":"Chưa")+'</td>';
+                                            table+='<td><span class="label label-info">'+(val.public == 1?"Đơn":"Nháp")+'</span></td>';
+                                            table+='<td><span class="label label-primary">'+(val.export == 1?"đã xuất":"chưa xuất")+'</span></td>';
                                             table+='<td>'+val.order_link+'</td>';
+                                            table+='<td><span class="label label-danger">'+(val.session_id==_session_id?"Cùng Form":"Khác Form")+'</span></td>';
                                             table+="</tr>";
                                         }
                                     }
-                                }
-
+                              //  }
                                 table+="</table>";
                                 dom.html(table);
                             }
@@ -7412,61 +9312,61 @@
 
                     if (y == null) {
                         // Insert a new column
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnBefore,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 1);
-                                }
-                            });
-                        }
-                        if (obj.options.allowInsertColumn === true) {
-                            items.push({
-                                title:obj.options.text.insertANewColumnAfter,
-                                onclick:function() {
-                                    obj.insertColumn(1, parseInt(x), 0);
-                                }
-                            });
-                        }
-
-                        // Delete a column
-                        if (obj.options.allowDeleteColumn === true) {
-                            items.push({
-                                title:obj.options.text.deleteSelectedColumns,
-                                onclick:function() {
-                                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
-                                }
-                            });
-                        }
-
-                        // // Rename column
-                        // if (obj.options.allowRenameColumn === true) {
+                        // if (obj.options.allowInsertColumn === true) {
                         //     items.push({
-                        //         title:obj.options.text.renameThisColumn,
+                        //         title:obj.options.text.insertANewColumnBefore,
                         //         onclick:function() {
-                        //             obj.setHeader(x);
+                        //             obj.insertColumn(1, parseInt(x), 1);
                         //         }
                         //     });
                         // }
-
-                        // Sorting
-                        if (obj.options.columnSorting == true) {
-
-                            items.push({ type:'line' });
-
-                            items.push({
-                                title:obj.options.text.orderAscending,
-                                onclick:function() {
-                                    obj.orderBy(x, 0);
-                                }
-                            });
-                            items.push({
-                                title:obj.options.text.orderDescending,
-                                onclick:function() {
-                                    obj.orderBy(x, 1);
-                                }
-                            });
-                        }
+                        // if (obj.options.allowInsertColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.insertANewColumnAfter,
+                        //         onclick:function() {
+                        //             obj.insertColumn(1, parseInt(x), 0);
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // Delete a column
+                        // if (obj.options.allowDeleteColumn === true) {
+                        //     items.push({
+                        //         title:obj.options.text.deleteSelectedColumns,
+                        //         onclick:function() {
+                        //             obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                        //         }
+                        //     });
+                        // }
+                        //
+                        // // // Rename column
+                        // // if (obj.options.allowRenameColumn === true) {
+                        // //     items.push({
+                        // //         title:obj.options.text.renameThisColumn,
+                        // //         onclick:function() {
+                        // //             obj.setHeader(x);
+                        // //         }
+                        // //     });
+                        // // }
+                        //
+                        // // Sorting
+                        // if (obj.options.columnSorting == true) {
+                        //
+                        //     items.push({ type:'line' });
+                        //
+                        //     items.push({
+                        //         title:obj.options.text.orderAscending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 0);
+                        //         }
+                        //     });
+                        //     items.push({
+                        //         title:obj.options.text.orderDescending,
+                        //         onclick:function() {
+                        //             obj.orderBy(x, 1);
+                        //         }
+                        //     });
+                        // }
                     } else {
                         // Insert new row
                         if (obj.options.allowInsertRow === true) {
@@ -7484,12 +9384,22 @@
                                 }
                             });
                         }
-
                         if (obj.options.allowDeleteRow === true) {
                             items.push({
                                 title:obj.options.text.deleteSelectedRows,
                                 onclick:function() {
+
+                                    console.log(obj.getSelectedColumns().length);
+
+                                    if(obj.getSelectedColumns().length < 2){
+                                        return;
+                                    }
                                     obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+
+                                    SaveEvent[sheetName].save  = true;
+                                    SaveEvent[sheetName].count++;
+                                    SaveEvent[sheetName].check = true;
+                                    start = true;
                                 }
                             });
                         }
@@ -7548,7 +9458,22 @@
                         //依頼人名. NGUYEN V 様  00 日に 0000 円入金済み
 
                         let vals = val.trim().split(' ');
-                        console.log(vals);
+                        let a = val.trim()+"";
+                        let b = ["依頼人名.","様","日に","円入金済み"];
+
+                        vals=[];
+                        if(a.length > 0){
+
+                            for(let i = 0; i<b.length;i++){
+                                let results = a.split(b[i]);
+                                if(results.length == 0) break;
+                                a = results[1];
+                                let val = results[0].trim();
+                                if(val.length > 0){
+                                    vals.push(val);
+                                }
+                            }
+                        }
                         $("#info_payment").show();
                         let html  = "<table>";
                          html+="<tr>";
@@ -7556,19 +9481,19 @@
                                 html+='依頼人名.';
                             html+="</th>";
                             html+="<th>";
-                            html+='<input type="text" class="form-control name" value="'+(vals[1]?vals[1]:"")+'">';
+                            html+='<input type="text" class="form-control name" value="'+(vals[0]?vals[0]:"")+'">';
                             html+="</th>";
                             html+="<th>";
                             html+='様';
                             html+="</th>";
                             html+="<th>";
-                            html+='<input type="text" class="form-control date" value="'+(vals[3]?vals[3]:"")+'">';
+                            html+='<input type="text" class="form-control date" value="'+(vals[1]?vals[1]:"")+'">';
                             html+="</th>";
                             html+="<th>";
                             html+='日に';
                             html+="</th>";
                             html+="<th>";
-                            html+='<input type="text" class="form-control price" value="'+(vals[5]?vals[5]:"")+'">';
+                            html+='<input type="text" class="form-control price" value="'+(vals[2]?vals[2]:"")+'">';
                             html+="</th>";
                             html+="<th>";
                             html+='円入金済み';
@@ -7665,11 +9590,20 @@
                             let _address = value[columns.address.index]+"".replace(/\s/g, '').trim();
                             let _fullname = value[columns.fullname.index]+"".replace(/\s+/g, ' ').trim();
 
+                            let _order_ship = parseInt(value[columns.order_ship.index]);
+
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.province.index, row])));
+                            $col_order_ship = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.order_ship.index, row])));
 
                             $col.removeClass('bor-error');
+                            $col_order_ship.removeClass('bor-error');
+
                             if(_province.length <= 0){
                                 $col.addClass('bor-error')
+                            }else{
+                                if(isNaN(_order_ship) || _order_ship < 0){
+                                    $col_order_ship.addClass('bor-error');
+                                }
                             }
                             $col = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.address.index, row])));
                             $col.removeClass('bor-error')
@@ -7707,13 +9641,20 @@
                 },
                 onchange:function(instance, cell, c, r, value) {
                     c = parseInt(c);
-                    console.log(change);
+                    start = true;
+                    SaveEvent[sheetName].save  = true;
+                    SaveEvent[sheetName].count++;
+                    SaveEvent[sheetName].check = true;
+
                     if (c === columns.product_name.index) {
+
                         if(dropdown[value] && dropdown[value].hasOwnProperty('data')){
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
-                            instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
                             if(change.col == c){
+                                change = {col:-1,row:-1};
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.product_id.index, r]), dropdown[value].data.id);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price.index, r]),dropdown[value].data.price);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.price_buy.index, r]),dropdown[value].data.price_buy);
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.count.index, r]),1);
                                 update(instance, cell, c, r,{
                                     count:1,
                                     id:dropdown[value].data.id
@@ -7734,9 +9675,20 @@
                         }        
                     }else if(c === columns.province.index){
                         if(change.col == c){
+
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
-                         }
+                         }else{
+                            let _province = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.province.index, r]));
+                            if(_province.length > 0){
+                                if(!checkShip.hasOwnProperty(r)){
+                                    checkShip[r] = {};
+                                    if(!checkShip.hasOwnProperty(_province)){
+                                        update(instance, cell, c, r,{});
+                                    }
+                                }
+                            }
+                        }
                     }else if(c === columns.payMethod.index){
                         let v = getValuePayMethod(value);
                         let parent = $(instance.jexcel.getCell(jexcel.getColumnNameFromId([columns.payMethod.index, r]))).parent();
@@ -7749,6 +9701,9 @@
                             change = {col:-1,row:-1};
                             update(instance, cell, c, r,{});
                          }
+                    }else if(c === columns.status.index){
+                        change = {col:-1,row:-1};
+                        update(instance, cell, c, r,{});
                     }
                 },
             };
@@ -7782,6 +9737,10 @@
         if(!statusCompnay.hasOwnProperty('KURICHIKU')){
             if(options.hasOwnProperty('KURICHIKU') && options.KURICHIKU.status == 1)
                 sheets.push( Object.assign(KURICHIKU(config),config));
+        }
+        if(!statusCompnay.hasOwnProperty('BANH_CHUNG')){
+            if(options.hasOwnProperty('BANH_CHUNG') && options.BANH_CHUNG.status == 1)
+                sheets.push( Object.assign(BANH_CHUNG(config),config));
         }
 
         if(!statusCompnay.hasOwnProperty('KURICHIKU1')){
@@ -7894,7 +9853,8 @@
                 console.log("out");
             });
         });
-        function Save(status,auto) {
+
+        function Save(status,auto,one) {
             if(!(auto === true)){
                 let oke =  confirm('{!! z_language('Bạn muốn lưu') !!}');
                 if(!oke) return;
@@ -7920,20 +9880,49 @@
                 });
             }else{
                 let datas = {};
+                let companeys = {};
+
+
+                let _spreadsheet_active = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+
+                let name_active = _spreadsheet_active.textContent;
+
+
+                let countCampany = 0;
+
                 $("#spreadsheet .jexcel_tab_link").each(function () {
                     let  worksheet = this.getAttribute('data-spreadsheet');
                     let data = spreadsheet.jexcel[worksheet].options.data;
-                    console.log(spreadsheet.jexcel[worksheet].options);
                     let name = this.textContent;
+                    companeys[name] = this;
+                    $(companeys[name]).removeClass('error');
                     let _columns = [];
+
                     for(let k in  columnsAll[name] ){
                         _columns.push(k);
                     }
-                    datas[name] = {
-                        data:data,
-                        columns:_columns
-                    };
+                    if(SaveEvent.hasOwnProperty(name)){
+                        if(SaveEvent[name].save){
+                            SaveEvent[name].save = false;
+                            SaveEvent[name].count = 0;
+                            SaveEvent[name].count_last = -1;
+                            console.info("Name 2:"+name);
+                            datas[name] = {
+                                data:data,
+                                columns:_columns
+                            };
+                            countCampany++;
+                        }
+                    }else{
+                        datas[name] = {
+                            data:data,
+                            columns:_columns
+                        };
+                        countCampany++;
+                        console.info("Name 1:"+name);
+                    }
                 });
+                if(countCampany === 0) return;
                 let form_store = $("#form_store");
 
 
@@ -7957,6 +9946,25 @@
 
                     success: function (data) {
                         if(auto){
+                            let travelTime = moment().add(10, 'seconds').format('DD/MM/YY hh:mm A');
+                            $("#log-save .time").html(travelTime);
+
+                            if(data.hasOwnProperty('logs')){
+                                let errro = 0;
+                                for(let i in data["logs"]){
+                                    if(data["logs"].hasOwnProperty(i)){
+                                        if(data["logs"][i].length > 0 ){
+                                            errro++;
+                                            $(companeys[i]).addClass("error");
+                                        }
+                                    }
+                                }
+                                if(errro > 0){
+                                    $.growl.error({ message: "{!! z_language('Có lỗi load lại trang') !!}" });
+                                }else{
+                                   // $.growl.notice({ message: "{!! z_language('Cập nhật thành công') !!}" });
+                                }
+                            }
 
                         }else{
                             if(data.hasOwnProperty('url')){
@@ -7976,8 +9984,7 @@
 
            let data = spreadsheet.jexcel[worksheet].options.data;
            let name = _spreadsheet.textContent;
-           console.log(name);
-           console.log(data);
+
            let _columns = [];
            for(let k in  columnsAll[name] ){
                _columns.push(k);
@@ -8020,6 +10027,9 @@
                 if(val[cols.fullname.index].length > 0){
                     row.fullname = val[cols.fullname.index];
                 }
+                if(val[cols.fullname.index].length > 0){
+                    row.id = val[cols.id.index];
+                }
                 if(Object.keys(row).length >0){
                     datas[i] = row;
                 }
@@ -8029,38 +10039,162 @@
                 data:{
                     act:"conflict",
                     company:name,
-                    data:datas
+                    data:datas,
+
                 },
                 success: function (data) {
                     if(data.company === name){
                         for(let index in datas){
                             if(data["lists"].hasOwnProperty(index)){
                                 let row = $(spreadsheet.jexcel[worksheet].getCell(jexcel.getColumnNameFromId([0, index])));
+
                                 if(row){
                                     let p =  row.parent();
-                                    p.data('info',data["lists"][index]);  p.find('.jexcel_row').addClass('open_popup');
-                                    p.data('company',data["company"]);  p.find('.jexcel_row').addClass('open_popup');
+                                    let a = data["lists"][index][2];
+                                    let b = data["lists"][index][3];
+
+                                    p.find('.jexcel_row').removeClass('open_popup');
+                                    p.data('info',[]);
+                                    if(data["lists"][index]['count']>0){
+                                        p.data('old', datas[index]);
+                                        p.data('info',data["lists"][index]['datas']);  p.find('.jexcel_row').addClass('open_popup');
+                                        p.data('company',data["company"]);  p.find('.jexcel_row').addClass('open_popup');
+                                    }
                                 }
                             }
                         }
                     }
+                    if(data.hasOwnProperty('version')){
+                        if(_version && _version!=data['version']){
+                            $.growl.error({ message: "{!! z_language('Hãy lưu lại và load lại trang có update mới') !!}" });
+                        }
+                    }
+                    var travelTime = moment().add(5, 'seconds').format('DD/MM/YY hh:mm A');
+                    $(".travelTime").html(travelTime);
                 },
             });
             console.log(datas);
         }
+       let start = true;
+       let lastActive = "";
+
        setTimeout(function () {
            CheckData();
+           isCheck = false;
+           let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+           let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+           lastActive = _spreadsheet.textContent;
+
            $(".btnInfo").trigger('click');
 
+           $(document).on("click","#spreadsheet .jexcel_tab_link",function () {
+               let self = this;
+               lastActive = $(self).text();
+               start = true;
+               CheckData();
+               Save_Action(true,function () {
+
+               });
+
+           });
        },2000);
 
+        let timeAction = 2500;
+
         setInterval(function () {
+            if(start == false) return;
             CheckData();
-        },5000);
+        },timeAction*3);
 
+        function Save_Action(one,cb){
+            if(SaveEvent.hasOwnProperty(lastActive)){
+                if(SaveEvent[lastActive].save){
+                    if(SaveEvent[lastActive].count == SaveEvent[lastActive].count_last){
+                        Save(false,true,one);
+                    }else{
+                        SaveEvent[lastActive].count_last = SaveEvent[lastActive].count
+                    }
+                }
+            }
+            cb();
+        }
         setInterval(function () {
-            Save(false,true);
-        },10000)
+            if(start == false) return;
+            Save_Action(true,function () {
 
+            });
+        },timeAction+1000);
+
+        let siteTitle = '{!! $_title !!}';
+
+        window.addEventListener('blur', () => {
+            document.title = siteTitle+ ' Come back! :c';
+            start = false;
+            Save_Action("",function () {
+
+            });
+        });
+        window.addEventListener('focus', () => {
+            document.title = siteTitle;
+            start = true;
+            Save_Action("",function () {
+
+            });
+        });
+        $("#copyData").bind("paste", function(e){
+            // access the clipboard using the api
+            var pastedData = e.originalEvent.clipboardData.getData('text');
+            let self = this;
+            var formatter = new StringMask("000-0000", { reverse: true });
+            let a  = pastedData.split(' ');
+
+            var result = formatter.apply(a[0]);
+            var value = "";
+
+            if(result.length>0){
+                let index = 0;
+                let dataNew = [];
+                let i = 0;
+                for(; i<a.length;i++){
+                    if(index == 4){
+                        break;
+                    }else{
+                        dataNew.push(a[i]);
+                    }
+                    index++;
+                }
+                let fullname = "";
+                for(; i<a.length;i++){
+                    fullname+=a[i]+" ";
+                }
+                dataNew.push(fullname);
+                value = dataNew.join("\t");
+                alert(dataNew.join("\n"));
+
+            }else{
+                let index = 0;
+                let dataNew = [];
+                let i = a.length-1 ;
+                for(; i>=0;i--){
+                    if(index == 3){
+                        break;
+                    }else{
+                        dataNew.push(a[i]);
+                    }
+                    index++;
+                }
+                let fullname = "";
+                for(; i>=0;i--){
+                    fullname+=a[i]+" ";
+                }
+                dataNew  = [fullname.trim(" ")].concat(dataNew.reverse());
+                value = dataNew.join("\t");
+                alert(dataNew.join("\n"));
+            }
+            setTimeout(function () {
+                $(self).val(value);
+                $(self).select();
+            },90);
+        } );
     </script>
 @endsection
