@@ -16,10 +16,10 @@ return [
                     "name" => z_language("Category"),
                     "url" => "backend:blog:category:show",
                 ],
-                [
-                    "name" => z_language("Comment"),
-                    "url" => "backend:blog:comment:list",
-                ],
+//                [
+//                    "name" => z_language("Comment"),
+//                    "url" => "backend:blog:comment:list",
+//                ],
                 [
                     "name" => z_language("Configuration"),
                     "url" => "backend:configuration:list",
