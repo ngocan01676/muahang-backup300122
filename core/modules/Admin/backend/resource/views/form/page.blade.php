@@ -30,7 +30,7 @@
             @else
                 {!! Form::open(['method' => 'POST','route' => ['backend:page:store'],'id'=>'form_store','class'=>'submit']) !!}
             @endif
-            <table class="table table-borderless">
+            <table class="table table-responsive">
                 <tbody>
                 <tr>
                     <td>
@@ -60,7 +60,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <table class="table table-bordered">
+                        <table class="table table-responsive">
                                 <tr>
                                     <th>{!! z_language('Composers') !!}</th>
                                 </tr>
@@ -96,7 +96,7 @@
                                         @if(isset($configs['core']['language']['lists']) && (is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) &&  in_array($_language['lang'],$configs['core']['language']['lists'])) )
                                             <div class="tab-pane {{$_language['lang'] == $current_language?" active":""}}" id="tab_{{$lang}}">
 
-                                                <table class="table-bordered table">
+                                                <table class="table-responsive table">
                                                     <tr>
                                                         <td>
                                                             {!! Form::label('id_title_'.$lang, z_language('Page title'), ['class' => 'title']) !!}
@@ -190,7 +190,7 @@
                         indentWithTabs: true,
                         autoRefresh: true
                     });
-                    CodeMirrorsAll[lang].setSize($("#form_store").width()*0.98+'px', '900px');
+                    CodeMirrorsAll[lang].setSize($("#form_store").width()*0.95+'px', '900px');
                     //CodeMirror.commands["selectAll"](CodeMirrorsAll[lang]);
                 })('{!! $lang !!}');
                 @endif
