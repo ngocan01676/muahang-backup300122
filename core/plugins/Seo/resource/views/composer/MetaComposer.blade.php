@@ -58,7 +58,7 @@
                                                             wordCount-max="150"
                                                             wordCount-charcounter=".charcounter"
                                                             wordCount-template="(Characters left: [NUMBER])"
-                                                            id="description" name="{!! $namePrefix !!}Base.description" class="form-control wordCount" rows="3"></textarea>
+                                                            name="{!! $namePrefix !!}Base.description" class="form-control wordCount" rows="3"></textarea>
                                                 </div>
                                             </div>
 
@@ -261,23 +261,24 @@
         });
 
         clicks.subscribe(function (form) {
-            return new Promise((resolve, reject) => {
 
+            return new Promise((resolve, reject) => {
                 let data = form.zoe_inputs('get');
                 let _data = @json($MetaComposer['token']);
-
                 _data.id = data.id;
                 _data.data = data["{!! $name !!}"];
                 console.log(_data);
+                setTimeout(function () {
+                    $.ajax({
+                        type:"post",
+                        url:"{!! route('backend:component:run') !!}",
+                        data:_data,
+                        success:function () {
+                            resolve();
+                        }
+                    })
+                });
 
-                $.ajax({
-                    type:"post",
-                    url:"{!! route('backend:component:run') !!}",
-                    data:_data,
-                    success:function () {
-                        resolve();
-                    }
-                })
             });
         });
     </script>
