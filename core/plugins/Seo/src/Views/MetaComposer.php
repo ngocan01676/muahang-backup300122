@@ -23,6 +23,7 @@ class MetaComposer extends \Zoe\Views\ComposerView
                 ['meta_key'=>$meta_key,'lang'=>$lang],
                 ['create_time'=>date('Y-m-d'),'data'=>json_encode($data)
                 ]);
+        return ['oke'=>true];
     }
     public function key($id,$conf){
         return $id;

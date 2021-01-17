@@ -13,6 +13,7 @@
 define('BACKEND','backend');
 define('FRONTEND','frontend');
 define('LAYOUT','layout');
+define('PAGE','page');
 
 $app = new \Zoe\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)

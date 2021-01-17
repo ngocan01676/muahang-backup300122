@@ -1305,6 +1305,7 @@
 .error .text-error{
     display: inline-block;
     color: red !important;
+    padding-bottom: 3px;
 }
 a:hover {
     text-decoration: none;

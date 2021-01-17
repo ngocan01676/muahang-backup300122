@@ -17,6 +17,7 @@ jQuery(document).ready(function () {
                     form.find('.error').empty();
 
                     if(datas.success){
+
                         if(urlCurrent){
                             window.location.replace(urlCurrent);
                         }else{

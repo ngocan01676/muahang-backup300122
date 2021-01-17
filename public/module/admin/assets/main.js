@@ -79,12 +79,9 @@ Click.prototype = {
                  arr.push(resulted);
              }
         });
-
         console.log(arr);
-
         Promise.all(arr).then(function (t) {
-            console.log(t);
-            thisObj();
+            thisObj(t);
         }).catch(function (t) {
             console.log(t);
         });

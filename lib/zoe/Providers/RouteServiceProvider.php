@@ -112,7 +112,7 @@ class RouteServiceProvider extends ServiceProvider
                                  }
                                  $fruitsArrayObject = (new \ArrayObject($router))->getArrayCopy();
                                  foreach ($fruitsArrayObject['router'] as $key=>$value){
-                                     $fruitsArrayObject['router'][$key]['url'] = $language[$lang]['router'].'/'.$fruitsArrayObject['router'][$key]['url'];
+                                     $fruitsArrayObject['router'][$key]['url'] = $language[$lang]['router'].$fruitsArrayObject['router'][$key]['url'];
                                      $fruitsArrayObject['router'][$key]['defaults']['lang'] = $lang;
                                      $permission = $name . ':' . $key;
                                      if (isset($fruitsArrayObject['router']['name'])) {

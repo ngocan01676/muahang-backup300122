@@ -7,6 +7,7 @@ return [
         "PluginContact\Controllers\IndexController" => "/Controllers/IndexController.php",
         "PluginContact\Controllers\EmailController" => "/Controllers/EmailController.php",
         "PluginContact\Controllers\FormController" => "/Controllers/FormController.php",
+        "PluginContact\Views\SendMailComposer" => "/Views/SendMailComposer.php",
     ],
     'options' => [
         'core:plugin:Contact:Form' => [
@@ -56,5 +57,12 @@ return [
                 'configs.layout'
             ]
         ],
+    ],
+    'composers'=>[
+        'page'=>[
+            'PluginContact\Views\SendMailComposer'=>[
+
+            ]
+        ]
     ]
 ];

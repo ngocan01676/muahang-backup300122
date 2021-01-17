@@ -76,6 +76,12 @@ class PageController extends \Zoe\Http\ControllerBackend
     {
         $this->getcrumb()->breadcrumb("Edit Page", false);
         $page = PageModel::find($id);
+        $composers = unserialize($page->composers);
+        $_composers = [];
+        foreach ($composers as $key=>$value){
+            $_composers[$key] = base64_decode($value);
+        }
+        $page->composers = $_composers;
 
         if (isset($this->data['configs']['core']['language']['multiple'])) {
             $trans = $page->table_translation_model()->where(['_id' => $id])->get();
@@ -85,6 +91,7 @@ class PageController extends \Zoe\Http\ControllerBackend
                 $page->offsetSet("description_" . $tran->lang_code, $tran->description);
             }
         }
+
         return $this->render('page.edit', ["page" => $page]);
     }
 
@@ -166,6 +173,8 @@ class PageController extends \Zoe\Http\ControllerBackend
             $page->description = isset($items['description'])?$items['description']:"";
             $page->content = isset($items['content'])?htmlspecialchars_decode($items['content']):"";
             $page->status = $items['status'];
+            $page->composers = serialize(isset($items['composers'])?$items['composers']:[]);
+            $page->is_mutile_lang = isset($this->data['configs']['core']['language']['multiple'])?1:0;
 
             DB::beginTransaction();
             $file = new \Illuminate\Filesystem\Filesystem();
@@ -198,7 +207,7 @@ class PageController extends \Zoe\Http\ControllerBackend
                 }
                 $request->session()->flash('success', $type == "create"?z_language('Page is added successfully'):z_language('Page is updated successfully'));
                 DB::commit();
-                return back()->with($items);
+                return back();
             }catch (\Exception $ex){
                 $validator->getMessageBag()->add('router', $ex->getMessage());
                 DB::rollBack();

@@ -133,8 +133,8 @@ return [
                 'columns' => [
                     'lists' => [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
-                        'router' => ['label' => z_language('Router', false), 'type' => 'text'],
                         'title' => ['label' => z_language('Title', false), 'type' => 'title', 'primary' => true],
+                        'router' => ['label' => z_language('Router', false), 'type' => 'text'],
                         'func_slug' => ['label' => z_language('Url', false), 'type' => 'text','callback' => "func_slug"],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status'],
                         'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],

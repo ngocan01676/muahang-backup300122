@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Hash;
 use Validator;
 class UserController extends \Zoe\Http\ControllerFront
 {
-
     public function storeInfo(Request $request){
         $data = $request->all();
         $filter = [
@@ -18,7 +17,6 @@ class UserController extends \Zoe\Http\ControllerFront
         if ($user) {
             $model = Member::find($user->id);
             $type = 'edit';
-
             if(!empty($data['password_1']) || !empty($data['password_2'])){
                 $filter['password_1'] = 'required|min:6';
                 $filter['password_2'] = 'required|min:6';
@@ -26,6 +24,12 @@ class UserController extends \Zoe\Http\ControllerFront
             }
             if($model->name != $data['name']){
                 $filter['name'].= '|unique:user';
+            }
+            if(isset($data['phone']) && !empty($data['phone'])){
+                $filter['phone']= 'required|max:15';
+            }
+            if($model->phone != $data['phone']){
+                $filter['phone']= '|unique:user';
             }
             $validator = Validator::make($data,$filter, [
             ]);
@@ -52,7 +56,9 @@ class UserController extends \Zoe\Http\ControllerFront
                     $model->name = $data['name'];
                     $model->first_name = $data['first_name'];
                     $model->last_name = $data['last_name'];
-
+                    if($model->phone != $data['phone']) {
+                        $model->phone = $data['phone'];
+                    }
                     if(isset($filter['password_1']))
                         $model->password = Hash::make( $data['password_1']);
                     $model->save();

@@ -144,17 +144,14 @@
                         <td>
                             <select name="data[{!! $name !!}].acl"
                                     class="form-control">
-                                <option value="login">Login</option>
-
+                                <option value="no-login">No Login</option>
                                 @foreach($listsRolePremission as $premissions)
                                     @foreach($premissions as $premission)
                                         <option @if(isset($datas['data'][$name]['acl']) && $datas['data'][$name]['acl'] == $premission->name) selected
                                                 @endif value="{!! $premission->name !!}">{!! $premission->name !!}</option>
                                     @endforeach
                                 @endforeach
-                                <option @if(isset($datas['data'][$name]['acl']) && $datas['data'][$name]['acl'] == "no-login") selected
-                                        @endif value="no-login">No Login
-                                </option>
+                                <option @if(isset($datas['data'][$name]['acl']) && $datas['data'][$name]['acl'] == "login") selected @endif value="no-login">Login</option>
                             </select>
                         </td>
                     </tr>

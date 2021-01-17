@@ -10,8 +10,8 @@
                                 <form  data-urlCurrent="{!! url()->current() !!}" action="{!! router_frontend_lang('guest:login:post') !!}" class="woocommerce-form woocommerce-form-login login" method="post">
                                     @csrf
                                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                                        <label for="username">{!! z_language('Email address') !!}&nbsp;<span class="required">*</span></label>
-                                        {!! Form::email('email',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text']) !!}
+                                        <label for="username">{!! z_language('Phone or Email address') !!}&nbsp;<span class="required">*</span></label>
+                                        {!! Form::text('email',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text']) !!}
 
                                         @error("email")
                                         <span class="message-container container alert-color medium-text-center error">{{ $message }}</span>
@@ -44,7 +44,7 @@
                                 <form action="{!! router_frontend_lang('guest:register:post:ajax') !!}" method="post" class="woocommerce-form woocommerce-form-register register">
                                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                         <label for="reg_email">{!! z_language('Email address') !!}&nbsp;<span class="required">*</span></label>
-                                        <input type="email" class="woocommerce-Input woocommerce-Input--text input-text" name="email" autocomplete="email" value="">
+                                        <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="email" autocomplete="email" value="">
                                         <span class="message-container container alert-color medium-text-center error"></span>
                                     </p>
                                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">

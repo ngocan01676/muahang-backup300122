@@ -206,7 +206,7 @@
                     <form data-urlCurrent="{!! url()->current() !!}" class="woocommerce-form woocommerce-form-login login" method="post" action="{!! router_frontend_lang('guest:login:post:ajax') !!}">
                         @csrf
                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                            <label for="email">{!! z_language('Email address') !!}<span class="required">*</span></label>
+                            <label for="email">{!! z_language('Phone or Email address') !!}<span class="required">*</span></label>
                             <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="email" id="email" autocomplete="email" value="" />
 
                         </p>

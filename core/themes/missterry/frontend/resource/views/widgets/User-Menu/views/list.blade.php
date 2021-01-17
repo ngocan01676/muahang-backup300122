@@ -13,19 +13,18 @@
    </span>
 </div>
 <ul id="my-account-nav" class="account-nav nav nav-line nav-uppercase nav-vertical mt-half">
-
     @foreach($data['lists'] as $name=>$list)
-        @if($name != "logout")
-        <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard  {!! $list['url'] == url()->current() ?"is-active active":"" !!}">
-            <a href="{!! ($list['url']) !!}">{!! $list['label'] !!}</a>
-        </li>
+        @if($name === "logout")
+            <li {!! $name !!} class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard">
+                <form id="logout-form-{!! $name !!}" action="{!! ($list['url']) !!}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                <a href="{!! ($list['url']) !!}" onclick="event.preventDefault(); document.getElementById('logout-form-{!! $name !!}').submit();" class="btn btn-default btn-flat">{!! $list['label'] !!}</a>
+            </li>
         @else
-        <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard">
-            <form id="logout-form" action="{!! ($list['url']) !!}" method="POST" style="display: none;">
-                 @csrf
-            </form>
-            <a href="{!! ($list['url']) !!}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">{!! $list['label'] !!}</a>
-        </li>
+            <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard  {!! $list['url'] == url()->current() ?"is-active active":"" !!}">
+                <a href="{!! ($list['url']) !!}">{!! $list['label'] !!}</a>
+            </li>
         @endif
     @endforeach
 </ul>

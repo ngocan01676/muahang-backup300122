@@ -132,7 +132,7 @@
                                                 class="column column-primary column-name {{list_text_aligin($columns)}}">
                                                 <strong><a class="row-title"
                                                            href="#">@php echo list_label($model->{$key},$columns,$data,$model); @endphp</a></strong>
-                                                <div class="row-actions text-center" style="padding: 10px 10px 0px 0px;">
+                                                <div class="row-actions text-center">
                                                     @isset($data['config']['pagination']['router'])
                                                         @php  $n = count($data['config']['pagination']['router'])-1; $i=0; @endphp
                                                         @foreach($data['config']['pagination']['router'] as $id=>$router)

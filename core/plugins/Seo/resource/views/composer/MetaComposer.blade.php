@@ -1,3 +1,5 @@
+@AssetCss('assets','module/admin/assets/tagging/css/amsify.suggestags.css')
+@AssetJs('assets','module/admin/assets/tagging/js/jquery.amsify.suggestags.js')
 @php
     $namePrefix = "";
     $name = "all";
@@ -235,9 +237,8 @@
     </div>
     <!-- /.box-body -->
 </div>
+
 @push('scripts')
-    <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/tagging/css/amsify.suggestags.css') }}">
-    <script src="{{ asset('module/admin/assets/tagging/js/jquery.amsify.suggestags.js') }}"></script>
     <script>
         $(document).ready(function () {
             let form = $("<form></form>");
@@ -259,26 +260,26 @@
                 },
             });
         });
-
         clicks.subscribe(function (form) {
-
             return new Promise((resolve, reject) => {
+
                 let data = form.zoe_inputs('get');
                 let _data = @json($MetaComposer['token']);
+
                 _data.id = data.id;
                 _data.data = data["{!! $name !!}"];
-                console.log(_data);
-                setTimeout(function () {
-                    $.ajax({
-                        type:"post",
-                        url:"{!! route('backend:component:run') !!}",
-                        data:_data,
-                        success:function () {
-                            resolve();
-                        }
-                    })
-                });
 
+                _data._token = "{{ csrf_token() }}";
+                console.log(_data);
+                $.ajax({
+                    type:"post",
+                    url:"{!! route('backend:component:run') !!}",
+                    data:_data,
+                    success:function (data) {
+                        console.log('oke1');
+                        resolve(data);
+                    }
+                })
             });
         });
     </script>

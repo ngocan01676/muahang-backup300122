@@ -61,16 +61,34 @@ class ControllerFront extends Controller
             }
         }
         $composers_layout = \get_composer_layout($theme);
+        $composers_page = \get_composer_page($theme);
+
+
+        $registers =[];
+
         foreach ($composers_layout as $clazz=>$composer){
             if(!class_exists($clazz)) continue;
-            if(count($composer)>0){
-                View::composer(
-                    $composer,
-                    $clazz
-                );
+            if(!isset($registers[$clazz])){
+                $registers[$clazz] = [];
             }
+            $registers[$clazz] = array_merge($registers[$clazz],$composer);
+        }
+
+        foreach ($composers_page as $clazz=>$composer){
+            if(!class_exists($clazz)) continue;
+            if(!isset($registers[$clazz])){
+                $registers[$clazz] = [];
+            }
+            $registers[$clazz] = array_merge($registers[$clazz],$composer);
+        }
+        foreach ($registers as $class=>$composer){
+            View::composer(
+                $composer,
+                $class
+            );
         }
         View::share('_language', isset($this->_language['router'])?$this->_language['router']:"");
+        View::share('_dataGlobal',$this->dataGlobal);
         return $this->_render($keyView, $data, $key,FRONTEND);
     }
 }

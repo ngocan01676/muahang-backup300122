@@ -145,7 +145,7 @@
                                             @continue(!in_array("GET",$route['method']))
                                             <option value="{!! $alise !!}" data-uri="{!! $route['uri'] !!}">
                                                 @php
-                                                    echo $route['uri'];
+                                                    echo '['.$alise.'] : '.$route['uri'];
                                                 @endphp
                                             </option>
                                         @endforeach

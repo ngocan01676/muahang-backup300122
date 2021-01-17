@@ -44,6 +44,12 @@
                 <div class="clear"></div>
 
                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                    <label for="account_display_name">{!! z_language('Phone') !!}&nbsp;<span class="required">*</span></label>
+                    {!! Form::text('phone',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>z_language('Phone')]) !!}
+                </p>
+
+                <div class="clear"></div>
+                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                     <label for="account_email">{!! z_language('Email address') !!} &nbsp;<span class="required">*</span></label>
                     <input type="email" readonly class="woocommerce-Input woocommerce-Input--email input-text" name="account_email" id="account_email" autocomplete="email" value="{!! $user->email !!}">
                 </p>

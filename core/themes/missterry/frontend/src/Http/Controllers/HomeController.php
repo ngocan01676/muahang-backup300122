@@ -133,7 +133,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                         'updated_at'=>date('Y-m-d H:i:s'),
                     ]);
                     $response =  response()->json(['success' => $data,'id'=>$id,
-                        'uri'=>router_frontend_lang('home:register_room_oke',['slug'=>Str::slug($data['data']['fullname']),'id'=>base_64_en($id*10000)])]);
+                        'uri'=>router_frontend_lang('page:booking_success',['slug'=>Str::slug($data['data']['fullname']),'id'=>base_64_en($id*10000)])]);
                     DB::commit();
                     return $response;
                 }else{
@@ -152,6 +152,7 @@ class HomeController extends \Zoe\Http\ControllerFront
     public function register_room_oke($slug,$id){
         $id = (int)base_64_de($id)/10000;
         $miss_booking = DB::table('miss_booking')->where('id',$id)->get()->all();
+        $dataSend = [];
         if(isset($miss_booking[0])){
             $to_email = $miss_booking[0]->email;
             $results = DB::table('miss_room')->where('status',1)->where('id',$miss_booking[0]->room_id)->get()->all();
@@ -184,12 +185,15 @@ class HomeController extends \Zoe\Http\ControllerFront
                     'email'=>$miss_booking[0]->email,
                     'address'=>$result->address,
                 ];
-
-                Mail::to($to_email)->send(new MyEmail('booking',$data));
+                $dataSend['SendMailComposer'] = [
+                    'data'=>$data,
+                    'to_email'=>$to_email,
+                ];
+               // Mail::to($to_email)->send(new MyEmail('booking',$data));
             }
         }
         $this->addDataGlobal("Blog-featured-background",  'uploads/room/background/background.png');
-        return $this->render('home.register_room_oke');
+        return $this->render('home.register_room_oke',$dataSend);
     }
     public function get_escape_room(){
         return $this->render('home.escape_room');
@@ -309,12 +313,9 @@ class HomeController extends \Zoe\Http\ControllerFront
         $result = [];
         $tags = [];
         if(isset($config_language['lang'])){
-
             $db = DB::table('blog_post_translation')->where('slug',$slug)->where('lang_code',$config_language['lang'])->get()->all();
-
             if(count($db) > 0){
                 $results = DB::table('blog_post')->where('id',$db[0]->_id)->get()->all();
-
                 if(isset($results[0])){
                     $result = $results[0];
                     $result->title = $db[0]->title;
