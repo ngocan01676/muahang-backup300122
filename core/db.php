@@ -19,7 +19,7 @@ function get_composer_layout($theme){
     });
 }
 function get_composer_page($theme){
-    return Cache::remember($theme.':page',1,function () use($theme){
+    return Cache::remember($theme.':composer:page',1,function () use($theme){
         $pages = DB::table('page')->where('status',1)->get()->keyBy('router');
         $composers = [];
         foreach ($pages as $page){
@@ -38,7 +38,32 @@ function get_composer_page($theme){
                     $composers[$composer][] = $theme.'::pages.'.$page->view;
                 }
             }
+            $page->actions = unserialize($page->actions);
         }
         return $composers;
+    });
+}
+function get_pages($theme){
+    return Cache::remember($theme.':page',1,function () use($theme){
+        $pages = DB::table('page')->where('status',1)->get()->keyBy('router');
+        foreach ($pages as $page){
+            $page->composers = unserialize($page->composers);
+            foreach ($page->composers as $key=>$val){
+                $composer = base64_decode($val);
+                if(!isset($composers[$composer])){
+                    $composers[$composer] = [];
+                }
+                if($page->is_mutile_lang){
+                    $pages_translation = DB::table('page_translation')->where('_id',$page->id)->get();
+                    foreach($pages_translation as $page_translation){
+                        $composers[$composer][] =$theme.'::pages.'.$page_translation->lang_code."_".$page->router;
+                    }
+                }else{
+                    $composers[$composer][] = $theme.'::pages.'.$page->view;
+                }
+            }
+            $page->actions = unserialize($page->actions);
+        }
+        return $pages;
     });
 }

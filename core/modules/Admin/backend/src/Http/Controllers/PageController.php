@@ -19,6 +19,16 @@ class PageController extends \Zoe\Http\ControllerBackend
             isset($this->data['configs']['core']['site_language']) ?
                 $this->data['configs']['core']['site_language'] :
                 config('zoe.default_lang');
+
+        $this->data['actions'] = [];
+        if(isset($this->app->getConfig()->packages['configs']['page']['controller'])){
+            $class_methods = get_class_methods($this->app->getConfig()->packages['configs']['page']['controller']);
+            foreach ($class_methods as $func){
+                if(substr($func, 0, 6) == 'action'){
+                    $this->data['actions'][] = $func;
+                }
+            }
+        }
     }
 
     public function getCrumb()
@@ -81,6 +91,7 @@ class PageController extends \Zoe\Http\ControllerBackend
         foreach ($composers as $key=>$value){
             $_composers[$key] = base64_decode($value);
         }
+        $page->actions = unserialize($page->actions);
         $page->composers = $_composers;
 
         if (isset($this->data['configs']['core']['language']['multiple'])) {
@@ -174,6 +185,7 @@ class PageController extends \Zoe\Http\ControllerBackend
             $page->content = isset($items['content'])?htmlspecialchars_decode($items['content']):"";
             $page->status = $items['status'];
             $page->composers = serialize(isset($items['composers'])?$items['composers']:[]);
+            $page->actions = serialize(isset($items['actions'])?$items['actions']:[]);
             $page->is_mutile_lang = isset($this->data['configs']['core']['language']['multiple'])?1:0;
 
             DB::beginTransaction();

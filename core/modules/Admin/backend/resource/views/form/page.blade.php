@@ -58,6 +58,7 @@
                         {!! Form::radio('status', '0',false) !!} {!! z_language('No') !!}
                     </td>
                 </tr>
+
                 <tr>
                     <td>
                         <table class="table table-responsive">
@@ -77,6 +78,31 @@
                                         </ul>
                                     </td>
                                 </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="table table-responsive">
+                            <tr>
+                                <th>{!! z_language('Action') !!}</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @php
+                                        $current_actions = isset($page)?$page->actions:[];
+
+                                    @endphp
+                                    <ul class="todo-list ui-sortable">
+                                        @foreach($actions as $_key=>$_action)
+                                            <li>
+                                                <input {!! isset($current_actions[md5($_action)])?'checked ':'' !!} name="actions[{!! md5($_action) !!}]" type="checkbox" value="{!! $_action !!}">
+                                                <span class="text">{!! $_action !!}</span>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                            </tr>
                         </table>
                     </td>
                 </tr>

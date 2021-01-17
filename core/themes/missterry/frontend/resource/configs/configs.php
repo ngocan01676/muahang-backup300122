@@ -14,6 +14,11 @@ return [
         ],
         'providers' => [
 
+        ],
+        'configs'=>[
+            'page'=>[
+                'controller'=>'\MissTerryTheme\Http\Controllers\PageController'
+            ]
         ]
     ],
     'modules' => [

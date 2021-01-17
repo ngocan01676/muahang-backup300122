@@ -93,14 +93,20 @@ class RouteServiceProvider extends ServiceProvider
                     if(!empty($action)) unset($route['action']);
 
                      if($name == "page"){
-                         $pages = DB::table('page')->where('status',1)->get()->all();
+
+                         $pages = get_pages($this->app->getTheme());
+
                          $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
                          if(empty($action)) continue;
                          foreach ($pages as $key=>$value){
                              $fruitsArrayObject['router'][$value->router]['url'] = $url.$value->slug.$extension;
                              $fruitsArrayObject['router'][$value->router]['action'] = $action;
                              $fruitsArrayObject['router'][$value->router]['guard'] = "";
-                             $fruitsArrayObject['router'][$value->router]['defaults'] = ['id'=>$value->id,'router'=>$value->router];
+                             $fruitsArrayObject['router'][$value->router]['defaults'] = [
+                                 'id'=>$value->id,
+                                 'router'=>$value->router,
+                                 'actions'=>$value->actions,
+                             ];
                          }
                          $routers[$name] = $fruitsArrayObject;
 
