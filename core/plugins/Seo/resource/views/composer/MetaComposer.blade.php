@@ -144,7 +144,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group required">
                                                     <label>Image Url</label>
-                                                    <x-InputImageMedia path="Meta/OpenGraph" name="{!! $namePrefix.'OpenGraph.image.url' !!}"/>
+                                                    <x-InputImageMedia path="Meta/OpenGraph" name="{!! $namePrefix !!}OpenGraph.image.url"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -214,8 +214,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group required">
                                                 <label>Preview Image</label>
-
-                                                <x-InputImageMedia path="Meta/Twitter" name="{!! $namePrefix.'Twitter.image' !!}"/>
+                                                <x-InputImageMedia path="Meta/Twitter" name="{!! $namePrefix !!}Twitter.image"/>
                                                 <i>Maximum dimension: 1024px x 512px; minimum dimension: 440px x 220px</i>
                                             </div>
                                         </div>
