@@ -1887,10 +1887,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $total_price_buy,
                             $result->order_ship_cou,
                             $order_profit,
-                            (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
+                            (int)$result->rate,
                             $result->order_tracking,
-
-
                             $result->one_address==1,
                             $result->id,
                             $result->session_id,
@@ -2106,7 +2104,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $total_price_buy,
                             $result->order_ship_cou,
                             $order_profit,
-                            (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
+                            (int)$result->rate,
                             $result->order_tracking,
                             $result->one_address==1,
                             $result->id,

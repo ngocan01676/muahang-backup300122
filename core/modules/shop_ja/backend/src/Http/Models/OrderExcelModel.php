@@ -222,7 +222,7 @@ class OrderExcelModel extends Model
             ->where('updated_at','<=',$date_end." 23:59:59")->orderBy('sort');
 
         $shop_order_excel = $shop_order_excel->get()->all();
-       
+
         $users = DB::table('admin')->select('id','username')->get()->keyBy('id')->toArray();
 
         $datas = [
