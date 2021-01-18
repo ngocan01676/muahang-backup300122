@@ -290,7 +290,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:"",
                                     "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
-//                                    "updated_at"=>$date_time,
+//                                  "updated_at"=>$date_time,
                                     "type"=>isset($columns["type"]) && !empty($values[$columns["type"]])?$values[$columns["type"]]:"Item",
                                     "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
                                     "public"=> isset($columns["public"])? (int)$values[$columns["public"]]:"0",
@@ -634,11 +634,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     } else if ($values[$columns["payMethod"]] == "決済不要") {
                                         $pay_method = 3;
                                     }
-
                                     foreach ($values as $kkkkk => $valllll) {
                                         $values[$kkkkk] = rtrim(trim($valllll));
                                     }
-
                                     $product_title = "";
                                     $product_code = "";
 
@@ -654,7 +652,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "company" => $name,
                                         "session_id" => $model->id,
                                         "admin_id" => $model->admin_id,
-                                        "ctv_id" => \auth()->user()->role_id == 2?$model->admin_id:(int)(isset($columns["ctv_id"]) ? $values[$columns["ctv_id"]] : "0"),
+                                        "ctv_id" => \auth()->user()->role_id == 2 ? $model->admin_id:(int)(isset($columns["ctv_id"]) ? $values[$columns["ctv_id"]] : "0"),
                                         "fullname" => isset($columns["fullname"]) ? preg_replace('/\s+/', ' ', $values[$columns["fullname"]]) : "",
                                         "address" => isset($columns["address"]) ? preg_replace('/\s+/', '', $values[$columns["address"]]) : "",
                                         "phone" => isset($columns["phone"]) ? $values[$columns["phone"]] : "",
@@ -691,10 +689,17 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "group" => isset($columns["group"]) ? $values[$columns["group"]] : "",
                                         "comment" => isset($columns["comment"]) ? $values[$columns["comment"]] : "",
                                     ];
+                                    $admin_id = 0;
+                                    if($_data["ctv_id"] == 0){
+                                        $admin_id = $model->admin_id;
+                                    }else{
+                                        $admin_id = $_data["ctv_id"];
+                                    }
+                                    $_data['rate'] = isset($this->data['options'][$admin_id]['rate']) ? (int)$this->data['options'][$admin_id]['rate'] : "0";
                                     $_data['order_create_date'] = date('Y-m-d', strtotime($_data['order_create_date'])) . " " . date(' H:i:s');
-                                    $_data["sort"] = $model->admin_id * 1000000 + ($key + 1 + $keyNew ) * $model->admin_id + $_data["order_index"] + strtotime($model->key_date);
+                                    $_data["sort"] = $admin_id * 1000000 + ($key + 1 + $keyNew ) * $admin_id + $_data["order_index"] + strtotime($model->key_date);
                                     $ids_sort[$name][$keyNew][$key] = [
-                                        $model->admin_id * 1000000 + ($key + 1 + $keyNew ) * $model->admin_id + $_data["order_index"],
+                                        $admin_id * 1000000 + ($key + 1 + $keyNew ) * $admin_id + $_data["order_index"],
                                         ($key + 1 + $keyNew ) * $model->admin_id,
                                         $_data["order_index"],
                                         $_data["sort"]
@@ -878,8 +883,17 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                     "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                 ];
+
+
+                                if($_data["ctv_id"] == 0){
+                                    $admin_id = $model->admin_id;
+                                }else{
+                                    $admin_id = $_data["ctv_id"];
+                                }
+                                $_data['rate'] = isset($this->data['options'][$admin_id]['rate']) ? (int)$this->data['options'][$admin_id]['rate'] : "0";
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
-                                $_data["sort"] = $model->admin_id * 1000000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($model->key_date);
+                                $_data["sort"] = $admin_id * 1000000 + ($key+1) * $admin_id + $_data["order_index"] + strtotime($model->key_date);
+
                                 $validator = Validator::make($_data,$check);
                                 if (!$validator->fails()) {
 
@@ -1640,6 +1654,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         if(isset($options[0])){
             $this->data['options'] = unserialize($options[0]->data);
         }
+        $this->data['optionsAll'] = [
+
+        ];
+        $options = DB::table('shop_admin')->get()->all();
+        foreach ($options as $_options){
+            $this->data['optionsAll'][$_options->admin_id] = unserialize($_options->data);
+        }
     }
     private function GetCache($type,$id,$company = "",$date = ""){
         $this->data['excels_data'] = [
@@ -1840,8 +1861,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $datas[$result->company][] = [
                             $result->status==1,
                             $result->public==1,
-                            $result->ctv_id,
                             $result->order_image,
+                            $result->ctv_id,
                             $result->order_info,
                             $result->order_create_date,
                             $pay_method,
@@ -1896,8 +1917,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $datas[$result->company][] = [
                             $result->status==1,
                             $result->public==1,
-                            $result->ctv_id,
+
                             $result->order_image,
+                            $result->ctv_id,
                             $result->order_info,
                             $result->order_create_date,
                             $pay_method,
@@ -1978,8 +2000,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $datas[$result->company][] = [
                             $result->status==1,
                             $result->public==1,
-                            $result->ctv_id,
                             $result->order_image,
+                            $result->ctv_id,
                             $result->order_info,
                             $result->order_create_date,
                             $pay_method,
@@ -2058,8 +2080,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $datas[$result->company][] = [
                             $result->status==1,
                             $result->public==1,
-                            $result->ctv_id,
                             $result->order_image,
+                            $result->ctv_id,
                             $result->order_info,
                             $result->order_create_date,
                             $pay_method,
@@ -2278,46 +2300,112 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
     }
     public function show_ctv(Request $request){
+        if(isset($data['act'])){
+            if($data['act'] == "conflict"){
+                $admin_id = Auth::user()->id;
+                $datas = [];
+                if(isset($data['data'])){
+                    $model = new OrderExcelModel();
 
+                    foreach ($data['data'] as $k=>$v){
+                        $dataItem = [];
+                        $rs1 = DB::table('shop_order_excel')
+                            ->where('order_create_date',">=",date('Y-m-d',
+                                strtotime('-7 day')))->where('order_create_date','<=',date('Y-m-d H:i:s'));
+                        $count = 0;
+                        if(isset($v['fullname'])){
+                            $rs1->where('fullname', preg_replace('/\s+/', ' ',trim($v['fullname'])));
+                        }
+                        if(isset($v['address'])){
+                            $rs1->where('address',preg_replace('/\s+/', '',trim($v['address'])));
+                        }
+                        if(isset($v['province'])){
+                            $rs1->where('province',preg_replace('/\s+/', '',trim($v['province'])));
+                        }
+                        if(isset($v['id'])){
+                            if(is_numeric($v['id'])){
+                                $rs1->where('id',"!=",$v['id']);
+                            }else{
+                                $rs1->where('key_id',"!=",$v['id']);
+                            }
+                        }
+                        if($data['company'] == "YAMADA" || $data['company'] == 'FUKUI' || $data['company']  == 'OHGA' ){
+                            $rs1->whereIn('company',['YAMADA','FUKUI','OHGA']);
+                        }else{
+                            $rs1->where('company',$data['company']);
+                        }
+                        $rs1 = $rs1->orderBy('sort')->get()->all();
+                        $dataItem['3'] = $model-> RenderData($rs1,false);
+                        $count+=count($rs1);
+
+                        $rs2 = DB::table('shop_order_excel')
+                            ->where('order_create_date',">=",date('Y-m-d',strtotime('-7 day')))
+                            ->where('order_create_date','<=',date('Y-m-d H:i:s'));
+                        if(isset($v['address'])){
+                            $rs2->where('address',preg_replace('/\s+/', '',trim($v['address'])));
+                        }
+                        if(isset($v['province'])){
+                            $rs2->where('province',preg_replace('/\s+/', '',trim($v['province'])));
+                        }
+
+                        if(isset($v['id'])){
+                            if(is_numeric($v['id'])){
+                                $rs2->where('id',"!=",$v['id']);
+                            }else{
+                                $rs2->where('key_id',"!=",$v['id']);
+                            }
+                        }
+
+                        if($data['company'] == "YAMADA" || $data['company'] == 'FUKUI' || $data['company']  == 'OHGA' ){
+                            $rs2->whereIn('company',['YAMADA','FUKUI','OHGA']);
+                        }else{
+                            $rs2->where('company',$data['company']);
+                        }
+
+                        $rs2 = $rs2->orderBy('sort')->get()->all();
+                        $dataItem['2'] = $model->RenderData($rs2,false);
+                        $count+=count($rs2);
+                        foreach ($dataItem as $key=>$values){
+                            foreach ($values as $_key=>$_val){
+                                if($_key == "KOGYJA"){
+                                    foreach ($_val as $__k=>$__val){
+                                        $dataItem[$key][$_key][$__k]->items =  DB::table('shop_order_excel')
+                                            ->where('id',"!=",$__val->id)->where('token',$__val->token)
+                                            ->orderBy('order_index','ASC')
+                                            ->get()->toArray();
+                                    }
+                                }
+                            }
+                        }
+                        $datas[$k]['datas'] = $dataItem;
+                        $datas[$k]['count'] =$count;
+                    }
+                }
+
+                return response()->json(["version"=>$this->data['version'],'lists'=>$datas,'company'=>$data["company"]]);
+            }
+        }
         $this->getCrumb()->breadcrumb(z_language("Danh sách duyệt đơn CTV"), route('backend:shop_ja:order:excel:show'));
         $date = $request->date;
         $company = $request->company;
         $hour = $request->hour;
 
-        if(empty($date) && empty($company) && empty($hour)){
-            if($request->isMethod('post')){
-                $data = $request->all();
-                $date = explode("/",$data['dateview']);
-                $date = $date[2].'-'.$date[1].'-'.$date[0];
-                if($data['action']!=1)
-                    $data = ['link'=>route(
-                        'backend:shop_ja:order:excel:show',
-                        ['company'=>$data['name'],
-                            'date'=>base64_encode($data['dateview']),
-                            'hour'=>base64_encode($data['time']),'type'=>$data['action']])];
-                return response()->json($data);
-            }
-            $categorys = config_get("category", "shop-ja:product:category");
-            return $this->render('order-excel.show-select',['date'=>"",'compays'=>$categorys]);
-        }else{
-            $date = base64_decode($date);
-            $hour = base64_decode($hour);
-            $type = $request->type;
-            $date = explode("/",$date);
-            $date = $date[2].'-'.$date[1].'-'.$date[0];
-            $this->GetCache('show',0,"",$date);
-            $this->getCrumb()->breadcrumb(z_language("Xuất :COMPANY",["COMPANY"=>$company]), route('backend:shop_ja:order:excel:show'));
-            $model = new OrderExcelModel();
-            $datas = $model->ShowAllCtv(Auth::user()->id,$date,$company,$type);
-            $model->key_date =$date;
-            $model->detail = $this->GetData($datas,true);
-            $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
-            $user_cvt = DB::table('admin')->select('id','name')->where('role_id',2)->get()->keyBy('id')->toArray();
-            $user_cvt[0] = new \stdClass();
-            $user_cvt[0]->id = 0;
-            $user_cvt[0]->name = 'No Ctv';
-            return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company,'admin'=>$users,'ctvs'=>$user_cvt]);
-        }
+        $date = date('Y-m-d');
+        $hour = base64_decode($hour);
+        $type = $request->type;
+
+        $this->GetCache('show',0,"",$date);
+        $this->getCrumb()->breadcrumb(z_language("Xuất :COMPANY",["COMPANY"=>$company]), route('backend:shop_ja:order:excel:show'));
+        $model = new OrderExcelModel();
+        $datas = $model->ShowAllCtv(Auth::user()->id,$date,$company,$type);
+        $model->key_date =$date;
+        $model->detail = $this->GetData($datas,true);
+        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+        $user_cvt = DB::table('admin')->select('id','name')->where('role_id',2)->get()->keyBy('id')->toArray();
+        $user_cvt[0] = new \stdClass();
+        $user_cvt[0]->id = 0;
+        $user_cvt[0]->name = 'No Ctv';
+        return $this->render('order-excel.show-ctv',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company,'admin'=>$users,'ctvs'=>$user_cvt]);
     }
     public function delete ($id){
         $model = OrderExcelModel::find($id);

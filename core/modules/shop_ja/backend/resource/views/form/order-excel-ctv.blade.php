@@ -147,9 +147,7 @@
         console.log = function () {
 
         };
-        window.addEventListener("beforeunload", function (e) {
-            Save(false,true);
-        });
+
         function makeid(length) {
             var result           = '';
             var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -160,7 +158,7 @@
             return result;
         }
         let userId = '{!! auth()->user()->id !!}:'+makeid(10);
-        let _session_id = {!! $model->id !!};
+        let _session_id = 0;
         let _version = {!! $version !!};
     </script>
 
@@ -377,9 +375,9 @@
         let options = {!! json_encode($options,JSON_UNESCAPED_UNICODE) !!}
         let ctvs = {!! json_encode($ctvs,JSON_UNESCAPED_UNICODE) !!}
         let columnsWidth = {
-            status: {
-                width:"30px",
-            },
+            // status: {
+            //     width:"1px",
+            // },
             image:{
                 width:"50px",
             },
@@ -692,15 +690,12 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'{!! z_language('Trạng thái') !!}',
-                    width:'{!! auth()->user()->role_id === 2?'50px':'1px' !!}',
-                    action:"width"
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 public: {
                     type: 'checkbox',
                     title:'{!! z_language('Public') !!}',
                     width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
-                    action:"width"
                 },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
@@ -929,18 +924,14 @@
                     delete columns[i].value;
                 }
                 index++;
-                if(columns[i].hasOwnProperty('action')){
-
-                }else{
-                    if(hide.hasOwnProperty(i)){
-                        columns[i].width =hide[i]+"px";
-                    }else if(_option.hasOwnProperty('colums')){
-                        if(_option.colums.hasOwnProperty(i)){
-                            columns[i].width = "1px";
-                        }
-                    }else if(columnsWidth.hasOwnProperty(i)){
-                        columns[i].width =columnsWidth[i].width;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i)){
+                    columns[i].width =columnsWidth[i].width;
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -1834,15 +1825,12 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'{!! z_language('Trạng thái') !!}',
-                    width:'{!! auth()->user()->role_id === 2?'50px':'1px' !!}',
-                    action:"width"
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 public: {
                     type: 'checkbox',
                     title:'{!! z_language('Public') !!}',
                     width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
-                    action:"width"
                 },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
@@ -2104,18 +2092,14 @@
                     delete columns[i].value;
                 }
                 index++;
-                if(columns[i].hasOwnProperty('action')){
-
-                }else{
-                    if(hide.hasOwnProperty(i)){
-                        columns[i].width =hide[i]+"px";
-                    }else if(_option.hasOwnProperty('colums')){
-                        if(_option.colums.hasOwnProperty(i)){
-                            columns[i].width = "1px";
-                        }
-                    }else if(columnsWidth.hasOwnProperty(i)){
-                        columns[i].width =columnsWidth[i].width;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i)){
+                    columns[i].width =columnsWidth[i].width;
                 }
             }
 
@@ -3514,9 +3498,7 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'{!! z_language('Trạng thái') !!}',
-                    width:'{!! auth()->user()->role_id === 2?'50px':'1px' !!}',
-                    action:"width"
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 public: {
                     type: 'checkbox',
@@ -3783,18 +3765,14 @@
                     delete columns[i].value;
                 }
                 index++;
-                if(columns[i].hasOwnProperty('action')){
-
-                }else{
-                    if(hide.hasOwnProperty(i)){
-                        columns[i].width =hide[i]+"px";
-                    }else if(_option.hasOwnProperty('colums')){
-                        if(_option.colums.hasOwnProperty(i)){
-                            columns[i].width = "1px";
-                        }
-                    }else if(columnsWidth.hasOwnProperty(i)){
-                        columns[i].width =columnsWidth[i].width;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i)){
+                    columns[i].width =columnsWidth[i].width;
                 }
             }
 
@@ -5160,15 +5138,12 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'{!! z_language('Trạng thái') !!}',
-                    width:'{!! auth()->user()->role_id === 2?'50px':'1px' !!}',
-                    action:"width"
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 public: {
                     type: 'checkbox',
                     title:'{!! z_language('Public') !!}',
                     width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
-                    action:"width"
                 },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
@@ -5431,18 +5406,14 @@
                     delete columns[i].value;
                 }
                 index++;
-                if(columns[i].hasOwnProperty('action')){
-
-                }else{
-                    if(hide.hasOwnProperty(i)){
-                        columns[i].width =hide[i]+"px";
-                    }else if(_option.hasOwnProperty('colums')){
-                        if(_option.colums.hasOwnProperty(i)){
-                            columns[i].width = "1px";
-                        }
-                    }else if(columnsWidth.hasOwnProperty(i)){
-                        columns[i].width =columnsWidth[i].width;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i) && i!="count"){
+                    columns[i].width =columnsWidth[i].width;
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -6450,15 +6421,12 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'{!! z_language('Trạng thái') !!}',
-                    width:'{!! auth()->user()->role_id === 2?'50px':'1px' !!}',
-                    action:"width"
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 public: {
                     type: 'checkbox',
                     title:'{!! z_language('Public') !!}',
                     width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
-                    action:"width"
                 },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
@@ -6720,18 +6688,14 @@
                     delete columns[i].value;
                 }
                 index++;
-                if(columns[i].hasOwnProperty('action')){
-
-                }else{
-                    if(hide.hasOwnProperty(i)){
-                        columns[i].width =hide[i]+"px";
-                    }else if(_option.hasOwnProperty('colums')){
-                        if(_option.colums.hasOwnProperty(i)){
-                            columns[i].width = "1px";
-                        }
-                    }else if(columnsWidth.hasOwnProperty(i)){
-                        columns[i].width =columnsWidth[i].width;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i) && i!="count"){
+                    columns[i].width =columnsWidth[i].width;
                 }
             }
             function update(instance, cell, c, r, value) {
@@ -7618,15 +7582,12 @@
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'{!! z_language('Trạng thái') !!}',
-                    width:'{!! auth()->user()->role_id === 2?'50px':'1px' !!}',
-                    action:"width"
+                    title:'{!! z_language('Trạng thái') !!}'
                 },
                 public: {
                     type: 'checkbox',
                     title:'{!! z_language('Public') !!}',
                     width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
-                    action:"width"
                 },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
@@ -7855,18 +7816,14 @@
                     delete columns[i].value;
                 }
                 index++;
-                if(columns[i].hasOwnProperty('action')){
-
-                }else{
-                    if(hide.hasOwnProperty(i)){
-                        columns[i].width =hide[i]+"px";
-                    }else if(_option.hasOwnProperty('colums')){
-                        if(_option.colums.hasOwnProperty(i)){
-                            columns[i].width = "1px";
-                        }
-                    }else if(columnsWidth.hasOwnProperty(i)){
-                        columns[i].width =columnsWidth[i].width;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i)){
+                    columns[i].width =columnsWidth[i].width;
                 }
             }
 
@@ -8755,13 +8712,13 @@
                     type: 'checkbox',
                     title:'{!! z_language('Status') !!}',
                     width:'{!! auth()->user()->role_id === 2?'50px':'1px' !!}',
-                    action:"width"
+                    action:"width",
                 },
                 public: {
                     type: 'checkbox',
                     title:'{!! z_language('Public') !!}',
                     width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
-                    action:"width"
+                    action:"width",
                 },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
@@ -8993,18 +8950,15 @@
                     delete columns[i].value;
                 }
                 index++;
-                if(columns[i].hasOwnProperty('action')){
 
-                }else{
-                    if(hide.hasOwnProperty(i)){
-                        columns[i].width =hide[i]+"px";
-                    }else if(_option.hasOwnProperty('colums')){
-                        if(_option.colums.hasOwnProperty(i)){
-                            columns[i].width = "1px";
-                        }
-                    }else if(columnsWidth.hasOwnProperty(i)){
-                        columns[i].width =columnsWidth[i].width;
+                if(hide.hasOwnProperty(i)){
+                    columns[i].width =hide[i]+"px";
+                }else if(_option.hasOwnProperty('colums')){
+                    if(_option.colums.hasOwnProperty(i)){
+                        columns[i].width = "1px";
                     }
+                }else if(columnsWidth.hasOwnProperty(i)){
+                    columns[i].width =columnsWidth[i].width;
                 }
 
             }
@@ -9995,9 +9949,10 @@
 
         function Save(status,auto,one) {
             if(!(auto === true)){
-                let oke =  confirm('{!! z_language('Bạn muốn lưu') !!}');
+                let oke =  confirm('{!! z_language('Bạn muốn lưu 111') !!}');
                 if(!oke) return;
             }
+
             if(status === true){
                 let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
                 let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
@@ -10061,6 +10016,7 @@
                         console.info("Name 1:"+name);
                     }
                 });
+
                 if(countCampany === 0) return;
                 let form_store = $("#form_store");
 
@@ -10069,18 +10025,19 @@
                 let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
 
                 let name = _spreadsheet.textContent;
+
                 $.ajax({
                     type: "POST",
                     url:"{{ route('backend:shop_ja:order:excel:store') }}",
                     data:{
                         datas:JSON.stringify(datas),
                         info: form_store.zoe_inputs('get'),
-                        act:"save",
+                        act:"saveShow",
                         tab:name,
                         token:token,
                         auto:auto,
                         date:stringDate,
-                        'id':'{{isset($model)?$model->id:0}}',
+                        'id':'0',
                         'type':'{{isset($model)?'edit':'create'}}'} ,
 
                     success: function (data) {
@@ -10104,13 +10061,8 @@
                                    // $.growl.notice({ message: "{!! z_language('Cập nhật thành công') !!}" });
                                 }
                             }
-
                         }else{
-                            if(data.hasOwnProperty('url')){
-                                window.location.replace(data.url);
-                            }else if(data.hasOwnProperty('reload')){
-                                location.reload();
-                            }
+                            location.reload();
                         }
 
                     },
@@ -10179,14 +10131,12 @@
                     act:"conflict",
                     company:name,
                     data:datas,
-
                 },
                 success: function (data) {
                     if(data.company === name){
                         for(let index in datas){
                             if(data["lists"].hasOwnProperty(index)){
                                 let row = $(spreadsheet.jexcel[worksheet].getCell(jexcel.getColumnNameFromId([0, index])));
-
                                 if(row){
                                     let p =  row.parent();
                                     let a = data["lists"][index][2];
@@ -10231,9 +10181,7 @@
                lastActive = $(self).text();
                start = true;
                CheckData();
-               Save_Action(true,function () {
 
-               });
 
            });
        },2000);
@@ -10244,42 +10192,6 @@
             if(start == false) return;
             CheckData();
         },timeAction*3);
-
-        function Save_Action(one,cb){
-            if(SaveEvent.hasOwnProperty(lastActive)){
-                if(SaveEvent[lastActive].save){
-                    if(SaveEvent[lastActive].count == SaveEvent[lastActive].count_last){
-                        Save(false,true,one);
-                    }else{
-                        SaveEvent[lastActive].count_last = SaveEvent[lastActive].count
-                    }
-                }
-            }
-            cb();
-        }
-        setInterval(function () {
-            if(start == false) return;
-            Save_Action(true,function () {
-
-            });
-        },timeAction+1000);
-
-        let siteTitle = '{!! $_title !!}';
-
-        window.addEventListener('blur', () => {
-            document.title = siteTitle+ ' Come back! :c';
-            start = false;
-            Save_Action("",function () {
-
-            });
-        });
-        window.addEventListener('focus', () => {
-            document.title = siteTitle;
-            start = true;
-            Save_Action("",function () {
-
-            });
-        });
         $("#copyData").bind("paste", function(e){
             // access the clipboard using the api
             var pastedData = e.originalEvent.clipboardData.getData('text');

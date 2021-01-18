@@ -16,8 +16,8 @@ return [
         ],
         "module:shop-ja::excel:show_ctv" => [
             "name" => z_language("Duyệt đơn CTV",false),
-            "url" => "backend:shop_ja:order:action:show_ctv",
-            "pos" => 4,
+            "url" => "backend:shop_ja:order:excel:show_ctv",
+            "pos" => 2,
             "header" => true,
             "icon"=>"fa fa-upload",
         ],
