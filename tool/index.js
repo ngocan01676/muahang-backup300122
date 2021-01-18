@@ -422,10 +422,11 @@ async function JAPAN_POST(tracking){
             AddQueue('setInterval');
         }
     },10000);
-
+    let countLock = 0;
     setInterval(function () {
 
         if(lock === false ){
+            countLock = 0;
             if(pushData.length > 0){
                 lock = true;
                 let data = pushData.shift();
@@ -509,6 +510,9 @@ async function JAPAN_POST(tracking){
             }
         }else{
             process.stdout.write('.');
+            if(countLock++ >10){
+                lock = false;
+            }
         }
     },13000);
 
