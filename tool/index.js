@@ -31,6 +31,8 @@ let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:s
 async function YAMATO(tracking){
     return new  Promise (async function (resolve, reject) {
         let page = pages["YAMATO"];
+        console.log('http://track.kuronekoyamato.co.jp/english/tracking');
+        console.log(tracking);
         await page.goto('http://track.kuronekoyamato.co.jp/english/tracking', { waitUntil: 'networkidle2' });
         await page.waitForSelector('#main');
         for(let index in tracking){
@@ -81,6 +83,8 @@ async function YAMATO(tracking){
 async function SAGAWA(tracking){
     return new  Promise (async function (resolve, reject) {
         let page = pages["YAMATO"];
+        console.log('http://k2k.sagawa-exp.co.jp/p/sagawa/web/okurijosearcheng.jsp');
+        console.log(tracking);
         await page.goto('http://k2k.sagawa-exp.co.jp/p/sagawa/web/okurijosearcheng.jsp', {waitUntil: 'networkidle2'});
         await page.waitForSelector('#main');
 
@@ -132,6 +136,8 @@ async function JAPAN_POST(tracking){
 
     return new  Promise (async function (resolve, reject) {
         let page = pages["YAMATO"];
+        console.log('https://trackings.post.japanpost.jp/services/srv/search/input');
+        console.log(tracking);
         await page.goto('https://trackings.post.japanpost.jp/services/srv/search/input', {waitUntil: 'networkidle2'});
         await page.waitForSelector('#content');
         let _index = 1;
@@ -265,6 +271,9 @@ async function JAPAN_POST(tracking){
 
                 for(let key in results){
                     let trangid = results[key].tracking_id;
+                    if(trangid.length < 5){
+                        continue;
+                    }
                     if(trangid.toString() === "キャンセル"){
                         continue;
                     }
@@ -296,9 +305,13 @@ async function JAPAN_POST(tracking){
                                 let ___databaseData = {};
                                 for(let key in results){
                                     let trangid = results[key].tracking_id;
+                                    if(trangid.length < 5){
+                                        continue;
+                                    }
                                     if(trangid.toString() === "キャンセル"){
                                         continue;
                                     }
+
                                     if(!___databaseData.hasOwnProperty(results[key].type)){
                                         ___databaseData[results[key].type] = {};
                                     }
@@ -482,7 +495,6 @@ async function JAPAN_POST(tracking){
                     }else if(data.name === "JAPAN_POST"){
                         JAPAN_POST(data.data).then(function (vals) {
                             lock = false;
-
                             log.info('JAPAN_POST:'+JSON.stringify(vals));
                             for(let i in vals[1]){
                                 if(vals[0].hasOwnProperty(vals[1][i].key)){
