@@ -720,7 +720,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                                 $where = ['id' => $values[$columns["id"]]];
                                             } else {
                                                 $where = ['key_id' => $values[$columns["id"]]];
-                                                $_data['rate'] = isset($this->data['options'][$name]['rate']) ? (int)$this->data['options'][$name]['rate'] : "0";
+                                                $_data['rate'] = isset($this->data['options'][$admin_id]['rate']) ? (int)$this->data['options'][$admin_id]['rate'] : "0";
                                             }
                                         }
 //                                        else{
@@ -905,7 +905,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             $where = ['id'=>$values[$columns["id"]]];
                                         }else{
                                             $where = ['key_id'=>$values[$columns["id"]]];
-                                            $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
+                                            $_data['rate'] = isset($this->data['options'][$admin_id]['rate']) ? (int)$this->data['options'][$admin_id]['rate'] : "0";
                                         }
                                         $ids_sort[$id] = $_data["sort"];
                                     }else{
