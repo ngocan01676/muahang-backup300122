@@ -271,6 +271,9 @@ async function JAPAN_POST(tracking){
 
                 for(let key in results){
                     let trangid = results[key].tracking_id;
+                    if(trangid.length < 5){
+                        continue;
+                    }
                     if(trangid.toString() === "キャンセル"){
                         continue;
                     }
