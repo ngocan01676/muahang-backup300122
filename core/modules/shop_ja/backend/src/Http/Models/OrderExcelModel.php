@@ -218,10 +218,11 @@ class OrderExcelModel extends Model
         $shop_order_excel =  DB::table('shop_order_excel')
             ->where('status',1)
             ->where('public',0)
-            ->where('order_create_date','>=',$date_start." 00:00:00")
-            ->where('order_create_date','<=',$date_end." 23:59:59")->orderBy('sort');
+            ->where('updated_at','>=',$date_start." 00:00:00")
+            ->where('updated_at','<=',$date_end." 23:59:59")->orderBy('sort');
 
         $shop_order_excel = $shop_order_excel->get()->all();
+       
         $users = DB::table('admin')->select('id','username')->get()->keyBy('id')->toArray();
 
         $datas = [

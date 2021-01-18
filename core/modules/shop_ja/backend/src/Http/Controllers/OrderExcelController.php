@@ -2302,6 +2302,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
     }
     public function show_ctv(Request $request){
+        $data = $request->all();
         if(isset($data['act'])){
             if($data['act'] == "conflict"){
                 $admin_id = Auth::user()->id;
