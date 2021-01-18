@@ -302,9 +302,13 @@ async function JAPAN_POST(tracking){
                                 let ___databaseData = {};
                                 for(let key in results){
                                     let trangid = results[key].tracking_id;
+                                    if(trangid.length < 5){
+                                        continue;
+                                    }
                                     if(trangid.toString() === "キャンセル"){
                                         continue;
                                     }
+
                                     if(!___databaseData.hasOwnProperty(results[key].type)){
                                         ___databaseData[results[key].type] = {};
                                     }
