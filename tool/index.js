@@ -260,7 +260,7 @@ async function JAPAN_POST(tracking){
             let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:ss");
 
             // var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status < 10 and count<10 and (updated_at <= '"+timeEnd+"' or status=0) order by updated_at LIMIT 0,20";
-            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status<10 and (updated_at <= '"+timeEnd+"' or status = 2 and data ='[]' and updated_at >= '"+moment().format("YYYY-MM-DD")+" 00:00:00' and updated_at <= '"+moment().format("YYYY-MM-DD")+" 23:59:59') order by updated_at LIMIT 0,200";
+            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where tracking_id != 'CXL' and tracking_id !='キャンセル' and status != 1 and status<10 and (updated_at <= '"+timeEnd+"' or status = 2 and data ='[]' and updated_at >= '"+moment().format("YYYY-MM-DD")+" 00:00:00' and updated_at <= '"+moment().format("YYYY-MM-DD")+" 23:59:59') order by updated_at LIMIT 0,200";
             // console.log("SQL 1 : "+sql);
 
             let rows = {};
@@ -271,7 +271,7 @@ async function JAPAN_POST(tracking){
 
                 for(let key in results){
                     let trangid = results[key].tracking_id;
-                    if(trangid.length < 5){
+                    if(trangid.toString() === "CXL"){
                         continue;
                     }
                     if(trangid.toString() === "キャンセル"){
@@ -293,7 +293,7 @@ async function JAPAN_POST(tracking){
                     a = new Promise(function (resolve, reject) {
 
                         timeEnd1 = moment().add('-'+(60),'minutes').format("YYYY-MM-DD HH:mm:ss");
-                        let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where status = 3 and  updated_at <= '"+timeEnd1+"' order by updated_at LIMIT 0,100";
+                        let sql1 = "SELECT * FROM `cms_shop_order_excel_tracking` where tracking_id != 'CXL' and tracking_id !='キャンセル' and status = 3 and  updated_at <= '"+timeEnd1+"' order by updated_at LIMIT 0,100";
 
                         // console.log("SQL 2 : "+sql1);
 
@@ -305,7 +305,7 @@ async function JAPAN_POST(tracking){
                                 let ___databaseData = {};
                                 for(let key in results){
                                     let trangid = results[key].tracking_id;
-                                    if(trangid.length < 5){
+                                    if(trangid.toString() === "CXL"){
                                         continue;
                                     }
                                     if(trangid.toString() === "キャンセル"){
