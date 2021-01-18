@@ -424,7 +424,6 @@ async function JAPAN_POST(tracking){
     },10000);
     let countLock = 0;
     setInterval(function () {
-
         if(lock === false ){
             countLock = 0;
             if(pushData.length > 0){
@@ -510,7 +509,7 @@ async function JAPAN_POST(tracking){
             }
         }else{
             process.stdout.write('.');
-            if(countLock++ >10){
+            if(countLock++ > 10){
                 lock = false;
             }
         }
