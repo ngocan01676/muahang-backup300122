@@ -375,7 +375,7 @@
         let hideprototy = {!! json_encode($hide,JSON_UNESCAPED_UNICODE) !!}
         let info_admin = {!! json_encode($admin,JSON_UNESCAPED_UNICODE) !!}
         let options = {!! json_encode($options,JSON_UNESCAPED_UNICODE) !!}
-
+        let ctvs = {!! json_encode($ctvs,JSON_UNESCAPED_UNICODE) !!}
         let columnsWidth = {
             status: {
                 width:"30px",
@@ -468,8 +468,6 @@
                 width:'50px',
             },
         };
-
-
         function IF_End($val,$conf){
             if( $conf.equal_end === "<=" && $val <= $conf.value_end){
                 return true;
@@ -696,11 +694,24 @@
                     type: 'checkbox',
                     title:'{!! z_language('Trạng thái') !!}'
                 },
+                public: {
+                    type: 'checkbox',
+                    title:'{!! z_language('Public') !!}',
+                    width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+                },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                ctv_id:{
+                    title: '{!! z_language("CVT") !!}',//I Tên SP
+                    type:'dropdown',
+                    source:Object.values(ctvs),
+                    autocomplete:true,
+                    width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+                    value:[]
                 },
                 order_info:{
                     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
@@ -1818,11 +1829,24 @@
                     type: 'checkbox',
                     title:'{!! z_language('Trạng thái') !!}'
                 },
+                public: {
+                    type: 'checkbox',
+                    title:'{!! z_language('Public') !!}',
+                    width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+                },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                ctv_id:{
+                    title: '{!! z_language("CVT") !!}',//I Tên SP
+                    type:'dropdown',
+                    source:Object.values(ctvs),
+                    autocomplete:true,
+                    width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+                    value:[]
                 },
                 order_info:{
                     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
@@ -3478,11 +3502,24 @@
                     type: 'checkbox',
                     title:'{!! z_language('Trạng thái') !!}'
                 },
+                public: {
+                    type: 'checkbox',
+                    title:'{!! z_language('Public') !!}',
+                    width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+                },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                ctv_id:{
+                    title: '{!! z_language("CVT") !!}',//I Tên SP
+                    type:'dropdown',
+                    source:Object.values(ctvs),
+                    autocomplete:true,
+                    width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+                    value:[]
                 },
                 order_info:{
                     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
@@ -5105,11 +5142,24 @@
                     type: 'checkbox',
                     title:'{!! z_language('Trạng thái') !!}'
                 },
+                public: {
+                    type: 'checkbox',
+                    title:'{!! z_language('Public') !!}',
+                    width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+                },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                ctv_id:{
+                    title: '{!! z_language("CVT") !!}',//I Tên SP
+                    type:'dropdown',
+                    source:Object.values(ctvs),
+                    autocomplete:true,
+                    width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+                    value:[]
                 },
                 order_info:{
                     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
@@ -6375,11 +6425,24 @@
                     type: 'checkbox',
                     title:'{!! z_language('Trạng thái') !!}'
                 },
+                public: {
+                    type: 'checkbox',
+                    title:'{!! z_language('Public') !!}',
+                    width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+                },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                ctv_id:{
+                    title: '{!! z_language("CVT") !!}',//I Tên SP
+                    type:'dropdown',
+                    source:Object.values(ctvs),
+                    autocomplete:true,
+                    width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+                    value:[]
                 },
                 order_info:{
                     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
@@ -7523,11 +7586,24 @@
                     type: 'checkbox',
                     title:'{!! z_language('Trạng thái') !!}'
                 },
+                public: {
+                    type: 'checkbox',
+                    title:'{!! z_language('Public') !!}',
+                    width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+                },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                ctv_id:{
+                    title: '{!! z_language("CVT") !!}',//I Tên SP
+                    type:'dropdown',
+                    source:Object.values(ctvs),
+                    autocomplete:true,
+                    width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+                    value:[]
                 },
                 order_info:{
                     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
@@ -8628,19 +8704,35 @@
 
             let dropdown = dataproduct.hasOwnProperty(sheetName)?dataproduct[sheetName]:{};
             let index = 0;
+
             let checkShip = {
 
             };
+
             let columns = {
                 status: {
                     type: 'checkbox',
-                    title:'{!! z_language('Trạng thái') !!}'
+                    title:'{!! z_language('Status') !!}',
+                    width:'{!! auth()->user()->role_id === 2?'50px':'1px' !!}',
+                },
+                public: {
+                    type: 'checkbox',
+                    title:'{!! z_language('Public') !!}',
+                    width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
                 },
                 image:{
                     title:'{!! z_language('Ảnh') !!}',
                     type:'image',
                     width:"50px",
                     hide:true,
+                },
+                ctv_id:{
+                    title: '{!! z_language("CVT") !!}',//I Tên SP
+                    type:'dropdown',
+                    source:Object.values(ctvs),
+                    autocomplete:true,
+                    width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+                    value:[]
                 },
                 order_info:{
                     title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản

@@ -14,6 +14,13 @@ return [
             "header" => true,
             "icon"=>"fa fa-cart-plus",
         ],
+        "module:shop-ja::excel:show_ctv" => [
+            "name" => z_language("Duyệt đơn CTV",false),
+            "url" => "backend:shop_ja:order:action:show_ctv",
+            "pos" => 4,
+            "header" => true,
+            "icon"=>"fa fa-upload",
+        ],
         "module:shop-ja:sim" => [
             "name" => z_language('Sim',false),
             "pos" => 3,
@@ -45,6 +52,7 @@ return [
             "header" => true,
             "icon"=>"fa fa-server",
         ],
+
         "backend:shop_ja:order:search" => [
             "name" => z_language("Tìm kiếm hóa đơn",false),
             "url" => "backend:shop_ja:order:search:search",

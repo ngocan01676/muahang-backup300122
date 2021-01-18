@@ -196,6 +196,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     foreach ($order['data'] as $key1=>$values1){
                                         if ($key1!=$key && $values1[$columns["token"]] == $values[$columns["token"]]) {
                                             $order['data'][$key1][$columns["status"]] =  $values[$columns["status"]];
+                                            $order['data'][$key1][$columns["public"]] =  $values[$columns["public"]];
                                             $order['data'][$key1][$columns["timeCreate"]] = $values[$columns["timeCreate"]];
                                             $order['data'][$key1][$columns["session_id"]] = $values[$columns["session_id"]];
                                             $order['data'][$key1][$columns["fullname"]] = $values[$columns["fullname"]];
@@ -292,7 +293,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 //                                    "updated_at"=>$date_time,
                                     "type"=>isset($columns["type"]) && !empty($values[$columns["type"]])?$values[$columns["type"]]:"Item",
                                     "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
-                                    "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
+                                    "public"=> isset($columns["public"])? (int)$values[$columns["public"]]:"0",
+                                    "status"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                     "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:0,
                                     "rate"=> isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0",
@@ -424,7 +426,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                     "updated_at"=>$date_time,
                                     "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
-                                    "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
+                                    "status"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
+                                    "public"=> isset($columns["public"])? (int)$values[$columns["public"]]:"0",
                                     "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
@@ -574,6 +577,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     foreach ($order['data'] as $key1=>$values1){
                                         if ($key1!=$key && $values1[$columns["token"]] == $values[$columns["token"]]) {
                                             $order['data'][$key1][$columns["status"]] =  $values[$columns["status"]];
+                                            $order['data'][$key1][$columns["public"]] =  $values[$columns["public"]];
                                             $order['data'][$key1][$columns["timeCreate"]] = $values[$columns["timeCreate"]];
                                             $order['data'][$key1][$columns["session_id"]] = $values[$columns["session_id"]];
                                             $order['data'][$key1][$columns["fullname"]] = $values[$columns["fullname"]];
@@ -650,6 +654,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "company" => $name,
                                         "session_id" => $model->id,
                                         "admin_id" => $model->admin_id,
+                                        "ctv_id" => \auth()->user()->role_id == 2?$model->admin_id:(int)(isset($columns["ctv_id"]) ? $values[$columns["ctv_id"]] : "0"),
                                         "fullname" => isset($columns["fullname"]) ? preg_replace('/\s+/', ' ', $values[$columns["fullname"]]) : "",
                                         "address" => isset($columns["address"]) ? preg_replace('/\s+/', '', $values[$columns["address"]]) : "",
                                         "phone" => isset($columns["phone"]) ? $values[$columns["phone"]] : "",
@@ -678,7 +683,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "updated_at" => $date_time,
                                         "type" => isset($columns["type"]) && !empty($values[$columns["type"]]) ? $values[$columns["type"]] : "Item",
                                         "one_address" => isset($columns["one_address"]) ? (int)$values[$columns["one_address"]] : "0",
-                                        "public" => isset($columns["status"]) ? (int)$values[$columns["status"]] : "0",
+                                        "public" => (isset($columns["public"]) ? (int)$values[$columns["public"]] : "0"),
+                                        "status" => isset($columns["status"]) ? (int) $values[$columns["status"]] : "0",
                                         "token" => isset($columns["token"]) ? $values[$columns["token"]] : "",
                                         "order_index" => isset($columns["position"]) ? (int)$values[$columns["position"]] : 0,
                                         "rate" => isset($this->data['options'][$name]['rate']) ? (int)$this->data['options'][$name]['rate'] : "0",
@@ -686,7 +692,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "comment" => isset($columns["comment"]) ? $values[$columns["comment"]] : "",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d', strtotime($_data['order_create_date'])) . " " . date(' H:i:s');
-
                                     $_data["sort"] = $model->admin_id * 1000000 + ($key + 1 + $keyNew ) * $model->admin_id + $_data["order_index"] + strtotime($model->key_date);
                                     $ids_sort[$name][$keyNew][$key] = [
                                         $model->admin_id * 1000000 + ($key + 1 + $keyNew ) * $model->admin_id + $_data["order_index"],
@@ -838,6 +843,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "company"=>$name,
                                     "session_id"=>$model->id,
                                     "admin_id"=>$model->admin_id,
+                                    "ctv_id" => \auth()->user()->role_id == 2 ? $model->admin_id:(int)(isset($columns["ctv_id"]) ? $values[$columns["ctv_id"]] : "0"),
                                     "fullname"=>isset($columns["fullname"])?preg_replace('/\s+/', ' ', $values[$columns["fullname"]]):"",
                                     "address"=> isset($columns["address"])?preg_replace('/\s+/', '',$values[$columns["address"]] ):"",
                                     "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
@@ -865,7 +871,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
                                     "updated_at"=>$date_time,
                                     "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
-                                    "public"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
+                                    "public"=> isset($columns["public"])? (int)$values[$columns["public"]]:"0",
+                                    "status"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
                                     "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
@@ -1831,7 +1838,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
 
                         $datas[$result->company][] = [
+                            $result->status==1,
                             $result->public==1,
+                            $result->ctv_id,
                             $result->order_image,
                             $result->order_info,
                             $result->order_create_date,
@@ -1885,7 +1894,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $total_price = $result->total_price;
                         $total_price_buy = $result->total_price_buy;
                         $datas[$result->company][] = [
+                            $result->status==1,
                             $result->public==1,
+                            $result->ctv_id,
                             $result->order_image,
                             $result->order_info,
                             $result->order_create_date,
@@ -1965,7 +1976,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 //                        }
 
                         $datas[$result->company][] = [
+                            $result->status==1,
                             $result->public==1,
+                            $result->ctv_id,
                             $result->order_image,
                             $result->order_info,
                             $result->order_create_date,
@@ -2043,7 +2056,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
 
                         $datas[$result->company][] = [
+                            $result->status==1,
                             $result->public==1,
+                            $result->ctv_id,
                             $result->order_image,
                             $result->order_info,
                             $result->order_create_date,
@@ -2069,8 +2084,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $order_profit,
                             (int)$result->rate*(int)$result->count+(int)$result->price_buy_sale,
                             $result->order_tracking,
-
-
                             $result->one_address==1,
                             $result->id,
                             $result->session_id,
@@ -2084,7 +2097,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 }
             }
         }
-
         return $datas;
     }
     public function edit(Request $request){
@@ -2104,9 +2116,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                  strtotime('-7 day')))->where('order_create_date','<=',date('Y-m-d H:i:s'));
                          $count = 0;
                          if(isset($v['fullname'])){
-
-
-
                              $rs1->where('fullname', preg_replace('/\s+/', ' ',trim($v['fullname'])));
                          }
                          if(isset($v['address'])){
@@ -2188,8 +2197,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $model->detail = $this->GetData($results,false);
 
         $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+        $user_cvt = DB::table('admin')->select('id','name')->where('role_id',2)->get()->keyBy('id')->toArray();
 
-        return $this->render('order-excel.edit',['model'=>$model,'admin'=>$users]);
+        $user_cvt[0] = new \stdClass();
+        $user_cvt[0]->id = 0;
+        $user_cvt[0]->name = 'No Ctv';
+
+        return $this->render('order-excel.edit',['model'=>$model,'admin'=>$users,'ctvs'=>$user_cvt]);
     }
     public function show(Request $request){
         $this->getCrumb()->breadcrumb(z_language("Danh sách Xuất"), route('backend:shop_ja:order:excel:show'));
@@ -2253,7 +2267,56 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $model->key_date =$date;
             $model->detail = $this->GetData($datas,true);
             $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
-            return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company,'admin'=>$users]);
+
+            $user_cvt = DB::table('admin')->select('id','name')->where('role_id',2)->get()->keyBy('id')->toArray();
+
+            $user_cvt[0] = new \stdClass();
+            $user_cvt[0]->id = 0;
+            $user_cvt[0]->name = 'No Ctv';
+
+            return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company,'admin'=>$users,'ctvs'=>$user_cvt]);
+        }
+    }
+    public function show_ctv(Request $request){
+
+        $this->getCrumb()->breadcrumb(z_language("Danh sách duyệt đơn CTV"), route('backend:shop_ja:order:excel:show'));
+        $date = $request->date;
+        $company = $request->company;
+        $hour = $request->hour;
+
+        if(empty($date) && empty($company) && empty($hour)){
+            if($request->isMethod('post')){
+                $data = $request->all();
+                $date = explode("/",$data['dateview']);
+                $date = $date[2].'-'.$date[1].'-'.$date[0];
+                if($data['action']!=1)
+                    $data = ['link'=>route(
+                        'backend:shop_ja:order:excel:show',
+                        ['company'=>$data['name'],
+                            'date'=>base64_encode($data['dateview']),
+                            'hour'=>base64_encode($data['time']),'type'=>$data['action']])];
+                return response()->json($data);
+            }
+            $categorys = config_get("category", "shop-ja:product:category");
+            return $this->render('order-excel.show-select',['date'=>"",'compays'=>$categorys]);
+        }else{
+            $date = base64_decode($date);
+            $hour = base64_decode($hour);
+            $type = $request->type;
+            $date = explode("/",$date);
+            $date = $date[2].'-'.$date[1].'-'.$date[0];
+            $this->GetCache('show',0,"",$date);
+            $this->getCrumb()->breadcrumb(z_language("Xuất :COMPANY",["COMPANY"=>$company]), route('backend:shop_ja:order:excel:show'));
+            $model = new OrderExcelModel();
+            $datas = $model->ShowAllCtv(Auth::user()->id,$date,$company,$type);
+            $model->key_date =$date;
+            $model->detail = $this->GetData($datas,true);
+            $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+            $user_cvt = DB::table('admin')->select('id','name')->where('role_id',2)->get()->keyBy('id')->toArray();
+            $user_cvt[0] = new \stdClass();
+            $user_cvt[0]->id = 0;
+            $user_cvt[0]->name = 'No Ctv';
+            return $this->render('order-excel.show',['hour'=>$hour,'model'=>$model,'date'=>$date,'company'=>$company,'admin'=>$users,'ctvs'=>$user_cvt]);
         }
     }
     public function delete ($id){

@@ -247,6 +247,11 @@ return [
                         "method" => ['get','post'],
                         "acl"=>true,
                     ],
+                    "show_ctv" => [
+                        "url" => "/show-ctv/{company?}/{date?}/{hour?}/{type?}",
+                        "method" => ['get','post'],
+                        "acl"=>true,
+                    ],
                     "store" => [
                         "url" => "/store",
                         "method" => ['post'],

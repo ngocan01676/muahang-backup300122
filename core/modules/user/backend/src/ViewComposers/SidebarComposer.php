@@ -28,9 +28,11 @@ class SidebarComposer
 
     public function compose(View $view)
     {
-        $sidebars = Cache::remember('sidebars:' . $this->user->keyCache(), 60 , function () {
+        $sidebars = Cache::remember('sidebars:' . $this->user->keyCache(), 1 , function () {
             $app = app();
             $sidebars = $app->getConfig()->sidebars;
+
+
             $aliases_acl = $app->getPermissions()->aliases;
             $sidebar_new = [];
 
@@ -83,8 +85,10 @@ class SidebarComposer
                     $lists_sidebar[$key]['items'] = $items;
                 }
             }
+
             return $sidebar_new;
         });
+
         $view->with('lists_sidebar', $sidebars);
     }
 }

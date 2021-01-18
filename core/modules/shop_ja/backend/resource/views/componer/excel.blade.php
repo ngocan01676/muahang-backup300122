@@ -221,6 +221,7 @@
           let hideprototy = {!! json_encode($hide,JSON_UNESCAPED_UNICODE) !!}
           let info_admin = {!! json_encode($admin,JSON_UNESCAPED_UNICODE) !!}
           let options = {!! json_encode($options,JSON_UNESCAPED_UNICODE) !!}
+          let ctvs = {!! json_encode($ctvs,JSON_UNESCAPED_UNICODE) !!}
 
           let columnsWidth = {
    status: {
@@ -535,12 +536,25 @@
      type: 'checkbox',
      title:'{!! z_language('Trạng thái') !!}'
     },
-    image:{
-     title:'{!! z_language('Ảnh') !!}',
-     type:'image',
-     width:"50px",
-     hide:true,
-    },
+       public: {
+           type: 'checkbox',
+           title:'{!! z_language('Public') !!}',
+           width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+       },
+       image:{
+           title:'{!! z_language('Ảnh') !!}',
+           type:'image',
+           width:"50px",
+           hide:true,
+       },
+       ctv_id:{
+           title: '{!! z_language("CVT") !!}',//I Tên SP
+           type:'dropdown',
+           source:Object.values(ctvs),
+           autocomplete:true,
+           width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+           value:[]
+       },
        order_info:{
            title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
            type: 'text',
@@ -1580,12 +1594,25 @@
      type: 'checkbox',
      title:'{!! z_language('Trạng thái') !!}'
     },
-    image:{
-     title:'{!! z_language('Ảnh') !!}',
-     type:'image',
-     width:"50px",
-     hide:true,
-    },
+       public: {
+           type: 'checkbox',
+           title:'{!! z_language('Public') !!}',
+           width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+       },
+       image:{
+           title:'{!! z_language('Ảnh') !!}',
+           type:'image',
+           width:"50px",
+           hide:true,
+       },
+       ctv_id:{
+           title: '{!! z_language("CVT") !!}',//I Tên SP
+           type:'dropdown',
+           source:Object.values(ctvs),
+           autocomplete:true,
+           width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+           value:[]
+       },
        order_info:{
            title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
            type: 'text',
@@ -3155,12 +3182,25 @@
      type: 'checkbox',
      title:'{!! z_language('Trạng thái') !!}'
     },
-    image:{
-     title:'{!! z_language('Ảnh') !!}',
-     type:'image',
-     width:"50px",
-     hide:true,
-    },
+       public: {
+           type: 'checkbox',
+           title:'{!! z_language('Public') !!}',
+           width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+       },
+       image:{
+           title:'{!! z_language('Ảnh') !!}',
+           type:'image',
+           width:"50px",
+           hide:true,
+       },
+       ctv_id:{
+           title: '{!! z_language("CVT") !!}',//I Tên SP
+           type:'dropdown',
+           source:Object.values(ctvs),
+           autocomplete:true,
+           width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+           value:[]
+       },
      order_info:{
            title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
            type: 'text',
@@ -4354,11 +4394,24 @@
               type: 'checkbox',
               title:'{!! z_language('Trạng thái') !!}'
           },
+          public: {
+              type: 'checkbox',
+              title:'{!! z_language('Public') !!}',
+              width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+          },
           image:{
               title:'{!! z_language('Ảnh') !!}',
               type:'image',
               width:"50px",
               hide:true,
+          },
+          ctv_id:{
+              title: '{!! z_language("CVT") !!}',//I Tên SP
+              type:'dropdown',
+              source:Object.values(ctvs),
+              autocomplete:true,
+              width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+              value:[]
           },
           order_info:{
               title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
@@ -5437,12 +5490,25 @@
      type: 'checkbox',
      title:'{!! z_language('Trạng thái') !!}'
     },
-    image:{
-     title:'{!! z_language('Ảnh') !!}',
-     type:'image',
-     width:"50px",
-     hide:true,
-    },
+       public: {
+           type: 'checkbox',
+           title:'{!! z_language('Public') !!}',
+           width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+       },
+       image:{
+           title:'{!! z_language('Ảnh') !!}',
+           type:'image',
+           width:"50px",
+           hide:true,
+       },
+       ctv_id:{
+           title: '{!! z_language("CVT") !!}',//I Tên SP
+           type:'dropdown',
+           source:Object.values(ctvs),
+           autocomplete:true,
+           width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+           value:[]
+       },
 
        order_info:{
            title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
@@ -6482,12 +6548,25 @@
      type: 'checkbox',
      title:'{!! z_language('Trạng thái') !!}'
     },
-    image:{
-     title:'{!! z_language('Ảnh') !!}',
-     type:'image',
-     width:"50px",
-     hide:true,
-    },
+       public: {
+           type: 'checkbox',
+           title:'{!! z_language('Public') !!}',
+           width:'{!! auth()->user()->role_id === 2?'1px':'30px' !!}',
+       },
+       image:{
+           title:'{!! z_language('Ảnh') !!}',
+           type:'image',
+           width:"50px",
+           hide:true,
+       },
+       ctv_id:{
+           title: '{!! z_language("CVT") !!}',//I Tên SP
+           type:'dropdown',
+           source:Object.values(ctvs),
+           autocomplete:true,
+           width:'{!! auth()->user()->role_id === 2?'1px':'120px' !!}',
+           value:[]
+       },
        order_info:{
            title: '{!! z_language("Thông tin chuyển khoản") !!}',//T Thông tin chuyển khoản
            type: 'text',
@@ -7529,5 +7608,6 @@
    sheets[i].minDimensions = [sheets[i].minDimensions[0],parseInt(sheets[i].minDimensions[1] *(y/1000))];
   }
   let spreadsheet =  document.getElementById('spreadsheet');
+  console.info(sheets);
   let worksheets = jexcel.tabs(spreadsheet, sheets);
 </script>
