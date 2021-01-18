@@ -243,9 +243,18 @@ function ZoeSrcImg($src, $option = [])
 
 function ZoeAssetImg($url, $option = [])
 {
-    return defined('build') ?
-        isset($option['image']['base64']) ? '@Zoe_ImageBase64(' . (is_array($url) ? json_encode($url) : $url) . ')' :
-            is_array($url) ? ZoeSrcImg($url, $option) : ZoeSrcImg(($url), $option) : (is_array($url) ? ZoeSrcImg($url, $option) : ZoeSrcImg(($url), $option));
+    if(defined('build')){
+        if(isset($option['image']['base64'])){
+            return  '@Zoe_ImageBase64(' . (is_array($url) ? json_encode($url) : $url) . ')' ;
+        }else{
+            return  is_array($url) ? ZoeSrcImg($url, $option) : ZoeSrcImg(($url), $option);
+        }
+    }else{
+        return (is_array($url) ? ZoeSrcImg($url, $option) : ZoeSrcImg(($url), $option));
+    }
+//    return defined('build') ?
+//        isset($option['image']['base64']) ? '@Zoe_ImageBase64(' . (is_array($url) ? json_encode($url) : $url) . ')' :
+//            is_array($url) ? ZoeSrcImg($url, $option) : ZoeSrcImg(($url), $option) : (is_array($url) ? ZoeSrcImg($url, $option) : ZoeSrcImg(($url), $option));
 }
 
 function _ZoeImage($url, $attrs = [], $action = true, $istag = false, $option = [])
