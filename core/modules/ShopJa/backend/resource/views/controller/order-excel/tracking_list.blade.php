@@ -2,15 +2,14 @@
     <h1>
         &starf; {!! @z_language(["Chức năng quản lý Mã kiểm tra"]) !!}
         <small>it all starts here</small>
-
-        @btn_option(["config"=>['name'=>'module:shop_ja:tracking']])
-        @slot('label')
-            {{@z_language(["Cấu hình"])}}
-        @endslot
-        @slot('header')
-            {{@z_language(["Cấu hình"])}}
-        @endslot
-        @endbtn_option
+        <x-btnOption :config="['name'=>'module:shop_ja:tracking']">
+            <x-slot name="label">
+                {{@z_language(["Option"])}}
+            </x-slot>
+            <x-slot name="header">
+                {{@z_language(["Option"])}}
+            </x-slot>
+        </x-btnOption>
     </h1>
 @endsection
 @section('content')
