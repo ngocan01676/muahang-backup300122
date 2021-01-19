@@ -20,7 +20,9 @@ class ControllerBackend extends Controller
     {
         $confView = app()->getConfig()['views'];
         $alias = $confView['alias'];
+
         $data = array_merge($this->data, $data);
+
         $request = request();
         $keyName = app()->getKey("_view_alias");
 
