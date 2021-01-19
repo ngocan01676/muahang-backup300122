@@ -74,7 +74,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop_ja:order:excel:list'));
+        $this->breadcrumb(z_language("Quản lý đơn hàng"), ('backend:shop_ja:order:excel:list'));
         return $this;
     }
     function is_base64($s)
@@ -1803,7 +1803,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
     }
     public function create(Request $request){
-        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:excel:create'));
+        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), ('backend:shop_ja:order:excel:create'));
         $this->GetCache('create',0,"",date('Y-m-d'));
         $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
 
@@ -2227,7 +2227,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         return $this->render('order-excel.edit',['model'=>$model,'admin'=>$users,'ctvs'=>$user_cvt]);
     }
     public function show(Request $request){
-        $this->getCrumb()->breadcrumb(z_language("Danh sách Xuất"), route('backend:shop_ja:order:excel:show'));
+        $this->getCrumb()->breadcrumb(z_language("Danh sách Xuất"), ('backend:shop_ja:order:excel:show'));
 
         $date = $request->date;
         $company = $request->company;
@@ -2280,7 +2280,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
             $this->GetCache('show',0,"",$date);
 
-            $this->getCrumb()->breadcrumb(z_language("Xuất :COMPANY",["COMPANY"=>$company]), route('backend:shop_ja:order:excel:show'));
+            $this->getCrumb()->breadcrumb(z_language("Xuất :COMPANY",["COMPANY"=>$company]), ('backend:shop_ja:order:excel:show'));
             $model = new OrderExcelModel();
 
             $datas = $model->ShowAll(Auth::user()->id,$date,$company,$type);
@@ -2385,7 +2385,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 return response()->json(["version"=>$this->data['version'],'lists'=>$datas,'company'=>$data["company"]]);
             }
         }
-        $this->getCrumb()->breadcrumb(z_language("Danh sách duyệt đơn CTV"), route('backend:shop_ja:order:excel:show'));
+        $this->getCrumb()->breadcrumb(z_language("Danh sách duyệt đơn CTV"), ('backend:shop_ja:order:excel:show'));
         $date = $request->date;
         $company = $request->company;
         $hour = $request->hour;
@@ -2395,7 +2395,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $type = $request->type;
 
         $this->GetCache('show',0,"",$date);
-        $this->getCrumb()->breadcrumb(z_language("Xuất :COMPANY",["COMPANY"=>$company]), route('backend:shop_ja:order:excel:show'));
+        $this->getCrumb()->breadcrumb(z_language("Xuất :COMPANY",["COMPANY"=>$company]), ('backend:shop_ja:order:excel:show'));
         $model = new OrderExcelModel();
         $datas = $model->ShowAllCtv(Auth::user()->id,$date,$company,$type);
         $model->key_date =$date;

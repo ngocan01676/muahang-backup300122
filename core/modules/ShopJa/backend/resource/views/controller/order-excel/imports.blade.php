@@ -5,7 +5,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     <div class="container1">
         <div class="row">
             <div class="col-md-6 offset-6">

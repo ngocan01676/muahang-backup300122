@@ -313,8 +313,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
         \DB::enableQueryLog();
         if(!is_null($request->id)){
             $user_id = base64_decode($request->id);
-            $this->breadcrumb(z_language("QL CTV"), route('backend:dashboard:list'));
-            $this->breadcrumb(z_language("Thông tin"), "");
+            $this->breadcrumb(z_language("QL CTV"), ('backend:dashboard:list'));
+            $this->breadcrumb(z_language("Thông tin"), ('backend:dashboard:list'));
         }else if(!Auth::user()->IsAclCheck(acl_alias("dashboard:all"))){
             $user_id = Auth::user()->id;
         }

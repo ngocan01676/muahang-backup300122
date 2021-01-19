@@ -17,7 +17,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
     }
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Quản lý sản phẩm"), route('backend:shop_ja:product:list'));
+        $this->breadcrumb(z_language("Quản lý sản phẩm"), ('backend:shop_ja:product:list'));
         return $this;
     }
     public function list(Request $request)
@@ -77,7 +77,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
     }
     public function create()
     {
-        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:product:create'));
+        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), ('backend:shop_ja:product:create'));
         return $this->render('product.create', ['item' => []], 'blog');
     }
 

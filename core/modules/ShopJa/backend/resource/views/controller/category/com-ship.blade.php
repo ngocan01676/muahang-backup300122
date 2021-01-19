@@ -7,7 +7,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     <!-- Default box -->
     <div class="col-md-3">
         <div class="box box-zoe">

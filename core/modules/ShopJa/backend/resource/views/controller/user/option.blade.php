@@ -5,7 +5,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     @php
         $category =  get_category_type("shop-ja:product:category");
        $a = new stdClass();

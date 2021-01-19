@@ -5,7 +5,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">Xuất Excel</h3>

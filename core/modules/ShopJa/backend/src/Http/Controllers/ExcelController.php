@@ -48,7 +48,7 @@ class ExcelController extends \Zoe\Http\ControllerBackend
     }
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop_ja:order:list'));
+        $this->breadcrumb(z_language("Quản lý đơn hàng"), ('backend:shop_ja:order:list'));
         return $this;
     }
     public function list(){

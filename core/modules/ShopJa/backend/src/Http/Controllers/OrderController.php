@@ -16,7 +16,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
     }
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Quản lý đơn hàng"), route('backend:shop_ja:order:list'));
+        $this->breadcrumb(z_language("Quản lý đơn hàng"), ('backend:shop_ja:order:list'));
         return $this;
     }
     private function IF_End($val,$conf){
@@ -214,7 +214,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
     }
     public function create()
     {
-        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:order:create'));
+        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), ('backend:shop_ja:order:create'));
         return $this->render('order.create', ['item' => []], 'blog');
     }
 

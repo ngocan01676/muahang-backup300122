@@ -17,7 +17,7 @@ class ShipController extends \Zoe\Http\ControllerBackend
     }
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Quản lý tiền ship"), route('backend:shop_ja:ship:list'));
+        $this->breadcrumb(z_language("Quản lý tiền ship"), ('backend:shop_ja:ship:list'));
         return $this;
     }
     public function list(Request $request)

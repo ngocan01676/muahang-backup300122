@@ -15,7 +15,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     @component('backend::layout.component.list',['name'=>'module:shop_ja:ship','models'=>$models,'callback'=>$callback])
         @slot("tool")
             <div class="box-body">

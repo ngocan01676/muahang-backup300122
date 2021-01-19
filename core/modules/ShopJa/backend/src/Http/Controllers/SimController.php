@@ -91,7 +91,7 @@ class SimController extends \Zoe\Http\ControllerBackend{
     }
     public function getCrumb()
     {
-        $this->breadcrumb(z_language("Quản lý Sim"), route('backend:shop_ja:sim:list'));
+        $this->breadcrumb(z_language("Quản lý Sim"), ('backend:shop_ja:sim:list'));
         return $this;
     }
     private function GetToken(){

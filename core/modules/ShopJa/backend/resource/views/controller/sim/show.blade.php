@@ -5,6 +5,6 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     @include('shop_ja::form.sim')
 @endsection

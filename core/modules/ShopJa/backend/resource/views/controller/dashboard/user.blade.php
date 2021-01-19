@@ -1,5 +1,5 @@
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     <div style="display: none">
         {!! $analytics['sql'] !!}
     </div>
