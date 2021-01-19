@@ -51,7 +51,7 @@
                         <a href="#" class="btn-twitter-login">Login with Twitter</a>
                     </div>
                     <div class="clearfix"></div>
-                    @if(route::has('register'))
+                    @if(Route::has('register'))
                         <div class="not-member">
                             <p>Not a member? <a href="{!! route('register') !!}">Register here</a></p>
                         </div>

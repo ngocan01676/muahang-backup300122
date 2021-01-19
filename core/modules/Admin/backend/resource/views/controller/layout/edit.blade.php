@@ -1,4 +1,4 @@
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     @include('backend::form.layout')
 @endsection

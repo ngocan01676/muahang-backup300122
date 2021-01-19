@@ -504,6 +504,35 @@
         </td>
     </tr>
     <tr>
+        <th width="150">
+            <label for="text" class="control-label">{!! z_language('Multiple Language') !!}</label>
+        </th>
+        <td>
+            <div class="col-md-6 col-xs-12">
+                <input type="checkbox" name="language.multiple" value="1">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th width="150">
+            <label for="text" class="control-label">{!! z_language('Language List') !!}</label>
+        </th>
+        <td>
+            <div class="col-md-6 col-xs-12">
+                @php
+                    $language = config('zoe.language');
+                @endphp
+                @foreach($language as $k=>$_language)
+                    <input type="checkbox" name="language.lists"
+                           value="{!! $_language['lang'] !!}"> &nbsp; <span
+                            class="flag-icon flag-icon-{{$_language['flag']}}"></span> &nbsp;
+                @endforeach
+            </div>
+        </td>
+    </tr>
+
+
+    <tr>
         <th><label for="site_meta_keywords" class="control-label">Site meta keywords</label></th>
         <td>
             <div class="col-xs-12">

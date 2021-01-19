@@ -11,7 +11,7 @@ class BackupController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
-        $this->breadcrumb("Log", route('backend:menu:list'));
+        $this->breadcrumb("Log", ('backend:menu:list'));
         return $this;
     }
     public function init()

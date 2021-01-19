@@ -33,3 +33,4 @@
             background-position: 400px 0; }
     }
 </style>
+@stack('links')

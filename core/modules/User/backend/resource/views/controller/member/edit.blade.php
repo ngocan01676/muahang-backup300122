@@ -5,6 +5,6 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
-    @include('user::form.user')
+    <x-breadcrumb/>
+    @include('user::form.member')
 @endsection

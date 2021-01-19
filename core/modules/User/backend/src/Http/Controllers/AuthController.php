@@ -1,15 +1,10 @@
 <?php
-
 namespace User\Http\Controllers;
-
 use App\Admin;
 use Validator;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
 class AuthController extends \Zoe\Http\ControllerBackend
 {
     /*
@@ -23,7 +18,6 @@ class AuthController extends \Zoe\Http\ControllerBackend
     |
     */
 
-    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login / registration.
@@ -53,23 +47,18 @@ class AuthController extends \Zoe\Http\ControllerBackend
     protected function attemptLogin(Request $request)
     {
         return Auth::guard('backend')->attempt(
-            $this->credentials($request), $request->filled('remember')
+            $request->only('username', 'password'), $request->filled('remember')
         );
     }
     public function postLogin(Request $request)
     {
-        $this->validateLogin($request);
-
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-            return $this->sendLockoutResponse($request);
-        }
         if ($this->attemptLogin($request)) {
-            $this->log('auth','login',$request->all());
-            return $this->sendLoginResponse($request);
+            $request->session()->regenerate();
+            return redirect()->intended('/admin');
         }
-        $this->incrementLoginAttempts($request);
-        return $this->sendFailedLoginResponse($request);
+        return back()->withErrors([
+            'username' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     public function getRegister() {
@@ -118,7 +107,7 @@ class AuthController extends \Zoe\Http\ControllerBackend
 //    }
     public function logout(Request $request)
     {
-        $this->guard("backend")->logout();
+        Auth::guard('backend')->logout();
         $request->session()->invalidate();
         return redirect('admin/login');
     }

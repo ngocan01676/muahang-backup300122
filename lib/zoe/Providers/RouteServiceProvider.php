@@ -2,9 +2,11 @@
 
 namespace Zoe\Providers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
+    protected $system_config = [];
     protected $namespace = 'App\Http\Controllers';
 
     /**
@@ -25,29 +28,39 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->setRootControllerNamespace();
+
         if ($this->routesAreCached()) {
+
             $this->loadCachedRoutes();
         } else {
             $this->loadRoutes();
+
             $this->app->booted(function () {
                 $this->app['router']->getRoutes()->refreshNameLookups();
                 $this->app['router']->getRoutes()->refreshActionLookups();
             });
         }
         $this->InitRouters();
+
         view()->share('time_exe', microtime(true) - $this->app->time_start);
     }
 
     public function InitRouters()
     {
         $config = config('zoe.router');
+        $this->system_config = config_get("config", "system");
         if (isset($config['backend'])) {
             $this->InitRouter('backend', $this->app->getConfig()->routers['backend'], $config['backend']);
         }
         if (isset($config['frontend']) && isset($this->app->getConfig()->routers['frontend'])) {
             $this->InitRouter('frontend', $this->app->getConfig()->routers['frontend'], $config['frontend']);
         }
+        foreach ($this->app->_plugins as $plugin){
+            $plugin->router();
+        }
 
+
+        //dd($this->app->getConfig());
     }
 
     public function InitRouter($guard, $routers, $config)
@@ -57,8 +70,230 @@ class RouteServiceProvider extends ServiceProvider
         $views_paths = $this->app->getConfig()->views['paths'];
 
         $keyPrivate = $this->app->key;
-        foreach ($routers as $name => $route) {
 
+        if($guard == "frontend"){
+           // dump($configRouter);
+            $language = config('zoe.language');
+            $selects = ['en_us','vi'];
+
+            $current_language = config('zoe.default_lang');
+
+            foreach ($routers as $name => $route) {
+                if(isset($route['language'])){
+                    $url = isset($route['url'])?$route['url']:"";
+                    $extension = isset($route['extension'])?$route['extension']:"";
+                    $action = isset($route['action'])?$route['action']:"";
+                    $languageConfig = $route['language'];
+                    $routerConfig = isset($route['configs'])?$route['configs']:[];
+
+                    unset($route['language']);
+                    unset($route['configs']);
+                    if(!empty($extension)) unset($route['extension']);
+                    if(!empty($url)) unset($route['url']);
+                    if(!empty($action)) unset($route['action']);
+
+                     if($name == "page"){
+
+                         $pages = get_pages($this->app->getTheme());
+
+                         $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
+                         if(empty($action)) continue;
+                         foreach ($pages as $key=>$value){
+                             $fruitsArrayObject['router'][$value->router]['url'] = $url.$value->slug.$extension;
+                             $fruitsArrayObject['router'][$value->router]['action'] = $action;
+                             $fruitsArrayObject['router'][$value->router]['guard'] = "";
+                             $fruitsArrayObject['router'][$value->router]['defaults'] = [
+                                 'id'=>$value->id,
+                                 'router'=>$value->router,
+                                 'actions'=>$value->actions,
+                             ];
+                         }
+                         $routers[$name] = $fruitsArrayObject;
+
+                         if ($this->app->is_admin == false || true){
+                             $router = $fruitsArrayObject;
+                             foreach ($selects as $lang){
+                                 if(!isset($language[$lang])){
+                                     continue;
+                                 }
+                                 $fruitsArrayObject = (new \ArrayObject($router))->getArrayCopy();
+                                 foreach ($fruitsArrayObject['router'] as $key=>$value){
+                                     $fruitsArrayObject['router'][$key]['url'] = $language[$lang]['router'].$fruitsArrayObject['router'][$key]['url'];
+                                     $fruitsArrayObject['router'][$key]['defaults']['lang'] = $lang;
+                                     $permission = $name . ':' . $key;
+                                     if (isset($fruitsArrayObject['router']['name'])) {
+                                         $alias = $fruitsArrayObject['router']['name'];
+                                     } else {
+                                         $alias = $guard . ":" . $permission;
+                                     }
+                                     $fruitsArrayObject['router'][$key]['config'] = $alias;
+                                 }
+                                 $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
+                             }
+                         }
+                     }else if($name == 'guest') {
+                         foreach ($selects as $lang){
+                             if(!isset($language[$lang])){
+                                 continue;
+                             }
+                             $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
+                             foreach ($fruitsArrayObject['router'] as $key=>$value){
+                                 if(isset($languageConfig[$key][$lang]['uri'])){
+                                     $_url = $languageConfig[$key][$lang]['uri'];
+                                 }else{
+                                     $_url = $fruitsArrayObject['router'][$key]['url'];
+                                 }
+
+                                 if(isset($value['name'])){
+                                     $fruitsArrayObject['router'][$key]['name'] = $language[$lang]['router']."_".$value['name'];
+                                     $alias = $value['name'];
+                                 }
+                                 $fruitsArrayObject['router'][$key]['config'] = $alias;
+                                 $fruitsArrayObject['router'][$key]['url'] = "/".$language[$lang]['router'].$_url;
+                                 $fruitsArrayObject['router'][$key]['defaults'] = [ 'lang' => $lang];
+                             }
+                             $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
+                         }
+                     }else if($name == "category"){
+                         $categories = DB::table('categories')
+                             ->where('router_enabled',1)
+                             ->where('status',1)
+                             ->where('type',$routerConfig['type'])
+                             ->get()
+                             ->keyBy('id')
+                             ->all();
+                         $key_ids = array_keys($categories);
+                         $config_language = app()->config_language;
+
+                         if(count($key_ids) > 0){
+                             $data_translation = [];
+                             $categories_translation =
+                                 DB::table('categories_translation')
+                                     ->whereIn('_id',$key_ids)
+                                     ->get()
+                                     ->all();
+                             foreach ($categories_translation as $value){
+                                if(!isset($data_translation[$value->_id])){
+                                    $data_translation[$value->_id] = [];
+                                }
+                                $data_translation[$value->_id][$value->lang_code] = $value;
+                             }
+                             $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
+                             if(empty($action)) continue;
+                             $datas_router_lang = [];
+
+                             foreach ($categories as $key=>$value){
+                                 if(isset($this->system_config['core']['language']['multiple'])){
+                                     if(isset($data_translation[$value->id][$current_language])){
+                                         $fruitsArrayObject['router'][$value->router_name]['url'] = $url.$data_translation[$value->id][$current_language]->slug;
+                                     }
+                                 }else{
+                                     $fruitsArrayObject['router'][$value->router_name]['url'] = $value->slug;
+                                 }
+                                 $fruitsArrayObject['router'][$value->router_name]['action'] = $action;
+                                 $fruitsArrayObject['router'][$value->router_name]['guard'] = "";
+                                 $fruitsArrayObject['router'][$value->router_name]['defaults'] = [
+                                     'id'=>$value->id,
+                                     'router'=>$value->router_name,
+                                 ];
+                                 if(isset($routerConfig['views'][$value->router_name])){
+                                     $fruitsArrayObject['router'][$value->router_name]['defaults']['_category_view'] = $routerConfig['views'][$value->router_name];
+                                 }
+                             }
+                             $fruitsArrayObjectItem = [];
+                             if(isset($routerConfig['items'])){
+                                 $routerConfig['items']['module'] = $fruitsArrayObject['module'];
+                                 $fruitsArrayObjectItem = (new \ArrayObject($routerConfig['items']))->getArrayCopy();
+
+                                 foreach ($categories as $key=>$value){
+                                     $fruitsArrayObjectItem['router'][$value->router_name]['url'] =
+                                         $fruitsArrayObject['router'][$value->router_name]['url'].$fruitsArrayObjectItem['uri'];
+                                     $fruitsArrayObjectItem['router'][$value->router_name]['action'] =
+                                         $fruitsArrayObjectItem['action'];
+
+                                     $fruitsArrayObjectItem['router'][$value->router_name]['defaults'] = [
+                                         'cate_id'=> $fruitsArrayObject['router'][$value->router_name]['defaults']['id'],
+                                         'router'=>$value->router_name.'_item_'.$value->router_name,
+                                     ];
+
+                                     if(isset($routerConfig['views'][$value->router_name])){
+                                         $fruitsArrayObjectItem['router'][$value->router_name]['defaults']['_category_view'] = $routerConfig['views'][$value->router_name];
+                                     }
+                                 }
+
+                                 $routers[$name.'_item'] = $fruitsArrayObjectItem;
+                                 $datas_router_lang[$name.'_item'] = $fruitsArrayObjectItem;
+                             }
+                             $routers[$name] = $fruitsArrayObject;
+                             $datas_router_lang[$name] = $fruitsArrayObject;
+
+                             if ($this->app->is_admin == false || true){
+                                    foreach ($datas_router_lang as $name=>$router){
+                                        foreach ($selects as $lang){
+                                            if(!isset($language[$lang])){
+                                                continue;
+                                            }
+                                            $fruitsArrayObject = (new \ArrayObject($router))->getArrayCopy();
+
+                                            foreach ($fruitsArrayObject['router'] as $key=>$value){
+
+                                                $_url = $fruitsArrayObject['router'][$key]['url'];
+
+                                                $fruitsArrayObject['router'][$key]['url'] = $language[$lang]['router'].'/'.$_url;
+                                                $fruitsArrayObject['router'][$key]['defaults']['lang'] = $lang;
+
+                                                $permission = $name . ':' . $key;
+                                                if (isset($fruitsArrayObject['router']['name'])) {
+                                                    $alias = $fruitsArrayObject['router']['name'];
+                                                } else {
+                                                    $alias = $guard . ":" . $permission;
+                                                }
+
+                                                $fruitsArrayObject['router'][$key]['config'] = $alias;
+                                            }
+                                            $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
+                                        }
+                                    }
+                             }
+
+                         }
+
+                     }else{
+                         if ($this->app->is_admin == false || true ){
+
+                             foreach ($selects as $lang){
+                                 if(!isset($language[$lang])){
+                                     continue;
+                                 }
+                                 $fruitsArrayObject = (new \ArrayObject($route))->getArrayCopy();
+                                 foreach ($fruitsArrayObject['router'] as $key=>$value){
+
+                                     if(isset($languageConfig[$key][$lang]['uri'])){
+                                        $_url = $languageConfig[$key][$lang]['uri'];
+                                     }else{
+                                         $_url = $fruitsArrayObject['router'][$key]['url'];
+                                     }
+                                     $fruitsArrayObject['router'][$key]['url'] = "/".$language[$lang]['router'].$_url;
+                                     $fruitsArrayObject['router'][$key]['defaults'] = [ 'lang' => $lang];
+
+                                     $permission = $name . ':' . $key;
+
+                                     if (isset($fruitsArrayObject['router']['name'])) {
+                                         $alias = $fruitsArrayObject['router']['name'];
+                                     } else {
+                                         $alias = $guard . ":" . $permission;
+                                     }
+                                     $fruitsArrayObject['router'][$key]['config'] = $alias;
+                                 }
+                                 $routers[$language[$lang]['router'].'_'.$name] = $fruitsArrayObject;
+                             }
+                         }
+                     }
+                }
+            }
+        }
+
+        foreach ($routers as $name => $route) {
             if (isset($route['prefix'])) {
                 $prefix = $route['prefix'];
             } else if (isset($route['sub_prefix'])) {
@@ -94,8 +329,9 @@ class RouteServiceProvider extends ServiceProvider
                 } else {
                     $action = $namespace . $controller . $key;
                 }
-                if (isset($configRouter['data'][$alias]['uri'])) {
-                    $link = $configRouter['data'][$alias]['uri'];
+                $keyConfigRouter = isset($_route['config'])?$_route['config']:$alias;
+                if ($keyConfigRouter == $alias && isset($configRouter[$keyConfigRouter]['data']) && isset($configRouter[$keyConfigRouter]['data']['uri'])) {
+                    $link = $configRouter['data'][$keyConfigRouter]['uri'];
                 } else {
                     $link = isset($_route['link']) ? $_route['link'] : (isset($_route['url']) ? $prefix . $_route['url'] : "");
                 }
@@ -105,16 +341,22 @@ class RouteServiceProvider extends ServiceProvider
                 $middleware = ["web"];
                 $acl = "";
                 $auth_guard = isset($_route["guard"]) ? $_route["guard"] : (isset($route["guard"]) ? $route["guard"] : $guard);
-                if (isset($configRouter['data'][$alias]['acl'])) {
-                    if ($configRouter['data'][$alias]['acl'] == 'no-login') {
-                        $auth_guard = "";
-                    } else {
-                        if ($configRouter['data'][$alias]['acl'] != 'login') {
-                            $auth_guard = $guard;
-                            $acl = $configRouter['data'][$alias]['acl'];
+
+                if($guard == "frontend"){
+                    if (isset($configRouter['data'][$keyConfigRouter]['acl'])) {
+                        if ($configRouter['data'][$keyConfigRouter]['acl'] == 'no-login') {
+                            $auth_guard = "";
                         } else {
-                            $auth_guard = $guard;
+                            if ($configRouter['data'][$keyConfigRouter]['acl'] != 'login') {
+                                $auth_guard = $guard;
+                                $acl = $configRouter['data'][$keyConfigRouter]['acl'];
+                            } else {
+                                $auth_guard = $guard;
+                            }
                         }
+                    }else{
+                        $acl = "";
+                        $auth_guard = "";
                     }
                 }
                 if (!empty($auth_guard)) {
@@ -134,8 +376,7 @@ class RouteServiceProvider extends ServiceProvider
                         $this->app->getPermissions()->aliases[$alias] = $acl;
                     }
                 }
-
-                if (isset($configRouter['data'][$alias]['status']) && $configRouter['data'][$alias]['status'] == 2) {
+                if (isset($configRouter['data'][$keyConfigRouter]['status']) && $configRouter['data'][$keyConfigRouter]['status'] == 2) {
                     continue;
                 }
                 if (isset($_route['form'])) {
@@ -143,7 +384,6 @@ class RouteServiceProvider extends ServiceProvider
                     $r->name($alias . ":post");
                     $r->middleware($middleware);
                 }
-
                 $r = Route::match($method, $link, $action);
 
                 if (isset($_route['defaults'])) {
@@ -152,11 +392,10 @@ class RouteServiceProvider extends ServiceProvider
                     }
                 }
                 $r->defaults($keyPrivate . "_module", $_module);
-
                 $r->defaults($keyPrivate . "_view_alias", $_view_alias);
+                if (isset($configRouter['data'][$keyConfigRouter]['layout'])) {
 
-                if (isset($configRouter['data'][$alias]['layout'])) {
-                    $r->defaults($keyPrivate . "_layout", $configRouter['data'][$alias]['layout']);
+                    $r->defaults($keyPrivate . "_layout", $configRouter['data'][$keyConfigRouter]['layout']);
                 }
                 $r->name($alias);
                 if(isset($_route['wheres'])){
@@ -164,18 +403,15 @@ class RouteServiceProvider extends ServiceProvider
                         $r->where($_name, $_exp);
                     }
                 }
-                if (isset($configRouter['data'][$alias]['cache']) && $configRouter['data'][$alias]['cache'] != 0) {
-                    $middleware[] = 'cache.response:' . $alias . "," . $configRouter['data'][$alias]['cache'];
+                if (isset($configRouter['data'][$keyConfigRouter]['cache']) && $configRouter['data'][$keyConfigRouter]['cache'] != 0) {
+                    $middleware[] = 'cache.response:' . $alias . "," . $configRouter['data'][$keyConfigRouter]['cache'];
                 }
-//                echo "<pre>";
-//                echo $alias;
-//                print_r($middleware);
+
                 $r->middleware($middleware);
             }
         }
-//        dd($routers);
+
         $this->app->WriteCache();
-//        die;
     }
 
     /**

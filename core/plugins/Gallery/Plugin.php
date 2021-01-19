@@ -1,5 +1,5 @@
 <?php
-namespace Gallery;
+namespace PluginGallery;
 use Zoe\Module as ZModule;
 class Plugin extends ZModule
 {

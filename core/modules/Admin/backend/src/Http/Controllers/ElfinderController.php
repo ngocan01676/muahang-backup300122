@@ -1,26 +1,30 @@
 <?php
-
 namespace Admin\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Filesystem\FilesystemAdapter;
-
 class ElfinderController extends \Zoe\Http\ControllerBackend
 {
     protected $layout = 'backend::layout.elfinder';
-
     public function list()
     {
-
-        return $this->render('elfinder.list', ['dir' => 'module/admin/assets/elfinder', 'locale' => app()->getLocale()]);
+        return $this->render(
+            'elfinder.list',
+            ['dir' => 'module/admin/assets/elfinder', 'locale' => app()->getLocale()],
+            "",
+            $this->layout
+        );
     }
 
     public function tinymce4(Request $request)
     {
-        return $this->render('elfinder.tinymce4', ['target'=>$request->target?$request->target:"",'dir' => 'module/admin/assets/elfinder', 'locale' => app()->getLocale()]);
+        return $this->render('elfinder.tinymce4',
+            ['target'=>$request->target?$request->target:"",'dir' => 'module/admin/assets/elfinder', 'locale' => app()->getLocale()],
+            "",
+            $this->layout
+        );
     }
-    function show_preg_match($list, $path = '',$permission,$role){
+    function show_preg_match($list, $path = '',$permission = '',$role = ''){
         $html = "";
         $_path = $path;
         foreach ($list as $directory){
@@ -100,7 +104,6 @@ class ElfinderController extends \Zoe\Http\ControllerBackend
 //$~x
 //EOP;
         $permission = configs_get('Elfinder:permission');
-
 
         $regpat = "~^ ".show_preg_match_1($directories,'/',$permission,auth()->user()->role_id).'$~x';
 

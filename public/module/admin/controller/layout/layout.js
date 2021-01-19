@@ -224,11 +224,14 @@ function configuration(self) {
                 compiler.blade = Object.values(compiler.blade);
             }
         }
+        let typeGroup =$("#formInfo input[name='type_group']:checked").val();
+
         $.ajax({
             url: $("#layout").attr('uriconfig'),
             type: "POST",
             data: {
-                config: config
+                config: config,
+                type:typeGroup
             },
             success: function (data) {
                 var a = bootpopup({
@@ -593,23 +596,27 @@ function initSnippet(html) {
 }
 
 function SaveLayout(self) {
-    console.log('0');
     DataLayout = [];
     var grids = $("#layout_demo>.grid");
-    console.log('1');
     var layout = saveLayoutJson("#layout_demo");
-    console.log('2');
-    console.log((layout));
     $('#layout_demo').loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
     $.ajax({
         type: 'POST',
         url: $(self).attr('url'),
         data: {
             layout: JSON.stringify(layout),
+            composers:$("#formComposers").zoe_inputs('get'),
             info: $("#formInfo").zoe_inputs("get")
         },
         success: function (data) {
-            var json = JSON.parse(data);
+            let json = {};
+            console.log(data);
+            if(typeof data != "object"){
+                json = JSON.parse(data);
+            }else{
+                json = data;
+            }
+
             if (json.hasOwnProperty('id')) {
                 $("#id").val(json.id);
             }

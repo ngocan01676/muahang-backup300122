@@ -11,7 +11,7 @@ class ErrorController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
-        $this->breadcrumb("Category List", route('backend:category:list'));
+        $this->breadcrumb("Category List", ('backend:category:list'));
         return $this;
     }
     public function not_found(){

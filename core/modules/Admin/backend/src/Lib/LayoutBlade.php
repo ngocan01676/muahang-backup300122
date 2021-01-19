@@ -72,7 +72,7 @@ class LayoutBlade extends Layout
 
     public function addInclude($stg)
     {
-        $theme = config('zoe.theme');
+        $theme = config_get('theme', "active", "");
         $path = "";
         switch ($stg['system']) {
             case "theme":
@@ -170,9 +170,13 @@ class LayoutBlade extends Layout
             if ($option['cfg']['public'] == "1" && $option['cfg']['dynamic'] == "1") {
                 $stringFunc .= "@php \$option = get_config_component('" . $option['cfg']['id'] . "',\$option) @endphp" . PHP_EOL;
             }
+
             if ($option['cfg']['func'] != "No Action") {
+
                 $this->addInclude($option['stg']);
+
                 $stringFunc .= "@php \$data = run_component('" . $option['cfg']['func'] . "',\$option) @endphp" . PHP_EOL;
+
             } else {
                 $stringFunc .= "@php \$data = \$option; @endphp" . PHP_EOL;
             }
@@ -225,11 +229,11 @@ class LayoutBlade extends Layout
 
     public function partial($option, $index = '')
     {
-
+        $theme = config_get('theme', "active", "");
         $rs = layout_get($option['stg']['id']);
         if ($rs != null) {
             $this->BuilData($rs->content, $option['stg']['id']);
-            $content = "@includeIf('zoe::layouts.theme." . config_get('theme', "active") . '.' . $this->FilenamePartial($rs->slug, $option['stg']['token']) . "', [])" . PHP_EOL;
+            $content = "@includeIf('$theme::layouts.theme." . config_get('theme', "active") . '.' . $this->FilenamePartial($rs->slug, $option['stg']['token']) . "', [])" . PHP_EOL;
             return $this->girds($content, $option);
         }
         return '';
@@ -242,6 +246,7 @@ class LayoutBlade extends Layout
         if ($row['option']) {
             $option = $row['option'];
             if (isset($option['stg']['col'])) {
+
                 foreach ($option['stg']['col'] as $key => $gird) {
                     $block = false;
                     if (isset($option['cfg']['tag'])) {
@@ -251,19 +256,20 @@ class LayoutBlade extends Layout
                             $block = true;
                             $class = "";
                             $id = "";
-                            if (isset($option['opt']['attr']['class']) && !empty($option['opt']['attr']['class'])) {
-                                $class = " class='" . $option['opt']['attr']['class'] . "'";
+
+                            if (isset($option['opt']['col'][$key]['attr']['class']) && !empty($option['opt']['col'][$key]['attr']['class'])) {
+                                $class = " class='" . $option['opt']['col'][$key]['attr']['class'] . "'";
                             }
-                            if (isset($option['opt']['attr']['id']) && !empty($option['opt']['attr']['id'])) {
-                                $id = " id='" . $option['opt']['attr']['id'] . "'";
+                            if (isset($option['opt']['col'][$key]['attr']['id']) && !empty($option['opt']['col'][$key]['attr']['id'])) {
+                                $id = " id='" . $option['opt']['col'][$key]['attr']['id'] . "'";
                             }
                             $html .= "<div" . $class . $id . ">";
                         }
                     }
                     if (isset($row['view'][$key]) && is_array($row['view'][$key])) {
                         foreach ($row['view'][$key] as $_k => $_row) {
-                            if (isset($_row[0]['row'])) {
-                                $html .= $this->rows($_row[0]['row'], $layout, $lever++);
+                            if (isset($_row[$key]['row'])) {
+                                $html .= $this->rows($_row[$key]['row'], $layout, $lever++);
                             } else if (isset($this->widget[$_row])) {
                                 if ($this->widget[$_row]['stg']['type'] == "components" || $this->widget[$_row]['stg']['type'] == "widgets") {
                                     $html .= $this->plugin($this->widget[$_row], $lever . '-' . $key . '-' . $_k);
@@ -280,7 +286,13 @@ class LayoutBlade extends Layout
                     }
                 }
             }
+            if(isset($option['opt']['attr']['class']) && isset($option['opt']['attr']['id'])){
+                if(!empty($option['opt']['attr']['class']) || !empty($option['opt']['attr']['id'])){
+                    $html = "<div".(!empty($option['opt']['attr']['class'])?" class='".$option['opt']['attr']['class']."'":"").(!empty($option['opt']['attr']['id'])?"id='".$option['opt']['attr']['id']."'":"").">".$html."</div>";
+                }
+            }
         }
+
         return $this->girds($html, $option);
     }
 

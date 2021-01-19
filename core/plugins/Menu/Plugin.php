@@ -1,6 +1,6 @@
 <?php
 
-namespace Menu;
+namespace PluginMenu;
 
 use Zoe\Module as ZModule;
 

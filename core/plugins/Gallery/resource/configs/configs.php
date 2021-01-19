@@ -5,6 +5,7 @@ return [
     ],
     "class_maps" => [
         "PluginGallery\Controllers\IndexController" => "/Controllers/IndexController.php",
+        "PluginGallery\Views\GalleryComposer" => "/Views/GalleryComposer.php",
     ],
     'options' => [
 //        'core:plugin:Contact:Form' => [

@@ -163,9 +163,13 @@
 //                config.cfg = $.extend(config.cfg, data.cfg);
 //            }
             config = $.extend(config, data);
+
+            let typeGroup = $("#formInfo input[name='type_group']:checked").val();
+            config._type_group = typeGroup;
+
             $.ajax({
                 type: 'POST',
-                url: '{{route('backend:layout:ajax:get_lang')}}',
+                url: '{{route('backend:plugin:layout:ajax:get_lang')}}',
                 data: config,
                 success: function (data) {
                     try {

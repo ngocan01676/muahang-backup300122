@@ -36,7 +36,7 @@
         var cmeditor = null;
         $.ajax({
             type: 'POST',
-            url: '{{route('backend:layout:ajax:review_blade')}}',
+            url: '{{route('backend:plugin:layout:ajax:review_blade')}}',
             data: config,
             success: function (data) {
                 try {

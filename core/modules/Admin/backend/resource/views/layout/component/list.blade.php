@@ -1,11 +1,13 @@
 @php
     $app = app();
     $option = $app->getConfig()->options;
+    $_data = config_get('option',$name);
+
 @endphp
-@if(isset($name) && isset($option[$name]))
+@if(isset($name)  && (isset($_data["extend"]) || isset($option[$name])) )
     @php
-        $data = $option[$name];
-        $_data = config_get('option',$name);
+        $data = isset($_data["extend"]) && isset($option[$_data["extend"]])?$option[$_data["extend"]]:$option[$name];
+
         $data['data'] = isset($data['data'])?array_merge($data['data'],$_data):$_data;
         if(isset($configs) && is_array($configs)){
              $data = (new \Zoe\Config($data))->merge(new \Zoe\Config($configs))->getArrayCopy();
@@ -14,7 +16,6 @@
         $aliases_acl = $app->getPermissions()->aliases;
 
     @endphp
-
     @isset($data['config']['columns'])
         @if(isset($tool))
             <div class="box box box-zoe">
@@ -25,7 +26,7 @@
                 </div>
             </div>
         @endif
-        @flash_message()@endflash_message
+        <x-flash_message/>
         <div class="box box box-zoe" id="sectionList">
             <div class="box-header with-border">
                 <div class="box-tools">
@@ -49,8 +50,22 @@
                     <table class="table table-bordered">
                     <thead>
                     <tr>
-                        @php  $model =(!is_null($models) && count($models)>0)?$models[0]:null;  @endphp
-                        @foreach($data['config']['columns']['lists'] as $k=>$columns)
+                        @php
+                            $model =(!is_null($models) && count($models)>0)?$models[0]:null;
+                            $_lists = $data['config']['columns']['lists'];
+                            foreach ($_lists as $k=>$val){
+                                $_lists[$k]['index'] = $k;
+                            }
+                            usort($_lists,function( $a , $b ){
+                                if(isset($a['order']) && isset($a['order'])){
+                                    if($a['order'] > $b['order']) return 1;
+                                    if($a['order'] < $b['order']) return -1;
+                                }
+                                return 0;
+                            });
+                        @endphp
+                        @foreach($_lists as $columns)
+                            @php $k = $columns['index']; @endphp
                             @isset($data['data']['columns'][$k])
                                 @continue(isset($route[$k]))
                                 @if($model!=null && property_exists($model,$k) || (isset($columns['callback']) && isset($callback[$columns['callback']])) || $k =="actions" )
@@ -89,7 +104,8 @@
                     @if(count($models)>0)
                         @foreach ($models as $k=>$model)
                             <tr class="list-row">
-                                @foreach($data['config']['columns']['lists'] as $key=>$columns)
+                                @foreach($_lists as $key=>$columns)
+                                    @php $key = $columns['index']; @endphp
                                     @isset($data['data']['columns'][$key])
 
                                         @continue(isset($route[$key]))
@@ -134,13 +150,17 @@
                                                             @endphp
                                                                 @continue($oke == false)
                                                             @php
-                                                                $par = isset($route)?$route:[];
-                                                                foreach ($router['par'] as $k=>$v){
-                                                                    $par[$k] = $model->{$v};
-                                                                }
-                                                                $key_form = md5(rand(1,10000) . rand(1,10000));
+                                                                $par = [];
+                                                                    if(isset($router['par'])){
+                                                                        $par = isset($route)?$route:[];
+                                                                        foreach ($router['par'] as $k=>$v){
+                                                                            $par[$k] = $model->{$v};
+                                                                        }
+                                                                    }
+
+                                                                    $key_form = md5(rand(1,10000) . rand(1,10000));
                                                             @endphp
-                                                            <span class="{{$id}}">
+                                                            <span class="{{$id}}" style="margin: 5px">
                                                                 @isset($router['method'])
                                                                 <form id="{{$id}}-form-{{$key_form}}" action="{{route($router['name'],$par)}}" method="{{$router['method']}}" style="display: none;">
                                                                     <input name="_ref" type="hidden" value="{!! base64_encode(url()->current()); !!}">

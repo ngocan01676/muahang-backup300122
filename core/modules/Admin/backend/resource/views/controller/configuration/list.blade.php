@@ -287,7 +287,6 @@
                 let forms = parent.find('form.formData');
                 let _event = Events.hasOwnProperty(keyParent)?Events[keyParent]:[];
 
-
                 let datas = {};
                 let PromiseData = [];
                 forms.each(function () {

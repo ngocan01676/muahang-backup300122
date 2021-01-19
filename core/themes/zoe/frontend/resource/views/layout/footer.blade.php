@@ -9,7 +9,10 @@
 <script src="{{ asset('theme/zoe/js/jquery.bxslider.js') }}"></script>
 <script src="{{ asset('theme/zoe/js/main-menu.js') }}"></script>
 <script src="{{ asset('theme/zoe/js/template.js') }}"></script>
-
+@stack('scriptsTop')
+@stack('scripts')
+@section('extra-script')
+@show
 <script>
     (function () {
         var md = new MobileDetect(window.navigator.userAgent);

@@ -9,6 +9,19 @@
         $urlCurrentNameTemp = implode(":",$listsNav);
         $_sidebar_parent_key = isset($sidebar_current)?$sidebar_current:"";
 
+        if(empty($_sidebar_parent_key)){
+            $lists = array_values($_breadcrumb->child->getArrayCopy());
+            for($i=count($lists)-1 ; $i >= 0 ; $i--){
+
+                if($urlCurrentName == $lists[$i]['uri'] || $lists[$i]['uri'] == false){
+                    if($i - 1 >=0){
+                        $_sidebar_parent_key = $lists[$i-1]['uri'];
+                    }
+                    break;
+                }
+            }
+        }
+
         $locks = [];
     @endphp
     <section class="sidebar">
@@ -27,7 +40,7 @@
 
                     @php
                        $items_url = "#";
-                       if(route::has($items['url'])){
+                       if(Route::has($items['url'])){
                             $items_url = route($items['url'],isset($items['parameter'])?$items['parameter']:[]);
                        }
                     @endphp
@@ -52,7 +65,7 @@
                     @php
                         $clazz = "";
                         $__uri = "#";
-                        if(route::has($_items['url'])){
+                        if(Route::has($_items['url'])){
                             $__uri = route($_items['url'],isset($_items['parameter'])?$_items['parameter']:[]);
                         }
 
@@ -142,9 +155,9 @@
                             {{--@endif--}}
                         </li>
                         @else
-                            @if (route::has($sidebar['url']))
+                            @if (Route::has($sidebar['url']))
                             @php
-                                $bool_active = $urlCurrentName == $sidebar['url'] || $urlCurrentNameTemp== $sidebar['url'];
+                                $bool_active = $urlCurrentName == $sidebar['url'] || $urlCurrentNameTemp== $sidebar['url'] || $_sidebar_parent_key == $sidebar['url'];
                                 if($bool_active == false && isset($sidebar['key'])){
                                     $bool_active = $_sidebar_parent_key == $sidebar['url'];
                                 }

@@ -3,11 +3,14 @@ return [
     'views' => [
         'paths' => ['backend' => 'backend'],
         'alias' => [
-            'layout.create' => 'backend::controller.layout.create',
-            'layout.edit' => 'backend::controller.layout.edit',
+
             'dashboard.router'=>'backend::controller.dashboard.router',
             'dashboard.media'=>'backend::controller.dashboard.media'
         ],
+        'layouts'=>[
+            'default' => 'backend::layout.layout',
+        ],
+        'default'=>'default'
     ],
     'packages' => [
         'namespaces' => [
@@ -59,90 +62,27 @@ return [
         'controllers'=>[
             'Admin\Http\Controllers\EmailTemplateController'=>[
                 'default'=>[
-                    [
+                    'formats'=>[
                         "DATE"=>z_language('Date',false),
                         "TIME"=>z_language('Time',false),
                         "DATE_TIME"=>z_language('Date Time',false)
-                    ],
-                    [
-                        "FULL_NAME"=>z_language('Fullname',false),
-                        "PHONE"=>z_language('Phone',false),
-                        "ADDRESS"=>z_language('Address',false)
                     ],
                 ],
-                "Plugin:Contact:Email"=>[
-                    [
-                        "DATE"=>z_language('Date',false),
-                        "TIME"=>z_language('Time',false),
-                        "DATE_TIME"=>z_language('Date Time',false)
-                    ],
-                    [
-                        "FULL_NAME"=>z_language('Fullname',false),
-                        "PHONE"=>z_language('Phone',false),
-                        "ADDRESS"=>z_language('Address',false)
-                    ],
-                    [
-                        "PRICE"=>z_language('Price',false),
-                        "ORDER_ID"=>z_language('Order Id',false),
-                        "EMAIL"=>z_language('Email',false)
-                    ]
-                ]
+
             ]
         ]
     ],
     'options' => [
-        'core:layout' => [
-            'config' => [
-                'columns' => [
-                    'lists' => [
-                        'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
-                        'name' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha'],
-                        'type' => ['label' => z_language('Type', false), 'type' => 'type', 'order_by' => 'amount'],
-                        'status' => ['label' => z_language('Status', false), 'type' => 'status', 'order_by' => 'amount'],
-                        'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
-                        'updated_at' => ['label' => z_language('Update At', false), 'type' => 'date']
-                    ],
-                ],
-                'pagination' => [
-                    'item' => 20,
-                    'router' => [
-                        'edit' => ['label' => z_language('Edit', false), 'name' => "backend:layout:edit", 'par' => ['id' => 'id']],
-                        'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:layout:delete", 'par' => ['id' => 'id']],
-                    ]
-                ],
-                'config' => [
-                    "type" => [
-                        'status' => [
-                            'label' => [
-                                '1' => z_language('Public', false),
-                                '0' => z_language('UnPublic', false),
-                            ],
-                            'type' => [
-                                'name' => 'label',
-                                'color' => [
-                                    '1' => 'primary',
-                                    '0' => 'danger'
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            'data' => [
-                'pagination' => ['item' => 20],
-                'columns' => ['id', 'name'],
-                'search' => ['name']
-            ],
-            'views' => [
-                'configs.layout'
-            ]
-        ],
+
         'core:module:admin:email-template' => [
             'config' => [
                 'columns' => [
                     'lists' => [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
-                        'name' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true],
+                        'subject' => ['label' => z_language('Subject', false), 'type' => 'title', 'primary' => true],
+                        'name' => ['label' => z_language('Name', false), 'type' => 'text'],
+                        'alias' => ['label' => z_language('Alias', false), 'type' => 'text'],
+                        'view_language' => ['label' => z_language('Language', false), 'type' => 'text','callback' => "view_language"],
                         'parameters' => ['label' => z_language('Parameters', false), 'type' => 'text'],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status'],
                         'id_key' => ['label' => z_language('Group', false), 'type' => 'text'],
@@ -158,6 +98,7 @@ return [
                     'router' => [
                         'edit' => ['label' => z_language('Edit', false), 'name' => "backend:email_template:edit", 'par' => ['id' => 'id']],
                         'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:email_template:delete", 'par' => ['id' => 'id']],
+
                     ]
                 ],
                 'config' => [
@@ -193,6 +134,7 @@ return [
                     'lists' => [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true],
                         'title' => ['label' => z_language('Title', false), 'type' => 'title', 'primary' => true],
+                        'router' => ['label' => z_language('Router', false), 'type' => 'text'],
                         'func_slug' => ['label' => z_language('Url', false), 'type' => 'text','callback' => "func_slug"],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status'],
                         'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
@@ -375,7 +317,32 @@ return [
     ],
     'registers'=>[
         'Admin\Http\Controllers\EmailTemplateController'=>[
-            'Contact:Email'=>'Plugin:Contact:Email'
+            'Plugin:Contact:Email'=>[
+                'composer'=>[],
+                'key'=>'Contact:Email'
+            ]
         ]
+    ],
+    'composers'=>[
+
+
+        BACKEND => [
+            'PluginSeo\Views\MetaComposer'=>[
+                "backend::form.page"=>[
+                    [
+                        'item'=>"page",
+                        'lang'=>['config'=>"blog","key"=>'post'],
+                        'router'=>'backend:page:store',
+                        'data'=>[],
+                        'variable'=>'Page_MetaComposer_Seo',
+                        'config'=>[
+                            'name'=>'meta',
+                        ],
+
+                    ]
+                ]
+            ]
+        ],
+
     ]
 ];

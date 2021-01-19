@@ -12,28 +12,58 @@ class ControllerBackend extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->breadcrumb->home = ['name' => z_language('Home'), 'uri' => route('backend:dashboard:list')];
+        $this->breadcrumb->home = ['name' => z_language('Home'), 'uri' => ('backend:dashboard:list')];
         $this->breadcrumb->child = new Config();
+        $this->app->isAdmin = true;
     }
-    public function render($view, $data = [], $key = "backend")
+    public function render($view, $data = [], $key = "",$layout = "")
     {
-        $alias = app()->getConfig()['views']['alias'];
+        $confView = app()->getConfig()['views'];
+        $alias = $confView['alias'];
         $data = array_merge($this->data, $data);
         $request = request();
         $keyName = app()->getKey("_view_alias");
+
         $_view_alias = isset($request->route()->defaults[$keyName]) ? $request->route()->defaults[$keyName] : $key;
+
         if (isset($alias['backend'][$view])) {
             $keyView = $alias['backend'][$view];
         }else if (isset($alias['backend'][$_view_alias . ":" . $view])) {
             $keyView = $alias['backend'][$_view_alias . ":" . $view];
-        } else if (!empty($_view_alias)) {
+        } else if (!empty($_view_alias) && View::exists($_view_alias . '::controller.' . $view)) {
             $keyView = $_view_alias . '::controller.' . $view;
-        } else if (!empty($key)) {
+        } else if (!empty($key) && View::exists($key . '::controller.' . $view)) {
             $keyView = $key . '::controller.' . $view;
         }else{
             $keyView = $view;
         }
-        return $this->_render($keyView, $data, $key);
+
+        if(!empty($layout)){
+            $this->layout = $layout;
+        }else{
+            if(isset($confView['default']) && isset($confView['layouts'][$confView['default']])){
+                if(View::exists($confView['layouts'][$confView['default']])){
+                    $this->layout = $confView['layouts'][$confView['default']];
+                }
+            }
+        }
+        $composers = app()->getConfig()->composers;
+        if(isset($composers[BACKEND])){
+            foreach ($composers[BACKEND] as $clazz=>$composer){
+                if(!class_exists($clazz)) continue;
+                $_views = [];
+                foreach ($composer as $_view=>$_composer){
+                    $_views[] = $_view;
+                }
+                if(count($_views)>0){
+                    View::composer(
+                        $_views,
+                        $clazz
+                    );
+                }
+            }
+        }
+        return $this->_render($keyView, $data, $key, BACKEND );
     }
     protected function list_paginate($table, $option)
     {
@@ -41,7 +71,8 @@ class ControllerBackend extends Controller
     }
     public function breadcrumb($name, $router)
     {
-        return $this->breadcrumb->child->add([$name => ["name" => $name, "uri" => $router]]);
+        $this->breadcrumb->child->add([$name => ["name" => $name, "uri" => $router]]);
+        return $this;
     }
     public function log($name,$action,$data){
         unset($data['_token']);

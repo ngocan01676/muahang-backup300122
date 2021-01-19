@@ -1,28 +1,26 @@
+@AssetCss('assets','module/admin/assets/tagging/css/amsify.suggestags.css')
+@AssetJs('assets','module/admin/assets/tagging/js/jquery.amsify.suggestags.js')
 @if(isset($item))
-    {!! Form::model($item, ['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store']) !!}
+    {!! Form::model($item, ['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store','class'=>'submit']) !!}
     {!! Form::hidden('id') !!}
 @else
-    {!! Form::open(['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store']) !!}
+    {!! Form::open(['method' => 'POST','route' => ['backend:blog:post:store'],'id'=>'form_store','class'=>'submit']) !!}
 @endif
-
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="{!! config('zoe.tiny') !!}"></script>
 <div class="col-md-9">
     <div class="nav-tabs-custom">
 
-        @if(isset($configs['post']['language']['multiple']))
+        @if(isset($configs['core']['language']['multiple']))
             <ul class="nav nav-tabs" {{$current_language}}>
                 @foreach($language as $lang=>$_language)
-                    @if(isset($configs['post']['language']['lists']) &&(is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) && in_array($_language['lang'],$configs['post']['language']['lists'])))
-                        <li {{$lang}} {{$_language['lang'] == $current_language?"class=active":""}}><a href="#tab_{{$lang}}"
-                                                                                data-toggle="tab"><span
-                                        class="flag-icon flag-icon-{{$_language['flag']}}"></span></a></li>
+                    @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                        <li {{$lang}} {{$_language['lang'] == $current_language?"class=active":""}}><a href="#tab_{{$lang}}" data-toggle="tab"><span class="flag-icon flag-icon-{{$_language['flag']}}"></span></a></li>
                     @endif
                 @endforeach
             </ul>
             <div class="tab-content">
-
                 @foreach($language as $lang=>$_language)
-                    @if(isset($configs['post']['language']['lists']) && (is_string($configs['post']['language']['lists']) && $configs['post']['language']['lists'] == $_language['lang']|| is_array($configs['post']['language']['lists']) &&  in_array($_language['lang'],$configs['post']['language']['lists'])) )
+                    @if(isset($configs['core']['language']['lists']) && (is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) &&  in_array($_language['lang'],$configs['core']['language']['lists'])) )
                         <div class="tab-pane {{$_language['lang'] == $current_language?" active":""}}" id="tab_{{$lang}}">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -38,30 +36,18 @@
                                 <tr>
                                     <td>
                                         {!! Form::label('id_title', 'Name', ['class' => 'title']) !!}
-                                        @if($current_language == $lang)
-                                            {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
-                                        @else
-                                            {!! Form::text('title_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
-                                        @endif
+                                        {!! Form::text('title_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         {!! Form::label('id_description', 'Description', ['class' => 'description']) !!}
-                                        @if($current_language == $lang)
-                                            {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
-                                        @else
-                                            {!! Form::textarea('description_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
-                                        @endif
+                                        {!! Form::textarea('description_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        @if($current_language == $lang)
-                                            {!! Form::textarea('content', null, ['class' => 'form-control my-editor']) !!}
-                                        @else
-                                            {!! Form::textarea('content_'.$lang.'', null, ['class' => 'form-control my-editor']) !!}
-                                        @endif
+                                        {!! Form::textarea('content_'.$lang.'', null, ['class' => 'form-control my-editor']) !!}
                                         <script>
                                             var editor_config = {
                                                     path_absolute: "/",
@@ -74,6 +60,7 @@
                                                     ],
                                                     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
                                                     relative_urls: false,
+                                                    height:600,
                                                     file_browser_callback: function (field_name, url, type, win) {
 
                                                         var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
@@ -105,15 +92,14 @@
                                                         });
 
                                                     }
-                                                }
-                                            ;
-
+                                                };
                                             tinymce.init(editor_config);
                                         </script>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
+                            @Zoe_Variable_Lang(Post_MetaComposer_Seo,$lang)
                         </div>
                     @endif
                 @endforeach
@@ -157,6 +143,7 @@
                                     ],
                                     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
                                     relative_urls: false,
+                                    height:"500",
                                     file_browser_callback: function (field_name, url, type, win) {
 
                                         var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
@@ -212,7 +199,7 @@
         <div class="box-body">
 
             {!! Form::label('id_tag', 'Category', ['class' => 'Category']) !!} *
-            {!! Form::CategoriesNestable($nestables,$item?$item->category:[],"category") !!}
+            {!! Form::CategoriesNestableOne($nestables,$item?[$item->category_id=>1]:[],"category_id") !!}
 
         </div>
     </div>
@@ -234,9 +221,11 @@
     <div class="box box box-zoe">
         <div class="box-body">
             {!! Form::label('id_status', 'Image', ['class' => 'status']) !!}
-            <div class="image-wrapper">
-                <div class="preview-image-wrapper">
+            <div class="image-wrapper" data-path='Post/Thumb'>
+                <div class="preview-image-wrapper" >
+
                     <img src="{{$item?$item->image:'http://placehold.jp/150x150.png'}}" alt="" height="150px">
+
                     <a onclick="btn_remove_image(this)" class="btn_remove_image" title="Remove image">
                         <i class="fa fa-times"></i>
                     </a>
@@ -268,7 +257,6 @@
 @endsection
 @push('links')
     <link rel="stylesheet" href="{{asset("module/admin/assets/flag/css/flag-icon.min.css")}}">
-@endpush
 @push('scripts')
     <style>
         .preview-image-wrapper {
@@ -294,9 +282,6 @@
     <script src="{{ asset('module/admin/assets/boostrap-multi-select/js/bootstrap-multiselect.js') }}"></script>
 
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/tagging/css/amsify.suggestags.css') }}">
-    <script src="{{ asset('module/admin/assets/tagging/js/jquery.amsify.suggestags.js') }}"></script>
-
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -321,12 +306,16 @@
         }
 
         function openElfinder(self) {
+            let parent = $(self).parent();
+            console.log(parent.data());
             $('#elfinderShow').modal();
+            console.log(parent.attr('data-path'));
             $('#elfinder').elfinder({
                 debug: false,
                 width: '100%',
                 height: '80%',
                 cssAutoLoad: false,
+                startPathHash : 'l1_' + btoa(parent.attr('data-path')).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.').replace(/\.+$/, ''),
                 customData: {
                     _token: '{{ csrf_token() }}'
                 },
@@ -357,8 +346,8 @@
                     preview_image_wrapper.show();
                     console.log(file.url);
 
-                    preview_image_wrapper.find("img").attr('src', file.url);
-                    preview_image_wrapper.find("[name='image']").val(file.url);
+                    preview_image_wrapper.find("img").attr('src', "/"+file.path.split("\\").join("/"));
+                    preview_image_wrapper.find("[name='image']").val("/"+file.path.split("\\").join("/"));
 
                     $('#elfinderShow').modal('hide');
                 },
@@ -382,6 +371,18 @@
                     }
                 }
             }).elfinder('instance');
+        }
+    </script>
+    <script type="text/javascript">
+        function Save(){
+            let form_store = $("#form_store");
+
+            clicks.fire(form_store,function (t) {
+                let data = form_store.zoe_inputs('get');
+                if(form_store.hasClass('submit')){
+                    $("#form_store").submit();
+                }
+            });
         }
     </script>
 @endpush

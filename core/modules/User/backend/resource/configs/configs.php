@@ -78,8 +78,8 @@ return [
                 'columns' => [
                     'lists' => [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
-                        'name' => ['label' => z_language('Name', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha'],
-                        'username' => ['label' => z_language('Username', false), 'type' => 'text', 'primary' => true, 'order_by' => 'amount'],
+                        'username' => ['label' => z_language('Username', false), 'type' => 'title', 'primary' => true, 'order_by' => 'amount'],
+                        'name' => ['label' => z_language('Name', false), 'type' => 'text', 'order_by' => 'alpha'],
                         'avatar' => ['label' => z_language('Avatar', false), 'type' => 'image'],
                         'status' => ['label' => z_language('Status', false), 'type' => 'status', 'order_by' => 'amount'],
                         'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],

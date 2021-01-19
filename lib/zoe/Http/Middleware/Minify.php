@@ -35,7 +35,8 @@ class Minify
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-        return $this->html($response);
+        return $response;
+        //return $this->html($response);
     }
 
     public function html($response)

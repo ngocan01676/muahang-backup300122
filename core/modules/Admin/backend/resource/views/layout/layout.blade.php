@@ -1,7 +1,5 @@
 @php
-    $rsAnnounce = \Illuminate\Support\Facades\DB::table('announce')->where('status',1)
-        ->where('date_start','<=',date('Y-m-d H:i:s'))
-        ->where('date_end','>=',date('Y-m-d H:i:s'))->get()->all();
+    $rsAnnounce = \Illuminate\Support\Facades\DB::table('announce')->where('status',1)  ->where('date_start','<=',date('Y-m-d H:i:s')) ->where('date_end','>=',date('Y-m-d H:i:s'))->get()->all();
 @endphp
 <!DOCTYPE html>
 <html>
@@ -20,8 +18,7 @@
     <link rel="stylesheet" href="{{asset('module/admin/bower_components/Ionicons/css/ionicons.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('module/admin/dist/css/AdminLTE.min.css')}}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css"/>
     <link rel="stylesheet" href="{{asset('module/admin/dist/css/skins/_all-skins.min.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/style.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/loadding/css/jquery-loading.css')}}">
@@ -29,6 +26,7 @@
     <link rel="stylesheet" href="{{asset('module/admin/assets/jquery-confirm/dist/jquery-confirm.min.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/developer-tools/toolbar.css')}}">
     <link rel="stylesheet" href="{{asset('module/admin/assets/loadmask/jquery.loadmask.css')}}">
+    <link rel="stylesheet" href="{{asset("module/admin/assets/flag/css/flag-icon.min.css")}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -39,6 +37,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @AssetRender('css')
     @stack('links')
 </head>
 <body class="hold-transition skin-black-light sidebar-mini">
@@ -53,7 +52,7 @@
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
 
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAAAWCAMAAAB68gtgAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAFdQTFRFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADpeTbQAAAB10Uk5TAGB/bz8wII+/QIAQT8D/z/BwUK+f79/QoOCwkF+BHl0QAAACnUlEQVR4nJ2Vi46rIBCG0Raqsoxga0Hc93/OMxfw0m1zNjtJkxHh45+fwSrF0bSXq1a/CNPeurbfHofWVEBdbr/arrtdDjQHHGPH8XEb04EPeoKpcO645sFsTDpL2TQLCp4Xe4aXGD6wmxkirfBOnhNNjpj0lCxlF+8KrRaYYXHrQEEL8gc2CLsBgQfwODlgBXNcOMEssU9m8DtcF+tUmGFp3rMnJNE0PTNHafC9DLloy7tprrNtji/r0UT/AY2iil8DLOxmhGliV4K3WuzBYsK+4Ly+n2GtQ/32zl45Rb8EqoKWPVa10n5mnhCKT1wN3F6g1RLwU7XgCWOZNKBirMaIvYdCcKtIxuZMZ1YcRgnP7zfsBLE6T50FrqU0U+pJKHh7mo1C8JXqPa7C46ta4A3edtIKrJs6xiQ6IlQSzeLI4VMTaeoYPE+nIh6ELY3Ib/IPvB0h7RUDPQxYKW6T8bQCLT+54sgGLHBoqB7eZQuTtiv1g02VkcgVtFrIi4i//nApFNGcTJyWQZLTxTM40G3sJxy6cpGedUDCg314LXfwVTjd64G9LvB1V2tc1YK64z6u2RQ0IpPj/eiMeoVP4gLCl1ySnhrqKD+GyvaHbxVytBLLHcyuqYMVPhgc51G6/dMOR/2XHZNkpwxQr2UvHNI/Z1rEVyP13OZSXFpxhudUmnSDY8lwr92sxZaVj9per5fHU6pDuB7JqERw+6CtoygwY6LhVOH5AJev5P1yNfZ6k22pqcfT13aF73ZmycbPX21syrSnse2cGDpVeKiJKjq3aLj806ecJQW3lupMiqn+12zvrXQTey4tEatn3OIcoRhOVz3hp7yhn/oYZnVOFPd5GxGmDW77l2twmhtMOc1l/dW/51+iCf+f89f4BxaRLthcsZ1JAAAAAElFTkSuQmCC"
+                <img src="{!! asset('logo.png') !!}"
                      alt="">
             </span>
             {{--<span class="logo-lg"><b>Zoe</b>CMS</span>--}}
@@ -289,209 +288,15 @@
         <strong>Copyright &copy; 2019 <a href="http://naisoft.com">ZoeCMS</a>.</strong> All rights
         reserved. {{$time_exe}}
     </footer>
-
-    <!-- Control Sidebar -->
-    {{--<aside class="control-sidebar control-sidebar-light">--}}
-        {{--<!-- Create the tabs -->--}}
-        {{--<ul class="nav nav-tabs nav-justified control-sidebar-tabs">--}}
-            {{--<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>--}}
-
-            {{--<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>--}}
-        {{--</ul>--}}
-        {{--<!-- Tab panes -->--}}
-        {{--<div class="tab-content">--}}
-            {{--<!-- Home tab content -->--}}
-            {{--<div class="tab-pane" id="control-sidebar-home-tab">--}}
-                {{--<h3 class="control-sidebar-heading">Recent Activity</h3>--}}
-                {{--<ul class="control-sidebar-menu">--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<i class="menu-icon fa fa-birthday-cake bg-red"></i>--}}
-
-                            {{--<div class="menu-info">--}}
-                                {{--<h4 class="control-sidebar-subheading">Langdon's Birthday</h4>--}}
-
-                                {{--<p>Will be 23 on April 24th</p>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<i class="menu-icon fa fa-user bg-yellow"></i>--}}
-
-                            {{--<div class="menu-info">--}}
-                                {{--<h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>--}}
-
-                                {{--<p>New phone +1(800)555-1234</p>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<i class="menu-icon fa fa-envelope-o bg-light-blue"></i>--}}
-
-                            {{--<div class="menu-info">--}}
-                                {{--<h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>--}}
-
-                                {{--<p>nora@example.com</p>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<i class="menu-icon fa fa-file-code-o bg-green"></i>--}}
-
-                            {{--<div class="menu-info">--}}
-                                {{--<h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>--}}
-
-                                {{--<p>Execution time 5 seconds</p>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                {{--</ul>--}}
-                {{--<!-- /.control-sidebar-menu -->--}}
-
-                {{--<h3 class="control-sidebar-heading">Tasks Progress</h3>--}}
-                {{--<ul class="control-sidebar-menu">--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<h4 class="control-sidebar-subheading">--}}
-                                {{--Custom Template Design--}}
-                                {{--<span class="label label-danger pull-right">70%</span>--}}
-                            {{--</h4>--}}
-
-                            {{--<div class="progress progress-xxs">--}}
-                                {{--<div class="progress-bar progress-bar-danger" style="width: 70%"></div>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<h4 class="control-sidebar-subheading">--}}
-                                {{--Update Resume--}}
-                                {{--<span class="label label-success pull-right">95%</span>--}}
-                            {{--</h4>--}}
-
-                            {{--<div class="progress progress-xxs">--}}
-                                {{--<div class="progress-bar progress-bar-success" style="width: 95%"></div>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<h4 class="control-sidebar-subheading">--}}
-                                {{--Laravel Integration--}}
-                                {{--<span class="label label-warning pull-right">50%</span>--}}
-                            {{--</h4>--}}
-
-                            {{--<div class="progress progress-xxs">--}}
-                                {{--<div class="progress-bar progress-bar-warning" style="width: 50%"></div>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="javascript:void(0)">--}}
-                            {{--<h4 class="control-sidebar-subheading">--}}
-                                {{--Back End Framework--}}
-                                {{--<span class="label label-primary pull-right">68%</span>--}}
-                            {{--</h4>--}}
-
-                            {{--<div class="progress progress-xxs">--}}
-                                {{--<div class="progress-bar progress-bar-primary" style="width: 68%"></div>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                {{--</ul>--}}
-                {{--<!-- /.control-sidebar-menu -->--}}
-
-            {{--</div>--}}
-            {{--<!-- /.tab-pane -->--}}
-            {{--<!-- Stats tab content -->--}}
-            {{--<div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>--}}
-            {{--<!-- /.tab-pane -->--}}
-            {{--<!-- Settings tab content -->--}}
-            {{--<div class="tab-pane" id="control-sidebar-settings-tab">--}}
-                {{--<form method="post">--}}
-                    {{--<h3 class="control-sidebar-heading">General Settings</h3>--}}
-
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Report panel usage--}}
-                            {{--<input type="checkbox" class="pull-right" checked>--}}
-                        {{--</label>--}}
-
-                        {{--<p>--}}
-                            {{--Some information about this general settings option--}}
-                        {{--</p>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
-
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Allow mail redirect--}}
-                            {{--<input type="checkbox" class="pull-right" checked>--}}
-                        {{--</label>--}}
-
-                        {{--<p>--}}
-                            {{--Other sets of options are available--}}
-                        {{--</p>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
-
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Expose author name in posts--}}
-                            {{--<input type="checkbox" class="pull-right" checked>--}}
-                        {{--</label>--}}
-
-                        {{--<p>--}}
-                            {{--Allow the user to show his name in blog posts--}}
-                        {{--</p>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
-
-                    {{--<h3 class="control-sidebar-heading">Chat Settings</h3>--}}
-
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Show me as online--}}
-                            {{--<input type="checkbox" class="pull-right" checked>--}}
-                        {{--</label>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
-
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Turn off notifications--}}
-                            {{--<input type="checkbox" class="pull-right">--}}
-                        {{--</label>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
-
-                    {{--<div class="form-group">--}}
-                        {{--<label class="control-sidebar-subheading">--}}
-                            {{--Delete chat history--}}
-                            {{--<a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>--}}
-                        {{--</label>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.form-group -->--}}
-                {{--</form>--}}
-            {{--</div>--}}
-            {{--<!-- /.tab-pane -->--}}
-        {{--</div>--}}
-    {{--</aside>--}}
-    <!-- /.control-sidebar -->
-    <!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
 {{--@includeIf('backend::developer-tools.toolbar')--}}
-<!-- ./wrapper -->
-@stack('extra-content')
-<!-- jQuery 3 -->
+
 <script src="{{asset('module/admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <script src="{{asset('module/admin/assets/zoe.jquery.inputs.js')}}"></script>
+<script src="{{asset('module/admin/assets/jQuery-MD5/jquery.md5.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('module/admin/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- SlimScroll -->
@@ -511,12 +316,14 @@
 
 
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('module/admin/dist/js/demo.js')}}"></script>
 <script src="{{asset('module/admin/assets/main.js')}}"></script>
 
 {{--<script src="{{asset('module/admin/developer-tools/toolbar.js')}}"></script>--}}
 
 <script type="text/javascript">
+
+    var clicks = new Click();
+
     $(document).ready(function () {
         $.ajaxSetup({
             headers: {
@@ -549,7 +356,6 @@
 @if(count($rsAnnounce)>0)
 <script>
     $(document).ready(function () {
-
         setTimeout(function () {
             if($("#announce button.btn i").hasClass('fa-minus')){
                 $("#announce button.btn").trigger('click');
@@ -592,9 +398,11 @@
 
     });
 </script>
-@stack('scriptsTop');
+@AssetRender('js')
+@stack('scriptsTop')
 @stack('scripts')
 @section('extra-script')
 @show
+@stack('extra-content')
 </body>
 </html>

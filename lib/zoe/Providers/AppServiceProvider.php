@@ -3,6 +3,7 @@
 namespace Zoe\Providers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\Blade;
@@ -42,7 +43,12 @@ class AppServiceProvider extends ServiceProvider
 //        });
         $this->app->key = md5(config('app.key'));
         $this->app->ReadCache();
-        $this->app->InitLanguage();
+
+        \Event::listen(\Illuminate\Routing\Events\RouteMatched::class, function () {
+            $this->app->InitLanguage();
+        });
+
+
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
 
         });
@@ -52,9 +58,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware("permission", \Zoe\Http\Middleware\PermissionMiddleware::class);
         $this->app['router']->aliasMiddleware("minify", \Zoe\Http\Middleware\Minify::class);
 
-        $prefixAdmin = explode("/", request()->path());
-        $admin_url = config('tigon.url_admin');
-        $this->app->is_admin = isset($prefixAdmin[0]) ? ("/" . $prefixAdmin[0] == $admin_url) : false;
+       // $prefixAdmin = explode("/", request()->path());
+        //$admin_url = config('tigon.url_admin');
+       // $this->app->is_admin = isset($prefixAdmin[0]) ? ("/" . $prefixAdmin[0] == $admin_url) : false;
 
         $this->config_zoe = config('zoe');
 
@@ -65,9 +71,9 @@ class AppServiceProvider extends ServiceProvider
             return new \MatthiasMullie\Minify\JS();
         });
 
+       // DB::table('layout')->where($this->app->getTheme());
 
         $this->InitModules();
-
         $this->InitPlugins();
         $this->InitTheme();
         $this->autoLoad();
@@ -79,6 +85,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function blade()
     {
+        Blade::directive('Zoe_Variable_Lang', function ($expr) {
+            list($name,$lang) = explode(',', $expr);
+
+            return  '<?php $Zoe_Variable_Lang = "'.$name.'_{'.$lang.'}"; echo isset($$Zoe_Variable_Lang)?$$Zoe_Variable_Lang:""?>';
+        });
         Blade::directive('Zoe_Asset', function ($expr) {
             return '<?php echo asset("' . $expr . '") ?>';
         });
@@ -115,6 +126,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         Blade::directive('function', function ($expression) {
+
             if (!preg_match("/^\s*([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)/", $expression, $matches)) {
                 throw new \Exception("Invalid function name given in blade template: '$expression' is invalid");
             }
@@ -137,7 +149,6 @@ class AppServiceProvider extends ServiceProvider
             }
             return "<?php function $name ( $params  \$__env ) { ?>";
         });
-
         Blade::directive('return', function ($expression) {
             return "<?php return ($expression); ?>";
         });
@@ -154,14 +165,14 @@ class AppServiceProvider extends ServiceProvider
             foreach ($modules as $module) {
                 $this->InitModule($module);
             }
+
             $modules = DB::table('module')
                 ->select()->where('status', 1)->get();
-
             foreach ($modules as $module) {
                 $this->InitModule($module->name, false);
             }
-
         }
+
     }
 
     public function providers()
@@ -323,16 +334,17 @@ class AppServiceProvider extends ServiceProvider
 
         if (file_exists($relativePath . '/Plugin.php')) {
             require_once $relativePath . '/Plugin.php';
-            $class = '\\' . $plugin . '\\Plugin';
+            $class = '\\Plugin' . $plugin . '\\Plugin';
             $object = new $class();
+
+            $this->app->_plugins[$plugin] = $object;
 
             if ($this->app->getConfig(true)->cache == 0) {
                 $this->plugin($plugin, $object, $absolute_path);
             }
-//         $this->app->_plugin[$module] = $object;
+
         }
     }
-
     public function plugin($plugin, $object, $absolute_path)
     {
         $fileConfig = $object->FileConfig();
@@ -357,14 +369,25 @@ class AppServiceProvider extends ServiceProvider
                         $data["class_maps"][$plugin] = $class_maps;
                     }
                     $routers = [];
-                    if (isset($data["routers"])) {
-                        foreach ($data["routers"] as $key => $router) {
+                    if (isset($data["backend"])) {
+                        foreach ($data["backend"] as $key => $router) {
                             $routers["backend"]["plugin:" . $key] = $router;
                             if (isset($routers["backend"]["plugin:" . $key]["sub_prefix"])) {
                                 $routers["backend"]["plugin:" . $key]["sub_prefix"] = "/plugin" . $routers["backend"]["plugin:" . $key]["sub_prefix"];
                             }
                             if (!isset($routers["backend"]["plugin:" . $key]['module'])) {
                                 $routers["backend"]["plugin:" . $key]['module'] = ["name" => $plugin, "type" => "plugin"];
+                            }
+                        }
+                    }
+                    if (isset($data["frontend"])) {
+                        foreach ($data["frontend"] as $key => $router) {
+                            $routers["frontend"]["plugin:" . $key] = $router;
+                            if (isset($routers["backend"]["plugin:" . $key]["sub_prefix"])) {
+                                $routers["frontend"]["plugin:" . $key]["sub_prefix"] = $routers["backend"]["plugin:" . $key]["sub_prefix"];
+                            }
+                            if (!isset($routers["frontend"]["plugin:" . $key]['module'])) {
+                                $routers["frontend"]["plugin:" . $key]['module'] = ["name" => $plugin, "type" => "plugin"];
                             }
                         }
                     }
@@ -414,15 +437,12 @@ class AppServiceProvider extends ServiceProvider
         $relativePath = base_path($absolute_path);
 
         if (file_exists($relativePath . '/Theme.php')) {
-
             require_once $relativePath . '/Theme.php';
-
             $class = '\\' . ucwords($theme) . 'Theme\\Theme';
-
             $object = new $class();
-
             $this->module($theme, $object, $absolute_path, "theme", false);
         }
+
     }
 
     public function InitComponent($component, $_file, $_alias, $_opt_, $config, $view = "components")
@@ -476,7 +496,7 @@ class AppServiceProvider extends ServiceProvider
             }
             $this->app->getComponents()->config->add([$prefix . ":" . $view . ":" . $component => $config_component]);
         } else {
-            echo $_file . "<BR>";
+            echo $_file . "<BR>".__LINE__.'-'.__FILE__;
         }
     }
 
@@ -571,7 +591,8 @@ class AppServiceProvider extends ServiceProvider
                 $this->loadViewsFrom(base_path($_view['path']), $_view['alias']);
             }
         }
-        $this->loadViewsFrom(storage_path('app/views'), "zoe");
+        $theme = config_get('theme', "active", "");
+        $this->loadViewsFrom(storage_path('app/views'), $theme);
     }
 
 }

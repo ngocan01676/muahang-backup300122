@@ -1,6 +1,6 @@
 <?php
 
-namespace Contact;
+namespace PluginContact;
 
 use Zoe\Module as ZModule;
 

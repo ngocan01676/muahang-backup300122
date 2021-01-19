@@ -7,7 +7,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     <!-- Default box -->
     <div class="col-md-6">
         <div class="box box-zoe">
@@ -74,6 +74,99 @@
                 {!! Form::hidden('is_slug',$is_slug) !!}
                 {!! Form::hidden('id',0) !!}
                 {!! Form::hidden('class_nestable',$class_nestable) !!}
+                @if(isset($configs['core']['language']['multiple']))
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs" {{$current_language}}>
+
+                            @foreach($language as $lang=>$_language)
+                                @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                                    <li @if($current_language == $lang) class="active" @endif {{$lang}}><a href="#tab_{{$lang}}"
+                                                                                                           data-toggle="tab"><span
+                                                    class="flag-icon flag-icon-{{$_language['flag']}}"></span></a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                        <div class="tab-content">
+                            @foreach($language as $lang=>$_language)
+                                @if(
+                                isset($configs['core']['language']['lists']) &&
+                                (is_string($configs['core']['language']['lists']) &&
+                                $configs['core']['language']['lists'] == $_language['lang']||
+                                is_array($configs['core']['language']['lists']) &&  in_array($_language['lang'],$configs['core']['language']['lists'])) )
+
+                                    <div  class="tab-pane @if($current_language == $lang) active @endif" id="tab_{{$lang}}">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    {!! Form::label('name_'.$lang, z_language('Name'), ['class' => 'name']) !!}
+                                                    {!! Form::text('name_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Title')]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {!! Form::label('slug_'.$lang, z_language('Uri'), ['class' => 'name']) !!}
+                                                    {!! Form::text('slug_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Uri')]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {!! Form::label('description_'.$lang, z_language('Description'), ['class' => 'description']) !!}
+                                                    {!! Form::textarea('description_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Description'),'cols'=>5,'rows'=>5]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td>
+                                {!! Form::label('id_router_url', z_language('Router enabled'), ['class' => 'status']) !!}
+                                {!! Form::radio('router_enabled', '1' , true) !!} Yes
+                                {!! Form::radio('router_enabled', '2',false) !!} No
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('router_name', z_language('Router Name'), ['class' => 'name']) !!}
+                                {!! Form::text('router_name',null, ['class' => 'form-control','placeholder'=>z_language('Router Name')]) !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('id_status', z_language('Status'), ['class' => 'status']) !!}
+                                {!! Form::radio('status', '1' , true) !!} Yes
+                                {!! Form::radio('status', '2',false) !!} No
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('featured', z_language('Featured'), ['class' => 'featured']) !!}
+                                {!! Form::radio('featured', '1' , false) !!} Yes
+                                {!! Form::radio('featured', '2',true) !!} No
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @includeIf($views)
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                @else
                 <table class="table table-borderless">
                     <tbody>
                     <tr>
@@ -116,6 +209,7 @@
                     </tr>
                     </tbody>
                 </table>
+                @endif
                 {!! Form::close() !!}
             </div>
             <div class="box-footer">
@@ -471,6 +565,9 @@
                 var data_item = $(this).closest('.dd-item').data();
                 var form_store = $("#form_store");
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+
+
+
                 $.ajax({
                     url: '{{@route('backend:category:ajax')}}',
                     type: "POST",
@@ -481,6 +578,7 @@
                         if (data.hasOwnProperty("data")) {
                             var label = "{{ z_language('Category Edit : :Name')  }}";
                             $("#form-title").html(label.replace(":Name", data.data.name));
+                            console.log(data.data);
                             form_store.zoe_inputs('set', data.data);
                         } else {
 
@@ -489,12 +587,8 @@
                     }
                 });
             });
+
             $("#nestable").on("click", '.delete', function () {
-
-
-
-
-
                 var dd_item = $(this).closest('.dd-item');
                 var children = dd_item.children('ol.dd-list');
 
@@ -506,24 +600,38 @@
                     icon: 'fa fa-question-circle',
                     animation: 'scale',
                     top:0,
-                    confirm: function () {
-                        if (children.length > 0) {
-                            var parent = dd_item.parent();
-                            parent.append(children.html());
-                            dd_item.remove();
-                        } else {
-                            dd_item.remove();
-                        }
-                        SavePosition(dd_item.data('id'), function (data) {
-                            if (data.error == 0) {
+                    buttons: {
+                        yes: {
+                            isHidden: false, // hide the button
+                            keys: ['y'],
+                            action: function () {
+                                if (children.length > 0) {
+                                    var parent = dd_item.parent();
+                                    parent.append(children.html());
+                                    dd_item.remove();
+                                } else {
+                                    dd_item.remove();
+                                }
+                                SavePosition(dd_item.data('id'), function (data) {
+                                    if (data.error == 0) {
 
-                            } else {
-                                ResetNestable();
+                                    } else {
+                                        ResetNestable();
+                                    }
+                                });
                             }
-                        });
+                        },
+                        no: {
+                            keys: ['N'],
+                            action: function () {
+                                $.alert('You clicked No.');
+                            }
+                        },
                     }
                 });
             });
+
+
             var updateOutput = function (e) {
                 var list = e.length ? e : $(e.target),
                     output = list.data('output');

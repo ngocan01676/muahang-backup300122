@@ -1,6 +1,6 @@
 <?php
 return [
-    'routers' => [
+    'backend' => [
         'Gallery:Control' => [
             "namespace" => "PluginGallery\Controllers",
             "controller" => "IndexController",

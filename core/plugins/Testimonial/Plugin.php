@@ -1,6 +1,6 @@
 <?php
 
-namespace Testimonial;
+namespace PluginTestimonial;
 
 use Zoe\Module as ZModule;
 

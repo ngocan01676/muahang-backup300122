@@ -16,7 +16,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     public function getCrumb()
     {
 
-        $this->breadcrumb(z_language("Layout"), route('backend:layout:list'));
+        $this->breadcrumb(z_language("Layout"), ('backend:layout:list'));
         return $this;
     }
     public function getListType($type)
@@ -530,6 +530,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $model->theme = $theme;
         $layout = isset($items['layout']) ? json_decode($items['layout'], true) : [];
         $model->content = base64_encode(serialize($layout));
+        $model->composers = serialize($items['composers']);
         $results = $this->saveFile($model, $layout);
         return response()->json($results);
 //        $obj_layout = new \Admin\Lib\LayoutBlade();
@@ -566,13 +567,14 @@ class LayoutController extends \Zoe\Http\ControllerBackend
     function getPartial($id)
     {
         $theme = config_get('theme', "active");
-        $rs = DB::table('layout')->select()->where(['type' => 'partial'])->get()->toArray();
+        $rs = DB::table('layout')->select()->where('theme',$theme)->where(['type' => 'partial'])->get()->toArray();
+
         $array = [];
         foreach ($rs as $val) {
             if ($id == $val->id) {
                 continue;
             }
-            $item = component_create('zoe', [], [], [], 'partial');
+            $item = component_create($theme, [], [], [], 'partial');
             $item["name"] = $val->name;
             $item["option"]['stg']['id'] = $val->id;
             $item["option"]['stg']['token'] = $val->token;
@@ -660,7 +662,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             unset($parameter['action']);
         }
         $models->orderBy($parameter['order_by']['col'], $parameter['order_by']['type']);
-
+        $models->orderBy('theme', 'desc');
         $models = $models->paginate($item, ['*'], 'page', $page);
         $models->appends($parameter);
 
@@ -693,7 +695,8 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "partials" => $this->getPartial($model->id),
             "db_components" => $this->getComponent(),
             "group" => $use,
-            "listsType" => $this->listsType
+            "listsType" => $this->listsType,
+            "db_composers" => [],
         ]);
     }
 
@@ -705,8 +708,11 @@ class LayoutController extends \Zoe\Http\ControllerBackend
         $info = [];
         $model = \Admin\Http\Models\Layout::find($id);
         $this->getcrumb()->breadcrumb(z_language('Edit Layout :name', ["name" => $model->name]), false);
+        $composers = [];
         try {
             $content = unserialize(base64_decode($model->content));
+            $composers = unserialize($model->composers);
+
             $info = $model->toArray();
             unset($info['content']);
             unset($info['data']);
@@ -725,6 +731,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
 
         $use = $this->getListType($type);
         $obj_layout = new \Admin\Lib\LayoutBlade();
+
         return $this->render("layout.edit", [
             'model' => $model,
             "content" => $content,
@@ -733,6 +740,7 @@ class LayoutController extends \Zoe\Http\ControllerBackend
             "db_components" => $this->getComponent(),
             'group' => $use,
             "listsType" => $this->listsType,
+            "db_composers" => $composers,
             "sources" => $obj_layout->getContent($model->slug, $model->token, $model->type_group, $model->type)
         ]);
     }

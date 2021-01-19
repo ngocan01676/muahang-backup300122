@@ -53,8 +53,11 @@ return [
                 'columns' => [
                     'lists' => [
                         'id' => ['label' => z_language('Id', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
+
                         'title' => ['label' => z_language('Title', false), 'type' => 'title', 'primary' => true, 'order_by' => 'alpha', 'callback' => "GetTitle"],
+                        'category' => ['label' => z_language('Category', false), 'type' => 'text', 'order_by' => 'alpha', 'callback' => "category"],
                         'image' => ['label' => z_language('Avatar', false), 'type' => 'image'],
+
                         'status' => ['label' => z_language('Status', false), 'type' => 'status', 'order_by' => 'amount'],
                         'views' => ['label' => z_language('Views', false), 'type' => 'number', 'order_by' => "numeric"],
                         'created_at' => ['label' => z_language('Create At', false), 'type' => 'date'],
@@ -99,6 +102,25 @@ return [
             'options' => [
                 "post" => "blog::configs.post-option"
             ]
+        ]
+    ],
+    'composers'=>[
+        'backend'=>[
+            'PluginSeo\Views\MetaComposer'=>[
+                "blog::form.post"=>[
+                    [
+                        'item'=>'item',
+                        'lang'=>['config'=>"blog","key"=>'post'],
+                        'router'=>'backend:blog:post:store',
+                        'data'=>[],
+                        'variable'=>'Post_MetaComposer_Seo',
+                        'config'=>[
+                            'name'=>'meta',
+                        ],
+
+                    ]
+                ]
+            ],
         ]
     ]
 ];

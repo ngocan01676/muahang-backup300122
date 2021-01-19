@@ -1,0 +1,1312 @@
+.stuck1 {
+    top: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+.b-schedule {
+    background: #0e0e0e;
+    padding: 20px 0
+}
+.b-schedule .schedule__header {
+    margin-top: 10px
+}
+.b-schedule .schedule__header,
+.b-schedule .schedule__header .schedule__header-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap
+}
+.b-schedule .schedule__header .header__legend .header__legend-title {
+    margin-right: 10px;
+    font-size: 16px;
+    line-height: 20px
+}
+.b-schedule .schedule__header .header__legend .price {
+    display: inline-block;
+    vertical-align: top;
+    background-image: url(../images/prices.png);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 87px;
+    height: 42px;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 40px;
+    font-weight: 700;
+    font-size: 19px
+}
+.b-schedule .schedule__header .header__legend .price span {
+    font-size: 11px
+}
+.b-schedule .schedule__header .header__legend .price.low {
+    background-position: 0 -7px;
+    color: #960007
+}
+.b-schedule .schedule__header .header__legend .price.middle {
+    background-position: -106px -7px;
+    color: #015d79
+}
+.b-schedule .schedule__header .header__legend .price.high {
+    background-position: -201px -7px;
+    color: #007417
+}
+.b-schedule .schedule__header .header__legend .price.extra {
+    background-position: -305px -7px;
+    color: #b57129
+}
+.b-schedule .schedule__header .header__legend .price.discount {
+    background-position: -405px -7px;
+    color: #cc14e2
+}
+.b-schedule .schedule__header .header__actor-amount {
+    font-weight: 600;
+    margin-left: 20px;
+    transition: .5s;
+    opacity: 0;
+    font-size: 14px;
+    max-width: 160px
+}
+.b-schedule .schedule__header .header__actor-amount.active {
+    opacity: .8
+}
+.b-schedule .schedule__header .header__fear {
+    display: flex;
+    line-height: 1
+}
+.b-schedule .schedule__header .header__fear.b-room {
+    background-color: transparent
+}
+.b-schedule .schedule__header .header__fear .room-fear {
+    margin-left: 10px
+}
+.b-schedule .schedule__header .header__fear .room-fear.almost_scary i:nth-child(n+3),
+.b-schedule .schedule__header .header__fear .room-fear.horror_scary i:nth-child(n+6),
+.b-schedule .schedule__header .header__fear .room-fear.not_scary i:nth-child(n+2),
+.b-schedule .schedule__header .header__fear .room-fear.scary i:nth-child(n+4),
+.b-schedule .schedule__header .header__fear .room-fear.very_scary i:nth-child(n+5) {
+    color: #dadada
+}
+.b-schedule .schedule__header .header__combo {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    color: #fff;
+    font-size: 14px
+}
+.b-schedule .schedule__header .header__combo>span {
+    display: block;
+    padding-right: 5px
+}
+.b-schedule .schedule__header .header__combo>span span {
+    color: #259937
+}
+.b-schedule .schedule__header .header__combo i {
+    font-size: 14px;
+    color: #259937
+}
+.b-schedule .schedule__header .header__combo:hover span {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff
+}
+.b-schedule .schedule__header .header__combo:hover i {
+    transform: scale(1.2)
+}
+.b-schedule .schedule__actor {
+    margin: 25px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between
+}
+.b-schedule .schedule__actor .actor__hero {
+    background: #1d1d1d;
+    padding: 0 10px 0 30px;
+    font-size: 14px;
+    display: flex;
+    border-radius: 10px;
+    min-height: 135px;
+    width: 100%
+}
+.b-schedule .schedule__actor .actor__hero .hero__image {
+    position: relative;
+    flex: 0 0 285px
+}
+@media only screen and (max-width: 910px) {
+    .b-schedule .schedule__actor .actor__hero .hero__image {
+        flex: 0 0 220px
+    }
+}
+.b-schedule .schedule__actor .actor__hero .hero__image img {
+    width: 315px;
+    position: absolute;
+    left: -30px;
+    bottom: 0;
+    display: block
+}
+@media only screen and (max-width: 910px) {
+    .b-schedule .schedule__actor .actor__hero .hero__image img {
+        width: 220px
+    }
+}
+.b-schedule .schedule__actor .actor__hero .hero__content {
+    padding: 20px 45px 20px 20px;
+    max-width: 850px
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .content__title {
+    color: #4b79bb;
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 600;
+    margin-bottom: 7px
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .content__text {
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.3
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .content__text p {
+    color: inherit;
+    font-size: 14px;
+    line-height: 1.3;
+    margin-bottom: 0
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .actor__switch {
+    background: #1d1d1d;
+    padding: 0;
+    margin-top: 15px;
+    font-size: 14px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .actor__switch i {
+    font-size: 18px;
+    margin-right: 10px
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .actor__switch i.icon_act {
+    margin-right: 3px;
+    margin-left: 3px
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .actor__switch .switch__without-actors {
+    font-weight: 600;
+    margin-right: 10px
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .actor__switch .switch__switcher {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: 26px;
+    height: 10px;
+    background: #5d5d5d;
+    border-radius: 10px
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .actor__switch .switch__switcher.active {
+    background: #259937
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .actor__switch .switch__switcher.active:after {
+    left: 14px
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .actor__switch .switch__switcher:after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .4);
+    transition: .3s
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .actor__switch .switch__actors {
+    font-weight: 600;
+    margin-left: 10px;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+.b-schedule .schedule__actor .actor__hero .hero__content .actor__switch .switch__actors i {
+    font-size: 20px
+}
+.b-schedule .schedule__role-play .actor__hero .hero__image img {
+    width: 200px;
+    left: 0
+}
+.b-schedule .schedule__cube .actor__hero .hero__image {
+    flex: 0 0 195px
+}
+.b-schedule .schedule__cube .actor__hero .hero__image img {
+    width: auto;
+    max-width: 185px;
+    left: 0;
+    top: 0;
+    margin: auto
+}
+.b-schedule .schedule__aktsiya .actor__hero {
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    min-height: 170px
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 560px;
+    background: none no-repeat 0 0;
+    background-size: cover
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__image:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(270deg, #1d1d1d, rgba(29, 29, 29, .83) 18.75%, rgba(29, 29, 29, 0) 40.18%)
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__content {
+    position: relative;
+    padding: 26px 50px 26px 24px
+}
+@media (max-width: 1199px) {
+    .b-schedule .schedule__aktsiya .actor__hero .hero__content {
+        max-width: 465px
+    }
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__content>i {
+    position: absolute;
+    top: 0;
+    left: -50px;
+    bottom: 0;
+    height: 50px;
+    margin: auto;
+    color: #fff;
+    font-size: 52px;
+    opacity: .15
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__content .content__link,
+.b-schedule .schedule__aktsiya .actor__hero .hero__content .content__title {
+    color: #007417;
+    font-weight: 600
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__content .content__title {
+    color: #259937;
+    font-size: 20px;
+    margin-bottom: 5px
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__content .content__link,
+.b-schedule .schedule__aktsiya .actor__hero .hero__content .content__text {
+    font-size: 16px;
+    line-height: 1.25
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__content .content__link {
+    margin-top: 10px;
+    display: inline-block;
+    border-bottom: 1px solid
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__content .content__link:hover {
+    border-bottom-color: transparent
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__info {
+    position: absolute;
+    top: 11px;
+    right: 11px;
+    color: #fff;
+    font-size: 16px;
+    opacity: .7
+}
+.b-schedule .schedule__aktsiya .actor__hero .hero__info:hover {
+    opacity: 1
+}
+@media (max-width: 991px) {
+    .b-schedule .schedule__aktsiya .actor__hero .h-100 {
+        height: auto!important
+    }
+    .b-schedule .schedule__aktsiya .actor__hero .hero__image {
+        position: static;
+        height: 160px;
+        max-width: 100%
+    }
+    .b-schedule .schedule__aktsiya .actor__hero .hero__content {
+        max-width: 100%
+    }
+}
+@media (max-width: 480px) {
+    .b-schedule .schedule__aktsiya .actor__hero {
+        min-height: auto;
+        text-align: center
+    }
+    .b-schedule .schedule__aktsiya .actor__hero .hero__image {
+        display: none
+    }
+}
+.b-schedule .calendar {
+    padding: 20px 0
+}
+.b-schedule .calendar .owl-stage {
+    display: flex
+}
+.b-schedule .calendar .day {
+    text-align: center;
+    background-color: transparent;
+    border-radius: 8px;
+    transition: all .2s ease-out 0s;
+    padding: 0 10px
+}
+.b-schedule .calendar .day .day-header {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-top: 10px
+}
+.b-schedule .calendar .day .day-header .date {
+    color: #be9d6c
+}
+.b-schedule .calendar .day .day-header .weekday {
+    color: #960007
+}
+.b-schedule .calendar .day .list {
+    padding: 15px 0 10px;
+    margin: 0
+}
+.b-schedule .calendar .day .list .calendar__item {
+    position: relative;
+    height: auto;
+    margin: 0 0 11px;
+    display: block
+}
+.b-schedule .calendar .day .list .calendar__item .item__time {
+    width: 93px;
+    height: 40px;
+    position: relative;
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    line-height: 40px;
+    margin: 0 auto 5px
+}
+.b-schedule .calendar .day .list .calendar__item .item__price {
+    display: none
+}
+.b-schedule .calendar .day .list .calendar__item .book_label {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: -15px;
+    font-size: 12px;
+    color: #d9b67d;
+    text-shadow: 0 0 10px #000;
+    text-transform: lowercase;
+    white-space: nowrap
+}
+.b-schedule .calendar .day .list .calendar__item.available .item__time {
+    background-position: -1000px -1000px;
+    background-image: url(../images/prices.png);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    cursor: pointer
+}
+.b-schedule .calendar .day .list .calendar__item.available:hover .book_label {
+    display: block
+}
+.b-schedule .calendar .day .list .calendar__item.available.past .item__time,
+.b-schedule .calendar .day .list .calendar__item.disabled .item__time {
+    background-image: none;
+    cursor: not-allowed
+}
+.b-schedule .calendar .day .list .calendar__item.low .item__time {
+    background-position: 5px -62px
+}
+.b-schedule .calendar .day .list .calendar__item.low:hover .item__time {
+    background-position: 5px -119px
+}
+.b-schedule .calendar .day .list .calendar__item.low.selected .item__time {
+    background-position: 5px -172px
+}
+.b-schedule .calendar .day .list .calendar__item.middle .item__time {
+    background-position: -100px -62px
+}
+.b-schedule .calendar .day .list .calendar__item.middle:hover .item__time {
+    background-position: -100px -119px
+}
+.b-schedule .calendar .day .list .calendar__item.middle.selected .item__time {
+    background-position: -100px -172px
+}
+.b-schedule .calendar .day .list .calendar__item.high .item__time {
+    background-position: -195px -62px
+}
+.b-schedule .calendar .day .list .calendar__item.high:hover .item__time {
+    background-position: -195px -119px
+}
+.b-schedule .calendar .day .list .calendar__item.high.selected .item__time {
+    background-position: -195px -172px
+}
+.b-schedule .calendar .day .list .calendar__item.extra .item__time {
+    background-position: -299px -62px
+}
+.b-schedule .calendar .day .list .calendar__item.extra:hover .item__time {
+    background-position: -299px -119px;
+    color: #ddd
+}
+.b-schedule .calendar .day .list .calendar__item.extra.selected .item__time {
+    background-position: -299px -172px;
+    color: #ddd
+}
+.b-schedule .calendar .day .list .calendar__item.discount .item__time {
+    background-position: -400px -120px
+}
+.b-schedule .calendar .day .list .calendar__item.discount:hover .item__time {
+    background-position: -400px -119px
+}
+.b-schedule .calendar .day .list .calendar__item.discount.selected .item__time {
+    background-position: -400px -172px
+}
+.b-schedule .calendar .day .list .calendar__item.selected {
+    font-size: 24px
+}
+.b-schedule .calendar .day .list .calendar__item.past .item__time {
+    color: #484747
+}
+.b-schedule .calendar .day .list .calendar__item.actor_1:not(.disabled):not(.past) .item__time:after,
+.b-schedule .calendar .day .list .calendar__item.actor_2:not(.disabled):not(.past) .item__time:after {
+    content: "";
+    font-family: icomoon;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: -4px;
+    line-height: 1.2;
+    opacity: .7
+}
+.b-schedule .calendar .day:hover {
+    background-color: rgba(0, 0, 0, .6)
+}
+.b-schedule .calendar .owl-nav {
+    width: 100%
+}
+.b-schedule .calendar .owl-nav .owl-next,
+.b-schedule .calendar .owl-nav .owl-prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    display: block;
+    width: 34px;
+    height: 123px;
+    opacity: .7;
+    transition: opacity .2s ease-out 0s
+}
+.b-schedule .calendar .owl-nav .owl-next:hover,
+.b-schedule .calendar .owl-nav .owl-prev:hover {
+    opacity: 1
+}
+.b-schedule .calendar .owl-nav .owl-prev {
+    left: -55px;
+    background-image: url(../images/icons/arrows.png);
+    background-position: 0 0
+}
+.b-schedule .calendar .owl-nav .owl-next {
+    right: -55px;
+    background-image: url(../images/icons/arrows.png);
+    background-position: -35px 0
+}
+.b-schedule .calendar.actor-disable .day ul li .item__time:after {
+    display: none
+}
+.b-schedule.m_schedules-for-admin .schedules-for-admin__container {
+    padding-top: 50px
+}
+.b-schedule.m_schedules-for-admin .schedules-for-admin__container h1 {
+    font-size: 20px
+}
+@media (max-width: 1200px) {
+    .b-schedule .calendar {
+        padding: 20px 40px
+    }
+    .b-schedule .calendar .owl-nav .owl-prev {
+        left: 0
+    }
+    .b-schedule .calendar .owl-nav .owl-next {
+        right: 0
+    }
+}
+@media (max-width: 768px) {
+    .b-schedule .schedule__header {
+        justify-content: center
+    }
+    .b-schedule .schedule__header .schedule__header-left {
+        display: none
+    }
+    .b-schedule .schedule__header .header__legend {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0;
+        margin-bottom: 10px
+    }
+    .b-schedule .schedule__header .header__legend .price {
+        margin: 10px 20px 0
+    }
+    .b-schedule .schedule__actor {
+        margin: 20px 0
+    }
+    .b-schedule .schedule__actor .actor__hero {
+        flex-direction: column-reverse;
+        padding: 0
+    }
+    .b-schedule .schedule__actor .actor__hero .hero__image {
+        flex: auto
+    }
+    .b-schedule .schedule__actor .actor__hero .hero__image img {
+        position: relative;
+        margin: 0 auto
+    }
+    .b-schedule .schedule__actor .actor__hero .hero__description {
+        padding: 20px
+    }
+    .b-schedule .schedule__actor .actor__hero .hero__description b {
+        font-weight: 700
+    }
+    .b-schedule .schedule__actor .actor__switch {
+        width: 100%;
+        border: 0;
+        padding: 0 10px
+    }
+    .b-schedule .calendar {
+        padding: 20px 0
+    }
+}
+@media (max-width: 576px) {
+    .b-schedule .schedule__header {
+        margin-top: 0;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center
+    }
+    .b-schedule .schedule__header .header__legend {
+        justify-content: flex-start
+    }
+    .b-schedule .schedule__header .header__legend>div.price {
+        margin-left: 0
+    }
+}
+@media (max-width: 576px) and (max-width: 480px) {
+    .b-schedule .schedule__header .header__legend>div.price {
+        margin-right: 5px
+    }
+}
+@media (max-width: 576px) {
+    .b-schedule .schedule__header .header__legend>div.price+div.price {
+        margin-right: 15px
+    }
+}
+@media (max-width: 576px) and (max-width: 480px) {
+    .b-schedule .schedule__header .header__legend>div.price+div.price {
+        margin-right: 5px
+    }
+}
+@media (max-width: 576px) {
+    .b-schedule .schedule__header .header__actor-amount {
+        margin-left: 0
+    }
+}
+@media (max-width: 576px) and (max-width: 480px) {
+    .b-schedule .schedule__header .header__actor-amount {
+        max-width: 100%
+    }
+    .b-schedule .schedule__header .header__actor-amount br {
+        display: none
+    }
+}
+@media (max-width: 576px) {
+    .b-schedule .schedule__header .header__fear {
+        margin-top: 10px
+    }
+}
+@media (max-width: 480px) {
+    .b-schedule .schedule-top-wrapper {
+        display: flex;
+        flex-direction: column-reverse
+    }
+    .b-schedule .schedule-top-wrapper .m-hidden {
+        display: none!important
+    }
+    .b-schedule .schedule-top-wrapper .p-booking {
+        margin: 20px -20px 0;
+        order: -1
+    }
+    .b-schedule .schedule__actor .actor__hero .hero__content {
+        position: relative;
+        padding: 15px
+    }
+    .b-schedule .schedule__actor .actor__hero .hero__image img {
+        position: absolute;
+        z-index: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        width: 70%
+    }
+    .b-schedule .schedule__header .header__combo {
+        padding: 10px 15px;
+        border-radius: 20px;
+        background-color: #1d1d1d;
+        border: 1px solid #ccc
+    }
+}
+@media (max-width: 380px) {
+    .b-schedule .actor__hero .hero__content .actor__switch .switch__without-actors span {
+        display: none
+    }
+}
+.b-schedule .schedule-loader {
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+    transition: .3s ease-in
+}
+.b-schedule .schedule-loader div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    border-radius: 50%;
+    -webkit-animation: schedule-loader 1.2s cubic-bezier(.5, 0, .5, 1) infinite;
+    animation: schedule-loader 1.2s cubic-bezier(.5, 0, .5, 1) infinite;
+    border: 4px solid transparent;
+    border-top-color: #be9d6c
+}
+.b-schedule .schedule-loader div:first-child {
+    -webkit-animation-delay: -.45s;
+    animation-delay: -.45s
+}
+.b-schedule .schedule-loader div:nth-child(2) {
+    -webkit-animation-delay: -.3s;
+    animation-delay: -.3s
+}
+.b-schedule .schedule-loader div:nth-child(3) {
+    -webkit-animation-delay: -.15s;
+    animation-delay: -.15s
+}
+
+.b-rooms-home {
+    margin-top: 0px;
+}
+
+.b-rooms-home .booking-schedule-w .schedule__rooms {
+    min-height: auto;
+}
+
+.b-rooms-home .rooms-w {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: -30px;
+}
+
+@media (max-width:420px) {
+    .b-rooms-home .rooms-w {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+}
+
+.b-rooms-home .rooms-w .room {
+    position: relative;
+    width: calc(25% - 15px);
+    border: 1px solid #949494;
+    height: 430px;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 0 20px;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.b-rooms-home .rooms-w .room .room-role-play {
+    padding: 0 10px;
+}
+
+.b-rooms-home .rooms-w .room .room-role-play .btn {
+    position: relative;
+    z-index: 11;
+    margin-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 40px;
+    box-shadow: 0 0 28px #000;
+}
+
+.b-rooms-home .rooms-w .room .room-icon {
+    position: relative;
+    z-index: 11;
+    text-align: center;
+    font-size: 44px;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 0 20px #000,0 0 20px #000,0 0 20px #000;
+    height: 44px;
+}
+
+.b-rooms-home .rooms-w .room .room-icon .icon-png {
+    display: block;
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+    background-size: contain!important;
+    position: relative;
+    bottom: 20px;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+.b-rooms-home .rooms-w .room .room-icon .icon-png.icon-room-sherlock {
+    width: 70px;
+    height: 70px;
+}
+
+.b-rooms-home .rooms-w .room .room-name {
+    position: relative;
+    z-index: 10;
+    margin: 10px 10px 0;
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 0 0 30px #000,0 0 30px #000,0 0 30px #000,0 0 30px #000,0 0 30px #000,0 0 30px #000,0 0 30px #000;
+    line-height: 1.2;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #000;
+}
+
+.b-rooms-home .rooms-w .room .room-name div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    text-shadow: none;
+    color: #fff;
+}
+
+.b-rooms-home .rooms-w .room .room-name.length10 {
+    font-size: 35px;
+}
+
+.b-rooms-home .rooms-w .room .room-header {
+    position: absolute;
+    z-index: 10;
+    top: 10px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 700;
+    flex-wrap: wrap;
+    transition: .3s ease-out;
+}
+
+.b-rooms-home .rooms-w .room .room-header .room-age {
+    font-weight: 700;
+}
+
+.b-rooms-home .rooms-w .room .room-footer {
+    position: absolute;
+    z-index: 10;
+    bottom: 10px;
+    left: 15px;
+    right: 15px;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.1;
+    transition: .3s ease-out;
+}
+
+.b-rooms-home .rooms-w .room .room-footer i {
+    display: block;
+    color: #529146;
+    margin-bottom: 2px;
+    font-size: 18px;
+}
+
+.b-rooms-home .rooms-w .room .room-footer span {
+    display: block;
+    text-transform: uppercase;
+}
+
+.b-rooms-home .rooms-w .room .room-params {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-difficulty {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    justify-content: center;
+    font-size: 16px;
+    color: #7c7d7d;
+    text-shadow: 0 0 10px #000,0 0 10px #000,0 0 10px #000,0 0 10px #000,0 0 10px #000;
+    transition: 1s ease-out;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-difficulty[class*=easy],.b-rooms-home .rooms-w .room .room-params .room-difficulty[class*=hard],.b-rooms-home .rooms-w .room .room-params .room-difficulty[class*=medium],.b-rooms-home .rooms-w .room .room-params .room-difficulty[class*=very_hard] {
+    margin-top: 10px;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-difficulty[class*=easy] .room-difficulty-txt,.b-rooms-home .rooms-w .room .room-params .room-difficulty[class*=hard] .room-difficulty-txt,.b-rooms-home .rooms-w .room .room-params .room-difficulty[class*=medium] .room-difficulty-txt,.b-rooms-home .rooms-w .room .room-params .room-difficulty[class*=very_hard] .room-difficulty-txt {
+    color: #fff;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-difficulty .room-difficulty-txt {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    text-transform: lowercase;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-difficulty i {
+    margin: 0 2px;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-difficulty.easy i:nth-of-type(n+3),.b-rooms-home .rooms-w .room .room-params .room-difficulty.hard i:nth-of-type(n+5),.b-rooms-home .rooms-w .room .room-params .room-difficulty.medium i:nth-of-type(n+4),.b-rooms-home .rooms-w .room .room-params .room-difficulty.very_hard i:nth-of-type(n+6) {
+    color: #7c7d7d;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-fear {
+    flex-wrap: wrap;
+    margin-top: 5px;
+    justify-content: center;
+    font-size: 16px;
+    line-height: normal;
+    color: #7c7d7d;
+    text-shadow: 0 0 10px #000,0 0 10px #000,0 0 10px #000,0 0 10px #000,0 0 10px #000;
+    transition: 1s ease-out;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-fear i {
+    margin: 0 2px;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-fear[class*=scary] {
+    margin-top: 5px;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-fear[class*=scary] .room-fear-txt {
+    color: #fff;
+    margin-bottom: 3px;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-fear .room-fear-txt {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    text-transform: lowercase;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-fear .room-fear-txt.m-no_scary {
+    margin-top: 10px;
+    font-weight: 700;
+    color: #000;
+    border-radius: 5px;
+    padding: 0 10px 2px;
+    text-shadow: none;
+    box-shadow: 0 0 10px #000,0 0 10px #000,0 0 10px #000,0 0 10px #000,0 0 10px #000;
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-fear .room-fear-substrate {
+    color: #000;
+    padding: 1px 5px;
+    background: #999;
+    border-radius: 4px;
+    text-shadow: none;
+    box-shadow: 0 0 5px #000,0 0 10px #000,0 0 5px #000,0 0 10px rgba(0,0,0,.25),0 0 10px rgba(0,0,0,.25);
+}
+
+.b-rooms-home .rooms-w .room .room-params .room-fear.almost_scary i:nth-of-type(n+3),.b-rooms-home .rooms-w .room .room-params .room-fear.horror_scary i:nth-of-type(n+6),.b-rooms-home .rooms-w .room .room-params .room-fear.not_scary i:nth-of-type(n+2),.b-rooms-home .rooms-w .room .room-params .room-fear.scary i:nth-of-type(n+4),.b-rooms-home .rooms-w .room .room-params .room-fear.very_scary i:nth-of-type(n+5) {
+    color: #7c7d7d;
+}
+
+.b-rooms-home .rooms-w .room .room-params:not(:hover) {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .2s ease-in-out,opacity .5s;
+}
+
+.b-rooms-home .rooms-w .room:hover .room-params {
+    opacity: 1;
+    max-height: 200px;
+    transition: max-height .5s ease-in-out,opacity .5s;
+}
+
+.b-rooms-home .rooms-w .room .room-with-actor {
+    border-radius: 100px;
+    padding: 2px 15px 2px 32px;
+    color: #fff;
+    max-width: calc(100% - 40px);
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    position: relative;
+    font-size: 12px;
+    box-shadow: 0 0 20px #000,0 0 20px #000;
+    font-weight: 700;
+    text-align: center;
+    margin: 20px auto 10px;
+    word-wrap: break-word;
+}
+
+.b-rooms-home .rooms-w .room .room-with-actor:before {
+    content: "";
+    position: absolute;
+    left: -35px;
+    width: 50px;
+    top: -8px;
+    border-radius: 51%;
+    height: 50px;
+    background: #000;
+    filter: blur(19px);
+}
+
+.b-rooms-home .rooms-w .room .room-with-actor__optional {
+    background-color: #0b5e78;
+}
+
+.b-rooms-home .rooms-w .room .room-with-actor i {
+    font-size: 30px;
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.b-rooms-home .rooms-w .room .room-with-actor.room-new-quest {
+    background-color: #03a800!important;
+}
+
+.b-rooms-home .rooms-w .room .room-announce-btn {
+    position: relative;
+    z-index: 10;
+    padding: 3px 15px;
+    margin: 5px auto 10px;
+}
+
+.b-rooms-home .rooms-w .room .room-announce-btn:before {
+    content: none;
+}
+
+.b-rooms-home .rooms-w .room .room-aktsiya,.b-rooms-home .rooms-w .room .room-new-quest {
+    margin-top: 13px;
+    text-transform: uppercase;
+}
+
+.b-rooms-home .rooms-w .room .room-new-quest {
+    padding-top: 4px;
+    background-color: #03a800;
+}
+
+.b-rooms-home .rooms-w .room .room-aktsiya {
+    padding: 4px 15px 3px 25px;
+    background: linear-gradient(74.07deg,#227704,hsla(0,0%,100%,0) 98.54%),#2ca900!important;
+}
+
+.b-rooms-home .rooms-w .room .room-aktsiya:before {
+    content: none;
+}
+
+.b-rooms-home .rooms-w .room .room-aktsiya i {
+    font-size: 26px;
+}
+
+.b-rooms-home .rooms-w .room.announce {
+    box-shadow: inset 0 0 0 200px rgba(0,0,0,.6);
+}
+
+.b-rooms-home .rooms-w .room.announce .room-name {
+    color: #949494;
+}
+
+.b-rooms-home .rooms-w .room:not(.announce):hover .room-difficulty,.b-rooms-home .rooms-w .room:not(.announce):hover .room-fear {
+    opacity: 1;
+}
+
+.b-rooms-home .rooms-w .room.fake {
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    margin: 0;
+    display: block!important;
+}
+
+.b-rooms-home .rooms-w .room.fake:after,.b-rooms-home .rooms-w .room.fake:before {
+    display: none;
+}
+
+.b-rooms-home .rooms-w .room.m_active .room-loader {
+    opacity: 1;
+}
+
+.b-rooms-home .rooms-w .room.m_active .room-difficulty,.b-rooms-home .rooms-w .room.m_active .room-footer,.b-rooms-home .rooms-w .room.m_active .room-header {
+    opacity: 0!important;
+}
+
+.b-rooms-home .rooms-w .room:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: url(/theme/missterry/images/room-shadow-bg-top.png);
+    height: 106px;
+    opacity: .95;
+}
+
+.b-rooms-home .rooms-w .room:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(/theme/missterry/images/room-shadow-bg2.png);
+    height: 70px;
+}
+
+.b-rooms-home .rooms-w .room.red {
+    border: 1px solid #960007;
+    color: #960007;
+}
+
+.b-rooms-home .rooms-w .room.red .room-difficulty,.b-rooms-home .rooms-w .room.red .room-fear {
+    color: #960007;
+}
+
+.b-rooms-home .rooms-w .room.red .m-no_scary,.b-rooms-home .rooms-w .room.red .room-fear-substrate,.b-rooms-home .rooms-w .room.red .room-with-actor {
+    background-color: #960007;
+}
+
+.b-rooms-home .rooms-w .room.red.m_active,.b-rooms-home .rooms-w .room.red:hover {
+    box-shadow: 0 0 20px 0 #960007,0 0 20px 0 #960007;
+}
+
+.b-rooms-home .rooms-w .room.yellow {
+    border: 1px solid #b57129;
+    color: #b57129;
+}
+
+.b-rooms-home .rooms-w .room.yellow .room-difficulty,.b-rooms-home .rooms-w .room.yellow .room-fear {
+    color: #b57129;
+}
+
+.b-rooms-home .rooms-w .room.yellow .m-no_scary,.b-rooms-home .rooms-w .room.yellow .room-fear-substrate,.b-rooms-home .rooms-w .room.yellow .room-with-actor {
+    background-color: #b57129;
+}
+
+.b-rooms-home .rooms-w .room.yellow.m_active,.b-rooms-home .rooms-w .room.yellow:hover {
+    box-shadow: 0 0 20px 0 #b57129,0 0 20px 0 #b57129;
+}
+
+.b-rooms-home .rooms-w .room.blue {
+    border: 1px solid #015d79;
+    color: #015d79;
+}
+
+.b-rooms-home .rooms-w .room.blue .room-difficulty,.b-rooms-home .rooms-w .room.blue .room-fear {
+    color: #015d79;
+}
+
+.b-rooms-home .rooms-w .room.blue .m-no_scary,.b-rooms-home .rooms-w .room.blue .room-fear-substrate,.b-rooms-home .rooms-w .room.blue .room-with-actor {
+    background-color: #015d79;
+}
+
+.b-rooms-home .rooms-w .room.blue.m_active,.b-rooms-home .rooms-w .room.blue:hover {
+    box-shadow: 0 0 20px 0 #015d79,0 0 20px 0 #015d79;
+}
+
+.b-rooms-home .rooms-w .room.blue.cube .room-with-actor {
+    background-color: #53a2eb;
+}
+
+.b-rooms-home .rooms-w .room.green {
+    border: 1px solid #007417;
+    color: #007417;
+}
+
+.b-rooms-home .rooms-w .room.green .room-difficulty,.b-rooms-home .rooms-w .room.green .room-fear {
+    color: #007417;
+}
+
+.b-rooms-home .rooms-w .room.green .m-no_scary,.b-rooms-home .rooms-w .room.green .room-fear-substrate,.b-rooms-home .rooms-w .room.green .room-with-actor {
+    background-color: #007417;
+}
+
+.b-rooms-home .rooms-w .room.green.m_active,.b-rooms-home .rooms-w .room.green:hover {
+    box-shadow: 0 0 20px 0 #007417,0 0 20px 0 #007417;
+}
+
+.b-rooms-home .rooms-w .room.black {
+    border: 1px solid #000;
+    color: #000;
+}
+
+.b-rooms-home .rooms-w .room.black .room-difficulty,.b-rooms-home .rooms-w .room.black .room-fear {
+    color: #000;
+}
+
+.b-rooms-home .rooms-w .room.black .m-no_scary,.b-rooms-home .rooms-w .room.black .room-with-actor {
+    background-color: #000;
+}
+
+.b-rooms-home .rooms-w .room.black.m_active,.b-rooms-home .rooms-w .room.black:hover {
+    box-shadow: 0 0 20px 0 #000,0 0 20px 0 #000;
+}
+
+.b-rooms-home .rooms-w .room.white {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.b-rooms-home .rooms-w .room.white .room-difficulty,.b-rooms-home .rooms-w .room.white .room-fear {
+    color: #fff;
+}
+
+.b-rooms-home .rooms-w .room.white .m-no_scary,.b-rooms-home .rooms-w .room.white .room-with-actor {
+    background-color: #fff;
+}
+
+.b-rooms-home .rooms-w .room.white .m-no_scary *,.b-rooms-home .rooms-w .room.white .room-with-actor * {
+    color: #000;
+}
+
+.b-rooms-home .rooms-w .room.white.m_active,.b-rooms-home .rooms-w .room.white:hover {
+    box-shadow: none;
+}
+
+.b-rooms-home .rooms-w .room.cube .room-with-actor {
+    padding-left: 26px;
+}
+
+.b-rooms-home .rooms-w .room.cube .room-with-actor:before {
+    display: none;
+}
+
+.b-rooms-home .rooms-w .room.cube .room-with-actor i {
+    left: -5px;
+    font-size: 24px;
+}
+.b-room.red .icon-actor,.b-room.red .icon-chronometer,.b-room.red .icon-user,.b-room.red .room-difficulty,.b-room.red .room-fear {
+    color: #a11b1b;
+}
+
+.b-room.red .room-with-actor {
+    background-color: #960007;
+}
+
+.b-room.yellow .icon-actor,.b-room.yellow .icon-chronometer,.b-room.yellow .icon-user,.b-room.yellow .room-difficulty,.b-room.yellow .room-fear {
+    color: #e78e01;
+}
+
+.b-room.yellow .room-with-actor {
+    background-color: #b57129;
+}
+
+.b-room.blue .icon-actor,.b-room.blue .icon-chronometer,.b-room.blue .icon-user,.b-room.blue .room-difficulty,.b-room.blue .room-fear {
+    color: #3bade8;
+}
+
+.b-room.blue .room-with-actor {
+    background-color: #015d79;
+}
+
+.b-room.green .icon-actor,.b-room.green .icon-chronometer,.b-room.green .icon-user,.b-room.green .room-difficulty,.b-room.green .room-fear {
+    color: #25bf42;
+}
+
+.b-room.green .room-with-actor {
+    background-color: #007417;
+}
+
+.b-room.black .room-with-actor {
+    background-color: #000;
+}
+
+.b-room.white .room-with-actor {
+    background-color: #fff;
+}
+
+.b-room.white .room-with-actor * {
+    color: #000;
+}
+
+@media (max-width: 768px)
+{
+    .b-rooms-home .rooms-w .room {
+        width: calc(50% - 5px);
+        height: auto;
+        min-height: 330px;
+        padding: 40px 0 80px;
+    }
+}
+@media (max-width: 1200px)
+{
+    .b-rooms-home .rooms-w .room {
+        width: calc(50% - 15px);
+    }
+}
+@media (max-width: 420px)
+{
+    .b-rooms-home .rooms-w .room {
+        background-position-y: 30%;
+    }
+}
+.fas-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.text-error{
+    display: inline-block;
+    color: red !important;;
+}
+.text-oke{
+    display: inline-block;
+    color: green !important;
+}
+.error .text-error{
+    display: inline-block;
+    color: red !important;
+    padding-bottom: 3px;
+}
+a:hover {
+    text-decoration: none;
+}

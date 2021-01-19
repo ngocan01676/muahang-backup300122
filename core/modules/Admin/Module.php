@@ -1,7 +1,7 @@
 <?php
 
 namespace Admin;
-
+use Illuminate\Support\Facades\Blade;
 use Zoe\Module as ZModule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -37,7 +37,7 @@ class Module extends ZModule
         });
 
         \Actions::add_action("tag_add", function ($type, $id_item, $tag, $tags) {
-            dump($type, $id_item, $tag);
+
             $_tags = explode(',', $tag);
             DB::beginTransaction();
             try {
@@ -79,6 +79,12 @@ class Module extends ZModule
             }
         });
 
+        $language = config('zoe.language');
+        foreach($language as $lang=>$val){
+            Blade::directive('zoe_name_'.$lang, function ($expression) use($lang) {
+                return "<?php echo 'name=\"".$expression."_".$lang."\"' ?>";
+            });
+        }
     }
 
 }

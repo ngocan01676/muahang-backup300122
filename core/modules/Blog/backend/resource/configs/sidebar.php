@@ -4,7 +4,7 @@ return [
         "module:blog" => [
             "name" => z_language('Blog'),
             "pos" => 2,
-
+            "url"=>"",
             "header" => true,
             "icon"=>"fa fa-newspaper-o",
             "items" => [
@@ -16,10 +16,10 @@ return [
                     "name" => z_language("Category"),
                     "url" => "backend:blog:category:show",
                 ],
-                [
-                    "name" => z_language("Comment"),
-                    "url" => "backend:blog:comment:list",
-                ],
+//                [
+//                    "name" => z_language("Comment"),
+//                    "url" => "backend:blog:comment:list",
+//                ],
                 [
                     "name" => z_language("Configuration"),
                     "url" => "backend:configuration:list",

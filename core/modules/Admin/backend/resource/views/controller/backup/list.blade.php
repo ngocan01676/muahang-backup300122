@@ -2,19 +2,18 @@
     <h1>
         &starf; {!! @z_language(["Manager Backup"]) !!}
         <small>it all starts here</small>
-
-        @btn_option(["config"=>['name'=>'core:backup']])
-        @slot('label')
-            {{@z_language(["Option"])}}
-        @endslot
-        @slot('header')
-            {{@z_language(["Option"])}}
-        @endslot
-        @endbtn_option
+        <x-btnOption :config="['name'=>'core:backup']">
+            <x-slot name="label">
+                {{@z_language(["Option"])}}
+            </x-slot>
+            <x-slot name="header">
+                {{@z_language(["Option"])}}
+            </x-slot>
+        </x-btnOption>
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
 
     @component('backend::layout.component.list',['name'=>'core:backup','models'=>$models,'callback'=>$callback])
 

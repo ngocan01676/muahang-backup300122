@@ -20,14 +20,19 @@ class Controller extends BaseController
     public $app;
     public function __construct()
     {
+
         $this->app = app();
         $this->asset = $this->app->make('asset-manager');
         $this->breadcrumb = new \stdClass();
+
         $this->init();
+
     }
+
     public function init(){
 
     }
+
     function getOriginalClientIp(Request $request = null) : string
     {
         $request = $request ?? request();
@@ -42,6 +47,7 @@ class Controller extends BaseController
         }
         return $ip;
     }
+
     protected function __render($view, $data, $key)
     {
         $alias = app()->getConfig()['views']['alias'];
@@ -64,16 +70,19 @@ class Controller extends BaseController
         $this->view->content = $content;
         return $this->view;
     }
-    protected function _render($keyView, $data, $key)
+    protected function _render($keyView, $data, $key,$type)
     {
         $request = request();
-        if($request->ajax()){
+
+        if(empty($this->layout)){
+            $this->view = View::make($keyView,$data);
+            return $this->view->renderSections();
+        }else if($request->ajax()){
             $this->view = view()->make($keyView,$data);
             return response()->json(['views'=>$this->view->renderSections()]);
         }else{
             $this->view = view($this->layout);
             View::share('_breadcrumb', $this->breadcrumb);
-
             $this->view->nest("content",$keyView,$data);
         }
         return $this->view;

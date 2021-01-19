@@ -1,7 +1,7 @@
 @section('content-header')
     <h1>
         {!! @z_language(["Manager Layout"]) !!}
-        <button onclick="SaveLayout(this)" url="{{route('backend:layout:ajax')}}" id="saveLayout" type="button"
+        <button onclick="SaveLayout(this)" url="{{route('backend:plugin:layout:ajax')}}" id="saveLayout" type="button"
                 class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
 
     </h1>
@@ -9,9 +9,10 @@
 
 @section('content')
 
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
 
     @function(view_item ($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,$status,$controllers,$controller))
+
     <li>
         <i class="fa fa-gears @if($status) bg-blue @else @endif"></i>
 
@@ -32,7 +33,6 @@
                     if(isset($datas['data'][$name]['controller'])){
                         $_controller = $datas['data'][$name]['controller'];
                     }
-
                 @endphp
                 <input type="hidden" name="data[{!! $name !!}].data.name" value="{!! $name !!}">
                 <input type="hidden" name="data[{!! $name !!}].data.uri" value="{!! $uri !!}">
@@ -42,14 +42,15 @@
                     <div class="col-md-1"><span class="label label-default">uri</span></div>
                     <div class="col-md-11">
 
-                        <strong class="view">{!! asset('/') !!}
-                            <span
-                                    data-uri="{!! $uri !!}">{!! $url !!}</span></strong>
+                        <strong class="view">
+                            <span data-domain="{!! $uri=="/"?url(''):asset("/") !!}" data-uri="{!! $uri !!}" data-url="{!! $url !!}">{!! $uri=="/"?url(''):asset("/") !!}{!! $url !!}</span>
+                        </strong>
                         <span class="input" style="display: none">
+                            <span class="domain"></span>
                             <input type="text"
-                                   @if($url == $uri) data-name="data[{!! $name !!}].uri"
-                                   @else name="data[{!! $name !!}].uri" @endif
-                                   value="{!! $url !!}"></span>
+                                   @if($url == $uri) data-name="data[{!! ($name) !!}].uri"
+                                   @else name="data[{!! ($name) !!}].uri" @endif
+                                   value="{!! ($url) !!}"></span>
                         &nbsp;
                         <button type="button" onclick="changeUri(this)">edit</button>
                     </div>
@@ -90,9 +91,9 @@
                             <label for="id_title" class="title">Layout</label>
                         </td>
                         <td>
-
                             <select name="data[{!! $name !!}].layout"
                                     class="form-control">
+                                <option value="0">{!! z_language('No Layout') !!}</option>
                                 @foreach($layouts as $layout)
                                     @if( isset($datas['data'][$name]['layout']) && $datas['data'][$name]['layout'] ==$layout['slug'] )
                                         <option selected
@@ -104,6 +105,7 @@
                             </select>
                         </td>
                     </tr>
+
                     <tr>
                         <td style="width: 10%">
                             <label for="id_title" class="title">Controller</label>
@@ -142,46 +144,39 @@
                         <td>
                             <select name="data[{!! $name !!}].acl"
                                     class="form-control">
-                                <option value="login">Login</option>
-
+                                <option value="no-login">No Login</option>
                                 @foreach($listsRolePremission as $premissions)
                                     @foreach($premissions as $premission)
                                         <option @if(isset($datas['data'][$name]['acl']) && $datas['data'][$name]['acl'] == $premission->name) selected
                                                 @endif value="{!! $premission->name !!}">{!! $premission->name !!}</option>
                                     @endforeach
                                 @endforeach
-                                <option @if(isset($datas['data'][$name]['acl']) && $datas['data'][$name]['acl'] == "no-login") selected
-                                        @endif value="no-login">No Login
-                                </option>
+                                <option @if(isset($datas['data'][$name]['acl']) && $datas['data'][$name]['acl'] == "login") selected @endif value="no-login">Login</option>
                             </select>
                         </td>
                     </tr>
-
                     <tr>
                         <td>
                             <label for="id_title" class="title">Status</label>
                         </td>
                         <td>
-
                             <div>
                                 <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "1") checked
                                        @endif type="radio" name="data[{!! $name !!}].status"
                                        value="1">
-                                On
                                 <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "2") checked
                                        @endif type="radio" name="data[{!! $name !!}].status"
                                        value="2">
-                                Off
+                                {!! z_language('Off') !!}
                             </div>
                         </td>
                     </tr>
                 </table>
-
             </div>
-
         </div>
     </li>
     @endfunction
+
     <div class="row">
         <div class="col-md-12 routers_wrap">
             <!-- The time line -->
@@ -205,23 +200,35 @@
                             'methods'=>$route->methods
                             ]];
                          });
+
                          $keyName = app()->getKey("_alias");
                          $lists = [];
                          $urls = [];
 
                     @endphp
                     @foreach($routes as $name=>$route)
-                        @php  $arr_name =  explode(':',$route['name']);
+                        @php
+                            $arr_name =  explode(':',$route['name']);
+                            $typeCheck = gettype(strpos($route['name'],'ignition.'));
+
                         @endphp
+
+                        @continue($typeCheck == "integer")
                         @continue(empty($route['name']))
 
+                        @php  $arr_name =  explode(':',$route['name']);
+
+                        @endphp
                         @if( ("frontend"==$arr_name[0] || "frontend"!=$arr_name[0] && $arr_name[0]!="backend") )
                             @if(in_array('GET',$route['methods']))
+                                @continue(isset($route['default']['lang']))
+
                                 @php
-                                    $middlewares = $route['action']['middleware'];
-                                    $uri = isset($datas['data'][$name]['data']['uri']) ?$datas['data'][$name]['data']['uri']:$route['uri'];
-                                    $lists[$name] = 1;
-                                    $urls[$name] = $name;
+
+                                       $middlewares = $route['action']['middleware'];
+                                       $uri = isset($datas['data'][$name]['data']['uri']) ?$datas['data'][$name]['data']['uri']:$route['uri'];
+                                       $lists[$name] = 1;
+                                       $urls[$name] = $name;
                                 @endphp
                                 @view_item($name,$middlewares,$uri,$layouts,$listsRolePremission,$datas,true,$controllers,$route['action']['controller'])
                             @else
@@ -230,14 +237,11 @@
                         @endif
                     @endforeach
                     @if(isset($datas['data']))
-                       
                         @foreach($datas['data'] as $name=>$route)
-
-                            @if(!isset($urls[$route['data']['name']]))
+                            @if(isset($route['data']) && !isset($urls[$route['data']['name']]))
+                                @continue(!Route::has($name))
                                 @php
-                                    
-                                   $middlewares = json_decode($route['data']['middleware'],true);
-
+                                    $middlewares = json_decode($route['data']['middleware'],true);
                                     $middlewares  = is_array($middlewares)?$middlewares:[];
                                     $controller = "";
                                     if(isset($route['data']['controller'])){
@@ -246,7 +250,7 @@
                                         $controller = $routes[$name]['action']['controller'];
                                     }
                                 @endphp
-                                @view_item($name,$middlewares,$route['data']['uri'],$layouts,$listsRolePremission,$datas,false,$controllers,$controller)
+                                @view_item($name, $middlewares, isset($route['data'])&&is_array(isset($route['data']))?$route['data']['uri']:"",$layouts,$listsRolePremission,$datas,false,$controllers,$controller)
                             @endif
                         @endforeach
                     @endif
@@ -263,25 +267,36 @@
     <script>
         function SaveLayout() {
             var saveForm = $("#saveForm").zoe_inputs('get');
+            $("#saveForm").mask('{!! z_language("Writing") !!}');
             $.ajax({
-                method: "Post", data: saveForm, success: function (data) {
-                    console.log($("#saveForm").html($(data.views['content']).find('#saveForm ul')));
+                method: "Post",
+                data: saveForm,
+                success: function (data) {
+                    $("#saveForm").html($(data.views['content']).find('#saveForm ul'));
+                    $("#saveForm").unmask();
                 }
             });
         }
 
         function changeUri(_this) {
             var parent = $(_this).parent();
+
             var input = parent.find('.input');
             var view = parent.find('.view');
+            var span = view.find("span");
             if (input.is(":hidden")) {
                 view.find('span').hide();
+
+                input.find('.domain').html(span.attr('data-domain'));
                 input.val(view.find('span').text()).show();
             } else {
                 var views = $('.routers .router .view span');
-                var span = view.find("span");
+
                 var oke = true;
+
+
                 var _input = input.find('input');
+
                 var val = _input.val();
                 views.each(function () {
                     if ($(this).text() === val && span.attr('data-uri') !== $(this).attr('data-uri')) {
@@ -296,7 +311,7 @@
                         _input.attr('data-name', _input.attr('name'));
                         _input.removeAttr('name');
                     }
-                    span.text(val);
+                    span.text(span.attr('data-domain') + val);
                     span.show();
                     input.hide();
                 } else {

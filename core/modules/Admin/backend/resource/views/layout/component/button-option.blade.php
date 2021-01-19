@@ -1,7 +1,14 @@
-@php $option = app()->getConfig()->options; @endphp
-@if(isset($config['name']) && isset($option[$config['name']]))
+@php $option = app()->getConfig()->options;
+
+@endphp
+@if(isset($config['name']) && (isset($option[$config['name']]) || isset($config['extend']) && isset($option[$config['extend']]) ))
 @php
-    $data = $option[$config['name']];
+
+    if(isset($config['extend']) && isset($option[$config['extend']])){
+      $data = $option[$config['extend']];
+    }else{
+      $data = $option[$config['name']];
+    }
     $rs = \Illuminate\Support\Facades\DB::table('config')->where(['type'=>'option','name'=>$config['name']])->first();
     $_data = config_get('option',$config['name']);
     $data['data'] = isset($data['data'])?array_merge($data['data'],$_data):$_data;
@@ -58,8 +65,10 @@
                     type: "POST",
                     data: {act:"get",name:'{{$config['name']}}',configs:dataOption},
                     success: function (html) {
+
                         myModalOption.find('.modal-body').html(html);
                         myModalOption.find("form").zoe_inputs('set',dataOption);
+                        myModalOption.find('.modal-body').append("<input type='hidden' name='data.extend' value='{!! isset($config['extend'])?$config['extend']:$config['name'] !!}' />")
                     }
                 });
             });

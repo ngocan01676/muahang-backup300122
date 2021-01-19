@@ -12,6 +12,12 @@ return [
                         "cache" => 5,
                         'action' =>'getInfo'
                     ],
+                    "logout" => [
+                        "url" => "/logout",
+                        "action" => "postLogout",
+                        "method" => ["post"],
+                        "name" => "logout"
+                    ],
                 ]
             ],
             'guest' => [
@@ -23,14 +29,12 @@ return [
                         "action" => "getLogin",
                         "name" => "login",
                         "guard" => "",
-//                        "cache" => 60
                     ],
                     "register" => [
                         "url" => "/register",
                         "action" => "getRegister",
                         "name" => "register",
                         "guard" => "",
-//                        "cache" => 60
                     ],
                     "login:post" => [
                         "url" => "/login/action",
@@ -43,12 +47,6 @@ return [
                         "action" => "postRegister",
                         "method" => ["post"],
                         "guard" => ""
-                    ],
-                    "logout" => [
-                        "url" => "/logout",
-                        "action" => "postLogout",
-                        "method" => ["post", "get"],
-                        "name" => "logout"
                     ],
                 ]
             ],

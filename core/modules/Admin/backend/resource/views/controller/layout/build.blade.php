@@ -4,7 +4,7 @@
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
+    <x-breadcrumb/>
     @php
         $obj_layout = new \Admin\Lib\LayoutBlade();
 

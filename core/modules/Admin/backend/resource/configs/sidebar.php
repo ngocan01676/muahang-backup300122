@@ -27,6 +27,12 @@ return [
             "url" => "backend:page:list",
             "icon" => "fa fa-book",
         ],
+        "announce" => [
+            "name" => z_language("Announce", false),
+            "pos" => 2,
+            "url" => "backend:announce:list",
+            "icon" => "fa fa-book",
+        ],
         "plugin" => [
             "name" => z_language('Plugins', false),
             "pos" => 3,
@@ -73,22 +79,22 @@ return [
                     "url" => "backend:menu:list",
                     "icon" => "fa fa-language"
                 ],
-                "layout" => [
-                    "name" => z_language("Layout", false),
-                    "pos" => 1,
-                    "url" => "backend:layout:list",
-                    "icon" => "fa fa-list-alt",
-                    "items" => [
-                        [
-                            "name" => z_language("Layout", false),
-                            "url" => "backend:layout:list",
-                        ],
-                        [
-                            "name" => z_language("Build", false),
-                            "url" => "backend:layout:build",
-                        ],
-                    ]
-                ],
+//                "layout" => [
+//                    "name" => z_language("Layout", false),
+//                    "pos" => 1,
+//                    "url" => "backend:layout:list",
+//                    "icon" => "fa fa-list-alt",
+//                    "items" => [
+//                        [
+//                            "name" => z_language("Layout", false),
+//                            "url" => "backend:layout:list",
+//                        ],
+//                        [
+//                            "name" => z_language("Build", false),
+//                            "url" => "backend:layout:build",
+//                        ],
+//                    ]
+//                ],
             ]
         ],
         "media" => [

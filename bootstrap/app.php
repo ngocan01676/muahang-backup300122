@@ -10,11 +10,16 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
+define('BACKEND','backend');
+define('FRONTEND','frontend');
+define('LAYOUT','layout');
+define('PAGE','page');
 
 $app = new \Zoe\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
-require __DIR__ . '/../core/helper.php';
+require_once __DIR__ . '/../core/helper.php';
+require_once __DIR__ . '/../core/db.php';
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces

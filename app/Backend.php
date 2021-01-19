@@ -32,11 +32,9 @@ class Backend extends Authenticatable
         return $this->IsAcl($permission,$userfull);
     }
     public function IsAcl($permission,$userfull = 'admin'){
-
         if(empty($permission) || $this->username == $userfull){
             return true;
         }
-        
         Cache::remember('role:'.$this->guard, 60, function()
         {
             return DB::table('role')

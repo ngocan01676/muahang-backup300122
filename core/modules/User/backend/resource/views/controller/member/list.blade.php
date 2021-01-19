@@ -4,19 +4,20 @@
         <small>it all starts here</small>
         <a href="{{route('backend:member:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
-        @btn_option(["config"=>['name'=>'core:member:list']])
-        @slot('label')
-            {{@z_language(["Option"])}}
-        @endslot
-        @slot('header')
-            {{@z_language(["Membership Option"])}}
-        @endslot
-        @endbtn_option
+
+        <x-btnOption :config="['name'=>'core:member:list']">
+            <x-slot name="label">
+                {{@z_language(["Option"])}}
+            </x-slot>
+            <x-slot name="header">
+                {{@z_language(["Option"])}}
+            </x-slot>
+        </x-btnOption>
     </h1>
 @endsection
 @section('content')
-    @breadcrumb()@endbreadcrumb
-    @component('backend::layout.component.list',['name'=>'core:member:list','models'=>$models,'route'=>$route,'parameter'=>$parameter])
+    <x-breadcrumb/>
+    @component('backend::layout.component.list',['name'=>'core:member:list','models'=>$models,'route'=>$route,'parameter'=>$parameter,"callback"=>isset($callback)?$callback:[]])
         @slot("tool")
             <div class="box-body">
                 <div class="col-md-12" style="padding:0">

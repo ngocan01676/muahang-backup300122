@@ -1,6 +1,6 @@
 <?php
 
-namespace Announcement;
+namespace PluginAnnouncement;
 
 use Zoe\Module as ZModule;
 

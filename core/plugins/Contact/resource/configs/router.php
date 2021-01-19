@@ -1,6 +1,6 @@
 <?php
 return [
-    'routers' => [
+    'backend' => [
         'Contact:Form' => [
             "namespace" => "PluginContact\Controllers",
             "controller" => "FormController",
@@ -47,6 +47,7 @@ return [
                     "url" => "/create",
                     'defaults' => ["id_key" => "Plugin:Contact:Email",'sidebar'=>'backend:plugin:Contact:Email:list']
                 ],
+
                 "edit" => [
                     "url" => "/edit/{id}",
                     'defaults' => ["id_key" => "Plugin:Contact:Email",'sidebar'=>'backend:plugin:Contact:Email:list']

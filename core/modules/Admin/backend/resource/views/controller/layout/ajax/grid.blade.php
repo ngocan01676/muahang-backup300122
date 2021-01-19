@@ -8,5 +8,6 @@
             <td><label for="text">Id</label></td>
             <td><input type="text" name="opt.attr.id" class="form-control"  placeholder="Attr Id"></td>
         </tr>
+
     </tbody>
 </table>

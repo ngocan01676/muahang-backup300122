@@ -11,7 +11,7 @@ class SidebarController extends \Zoe\Http\ControllerBackend
 {
     public function getCrumb()
     {
-        $this->breadcrumb("Sidebar", route('backend:menu:list'));
+        $this->breadcrumb("Sidebar", ('backend:menu:list'));
         return $this;
     }
 
@@ -143,13 +143,13 @@ class SidebarController extends \Zoe\Http\ControllerBackend
             }
             if (isset(app()->getConfig()['modules']['admin.menu'][$type]['breadcrumb'])) {
                 $breadcrumb = (app()->getConfig()['modules']['admin.menu'][$type]['breadcrumb']);
-                $this->breadcrumb($breadcrumb['name'], route($breadcrumb['route']));
+                $this->breadcrumb($breadcrumb['name'], ($breadcrumb['route']));
             }
         } else {
             $this->getCrumb();
         }
 
-        $this->breadcrumb("Menu", route('backend:menu:list'));
+        $this->breadcrumb("Menu", ('backend:menu:list'));
         $this->data['menu'] = get_menu_type($type);
         $this->data['nestable'] = $this->nestable(config_get("menu", $type), 0, true);
 

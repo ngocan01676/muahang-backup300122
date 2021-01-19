@@ -70,9 +70,11 @@
             config.opt = $.extend(config.opt, data.opt);
         }
         var cmeditor = null;
+        let typeGroup = $("#formInfo input[name='type_group']:checked").val();
+        config._type_group = typeGroup;
         $.ajax({
             type: 'POST',
-            url: '{{route('backend:layout:ajax:review_blade')}}',
+            url: '{{route('backend:plugin:layout:ajax:review_blade')}}',
             data: config,
             success: function (data) {
                 try {
