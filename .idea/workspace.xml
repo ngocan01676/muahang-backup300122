@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/router.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/resource/configs/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/modules/user/backend/src/ViewComposers/SidebarComposer.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/modules/user/backend/src/ViewComposers/SidebarComposer.php" afterDir="false" />
-    </list>
+    <list default="true" id="ced00804-ec47-42ae-b3f7-757743c530e9" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
     <ignored path="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir/" />
@@ -155,13 +150,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="855" column="34" selection-start-line="855" selection-start-column="34" selection-end-line="855" selection-end-column="34" />
+            <state relative-caret-position="162">
+              <caret line="939" column="58" lean-forward="true" selection-start-line="939" selection-start-column="58" selection-end-line="939" selection-end-column="58" />
               <folding>
                 <element signature="e#2234#2747#0#PHP" />
                 <element signature="e#2752#2914#0#PHP" />
                 <element signature="e#2919#3024#0#PHP" />
                 <element signature="e#3029#4000#0#PHP" />
+                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -745,7 +742,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46097000" />
+    <option name="totallyTimeSpent" value="46533000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1045,13 +1042,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/modules/shop_ja/backend/src/Http/Controllers/OrderExcelController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="855" column="34" selection-start-line="855" selection-start-column="34" selection-end-line="855" selection-end-column="34" />
+        <state relative-caret-position="162">
+          <caret line="939" column="58" lean-forward="true" selection-start-line="939" selection-start-column="58" selection-end-line="939" selection-end-column="58" />
           <folding>
             <element signature="e#2234#2747#0#PHP" />
             <element signature="e#2752#2914#0#PHP" />
             <element signature="e#2919#3024#0#PHP" />
             <element signature="e#3029#4000#0#PHP" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
