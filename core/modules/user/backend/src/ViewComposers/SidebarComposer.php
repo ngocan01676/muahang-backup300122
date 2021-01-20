@@ -36,7 +36,7 @@ class SidebarComposer
             if(auth()->user() && auth()->user()->role_id == 1):
                 $sidebars['excel:user'] =  [
                     "name" => z_language('Hóa đơn tài khoản',false),
-                    "pos" => 2,
+                    "pos" => 50,
                     "url" => "",
                     "header" => true,
                     "icon"=>"fa fa-newspaper-o",
