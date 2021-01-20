@@ -1,5 +1,5 @@
 <?php
-return [
+$sidebars = [
     "sidebars" => [
         "dashboard" => [
             "name" => z_language("Thông kê", false),
@@ -189,3 +189,4 @@ return [
         ],
     ]
 ];
+return $sidebars;

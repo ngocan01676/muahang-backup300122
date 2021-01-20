@@ -206,7 +206,7 @@ return [
                 "name"=>"Hóa đơn",
                 "router" => [
                     "list" => [
-                        "url" => "/list",
+                        "url" => "/list/{admin_id?}",
                     ],
                     "create" => [
                         "url" => "/create",

@@ -491,9 +491,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     return response()->json(['reload'=>true]);
                 }
                 $type = 'create';
+                $user_admin_id = Auth::user()->id;
                 if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
                     $model = OrderExcelModel::find($data['id']);
                     $type = 'edit';
+                    $user_admin_id = $model->admin_id;
                 } else {
                     $model = new OrderExcelModel();
                     $model->admin_id = Auth::user()->id;
@@ -517,6 +519,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                 ];
                 $ids_sort = [];
+
+
+
                 foreach ($datas as $name=>$order){
 
                     $logs[$name] = [];
@@ -653,8 +658,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_create_date" => $model->key_date,
                                         "company" => $name,
                                         "session_id" => $model->id,
-                                        "admin_id" => $model->admin_id,
-                                        "ctv_id" => \auth()->user()->role_id == 2 ? $model->admin_id:(int)(isset($columns["ctv_id"]) ? $values[$columns["ctv_id"]] : "0"),
+                                        "ctv_id" => \auth()->user()->role_id == 2 ? $user_admin_id:(int)(isset($columns["ctv_id"]) ? $values[$columns["ctv_id"]] : "0"),
+                                        "admin_id" => $user_admin_id,
                                         "fullname" => isset($columns["fullname"]) ? preg_replace('/\s+/', ' ', $values[$columns["fullname"]]) : "",
                                         "address" => isset($columns["address"]) ? preg_replace('/\s+/', '', $values[$columns["address"]]) : "",
                                         "phone" => isset($columns["phone"]) ? $values[$columns["phone"]] : "",
@@ -693,7 +698,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     ];
                                     $admin_id = 0;
                                     if($_data["ctv_id"] == 0){
-                                        $admin_id = $model->admin_id;
+                                        $admin_id = $user_admin_id;
                                     }else{
                                         $admin_id = $_data["ctv_id"];
                                     }
@@ -706,7 +711,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $_data["order_index"],
                                         $_data["sort"]
                                     ];
-
                                     $validator = Validator::make($_data, $check);
 
                                     $_ = [$values, $_data, $columns];
@@ -849,8 +853,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_create_date"=>$model->key_date,
                                     "company"=>$name,
                                     "session_id"=>$model->id,
-                                    "admin_id"=>$model->admin_id,
+
                                     "ctv_id" => \auth()->user()->role_id == 2 ? $model->admin_id:(int)(isset($columns["ctv_id"]) ? $values[$columns["ctv_id"]] : "0"),
+                                    "admin_id"=>$user_admin_id,
                                     "fullname"=>isset($columns["fullname"])?preg_replace('/\s+/', ' ', $values[$columns["fullname"]]):"",
                                     "address"=> isset($columns["address"])?preg_replace('/\s+/', '',$values[$columns["address"]] ):"",
                                     "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
@@ -885,10 +890,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                     "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                 ];
-
-
                                 if($_data["ctv_id"] == 0){
-                                    $admin_id = $model->admin_id;
+                                    $admin_id = $user_admin_id;
                                 }else{
                                     $admin_id = $_data["ctv_id"];
                                 }
@@ -1175,19 +1178,19 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function list(Request $request){
         $this->getcrumb();
-
         $first = (int)date("d", strtotime("first day of this month"));
         $last = (int) date("d", strtotime("last day of this month"));
 
         $next = date('Y-m');
+        $admin_id = is_null($request->admin_id)? Auth::user()->id:$request->admin_id;
 
         for($day = $first;$day<=$last;$day++){
             $key_date = $next.'-'.(($day<10)?"0".$day:$day);
             DB::table("shop_order_excel_session")->updateOrInsert([
-                'admin_id'=>Auth::user()->id,
+                'admin_id'=>$admin_id,
                 'key_date'=>$key_date
             ],[
-                'admin_id'=>Auth::user()->id,
+                'admin_id'=>$admin_id,
                 'key_date'=>$key_date,
                 'token'=>rand(1000,9999),
                 'date_time'=>$key_date." 00:00:00",
@@ -1234,14 +1237,14 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
-        $models->where('admin_id', Auth::user()->id);
+        $models->where('admin_id', $admin_id);
         $date_start = $request->get('date_start','');
         $date_end = $request->get('date_end','');
 
         $categorys = config_get("category", "shop-ja:product:category");
 
         $names  = [];
-        $admin_id = Auth::user()->id;
+
         $models->orderBy('key_date', 'desc');
         return $this->render('order-excel.list', [
             'models' => $models->paginate($item),
