@@ -486,9 +486,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     return response()->json(['reload'=>true]);
                 }
                 $type = 'create';
+                $user_admin_id = Auth::user()->id;
                 if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
                     $model = OrderExcelModel::find($data['id']);
                     $type = 'edit';
+                    $user_admin_id = $model->admin_id;
                 } else {
                     $model = new OrderExcelModel();
                     $model->admin_id = Auth::user()->id;
@@ -512,6 +514,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                 ];
                 $ids_sort = [];
+
+
+
                 foreach ($datas as $name=>$order){
 
                     $logs[$name] = [];
@@ -649,7 +654,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "order_create_date" => $model->key_date,
                                         "company" => $name,
                                         "session_id" => $model->id,
-                                        "admin_id" => $model->admin_id,
+                                        "admin_id" => $user_admin_id,
                                         "fullname" => isset($columns["fullname"]) ? preg_replace('/\s+/', ' ', $values[$columns["fullname"]]) : "",
                                         "address" => isset($columns["address"]) ? preg_replace('/\s+/', '', $values[$columns["address"]]) : "",
                                         "phone" => isset($columns["phone"]) ? $values[$columns["phone"]] : "",
@@ -687,9 +692,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d', strtotime($_data['order_create_date'])) . " " . date(' H:i:s');
 
-                                    $_data["sort"] = $model->admin_id * 1000000 + ($key + 1 + $keyNew ) * $model->admin_id + $_data["order_index"] + strtotime($model->key_date);
+                                    $_data["sort"] = $user_admin_id * 1000000 + ($key + 1 + $keyNew ) * $user_admin_id + $_data["order_index"] + strtotime($model->key_date);
                                     $ids_sort[$name][$keyNew][$key] = [
-                                        $model->admin_id * 1000000 + ($key + 1 + $keyNew ) * $model->admin_id + $_data["order_index"],
+                                        $user_admin_id * 1000000 + ($key + 1 + $keyNew ) * $user_admin_id + $_data["order_index"],
                                         ($key + 1 + $keyNew ) * $model->admin_id,
                                         $_data["order_index"],
                                         $_data["sort"]
@@ -837,7 +842,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_create_date"=>$model->key_date,
                                     "company"=>$name,
                                     "session_id"=>$model->id,
-                                    "admin_id"=>$model->admin_id,
+                                    "admin_id"=>$user_admin_id,
                                     "fullname"=>isset($columns["fullname"])?preg_replace('/\s+/', ' ', $values[$columns["fullname"]]):"",
                                     "address"=> isset($columns["address"])?preg_replace('/\s+/', '',$values[$columns["address"]] ):"",
                                     "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
@@ -872,7 +877,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                 ];
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
-                                $_data["sort"] = $model->admin_id * 1000000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($model->key_date);
+                                $_data["sort"] = $user_admin_id * 1000000 + ($key+1) * $user_admin_id + $_data["order_index"] + strtotime($model->key_date);
                                 $validator = Validator::make($_data,$check);
                                 if (!$validator->fails()) {
 
@@ -1152,19 +1157,19 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
     }
     public function list(Request $request){
         $this->getcrumb();
-
         $first = (int)date("d", strtotime("first day of this month"));
         $last = (int) date("d", strtotime("last day of this month"));
 
         $next = date('Y-m');
+        $admin_id = is_null($request->admin_id)? Auth::user()->id:$request->admin_id;
 
         for($day = $first;$day<=$last;$day++){
             $key_date = $next.'-'.(($day<10)?"0".$day:$day);
             DB::table("shop_order_excel_session")->updateOrInsert([
-                'admin_id'=>Auth::user()->id,
+                'admin_id'=>$admin_id,
                 'key_date'=>$key_date
             ],[
-                'admin_id'=>Auth::user()->id,
+                'admin_id'=>$admin_id,
                 'key_date'=>$key_date,
                 'token'=>rand(1000,9999),
                 'date_time'=>$key_date." 00:00:00",
@@ -1211,14 +1216,14 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
-        $models->where('admin_id', Auth::user()->id);
+        $models->where('admin_id', $admin_id);
         $date_start = $request->get('date_start','');
         $date_end = $request->get('date_end','');
 
         $categorys = config_get("category", "shop-ja:product:category");
 
         $names  = [];
-        $admin_id = Auth::user()->id;
+
         $models->orderBy('key_date', 'desc');
         return $this->render('order-excel.list', [
             'models' => $models->paginate($item),

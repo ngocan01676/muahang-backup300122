@@ -33,7 +33,29 @@ class SidebarComposer
             $sidebars = $app->getConfig()->sidebars;
             $aliases_acl = $app->getPermissions()->aliases;
             $sidebar_new = [];
+            if(auth()->user() && auth()->user()->role_id == 1):
+                $sidebars['excel:user'] =  [
+                    "name" => z_language('Hóa đơn tài khoản',false),
+                    "pos" => 2,
+                    "url" => "",
+                    "header" => true,
+                    "icon"=>"fa fa-newspaper-o",
+                    "items" => [
 
+                    ]
+                ];
+                $results = \Illuminate\Support\Facades\DB::table('admin')->where('status',1)->get()->all();
+                foreach ($results as $result){
+                    $sidebars['excel:user']['items'][$result->username] =
+                        [
+                            "name" =>$result->username,
+                            "url" => "backend:shop_ja:order:excel:list",
+                            'parameter'=>[
+                                'admin_id'=>$result->id
+                            ]
+                        ];
+                }
+            endif;
             foreach ($sidebars as $key => $sidebar) {
                 if (isset($sidebar['url']) && !empty($sidebar['url']) && !isset($sidebar['items'])) {
                     if (isset($aliases_acl[$sidebar['url']])) {
