@@ -33,7 +33,7 @@ class SidebarComposer
             $sidebars = $app->getConfig()->sidebars;
             $aliases_acl = $app->getPermissions()->aliases;
             $sidebar_new = [];
-            if(auth()->user() && (auth()->user()->username == "admin" ||  auth()->user()->username == "nguyenmanhhung" || auth()->user()->username =="vungocminh" || auth()->user()->username == "dongtotien") ):
+            if(auth()->user() && auth()->user()->role_id == 1):
                 $sidebars['excel:user'] =  [
                     "name" => z_language('Hóa đơn tài khoản',false),
                     "pos" => 2,
