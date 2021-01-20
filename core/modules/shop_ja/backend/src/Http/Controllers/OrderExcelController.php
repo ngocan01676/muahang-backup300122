@@ -1031,7 +1031,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 if($values[$columns["type"]] == "Info"){
                                     $oke = false;
                                     $dateNewRow = [];
-                                    $dateNewRow[$key] = $values;
+
                                     $price_buy_sale = $values[$columns["price_buy_sale"]];
 
                                     if(Auth::user()->role_id == 2){
@@ -1042,9 +1042,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                                 $id = $values[$columns["id"]];
                                                 $coinUses['orders_id_session_error'][$id] = $coinUses['total_session_current'];
                                                 $values[$columns["status"]] = 0;
+
                                             }
                                         }
                                     }
+
                                     $id = $values[$columns["id"]];
                                     $error = 0;
                                     $_count = (int)(isset($columns["count"]) ? $values[$columns["count"]] : null);
@@ -1057,6 +1059,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $idsOrder[$values[$columns["id"]]] = "key";
                                     }
                                     $footer = false;
+                                    $dateNewRow[$key] = $values;
                                     foreach ($order['data'] as $key1=>$values1){
                                         if ($key1!=$key && $values1[$columns["token"]] == $values[$columns["token"]]) {
                                             $order['data'][$key1][$columns["status"]] =  $values[$columns["status"]];
