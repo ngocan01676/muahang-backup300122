@@ -9946,7 +9946,7 @@
                 console.log("out");
             });
         });
-
+        let datamodelOld = {!! isset($model)?json_encode($model->detail,JSON_UNESCAPED_UNICODE ):'{}' !!};
         function Save(status,auto,one) {
             if(!(auto === true)){
                 let oke =  confirm('{!! z_language('Bạn muốn lưu 111') !!}');
@@ -9984,47 +9984,56 @@
 
                 let countCampany = 0;
 
-                $("#spreadsheet .jexcel_tab_link").each(function () {
-                    let  worksheet = this.getAttribute('data-spreadsheet');
-                    let data = spreadsheet.jexcel[worksheet].options.data;
-                    let name = this.textContent;
-                    companeys[name] = this;
-                    $(companeys[name]).removeClass('error');
-                    let _columns = [];
+               // $("#spreadsheet .jexcel_tab_link").each(function () {
+                let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+                let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+                let data = spreadsheet.jexcel[worksheet].options.data;
+                let name = _spreadsheet.textContent;
+                let _columns = [];
+                for(let k in  columnsAll[name] ){
+                    _columns.push(k);
+                }
+                let oldData = [];
 
-                    for(let k in  columnsAll[name] ){
-                        _columns.push(k);
-                    }
-                    if(SaveEvent.hasOwnProperty(name)){
-                        if(SaveEvent[name].save){
-                            SaveEvent[name].save = false;
-                            SaveEvent[name].count = 0;
-                            SaveEvent[name].count_last = -1;
-                            console.info("Name 2:"+name);
-                            datas[name] = {
-                                data:data,
-                                columns:_columns
-                            };
-                            countCampany++;
+                if(datamodelOld.hasOwnProperty(name)){
+                    oldData = datamodelOld[name];
+                }
+
+                let dataNew = [];
+                let dataOldNew = [];
+                if(oldData.length > 0 ){
+                    for(let i in oldData){
+                        if(data[i][columnsAll[name]["id"].index] === oldData[i][columnsAll[name]["id"].index]){
+                            let valNew = [];
+                            for(let ii in oldData[i]){
+                                if(!(oldData[i][ii]===data[i][ii])){
+                                    valNew.push(
+                                        [oldData[i][ii],data[i][ii],_columns[ii]]
+                                    );
+                                }
+                            }
+                            if(valNew.length){
+                                dataNew.push(data[i]);
+                                dataOldNew.push(valNew);
+                            }
                         }
-                    }else{
-                        datas[name] = {
-                            data:data,
-                            columns:_columns
-                        };
-                        countCampany++;
-                        console.info("Name 1:"+name);
                     }
-                });
+                }
+                datas[name] = {
+                    data:dataNew,
+                    columns:_columns,
+                    oldData:dataOldNew
+                };
+              //  });
 
-                if(countCampany === 0) return;
+
                 let form_store = $("#form_store");
 
 
-                let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
-                let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+               // let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+            //    let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
 
-                let name = _spreadsheet.textContent;
+               // let name = _spreadsheet.textContent;
 
                 $.ajax({
                     type: "POST",
@@ -10032,7 +10041,7 @@
                     data:{
                         datas:JSON.stringify(datas),
                         info: form_store.zoe_inputs('get'),
-                        act:"saveShow",
+                        act:"savePublicShow",
                         tab:name,
                         token:token,
                         auto:auto,
@@ -10062,7 +10071,7 @@
                                 }
                             }
                         }else{
-                            location.reload();
+                           // location.reload();
                         }
 
                     },

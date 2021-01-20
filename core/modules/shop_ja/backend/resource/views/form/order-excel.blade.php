@@ -61,6 +61,9 @@
                 <td class="text-center" style="width: 100px">
                     <span class="travelTime">0</span>
                 </td>
+                <td>
+                    <strong>Tiền Sale : {!! $coinUses['total_avail'] !!}</strong>
+                </td>
             </tr>
         </table>
         @if (session('errors'))
@@ -162,6 +165,9 @@
         let userId = '{!! auth()->user()->id !!}:'+makeid(10);
         let _session_id = {!! $model->id !!};
         let _version = {!! $version !!};
+        let orders_id_session_error = {
+
+        };
     </script>
 
     <style>
@@ -468,6 +474,7 @@
                 width:'50px',
             },
         };
+        let coinUses = {!! json_encode($coinUses,JSON_UNESCAPED_UNICODE) !!}
         function IF_End($val,$conf){
             if( $conf.equal_end === "<=" && $val <= $conf.value_end){
                 return true;
@@ -7798,8 +7805,6 @@
                     width:'100px',
                     key:"demo",
                 },
-
-
                 one_address: {
                     type: 'checkbox',
                     title:'{!! z_language("Cùng địa chỉ") !!}'
@@ -8717,7 +8722,17 @@
                         }
                     }else if(c === columns.status.index){
                         change = {col:-1,row:-1};
+                        if(value == true){
+                            let _id = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.id.index, r]));
+                            console.info(_id);
+                            if(orders_id_session_error && orders_id_session_error.hasOwnProperty(_id)){
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.status.index, r]), false);
+                                alert('Tiền trong tài khoản không đủ để giảm giá sale');
+                            }
+                        }
                         update(instance, cell, c, r,{});
+                    }else{
+
                     }
                 },
             };
@@ -9842,6 +9857,17 @@
                          }
                     }else if(c === columns.status.index){
                         change = {col:-1,row:-1};
+                        if(value == true){
+                            let _id = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.id.index, r]));
+                            console.info(_id);
+                            if(orders_id_session_error && orders_id_session_error.hasOwnProperty(_id)){
+                                instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.status.index, r]), false);
+                                alert('Tiền trong tài khoản không đủ để giảm giá sale');
+                            }
+                        }
+                        update(instance, cell, c, r,{});
+                    }else if(c === columns.public.index){
+                        change = {col:-1,row:-1};
                         update(instance, cell, c, r,{});
                     }
                 },
@@ -10084,6 +10110,9 @@
                         'type':'{{isset($model)?'edit':'create'}}'} ,
 
                     success: function (data) {
+                        if(data.hasOwnProperty('coinUses')){
+                            orders_id_session_error =  data.coinUses.orders_id_session_error;
+                        }
                         if(auto){
                             let travelTime = moment().add(10, 'seconds').format('DD/MM/YY hh:mm A');
                             $("#log-save .time").html(travelTime);

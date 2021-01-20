@@ -108,7 +108,61 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         }
         return $fileName;
     }
+    public function initCoin($user_admin_id,$id){
+        $res_admin = DB::table('admin')->where('id',$user_admin_id)->get()->all();
+        $coin = 0;
+        if(isset($res_admin[0])){
+            $coin = $res_admin[0]->coin;
+        }
 
+        $excels = DB::table('shop_order_excel')
+            ->where('price_buy_sale','!=',0)
+            ->where('public',0)
+            ->where('session_id','!=',$id)
+            ->where('ctv_id',$user_admin_id)
+            ->get()
+            ->all();
+
+        $coinUses = [
+            'total_avail'=>0,
+            'total'=>0,
+            'total_session'=>0,
+            'total_session_current'=>0,
+            'user'=> $coin,
+            'orders_id'=>[
+                'demo'=>1
+            ],
+            'orders_id_session'=>[
+                'demo'=>1
+            ],
+            'orders_id_session_error'=>[
+                'demo'=>1
+            ]
+        ];
+
+        foreach ($excels as $excel){
+            $coinUses['total'] += $excel->price_buy_sale;
+            $coinUses['orders_id'][$excel->id] = $excel->price_buy_sale;
+            $coinUses['orders_id'][$excel->key_id] = $excel->price_buy_sale;
+        }
+        $excelsSession = DB::table('shop_order_excel')
+            ->where('price_buy_sale','!=',0)
+            ->where('public',0)
+            ->where('session_id',$id)
+            ->where('ctv_id',$user_admin_id)
+            ->get()
+            ->all();
+
+        foreach ($excelsSession as $excel){
+            $coinUses['total_session']+= $excel->price_buy_sale;
+            $coinUses['orders_id_session'][$excel->id] = $excel->price_buy_sale;
+            $coinUses['orders_id_session'][$excel->key_id] = $excel->price_buy_sale;
+        }
+        $coinUses['status'] = $coinUses['user'] + $coinUses['total'] + $coinUses['total_session'] >= -1500;
+
+        $coinUses['total_avail'] = $coinUses['user'] + 1500 - $coinUses['total'] * -1;
+        $this->data['coinUses'] = $coinUses;
+    }
     public function store(Request $request){
         $data = $request->all();
         if(isset($data['act'])){
@@ -119,7 +173,420 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 if(Cache::put($k,json_encode(['token'=>$data['token'],'data'=>json_decode($data['data'],true)]) , 60*60*20)){
                     return response()->json(['key'=>$k,'data'=>json_decode(Cache::get($k),true)]);
                 }
-            }elseif($data['act'] == "saveShow"){
+            } elseif($data['act'] == "savePublicShow"){
+                $datas = json_decode($data['datas'],true);
+                $usernames = DB::table('admin')->select('id','username')->get()->keyBy('username')->toArray();
+                $this->InitOption();
+                $date_time = date('Y-m-d H:i:s');
+                foreach ($datas as $name=>$order){
+                    $logs[$name] = [];
+                    $check =  [
+                        'fullname' => 'required',
+                    ];
+                    if($name == "FUKUI"){
+                        $check =  [
+                            'fullname' => 'required',
+                        ];
+                    }else if($name == "KOGYJA"){
+                        $check =  [
+                            'count' => 'required|numeric|gt:0',
+                        ];
+                    }
+                    $columns = [];
+                    foreach ($order['columns'] as $k=>$v){
+                        $columns[$v] = $k;
+                    }
+                    $this->GetCache('create',0);
+                    $_product = $this->data['products'][$name];
+                    if($name== "KOGYJA"){
+                        try{
+                            $dataNew = [];
+                            foreach ($order['data'] as $key=>$values){
+                                if($values[$columns["type"]] == "Info"){
+                                    $oke = false;
+                                    $dateNewRow = [];
+                                    $dateNewRow[$key] = $values;
+                                    $id = $values[$columns["id"]];
+                                    $error = 0;
+                                    $_count = (int)(isset($columns["count"]) ? $values[$columns["count"]] : null);
+                                    if($_count <= 0 ){
+                                        $error++;
+                                    }
+                                    if(is_numeric($id)){
+                                        $idsOrder[$values[$columns["id"]]] = "id";
+                                    }else{
+                                        $idsOrder[$values[$columns["id"]]] = "key";
+                                    }
+
+                                    foreach ($order['data'] as $key1=>$values1){
+                                        if ($key1!=$key && $values1[$columns["token"]] == $values[$columns["token"]]) {
+                                            $order['data'][$key1][$columns["status"]] =  $values[$columns["status"]];
+                                            $order['data'][$key1][$columns["public"]] =  $values[$columns["public"]];
+                                            $order['data'][$key1][$columns["timeCreate"]] = $values[$columns["timeCreate"]];
+                                            $order['data'][$key1][$columns["session_id"]] = $values[$columns["session_id"]];
+                                            $order['data'][$key1][$columns["fullname"]] = $values[$columns["fullname"]];
+                                            $order['data'][$key1][$columns["address"]] = $values[$columns["address"]];
+                                            $order['data'][$key1][$columns["phone"]] = $values[$columns["phone"]];
+                                            $order['data'][$key1][$columns["province"]] = $values[$columns["province"]];
+                                            $order['data'][$key1][$columns["payMethod"]] = $values[$columns["payMethod"]];
+                                            $order['data'][$key1][$columns["zipcode"]] = $values[$columns["zipcode"]];
+                                            $order['data'][$key1][$columns["order_date"]] = $values[$columns["order_date"]];
+
+                                            if($values1[$columns["type"]] == "Footer"){
+                                                $oke = true;
+                                                $dateNewRow[$key1] =  $order['data'][$key1];
+                                                $_count = (int)(isset($columns["count"]) ? $values1[$columns["count"]] : null);
+                                                if($_count < 0 ){
+                                                    $error++;
+                                                }
+                                            }else if(isset($columns["type"]) && isset($values1[$columns["type"]]) && !empty(trim($values1[$columns["type"]]))){
+                                                $dateNewRow[$key1] = $order['data'][$key1];
+                                                $_count = (int)(isset($columns["count"]) ? $values1[$columns["count"]] : null);
+                                                if($_count < 0 ){
+                                                    $error++;
+                                                }
+                                            }
+                                            $id = $values1[$columns["id"]];
+                                            if(is_numeric($id)){
+                                                $idsOrder[$values1[$columns["id"]]] = "id";
+                                            }else{
+                                                $idsOrder[$values1[$columns["id"]]] = "key";
+                                            }
+                                        }
+                                    }
+                                    if($error == 0){
+                                        $dataNew[$key] = $dateNewRow;
+                                    }else{
+                                        $logs[$name][] = "Có lỗi sai số lượng";
+                                    }
+                                }
+                            }
+                            foreach ($dataNew as $valuesNew) {
+                                foreach ($valuesNew as $key => $values) {
+                                    $pay_method = 0;
+                                    if($values[$columns["payMethod"]] == "代金引換"){
+                                        $pay_method = 1;
+                                    }else if($values[$columns["payMethod"]] == "銀行振込"){
+                                        $pay_method = 2;
+                                    }else if($values[$columns["payMethod"]] == "決済不要"){
+                                        $pay_method =3;
+                                    }
+
+                                    foreach ($values as $kkkkk=>$valllll){
+                                        $values[$kkkkk] = rtrim(trim($valllll));
+                                    }
+
+                                    $product_title = "";$product_code = "";
+
+                                    $product_id = (isset($columns["product_id"])?(int)$values[$columns["product_id"]]:0);
+
+                                    if(isset( $_product[$product_id]['data']['price_buy'])){
+                                        $product_code = $_product[$product_id]['data']['code'];
+                                        $product_title = $_product[$product_id]['data']['title'];
+                                    }
+                                    $admin_id = isset($columns["admin"])?$values[$columns["admin"]]:"";
+                                    $_data = [
+//                                    "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
+//                                    "company"=>$name,
+//                                    "session_id"=> isset($columns["session_id"])?$values[$columns["session_id"]]:"",
+//                                    "admin_id"=>isset($usernames[$admin_id])?$usernames[$admin_id]->id:"",
+                                        "ctv_id" => (isset($columns["ctv_id"]) ? $values[$columns["ctv_id"]] : "0"),
+                                        "fullname"=>isset($columns["fullname"])?preg_replace('/\s+/', ' ', $values[$columns["fullname"]]):"",
+                                        "address"=> isset($columns["address"])?preg_replace('/\s+/', '',$values[$columns["address"]] ):"",
+                                        "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
+                                        "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
+                                        "province"=>isset($columns["province"])?preg_replace('/\s+/', '',$values[$columns["province"]] ):"",
+                                        "pay_method"=>$pay_method,
+                                        "product_id"=>$product_id,
+                                        "product_code"=>$product_code,
+                                        "product_title"=>$product_title,
+                                        "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:""),
+                                        "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:""),
+                                        "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
+                                        "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
+                                        "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
+                                        "count"=>(int)(isset($columns["count"])?$values[$columns["count"]]:null),
+                                        "total_count"=>(int)(isset($columns["total_count"])?$values[$columns["total_count"]]:""),
+                                        "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
+                                        "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
+                                        "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
+                                        "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:""),
+                                        "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:""),
+                                        "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:""),
+                                        "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:"",
+                                        "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
+                                        "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
+                                        "type"=>isset($columns["type"]) && !empty($values[$columns["type"]])?$values[$columns["type"]]:"Item",
+                                        "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
+                                        "public"=> isset($columns["public"])? (int)$values[$columns["public"]]:"0",
+                                        "status"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
+                                        "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
+                                        "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:0,
+                                        "rate"=> isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0",
+                                        "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
+                                        "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
+                                        "public_admin"=> Auth::user()->id,
+                                    ];
+                                    $_ = [$values,$_data,$columns];
+
+                                    if ($product_id > 0 && $_data['type'] == "Item" || $_data['type'] == "Footer" || $_data['type'] == "Info") {
+                                        if(isset($columns["id"]) && !empty($values[$columns["id"]])){
+
+                                            DB::beginTransaction();
+                                            try{
+                                                $where = ['id'=>$values[$columns["id"]]];
+                                                if($_data['public']){
+                                                    $user_minus = false;
+                                                    if($_data['type'] == "Info"){
+                                                        if(isset($_data['price_buy_sale']) && $_data['price_buy_sale']  < 0){
+                                                            $count = DB::table('shop_order_excel_coin')
+                                                                ->where('type','minus')
+                                                                ->where('order_id',$where['id'])
+                                                                ->count();
+                                                            if($count == 0){
+                                                                DB::table('shop_order_excel_coin')
+                                                                    ->updateOrInsert([
+                                                                        'order_id'=>$where['id'],
+                                                                        'admin_id'=>$_data['ctv_id'],
+                                                                        'type'=>'minus',
+                                                                    ],[
+                                                                        'coin'=>$_data['price_buy_sale'],
+                                                                        'created_at'=>date('Y-m-d H:i:s')
+                                                                    ]);
+                                                                $user_minus = true;
+                                                            }
+                                                        }
+                                                    }
+                                                    if($user_minus){
+                                                        DB::table('admin')->where('id',$_data['ctv_id'])->decrement('coin',$_data['price_buy_sale']*-1);
+                                                    }
+                                                }
+                                                $status = DB::table('shop_order_excel')->where($where)->update($_data);
+                                                $logs[$name][] = [$status,$_data];
+                                                $this->log('shop_js:excel:change',"edit",[
+                                                    'id'=>$values[$columns["id"]],
+                                                    'company'=>$name,
+                                                    'username'=>$admin_id,
+                                                    'create_date'=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
+                                                    'change'=>$order['oldData'][$key],
+                                                ]);
+                                                DB::commit();
+                                            }catch (\Exception $ex){
+                                                DB::rollBack();
+                                                $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }catch (\Exception $ex){
+                            $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
+                        }
+                    }else{
+                        try{
+                            foreach ($order['data'] as $key=>$values){
+                                $pay_method = 0;
+                                if($values[$columns["payMethod"]] == "代金引換"){
+                                    $pay_method = 1;
+                                }else  if($values[$columns["payMethod"]] == "銀行振込"){
+                                    $pay_method = 2;
+                                }else  if($values[$columns["payMethod"]] == "決済不要"){
+                                    $pay_method = 3;
+                                }
+                                foreach ($values as $kkkkk=>$valllll){
+                                    $values[$kkkkk] = rtrim(trim($valllll));
+                                }
+                                $product_title = "";$product_code = "";$count = 0;
+                                if($name== "KURICHIKU" || $name== "BANH_CHUNG"){
+                                    $product_id = (isset($columns["product_id"])?$values[$columns["product_id"]]:"");
+                                    $count = (isset($columns["count"])?$values[$columns["count"]]:"");
+
+                                    try{
+                                        $array_count = json_decode($count,true);
+                                    }catch (\Exception $ex) {
+                                        $array_count = [];
+                                    }
+
+
+                                    try{
+                                        $array_product = explode(";",$product_id);
+                                    }catch (\Exception $ex) {
+                                        $array_product = [];
+                                    }
+
+                                    $product_code = "";$product_title = "";
+                                    foreach ($array_product as $pro_id){
+                                        if(isset( $_product[$pro_id]['data']['price_buy'])){
+                                            $_kg = 0;
+                                            if(isset($array_count[$pro_id])){
+                                                $_kg = $array_count[$pro_id];
+                                            }else{
+                                                $_kg = $array_count;
+                                            }
+                                            $product_code.= $_product[$pro_id]['data']['code'].",";
+                                            $product_title.= $_product[$pro_id]['data']['title'].$_kg."kg,";
+                                        }
+                                    }
+                                    $product_code = rtrim($product_code,',');
+                                    $product_title = rtrim($product_title,',');
+                                    $product_title = "";
+                                    $total_count = isset($columns["total_count"])?(int)$values[$columns["total_count"]]:"1";
+
+//                                    if(is_array($array_count)){
+//                                        foreach ($array_count as $pro_id=>$_count){
+//                                            if(isset( $_product[$pro_id]['data']['price_buy'])){
+//                                                $total_count+=(int)$_count;
+//                                            }
+//                                        }
+//                                    }else{
+//                                        $total_count = $count;
+//                                    }
+
+                                }else{
+                                    $product_id = (int)(isset($columns["product_id"])?$values[$columns["product_id"]]:null);
+                                    $count = (int)(isset($columns["count"])?$values[$columns["count"]]:"");
+                                    $total_count = (int)(isset($columns["total_count"])?$values[$columns["total_count"]]:"0");
+                                    if(isset( $_product[$product_id]['data']['price_buy'])){
+                                        $product_code = $_product[$product_id]['data']['code'];
+                                        $product_title = $_product[$product_id]['data']['title'];
+                                    }
+                                }
+                                $admin_id = isset($columns["admin"])?$values[$columns["admin"]]:"";
+                                $_data = [
+                                    "order_create_date"=>isset($columns["timeCreate"])?$values[$columns["timeCreate"]]:"",
+                                    "company"=>$name,
+                                    "session_id"=> isset($columns["session_id"])?$values[$columns["session_id"]]:"",
+                                    "admin_id"=>isset($usernames[$admin_id])?$usernames[$admin_id]->id:"",
+                                    "ctv_id" => (isset($columns["ctv_id"]) ? $values[$columns["ctv_id"]] : "0"),
+                                    "fullname"=>isset($columns["fullname"])?preg_replace('/\s+/', ' ', $values[$columns["fullname"]]):"",
+                                    "address"=> isset($columns["address"])?preg_replace('/\s+/', '',$values[$columns["address"]] ):"",
+                                    "phone"=>isset($columns["phone"])?$values[$columns["phone"]]:"",
+                                    "zipcode"=>isset($columns["zipcode"])?$values[$columns["zipcode"]]:"",
+                                    "province"=>isset($columns["province"])?preg_replace('/\s+/', '',$values[$columns["province"]] ):"",
+                                    "pay_method"=>$pay_method,
+                                    "product_id"=>$product_id,
+                                    "product_code"=>$product_code,
+                                    "product_title"=>$product_title,
+                                    "price"=>(int)(isset($columns["price"])?$values[$columns["price"]]:""),
+                                    "price_buy"=>(int)(isset($columns["price_buy"])?$values[$columns["price_buy"]]:""),
+                                    "total_price"=>(int)(isset($columns["order_total_price"])?$values[$columns["order_total_price"]]:""),
+                                    "price_buy_sale"=>(int)(isset($columns["price_buy_sale"])?$values[$columns["price_buy_sale"]]:""),
+                                    "total_price_buy"=>(int)(isset($columns["order_total_price_buy"])?$values[$columns["order_total_price_buy"]]:""),
+                                    "count"=>$count,
+                                    "total_count"=>$total_count,
+                                    "order_image"=>$this->base64ToImage(isset($columns["image"])?$values[$columns["image"]]:"",$name),
+                                    "order_date"=>isset($columns["order_date"])?$values[$columns["order_date"]]:"",
+                                    "order_hours"=>isset($columns["order_hours"])?$values[$columns["order_hours"]]:"",
+                                    "order_ship"=>(int) (isset($columns["order_ship"])?$values[$columns["order_ship"]]:""),
+                                    "order_price"=>(int) (isset($columns["order_price"])?$values[$columns["order_price"]]:""),
+                                    "order_ship_cou"=>(int)(isset($columns["order_ship_cou"])?$values[$columns["order_ship_cou"]]:""),
+                                    "order_tracking"=>isset($columns["order_tracking"])?$values[$columns["order_tracking"]]:"",
+                                    "order_info"=>isset($columns["order_info"])?$values[$columns["order_info"]]:"",
+                                    "order_link"=>isset($columns["order_link"])?$values[$columns["order_link"]]:"",
+                                    "updated_at"=>$date_time,
+                                    "one_address"=>isset($columns["one_address"])?(int)$values[$columns["one_address"]]:"0",
+                                    "status"=> isset($columns["status"])? (int)$values[$columns["status"]]:"0",
+                                    "public"=> isset($columns["public"])? (int)$values[$columns["public"]]:"0",
+                                    "token"=> isset($columns["token"])? $values[$columns["token"]]:"",
+                                    "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
+                                    "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
+                                    "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
+                                    "public_admin"=> Auth::user()->id,
+                                ];
+//                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
+                                //$_data["sort"] = $model->admin_id * 10000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($_data['order_create_date']);
+                                $validator = Validator::make($_data,$check);
+
+                                if (!$validator->fails()) {
+                                    $_ = [$values,$_data,$columns];
+                                    if(isset($columns["id"]) && !empty($values[$columns["id"]])){
+                                        $where = ['id'=>$values[$columns["id"]]];
+                                        DB::beginTransaction();
+                                        try{
+
+                                            if($_data['public']){
+                                                $user_minus = false;
+                                                if(isset($_data['price_buy_sale']) && $_data['price_buy_sale']  < 0){
+
+                                                    $count = DB::table('shop_order_excel_coin')
+                                                        ->where('type','minus')
+                                                        ->where('order_id',$where['id'])
+                                                        ->count();
+
+                                                    if($count == 0){
+                                                        DB::table('shop_order_excel_coin')
+                                                            ->updateOrInsert([
+                                                                'order_id'=>$where['id'],
+                                                                'admin_id'=>$_data['ctv_id'],
+                                                                'type'=>'minus',
+                                                            ],[
+                                                                'coin'=>$_data['price_buy_sale'],
+                                                                'created_at'=>date('Y-m-d H:i:s')
+                                                            ]);
+                                                        $user_minus = true;
+                                                    }
+                                                }
+                                                var_dump($user_minus);
+                                                if($user_minus){
+                                                    DB::table('admin')->where('id',$_data['ctv_id'])->decrement('coin',$_data['price_buy_sale']*-1);
+                                                }
+                                            }
+
+                                            $status = DB::table('shop_order_excel')->where($where)->update($_data);
+                                            $logs[$name][] = [$status,$_data];
+                                            var_dump($status);
+                                            var_dump(22222222);
+
+                                             $this->log('shop_js:excel:change',"edit",[
+                                                'id'=>$values[$columns["id"]],
+                                                'company'=>$name,
+                                                'username'=>$admin_id,
+                                                'create_date'=>$_data['order_create_date'],
+                                                'change'=>$order['oldData'][$key],
+                                            ]);
+                                            var_dump(1111111111111);
+                                            DB::commit();
+
+                                        }catch (\Exception $ex){
+                                            $logs[$name]['error'] = $ex->getMessage() .' '.$ex->getLine();
+                                            echo $logs[$name]['error'];
+                                            die;
+                                            DB::rollBack();
+                                        }
+//                                        DB::table('shop_order_excel')->where($where)->update($_data);
+//
+//                                        $this->log('shop_js:excel:change',"edit",[
+//                                            'id'=>$values[$columns["id"]],
+//                                            'company'=>$name,
+//                                            'username'=>$admin_id,
+//                                            'create_date'=>$_data['order_create_date'],
+//                                            'change'=>$order['oldData'][$key],
+//                                        ]);
+
+
+                                    }
+                                }
+                            }
+                        }catch (\Exception $ex){
+                            $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
+                        }
+                    }
+                }
+                if (isset($data['id']) && $data['id']!=0 && !empty($data['id'])) {
+                    foreach ($datas as $name=>$order){
+                        $k = $this->GetToken()."-".Auth::user()->id.':edit:'.$name.':'.$data['id'];
+                        Cache::forget($k);
+                    }
+                }else{
+                    foreach ($datas as $name=>$order){
+                        $k = $this->GetToken()."-".Auth::user()->id.':create:'.$name.':0';
+                        Cache::forget($k);
+                    }
+                }
+                return response()->json([$logs,$datas]);
+
+            }
+            elseif($data['act'] == "saveShow"){
                 $datas = json_decode($data['datas'],true);
                 $usernames = DB::table('admin')->select('id','username')->get()->keyBy('username')->toArray();
                 $this->InitOption();
@@ -519,8 +986,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                 ];
                 $ids_sort = [];
-
-
+                $this->initCoin($user_admin_id,$data['id']);
+                $coinUses = $this->data['coinUses'];
 
                 foreach ($datas as $name=>$order){
 
@@ -560,18 +1027,27 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $idsOrder = [
 
                             ];
-
                             foreach ($order['data'] as $key=>$values){
-
                                 if($values[$columns["type"]] == "Info"){
                                     $oke = false;
                                     $dateNewRow = [];
                                     $dateNewRow[$key] = $values;
+                                    $price_buy_sale = $values[$columns["price_buy_sale"]];
+
+                                    if(Auth::user()->role_id == 2){
+                                        if($price_buy_sale < 0 && isset($coinUses['orders_id_session'][$values[$columns["id"]]])){
+                                            if($price_buy_sale * -1 + $coinUses['total_session_current'] <= $coinUses['total_avail']){
+                                                $coinUses['total_session_current'] += $price_buy_sale *-1;
+                                            }else{
+                                                $id = $values[$columns["id"]];
+                                                $coinUses['orders_id_session_error'][$id] = $coinUses['total_session_current'];
+                                                $values[$columns["status"]] = 0;
+                                            }
+                                        }
+                                    }
                                     $id = $values[$columns["id"]];
                                     $error = 0;
-
                                     $_count = (int)(isset($columns["count"]) ? $values[$columns["count"]] : null);
-
                                     if($_count <= 0 ){
                                         $error++;
                                     }
@@ -696,6 +1172,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "group" => isset($columns["group"]) ? $values[$columns["group"]] : "",
                                         "comment" => isset($columns["comment"]) ? $values[$columns["comment"]] : "",
                                     ];
+
+
                                     $admin_id = 0;
                                     if($_data["ctv_id"] == 0){
                                         $admin_id = $user_admin_id;
@@ -853,7 +1331,6 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_create_date"=>$model->key_date,
                                     "company"=>$name,
                                     "session_id"=>$model->id,
-
                                     "ctv_id" => \auth()->user()->role_id == 2 ? $model->admin_id:(int)(isset($columns["ctv_id"]) ? $values[$columns["ctv_id"]] : "0"),
                                     "admin_id"=>$user_admin_id,
                                     "fullname"=>isset($columns["fullname"])?preg_replace('/\s+/', ' ', $values[$columns["fullname"]]):"",
@@ -890,6 +1367,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                     "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
                                 ];
+
                                 if($_data["ctv_id"] == 0){
                                     $admin_id = $user_admin_id;
                                 }else{
@@ -898,7 +1376,17 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 $_data['rate'] = isset($this->data['options'][$admin_id]['rate']) ? (int)$this->data['options'][$admin_id]['rate'] : "0";
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
                                 $_data["sort"] = $admin_id * 1000000 + ($key+1) * $admin_id + $_data["order_index"] + strtotime($model->key_date);
-
+                                if(Auth::user()->role_id == 2){
+                                    if($_data['price_buy_sale'] < 0 && isset($coinUses['orders_id_session'][$values[$columns["id"]]])){
+                                        if($_data['price_buy_sale']* -1 + $coinUses['total_session_current'] <= $coinUses['total_avail']){
+                                            $coinUses['total_session_current'] += $_data['price_buy_sale']*-1;
+                                        }else{
+                                            $id = $values[$columns["id"]];
+                                            $coinUses['orders_id_session_error'][$id] = $coinUses['total_session_current'];
+                                            $_data['status']  = 0;
+                                        }
+                                    }
+                                }
                                 $validator = Validator::make($_data,$check);
                                 if (!$validator->fails()) {
 
@@ -962,8 +1450,16 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                     }
                     $this->log('shop_js:orderExcel',$type,['id' => $model->id]);
-                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit',
-                        ['id' => $model->id]),'logs'=>$logs,'deletes'=>$deletes,"ids"=>$ids,'ids_sort'=>$ids_sort]);
+
+                    return response()->json([
+                        'id'=>$model->id,
+                        'url'=>route('backend:shop_ja:order:excel:edit', ['id' => $model->id]),
+                        'logs'=>$logs,
+                        'deletes'=>$deletes,
+                        "ids"=>$ids,
+                        'ids_sort'=>$ids_sort,
+                        'coinUses'=>$coinUses
+                    ]);
                 }
                 else
                     return response()->json($datas);
@@ -2226,6 +2722,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $user_cvt[0] = new \stdClass();
         $user_cvt[0]->id = 0;
         $user_cvt[0]->name = 'No Ctv';
+        $this->initCoin($model->admin_id,$id);
 
         return $this->render('order-excel.edit',['model'=>$model,'admin'=>$users,'ctvs'=>$user_cvt]);
     }
