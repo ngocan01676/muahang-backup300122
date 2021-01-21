@@ -70,7 +70,6 @@
     }
 </script>
 <script type="text/javascript" async src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 @stack('scriptsTop')
 @stack('scripts')
 @section('extra-script')
