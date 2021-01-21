@@ -64,7 +64,11 @@ class SidebarComposer
                 }
             }
             $func_sort = function ( $a , $b ){
-                if (!isset($a['pos']) || !isset($b['pos']) || $a['pos'] == $b['pos']) {
+                if (!isset($a['pos'])) {
+                    return -1;
+                }else if(!isset($b['pos'])){
+                    return 1;
+                }else if($a['pos'] == $b['pos']){
                     return 0;
                 }
                 return ($a['pos'] < $b['pos']) ? -1 : 1;
@@ -77,6 +81,7 @@ class SidebarComposer
                     $lists_sidebar[$key]['items'] = $items;
                 }
             }
+
             return $sidebar_new;
         });
         $view->with('lists_sidebar', $sidebars);
