@@ -17,11 +17,13 @@ class ComponentController extends \Zoe\Http\ControllerBackend
             'models' => $models->paginate($item)
         ]);
     }
-    public function run(Request $request){
+
+    public function run(Request $request)
+    {
         $data = $request->all();
-        if(isset($data['class']) && class_exists($data['class'])){
-           $model = (new $data['class']);
-           return $model->store($data);
+        if (isset($data['class']) && class_exists($data['class'])) {
+            $model = (new $data['class']);
+            return $model->store($data);
         }
     }
 }
