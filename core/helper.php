@@ -706,6 +706,7 @@ function z_language($key, $par = [], $__env = null, $tag = "")
     if (is_array($par)) {
         if(app()->is_admin){
             $_lang_name_ = session('lang',app()->getLocale());
+            var_dump($_lang_name_);
         }else{
             $_lang_name_ = app()->site_language;
         }
