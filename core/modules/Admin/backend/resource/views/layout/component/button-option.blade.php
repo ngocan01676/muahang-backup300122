@@ -40,10 +40,8 @@
 @endpush
 @push("scripts")
     <script>
-        (function () {
-
+        $(document).ready(function (){
             var dataOption = {!! json_encode($data) !!};
-
             $('.btnSaveOption').click(function () {
                 var myModalOption = $("#myModalOption");
                 var FormModal  = myModalOption.find("form");
@@ -60,12 +58,10 @@
                     }
                 });
             });
-
             $(".btnOption").click(function () {
                 var myModalOption = $("#myModalOption");
                 var FormModal  = myModalOption.find("form");
                 myModalOption.modal();
-           
                 $.ajax({
                     url: '{{route('backend:dashboard:option')}}',
                     type: "POST",
@@ -78,7 +74,7 @@
                     }
                 });
             });
-        })();
+        });
     </script>
 @endpush
 @endif
