@@ -58,7 +58,7 @@ return [
         "plugin"=>false,
         "module"=>false,
         'appearance'=>[
-            "pos" => 4,
+            "pos" => 10,
         ],
         'log'=>false,
         'backup'=>false,
