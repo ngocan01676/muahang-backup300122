@@ -54,7 +54,7 @@
 
             </div>
             <div class="box-footer">
-                <button class="btn btn-default" id="btnSavePosition"><i class="fa fa-plus"></i> Save</button>
+                <button class="btn btn-default" id="btnSavePosition"><i class="fa fa-plus"></i>{!! z_language('Save') !!}</button>
             </div>
         </div>
     </div>
@@ -213,7 +213,7 @@
                 {!! Form::close() !!}
             </div>
             <div class="box-footer">
-                <button type="button" id="btnSave" class="btn btn-default ">Save</button>
+                <button type="button" id="btnSave" class="btn btn-default ">{!! z_language('Save') !!}</button>
             </div>
         </div>
     </div>
