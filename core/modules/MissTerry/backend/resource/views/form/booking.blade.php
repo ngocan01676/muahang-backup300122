@@ -90,7 +90,7 @@
                         {!! Form::radio('sex', '0',false) !!} {!! z_language('Female') !!}
                     </td>
                 </tr>
-                
+
                 <tr>
                     <td>
                         {!! Form::label('id_status', z_language('Booking Status'), ['class' => 'status']) !!}
@@ -99,6 +99,7 @@
                         {!! Form::radio('status', '0',false) !!} {!! z_language('Chờ duyệt') !!}
                     </td>
                 </tr>
+                
                 </tbody>
             </table>
             {!! Form::close() !!}
