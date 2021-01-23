@@ -41,10 +41,12 @@
 @push("scripts")
     <script>
         (function () {
-            var myModalOption = $("#myModalOption");
-            var FormModal  = myModalOption.find("form");
+
             var dataOption = {!! json_encode($data) !!};
+
             $('.btnSaveOption').click(function () {
+                var myModalOption = $("#myModalOption");
+                var FormModal  = myModalOption.find("form");
                 myModalOption.modal('toggle');
                 var data = FormModal.zoe_inputs('get');
                 $.ajax({
@@ -57,9 +59,13 @@
                        }
                     }
                 });
-            });    
+            });
+
             $(".btnOption").click(function () {
+                var myModalOption = $("#myModalOption");
+                var FormModal  = myModalOption.find("form");
                 myModalOption.modal();
+           
                 $.ajax({
                     url: '{{route('backend:dashboard:option')}}',
                     type: "POST",
