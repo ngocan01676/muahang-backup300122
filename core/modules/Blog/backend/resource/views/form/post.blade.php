@@ -35,13 +35,13 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        {!! Form::label('id_title', 'Name', ['class' => 'title']) !!}
+                                        {!! Form::label('id_title',z_language('Title'), ['class' => 'title']) !!}
                                         {!! Form::text('title_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Title']) !!}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        {!! Form::label('id_description', 'Description', ['class' => 'description']) !!}
+                                        {!! Form::label('id_description', z_language('Description'), ['class' => 'description']) !!}
                                         {!! Form::textarea('description_'.$lang.'',null, ['class' => 'form-control','placeholder'=>'Description','cols'=>5,'rows'=>5]) !!}
                                     </td>
                                 </tr>
