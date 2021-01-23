@@ -170,7 +170,7 @@
                                                                     @endforeach
                                                                 </form>
                                                                 <a  href="#"
-                                                                       onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn xóa bảng ghi này') !!}')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{$router['label']}} </a> {{++$i<$n?"|":""}}
+                                                                       onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn xóa bảng ghi này') !!}')){ document.getElementById('{{$id}}-form-{{$key_form}}').submit();}"> {{ z_language($router['label'])  }} </a> {{++$i<$n?"|":""}}
                                                                 @else
                                                                     <a {!! isset($router['hide'])?'style="display:none"':"" !!} href="{{route($router['name'],$par)}}"> {{ z_language($router['label']) }} </a> {{(++$i<$n)?"  | ":""}}
                                                                 @endif
