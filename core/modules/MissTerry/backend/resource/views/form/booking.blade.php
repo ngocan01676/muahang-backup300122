@@ -92,7 +92,7 @@
                 </tr>
                 <tr>
                     <td>
-                        {!! Form::label('id_status', 'Booking Status', ['class' => 'status']) !!}
+                        {!! Form::label('id_status', z_language('Booking Status'), ['class' => 'status']) !!}
                         {!! Form::radio('status', '3' , true) !!} {!! z_language('Hủy') !!}
                         {!! Form::radio('status', '1' , true) !!} {!! z_language('Duyệt') !!}
                         {!! Form::radio('status', '0',false) !!} {!! z_language('Chờ duyệt') !!}
