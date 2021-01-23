@@ -130,8 +130,8 @@
                     'columns' => [
                         'lists' => [
                             'id' => ['label' => z_language('Mã', false), 'type' => 'id', 'primary' => true, 'order_by' => "numeric"],
-                            'get_room' => ['label' => z_language('Tên phòng', false),'callback'=>'get_room', 'type' => 'text', 'primary' => true],
-                            'get_user' => ['label' => z_language('Tên khách hàng', false),'callback'=>'get_user', 'type' => 'title'],
+                            'get_room' => ['label' => z_language('Tên phòng', false),'callback'=>'get_room', 'type' => 'title', 'primary' => true],
+                            'get_user' => ['label' => z_language('Tên khách hàng', false),'callback'=>'get_user', 'type' => 'text'],
                             'booking_date' => ['label' => z_language('Ngày chơi', false),'callback'=>'get_user', 'type' => 'text'],
                             'booking_time' => ['label' => z_language('Khung thời gian', false),'callback'=>'get_user', 'type' => 'text'],
                             'count' => ['label' => z_language('Số người chơi', false), 'type' => 'status', 'order_by' => 'amount'],
