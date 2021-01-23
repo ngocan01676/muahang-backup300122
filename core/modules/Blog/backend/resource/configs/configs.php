@@ -67,9 +67,8 @@ return [
                 'pagination' => [
                     'item' => 20,
                     'router' => [
-                        'edit' => ['label' => z_language('Edit', false), 'name' => "backend:blog:post:edit", 'par' => ['id' => 'id']],
-
-                        'trash' => ['method' => 'post', 'label' => z_language('Trash', false), 'name' => "backend:blog:post:delete", 'par' => ['id' => 'id']],
+                        'edit' =>  ['label' => z_language('Edit', false), 'name' => "backend:blog:post:edit", 'par' => ['id' => 'id']],
+                        'trash' => ['label' => z_language('Trash', false),'method' => 'post', 'name' => "backend:blog:post:delete", 'par' => ['id' => 'id']],
                     ]
                 ],
                 'config' => [
