@@ -4,7 +4,7 @@
             <th style="vertical-align: middle;text-align:center;width: 50px">Stt</th>
             @foreach($DataComposer['config']['columns'] as $columns)
                 @if(isset($columns['label']))
-                    <th style="vertical-align: middle;text-align:center;{!! isset($columns['head']['style'])?$columns['head']['style']:"" !!}">{!! $columns['label'] !!}</th>
+                    <th style="vertical-align: middle;text-align:center;{!! isset($columns['head']['style'])?$columns['head']['style']:"" !!}">{!! z_language($columns['label']) !!}</th>
                 @endif
             @endforeach
             <th></th>
