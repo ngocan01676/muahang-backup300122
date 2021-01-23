@@ -99,7 +99,7 @@
                         {!! Form::radio('status', '0',false) !!} {!! z_language('Chờ duyệt') !!}
                     </td>
                 </tr>
-                
+
                 </tbody>
             </table>
             {!! Form::close() !!}
