@@ -112,8 +112,8 @@
                     <div class="timeslots_header">
                         <div class="date_gradient">
                             <ins></ins>
-                            <img src="https://media.claustrophobia.com/static/master/img/time_gradient.png" width="100%" style="width: 1920px;">
-                            <img src="https://media.claustrophobia.com/static/master/img/time_gradient.png" width="100%" style="width: 1920px;">
+                            <img src="" width="100%" style="width: 1920px;">
+
                         </div>
                         <div class="header_lines">
 
@@ -152,7 +152,7 @@
                             <div class="scroller_container">
                                 <div class="scroller_inner">
                                     <div class="time_gradient">
-                                        <img src="https://media.claustrophobia.com/static/master/img/time_gradient.png" width="100%">
+                                        <img src="/theme/missterry/images/time_gradient.png" width="100%">
                                         <div class="hours_wrapper">
                                             <div class="hours"></div>
                                         </div>
@@ -283,7 +283,7 @@
                                                                     {!! $time['date'] !!}
                                                                     @if($is_pay)
                                                                         <img class="slot prepay_card"
-                                                                             style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay">
+                                                                             style="position: absolute; bottom: -10px;right: -5px;" src="/theme/missterry/images/mini_card.png" title="Partial prepay">
                                                                     @endif
                                                                     <textarea class="value" style="display: none">{!! json_encode(($is_Event?$dataPriceEvent:$row->prices)) !!}</textarea>
                                                                 </div>
@@ -541,16 +541,13 @@
                 user-select: none;
                 font-weight: 600
             }
-
             #today {
                 text-align: center;
                 float: left
             }
-
             #today .date {
                 width: 135px
             }
-
             #today .day {
                 margin: 3px 0 0 0;
                 padding: 0;
@@ -558,7 +555,6 @@
                 font-size: 80%;
                 cursor: default
             }
-
             #line {
                 margin-left: 150px;
                 background: rgba(255, 255, 255, 0.1);
