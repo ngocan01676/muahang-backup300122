@@ -23,7 +23,7 @@ return [
         ],
         "backend:$key:booking:list" => [
             "name" => z_language("Manager Booking",false),
-            "url" => "backend:$key:booking:list",
+            "url" => "backend:$key:booking:booking",
             "pos" => 1,
             "header" => true,
             "icon"=>"fa fa-inbox",
