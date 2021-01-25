@@ -349,7 +349,7 @@
                 success:function (data) {
                     message.val("");
                     jQuery("#message_{!! $id !!} .message ul").append(template_right{!! $id !!}(data.result));
-                    jQuery("#message_{!! $id !!} .message ul").animate({ scrollTop:  jQuery("#message_{!! $id !!} .chatbox__body").prop("scrollHeight")}, 1000);
+                    jQuery("#message_{!! $id !!} .message").animate({ scrollTop:  $("#message_{!! $id !!} .message").prop("scrollHeight")}, 1000);
                 }
             });
         }
