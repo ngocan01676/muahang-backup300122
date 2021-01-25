@@ -24,18 +24,13 @@
             <form class="woocommerce-EditAccountForm edit-account" action="{!! route('frontend:user:base:storeInfo') !!}" method="post">
                 @csrf
                 <p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
-                    <label for="account_first_name">{!! z_language('First name') !!}&nbsp;
+                    <label for="account_first_name">{!! z_language('Fullname') !!}&nbsp;
                         <span class="required">*</span>
                     </label>
-                    {!! Form::text('first_name',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>'Title']) !!}
+                    {!! Form::text('fullname',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>'Title']) !!}
 
-                </p>
-                <p class="woocommerce-form-row woocommerce-form-row--last form-row form-row-last">
-                    <label for="account_last_name">{!! z_language('Last name') !!}&nbsp;<span class="required">*</span></label>
-                    {!! Form::text('last_name',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>z_language('Last name')]) !!}
                 </p>
                 <div class="clear"></div>
-
                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                     <label for="account_display_name">{!! z_language('Display name') !!}&nbsp;<span class="required">*</span></label>
                     {!! Form::text('name',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>z_language('Display name')]) !!}

@@ -374,7 +374,6 @@
                                        </select>
                                        <span class="text-error"></span>
                                 </div>
-
                                 <div class="wpcf7-form-control-wrap ten">
                                         <input  type="text" name="fullname"
                                                placeholder="{!! z_language('Họ và tên') !!}" value="" size="40" class="form-text-input wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
