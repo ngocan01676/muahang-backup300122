@@ -52,8 +52,8 @@ class FrontController extends \Zoe\Http\ControllerFront
                 $user_read = 1;
                 $data = [
                     'mess_id'=>$id,
-                    'user_id'=>1,
-                    'admin_id'=>0,
+                    'user_id'=>0,
+                    'admin_id'=>1,
                     'content'=>"bạn cần hỗ trợ gì!",
                     'created_at'=>date('Y-m-d H:i:s'),
                 ];
