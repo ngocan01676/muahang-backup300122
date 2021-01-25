@@ -24,7 +24,7 @@
             <form class="woocommerce-EditAccountForm edit-account" action="{!! route('frontend:user:base:storeInfo') !!}" method="post">
                 @csrf
                 <p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
-                    <label for="account_first_name">{!! z_language('Fullname') !!}&nbsp;
+                    <label for="account_first_name">{!! z_language('Full Name') !!}&nbsp;
                         <span class="required">*</span>
                     </label>
                     {!! Form::text('fullname',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>'Title']) !!}
