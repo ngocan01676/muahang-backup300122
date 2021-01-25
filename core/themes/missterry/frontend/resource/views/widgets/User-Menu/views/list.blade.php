@@ -18,6 +18,10 @@
                 </form>
                 <a href="{!! ($list['url']) !!}" onclick="event.preventDefault(); document.getElementById('logout-form-{!! $name !!}').submit();" class="btn btn-default btn-flat">{!! $list['label'] !!}</a>
             </li>
+        @elseif($name === "message")
+            <li class="messages-menu woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard  {!! $list['url'] == url()->current() ?"is-active active":"" !!}">
+                <a href="{!! ($list['url']) !!}">{!! $list['label'] !!} (<strong class="count">0</strong>) </a>
+            </li>
         @else
             <li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--dashboard  {!! $list['url'] == url()->current() ?"is-active active":"" !!}">
                 <a href="{!! ($list['url']) !!}">{!! $list['label'] !!}</a>
@@ -25,4 +29,35 @@
         @endif
     @endforeach
 </ul>
+@push('scripts')
+    <script>
+        (function($) {
+            let confData = null;
+            $(document).ready(function () {
+                $.ajax({
+                    url:"{!! route('plugin:message:create') !!}",
+                    type:"post",
+                    data:{
+                        email:"{!! auth('frontend')->user()->email !!}",
+                        name:"{!! auth('frontend')->user()->name !!}",
+                    },
+                    success:function (data) {
+                        confData = data;
+                        if(data.user_read === 0){
+                            $.ajax({
+                                url:"{!! route('plugin:message:count') !!}",
+                                type:"post",
+                                data: confData,
+                                success:function (data) {
+                                    $('.messages-menu .count').html(data.count);
+                                }
+                            });
+                        }
+                    }
+                });
+
+            })
+        })(jQuery);
+    </script>
+@endpush
 @endif

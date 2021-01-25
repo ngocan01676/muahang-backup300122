@@ -15,5 +15,6 @@ class Plugin extends ZModule
         Route::post('/message/'.md5('create'),'\PluginMessage\Controllers\FrontController@create')->name('plugin:message:create');
         Route::post('/message/'.md5('list'),'\PluginMessage\Controllers\FrontController@list')->name('plugin:message:list');
         Route::post('/message/'.md5('save'),'\PluginMessage\Controllers\FrontController@save')->name('plugin:message:save');
+        Route::post('/message/'.md5('count'),'\PluginMessage\Controllers\FrontController@count')->name('plugin:message:count');
     }
 }

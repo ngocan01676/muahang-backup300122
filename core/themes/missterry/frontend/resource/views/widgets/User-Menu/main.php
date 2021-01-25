@@ -12,7 +12,7 @@ function Main($config){
                 'label'=>z_language('Announce'),
                 'url'=>router_frontend_lang('missterry:user:announce')
             ],
-            [
+            'message'=>[
                 'label'=>z_language('Message'),
                 'url'=>router_frontend_lang('missterry:user:chat')
             ],
