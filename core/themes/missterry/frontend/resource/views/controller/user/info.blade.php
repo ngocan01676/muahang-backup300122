@@ -27,7 +27,7 @@
                     <label for="account_first_name">{!! z_language('Full Name') !!}&nbsp;
                         <span class="required">*</span>
                     </label>
-                    {!! Form::text('fullname',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>'Title']) !!}
+                    {!! Form::text('fullname',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text','placeholder'=>z_language('Full Name')]) !!}
 
                 </p>
                 <div class="clear"></div>

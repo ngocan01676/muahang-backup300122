@@ -374,9 +374,10 @@
                                        </select>
                                        <span class="text-error"></span>
                                 </div>
-                                <div class="wpcf7-form-control-wrap ten">
+                                <div class="wpcf7-form-control-wrap ten" @if(!is_null(auth('frontend')->user()) && !is_null(auth('frontend')->user()->fullname)) style="display:none " @endif>
                                         <input  type="text" name="fullname"
-                                               placeholder="{!! z_language('Họ và tên') !!}" value="" size="40" class="form-text-input wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                               placeholder="{!! z_language('Họ và tên') !!}" value=""
+                                                size="40" class="form-text-input wpcf7-form-control wpcf7-text wpcf7-validates-as-required" @if(!is_null(auth('frontend')->user()))  value="{!! auth('frontend')->user()->fullname !!}" @else value="" @endif aria-required="true" aria-invalid="false">
                                          <span class="text-error"></span>
                                 </div>
 
