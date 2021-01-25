@@ -1280,7 +1280,7 @@
                               button.removeClass('requires_prepay');
                               button.addClass('booked');
                               button.addClass('pay');
-
+                              $('.mobilepopup .button-close').trigger('click');
                           }
                        });
                     }
@@ -1348,10 +1348,14 @@
         }
 
         $(document).ready(function(){
+
             $("body").on("click",".booked",function(e){
+                e.preventDefault();
                 var data = $(this).data();
                 console.log(data);
-
+                let button = $(".dom_"+$.md5(data['id']+data['date']+data['time']));
+                data = button.data();
+                data.idbooking = button.attr('data-idbooking');
                 var dom = $(".pop-up2");
 
                 $('body .schedule_body').mask();
