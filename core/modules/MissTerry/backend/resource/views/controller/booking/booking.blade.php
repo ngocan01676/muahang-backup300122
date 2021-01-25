@@ -581,7 +581,8 @@
             #line .date {
                 cursor: pointer;
                 font-weight: 600;
-                padding: 5px 0 7px 0
+                padding: 5px 0 7px 0;
+                color: #ffffff;
             }
 
             #line .day {
