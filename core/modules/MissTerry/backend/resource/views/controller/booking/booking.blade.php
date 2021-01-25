@@ -890,7 +890,7 @@
 
             #schedule .price_block { position: absolute; bottom: -9px; height: 10px; opacity: 0.8; }
 
-            #schedule .price_block .price_value { width: 100%; text-align: center; font-size: 90%; font-weight: 700; line-height: 10px; font-family: 'roboto', sans-serif; }
+            #schedule .price_block .price_value {color: #ffffff; width: 100%; text-align: center; font-size: 90%; font-weight: 700; line-height: 10px; font-family: 'roboto', sans-serif; }
 
             #schedule .price_block .line { position: absolute; top: 50%; width: 50%; height: 6px; margin-top: -6px; /*background: rgba(255, 255, 255, 0.3);*/ }
 
