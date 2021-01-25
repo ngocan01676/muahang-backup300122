@@ -915,7 +915,7 @@
 
             #schedule .timeslots_header .header_line h3 { font-size: 14px; line-height: 1.3; margin: 0; }
 
-            #schedule .timeslots_header .header_line p { font-size: 80%; margin: 5px 0 0 0; }
+            #schedule .timeslots_header .header_line p { font-size: 80%; margin: 5px 0 0 0; color: #ffffff}
 
             #schedule .timeslots_header .holiday { color: #fb0; }
 
