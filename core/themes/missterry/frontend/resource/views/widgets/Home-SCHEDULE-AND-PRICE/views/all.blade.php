@@ -844,7 +844,7 @@
 
         #schedule .quest_schedule .slot { position: absolute; padding: 5px 2px 6px 2px; }
 
-        #schedule .quest_schedule .booked { color: rgba(255, 255, 255, 0.4); background: rgba(0, 0, 0, 0.1); border: 1px solid rgba(0, 0, 0, 0.01); cursor: default; }
+        #schedule .quest_schedule .booked { color: #ffffff; background: rgb(255 0 0 / 60%); border: 1px solid rgba(0, 0, 0, 0.01); cursor: default; }
 
         #schedule .quest_schedule .locked{ background-color: rgba(0, 0, 0, 0.6); color: rgba(255, 255, 255, 0.3); }
 
