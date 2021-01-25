@@ -400,16 +400,16 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div class="wpcf7-form-control-wrap sdt" @if(!is_null(auth('frontend')->user()) && !is_null(auth('frontend')->user()->phone)) style="display:none " @endif>
-                                                    <input type="text" placeholder="{!! z_language('Số điện thoại') !!}" name="phone"  @if(!is_null(auth('frontend')->user()))  value="{!! auth('frontend')->user()->phone !!}" @else value="" @endif size="40" class="form-control form-text-input wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                                <div class="wpcf7-form-control-wrap sdt">
+                                                    <input type="text" placeholder="{!! z_language('Số điện thoại') !!}" name="phone"   value=""size="40" class="form-control form-text-input wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
                                                     <span class="text-error"></span>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div class="wpcf7-form-control-wrap e-mail" @if(!is_null(auth('frontend')->user())) style="display:none " @endif>
-                                                    <input type="email" name="email" @if(!is_null(auth('frontend')->user()))  value="{!! auth('frontend')->user()->email !!}" @else value="" @endif
+                                                <div class="wpcf7-form-control-wrap e-mail">
+                                                    <input type="email" name="email"  value=""
                                                     size="40" placeholder="{!! z_language('Địa chỉ Email') !!}"
                                                            class="form-control form-text-input wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
                                                            aria-required="true" aria-invalid="false">
