@@ -2,9 +2,8 @@
     <h1>
         &starf; {!! @z_language(["Manager Booking"]) !!}
         <small>it all starts here</small>
-        <a href="{{route('backend:miss_terry:booking:create')}}"
-           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
-
+        <a href="{{route('backend:miss_terry:booking:booking')}}"
+           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Booking"]) !!} </a>
         <x-btnOption :config="['name'=> $key ]">
             <x-slot name="label">
                 {{@z_language(["Option"])}}

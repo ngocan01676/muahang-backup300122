@@ -60,6 +60,9 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
+                    "booking" => [
+                        "url" => "/booking",
+                    ],
                     "create"=>[
                         'url'=>'/create'
                     ],

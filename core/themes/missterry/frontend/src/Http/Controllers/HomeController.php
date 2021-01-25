@@ -127,7 +127,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                         'sex'=>isset($data['data']['sex'])?$data['data']['sex']:0,
                         'booking_date'=>formatDateYMD($data['data']['date']),
                         'booking_time'=>$data['data']['time'],
-                        'status'=>0,
+                        'status'=>isset($data['data']['status'])?$data['data']['status']:0,
                         'price'=>$data['data']['price'],
                         'created_at'=>date('Y-m-d H:i:s'),
                         'updated_at'=>date('Y-m-d H:i:s'),
