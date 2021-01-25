@@ -1357,7 +1357,7 @@
                     let w = $(window).width();
                     let h = $(window).height();
                     w = w*0.35;
-                    h = h*0.85;
+                    h = h*0.75;
                     $.mobilepopup({
                         targetblock:".pop-up2",
                         width:w+"px",
