@@ -196,6 +196,7 @@
                                                             $price = 0;
                                                             $is_hide = false;
                                                             $is_pay = false;
+                                                              $info_booking = [];
                                                             if($is_disabled){
                                                                  $class = "booked";$is_hide = true;
                                                             }else{
@@ -211,6 +212,7 @@
                                                                              if(isset($bookings[$time['date']])){
                                                                                 $class.=" booked pay";
                                                                                 $is_pay = true;
+                                                                                 $info_booking =(array) $bookings[$time['date']];
                                                                              }else{
                                                                                   $class.=" requires_prepay";
                                                                              }
@@ -218,6 +220,7 @@
                                                                              if(isset($bookings[$time['date']])){
                                                                                 $class.=" booked";
                                                                                  $is_pay = true;
+                                                                                  $info_booking =(array) $bookings[$time['date']];
                                                                              }else{
                                                                                  $class.=" requires_prepay";
                                                                              }
@@ -229,6 +232,7 @@
                                                                      }else{
                                                                          if(isset($bookings[$time['date']])){
                                                                             $class.=" booked"; $is_pay = true;
+                                                                             $info_booking =(array) $bookings[$time['date']];
                                                                          }else{
                                                                             $class.=" requires_prepay";
                                                                          }
@@ -271,11 +275,9 @@
                                                         @endphp
                                                         @if($is_hide == false)
                                                             @if($is_pay == false) <a {!! $row->id !!} href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
-                                                                <div data-key="{!! $key !!}" data-address="{!! $row->address !!}" data-title="{!! $row->title !!}" data-id="{!! $row->id !!}" data-date="{!! date('d-m-Y',$timeAction) !!}" data-time="{!! $time['date'] !!}" class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
+                                                                <div data-idbooking="{!! isset($info_booking['id'])?$info_booking['id']:0 !!}" data-key="{!! $key !!}" data-address="{!! $row->address !!}" data-title="{!! $row->title !!}" data-id="{!! $row->id !!}" data-date="{!! date('d-m-Y',$timeAction) !!}" data-time="{!! $time['date'] !!}" class="slot round_button {!! $class !!} dom_{!! md5($row->id.date('d-m-Y',$timeAction).$time['date']) !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
                                                                     {!! $time['date'] !!}
-                                                                    @if($is_pay)
-                                                                        <img class="slot prepay_card" style="position: absolute; bottom: -10px;right: -5px;" src="https://media.claustrophobia.com/static/master/img/mini_card.png" title="Partial prepay">
-                                                                    @endif
+
                                                                     <textarea class="value" style="display: none">{!! json_encode(($is_Event?$dataPriceEvent:$row->prices)) !!}</textarea>
                                                                 </div>
                                                                 @if($is_pay == false) </a> @endif
