@@ -53,6 +53,9 @@
         .rc-anchor-invisible{
             display: none !important;
         }
+        .grecaptcha-badge {
+            visibility: hidden;
+        }
     </style>
     <link rel='stylesheet' id='wp-block-library-css'  href='{!! asset('/theme/missterry/css/dist/block-library/style.min.css?ver=5.6') !!}' type='text/css' media='all' />
 
