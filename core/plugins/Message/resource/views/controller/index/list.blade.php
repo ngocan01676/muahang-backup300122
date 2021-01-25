@@ -48,7 +48,7 @@
                     <div class="box-footer">
                         <form action="#" method="post" class="detail-info" style="display: none">
                             <div class="input-group">
-                                <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                                <input type="text" id="msg" name="message" placeholder="Type Message ..." class="form-control">
                                 <span class="input-group-btn">
                                 <button type="button" onclick="send_message()" class="btn btn-warning btn-flat">{!! z_language('Send') !!}</button>
                               </span>
@@ -57,6 +57,14 @@
                     </div>
                 </div>
             </div>
+    </div>
+    <div class="box">
+       <div class="box-body">
+           <form action="" id="formSnippet">
+               {!! isset($Plugin_DataComposer_Message)?$Plugin_DataComposer_Message:"" !!}
+           </form>
+           <button type="button" onclick="saveSnippet()" class="btn btn-primary pull-right">{!! z_language('Save') !!}</button>
+       </div>
     </div>
 @endsection
 @push('links')
@@ -70,7 +78,39 @@
     </style>
 @endpush
 @push('scripts')
+    <script src="https://cms.bomh.io/assets/plugins/horsey/horsey.min.js"></script>
+    <link href="https://cms.bomh.io/assets/plugins/horsey/horsey.min.css" rel="stylesheet" type="text/css"/>
     <script>
+        @php
+           $snippets =  json_decode($item['snippet'],JSON_UNESCAPED_UNICODE);
+
+        $array_snippet = [];
+        foreach ($snippets as $snippet)
+        {
+            $array_snippet[] = $snippet['text'];
+        }
+        @endphp
+        horsey(document.getElementById('msg'), {
+            suggestions: function (done) {
+                done(@json($array_snippet));
+            }
+        });
+     </script>
+    <script>
+        function saveSnippet(){
+           let snippet = $('#formSnippet [name=snippet]').val();
+            $.ajax({
+                url:'{!! route('backend:plugin:Message:ajax') !!}',
+                type:"POST",
+                data:{
+                    act:"snippet",
+                    data:JSON.parse(snippet)
+                },
+                success:function (data) {
+
+                }
+            });
+        }
         let current_active = null;
         let scroll_run = false;
         function changeType(){

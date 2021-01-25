@@ -47,6 +47,7 @@ class ControllerBackend extends Controller
                 }
             }
         }
+
         $composers = app()->getConfig()->composers;
         if(isset($composers[BACKEND])){
             foreach ($composers[BACKEND] as $clazz=>$composer){
