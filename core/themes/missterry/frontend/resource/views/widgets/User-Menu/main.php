@@ -13,6 +13,10 @@ function Main($config){
                 'url'=>router_frontend_lang('missterry:user:announce')
             ],
             [
+                'label'=>z_language('Message'),
+                'url'=>router_frontend_lang('missterry:user:chat')
+            ],
+            [
                 'label'=>z_language('Account Detail'),
                 'url'=>router_frontend_lang('missterry:user:info')
             ],

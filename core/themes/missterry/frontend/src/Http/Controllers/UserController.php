@@ -176,4 +176,7 @@ class UserController extends \Zoe\Http\ControllerFront
             ]
         ]);
     }
+    public function get_chat(){
+        return $this->render('user.chat',[]);
+    }
 }

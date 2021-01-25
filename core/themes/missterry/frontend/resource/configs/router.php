@@ -226,6 +226,12 @@ $routers['missterry:user'] = [
             "method" => ["get","post"],
             "guard" => ""
         ],
+        "chat" => [
+            "url" => "/my-account/chat",
+            "action" => "get_chat",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
     ]
 ];
 $routers['user:base'] = [

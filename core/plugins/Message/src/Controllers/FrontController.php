@@ -3,17 +3,22 @@ namespace PluginMessage\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 class FrontController extends \Zoe\Http\ControllerFront
 {
     public function create(Request $request)
     {
         $data = $request->all();
-        $results = DB::table('plugin_message_list')->where('email',$data['email'])->get()->all();
+
+        $email = isset($data['email'])?$data['email']:Auth('frontend')->user()->email;
+        $name = isset($data['name'])?$data['name']:Auth('frontend')->user()->name;
+
+        $results = DB::table('plugin_message_list')->where('email',$email)->get()->all();
         DB::beginTransaction();
         try{
             if(isset($results[0])){
-                DB::table('plugin_message_list')->where('email',$data['email'])->update([
-                    'fullname'=>$data['name'],
+                DB::table('plugin_message_list')->where('email',$email)->update([
+                    'fullname'=>$name,
                     'updated_at'=>date('Y-m-d H:i:s'),
                     'ip'=>$request->ip()
                 ]);
@@ -30,8 +35,8 @@ class FrontController extends \Zoe\Http\ControllerFront
                 }
             }else{
                 $id = DB::table('plugin_message_list')->insertGetId([
-                    'fullname'=>$data['name'],
-                    'email'=>$data['email'],
+                    'fullname'=>$name,
+                    'email'=>$email,
                     'admin_read'=>0,
                     'user_read'=>1,
                     'updated_at'=>date('Y-m-d'),
@@ -61,7 +66,7 @@ class FrontController extends \Zoe\Http\ControllerFront
         if(isset($data['key']) && $data['key'] == md5('MESSAGE:'.$data['id'].':'.config('app.key'))){
             $results = DB::table('plugin_message_detail')->where('mess_id',$data['id'])->get()->all();
         }
-        return ['results'=>$results];
+        return ['results'=>$results,'user'=>Auth('frontend')];
     }
     public function save(Request $request){
         $data = $request->all();

@@ -196,5 +196,6 @@
             return decodeUTF8string(dec.replace(/\0+$/, ''))
         }
     </script>
+    @stack('links')
 </head>
 <body class="home page-template page-template-page-transparent-header-light page-template-page-transparent-header-light-php page page-id-5 header-shadow lightbox nav-dropdown-has-arrow nav-dropdown-has-shadow nav-dropdown-has-border">
