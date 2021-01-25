@@ -45,9 +45,10 @@
             padding: 0 !important;
         }
     </style>
-
+    <!--
     <style type="text/css">iframe.goog-te-banner-frame{ display: none !important;}</style>
     <style type="text/css">body {position: static !important; top:0px !important;}</style>
+    -->
     <link rel='stylesheet' id='wp-block-library-css'  href='{!! asset('/theme/missterry/css/dist/block-library/style.min.css?ver=5.6') !!}' type='text/css' media='all' />
 
     <link rel='stylesheet' id='contact-form-7-css'  href='{!! asset('/theme/missterry/plugin/contact-form-7/includes/css/styles.css?ver=5.3.1') !!}' type='text/css' media='all' />

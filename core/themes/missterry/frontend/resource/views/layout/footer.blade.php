@@ -56,6 +56,7 @@
 
     });
 </script>
+<!--
 <script type="text/javascript">
     var isMobile = false;var isTablet = false;
     $.cookie('referer', '{!! url('/') !!}');
@@ -70,6 +71,7 @@
     }
 </script>
 <script type="text/javascript" async src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->
 @stack('scriptsTop')
 @stack('scripts')
 @section('extra-script')
