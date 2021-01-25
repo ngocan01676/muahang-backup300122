@@ -527,7 +527,8 @@
             }
 
             #schedule_tab h2 {
-                text-align: center
+                text-align: center;
+                color: #dd8c1a;
             }
 
             #calendar {
@@ -915,7 +916,6 @@
             #schedule .timeslots_header .active { background: rgba(255, 255, 255, 0.3); }
 
             #schedule .timeslots_header .header_line h3 { font-size: 14px; line-height: 1.3; margin: 0; color: #f4c400}
-
             #schedule .timeslots_header .header_line p { font-size: 80%; margin: 5px 0 0 0; color: #ffffff}
 
             #schedule .timeslots_header .holiday { color: #fb0; }
