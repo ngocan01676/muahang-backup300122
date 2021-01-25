@@ -530,7 +530,6 @@
                 text-align: center;
                 color: #dd8c1a;
             }
-
             #calendar {
                 margin: 20px 0 40px 0;
                 padding: 0 20px;
