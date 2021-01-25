@@ -30,8 +30,8 @@ class FrontController extends \Zoe\Http\ControllerFront
                 if( strtotime($results[0]->updated_at) < strtotime(date('Y-m-d').' 00:00:00')){
                     $data = [
                         'mess_id'=>$id,
-                        'user_id'=>1,
-                        'admin_id'=>0,
+                        'user_id'=>0,
+                        'admin_id'=>1,
                         'content'=>"bạn cần hỗ trợ!",
                         'created_at'=>date('Y-m-d H:i:s'),
                     ];
