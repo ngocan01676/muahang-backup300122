@@ -128,7 +128,6 @@
                                         $label = $prices[0];// 2-4(5)
                                    }else{
                                         $label = $prices[0].'-'.$prices[$n-1];// 2-4(5)
-
                                    }
                                 @endphp
                                 <div {!! $row->id !!} class="quest_line header_line" data-id="{!! $row->id !!}" data-name="{!! $row->title !!}"
@@ -203,6 +202,7 @@
                                                             $price = 0;
                                                             $is_hide = false;
                                                             $is_pay = false;
+                                                            $info_booking = [];
                                                             if($is_disabled){
                                                                  $class = "booked";$is_hide = true;
                                                             }else{
@@ -218,6 +218,7 @@
                                                                              if(isset($bookings[$time['date']])){
                                                                                 $class.=" booked pay";
                                                                                 $is_pay = true;
+                                                                                 $info_booking =(array) $bookings[$time['date']];
                                                                              }else{
                                                                                   $class.=" requires_prepay";
                                                                              }
@@ -225,6 +226,7 @@
                                                                              if(isset($bookings[$time['date']])){
                                                                                 $class.=" booked";
                                                                                  $is_pay = true;
+                                                                                 $info_booking = (array) $bookings[$time['date']];
                                                                              }else{
                                                                                  $class.=" requires_prepay";
                                                                              }
@@ -235,7 +237,9 @@
                                                                          $class.=" requires_prepay";
                                                                      }else{
                                                                          if(isset($bookings[$time['date']])){
-                                                                            $class.=" booked"; $is_pay = true;
+                                                                            $class.=" booked";
+                                                                            $is_pay = true;
+                                                                            $info_booking = (array) $bookings[$time['date']];
                                                                          }else{
                                                                             $class.=" requires_prepay";
                                                                          }
@@ -279,12 +283,9 @@
                                                         @endphp
                                                         @if($is_hide == false)
                                                             @if($is_pay == false) <a {!! $row->id !!} href="{!! router_frontend_lang('home:room-detail',['slug'=>$row->slug,'time'=>base_64_en($time['date'])]) !!}"> @endif
-                                                                <div data-key="{!! $key !!}" data-address="{!! $row->address !!}" data-title="{!! $row->title !!}" data-id="{!! $row->id !!}" data-date="{!! date('d-m-Y',$timeAction) !!}" data-time="{!! $time['date'] !!}" class="slot round_button {!! $class !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
+                                                                <div data-idbooking="{!! isset($info_booking['id'])?$info_booking['id']:0 !!}" data-key="{!! $key !!}" data-address="{!! $row->address !!}" data-title="{!! $row->title !!}" data-id="{!! $row->id !!}" data-date="{!! date('d-m-Y',$timeAction) !!}" data-time="{!! $time['date'] !!}" class="slot round_button {!! $class !!} dom_{!! md5($row->id.date('d-m-Y',$timeAction).$time['date']) !!}" data-timeslot-id="3647013" style="left: {!! $left_curent !!}%; width: 6%;">
                                                                     {!! $time['date'] !!}
-                                                                    @if($is_pay)
-                                                                        <img class="slot prepay_card"
-                                                                             style="position: absolute; bottom: -10px;right: -5px;" src="/theme/missterry/images/mini_card.png" title="Partial prepay">
-                                                                    @endif
+
                                                                     <textarea class="value" style="display: none">{!! json_encode(($is_Event?$dataPriceEvent:$row->prices)) !!}</textarea>
                                                                 </div>
                                                                 @if($is_pay == false) </a> @endif
@@ -354,6 +355,7 @@
                             <input type="hidden" value="" name="key" class="key-value">
                             <input type="hidden" value="" name="id" class="id-value">
                             <input type="hidden" value="1" name="status">
+                            <input type="hidden" value="0" name="booking" class="id-booking">
 
                             <div class="row">
                                 <div class="col-sm-12" style="text-align: center;padding: 0 15px 5px;">
@@ -431,7 +433,9 @@
                                     </div>
                                     <div class="text-center">
                                         <input type="button" onclick="onClick()" name="submitform" value="{!! z_language('Gửi thông tin') !!}" class="text-center btn btn-primary wpcf7-form-control wpcf7-submit">
-
+                                        <input style="display: none;" type="button"
+                                               name="submit_cancel" onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn hủy lịch đặt!') !!}')){onClickCancel()}" value="{!! z_language('Hủy lịch') !!}"
+                                               class="text-center btn btn-danger wpcf7-form-control wpcf7-submit">
                                     </div>
 
                                 </div>
@@ -874,7 +878,7 @@
 
             #schedule .quest_schedule .slot { position: absolute; padding: 5px 2px 6px 2px; }
 
-            #schedule .quest_schedule .booked { color: rgba(255, 255, 255, 0.4); background: rgba(0, 0, 0, 0.1); border: 1px solid rgba(0, 0, 0, 0.01); cursor: default; }
+            #schedule .quest_schedule .booked { color: #ffffff; background: rgb(255 0 0 / 60%); border: 1px solid rgba(0, 0, 0, 0.01);     cursor: pointer; }
 
             #schedule .quest_schedule .locked{ background-color: rgba(0, 0, 0, 0.6); color: rgba(255, 255, 255, 0.3); }
 
@@ -1094,7 +1098,7 @@
                 border: none;
 
                 /*background-color: #211B2E;*/
-                color: #FFFFFF;
+                color: #000000;
                 font-size: 16px;
                 letter-spacing: 0.25px;
                 line-height: 21px;
@@ -1167,7 +1171,9 @@
                 position: relative;
                 padding-left: 44px;
             }
-
+            .booked{
+                background: rgb(255 0 0 / 10%);
+            }
         </style>
     </section>
 @endsection
@@ -1195,6 +1201,36 @@
                 console.log(e)
             }
         };
+        function onClickCancel(self) {
+            console.log("onClickCancel");
+            var form = $(".mobilepopup  form" );
+            var datas = form.serializeArray();
+            var reqData = {};
+            for(let i = 0; i<datas.length;i++){
+                reqData[datas[i].name] = datas[i].value;
+            }
+            console.log(reqData);
+            let dom = $(self).parent();
+            console.log(dom);
+            let button = $(".dom_"+$.md5(reqData['id']+reqData['date']+reqData['time']));
+
+            $.ajax({
+                method:"POST",
+                url:"{!! route('backend:'.\ModuleMissTerry\Module::$key.':booking:ajax') !!}",
+                data:{
+                    act:"cancel",
+                    data:reqData
+                },
+                success:function (res_data) {
+                    button.removeClass('booked');
+                    button.removeClass('pay');
+                    button.addClass('requires_prepay');
+                    button.attr('data-idbooking',0);
+                    $('.mobilepopup .button-close').trigger('click');
+                }
+            });
+
+        }
         function onClick() {
             var form = $(".mobilepopup  form" );
             var datas = form.serializeArray();
@@ -1214,6 +1250,7 @@
             reqData['id'] = id;
             reqData['price'] = price;
             $('body .mobilepopup-inner').mask();
+            let button = $(".dom_"+$.md5(reqData['id']+reqData['date']+reqData['time']));
             $.ajax({
                 url:"{!! router_frontend_lang('home:register_form') !!}",
                 method:"POST",
@@ -1235,9 +1272,15 @@
                     }else if(resData.hasOwnProperty('success')){
                        $.ajax({
                           url:resData.uri,
-                          success:function (resData) {
-                             console.log(resData);
+                          success:function (_resData) {
                               $('body .mobilepopup-inner').unmask();
+
+                              button.attr('data-idbooking',resData.id);
+
+                              button.removeClass('requires_prepay');
+                              button.addClass('booked');
+                              button.addClass('pay');
+
                           }
                        });
                     }
@@ -1305,7 +1348,82 @@
         }
 
         $(document).ready(function(){
+            $("body").on("click",".booked",function(e){
+                var data = $(this).data();
+                console.log(data);
 
+                var dom = $(".pop-up2");
+
+                $('body .schedule_body').mask();
+
+                dom.find('.quest-time').html(data.date+" , "+data.time);
+                dom.find('.quest-title').html(data.title);
+                dom.find('.quest-address').html(data.address);
+
+                dom.find('.time-value').val(data.time);
+                dom.find('.date-value').val(data.date);
+                dom.find('.key-value').val(data.key);
+                dom.find('.quest-price .current-price span').html(0 + "vnđ");
+                dom.find('.quest-price .price_human span').html(0+ "vnđ");
+                dom.find('.price-value').val(0);
+                dom.find('.id-value').val(data.id);
+                dom.find('.prices_config textarea').html($(this).find('.value').val());
+
+                try{
+                    let dataPrice = JSON.parse($(this).find('.value').val());
+                    dom.find('[name="number"]').val(0);
+                    let selects = dom.find('[name="number"] option');
+                    selects.each(function () {
+                        let number = parseInt($(this).attr('value'));
+                        $(this).attr('disabled',false);
+                        if(number > 0){
+                            let oke = true;
+                            for(let i in dataPrice){
+                                if(dataPrice[i].keys.includes(number.toString()) || dataPrice[i].keys.length == 2 && dataPrice[i].keys[0] < number && dataPrice[i].keys[1] > number  ){
+                                    oke = false;
+                                    break;
+                                }
+                            }
+                            $(this).attr('disabled',oke);
+                        }
+                    });
+
+
+                }catch (e) {
+                    console.log(e.toString());
+                }
+                $.ajax({
+                    method:"POST",
+                    url:"{!! route('backend:'.\ModuleMissTerry\Module::$key.':booking:ajax') !!}",
+                    data:{
+                        act:"info",
+                        data:data
+                    },
+                    success:function (res_data) {
+                        console.log(res_data);
+                        let w = $(window).width();
+                        let h = $(window).height();
+                        w = w*0.35;
+                        h = h*0.75;
+                        $.mobilepopup({
+                            targetblock:".pop-up2",
+                            width:w+"px",
+                            height:h+"px"
+                        });
+                        $('.mobilepopup [name=submit_cancel]').show();
+                        $('.mobilepopup').find('.quest-price .current-price span').html(res_data.item.price + "vnđ");
+                        $('.mobilepopup').find('.quest-price .price_human span').html(formatMoney(Math.ceil(res_data.item.price/res_data.item.count))+ "vnđ");
+                        $('.mobilepopup').find('.price-value').val(res_data.item.price);
+                        $('.mobilepopup').find('.id-booking').val(res_data.item.id);
+                        $('.mobilepopup').find('[name="number"]').val(res_data.item.count);
+                        $('.mobilepopup').find('[name="fullname"]').val(res_data.item.fullname);
+                        $('.mobilepopup').find('[name="phone"]').val(res_data.item.phone);
+                        $('.mobilepopup').find('[name="email"]').val(res_data.item.email);
+                        $('.mobilepopup').find('[name="note"]').val(res_data.item.note);
+                        $('body .schedule_body').unmask();
+                    }
+                });
+            });
             $("body").on("click",".requires_prepay",function(e){
                 e.preventDefault();
 
@@ -1363,7 +1481,17 @@
                         width:w+"px",
                         height:h+"px"
                     });
+                    $('.mobilepopup  [name=submit_cancel]').hide();
+                    $('.mobilepopup').find('.quest-price .current-price span').html(0 + "vnđ");
+                    $('.mobilepopup').find('.quest-price .price_human span').html(0+ "vnđ");
+                    $('.mobilepopup').find('.price-value').val(0);
 
+                    $('.mobilepopup').find('[name="number"]').val(0);
+                    $('.mobilepopup').find('[name="fullname"]').val("");
+                    $('.mobilepopup').find('[name="phone"]').val("");
+                    $('.mobilepopup').find('[name="email"]').val("");
+                    $('.mobilepopup').find('[name="note"]').val("");
+                    $('.mobilepopup').find('[name="booking"]').val("0");
                 }catch (e) {
                     console.log(e.toString());
                 }

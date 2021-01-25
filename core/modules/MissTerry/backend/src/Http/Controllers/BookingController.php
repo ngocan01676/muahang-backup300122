@@ -343,4 +343,17 @@ class BookingController extends \Zoe\Http\ControllerBackend
             ->withErrors($validator)
             ->withInput();
     }
+    public function ajax(Request $request){
+        $data = $request->all();
+        if(isset($data['act'])){
+            if($data['act'] =="info")
+            {
+                $miss_room = DB::table('miss_booking as booking')->where('id',$data['data']['idbooking'])->get()->all();
+                return response()->json(['item'=>isset($miss_room[0])?$miss_room[0]:[]]);
+            }else  if($data['act'] =="cancel"){
+                DB::table('miss_booking as booking')->where('id',$data['data']['booking'])->update(['status'=>3]);
+                return response()->json(['status'=>true]);
+            }
+        }
+    }
 }

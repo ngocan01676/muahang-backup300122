@@ -105,7 +105,6 @@ class HomeController extends \Zoe\Http\ControllerFront
             'price' => 'required|integer|gt:0',
         ]);
         $rules = [];
-
         if ($validator->passes()) {
             DB::beginTransaction();
             try{
@@ -115,23 +114,43 @@ class HomeController extends \Zoe\Http\ControllerFront
                     ->where('booking_date',$booking_date)
                     ->where('status','!=',3)
                     ->where('booking_time',$data['data']['time'])
-                    ->count();
-                if($count == 0){
-                    $id = DB::table('miss_booking')->insertGetId([
-                        'room_id'=>$data['data']['id'],
-                        'user_id'=>auth('frontend')->user()?auth('frontend')->user()->id:0,
-                        'fullname'=>$data['data']['fullname'],
-                        'phone'=>$data['data']['phone'],
-                        'email'=>$data['data']['email'],
-                        'count'=>$data['data']['number'],
-                        'sex'=>isset($data['data']['sex'])?$data['data']['sex']:0,
-                        'booking_date'=>formatDateYMD($data['data']['date']),
-                        'booking_time'=>$data['data']['time'],
-                        'status'=>isset($data['data']['status'])?$data['data']['status']:0,
-                        'price'=>$data['data']['price'],
-                        'created_at'=>date('Y-m-d H:i:s'),
-                        'updated_at'=>date('Y-m-d H:i:s'),
-                    ]);
+                    ->get()->all();
+
+                if(count($count) == 0 || (isset($count[0]) && isset($data['data']['booking']) && $count[0]->id == $data['data']['booking'])){
+                    if( isset($count[0]) && isset($data['data']['booking']) && $count[0]->id == $data['data']['booking']){
+                        $id = $count[0]->id;
+                        DB::table('miss_booking')->where('id',$data['data']['booking'])->update([
+                            'room_id'=>$data['data']['id'],
+                            'fullname'=>$data['data']['fullname'],
+                            'phone'=>$data['data']['phone'],
+                            'email'=>$data['data']['email'],
+                            'count'=>$data['data']['number'],
+                            'note'=>$data['data']['note'],
+                            'sex'=>isset($data['data']['sex'])?$data['data']['sex']:0,
+                            'booking_date'=>formatDateYMD($data['data']['date']),
+                            'booking_time'=>$data['data']['time'],
+                            'status'=>isset($data['data']['status'])?$data['data']['status']:0,
+                            'price'=>$data['data']['price'],
+                            'updated_at'=>date('Y-m-d H:i:s'),
+                        ]);
+                    }else{
+                        $id = DB::table('miss_booking')->insertGetId([
+                            'room_id'=>$data['data']['id'],
+                            'user_id'=>auth('frontend')->user()?auth('frontend')->user()->id:0,
+                            'fullname'=>$data['data']['fullname'],
+                            'phone'=>$data['data']['phone'],
+                            'email'=>$data['data']['email'],
+                            'count'=>$data['data']['number'],
+                            'sex'=>isset($data['data']['sex'])?$data['data']['sex']:0,
+                            'booking_date'=>formatDateYMD($data['data']['date']),
+                            'booking_time'=>$data['data']['time'],
+                            'status'=>isset($data['data']['status'])?$data['data']['status']:0,
+                            'price'=>$data['data']['price'],
+                            'note'=>$data['data']['note'],
+                            'created_at'=>date('Y-m-d H:i:s'),
+                            'updated_at'=>date('Y-m-d H:i:s'),
+                        ]);
+                    }
                     $response =  response()->json(['success' => $data,'id'=>$id,
                         'uri'=>router_frontend_lang('page:booking_success',['slug'=>Str::slug($data['data']['fullname']),'id'=>base_64_en($id*10000)])]);
                     DB::commit();

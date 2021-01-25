@@ -80,6 +80,10 @@ return [
                         'url' => '/delete',
                         'method' => ['post']
                     ],
+                    'ajax' => [
+                        'url' => '/ajax',
+                        'method' => ['post']
+                    ],
                 ]
             ],
             'member' => [
