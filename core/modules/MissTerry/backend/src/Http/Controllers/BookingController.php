@@ -247,7 +247,7 @@ class BookingController extends \Zoe\Http\ControllerBackend
                 },
                 "get_user" => function ($model) use ($lang,$miss_user) {
                     if($model->user_id > 0){
-                        return $miss_user[$model->user_id]->name;
+                        return $miss_user[$model->user_id]->fullname;
                     }
                     return $model->fullname;
                 }
