@@ -1432,6 +1432,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }else if($model->status == 10){
                         return '<div class="label-text"><div class="text-center"><a data-tracking="'.$model->tracking_id.'" data-status="'.$model->status.'" data-id="'.$model->id.'" href="javascript:void(0);" onclick="updateStatus(this)"><span class="label label-info">Check</span></a></div></div>'.
                             '<BR><div class="label-text"><div class="text-center"><a data-tracking="'.$model->tracking_id.'" data-status="'.$model->status.'" data-id="'.$model->id.'" href="javascript:void(0);" onclick="updateStatusOke(this)"><span class="label label-primary">Thành công</span></a></div></div>';
+                    }else if($model->status == 0){
+                        return '<div class="label-text"><div class="text-center"><a data-tracking="'.$model->tracking_id.'" data-status="'.$model->status.'" data-id="'.$model->id.'" href="javascript:void(0);" onclick="updateStatusCancel(this)"><span class="label label-danger">Hủy</span></a></div></div>';
                     }
                 },
                 "GetTimeCheck" => function ($model){
