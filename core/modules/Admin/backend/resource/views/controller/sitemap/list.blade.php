@@ -152,6 +152,7 @@
         </div>
     </div>
 @endsection
+
 @push('links')
 
 @endpush
