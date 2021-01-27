@@ -45,7 +45,18 @@
             padding: 0 !important;
         }
     </style>
-
+    <!--
+    <style type="text/css">iframe.goog-te-banner-frame{ display: none !important;}</style>
+    <style type="text/css">body {position: static !important; top:0px !important;}</style>
+    -->
+    <style>
+        .rc-anchor-invisible{
+            display: none !important;
+        }
+        .grecaptcha-badge {
+            visibility: hidden;
+        }
+    </style>
     <link rel='stylesheet' id='wp-block-library-css'  href='{!! asset('/theme/missterry/css/dist/block-library/style.min.css?ver=5.6') !!}' type='text/css' media='all' />
 
     <link rel='stylesheet' id='contact-form-7-css'  href='{!! asset('/theme/missterry/plugin/contact-form-7/includes/css/styles.css?ver=5.3.1') !!}' type='text/css' media='all' />
@@ -185,5 +196,6 @@
             return decodeUTF8string(dec.replace(/\0+$/, ''))
         }
     </script>
+    @stack('links')
 </head>
 <body class="home page-template page-template-page-transparent-header-light page-template-page-transparent-header-light-php page page-id-5 header-shadow lightbox nav-dropdown-has-arrow nav-dropdown-has-shadow nav-dropdown-has-border">

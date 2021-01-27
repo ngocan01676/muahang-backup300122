@@ -113,7 +113,7 @@
                     </li>
 
                     <li class="header-search header-search-dropdown has-icon has-dropdown menu-item-has-children">
-
+                        <!-- <div id=google_translate_element></div>-->
                         {{--<a href="#" aria-label="Search" class="is-small"><i class="icon-search" ></i></a>--}}
                         {{--<ul class="nav-dropdown nav-dropdown-default">--}}
                             {{--<li class="header-search-form search-form html relative has-icon">--}}

@@ -11,7 +11,9 @@ class IndexController extends \Zoe\Http\ControllerBackend
     public function ajax(Request $request){
         $data = $request->all();
         if(isset($data['act'])){
-            if($data['act'] == "count"){
+            if($data['act'] == "snippet"){
+                config_set('snippet','data',['data'=>$data['data']]);
+            }else if($data['act'] == "count"){
                 $count = DB::table('plugin_message_list')->where('admin_read',0)->count();
                 return response()->json(['count'=>$count]);
             }else if($data['act'] == "lists"){
@@ -60,20 +62,33 @@ class IndexController extends \Zoe\Http\ControllerBackend
                 DB::beginTransaction();
                 try{
                     DB::table('plugin_message_detail')->insert($data);
-                    DB::table('plugin_message_list')->update(['last_message'=>$content,'last_type'=>1,'admin_read'=>1]);
+
+                    DB::table('plugin_message_list')
+                        ->where('id',$mess_id)
+                        ->update(
+                            [
+                                'last_message'=>$content,
+                                'last_type'=>1,
+                                'admin_read'=>1,
+                                'user_read'=>0,
+                                'updated_at'=>date('Y-m-d H:i:s')
+                            ]);
                     DB::commit();
                     return response()->json(['result'=>$data]);
                 }catch (\Exception $ex){
                     DB::rollBack();
-                    return response()->json(['result'=>[]]);
+                    return response()->json(['result'=>[],'error'=>$ex->getMessage()]);
                 }
             }
         }
     }
     public function list(Request $request)
     {
-        return $this->render('index.list', [
 
+        return $this->render('index.list', [
+            'item'=> new \Zoe\Config([
+                'snippet'=>json_encode(config_get('snippet','data'))
+            ])
         ],'pluginMessage');
     }
 }

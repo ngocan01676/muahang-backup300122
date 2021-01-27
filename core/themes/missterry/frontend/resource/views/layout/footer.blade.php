@@ -56,8 +56,22 @@
 
     });
 </script>
-
-
+<!--
+<script type="text/javascript">
+    var isMobile = false;var isTablet = false;
+    $.cookie('referer', '{!! url('/') !!}');
+    $.cookie('agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36');
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {
+                pageLanguage: 'en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" async src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->
 @stack('scriptsTop')
 @stack('scripts')
 @section('extra-script')

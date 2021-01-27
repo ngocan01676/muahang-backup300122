@@ -60,6 +60,9 @@ return [
                     "list" => [
                         "url" => "/",
                     ],
+                    "booking" => [
+                        "url" => "/booking",
+                    ],
                     "create"=>[
                         'url'=>'/create'
                     ],
@@ -75,6 +78,10 @@ return [
                     ],
                     'delete' => [
                         'url' => '/delete',
+                        'method' => ['post']
+                    ],
+                    'ajax' => [
+                        'url' => '/ajax',
                         'method' => ['post']
                     ],
                 ]

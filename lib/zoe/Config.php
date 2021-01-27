@@ -102,4 +102,7 @@ class Config extends \ArrayObject
         }
         return $result;
     }
+    public function toArray(){
+        return $this->getArrayCopy();
+    }
 }

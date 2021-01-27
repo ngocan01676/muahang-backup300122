@@ -704,8 +704,8 @@ function z_language($key, $par = [], $__env = null, $tag = "")
 {
     $html = $key;
     if (is_array($par)) {
-        if(app()->isAdmin){
-            $_lang_name_ = app()->getLocale();
+        if(app()->is_admin){
+            $_lang_name_ = session('lang',app()->getLocale());
         }else{
             $_lang_name_ = app()->site_language;
         }
@@ -723,8 +723,8 @@ function z_language_debug($key, $par = [], $__env = null, $tag = "")
 {
     $html = $key;
     if (is_array($par)) {
-        if(app()->isAdmin){
-            $_lang_name_ = app()->getLocale();
+        if(app()->is_admin){
+            $_lang_name_ = session('lang',app()->getLocale());
         }else{
             $_lang_name_ = app()->site_language;
         }

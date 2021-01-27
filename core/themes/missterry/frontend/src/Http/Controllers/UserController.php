@@ -54,8 +54,7 @@ class UserController extends \Zoe\Http\ControllerFront
                 if($count == 0){
                     if(isset($filter['name']))
                     $model->name = $data['name'];
-                    $model->first_name = $data['first_name'];
-                    $model->last_name = $data['last_name'];
+                    $model->fullname = $data['fullname'];
                     if($model->phone != $data['phone']) {
                         $model->phone = $data['phone'];
                     }
@@ -175,5 +174,8 @@ class UserController extends \Zoe\Http\ControllerFront
                 'total_page'=>$total_page,
             ]
         ]);
+    }
+    public function get_chat(){
+        return $this->render('user.chat',[]);
     }
 }

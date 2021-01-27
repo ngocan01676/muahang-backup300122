@@ -2,9 +2,9 @@
     <h1>
         &starf; {!! @z_language(["Manager Booking"]) !!}
         <small>it all starts here</small>
-        <a href="{{route('backend:miss_terry:booking:create')}}"
-           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
-        <x-btnOption :config="['name'=>$key]">
+        <a href="{{route('backend:miss_terry:booking:booking')}}"
+           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Booking"]) !!} </a>
+        <x-btnOption :config="['name'=> $key ]">
             <x-slot name="label">
                 {{@z_language(["Option"])}}
             </x-slot>
@@ -21,7 +21,7 @@
             <div class="box-body">
                 <div class="col-md-12" style="padding:0">
                     <div class="row">
-                        <div class="col-sm-4" style="padding:0">
+                        <div class="col-sm-4" style="padding:10px">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
                                 <label>{!! z_language("Room") !!}</label>
                             </div>
@@ -33,7 +33,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-4" style="padding:0">
+                        <div class="col-sm-4" style="padding:10px">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
                                 <label>{!! z_language("Trạng thái") !!}</label>
                             </div>
@@ -46,7 +46,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-4" style="padding:0">
+                        <div class="col-sm-4" style="padding:10px">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
                                 <label>{!! z_language('Tên khách hàng') !!}</label>
                             </div>
@@ -55,7 +55,7 @@
                                        placeholder="Name">
                             </div>
                         </div>
-                        <div class="col-sm-4" style="padding:0">
+                        <div class="col-sm-4" style="padding:10px">
                             <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
                                 <label>{!! z_language('Ngày đặt') !!}</label>
                             </div>

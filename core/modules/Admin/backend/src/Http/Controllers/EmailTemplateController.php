@@ -1,12 +1,14 @@
 <?php
 
 namespace Admin\Http\Controllers;
+
 use Admin\Http\Models\EmailTemplateModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Validator;
+
 class EmailTemplateController extends \Zoe\Http\ControllerBackend
 {
     public function init()
@@ -23,12 +25,15 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
     public function getCrumb($url = "")
     {
 
-        $this->breadcrumb(z_language("Email Template"), (empty($url)?'backend:email_template:list':$url));
+        $this->breadcrumb(z_language("Email Template"), (empty($url) ? 'backend:email_template:list' : $url));
         return $this;
     }
-    public function ajax(Request $request){
+
+    public function ajax(Request $request)
+    {
         return response()->json([]);
     }
+
     public function list(Request $request)
     {
         $group = isset($request->route()->defaults['group']) ? $request->route()->defaults['group'] : 'backend';
@@ -50,47 +55,48 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         if (!empty($status) || $status != "") {
             $models->where('status', $status);
         }
-        if($id_key !="default"){
-            $models->where('id_key',  $id_key);
+        if ($id_key != "default") {
+            $models->where('id_key', $id_key);
         }
         $models->orderBy('id', 'desc');
 
         $urlCurrentName = request()->route()->getName();
-        $arr = explode(':',$urlCurrentName);
+        $arr = explode(':', $urlCurrentName);
         $this->getcrumb($urlCurrentName);
-        unset($arr[count($arr)-1]);
-        $url = implode(':',$arr);
+        unset($arr[count($arr) - 1]);
+        $url = implode(':', $arr);
         $configs = [
-            'config'=>[
-                'pagination'=>[
-                    'router'=>[
-                        'edit' => ['name' => $url.':edit'],
-                        'trash' => [ 'name' => $url.':delete'],
-                        'preview'=>false,
+            'config' => [
+                'pagination' => [
+                    'router' => [
+                        'edit' => ['name' => $url . ':edit'],
+                        'trash' => ['name' => $url . ':delete'],
+                        'preview' => false,
                     ]
                 ]
             ]
         ];
         $langConfig = $this->data['language'];
         return $this->render(
-            'email-template.list',[
-                    'url'=>$url,
-                    'option'=>$option,
-                    'configs'=>$configs,
-                    'id_key'=>$id_key,
-                    'models' => $models->paginate($item),
-                    'urlCurrentName'=>$urlCurrentName,
-                    'callback'=>[
-                        "view_language"=>function($model) use($langConfig){
-                            if(isset($langConfig[$model->lang_code])){
-                                return '<span class="flag-icon flag-icon-'.$langConfig[$model->lang_code]['flag'].'"></span>';
-                            }
-                            return '';
-                        }
-                    ]
-                 ],
-        $group);
+            'email-template.list', [
+            'url' => $url,
+            'option' => $option,
+            'configs' => $configs,
+            'id_key' => $id_key,
+            'models' => $models->paginate($item),
+            'urlCurrentName' => $urlCurrentName,
+            'callback' => [
+                "view_language" => function ($model) use ($langConfig) {
+                    if (isset($langConfig[$model->lang_code])) {
+                        return '<span class="flag-icon flag-icon-' . $langConfig[$model->lang_code]['flag'] . '"></span>';
+                    }
+                    return '';
+                }
+            ]
+        ],
+            $group);
     }
+
     public function create(Request $request)
     {
 
@@ -102,12 +108,12 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $this->sidebar($sidebar);
         $this->getcrumb($sidebar);
         $this->getcrumb()->breadcrumb(z_language('Create'), false);
-        $configs = isset($this->app->getConfig()->configs['controllers'][get_class($this)][$id_key])?$this->app->getConfig()->configs['controllers'][get_class($this)][$id_key]:[];
+        $configs = isset($this->app->getConfig()->configs['controllers'][get_class($this)][$id_key]) ? $this->app->getConfig()->configs['controllers'][get_class($this)][$id_key] : [];
 
         return $this->render('email-template.create', [
-            'config_formats'=>$configs,
-            'id_key'=>$id_key
-        ],$group);
+            'config_formats' => $configs,
+            'id_key' => $id_key
+        ], $group);
     }
 
     public function edit(Request $request)
@@ -124,33 +130,36 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         $this->sidebar($sidebar);
 
 
-        $configs = isset($this->app->getConfig()->configs['controllers'][get_class($this)][$id_key])?$this->app->getConfig()->configs['controllers'][get_class($this)][$id_key]:[];
+        $configs = isset($this->app->getConfig()->configs['controllers'][get_class($this)][$id_key]) ? $this->app->getConfig()->configs['controllers'][get_class($this)][$id_key] : [];
 
         return $this->render('email-template.edit', [
             "model" => $model,
-            'config_formats'=>$configs,
-            'id_key'=>$id_key
-        ],$group);
+            'config_formats' => $configs,
+            'id_key' => $id_key
+        ], $group);
     }
+
     public function delete(Request $request)
     {
         $id = $request->id;
         $ref = $request->ref;
         $sidebar = isset($request->route()->defaults['sidebar']) ? $request->route()->defaults['sidebar'] : '';
         $model = EmailTemplateModel::find($id);
-        if($model){
+        if ($model) {
             $model->delete();
         }
-        if($ref){
+        if ($ref) {
             return redirect($ref);
-        }else{
+        } else {
             return redirect(route($sidebar, []));
         }
     }
+
     public function status()
     {
 
     }
+
     public function store(Request $request)
     {
 
@@ -166,7 +175,7 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
         } else {
             $model = new EmailTemplateModel();
         }
-        $validator = Validator::make($items,$filter, [
+        $validator = Validator::make($items, $filter, [
             'name.required' => z_language('The title field is required.'),
             'content.required' => z_language('The content field is required.'),
         ]);
@@ -178,18 +187,18 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
                 $model->alias = $items['alias'];
                 $model->subject = $items['subject'];
                 $model->parameters = $items['parameters'];
-                if(isset($items['lang_code'])){
+                if (isset($items['lang_code'])) {
                     $model->lang_code = $items['lang_code'];
-                }else{
+                } else {
                     $model->lang_code = "";
                 }
                 $namefile = Str::slug($model->alias);
-                if(!empty($model->lang_code)){
-                    $namefile.='_'.$model->lang_code;
+                if (!empty($model->lang_code)) {
+                    $namefile .= '_' . $model->lang_code;
                 }
                 $model->config = '[]';
                 $model->data = '[]';
-                $model->id_key =  $items['id_key'];
+                $model->id_key = $items['id_key'];
                 $model->save();
                 $file = new \Illuminate\Filesystem\Filesystem();
                 $path = storage_path('app/views/emails/');
@@ -197,12 +206,12 @@ class EmailTemplateController extends \Zoe\Http\ControllerBackend
                     $file->makeDirectory($path);
                 }
                 $file->put($path . '/' . $namefile . '.blade.php', html_entity_decode($model->content));
-                \Illuminate\Support\Facades\Cache::pull('mail:'.$items['id_key'].':'.$model->name);
-                $request->session()->flash('success', $type == "create"?z_language('Email Template is added successfully'):
+                \Illuminate\Support\Facades\Cache::pull('mail:' . $items['id_key'] . ':' . $model->name);
+                $request->session()->flash('success', $type == "create" ? z_language('Email Template is added successfully') :
                     z_language('Email Template is updated successfully')
                 );
                 return back();
-            }catch (\Exception $ex){
+            } catch (\Exception $ex) {
                 $validator->getMessageBag()->add('name', $ex->getMessage());
             }
         }

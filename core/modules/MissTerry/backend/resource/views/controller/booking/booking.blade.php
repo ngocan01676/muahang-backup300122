@@ -1,55 +1,61 @@
+@section('content-header')
+    <h1>
+        &starf; {!! @z_language(["Manager Booking"]) !!}
+        <a href="{{route('backend:miss_terry:booking:list')}}"
+           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["List Booking"]) !!} </a>
+    </h1>
+@endsection
 @section('content')
+    <x-breadcrumb/>
     @php
-            $timeAction = isset($requests['date'])?strtotime($requests['date']):time();
-           $month_start = strtotime('first day of this month', time());
-           $month_end = strtotime('last day of this month', time());
-           $month = (int)date('m',$timeAction);
-           $dayNow = (int)date('d',$timeAction);
-           $timeNow = time();
-           $monthYear = date('Y-m',$timeAction);
-           $weeks = [
-               z_language("Thứ hai"),
-               z_language("Thứ hai"),
-               z_language("Thứ ba"),
-               z_language("Thứ tư"),
-               z_language("Thứ năm"),
-               z_language("Thứ sáu"),
-               z_language("Thứ bảy"),
-               z_language("Chủ nhật"),
-           ];
+        $month_start = strtotime('first day of this month', time());
+        $month_end = strtotime('last day of this month', time());
+        $month = (int)date('m');
+        $dayNow = (int)date('d');
+        $timeNow = time();
+        $monthYear = date('Y-m');
+        $weeks = [
+            z_language("Thứ hai"),
+            z_language("Thứ hai"),
+            z_language("Thứ ba"),
+            z_language("Thứ tư"),
+            z_language("Thứ năm"),
+            z_language("Thứ sáu"),
+            z_language("Thứ bảy"),
+            z_language("Chủ nhật"),
+        ];
 
-           $months = [
-            z_language("Tháng 1"),
-            z_language("Tháng 1"),
-            z_language("Tháng 2"),
-            z_language("Tháng 3"),
-            z_language("Tháng 4"),
-            z_language("Tháng 5"),
-            z_language("Tháng 6"),
-            z_language("Tháng 7"),
-            z_language("Tháng 8"),
-            z_language("Tháng 9"),
-            z_language("Tháng 10"),
-            z_language("Tháng 11"),
-            z_language("Tháng 12"),
-           ];
-           $n = 25;
-           $i = 1;
-
-
-           $month_end = strtotime('last day of this month', $timeAction);
+        $months = [
+         z_language("Tháng 1"),
+         z_language("Tháng 1"),
+         z_language("Tháng 2"),
+         z_language("Tháng 3"),
+         z_language("Tháng 4"),
+         z_language("Tháng 5"),
+         z_language("Tháng 6"),
+         z_language("Tháng 7"),
+         z_language("Tháng 8"),
+         z_language("Tháng 9"),
+         z_language("Tháng 10"),
+         z_language("Tháng 11"),
+         z_language("Tháng 12"),
+        ];
+        $n = 25;
+        $i = 1;
+        $timeAction = time();
+        $month_end = strtotime('last day of this month', time());
     @endphp
     <section class="section" id="book">
         <div class="bg section-bg fill bg-fill bg-loaded">
         </div>
-        <div class="section-content relative">
-            <div class="container section-title-container"><h3 class="section-title section-title-normal"><b></b><span class="section-title-main" style="font-size:150%;">{!! z_language('SCHEDULE AND PRICE') !!}</span><b></b></h3></div>
+        <div class="section-content relative" style="background: #000000;">
+
             <div id="schedule_tab">
                 <div class="preloaded" id="phobia-timetable" data-mode="global" data-city="1" data-quests="available" data-date-start="8.1.2021" data-offset="1" data-currency="&amp;#8381"></div>
-                <h2>{!! date('d',$timeAction) !!} {!! $months[(int)date('m',$timeAction)] !!} — {!! date('d',$month_end) !!} {!! $months[(int)date('m',$month_end)] !!}</h2>
+                <h2>{!! date('d') !!} {!! $months[(int)date('m')] !!} — {!! date('d',$month_end) !!} {!! $months[(int)date('m',$month_end)] !!}</h2>
                 <div id="calendar" class="">
                     <div id="today">
-                        <div class="round_button date">{!! date('d',$timeAction) !!} {!! $months[(int)date('m',$timeAction)] !!}</div>
+                        <div class="round_button date">{!! date('d') !!} {!! $months[(int)date('m')] !!}</div>
                         <span class="day">Today</span>
                     </div>
                     <div id="line">
@@ -57,12 +63,13 @@
                             @php
                                 $day =  date('d',$timeAction);
                                 $dateTime = date('Y-m-d',$timeAction);
+
                                 $week = date('D', $timeAction);
                                 $isNow = $day == $dayNow;
                                 $holiday = false;
 
                             @endphp
-                            <div onclick="loadDay(this)" data-day="{!! $day !!}" class="one_day @if($holiday) holiday @endif @if($i == 1) active current @endif">
+                            <div onclick="loadDay(this)" data-date="{!! date('Y-m-d',$timeAction) !!}" data-day="{!! $day !!}" class="one_day @if($holiday) holiday @endif @if($i == 1) active current @endif">
                                 <div class="date">
                                     {!! $day !!}
                                 </div>
@@ -75,8 +82,8 @@
                         <div class="selection" style="width: 37px; transform: translateX(10px);"></div>
                     </div>
                 </div>
-                <div id="schedule_template" class="global clearfix preloaded">
-                    <img id="timetable-preloader-image" src="https://media.claustrophobia.com/static/master/img/phobia-images/phobia-logo_short.png" alt="Loading">
+                <div id="schedule_template" class="global clearfix">
+                    <img id="timetable-preloader-image" src="{!! asset('logo.png') !!}" alt="Loading">
                     <div class="timeslots_header">
                         <div class="date_gradient"><ins></ins></div>
                         <div class="header_lines"></div>
@@ -101,30 +108,29 @@
                     </div>
                 </div>
                 <div id="schedule" class="global clearfix">
-                    <img id="timetable-preloader-image" src="https://media.claustrophobia.com/static/master/img/phobia-images/phobia-logo_short.png" alt="Loading">
+                    <img id="timetable-preloader-image" src="{!! asset('logo.png') !!}" alt="Loading">
                     <div class="timeslots_header">
                         <div class="date_gradient">
                             <ins></ins>
-                            <img src="https://media.claustrophobia.com/static/master/img/time_gradient.png" width="100%" style="width: 1920px;">
-                            <img src="https://media.claustrophobia.com/static/master/img/time_gradient.png" width="100%" style="width: 1920px;">
+                            <img src="" width="100%" style="width: 1920px;">
+
                         </div>
                         <div class="header_lines">
 
-                            @foreach($data['results'] as $key=>$row)
+                            @for($i = 0 ; $i < count($data['results']); $i++)
                                 @php
+                                    $row = $data['results'][$i];
+                                   $prices =  array_keys($row->prices);
+                                   $n = count($prices);
+                                   $row->times = json_decode($row->times,true);
 
-                                    $prices =  array_keys($row->prices);
-                                    $n = count($prices);
-                                    $row->times = json_decode($row->times,true);
-
-                                    if($n == 1){
-                                         $label = $prices[0];// 2-4(5)
-                                    }else{
-                                         $label = $prices[0].'-'.$prices[$n-1];// 2-4(5)
-
-                                    }
+                                   if($n == 1){
+                                        $label = $prices[0];// 2-4(5)
+                                   }else{
+                                        $label = $prices[0].'-'.$prices[$n-1];// 2-4(5)
+                                   }
                                 @endphp
-                                <div class="quest_line header_line" data-id="794" data-name="{!! $row->title !!}"
+                                <div {!! $row->id !!} class="quest_line header_line" data-id="{!! $row->id !!}" data-name="{!! $row->title !!}"
                                      data-city="UNKNOWN"
                                      data-type="UNKNOWN"
                                      data-complexity="UNKNOWN"
@@ -137,7 +143,7 @@
                                         {!! $row->time !!} {!! z_language('Phút') !!}
                                     </p>
                                 </div>
-                            @endforeach
+                            @endfor
                         </div>
                     </div>
                     <div class="schedule_body">
@@ -145,7 +151,7 @@
                             <div class="scroller_container">
                                 <div class="scroller_inner">
                                     <div class="time_gradient">
-                                        <img src="https://media.claustrophobia.com/static/master/img/time_gradient.png" width="100%">
+                                        <img src="/theme/missterry/images/time_gradient.png" width="100%">
                                         <div class="hours_wrapper">
                                             <div class="hours"></div>
                                         </div>
@@ -153,8 +159,8 @@
                                     <div class="schedule_lines">
                                         @php
 
-                                            $timeAction =  isset($requests['date'])?strtotime($requests['date']):time();
-                                            $dayNow = (int) date('d',$timeAction);
+                                            $timeAction = time();
+                                            $dayNow = (int) date('d');
                                         @endphp
                                         @for($i = 0 ; $i < count($data['results']); $i++)
                                             @php
@@ -170,11 +176,12 @@
                                                ->get()->keyBy('booking_time')->all();
 
                                                $price_max = end($row->prices);
-                                               $is_disabled = strtotime($dateTime.' 23:59:59') < time();
 
+                                               $is_disabled = strtotime($dateTime.' 23:59:59') < time();
                                                 $isNow = $day == $dayNow;
-                                                  $is_Event = isset($row->prices_event[date('m/d/Y',$timeAction)]);
-                                                    $dataPriceEvent = $is_Event?$row->prices_event[date('m/d/Y',$timeAction)]:[];
+
+                                                $is_Event = isset($row->prices_event[date('m/d/Y',$timeAction)]);
+                                                $dataPriceEvent = $is_Event?$row->prices_event[date('m/d/Y',$timeAction)]:[];
                                             @endphp
                                             <div class="quest_schedule">
 
@@ -189,14 +196,13 @@
                                                         $arr_price = [];
                                                         $countItem = 0;
                                                     @endphp
-
                                                     @foreach($row->times as $time)
                                                         @php
                                                             $class = "";
                                                             $price = 0;
                                                             $is_hide = false;
                                                             $is_pay = false;
-                                                              $info_booking = [];
+                                                            $info_booking = [];
                                                             if($is_disabled){
                                                                  $class = "booked";$is_hide = true;
                                                             }else{
@@ -220,7 +226,7 @@
                                                                              if(isset($bookings[$time['date']])){
                                                                                 $class.=" booked";
                                                                                  $is_pay = true;
-                                                                                  $info_booking =(array) $bookings[$time['date']];
+                                                                                 $info_booking = (array) $bookings[$time['date']];
                                                                              }else{
                                                                                  $class.=" requires_prepay";
                                                                              }
@@ -231,37 +237,39 @@
                                                                          $class.=" requires_prepay";
                                                                      }else{
                                                                          if(isset($bookings[$time['date']])){
-                                                                            $class.=" booked"; $is_pay = true;
-                                                                             $info_booking =(array) $bookings[$time['date']];
+                                                                            $class.=" booked";
+                                                                            $is_pay = true;
+                                                                            $info_booking = (array) $bookings[$time['date']];
                                                                          }else{
                                                                             $class.=" requires_prepay";
                                                                          }
                                                                      }
                                                                  }
-                                                                     $key = 'price1';
-                                                                     if($is_Event){
-                                                                            $key = 'price';
-                                                                            $price_max = end($dataPriceEvent);
-                                                                            $price = $price_max['price'];
-                                                                            $userCount = end($price_max['keys']);
-                                                                     }else{
-                                                                         if($week < 5){
+                                                                 $key = 'price1';
+                                                                  $userCount = 0;
+                                                                 if($is_Event){
+                                                                        $key = 'price';
+                                                                        $price_max = end($dataPriceEvent);
+                                                                        $price = $price_max['price'];
+                                                                        $userCount = end($price_max['keys']);
+                                                                 }else{
+                                                                     if($week < 5){
+                                                                       $price = $price_max['price1'];
+                                                                     }else if($week == 5){
+                                                                       if($_timeNumber > $_timeBet_17){
+                                                                           $price = $price_max['price2'];
+                                                                           $key = 'price2';
+                                                                       }else{
                                                                            $price = $price_max['price1'];
-                                                                         }else if($week == 5){
-                                                                           if($_timeNumber > $_timeBet_17){
-                                                                               $price = $price_max['price2'];
-                                                                               $key = 'price2';
-                                                                           }else{
-                                                                               $price = $price_max['price1'];
-                                                                                $key = 'price1';
-                                                                           }
-                                                                         }else{
-                                                                               $price = $price_max['price2'];
-                                                                               $key = 'price2';
-                                                                         }
-                                                                         $userCount = end($price_max['keys']);
-                                                                      }
-                                                                    if($is_hide == false)
+                                                                            $key = 'price1';
+                                                                       }
+                                                                     }else{
+                                                                           $price = $price_max['price2'];
+                                                                           $key = 'price2';
+                                                                     }
+                                                                     $userCount = end($price_max['keys']);
+                                                                  }
+                                                                     if($is_hide == false)
                                                                      {
                                                                          $countItem++;
                                                                          if(!isset($arr_price[$price])){
@@ -305,7 +313,7 @@
                                                           style="display: block; font-size: 0.7em; line-height: 1.2em; margin-top: -14px; opacity: 0.7">
                                                         {!! z_language('Từ') !!}
                                                     </span>
-                                                                {!! number_format($_value['price']/1000) !!}K  <span style="font-size: 110%;"></span>
+                                                                {!! number_format($_value['price']/1000) !!}K  <span style="font-size: 110%;">  </span>
                                                             <!-- <span class="price_value__ticket_system" style="display: block; font-size: 0.7em; line-height: 0.8em; margin-bottom: -5px; opacity: 0.7">{!! date('Y-m-d',$timeAction) !!}</span>-->
                                                             </div>
                                                             <div class="right_line line"><ins style="margin-left: 3.5em;"></ins></div>
@@ -331,9 +339,117 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
+
+
+
+        <div class="pop-up2 popup-background" style="display: none;">
+            <div class="content">
+                <div class="">
+                    <div class="popup-pane booking-pane">
+                        <form action="" method="post" class="wpcf7-form init" novalidate="novalidate">
+                            <input type="hidden" value="" name="time" class="time-value">
+                            <input type="hidden" value="" name="date" class="date-value">
+                            <input type="hidden" value="" name="key" class="key-value">
+                            <input type="hidden" value="" name="id" class="id-value">
+                            <input type="hidden" value="1" name="status">
+                            <input type="hidden" value="0" name="booking" class="id-booking">
+
+                            <div class="row">
+                                <div class="col-sm-12" style="text-align: center;padding: 0 15px 5px;">
+                                    <div>
+                                        <img class="quest-logo" alt="quest-logo" src="{!! asset('logo.png') !!}">
+                                    </div>
+                                    <div class="quest-title"></div>
+                                    <div class="quest-address"></div>
+                                    <div class="quest-time"></div>
+                                    <div class="quest-price">
+                                        <div>
+                                            <span class="current-price"><span>0&nbsp;vnđ</span></span>
+                                            <span class="price_human">~ <span>0&nbsp;vnđ</span> / {!! z_language('người') !!}</span>
+                                        </div>
+                                        <input type="hidden" value="" name="price" class="price-value">
+                                        <div class="text-error"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12" style=" float: none;margin: 0 auto;">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td>
+                                                <div class="wpcf7-form-control-wrap menu-238">
+                                                    <select name="number" onchange="onAction(this)" class="form-control select2-selection box-price wpcf7-form-control wpcf7-select" aria-invalid="false">
+                                                        <option value="0">{!! z_language('Chọn số người') !!}</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                    </select>
+                                                    <span class="text-error"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="wpcf7-form-control-wrap ten">
+                                                    <input  type="text" name="fullname"
+                                                            placeholder="{!! z_language('Họ và tên') !!}" value="" size="40" class="form-control form-text-input wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                                    <span class="text-error"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="wpcf7-form-control-wrap sdt">
+                                                    <input type="text" placeholder="{!! z_language('Số điện thoại') !!}" name="phone"   value=""size="40" class="form-control form-text-input wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                                    <span class="text-error"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="wpcf7-form-control-wrap e-mail">
+                                                    <input type="email" name="email"  value=""
+                                                    size="40" placeholder="{!! z_language('Địa chỉ Email') !!}"
+                                                           class="form-control form-text-input wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
+                                                           aria-required="true" aria-invalid="false">
+                                                    <span class="text-error"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="wpcf7-form-control-wrap ten">
+                                                    <input type="text" name="note" placeholder="{!! z_language('Ghi chú') !!}" value="" size="40" class="form-control form-text-input wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                                                    <span class="text-error"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="prices_config" style="display: none">
+                                        <textarea></textarea>
+                                    </div>
+                                    <div class="text-center">
+                                        <input type="button" onclick="onClick()" name="submitform" value="{!! z_language('Gửi thông tin') !!}" class="text-center btn btn-primary wpcf7-form-control wpcf7-submit">
+                                        <input style="display: none;" type="button"
+                                               name="submit_cancel" onclick="event.preventDefault();if(confirm('{!! z_language('Bạn muốn hủy lịch đặt!') !!}')){onClickCancel()}" value="{!! z_language('Hủy lịch') !!}"
+                                               class="text-center btn btn-danger wpcf7-form-control wpcf7-submit">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <style>
+            .text-error {
+                color: red;
+            }
             .round_button,
             .round_input input,
             .round_input textarea {
@@ -415,9 +531,9 @@
             }
 
             #schedule_tab h2 {
-                text-align: center
+                text-align: center;
+                color: #dd8c1a;
             }
-
             #calendar {
                 margin: 20px 0 40px 0;
                 padding: 0 20px;
@@ -429,16 +545,13 @@
                 user-select: none;
                 font-weight: 600
             }
-
             #today {
                 text-align: center;
                 float: left
             }
-
             #today .date {
                 width: 135px
             }
-
             #today .day {
                 margin: 3px 0 0 0;
                 padding: 0;
@@ -446,7 +559,6 @@
                 font-size: 80%;
                 cursor: default
             }
-
             #line {
                 margin-left: 150px;
                 background: rgba(255, 255, 255, 0.1);
@@ -469,7 +581,8 @@
             #line .date {
                 cursor: pointer;
                 font-weight: 600;
-                padding: 5px 0 7px 0
+                padding: 5px 0 7px 0;
+                color: #ffffff;
             }
 
             #line .day {
@@ -704,13 +817,13 @@
 
             #schedule #timetable-preloader-image { display: none; }
 
-            #schedule.preloaded { width: 100%; height: 70vh; background-color: rgba(255, 255, 255, 0.1); -webkit-transition: all 1s ease-in-out; transition: all 1s ease-in-out; display: block; text-align: center; }
+            #schedule.preloaded { width: 100%; height: {!! count($data['results'])*8 !!}vh; background-color: rgba(255, 255, 255, 0.1); -webkit-transition: all 1s ease-in-out; transition: all 1s ease-in-out; display: block; text-align: center; }
 
             #schedule.preloaded .timeslots_header, #schedule.preloaded .schedule_body { opacity: 0; display: none; }
 
             #schedule.preloaded .calendar { display: none; }
 
-            #schedule.preloaded #timetable-preloader-image { display: inline-block; position: relative; top: 30vh; -webkit-animation-name: heartbeat; animation-name: heartbeat; -webkit-animation-duration: 3000ms; animation-duration: 3000ms; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-timing-function: ease-in-out; animation-timing-function: ease-in-out; z-index: 100; }
+            #schedule.preloaded #timetable-preloader-image { display: inline-block; position: relative; top: {!! count($data['results'])*2 !!}vh; -webkit-animation-name: heartbeat; animation-name: heartbeat; -webkit-animation-duration: 3000ms; animation-duration: 3000ms; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-timing-function: ease-in-out; animation-timing-function: ease-in-out; z-index: 100; }
 
             #schedule.preloaded #timetable-preloader-image { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
@@ -765,7 +878,7 @@
 
             #schedule .quest_schedule .slot { position: absolute; padding: 5px 2px 6px 2px; }
 
-            #schedule .quest_schedule .booked { color: rgba(255, 255, 255, 0.4); background: rgba(0, 0, 0, 0.1); border: 1px solid rgba(0, 0, 0, 0.01); cursor: default; }
+            #schedule .quest_schedule .booked { color: #ffffff; background: rgb(255 0 0 / 60%); border: 1px solid rgba(0, 0, 0, 0.01);     cursor: pointer; }
 
             #schedule .quest_schedule .locked{ background-color: rgba(0, 0, 0, 0.6); color: rgba(255, 255, 255, 0.3); }
 
@@ -777,7 +890,7 @@
 
             #schedule .price_block { position: absolute; bottom: -9px; height: 10px; opacity: 0.8; }
 
-            #schedule .price_block .price_value { width: 100%; text-align: center; font-size: 90%; font-weight: 700; line-height: 10px; font-family: 'roboto', sans-serif; }
+            #schedule .price_block .price_value {color: #ffffff; width: 100%; text-align: center; font-size: 90%; font-weight: 700; line-height: 10px; font-family: 'roboto', sans-serif; }
 
             #schedule .price_block .line { position: absolute; top: 50%; width: 50%; height: 6px; margin-top: -6px; /*background: rgba(255, 255, 255, 0.3);*/ }
 
@@ -801,9 +914,8 @@
 
             #schedule .timeslots_header .active { background: rgba(255, 255, 255, 0.3); }
 
-            #schedule .timeslots_header .header_line h3 { font-size: 14px; line-height: 1.3; margin: 0; }
-
-            #schedule .timeslots_header .header_line p { font-size: 80%; margin: 5px 0 0 0; }
+            #schedule .timeslots_header .header_line h3 { font-size: 14px; line-height: 1.3; margin: 0; color: #f4c400}
+            #schedule .timeslots_header .header_line p { font-size: 80%; margin: 5px 0 0 0; color: #ffffff}
 
             #schedule .timeslots_header .holiday { color: #fb0; }
 
@@ -815,7 +927,7 @@
 
             #calendar #line { min-width: 800px; }
 
-            @media only screen and (max-width: 769px) { #schedule_tab h2 { font-size: 25px; padding: 15px; } }
+            @media only screen and (max-width: 769px) { #schedule_tab h2 { font-size: 25px; padding: 15px; color: #f4c400;} }
 
             @media only screen and (max-width: 769px) { #schedule .quest_line { height: 80px !important; overflow: hidden; } }
 
@@ -891,7 +1003,7 @@
                 left: 2px;
                 content: "";
                 display: block;
-                background: url('../img/mini_card.png') center center no-repeat;
+                /*background: url('../img/mini_card.png') center center no-repeat;*/
                 height: 29px;
             }
 
@@ -949,26 +1061,447 @@
                 background: #555;
             }
         </style>
+        <style>
+            .mobilepopup.open .mobilepopup-outer{
+                border-radius: 10px;
+                background-color: #292239;
+                height: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                box-shadow: 0 13px 16px 0 rgba(86,87,87,0.23);
+                box-sizing: border-box;
+            }
+            .mobilepopup.open .mobilepopup-outer .button-close:after, .mobilepopup.open .mobilepopup-outer .button-close:before{
+                background: #ffffff;
+            }
+            .mobilepopup.open .mobilepopup-outer .mobilepopup-inner {
+
+
+            }
+            .mobilepopup.open .mobilepopup-outer .mobilepopup-inner  .quest-address ,.mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-time,.mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-title{
+                color: #ffffff;
+                padding: 5px 0;
+            }
+            .mobilepopup.open .mobilepopup-outer .mobilepopup-inner .quest-title{
+                color: #f4c400;
+            }
+            .quest-price{
+                color: #f4c400;
+            }
+            .mobilepopup .box-price {
+                box-sizing: border-box;
+            }
+            .mobilepopup .form-text-input {
+                box-sizing: border-box;
+                width: 100%;
+                border: none;
+
+                /*background-color: #211B2E;*/
+                color: #000000;
+                font-size: 16px;
+                letter-spacing: 0.25px;
+                line-height: 21px;
+                margin-bottom: 8px;
+            }
+            /*.popup-pane {*/
+            /*border-radius: 10px;*/
+            /*background-color: #292239;*/
+            /*box-shadow: 0 13px 16px 0 rgba(86,87,87,0.23);*/
+            /*box-sizing: border-box;*/
+            /*margin: 50px auto;*/
+            /*z-index: 20;*/
+            /*letter-spacing: 0.28px;*/
+            /*line-height: 24px;*/
+            /*cursor: default;*/
+            /*position: relative;*/
+            /*}*/
+            /*.booking-pane {*/
+            /*width: 650px;*/
+            /*min-height: 50vh;*/
+            /*color: white;*/
+            /*font-size: 16px;*/
+            /*text-align: center;*/
+            /*font-weight: 500;*/
+            /*padding: 30px 90px;*/
+            /*}*/
+            /*.popup-close-button {*/
+            /*height: 23px;*/
+            /*width: 23px;*/
+            /*background-image: url(https://media.claustrophobia.com/static/master/build/assets/close.svg);*/
+            /*background-size: cover;*/
+            /*position: absolute;*/
+            /*top: 19.25px;*/
+            /*right: 29.25px;*/
+            /*cursor: pointer;*/
+            /*}*/
+            .quest-logo {
+                margin:0 auto;
+                padding-bottom: 5px;
+                padding-top: 30px;
+            }
+            .quest-title {
+                font-size: 18px;
+                font-weight: 500;
+                letter-spacing: 0.28px;
+                line-height: 24px;
+                margin-bottom: 5px;
+            }
+            .quest-time {
+                font-size: 20px;
+                font-weight: 500;
+                letter-spacing: 0.46px;
+                line-height: 25px;
+                margin-bottom: 9px;
+            }
+            .quest-info {
+                font-size: 13px;
+                letter-spacing: 0.08px;
+                line-height: 14px;
+                margin-bottom: 46px;
+            }
+            .players-counter-wrapper, .prepay-wrapper, .language-wrapper, .modes-wrapper, .additional-services-wrapper, .additional-services-wrapper .services-options-wrapper .service-option, .payment-type-wrapper {
+                display: flex;
+                justify-content: space-between;
+                margin: 24px 0;
+            }
+            .players-counter-wrapper .players-info, .prepay-wrapper .prepay-info, .language-wrapper .language-info, .modes-wrapper .modes-info, .additional-services-wrapper .additional-services-info, .payment-type-wrapper .payment-info {
+                display: inline-block;
+                text-align: left;
+                position: relative;
+                padding-left: 44px;
+            }
+            .booked{
+                background: rgb(255 0 0 / 10%);
+            }
+        </style>
     </section>
-
 @endsection
+@push('links')
+    <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/plugins/highlightjs/default.min.css') !!}">
+    <link rel="stylesheet" href="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/src/mobilepopup.min.css') !!}">
+@endpush
 @push('scripts')
+    <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/plugins/highlightjs/highlight.min.js') !!}"></script>
+    <script src="{!! asset('theme/missterry/plugin/Modal-Popup-Plugin-jQuery-Mobilepopup/src/mobilepopup.min.js') !!}"></script>
+
     <script>
-        function loadDay(self) {
-            let pos = jQuery(self).position();
-            jQuery(self).parent().find('.active').removeClass('active');
-            jQuery(self).addClass('active');
-            let selection = jQuery("#line .selection");
-            jQuery("#line .selection").css({'transform':'translateX('+(pos.left+selection.width()/3.5)+'px)'});
+        function formatMoney(amount, decimalCount = 0, decimal = ".", thousands = ",") {
+            try {
+                decimalCount = Math.abs(decimalCount);
+                decimalCount = isNaN(decimalCount) ? 0 : decimalCount;
 
-            jQuery.ajax({
+                const negativeSign = amount < 0 ? "-" : "";
+
+                let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+                let j = (i.length > 3) ? i.length % 3 : 0;
+
+                return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+            } catch (e) {
+                console.log(e)
+            }
+        };
+        function onClickCancel(self) {
+            console.log("onClickCancel");
+            var form = $(".mobilepopup  form" );
+            var datas = form.serializeArray();
+            var reqData = {};
+            for(let i = 0; i<datas.length;i++){
+                reqData[datas[i].name] = datas[i].value;
+            }
+            console.log(reqData);
+            let dom = $(self).parent();
+            console.log(dom);
+            let button = $(".dom_"+$.md5(reqData['id']+reqData['date']+reqData['time']));
+
+            $.ajax({
                 method:"POST",
-                url:"{!! router_frontend_lang('widget:WidgetSchedule') !!}",
+                url:"{!! route('backend:'.\ModuleMissTerry\Module::$key.':booking:ajax') !!}",
                 data:{
-
+                    act:"cancel",
+                    data:reqData
+                },
+                success:function (res_data) {
+                    button.removeClass('booked');
+                    button.removeClass('pay');
+                    button.addClass('requires_prepay');
+                    button.attr('data-idbooking',0);
+                    $('.mobilepopup .button-close').trigger('click');
                 }
             });
 
         }
+        function onClick() {
+            var form = $(".mobilepopup  form" );
+            var datas = form.serializeArray();
+            var reqData = {};
+            for(let i = 0; i<datas.length;i++){
+                reqData[datas[i].name] = datas[i].value;
+            }
+
+            let dom = $(".mobilepopup");
+            let number = dom.find('[name="number"]').val();
+            let time = dom.find('[name="time"]').val();
+            let date = dom.find('[name="date"]').val();
+            let id =  dom.find('[name="id"]').val();
+            let price =  dom.find('[name="price"]').val();
+            reqData['date'] = date;
+            reqData['time'] = time;
+            reqData['id'] = id;
+            reqData['price'] = price;
+            $('body .mobilepopup-inner').mask();
+            let button = $(".dom_"+$.md5(reqData['id']+reqData['date']+reqData['time']));
+            $.ajax({
+                url:"{!! router_frontend_lang('home:register_form') !!}",
+                method:"POST",
+                data:{
+                    data:reqData
+                },
+                success:function (resData) {
+                    form.find('.error .text-error').empty("");
+                    form.find('.error').removeClass('error');
+                    if(resData.hasOwnProperty('errors')){
+                        for(let i in resData.errors){
+                            console.log(resData.errors[i]);
+                            let parent = form.find('[name="'+i+'"]').parent();
+                            console.log(parent);
+                            parent.find('.text-error').html(resData.errors[i][0]);
+                            parent.addClass('error');
+                        }
+                        $('body .mobilepopup-inner').unmask();
+                    }else if(resData.hasOwnProperty('success')){
+                       $.ajax({
+                          url:resData.uri,
+                          success:function (_resData) {
+                              $('body .mobilepopup-inner').unmask();
+
+                              button.attr('data-idbooking',resData.id);
+
+                              button.removeClass('requires_prepay');
+                              button.addClass('booked');
+                              button.addClass('pay');
+                              $('.mobilepopup .button-close').trigger('click');
+                          }
+                       });
+                    }
+                }
+            });
+        }
+
+        function onAction(self) {
+
+            let config = null;
+
+
+            let dom = $(".mobilepopup");
+            let configs = dom.find('.prices_config textarea').val();
+            configs = JSON.parse(configs);
+            let number = dom.find('[name="number"]').val();
+            let time = dom.find('[name="time"]').val();
+            let date = dom.find('[name="date"]').val();
+            let key = dom.find('[name="key"]').val();
+
+
+            for(let i in configs){
+                if(configs[i].keys.includes(number) || configs[i].keys.length == 2 && configs[i].keys[0]< number && configs[i].keys[1] > number  ){
+                    config = configs[i];
+                    break;
+                }
+            }
+
+            var price = 0;
+            console.log(key);
+            console.log(config);
+            if(config!=null && config.hasOwnProperty(key)){
+                price = config[key];
+            }
+            console.log(price);
+            dom.find('[name="price"]').val(price);
+            dom.find('.quest-price .current-price span').html(formatMoney(price)+" vnđ");
+            dom.find('.quest-price .price_human span').html(formatMoney(Math.ceil(price/number))+" vnđ");
+
+        }
+        function loadDay(self) {
+            let schedule =  $('#schedule');
+
+            schedule.addClass('preloaded');
+            let element = $(self);
+            let pos = element.position();
+            $(self).parent().find('.active').removeClass('active');
+            $(self).addClass('active');
+            let selection = $("#line .selection");
+            $("#line .selection").css({'transform':'translateX('+(pos.left+selection.width()/3.5)+'px)'});
+
+            $.ajax({
+                method:"POST",
+                url:"{!! router_frontend_lang('widget:WidgetSchedule') !!}",
+                data:{
+                    date:element.attr('data-date')
+                },
+                success:function (data) {
+                    let content = $(data.views.content);
+                    let schedule_lines = content.find('#schedule .schedule_lines');
+                    $('#schedule .schedule_lines').html(schedule_lines.html());
+                    schedule.removeClass('preloaded');
+                }
+            });
+        }
+
+        $(document).ready(function(){
+
+            $("body").on("click",".booked",function(e){
+                e.preventDefault();
+                var data = $(this).data();
+                console.log(data);
+                let button = $(".dom_"+$.md5(data['id']+data['date']+data['time']));
+                data = button.data();
+                data.idbooking = button.attr('data-idbooking');
+                var dom = $(".pop-up2");
+
+                $('body .schedule_body').mask();
+
+                dom.find('.quest-time').html(data.date+" , "+data.time);
+                dom.find('.quest-title').html(data.title);
+                dom.find('.quest-address').html(data.address);
+
+                dom.find('.time-value').val(data.time);
+                dom.find('.date-value').val(data.date);
+                dom.find('.key-value').val(data.key);
+                dom.find('.quest-price .current-price span').html(0 + "vnđ");
+                dom.find('.quest-price .price_human span').html(0+ "vnđ");
+                dom.find('.price-value').val(0);
+                dom.find('.id-value').val(data.id);
+                dom.find('.prices_config textarea').html($(this).find('.value').val());
+
+                try{
+                    let dataPrice = JSON.parse($(this).find('.value').val());
+                    dom.find('[name="number"]').val(0);
+                    let selects = dom.find('[name="number"] option');
+                    selects.each(function () {
+                        let number = parseInt($(this).attr('value'));
+                        $(this).attr('disabled',false);
+                        if(number > 0){
+                            let oke = true;
+                            for(let i in dataPrice){
+                                if(dataPrice[i].keys.includes(number.toString()) || dataPrice[i].keys.length == 2 && dataPrice[i].keys[0] < number && dataPrice[i].keys[1] > number  ){
+                                    oke = false;
+                                    break;
+                                }
+                            }
+                            $(this).attr('disabled',oke);
+                        }
+                    });
+
+
+                }catch (e) {
+                    console.log(e.toString());
+                }
+                $.ajax({
+                    method:"POST",
+                    url:"{!! route('backend:'.\ModuleMissTerry\Module::$key.':booking:ajax') !!}",
+                    data:{
+                        act:"info",
+                        data:data
+                    },
+                    success:function (res_data) {
+                        console.log(res_data);
+                        let w = $(window).width();
+                        let h = $(window).height();
+                        w = w*0.35;
+                        h = h*0.75;
+                        $.mobilepopup({
+                            targetblock:".pop-up2",
+                            width:w+"px",
+                            height:h+"px"
+                        });
+                        $('.mobilepopup [name=submit_cancel]').show();
+                        $('.mobilepopup').find('.quest-price .current-price span').html(res_data.item.price + "vnđ");
+                        $('.mobilepopup').find('.quest-price .price_human span').html(formatMoney(Math.ceil(res_data.item.price/res_data.item.count))+ "vnđ");
+                        $('.mobilepopup').find('.price-value').val(res_data.item.price);
+                        $('.mobilepopup').find('.id-booking').val(res_data.item.id);
+                        $('.mobilepopup').find('[name="number"]').val(res_data.item.count);
+                        $('.mobilepopup').find('[name="fullname"]').val(res_data.item.fullname);
+                        $('.mobilepopup').find('[name="phone"]').val(res_data.item.phone);
+                        $('.mobilepopup').find('[name="email"]').val(res_data.item.email);
+                        $('.mobilepopup').find('[name="note"]').val(res_data.item.note);
+                        $('body .schedule_body').unmask();
+                    }
+                });
+            });
+            $("body").on("click",".requires_prepay",function(e){
+                e.preventDefault();
+
+                var data = $(this).data();
+                console.log(data);
+
+                var dom = $(".pop-up2");
+
+                dom.find('.quest-time').html(data.date+" , "+data.time);
+                dom.find('.quest-title').html(data.title);
+                dom.find('.quest-address').html(data.address);
+
+                dom.find('.time-value').val(data.time);
+                dom.find('.date-value').val(data.date);
+                dom.find('.key-value').val(data.key);
+
+
+                dom.find('.quest-price .current-price span').html(0 + "vnđ");
+                dom.find('.quest-price .price_human span').html(0+ "vnđ");
+                dom.find('.price-value').val(0);
+
+
+                dom.find('.id-value').val(data.id);
+
+                dom.find('.prices_config textarea').html($(this).find('.value').val());
+
+                try{
+                    let dataPrice = JSON.parse($(this).find('.value').val());
+                    dom.find('[name="number"]').val(0);
+                    let selects = dom.find('[name="number"] option');
+
+                    selects.each(function () {
+
+                        let number = parseInt($(this).attr('value'));
+
+                        $(this).attr('disabled',false);
+
+                        if(number > 0){
+                            let oke = true;
+                            for(let i in dataPrice){
+                                if(dataPrice[i].keys.includes(number.toString()) || dataPrice[i].keys.length == 2 && dataPrice[i].keys[0] < number && dataPrice[i].keys[1] > number  ){
+                                    oke = false;
+                                    break;
+                                }
+                            }
+                            $(this).attr('disabled',oke);
+                        }
+                    });
+                    let w = $(window).width();
+                    let h = $(window).height();
+                    w = w*0.35;
+                    h = h*0.75;
+                    $.mobilepopup({
+                        targetblock:".pop-up2",
+                        width:w+"px",
+                        height:h+"px"
+                    });
+                    $('.mobilepopup  [name=submit_cancel]').hide();
+                    $('.mobilepopup').find('.quest-price .current-price span').html(0 + "vnđ");
+                    $('.mobilepopup').find('.quest-price .price_human span').html(0+ "vnđ");
+                    $('.mobilepopup').find('.price-value').val(0);
+
+                    $('.mobilepopup').find('[name="number"]').val(0);
+                    $('.mobilepopup').find('[name="fullname"]').val("");
+                    $('.mobilepopup').find('[name="phone"]').val("");
+                    $('.mobilepopup').find('[name="email"]').val("");
+                    $('.mobilepopup').find('[name="note"]').val("");
+                    $('.mobilepopup').find('[name="booking"]').val("0");
+                }catch (e) {
+                    console.log(e.toString());
+                }
+                return false;
+            });
+        });
+
     </script>
 @endpush
