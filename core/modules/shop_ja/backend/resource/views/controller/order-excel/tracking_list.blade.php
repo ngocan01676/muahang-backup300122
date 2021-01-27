@@ -151,6 +151,21 @@
                 });
             }
         }
+        function updateStatusOke(self){
+            let data = $(self).data();
+            var person = confirm("Ban có muốn thành công cho đơn "+data.id+" "+data.tracking);
+            if (person == true) {
+
+                $(self).hide();
+                $.ajax({
+                    type: "POST",
+                    data: {act:"updateStatusOke",id:data.id,status:data.status},
+                    success: function (html) {
+
+                    }
+                });
+            }
+        }
         $(document).ready(function () {
             let action = false;
             function myFunction(){
