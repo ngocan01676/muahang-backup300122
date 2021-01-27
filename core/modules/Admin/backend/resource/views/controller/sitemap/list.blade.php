@@ -142,8 +142,6 @@
                                                 @endpush
                                             </form>
                                         @endforeach
-
-
                             </div>
                         </div>
                     </li>
@@ -152,7 +150,6 @@
         </div>
     </div>
 @endsection
-
 @push('links')
 
 @endpush
