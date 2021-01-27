@@ -37,7 +37,7 @@ abstract class SiteMap{
 
     public function action_site_map($sitemap,$sitemapCounter){
         if (!empty($sitemap->model->getItems())) {
-            $sitemap->store('xml', '/sitemap/sitemap-'.(!empty($this->name)?$this->name.'-':''). $sitemapCounter);
+            $sitemap->store('xml', '/sitemaps/sitemap-'.(!empty($this->name)?$this->name.'-':''). $sitemapCounter);
         }
         $sitemap->store('sitemapindex', 'sitemap');
     }
