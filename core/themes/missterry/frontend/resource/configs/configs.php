@@ -19,6 +19,18 @@ return [
             'page'=>[
                 'controller'=>'\MissTerryTheme\Http\Controllers\PageController'
             ]
+        ],
+        'site_maps'=>[
+            'MissTerryTheme\\SiteMap\\Room'=>[
+                'room-detail'=>[
+                    'router'=>'room-detail',
+                    'selects'=>[
+                        'id'=>'id',
+                        'slug'=>'slug',
+                        'updated_at'=>'updated_at',
+                    ]
+                ],
+            ]
         ]
     ],
     'modules' => [

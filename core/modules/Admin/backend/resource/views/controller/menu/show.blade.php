@@ -2,8 +2,7 @@
     <h1>
         &starf; {!! @z_language(["Manager Menu"]) !!}
         <small>it all starts here</small>
-        <a href="#" id="btnCreate"
-           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
+        <a href="#" id="btnCreate" class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
     </h1>
 @endsection
 @section('content')

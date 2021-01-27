@@ -3,10 +3,8 @@
         {!! @z_language(["Manager Layout"]) !!}
         <button onclick="SaveLayout(this)" url="{{route('backend:plugin:layout:ajax')}}" id="saveLayout" type="button"
                 class="btn btn-default btn-md"> {!! @z_language(["Save"]) !!} </button>
-
     </h1>
 @endsection
-
 @section('content')
 
     <x-breadcrumb/>
@@ -15,7 +13,6 @@
 
     <li>
         <i class="fa fa-gears @if($status) bg-blue @else @endif"></i>
-
         <div class="timeline-item routers">
             <span class="time">
 
@@ -161,12 +158,9 @@
                         </td>
                         <td>
                             <div>
-                                <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "1") checked
-                                       @endif type="radio" name="data[{!! $name !!}].status"
-                                       value="1">
-                                <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "2") checked
-                                       @endif type="radio" name="data[{!! $name !!}].status"
-                                       value="2">
+                                <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "1" || !isset($datas['data'][$name]['status'])) checked @endif type="radio" name="data[{!! $name !!}].status" value="1">
+                                {!! z_language('On') !!}
+                                <input @if(isset($datas['data'][$name]['status']) && $datas['data'][$name]['status'] == "2") checked @endif type="radio" name="data[{!! $name !!}].status" value="2">
                                 {!! z_language('Off') !!}
                             </div>
                         </td>
@@ -182,13 +176,6 @@
             <!-- The time line -->
             <form id="saveForm">
                 <ul class="timeline">
-                    <!-- timeline time label -->
-                    <li class="time-label">
-                  <span class="bg-red">
-                    Frontend
-                  </span>
-
-                    </li>
                     @php
                         $routes = collect(\Route::getRoutes())->mapWithKeys(function ($route) {
                          return [
@@ -222,9 +209,7 @@
                         @if( ("frontend"==$arr_name[0] || "frontend"!=$arr_name[0] && $arr_name[0]!="backend") )
                             @if(in_array('GET',$route['methods']))
                                 @continue(isset($route['default']['lang']))
-
                                 @php
-
                                        $middlewares = $route['action']['middleware'];
                                        $uri = isset($datas['data'][$name]['data']['uri']) ?$datas['data'][$name]['data']['uri']:$route['uri'];
                                        $lists[$name] = 1;
@@ -254,9 +239,7 @@
                             @endif
                         @endforeach
                     @endif
-                    <li>
-                        <i class="fa fa-clock-o bg-gray"></i>
-                    </li>
+
                 </ul>
             </form>
         </div>
@@ -264,7 +247,17 @@
     </div>
 @endsection
 @push('scripts')
+    <script src="{{asset('module/admin/assets/paginate-large-list-paging/paginathing.min.js')}}"></script>
     <script>
+        $(document).ready(function () {
+            $('.timeline').paginathing({
+                perPage: '4',
+                containerClass: 'panel-footer',
+                pageNumbers: true,
+                firstText: "{!! z_language('Đầu tiên') !!}", // "First button" text
+                lastText: "{!! z_language('Cuối cùng') !!}", // "Last button" text
+            })
+        });
         function SaveLayout() {
             var saveForm = $("#saveForm").zoe_inputs('get');
             $("#saveForm").mask('{!! z_language("Writing") !!}');

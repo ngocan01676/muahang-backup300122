@@ -387,6 +387,26 @@ return [
                     ]
                 ]
             ],
+            'sitemap' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "SiteMapController",
+                "sub_prefix" => "/site-map",
+                "guard" => "backend",// pải login
+                "acl"=> "page",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                    ],
+                    "check" => [
+                        "url" => "/check",
+                        "method" => ['post'],
+                    ],
+                    "site_map" => [
+                        "url" => "/site-map",
+                        "method" => ['post'],
+                    ],
+                ]
+            ],
         ]
     ]
 ];

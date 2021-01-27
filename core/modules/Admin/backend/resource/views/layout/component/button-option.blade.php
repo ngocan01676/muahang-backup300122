@@ -54,6 +54,7 @@
                     success: function (html) {
                        if(data.hasOwnProperty('data')){
                            dataOption.data= data.data;
+                           window.location.reload();
                        }
                     }
                 });

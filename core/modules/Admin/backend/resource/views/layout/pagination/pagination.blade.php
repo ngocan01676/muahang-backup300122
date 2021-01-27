@@ -14,7 +14,6 @@
                     </a>
                 </li>
             @endif
-
             {{-- Pagination Elements --}}
             @foreach ($elements as $element)
                 {{-- Array Of Links --}}
@@ -30,7 +29,6 @@
                     @endforeach
                 @endif
             @endforeach
-
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li>

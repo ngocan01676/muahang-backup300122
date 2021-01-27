@@ -21,7 +21,6 @@
     @component('backend::layout.component.list',['name'=>'core:blog:post','models'=>$models,'route'=>$route,'parameter'=>$parameter,'callback'=>$callback])
         @slot("tool")
             <div class="box-body">
-
                 <div class="col-md-12" style="padding:0">
                     <div class="row">
                         <div class="col-sm-4" style="padding:0">
@@ -42,25 +41,12 @@
                                        placeholder="Name">
                             </div>
                         </div>
-
-                        <div class="col-sm-4" style="padding:0">
-                            <div class="col-sm-4" style="padding:0;text-align: center;line-height: 2;">
-                                <label>Lang</label>
-                            </div>
-                            <div class="col-sm-8" style="padding:0;text-align: center;">
-                                <select name="lang" class="form-control">
-                                    <option value="1">d</option>
-                                </select>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <BR>
                         <button type="button" class="btnFilter btn btn-sm btn-primary pull-right">
-                            Dữ liệu
+                           {!! z_language('Dữ liệu') !!}
                         </button>
                     </div>
                 </div>

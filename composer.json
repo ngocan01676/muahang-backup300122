@@ -22,7 +22,8 @@
         "melbahja/seo": "^1.0",
         "phpoffice/phpspreadsheet": "dev-master",
         "studio-42/elfinder": "^2.1",
-        "google/recaptcha":"^1.2"
+        "google/recaptcha":"^1.2",
+        "laravelium/sitemap": "8.*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

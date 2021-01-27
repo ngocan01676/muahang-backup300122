@@ -17,6 +17,7 @@
 
     @endphp
     @isset($data['config']['columns'])
+
         @if(isset($tool))
             <div class="box box box-zoe">
                 <div class="box-body clearfix">
@@ -26,26 +27,9 @@
                 </div>
             </div>
         @endif
+
         <x-flash_message/>
         <div class="box box box-zoe" id="sectionList">
-            <div class="box-header with-border">
-                <div class="box-tools">
-                    <form method="GET" id="filter_search_form">
-                        <div class="input-group input-group-sm hidden-xs" style="width: 250px;">
-                            <input type="text" name="filter.search" class="form-control pull-right"
-                                   value="{{old('search')}}"
-                                   placeholder="{!! z_language("Tìm kiếm") !!}">
-                            <div class="input-group-btn">
-                                <button type="button" id="BtnSearch" class="btn btn-default"><i
-                                            class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                {{--<div style="padding: 5px">--}}
-                    {{--<a href="{!! url()->current() !!}">{{ z_language('Tất cả') }}</a> | <a href="?status=1">{{ z_language('Bật') }}</a> | <a href="?status=0">{{ z_language('Tắt') }}</a>--}}
-                {{--</div>--}}
-            </div>
             <div class="box-body listMain">
                     <table class="table table-bordered">
                     <thead>
@@ -107,7 +91,6 @@
                                 @foreach($_lists as $key=>$columns)
                                     @php $key = $columns['index']; @endphp
                                     @isset($data['data']['columns'][$key])
-
                                         @continue(isset($route[$key]))
                                         @if(!property_exists($model,$key) && isset($columns['callback']) && isset($callback[$columns['callback']]))
                                             @php
@@ -138,11 +121,9 @@
                                                         @foreach($data['config']['pagination']['router'] as $id=>$router)
                                                             @continue($router == false)
                                                             @php
-
                                                                 $oke = true;
                                                                 if (isset($aliases_acl[$router['name']])) {
                                                                     $acl = $aliases_acl[$router['name']];
-
                                                                     if (!auth()->user()->IsAcl($acl)) {
                                                                         $oke = false;
                                                                     }
@@ -157,7 +138,6 @@
                                                                             $par[$k] = $model->{$v};
                                                                         }
                                                                     }
-
                                                                     $key_form = md5(rand(1,10000) . rand(1,10000));
                                                             @endphp
                                                             <span class="{{$id}}" style="margin: 5px">
@@ -185,7 +165,6 @@
                                                 </div>
                                             </td>
                                         @elseif($columns['type'] == 'id')
-
                                             <td {!! empty($style)?"":$style !!} class="column @isset($columns['primary']) column-primary @endisset column-{!! $columns['type'] !!}" @php echo attr_row($columns['type'],$data['config']['config']) @endphp>@php echo list_label($model->{$key},$columns,$data,$model); @endphp</td>
                                         @elseif($columns['type'] == 'action')
                                             <td {!! empty($style)?"":$style !!}>
