@@ -37,7 +37,7 @@
                                                 <input type="hidden" name="{!! $id_name !!}.class" value="{!! $class !!}">
                                                 <input type="hidden" name="{!! $id_name !!}.name" value="{!! $_name !!}">
                                                 <input type="hidden" name="{!! $id_name !!}.config">
-                                                <input type="hidden" name="{!! $id_name !!}.limit" value="50000">
+                                                <input type="hidden" name="{!! $id_name !!}.limit" value="2">
                                                 <table class="table table-borderless" style="display: table;margin-bottom: 0">
                                                 <tbody>
                                                 <tr>
@@ -88,6 +88,15 @@
                                                                     </select>
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <th>Action</th>
+                                                                <td>
+                                                                    <select onchange="changeLimit('{!! $id_form !!}')" class="form-control" name="{!! $id_name !!}.action">
+                                                                        <option value="update">Update</option>
+                                                                        <option value="new">New</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
                                                         </table>
                                                     </td>
                                                     <td>
@@ -106,7 +115,7 @@
                                                                                 </div>
                                                                             </th>
                                                                             <th style="width: 50px;text-align: center">
-                                                                                <button onclick="site_map_action('{!! $id_form !!}',1,'{!! $lang !!}',null);" type="button" class="btn btn-primary btn-xs">Sitemap</button>
+                                                                                <button onclick="site_map_action('{!! $id_form !!}',null,'{!! $lang !!}',null);" type="button" class="btn btn-primary btn-xs">Sitemap</button>
                                                                             </th>
                                                                         </tr>
                                                                         @push('scripts')
@@ -216,9 +225,10 @@
                     let total_page = form.find(class_lang+'.total_page');
                     let totals = form.find(class_lang+'.totals');
                     if(data.hasOwnProperty('current_page') && data.hasOwnProperty('total_page') && data.hasOwnProperty('total_records')){
-                        page.text(data.current_page-1);
+                        page.text(data.current_page);
                         total_page.text(data.total_page);
                         totals.text(data.total_records);
+                        form.find(class_lang+'.progress-bar').addClass('progress-bar-aqua').css({width:( (data.current_page) * 100 / parseInt(data.total_page))+"%"});
                     }else{
 
                     }
@@ -242,12 +252,17 @@
             if(lang.length > 0){
                 class_lang='.lang_'+lang+" ";
             }
-            form.find(class_lang+'.progress-bar').css({width:( page * 100 / parseInt(form.find(class_lang+'b.total_page').text()))+"%"});
+            if(page == null){
+                page = parseInt(form.find(class_lang+'b.page').text());
+            }
+            form.find(class_lang+'.progress-bar').removeClass('progress-bar-danger').addClass('progress-bar-aqua').css({width:( (page) * 100 / parseInt(form.find(class_lang+'b.total_page').text()))+"%"});
             data.page = page;
             data.site_map = true;
             data.lang = lang;
+
             let pageElm = form.find(class_lang+'.page');
             pageElm.text(page);
+
             $.ajax({
                 type:"POST",
                 url:"{!! route('backend:sitemap:check') !!}",
@@ -255,10 +270,13 @@
                 success:function (_data) {
                     console.log(_data);
                     if(_data.hasOwnProperty('current_page') && _data.hasOwnProperty('total_page')){
-                        if(_data.current_page < _data.total_page){
+                        if((_data.current_page-1) < _data.total_page){
                             site_map_action(form_id,_data.current_page+1,lang,_data);
                         }
                     }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    form.find(class_lang+'.progress-bar').removeClass('progress-bar-aqua').addClass('progress-bar-danger');
                 }
             });
         }

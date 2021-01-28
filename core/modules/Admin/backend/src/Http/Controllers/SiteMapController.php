@@ -67,20 +67,37 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
                    $obj->lang =  $datas['lang'];
                    $obj->confLang =  isset($this->data['language'][$datas['lang']])?$this->data['language'][$datas['lang']]:[];
                    $obj->Init();
+
+                   $response['pages'] = [];
+
                    $limit = isset($_data['limit'])?$_data['limit']:50000;
                    if(isset($datas['id'])){
                        $response['id'] = $datas['id'];
                    }else{
                        $response['id'] = $obj->end_record();
                    }
+                   $current_page = isset($datas['page'])?$datas['page']:0;
                    if(isset($datas['total_records'])){
                        $total_records = $datas['total_records'];
                    }else{
                        $total_records = $obj->total();
+
+                       if($_data['action'] == 'update'){
+                           $config = config_get('sitemap',empty($obj->lang)?$_data['name']:$_data['name'].":".$obj->lang);
+                           $response['configs'] = $config;
+                           if(isset($config['limit']) && $limit == $config['limit']){
+                               $current_page = $config['total_page'];
+                           }else{
+                               $response['update'] = false;
+                               $response['success'] = true;
+                           }
+                       }
                    }
-                   $current_page = isset($datas['page'])?$datas['page']:1;
+
                    $total_page = ceil($total_records / $limit);
+
                    $oke = true;
+
                    if(isset($datas['site_map'])){
                        if ($current_page > $total_page){
                            $current_page = $total_page;
@@ -93,13 +110,31 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
                        $results = $obj->pagination($start,$limit,isset($response['configs']['selects'])?$response['configs']['selects']:[]);
                        $response['results'] = $results;
                        $obj->site_map($_data['router'],$this->app->make('sitemap'),$results,$current_page);
-                       $oke = $current_page<=$total_page;
+
+                       $oke = $current_page < $total_page;
+
+                       if($current_page >= $total_page){
+                           config_set('sitemap',empty($obj->lang)?$_data['name']:$_data['name'].":".$obj->lang,[
+                               'data'=>[
+                                   'total_page'=>$total_page,
+                                   'total_records'=>$total_records,
+                                   'id'=>$response['id'],
+                                   'limit'=>$limit,
+                               ]
+                           ]);
+                       }
                    }
                    if($oke){
                        $response['total_page'] = $total_page;
                        $response['current_page'] = $current_page;
                        $response['total_records'] = $total_records;
                        $response['data'] = $datas['data'];
+                   }else{
+                       $response['logs'] = [];
+                       $response['logs']['total_page'] = $total_page;
+                       $response['logs']['current_page'] = $current_page;
+                       $response['logs']['total_records'] = $total_records;
+                       $response['logs']['data'] = $datas['data'];
                    }
                    return response()->json($response);
                }
