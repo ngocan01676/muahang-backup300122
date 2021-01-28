@@ -90,6 +90,12 @@ class AppServiceProvider extends ServiceProvider
 
             return  '<?php $Zoe_Variable_Lang = "'.$name.'_{'.$lang.'}"; echo isset($$Zoe_Variable_Lang)?$$Zoe_Variable_Lang:""?>';
         });
+        Blade::directive('setVar',function ($expr){
+            $pattern = "/\(\s*([^)]+?)\s*\)/";
+            $arrray = [];
+            preg_match($pattern, '('.$expr.')',$arrray);
+            return json_encode($arrray);
+        });
         Blade::directive('Zoe_Asset', function ($expr) {
             return '<?php echo asset("' . $expr . '") ?>';
         });

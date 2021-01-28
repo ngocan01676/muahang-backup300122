@@ -41,7 +41,7 @@
 @push("scripts")
     <script>
         $(document).ready(function (){
-            var dataOption = {!! json_encode($data) !!};
+            let dataOption = {!! json_encode($data) !!};
             $('.btnSaveOption').click(function () {
                 var myModalOption = $("#myModalOption");
                 var FormModal  = myModalOption.find("form");
@@ -63,10 +63,15 @@
                 var myModalOption = $("#myModalOption");
                 var FormModal  = myModalOption.find("form");
                 myModalOption.modal();
+
                 $.ajax({
                     url: '{{route('backend:dashboard:option')}}',
                     type: "POST",
-                    data: {act:"get",name:'{{$config['name']}}',configs:dataOption},
+                    data: {
+                        act:"get"
+                        ,name:'{{$config['name']}}',
+                        configs:dataOption,
+                    },
                     success: function (html) {
 
                         myModalOption.find('.modal-body').html(html);

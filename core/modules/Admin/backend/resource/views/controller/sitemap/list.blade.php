@@ -2,10 +2,21 @@
     <h1>
         &starf; {!! @z_language(["Manager SiteMap"]) !!}
         <a href="#" id="btnCreate" class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Save"]) !!} </a>
+        <x-btnOption :config="['name'=>'core:sitemap']">
+            <x-slot name="label">
+                {{@z_language(["Option"])}}
+            </x-slot>
+            <x-slot name="header">
+                {{@z_language(["Option"])}}
+            </x-slot>
+        </x-btnOption>
     </h1>
 @endsection
 @section('content')
     <x-breadcrumb/>
+    @php
+        $_data = config_get('option','core:sitemap');
+    @endphp
     <div class="row">
         <div class="col-md-12 routers_wrap">
                 <ul class="timeline">
@@ -37,7 +48,7 @@
                                                 <input type="hidden" name="{!! $id_name !!}.class" value="{!! $class !!}">
                                                 <input type="hidden" name="{!! $id_name !!}.name" value="{!! $_name !!}">
                                                 <input type="hidden" name="{!! $id_name !!}.config">
-                                                <input type="hidden" name="{!! $id_name !!}.limit" value="2">
+                                                <input type="hidden" name="{!! $id_name !!}.limit" value="{!! isset($_data['limit'])?$_data['limit']:50000 !!}">
                                                 <table class="table table-borderless" style="display: table;margin-bottom: 0">
                                                 <tbody>
                                                 <tr>

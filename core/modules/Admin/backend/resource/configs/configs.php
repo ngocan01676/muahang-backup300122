@@ -313,6 +313,14 @@ return [
             'views' => [
                 'configs.layout'
             ]
+        ],
+        'core:sitemap' => [
+            'data' => [],
+            'options'=>[
+                'backend::controller.sitemap.option'=>[
+                    'limit'=>5000
+                ]
+            ]
         ]
     ],
     'registers'=>[

@@ -65,10 +65,11 @@
                 </td>
             </tr>
         @endif
-        @if(isset($configs['options']))
-            @foreach($configs['options'] as $key=>$view)
-                @includeIf($view)
-            @endforeach
-        @endif
     </tbody>
 </table>
+
+@if(isset($configs['options']))
+    @foreach($configs['options'] as $view=>$data)
+        @includeIf($view)
+    @endforeach
+@endif
