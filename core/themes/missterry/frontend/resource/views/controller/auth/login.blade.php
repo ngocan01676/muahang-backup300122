@@ -30,6 +30,9 @@
                                          <span class="message-container container alert-color medium-text-center error">{{ $message }}</span>
                                         @enderror
                                     </p>
+                                    <p>
+                                        {!! app('captcha')->display() !!}
+                                    </p>
                                     <p class="form-row">
                                         <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="loginForm" value="Log in">Log in</button>
                                     </p>
