@@ -106,6 +106,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             'price' => 'required|integer|gt:0',
             'g-recaptcha-response'=>'required|captcha'
         ];
+        var_dump(Auth('backend')::user());die;
         if(Auth('backend')::user() != null){
             unset($f['g-recaptcha-response']);
         }
