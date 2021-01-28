@@ -869,6 +869,7 @@
                     reqData['time'] = time;
                     reqData['id'] = id;
                     reqData['price'] = price;
+                    reqData['g-recaptcha-response'] = token;
                     jQuery.ajax({
                         url:"{!! router_frontend_lang('home:register_form') !!}",
                         method:"POST",

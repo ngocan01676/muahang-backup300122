@@ -215,6 +215,7 @@
                             <input class="woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password" autocomplete="current-password" />
                             <span class="message-container container alert-color medium-text-center error"></span>
                         </p>
+
                         <p class="form-row">
                             <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">{!! z_language('Log in') !!}</button>
                         </p>

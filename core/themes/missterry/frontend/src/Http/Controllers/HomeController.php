@@ -1,5 +1,6 @@
 <?php
 namespace MissTerryTheme\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Validator;
@@ -94,7 +95,7 @@ class HomeController extends \Zoe\Http\ControllerFront
     }
     public function action_register_room(Request $request){
         $data = $request->all();
-        $validator = Validator::make($data['data'], [
+        $f = [
             'fullname' => 'required|max:255',
             'phone' => 'required|max:15',
             'time' => 'required|regex:/(\d+\:\d+)/',
@@ -103,7 +104,12 @@ class HomeController extends \Zoe\Http\ControllerFront
             'number' => 'required|integer|gt:0|lt:7',
             'id' => 'required|integer|gt:0',
             'price' => 'required|integer|gt:0',
-        ]);
+            'g-recaptcha-response'=>'required|captcha'
+        ];
+        if( Auth::user()){
+            unset($f['g-recaptcha-response']);
+        }
+        $validator = Validator::make($data['data'], $f);
         $rules = [];
         if ($validator->passes()) {
             DB::beginTransaction();
@@ -115,7 +121,6 @@ class HomeController extends \Zoe\Http\ControllerFront
                     ->where('status','!=',3)
                     ->where('booking_time',$data['data']['time'])
                     ->get()->all();
-
                 if(count($count) == 0 || (isset($count[0]) && isset($data['data']['booking']) && $count[0]->id == $data['data']['booking'])){
                     if( isset($count[0]) && isset($data['data']['booking']) && $count[0]->id == $data['data']['booking']){
                         $id = $count[0]->id;

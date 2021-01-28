@@ -17,7 +17,10 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
         $data = $request->all();
 
         $this->username = "username";
-        $filter = ['password' => 'required|min:6'];
+        $filter = [
+            'password' => 'required|min:6',
+
+        ];
         $dataPos = ['password'=>$data['password']];
         if(is_numeric($data['email'])){
             $filder['email'] = 'required|max:15';
@@ -32,6 +35,7 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
             $filder['email'] = 'required|max:30';
             $dataPos['username'] = $data['email'];
         }
+        $filder['g-recaptcha-response'] = 'required|captcha';
         $validator =  Validator::make($data, $filder);
         if (!$validator->fails()) {
             if ($this->attemptLogin($dataPos,$request)) {
@@ -57,10 +61,13 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
     public function postRegisterAjax(Request $request)
     {
         $data = $request->all();
+
         $validator =  Validator::make($data, [
             'email' => 'required|max:255|email|unique:user',
             'password' => 'required|min:6',
+            'g-recaptcha-response'=>'required|captcha'
         ]);
+
         if (!$validator->fails()) {
             $member = new Member();
             $member->email = $data['email'];
@@ -101,6 +108,7 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
             $filder['email'] = 'required|max:30';
             $dataPos['username'] = $data['email'];
         }
+        $filder['g-recaptcha-response'] = 'required|captcha';
         $validator =  Validator::make($data, $filder);
         if ($validator->fails() == false) {
             if ($this->attemptLogin($dataPos,$request)) {

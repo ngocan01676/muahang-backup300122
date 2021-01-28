@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Laravelium\Sitemap\SitemapServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -239,6 +240,7 @@ return [
         'Actions' => Zoe\Facades\Filters::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
 //        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 ];
