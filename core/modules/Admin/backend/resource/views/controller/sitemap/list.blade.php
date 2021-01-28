@@ -37,7 +37,7 @@
                                                 <input type="hidden" name="{!! $id_name !!}.class" value="{!! $class !!}">
                                                 <input type="hidden" name="{!! $id_name !!}.name" value="{!! $_name !!}">
                                                 <input type="hidden" name="{!! $id_name !!}.config">
-                                                <input type="hidden" name="{!! $id_name !!}.limit" value="2">
+                                                <input type="hidden" name="{!! $id_name !!}.limit" value="50000">
                                                 <table class="table table-borderless" style="display: table;margin-bottom: 0">
                                                 <tbody>
                                                 <tr>
