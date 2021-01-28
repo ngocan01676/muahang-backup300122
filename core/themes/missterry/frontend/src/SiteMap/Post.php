@@ -17,6 +17,7 @@ class Post extends \Zoe\SiteMap{
                     'priority' => 1 - substr_count($url, '/') / 10,
                     'changefreq' => $this->getChanefreq($url)
                 ];
+                $this->aSiteMap[$url] = $conf;
                 $sitemap->add($url, $result->updated_at,$conf['priority'], $conf['changefreq']);
 
             }

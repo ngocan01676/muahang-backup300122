@@ -20,7 +20,7 @@ abstract class SiteMap{
 
     }
     public function Init(){
-        $this->aSiteMap = Cache::get('sitemap_'.$this->name, []);
+        $this->aSiteMap = Cache::get('SiteMap_'.$this->name, []);
     }
 
     public function model(){
@@ -121,7 +121,8 @@ abstract class SiteMap{
         return $changefreq;
     }
     public function saveCache(){
-        Cache::put('sitemap_'.$this->name, $this->aSiteMap, 2880);
+
+        Cache::put('SiteMap_'.$this->name,$this->aSiteMap, 2880);
     }
 
 }

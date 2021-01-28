@@ -24,6 +24,7 @@ class Category extends \Zoe\SiteMap{
             $this->aSiteMap[$url] = $conf;
 
         }
+
         $this->action_site_map($sitemap,$page);
     }
 }
