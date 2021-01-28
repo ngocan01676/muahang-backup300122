@@ -1,6 +1,7 @@
 <?php
 namespace MissTerryTheme\SiteMap;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 class Post extends \Zoe\SiteMap{
     public $table = 'blog_post';
 
@@ -9,7 +10,15 @@ class Post extends \Zoe\SiteMap{
         foreach ($results as $result) {
             if(isset($category[$result->category_id])){
                 //table
-                $sitemap->add(route('frontend:'.(!empty($this->confLang['router'])?$this->confLang['router']."_":"").$this->configs['router'].':'.$category[$result->category_id]->router_name,['slug'=>$result->slug]), $result->updated_at, $result->id, $result->id);
+                $url = route('frontend:'.(!empty($this->confLang['router'])?$this->confLang['router']."_":"").$this->configs['router'].':'.$category[$result->category_id]->router_name,['slug'=>$result->slug]);
+                $conf =  [
+                    'added' => time(),
+                    'lastmod' => Carbon::now()->toIso8601String(),
+                    'priority' => 1 - substr_count($url, '/') / 10,
+                    'changefreq' => $this->getChanefreq($url)
+                ];
+                $sitemap->add($url, $result->updated_at,$conf['priority'], $conf['changefreq']);
+
             }
         }
         $this->action_site_map($sitemap,$page);

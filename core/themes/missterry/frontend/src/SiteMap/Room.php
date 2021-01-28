@@ -1,6 +1,7 @@
 <?php
 namespace MissTerryTheme\SiteMap;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 class Room extends \Zoe\SiteMap{
     public $table = 'miss_room';
     public function model(){
@@ -12,7 +13,14 @@ class Room extends \Zoe\SiteMap{
     }
     public function site_map($router,$sitemap,$results,$page){
         foreach ($results as $result) {
-            $sitemap->add(route('frontend:'.$router,['slug'=>$result->slug]), $result->updated_at, $result->id, $result->id);
+            $url = route('frontend:'.$router,['slug'=>$result->slug]);
+            $conf =  [
+                'added' => time(),
+                'lastmod' => Carbon::now()->toIso8601String(),
+                'priority' => 1 - substr_count($url, '/') / 10,
+                'changefreq' => $this->getChanefreq($url)
+            ];
+            $sitemap->add($url, $result->updated_at, $conf['priority'], $conf['changefreq']);
         }
         $this->action_site_map($sitemap,$page);
     }

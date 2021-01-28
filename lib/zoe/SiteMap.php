@@ -1,5 +1,6 @@
 <?php
 namespace Zoe;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 abstract class SiteMap{
@@ -11,10 +12,17 @@ abstract class SiteMap{
     public $lang = '';
     public $file;
     public $confLang = [];
+    protected $aSiteMap = null;
+
     public function __construct()
     {
         $this->file = new \Illuminate\Filesystem\Filesystem();
+
     }
+    public function Init(){
+        $this->aSiteMap = Cache::get('sitemap_'.$this->name, []);
+    }
+
     public function model(){
        if(empty($this->lang)){
            return DB::table($this->table.' as table');
@@ -72,6 +80,7 @@ abstract class SiteMap{
             $sitemap->store('xml',$path. 'sitemap'.(!empty($this->lang)?('-'.$this->lang):'').(!empty($this->name)?('-'.$this->name):'').($sitemapCounter==1?"":('-'.($sitemapCounter-1))));
         }
         $sitemap->store('sitemapindex', 'sitemap');
+        $this->saveCache();
     }
     public function category(){
         $conf = $this->configs;
@@ -79,4 +88,40 @@ abstract class SiteMap{
             return DB::table('categories')->where('type',$conf['category']['type'])->get()->keyBy('id');;
         });
     }
+
+    /*
+     *  $aSiteMap[$request->fullUrl()] = [
+                'added' => time(),
+                'lastmod' => Carbon::now()->toIso8601String(),
+                'priority' => 1 - substr_count($request->getPathInfo(), '/') / 10,
+                'changefreq' => $changefreq
+            ];
+            \Cache::put('sitemap', $aSiteMap, 2880);
+     *
+     * */
+
+    public function getChanefreq($url){
+        $changefreq = 'always';
+        if ( !empty( $this->aSiteMap[$url]['added'] ) ) {
+            $aDateDiff = Carbon::createFromTimestamp( $this->aSiteMap[$url]['added'] )->diff( Carbon::now() );
+            if ( $aDateDiff->y > 0 ) {
+                $changefreq = 'yearly';
+            } else if ( $aDateDiff->m > 0) {
+                $changefreq = 'monthly';
+            } else if ( $aDateDiff->d > 6 ) {
+                $changefreq = 'weekly';
+            } else if ( $aDateDiff->d > 0 && $aDateDiff->d < 7 ) {
+                $changefreq = 'daily';
+            } else if ( $aDateDiff->h > 0 ) {
+                $changefreq = 'hourly';
+            } else {
+                $changefreq = 'always';
+            }
+        }
+        return $changefreq;
+    }
+    public function saveCache(){
+        Cache::put('sitemap_'.$this->name, $this->aSiteMap, 2880);
+    }
+
 }

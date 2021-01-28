@@ -66,6 +66,7 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
                    $obj->configs =  $response['configs'];
                    $obj->lang =  $datas['lang'];
                    $obj->confLang =  isset($this->data['language'][$datas['lang']])?$this->data['language'][$datas['lang']]:[];
+                   $obj->Init();
                    $limit = isset($_data['limit'])?$_data['limit']:50000;
                    if(isset($datas['id'])){
                        $response['id'] = $datas['id'];
