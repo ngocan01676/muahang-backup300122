@@ -12,7 +12,8 @@ abstract class SiteMap{
     public $lang = '';
     public $file;
     public $confLang = [];
-    protected $aSiteMap = null;
+    protected $aSiteMap = [];
+    protected $aSiteMapFile = [];
 
     public function __construct()
     {
@@ -21,6 +22,7 @@ abstract class SiteMap{
     }
     public function Init(){
         $this->aSiteMap = Cache::get('SiteMap_'.$this->name.'_config', []);
+        $this->aSiteMapFile = Cache::get('SiteMap_'.$this->name.'_files', []);
     }
 
     public function model(){
@@ -81,7 +83,8 @@ abstract class SiteMap{
         if (!empty($sitemap->model->getItems())) {
             $file = $path. 'sitemap'.(!empty($this->lang)?('-'.$this->lang):'').(!empty($this->name)?('-'.$this->name):'').($sitemapCounter==1?"":('-'.($sitemapCounter-1)));
             $sitemap->store('xml',$file);
-            $this->saveCache($file.'.xml');
+            $this->aSiteMapFile[$file] = $file.'.xml';
+            $this->saveCache();
         }
     }
     public function category(){
@@ -110,8 +113,8 @@ abstract class SiteMap{
         }
         return $changefreq;
     }
-    public function saveCache($file){
+    public function saveCache(){
         Cache::put('SiteMap_'.$this->name."_config",$this->aSiteMap, 2880);
-        Cache::put('SiteMap_'.$this->name.'_file',$file, 2880);
+        Cache::put('SiteMap_'.$this->name.'_files',$this->aSiteMapFile, 2880);
     }
 }

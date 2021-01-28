@@ -43,12 +43,13 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
 
         foreach($site_maps as $class=>$site_map){
             foreach($site_map as $_name=>$_site_map){
-                $key = 'SiteMap_'.$_name.'_file';
+                $key = 'SiteMap_'.$_name.'_files';
                 if(Cache::has($key)){
-                    $sitemap = Cache::get($key);
-                    $url = $sitemap;
-                    $url  = str_replace(DIRECTORY_SEPARATOR ,'/',$url);
-                    $make_sitemap->addSitemap(url($url),date('Y-m-d H:i:s',filemtime(public_path($sitemap))));
+                    $urls = Cache::get($key,[]);
+                    foreach ($urls as $url){
+                        $url  = str_replace(DIRECTORY_SEPARATOR ,'/',$url);
+                        $make_sitemap->addSitemap(url($url),date('Y-m-d H:i:s',filemtime(public_path($url))));
+                    }
                 }
             }
         }
