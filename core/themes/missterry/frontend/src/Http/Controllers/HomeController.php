@@ -107,8 +107,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             'g-recaptcha-response'=>'required|captcha'
         ];
         $this->middleware('auth:backend');
-        var_dump(Auth()->user());die;
-        if(Auth('backend')::user() != null){
+        if(\auth('backend')->user() != null){
             unset($f['g-recaptcha-response']);
         }
         $validator = Validator::make($data['data'], $f);
