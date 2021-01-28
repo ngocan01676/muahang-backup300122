@@ -106,7 +106,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             'price' => 'required|integer|gt:0',
             'g-recaptcha-response'=>'required|captcha'
         ];
-        if( Auth::user()){
+        if( Auth::user() != null){
             unset($f['g-recaptcha-response']);
         }
         $validator = Validator::make($data['data'], $f);
