@@ -102,7 +102,7 @@
                                                             <tr>
                                                                 <th>Action</th>
                                                                 <td>
-                                                                    <select onchange="changeLimit('{!! $id_form !!}')" class="form-control" name="{!! $id_name !!}.action">
+                                                                    <select onchange="changeLimit('{!! $id_form !!}')" class="form-control action" name="{!! $id_name !!}.action">
                                                                         <option value="update">Update</option>
                                                                         <option value="new">New</option>
                                                                     </select>
@@ -266,36 +266,43 @@
             if(page == null){
                 page = parseInt(form.find(class_lang+'b.page').text());
             }
-            page+=1;
             let total_page = parseInt(form.find(class_lang+'b.total_page').text());
-
-            if(page >total_page ){
-                return;
-            }
-            form.find(class_lang+'.progress-bar').removeClass('progress-bar-danger').addClass('progress-bar-aqua').css({width:( (page) * 100 / total_page)+"%"});
-            data.page = page;
-            data.site_map = true;
-            data.lang = lang;
-
+            let time = 100;
             let pageElm = form.find(class_lang+'.page');
-            pageElm.text(page);
-
-            $.ajax({
-                type:"POST",
-                url:"{!! route('backend:sitemap:check') !!}",
-                data:data,
-                success:function (_data) {
-                    console.log(_data);
-                    if(_data.hasOwnProperty('current_page') && _data.hasOwnProperty('total_page')){
-                        if((_data.current_page-1) < _data.total_page){
-                            site_map_action(form_id,_data.current_page,lang,_data);
-                        }
-                    }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    form.find(class_lang+'.progress-bar').removeClass('progress-bar-aqua').addClass('progress-bar-danger');
+            if(page === total_page ){
+                if(form.find('.action').val() == "update"){
+                    page = page-1;
+                    pageElm.text(page);
+                    form.find(class_lang+'.progress-bar').removeClass('progress-bar-danger').addClass('progress-bar-aqua').css({width:( (page) * 100 / total_page)+"%"});
+                    time = 1000;
                 }
-            });
+            }
+            setTimeout(function () {
+                page+=1;
+                form.find(class_lang+'.progress-bar').removeClass('progress-bar-danger').addClass('progress-bar-aqua').css({width:( (page) * 100 / total_page)+"%"});
+                data.page = page;
+                data.site_map = true;
+                data.lang = lang;
+
+                pageElm.text(page);
+
+                $.ajax({
+                    type:"POST",
+                    url:"{!! route('backend:sitemap:check') !!}",
+                    data:data,
+                    success:function (_data) {
+                        console.log(_data);
+                        if(_data.hasOwnProperty('current_page') && _data.hasOwnProperty('total_page')){
+                            if((_data.current_page-1) < _data.total_page){
+                                site_map_action(form_id,_data.current_page,lang,_data);
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        form.find(class_lang+'.progress-bar').removeClass('progress-bar-aqua').addClass('progress-bar-danger');
+                    }
+                });
+            },time);
         }
     </script>
 @endpush
