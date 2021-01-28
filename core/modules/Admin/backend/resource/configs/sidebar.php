@@ -139,5 +139,11 @@ return [
             "url" => "backend:backup:list",
             "icon" => "fa fa-file-text",
         ],
+        "sitemap" => [
+            "name" => z_language("Sitemap", false),
+            "pos" => 10,
+            "url" => "backend:sitemap:list",
+            "icon" => "fa fa-file-text",
+        ],
     ]
 ];
