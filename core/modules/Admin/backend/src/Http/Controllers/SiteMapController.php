@@ -1,5 +1,6 @@
 <?php
 namespace Admin\Http\Controllers;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -36,14 +37,30 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
     }
     public function index(){
         $make_sitemap = $this->app->make('sitemap');
-        $sitemaps = $this->getDirContents(public_path('sitemaps'));
 
-        foreach ($sitemaps as $sitemap){
-           $url = str_replace(public_path(DIRECTORY_SEPARATOR),'',$sitemap);
-           $url  = str_replace(DIRECTORY_SEPARATOR ,'/',$url);
-           // $make_sitemap->addSitemap();
-            $make_sitemap->addSitemap(url($url),date('Y-m-d H:i:s',filemtime($sitemap)));
+
+        $site_maps = isset($this->app->getConfig()->packages['site_maps'])?$this->app->getConfig()->packages['site_maps']:[];
+
+        foreach($site_maps as $class=>$site_map){
+            foreach($site_map as $_name=>$_site_map){
+                $key = 'SiteMap_'.$_name.'_file';
+                if(Cache::has($key)){
+                    $sitemap = Cache::get($key);
+                    $url = $sitemap;
+                    $url  = str_replace(DIRECTORY_SEPARATOR ,'/',$url);
+                    $make_sitemap->addSitemap(url($url),date('Y-m-d H:i:s',filemtime(public_path($sitemap))));
+                }
+            }
         }
+
+//        $sitemaps = $this->getDirContents(public_path('sitemaps'));
+//
+//        foreach ($sitemaps as $sitemap){
+//           $url = str_replace(public_path(DIRECTORY_SEPARATOR),'',$sitemap);
+//           $url  = str_replace(DIRECTORY_SEPARATOR ,'/',$url);
+//           // $make_sitemap->addSitemap();
+//            $make_sitemap->addSitemap(url($url),date('Y-m-d H:i:s',filemtime($sitemap)));
+//        }
       //  $sitemap->addSitemap(URL::to('sitemap-posts'));
       //  $sitemap->addSitemap(URL::to('sitemap-tags'));
 
@@ -52,8 +69,10 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
     }
     public function check(Request $request){
         $datas = $request->all();
+
         $total_records = 0;
         $total_page = 0;
+
         $configs = isset($this->app->getConfig()->packages['site_maps'])?$this->app->getConfig()->packages['site_maps']:[];
 
         foreach ($datas['data'] as $name=>$_data){
@@ -93,11 +112,8 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
                            }
                        }
                    }
-
                    $total_page = ceil($total_records / $limit);
-
                    $oke = true;
-
                    if(isset($datas['site_map'])){
                        if ($current_page > $total_page){
                            $current_page = $total_page;
@@ -138,7 +154,6 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
                    }
                    return response()->json($response);
                }
-
         }
     }
     public function site_map(){

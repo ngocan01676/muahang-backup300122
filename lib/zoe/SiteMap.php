@@ -20,7 +20,7 @@ abstract class SiteMap{
 
     }
     public function Init(){
-        $this->aSiteMap = Cache::get('SiteMap_'.$this->name, []);
+        $this->aSiteMap = Cache::get('SiteMap_'.$this->name.'_config', []);
     }
 
     public function model(){
@@ -79,10 +79,10 @@ abstract class SiteMap{
             $path.=$this->name.'/';
         }
         if (!empty($sitemap->model->getItems())) {
-            $sitemap->store('xml',$path. 'sitemap'.(!empty($this->lang)?('-'.$this->lang):'').(!empty($this->name)?('-'.$this->name):'').($sitemapCounter==1?"":('-'.($sitemapCounter-1))));
+            $file = $path. 'sitemap'.(!empty($this->lang)?('-'.$this->lang):'').(!empty($this->name)?('-'.$this->name):'').($sitemapCounter==1?"":('-'.($sitemapCounter-1)));
+            $sitemap->store('xml',$file);
+            $this->saveCache($file.'.xml');
         }
-        $sitemap->store('sitemapindex', 'sitemap');
-        $this->saveCache();
     }
     public function category(){
         $conf = $this->configs;
@@ -90,18 +90,6 @@ abstract class SiteMap{
             return DB::table('categories')->where('type',$conf['category']['type'])->get()->keyBy('id');;
         });
     }
-
-    /*
-     *  $aSiteMap[$request->fullUrl()] = [
-                'added' => time(),
-                'lastmod' => Carbon::now()->toIso8601String(),
-                'priority' => 1 - substr_count($request->getPathInfo(), '/') / 10,
-                'changefreq' => $changefreq
-            ];
-            \Cache::put('sitemap', $aSiteMap, 2880);
-     *
-     * */
-
     public function getChanefreq($url){
         $changefreq = 'always';
         if ( !empty( $this->aSiteMap[$url]['added'] ) ) {
@@ -122,9 +110,8 @@ abstract class SiteMap{
         }
         return $changefreq;
     }
-    public function saveCache(){
-
-        Cache::put('SiteMap_'.$this->name,$this->aSiteMap, 2880);
+    public function saveCache($file){
+        Cache::put('SiteMap_'.$this->name."_config",$this->aSiteMap, 2880);
+        Cache::put('SiteMap_'.$this->name.'_file',$file, 2880);
     }
-
 }

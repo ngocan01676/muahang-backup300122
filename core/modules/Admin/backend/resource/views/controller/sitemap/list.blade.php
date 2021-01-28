@@ -256,7 +256,12 @@
                 page = parseInt(form.find(class_lang+'b.page').text());
             }
             page+=1;
-            form.find(class_lang+'.progress-bar').removeClass('progress-bar-danger').addClass('progress-bar-aqua').css({width:( (page) * 100 / parseInt(form.find(class_lang+'b.total_page').text()))+"%"});
+            let total_page = parseInt(form.find(class_lang+'b.total_page').text());
+
+            if(page >total_page ){
+                return;
+            }
+            form.find(class_lang+'.progress-bar').removeClass('progress-bar-danger').addClass('progress-bar-aqua').css({width:( (page) * 100 / total_page)+"%"});
             data.page = page;
             data.site_map = true;
             data.lang = lang;
