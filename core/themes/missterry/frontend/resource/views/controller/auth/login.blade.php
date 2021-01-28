@@ -7,8 +7,9 @@
                         <div class="col-1 large-6 col pb-0">
                             <div class="account-login-inner">
                                 <h3 class="uppercase">{!! z_language('Login') !!}</h3>
-                                <form  data-urlCurrent="{!! url()->current() !!}" action="{!! router_frontend_lang('guest:login:post') !!}" class="woocommerce-form woocommerce-form-login login" method="post">
+                                <form  data-urlCurrent="{!! url()->current() !!}" action="{!! router_frontend_lang('guest:login:post') !!}" class="woocommerce-form woocommerce-form-login LoginForm" method="post">
                                     @csrf
+                                    <input type="hidden" name="g-recaptcha-response">
                                     <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                         <label for="username">{!! z_language('Phone or Email address') !!}&nbsp;<span class="required">*</span></label>
                                         {!! Form::text('email',null, ['class' => 'woocommerce-Input woocommerce-Input--text input-text']) !!}
@@ -31,10 +32,11 @@
                                         @enderror
                                     </p>
                                     <p>
-                                        {!! app('captcha')->display() !!}
+
                                     </p>
                                     <p class="form-row">
-                                        <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="loginForm" value="Log in">Log in</button>
+                                        <button
+                                                type="button" class="woocommerce-button button woocommerce-form-login__submit" name="LoginFormBtn" value="Log in">Log in</button>
                                     </p>
                                 </form>
 
@@ -71,4 +73,17 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+        <script>
+            jQuery('[name="LoginFormBtn"]').click(function (e) {
+                e.preventDefault();
+                grecaptcha.ready(function () {
+                    grecaptcha.execute('{!! env('NOCAPTCHA_SITEKEY', "") !!}', {action: 'submit'}).then(function (token) {
+                        jQuery('.LoginForm').find('[name="g-recaptcha-response"]').val(token);
+                        jQuery('.LoginForm')[0].submit();
+                    })
+                });
+            });
+        </script>
+    @endpush
 @endsection
