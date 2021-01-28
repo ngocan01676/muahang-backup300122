@@ -152,9 +152,9 @@
                     </li>
                     @endforeach
                     <li>
-                        <button onclick="site_map_all_index();" type="button" class="btn btn-primary btn-xs">Sitemap Index</button>
-                        <button onclick="site_map_all_detail();" type="button" class="btn btn-primary btn-xs">Sitemap</button>
-                        <a target="_blank" href="{!! url('sitemap.xml') !!}" class="btn btn-primary btn-xs">View</a>
+                        <button onclick="site_map_all_index();" type="button" class="btn btn-primary btn-xs">Sitemap Index</button> &nbsp; &nbsp;
+                        <button onclick="site_map_all_detail();" type="button" class="btn btn-primary btn-xs">Sitemap Urlset</button> &nbsp; &nbsp;
+                        <a target="_blank" href="{!! url('sitemap.xml') !!}" class="btn btn-primary btn-xs">Sitemap Link</a>
                     </li>
                 </ul>
         </div>
