@@ -272,13 +272,13 @@ $routers['guest'] =    [
         "login:post:ajax" => [
             "url" => "/login/action/ajax",
             "action" => "postLoginAjax",
-            "method" => ["get","post"],
+            "method" => ["post"],
             "guard" => ""
         ],
         "register:post:ajax" => [
             "url" => "/register/action/ajax",
             "action" => "postRegisterAjax",
-            "method" => ["get","post"],
+            "method" => ["post"],
             "guard" => ""
         ]
     ]
