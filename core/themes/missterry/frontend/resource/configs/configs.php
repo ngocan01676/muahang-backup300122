@@ -24,11 +24,13 @@ return [
             'MissTerryTheme\\SiteMap\\Room'=>[
                 'room-detail'=>[
                     'router'=>'room-detail',
+                    'translations'=>true,
 //                    'translations'=>true,
                     'selects'=>[
-                        'id'=>'id',
-                        'slug'=>'slug',
-                        'updated_at'=>'updated_at',
+                        'table.id',
+                       
+                        'translation.slug',
+                        'table.updated_at'
                     ]
                 ],
             ],
