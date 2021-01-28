@@ -154,6 +154,7 @@
                     <li>
                         <button onclick="site_map_all_index();" type="button" class="btn btn-primary btn-xs">Sitemap Index</button>
                         <button onclick="site_map_all_detail();" type="button" class="btn btn-primary btn-xs">Sitemap</button>
+                        <a target="_blank" href="{!! url('sitemap.xml') !!}" class="btn btn-primary btn-xs">View</a>
                     </li>
                 </ul>
         </div>
