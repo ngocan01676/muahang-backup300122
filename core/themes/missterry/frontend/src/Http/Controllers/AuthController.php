@@ -74,8 +74,8 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
             $member->role_id = 3;
             $member->password = Hash::make( $data['password']);
             $name = explode("@",$data['email']);
-            $member->name = isset($name[0])?$name[0]:"";
-            $member->username = isset($name[0])?$name[0]:"";
+            $member->name = $data['email'];
+            $member->username = $data['email'];
             if($member->save()){
                 return response()->json([
                     "success"=>true,
