@@ -24,10 +24,41 @@ return [
             'MissTerryTheme\\SiteMap\\Room'=>[
                 'room-detail'=>[
                     'router'=>'room-detail',
+//                    'translations'=>true,
                     'selects'=>[
                         'id'=>'id',
                         'slug'=>'slug',
                         'updated_at'=>'updated_at',
+                    ]
+                ],
+            ],
+            'MissTerryTheme\\SiteMap\\Category'=>[
+                'category'=>[
+                    'router'=>'category',
+                    'router_index'=>'1',
+                    'translations'=>true,
+                    'category'=>[
+                        'type'=>'blog:category'
+                    ],
+                    'selects'=>[
+
+                    ]
+                ],
+            ],
+            'MissTerryTheme\\SiteMap\\Post'=>[
+                'post-detail'=>[
+                    'router'=>'category_item',
+                    'router_index'=>'1',
+                    'translations'=>true,
+
+                    'category'=>[
+                        'type'=>'blog:category'
+                    ],
+                    'selects'=>[
+                        'table.id',
+                        'table.category_id',
+                        'translation.slug',
+                        'table.updated_at'
                     ]
                 ],
             ]

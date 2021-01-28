@@ -34,118 +34,127 @@
                                                 <input type="hidden" name="{!! $id_name !!}.class" value="{!! $class !!}">
                                                 <input type="hidden" name="{!! $id_name !!}.name" value="{!! $_name !!}">
                                                 <input type="hidden" name="{!! $id_name !!}.config">
+                                                <input type="hidden" name="{!! $id_name !!}.limit" value="50000">
                                                 <table class="table table-borderless" style="display: table;margin-bottom: 0">
                                                 <tbody>
                                                 <tr>
-                                                    <td>
-                                                        {!! Form::label('router_name', z_language('Router'), ['class' => 'name']) !!}
-                                                    </td>
-                                                    <td>
-                                                        @php
-                                                              $langs = [];
-                                                         @endphp
-                                                        <select name="{!! $id_name !!}.router" class="form-control">
-                                                            @foreach($routes as $route)
-                                                                @php
-                                                                    $arr_name =  explode(':',$route['name']);
-                                                                    $active = false;
-                                                                    if(in_array($_site_map['router'],$arr_name)){
-                                                                        $active = true;
-                                                                    }
-                                                                @endphp
-                                                                @continue($_type!=$arr_name[0] && $arr_name[0]!="login" && $arr_name[0]!="register")
-                                                                @isset($route['default']['lang'])
-                                                                    @php
-                                                                        $langs[] = $route;
-                                                                    @endphp
-                                                                @endisset
-                                                                @continue(isset($route['default']['lang']))
-                                                                @php
-                                                                    unset($arr_name[0]);
-                                                                    $alise = implode(":",$arr_name);
-                                                                @endphp
-                                                                @continue(!in_array("GET",$route['method']))
-                                                                <option {!! $active?'selected':'' !!} value="{!! $alise !!}" data-uri="{!! $route['uri'] !!}">
-                                                                    @php
-                                                                        echo '['.$alise.'] : '.$route['uri'];
-                                                                    @endphp
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-                                                    <td rowspan="2">
-
+                                                    <td style="width: 40%">
                                                         <table class="table table-bordered">
                                                             <tr>
-                                                                <th colspan="3">
-                                                                    <div class="progress-group">
-                                                                        <span class="progress-text">{!! $_name !!}</span>
-                                                                        <span class="progress-number"><b class="page">0</b>/<b class="total_page">0</b></span>
-                                                                        <div class="progress sm">
-                                                                            <div class="progress-bar progress-bar-aqua" style="width: 0%"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Page</th>
-                                                                <th class="text-center page">0</th>
-                                                                <th rowspan="3" style="vertical-align: middle;text-align: center">
-                                                                    <button onclick="site_map_action('{!! $id_form !!}',1,null);" type="button" class="btn btn-primary">Sitemap</button>
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Total Page</th>
-                                                                <th class="text-center total_page">0</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Totals</th>
-                                                                <th class="text-center totals">0</th>
+                                                                <td>
+                                                                    {!! Form::label('router_name', z_language('Router'), ['class' => 'name']) !!}
+                                                                </td>
+                                                                <td>
+                                                                    @php
+                                                                        $locks = [];
+                                                                    @endphp
+                                                                    <select name="{!! $id_name !!}.router" class="form-control">
+                                                                        @foreach($routes as $route)
+                                                                            @php
+                                                                                $arr_name =  explode(':',$route['name']);
+                                                                                $active = false;
+                                                                                if(in_array($_site_map['router'],$arr_name)){
+                                                                                    $active = true;
+                                                                                }
+                                                                            @endphp
+                                                                            @continue($_type!=$arr_name[0] && $arr_name[0]!="login" && $arr_name[0]!="register")
+                                                                            @isset($route['default']['lang'])
+                                                                                @php
+                                                                                    $langs[] = $route;
+                                                                                @endphp
+                                                                            @endisset
+                                                                            @continue(isset($route['default']['lang']))
+                                                                            @php
+                                                                                unset($arr_name[0]);
+                                                                                if(isset($_site_map['router_index']) && isset($arr_name[$_site_map['router_index']])){
+
+                                                                                    $alise = $arr_name[$_site_map['router_index']];
+                                                                                }else{
+                                                                                    $alise = implode(":",$arr_name);
+                                                                                }
+                                                                            @endphp
+                                                                            @continue(isset($locks[$alise])))
+                                                                            @continue(!in_array("GET",$route['method']))
+                                                                            <option {!! $active?'selected':'' !!} value="{!! $alise !!}" data-uri="{!! $route['uri'] !!}">
+                                                                                @php
+                                                                                    $locks[$alise] = 1;
+                                                                                    echo '['.$alise.'] : '.$route['uri'];
+                                                                                @endphp
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </td>
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                </tr>
-                                                <tr>
                                                     <td>
-                                                        <label for="id_title" class="title">Limit</label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" name="{!! $id_name !!}.limit" value="1" class="form-control">
+                                                        <table class="table table-bordered">
+                                                            @if(isset($_site_map['translations']) && isset($configs['core']['language']['multiple']))
+                                                                @foreach($language as $lang=>$_language)
+                                                                    @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                                                                        <tr class="translations lang_{!! $lang !!}" data-lang="{!! $lang !!}">
+                                                                            <th>
+                                                                                <div class="progress-group">
+                                                                                    <span class="progress-text">{!! $_name !!} - {!! $lang !!}</span>
+                                                                                    <span class="progress-number"><b class="page">0</b>/<b class="total_page">0</b></span>
+                                                                                    <div class="progress sm">
+                                                                                        <div class="progress-bar progress-bar-aqua" style="width: 0%"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </th>
+                                                                            <th style="width: 50px;text-align: center">
+                                                                                <button onclick="site_map_action('{!! $id_form !!}',1,'{!! $lang !!}',null);" type="button" class="btn btn-primary btn-xs">Sitemap</button>
+                                                                            </th>
+                                                                        </tr>
+                                                                        @push('scripts')
+                                                                            <script>
+                                                                                $(document).ready(function () {
+                                                                                    Init('{!! $id_form !!}','{!! $lang !!}');
+                                                                                });
+                                                                            </script>
+                                                                        @endpush
+                                                                    @endif
+                                                                @endforeach
+                                                            @else
+                                                                <tr>
+                                                                    <th>
+                                                                        <div class="progress-group">
+                                                                            <span class="progress-text">{!! $_name !!}</span>
+                                                                            <span class="progress-number"><b class="page">0</b>/<b class="total_page">0</b></span>
+                                                                            <div class="progress sm">
+                                                                                <div class="progress-bar progress-bar-aqua" style="width: 0%"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </th>
+                                                                    <th style="width: 50px;text-align: center">
+                                                                        <button onclick="site_map_action('{!! $id_form !!}',1,'',null);" type="button" class="btn btn-primary btn-xs">Sitemap</button>
+                                                                    </th>
+                                                                </tr>
+                                                                @push('scripts')
+                                                                    <script>
+                                                                        $(document).ready(function () {
+                                                                            Init('{!! $id_form !!}','');
+                                                                        });
+                                                                    </script>
+                                                                @endpush
+                                                            @endif
+                                                        </table>
                                                     </td>
                                                 </tr>
+
                                                 </tbody>
                                                 </table>
-                                                @push('scripts')
-                                                    <script>
-                                                        $(document).ready(function () {
-                                                            let form = $("#form_{!! $id_form !!}");
-                                                            $.ajax({
-                                                                type:"POST",
-                                                                url:"{!! route('backend:sitemap:check') !!}",
-                                                                data:{
-                                                                    data:form.zoe_inputs('get')
-                                                                },
-                                                                success:function (data) {
-                                                                    console.log(data);
-                                                                    let page = form.find('.page');
-                                                                    let total_page = form.find('.total_page');
-                                                                    let totals = form.find('.totals');
-                                                                    if(data.hasOwnProperty('current_page') && data.hasOwnProperty('total_page') && data.hasOwnProperty('total_records')){
-                                                                        page.text(data.current_page-1);
-                                                                        total_page.text(data.total_page);
-                                                                        totals.text(data.total_records);
-                                                                    }
-                                                                }
-                                                            });
-                                                        });
-                                                    </script>
-                                                @endpush
+
                                             </form>
                                         @endforeach
                             </div>
                         </div>
                     </li>
                     @endforeach
+                    <li>
+                        <button onclick="site_map_all_index();" type="button" class="btn btn-primary btn-xs">Sitemap Index</button>
+                        <button onclick="site_map_all_detail();" type="button" class="btn btn-primary btn-xs">Sitemap</button>
+                    </li>
                 </ul>
         </div>
     </div>
@@ -153,9 +162,71 @@
 @push('links')
 
 @endpush
+@push('scriptsTop')
+    <script>
+
+        function site_map_all_detail() {
+
+        }
+        function site_map_all_index() {
+            $('.timeline').mask();
+            $.ajax({
+                type:"POST",
+                url:"{!! route('backend:sitemap:index') !!}",
+                data:{
+
+                },
+                success:function (data) {
+                    $('.timeline').unmask();
+                }
+            });
+
+        }
+        function changeLimit(form_id) {
+            let form = $("#form_"+form_id);
+            let translations = form.find('.translations');
+            if(translations.length == 0){
+                Init(form_id,'')
+            }else{
+                translations.each(function () {
+                    Init(form_id,$(this).attr('data-lang'))
+                });
+            }
+        }
+        function Init(form_id,lang) {
+            let form = $("#form_"+form_id);
+            $.ajax({
+                type:"POST",
+                url:"{!! route('backend:sitemap:check') !!}",
+                data:{
+                    data:form.zoe_inputs('get'),
+                    lang:lang
+                },
+                success:function (data) {
+                    console.log(data);
+                    let class_lang = "";
+                    if(lang.length > 0){
+                        class_lang='.lang_'+lang+" ";
+                    }
+                    let page = form.find(class_lang+'.page');
+                    let total_page = form.find(class_lang+'.total_page');
+                    let totals = form.find(class_lang+'.totals');
+                    if(data.hasOwnProperty('current_page') && data.hasOwnProperty('total_page') && data.hasOwnProperty('total_records')){
+                        page.text(data.current_page-1);
+                        total_page.text(data.total_page);
+                        totals.text(data.total_records);
+                    }else{
+
+                    }
+                }
+            });
+        }
+    </script>
+@endpush
 @push('scripts')
     <script>
-        function site_map_action(form_id,page,config) {
+
+        function site_map_action(form_id,page,lang,config) {
             let form = $("#form_"+form_id);
             let data = {};
             if(config == null){
@@ -163,10 +234,15 @@
             }else{
                 data = config;
             }
-            form.find('.progress-bar').css({width:( page * 100 / parseInt(form.find('b.total_page').text()))+"%"});
+            let class_lang = "";
+            if(lang.length > 0){
+                class_lang='.lang_'+lang+" ";
+            }
+            form.find(class_lang+'.progress-bar').css({width:( page * 100 / parseInt(form.find(class_lang+'b.total_page').text()))+"%"});
             data.page = page;
             data.site_map = true;
-            let pageElm = form.find('.page');
+            data.lang = lang;
+            let pageElm = form.find(class_lang+'.page');
             pageElm.text(page);
             $.ajax({
                 type:"POST",
@@ -176,7 +252,7 @@
                     console.log(_data);
                     if(_data.hasOwnProperty('current_page') && _data.hasOwnProperty('total_page')){
                         if(_data.current_page < _data.total_page){
-                            site_map_action(form_id,_data.current_page+1,_data);
+                            site_map_action(form_id,_data.current_page+1,lang,_data);
                         }
                     }
                 }

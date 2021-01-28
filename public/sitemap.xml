@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="/vendor/sitemap/styles/sitemapindex.xsl" type="text/xsl"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<sitemap>
+		<loc>http://localhost:8000/sitemaps/category/sitemap-en_us-category.xml</loc>
+			<lastmod>2021-01-28T12:49:30+07:00</lastmod>
+		</sitemap>
+	<sitemap>
+		<loc>http://localhost:8000/sitemaps/category/sitemap-vi-category.xml</loc>
+			<lastmod>2021-01-28T12:49:31+07:00</lastmod>
+		</sitemap>
+	<sitemap>
+		<loc>http://localhost:8000/sitemaps/post-detail/sitemap-en_us-post-detail.xml</loc>
+			<lastmod>2021-01-28T12:49:32+07:00</lastmod>
+		</sitemap>
+	<sitemap>
+		<loc>http://localhost:8000/sitemaps/post-detail/sitemap-vi-post-detail.xml</loc>
+			<lastmod>2021-01-28T12:49:34+07:00</lastmod>
+		</sitemap>
+	<sitemap>
+		<loc>http://localhost:8000/sitemaps/room-detail/sitemap-room-detail.xml</loc>
+			<lastmod>2021-01-28T12:49:29+07:00</lastmod>
+		</sitemap>
 </sitemapindex>

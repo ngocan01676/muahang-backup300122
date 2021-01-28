@@ -405,6 +405,10 @@ return [
                         "url" => "/site-map",
                         "method" => ['post'],
                     ],
+                    "index" => [
+                        "url" => "/index",
+                        "method" => ['post'],
+                    ],
                 ]
             ],
         ]
