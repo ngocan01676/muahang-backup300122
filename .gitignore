@@ -15,3 +15,5 @@ tool/node_modules/
 /tmp/
 /.idea/workspace.xml
 /public/uploads/
+/public/sitemap.xml
+/public/sitemaps/

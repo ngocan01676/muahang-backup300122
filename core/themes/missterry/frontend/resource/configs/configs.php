@@ -28,7 +28,7 @@ return [
 //                    'translations'=>true,
                     'selects'=>[
                         'table.id',
-                       
+
                         'translation.slug',
                         'table.updated_at'
                     ]
