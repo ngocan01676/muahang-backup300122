@@ -10,7 +10,7 @@ class Post extends \Zoe\SiteMap{
         foreach ($results as $result) {
             if(isset($category[$result->category_id])){
                 //table
-                $url = route('frontend:'.(!empty($this->confLang['router'])?$this->confLang['router']."_":"").$this->configs['router'].':'.$category[$result->category_id]->router_name,['slug'=>$result->slug]);
+                $url = route('frontend:'.(isset($this->confLang['router'])?$this->confLang['router']."_":"").$this->configs['router'].':'.$category[$result->category_id]->router_name,['slug'=>$result->slug]);
                 $conf =  [
                     'added' => time(),
                     'lastmod' => Carbon::now()->toIso8601String(),

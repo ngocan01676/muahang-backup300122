@@ -13,7 +13,7 @@ class Room extends \Zoe\SiteMap{
     }
     public function site_map($router,$sitemap,$results,$page){
         foreach ($results as $result) {
-            $url = route('frontend:'.$router,['slug'=>$result->slug]);
+            $url = route('frontend:'.(isset($this->confLang['router'])?$this->confLang['router']."_":"").$router,['slug'=>$result->slug]);
             $conf =  [
                 'added' => time(),
                 'lastmod' => Carbon::now()->toIso8601String(),

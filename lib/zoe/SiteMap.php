@@ -52,6 +52,7 @@ abstract class SiteMap{
         return isset($result[$this->id])?$result[$this->id]:0;
     }
     public function pagination($start,$limit,$selects = [],$wheres = [],$orderBy = 'asc',$columns = ''){
+
         $model = $this->model();
         if(count($wheres) > 0){
             $model = $model->where($wheres);
@@ -60,12 +61,13 @@ abstract class SiteMap{
             $model = $model->select($selects);
         }
         if(!empty($this->lang)){
-            $model = $model->where('lang_code',$this->lang);
+            $model = $model->where('translation.lang_code',$this->lang);
         }
         if(empty($columns)){
             $model->orderBy($this->id,$orderBy);
         }
-        return $model->offset($start)->limit($limit)->get()->all();
+        $rs = $model->offset($start)->limit($limit)->get()->all();
+        return $rs;
     }
 
     public function action_site_map($sitemap,$sitemapCounter,$lang = ""){

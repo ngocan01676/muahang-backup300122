@@ -13,7 +13,7 @@ class Category extends \Zoe\SiteMap{
     }
     public function site_map($router,$sitemap,$results,$page){
         foreach ($results as $result) {
-            $url = route('frontend:'.(!empty($this->confLang['router'])?$this->confLang['router']."_":"").$this->configs['router'].':'.$result->router_name);
+            $url = route('frontend:'.(isset($this->confLang['router'])?$this->confLang['router']."_":"").$this->configs['router'].':'.$result->router_name);
             $conf =  [
                 'added' => time(),
                 'lastmod' => Carbon::now()->toIso8601String(),
