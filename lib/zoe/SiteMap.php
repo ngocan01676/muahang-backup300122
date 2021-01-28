@@ -22,7 +22,6 @@ abstract class SiteMap{
     }
     public function Init(){
         $this->aSiteMap = Cache::get('SiteMap_'.$this->name.'_config', []);
-        $this->aSiteMapFile = Cache::get('SiteMap_'.$this->name.'_files', []);
     }
 
     public function model(){
@@ -118,6 +117,5 @@ abstract class SiteMap{
     }
     public function saveCache(){
         Cache::put('SiteMap_'.$this->name."_config",$this->aSiteMap, 2880);
-        Cache::put('SiteMap_'.$this->name.'_files',$this->aSiteMapFile, 2880);
     }
 }
