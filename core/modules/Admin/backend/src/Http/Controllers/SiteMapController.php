@@ -39,8 +39,8 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
         $sitemaps = $this->getDirContents(public_path('sitemaps'));
 
         foreach ($sitemaps as $sitemap){
-           $url = str_replace(public_path('\\'),'',$sitemap);
-           $url  = str_replace('\\','/',$url);
+           $url = str_replace(public_path(DIRECTORY_SEPARATOR),'',$sitemap);
+           $url  = str_replace(DIRECTORY_SEPARATOR ,'/',$url);
            // $make_sitemap->addSitemap();
             $make_sitemap->addSitemap(url($url),date('Y-m-d H:i:s',filemtime($sitemap)));
         }
