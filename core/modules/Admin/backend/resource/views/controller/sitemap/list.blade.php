@@ -24,6 +24,9 @@
                                                 'method'=> $route->methods,
                                                 'default'=>$route->defaults,
                                                 ];
+                                            })->toArray();
+                                            usort($routes,function ($a,$b){
+                                                return strcmp ($a['name'],$b['name']);
                                             });
                                             $_type = 'frontend';
                                         @endphp
