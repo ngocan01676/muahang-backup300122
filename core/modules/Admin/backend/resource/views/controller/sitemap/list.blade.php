@@ -194,11 +194,21 @@
         }
         function site_map_all_index() {
             $('.timeline').mask();
+            let data = [];
+            $('.timeline form').each(function () {
+                let _data = {langs:[],config:Object.values($(this).zoe_inputs('get'))};
+                $(this).find('.translations').each(function () {
+                    _data.langs.push($(this).attr('data-lang'))
+                });
+                data.push(_data);
+                //data.push($(this).zoe_inputs('get'));
+            });
+            console.log(data);
             $.ajax({
                 type:"POST",
                 url:"{!! route('backend:sitemap:index') !!}",
                 data:{
-
+                    sitemaps:data
                 },
                 success:function (data) {
                     $('.timeline').unmask();

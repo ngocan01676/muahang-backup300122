@@ -35,24 +35,44 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
         }
         return $results;
     }
-    public function index(){
+    public function index(Request $request){
         $make_sitemap = $this->app->make('sitemap');
 
 
         $site_maps = isset($this->app->getConfig()->packages['site_maps'])?$this->app->getConfig()->packages['site_maps']:[];
-
-        foreach($site_maps as $class=>$site_map){
-            foreach($site_map as $_name=>$_site_map){
-                $key = 'SiteMap_'.$_name.'_files';
-                if(Cache::has($key)){
-                    $urls = Cache::get($key,[]);
-                    foreach ($urls as $url){
-                        $url  = str_replace(DIRECTORY_SEPARATOR ,'/',$url);
-                        $make_sitemap->addSitemap(url($url),date('Y-m-d H:i:s',filemtime(public_path($url))));
-                    }
+        $logs = [];
+        $datas = $request->all();
+        $files = [];
+        foreach ($datas['sitemaps'] as $sitemap){
+            $config = $sitemap['config'][0];
+            foreach ($sitemap['langs'] as $lang){
+                $class = $config['class'];
+                $obj = new $class();
+                $obj->name = $config['name'];
+                $obj->lang = $lang;
+                $obj->confLang = isset($this->data['language'][$lang])?$this->data['language'][$lang]:[];
+                $obj->Init();
+                $data = config_get('sitemap',empty($obj->lang)?$obj->name:$obj->name.":".$obj->lang);
+                for($page = 1; $page <= $data['total_page'];$page++){
+                    $url = $obj->get_file($page).$obj->extension;
+                    $url  = str_replace(DIRECTORY_SEPARATOR ,'/',$url);
+                    $make_sitemap->addSitemap(url($url),date('Y-m-d H:i:s',filemtime(public_path($url))));
                 }
             }
         }
+//        foreach($site_maps as $class=>$site_map){
+//            foreach($site_map as $_name=>$_site_map){
+//                $key = 'SiteMap_'.$_name.'_files';
+//                if(Cache::has($key)){
+//                    $urls = Cache::get($key,[]);
+//                    $datas[$key] =  Cache::get('SiteMap_'.$_name.'_config',[]);
+//                    foreach ($urls as $url){
+//                        $url  = str_replace(DIRECTORY_SEPARATOR ,'/',$url);
+//                        $make_sitemap->addSitemap(url($url),date('Y-m-d H:i:s',filemtime(public_path($url))));
+//                    }
+//                }
+//            }
+//        }
 
 //        $sitemaps = $this->getDirContents(public_path('sitemaps'));
 //
@@ -64,9 +84,8 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
 //        }
       //  $sitemap->addSitemap(URL::to('sitemap-posts'));
       //  $sitemap->addSitemap(URL::to('sitemap-tags'));
-
         $make_sitemap->store('sitemapindex','sitemap');
-        return response()->json([]);
+        return response()->json($logs);
     }
     public function check(Request $request){
         $datas = $request->all();

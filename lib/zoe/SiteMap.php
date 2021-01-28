@@ -14,7 +14,7 @@ abstract class SiteMap{
     public $confLang = [];
     protected $aSiteMap = [];
     protected $aSiteMapFile = [];
-
+    public $extension = '.xml';
     public function __construct()
     {
         $this->file = new \Illuminate\Filesystem\Filesystem();
@@ -71,8 +71,7 @@ abstract class SiteMap{
         $rs = $model->offset($start)->limit($limit)->get()->all();
         return $rs;
     }
-
-    public function action_site_map($sitemap,$sitemapCounter,$lang = ""){
+    public function get_file($sitemapCounter){
         $path = "/sitemaps/";
         if(!empty($this->name)){
             if(!$this->file->exists(public_path('sitemaps/'.$this->name))){
@@ -80,10 +79,14 @@ abstract class SiteMap{
             }
             $path.=$this->name.'/';
         }
+        $file = $path. 'sitemap'.(!empty($this->lang)?('-'.$this->lang):'').(!empty($this->name)?('-'.$this->name):'').($sitemapCounter==1?"":('-'.($sitemapCounter-1)));
+        return $file;
+    }
+    public function action_site_map($sitemap,$sitemapCounter,$lang = ""){
         if (!empty($sitemap->model->getItems())) {
-            $file = $path. 'sitemap'.(!empty($this->lang)?('-'.$this->lang):'').(!empty($this->name)?('-'.$this->name):'').($sitemapCounter==1?"":('-'.($sitemapCounter-1)));
+            $file = $this->get_file($sitemapCounter);
             $sitemap->store('xml',$file);
-            $this->aSiteMapFile[$file] = $file.'.xml';
+            $this->aSiteMapFile[$file] = $file.$this->extension;
             $this->saveCache();
         }
     }
