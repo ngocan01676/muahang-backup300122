@@ -255,6 +255,7 @@
             if(page == null){
                 page = parseInt(form.find(class_lang+'b.page').text());
             }
+            page+=1;
             form.find(class_lang+'.progress-bar').removeClass('progress-bar-danger').addClass('progress-bar-aqua').css({width:( (page) * 100 / parseInt(form.find(class_lang+'b.total_page').text()))+"%"});
             data.page = page;
             data.site_map = true;
@@ -271,7 +272,7 @@
                     console.log(_data);
                     if(_data.hasOwnProperty('current_page') && _data.hasOwnProperty('total_page')){
                         if((_data.current_page-1) < _data.total_page){
-                            site_map_action(form_id,_data.current_page+1,lang,_data);
+                            site_map_action(form_id,_data.current_page,lang,_data);
                         }
                     }
                 },
