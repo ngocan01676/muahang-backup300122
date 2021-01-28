@@ -106,7 +106,7 @@ class SiteMapController extends \Zoe\Http\ControllerBackend
                            $config = config_get('sitemap',empty($obj->lang)?$_data['name']:$_data['name'].":".$obj->lang);
                            $response['configs'] = $config;
                            if(isset($config['limit']) && $limit == $config['limit']){
-                               $current_page = $config['total_page'];
+                               $current_page = $config['total_page']-1;
                            }else{
                                $response['update'] = false;
                                $response['success'] = true;
