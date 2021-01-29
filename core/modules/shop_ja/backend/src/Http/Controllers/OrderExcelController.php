@@ -1181,7 +1181,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 'name'=>\Illuminate\Support\Str::random(50)
             ]);
         }
-        if(28 >= date('d')){
+        if(date('d') >= 28 ){
             $next = date('Y-m',strtotime('+1 day'));
             $last+=7;
             for($day = 1;$day<=7;$day++){
