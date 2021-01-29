@@ -1162,13 +1162,16 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
         $next = date('Y-m');
         $admin_id = is_null($request->admin_id)? Auth::user()->id:$request->admin_id;
+        $keyCache = 'cacheDate:'.$admin_id.'_'.md5($first.$last);
+        $cacheDate = Cache::get($keyCache,[]);
 
         for($day = $first;$day<=$last;$day++){
             $key_date = $next.'-'.(($day<10)?"0".$day:$day);
-            if(DB::table("shop_order_excel_session")->where([
-                    'admin_id'=>$admin_id,
-                    'key_date'=>$key_date
-                ])->count() == 0){
+            if(!isset($cacheDate[$key_date])){
+                if(DB::table("shop_order_excel_session")->where([
+                        'admin_id'=>$admin_id,
+                        'key_date'=>$key_date
+                    ])->count() == 0){
                     DB::table("shop_order_excel_session")->updateOrInsert([
                         'admin_id'=>$admin_id,
                         'key_date'=>$key_date
@@ -1183,36 +1186,43 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         'name'=>\Illuminate\Support\Str::random(50)
                     ]);
                 }
+                $cacheDate[$key_date] = 1;
+            }
         }
         if(date('d') >= 28 ){
             $next = date('Y-m',strtotime('+1 day'));
-
             for($day = 1;$day<=7;$day++){
                 $key_date = $next.'-'.(($day<10)?"0".$day:$day);
-
-                if(DB::table("shop_order_excel_session")->where([
-                    'admin_id'=>$admin_id,
-                    'key_date'=>$key_date
-                ])->count() == 0){
-                    DB::table("shop_order_excel_session")->updateOrInsert([
-                        'admin_id'=>Auth::user()->id,
+                if(!isset($cacheDate[$key_date])){
+                    if(DB::table("shop_order_excel_session")->where([
+                        'admin_id'=>$admin_id,
                         'key_date'=>$key_date
-                    ],[
-                        'admin_id'=>Auth::user()->id,
-                        'key_date'=>$key_date,
-                        'token'=>rand(1000,9999),
-                        'date_time'=>$key_date." 00:00:00",
-                        'created_at'=>$key_date." 00:00:00",
-                        'updated_at'=>$key_date." 00:00:00",
-                        'status'=>0,
-                        'name'=>\Illuminate\Support\Str::random(50)
-                    ]);
+                    ])->count() == 0){
+                        DB::table("shop_order_excel_session")->updateOrInsert([
+                            'admin_id'=>Auth::user()->id,
+                            'key_date'=>$key_date
+                        ],[
+                            'admin_id'=>Auth::user()->id,
+                            'key_date'=>$key_date,
+                            'token'=>rand(1000,9999),
+                            'date_time'=>$key_date." 00:00:00",
+                            'created_at'=>$key_date." 00:00:00",
+                            'updated_at'=>$key_date." 00:00:00",
+                            'status'=>0,
+                            'name'=>\Illuminate\Support\Str::random(50)
+                        ]);
+
+                    }
+                    $cacheDate[$key_date] = 1;
                 }
             }
             $item = $last;
         }else{
             $item = $last;
         }
+
+        Cache::put($keyCache,$cacheDate,60);
+
         $filter = $request->query('filter', []);
         $search = $request->query('search', "");
         $status = $request->query('status', "");
