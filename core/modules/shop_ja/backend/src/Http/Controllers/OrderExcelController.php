@@ -1164,42 +1164,54 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $admin_id = is_null($request->admin_id)? Auth::user()->id:$request->admin_id;
 
         for($day = $first;$day<=$last;$day++){
-
             $key_date = $next.'-'.(($day<10)?"0".$day:$day);
-
-            DB::table("shop_order_excel_session")->updateOrInsert([
-                'admin_id'=>$admin_id,
-                'key_date'=>$key_date
-            ],[
-                'admin_id'=>$admin_id,
-                'key_date'=>$key_date,
-                'token'=>rand(1000,9999),
-                'date_time'=>$key_date." 00:00:00",
-                'created_at'=>$key_date." 00:00:00",
-                'updated_at'=>$key_date." 00:00:00",
-                'status'=>0,
-                'name'=>\Illuminate\Support\Str::random(50)
-            ]);
+            if(DB::table("shop_order_excel_session")->where([
+                    'admin_id'=>$admin_id,
+                    'key_date'=>$key_date
+                ])->count() == 0){
+                    DB::table("shop_order_excel_session")->updateOrInsert([
+                        'admin_id'=>$admin_id,
+                        'key_date'=>$key_date
+                    ],[
+                        'admin_id'=>$admin_id,
+                        'key_date'=>$key_date,
+                        'token'=>rand(1000,9999),
+                        'date_time'=>$key_date." 00:00:00",
+                        'created_at'=>$key_date." 00:00:00",
+                        'updated_at'=>$key_date." 00:00:00",
+                        'status'=>0,
+                        'name'=>\Illuminate\Support\Str::random(50)
+                    ]);
+                }
         }
         if(date('d') >= 28 ){
             $next = date('Y-m',strtotime('+1 day'));
-            $last+=7;
+
             for($day = 1;$day<=7;$day++){
                 $key_date = $next.'-'.(($day<10)?"0".$day:$day);
-                DB::table("shop_order_excel_session")->updateOrInsert([
-                    'admin_id'=>Auth::user()->id,
+
+                if(DB::table("shop_order_excel_session")->where([
+                    'admin_id'=>$admin_id,
                     'key_date'=>$key_date
-                ],[
-                    'admin_id'=>Auth::user()->id,
-                    'key_date'=>$key_date,
-                    'token'=>rand(1000,9999),
-                    'date_time'=>$key_date." 00:00:00",
-                    'created_at'=>$key_date." 00:00:00",
-                    'updated_at'=>$key_date." 00:00:00",
-                    'status'=>0,
-                    'name'=>\Illuminate\Support\Str::random(50)
-                ]);
+                ])->count() == 0){
+                    DB::table("shop_order_excel_session")->updateOrInsert([
+                        'admin_id'=>Auth::user()->id,
+                        'key_date'=>$key_date
+                    ],[
+                        'admin_id'=>Auth::user()->id,
+                        'key_date'=>$key_date,
+                        'token'=>rand(1000,9999),
+                        'date_time'=>$key_date." 00:00:00",
+                        'created_at'=>$key_date." 00:00:00",
+                        'updated_at'=>$key_date." 00:00:00",
+                        'status'=>0,
+                        'name'=>\Illuminate\Support\Str::random(50)
+                    ]);
+                }
             }
+            $item = $last;
+        }else{
+            $item = $last;
         }
         $filter = $request->query('filter', []);
         $search = $request->query('search', "");
@@ -1207,7 +1219,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $date = $request->query('date', "");
 
         $config = config_get('option', "module:shop_ja:order:excel");
-        $item = $last;
+
 
         $models = DB::table('shop_order_excel_session');
 
