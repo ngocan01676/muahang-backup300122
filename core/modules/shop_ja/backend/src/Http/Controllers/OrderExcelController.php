@@ -1167,7 +1167,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
         for($day = $first;$day<=$last;$day++){
             $key_date = $next.'-'.(($day<10)?"0".$day:$day);
-            
+            echo $key_date."<BR>";
             if(!isset($cacheDate[$key_date])){
                 if(DB::table("shop_order_excel_session")->where([
                         'admin_id'=>$admin_id,
@@ -1193,7 +1193,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         if((int) date('d') >= 28 ){
 
             $timeNext = strtotime('+1 day',strtotime("last day of this month"));
-
+            echo $key_date."<BR>";
             for($i = 1;$i<=3;$i++){
                 $day = (int)date('d',$timeNext);
                 $next =  date('Y-m',$timeNext);
