@@ -1167,6 +1167,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
         for($day = $first;$day<=$last;$day++){
             $key_date = $next.'-'.(($day<10)?"0".$day:$day);
+            
             if(!isset($cacheDate[$key_date])){
                 if(DB::table("shop_order_excel_session")->where([
                         'admin_id'=>$admin_id,
@@ -1198,7 +1199,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $next =  date('Y-m',$timeNext);
 
                 $key_date = $next.'-'.(($day<10)?"0".$day:$day);
-                 
+
                 if(!isset($cacheDate[$key_date])){
                     if(DB::table("shop_order_excel_session")->where([
                         'admin_id'=>$admin_id,
