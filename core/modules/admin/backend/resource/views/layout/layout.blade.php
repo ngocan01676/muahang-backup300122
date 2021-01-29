@@ -110,6 +110,9 @@
                 {{--</li>--}}
                 <!-- Notifications: style can be found in dropdown.less -->
                     <li>
+                        <strong>{!! \Illuminate\Support\Facades\Auth::user()->coin !!}</strong>
+                    </li>
+                    <li>
                         @php $languages = config('zoe.language');
                         @endphp
                         <select class="form-control site_language" name="site_language" onchange="genderChanged(this)">
