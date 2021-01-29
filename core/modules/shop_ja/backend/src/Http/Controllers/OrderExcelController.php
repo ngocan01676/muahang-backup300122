@@ -1164,7 +1164,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $admin_id = is_null($request->admin_id)? Auth::user()->id:$request->admin_id;
 
         for($day = $first;$day<=$last;$day++){
+
             $key_date = $next.'-'.(($day<10)?"0".$day:$day);
+
             DB::table("shop_order_excel_session")->updateOrInsert([
                 'admin_id'=>$admin_id,
                 'key_date'=>$key_date
@@ -1179,7 +1181,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 'name'=>\Illuminate\Support\Str::random(50)
             ]);
         }
-        if($last == date('d')){
+        if(28 >= date('d')){
             $next = date('Y-m',strtotime('+1 day'));
             $last+=7;
             for($day = 1;$day<=7;$day++){
