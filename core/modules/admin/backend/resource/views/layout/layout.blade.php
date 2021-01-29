@@ -110,7 +110,7 @@
                 {{--</li>--}}
                 <!-- Notifications: style can be found in dropdown.less -->
                     <li>
-                        <strong>{!! \Illuminate\Support\Facades\Auth::user()->coin !!}</strong>
+                        <strong style="display: block;padding: 7px;">{!! \Illuminate\Support\Facades\Auth::user()->coin !!}</strong>
                     </li>
                     <li>
                         @php $languages = config('zoe.language');
