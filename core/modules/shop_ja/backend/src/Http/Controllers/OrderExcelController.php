@@ -1189,10 +1189,16 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $cacheDate[$key_date] = 1;
             }
         }
-        if(date('d') >= 28 ){
-            $next = date('Y-m',strtotime('+1 day'));
-            for($day = 1;$day<=7;$day++){
+        if((int) date('d') >= 28 ){
+
+            $timeNext = strtotime('+1 day',strtotime("last day of this month"));
+
+            for($i = 1;$i<=3;$i++){
+                $day = (int)date('d',$timeNext);
+                $next =  date('Y-m',$timeNext);
+
                 $key_date = $next.'-'.(($day<10)?"0".$day:$day);
+                 
                 if(!isset($cacheDate[$key_date])){
                     if(DB::table("shop_order_excel_session")->where([
                         'admin_id'=>$admin_id,
@@ -1215,6 +1221,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     }
                     $cacheDate[$key_date] = 1;
                 }
+                $timeNext = strtotime('+1 day',strtotime($key_date));
             }
             $item = $last;
         }else{
