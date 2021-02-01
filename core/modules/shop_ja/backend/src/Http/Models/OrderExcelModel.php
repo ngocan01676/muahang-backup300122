@@ -237,7 +237,7 @@ class OrderExcelModel extends Model
             $shop_order_excel->where('zipcode', '=', $par['zipcode']);
         }
 
-        $shop_order_excel  = $shop_order_excel->get()->all();
+        $shop_order_excel  = $shop_order_excel->orderBy('id','desc')->get()->all();
         $users = DB::table('admin')->select('id','username')->get()->keyBy('id')->toArray();
         $datas = [
 
