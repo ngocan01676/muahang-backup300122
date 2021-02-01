@@ -13,8 +13,8 @@ const mysql = require('mysql');
 
 var pool  = mysql.createPool({
     host    : 'localhost',
-    user    : 'root',
-    password: 'xQAarXdcPL29D9fL',
+    user    : 'betogaizin',
+    password: '5m3EpXhex9HuAKBS',
     database: 'cms',
 });
 
