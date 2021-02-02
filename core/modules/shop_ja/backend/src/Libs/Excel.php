@@ -278,6 +278,34 @@ class Excel
                                     $item['='] = 1;
                                     unset($dataRowDatabase[$id_tracking]);
                                 }
+                            }else{
+                                $id_tracking = isset($datas1[$i+1][0])?$datas1[$i+1][0]:0;
+                                if(isset($dataRowDatabase[$id_tracking][0])){
+                                    if(
+                                        $dataRowDatabase[$id_tracking][0]->fullname == $fullname &&
+                                        $dataRowDatabase[$id_tracking][0]->address == $address &&
+                                        $payMethod == $this->NumberToStringPayMethod($dataRowDatabase[$id_tracking][0]->pay_method)
+                                    ){
+                                        $item['ids'][] = $id_tracking;
+                                        $item['database'] = (array)$dataRowDatabase[$id_tracking][0];
+                                        $item['='] = 1;
+                                        unset($dataRowDatabase[$id_tracking]);
+                                    }
+                                }else{
+                                    $id_tracking = isset($datas1[$i-1][0])?$datas1[$i-1][0]:0;
+                                    if(isset($dataRowDatabase[$id_tracking][0])){
+                                        if(
+                                            $dataRowDatabase[$id_tracking][0]->fullname == $fullname &&
+                                            $dataRowDatabase[$id_tracking][0]->address == $address &&
+                                            $payMethod == $this->NumberToStringPayMethod($dataRowDatabase[$id_tracking][0]->pay_method)
+                                        ){
+                                            $item['ids'][] = $id_tracking;
+                                            $item['database'] = (array)$dataRowDatabase[$id_tracking][0];
+                                            $item['='] = 1;
+                                            unset($dataRowDatabase[$id_tracking]);
+                                        }
+                                    }
+                                }
                             }
                             if(!isset($item['ids'][0])){
                                 foreach ($dataRowDatabase as $_tran_id=>$_value){
