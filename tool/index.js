@@ -13,8 +13,8 @@ const mysql = require('mysql');
 
 var pool  = mysql.createPool({
     host    : 'localhost',
-    user    : 'root',
-    password: 'xQAarXdcPL29D9fL',
+    user    : 'betogaizin',
+    password: '5m3EpXhex9HuAKBS',
     database: 'cms',
 });
 
@@ -250,8 +250,8 @@ async function JAPAN_POST(tracking){
     function GetData(Cb){
         var conn = mysql.createConnection({
             host    : 'localhost',
-            user    : 'root',
-            password:'xQAarXdcPL29D9fL',
+            user    : 'betogaizin',
+            password: '5m3EpXhex9HuAKBS',
             database: 'cms',
         });
         conn.connect(function (err){
