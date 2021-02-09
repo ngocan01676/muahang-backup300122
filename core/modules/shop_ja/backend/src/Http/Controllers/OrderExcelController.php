@@ -775,6 +775,14 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
                     }else{
                         try{
+                            $countsOld = DB::table('shop_order_excel')
+                                ->where('company',$name)
+                                ->where('admin_id',$model->admin_id)
+                                ->where('session_id',$model->id)->get()->keyBy('id')->all();
+                            $idsOrder = [
+
+                            ];
+
                             foreach ($order['data'] as $key=>$values){
                                 $pay_method = 0;
                                 if($values[$columns["payMethod"]] == "代金引換"){
@@ -892,6 +900,13 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             $_data['rate'] = isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0";
                                         }
                                         $ids_sort[$id] = $_data["sort"];
+
+                                        if(is_numeric($id)){
+                                            $idsOrder[$values[$columns["id"]]] = "id";
+                                        }else{
+                                            $idsOrder[$values[$columns["id"]]] = "key";
+                                        }
+
                                     }else{
                                         $where = [
                                             'session_id' => $_data['session_id'],
@@ -911,18 +926,34 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                      DB::table('shop_order_excel')->updateOrInsert($where,$_data);
                                 }
                             }
+                            if(count($countsOld) > 0){
+                                $id_deletes = [];
+                                $deletes[$name] = [$idsOrder,$order['data'],$countsOld];
+                                foreach ($countsOld as $key=>$value){
+                                    if(!isset($idsOrder[$value->id]) && !isset($idsOrder[$value->key_id])){
+                                        $deletes[$name]['delete'] = $value;
+                                        $id_deletes[] = $value->id;
+                                    }
+                                }
+//                                DB::table('shop_order_excel')
+//                                    ->where('company',$name)
+//                                    ->where('admin_id',$model->admin_id)
+//                                    ->where('session_id',$model->id)
+//                                    ->whereIn('id',$id_deletes)
+//                                    ->delete();
+                            }
 
-                            $deletes[$name] =  DB::table('shop_order_excel')
-                                ->where('company',$name)
-                                ->where('admin_id',$model->admin_id)
-                                ->where('session_id',$model->id)
-                                ->where('updated_at','!=',$date_time)->count();
-
-                             DB::table('shop_order_excel')
-                                ->where('company',$name)
-                                ->where('session_id',$model->id)
-                                ->where('admin_id',$model->admin_id)
-                                ->where('updated_at','!=',$date_time)->delete();
+//                            $deletes[$name] =  DB::table('shop_order_excel')
+//                                ->where('company',$name)
+//                                ->where('admin_id',$model->admin_id)
+//                                ->where('session_id',$model->id)
+//                                ->where('updated_at','!=',$date_time)->count();
+//
+//                             DB::table('shop_order_excel')
+//                                ->where('company',$name)
+//                                ->where('session_id',$model->id)
+//                                ->where('admin_id',$model->admin_id)
+//                                ->where('updated_at','!=',$date_time)->delete();
                         }catch (\Exception $ex){
 
                             $logs[$name][] = $ex->getMessage() .' '.$ex->getLine();
