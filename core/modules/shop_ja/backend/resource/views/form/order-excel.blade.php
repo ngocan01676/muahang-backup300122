@@ -10074,6 +10074,7 @@
                 },
             });
             console.log(datas);
+
         }
        let start = true;
        let lastActive = "";
@@ -10119,11 +10120,34 @@
             cb();
         }
         setInterval(function () {
-            if(start == false) return;
+           // if(start == false) return;
             Save_Action(true,function () {
 
             });
         },timeAction+1000);
+
+        setInterval(function () {
+
+            let _spreadsheet = document.getElementById('spreadsheet').children[0].querySelector('.selected');
+            let  worksheet = _spreadsheet.getAttribute('data-spreadsheet');
+            let data = spreadsheet.jexcel[worksheet].options.data;
+            let name = _spreadsheet.textContent;
+            let key = datacache.hasOwnProperty(name)?datacache[name].key:false;
+
+            _spreadsheet.classList.add("cacheAction");
+            $.ajax({
+                type: "POST",
+                url:"{{ route('backend:shop_ja:order:excel:store') }}",
+                data:{
+                    data:JSON.stringify(data),
+                    token:token,
+                    act:"cache",key:key,name:name,'id':'{{isset($model)?$model->id:0}}','type':'{{isset($model)?'edit':'create'}}'} ,
+                success: function (data) {
+                    console.log(data);
+                    _spreadsheet.classList.remove("cacheAction");
+                },
+            });
+        },10000);
 
         let siteTitle = '{!! $_title !!}';
 

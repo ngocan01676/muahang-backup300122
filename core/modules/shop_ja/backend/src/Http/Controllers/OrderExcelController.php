@@ -113,9 +113,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $data = $request->all();
         if(isset($data['act'])){
             if($data['act'] == "cache"){
-
-            }else if($data['act'] == "cache"){
-                $k = $this->GetToken()."-".Auth::user()->id.':'.$data['type'].':'.$data['name'].':'.$data['id'];
+                $k = Auth::user()->id.':'.$data['type'].':'.$data['name'].':'.$data['id'].date('d-m-Y H:i');
                 if(Cache::put($k,json_encode(['token'=>$data['token'],'data'=>json_decode($data['data'],true)]) , 60*60*20)){
                     return response()->json(['key'=>$k,'data'=>json_decode(Cache::get($k),true)]);
                 }
