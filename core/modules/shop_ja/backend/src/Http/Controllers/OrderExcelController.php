@@ -926,21 +926,25 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                      DB::table('shop_order_excel')->updateOrInsert($where,$_data);
                                 }
                             }
+                            $id_deletes = [];
                             if(count($countsOld) > 0){
-                                $id_deletes = [];
+
                                 $deletes[$name] = [$idsOrder,$order['data'],$countsOld];
                                 foreach ($countsOld as $key=>$value){
                                     if(!isset($idsOrder[$value->id]) && !isset($idsOrder[$value->key_id])){
-                                        $deletes[$name]['delete'] = $value;
+                                        $deletes[$name]['delete'][] = $value;
                                         $id_deletes[] = $value->id;
                                     }
                                 }
-                                DB::table('shop_order_excel')
-                                    ->where('company',$name)
-                                    ->where('admin_id',$model->admin_id)
-                                    ->where('session_id',$model->id)
-                                    ->whereIn('id',$id_deletes)
-                                    ->delete();
+                                $deletes[$name]['delete']['id'] = $id_deletes;
+                                if(count($id_deletes) > 0){
+                                    DB::table('shop_order_excel')
+                                        ->where('company',$name)
+                                        ->where('admin_id',$model->admin_id)
+                                        ->where('session_id',$model->id)
+                                        ->whereIn('id',$id_deletes)
+                                        ->delete();
+                                }
                             }
 
 //                            $deletes[$name] =  DB::table('shop_order_excel')
