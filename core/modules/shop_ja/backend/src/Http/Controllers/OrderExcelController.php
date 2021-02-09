@@ -935,12 +935,12 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         $id_deletes[] = $value->id;
                                     }
                                 }
-//                                DB::table('shop_order_excel')
-//                                    ->where('company',$name)
-//                                    ->where('admin_id',$model->admin_id)
-//                                    ->where('session_id',$model->id)
-//                                    ->whereIn('id',$id_deletes)
-//                                    ->delete();
+                                DB::table('shop_order_excel')
+                                    ->where('company',$name)
+                                    ->where('admin_id',$model->admin_id)
+                                    ->where('session_id',$model->id)
+                                    ->whereIn('id',$id_deletes)
+                                    ->delete();
                             }
 
 //                            $deletes[$name] =  DB::table('shop_order_excel')
