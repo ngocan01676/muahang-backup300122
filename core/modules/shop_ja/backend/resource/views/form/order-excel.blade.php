@@ -131,7 +131,7 @@
 {!! Form::close() !!}
 @section('extra-script')
     <script src="{{ asset('module/admin/assets/string-mask/src/string-mask.js?v=1111') }}"></script>
-    <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js?v=111')) }}"></script>
+    <script src="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.js?v=111') }}"></script>
     <script src="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.js?v=222') }}"></script>
     <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jsuites/dist/jsuites.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('module/shop-ja/assets/jexcel/dist/jexcel.css') }}" type="text/css" />
