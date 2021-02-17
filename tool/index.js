@@ -260,7 +260,7 @@ async function JAPAN_POST(tracking){
             let timeEnd = moment().add('-'+(60*24*0.5),'minutes').format("YYYY-MM-DD HH:mm:ss");
 
             // var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status < 10 and count<10 and (updated_at <= '"+timeEnd+"' or status=0) order by updated_at LIMIT 0,20";
-            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where tracking_id != 'CXL' and tracking_id !='キャンセル' and status != 1 and status<10 and (updated_at <= '"+timeEnd+"' or status = 3 and process ='0' and updated_at >= '"+moment().format("YYYY-MM-DD")+" 00:00:00' and updated_at <= '"+moment().format("YYYY-MM-DD")+" 23:59:59') order by updated_at LIMIT 0,200";
+            var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where tracking_id != 'CXL' and tracking_id !='キャンセル' and status != 1 and status<10 and (updated_at <= '"+timeEnd+"' or status = 3 and process ='1' and updated_at >= '"+moment().format("YYYY-MM-DD")+" 00:00:00' and updated_at <= '"+moment().format("YYYY-MM-DD")+" 23:59:59') order by updated_at LIMIT 0,200";
             // console.log("SQL 1 : "+sql);
 
             let rows = {};
