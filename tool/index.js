@@ -350,7 +350,7 @@ async function JAPAN_POST(tracking){
 
                     for(let name in databaseData){
                         for(let index in databaseData[name]){
-                            conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+', process = "0",`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
+                            conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+', process = "1",`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
                         }
                     }
                     databaseLock = {};
@@ -374,7 +374,7 @@ async function JAPAN_POST(tracking){
                     }
                     for(let name in databaseData){
                         for(let index in databaseData[name]){
-                            conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',process="0",`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
+                            conn.query('UPDATE `cms_shop_order_excel_tracking` SET count='+(databaseData[name][index].count+1)+',process="1",`updated_at`=now() WHERE `id` = '+databaseData[name][index].id+';')
                         }
                     }
                     databaseLock = {};
