@@ -1658,7 +1658,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                 ])->count();
 
                                 if($count == 0){
-                                    DB::table('shop_order_excel')->where("id",$list['ids'][$key])->update(['order_tracking'=>json_encode($list['checking'])]);
+                                    DB::table('shop_order_excel')
+                                        ->where("id",$list['ids'][$key])
+                                        ->update(['order_tracking'=>preg_replace('/[^0-9]+/', '', $checking)]);
                                     DB::table('shop_order_excel_tracking')
                                         ->updateOrInsert(
                                             [
@@ -1669,7 +1671,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                             [
                                                 'data'=>'[]',
                                                 'created_at'=>$date.' '.date('H:i:s'),
-                                                'tracking_id'=>$checking,
+                                                'tracking_id'=>preg_replace('/[^0-9]+/', '', $checking) ,
                                                 'status'=>0,
                                                 'updated_at'=>date('Y-m-d H:i:s',strtotime('-1 day',time()))
                                             ]
