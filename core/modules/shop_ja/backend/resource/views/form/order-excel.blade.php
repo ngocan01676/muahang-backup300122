@@ -10072,6 +10072,9 @@
                     var travelTime = moment().add(5, 'seconds').format('DD/MM/YY hh:mm A');
                     $(".travelTime").html(travelTime);
                 },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    location.reload();
+                },
             });
             console.log(datas);
 
@@ -10145,6 +10148,9 @@
                 success: function (data) {
                     console.log(data);
                     _spreadsheet.classList.remove("cacheAction");
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    location.reload();
                 },
             });
         },10000);
