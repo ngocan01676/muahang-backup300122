@@ -2091,6 +2091,7 @@ class Excel
                             $array_count = [];
                         }
                         $product_title = "";
+                        
                         foreach ($array_product as $pro_id) {
                             if (isset($products[$pro_id]) && isset($array_count[$pro_id]) && $array_count[$pro_id] > 0) {
                                 $kg = 0;
