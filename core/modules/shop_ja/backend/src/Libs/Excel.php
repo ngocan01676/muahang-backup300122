@@ -2109,8 +2109,8 @@ class Excel
                                 }
                             }
                         }
-                        var_dump($array_count);
-                        return rtrim($product_title, '、'.json_encode($array_count));
+                      
+                        return rtrim($product_title.json_encode($array_count), '、');
                     }, 'key' => 'product_name'], 18, 9],//I
                 ["単価", 'price', 15, 9],//Giá nhập
                 ["数量", "total_count", 15, 9],//SL
