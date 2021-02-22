@@ -2420,7 +2420,7 @@ class Excel
         if (!$this->file->isDirectory(public_path() . $pathZip)) {
             $this->file->makeDirectory(public_path() . $pathZip);
         }
-        $path2 = $pathZip . '/' . $filename . '.xlsx';
+        $path2 = $pathZip . '/' . $filename .time(). '.xlsx';
         $writer->save(public_path() . $path2);
         $files = [
             [$filename . '.xlsx', public_path() . $path2]
