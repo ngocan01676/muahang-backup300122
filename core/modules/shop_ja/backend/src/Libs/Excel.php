@@ -2037,6 +2037,7 @@ class Excel
         $_dateNhan = new \stdClass();
         $_dateNhan->date = $this->date;
         $postions = [2,1];
+
         $logs = [];
         for ($typeMethod1 = 0; $typeMethod1 < count($postions); $typeMethod1++) {
             $typeMethod = $postions[$typeMethod1];
@@ -2235,6 +2236,7 @@ class Excel
                         } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                             $conf = $value[1]['callback'];
                             $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start, $values]);
+                            var_dump($_val);
                             $sheet->setCellValue($nameCol . $start, trim($_val));
                         }
                     } else {
