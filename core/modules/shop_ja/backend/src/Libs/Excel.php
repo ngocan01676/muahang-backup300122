@@ -2109,7 +2109,7 @@ class Excel
                                 }
                             }
                         }
-                      
+                        var_dump($product_title);
                         return rtrim($product_title, '、');
                     }, 'key' => 'product_name'], 18, 9],//I
                 ["単価", 'price', 15, 9],//Giá nhập
