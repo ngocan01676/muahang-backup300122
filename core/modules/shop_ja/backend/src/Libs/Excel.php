@@ -2405,7 +2405,7 @@ class Excel
         if($name == "BANH_CHUNG"){//BANH_CHUNGの注文分[MONTH]月[DAY]日
             $filename = '/BANH_CHUNGの注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
         }else{
-            $filename = '株式会社クリチク-様-' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日注文分';
+            $filename = time().'-株式会社クリチク-様-' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日注文分';
         }
 
 
@@ -2420,7 +2420,7 @@ class Excel
         if (!$this->file->isDirectory(public_path() . $pathZip)) {
             $this->file->makeDirectory(public_path() . $pathZip);
         }
-        $path2 = $pathZip . '/' . $filename .time(). '.xlsx';
+        $path2 = $pathZip . '/' . $filename . '.xlsx';
         $writer->save(public_path() . $path2);
         $files = [
             [$filename . '.xlsx', public_path() . $path2]
