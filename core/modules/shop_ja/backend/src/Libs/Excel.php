@@ -2481,7 +2481,7 @@ class Excel
 //        if( $this->file->isDirectory(public_path().$pathZip)){
 //            $this->file->deleteDirectory(public_path().$pathZip,true);
 //        }
-        return ['link' => url($path . '/' . $zipFileName), 'images' => $images, 'ids' => $ids];
+        return ['link' => url($path . '/' . $zipFileName).'?time'.time().'-'.rand(1000,9999), 'images' => $images, 'ids' => $ids];
 
 
     }
