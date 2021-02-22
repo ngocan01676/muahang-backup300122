@@ -2090,7 +2090,7 @@ class Excel
                         } catch (\Exception $ex) {
                             $array_count = [];
                         }
-                        $product_title = "";
+                        $product_title = "demo";
 
                         foreach ($array_product as $pro_id) {
                             if (isset($products[$pro_id]) && isset($array_count[$pro_id]) && $array_count[$pro_id] > 0) {
@@ -2109,7 +2109,7 @@ class Excel
                                 }
                             }
                         }
-                        
+
                         return rtrim($product_title, '、');
                     }, 'key' => 'product_name'], 18, 9],//I
                 ["単価", 'price', 15, 9],//Giá nhập
