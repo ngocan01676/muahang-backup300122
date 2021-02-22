@@ -2075,7 +2075,7 @@ class Excel
                                 $product_title.= $products[$pro_id]->title.",";
                             }
                     }
-                    return rtrim($product_code,','.json_encode($array_count));
+                    return rtrim($product_code,',');
                     },'key'=>'product_id'],10,9
                 ],//H
                 ["商品名",
