@@ -2109,7 +2109,7 @@ class Excel
                                 }
                             }
                         }
-                        
+
                         return rtrim($product_title, '、');
                     }, 'key' => 'product_name'], 18, 9],//I
                 ["単価", 'price', 15, 9],//Giá nhập
@@ -2403,7 +2403,7 @@ class Excel
         if($name == "BANH_CHUNG"){//BANH_CHUNGの注文分[MONTH]月[DAY]日
             $filename = '/BANH_CHUNGの注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
         }else{
-            $filename = '株式会社クリチク-様-' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日注文分';
+            $filename = 'trung-株式会社クリチク-様-' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日注文分';
         }
 
 
