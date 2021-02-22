@@ -2074,7 +2074,7 @@ class Excel
                                 $product_title.= $products[$pro_id]->title.",";
                             }
                     }
-                    return rtrim($product_code,',').json_encode($array_count);
+                    return rtrim($product_code,',').json_encode($array_count)
                     },'key'=>'product_id'],10,9
                 ],//H
                 ["商品名",
@@ -2091,7 +2091,7 @@ class Excel
                             $array_count = [];
                         }
                         $product_title = "";
-                        
+
                         foreach ($array_product as $pro_id) {
                             if (isset($products[$pro_id]) && isset($array_count[$pro_id]) && $array_count[$pro_id] > 0) {
                                 $kg = 0;
