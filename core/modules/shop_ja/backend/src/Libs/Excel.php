@@ -786,7 +786,7 @@ class Excel
 //        if( $this->file->isDirectory(public_path().$pathZip)){
 //            $this->file->deleteDirectory(public_path().$pathZip,true);
 //        }
-        return ['link' => url($path . '/' . $zipFileName), 'images' => $images, 'ids' => $ids];
+        return ['link' => url($path . '/' . $zipFileName).'?time'.time().'-'.rand(1000,9999), 'images' => $images, 'ids' => $ids];
 
     }
 
@@ -1130,7 +1130,7 @@ class Excel
 //        if( $this->file->isDirectory(public_path().$pathZip)){
 //            $this->file->deleteDirectory(public_path().$pathZip,true);
 //        }
-        return ['link' => url($path . '/' . $zipFileName), 'images' => $images, 'ids' => $ids];
+        return ['link' => url($path . '/' . $zipFileName).'?time'.time().'-'.rand(1000,9999), 'images' => $images, 'ids' => $ids];
 
     }
 
@@ -1486,7 +1486,7 @@ class Excel
 //        if( $this->file->isDirectory(public_path().$pathZip)){
 //            $this->file->deleteDirectory(public_path().$pathZip,true);
 //        }
-        return ['link' => url($path . '/' . $zipFileName), 'images' => $images, "ids" => $ids];
+        return ['link' => url($path . '/' . $zipFileName).'?time'.time().'-'.rand(1000,9999), 'images' => $images, "ids" => $ids];
 
     }
     public function BANH_CHUNG($datas,$name, $formatFileName)
@@ -1981,7 +1981,7 @@ class Excel
 //        if( $this->file->isDirectory(public_path().$pathZip)){
 //            $this->file->deleteDirectory(public_path().$pathZip,true);
 //        }
-        return ['link' => url($path . '/' . $zipFileName), 'images' => $images, 'ids' => $ids];
+        return ['link' => url($path . '/' . $zipFileName).'?time'.time().'-'.rand(1000,9999), 'images' => $images, 'ids' => $ids];
 
 
     }
@@ -2091,7 +2091,7 @@ class Excel
                         } catch (\Exception $ex) {
                             $array_count = [];
                         }
-                        $product_title = "demo";
+                        $product_title = "";
 
                         foreach ($array_product as $pro_id) {
                             if (isset($products[$pro_id]) && isset($array_count[$pro_id]) && $array_count[$pro_id] > 0) {
@@ -2969,6 +2969,6 @@ class Excel
 //        if( $this->file->isDirectory(public_path().$pathZip)){
 //            $this->file->deleteDirectory(public_path().$pathZip,true);
 //        }
-        return ['link' => url($path . '/' . $zipFileName), 'images' => $images, 'ids' => $ids];
+        return ['link' => url($path . '/' . $zipFileName).'?time'.time().'-'.rand(1000,9999), 'images' => $images, 'ids' => $ids];
     }
 }
