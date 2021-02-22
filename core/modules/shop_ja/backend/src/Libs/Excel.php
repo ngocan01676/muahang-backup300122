@@ -2109,6 +2109,7 @@ class Excel
                                 }
                             }
                         }
+                        die;
                         return rtrim($product_title, '、'.json_encode($array_count));
 
                     }, 'key' => 'product_name'], 18, 9],//I
