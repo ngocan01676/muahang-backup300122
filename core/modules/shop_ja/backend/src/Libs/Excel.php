@@ -1253,7 +1253,7 @@ class Excel
             );
 
             if ($value[2] > 0) {
-                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth(50);
             }
         }
         $start++;
