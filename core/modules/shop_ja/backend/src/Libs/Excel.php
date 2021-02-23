@@ -587,9 +587,9 @@ class Excel
                 $keyCol = $value[1];
             }
             if (isset($this->config["excel_width"][$name][$keyCol])) {
-                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]);
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
             } else if ($value[2] > 0) {
-                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]+0.72);
             }
         }
         $start++;
@@ -917,9 +917,9 @@ class Excel
                 $keyCol = $value[1];
             }
             if (isset($this->config["excel_width"][$name][$keyCol])) {
-                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]);
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
             } else if ($value[2] > 0) {
-                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]+0.72);
             }
         }
         $sheet->getStyle("P" . $start)->applyFromArray(array(
@@ -1260,7 +1260,7 @@ class Excel
             } else if ($value[2] > 0) {
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]+0.72);
             }
-             
+
         }
         $start++;
         $defaultStart = $start;
@@ -1665,9 +1665,9 @@ class Excel
                     )
                 );
                 if (isset($this->config["excel_width"][$name][$keyCol])) {
-                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]);
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
                 } else if ($value[2] > 0) {
-                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]+0.72);
                 }
 
             }
@@ -2164,9 +2164,9 @@ class Excel
                     )
                 );
                 if (isset($this->config["excel_width"][$name][$keyCol])) {
-                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]);
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
                 } else if ($value[2] > 0) {
-                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]+0.72);
                 }
 
             }
@@ -2611,9 +2611,9 @@ class Excel
                     )
                 );
                 if (isset($this->config["excel_width"][$name][$keyCol])) {
-                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]);
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
                 } else if ($value[2] > 0) {
-                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]);
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]+0.72);
                 }
             }
             $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . $start)->applyFromArray($style_header);
