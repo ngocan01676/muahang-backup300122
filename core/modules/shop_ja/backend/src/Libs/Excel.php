@@ -1234,15 +1234,19 @@ class Excel
         $nameColList = [];
         foreach ($colums as $key => $value) {
             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
+            $keyCol = "";
             if (is_array($value[1])) {
                 if (isset($value[1]['product'])) {
                     $conf = $value[1]['product'];
                     $nameColList[$conf[0]] = $key;
+                    $keyCol = $conf[0];
                 } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                     $nameColList[$value[1]['key']] = $key;
+                    $keyCol = $value[1]['key'];
                 }
             } else {
                 $nameColList[$value[1]] = $key;
+                $keyCol = $value[1];
             }
             $sheet->setCellValue($nameCol . $start, $value[0])->getStyle($nameCol . $start)->applyFromArray(array(
                     'font' => array(
@@ -1251,10 +1255,12 @@ class Excel
                     ),
                 )
             );
-
-            if ($value[2] > 0) {
+            if (isset($this->config["excel_width"][$name][$keyCol])) {
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
+            } else if ($value[2] > 0) {
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]+0.72);
             }
+             
         }
         $start++;
         $defaultStart = $start;
