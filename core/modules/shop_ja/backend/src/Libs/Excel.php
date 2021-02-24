@@ -586,6 +586,11 @@ class Excel
                 $nameColList[$value[1]] = $key;
                 $keyCol = $value[1];
             }
+            if($keyCol == "title"){
+                $keyCol = "product_name";
+            }else  if($keyCol == "code"){
+                $keyCol = "product_id";
+            }
             if (isset($this->config["excel_width"][$name][$keyCol])) {
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
             } else if ($value[2] > 0) {
