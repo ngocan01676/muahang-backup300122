@@ -586,6 +586,7 @@ class Excel
                 $nameColList[$value[1]] = $key;
                 $keyCol = $value[1];
             }
+            echo $keyCol."<BR>";
             if($keyCol == "title"){
                 $keyCol = "product_name";
             }else  if($keyCol == "code"){
