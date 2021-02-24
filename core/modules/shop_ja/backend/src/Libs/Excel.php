@@ -594,7 +594,7 @@ class Excel
             }
             if (isset($this->config["excel_width"][$name][$keyCol])) {
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
-                echo $keyCol.'-'.$this->config["excel_width"][$name][$keyCol]."<BR>";
+              
             } else if ($value[2] > 0) {
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]+0.72);
             }
