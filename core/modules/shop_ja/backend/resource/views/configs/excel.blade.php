@@ -24,6 +24,7 @@
             ['order_tracking',4.86,'Mã tracking'],//S
             ['order_info',8.57,'Thông tin chuyển khoản'],//T
             ['order_link',25,'Đường dẫn'],//U
+            ['total_count',2.86,'Tổng Size'],//U
         ];
 @endphp
 <table class="table table-bordered">
