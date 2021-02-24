@@ -914,7 +914,7 @@ class Excel
                 if (isset($value[1]['product'])) {
                     $conf = $value[1]['product'];
                     $nameColList[$conf[0]] = $key;
-                    $keyCol = $conf[0];
+                    $keyCol = $conf[1];
                 } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                     $nameColList[$value[1]['key']] = $key;
                     $keyCol = $value[1]['key'];
@@ -922,6 +922,11 @@ class Excel
             } else {
                 $nameColList[$value[1]] = $key;
                 $keyCol = $value[1];
+            }
+            if($keyCol == "title"){
+                $keyCol = "product_name";
+            }else  if($keyCol == "code"){
+                $keyCol = "product_id";
             }
             if (isset($this->config["excel_width"][$name][$keyCol])) {
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
@@ -1246,7 +1251,7 @@ class Excel
                 if (isset($value[1]['product'])) {
                     $conf = $value[1]['product'];
                     $nameColList[$conf[0]] = $key;
-                    $keyCol = $conf[0];
+                    $keyCol = $conf[1];
                 } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                     $nameColList[$value[1]['key']] = $key;
                     $keyCol = $value[1]['key'];
@@ -1262,6 +1267,11 @@ class Excel
                     ),
                 )
             );
+            if($keyCol == "title"){
+                $keyCol = "product_name";
+            }else  if($keyCol == "code"){
+                $keyCol = "product_id";
+            }
             if (isset($this->config["excel_width"][$name][$keyCol])) {
                 $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
             } else if ($value[2] > 0) {
@@ -1655,7 +1665,7 @@ class Excel
                     if (isset($value[1]['product'])) {
                         $conf = $value[1]['product'];
                         $nameColList[$conf[0]] = $key;
-                        $keyCol = $conf[0];
+                        $keyCol = $conf[1];
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $nameColList[$value[1]['key']] = $key;
                         $keyCol = $value[1]['key'];
@@ -1671,6 +1681,11 @@ class Excel
                         ),
                     )
                 );
+                if($keyCol == "title"){
+                    $keyCol = "product_name";
+                }else  if($keyCol == "code"){
+                    $keyCol = "product_id";
+                }
                 if (isset($this->config["excel_width"][$name][$keyCol])) {
                     $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
                 } else if ($value[2] > 0) {
@@ -2154,7 +2169,7 @@ class Excel
                     if (isset($value[1]['product'])) {
                         $conf = $value[1]['product'];
                         $nameColList[$conf[0]] = $key;
-                        $keyCol = $conf[0];
+                        $keyCol = $conf[1];
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $nameColList[$value[1]['key']] = $key;
                         $keyCol = $value[1]['key'];
@@ -2170,6 +2185,11 @@ class Excel
                         ),
                     )
                 );
+                if($keyCol == "title"){
+                    $keyCol = "product_name";
+                }else  if($keyCol == "code"){
+                    $keyCol = "product_id";
+                }
                 if (isset($this->config["excel_width"][$name][$keyCol])) {
                     $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
                 } else if ($value[2] > 0) {
@@ -2602,7 +2622,7 @@ class Excel
                     if (isset($value[1]['product'])) {
                         $conf = $value[1]['product'];
                         $nameColList[$conf[0]] = $key;
-                        $keyCol = $conf[0];
+                        $keyCol = $conf[1];
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $nameColList[$value[1]['key']] = $key;
                         $keyCol = $value[1]['key'];
@@ -2617,6 +2637,11 @@ class Excel
                         ),
                     )
                 );
+                if($keyCol == "title"){
+                    $keyCol = "product_name";
+                }else  if($keyCol == "code"){
+                    $keyCol = "product_id";
+                }
                 if (isset($this->config["excel_width"][$name][$keyCol])) {
                     $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
                 } else if ($value[2] > 0) {
