@@ -102,8 +102,8 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             $this->file->makeDirectory(public_path().$path);
         }
         $fileName =$path.'/'.md5($imageData).'.'.$extension;
-        $imageData = base64_decode($imageData);
         if(!file_exists(public_path().$fileName)){
+            $imageData = base64_decode($imageData);
             file_put_contents(public_path().$fileName, $imageData);
         }
         return $fileName;
