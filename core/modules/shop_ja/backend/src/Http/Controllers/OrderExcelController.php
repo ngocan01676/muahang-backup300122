@@ -1227,11 +1227,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $cacheDate[$key_date] = 1;
             }
         }
-        if((int) date('d') >= 28 ){
+        if((int) date('d') >= 25 ){
 
             $timeNext = strtotime('+1 day',strtotime("last day of this month"));
 
-            for($i = 1;$i<=3;$i++){
+            for($i = 1;$i<=7;$i++){
                 $day = (int)date('d',$timeNext);
                 $next =  date('Y-m',$timeNext);
 
