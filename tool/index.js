@@ -261,7 +261,7 @@ async function JAPAN_POST(tracking){
 
             // var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where status != 1 and status < 10 and count<10 and (updated_at <= '"+timeEnd+"' or status=0) order by updated_at LIMIT 0,20";
             var sql = "SELECT * FROM `cms_shop_order_excel_tracking` where tracking_id != 'CXL' and tracking_id !='キャンセル' and status != 1 and status<10 and (status=0 or updated_at <= '"+timeEnd+"' or status = 3 and process ='1' and updated_at >= '"+moment().format("YYYY-MM-DD")+" 00:00:00' and updated_at <= '"+moment().format("YYYY-MM-DD")+" 23:59:59') order by updated_at LIMIT 0,200";
-            // console.log("SQL 1 : "+sql);
+            console.log("SQL 1 : "+sql);
             let rows = {};
             let _databaseData = {};
             conn.query(sql, function (err,results, fields) {
@@ -270,6 +270,9 @@ async function JAPAN_POST(tracking){
 
                 for(let key in results){
                     let trangid = results[key].tracking_id;
+                    if(trangid.toString().length === 0){
+                        continue;
+                    }
                     if(trangid.toString() === "CXL"){
                         continue;
                     }
@@ -304,6 +307,9 @@ async function JAPAN_POST(tracking){
                                 let ___databaseData = {};
                                 for(let key in results){
                                     let trangid = results[key].tracking_id;
+                                    if(trangid.toString().length === 0){
+                                        continue;
+                                    }
                                     if(trangid.toString() === "CXL"){
                                         continue;
                                     }
