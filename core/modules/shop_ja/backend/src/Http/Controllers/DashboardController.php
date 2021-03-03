@@ -212,6 +212,10 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         }
                         $writer = new Xlsx($spreadsheet);
                         $path = '/uploads/dashboard';
+                        $file = new \Illuminate\Filesystem\Filesystem();
+                        if (!$file->isDirectory(public_path() . $path)) {
+                            $file->makeDirectory(public_path() . $path);
+                        }
                         $path = $path . '/' . date('Y-m-d');
                         $path2 = $path . '/date.xlsx';
                         $writer->save(public_path() . $path2);
