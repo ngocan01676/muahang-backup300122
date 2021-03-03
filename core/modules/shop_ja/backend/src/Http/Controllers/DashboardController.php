@@ -200,6 +200,9 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             ['A3', "Ngày xuất"],
                             ['B3', $date_start.' - '.$date_end]
                         ];
+                        $spreadsheet->getActiveSheet()->mergeCells("B1:C1" );
+                        $spreadsheet->getActiveSheet()->mergeCells("B2:C2" );
+                        $spreadsheet->getActiveSheet()->mergeCells("B3:C3" );
                         foreach ($titles as $title) {
                             $sheet->setCellValue($title[0], $title[1]);
                         }
@@ -212,7 +215,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $sheet->setCellValue($nameCol . $start, $value)->getStyle($nameCol . $start)->applyFromArray(array(
                                     'font' => array(
                                         'color' => array('rgb' => 'ff0000'),
-                                       
+
                                         'name' => 'ＭＳ Ｐゴシック'
                                     ),
                                 )
