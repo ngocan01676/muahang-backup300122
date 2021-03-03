@@ -212,7 +212,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $sheet->setCellValue($nameCol . $start, $value)->getStyle($nameCol . $start)->applyFromArray(array(
                                     'font' => array(
                                         'color' => array('rgb' => 'ff0000'),
-                                        'size' => 9,
+                                       
                                         'name' => 'ＭＳ Ｐゴシック'
                                     ),
                                 )
