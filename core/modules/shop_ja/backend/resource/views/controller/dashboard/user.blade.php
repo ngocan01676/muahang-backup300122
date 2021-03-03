@@ -532,19 +532,19 @@
             });
         });
         $(document).ready(function () {
-            
+
             var $datepicker_start = $('#datepicker_start').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
             });
 
-            $datepicker_start.datepicker('setDate', {!! date("d/m/Y", strtotime("first day of this month")) !!});
+            $datepicker_start.datepicker('setDate', new Date(2021, 2, 1));
 
-            {{--var $datepicker_end = $('#datepicker_end').datepicker({--}}
-                {{--autoclose: true,--}}
-                {{--format: 'dd/mm/yyyy',--}}
-            {{--});--}}
-            {{--$datepicker_end.datepicker('setDate', {!! date("d/m/Y", strtotime("last day of this month")) !!});--}}
+            var $datepicker_end = $('#datepicker_end').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+            });
+            $datepicker_end.datepicker('setDate',new Date(2021, 2, 31) );
         });
         $(document).ready(function () {
 
