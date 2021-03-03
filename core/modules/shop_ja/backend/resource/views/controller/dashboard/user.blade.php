@@ -210,6 +210,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary">Xuất</button>
+                </div>
             </div>
             <div class="chart" id="line-chart-reward_free" style="height: 250px;"></div>
         </div>
