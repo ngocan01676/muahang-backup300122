@@ -544,7 +544,7 @@
                 autoclose: true,
                 format: 'dd/mm/yyyy',
             });
-            $datepicker_end.datepicker('setDate',new Date(2021, 2, 31) );
+            $datepicker_end.datepicker('setDate', '{!! date("d/m/Y", strtotime("last day of this month")) !!}');
         });
         $(document).ready(function () {
 
