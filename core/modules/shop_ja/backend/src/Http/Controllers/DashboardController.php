@@ -204,9 +204,9 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $sheet->setCellValue($title[0], $title[1]);
                         }
                         $titles = [
-                            'Ngày', 'Số lượng'
+                            'Ngày', 'Số lượng','Lợi nhuận'
                         ];
-                        $start = 4;
+                        $start = 5;
                         foreach ($titles as $key => $value) {
                             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
                             $sheet->setCellValue($nameCol . $start, $value);
