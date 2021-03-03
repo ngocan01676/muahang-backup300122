@@ -164,7 +164,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker_start">
+                                    <input type="text" class="form-control pull-right" id="datepicker_start" value="{!! date("d/m/Y", strtotime("first day of this month")) !!}">
                                 </div>
                             </div>
                         </div>
@@ -179,7 +179,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker_end">
+                                    <input type="text" class="form-control pull-right" id="datepicker_end" value="{!! date("d/m/Y", strtotime("last day of this month")) !!}">
                                 </div>
                             </div>
                         </div>
@@ -331,11 +331,14 @@
 
             let reservation = $("#reservation").val();
             let dates = reservation.split("-");
+
             for(let i=0;i<dates.length;i++){
                 dates[i] = dates[i].trim().split("/");
             }
+
             let user_id = $("#user_id").val();
             let conpany = $("#conpany").val();
+
             let month = $("#month").val();
 
             $.ajax({
@@ -345,7 +348,7 @@
                     date_start:$("#datepicker_start").val(),
                     date_end:$("#datepicker_end").val(),
                     user_id:user_id,
-                    month:month,
+                    month:0,
                     conpany:conpany,
                     type:$('input[name=type]:checked').val(),
                     act:"line"
