@@ -294,10 +294,16 @@
 @endsection
 @push('links')
     <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
 @endpush
 @push('scripts')
     <script src="{{ asset('module/admin/assets/moment.min.js') }}"></script>
     <script src="{{ asset('module/admin/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+
+
+    <script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
+
     @if(Auth::user()->IsAcl("dashboard:all"))
 
     <link rel="stylesheet" href="{{ asset('/module/shop-ja/assets/morris.js/morris.css') }}">
