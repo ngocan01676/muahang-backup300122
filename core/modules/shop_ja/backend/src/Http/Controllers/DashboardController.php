@@ -211,6 +211,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
                             $sheet->setCellValue($nameCol . $start, $value);
                         }
+                        $start++;
                         foreach ($datas as $key=>$rows){
                             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1);
                             $sheet->setCellValue($nameCol . $start, $rows['day']);
