@@ -400,6 +400,9 @@
                         //     return month;
                         // },
                     });
+                    if(datas.hasOwnProperty('link')){
+                        window.location.replace(datas.link);
+                    }
                 },
             });
         }
