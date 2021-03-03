@@ -543,12 +543,12 @@
                 autoclose: true,
                 format: 'dd/mm/yyyy',
             });
-            $datepicker_start.datepicker('setDate',Date.parse('{!! date("d/m/Y", strtotime("first day of this month")) !!}'));
+            $datepicker_start.datepicker('setDate',Date.parse('{!! date("m/d/Y", strtotime("first day of this month")) !!}'));
             var $datepicker_end = $('#datepicker_end').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
             });
-            $datepicker_end.datepicker('setDate', Date.parse('{!! date("d/m/Y", strtotime("last day of this month")) !!}'));
+            $datepicker_end.datepicker('setDate', Date.parse('{!! date("m/d/Y", strtotime("last day of this month")) !!}'));
         });
         $(document).ready(function () {
 
