@@ -203,12 +203,21 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $sheet->setCellValue($title[0], $title[1]);
                         }
                         $titles = [
-                            '選択', '入力', '選択', '入力', '入力', '入力', '入力', '入力', '入力', '不要', '入力', '入力', '不要', '不要', '入力'
+                            'Ngày', 'Số lượng'
                         ];
                         $start = 6;
                         foreach ($titles as $key => $value) {
                             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
                             $sheet->setCellValue($nameCol . $start, $value);
+                        }
+                        foreach ($datas as $key=>$rows){
+                            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1);
+                            $sheet->setCellValue($nameCol . $start, $rows['day']);
+                            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(2);
+                            $sheet->setCellValue($nameCol . $start, $rows['count']);
+                            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(3);
+                            $sheet->setCellValue($nameCol . $start, $rows['rate']);
+                            $start++;
                         }
                         $writer = new Xlsx($spreadsheet);
                         $path = '/uploads/dashboard';
