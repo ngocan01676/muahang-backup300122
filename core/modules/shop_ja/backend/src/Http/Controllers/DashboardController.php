@@ -191,12 +191,12 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
                             ->setCreator('php-download.com')
                             ->setLastModifiedBy('php-download.com');
-
+                        $roles = DB::table('admin')->get()->keyBy('id');
                         $titles = [
                             ['A1', "Danh sách"],
                             ['B1', empty($conpany)?"Tổng":$conpany],
                             ['A2', "Người nhập đơn"],
-                            ['B2', empty($admin_id)?"Tổng":$admin_id],
+                            ['B2', empty($admin_id)?"Tổng":isset($roles[$admin_id])?$roles[$admin_id]:"Không xác định"],
                             ['A3', "Ngày xuất"],
                             ['B3', $date_start.' '.$date_end]
                         ];
