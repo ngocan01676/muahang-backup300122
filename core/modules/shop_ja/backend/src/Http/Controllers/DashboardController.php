@@ -177,7 +177,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         "sql"=>logs_sql(),
                         'xkey'=>$type
                     ];
-                    if($data['export']){
+                    if(isset($data['export']) && $data['export']){
                         $spreadsheet = new Spreadsheet();
                         $sheet = $spreadsheet->getActiveSheet();
                         $spreadsheet->createSheet();
@@ -212,7 +212,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         }
                         $writer = new Xlsx($spreadsheet);
                         $path = '/uploads/dashboard';
-                        
+
                         $file = new \Illuminate\Filesystem\Filesystem();
                         if (!$file->isDirectory(public_path() . $path)) {
                             $file->makeDirectory(public_path() . $path);
