@@ -177,7 +177,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         "sql"=>logs_sql(),
                         'xkey'=>$type
                     ];
-                    if(isset($data['export']) && $data['export']){
+                    if(isset($data['export']) && $data['export'] == "true"){
                         $spreadsheet = new Spreadsheet();
                         $sheet = $spreadsheet->getActiveSheet();
                         $spreadsheet->createSheet();
