@@ -145,7 +145,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label>{!! z_language("Công ty") !!}:</label>
-                        <div class="input-group">
+                        <div class="input-group1">
                             <select id="conpany" class="form-control" onchange="charts_line()">
                                 <option value="">{!! z_language("Tổng") !!}</option>
                                 @foreach($analytics['category'] as $category=>$values)
@@ -158,7 +158,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>{!! z_language("Ctv Admin") !!}:</label>
-                        <div class="input-group">
+                        <div>
                             @php  $roles = DB::table('admin')->get()->keyBy('id'); @endphp
                             <select id="user_id_line" class="form-control" onchange="charts_line()">
                                 <option value="{!! base64_encode(''); !!}">{!! z_language("Tổng") !!}</option>
