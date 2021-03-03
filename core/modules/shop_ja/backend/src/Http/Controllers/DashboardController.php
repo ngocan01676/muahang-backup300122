@@ -51,15 +51,23 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }
                         else if($type == 'month'){
-                            $date_start = date('Y').'-01-01';
-                            $date_end = date('Y').'-12-31';;
-                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
-                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                            if(!empty($date_start) && !empty($date_end)){
+                                $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                                $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                            }
+//                            $date_start = date('Y').'-01-01';
+//                            $date_end = date('Y').'-12-31';;
+//                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+//                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         } else if($type == 'year'){
-                            $date_start = date('Y',strtotime('-5 year', time())).'-01-01';
-                            $date_end =  date('Y',strtotime('+5 year', time())).'-12-31';
-                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
-                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                            if(!empty($date_start) && !empty($date_end)){
+                                $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                                $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                            }
+//                            $date_start = date('Y',strtotime('-5 year', time())).'-01-01';
+//                            $date_end =  date('Y',strtotime('+5 year', time())).'-12-31';
+//                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
+//                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }else{
 
                             if(!empty($date_start) && !empty($date_end)){
