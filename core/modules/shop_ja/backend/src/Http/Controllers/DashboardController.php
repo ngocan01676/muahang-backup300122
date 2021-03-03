@@ -24,8 +24,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                     DB::connection()->enableQueryLog();
                     $company = $data['conpany'];
                     $month = isset($data['month'])?$data['month']:date('m');
-                    $date_start = isset($data['date_start'])?$data['date_start']:"";
-                    $date_end = isset($data['date_end'])?$data['date_end']:"";
+                    $date_start = isset($data['date_start'][0])?$data['date_start'][2].'-'.$data['date_start'][1].'-'.$data['date_start'][0]:"";
+                    $date_end = isset($data['date_end'][0])?$data['date_start'][2].'-'.$data['date_start'][1].'-'.$data['date_start'][0]::"";
 
                     
 
