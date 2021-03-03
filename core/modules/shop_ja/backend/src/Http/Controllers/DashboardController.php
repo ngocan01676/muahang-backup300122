@@ -196,7 +196,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             ['A1', "Danh sách"],
                             ['B1', empty($conpany)?"Tổng":$conpany],
                             ['A2', "Người nhập đơn"],
-                            ['B2', empty($admin_id)?"Tổng":isset($roles[$admin_id])?$roles[$admin_id]->username:"Không xác định"],
+                            ['B2', empty($admin_id)?"Tổng":(isset($roles[$admin_id])?$roles[$admin_id]->username:"Không xác định")],
                             ['A3', "Ngày xuất"],
                             ['B3', $date_start.' '.$date_end]
                         ];
@@ -227,7 +227,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         if (!$file->isDirectory(public_path() . $path)) {
                             $file->makeDirectory(public_path() . $path);
                         }
-                        $path = $path . '/' . date('Y-m-d').'-'.(empty($conpany)?"all":$conpany).'-'.(empty($admin_id)?"all":isset($roles[$admin_id])?$roles[$admin_id]->username:"none");
+                        $path = $path . '/' . date('Y-m-d').'-'.(empty($conpany)?"all":$conpany).'-'.(empty($admin_id)?"all":(isset($roles[$admin_id])?$roles[$admin_id]->username:"none"));
                         $path2 = $path . '-date.xlsx';
                         $writer->save(public_path() . $path2);
                         $response['link'] = url($path2).'?time='.time();
