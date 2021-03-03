@@ -211,7 +211,7 @@
                     </div>
                 </div>
                 <div class="col-md-1">
-                    <button class="btn btn-primary">Xuất</button>
+                    <button class="btn btn-primary" onclick="charts_line(true)">Xuất</button>
                 </div>
             </div>
             <div class="chart" id="line-chart-reward_free" style="height: 250px;"></div>
@@ -344,7 +344,7 @@
                 + Math.round(series.percent) + '%</div>'
         }
 
-        function charts_line() {
+        function charts_line(export_excel) {
 
             let reservation = $("#reservation").val();
             let dates = reservation.split("-");
@@ -368,6 +368,7 @@
                     month:0,
                     conpany:conpany,
                     type:$('input[name=type]:checked').val(),
+                    export:export_excel === true,
                     act:"line"
                 },
                 success: function (datas) {
