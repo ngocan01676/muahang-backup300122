@@ -155,15 +155,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>{!! z_language("Ctv Admin") !!}:</label>
                         <div class="input-group">
                             @php  $roles = DB::table('admin')->get()->keyBy('id'); @endphp
-                            <select id="user_id" class="form-control" onchange="charts_line()">
-                                <option value="">{!! z_language("Tổng") !!}</option>
+                            <select id="user_id_line" class="form-control" onchange="charts_line()">
+                                <option value="{!! base64_encode(''); !!}">{!! z_language("Tổng") !!}</option>
                                 @foreach($roles as $values)
-                                    <option value="{!! $values->id !!}">{!! $values->username !!}</option>
+                                    <option value="{!! base64_encode($values->id) !!}">{!! $values->username !!}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -199,7 +199,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label>{!! z_language("Kiểu Ngày") !!}:</label>
                         <div class="input-group">
@@ -350,7 +350,7 @@
                 dates[i] = dates[i].trim().split("/");
             }
 
-            let user_id = $("#user_id").val();
+            let user_id = $("#user_id_line").val();
             let conpany = $("#conpany").val();
 
             let month = $("#month").val();
