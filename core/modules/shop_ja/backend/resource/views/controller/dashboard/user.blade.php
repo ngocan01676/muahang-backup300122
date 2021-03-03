@@ -543,19 +543,13 @@
                 autoclose: true,
                 format: 'dd/mm/yyyy',
             });
-            let sd = {!! date("d", strtotime("first day of this month")) !!};
-            let sm = {!! date("m", strtotime("first day of this month")) !!};
-            let sY = {!! date("Y", strtotime("first day of this month")) !!};
-            $datepicker_start.datepicker('setDate',new Date(sY,sm,sd));
+            $datepicker_start.datepicker('setDate',Date.parse('{!! date("Y-m-d", strtotime("first day of this month")) !!}'));
 
             var $datepicker_end = $('#datepicker_end').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
             });
-            let ed = {!! date("d", strtotime("last day of this month")) !!};
-            let em = {!! date("m", strtotime("last day of this month")) !!};
-            let eY = {!! date("Y", strtotime("last day of this month")) !!};
-            $datepicker_end.datepicker('setDate', new Date(eY,em,ed));
+            $datepicker_end.datepicker('setDate', new Date('{!! date("Y-m-d", strtotime("last day of this month")) !!}'));
         });
         $(document).ready(function () {
 
