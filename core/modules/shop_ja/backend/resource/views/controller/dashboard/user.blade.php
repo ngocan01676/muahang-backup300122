@@ -539,6 +539,9 @@
             var $datepicker_start = $('#datepicker_start').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
+                onSelect: function() {
+                    charts_line();
+                }
             });
 
             $datepicker_start.datepicker('setDate', '{!! date("d/m/Y", strtotime("first day of this month")) !!}');
@@ -546,6 +549,9 @@
             var $datepicker_end = $('#datepicker_end').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
+                onSelect: function() {
+                    charts_line();
+                }
             });
             $datepicker_end.datepicker('setDate', '{!! date("d/m/Y", strtotime("last day of this month")) !!}');
         });
