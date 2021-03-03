@@ -177,6 +177,46 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         "sql"=>logs_sql(),
                         'xkey'=>$type
                     ];
+                    if($data['export']){
+                        $spreadsheet = new Spreadsheet();
+                        $sheet = $spreadsheet->getActiveSheet();
+                        $spreadsheet->createSheet();
+                        $sheet1 = $spreadsheet->getSheet(1);
+                        $sheet1->setTitle('Sheet2');
+
+                        $sheet->setTitle("Sheet1");
+                        $spreadsheet->getProperties()
+                            ->setTitle('PHP Download Example')
+                            ->setSubject('A PHPExcel example')
+                            ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
+                            ->setCreator('php-download.com')
+                            ->setLastModifiedBy('php-download.com');
+
+                        $titles = [
+                            ['A1', 'グエン様専用注文フォーマット'],
+                            ['G2', '別途送料'],
+                            ['H2', '北海道：800円'],
+                            ['H2', '沖縄：1200円'],
+                            ['N5', ''],
+                        ];
+                        foreach ($titles as $title) {
+                            $sheet->setCellValue($title[0], $title[1]);
+                        }
+                        $titles = [
+                            '選択', '入力', '選択', '入力', '入力', '入力', '入力', '入力', '入力', '不要', '入力', '入力', '不要', '不要', '入力'
+                        ];
+                        $start = 6;
+                        foreach ($titles as $key => $value) {
+                            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
+                            $sheet->setCellValue($nameCol . $start, $value);
+                        }
+                        $writer = new Xlsx($spreadsheet);
+                        $path = '/uploads/dashboard';
+                        $path = $path . '/' . date('Y-m-d');
+                        $path2 = $path . '/date.xlsx';
+                        $writer->save(public_path() . $path2);
+                        $response['link'] = url($path2).'?time='.time();
+                    }
                 }
             }else if($data['act'] == 'circle'){
                 if(isset($data['type'])){
