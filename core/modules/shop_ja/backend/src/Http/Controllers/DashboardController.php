@@ -218,7 +218,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $file->makeDirectory(public_path() . $path);
                         }
                         $path = $path . '/' . date('Y-m-d');
-                        $path2 = $path . '/date.xlsx';
+                        $path2 = $path . '-date.xlsx';
                         $writer->save(public_path() . $path2);
                         $response['link'] = url($path2).'?time='.time();
                     }
