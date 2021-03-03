@@ -24,6 +24,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                     DB::connection()->enableQueryLog();
                     $company = $data['conpany'];
                     $month = isset($data['month'])?$data['month']:date('m');
+                    $date_start = isset($data['date_start'])?$data['date_start']:"";
+                    $date_end = isset($data['date_end'])?$data['date_end']:"";
 
                     $admin_id = base64_decode($data['user_id']);
                     $results = [];
@@ -58,11 +60,11 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $excel->where('order_create_date','<=',$date_end." 23:59:59");
                         }else{
 
-                            $date_start = date('Y').'-'.($month<10?"0".$month:$month).'-01';
-                            $date_end = date('Y-m-d',strtotime('last day of this month', strtotime($date_start)));
+                            if(!empty($date_start) && !empty($date_end)){
+                                $excel->where('order_create_date','>=',$date_start." 00:00:00");
+                                $excel->where('order_create_date','<=',$date_end." 23:59:59");
+                            }
 
-                            $excel->where('order_create_date','>=',$date_start." 00:00:00");
-                            $excel->where('order_create_date','<=',$date_end." 23:59:59");
                             $type = "day";
                         }
                         $results = $excel->orderBy('order_create_date')->get()->all();
