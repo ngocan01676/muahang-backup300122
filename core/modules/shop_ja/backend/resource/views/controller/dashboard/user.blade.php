@@ -142,7 +142,7 @@
         </div>
         <div class="box-body border-radius-none">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label>{!! z_language("Công ty") !!}:</label>
                         <div class="input-group">
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label>{!! z_language("Ctv Admin") !!}:</label>
                         <div class="input-group">
@@ -169,7 +169,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label>{!! z_language("Ngày bắt đầu ") !!}:</label>
                         <div class="form-group">
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label>{!! z_language("Ngày kết thúc ") !!}:</label>
                         <div class="form-group">
