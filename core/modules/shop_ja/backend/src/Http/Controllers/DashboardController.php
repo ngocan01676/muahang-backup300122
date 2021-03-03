@@ -193,7 +193,12 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             ->setLastModifiedBy('php-download.com');
 
                         $titles = [
-                            ['A1', empty($conpany)?"Tổng":$conpany],
+                            ['A1', "Danh sách"],
+                            ['B1', empty($conpany)?"Tổng":$conpany],
+                            ['A2', "Người nhập đơn"],
+                            ['B2', empty($admin_id)?"Tổng":$admin_id],
+                            ['A3', "Ngày xuất"],
+                            ['B3', $date_start.' '.$date_end]
                         ];
                         foreach ($titles as $title) {
                             $sheet->setCellValue($title[0], $title[1]);
@@ -201,7 +206,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         $titles = [
                             'Ngày', 'Số lượng'
                         ];
-                        $start = 6;
+                        $start = 4;
                         foreach ($titles as $key => $value) {
                             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
                             $sheet->setCellValue($nameCol . $start, $value);
