@@ -345,8 +345,8 @@
                 type: "POST",
                 url:'{!! route('backend:dashboard:analytics') !!}',
                 data: {
-                    date_start:$("#datepicker_start").val(),
-                    date_end:$("#datepicker_end").val(),
+                    date_start:$("#datepicker_start").val().split("/"),
+                    date_end:$("#datepicker_end").val().split("/"),
                     user_id:user_id,
                     month:0,
                     conpany:conpany,

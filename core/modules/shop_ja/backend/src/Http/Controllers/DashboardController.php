@@ -27,6 +27,8 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                     $date_start = isset($data['date_start'])?$data['date_start']:"";
                     $date_end = isset($data['date_end'])?$data['date_end']:"";
 
+                    
+
                     $admin_id = base64_decode($data['user_id']);
                     $results = [];
                     if($company != 'KOGYJA'){
