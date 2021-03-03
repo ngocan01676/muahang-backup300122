@@ -194,9 +194,9 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         $roles = DB::table('admin')->get()->keyBy('id');
                         $titles = [
                             ['A1', "Danh sách"],
-                            ['B1', $company],
+                            ['B1', empty($company)?"Tất cả":$company],
                             ['A2', "Người nhập đơn"],
-                            ['B2',(isset($roles[$admin_id])?$roles[$admin_id]->username:"Không xác định")],
+                            ['B2',(isset($roles[$admin_id])?$roles[$admin_id]->username:"Tất cả")],
                             ['A3', "Ngày xuất"],
                             ['B3', $date_start.' '.$date_end]
                         ];
