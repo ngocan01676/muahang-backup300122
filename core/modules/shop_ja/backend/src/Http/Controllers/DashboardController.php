@@ -209,7 +209,13 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         $start = 5;
                         foreach ($titles as $key => $value) {
                             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
-                            $sheet->setCellValue($nameCol . $start, $value);
+                            $sheet->setCellValue($nameCol . $start, $value)->getStyle($nameCol . $start)->applyFromArray(array(
+                                    'font' => array(
+                                        'size' => 9,
+                                        'name' => 'ＭＳ Ｐゴシック'
+                                    ),
+                                )
+                            );
                             $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth(20);
                         }
                         $start++;
