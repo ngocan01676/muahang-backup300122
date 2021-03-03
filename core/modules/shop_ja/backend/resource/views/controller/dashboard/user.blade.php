@@ -546,7 +546,7 @@
          //   $datepicker_start.datepicker('setDate',Date.parse('{!! date("Y-m-d", strtotime("first day of this month")) !!}'));
             var myDate = new Date({!! date("Y", strtotime("last day of this month")) !!},{!! (int)date("m", strtotime("last day of this month")) !!}-1,{!! date("d", strtotime("last day of this month")) !!});
             console.log(myDate.toISOString().substr(0, 10));
-            var myDate1 = new Date({!! date("Y", strtotime("first day of this month")) !!},{!! (int)date("m", strtotime("first day of this month")) !!}-1,{!! date("d", strtotime("first day of this month")) !!});
+            var myDate1 = new Date({!! date("Y", strtotime("first day of this month")) !!},{!! (int)date("m", strtotime("first day of this month")) !!},{!! date("d", strtotime("first day of this month")) !!});
             console.log(myDate1.toISOString().substr(0, 10));
             var $datepicker_end = $('#datepicker_end').datepicker({
                 autoclose: true,
