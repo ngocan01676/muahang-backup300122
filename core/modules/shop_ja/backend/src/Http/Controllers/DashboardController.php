@@ -210,6 +210,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                         foreach ($titles as $key => $value) {
                             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
                             $sheet->setCellValue($nameCol . $start, $value);
+                            $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth(20);
                         }
                         $start++;
                         foreach ($datas as $key=>$rows){
