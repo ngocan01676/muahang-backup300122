@@ -164,7 +164,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker_start" value="{!! date("Y-m-d", strtotime("first day of this month")) !!}">
+                                    <input type="text" class="form-control pull-right" id="datepicker_start" value="{!! date("d/m/Y", strtotime("first day of this month")) !!}">
                                 </div>
                             </div>
                         </div>
@@ -179,7 +179,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker_end" value="{!! date("Y-m-d", strtotime("last day of this month")) !!}">
+                                    <input type="text" class="form-control pull-right" id="datepicker_end" value="{!! date("d/m/Y", strtotime("last day of this month")) !!}">
                                 </div>
                             </div>
                         </div>
@@ -532,16 +532,23 @@
             });
         });
         $(document).ready(function () {
+            function compareDate(str1){
+                var dt1   = parseInt(str1.substring(0,2));
+                var mon1  = parseInt(str1.substring(3,5));
+                var yr1   = parseInt(str1.substring(6,10));
+                var date1 = new Date(yr1, mon1-1, dt1);
+                return date1;
+            }
             var $datepicker_start = $('#datepicker_start').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
             });
-
+            $datepicker_start.datepicker('setDate',Date.parse('{!! date("d/m/Y", strtotime("first day of this month")) !!}'));
             var $datepicker_end = $('#datepicker_end').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
             });
-
+            $datepicker_end.datepicker('setDate', Date.parse('{!! date("d/m/Y", strtotime("last day of this month")) !!}'));
         });
         $(document).ready(function () {
 
