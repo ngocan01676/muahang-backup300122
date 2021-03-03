@@ -198,7 +198,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             ['A2', "Người nhập đơn"],
                             ['B2',(isset($roles[$admin_id])?$roles[$admin_id]->username:"Tất cả")],
                             ['A3', "Ngày xuất"],
-                            ['B3', $date_start.' '.$date_end]
+                            ['B3', $date_start.' - '.$date_end]
                         ];
                         foreach ($titles as $title) {
                             $sheet->setCellValue($title[0], $title[1]);
@@ -211,6 +211,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
                             $sheet->setCellValue($nameCol . $start, $value)->getStyle($nameCol . $start)->applyFromArray(array(
                                     'font' => array(
+                                        'color' => array('rgb' => 'ff0000'),
                                         'size' => 9,
                                         'name' => 'ＭＳ Ｐゴシック'
                                     ),
