@@ -210,7 +210,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <button class="btn btn-primary">Xuất</button>
                 </div>
             </div>
