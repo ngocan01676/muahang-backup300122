@@ -164,7 +164,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker_start" value="{!! date("d/m/Y", strtotime("first day of this month")) !!}">
+                                    <input type="text" class="form-control pull-right" id="datepicker_start" value="{!! date("m/d/Y", strtotime("first day of this month")) !!}">
                                 </div>
                             </div>
                         </div>
@@ -179,7 +179,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker_end" value="{!! date("d/m/Y", strtotime("last day of this month")) !!}">
+                                    <input type="text" class="form-control pull-right" id="datepicker_end" value="{!! date("m/d/Y", strtotime("last day of this month")) !!}">
                                 </div>
                             </div>
                         </div>
@@ -544,6 +544,7 @@
                 format: 'dd/mm/yyyy',
             });
             $datepicker_start.datepicker('setDate',Date.parse('{!! date("m/d/Y", strtotime("first day of this month")) !!}'));
+
             var $datepicker_end = $('#datepicker_end').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
