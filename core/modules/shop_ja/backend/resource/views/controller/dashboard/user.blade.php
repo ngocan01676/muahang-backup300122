@@ -157,6 +157,20 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
+                        <label>{!! z_language("Ctv Admin") !!}:</label>
+                        <div class="input-group">
+                            @php  $roles = DB::table('admin')->get()->keyBy('id'); @endphp
+                            <select id="user_id" class="form-control" onchange="charts_line()">
+                                <option value="">{!! z_language("Tổng") !!}</option>
+                                @foreach($roles as $values)
+                                    <option value="{!! $values->id !!}">{!! $values->username !!}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
                         <label>{!! z_language("Ngày bắt đầu ") !!}:</label>
                         <div class="form-group">
                             <div class="form-group">
