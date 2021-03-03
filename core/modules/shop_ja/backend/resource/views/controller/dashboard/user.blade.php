@@ -542,6 +542,8 @@
                 onSelect: function() {
                     charts_line();
                 }
+            }).on('changeDate', function(ev){
+                charts_line();
             });
 
             $datepicker_start.datepicker('setDate', '{!! date("d/m/Y", strtotime("first day of this month")) !!}');
@@ -552,6 +554,8 @@
                 onSelect: function() {
                     charts_line();
                 }
+            }).on('changeDate', function(ev){
+                charts_line();
             });
             $datepicker_end.datepicker('setDate', '{!! date("d/m/Y", strtotime("last day of this month")) !!}');
         });
