@@ -538,7 +538,7 @@
                 format: 'dd/mm/yyyy',
             });
 
-            $datepicker_start.datepicker('setDate', new Date(2021, 2, 1));
+            $datepicker_start.datepicker('setDate', '{!! date("d/m/Y", strtotime("first day of this month")) !!}');
 
             var $datepicker_end = $('#datepicker_end').datepicker({
                 autoclose: true,
