@@ -157,13 +157,31 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>{!! z_language("Tháng ") !!}:</label>
-                        <div class="input-group">
-                            <select id="month" class="form-control" onchange="charts_line()">
-                                @foreach([1,2,3,4,5,6,7,8,10,11,12] as $category=>$values)
-                                    <option @if(date('m') == $values) selected @endif value="{!! $values !!}">{!! $values !!}</option>
-                                @endforeach
-                            </select>
+                        <label>{!! z_language("Ngày bắt đầu ") !!}:</label>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="datepicker_start">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>{!! z_language("Ngày kết thúc ") !!}:</label>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="datepicker_end">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -506,6 +524,18 @@
                     $(".result-analytics").html(result_analytics.html());
                 },
             });
+        });
+        $(document).ready(function () {
+            var $datepicker_start = $('#datepicker_start').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+            });
+            $datepicker_start.datepicker('setDate', new Date('{!! date("d/m/Y", strtotime("first day of this month")) !!}'));
+            var $datepicker_end = $('#datepicker_end').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+            });
+            $datepicker_end.datepicker('setDate', new Date('{!! date("d/m/Y", strtotime("last day of this month")) !!}'));
         });
         $(document).ready(function () {
 
