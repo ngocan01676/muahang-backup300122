@@ -193,11 +193,7 @@ class DashboardController extends \Admin\Http\Controllers\DashboardController
                             ->setLastModifiedBy('php-download.com');
 
                         $titles = [
-                            ['A1', 'グエン様専用注文フォーマット'],
-                            ['G2', '別途送料'],
-                            ['H2', '北海道：800円'],
-                            ['H2', '沖縄：1200円'],
-                            ['N5', ''],
+                            ['A1', empty($conpany)?"Tổng":$conpany],
                         ];
                         foreach ($titles as $title) {
                             $sheet->setCellValue($title[0], $title[1]);
