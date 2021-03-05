@@ -1238,7 +1238,9 @@ class Excel
                 return "=P$index-J$index*K$index-N$index-Q$index";
             }, 'key' => 'order_price'], 5.43, 9],//R =IF(J4="","",P4-J4*K4-N4-Q4) P4-J4*K4-N4-Q4
             ["追跡番号", 'order_tracking', 4.86, 9],//S
-            ["振込み情報", 'order_info', 8.57, 9],//T
+            ["振込み情報",['callback' => function ($index, $value) use ($date_export) {
+                return str_replace('依頼人名.','',$value);
+            }, 'key' => 'order_info'], 8.57, 9],//T
             ["", 'comment', 15, 9], // Số lượng O
 //            ["",'order_link',25,9],//U
         ];
