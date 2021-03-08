@@ -1305,7 +1305,7 @@ class Excel
             $ids[$order_id] = 1;
             $order_info = (isset($columns_value['order_info']) ? $values[$columns_value['order_info']] : "");
             if (!empty($image)) {
-                $images[] = [str_replace(url('/'), "", $image), $order_info];
+                $images[] = [str_replace(url('/'), "", $image), str_replace('依頼人名.','',$order_info)];
             }
 
             $count = (isset($columns_value['count']) ? $values[$columns_value['count']] : "0");
@@ -2159,7 +2159,9 @@ class Excel
                     return "=P$index-N$index-O$index-Q$index";//$val;
                 }, 'key' => 'order_price'], 15, 9],
                 ["追跡番号", 'order_tracking', 15, 9],
-                ["振込み情報", 'order_info', 25, 9],
+                ["振込み情報",['callback' => function ($index, $value) use ($date_export) {
+                    return str_replace('依頼人名.','',$value);
+                }, 'key' => 'order_info'], 25, 9],
                 ["", 'comment', 15, 9], // Số lượng O
             ];
             $nameColList = [];
@@ -2244,7 +2246,7 @@ class Excel
                 $order_info = (isset($columns_value['order_info']) ? $values[$columns_value['order_info']] : "");
 
                 if (!empty($image)) {
-                    $images[] = [str_replace(url('/'), "", $image), $order_info];
+                    $images[] = [str_replace(url('/'), "", $image), str_replace('依頼人名.','',$order_info)];
                 }
                 $total_order_ship += (int)(isset($columns_value['order_ship']) ? $values[$columns_value['order_ship']] : "0");
                 $total_order_total_price += (int)(isset($columns_value['order_total_price']) ? $values[$columns_value['order_total_price']] : "0");
