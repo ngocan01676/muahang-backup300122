@@ -146,7 +146,7 @@
                     <div class="form-group">
                         <label>{!! z_language("Công ty") !!}:</label>
                         <div class="input-group1">
-                            <select id="conpany" class="form-control" onchange="change_start_end()">
+                            <select id="conpany" class="form-control" onchange="charts_line()">
                                 <option value="">{!! z_language("Tổng") !!}</option>
                                 @foreach($analytics['category'] as $category=>$values)
                                     <option value="{!! $category !!}">{!! $category !!}</option>
@@ -385,14 +385,7 @@
                 + '<br>'
                 + Math.round(series.percent) + '%</div>'
         }
-        function change_start_end(obj) {
-            let data = $(obj).find("option:selected");
 
-            $("#datepicker_start").val(data.date_start);
-            $("#datepicker_end").val(data.date_end);
-
-            charts_line();
-        } 
         function charts_line(export_excel) {
 
             let reservation = $("#reservation").val();
