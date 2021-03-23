@@ -408,7 +408,7 @@
                 let smonth = month > 9 ?month:'0'+month;
                 if(conpany === "KOGYJA" || conpany === "KURICHIKU"){
                     if(month === 1){
-                        $("#datepicker_start").val('21/'+(month)+'/{!! date('Y', strtotime('-1 years')) !!}');
+                        $("#datepicker_start").val('21/'+(12)+'/{!! date('Y', strtotime('-1 years')) !!}');
                     }else{
                         $("#datepicker_start").val('21/'+(month-1)+'/{!! date('Y') !!}');
                     }
