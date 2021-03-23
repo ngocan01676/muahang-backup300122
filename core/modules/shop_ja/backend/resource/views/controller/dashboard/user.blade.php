@@ -146,7 +146,7 @@
                     <div class="form-group">
                         <label>{!! z_language("Công ty") !!}:</label>
                         <div class="input-group1">
-                            <select id="conpany" class="form-control" onchange="charts_line()">
+                            <select id="conpany" class="form-control" onchange="change_start_end()">
                                 <option value="">{!! z_language("Tổng") !!}</option>
                                 @foreach($analytics['category'] as $category=>$values)
                                     <option value="{!! $category !!}">{!! $category !!}</option>
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label>{!! z_language("Ctv Admin") !!}:</label>
                         <div>
@@ -196,6 +196,19 @@
                                     <input type="text" class="form-control pull-right" id="datepicker_end" value="{!! date("d/m/Y", strtotime("last day of this month")) !!}">
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>{!! z_language("Tháng") !!}:</label>
+                        <div>
+                            <select id="month_change" class="form-control" onchange="charts_line()">
+                                <option value="0">{!! z_language("Start - End") !!}</option>
+                                @for($i=1 ; $i<13 ; $i++)
+                                    <option value="{!! $i !!}">Tháng {!! $i !!}</option>
+                                @endfor
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -337,13 +350,49 @@
     <script src="{{ asset('module/admin/bower_components/Flot/jquery.flot.categories.js') }}"></script>
 
     <script>
+        @php
+            $data_date_company = [
+                'KOGYJA'=>[
+                   'start'=>date("d/m/Y", strtotime("first day of this month")),
+                   'end'=>date("d/m/Y", strtotime("last day of this month"))
+                ],
+                'KURICHIKU'=>[
+                   'start'=>date("d/m/Y", strtotime("first day of this month")),
+                   'end'=>date("d/m/Y", strtotime("last day of this month"))
+                ],
+                'YAMADA'=>[
+                   'start'=>date("d/m/Y", strtotime("first day of this month")),
+                   'end'=>date("d/m/Y", strtotime("last day of this month"))
+                ],
+                'FUKUI'=>[
+                   'start'=>date("d/m/Y", strtotime("first day of this month")),
+                   'end'=>date("d/m/Y", strtotime("last day of this month"))
+                ],
+                'OHGA'=>[
+                   'start'=>date("d/m/Y", strtotime("first day of this month")),
+                   'end'=>date("d/m/Y", strtotime("last day of this month"))
+                ],
+                 'AMAZON'=>[
+                   'start'=>date("d/m/Y", strtotime("first day of this month")),
+                   'end'=>date("d/m/Y", strtotime("last day of this month"))
+                ],
+            ];
+        @endphp
+        let dataConpany = @json($data_date_company)
         function labelFormatter(label, series) {
             return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
                 + label
                 + '<br>'
                 + Math.round(series.percent) + '%</div>'
         }
+        function change_start_end(obj) {
+            let data = $(obj).find("option:selected");
 
+            $("#datepicker_start").val(data.date_start);
+            $("#datepicker_end").val(data.date_end);
+
+            charts_line();
+        } 
         function charts_line(export_excel) {
 
             let reservation = $("#reservation").val();
