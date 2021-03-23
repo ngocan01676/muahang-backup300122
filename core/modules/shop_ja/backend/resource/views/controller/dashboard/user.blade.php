@@ -399,14 +399,33 @@
             let user_id = $("#user_id_line").val();
             let conpany = $("#conpany").val();
 
-            let month = $("#month").val();
 
+
+
+            let month = parseInt($("#month_change").val());
+
+            if(month > 0){
+                let smonth = month > 9 ?month:'0'+month;
+                if(conpany === "KOGYJA" || conpany === "KURICHIKU"){
+                    if(month === 1){
+                        $("#datepicker_start").val('21/'+(month)+'/{!! date('Y', strtotime('-1 years')) !!}');
+                    }else{
+                        $("#datepicker_start").val('21/'+(month-1)+'/{!! date('Y') !!}');
+                    }
+                    $("#datepicker_end").val('20/'+smonth+'/{!! date('Y') !!}');
+                }else{
+                    $("#datepicker_start").val('01/'+smonth+'/{!! date('Y') !!}');
+                    $("#datepicker_end").val('31/'+smonth+'/{!! date('Y') !!}');
+                }
+            }
+            let date_start = $("#datepicker_start").val().split("/");
+            let date_end = $("#datepicker_end").val().split("/");
             $.ajax({
                 type: "POST",
                 url:'{!! route('backend:dashboard:analytics') !!}',
                 data: {
-                    date_start:$("#datepicker_start").val().split("/"),
-                    date_end:$("#datepicker_end").val().split("/"),
+                    date_start:date_start,
+                    date_end:date_end,
                     user_id:user_id,
                     month:0,
                     conpany:conpany,
