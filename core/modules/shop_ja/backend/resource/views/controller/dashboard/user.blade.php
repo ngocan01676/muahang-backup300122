@@ -405,20 +405,19 @@
             let month = parseInt($("#month_change").val());
 
             if(month > 0){
-                let smonth = month > 9 ?month:'0'+month;
+                let emonth = month > 9 ?month:'0'+month;
+                let smonth = month-1 > 9 ?month-1:'0'+(month-1);
                 if(conpany === "KOGYJA" || conpany === "KURICHIKU"){
-                    $("#datepicker_start").val('01/'+smonth+'/{!! date('Y') !!}');
-                    $("#datepicker_end").val('31/'+smonth+'/{!! date('Y') !!}');
-
+                    $("#datepicker_start").val('01/'+emonth+'/{!! date('Y') !!}');
+                    $("#datepicker_end").val('31/'+emonth+'/{!! date('Y') !!}');
                 }else{
-
 
                     if(month === 1){
                         $("#datepicker_start").val('21/'+(12)+'/{!! date('Y', strtotime('-1 years')) !!}');
                     }else{
-                        $("#datepicker_start").val('21/'+(month-1)+'/{!! date('Y') !!}');
+                        $("#datepicker_start").val('21/'+(smonth)+'/{!! date('Y') !!}');
                     }
-                    $("#datepicker_end").val('20/'+smonth+'/{!! date('Y') !!}');
+                    $("#datepicker_end").val('20/'+emonth+'/{!! date('Y') !!}');
                 }
             }
             let date_start = $("#datepicker_start").val().split("/");
