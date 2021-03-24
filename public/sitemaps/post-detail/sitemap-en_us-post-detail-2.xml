@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="/vendor/sitemap/styles/xml.xsl" type="text/xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+	<url>
+	<loc>http://localhost:8000/en/people-talk-about-us/the-international-escape-room-tournament-has-been-crowned-4</loc>
+		<priority>0.5</priority>
+		<lastmod>2021-01-07T15:10:46+07:00</lastmod>
+		<changefreq>always</changefreq>
+	</url>
+	<url>
+	<loc>http://localhost:8000/en/news/en-escape-room-co-gioi-han-do-tuoi-khong</loc>
+		<priority>0.5</priority>
+		<lastmod>2021-01-07T18:53:08+07:00</lastmod>
+		<changefreq>always</changefreq>
+	</url>
+</urlset>
+
