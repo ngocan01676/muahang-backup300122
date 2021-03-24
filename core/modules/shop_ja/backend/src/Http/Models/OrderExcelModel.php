@@ -128,7 +128,7 @@ class OrderExcelModel extends Model
             $shop_order_excel = $shop_order_excel->get()->all();
             $queries = DB::getQueryLog();
             $last_query = end($queries);
-            echo $last_query;
+            var_dump($last_query);
         $users = DB::table('admin')->select('id','username')->get()->keyBy('id')->toArray();
         $datas = [
 
