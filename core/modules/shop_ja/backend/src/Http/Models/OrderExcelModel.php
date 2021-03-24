@@ -124,7 +124,7 @@ class OrderExcelModel extends Model
            if($type == 2){
                //$shop_order_excel->where('export',0);
            }
-           var_dump($shop_order_excel->get());
+           var_dump($shop_order_excel);
            $shop_order_excel = $shop_order_excel->get()->all();
 
         $users = DB::table('admin')->select('id','username')->get()->keyBy('id')->toArray();
