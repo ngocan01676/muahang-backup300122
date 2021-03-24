@@ -124,7 +124,7 @@ class OrderExcelModel extends Model
            if($type == 2){
                //$shop_order_excel->where('export',0);
            }
-            
+
             $shop_order_excel = $shop_order_excel->get()->all();
             $queries = DB::getQueryLog();
             $last_query = end($queries);
