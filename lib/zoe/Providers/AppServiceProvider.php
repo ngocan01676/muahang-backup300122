@@ -528,7 +528,7 @@ class AppServiceProvider extends ServiceProvider
         }
         $folders = ['components', "widgets"];
         foreach ($folders as $folder) {
-            $components = $this->app->getConfig()->components[$folder];
+            $components = isset($this->app->getConfig()->components[$folder])?$this->app->getConfig()->components[$folder]:[];
             foreach ($components as $component => $modules) {
                 foreach ($modules as $module => $opt) {
                     $keyPath = $opt["m"] . ":" . $module;

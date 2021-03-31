@@ -270,11 +270,22 @@ class LayoutBlade extends Layout
                         foreach ($row['view'][$key] as $_k => $_row) {
                             if (isset($_row[$key]['row'])) {
                                 $html .= $this->rows($_row[$key]['row'], $layout, $lever++);
-                            } else if (isset($this->widget[$_row])) {
-                                if ($this->widget[$_row]['stg']['type'] == "components" || $this->widget[$_row]['stg']['type'] == "widgets") {
-                                    $html .= $this->plugin($this->widget[$_row], $lever . '-' . $key . '-' . $_k);
-                                } else if ($this->widget[$_row]['stg']['type'] == "partial") {
-                                    $html .= $this->partial($this->widget[$_row], $lever . '-' . $key . '-' . $_k);
+                            }
+                            else {
+                                if (
+                                    is_string($_row) && !empty($this->widget) &&
+                                    isset($this->widget[$_row])
+                                ) {
+                                    if ($this->widget[$_row]['stg']['type'] == "components" || $this->widget[$_row]['stg']['type'] == "widgets") {
+                                        $html .= $this->plugin($this->widget[$_row], $lever . '-' . $key . '-' . $_k);
+                                    } else if ($this->widget[$_row]['stg']['type'] == "partial") {
+                                        $html .= $this->partial($this->widget[$_row], $lever . '-' . $key . '-' . $_k);
+                                    }
+                                }else{
+                                    foreach ($_row as $__k=>$__row){
+                                        $html .= $this->rows($__row['row'], $layout, $lever++);
+                                    }
+
                                 }
                             }
                         }
