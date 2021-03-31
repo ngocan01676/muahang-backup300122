@@ -1,0 +1,1032 @@
+﻿<html>
+<head>
+    <title>Demo</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .category-menu-level02 , .category-menu-level03{
+            display: none;
+        }
+
+        .is-active .category-menu-level02{
+            display: block;
+        }
+        .is-active > .category-menu-level03{
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header only-pc">
+        <div class="rc-h-utility-bar">
+            <div class="rc-h-inner">
+                <p class="rc-h-tagline">楽天と西友のネットスーパー</p>
+                <ul class="rc-h-group-nav">
+                    <li id="grpNote">
+                        <a href="#" onclick="">もれなく1,000ポイント！</a>
+                    </li>
+                    <li class="rc-h-dropdown rc-h-group-dropdown">
+                        <a href="http://www.rakuten.co.jp/sitemap/">楽天グループ</a>
+                        <ul class="rc-h-dropdown-panel">
+                            <li><a href="https://www.rakuten-bank.co.jp/?scid=wi_grp_gmx_sup_hepullbu_bnk">楽天銀行</a></li>
+                            <li><a href="https://checkout.rakuten.co.jp/?scid=wi_grp_gmx_sup_hepullbu_chk">楽天ペイ</a></li>
+                            <li><a href="https://edy.rakuten.co.jp/?scid=wi_grp_gmx_sup_hepullbu_edy">楽天Edy</a></li>
+                            <li><a href="https://travel.rakuten.co.jp/?scid=wi_grp_gmx_sup_hepullbu_tr">楽天トラベル</a></li>
+                            <li><a href="https://books.rakuten.co.jp/?scid=wi_grp_gmx_sup_hepullbu_boo">楽天ブックス</a></li>
+                            <li><a href="https://www.rakuten.co.jp/sitemap/">サービス一覧</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="https://research.rakuten.co.jp/monitor/?scid=wi_grp_gmx_sup_hetopbu_rsc">リサーチ</a></li>
+                    <li>
+                        <a href="https://www.rakuten-card.co.jp/campaign/rakuten_card/rakuten/?scid=wi_grp_gmx_sup_hetopbu_rtc">カード</a>
+                    </li>
+                    <li><a href="https://www.rakuten.co.jp/">楽天市場</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="header-inner">
+                <h1 class="header-logo"><a href="/?l-id=_header_logo" class=""><img
+                        src="img/logo.svg" alt="楽天西友ネットスーパー"></a></h1>
+                <ul class="header-main-link">
+                    <li><a href="/notice?l-id=_header_notice" class="">お知らせ</a></li>
+                    <li><a href="https://sm.faq.rakuten.net/?l-id=_header_help">ヘルプ</a></li>
+                </ul>
+                <div class="header-user-info">
+                    <p class="header-user-info-new">
+                        <a href="/info/guide?l-id=_header_guide"  class="svg-icon icon-new-user">はじめての方へ</a>
+                    </p>
+                    <p class="header-user-info-btn"><a
+                            href="https://member.id.rakuten.co.jp/rms/nid/registfwdi?service_id=n68&amp;login_type=long"
+                            class="btn btn-default btn-color01">楽天会員登録</a></p>
+                    <p class="header-user-info-btn"><a data-auto-id="login-btn-pc" class="btn btn-default btn-color01">ログイン</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="header-utility" data-v-0eb98668="">
+            <div class="header-inner" style="padding-right: 5px;" data-v-0eb98668="">
+                <div class="header-search with-logo" data-v-0eb98668="">
+                    <div class="form-parts-search" data-v-0eb98668="">
+                        <span class="sggstInputWrap"><input type="text"
+                                                            name="keyword"
+                                                            placeholder="キーワードから探す"
+                                                            autocomplete="off"
+                                                            id="topSearchKeyword"
+                                                            value=""></span>
+                        <button id="topSearchButton" type="button" class="form-parts-search-btn"><span
+                                class="svg-icon icon-search"></span></button> <!---->
+                    </div>
+                </div>
+                <ul class="header-utility-nav" data-v-0eb98668="">
+                    <li class="header-utility-nav-item" data-v-0eb98668=""><a
+                            href="//sm.rakuten.co.jp/event/list?l-id=_header_campaignlist"
+                            class="header-utility-nav-btn svg-icon icon-campaign" data-v-0eb98668="">
+                        キャンペーン
+                    </a>
+                    </li>
+                    <li class="header-utility-nav-item" data-v-0eb98668=""><a
+                            href="/mypage/favorite?l-id=_header_favorite"
+                            class="header-utility-nav-btn svg-icon icon-favorite-black" data-v-0eb98668="">
+                        お気に入り
+                    </a>
+                    </li>
+                    <li class="header-utility-nav-item" data-v-0eb98668=""><a
+                            href="/mypage/purchase?l-id=_header_phistory"
+                            class="header-utility-nav-btn svg-icon icon-menu-black" data-v-0eb98668="">
+                        購入履歴
+                    </a>
+                    </li>
+                    <li class="header-utility-nav-item" data-v-0eb98668="">
+                        <div class="minicart-dropdown-trigger-inner" data-v-0eb98668="">
+                            <div class="header-utility-cart-grid" data-v-0eb98668="">
+                                <div class="header-utility-cart-grid-item" data-v-0eb98668="">
+                                    <p
+                                            class="header-utility-cart-icon" data-v-0eb98668=""><span
+                                            class="svg-icon icon-28 icon-cart-black" data-v-0eb98668=""><span
+                                            data-auto-id="cart-indicator" class="popout" data-v-0eb98668="">0</span></span>
+                                    </p>
+                                </div>
+                                <div class="header-utility-cart-grid-item" data-v-0eb98668="">
+                                    <div class="header-utility-cart-txt" data-v-0eb98668="">
+                                        <p
+                                                class="header-utility-cart-txt-price" data-v-0eb98668="">
+                                            0<span class="unit" data-v-0eb98668="">円(税込)</span>
+                                        </p>
+                                        <!----> <!---->
+                                    </div>
+                                </div>
+                                <div class="header-utility-cart-grid-item" data-v-0eb98668="">
+                                    <p
+                                            class="header-utility-cart-btn"><a data-auto-id="go-step-pc"
+                                                                               href="javascript:void(0);"
+                                                                               data-ratid="cart_button_click"
+                                                                               data-ratevent="click" data-ratparam="all">
+                                        レジに進む
+                                    </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-ratid="minicart_pulldown_appear" data-ratevent="appear" data-ratparam="all"
+                             class="minicart-dropdown-wrap" data-v-0eb98668="">
+                            <div class="minicart-dropdown" data-v-0eb98668="">
+                                <ul class="minicart-products" data-v-0eb98668=""></ul>
+                            </div>
+                        </div>
+                        <!---->
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-keyword-wrap">
+            <div class="header-inner">
+                <dl class="header-keyword">
+                    <dd>
+                        <ul class="header-keyword-list">
+                            <li><a href="/promotion/pointback.html?l-id=_header_keyword_pointback2102">全額ポイントバック</a>
+                            </li>
+                            <li><a href="/search/220195?l-id=_header_keyword_hinamatsuri">ひなまつり</a></li>
+                            <li><a href="/corner/N22365?l-id=_header_keyword_health">花粉・ウイルス対策</a></li>
+                            <li><a href="/corner/N22355?l-id=_header_keyword_hotmenu">あったかメニュー</a></li>
+                            <li><a href="/corner/rtn2021?l-id=_header_keyword_jitan">手間抜きごはん</a></li>
+                            <li><a href="/corner/N23507?l-id=_header_keyword_ienomi">家呑み</a></li>
+                            <li><a href="/corner/rcp2020?l-id=_header_keyword_recipe">レシピ</a></li>
+                            <li><a href="/corner/N20509?l-id=_header_keyword_mo">みなさまのお墨付き</a></li>
+                            <li><a href="/promotion/cpnlist1908.html?l-id=_header_keyword_couponlist">本日使えるクーポン</a></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="header-fixed only-pc js-fixed-scroll">
+            <div class="header-fixed-inner">
+                <p class="header-logo"><a href="/?l-id=_header_logo" class="">
+                    <img src="img/logo.svg" alt="楽天西友ネットスーパー"></a>
+                </p>
+                <div class="header-utility" data-v-0eb98668="">
+                    <div class="header-inner" style="padding-right: 5px;" data-v-0eb98668="">
+                        <div class="header-search with-logo" data-v-0eb98668="">
+                            <div class="form-parts-search" data-v-0eb98668="">
+                              <span class="sggstInputWrap"><input
+                                      type="text" name="keyword" placeholder="キーワードから探す" autocomplete="off"
+                                      id="fixSearchKeyword" value=""></span>
+                                <button id="fixSearchButton" type="button" class="form-parts-search-btn"><span
+                                        class="svg-icon icon-search"></span></button> <!---->
+                            </div>
+                        </div>
+                        <ul class="header-utility-nav" data-v-0eb98668="">
+                            <li class="header-utility-nav-item" data-v-0eb98668=""><a
+                                    href="//sm.rakuten.co.jp/event/list?l-id=_header_campaignlist"
+                                    class="header-utility-nav-btn svg-icon icon-campaign" data-v-0eb98668="">
+                                キャンペーン
+                            </a>
+                            </li>
+                            <li class="header-utility-nav-item" data-v-0eb98668=""><a
+                                    href="/mypage/favorite?l-id=_header_favorite"
+                                    class="header-utility-nav-btn svg-icon icon-favorite-black" data-v-0eb98668="">
+                                お気に入り
+                            </a>
+                            </li>
+                            <li class="header-utility-nav-item" data-v-0eb98668=""><a
+                                    href="/mypage/purchase?l-id=_header_phistory"
+                                    class="header-utility-nav-btn svg-icon icon-menu-black" data-v-0eb98668="">
+                                購入履歴
+                            </a>
+                            </li>
+                            <li class="header-utility-nav-item" data-v-0eb98668="">
+                                <div class="minicart-dropdown-trigger-inner" data-v-0eb98668="">
+                                    <div class="header-utility-cart-grid" data-v-0eb98668="">
+                                        <div class="header-utility-cart-grid-item" data-v-0eb98668="">
+                                            <p
+                                                    class="header-utility-cart-icon" data-v-0eb98668=""><span
+                                                    class="svg-icon icon-28 icon-cart-black" data-v-0eb98668=""><span
+                                                    data-auto-id="cart-indicator" class="popout" data-v-0eb98668="">0</span></span>
+                                            </p>
+                                        </div>
+                                        <div class="header-utility-cart-grid-item" data-v-0eb98668="">
+                                            <div class="header-utility-cart-txt" data-v-0eb98668="">
+                                                <p
+                                                        class="header-utility-cart-txt-price" data-v-0eb98668="">
+                                                    0<span class="unit" data-v-0eb98668="">円(税込)</span>
+                                                </p>
+                                                <!----> <!---->
+                                            </div>
+                                        </div>
+                                        <div class="header-utility-cart-grid-item" data-v-0eb98668="">
+                                            <p
+                                                    class="header-utility-cart-btn"><a data-auto-id="go-step-pc"
+                                                                                       href="javascript:void(0);"
+                                                                                       data-ratid="cart_button_click"
+                                                                                       data-ratevent="click"
+                                                                                       data-ratparam="all">
+                                                レジに進む
+                                            </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-ratid="minicart_pulldown_appear" data-ratevent="appear" data-ratparam="all"
+                                     class="minicart-dropdown-wrap" data-v-0eb98668="">
+                                    <div class="minicart-dropdown" data-v-0eb98668="">
+                                        <ul class="minicart-products" data-v-0eb98668=""></ul>
+                                    </div>
+                                </div>
+                                <!---->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="lyt-contents">
+        <div class="lyt-side-wrap">
+            <div class="lyt-side-pattern01-menu only-pc">
+                <p class="side-content-btn-clock">
+                    <a href="javascript:void(0);" data-auto-id="set-delivery-pc" data-ratid="delivery_schedule_button_click" data-ratevent="click" data-ratparam="all" class="js-popup-trigger">
+                        <span class="svg-icon icon-clock-white">お届け日時選択</span>
+                    </a>
+                </p>
+                <div class="category-menu-wrap">
+                    <div class="title-wrap">
+                        <div class="title-with-item">
+                            <h2 class="title title-other01 title-with-border">カテゴリから探す</h2>
+                        </div>
+                    </div>
+                    <ul data-item=".category-menu-level01-item"
+                        data-submenu=".choice-menu, .category-menu-level02"
+                        data-submenudirection="right"
+                        class="category-menu category-menu-level01">
+                        <li class="category-menu-level01-item">
+                            <a href="#" class="category-menu-link category-menu-link-trigger">
+                                当店のおすすめ
+                            </a>
+                            <div class="category-menu-level02" style="bottom: -372.5px; min-height: 666px;">
+                                <p class="category-menu-item-title">当店のおすすめ</p>
+                                <ul data-item=".category-menu-level02-item" data-submenu=".category-menu-level03" data-submenudirection="right" class="category-menu">
+                                    <li style="display: block;">
+                                        <a href="#" class="category-menu-link">当店のおすすめすべて</a>
+                                    </li>
+                                    <li class="category-menu-level02-item">
+                                        <a href="#" class="category-menu-link category-menu-link-trigger">新商品</a>
+                                    </li>
+                                    <li class="category-menu-level02-item">
+                                        <a href="#" class="category-menu-link category-menu-link-trigger">みなさまのお墨付き</a>
+                                    </li>
+                                    <li class="category-menu-level02-item">
+                                        <a href="#" class="category-menu-link category-menu-link-trigger">きほんのき</a>
+                                    </li>
+                                    <li class="category-menu-level02-item">
+                                        <a href="#" class="category-menu-link category-menu-link-trigger">海外から直輸入</a>
+                                    </li>
+                                    <li class="category-menu-level02-item is-active">
+                                        <a href="#" class="category-menu-link category-menu-link-trigger">人気ブランドショップ</a>
+                                        <div class="category-menu-level03">
+                                            <p class="category-menu-item-title">人気ブランドショップ</p>
+                                            <ul class="category-menu-level03-items">
+                                                <li class="category-menu-level03-item" style="display: block;">
+                                                    <a href="#" class="category-menu-link">人気ブランドショップすべて</a>
+                                                </li>
+                                                <li class="category-menu-level03-item">
+                                                    <a href="#" class="category-menu-link">[楽天市場]くまもと風土</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/100009?l-id=_leftnavi_100009&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                お買い得商品・季節の特集
+                            </a>
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/110000?l-id=_leftnavi_110000&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                野菜・果物
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/110008?l-id=_leftnavi_110008&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                お肉・ハム・ソーセージ
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/110001?l-id=_leftnavi_110001&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                お魚
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/200870?l-id=_leftnavi_200870&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                惣菜・お弁当・サラダ
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/200773?l-id=_leftnavi_200773&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                卵・牛乳・乳製品
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/200875?l-id=_leftnavi_200875&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                豆腐・納豆・漬物・練物
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/110002?l-id=_leftnavi_110002&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                冷凍食品・アイス
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/110006?l-id=_leftnavi_110006&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                お米・麺・パスタ
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/200884?l-id=_leftnavi_200884&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                パン・ジャム・シリアル
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/200002?l-id=_leftnavi_200002&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                食油・カレー・スープ・調味料
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/110007?l-id=_leftnavi_110007&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                缶詰・粉類・乾物
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/200600?l-id=_leftnavi_200600&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                菓子・スイーツ
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/200003?l-id=_leftnavi_200003&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                飲料・お水
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/200830?l-id=_leftnavi_200830&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                お酒・ノンアルコール
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/110003?l-id=_leftnavi_110003&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                紙・生理用品・介護
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/110004?l-id=_leftnavi_110004&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                美容・衛生
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/110005?l-id=_leftnavi_110005&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                日用品・雑貨
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/200007?l-id=_leftnavi_200007&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                ベビー
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item">
+                            <a href="/search/200008?l-id=_leftnavi_200008&amp;sort=1" class="category-menu-link category-menu-link-trigger">
+                                ペット
+                            </a> <!---->
+                        </li>
+                        <li class="category-menu-level01-item" data-v-0578a837="">
+                            <a href="/choice?l-id=_leftnavi_choice_top" class="category-menu-link category-menu-link-trigger" data-v-0578a837="">
+                                よりどり割でお得
+                            </a> <!---->
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div id="NG_0000000338" style="margin: 0px; padding: 0px; display: none;"></div>
+                    <div id="0000000338" style="margin: 0px; padding: 0px;">
+                        <div style="margin: 0; padding: 0;width: 0; height: 0; display:none;" id="ID0000000338"></div>
+                        <!--<div class="bnr-area">  <ul><li><a href="javascript:void(0);" onClick="javascript:_adGetOnClick5(36002,338,'click0000000338','/corner/P30489?l-id=_leftnavi_pl');return false;" ><img src="//sm.r10s.jp/contents/static/event/leftnavi/leftnv_pl20190823.jpg" alt="プライスロック"></a>  </ul></div>-->
+                    </div>
+                    <noscript></noscript>
+                </div>
+                <div data-v-644ea9c9="" class="infinite-loading-container">
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;"><span data-v-46b20d22="" data-v-644ea9c9="" class="loading-bubbles" spinner="bubbles"><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span></span></div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style=""><span data-v-644ea9c9=""></span></div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;">No more data :)</div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;">
+                        Opps, something went wrong :(
+                        <br data-v-644ea9c9=""> <button data-v-644ea9c9="" class="btn-try-infinite">Retry</button>
+                    </div>
+                </div>
+                <div>
+                    <div id="NG_0000000339" style="margin: 0px; padding: 0px; display: none;"></div>
+                    <div id="0000000339" style="margin: 0px; padding: 0px;">
+                        <div style="margin: 0; padding: 0;width: 0; height: 0; display:none;" id="ID0000000339"></div>
+                        <div class="bnr-area">
+                            <ul>
+                                <li><a href="https://www.rakuten.co.jp/seiyugk/?utm_source=online&amp;utm_medium=rsn&amp;utm_campaign=srichi&amp;utm_content=leftnavi" onclick="javascript:_adGetOnClick5(36002,339,'click0000000339')" target="_blank"><img src="//sm.r10s.jp/contents/static/event/leftnavi/leftnavi_sor.jpg" alt="西友楽天市場店"></a></li>
+                                <li><a href="https://gift.the-seiyu.com/ec/cmShopTopPage1.html?utm_source=online&amp;utm_medium=rsn&amp;utm_campaign=21sanchoku&amp;utm_content=leftnavi" onclick="javascript:_adGetOnClick5(36002,339,'click0000000339')" target="_blank"><img src="//sm.r10s.jp/contents/static/event/leftnavi/200x200_giftkan_2019sanchoku.jpg" alt="ギフト館 2021全国グルメお取り寄せ便"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <noscript></noscript>
+                </div>
+                <div data-v-644ea9c9="" class="infinite-loading-container">
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;"><span data-v-46b20d22="" data-v-644ea9c9="" class="loading-bubbles" spinner="bubbles"><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span></span></div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style=""><span data-v-644ea9c9=""></span></div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;">No more data :)</div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;">
+                        Opps, something went wrong :(
+                        <br data-v-644ea9c9=""> <button data-v-644ea9c9="" class="btn-try-infinite">Retry</button>
+                    </div>
+                </div>
+            </div>
+            <div class="top bnr-top-wide-body">
+                <div>
+                    <div class="bnr-top-wide bnr-top-wide-left only-pc"></div>
+                    <div class="bnr-top-wide bnr-top-wide-right only-pc"></div>
+                </div>
+                <!---->
+                <div class="lyt-side-wrap">
+                    <div class="lyt-side-pattern01-main">
+                        <div data-v-35ade1f0="">
+                            <div data-v-35ade1f0="" class="loggedOutDisclaimer sp-width">
+                                こちらは見学ページです。お客様のお届け地域の品揃え・価格・送料体系は
+                                <a data-v-35ade1f0="" href="https://grp02.id.rakuten.co.jp/rms/nid/login?service_id=n68&amp;login_type=long" data-ratid="link_logged-out-disclaimer_login_click" data-ratevent="click" data-ratparam="all">ログイン</a>
+                                後にご確認ください。
+                            </div>
+                        </div>
+                        <div>
+                            <div id="NG_0000000287" style="margin: 0px; padding: 0px; display: none;"></div>
+                            <div id="0000000287" style="margin: 0px; padding: 0px;"></div>
+                            <noscript></noscript>
+                        </div>
+                        <div class="product-detail-section">
+                            <div class="product-detail">
+                                <div class="product-detail-row">
+                                    <div class="product-detail-col product-detail-pc-image-area">
+                                        <p class="product-detail-image"><a href="https://sm.r10s.jp/item/52/80363352.jpg?fit=inside|630:630&amp;composite-to=*,*|630:630&amp;background-color=white" data-modal="img" class="js-modal-trigger img-label-wrap label-large link-img"><img src="https://sm.r10s.jp/item/52/80363352.jpg?fit=inside|300:300&amp;composite-to=*,*|300:300&amp;background-color=white" alt=""> </a></p>
+                                    </div>
+                                    <div class="product-detail-col product-detail-info-area">
+                                        <div class="product-detail-title-block">
+                                            <!---->
+                                            <div class="product-detail-title-block-inner">
+                                                <p class="product-detail-maker"><a href="/search?maker_name=%E3%83%A2%E3%83%AD%E3%83%83%E3%82%B3%E3%83%BB%E3%83%A2%E3%83%BC%E3%83%AA%E3%82%BF%E3%83%8B%E3%82%A2%E7%94%A3%E5%8E%9F%E6%96%99" class="">
+                                                    モロッコ・モーリタニア産原料
+                                                </a>
+                                                </p>
+                                                <h1 class="product-detail-title">【超得】蒸しだこ(生食用)</h1>
+                                                <p class="product-detail-info">150g(100g当たり税抜258円)</p>
+                                            </div>
+                                        </div>
+                                        <div class="product-detail-sp-visual">
+                                            <ul class="product-detail-sp-visual-slick slick-initialized slick-slider slick-dotted">
+                                                <div class="slick-list draggable">
+                                                    <div class="slick-track" style="opacity: 1; width: 0px; transform: translate3d(0px, 0px, 0px);">
+                                                        <li class="js-image-magnify-trigger slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 0px;" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00"><a href="https://sm.r10s.jp/item/52/80363352.jpg?fit=inside|630:630&amp;composite-to=*,*|630:630&amp;background-color=white" data-modal="img" class="js-modal-trigger img-label-wrap label-large" tabindex="0"><img src="//sm.r10s.jp/item/52/80363352.jpg?fit=inside|300:300&amp;composite-to=*,*|300:300&amp;background-color=white" alt=""> </a></li>
+                                                    </div>
+                                                </div>
+                                                <ul class="slick-dots" role="tablist">
+                                                    <li class="slick-active" role="presentation"><button type="button" role="tab" id="slick-slide-control00" aria-controls="slick-slide00" aria-label="1 of 1" tabindex="0" aria-selected="true">1</button></li>
+                                                </ul>
+                                            </ul>
+                                        </div>
+                                        <div class="product-detail-info-block">
+                                            <div class="product-detail-price-area">
+                                                <!---->
+                                                <p class="product-detail-price">387<span class="unit">円</span></p>
+                                                <p class="product-detail-price-without-tax">(税込 417円)</p>
+                                            </div>
+                                            <div class="product-detail-amount-area">
+                                                <div class="product-detail-btn-area">
+                                                    <div class="product-detail-btn">
+                                                        <div class="btn-add-set-wrap btn-add-wrap mb0-sp mt0">
+                                                            <a data-auto-id="undefined/add-to-cart-80363352" href="javascript:void(0);" class="btn btn-add js-btn-add-switch" style="display:;"><i class="svg-icon icon-cart-02"></i>かごに追加
+                                                            </a>
+                                                            <div class="btn-set-wrap" style="display:none;"><span data-auto-id="undefined/dec-cart-80363352" class="btn-set-btn">－</span> <span class="btn-set-num">0</span> <span data-auto-id="undefined/inc-cart-80363352" class="btn-set-btn">＋</span></div>
+                                                            <!---->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="social-btn-area">
+                                            <ul>
+                                                <li>
+                                                    <div data-layout="button" data-size="small" data-mobile-iframe="true" class="fb-share-button fb_iframe_widget" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;container_width=0&amp;href=https%3A%2F%2Fsm.rakuten.co.jp%2Fitem%2F80363352%3Fl-id%3Dtop_md_item1_01&amp;layout=button&amp;locale=ja_JP&amp;mobile_iframe=true&amp;sdk=joey&amp;size=small"><span style="vertical-align: top; width: 0px; height: 0px; overflow: hidden;"><iframe name="f3358ec2d09ed4c" width="1000px" height="1000px" data-testid="fb:share_button Facebook Social Plugin" title="fb:share_button Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://www.facebook.com/v2.0/plugins/share_button.php?app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df2ae5cb3589eef4%26domain%3Dsm.rakuten.co.jp%26origin%3Dhttps%253A%252F%252Fsm.rakuten.co.jp%252Ff20dbb4111fe8f4%26relation%3Dparent.parent&amp;container_width=0&amp;href=https%3A%2F%2Fsm.rakuten.co.jp%2Fitem%2F80363352%3Fl-id%3Dtop_md_item1_01&amp;layout=button&amp;locale=ja_JP&amp;mobile_iframe=true&amp;sdk=joey&amp;size=small" style="border: none; visibility: visible; width: 0px; height: 0px;"></iframe></span></div>
+                                                </li>
+                                                <li><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 60px; height: 20px;" title="Twitter Tweet Button" src="https://platform.twitter.com/widgets/tweet_button.0edc1ef9f8b82d9b79c6115bda79f63f.en.html#dnt=false&amp;hashtags=%E6%A5%BD%E5%A4%A9%E8%A5%BF%E5%8F%8B%E3%83%8D%E3%83%83%E3%83%88%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=https%3A%2F%2Fsm.rakuten.co.jp%2Fitem%2F80363352%3Fl-id%3Dtop_md_item1_01&amp;size=m&amp;text=%E3%83%A2%E3%83%AD%E3%83%83%E3%82%B3%E3%83%BB%E3%83%A2%E3%83%BC%E3%83%AA%E3%82%BF%E3%83%8B%E3%82%A2%E7%94%A3%E5%8E%9F%E6%96%99%20%7C%20%E3%80%90%E8%B6%85%E5%BE%97%E3%80%91%E8%92%B8%E3%81%97%E3%81%A0%E3%81%93(%E7%94%9F%E9%A3%9F%E7%94%A8)&amp;time=1616384963001&amp;type=share&amp;url=https%3A%2F%2Fsm.rakuten.co.jp%2Fitem%2F80363352"></iframe></li>
+                                            </ul>
+                                        </div>
+                                        <!----> <!---->
+                                    </div>
+                                </div>
+                                <div class="product-detail-row">
+                                    <div class="product-detail-col only-pc product-detail-image-select-area">
+                                        <ul class="cf">
+                                            <li class="product-detail-image-current"><span class="product-detail-image-item"><span class="item-cell"><img src="https://sm.r10s.jp/item/52/80363352.jpg?fit=inside|55:55&amp;composite-to=*,*|55:55&amp;background-color=white" alt=""></span></span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="product-detail-col product-detail-text-area">
+                                        <ul class="list-indent">
+                                            <li>※写真はイメージです。<br class="only-pc">
+                                                予告なくパッケージ、商品名、産地等が変更になる場合がございます。予めご了承ください。<br class="only-pc">
+                                                （実際にお届けする商品と掲載内容が異なる場合がございます）
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!----> <!----> <!---->
+                        <div class="product-info">
+                            <h3>商品説明</h3>
+                            <p> </p>
+                            <div></div>
+                        </div>
+                        <div>
+                            <div class="accordion">
+                                <h3 class="accordion-head">商品の返品について</h3>
+                                <div class="accordion-body">
+                                    <p>お届けした商品に、破損、汚損等があった場合や、ご注文と異なる商品が届いた場合、お問い合わせフォームより、楽天西友カスタマーセンターへご連絡ください。<br>店舗の商品入れ替え時において、各店舗ごとの新規商品の導入タイミングのずれにより、お届けした商品の内容量など、ご注文と異なる場合がありますのでご了承ください。</p>
+                                    <p>返品については原則承っておりません。ただし初期不良の場合には、お客様からのお問い合わせ内容に応じて全額返金することがあります。<br>以下の商品は、返品を一切承っておりませんのでご了承ください。</p>
+                                    <ul class="list-disc">
+                                        <li>食品、飲料、サプリメント ベビーフード、粉ミルクなど</li>
+                                        <li>ペットフードなどのペット用食品、飲料、サプリメント、ペット用医薬品</li>
+                                        <li>パッケージを開封してしまった商品</li>
+                                        <li>一度ご使用になった商品</li>
+                                        <li>お客様の責任で傷や汚れが生じた商品</li>
+                                        <li>受注限定生産の商品</li>
+                                        <li>試着を含む使用済みまたは開封済みの下着（靴下、ストッキング、レギンスなどを含む）</li>
+                                        <li>植物</li>
+                                        <li>訳あり商品（掘り出し物）</li>
+                                    </ul>
+                                </div>
+                                <!-- /.accordion-body -->
+                            </div>
+                        </div>
+                        <div>
+                            <div class="accordion">
+                                <h3 class="accordion-head">キャンセルについて</h3>
+                                <div class="accordion-body">
+                                    <p>キャンセル可能期限内であれば、マイページの「注文履歴一覧」からご注文のキャンセルが可能です（注文内容修正も可能です）。一度キャンセルされたご注文については復活できませんのでご了承ください。キャンセル可能期限はヘルプよりご確認ください。<br>また、キャンセル可能期限を過ぎた場合に、やむを得ずキャンセルが必要になった際には、手数料440円(税込)をご請求させていただきます。<br>ネットスーパーでは生鮮食品、冷蔵・冷凍食品を扱っており、キャンセル可能期限後のキャンセルは一部廃棄となります。何卒ご理解をお願いいたします。</p>
+                                </div>
+                                <!-- /.accordion-body -->
+                            </div>
+                        </div>
+                        <!---->
+                        <div class="block-related-category">
+                            <div class="title-wrap">
+                                <h3 class="title title-small title-color01">関連するカテゴリ</h3>
+                            </div>
+                            <div class="product-relation-box-wrap">
+                                <div class="product-relation-box">
+                                    <h3 class="product-relation-title"><a href="/search/310120" class="">
+                                        切身
+                                    </a>
+                                    </h3>
+                                    <div class="product-relation-row">
+                                        <div class="product-relation-col">
+                                            <p class="product-relation-col-top"><a href="/item/1385878102" class=""><img alt="" data-src="https://sm.r10s.jp/item/02/1385878102.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/02/1385878102.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p>
+                                            <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
+                                            <p class="product-relation-col-bottom">412<span class="unit">円</span></p>
+                                        </div>
+                                        <div class="product-relation-col">
+                                            <p class="product-relation-col-top"><a href="/item/13858781021" class=""><img alt="" data-src="https://sm.r10s.jp/item/21/13858781021.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/21/13858781021.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p>
+                                            <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
+                                            <p class="product-relation-col-bottom">618<span class="unit">円</span></p>
+                                        </div>
+                                        <div class="product-relation-col">
+                                            <p class="product-relation-col-top"><a href="/item/80307081" class=""><img alt="" data-src="https://sm.r10s.jp/item/81/80307081.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/81/80307081.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p>
+                                            <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
+                                            <p class="product-relation-col-bottom">341<span class="unit">円</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-relation-box">
+                                    <h3 class="product-relation-title"><a href="/search/310108" class="">
+                                        えび・いか・シーフードミックス
+                                    </a>
+                                    </h3>
+                                    <div class="product-relation-row">
+                                        <div class="product-relation-col">
+                                            <p class="product-relation-col-top"><a href="/item/80234444" class=""><img alt="" data-src="https://sm.r10s.jp/item/44/80234444.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/44/80234444.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p>
+                                            <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
+                                            <p class="product-relation-col-bottom">1,076<span class="unit">円</span></p>
+                                        </div>
+                                        <div class="product-relation-col">
+                                            <p class="product-relation-col-top"><a href="/item/80319944" class=""><img alt="" data-src="https://sm.r10s.jp/item/44/80319944.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/44/80319944.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p>
+                                            <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
+                                            <p class="product-relation-col-bottom">939<span class="unit">円</span></p>
+                                        </div>
+                                        <div class="product-relation-col">
+                                            <p class="product-relation-col-top"><a href="/item/4973450173562" class=""><img alt="" src="https://sm.r10s.jp/item/62/4973450173562.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/62/4973450173562.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p>
+                                            <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
+                                            <p class="product-relation-col-bottom">307<span class="unit">円</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-relation-box">
+                                    <h3 class="product-relation-title"><a href="/search/310109" class="">
+                                        貝
+                                    </a>
+                                    </h3>
+                                    <div class="product-relation-row">
+                                        <div class="product-relation-col">
+                                            <p class="product-relation-col-top"><a href="/item/80338925" class=""><img alt="" src="https://sm.r10s.jp/item/25/80338925.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/25/80338925.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p>
+                                            <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
+                                            <p class="product-relation-col-bottom">289<span class="unit">円</span></p>
+                                        </div>
+                                        <div class="product-relation-col">
+                                            <p class="product-relation-col-top"><a href="/item/80338926" class=""><img alt="" src="https://sm.r10s.jp/item/26/80338926.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/26/80338926.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p>
+                                            <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
+                                            <p class="product-relation-col-bottom">408<span class="unit">円</span></p>
+                                        </div>
+                                        <div class="product-relation-col">
+                                            <p class="product-relation-col-top"><a href="/item/85452469" class=""><img alt="" src="https://sm.r10s.jp/item/69/85452469.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/69/85452469.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p>
+                                            <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
+                                            <p class="product-relation-col-bottom">212<span class="unit">円</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---->
+                        <div>
+                            <div id="ppz_recommend04">
+                                <div class="block-carousel">
+                                    <div class="title-wrap-carousel">
+                                        <h2 class="title title-other01 title-color01">
+                                            <a href="/corner/" class="">
+                                                この商品を買った人はこんな商品も買っています
+                                                <!---->
+                                            </a>
+                                        </h2>
+                                        <p class="title-link" style="display: none;"><a href="/corner/" class="btn btn-link btn-arrow-right">
+                                            商品をもっと見る
+                                        </a>
+                                        </p>
+                                    </div>
+                                    <div data-v-5f215826="" data-itemalign="justify" class="product-carousel slider-basic item-parts static">
+                                        <div data-v-5f215826="" class="scrollbar-hidden slider-basic-frame touch-hover-event">
+                                            <div data-v-7d3fc038="" class="loading" data-v-5f215826="" style="display: none;"></div>
+                                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 9.8px; opacity: 1;">
+                                                <div data-ratunit="item" class="product-item">
+                                                    <!---->
+                                                    <div class="product-item-image-area" last="4">
+                                                        <!---->
+                                                        <p class="product-item-img">
+                                                            <a href="javascript:void(0);" class="img-label-wrap link-img label-middle">
+                                                                <img alt="" class="img-base-size" src="https://sm.r10s.jp/item/27/1385310827.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" src="/img/loader.gif" lazy="loading"> <!----><!----><!----><!---->
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                    <div class="product-item-info">
+                                                        <div class="product-item-info-in">
+                                                            <div class="product-item-info-top">
+                                                                <p>
+                                                                    <a href="javascript:void(0);">
+                                       <span class="product-item-info-name">
+                                          <!---->バナナ
+                                       </span>
+                                                                    </a>
+                                                                    <span class="product-item-info-amount">
+                                    1カット
+                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="product-item-info-bottom">
+                                                                <div class="product-item-info-bottom-in">
+                                                                    <div class="product-item-info-price-area">
+                                                                        <div class="product-item-info-price-area-in">
+                                                                            <!---->
+                                                                            <div class="product-item-info-price-with-icon">
+                                                                                <!---->
+                                                                                <p class="product-item-info-price">101<span class="unit">円</span></p>
+                                                                            </div>
+                                                                            <p class="product-item-info-tax">(税込 109円)</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-item-info-btn-area">
+                                                                        <div class="product-item-info-btn">
+                                                                            <div class="btn-add-set-wrap">
+                                                                                <a data-auto-id="undefined/add-to-cart-1385310827" href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
+                                                                                </a>
+                                                                                <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-1385310827" class="btn-set-btn">－</span> <span class="btn-set-num">0</span> <span data-auto-id="undefined/inc-cart-1385310827" class="btn-set-btn">＋</span></div>
+                                                                                <!---->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 214.4px; opacity: 1;">
+                                                <div data-ratunit="item" class="product-item">
+                                                    <!---->
+                                                    <div class="product-item-image-area" last="4">
+                                                        <!---->
+                                                        <p class="product-item-img">
+                                                            <a href="javascript:void(0);" class="img-label-wrap link-img label-middle">
+                                                                <img alt="" class="img-base-size" src="https://sm.r10s.jp/item/82/1385430282.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" src="/img/loader.gif" lazy="loading"> <!----><!----><!----><!---->
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                    <div class="product-item-info">
+                                                        <div class="product-item-info-in">
+                                                            <div class="product-item-info-top">
+                                                                <p>
+                                                                    <a href="javascript:void(0);">
+                                       <span class="product-item-info-name">
+                                          <!---->【超得】ピーマン
+                                       </span>
+                                                                    </a>
+                                                                    <span class="product-item-info-amount">
+                                    1袋
+                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="product-item-info-bottom">
+                                                                <div class="product-item-info-bottom-in">
+                                                                    <div class="product-item-info-price-area">
+                                                                        <div class="product-item-info-price-area-in">
+                                                                            <!---->
+                                                                            <div class="product-item-info-price-with-icon">
+                                                                                <!---->
+                                                                                <p class="product-item-info-price">88<span class="unit">円</span></p>
+                                                                            </div>
+                                                                            <p class="product-item-info-tax">(税込 95円)</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-item-info-btn-area">
+                                                                        <div class="product-item-info-btn">
+                                                                            <div class="btn-add-set-wrap">
+                                                                                <a data-auto-id="undefined/add-to-cart-1385430282" href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
+                                                                                </a>
+                                                                                <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-1385430282" class="btn-set-btn">－</span> <span class="btn-set-num">0</span> <span data-auto-id="undefined/inc-cart-1385430282" class="btn-set-btn">＋</span></div>
+                                                                                <!---->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 419px; opacity: 1;">
+                                                <div data-ratunit="item" class="product-item">
+                                                    <!---->
+                                                    <div class="product-item-image-area" last="4">
+                                                        <!---->
+                                                        <p class="product-item-img">
+                                                            <a href="javascript:void(0);" class="img-label-wrap link-img label-middle">
+                                                                <img alt="" class="img-base-size" src="https://sm.r10s.jp/item/63/1385430363.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" src="/img/loader.gif" lazy="loading"> <!----><!----><!----><!---->
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                    <div class="product-item-info">
+                                                        <div class="product-item-info-in">
+                                                            <div class="product-item-info-top">
+                                                                <p>
+                                                                    <a href="javascript:void(0);">
+                                       <span class="product-item-info-name">
+                                          <!---->長ねぎ
+                                       </span>
+                                                                    </a>
+                                                                    <span class="product-item-info-amount">
+                                    2本入り
+                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="product-item-info-bottom">
+                                                                <div class="product-item-info-bottom-in">
+                                                                    <div class="product-item-info-price-area">
+                                                                        <div class="product-item-info-price-area-in">
+                                                                            <!---->
+                                                                            <div class="product-item-info-price-with-icon">
+                                                                                <!---->
+                                                                                <p class="product-item-info-price">210<span class="unit">円</span></p>
+                                                                            </div>
+                                                                            <p class="product-item-info-tax">(税込 226円)</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-item-info-btn-area">
+                                                                        <div class="product-item-info-btn">
+                                                                            <div class="btn-add-set-wrap">
+                                                                                <a data-auto-id="undefined/add-to-cart-1385430363" href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
+                                                                                </a>
+                                                                                <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-1385430363" class="btn-set-btn">－</span> <span class="btn-set-num">0</span> <span data-auto-id="undefined/inc-cart-1385430363" class="btn-set-btn">＋</span></div>
+                                                                                <!---->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 623.6px; opacity: 1;">
+                                                <div data-ratunit="item" class="product-item">
+                                                    <!---->
+                                                    <div class="product-item-image-area" last="4">
+                                                        <!---->
+                                                        <p class="product-item-img">
+                                                            <a href="javascript:void(0);" class="img-label-wrap link-img label-middle">
+                                                                <img alt="" class="img-base-size" src="https://sm.r10s.jp/item/36/1385437436.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" src="/img/loader.gif" lazy="loading"> <!----><!----><!----><!---->
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                    <div class="product-item-info">
+                                                        <div class="product-item-info-in">
+                                                            <div class="product-item-info-top">
+                                                                <p>
+                                                                    <a href="javascript:void(0);">
+                                       <span class="product-item-info-name">
+                                          <!---->きゅうり
+                                       </span>
+                                                                    </a>
+                                                                    <span class="product-item-info-amount">
+                                    3本入り
+                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="product-item-info-bottom">
+                                                                <div class="product-item-info-bottom-in">
+                                                                    <div class="product-item-info-price-area">
+                                                                        <div class="product-item-info-price-area-in">
+                                                                            <!---->
+                                                                            <div class="product-item-info-price-with-icon">
+                                                                                <!---->
+                                                                                <p class="product-item-info-price">155<span class="unit">円</span></p>
+                                                                            </div>
+                                                                            <p class="product-item-info-tax">(税込 167円)</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-item-info-btn-area">
+                                                                        <div class="product-item-info-btn">
+                                                                            <div class="btn-add-set-wrap">
+                                                                                <a data-auto-id="undefined/add-to-cart-1385437436" href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
+                                                                                </a>
+                                                                                <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-1385437436" class="btn-set-btn">－</span> <span class="btn-set-num">0</span> <span data-auto-id="undefined/inc-cart-1385437436" class="btn-set-btn">＋</span></div>
+                                                                                <!---->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 828.2px; opacity: 1;">
+                                                <div data-ratunit="item" class="product-item">
+                                                    <!---->
+                                                    <div class="product-item-image-area" last="4">
+                                                        <!---->
+                                                        <p class="product-item-img">
+                                                            <a href="javascript:void(0);" class="img-label-wrap link-img label-middle">
+                                                                <img alt="" class="img-base-size" src="https://sm.r10s.jp/item/41/1385430341.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" src="/img/loader.gif" lazy="loading"> <!----><!----><!----><!---->
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                    <div class="product-item-info">
+                                                        <div class="product-item-info-in">
+                                                            <div class="product-item-info-top">
+                                                                <p>
+                                                                    <a href="javascript:void(0);">
+                                       <span class="product-item-info-name">
+                                          <!---->白菜(はくさい)
+                                       </span>
+                                                                    </a>
+                                                                    <span class="product-item-info-amount">
+                                    1/4カット
+                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="product-item-info-bottom">
+                                                                <div class="product-item-info-bottom-in">
+                                                                    <div class="product-item-info-price-area">
+                                                                        <div class="product-item-info-price-area-in">
+                                                                            <!---->
+                                                                            <div class="product-item-info-price-with-icon">
+                                                                                <!---->
+                                                                                <p class="product-item-info-price">103<span class="unit">円</span></p>
+                                                                            </div>
+                                                                            <p class="product-item-info-tax">(税込 111円)</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-item-info-btn-area">
+                                                                        <div class="product-item-info-btn">
+                                                                            <div class="btn-add-set-wrap">
+                                                                                <a data-auto-id="undefined/add-to-cart-1385430341" href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
+                                                                                </a>
+                                                                                <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-1385430341" class="btn-set-btn">－</span> <span class="btn-set-num">0</span> <span data-auto-id="undefined/inc-cart-1385430341" class="btn-set-btn">＋</span></div>
+                                                                                <!---->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div data-v-5f215826="">
+                                            <div data-v-5f215826="" class="prev-btn"></div>
+                                            <div data-v-5f215826="" class="next-btn"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-v-644ea9c9="" class="infinite-loading-container">
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;"><span data-v-46b20d22="" data-v-644ea9c9="" class="loading-bubbles" spinner="bubbles"><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span></span></div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style=""><span data-v-644ea9c9=""></span></div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;">No more data :)</div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;">
+                        Opps, something went wrong :(
+                        <br data-v-644ea9c9=""> <button data-v-644ea9c9="" class="btn-try-infinite">Retry</button>
+                    </div>
+                </div>
+                <div data-v-0191b810="" class="bnr-slider-area pc">
+                    <h1 data-v-0191b810="" class="title title-other01 title-with-border">楽天グループのサービス</h1>
+                    <div data-v-5f215826="" data-v-0191b810="" data-itemalign="justify" class="slider-basic group-service">
+                        <div data-v-5f215826="" class="scrollbar-hidden slider-basic-frame touch-hover-event">
+                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 10.3px; opacity: 1;"><a data-v-0191b810="" href="//tv.rakuten.co.jp/static/fcb/matchday_messicirque/"><img data-v-0191b810="" alt="楽天TV" src="https://sm.r10s.jp/contents/static/event/group/group_tv_200x200.jpg" src="//sm.r10s.jp/contents/static/event/group/group_tv_200x200.jpg" lazy="loaded"></a></div>
+                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 134.9px; opacity: 1;"><a data-v-0191b810="" href="//event.rakuten.co.jp/family/line/?scid=wi_seiyu_mmw_line_pc_lps_200413"><img data-v-0191b810="" alt="ママ割LINE" src="https://sm.r10s.jp/contents/static/event/group/group_mamawari_line_200x200_0701.jpg" src="//sm.r10s.jp/contents/static/event/group/group_mamawari_line_200x200_0701.jpg" lazy="loaded"></a></div>
+                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 259.5px; opacity: 1;"><a data-v-0191b810="" href="//event.rakuten.co.jp/family/?scid=wi_ich_family_top_2018marte&amp;l-id=top_barter_02"><img data-v-0191b810="" alt="ママ割" src="https://sm.r10s.jp/contents/static/event/group/group_mamawari_200x200_0110.jpg" src="//sm.r10s.jp/contents/static/event/group/group_mamawari_200x200_0110.jpg" lazy="loaded"></a></div>
+                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 384.1px; opacity: 1;"><a data-v-0191b810="" href="//r10.to/hbZZ0g"><img data-v-0191b810="" alt="楽天edy" src="//sm.r10s.jp/contents/static/event/group/group_edy_0501.png" src="https://sm.r10s.jp/contents/static/event/group/group_edy_0501.png" lazy="loaded"></a></div>
+                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 508.7px; opacity: 1;"><a data-v-0191b810="" href="//brandavenue.rakuten.co.jp/contents/rfapp/?l-id=seiyu_pc_rfashion"><img data-v-0191b810="" alt="楽天ファッション" src="https://sm.r10s.jp/contents/static/event/group/group_rf_20200803.png" src="//sm.r10s.jp/contents/static/event/group/group_rf_20200803.png" lazy="loaded"></a></div>
+                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 633.3px; opacity: 1;"><a data-v-0191b810="" href="//music.rakuten.co.jp/?scid=wi_rsn_msc_top"><img data-v-0191b810="" alt="1日10曲聴いてポイントもらえる楽天の音楽アプリ" src="https://sm.r10s.jp/contents/static/event/group/group_music_200x200_2101210.jpg" src="//sm.r10s.jp/contents/static/event/group/group_music_200x200_2101210.jpg" lazy="loaded"></a></div>
+                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 757.9px; opacity: 1;"><a data-v-0191b810="" href="//recipe.rakuten.co.jp/sp2/shungohan/?scid=shungohan_top_mart"><img data-v-0191b810="" alt="レシピ" src="https://sm.r10s.jp/contents/static/event/group/recipe2101_200x200_210219.jpg" src="//sm.r10s.jp/contents/static/event/group/recipe2101_200x200_210219.jpg" lazy="loaded"></a></div>
+                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 882.5px; opacity: 1;"><a data-v-0191b810="" href="//insurance.rakuten.co.jp/?state=rn12&amp;scid=wi_mrt_est_001&amp;l-id=top_barter_06"><img data-v-0191b810="" alt="保険" src="https://sm.r10s.jp/contents/static/event/group/group_hoken_20190129.png" src="//sm.r10s.jp/contents/static/event/group/group_hoken_20190129.png" lazy="loaded"></a></div>
+                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 1007.1px; opacity: 1;"><a data-v-0191b810="" href="//money.rakuten.co.jp/woman/article/2018/budget/?scid=wi_mrt_mart_woman_201807&amp;l-id=top_barter_07"><img data-v-0191b810="" alt="美人のマネ活" src="https://sm.r10s.jp/contents/static/event/group/group_money_200x200.gif" src="//sm.r10s.jp/contents/static/event/group/group_money_200x200.gif" lazy="loading"></a></div>
+                            <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 1131.7px; opacity: 1;"><a data-v-0191b810="" href="//app.kuji.rakuten.co.jp/campaign/intro/?scid=intro_mart&amp;ref=barter&amp;l-id=top_barter_10"><img data-v-0191b810="" alt="くじアプリ" src="https://sm.r10s.jp/contents/static/event/group/group_kuji_200x200.jpg" src="//sm.r10s.jp/contents/static/event/group/group_kuji_200x200.jpg" lazy="loading"></a></div>
+                        </div>
+                        <div data-v-5f215826="">
+                            <div data-v-5f215826="" class="prev-btn"></div>
+                            <div data-v-5f215826="" class="next-btn"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary mt20">
+                    <ul class="list-disc">
+                        <li>法令により20歳未満への酒類販売はいたしません。20歳未満の飲酒は法律で禁止されています。</li>
+                        <li>写真はイメージです。実際にお届けする商品とパッケージなどが異なる場合がございます。商品名・規格などは予告なく変更になる場合がございます。</li>
+                        <li>天候不順および市場等の事情により、商品をお届けできない場合や、産地が変更になる場合がございます。予めご了承ください。</li>
+                    </ul>
+                </div>
+                <div>
+                    <div id="NG_0000000281" style="margin: 0px; padding: 0px; display: none;"></div>
+                    <div id="0000000281" style="margin: 0px; padding: 0px;">
+                        <div style="margin: 0; padding: 0;width: 0; height: 0; display:none;" id="ID0000000281"></div>
+                        <script> function _aCastClick_0000000281() {  location.href="https://tracer31.a-cast.jp/redirect/sm.rakuten.co.jp/;rand=1614224473428;c_id=0;opt=;reason=1;reasonData=;ac_del=&ac_ck=1614222231904&adsvr_ck=bGF8MTYxNDIyNDQ3MzQyOCoqKnZhfDEqKipzc3wwKioqZnF8MzM4OjM2MDAyMDI4NDoxLDI4MDozNjAwMjExMjQ6MiwyOTQ6MzYwMDIwNTY5OjEsMzM5OjM2MDAyMTExMjoxLDI3OTozNjAwMjA1NTQ6NywsLCwsLCwsLCwsLCwsLCoqKm5jcnwyODA6MzYwMDIxMTI0OjE6LDMzODozNjAwMjAyODQ6MTosMjc5OjM2MDAyMDU1NDoxOiwsLCwsMjk0OjM2MDAyMDU2OToxOiwzMzk6MzYwMDIxMTEyOjI6LCwsLCwsLCwsLCwqKiphc2VnX2ltcHwxKioqbHNlZ3wxKioqbF9pbXBfcnwxKioqbF9pbXBfb3B0fHJob3N0PXxrZXl3b3JkPXxhZGlkPSoqKmxfaW1wX2NpZHwzNjAwMioqKmxfaW1wX2Z8eSoqKkVPRioqKg%3d%3d";  return false; } </script>
+                    </div>
+                    <noscript></noscript>
+                </div>
+                <div data-v-644ea9c9="" class="infinite-loading-container">
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;"><span data-v-46b20d22="" data-v-644ea9c9="" class="loading-bubbles" spinner="bubbles"><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span><span class="bubble-item"></span></span></div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style=""><span data-v-644ea9c9=""></span></div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;">No more data :)</div>
+                    <div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;">
+                        Opps, something went wrong :(
+                        <br data-v-644ea9c9=""> <button data-v-644ea9c9="" class="btn-try-infinite">Retry</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://sm.rakuten.co.jp/js/jquery-3.5.1.min.js"></script>
+<script src="https://sm.rakuten.co.jp/js/jquery.matchHeight-min.js"></script>
+<script src="https://sm.rakuten.co.jp/js/jquery.touchwipe.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.category-menu-level01-item').hover(function () {
+            $('.category-menu-wrap .category-menu-level01-item.is-active').removeClass('is-active');
+            $(this).addClass('is-active');
+        },function () {
+            $('.category-menu-wrap').find('.is-active').removeClass('is-active');
+        });
+        $('.category-menu-level02-item').hover(function () {
+            $('.category-menu-wrap .category-menu-level02-item.is-active').removeClass('is-active');
+            $(this).addClass('is-active');
+        });
+    });
+</script>
+<script src="https://sm.rakuten.co.jp/js/script.js"></script>
+
+
+
+</body>
+</html>
