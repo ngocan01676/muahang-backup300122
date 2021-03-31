@@ -730,7 +730,8 @@
                     title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
                     type:'calendar',
                     options: { format:'DD/MM/YYYY'},
-                    value:['date','nowSum',2],
+                  //  value:['date','nowSum',2],
+                    value:"",
                     width:'100px',
 
                 },

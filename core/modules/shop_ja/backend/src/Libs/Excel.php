@@ -516,7 +516,9 @@ class Excel
         $columns_value = array_flip($datas['columns']);
         $colums = [
             ["支払区分", 'payMethod', 10, 9],//A Phương thức thanh toán
-            ["到着希望日", 'order_date1', 15, 9],//B ngày giao hàng
+            ["到着希望日",['callback' => function ($index, $value) {
+                return empty($value)?"":$value;
+            }, 'key' => 'order_date'], 15, 9],//B ngày giao hàng
             ["配送希望時間帯", ['callback' => function ($index, $value) {
                 return "8:00 ~ 12:00" == $value ? "午前中" : $value;
             }, 'key' => 'order_hours'], 15, 9],//C Giờ nhận
