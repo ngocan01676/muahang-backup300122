@@ -34,6 +34,18 @@ return [
             'Banner' => [
                 'layout' => 'widget'
             ],
+            'Home-Banner' => [
+                'layout' => 'widget'
+            ],
+            'Home-Slider' => [
+                'layout' => 'widget'
+            ],
+            'Footer-Info' => [
+                'layout' => 'widget'
+            ],
+            'Home-Slider-Logo' => [
+                'layout' => 'widget'
+            ],
 //            'slider' => [
 //                'layout' => 'widget'
 //            ],

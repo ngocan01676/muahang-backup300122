@@ -38,7 +38,10 @@ class MenuController extends \Zoe\Http\ControllerBackend
                     'name' => 'required',
                     'description' => 'required',
                 ];
-                if(isset($this->data['configs']['core']['language']['multiple'])){
+                if(
+                    isset($this->data['configs']['core']['language']['multiple'])
+                    && isset($data['type']) &&  isset($this->data['configs']['core']['menu']['type'][$data['type']])
+                ){
                     $newFilter = [];
                     foreach ($this->data['language'] as $lang => $_language) {
                         if(
@@ -52,9 +55,11 @@ class MenuController extends \Zoe\Http\ControllerBackend
                         }
 
                     }
+
                     $filter = $newFilter;
                 }
                 $rules = [];
+
                 $validator = Validator::make($data,$filter);
                 if ($validator->passes()) {
                     $oke = true;
@@ -172,13 +177,14 @@ class MenuController extends \Zoe\Http\ControllerBackend
     }
 
     private $html = "";
-
+    public $ids = [];
     private function nestable($nestable, $parent_id = 0, $root = false)
     {
         $html = '<ol class="dd-list">';
 
         foreach ($nestable as $key => $item) {
             if (isset($this->data['menu'][$item['id']])) {
+                $this->ids[$item['id']] = 1;
                 $html .= '<li class="dd-item dd3-item" data-id="' . $item['id'] . '" data-name="' . $this->data['menu'][$item['id']]->name . '" parent_id="' . $parent_id . '">';
                 $html .= '<div class="dd-handle dd3-handle"></div>
 		        <div class="dd3-content">' . $this->data['menu'][$item['id']]->name . '</div>';
@@ -190,15 +196,9 @@ class MenuController extends \Zoe\Http\ControllerBackend
                 $html .= '</li>';
             }
         }
-
         if ($root) {
             foreach ($this->data['menu'] as $k => $item) {
-                $oke = true;
-                foreach ($nestable as $key=>$value){
-                    if($item->id == $value['id']){
-                        $oke = false;break;
-                    }
-                }
+                $oke = !isset($this->ids[$item->id]) ;
                 if($oke){
                     $html .= '<li class="dd-item dd3-item" data-id="' . $item->id . '" data-name="' . $item->name . '" parent_id="0">';
                     $html .= '<div class="dd-handle dd3-handle"></div><div class="dd3-content">' . $item->name . '</div>';

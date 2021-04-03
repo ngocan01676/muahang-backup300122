@@ -37,7 +37,10 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                     'name' => 'required',
                     'description' => 'required',
                 ];
-                if(isset($this->data['configs']['core']['language']['multiple'])){
+                if(
+                    isset($this->data['configs']['core']['language']['multiple'])
+                    && isset($data['type']) &&  isset($this->data['configs']['core']['language']['type'][$data['type']])
+                ){
                     $newFilter = [];
                     foreach ($this->data['language'] as $lang => $_language) {
                         if(
@@ -75,7 +78,9 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         }
 
                         $category->name = isset($data['name'])?$data['name']:"";
-                        $slug = empty($category->name)?"": Str::slug($data[$category->name], '-');
+
+                        $slug = empty($category->name)?"": Str::slug($category->name, '-');
+
                         $category->slug = $slug;
 
                         $category->parent_id = 0;

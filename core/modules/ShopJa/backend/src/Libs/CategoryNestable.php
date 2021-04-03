@@ -26,6 +26,7 @@ class CategoryNestable extends \Admin\Lib\CategoryNestable {
             }
         }
         if ($root) {
+
             foreach ($this->data['category'] as $k => $item) {
                 $html .= '<li class="dd-item dd3-item" data-id="' . $item->id . '" data-name="' . $item->name . '" parent_id="0">';
                 $html .= '<div class="dd-handle dd3-handle'.($edit ==  $item->id?' SelectEdit':'').'"></div>

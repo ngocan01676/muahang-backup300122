@@ -741,6 +741,7 @@ function z_language_debug($key, $par = [], $__env = null, $tag = "")
     return !empty($tag)?"<span class='-lang-'>".$html."</span>":$html;
 }
 function router_frontend_lang($name, $parameters = [], $frontend = true){
+
     return route(router_frontend_lang_name($name,$frontend),$parameters,true);
 }
 function router_frontend_lang_name($name, $frontend = true){
