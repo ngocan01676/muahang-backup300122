@@ -16,6 +16,16 @@
     });
 </script>
 <script src="https://sm.rakuten.co.jp/js/script.js"></script>
+<script>
+    window._urlCartAdd = '{!! route('frontend:widget:WidgetCart:Add') !!}';
+    window._urlCartList = '{!! route('frontend:widget:WidgetCart:List') !!}';
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+<script src="/theme/betogaizin/js/script.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 @stack('scriptsTop')

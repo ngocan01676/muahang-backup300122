@@ -56,7 +56,9 @@
                             <div class="product-detail-btn-area">
                                 <div class="product-detail-btn">
                                     <div class="btn-add-set-wrap btn-add-wrap mb0-sp mt0">
-                                        <a data-auto-id="undefined/add-to-cart-4976994206307" href="javascript:void(0);" class="btn btn-add js-btn-add-switch" style="display:;">
+                                        <a   data-id="{!! $item->id !!}"
+                                             data-count="1"
+                                             data-act="add" href="javascript:void(0);" class="btn btn-add js-btn-add-switch" style="display:;">
                                             <i class="svg-icon icon-cart-02"></i>かごに追加
                                         </a>
                                         <div class="btn-set-wrap" style="display:none;">

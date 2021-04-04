@@ -49,7 +49,27 @@ $routers['page'] = [
 
     ]
 ];
+$routers['widget'] =   [
+    "namespace" => "BetoGaizinTheme\Http\Controllers",
+    "controller" => "WidgetController",
+    "language"=>[
 
+    ],
+    "router" => [
+        'WidgetCart:Add'=>[
+            "url" => "/widget/".md5('WidgetCartAdd'),
+            "guard" => "",
+            "action"=>'WidgetCartAdd',
+            "method"=>['POST']
+        ],
+        'WidgetCart:List'=>[
+            "url" => "/widget/".md5('WidgetCart:List'),
+            "guard" => "",
+            "action"=>'WidgetCartList',
+            "method"=>['POST']
+        ]
+    ]
+];
 //$routers['guest:missterry'] = [
 //    "namespace" => "MissTerryTheme\Http\Controllers",
 //    "controller" => "AuthController",

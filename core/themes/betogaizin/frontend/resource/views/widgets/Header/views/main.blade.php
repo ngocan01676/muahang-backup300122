@@ -66,17 +66,49 @@
                         購入履歴
                     </a>
                 </li>
-                <li class="header-utility-nav-item minicart-dropdown-trigger" data-v-0eb98668="">
-                    <div class="minicart-dropdown-trigger-inner" data-v-0eb98668="">
+                <li class="header-utility-nav-item minicart-dropdown-trigger" id="cart">
+                    <div class="minicart-dropdown-trigger-inner">
                         <div class="header-utility-cart-grid" data-v-0eb98668="">
                             <div class="header-utility-cart-grid-item" data-v-0eb98668="">
                                 <p class="header-utility-cart-icon" data-v-0eb98668="">
-                                    <span class="svg-icon icon-28 icon-cart-black" data-v-0eb98668=""><span data-auto-id="cart-indicator" class="popout" data-v-0eb98668="">1</span></span></p></div> <div class="header-utility-cart-grid-item" data-v-0eb98668=""><div class="header-utility-cart-txt" data-v-0eb98668=""><p class="header-utility-cart-txt-price" data-v-0eb98668="">
-                                        1,998<span class="unit" data-v-0eb98668="">円(税込)</span></p> <p data-v-0eb98668="" class="header-utility-cart-txt-fee">
-                                        送料 330<span data-v-0eb98668="" class="unit">円(税込)</span></p> <p data-v-0eb98668="" class="header-utility-cart-txt-free">
-                                        あと3502<span data-v-0eb98668="" class="unit">円(税込)</span>で送料無料<!----></p></div></div> <div class="header-utility-cart-grid-item" data-v-0eb98668=""><p class="header-utility-cart-btn"><a data-auto-id="go-step-pc" href="javascript:void(0);" data-ratid="cart_button_click" data-ratevent="click" data-ratparam="all">
+                                    <span class="svg-icon icon-28 icon-cart-black" data-v-0eb98668="">
+                                        <span data-auto-id="cart-indicator" class="popout" data-v-0eb98668="">0</span>
+                                    </span>
+                                </p>
+                                <div class="header-utility-cart-grid-item" data-v-0eb98668="">
+                                    <div class="header-utility-cart-txt" data-v-0eb98668="">
+                                        <p class="header-utility-cart-txt-price" data-v-0eb98668="">
+                                            0<span class="unit" data-v-0eb98668="">円(税込)</span>
+                                        </p>
+                                        <p data-v-0eb98668="" class="header-utility-cart-txt-fee">
+                                            送料 0<span data-v-0eb98668="" class="unit">円(税込)</span>
+                                        </p>
+                                        <p data-v-0eb98668="" class="header-utility-cart-txt-free">
+                                            あと0<span data-v-0eb98668="" class="unit">円(税込)</span>で送料無料<!---->
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="header-utility-cart-grid-item" data-v-0eb98668="">
+                                <p class="header-utility-cart-btn">
+                                    <a data-auto-id="go-step-pc" href="javascript:void(0);" data-ratid="cart_button_click" data-ratevent="click" data-ratparam="all">
                                         レジに進む
-                                    </a></p></div></div></div> <div data-ratid="minicart_pulldown_appear" data-ratevent="appear" data-ratparam="all" class="minicart-dropdown-wrap" data-v-0eb98668=""><div class="minicart-dropdown" data-v-0eb98668=""><ul class="minicart-products" data-v-0eb98668=""><li class="minicart-products-item" data-v-0eb98668=""><button type="button" class="minicart-del-btn js-minicart-del"></button> <div class="minicart-products-data"><p class="minicart-img-wrap"><a href="/item/4560424048133" class="img-label-wrap link-img "><img src="//sm.r10s.jp/item/33/4560424048133.jpg?fit=inside|100:100&amp;composite-to=*,*|100:100&amp;background-color=white" alt="-" class="minicart-img"></a></p> <!----></div> <div class="minicart-sale-item"><div class="minicart-product-item-info-price">1,850<span class="unit">円</span></div> <div class="minicart-product-item-info-tax">(税込 1,998円)</div> <div class="minicart-btn-set"><div class="btn-set-wrap"><span data-auto-id="undefined/dec-cart-4560424048133" class="btn-set-btn">－</span> <span class="btn-set-num">1</span> <span data-auto-id="undefined/inc-cart-4560424048133" class="btn-set-btn">＋</span></div></div></div></li></ul></div></div> <!----></li>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-ratid="minicart_pulldown_appear" data-ratevent="appear" data-ratparam="all" class="minicart-dropdown-wrap" data-v-0eb98668="">
+                        <div class="minicart-dropdown" data-v-0eb98668="">
+                            <ul class="minicart-products" data-v-0eb98668="">
+                                <li class="minicart-products-item" data-v-0eb98668="">
+                                   {!! z_language('Giỏ hàng rỗng') !!}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -126,11 +158,13 @@
                                 購入履歴
                             </a>
                         </li>
-                        <li class="header-utility-nav-item" data-v-0eb98668="">
-                            <div class="minicart-dropdown-trigger-inner" data-v-0eb98668="">
-                                <div class="header-utility-cart-grid" data-v-0eb98668="">
+                        <li class="header-utility-nav-item">
+
+                            <div class="minicart-dropdown-trigger-inner">
+                                <div class="header-utility-cart-grid">
                                     <div class="header-utility-cart-grid-item" data-v-0eb98668="">
-                                        <p class="header-utility-cart-icon" data-v-0eb98668=""><span class="svg-icon icon-28 icon-cart-black" data-v-0eb98668=""><span data-auto-id="cart-indicator" class="popout" data-v-0eb98668="">0</span></span>
+                                        <p class="header-utility-cart-icon" data-v-0eb98668="">
+                                            <span class="svg-icon icon-28 icon-cart-black"><span data-auto-id="cart-indicator" class="popout" data-v-0eb98668="">0</span></span>
                                         </p>
                                     </div>
                                     <div class="header-utility-cart-grid-item" data-v-0eb98668="">
@@ -149,12 +183,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div data-ratid="minicart_pulldown_appear" data-ratevent="appear" data-ratparam="all" class="minicart-dropdown-wrap" data-v-0eb98668="">
-                                <div class="minicart-dropdown" data-v-0eb98668="">
-                                    <ul class="minicart-products" data-v-0eb98668=""></ul>
-                                </div>
-                            </div>
-                            <!---->
+
                         </li>
                     </ul>
                 </div>

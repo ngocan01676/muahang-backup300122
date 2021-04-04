@@ -30,4 +30,5 @@ class HomeController extends \Zoe\Http\ControllerFront
             'item'=>isset($result[0])?$result[0]:new \stdClass()
         ]);
     }
+
 }

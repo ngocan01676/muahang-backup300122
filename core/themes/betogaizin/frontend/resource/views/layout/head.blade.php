@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Demo</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/theme/betogaizin/desktop/css/normalize.css">
     <link rel="stylesheet" href="/theme/betogaizin/desktop/css/style.css">
     <style>
