@@ -155,39 +155,160 @@
             </div>
         </div>
     </div>
-    <div><div class="accordion">
+    <div>
+        <div class="accordion">
             <h3 class="accordion-head">キャンセルについて</h3>
             <div class="accordion-body" style="display: none;">
                 <p>キャンセル可能期限内であれば、マイページの「注文履歴一覧」からご注文のキャンセルが可能です（注文内容修正も可能です）。一度キャンセルされたご注文については復活できませんのでご了承ください。キャンセル可能期限はヘルプよりご確認ください。
                     <br>また、キャンセル可能期限を過ぎた場合に、やむを得ずキャンセルが必要になった際には、手数料440円(税込)をご請求させていただきます。
                     <br>ネットスーパーでは生鮮食品、冷蔵・冷凍食品を扱っており、キャンセル可能期限後のキャンセルは一部廃棄となります。何卒ご理解をお願いいたします。
                 </p>
-            </div><!-- /.accordion-body -->
+            </div>
         </div>
     </div>
-    <div class="block-related-category"><div class="title-wrap"><h3 class="title title-small title-color01">関連するカテゴリ</h3></div> <div class="product-relation-box-wrap"><div class="product-relation-box"><h3 class="product-relation-title"><a href="/search/200620" class="">
-                        プリン
-                    </a></h3> <div class="product-relation-row"><div class="product-relation-col"><p class="product-relation-col-top"><a href="/item/4908011646773" class=""><img alt="" data-src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p> <p class="product-relation-col-bottom"><span class="unit">税込</span></p> <p class="product-relation-col-bottom">84<span class="unit">円</span></p></div><div class="product-relation-col"><p class="product-relation-col-top"><a href="/item/4952794813310" class=""><img alt="" data-src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p> <p class="product-relation-col-bottom"><span class="unit">税込</span></p> <p class="product-relation-col-bottom">170<span class="unit">円</span></p></div><div class="product-relation-col"><p class="product-relation-col-top"><a href="/item/4973450174330" class=""><img alt="" data-src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a></p> <p class="product-relation-col-bottom"><span class="unit">税込</span></p> <p class="product-relation-col-bottom">96<span class="unit">円</span></p></div></div></div></div></div>
-
-    <div><div id="ppz_recommend04"><div class="block-carousel"><div class="title-wrap-carousel"><h2 class="title title-other01 title-color01"><a href="/corner/" class="">
+    {{--<div class="block-related-category">--}}
+        {{--<div class="title-wrap">--}}
+            {{--<h3 class="title title-small title-color01">関連するカテゴリ</h3>--}}
+        {{--</div>--}}
+        {{--<div class="product-relation-box-wrap"><div class="product-relation-box">--}}
+                {{--<h3 class="product-relation-title">--}}
+                    {{--<a href="/search/200620" class="">--}}
+                        {{--プリン--}}
+                    {{--</a>--}}
+                {{--</h3>--}}
+                {{--<div class="product-relation-row">--}}
+                    {{--<div class="product-relation-col">--}}
+                        {{--<p class="product-relation-col-top">--}}
+                            {{--<a href="/item/4908011646773" class="">--}}
+                                {{--<img alt="" data-src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a>--}}
+                        {{--</p>--}}
+                        {{--<p class="product-relation-col-bottom">--}}
+                            {{--<span class="unit">税込</span>--}}
+                        {{--</p>--}}
+                        {{--<p class="product-relation-col-bottom">84<span class="unit">円</span></p>--}}
+                    {{--</div>--}}
+                    {{--<div class="product-relation-col">--}}
+                        {{--<p class="product-relation-col-top">--}}
+                            {{--<a href="/item/4952794813310" class="">--}}
+                                {{--<img alt="" data-src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white"--}}
+                                     {{--src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded">--}}
+                            {{--</a>--}}
+                        {{--</p>--}}
+                        {{--<p class="product-relation-col-bottom">--}}
+                            {{--<span class="unit">税込</span>--}}
+                        {{--</p>--}}
+                        {{--<p class="product-relation-col-bottom">170<span class="unit">円</span></p>--}}
+                    {{--</div>--}}
+                    {{--<div class="product-relation-col">--}}
+                        {{--<p class="product-relation-col-top">--}}
+                            {{--<a href="/item/4973450174330" class="">--}}
+                                {{--<img alt="" data-src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white"--}}
+                                     {{--src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded">--}}
+                            {{--</a>--}}
+                        {{--</p>--}}
+                        {{--<p class="product-relation-col-bottom"><span class="unit">税込</span></p>--}}
+                        {{--<p class="product-relation-col-bottom">96<span class="unit">円</span></p>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+    <div>
+        <div id="ppz_recommend04">
+            <div class="block-carousel">
+                <div class="title-wrap-carousel">
+                    <h2 class="title title-other01 title-color01">
+                        <a href="/corner/" class="">
                             この商品を買った人はこんな商品も買っています
-                            <!----></a></h2> <p class="title-link" style="display: none;"><a href="/corner/" class="btn btn-link btn-arrow-right">
+                        </a>
+                    </h2>
+                    <p class="title-link" style="display: none;">
+                        <a href="/corner/" class="btn btn-link btn-arrow-right">
                             商品をもっと見る
-                        </a></p></div> <div data-v-5f215826="" data-itemalign="justify" class="product-carousel slider-basic item-parts static"><div data-v-5f215826="" class="scrollbar-hidden slider-basic-frame touch-hover-event"><div data-v-7d3fc038="" class="loading" data-v-5f215826="" style="display: none;"></div> <div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 9.8px; opacity: 1;"><div data-ratunit="item" class="product-item"><!----> <div class="product-item-image-area" last="3"><!----> <p class="product-item-img"><a href="javascript:void(0);" class="img-label-wrap link-img label-middle"><img alt="" class="img-base-size" data-src="//sm.r10s.jp/item/35/4973450149635.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" src="//sm.r10s.jp/item/35/4973450149635.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" lazy="loaded"> <!----><!----><!----><!----></a></p></div> <div class="product-item-info"><div class="product-item-info-in"><div class="product-item-info-top"><p><a href="javascript:void(0);"><span class="product-item-info-name"><!---->きほんのき 讃岐うどん （冷凍）
-                  </span></a> <span class="product-item-info-amount">
-                  5食入り
-                </span></p></div> <div class="product-item-info-bottom"><div class="product-item-info-bottom-in"><div class="product-item-info-price-area"><div class="product-item-info-price-area-in"><!----> <div class="product-item-info-price-with-icon"><!----> <p class="product-item-info-price">185<span class="unit">円</span></p></div> <p class="product-item-info-tax">(税込 199円)</p></div></div> <div class="product-item-info-btn-area"><div class="product-item-info-btn"><div class="btn-add-set-wrap"><a data-auto-id="undefined/add-to-cart-4973450149635" href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
-                                                            </a> <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-4973450149635" class="btn-set-btn">－</span> <span class="btn-set-num">0</span> <span data-auto-id="undefined/inc-cart-4973450149635" class="btn-set-btn">＋</span></div> <!----></div></div></div></div></div></div></div></div></div><div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 214.4px; opacity: 1;"><div data-ratunit="item" class="product-item"><!----> <div class="product-item-image-area" last="3"><!----> <p class="product-item-img"><a href="javascript:void(0);" class="img-label-wrap link-img label-middle"><img alt="" class="img-base-size" data-src="//sm.r10s.jp/item/58/4902705126558.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" src="//sm.r10s.jp/item/58/4902705126558.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" lazy="loaded"> <!----><!----><!----><!----></a></p></div> <div class="product-item-info"><div class="product-item-info-in"><div class="product-item-info-top"><p><a href="javascript:void(0);"><span class="product-item-info-name"><!---->おいしい牛乳
-                  </span></a> <span class="product-item-info-amount">
-                  900ml
-                </span></p></div> <div class="product-item-info-bottom"><div class="product-item-info-bottom-in"><div class="product-item-info-price-area"><div class="product-item-info-price-area-in"><!----> <div class="product-item-info-price-with-icon"><!----> <p class="product-item-info-price">235<span class="unit">円</span></p></div> <p class="product-item-info-tax">(税込 253円)</p></div></div> <div class="product-item-info-btn-area"><div class="product-item-info-btn"><div class="btn-add-set-wrap"><a data-auto-id="undefined/add-to-cart-4902705126558" href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
-                                                            </a> <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-4902705126558" class="btn-set-btn">－</span> <span class="btn-set-num">0</span> <span data-auto-id="undefined/inc-cart-4902705126558" class="btn-set-btn">＋</span></div> <!----></div></div></div></div></div></div></div></div></div><div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 419px; opacity: 1;"><div data-ratunit="item" class="product-item"><!----> <div class="product-item-image-area" last="3"><!----> <p class="product-item-img"><a href="javascript:void(0);" class="img-label-wrap link-img label-middle"><img alt="" class="img-base-size" data-src="//sm.r10s.jp/item/12/4514603325812.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" src="//sm.r10s.jp/item/12/4514603325812.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" lazy="loaded"> <!----><!----><!----><!----></a></p></div> <div class="product-item-info"><div class="product-item-info-in"><div class="product-item-info-top"><p><a href="javascript:void(0);"><span class="product-item-info-name"><!---->ウィルキンソン タンサン
-                  </span></a> <span class="product-item-info-amount">
-                  500ml
-                </span></p></div> <div class="product-item-info-bottom"><div class="product-item-info-bottom-in"><div class="product-item-info-price-area"><div class="product-item-info-price-area-in"><p class="product-item-info-per-price">3個から注文可</p> <div class="product-item-info-price-with-icon"><!----> <p class="product-item-info-price">83<span class="unit">円</span></p></div> <p class="product-item-info-tax">(税込 89円)</p></div></div> <div class="product-item-info-btn-area"><div class="product-item-info-btn"><div class="btn-add-set-wrap"><a data-auto-id="undefined/add-to-cart-4514603325812" href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
-                                                            </a> <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-4514603325812" class="btn-set-btn">－</span> <span class="btn-set-num">0</span> <span data-auto-id="undefined/inc-cart-4514603325812" class="btn-set-btn">＋</span></div> <!----></div></div></div></div></div></div></div></div></div><div data-v-f2bcea68="" data-v-5f215826="" class="slider-basic-item flex-shrink-0 slider-wrapper-pc" style="left: 623.6px; opacity: 1;"><div data-ratunit="item" class="product-item"><!----> <div class="product-item-image-area" last="3"><!----> <p class="product-item-img"><a href="javascript:void(0);" class="img-label-wrap link-img label-middle"><img alt="" class="img-base-size" data-src="//sm.r10s.jp/item/83/4976994205683.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" src="//sm.r10s.jp/item/83/4976994205683.jpg?fit=inside|165:165&amp;composite-to=*,*|165:165&amp;background-color=white" lazy="loaded"> <!----><!----><!----><!----></a></p></div> <div class="product-item-info"><div class="product-item-info-in"><div class="product-item-info-top"><p><a href="javascript:void(0);"><span class="product-item-info-name"><!---->ミニカップ クリスプチップチョコレート
-                  </span></a> <span class="product-item-info-amount">
-                  110ml
-                </span></p></div> <div class="product-item-info-bottom"><div class="product-item-info-bottom-in"><div class="product-item-info-price-area"><div class="product-item-info-price-area-in"><!----> <div class="product-item-info-price-with-icon"><!----> <p class="product-item-info-price">202<span class="unit">円</span></p></div> <p class="product-item-info-tax">(税込 218円)</p></div></div> <div class="product-item-info-btn-area"><div class="product-item-info-btn"><div class="btn-add-set-wrap"><a data-auto-id="undefined/add-to-cart-4976994205683" href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
-                                                            </a> <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-4976994205683" class="btn-set-btn">－</span> <span class="btn-set-num">0</span> <span data-auto-id="undefined/inc-cart-4976994205683" class="btn-set-btn">＋</span></div> <!----></div></div></div></div></div></div></div></div></div></div> <div data-v-5f215826=""><div data-v-5f215826="" class="prev-btn"></div> <div data-v-5f215826="" class="next-btn"></div></div></div></div></div></div>
+                        </a>
+                    </p>
+                </div>
+                <div class="product-carousel slider-basic item-parts static">
+                    <div class="scrollbar-hidden slider-basic-frame touch-hover-event">
+                        @foreach($categorys as $result)
+                        <div class="slider-basic-item flex-shrink-0 slider-wrapper-pc">
+                            <div data-ratunit="item" class="product-item">
+                                <div class="product-item-image-area" last="3">
+                                    <p class="product-item-img">
+                                        <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="img-label-wrap link-img label-middle">
+                                            <img
+                                                    alt=""
+                                                    class="img-base-size"
+                                                    style="height: 150px;"
+                                                    src="{!! $result->image !!}"
+                                                    lazy="loaded"
+                                            />
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="product-item-info">
+                                    <div class="product-item-info-in">
+                                        <div class="product-item-info-top">
+                                            <p>
+                                                <a href="javascript:void(0);">
+                                                <span class="product-item-info-name">
+                                                    きほんのき 讃岐うどん （冷凍）
+                                                </span>
+                                                </a>
+                                                <span class="product-item-info-amount">5食入り</span>
+                                            </p>
+                                        </div>
+                                        <div class="product-item-info-bottom">
+                                            <div class="product-item-info-bottom-in">
+                                                <div class="product-item-info-price-area">
+                                                    <div class="product-item-info-price-area-in">
+                                                        <div class="product-item-info-price-with-icon">
+                                                            <p class="product-item-info-price">{!! $result->price_buy !!}<span class="unit">円</span></p>
+                                                        </div>
+                                                        <p class="product-item-info-tax">(税込 199円)</p>
+                                                    </div>
+                                                </div>
+                                                <div class="product-item-info-btn-area">
+                                                    <div class="product-item-info-btn">
+                                                        <div class="btn-add-set-wrap">
+                                                            <a
+                                                                    data-id="{!! $result->id !!}"
+                                                                    data-count="1"
+                                                                    data-act="add"
+                                                                    class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加 </a>
+                                                            <div class="btn-set-wrap" style="display: none;">
+                                                                <span data-auto-id="undefined/dec-cart-4973450149635" class="btn-set-btn">－</span> <span class="btn-set-num">0</span>
+                                                                <span data-auto-id="undefined/inc-cart-4973450149635" class="btn-set-btn">＋</span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div>
+                        <div class="prev-btn"></div>
+                        <div class="next-btn"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @push('scripts')
+        <script>
+            $('#ppz_recommend04 .slider-basic-frame').slick({
+                speed: 300,
+                slidesToShow: 5,
+                slidesToScroll: 5,
+                prevArrow: $("#ppz_recommend04 .product-carousel .prev-btn"),
+                nextArrow: $('#ppz_recommend04 .product-carousel .next-btn'),
+            });
+        </script>
+    @endpush
 @endsection

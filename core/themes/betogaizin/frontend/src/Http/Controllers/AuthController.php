@@ -84,6 +84,37 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
             ]);
         }
     }
+    public function postRegister(Request $request)
+    {
+        $data = $request->all();
+        $validator =  Validator::make($data, [
+            'email' => 'required|max:255|email|unique:user',
+            'username' => 'required|min:6',
+            'password' => 'required|min:6',
+            'name' => 'required|min:6',
+            'gender' => 'required|min:6',
+            'postal_code' => 'required|min:6',
+            'prefecture' => 'required|min:6',
+            'city' => 'required|min:6',
+            'address' => 'required|min:6',
+            'telephone' => 'required|min:6',
+        ]);
+        if (!$validator->fails()) {
+            $member = new Member();
+            $member->email = $data['email'];
+            $member->role_id = 3;
+            $member->password = Hash::make( $data['password']);
+            $name = explode("@",$data['email']);
+            $member->name = isset($name[0])?$name[0]:"";
+            $member->username = isset($name[0])?$name[0]:"";
+
+            if($member->save()){
+                return redirect()->intended('/');
+            }
+        }else{
+            return back()->withErrors($validator)->withInput($request->only($this->username()));
+        }
+    }
     public function postLogin(Request $request){
         $data = $request->all();
         $this->username = "username";
@@ -120,5 +151,7 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
     public function getLoginForm(){
         return $this->render('auth.login');
     }
-
+    public function getRegisterForm(){
+        return $this->render('auth.register');
+    }
 }

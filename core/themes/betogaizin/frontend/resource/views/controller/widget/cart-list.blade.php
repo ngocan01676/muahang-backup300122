@@ -11,13 +11,13 @@
             <div class="header-utility-cart-grid-item">
                 <div class="header-utility-cart-txt">
                     <p class="header-utility-cart-txt-price">
-                        1,998
+                       0
                         <span class="unit">円(税込)</span>
                     </p>
                     <p class="header-utility-cart-txt-fee">
-                        送料 330<span class="unit">円(税込)</span></p>
+                        送料 0<span class="unit">円(税込)</span></p>
                     <p class="header-utility-cart-txt-free">
-                        あと3502
+                        あと0
                         <span class="unit">円(税込)</span>で送料無料
                     </p>
                 </div>
@@ -34,29 +34,33 @@
     <div class="minicart-dropdown-wrap">
         <div class="minicart-dropdown">
             <ul class="minicart-products">
-                @foreach($products as $product)
-                <li class="minicart-products-item">
-                    <button type="button" class="minicart-del-btn js-minicart-del" data-id="{!! $product->id !!}" data-count="0" data-act="update"></button>
-                    <div class="minicart-products-data">
-                        <p class="minicart-img-wrap">
-                            <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="img-label-wrap link-img ">
-                                <img style="height: 150px" src="{!! $product->image !!}" alt="-" class="minicart-img">
-                            </a>
-                        </p>
-                    </div>
-                    <div class="minicart-sale-item">
-                        <div class="minicart-product-item-info-price">{!! number_format($product->price_total) !!}<span class="unit">円</span></div>
-                        <div class="minicart-product-item-info-tax">(税込 {!! number_format($product->price_total) !!}円)</div>
-                        <div class="minicart-btn-set">
-                            <div class="btn-set-wrap" data-id="{!! $product->id !!}" data-count="{!! $product->count !!}" data-act="update">
-                                <span class="btn-set-btn" data-type="-">－</span>
-                                <span class="btn-set-num">{!! $product->count !!}</span>
-                                <span class="btn-set-btn" data-type="+">＋</span>
+                @if(isset($products[0]))
+                    @foreach($products as $product)
+                    <li class="minicart-products-item">
+                        <button type="button" class="minicart-del-btn js-minicart-del" data-id="{!! $product->id !!}" data-count="0" data-act="update"></button>
+                        <div class="minicart-products-data">
+                            <p class="minicart-img-wrap">
+                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="img-label-wrap link-img ">
+                                    <img style="height: 150px" src="{!! $product->image !!}" alt="-" class="minicart-img">
+                                </a>
+                            </p>
+                        </div>
+                        <div class="minicart-sale-item">
+                            <div class="minicart-product-item-info-price">{!! number_format($product->price_total) !!}<span class="unit">円</span></div>
+                            <div class="minicart-product-item-info-tax">(税込 {!! number_format($product->price_total) !!}円)</div>
+                            <div class="minicart-btn-set">
+                                <div class="btn-set-wrap" data-id="{!! $product->id !!}" data-count="{!! $product->count !!}" data-act="update">
+                                    <span class="btn-set-btn" data-type="-">－</span>
+                                    <span class="btn-set-num">{!! $product->count !!}</span>
+                                    <span class="btn-set-btn" data-type="+">＋</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
                 @endforeach
+                @else
+                    <li class="minicart-products-item">Giỏ hàng rỗng</li>
+                @endif
             </ul>
         </div>
     </div>

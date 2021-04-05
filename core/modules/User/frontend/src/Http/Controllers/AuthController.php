@@ -68,9 +68,6 @@ class AuthController extends \Zoe\Http\ControllerFront
     {
         return $this->render('auth.login', [], 'user');
     }
-    public function postRegister()
-    {
-        return back();
-    }
+
 
 }

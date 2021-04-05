@@ -36,13 +36,39 @@
                 <li><a href="/notice?l-id=_header_notice" class="">お知らせ</a></li>
                 <li><a href="https://sm.faq.rakuten.net/?l-id=_header_help">ヘルプ</a></li>
             </ul>
-            <div class="header-user-info">
-                <p class="header-user-info-new">
-                    <a href="/info/guide?l-id=_header_guide" class="svg-icon icon-new-user">はじめての方へ</a>
-                </p>
-                <p class="header-user-info-btn"><a href="https://member.id.rakuten.co.jp/rms/nid/registfwdi?service_id=n68&amp;login_type=long" class="btn btn-default btn-color01">楽天会員登録</a></p>
-                <p class="header-user-info-btn"><a data-auto-id="login-btn-pc" class="btn btn-default btn-color01">ログイン</a></p>
-            </div>
+            @if(auth('frontend')->user())
+                <form id="logout-form-12345" action="{!! (route('logout')) !!}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                <div class="header-user-info">
+                    <div class="header-user-info-box rank-silver">
+                        <p class="header-user-info-box-name">
+                            <a href="#" class="svg-icon icon-18 icon-rank-silver">東海林海月</a>
+
+                            <span class="txt-small">さん</span>
+                            <span class="txt-small">（<a href="{!! route('logout') !!}" onclick="event.preventDefault(); document.getElementById('logout-form-12345').submit();">ログアウト</a>）
+                            </span>
+                        </p>
+                        <p class="header-user-info-box-point">
+                            <a href="https://point.rakuten.co.jp/" class="svg-icon icon-18 icon-point">187</a>
+                            <span class="txt-small">ポイント</span>
+                        </p>
+                    </div>
+                    <p class="header-user-info-btn">
+                        <a href="/" class="btn btn-default btn-color01">マイページ</a>
+                    </p>
+                </div>
+            @else
+                <div class="header-user-info">
+                    <p class="header-user-info-new">
+                        <a href="/help" class="svg-icon icon-new-user">はじめての方へ</a>
+                    </p>
+                    <p class="header-user-info-btn">
+                        <a href="/register" class="btn btn-default btn-color01">楽天会員登録</a>
+                    </p>
+                    <p class="header-user-info-btn"><a href="/login" data-auto-id="login-btn-pc" class="btn btn-default btn-color01">ログイン</a></p>
+                </div>
+            @endif
         </div>
     </div>
     <div class="header-utility" data-v-0eb98668="">
@@ -102,7 +128,7 @@
                     <div data-ratid="minicart_pulldown_appear" data-ratevent="appear" data-ratparam="all" class="minicart-dropdown-wrap" data-v-0eb98668="">
                         <div class="minicart-dropdown" data-v-0eb98668="">
                             <ul class="minicart-products" data-v-0eb98668="">
-                                <li class="minicart-products-item" data-v-0eb98668="">
+                                <li class="minicart-products-item">
                                    {!! z_language('Giỏ hàng rỗng') !!}
                                 </li>
                             </ul>
