@@ -235,7 +235,7 @@
                             <div data-ratunit="item" class="product-item">
                                 <div class="product-item-image-area" last="3">
                                     <p class="product-item-img">
-                                        <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="img-label-wrap link-img label-middle">
+                                        <a href="" class="img-label-wrap link-img label-middle">
                                             <img
                                                     alt=""
                                                     class="img-base-size"
@@ -250,9 +250,9 @@
                                     <div class="product-item-info-in">
                                         <div class="product-item-info-top">
                                             <p>
-                                                <a href="javascript:void(0);">
+                                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}">
                                                 <span class="product-item-info-name">
-                                                    きほんのき 讃岐うどん （冷凍）
+                                                   {!! $result->title !!}
                                                 </span>
                                                 </a>
                                                 <span class="product-item-info-amount">5食入り</span>
