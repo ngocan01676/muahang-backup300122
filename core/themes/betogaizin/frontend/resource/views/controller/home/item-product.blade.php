@@ -4,7 +4,7 @@
             <div class="product-detail-row">
                 <div class="product-detail-col product-detail-pc-image-area">
                     <p class="product-detail-image">
-                        <a href="#" data-modal="img" class="js-modal-trigger img-label-wrap label-large link-img">
+                        <a href="{!! $item->image !!}" data-modal="img" class="js-modal-trigger img-label-wrap label-large link-img">
                             <img src="{!! $item->image !!}" alt="">
                             <span class="img-label pos2">
                                 <i class="svg-mark-item mark-1"></i>
@@ -280,7 +280,6 @@
                                                                 <span data-auto-id="undefined/dec-cart-4973450149635" class="btn-set-btn">－</span> <span class="btn-set-num">0</span>
                                                                 <span data-auto-id="undefined/inc-cart-4973450149635" class="btn-set-btn">＋</span>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
