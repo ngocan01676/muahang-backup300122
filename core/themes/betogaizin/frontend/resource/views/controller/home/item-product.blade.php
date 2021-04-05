@@ -235,7 +235,7 @@
                             <div data-ratunit="item" class="product-item">
                                 <div class="product-item-image-area" last="3">
                                     <p class="product-item-img">
-                                        <a href="" class="img-label-wrap link-img label-middle">
+                                        <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="img-label-wrap link-img label-middle">
                                             <img
                                                     alt=""
                                                     class="img-base-size"
