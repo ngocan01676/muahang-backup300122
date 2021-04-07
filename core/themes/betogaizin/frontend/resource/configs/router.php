@@ -8,12 +8,12 @@ $routers['home'] = [
     ],
     "router" => [
         "category-product" => [
-            "url" => "/category-product/{slug}-{id}",
+            "url" => "/category-product/{slug}/{id}",
             "guard" => "",
             "action"=>'getCategoryProduct'
         ],
         "item-product" => [
-            "url" => "/item-product/{slug}-{id}",
+            "url" => "/item-product/{slug}/{id}",
             "guard" => "",
             "action"=>'getItemProduct'
         ],
