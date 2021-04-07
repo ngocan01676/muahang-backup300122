@@ -74,10 +74,14 @@
     <div class="header-utility" data-v-0eb98668="">
         <div class="header-inner" style="padding-right: 5px;" data-v-0eb98668="">
             <div class="header-search with-logo" data-v-0eb98668="">
-                <div class="form-parts-search" data-v-0eb98668="">
-                    <span class="sggstInputWrap"><input type="text" name="keyword" placeholder="キーワードから探す" autocomplete="off" id="topSearchKeyword" value=""></span>
-                    <button id="topSearchButton" type="button" class="form-parts-search-btn"><span class="svg-icon icon-search"></span></button> <!---->
-                </div>
+                <form action="{!! router_frontend_lang('home:search-product') !!}" method="get">
+                    <div class="form-parts-search" data-v-0eb98668="">
+                    <span class="sggstInputWrap">
+                        <input type="text" name="keyword" placeholder="キーワードから探す" autocomplete="off" id="topSearchKeyword" value="">
+                    </span>
+                        <button id="topSearchButton" type="submit" class="form-parts-search-btn"><span class="svg-icon icon-search"></span></button>
+                    </div>
+                </form>
             </div>
             <ul class="header-utility-nav" data-v-0eb98668="">
                 <li class="header-utility-nav-item" data-v-0eb98668=""><a href="//sm.rakuten.co.jp/event/list?l-id=_header_campaignlist" class="header-utility-nav-btn svg-icon icon-campaign" data-v-0eb98668="">

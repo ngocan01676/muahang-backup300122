@@ -592,7 +592,7 @@
                         @if($i == $current_page)
                             <span>{!! $i !!}</span>
                         @else
-                            <a href="{!! router_frontend_lang('home:search-product',['keyword'=>$keyword,'page'=>$i]) !!}">
+                            <a href="{!! router_frontend_lang('home:category-product',$cate) !!}?page={!! $i !!}">
                                 {!! $i !!}
                             </a>
                         @endif

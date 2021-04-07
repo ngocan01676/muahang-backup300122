@@ -22,12 +22,49 @@ class HomeController extends \Zoe\Http\ControllerFront
     }
 
     public function getCategoryProduct($slug,$id){
-        $results = DB::table('shop_product')->where('category_id',$id)->get()->all();
+        $total_records = DB::table('shop_product')->where('category_id',$id)->count();
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $limit = 10;
+        $total_page = ceil($total_records / $limit);
+        if ($current_page > $total_page){
+            $current_page = $total_page;
+        }
+        else if ($current_page < 1){
+            $current_page = 1;
+        }
+        $start = ($current_page - 1) * $limit;
+        $results = DB::table('shop_product')->where('category_id',$id)->offset($start)->limit($limit)->get()->all();
+
         return $this->render('home.category-product', [
-            'results'=>$results
+            'results'=>$results,
+            'current_page'=>$current_page,
+            'total_page'=>$total_page,
+            'cate'=>(array)DB::table('categories')->select(['id','slug'])->where('id',$id)->get()->first()
         ]);
     }
+    public function getSearchProduct(Request $request){
+        $kw = $request->keyword;
+        $model = DB::table('shop_product')->where('title', 'like', '%'.$kw.'%');
+        $total_records = $model->count();
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $limit = 10;
+        $total_page = ceil($total_records / $limit);
+        if ($current_page > $total_page){
+            $current_page = $total_page;
+        }
+        else if ($current_page < 1){
+            $current_page = 1;
+        }
+        $start = ($current_page - 1) * $limit;
+        $results = $model->offset($start)->limit($limit)->get()->all();
 
+        return $this->render('home.search-product', [
+            'results'=>$results,
+            'current_page'=>$current_page,
+            'total_page'=>$total_page,
+            'keyword'=>$kw
+        ]);
+    }
     public function getItemProduct($slug,$id){
         $result = DB::table('shop_product')->where('id',$id)->get()->all();
         $item = isset($result[0])?$result[0]:null;
