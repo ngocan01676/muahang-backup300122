@@ -541,7 +541,7 @@
                     <div class="product-item-info-in">
                         <div class="product-item-info-top">
                             <p><span class="product-item-info-maker">味の素</span>
-                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->title,'slug'=>$result->slug]) !!}" class=""><span class="product-item-info-name">{!! $result->title !!}</span></a>
+                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class=""><span class="product-item-info-name">{!! $result->title !!}</span></a>
                                 <span class="product-item-info-amount">600g</span>
                             </p>
                         </div>
