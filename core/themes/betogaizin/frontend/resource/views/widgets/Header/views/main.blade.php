@@ -43,14 +43,14 @@
                 <div class="header-user-info">
                     <div class="header-user-info-box rank-silver">
                         <p class="header-user-info-box-name">
-                            <a href="#" class="svg-icon icon-18 icon-rank-silver">東海林海月</a>
+                            <a href="#" class="svg-icon icon-18 icon-rank-silver">{!! auth('frontend')->user()->first_name.' '.auth('frontend')->user()->last_name !!}</a>
 
                             <span class="txt-small">さん</span>
                             <span class="txt-small">（<a href="{!! route('logout') !!}" onclick="event.preventDefault(); document.getElementById('logout-form-12345').submit();">ログアウト</a>）
                             </span>
                         </p>
                         <p class="header-user-info-box-point">
-                            <a href="https://point.rakuten.co.jp/" class="svg-icon icon-18 icon-point">187</a>
+                            <a href="https://point.rakuten.co.jp/" class="svg-icon icon-18 icon-point">0</a>
                             <span class="txt-small">ポイント</span>
                         </p>
                     </div>
