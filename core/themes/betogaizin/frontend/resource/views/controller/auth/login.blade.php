@@ -3,7 +3,7 @@
         <p align="left" style="background-color: #eeeeee; padding:5px 5px">Please do not use the same ID or password used for other web services or accounts.<br>Furthermore, we would highly recommend you to register with <nobr>"<a href="https://member.id.rakuten.co.jp/rms/nid/menufwd">Login alert function</a>"</nobr> to improve your account's security.</p>
         <div id="main">
 
-            <div id="mainLeft">
+            <div id="mainLeft" style="float: none !important;margin: 0 auto">
 
                 <div class="login">
 
@@ -28,7 +28,6 @@
 
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td class="loginBoxName">
                                         <p class="fomName">
@@ -41,11 +40,8 @@
                                         <span class="errorMsg">{{ $message }}</span>
                                         @enderror
                                         <input type="password" name="password" maxlength="128" size="25" value="" class="textBox">
-
                                     </td>
                                 </tr>
-
-
                                 <tr>
                                     <td colspan="2">
                                         <div id="challenger"><input name="cres" id="cres" type="hidden" value=""></div>
@@ -53,55 +49,15 @@
                                         <link rel="stylesheet" href="https://challenger.api.rakuten.co.jp/static/challenger.css?tracking_id=24483fb5-3f08-444f-8fb8-b661ab106819" type="text/css" media="all">
                                     </td>
                                 </tr>
-
                                 </tbody></table>
-
                             <p>
                                 <input type="submit" name="submit" value="Login" onclick="preventMultiClicks(this)" class="loginButton">
                             </p>
-
                             <p class="center">
                                 By logging in, I agree to the <a target="_blank" href="h#">Privacy Policy</a> <span style="color: #666666;">(February 13, 2017).</span>
                             </p>
-                            <input type="checkbox" name="auto_logout" value="true" class="checkBox" id="auto_logout">
-                            <label for="auto_logout">Turn off automatic login when I close my browser.</label>
                         </div>
-
                     </form>
-
-                </div>
-
-
-
-
-
-            </div>
-
-
-            <div id="extra">
-                <h2>Not yet registered as a Rakuten member?</h2>
-                <div id="newEntry">
-                    <div class="btnChange">
-                        <p>
-                            <a href="#" id="entryBtn"><span><em class="em">Create a new Rakuten membership (free)</em><br>and use our services</span></a>
-                        </p>
-                    </div>
-
-                </div>
-                <div class="box">
-                    <dl id="info">
-                        <dt>Enjoy our services as a Rakuten member!</dt>
-                        <dd>
-                            <ul>
-                                <li>Use a variety of Rakuten Group services, Rakuten Ichiba, Rakuten Auction, Rakuten Travel, Infoseek, etc. with one ID.
-                                </li>
-                                <li>Rakuten Point will be awarded according to your shopping at Rakuten Ichiba or making reservations at Rakuten Travel, etc. Rakuten Point may be used for future purchases at the rate of 1 Japanese Yen per Rakuten Point.
-                                </li>
-                                <li>If you are not a Rakuten member, register now and enjoy our services!
-                                </li>
-                            </ul>
-                        </dd>
-                    </dl>
                 </div>
             </div>
         </div>
