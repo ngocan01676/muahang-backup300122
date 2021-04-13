@@ -552,8 +552,7 @@
      type: 'calendar',
      width:'100px',
      options: { format:'DD/MM/YYYY' },
-        value:"",
-     // value:['date','now']
+     value:['date','now']
     },
     payMethod:{
      title: '{!! z_language("Phương thức thanh toán") !!}',//B Phương thức thanh toán
@@ -570,7 +569,8 @@
      title: '{!! z_language("Ngày nhận") !!}',//L Ngày nhận
      type:'calendar',
      options: { format:'DD/MM/YYYY'},
-     value:['date','nowSum',2],
+        value:"",
+     // value:['date','nowSum',2],
      width:'100px',
 
     },
