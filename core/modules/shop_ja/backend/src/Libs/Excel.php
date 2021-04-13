@@ -517,7 +517,7 @@ class Excel
         $colums = [
             ["支払区分", 'payMethod', 10, 9],//A Phương thức thanh toán
             ["到着希望日",['callback' => function ($index, $value) {
-                return empty($value)?"":date('d/m/Y',strtotime($value));
+                return empty($value)?"":date('Y/m/d',strtotime($value));
             }, 'key' => 'order_date'], 15, 9],//B ngày giao hàng
             ["配送希望時間帯", ['callback' => function ($index, $value) {
                 return "8:00 ~ 12:00" == $value ? "午前中" : $value;
