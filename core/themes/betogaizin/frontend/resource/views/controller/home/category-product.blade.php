@@ -563,6 +563,7 @@
                                                     data-id="{!! $result->id !!}"
                                                     data-count="1"
                                                     data-act="add"
+                                                    data-cate="{!! $result->category_id !!}"
                                                     href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
                                             </a>
                                             <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-4901001754199" class="btn-set-btn">－</span>  <span class="btn-set-num">0</span>  <span data-auto-id="undefined/inc-cart-4901001754199" class="btn-set-btn">＋</span>

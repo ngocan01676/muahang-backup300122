@@ -273,6 +273,7 @@
                                                         <div class="btn-add-set-wrap">
                                                             <a
                                                                     data-id="{!! $result->id !!}"
+                                                                    data-cate="{!! $result->category_id !!}"
                                                                     data-count="1"
                                                                     data-act="add"
                                                                     class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加 </a>

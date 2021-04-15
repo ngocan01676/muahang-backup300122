@@ -59,6 +59,7 @@
                                                     <a  href="javascript:void(0);"
                                                         data-id="{!! $result->id !!}"
                                                         data-count="1"
+                                                        data-cate="{!! $result->category_id !!}"
                                                         data-act="add"
                                                         class="btn btn-add js-btn-add-switch btn-block">
                                                         <i class="svg-icon icon-cart-02"></i>

@@ -1,3 +1,13 @@
+<div style="position: fixed;top: 50%;  left: 50%; transform: translate(-50%, -50%);" class="toasted-container toast-container top-center">
+    <div style="position: relative">
+        <div style="position: absolute;height: 130px !important; width: 130px !important;text-align: center;background: #000000;opacity: 0.5;z-index: -999"></div>
+        <div style="position: absolute;height: 130px !important; width: 130px !important;text-align: center;z-index: 999999">
+            <i class="svg-icon icon-cart-02"></i>
+            <BR>
+            <span style="width: 100%;margin-top: 50px;display: block">商品をかごに<br>追加しました</span>
+        </div>
+    </div>
+</div>
 <script src="https://sm.rakuten.co.jp/js/jquery-3.5.1.min.js"></script>
 <script src="https://sm.rakuten.co.jp/js/jquery.matchHeight-min.js"></script>
 <script src="https://sm.rakuten.co.jp/js/jquery.touchwipe.min.js"></script>

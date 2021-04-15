@@ -1,3 +1,6 @@
+@php
+    $category = get_category_type("shop-ja:product:category");
+@endphp
 @section('content')
     <div class="minicart-dropdown-trigger-inner">
         <div class="header-utility-cart-grid">
@@ -33,35 +36,53 @@
     </div>
     <div class="minicart-dropdown-wrap">
         <div class="minicart-dropdown">
-            <ul class="minicart-products">
                 @if(isset($products[0]))
-                    @foreach($products as $product)
-                    <li class="minicart-products-item">
-                        <button type="button" class="minicart-del-btn js-minicart-del" data-id="{!! $product->id !!}" data-count="0" data-act="update"></button>
-                        <div class="minicart-products-data">
-                            <p class="minicart-img-wrap">
-                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="img-label-wrap link-img ">
-                                    <img style="height: 150px" src="{!! $product->image !!}" alt="-" class="minicart-img">
-                                </a>
-                            </p>
-                        </div>
-                        <div class="minicart-sale-item">
-                            <div class="minicart-product-item-info-price">{!! number_format($product->price_total) !!}<span class="unit">円</span></div>
-                            <div class="minicart-product-item-info-tax">(税込 {!! number_format($product->price_total) !!}円)</div>
-                            <div class="minicart-btn-set">
-                                <div class="btn-set-wrap" data-id="{!! $product->id !!}" data-count="{!! $product->count !!}" data-act="update">
-                                    <span class="btn-set-btn" data-type="-">－</span>
-                                    <span class="btn-set-num">{!! $product->count !!}</span>
-                                    <span class="btn-set-btn" data-type="+">＋</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                @endforeach
+                    <table class="table" style="width: 100%">
+                    @foreach($category as $cate=>$value)
+                        @php $isSub = false @endphp
+                        @section('treeview_'.$cate)
+                            <tr>
+                                <td style="width: 9%;background: #e8e8e8;text-align: center;"><label for="">{!! $value->name !!}</label> </td>
+                                <td style="width: 95%;border-bottom: 1px solid #e8e8e8;">
+                                    <ul class="minicart-products">
+                                        @foreach($products as $product)
+                                            @continue($product->category_id != $cate)
+                                            @php $isSub = true @endphp
+                                            <li class="minicart-products-item">
+                                                <button type="button" class="minicart-del-btn js-minicart-del" data-id="{!! $product->id !!}" data-count="0" data-act="update"></button>
+                                                <div class="minicart-products-data">
+                                                    <p class="minicart-img-wrap">
+                                                        <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="img-label-wrap link-img ">
+                                                            <img style="height: 150px" src="{!! $product->image !!}" alt="-" class="minicart-img">
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                                <div class="minicart-sale-item">
+                                                    <div class="minicart-product-item-info-price">{!! number_format($product->price_total) !!}<span class="unit">円</span></div>
+                                                    <div class="minicart-product-item-info-tax">(税込 {!! number_format($product->price_total) !!}円)</div>
+                                                    <div class="minicart-btn-set">
+                                                        <div class="btn-set-wrap" data-id="{!! $product->id !!}" data-count="{!! $product->count !!}" data-act="update">
+                                                            <span class="btn-set-btn" data-type="-">－</span>
+                                                            <span class="btn-set-num">{!! $product->count !!}</span>
+                                                            <span class="btn-set-btn" data-type="+">＋</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endsection
+                        @if($isSub)
+                            @yield('treeview_'.$cate)
+                        @endif
+                    @endforeach
+                    </table>
                 @else
                     <li class="minicart-products-item">Giỏ hàng rỗng</li>
                 @endif
-            </ul>
+
         </div>
     </div>
 @endsection

@@ -188,7 +188,7 @@
                                 購入履歴
                             </a>
                         </li>
-                        <li class="header-utility-nav-item">
+                        <li class="header-utility-nav-item">minicart-img-wrap
 
                             <div class="minicart-dropdown-trigger-inner">
                                 <div class="header-utility-cart-grid">

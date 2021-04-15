@@ -33,19 +33,21 @@
                             @php
                                 $isOne = false;
                             @endphp
-                            @foreach($value['children'] as $key1=>$value1)
-                               @if($menus[$value1['id']]->name == "Category")
-                                   @foreach($position_category as $cate_value)
-                                        <li class="category-menu-link">
-                                            <a {!! $menus[$value1['id']]->router_name !!} href="{!! router_frontend_lang($menus[$value1['id']]->router_name,['id'=>$category[$cate_value['id']]->id,'slug'=>$category[$cate_value['id']]->slug]) !!}">{!! $category[$cate_value['id']]->name !!}</a>
+                            @isset($value['children'])
+                                @foreach($value['children'] as $key1 => $value1)
+                                   @if($menus[$value1['id']]->name == "Category")
+                                       @foreach($position_category as $cate_value)
+                                            <li class="category-menu-link">
+                                                <a {!! $menus[$value1['id']]->router_name !!} href="{!! router_frontend_lang($menus[$value1['id']]->router_name,['id'=>$category[$cate_value['id']]->id,'slug'=>$category[$cate_value['id']]->slug]) !!}">{!! $category[$cate_value['id']]->name !!}</a>
+                                            </li>
+                                       @endforeach
+                                   @else
+                                        <li>
+                                            <a href="#">{!! $menus[$value1['id']]->name !!}</a>
                                         </li>
-                                   @endforeach
-                               @else
-                                    <li>
-                                        <a href="#">{!! $menus[$value1['id']]->name !!}</a>
-                                    </li>
-                               @endif
-                            @endforeach
+                                   @endif
+                                @endforeach
+                            @endisset
                             {{--<li class="category-menu-level02-item">--}}
                                 {{--<a href="#" class="category-menu-link category-menu-link-trigger">人気ブランドショップ</a>--}}
                                 {{--<div class="category-menu-level03">--}}
