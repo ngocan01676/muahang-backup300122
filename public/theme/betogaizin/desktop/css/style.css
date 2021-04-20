@@ -12641,7 +12641,7 @@ img.img-auto {
   display: inline-block;
   width: 60px;
   height: 60px;
-  background: url(/img/sprite.svg) no-repeat 0 0;
+  background: url(../img/sprite.svg) no-repeat 0 0;
   background-size: cover;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
