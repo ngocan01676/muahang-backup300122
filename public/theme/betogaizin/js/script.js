@@ -1,9 +1,11 @@
 $(document).ready(function () {
+
     function effectCard() {
         $("#aP6frKNbT").animate({opacity: '100%'},{duration: 1000, complete: function(){
                 $("#aP6frKNbT").animate({opacity: '0%'}, 1000);
             }});
     }
+
     function initCarts() {
         $.ajax({
             url:window._urlCartList,
