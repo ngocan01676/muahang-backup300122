@@ -71,7 +71,7 @@ $routers['widget'] =   [
             "url" => "/widget/".md5('WidgetCart:List'),
             "guard" => "",
             "action"=>'WidgetCartList',
-            "method"=>['POST']
+            "method"=>['POST','GET']
         ]
     ]
 ];

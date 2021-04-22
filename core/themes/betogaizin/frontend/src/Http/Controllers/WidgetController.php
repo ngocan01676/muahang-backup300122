@@ -73,9 +73,13 @@ class WidgetController extends \Zoe\Http\ControllerFront
 
     }
     public static $keyCart = 'carts_ver_1';
+
     public function WidgetCartAdd(Request $request){
         $data = $request->all();
+
         $carts = $request->session()->get(WidgetController::$keyCart,[]);
+
+
         if($data['act'] == "update"){
             if(isset($carts[$data['id']])){
                 $carts[$data['id']]['count'] = $data['count'];
@@ -84,13 +88,17 @@ class WidgetController extends \Zoe\Http\ControllerFront
             if(isset($carts[$data['id']])){
                 $carts[$data['id']]['count']+= $data['count'];
             }else{
-                $carts[$data['id']] = ['id'=>$data['id'],'count'=>(int) $data['count'],'time'=>time(),'cate'=>$data['count']];
+                $carts[$data['id']] = ['id'=>$data['id'],'count'=>(int) $data['count'],'time'=>time(),'cate'=>$data['cate']];
             }
         }
         if(isset( $carts[$data['id']]['count']) && $carts[$data['id']]['count']<=0 ){
             unset($carts[$data['id']]);
         }
+
+
+
         $request->session()->put(WidgetController::$keyCart ,$carts);
+
         return response()->json(['carts'=>$carts]);
     }
 
@@ -98,7 +106,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
         $carts = $request->session()->get(WidgetController::$keyCart,[]);
         $ids = array_keys($carts);
         $_products = DB::table('shop_product')->whereIn('id',$ids)->get()->keyBy('id')->all();
-
+        $configs = new \BetoGaizinTheme\Lib\Price();
         foreach ($_products as $key=>$product){
             $_products[$key]->count = $carts[$product->id]['count'];
             $_products[$key]->price_total = $_products[$key]->count * $product->price_buy;
@@ -108,6 +116,9 @@ class WidgetController extends \Zoe\Http\ControllerFront
         usort($_products, function($a,$b){
             return $a->order_index - $b->order_index;
         });
+
+        //$configs->prices($carts);
+       // dd($carts);
 
         return $this->render('widget.cart-list',['counts'=>count($ids),'products'=>$_products]);
     }

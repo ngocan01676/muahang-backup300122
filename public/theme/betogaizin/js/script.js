@@ -1,8 +1,11 @@
 $(document).ready(function () {
 
     function effectCard() {
+        $("#aP6frKNbT").show()
         $("#aP6frKNbT").animate({opacity: '100%'},{duration: 1000, complete: function(){
-                $("#aP6frKNbT").animate({opacity: '0%'}, 1000);
+                $("#aP6frKNbT").animate({opacity: '0%'}, {duration: 1000, complete: function(){
+                    $(this).hide();
+                }});
             }});
     }
 
@@ -21,7 +24,7 @@ $(document).ready(function () {
        cartAdd(data);
    });
     function cartAdd(data) {
-        effectCard();
+        if(data.add) effectCard();
         $.ajax({
             url:window._urlCartAdd,
             data:data,
