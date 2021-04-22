@@ -24,7 +24,9 @@ $(document).ready(function () {
        cartAdd(data);
    });
     function cartAdd(data) {
-        if(data.add) effectCard();
+        if(data.act === "add") {
+            effectCard();
+        }
         $.ajax({
             url:window._urlCartAdd,
             data:data,
