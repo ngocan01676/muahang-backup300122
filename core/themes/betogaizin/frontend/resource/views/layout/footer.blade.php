@@ -1,3 +1,4 @@
+
 <div id="aP6frKNbT"
      style="opacity: 0;display: none"
      role="status"
@@ -9,6 +10,378 @@
         <span class="icon-add-cart">商品をかごに<br>追加しました</span>
     </div>
 </div>
+@php
+    $times = [
+        ['time'=>'10:00～12:00','note'=>'締切00:00'],
+        ['time'=>'12:00～14:00','note'=>'締切02:00'],
+        ['time'=>'14:00～16:00','note'=>'締切07:00'],
+        ['time'=>'16:00～18:00','note'=>'締切09:00'],
+        ['time'=>'18:00～20:00','note'=>'締切11:00'],
+        ['time'=>'20:00～22:00','note'=>'締切13:00'],
+    ];
+
+@endphp
+<section class="popup popup-narrow" style="display: none">
+    <button type="button" class="popup-close-btn js-popup-close"></button>
+    <h2 class="popup-head">お届け日時選択</h2>
+    <div  class="popup-content delivery-content">
+        <div  class="delivery-header">
+            <p  class="delivery-header-txt">
+                ご希望のお届け日時を選択してください。<br  />
+               
+            </p>
+           
+        </div>
+        <div  id="slot01" class="forIpadStyle">
+           
+            <div  class="delivery-table-test">
+                <table  class="delivery-time-title">
+                    <tr >
+                        <th ></th>
+                    </tr>
+                </table>
+                <div  class="delivery-date-header">
+                    <table>
+                        <tr>
+                            @for($i =0; $i < 4; $i++)
+                                @php $date = strtotime('+'.$i.' day') @endphp
+                                <th>
+                                    <span class="delivery-table-list-item">
+                                        @if($i == 0)
+                                            <span class="badge-today">{!! z_language('本日') !!}</span>
+                                        @endif
+                                        {!! date('m',$date) !!}/{!! date('d',$date) !!}({!! z_language('木') !!})
+                                    </span>
+                                </th>
+                            @endfor
+                        </tr>
+                    </table>
+                </div>
+                <div  class="delivery-time-line">
+                    <table>
+                        @foreach($times as $time)
+                        <tr>
+                            <th ><span class="time">{!! $time['time'] !!}</span> <span  class="note">{!! $time['note'] !!}</span></th>
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>
+                <div  class="delivery-data">
+                    <table >
+                        @foreach($times as $time)
+                        <tr>
+                            @for($i =0; $i < 4; $i++)
+                                @php $date = strtotime('+'.$i.' day') @endphp
+                                <td>
+                                    @if($i == 0)
+                                    <label>
+                                        <input  type="radio" name="delivery-select" disabled="disabled" class="delivery-radio" value="0_0_0" />
+                                        <span  data-time="{!! $time['time'] !!}" data-day="{!! date('d',$date) !!}" data-month="{!! date('m',$date) !!}" data-year="{!! date('Y',$date) !!}" class="delivery-radio-btn">
+                                            <i  class="svg-icon icon-impracticably-light"></i> <i  class="svg-icon icon-check"></i>
+                                        </span>
+                                    </label>
+                                    @else
+                                        <label >
+                                            <input  type="radio" name="delivery-select" class="delivery-radio" value="0_0_3" />
+                                            <span data-time="{!! $time['time'] !!}" data-day="{!! date('d',$date) !!}" data-month="{!! date('m',$date) !!}" data-year="{!! date('Y',$date) !!}" class="delivery-radio-btn">
+                                            <i class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>
+                                            </span>
+                                        </label>
+                                    @endif
+                                </td>
+                            @endfor
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" disabled="disabled" class="delivery-radio" value="0_0_1" />--}}
+                                    {{--<span  data-auto-id="2021/04/23-1000-1200-invalid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-impracticably-light"></i> <i  class="svg-icon icon-check"></i>--}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_0_2" />--}}
+                                    {{--<span  data-auto-id="2021/04/24-1000-1200-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-slightly"></i> <i  class="svg-icon icon-check"></i>--}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_0_3" />--}}
+                                    {{--<span  data-auto-id="2021/04/25-1000-1200-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                        </tr>
+                        @endforeach
+                        {{--<tr >--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" disabled="disabled" class="delivery-radio" value="0_1_0" />--}}
+                                    {{--<span  data-auto-id="2021/04/22-1200-1400-invalid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-impracticably-light"></i> <i  class="svg-icon icon-check"></i>--}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_1_1" />--}}
+                                    {{--<span  data-auto-id="2021/04/23-1200-1400-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_1_2" />--}}
+                                    {{--<span  data-auto-id="2021/04/24-1200-1400-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_1_3" />--}}
+                                    {{--<span  data-auto-id="2021/04/25-1200-1400-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                        {{--<tr >--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" disabled="disabled" class="delivery-radio" value="0_2_0" />--}}
+                                    {{--<span  data-auto-id="2021/04/22-1400-1600-invalid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-impracticably-light"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_2_1" />--}}
+                                    {{--<span  data-auto-id="2021/04/23-1400-1600-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_2_2" />--}}
+                                    {{--<span  data-auto-id="2021/04/24-1400-1600-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_2_3" />--}}
+                                    {{--<span  data-auto-id="2021/04/25-1400-1600-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                        {{--<tr >--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" disabled="disabled" class="delivery-radio" value="0_3_0" />--}}
+                                    {{--<span  data-auto-id="2021/04/22-1600-1800-invalid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-impracticably-light"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_3_1" />--}}
+                                    {{--<span  data-auto-id="2021/04/23-1600-1800-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_3_2" />--}}
+                                    {{--<span  data-auto-id="2021/04/24-1600-1800-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_3_3" />--}}
+                                    {{--<span  data-auto-id="2021/04/25-1600-1800-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                        {{--<tr >--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" disabled="disabled" class="delivery-radio" value="0_4_0" />--}}
+                                    {{--<span  data-auto-id="2021/04/22-1800-2000-invalid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-impracticably-light"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_4_1" />--}}
+                                    {{--<span  data-auto-id="2021/04/23-1800-2000-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_4_2" />--}}
+                                    {{--<span  data-auto-id="2021/04/24-1800-2000-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_4_3" />--}}
+                                    {{--<span  data-auto-id="2021/04/25-1800-2000-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                        {{--<tr >--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" disabled="disabled" class="delivery-radio" value="0_5_0" />--}}
+                                    {{--<span  data-auto-id="2021/04/22-2000-2200-invalid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-impracticably-light"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_5_1" />--}}
+                                    {{--<span  data-auto-id="2021/04/23-2000-2200-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_5_2" />--}}
+                                    {{--<span  data-auto-id="2021/04/24-2000-2200-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                            {{--<td >--}}
+                                {{--<label >--}}
+                                    {{--<input  type="radio" name="delivery-select" class="delivery-radio" value="0_5_3" />--}}
+                                    {{--<span  data-auto-id="2021/04/25-2000-2200-valid" class="delivery-radio-btn">--}}
+                                        {{--<i  class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>--}}
+                                       {{----}}
+                                       {{----}}
+                                    {{--</span>--}}
+                                {{--</label>--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div  class="delivery-footer">
+            <ul  class="delivery-icon-list">
+                <li ><i  class="svg-icon icon-18 icon-possible"></i>：空きあり</li>
+                <li ><i  class="svg-icon icon-18 icon-slightly"></i>：残りわずか</li>
+                <li ><i  class="svg-icon icon-18 icon-impracticably-dark"></i>：受付終了</li>
+            </ul>
+            <div  id="delivery-info" class="delivery-info">
+                <dl  class="delivery-info-list">
+                    <dt  class="delivery-info-list-heading">お届け日時</dt>
+                    <dd  class="delivery-info-list-note only-sp">この時間帯は必ずご在宅ください</dd>
+                    <dd  class="delivery-info-list-date"><span  class="txt-color00">選択してください</span></dd>
+                    <dd  class="delivery-info-list-note only-pc">この時間帯は必ずご在宅ください</dd>
+                </dl>
+               
+               
+               
+                <dl  class="delivery-info-list">
+                    <dt  class="delivery-info-list-heading">お届け先</dt>
+                    <dd  class="delivery-info-list-txt">東京都新宿区箪笥町</dd>
+                    <dd  class="delivery-info-list-btn">
+                        <a  href="javascript:void(0);" class="btn btn-default btn-color03 btn-sm02">
+                            変更
+                        </a>
+                    </dd>
+                </dl>
+            </div>
+            <div  class="accordion">
+                <h2  class="accordion-head is-open">お買い物のご注意</h2>
+                <div  class="accordion-body" style="display: block;">
+                    <ul  class="list-disc">
+                        <li >お届け先住所や日時によって、送料が異なる場合がございます。</li>
+                        <li >お届け日時によって、送料無料となるお買い上げ金額が異なる場合がございます。</li>
+                        <li >
+                            お届け日時を選択した後の「締め切り時間後のキャンセル」は承っておりません。 やむを得ずキャンセルされる場合には、キャンセル手数料として440円<span  class="tax">(税込)</span>を頂戴します。
+                        </li>
+                        <li >別途利用料が表示されている時間帯は、「ピーク時間利用料」として送料とは別に利用料がかかります。</li>
+                        <li >
+                            選択したお届け日時によって付与される「お届け日時ポイント」は、当月中に配送完了した注文に対して翌月15日頃に付与され、翌々月末利用期限の期間限定ポイントとなります。
+                            また、再配送ご依頼時については、初回のお届け日時ポイントが優先されます。再配送時に指定したお届け日時ポイントは付与されません。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div  class="delivery-footer-btn">
+                <button  class="btn btn-primary btn-color04 btn-lg disabled">
+                    日時を選択してください
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
 
 <script src="https://sm.rakuten.co.jp/js/jquery-3.5.1.min.js"></script>
 <script src="https://sm.rakuten.co.jp/js/jquery.matchHeight-min.js"></script>
@@ -19,7 +392,11 @@
        display: block !important;
    }
 </style>
+
 <script>
+    function open_cart() {
+        $('.popup').css({'position':'absolute','top':'30px','transform':'translate(-50%, 0px)'}).show();
+    }
     $(document).ready(function () {
         $('.category-menu-level01-item').hover(function () {
             $('.category-menu-wrap .category-menu-level01-item.is-active').removeClass('is-active');
@@ -32,6 +409,19 @@
             $(this).addClass('is-active');
         });
 
+        $(".popup-close-btn").click(function () {
+            console.log(';position: absolute; top: 30px; transform: translate(-50%, 0px);');
+            $('.popup').hide();
+        });
+        $('.open_cart').click(function () {
+
+        })
+        $('.delivery-radio-btn').click(function () {
+            let data = $(this).data();
+
+            $("#delivery-info .txt-color00").addClass('txt-bold').html(data.year+'年'+data.month+'月'+data.day+'日(日) '+data.time);
+            $('.delivery-footer-btn .btn').removeClass('disabled');
+        });
         //
         // $('.minicart-dropdown-trigger').hover(function () {
         //     $(this).addClass('hover');

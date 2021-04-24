@@ -27,7 +27,7 @@
             </div>
             <div class="header-utility-cart-grid-item">
                 <p class="header-utility-cart-btn">
-                    <a data-auto-id="go-step-pc" href="javascript:void(0);" data-ratid="cart_button_click" data-ratevent="click" data-ratparam="all">
+                    <a class="open_cart" onclick="open_cart(this)" data-auto-id="go-step-pc" href="javascript:void(0);" data-ratid="cart_button_click" data-ratevent="click" data-ratparam="all">
                         レジに進む
                     </a>
                 </p>

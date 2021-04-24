@@ -11307,7 +11307,7 @@ img.img-auto {
 
 .minicart-dropdown-trigger-inner {
   position: relative;
-  z-index: 12;
+  z-index: 1;
   padding-right: 10px;
 }
 
@@ -11332,7 +11332,7 @@ img.img-auto {
   position: absolute;
   top: 100%;
   right: -1px;
-  z-index: 14;
+  z-index: 1;
   -webkit-transform: translateY(-2px);
           transform: translateY(-2px);
   border: 1px solid #CFCFCF;

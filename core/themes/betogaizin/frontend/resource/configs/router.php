@@ -22,6 +22,11 @@ $routers['home'] = [
             "guard" => "",
             "action"=>'getSearchProduct'
         ],
+        "cart-product" => [
+            "url" => "/cart",
+            "guard" => "",
+            "action"=>'getCart'
+        ],
     ]
 ];
 

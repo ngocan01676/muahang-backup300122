@@ -73,5 +73,9 @@ class HomeController extends \Zoe\Http\ControllerFront
             'categorys'=>$item != null ?DB::table('shop_product')->where('category_id',$item->category_id)->orderByRaw('RAND()')->limit(10)->get()->all():[]
         ]);
     }
+    public function getCart(){
+        return $this->render('home.step.step1', [
 
+        ]);
+    }
 }

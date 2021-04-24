@@ -206,7 +206,8 @@
                                         </div>
                                     </div>
                                     <div class="header-utility-cart-grid-item" data-v-0eb98668="">
-                                        <p class="header-utility-cart-btn"><a data-auto-id="go-step-pc" href="javascript:void(0);" data-ratid="cart_button_click" data-ratevent="click" data-ratparam="all">
+                                        <p class="header-utility-cart-btn">
+                                            <a class="open_cart" data-auto-id="go-step-pc" href="javascript:void(0);" data-ratid="cart_button_click" data-ratevent="click" data-ratparam="all">
                                                 レジに進む
                                             </a>
                                         </p>
