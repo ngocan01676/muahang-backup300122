@@ -82,7 +82,6 @@
                 @else
                     <li class="minicart-products-item">Giỏ hàng rỗng</li>
                 @endif
-
         </div>
     </div>
 @endsection
