@@ -73,6 +73,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
 
     }
     public static $keyCart = 'carts_ver_1';
+    public static $keyCart_ship_time = 'carts_time_ship';
 
     public function WidgetCartAdd(Request $request){
         $data = $request->all();
@@ -118,5 +119,10 @@ class WidgetController extends \Zoe\Http\ControllerFront
         //$configs->prices($carts);
        // dd($carts);
         return $this->render('widget.cart-list',['counts'=>count($ids),'products'=>$_products]);
+    }
+    public function WidgetShipTime(Request $request){
+        $data = $request->all();
+        $request->session()->put(WidgetController::$keyCart_ship_time,$data);
+        return response()->json([]);
     }
 }

@@ -77,6 +77,12 @@ $routers['widget'] =   [
             "guard" => "",
             "action"=>'WidgetCartList',
             "method"=>['POST','GET']
+        ],
+        'WidgetCart:ShipTime'=>[
+            "url" => "/widget/".md5('WidgetCart:ShipTime'),
+            "guard" => "",
+            "action"=>'WidgetShipTime',
+            "method"=>['POST']
         ]
     ]
 ];

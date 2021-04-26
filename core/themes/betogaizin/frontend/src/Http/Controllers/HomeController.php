@@ -73,9 +73,24 @@ class HomeController extends \Zoe\Http\ControllerFront
             'categorys'=>$item != null ?DB::table('shop_product')->where('category_id',$item->category_id)->orderByRaw('RAND()')->limit(10)->get()->all():[]
         ]);
     }
-    public function getCart(){
-        return $this->render('home.step.step1', [
+    public function getCart(Request $request){
 
+
+        $carts = $request->session()->get(WidgetController::$keyCart,[]);
+        $ids = array_keys($carts);
+        $_products = DB::table('shop_product')->whereIn('id',$ids)->get()->keyBy('id')->all();
+        $configs = new \BetoGaizinTheme\Lib\Price();
+        foreach ($_products as $key=>$product){
+            $_products[$key]->count = $carts[$product->id]['count'];
+            $_products[$key]->price_total = $_products[$key]->count * $product->price_buy;
+            $_products[$key]->order_index = $carts[$product->id]['time'];
+        }
+        usort($_products, function($a,$b){
+            return $a->order_index - $b->order_index;
+        });
+
+        return $this->render('home.step.step1', [
+            'counts'=>count($ids),'products'=>$_products
         ]);
     }
 }

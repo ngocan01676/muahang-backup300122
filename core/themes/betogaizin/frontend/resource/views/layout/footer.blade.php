@@ -43,6 +43,9 @@
                 <div  class="delivery-date-header">
                     <table>
                         <tr>
+                            @php
+                                $timeShip = request()->session()->get(\BetoGaizinTheme\Http\Controllers\WidgetController::$keyCart_ship_time,[]);
+                            @endphp
                             @for($i =0; $i < 4; $i++)
                                 @php $date = strtotime('+'.$i.' day') @endphp
                                 <th>
@@ -82,11 +85,14 @@
                                     </label>
                                     @else
                                         <label >
-                                            <input  type="radio" name="delivery-select" class="delivery-radio" value="0_0_3" />
+                                            <input @if(isset($timeShip['time']) && date('d-m-Y',$date) == $timeShip['day'].'-'.$timeShip['month'].'-'.$timeShip['year']  && $timeShip['time'] == $time['time']) checked="true"  @endif type="radio" name="delivery-select" class="delivery-radio" value="0_0_3" />
                                             <span data-time="{!! $time['time'] !!}" data-day="{!! date('d',$date) !!}" data-month="{!! date('m',$date) !!}" data-year="{!! date('Y',$date) !!}" class="delivery-radio-btn">
-                                            <i class="svg-icon icon-possible"></i> <i  class="svg-icon icon-check"></i>
+                                                <i class="svg-icon icon-possible" wfd-invisible="true"></i>
+                                                <i class="svg-icon icon-check" wfd-invisible="true"></i>
                                             </span>
+
                                         </label>
+
                                     @endif
                                 </td>
                             @endfor
@@ -338,7 +344,17 @@
                 <dl  class="delivery-info-list">
                     <dt  class="delivery-info-list-heading">お届け日時</dt>
                     <dd  class="delivery-info-list-note only-sp">この時間帯は必ずご在宅ください</dd>
-                    <dd  class="delivery-info-list-date"><span  class="txt-color00">選択してください</span></dd>
+                    <dd  class="delivery-info-list-date">
+                        @if(isset($timeShip['time']))
+                            <span  class="txt-color00 txt-bold">
+                                {!!  $timeShip['year'].'年'.$timeShip['month'].'月'.$timeShip['day'].'日(日) '.$timeShip['time'] !!}
+                            </span>
+                        @else
+                            <span  class="txt-color00">
+                               選択してください
+                            </span>
+                        @endif
+                    </dd>
                     <dd  class="delivery-info-list-note only-pc">この時間帯は必ずご在宅ください</dd>
                 </dl>
                
@@ -372,7 +388,7 @@
                 </div>
             </div>
             <div  class="delivery-footer-btn">
-                <button  class="btn btn-primary btn-color04 btn-lg disabled">
+                <button  class="btn btn-primary btn-color04 btn-lg{!! isset($timeShip['time'])?"disabled":"" !!}">
                     日時を選択してください
                 </button>
             </div>
@@ -382,6 +398,23 @@
 
 
 
+<div>
+    <div class="popup-wrap popup-leaveFromOrderChanging" style="left: 0px;display: none">
+        <section class="popup popup-nohead popup-width-middle">
+            <button type="button" data-obj="popup-leaveFromOrderChanging" class="popup-close-btn"></button>
+            <div class="popup-content">
+                <p class="title title-middle mt40 txt-ac">変更を取り消しますか？</p>
+                <div class="btn-flex btn-row mt20">
+                    <form>
+                        <div class="btn-form-wrap"><span class="btn-select btn-select01 btn-color-gray">取り消す</span></div>
+                        <div class="btn-form-wrap"><span data-obj="popup-leaveFromOrderChanging" class="btn-select btn-select02">キャンセル</span></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <div data-obj="popup-leaveFromOrderChanging" class="popup-overlay"></div>
+    </div>
+</div>
 
 <script src="https://sm.rakuten.co.jp/js/jquery-3.5.1.min.js"></script>
 <script src="https://sm.rakuten.co.jp/js/jquery.matchHeight-min.js"></script>
@@ -395,7 +428,10 @@
 
 <script>
     function open_cart() {
-        $('.popup').css({'position':'absolute','top':'30px','transform':'translate(-50%, 0px)'}).show();
+        var count = parseInt($('#cart .header-utility-cart-icon .popout').text());
+        if(count > 0){
+            $('.popup').css({'position':'absolute','top':'30px','transform':'translate(-50%, 0px)'}).show();
+        }
     }
     $(document).ready(function () {
         $('.category-menu-level01-item').hover(function () {
@@ -410,7 +446,7 @@
         });
 
         $(".popup-close-btn").click(function () {
-            console.log(';position: absolute; top: 30px; transform: translate(-50%, 0px);');
+
             $('.popup').hide();
         });
         $('.open_cart').click(function () {
@@ -418,9 +454,19 @@
         })
         $('.delivery-radio-btn').click(function () {
             let data = $(this).data();
-
             $("#delivery-info .txt-color00").addClass('txt-bold').html(data.year+'年'+data.month+'月'+data.day+'日(日) '+data.time);
+
+            $.ajax({
+                url:"{!! router_frontend_lang('widget:WidgetCart:ShipTime') !!}",
+                data:data,
+                type:"POST"
+            });
             $('.delivery-footer-btn .btn').removeClass('disabled');
+        });
+        $('.delivery-footer-btn .btn').click(function () {
+            if(!$(this).hasClass('disabled')){
+                window.location.href = "/cart";
+            }
         });
         //
         // $('.minicart-dropdown-trigger').hover(function () {
