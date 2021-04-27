@@ -27,6 +27,23 @@ $routers['home'] = [
             "guard" => "",
             "action"=>'getCart'
         ],
+        "change-address" => [
+            "url" => "/change-address",
+            "guard" => "",
+            "action"=>'getchangeInfoaddress'
+        ],
+        "change-address-edit" => [
+            "url" => "/change-address-edit/{id}",
+            "guard" => "",
+            "action"=>'getchangeEditaddress',
+            "method"=>['POST','GET']
+        ],
+        "change-address-create" => [
+            "url" => "/change-address-create",
+            "guard" => "",
+            "action"=>'getchangeCreateaddress',
+            "method"=>['POST','GET']
+        ],
     ]
 ];
 
@@ -82,6 +99,30 @@ $routers['widget'] =   [
             "url" => "/widget/".md5('WidgetCart:ShipTime'),
             "guard" => "",
             "action"=>'WidgetShipTime',
+            "method"=>['POST']
+        ],
+        'WidgetCart:Price'=>[
+            "url" => "/widget/".md5('WidgetCart:Price'),
+            "guard" => "",
+            "action"=>'WidgetPriceCart',
+            "method"=>['POST']
+        ],
+        'WidgetCart:Address'=>[
+            "url" => "/widget/".md5('WidgetCart:Address'),
+            "guard" => "",
+            "action"=>'WidgetAddress',
+            "method"=>['POST']
+        ],
+        'WidgetCart:Address:Active'=>[
+            "url" => "/widget/".md5('WidgetCart:Address:Active'),
+            "guard" => "",
+            "action"=>'WidgetAddressActive',
+            "method"=>['POST']
+        ],
+        'WidgetCart:WidgetCartOrder:Save'=>[
+            "url" => "/widget/".md5('WidgetCart:WidgetCartOrder:Save'),
+            "guard" => "",
+            "action"=>'WidgetCartOrder',
             "method"=>['POST']
         ]
     ]

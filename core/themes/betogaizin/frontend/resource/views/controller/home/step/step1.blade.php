@@ -6,7 +6,9 @@
         $category = get_category_type("shop-ja:product:category");
     @endphp
     @if($counts > 0))
-     <div id="step1">
+     <div id="step1" class="Controller_Cart">
+
+        <form action="" id="formAction">
         <div id="container" class="container">
             <div>
                 <header id="header" class="header with-border-bottom only-pc">
@@ -27,7 +29,6 @@
                         <p class="header-logo"><a href="/"><img src="/step/images/logo/logo_sp.svg" alt=""></a></p>
                     </div>
                 </header>
-
             </div>
             <div class="lyt-contents">
                 <h2 class="title title-large">買い物かご</h2>
@@ -44,13 +45,18 @@
 
                 <div id="errorMsgTop" class="lyt-contents-narrow">
                     <p class="txt-attention txt-attention-error">商品合計金額2,000円(税込)以上でご購入いただけます。</p>
+
                     <div class="grid grid-justify-center">
                         <div class="col col6-pc col6-sp">
                             <div class="title-wrap">
                                 <div class="title-with-item">
                                     <h3 class="title title-middle">お届け日時</h3>
                                     <!---->
-                                    <p class="btn-wrap"><a data-auto-id="change-delivery-time-btn" href="/?timeranger=true"><button class="btn btn-default btn-color03 btn-sm03 js-popup-trigger">変更</button></a></p>
+                                    <p class="btn-wrap">
+                                        <a data-auto-id="change-delivery-time-btn" >
+                                            <button type="button" onclick="open_cart(this)" class="btn btn-default btn-color03 btn-sm03 js-popup-trigger">変更</button>
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                             <p class="txt-alert txt-alert-middle"> {!!  $timeShip['year'].'年'.$timeShip['month'].'月'.$timeShip['day'].'日(日) '.$timeShip['time'] !!}</p>
@@ -62,19 +68,24 @@
                             <div class="title-wrap">
                                 <div class="title-with-item">
                                     <h3 class="title title-middle">お届け先住所</h3>
-                                    <p class="btn-wrap"><button data-auto-id="change-delivery-address-btn" class="btn btn-default btn-color03 btn-sm03">変更</button></p>
+                                    <p class="btn-wrap">
+                                        <a  href="{!! router_frontend_lang('home:change-address') !!}" class="btn btn-default btn-color03 btn-sm03 change-delivery-address-btn">変更</a>
+                                    </p>
                                 </div>
                             </div>
+                            @if(isset($address[0]))
+                                <input type="hidden" name="address_id" value="{!! $address[0]->id !!}">
                             <p class="txt-x-large mb0">
-                                Truong Huyen
+                                {!! $address[0]->first_name !!} {!! $address[0]->last_name !!}
                             </p>
                             <p class="txt-large"><span>
-                     〒162-0833<br></span> <span>
-                     東京都新宿区箪笥町　24-2
-                     </span><br> <span>
-                     電話番号：070-8409-5968
-                     </span>
+                                 〒{!! $address[0]->postal_code !!}<br></span> <span>
+                                 {!! $address[0]->prefecture_code !!} {!! $address[0]->address2 !!} {!! $address[0]->address3 !!}　{!! $address[0]->address5 !!}
+                                 </span><br> <span>
+                                 電話番号：{!! $address[0]->phone1 !!}-{!! $address[0]->phone2 !!}-{!! $address[0]->phone3 !!}
+                                 </span>
                             </p>
+                            @endif
                             <ul class="txt-large" style="display: none;">
                                 <li>・店舗、専用ロッカー等よりお受け取りください。</li>
                                 <li>・お支払はクレジットカードのみとなります。</li>
@@ -82,181 +93,201 @@
                             <p></p>
                         </div>
                     </div>
+                    <div>
+                        <div class="title-wrap">
+                            <div class="title-with-item">
+                                <h3 class="title title-middle">支払区分</h3>
+                            </div>
+                            <div>
+                                <select name="payment">
+                                    <option value="1">代金引換</option>
+                                    <option value="2">銀行振込</option>
+                                    <option value="3">決済不要</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <hr class="line line-lightgray mt40-pc mb40-pc">
                     @foreach($category as $cate=>$value)
                         @php $isSub = false @endphp
                         @section('treeview_'.$cate)
-                        <h3 class="title title-middle">かごの中の商品 {!! $value->name !!}</h3>
-                                    <div id="cartList" class="product-cart cf">
-                                        <div class="product-cart-header cf only-pc">
-                                            <p>商品</p>
-                                            <p>価格(税抜)</p>
-                                            <p>価格(税込)</p>
-                                            <p>数量</p>
-                                            <p>小計(税込)</p>
-                                            <p>&nbsp;</p>
-                                        </div>
-                                    <div>
-                                    @foreach($products as $product)
-                                        @continue($product->category_id != $cate)
-                                            @php $isSub = true @endphp
-                                            <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
-                                                <div class="product-cart-row-top">
-                                                    <div class="product-cart-row-top-group">
-                                                        <p class="product-cart-sp-btn only-sp"><button class="btn btn-default btn-sm03 btn-color00">削除</button></p>
-                                                        <div class="product-cart-item1">
-                                                            <div class="product-cart-img">
-                                                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="link-img">
-                                                                    <img src="{!! $product->image !!}" width="80" height="80" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="tax-reduced-item">*</div>
-                                                            <div class="product-cart-item1-right">
-                                                                <p class="product-cart-maker">ロッテ</p>
-                                                                <p class="product-cart-name">
-                                                                    <!----><a href="https://sm.rakuten.co.jp/item/4953823080093">Ｌａｄｙ Ｂｏｒｄｅｎ チョコレート</a>
-                                                                </p>
-                                                                <p class="product-cart-amount">470ml</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-cart-item2">
-                                                            <p class="product-cart-price"><span class="only-sp">価格(税抜)&nbsp;</span>{!! number_format($product->price_total) !!}円</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>380円</p>
-                                                </div>
-                                                <div class="product-cart-row-bottom">
-                                                    <div class="product-cart-item4" style="padding-bottom: 10px;">
-                                                        <span class="product-cart-small-text only-sp">数量</span>
-                                                        <div class="product-cart-pieces">
-                                                            <div class="btn-set-wrap"><span data-sign="decrement" class="btn-set-btn">－</span>
-                                                                <span data-ratid="DeductOneFromCart|4953823080093" data-ratevent="click" data-sign="decrement" class="btn-set-btn" style="display: none;">－</span>
-                                                                <span class="btn-set-num">{!! $product->count !!}</span>
-                                                                <span data-ratid="AddOneToCart|4953823080093" data-ratevent="click" data-sign="increment" class="btn-set-btn">＋</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-cart-item5" style="padding-bottom: 10px;">
-                                                        <p class="product-cart-price"><span class="only-sp product-cart-small-text">小計(税込)</span>380円</p>
-                                                    </div>
-                                                </div>
-                                                <div class="product-cart-item6 only-pc" style="padding-bottom: 10px;"><button class="btn btn-default btn-sm03 btn-color00">削除</button></div>
+                        <div id="company_{!! $value->id !!}">
+                            <h3 class="title title-middle">かごの中の商品 {!! $value->name !!}</h3>
+                             <div id="cartList" class="product-cart cf">
+                                            <div class="product-cart-header cf only-pc">
+                                                <p>商品</p>
+                                                <p>価格</p>
+                                                <p>別途送料</p>
+                                                <p>数量</p>
+                                                <p>小計</p>
+                                                <p>&nbsp;</p>
                                             </div>
-                                    @endforeach
+                                        <div>
+                                        @foreach($products as $product)
+                                            @continue($product->category_id != $cate)
+                                                @php $isSub = true;
+                                                $price = isset($prices[$value->name]['products'][$product->id])?$prices[$value->name]['products'][$product->id]:[];
+                                                @endphp
 
+                                                <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
+                                                    <div class="product-cart-row-top">
+                                                        <div class="product-cart-row-top-group">
+                                                            <p class="product-cart-sp-btn only-sp"><button class="btn btn-default btn-sm03 btn-color00">削除</button></p>
+                                                            <div class="product-cart-item1">
+                                                                <div class="product-cart-img">
+                                                                    <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="link-img">
+                                                                        <img src="{!! $product->image !!}" width="80" height="80" alt="">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="tax-reduced-item">*</div>
+                                                                <div class="product-cart-item1-right">
+                                                                    <p class="product-cart-maker">ロッテ</p>
+                                                                    <p class="product-cart-name">
+                                                                       <a href="https://sm.rakuten.co.jp/item/4953823080093">{!! $product->title !!}</a>
+                                                                    </p>
+                                                                    <p class="product-cart-amount">470ml</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-cart-item2">
+                                                                <p class="product-cart-price"><span class="only-sp">価格(税抜)&nbsp;</span>{!! number_format($product->price_total) !!}円</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-cart-item3" style="padding-bottom: 10px;">
+                                                        <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['ship'])?$price['ship']:0) !!}円</p>
+                                                    </div>
+                                                    <div class="product-cart-row-bottom">
+                                                        <div class="product-cart-item4" style="padding-bottom: 10px;">
+                                                            <span class="product-cart-small-text only-sp">数量</span>
+                                                            <div class="product-cart-pieces">
+                                                                <div class="btn-set-wrap" data-company="{!! $value->id !!}" data-id="{!! $product->id !!}" data-count="1" data-act="update">
+                                                                    <span class="btn-set-btn" data-type="-">－</span>
+                                                                    <span class="btn-set-num">{!! $product->count !!}</span>
+                                                                    <span class="btn-set-btn" data-type="+">＋</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-cart-item5" style="padding-bottom: 10px;">
+                                                            <p class="product-cart-price"><span class="only-sp product-cart-small-text">小計(税込)</span>{!! number_format($product->price_total+(!isset($price['ship'][0])?0:$price['ship'])) !!}円</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-cart-item6 only-pc" style="padding-bottom: 10px;"><button class="btn btn-default btn-sm03 btn-color00">削除</button></div>
+                                                </div>
+                                        @endforeach
+
+                                </div>
                             </div>
                         </div>
                         @endsection
                         @if($isSub)
                             @yield('treeview_'.$cate)
-                        @endif
-                    @endforeach
-                    {{--<div class="tax-item-description">*印は軽減税率（8％）適用商品</div>--}}
-                    <BR>
-                    <div class="delete-all-items"><button data-auto-id="empty-cart-btn" class="btn btn-default btn-color00 btn-sm03">かごの中の商品を全て削除</button></div>
-                    <div class="lyt-side-wrap mt40-pc">
-                        <div class="lyt-side-pattern02-main">
-                            <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!---->
-                            <div class="box box-primary box-full-width-sp mt40">
-                                <h2 class="title title-xsmall">お買い物のご注意</h2>
-                                <h2 class="title title-xsmall" style="display: none;">商品品切れ時の対応について</h2>
-                                <ul class="list-disc">
-                                    <li>お届けする地域によって送料が変わる場合がございます。</li>
+                        <BR>
+                        <div class="delete-all-items"><button data-auto-id="empty-cart-btn" class="btn btn-default btn-color00 btn-sm03">かごの中の商品を全て削除</button></div>
+                        <div class="lyt-side-wrap mt40-pc">
+                            <div class="lyt-side-pattern02-main">
+                                <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!---->
+                                <div class="box box-primary box-full-width-sp mt40">
+                                    <h2 class="title title-xsmall">お買い物のご注意</h2>
+                                    <h2 class="title title-xsmall" style="display: none;">商品品切れ時の対応について</h2>
+                                    <ul class="list-disc">
+                                        <li>お届けする地域によって送料が変わる場合がございます。</li>
+                                        <!---->
+                                        <li>代金引換(代引き)でお支払いの場合の手数料は、330円(税込)となります。ご注文合計金額欄にてご確認ください。（ポイントおよびクーポンのご利用により手数料が不要となる場合があります）</li>
+                                        <li>選択いただいたお届け時間の締め切り時間後のキャンセルは承っておりません。やむを得ずキャンセルされる場合には、キャンセル手数料として440円(税込)をご請求させていただきます。</li>
+                                        <li>商品お届けの際、ご請求金額が記載された納品書兼領収書が同梱されますので、ご贈答用(ギフト)としてのお届けには適しておりませんのでご注意ください。</li>
+                                        <li>お届けする商品の容量によって価格が変更となる場合がございます。詳しくは<a href="https://sm.faq.rakuten.net/s/detail/000003085" target="_blank">こちら</a></li>
+                                    </ul>
                                     <!---->
-                                    <li>代金引換(代引き)でお支払いの場合の手数料は、330円(税込)となります。ご注文合計金額欄にてご確認ください。（ポイントおよびクーポンのご利用により手数料が不要となる場合があります）</li>
-                                    <li>選択いただいたお届け時間の締め切り時間後のキャンセルは承っておりません。やむを得ずキャンセルされる場合には、キャンセル手数料として440円(税込)をご請求させていただきます。</li>
-                                    <li>商品お届けの際、ご請求金額が記載された納品書兼領収書が同梱されますので、ご贈答用(ギフト)としてのお届けには適しておりませんのでご注意ください。</li>
-                                    <li>お届けする商品の容量によって価格が変更となる場合がございます。詳しくは<a href="https://sm.faq.rakuten.net/s/detail/000003085" target="_blank">こちら</a></li>
-                                </ul>
-                                <!---->
+                                </div>
                             </div>
-                        </div>
-                        <div class="lyt-side-pattern02-menu">
-                            <p class="title title-small mb5">お支払い内訳</p>
-                            <div>
+                            <div class="lyt-side-pattern02-menu">
+                                <p class="title title-small mb5">お支払い内訳</p>
                                 <div>
-                                    <div class="side-content-frame">
-                                        <div class="side-content-frame-data-group">
-                                            <dl class="side-content-frame-data">
-                                                <dt class="side-content-frame-data-title">商品合計(税込)</dt>
-                                                <dd class="side-content-frame-data-body"><span class="sp-large">380</span>円</dd>
+                                    <div>
+                                        <div class="side-content-frame">
+                                            <div class="side-content-frame-data-group">
+                                                <dl class="side-content-frame-data">
+                                                    <dt class="side-content-frame-data-title">商品合計(税込)</dt>
+                                                    <dd class="side-content-frame-data-body"><span class="sp-large">380</span>円</dd>
+                                                    <!---->
+                                                    <dd class="side-content-frame-data-note">送料無料まであと5,120円</dd>
+                                                </dl>
+                                                <hr class="line line-lightgray">
                                                 <!---->
-                                                <dd class="side-content-frame-data-note">送料無料まであと5,120円</dd>
-                                            </dl>
+                                                <dl class="side-content-frame-data">
+                                                    <dt class="side-content-frame-data-title">梱包手数料(税込)</dt>
+                                                    <dd class="side-content-frame-data-body">0円</dd>
+                                                </dl>
+                                                <dl class="side-content-frame-data">
+                                                    <dt class="side-content-frame-data-title">送料(税込)</dt>
+                                                    <dd class="side-content-frame-data-body">330円</dd>
+                                                </dl>
+                                                <!---->
+                                                <hr class="line line-lightgray">
+                                                <dl class="side-content-frame-data mb0">
+                                                    <dt class="side-content-frame-data-title">小計(税込)</dt>
+                                                    <dd class="side-content-frame-data-body">710円</dd>
+                                                </dl>
+                                                <dl class="side-content-frame-data indent">
+                                                    <dt class="side-content-frame-data-title">非課税商品</dt>
+                                                    <dd class="side-content-frame-data-body">0円</dd>
+                                                </dl>
+                                                <dl class="side-content-frame-data indent">
+                                                    <dt class="side-content-frame-data-title">内税対象額</dt>
+                                                    <dd class="side-content-frame-data-body">710円</dd>
+                                                </dl>
+                                                <dl class="side-content-frame-data mt5">
+                                                    <dd class="side-content-frame-data-tax">(うち、消費税58円)</dd>
+                                                    <!---->
+                                                </dl>
+                                                <!----> <!----> <!----> <!----> <!----> <!----> <!---->
+                                            </div>
                                             <hr class="line line-lightgray">
-                                            <!---->
-                                            <dl class="side-content-frame-data">
-                                                <dt class="side-content-frame-data-title">梱包手数料(税込)</dt>
-                                                <dd class="side-content-frame-data-body">0円</dd>
-                                            </dl>
-                                            <dl class="side-content-frame-data">
-                                                <dt class="side-content-frame-data-title">送料(税込)</dt>
-                                                <dd class="side-content-frame-data-body">330円</dd>
-                                            </dl>
-                                            <!---->
-                                            <hr class="line line-lightgray">
-                                            <dl class="side-content-frame-data mb0">
-                                                <dt class="side-content-frame-data-title">小計(税込)</dt>
-                                                <dd class="side-content-frame-data-body">710円</dd>
-                                            </dl>
-                                            <dl class="side-content-frame-data indent">
-                                                <dt class="side-content-frame-data-title">非課税商品</dt>
-                                                <dd class="side-content-frame-data-body">0円</dd>
-                                            </dl>
-                                            <dl class="side-content-frame-data indent">
-                                                <dt class="side-content-frame-data-title">内税対象額</dt>
-                                                <dd class="side-content-frame-data-body">710円</dd>
-                                            </dl>
-                                            <dl class="side-content-frame-data mt5">
-                                                <dd class="side-content-frame-data-tax">(うち、消費税58円)</dd>
-                                                <!---->
-                                            </dl>
-                                            <!----> <!----> <!----> <!----> <!----> <!----> <!---->
-                                        </div>
-                                        <hr class="line line-lightgray">
-                                        <div class="side-content-frame-data-group">
-                                            <dl class="side-content-frame-data">
-                                                <dt class="side-content-frame-data-title with-num">総合計金額(税込)</dt>
-                                                <dd class="side-content-frame-data-body"><span class="side-content-frame-num">710</span> <span class="side-content-frame-unit">円</span></dd>
-                                            </dl>
-                                            <div>
-                                                <div id="reduced_tax">
-                                                    <dl class="side-content-frame-data indent">
-                                                        <dt class="side-content-frame-data-title">内税対象額(8%)</dt>
-                                                        <dd class="side-content-frame-data-body">380円</dd>
-                                                    </dl>
-                                                    <dl class="side-content-frame-data mt5">
-                                                        <!---->
-                                                    </dl>
+                                            <div class="side-content-frame-data-group">
+                                                <dl class="side-content-frame-data">
+                                                    <dt class="side-content-frame-data-title with-num">総合計金額(税込)</dt>
+                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">710</span> <span class="side-content-frame-unit">円</span></dd>
+                                                </dl>
+                                                <div>
+                                                    <div id="reduced_tax">
+                                                        <dl class="side-content-frame-data indent">
+                                                            <dt class="side-content-frame-data-title">内税対象額(8%)</dt>
+                                                            <dd class="side-content-frame-data-body">380円</dd>
+                                                        </dl>
+                                                        <dl class="side-content-frame-data mt5">
+                                                            <!---->
+                                                        </dl>
+                                                    </div>
+                                                    <div id="normal_tax">
+                                                        <dl class="side-content-frame-data indent">
+                                                            <dt class="side-content-frame-data-title">内税対象額(10%)</dt>
+                                                            <dd class="side-content-frame-data-body">330円</dd>
+                                                        </dl>
+                                                        <dl class="side-content-frame-data mt5">
+                                                            <!---->
+                                                        </dl>
+                                                    </div>
+                                                    <!---->
                                                 </div>
-                                                <div id="normal_tax">
-                                                    <dl class="side-content-frame-data indent">
-                                                        <dt class="side-content-frame-data-title">内税対象額(10%)</dt>
-                                                        <dd class="side-content-frame-data-body">330円</dd>
-                                                    </dl>
-                                                    <dl class="side-content-frame-data mt5">
-                                                        <!---->
-                                                    </dl>
-                                                </div>
-                                                <!---->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <p class="txt-large">クーポンまたはポイントをお使いの方は、次ページで選択いただけます。</p>
+                                <hr class="line line-lightgray">
+                                <ul class="bnr-area">
+                                    <li class="bnr-item"><img src="/step/images/bnr/bnr-walmart.png" alt=""></li>
+                                </ul>
                             </div>
-                            <p class="txt-large">クーポンまたはポイントをお使いの方は、次ページで選択いただけます。</p>
-                            <hr class="line line-lightgray">
-                            <ul class="bnr-area">
-                                <li class="bnr-item"><img src="/step/images/bnr/bnr-walmart.png" alt=""></li>
-                            </ul>
                         </div>
-                    </div>
+                        @endif
+                    @endforeach
+
+
 
                     <div class="btn-flex btn-column">
                         <form id="cartsubmmit">
-                            <div class="btn-form-wrap"><button type="submit" class="btn-form btn-next">購入手続き</button></div>
+                            <div class="btn-form-wrap"><button type="button" class="btn-form btn-next">購入手続き</button></div>
                         </form>
                         <a href="/" class="btn btn-form btn-prev narrow">お買い物を続ける</a>
                     </div>
@@ -317,12 +348,7 @@
                                     <li>天候不順および市場等の事情により、商品をお届けできない場合や、産地が変更になる場合がございます。予めご了承ください。</li>
                                 </ul>
                             </div>
-                            <div id="NG_0000000304" style="margin: 0px; padding: 0px; display: none;"></div>
-                            <div id="0000000304" style="margin: 0px; padding: 0px;"></div>
-                            <div id="NG_0000000306" style="margin: 0px; padding: 0px; display: none;"></div>
-                            <div id="0000000306" style="margin: 0px; padding: 0px;"></div>
-                            <div id="NG_0000000307" style="margin: 0px; padding: 0px; display: none;"></div>
-                            <div id="0000000307" style="margin: 0px; padding: 0px;"></div>
+
                             <div id="sp_footer_common"></div>
                         </div>
                     </div>
@@ -339,24 +365,26 @@
                 </footer>
             </div>
         </div>
-        <div>
-            <!---->
-        </div>
-        <div>
-            <!---->
-        </div>
-        <div>
-            <!---->
-        </div>
-        <div>
-            <!---->
-        </div>
-        <div>
-            <!---->
-        </div>
+         </form>
         <div><input type="hidden" name="rat" id="ratAccountId" value="1245"> <input type="hidden" name="rat" id="ratServiceId" value="1"> <input type="hidden" name="rat" id="ratPageLayout" value="pc"> <input type="hidden" name="rat" id="ratSiteSection" value="seiyu_step"> <input type="hidden" name="rat" id="ratPageName" value="seiyu_step:cart"> <input type="hidden" name="rat" id="ratCheckout" value="10"> <input type="hidden" name="rat" id="ratPageType" value="cart_modify"></div>
         <input type="hidden" name="rat" id="ratItemId" value="4953823080093"> <input type="hidden" name="rat" id="ratPrice" value="380"> <input type="hidden" name="rat" id="ratItemGenre" value="110002"> <input type="hidden" name="rat" id="ratItemCount" value="1"> <input type="hidden" name="rat" id="ratSinglePageApplicationLoad" value="true">
     </div>
+    @push('scripts')
+        <script>
+            $('.btn-form').click(function () {
+                var saveForm = $("#formAction").zoe_inputs('get');
+                console.log(saveForm);
+                $.ajax({
+                    url:"{!! router_frontend_lang('widget:WidgetCart:WidgetCartOrder:Save') !!}",
+                    data:saveForm,
+                    type:"POST",
+                    success:function (data) {
+                        window.location.href = data.url;
+                    }
+                });
+            });
+        </script>
+    @endpush
     @else
         <div id="step1">
             <div id="container" class="container">
@@ -416,4 +444,5 @@
             </div>
         </div>
     @endif
+
 @endsection

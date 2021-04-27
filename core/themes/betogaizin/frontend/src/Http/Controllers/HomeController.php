@@ -88,9 +88,31 @@ class HomeController extends \Zoe\Http\ControllerFront
         usort($_products, function($a,$b){
             return $a->order_index - $b->order_index;
         });
-
+        $address = DB::table('shop_adresss')
+            ->where('user_id',auth('frontend')
+                ->user()->id)->where('active',1)
+            ->orderBy('active','desc')->get()->all();
         return $this->render('home.step.step1', [
-            'counts'=>count($ids),'products'=>$_products
+            'counts'=>count($ids),'products'=>$_products,
+            'prices'=> $configs->prices($carts),
+            'address'=> $address
         ]);
+    }
+    public function getchangeInfoaddress(){
+        $lists = DB::table('shop_adresss')->where('user_id',auth('frontend')->user()->id)->orderBy('active','desc')->get()->all();
+        return $this->render(
+            'home.address.lists',[
+                'lists'=>$lists
+            ]
+        );
+    }
+    public function getchangeEditaddress(){
+        return $this->render('home.address.edit');
+    }
+    public function getchangeCreateaddress(Request $request){
+        return $this->render('home.address.edit');
+    }
+    public function get_order_oke(){
+
     }
 }

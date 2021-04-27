@@ -9,7 +9,9 @@ $(document).ready(function () {
             }});
     }
 
-    function initCarts() {
+    function initCarts(conf) {
+        console.log(conf);
+
         $.ajax({
             url:window._urlCartList,
             data:{},
@@ -18,6 +20,20 @@ $(document).ready(function () {
                 $("#cart").html(html.content);
             }
         });
+
+        if(conf.hasOwnProperty('company')){
+
+            if($('.Controller_Cart')){
+                $.ajax({
+                    data:{},
+                    type:"GET",
+                    success:function (html) {
+                        $("#company_"+conf.company).html(html.views['treeview_'+conf.company]);
+                    }
+                });
+            }
+
+        }
     }
    $(".btn-add").click(function () {
         var data = $(this).data();
@@ -33,7 +49,7 @@ $(document).ready(function () {
             type:"POST",
             success:function (html) {
                 console.log(html);
-                initCarts();
+                initCarts(data);
             }
         });
     }
@@ -75,5 +91,5 @@ $(document).ready(function () {
        }
        // console.log(type);
     });
-   initCarts();
+   initCarts({});
 });

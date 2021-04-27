@@ -1,5 +1,6 @@
 <?php
 namespace BetoGaizinTheme\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Validator;
@@ -124,5 +125,100 @@ class WidgetController extends \Zoe\Http\ControllerFront
         $data = $request->all();
         $request->session()->put(WidgetController::$keyCart_ship_time,$data);
         return response()->json([]);
+    }
+    public function WidgetPriceCart(Request $request){
+
+        $carts = $request->session()->get(WidgetController::$keyCart,[]);
+        $configs = new \BetoGaizinTheme\Lib\Price();
+
+        return response()->json([
+            'prices'=>$configs->prices($carts)
+        ]);
+    }
+    public function WidgetAddress(Request $request){
+        $data = $request->all();
+
+        if(isset($data['id'])){
+          $id =  $data['id'];
+          DB::table('shop_adresss')->update(
+              [
+                  'last_name'=>isset($data['last_name'])?$data['last_name']:"",
+                  'first_name'=>isset($data['first_name'])?$data['first_name']:"",
+                  'last_name_kana'=>isset($data['last_name_kana'])?$data['last_name_kana']:"",
+                  'first_name_kana'=>isset($data['first_name_kana'])?$data['first_name_kana']:"",
+                  'postal_code'=>isset($data['postal_code'])?$data['postal_code']:"",
+                  'prefecture_code'=>isset($data['prefecture_code'])?$data['prefecture_code']:"",
+                  'address2'=>isset($data['address2'])?$data['address2']:"",
+                  'address3'=>isset($data['address3'])?$data['address3']:"",
+                  'national_address_code'=>isset($data['national_address_code'])?$data['national_address_code']:"",
+                  'address5'=>isset($data['address5'])?$data['address5']:"",
+                  'address6'=>isset($data['address6'])?$data['address6']:"",
+                  'phone1'=>isset($data['phone1'])?$data['phone1']:"",
+                  'phone2'=>isset($data['phone2'])?$data['phone2']:"",
+                  'phone3'=>isset($data['phone3'])?$data['phone3']:"",
+                  'phone4'=>isset($data['phone4'])?$data['phone4']:"",
+                  'phone5'=>isset($data['phone5'])?$data['phone5']:"",
+                  'phone6'=>isset($data['phone6'])?$data['phone6']:"",
+                  'update_create'=>date('Y-m-d H:i:s'),
+              ],
+              ['id'=>$id]
+          );
+        }else{
+          $id =  DB::table('shop_adresss')->insertGetId(
+              [
+                  'user_id'=>auth('frontend')->user()->id,
+                  'last_name'=>isset($data['last_name'])?$data['last_name']:"",
+                  'first_name'=>isset($data['first_name'])?$data['first_name']:"",
+                  'last_name_kana'=>isset($data['last_name_kana'])?$data['last_name_kana']:"",
+                  'first_name_kana'=>isset($data['first_name_kana'])?$data['first_name_kana']:"",
+                  'postal_code'=>isset($data['postal_code'])?$data['postal_code']:"",
+                  'prefecture_code'=>isset($data['prefecture_code'])?$data['prefecture_code']:"",
+                  'address2'=>isset($data['address2'])?$data['address2']:"",
+                  'address3'=>isset($data['address3'])?$data['address3']:"",
+                  'national_address_code'=>isset($data['national_address_code'])?$data['national_address_code']:"",
+                  'address5'=>isset($data['address5'])?$data['address5']:"",
+                  'address6'=>isset($data['address6'])?$data['address6']:"",
+                  'phone1'=>isset($data['phone1'])?$data['phone1']:"",
+                  'phone2'=>isset($data['phone2'])?$data['phone2']:"",
+                  'phone3'=>isset($data['phone3'])?$data['phone3']:"",
+                  'phone4'=>isset($data['phone4'])?$data['phone4']:"",
+                  'phone5'=>isset($data['phone5'])?$data['phone5']:"",
+                  'phone6'=>isset($data['phone6'])?$data['phone6']:"",
+                  'time_create'=>date('Y-m-d H:i:s'),
+                  'time_update'=>date('Y-m-d H:i:s'),
+              ]
+          );
+        }
+    }
+    public function WidgetAddressActive(Request $request){
+        $data = $request->all();
+        if($data['act']){
+            if($data['act'] == "active"){
+
+                DB::table('shop_adresss')->update(
+                    [
+                        'active'=>0,
+                    ],
+                    ['user_id'=>auth('frontend')->user()->id]
+                );
+
+                DB::table('shop_adresss')->where(['user_id'=>auth('frontend')->user()->id,'id'=>$data['id']])->update(
+                    [
+                        'active'=>1,
+                    ]
+                );
+            }else if($data['act'] == "delete"){
+                DB::table('shop_adresss')->where(['user_id'=>auth('frontend')->user()->id,'id'=>$data['id']])->delete();
+            }
+        }
+    }
+
+    public function WidgetCartOrder(Request $request){
+        $data = $request->all();
+        $request->session()->put(WidgetController::$keyCart,[]);
+        $request->session()->put(WidgetController::$keyCart_ship_time,[]);
+        return response()->json([
+            'url'=>router_frontend_lang('page:order_success',['id'=>'id','slug'=>'slug'])
+        ]);
     }
 }
