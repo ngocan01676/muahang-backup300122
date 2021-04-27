@@ -24,7 +24,7 @@ $routers['home'] = [
         ],
         "cart-product" => [
             "url" => "/cart",
-            "guard" => "",
+
             "action"=>'getCart'
         ],
         "change-address" => [

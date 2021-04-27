@@ -88,6 +88,11 @@ class HomeController extends \Zoe\Http\ControllerFront
         usort($_products, function($a,$b){
             return $a->order_index - $b->order_index;
         });
+
+        if(auth('frontend')
+            ->user() == null){
+            return redirect(route('login'));
+        }
         $address = DB::table('shop_adresss')
             ->where('user_id',auth('frontend')
                 ->user()->id)->where('active',1)
