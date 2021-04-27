@@ -143,7 +143,7 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
             $member->phone = $data['tel_valueAt_0'].'-'.$data['tel_valueAt_1'].'-'.$data['tel_valueAt_2'];
 
             if($member->save()){
-                return redirect()->intended('/');
+                return redirect(route('login'));
             }
         }else{
 
