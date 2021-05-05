@@ -9724,7 +9724,7 @@
         if(!statusCompnay.hasOwnProperty('AMAZON')){
             if(options.hasOwnProperty('AMAZON') && options.AMAZON.status == 1){
                 let conf = Object.assign(YAMADA("AMAZON",config),config );
-                conf.minDimensions = [conf.minDimensions[0],150];
+
                 sheets.push(conf);
             }
 
@@ -9756,8 +9756,12 @@
                 sheets.push( Object.assign(OHGA(config),config));
         }
         if(!statusCompnay.hasOwnProperty('YAMADA')){
-            if(options.hasOwnProperty('YAMADA') && options.YAMADA.status == 1)
-                sheets.push(Object.assign(YAMADA("YAMADA",config),config ));
+            if(options.hasOwnProperty('YAMADA') && options.YAMADA.status == 1){
+                let conf = Object.assign(YAMADA("YAMADA",config),config );
+                conf.minDimensions = [conf.minDimensions[0],150];
+                sheets.push(conf);
+            }
+
         }
         for(let i = 0 ; i < sheets.length ; i++){
             sheets[i].minDimensions = [sheets[i].minDimensions[0],parseInt(sheets[i].minDimensions[1] *(y/1000))];
