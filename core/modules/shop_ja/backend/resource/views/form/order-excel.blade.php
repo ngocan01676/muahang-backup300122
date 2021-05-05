@@ -9758,7 +9758,7 @@
         if(!statusCompnay.hasOwnProperty('YAMADA')){
             if(options.hasOwnProperty('YAMADA') && options.YAMADA.status == 1){
                 let conf = Object.assign(YAMADA("YAMADA",config),config );
-                conf.minDimensions = [conf.minDimensions[0],150];
+                conf.minDimensions = [conf.minDimensions[0],200];
                 sheets.push(conf);
             }
 
