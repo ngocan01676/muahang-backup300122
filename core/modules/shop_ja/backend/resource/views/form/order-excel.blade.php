@@ -344,7 +344,7 @@
         // };
 
         let config = {
-            minDimensions:[40,60],
+            minDimensions:[40,100],
             tableWidth: '100%',
             tableHeight: '100%',
             defaultColWidth: 100,
@@ -9723,7 +9723,9 @@
 
         if(!statusCompnay.hasOwnProperty('AMAZON')){
             if(options.hasOwnProperty('AMAZON') && options.AMAZON.status == 1){
-                sheets.push(Object.assign(YAMADA("AMAZON",config),config ));
+                let conf = Object.assign(YAMADA("AMAZON",config),config );
+                conf.minDimensions = [conf.minDimensions[0],150];
+                sheets.push(conf);
             }
 
         }
