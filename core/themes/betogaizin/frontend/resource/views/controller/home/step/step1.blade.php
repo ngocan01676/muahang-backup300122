@@ -110,8 +110,9 @@
                     <hr class="line line-lightgray mt40-pc mb40-pc">
                     @foreach($category as $cate=>$value)
                         @php $isSub = false @endphp
+
                         @section('treeview_'.$cate)
-                        <div id="company_{!! $value->id !!}">
+                        <div id="company_{!! $value->id !!}" class="item_row">
                             <h3 class="title title-middle">かごの中の商品 {!! $value->name !!}</h3>
                              <div id="cartList" class="product-cart cf">
                                             <div class="product-cart-header cf only-pc">
@@ -171,21 +172,24 @@
                                                             <p class="product-cart-price"><span class="only-sp product-cart-small-text">小計(税込)</span>{!! number_format($product->price_total+(!isset($price['ship'][0])?0:$price['ship'])) !!}円</p>
                                                         </div>
                                                     </div>
-                                                    <div class="product-cart-item6 only-pc" style="padding-bottom: 10px;"><button class="btn btn-default btn-sm03 btn-color00">削除</button></div>
+                                                    <div class="product-cart-item6 only-pc" style="padding-bottom: 10px;">
+                                                        <button
+                                                                data-company="{!! $value->id !!}"  data-id="{!! $product->id !!}" data-count="0" data-act="update"
+                                                                type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">削除
+                                                        </button>
+                                                    </div>
                                                 </div>
                                         @endforeach
 
                                 </div>
                             </div>
-                        </div>
-                        @endsection
-                        @if($isSub)
-                            @yield('treeview_'.$cate)
                         <BR>
-                        <div class="delete-all-items"><button data-auto-id="empty-cart-btn" class="btn btn-default btn-color00 btn-sm03">かごの中の商品を全て削除</button></div>
+                        <div class="delete-all-items">
+                            <button data-auto-id="empty-cart-btn" class="btn btn-default btn-color00 btn-sm03">かごの中の商品を全て削除</button>
+                        </div>
                         <div class="lyt-side-wrap mt40-pc">
                             <div class="lyt-side-pattern02-main">
-                                <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!---->
+
                                 <div class="box box-primary box-full-width-sp mt40">
                                     <h2 class="title title-xsmall">お買い物のご注意</h2>
                                     <h2 class="title title-xsmall" style="display: none;">商品品切れ時の対応について</h2>
@@ -197,7 +201,7 @@
                                         <li>商品お届けの際、ご請求金額が記載された納品書兼領収書が同梱されますので、ご贈答用(ギフト)としてのお届けには適しておりませんのでご注意ください。</li>
                                         <li>お届けする商品の容量によって価格が変更となる場合がございます。詳しくは<a href="https://sm.faq.rakuten.net/s/detail/000003085" target="_blank">こちら</a></li>
                                     </ul>
-                                    <!---->
+
                                 </div>
                             </div>
                             <div class="lyt-side-pattern02-menu">
@@ -280,6 +284,12 @@
                                 </ul>
                             </div>
                         </div>
+
+
+                        </div>
+                    @endsection
+                        @if($isSub)
+                            @yield('treeview_'.$cate)
                         @endif
                     @endforeach
 

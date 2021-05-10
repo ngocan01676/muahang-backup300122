@@ -39,7 +39,7 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                 ];
                 if(
                     isset($this->data['configs']['core']['language']['multiple'])
-                    && isset($data['type']) &&  isset($this->data['configs']['core']['language']['type'][$data['type']])
+//                    && isset($data['type']) &&  isset($this->data['configs']['core']['language']['type'][$data['type']])
                 ){
                     $newFilter = [];
                     foreach ($this->data['language'] as $lang => $_language) {

@@ -6,32 +6,32 @@ $namespace = "BetoGaizin\Http\Controllers";
 return [
     'routers' => [
         BACKEND => [
-            $key.':product' => [
-                "namespace" => $namespace,
-                "controller" => "ProductController",
-                "sub_prefix" => "/$url/product",
-                "guard" => "backend",
-                "acl"=> "MissTerry:room",
-                "router" => [
-                    "list" => [
-                        "url" => "/",
-                    ],
-                    "create"=>[
-                        'url'=>'/create'
-                    ],
-                    "edit" => [
-                        'url' => '/edit/{id}'
-                    ],
-//                    'store' => [
-//                        'url' => '/store',
-//                        'method' => ['post']
+//            $key.':product' => [
+//                "namespace" => $namespace,
+//                "controller" => "ProductController",
+//                "sub_prefix" => "/$url/product",
+//                "guard" => "backend",
+//                "acl"=> "MissTerry:room",
+//                "router" => [
+//                    "list" => [
+//                        "url" => "/",
 //                    ],
-//                    'delete' => [
-//                        'url' => '/delete',
-//                        'method' => ['post']
+//                    "create"=>[
+//                        'url'=>'/create'
 //                    ],
-                ]
-            ],
+//                    "edit" => [
+//                        'url' => '/edit/{id}'
+//                    ],
+////                    'store' => [
+////                        'url' => '/store',
+////                        'method' => ['post']
+////                    ],
+////                    'delete' => [
+////                        'url' => '/delete',
+////                        'method' => ['post']
+////                    ],
+//                ]
+//            ],
             $key.':category' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "CategoryController",

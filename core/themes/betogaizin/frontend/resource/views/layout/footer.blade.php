@@ -490,6 +490,8 @@
     });
 </script>
 <script src="/module/admin/assets/zoe.jquery.inputs.js"></script>
+<script src="/module/admin/assets/loadmask/jquery.loadmask.js"></script>
+<link rel="stylesheet" href="/module/admin/assets/loadmask/jquery.loadmask.css">
 <script src="/theme/betogaizin/js/script.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>

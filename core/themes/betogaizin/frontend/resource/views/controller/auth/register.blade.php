@@ -164,11 +164,12 @@
                     <td>
                         <em>Please select the prefecture where you live.</em><br>
                         @php $prefecture_conf = config('shop_ja'); @endphp
-                        @php $val = Form::value("prefecture"); @endphp
+                        @php $val = Form::value("prefecture");  var_dump($val) ;@endphp
                         <select name="prefecture">
                             <option value="">-Select-</option>
                             @foreach($prefecture_conf['configs']['prefecture'] as $key=>$value)
-                                <option {!! $val == $value ? "selected":"" !!} value="{!! $key !!}">{!! $value !!}</option>
+
+                                <option {!! $val == $key ? "selected":"" !!} value="{!! $key !!}">{!! $value !!}</option>
                             @endforeach
                         </select>
                         @error("prefecture")

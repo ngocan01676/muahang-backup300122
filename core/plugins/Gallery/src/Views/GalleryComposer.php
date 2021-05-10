@@ -31,8 +31,10 @@ class GalleryComposer extends \Zoe\Views\ComposerView
             $data['GalleryComposer'] = $composer;
             $data['GalleryComposer']['name'] = 'GalleryComposer';
             $data['GalleryComposer']['token'] = $this->token($view->name(),$data['GalleryComposer']['name'], $this->namespace);
-            if(isset($dataView['item']) && $dataView['item']){
-               $rs = DB::table('plugin_gallery')->where('key_id',$dataView['item']->id)
+            $model_name = isset($composer['model_name'])?$composer['model_name']:'item';
+
+            if(isset($dataView[$model_name]) && $dataView[$model_name]){
+               $rs = DB::table('plugin_gallery')->where('key_id',$dataView[$model_name]->id)
                     ->where('key_group',$data['GalleryComposer']['token']['key'])->where('name',$data['GalleryComposer']['token']['name'])->get()->all();
                if(isset($rs[0])){
                    $data['GalleryComposer']['datas'] = unserialize($rs[0]->data);

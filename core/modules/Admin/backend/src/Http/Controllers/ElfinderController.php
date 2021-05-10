@@ -105,17 +105,17 @@ class ElfinderController extends \Zoe\Http\ControllerBackend
 //EOP;
         $permission = configs_get('Elfinder:permission');
 
-        $regpat = "~^ ".show_preg_match_1($directories,'/',$permission,auth()->user()->role_id).'$~x';
-
+      //  $regpat = "~^ ".show_preg_match_1($directories,'/',$permission,auth()->user()->role_id).'$~x';
+        $regpat = "";
         $access = function ($attr, $path, $data, $volume, $isDir, $relpath) use($regpat)
         {
             $test = trim($relpath, '/');
             if ($isDir) {
                 $test .= '/';
             }
-            if (!preg_match($regpat, $test) && $test!="/") {
-                return !($attr === 'read' || $attr === 'write');
-            }
+//            if (!preg_match($regpat, $test) && $test!="/") {
+//                return !($attr === 'read' || $attr === 'write');
+//            }
             $basename = basename($path);
             return $basename[0] === '.'                  // if file/folder begins with '.' (dot)
             && strlen($relpath) !== 1           // but with out volume root

@@ -50,6 +50,7 @@ class ControllerBackend extends Controller
             }
         }
         $composers = app()->getConfig()->composers;
+
         if(isset($composers[BACKEND])){
             foreach ($composers[BACKEND] as $clazz=>$composer){
                 if(!class_exists($clazz)) continue;
@@ -57,6 +58,7 @@ class ControllerBackend extends Controller
                 foreach ($composer as $_view=>$_composer){
                     $_views[] = $_view;
                 }
+
                 if(count($_views)>0){
                     View::composer(
                         $_views,

@@ -12,6 +12,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
     {
         $this->data['language'] = config('zoe.language');
         $this->data['nestables'] = config_get("category", "shop-ja:product:category");
+        $this->data['cate_group'] = config_get("category", "beto_gaizin:category");
         $this->data['configs'] = config_get("config", "shopja");
         $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
     }
@@ -25,9 +26,6 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $this->getcrumb();
 
         $filter = $request->query('filter', []);
-
-
-
 
         $search = $request->query('search', "");
         $status = $request->query('status', "");
@@ -106,13 +104,13 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
         $data = $request->all();
         $validator = Validator::make($data, [
-//            'image' => 'required',
+            'group_id' => 'required',
             'title' => 'required',
             'category_id' => 'required',
             'price' => 'required|integer',
             'price_buy' => 'required|integer',
         ], [
-//            'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
+            'group_id.required' => z_language('Chuyên mục sản phẩm không được bỏ trống'),
             'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
             'category_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
             'price.required' => z_language('Giá nhập không được bỏ trống.'),
@@ -134,10 +132,12 @@ class ProductController extends \Zoe\Http\ControllerBackend
         }
         try {
             $model->title = $data['title'];
+            $model->group_id = $data['group_id'];
             $model->slug = $model->title ;
             $model->description = $data['description'];
             $model->category_id = $data['category_id'];
             $model->image =  $data['image'];
+            $model->image_web =  $data['image_web'];
             $model->price = $data['price'];
             $model->code = $data['code'];
             $model->unit = $data['unit'];
