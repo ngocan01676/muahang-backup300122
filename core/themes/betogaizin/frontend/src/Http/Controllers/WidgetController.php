@@ -301,7 +301,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
                         'price_ship'=>isset($price['ship'])?$price['ship']:0,
                         'company'=>$product->category_id,
                         'ship'=>isset($price['cou'])?$price['cou']:0,
-                        'image'=>"",
+                        'image'=>$product->image,
                         'tracking'=>"",
                         'status'=>0,
                         'updated_at'=>date('Y-m-d H:i:s'),
