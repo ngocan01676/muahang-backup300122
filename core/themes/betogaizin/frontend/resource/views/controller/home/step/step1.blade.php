@@ -420,14 +420,19 @@
             $('.btn-form').click(function () {
                 var saveForm = $("#formAction").zoe_inputs('get');
                 console.log(saveForm);
-                $.ajax({
-                    url:"{!! router_frontend_lang('widget:WidgetCart:WidgetCartOrder:Save') !!}",
-                    data:saveForm,
-                    type:"POST",
-                    success:function (data) {
-                       window.location.href = data.url;
-                    }
-                });
+                if($("[name=address_id]").length > 0){
+                    $.ajax({
+                        url:"{!! router_frontend_lang('widget:WidgetCart:WidgetCartOrder:Save') !!}",
+                        data:saveForm,
+                        type:"POST",
+                        success:function (data) {
+                            window.location.href = data.url;
+                        }
+                    });
+                }else{
+                    alert("Chon địa chỉ giao hàng");
+                }
+
             });
         </script>
     @endpush
