@@ -126,7 +126,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
                   'ship'=>$ship,
                   'count'=>$count,
                   'image'=>'image',
-                  'image_order'=>$result->image_order,
+                  'image_order'=>$result->image,
                   'price_ship'=> $price_ship!=-1?$price_ship:$price_ship_default,
                   'total_price'=>$result->price,
                   'total_price_buy'=>$result->price_buy,
