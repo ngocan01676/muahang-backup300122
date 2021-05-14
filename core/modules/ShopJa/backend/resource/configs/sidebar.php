@@ -21,6 +21,13 @@ return [
             "header" => true,
             "icon"=>"fa fa-upload",
         ],
+        "module:shop-ja::shop_ja:order" => [
+            "name" => z_language("Duyệt đơn khách hàng",false),
+            "url" => "backend:shop_ja:order:list",
+            "pos" => 2,
+            "header" => true,
+            "icon"=>"fa fa-upload",
+        ],
         "module:shop-ja:sim" => [
             "name" => z_language('Sim',false),
             "pos" => 3,

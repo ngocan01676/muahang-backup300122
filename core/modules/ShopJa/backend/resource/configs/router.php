@@ -29,36 +29,36 @@ return [
                         ]
                     ]
                 ],
-//                'shop_ja:order' => [
-//                    "namespace" => "ShopJa\Http\Controllers",
-//                    "controller" => "OrderController",
-//                    "sub_prefix" => "/shop-ja/order",
-//                    "guard" => "backend",
-//                    "acl"=> "shop_ja:order:store",
-//                    "router" => [
-//                        "list" => [
-//                            "url" => "/",
-//                            'acl'=>true
-//                        ],
-//                        "create" => [
-//                            "url" => "/create",
-//                        ],
-//                        "edit" => [
-//                            "url" => "/edit/{id}",
-//                        ],
-//                        "delete" => [
-//                            "url" => "/delete/{id}",
-//                            "method" => ['post'],
-//                        ],
-//                        "store" => [
-//                            "url" => "/store",
-//                            "method" => ['post'],
-//                        ],
-//                        "ajax" => [
-//                            "url" => "/ajax", "method" => ['post'],
-//                        ],
-//                    ]
-//                ],
+                'shop_ja:order' => [
+                    "namespace" => "ShopJa\Http\Controllers",
+                    "controller" => "OrderController",
+                    "sub_prefix" => "/shop-ja/order",
+                    "guard" => "backend",
+                    "acl"=> "shop_ja:order:store",
+                    "router" => [
+                        "list" => [
+                            "url" => "/",
+                            'acl'=>true
+                        ],
+                        "create" => [
+                            "url" => "/create",
+                        ],
+                        "edit" => [
+                            "url" => "/edit/{id}",
+                        ],
+                        "delete" => [
+                            "url" => "/delete/{id}",
+                            "method" => ['post'],
+                        ],
+                        "store" => [
+                            "url" => "/store",
+                            "method" => ['post'],
+                        ],
+                        "ajax" => [
+                            "url" => "/ajax", "method" => ['post'],
+                        ],
+                    ]
+                ],
                 'shop_ja:japan:category:ship' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "CategoryController",

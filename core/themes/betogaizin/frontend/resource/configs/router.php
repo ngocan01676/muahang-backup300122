@@ -123,7 +123,7 @@ $routers['widget'] =   [
             "url" => "/widget/".md5('WidgetCart:WidgetCartOrder:Save'),
             "guard" => "",
             "action"=>'WidgetCartOrder',
-            "method"=>['POST']
+            "method"=>['POST','GET']
         ]
     ]
 ];

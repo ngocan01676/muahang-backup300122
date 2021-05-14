@@ -121,7 +121,7 @@ class Price{
             if($value['name'] == "FUKUI"){
                 $results[$value['name']] = $this->FUKUI($key,$value,$province,$this->getValuePayMethod($payment));
             }
-            if($value['name'] == "YAMADA"){
+            if($value['name'] == "OHGA"){
                 $results[$value['name']] = $this->OHGA($key,$value,$province,$this->getValuePayMethod($payment));
             }
         }
@@ -129,8 +129,9 @@ class Price{
     }
 
     public function YAMADA($cate,$products,$province = "北海道",$type = 1){
-         $products['total_price'] = 0;
-
+        $products['total_price'] = 0;
+        $products['total_ship'] = 0;
+        $products['total_cou'] = 0;
          foreach ($products['products'] as $key=>$product){
 
              if(isset($this->data['products']['YAMADA'][$product['id']])){
@@ -212,8 +213,14 @@ class Price{
                   }
                   $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                   $ship_cou = $ship_cou == -1?0:$ship_cou;
+
+                  if($key == 0){
+                     $products['cou'] = $ship_cou;
+                  }
+                  $products['total_ship']+=$price_ship;
                   $products['products'][$key]['cou'] = $ship_cou;
                   $products['products'][$key]['ship'] = $price_ship > -1?$price_ship*$count:-1;
+
              }
          }
 
@@ -280,6 +287,8 @@ class Price{
     }
     public function KOGYJA($cate,$products,$province = "北海道",$type = 1){
         $products['total_price'] = 0;
+        $products['total_ship'] = 0;
+        $products['total_cou'] = 0;
         foreach ($products['products'] as $key=>$product){
 
             if(isset($this->data['products']['YAMADA'][$product['id']])){
@@ -361,6 +370,10 @@ class Price{
                 }
                 $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
+                if($key == 0){
+                    $products['cou'] = $ship_cou;
+                }
+                $products['total_ship']+=$price_ship;
                 $products['products'][$key]['cou'] = $ship_cou;
                 $products['products'][$key]['ship'] = $price_ship > -1?$price_ship*$count:-1;
             }
@@ -369,7 +382,8 @@ class Price{
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){
         $products['total_price'] = 0;
-
+        $products['total_ship'] = 0;
+        $products['total_cou'] = 0;
         foreach ($products['products'] as $key=>$product){
 
             if(isset($this->data['products']['YAMADA'][$product['id']])){
@@ -452,6 +466,10 @@ class Price{
                 $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
                 $products['products'][$key]['cou'] = $ship_cou;
+                if($key == 0){
+                    $products['cou'] = $ship_cou;
+                }
+                $products['total_ship']+=$price_ship;
                 $products['products'][$key]['ship'] = $price_ship > -1?$price_ship*$count:-1;
             }
         }
@@ -459,6 +477,8 @@ class Price{
     }
     public function FUKUI($cate,$products,$province = "北海道",$type = 1){
         $products['total_price'] = 0;
+        $products['total_ship'] = 0;
+        $products['total_cou'] = 0;
         foreach ($products['products'] as $key=>$product){
 
             if(isset($this->data['products']['YAMADA'][$product['id']])){
@@ -541,6 +561,10 @@ class Price{
                 $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
                 $products['products'][$key]['cou'] = $ship_cou;
+                if($key == 0){
+                    $products['cou'] = $ship_cou;
+                }
+                $products['total_ship']+=$price_ship;
                 $products['products'][$key]['ship'] = $price_ship > -1?$price_ship*$count:-1;
             }
         }
@@ -548,6 +572,8 @@ class Price{
     }
     public function OHGA($cate,$products,$province = "北海道",$type = 1){
         $products['total_price'] = 0;
+        $products['total_ship'] = 0;
+        $products['total_cou'] = 0;
         foreach ($products['products'] as $key=>$product){
 
             if(isset($this->data['products']['YAMADA'][$product['id']])){
@@ -629,6 +655,10 @@ class Price{
                 }
                 $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
+                if($key == 0){
+                    $products['cou'] = $ship_cou;
+                }
+                $products['total_ship']+=$price_ship;
                 $products['products'][$key]['cou'] = $ship_cou;
                 $products['products'][$key]['ship'] = $price_ship > -1?$price_ship*$count:-1;
             }

@@ -98,7 +98,8 @@ class HomeController extends \Zoe\Http\ControllerFront
                 ->user()->id)->where('active',1)
             ->orderBy('active','desc')->get()->all();
         return $this->render('home.step.step1', [
-            'counts'=>count($ids),'products'=>$_products,
+            'counts'=>count($ids),
+            'products'=>$_products,
             'prices'=> $configs->prices($carts),
             'address'=> $address
         ]);

@@ -50,13 +50,7 @@
                     </div>
                 </div>
             </div>
-            @foreach(['YAMADA','KOGYJA','OHGA','FUKUI','KURICHIKU','BANH_CHUNG'] as $val)
-                <a href="{!! route('backend:shop_ja:excel:'.$val) !!}">
-                    <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-                        <i class="fa fa-download"></i> {!! $val !!}
-                    </button>
-                </a>
-           @endforeach
+
         @endslot
     @endcomponent
 @endsection

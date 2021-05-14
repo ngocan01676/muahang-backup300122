@@ -222,7 +222,9 @@ class OrderController extends \Zoe\Http\ControllerBackend
     {
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
         $model = OrderModel::find($id);
+
         $model->detailOrder = json_encode($model->GetDetails());
+
         return $this->render('order.edit', ["model" => $model]);
     }
     public function delete()
