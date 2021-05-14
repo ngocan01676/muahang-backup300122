@@ -565,7 +565,7 @@
                 let html = "<tr class='rowOrderDetail' id='id_"+data.id+"' data-id='"+data.id+"'>";
                 html+="<td class=\"text-center\" data-key='id'><input type='hidden' class='itemVal' value='"+data.id+"'/><textarea class='data' style='display: none'>"+JSON.stringify(data)+"</textarea></td>";
                 html+="<td class=\"text-center\" data-key='code'>"+data.code+"</td>";
-                html+="<td class=\"text-center\"><a target=\"_blank\" href='"+url+"/"+data.id+"'>"+data.title+"<BR></a><i>"+data.description+"</i></td>";
+                html+="<td class=\"text-center\"><img style=\"width: 100px;height: 150px\" src='"+data.image_order+"'><a target=\"_blank\" href='"+url+"/"+data.id+"'>"+data.title+"<BR></a><i>"+data.description+"</i></td>";
                 html+="<td class=\"text-center\" data-key='company'>"+data.company+"<input type='hidden' class='itemVal' value='"+hidden.company+"'/> </td>";
                 html+="<td class=\"text-center\" data-key='ship'>"+data.ship+"<input type='hidden' class='itemVal' value='"+hidden.ship+"'/></td>";
                 html+="<td  class=\"text-center count\" data-key='count'><a href=\"#\" class=\"number_count\" data-type=\"text\" data-pk=\"1\" data-title=\"Số lượng\">"+(currentData.hasOwnProperty('count')?currentData.count:data.count)+"</a><input type='hidden' class='itemVal' value='"+(currentData.hasOwnProperty('count')?currentData.count:data.count)+"'/> kg"+"</td>";
