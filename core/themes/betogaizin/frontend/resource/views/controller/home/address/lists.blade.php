@@ -36,7 +36,7 @@
                             <div class="txt-ac">
                                 <label>
                                     <input data-auto-id="edit-address-radio-1" type="radio" name="edit-address" class="set-default-address-radio" value="0">
-                                    <a href="{!! router_frontend_lang('home:change-address-edit',['id'=>1]) !!}"><span data-auto-id="edit-address-span-1" class="btn btn-default btn-color00 btn-wid05 js-popup-trigger mt5 mb5">編集</span></a>
+                                    <a href="{!! router_frontend_lang('home:change-address-edit',['id'=>$list->id]) !!}"><span data-auto-id="edit-address-span-1" class="btn btn-default btn-color00 btn-wid05 js-popup-trigger mt5 mb5">編集</span></a>
                                 </label>
                                 <label>
                                     <input onclick="delete_address({!! $list->id !!})" data-auto-id="delete-address-radio-1" type="radio" name="delete-address" @if($list->active == 1) disabled="disabled" @endif class="set-default-address-radio" value="0">
@@ -77,7 +77,10 @@
                    "act":"delete",
                    "id":id
                },
-               type:"POST"
+               type:"POST",
+               success:function (data) {
+                   location.reload();
+               }
            });
        }
        function active_adress(id) {
@@ -87,7 +90,10 @@
                    "act":"active",
                    "id":id
                },
-               type:"POST"
+               type:"POST",
+               success:function (data) {
+                   location.reload();
+               }
            });
        }
     </script>

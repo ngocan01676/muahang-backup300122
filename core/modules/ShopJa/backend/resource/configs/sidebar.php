@@ -172,7 +172,7 @@ return [
                     "icon"=>"fa fa-cab",
                 ],
                 "backend:shop_ja:japan:category:show" => [
-                    "name" => z_language("QL Tỉnh",false),
+                    "name" => z_language("Thuộc tính sản phẩm",false),
                     "url" => "backend:shop_ja:japan:category:show",
                     "pos" => 2,
                     "header" => true,

@@ -4,6 +4,7 @@
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store','class'=>'submit']) !!}
 @endif
+<script src="{!! config('zoe.tiny') !!}"></script>
 <div class="col-md-12">
     <div class="box box box-zoe">
         <div class="box-body">
@@ -26,6 +27,9 @@
                         <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"> {!! @z_language(["Thông tin sản phẩm"]) !!} </a></li>
                         @if(!empty($GalleryComposer))
                             <li><a href="#tab_media" data-toggle="tab">{!! z_language("Thư viện ảnh") !!}</a></li>
+                        @endif
+                        @if(!empty($BetoGaizin_DataComposer_Price))
+                            <li><a href="#tab_prototy" data-toggle="tab">{!! z_language("Thuộc tính") !!}</a></li>
                         @endif
                     </ul>
                     <div class="tab-content">
@@ -85,7 +89,56 @@
                                 <tr>
                                     <td>
                                         {!! Form::label('id_description', z_language('Mô tả'), ['class' => 'description']) !!}
-                                        {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>z_language('Mô tả'),'cols'=>5,'rows'=>5]) !!}
+                                        {!! Form::textarea('description',null, ['class' => 'form-control my-editor','placeholder'=>z_language('Mô tả'),'cols'=>5,'rows'=>5]) !!}
+                                        <script>
+                                            var editor_config = {
+                                                    path_absolute: "/",
+                                                    selector: "textarea.my-editor",
+                                                    plugins: [
+                                                        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                                                        "searchreplace wordcount visualblocks visualchars code fullscreen",
+                                                        "insertdatetime media nonbreaking save table contextmenu directionality",
+                                                        "emoticons template paste textcolor colorpicker textpattern"
+                                                    ],
+                                                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+                                                    relative_urls: false,
+                                                    height:"500",
+                                                    file_browser_callback: function (field_name, url, type, win) {
+
+                                                        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+                                                        var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+
+                                                        var cmsURL = '{{route('backend:elfinder:tinymce4')}}' + '?field_name=' + field_name;
+                                                        console.log(cmsURL);
+                                                        if (type === 'image') {
+                                                            cmsURL = cmsURL + "&type=Images";
+                                                        } else {
+                                                            cmsURL = cmsURL + "&type=Files";
+                                                        }
+                                                        tinyMCE.activeEditor.windowManager.open({
+                                                            file: cmsURL,
+                                                            title: 'Filemanager',
+                                                            width: x * 0.8,
+                                                            height: y * 0.8,
+                                                            resizable: "yes",
+                                                            close_previous: "no",
+                                                        }, {
+                                                            oninsert: function (file, fm) {
+                                                                var url, reg, info;
+                                                                console.log(file);
+                                                                win.document.getElementById(field_name).value = file.url;
+                                                                // URL normalization
+                                                                url = fm.convAbsUrl(file.url);
+                                                                console.log(url);
+                                                            }
+                                                        });
+
+                                                    }
+                                                }
+                                            ;
+
+                                            tinymce.init(editor_config);
+                                        </script>
                                     </td>
                                 </tr>
                                 <tr>
@@ -146,6 +199,11 @@
                                 {!! $GalleryComposer !!}
                             </div>
                         @endif
+                        @if(!empty($BetoGaizin_DataComposer_Price))
+                            <div class="tab-pane clearfix" id="tab_prototy">
+                                {!! $BetoGaizin_DataComposer_Price !!}
+                            </div>
+                        @endif
                     </div>
                 </div>
         </div>
@@ -175,7 +233,7 @@
 
             clicks.fire(form_store,function (t) {
                 let data = form_store.zoe_inputs('get');
-
+                console.log(data);
                 if(form_store.hasClass('submit')){
                     $("#form_store").submit();
                 }

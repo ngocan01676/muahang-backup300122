@@ -13,18 +13,23 @@
             <td style="vertical-align: middle;text-align:center;width: 50px">0</td>
             @foreach($DataComposer['config']['columns'] as $columns)
                 @if(isset($columns['view']))
+                    <td style="vertical-align: middle;text-align:center;">
+                    @include($columns['view'],['columns'=>$columns,'DataComposer'=>$DataComposer])
+                    </td>
                 @else
                     <td style="vertical-align: middle;text-align:center;">
                          @if($columns['type'] == "text" || $columns['type'] == "time" || $columns['type'] == "date" || $columns['type'] == "number")
                             <input
                                     data-rename="{!! isset($columns['rename'])?$columns['rename']:false !!}"
-                                    data-key="{!! $columns['name'] !!}" date-type="{!! $columns['type'] !!}"
+                                    data-key="{!! $columns['name'] !!}" data-type="{!! $columns['type'] !!}"
                                     data-name="{!! $DataComposer['config']['name'] !!}[@INDEX@].{!! $columns['name'] !!}" type="{!! $columns['type'] !!}" value=""
                                     class="form-control data{!! isset($columns['body']['class'])?' '.$columns['body']['class']:'' !!}">
                          @elseif(($columns['type'] == "checkbox" || $columns['type'] == "radio") && isset($columns['data']))
                             @foreach($columns['data'] as $key=>$value)
-                                <input data-key="{!! $columns['name'] !!}" date-type="{!! $columns['type'] !!}" data-name="{!! $DataComposer['config']['name'] !!}[@INDEX@].{!! $columns['name'] !!}" type="{!! $columns['type'] !!}" value="{!! $key !!}" class="data"> {!! z_language($value) !!}
+                                <input data-key="{!! $columns['name'] !!}" data-type="{!! $columns['type'] !!}" data-name="{!! $DataComposer['config']['name'] !!}[@INDEX@].{!! $columns['name'] !!}" type="{!! $columns['type'] !!}" value="{!! $key !!}" class="data"> {!! z_language($value) !!}
                             @endforeach
+                         @elseif($columns['type'] == "callback" && isset($columns['callback']) && function_exists($columns['callback']))
+                             {!! $columns['callback'] !!}
                          @endif
                     </td>
                 @endif
@@ -121,17 +126,29 @@
                         let a = new Promise(function (resolve, reject) {
                             elements.each(function () {
                                 let type = $(this).attr('type');
-                                if(type === 'radio' || type === 'checkbox'){
-                                    let name = $(this).attr('name');
-                                    if(!group.hasOwnProperty(name)){
-                                        group[name] = [];
+                                let tagName = ($(this).prop("tagName").toLowerCase());
+                                if(tagName === "input"){
+                                    if(type === 'radio' || type === 'checkbox'){
+                                        let name = $(this).attr('name');
+                                        if(!group.hasOwnProperty(name)){
+                                            group[name] = [];
+                                        }
+                                        let checked = $(this).is(':checked');
+                                        group[name].push([$(this),checked]);
+                                    }else{
+                                        $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index));
                                     }
-                                    let checked = $(this).is(':checked');
-
-                                    group[name].push([$(this),checked]);
-                                }else{
+                                }else if(tagName === "select"){
+                                    let val = $(this).val();
+                                    console.log(val);
                                     $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index));
+                                    $(this).find('option').each(function () {
+                                        if($(this).attr('value')+"".toString() === val+"".toString()){
+                                            $(this).attr('selected','selected');
+                                        }
+                                    });
                                 }
+
                             });
                             resolve({index:_index,lists:group});
                         });
@@ -155,22 +172,28 @@
 
                 });
                 let From = $("<form></form>").html(parent.clone());
+
                 let dataJson = From.zoe_inputs('get');
+                console.log(dataJson);
                 if(dataJson.hasOwnProperty("{!! $DataComposer['config']['name'] !!}")){
                     dataJson = dataJson["{!! $DataComposer['config']['name'] !!}"];
+                    console.log(dataJson);
 
                     @if(isset($DataComposer['config']['index']))
                         for(let i in dataJson){
-                        if(dataJson[i].hasOwnProperty("{!! $DataComposer['config']['index'] !!}")){
-                            dataNewJson[dataJson[i]["{!! $DataComposer['config']['index'] !!}"]] = dataJson[i];
+                            if(dataJson[i].hasOwnProperty("{!! $DataComposer['config']['index'] !!}")){
+                                dataNewJson[dataJson[i]["{!! $DataComposer['config']['index'] !!}"]] = dataJson[i];
+                            }
                         }
-                    }
                     @else
                         dataNewJson = dataJson;
                     @endif
-                            @if(isset($DataComposer['config']['filter_data']))
+                    console.log(dataNewJson);
+                    @if(isset($DataComposer['config']['filter_data']))
                         dataNewJson = {!! $DataComposer['config']['filter_data'].'(dataNewJson);' !!}
                     @endif
+                    console.log("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}");
+
                     $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").html(JSON.stringify(dataNewJson));
                     $("#{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}").val(JSON.stringify(dataNewJson));
                 }
@@ -204,11 +227,16 @@
                     datepicker.datepicker("destroy");
                     console.log(datepicker);
                 }
+
                 if(tagName === 'select'){
+
                     if(vals.hasOwnProperty(key)){
                         $(this).find('option').each(function () {
-                            if($(this).attr('value') === vals[key])
+
+                            if($(this).attr('value')+"".toString() === vals[key]+"".toString()){
                                 $(this).attr('selected','selected');
+                            }
+
                         });
                     }
                 }else if(type === 'checkbox' || type === 'radio'){

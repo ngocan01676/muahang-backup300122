@@ -346,7 +346,7 @@
                     <dd  class="delivery-info-list-note only-sp">この時間帯は必ずご在宅ください</dd>
                     <dd  class="delivery-info-list-date">
                         @if(isset($timeShip['time']))
-                            <span  class="txt-color00 txt-bold">
+                            <span  class="txt-color00 txt-bold selectedShip" >
                                 {!!  $timeShip['year'].'年'.$timeShip['month'].'月'.$timeShip['day'].'日(日) '.$timeShip['time'] !!}
                             </span>
                         @else
@@ -388,7 +388,8 @@
                 </div>
             </div>
             <div  class="delivery-footer-btn">
-                <button  class="btn btn-primary btn-color04 btn-lg{!! isset($timeShip['time'])?"disabled":"" !!}">
+
+                <button  class="btn btn-primary btn-color04 btn-lg{!! !isset($timeShip['time'])?" disabled":"" !!}">
                     日時を選択してください
                 </button>
             </div>

@@ -72,9 +72,8 @@
                 {!! Form::hidden('id',0) !!}
                 {!! Form::hidden('status',1) !!}
                 {!! Form::hidden('featured',1) !!}
-
                 {!! Form::hidden('product_id',$product_id) !!}
-
+                {!! Form::hidden('lang',0) !!}
                 <table class="table table-borderless">
                     <tbody>
                     <tr>

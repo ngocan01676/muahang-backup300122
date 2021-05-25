@@ -28,17 +28,19 @@ class CategoryController extends \Zoe\Http\ControllerBackend
     public function ajax(Request $request)
     {
         $post = $request->all();
+
         if (isset($post['act'])) {
             if ($post['act'] == "info") {
                 $data = $post['data'];
 
+                $is_lang = isset($post['lang'])?$post['lang']==1:false;
 
                 $filter = [
                     'name' => 'required',
                     'description' => 'required',
                 ];
                 if(
-                    isset($this->data['configs']['core']['language']['multiple'])
+                    isset($this->data['configs']['core']['language']['multiple']) && $is_lang
 //                    && isset($data['type']) &&  isset($this->data['configs']['core']['language']['type'][$data['type']])
                 ){
                     $newFilter = [];

@@ -103,6 +103,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
     public function store(Request $request){
 
         $data = $request->all();
+
         $validator = Validator::make($data, [
             'group_id' => 'required',
             'title' => 'required',
@@ -146,6 +147,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->price_buy = $data['price_buy'];
             $model->type_excel = $data['type_excel'];
             $model->order_index = isset($data['order_index'])?$data['order_index']:0;
+            $model->prototype = isset($data['prototype'])?$data['prototype']:'[]';
             $model->save();
             $this->log('shop_js:product',$type,['id'=>$model->id]);
             $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));

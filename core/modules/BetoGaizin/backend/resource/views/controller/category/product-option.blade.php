@@ -1,9 +1,9 @@
 @section('content-header')
     <h1>
-        &starf; {!! @z_language(["Công Ty"]) !!}
+        &starf; {!! @z_language(["Manager Blog Category"]) !!}
         <small>it all starts here</small>
         <a href="#" id="btnCreate"
-           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Thêm mới"]) !!} </a>
+           class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Add New"]) !!} </a>
     </h1>
 @endsection
 @section('content')
@@ -12,7 +12,7 @@
     <div class="col-md-6">
         <div class="box box-zoe">
             <div class="box-header with-border">
-                <h3 class="box-title">{!! @z_language(["Quản lý công ty"]) !!}</h3>
+                <h3 class="box-title">{!! @z_language(["Category List"]) !!}</h3>
 
             </div>
             <div class="box-body">
@@ -58,10 +58,15 @@
             </div>
         </div>
     </div>
+
+
+
     <div class="col-md-6">
+
         <div class="box box-zoe">
             <div class="box-header with-border">
-                <h3 class="box-title" id="form-title">{{ z_language('Tạo chuyên mục')}}</h3>
+                <h3 class="box-title" id="form-title">{{ z_language('Category Create')}}</h3>
+
             </div>
             <div class="box-body">
                 {!! Form::open(['method' => 'POST','id'=>'form_store']) !!}
@@ -69,136 +74,142 @@
                 {!! Form::hidden('is_slug',$is_slug) !!}
                 {!! Form::hidden('id',0) !!}
                 {!! Form::hidden('class_nestable',$class_nestable) !!}
-                <table class="table table-borderless">
-                    <tbody>
+                @if(isset($configs['core']['language']['multiple']))
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs" {{$current_language}}>
 
-                    <tr>
-                        <td>
-                            {!! Form::label('name', z_language('Tên'), ['class' => 'name']) !!} (<span
-                                class="req">*</span>):
-                            {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>'Tiêu đề']) !!}
-                            <span class="error help-block"></span>
-                        </td>
-                    </tr>
+                            @foreach($language as $lang=>$_language)
+                                @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                                    <li @if($current_language == $lang) class="active" @endif {{$lang}}><a href="#tab_{{$lang}}"
+                                                                                                           data-toggle="tab"><span
+                                                    class="flag-icon flag-icon-{{$_language['flag']}}"></span></a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                        <div class="tab-content">
+                            @foreach($language as $lang=>$_language)
+                                @if(
+                                isset($configs['core']['language']['lists']) &&
+                                (is_string($configs['core']['language']['lists']) &&
+                                $configs['core']['language']['lists'] == $_language['lang']||
+                                is_array($configs['core']['language']['lists']) &&  in_array($_language['lang'],$configs['core']['language']['lists'])) )
 
-                    <tr>
-                        <td>
-                            {!! Form::label('description', z_language('Mô tả'), ['class' => 'description']) !!} (<span
-                                class="req">*</span>):
-                            {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Mô tả','cols'=>5,'rows'=>5]) !!}
-                            <span class="error help-block"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td  @if($errors->any() && $errors->getBag("default")->hasAny("ship")) class="error" @endif>
-                            @php $lists_ship = config('shop_ja.configs.lists_ship');  @endphp
-                            {!! Form::label('ship', z_language('Đơn vị giao hàng'), ['class' => '']) !!} (<span
-                                class="req">*</span>):
-                            @php $category = get_category_type('shop-ja:japan:category:com-ship'); @endphp :
-                            <select name="data.ship" class="form-control">
-                                @foreach($category as $k=>$val)
-                                    <option value="{!! $val->id !!}">{!! $val->name !!}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->any())
-                                <p class="text-error">
-                                    @if($errors->any() && $errors->getBag("default")->hasAny("data_ship"))
-                                        @foreach ($errors->getBag("default")->get("data_ship") as $error)
-                                            {{ $error }}
-                                        @endforeach
-                                    @endif
-                                </p>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Cấu hình: Daibiki</th>  
-                    </tr>
-                    <tr>
+                                    <div  class="tab-pane @if($current_language == $lang) active @endif" id="tab_{{$lang}}">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    {!! Form::label('name_'.$lang, z_language('Name'), ['class' => 'name']) !!}
+                                                    {!! Form::text('name_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Title')]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {!! Form::label('slug_'.$lang, z_language('Uri'), ['class' => 'name']) !!}
+                                                    {!! Form::text('slug_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Uri')]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {!! Form::label('description_'.$lang, z_language('Description'), ['class' => 'description']) !!}
+                                                    {!! Form::textarea('description_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Category Description'),'cols'=>5,'rows'=>5]) !!}
+                                                    <span class="error help-block"></span>
+                                                </td>
+                                            </tr>
 
-                        <td>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td>
+                                {!! Form::label('id_router_url', z_language('Router enabled'), ['class' => 'status']) !!}
+                                {!! Form::radio('router_enabled', '1' , true) !!} Yes
+                                {!! Form::radio('router_enabled', '2',false) !!} No
 
-                            <table class="table table-bordered wrap_rows" id="wrap">
-                                @php
-                                    $lists_uint = array_merge([0=>"Default"],config('shop_ja.configs.lists_uint'));
-                                @endphp
-                                @foreach($lists_uint as $key=>$value)
-                                    <tr>
-                                        <td>
-                                            <table class="table table-bordered wrap_rows" id="wrap_{!! $key !!}">
-                                                <thead>
-                                                <tr>
-                                                    <td colspan="7">
-                                                        {!! Form::label('data.'.$key, Illuminate\Support\Str::studly($value), ['class' => 'name']) !!}
-                                                    </td>
-                                                </tr>
-                                                <tr class="template" data-index="@INDEX@">
-                                                    <td class="text-center">
-                                                        0
-                                                    </td>
-                                                    <td><input data-key="value_start" data-name="data[{!! $key !!}][@INDEX@].value_start"  class="data form-control text_start" placeholder="Giá trị 1" type="text"></td>
-                                                    <td>
-                                                        @php
-                                                            $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
-                                                        @endphp
-                                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal_start','data-key'=>'equal_start','data-name'=>"data[".$key."][@INDEX@].equal_start"]); !!}
-                                                    </td>
-                                                    <td>
-                                                        @php
-                                                            $lists_equal = ['='=>'=','>'=>'>','<'=>'<','>='=>'≥','<='=>'≤'];
-                                                        @endphp
-                                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control equal_end','data-key'=>'equal_end','data-name'=>"data[".$key."][@INDEX@].equal_end"]); !!}
-                                                    </td>
-                                                    <td><input data-key="value_end" data-name="data[{!! $key !!}][@INDEX@].value_end"  class="data form-control text_end" placeholder="Giá trị 2" type="text"></td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('router_name', z_language('Router Name'), ['class' => 'name']) !!}
+                                {!! Form::text('router_name',null, ['class' => 'form-control','placeholder'=>z_language('Router Name')]) !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('id_status', z_language('Status'), ['class' => 'status']) !!}
+                                {!! Form::radio('status', '1' , true) !!} Yes
+                                {!! Form::radio('status', '2',false) !!} No
 
-                                                    <td>
-                                                        @php
-                                                            $lists_equal = ['count'=>'Count','totalPrice'=>'totalPrice'];
-                                                        @endphp
-                                                        {!! Form::select(null, array_merge($lists_equal),null,['class'=>'data form-control col','data-key'=>'col','data-name'=>"data[".$key."][@INDEX@].col"]); !!}
-                                                    </td>
-                                                    <td><input  data-key="value" data-name="data[{!! $key !!}][@INDEX@].value" class="data form-control value" placeholder="Giá trị" type="text"></td>
-
-
-                                                    <td class="text-center">
-                                                        <button type="button" data-id="#wrap_{!! $key !!}" class="add btn btn-success btn-xs" onclick="add(this)">Thêm</button>
-                                                        <button style="display: none" type="button" data-id="#wrap_{!! $key !!}" class="remove btn btn-danger btn-xs" onclick="remove(this)">Xóa</button>
-                                                    </td>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('featured', z_language('Featured'), ['class' => 'featured']) !!}
+                                {!! Form::radio('featured', '1' , false) !!} Yes
+                                {!! Form::radio('featured', '2',true) !!} No
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @includeIf($views)
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                @else
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td>
+                                {!! Form::label('name', z_language('Name'), ['class' => 'name']) !!}
+                                {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>'Tiêu đề']) !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
 
 
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
-                            {!! Form::radio('status', '1' , true) !!} Yes
-                            {!! Form::radio('status', '0',false) !!} No
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {!! Form::label('featured', 'Featured', ['class' => 'featured']) !!}
-                            {!! Form::radio('featured', '1' , false) !!} Yes
-                            {!! Form::radio('featured', '0',true) !!} No
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('description', z_language('Description'), ['class' => 'description']) !!}
+                                {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Mô tả','cols'=>5,'rows'=>5]) !!}
+                                <span class="error help-block"></span>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            @includeIf($views)
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <tr>
+                            <td>
+                                {!! Form::label('id_status', 'Status', ['class' => 'status']) !!}
+                                {!! Form::radio('status', '1' , true) !!} Yes
+                                {!! Form::radio('status', '0',false) !!} No
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {!! Form::label('featured', 'Featured', ['class' => 'featured']) !!}
+                                {!! Form::radio('featured', '1' , false) !!} Yes
+                                {!! Form::radio('featured', '0',true) !!} No
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @includeIf($views)
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                @endif
                 {!! Form::close() !!}
             </div>
             <div class="box-footer">
@@ -512,114 +523,8 @@
     </style>
 @endpush
 @push('scripts')
-    <style>
-        .SelectEdit{
-            background: green;
-        }
-    </style>
     <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
     <script>
-
-        String.prototype.trimRight = function(charlist) {
-            if (charlist === undefined)
-                charlist = "\s";
-            return this.replace(new RegExp("[" + charlist + "]+$"), "");
-        };
-        function renderData(data) {
-            $(".wrap_rows").find('tbody').empty();
-            let index = 0;
-
-            for(let k in data){
-                template($("#wrap"),data[k],index++);
-            }
-        }
-        function beforeSave(parent) {
-            let trs = parent.find('tr.Element');
-            let count = 1;
-            trs.each(function () {
-                console.log(this);
-                if(!$(this).hasClass('template')){
-                    let elements = $(this).find('.data');
-                    let _index = "";
-                    elements.each(function (index) {
-                        if(this.hasAttribute('data-index')){
-                            _index+= $(this).val().trim()+"_";
-                        }
-                    });
-                    if(_index.length === 0)
-                        _index = count++;
-                    else
-                        _index = _index.trimRight("_");
-                    $(this).attr('data-index',_index);
-                    $(this).find("td").first().empty().html(_index);
-                    elements.each(function () {
-                        $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index))
-                    });
-                }
-            });
-        }
-        function template(tbody,vals,index) {
-            let template = tbody.find('.template').clone();
-            template.removeClass('template');
-            template.find("td").first().empty().html(index+1);
-            template.addClass('Element');
-
-            template.find('.data').each(function () {
-                $(this).removeAttr('name');
-                let key = $(this).attr('data-key');
-                let tagName = ($(this).prop("tagName").toLowerCase());
-                if(tagName === 'select'){
-                    if(vals.hasOwnProperty(key)){
-                        $(this).find('option').each(function () {
-                            if($(this).attr('value') === vals[key])
-                                $(this).attr('selected','selected');
-                        });
-                    }
-
-                }else if(tagName === 'input'){
-                    if(vals.hasOwnProperty(key)){
-                        $(this).val(vals[key]);
-                    }
-                }
-            });
-            tbody.append(template);
-
-            beforeSave(tbody);
-
-            tbody.find('.template').find('.data').each(function () {
-                $(this).removeAttr('name');
-
-                if($(this).hasClass('uint')){
-                    // $(this).find('option').first().attr('selected',true);
-                }else{
-                    $(this).val('');
-                }
-            });
-        }
-        function remove(self) {
-            let _this = $(self);
-            let parent = _this.parent().parent();
-            let wrap = parent.closest(".wrap_rows").find('tbody');
-            parent.remove();
-            beforeSave(wrap);
-        }
-        function add(self){
-            let _this = $(self);
-            let parent = _this.closest(_this.attr('data-id'));
-            let tbody = parent.find('tbody');
-            let trs = tbody.find("tr");
-
-            trs.each(function () {
-                $(this).removeClass('Error');
-            });
-            let tr = parent.find('.template');
-            let vals = {"text":tr.find('.text').val(),"value":tr.find('.value').val(),'equal':tr.find('.equal').val(),'col':tr.find('.col').val()};
-            if((vals.text.length > 0 && vals.value.length > 0)){
-                template(parent,vals,trs.length);
-            }else{
-                tr.addClass('Error');
-            }
-        }
 
         $(document).ready(function () {
             function SavePosition(id, cb) {
@@ -632,7 +537,7 @@
                     data: {act: "position", data: {id: id, pos: list.nestable('serialize'), type: '{!! $type !!}'}},
                     success: function (data) {
                         $("#nestable").loading({destroy: true});
-                        $.growl.notice({ message: '{!! z_language("Cập nhật vị trí thành công") !!}' });
+                        $.growl.notice({ message: '{!! z_language("Update Position Successfully") !!}' });
                         cb(data);
                     }
                 });
@@ -644,7 +549,7 @@
                     type: "POST",
                     data: {act: "nestable", data: {id:$("input:hidden[name=id]").val(),type: '{!! $type !!}',nestable:'{!! $class_nestable !!}' } },
                     success: function (html) {
-                        $.growl.notice({ message: '{!! z_language("Đặt lại vị trí thành công") !!}' });
+                        $.growl.notice({ message: '{!! z_language("Reset Position Successfully") !!}' });
                         $("#nestable").html(html);
                         $("#nestable").loading({destroy: true});
                     }
@@ -652,31 +557,28 @@
             }
             $("#btnCreate").click(function () {
                 document.getElementById("form_store").reset();
-                var label = "{{ z_language('Tạo chuyên mục')}}";
+                var label = "{{ z_language('Category Create')}}";
                 $("#form_store input:hidden[name=id]").val(0);
                 $("#form-title").html(label);
             });
             $("#nestable").on("click", ".edit", function () {
                 var data_item = $(this).closest('.dd-item').data();
                 var form_store = $("#form_store");
-                $("#nestable").find('.SelectEdit').removeClass('SelectEdit');
-                $(this).parent().parent().children('.dd-handle').addClass('SelectEdit');
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
+
+
+
                 $.ajax({
                     url: '{{@route('backend:category:ajax')}}',
                     type: "POST",
                     data: {act: "edit", data: {id: data_item.id, type: '{!! $type !!}'}},
                     success: function (data) {
-
+                        console.log(JSON.stringify(data));
                         document.getElementById("form_store").reset();
                         if (data.hasOwnProperty("data")) {
-                            var label = "{{ z_language('Sửa chuyên mục : :Name')  }}";
+                            var label = "{{ z_language('Category Edit : :Name')  }}";
                             $("#form-title").html(label.replace(":Name", data.data.name));
-                            console.log(data.data.data);
-
-                            if(data.data.data.hasOwnProperty('config')){
-                                renderData(data.data.data.config);
-                            }
+                            console.log(data.data);
                             form_store.zoe_inputs('set', data.data);
                         } else {
 
@@ -685,41 +587,51 @@
                     }
                 });
             });
+
             $("#nestable").on("click", '.delete', function () {
-
-
-
-
-
                 var dd_item = $(this).closest('.dd-item');
                 var children = dd_item.children('ol.dd-list');
 
                 $.confirm({
-                    title: '{!! z_language("Xác nhận") !!}',
-                    content: '{!! z_language("Bạn có chắc chắn để xóa mục này?") !!}',
+                    title: '{!! z_language("Confirm") !!}',
+                    content: '{!! z_language("Are you sure to delete this item?") !!}',
                     confirmButton: 'Proceed',
                     confirmButtonClass: 'btn-info',
                     icon: 'fa fa-question-circle',
                     animation: 'scale',
                     top:0,
-                    confirm: function () {
-                        if (children.length > 0) {
-                            var parent = dd_item.parent();
-                            parent.append(children.html());
-                            dd_item.remove();
-                        } else {
-                            dd_item.remove();
-                        }
-                        SavePosition(dd_item.data('id'), function (data) {
-                            if (data.error == 0) {
+                    buttons: {
+                        yes: {
+                            isHidden: false, // hide the button
+                            keys: ['y'],
+                            action: function () {
+                                if (children.length > 0) {
+                                    var parent = dd_item.parent();
+                                    parent.append(children.html());
+                                    dd_item.remove();
+                                } else {
+                                    dd_item.remove();
+                                }
+                                SavePosition(dd_item.data('id'), function (data) {
+                                    if (data.error == 0) {
 
-                            } else {
-                                ResetNestable();
+                                    } else {
+                                        ResetNestable();
+                                    }
+                                });
                             }
-                        });
+                        },
+                        no: {
+                            keys: ['N'],
+                            action: function () {
+                                $.alert('You clicked No.');
+                            }
+                        },
                     }
                 });
             });
+
+
             var updateOutput = function (e) {
                 var list = e.length ? e : $(e.target),
                     output = list.data('output');
@@ -762,9 +674,9 @@
                                 parent.addClass('has-error');
                                 parent.find('.error').html(data.error[k].join("\n"));
                             }
-                            $.growl.error({ message:"{!! z_language('Lỗi cập nhật không thành công') !!}" });
+                            $.growl.error({ message:"{!! z_language('Error update failed') !!}" });
                         } else {
-                            $.growl.notice({ message: "{!! z_language('Cập nhật thành công') !!}" });
+                            $.growl.notice({ message: "{!! z_language('Update Successfully') !!}" });
                             ResetNestable();
                         }
                     }

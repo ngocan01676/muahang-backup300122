@@ -112,8 +112,14 @@ class HomeController extends \Zoe\Http\ControllerFront
             ]
         );
     }
-    public function getchangeEditaddress(){
-        return $this->render('home.address.edit');
+    public function getchangeEditaddress(Request $request){
+        $id = $request->id;
+
+        $model = \BetoGaizinTheme\Http\Model\AddressModel::find($id);
+
+        return $this->render('home.address.edit',[
+            'model'=>$model
+        ]);
     }
     public function getchangeCreateaddress(Request $request){
         return $this->render('home.address.edit');

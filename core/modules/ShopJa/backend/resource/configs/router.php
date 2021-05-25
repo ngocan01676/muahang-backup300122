@@ -111,7 +111,7 @@ return [
                 'shop_ja:japan:category' => [
                     "namespace" => "ShopJa\Http\Controllers",
                     "controller" => "CategoryController",
-                    "sub_prefix" => "/shop-ja/category/japan",
+                    "sub_prefix" => "/shop-ja/product/option",
 
                     "guard" => "backend",
                     "acl"=> "shop_ja:category",
@@ -124,7 +124,7 @@ return [
                             "url" => "/{product_id?}",
                             "wheres"=>['product_id'=>'[0-9]+'],
                             'defaults' => [
-                                "type" => "shop-ja:japan:category",
+                                "type" => "shop-ja:product:option",
                                 "view_render" => "shop_ja.category.show",
                                 "slug" => false,
                                 'nestable'=>'\ShopJa\Libs\CategoryNestable'
