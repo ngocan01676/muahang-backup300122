@@ -58,7 +58,8 @@
                                     <div class="btn-add-set-wrap btn-add-wrap mb0-sp mt0">
                                         <a   data-id="{!! $item->id !!}"
                                              data-count="1"
-                                             data-act="add" href="javascript:void(0);" class="btn btn-add js-btn-add-switch" style="display:;">
+                                             data-cate="{!! $item->category_id !!}"
+                                             data-act="add" href="javascript:void(0);" class="btn btn-add js-btn-add-switch" >
                                             <i class="svg-icon icon-cart-02"></i>かごに追加
                                         </a>
                                         <div class="btn-set-wrap" style="display:none;">
