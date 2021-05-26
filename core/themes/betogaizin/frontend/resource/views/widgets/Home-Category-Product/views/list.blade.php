@@ -95,6 +95,35 @@
                 slidesToScroll: 5,
                 prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
                 nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 4,
+                            prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
+                            nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
+                            nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2,
+                            prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
+                            nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
+                        }
+                    }
+                ]
             });
         </script>
     @endpush

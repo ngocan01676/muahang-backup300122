@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <head>
-    @includeIf('theme::layout.head')
+    @if(isset($_isMobile) && $_isMobile)
+        @includeIf('theme::layout.mobile.head')
+    @else
+        @includeIf('theme::layout.head')
+    @endif
 </head>
 <body>
 
 {{CONTENT}}
-
-@includeIf('theme::layout.footer')
-
+  @if(isset($_isMobile) && $_isMobile)
+       @includeIf('theme::layout.mobile.footer')
+  @else
+       @includeIf('theme::layout.footer')
+  @endif
 </body>
 </html>
