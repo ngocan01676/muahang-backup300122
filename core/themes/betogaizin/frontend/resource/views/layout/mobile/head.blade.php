@@ -127,9 +127,7 @@
     <link data-n-head="ssr" rel="shortcut icon" href="https://sm.rakuten.co.jp/favicon.ico">
     <link data-n-head="ssr" rel="stylesheet" href="https://sm.rakuten.co.jp/css/sp/style.css">
     <link data-n-head="ssr" rel="canonical" href="https://sm.rakuten.co.jp/">
-    <link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9zbS5yYWt1dGVuLmNvLmpwLw">
-    <script data-n-head="ssr" src="//cdn-blocks.karte.io/a990b44ed1c434f8aeb3d7d948181d32/builder.js" data-body="false"></script>
-    <style></style>
+
     <script data-n-head="ssr" src="//www.googletagmanager.com/gtm.js?id=GTM-MN82X2Z&amp;l=dataLayer" async=""></script>
 
     <style data-vue-ssr-id="bc665e54:0 68ee8c94:0 ea3b7714:0 fd547dac:0 6635373b:0 6bff294a:0 09b0fbd0:0 893e5ac8:0 1c4ef2a3:0 2aa3358a:0 7355a148:0 7e99d7e5:0 59ae5254:0 c3fecebe:0">
