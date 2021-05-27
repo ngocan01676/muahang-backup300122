@@ -1,5 +1,4 @@
 @if(isset($_isMobile) && $_isMobile)
-
     <header class="header with-border-bottom only-sp">
         <div></div>
         <div class="header-inner">
@@ -96,6 +95,105 @@
         </div>
         <!---->
     </header>
+    <aside class="sp-drawer-area only-sp">
+        <div class="sp-drawer-bg">
+            <div class="sp-drawer-close-btn">
+                <p><a href="javascript:void(0);"><span class="line">&nbsp;</span> <span class="line">&nbsp;</span></a>
+                </p>
+            </div>
+        </div>
+        <div class="sp-drawer-menu">
+            <div class="sp-drawer-menuIn">
+                <div class="user-info-block">
+                    <div class="co-name co-name-login">
+                        <p><a href="https://www.rakuten.co.jp/">楽天市場</a>
+                        </p>
+                    </div>
+                    <div class="name">
+                        <p><a href="https://my.rakuten.co.jp/">TruongThieuHuyen</a><span class="unit">さん</span>
+                        </p>
+                    </div>
+                    <div class="point">
+                        <p><a href="https://point.rakuten.co.jp/" class="svg-icon icon-18 icon-point">0</a>  <span class="unit">ポイント</span>
+                        </p>
+                    </div>
+                    <div class="large-btn">
+                        <ul>
+                            <li><a href="javascript:void(0);"><span class="svg-icon icon-28 icon-cart-black">買い物かご</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="link-wrap-type-a">
+                    <p class="top-level-link"><a href="javascript:void(0);"><span class="svg-icon icon-comments">お知らせ</span></a>
+                    </p>
+                </div>
+                <div class="link-wrap-type-a">
+                    <p class="top-level-link"><a href="javascript:void(0);"><span class="svg-icon icon-mypage">マイページ</span></a>
+                    </p>
+                    <ul>
+                        <li><a href="javascript:void(0);">注文履歴一覧</a>
+                        </li>
+                        <li><a href="javascript:void(0);">お届け先情報の変更</a>
+                        </li>
+                        <li><a href="javascript:void(0);">購入履歴</a>
+                        </li>
+                        <li><a href="javascript:void(0);">お気に入り</a>
+                        </li>
+                        <li><a href="https://coupon.rakuten.co.jp/myCoupon?system=楽天西友ネットスーパー">myクーポン</a>
+                        </li>
+                        <li><a href="https://member.id.rakuten.co.jp/rms/nid/menufwd">楽天会員情報の確認・変更</a>
+                        </li>
+                        <li><a href="javascript:void(0);">企業/団体コード</a>
+                        </li>
+                        <li><a href="https://emagazine.rakuten.co.jp/">メールマガジンの購読・配信停止</a>
+                        </li>
+                        <li><a href="javascript:void(0);">欠品お知らせメールの受信・配信停止</a>
+                        </li>
+                        <!---->
+                    </ul>
+                </div>
+                <div class="link-wrap-type-b">
+                    <ul>
+                        <li><a href="https://sm.faq.rakuten.net/?l-id=_footer_help">ヘルプ</a>
+                        </li>
+                        <li><a href="javascript:void(0);">はじめての方へ</a>
+                        </li>
+                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003093?l-id=_footer_member_regist">会員登録方法</a>
+                        </li>
+                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003081?l-id=_footer_deliveryfee">配送料・利用料</a>
+                        </li>
+                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003114?l-id=_footer_deliverytime">配送時間</a>
+                        </li>
+                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003122?l-id=_footer_payment">お支払い方法</a>
+                        </li>
+                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003089?l-id=_footer_coupon">クーポンの使い方</a>
+                        </li>
+                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003117?l-id=_footer_cancel">ご注文のキャンセル</a>
+                        </li>
+                        <li><a href="javascript:void(0);">再配送手続き</a>
+                        </li>
+                        <li><a href="/promotion/area.html?l-id=_footer_area">配送エリア一覧</a>
+                        </li>
+                        <li><a href="/info/liquor?l-id=_footer_shuruikanri">酒類販売管理者標識</a>
+                        </li>
+                        <li><a href="https://sm.faq.rakuten.net/s/ask?l-id=_footer_ask">お問い合わせ</a>
+                        </li>
+                        <li><a href="/promotion/corporation.html?l-id=_footer_b2b">法人様のご利用について</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="user-info-block">
+                    <div class="large-btn-wh">
+                        <ul>
+                            <li><a data-auto-id="logout-btn-sp" href="javascript:void(0);">ログアウト</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
 @else
     <header class="header only-pc">
         <div class="rc-h-utility-bar">

@@ -20,7 +20,27 @@ class HomeController extends \Zoe\Http\ControllerFront
     {
 
     }
+    public function getCategoryGroupProduct($slug,$id){
+        $total_records = DB::table('shop_product')->where('group_id',$id)->count();
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $limit = 10;
+        $total_page = ceil($total_records / $limit);
+        if ($current_page > $total_page){
+            $current_page = $total_page;
+        }
+        else if ($current_page < 1){
+            $current_page = 1;
+        }
+        $start = ($current_page - 1) * $limit;
+        $results = DB::table('shop_product')->where('group_id',$id)->offset($start)->limit($limit)->get()->all();
 
+        return $this->render('home.category-product', [
+            'results'=>$results,
+            'current_page'=>$current_page,
+            'total_page'=>$total_page,
+            'cate'=>(array)DB::table('categories')->select(['id','slug'])->where('id',$id)->get()->first()
+        ]);
+    }
     public function getCategoryProduct($slug,$id){
         $total_records = DB::table('shop_product')->where('category_id',$id)->count();
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;

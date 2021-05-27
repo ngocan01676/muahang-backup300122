@@ -1,5 +1,5 @@
-<div>
-    <div id="NG_0000000339" style="margin: 0px; padding: 0px; display: none;"></div>
+@if(!isset($_isMobile) || !$_isMobile)
+
     <div id="0000000339" style="margin: 0px; padding: 0px;">
         <div class="bnr-area">
             <ul>
@@ -9,4 +9,4 @@
         </div>
     </div>
     <noscript></noscript>
-</div>
+@endif

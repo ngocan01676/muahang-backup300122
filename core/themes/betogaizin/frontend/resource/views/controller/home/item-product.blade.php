@@ -26,27 +26,43 @@
                             {{--<p class="product-detail-info">88ml</p>--}}
                         </div>
                     </div>
+                    @if(isset($_isMobile) && $_isMobile)
                     <div class="product-detail-sp-visual">
-                        <ul class="product-detail-sp-visual-slick slick-initialized slick-slider slick-dotted">
-                            <div class="slick-list draggable">
-                                <div class="slick-track" style="opacity: 1; width: 0px; transform: translate3d(0px, 0px, 0px);">
-                                    <li class="js-image-magnify-trigger slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 0px;">
-                                        <a href="//sm.r10s.jp/item/07/4976994206307.jpg?fit=inside|630:630&amp;composite-to=*,*|630:630&amp;background-color=white"
-                                           data-modal="img" class="js-modal-trigger img-label-wrap label-large" tabindex="0">
-                                            <img src="//sm.r10s.jp/item/07/4976994206307.jpg?fit=inside|300:300&amp;composite-to=*,*|300:300&amp;background-color=white" alt="">
-                                            <span class="img-label pos2"><i class="svg-mark-item mark-1"></i></span>
-                                            <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>
-                                        </a>
-                                    </li>
-                                </div>
-                            </div>
-                            <ul class="slick-dots" role="tablist">
-                                <li class="slick-active" role="presentation">
-                                    <button type="button" role="tab" id="slick-slide-control00" aria-controls="slick-slide00" aria-label="1 of 1" tabindex="0" aria-selected="true">1</button>
-                                </li>
-                            </ul>
+                        <ul class="product-detail-sp-visual-slick">
+                            <li class="js-image-magnify-trigger slick-slide">
+                                <a href="{!! $item->image !!}"
+                                   data-modal="img" class="js-modal-trigger img-label-wrap label-large" tabindex="0">
+                                    <img src="{!! $item->image !!}" alt="">
+                                    <span class="img-label pos2"><i class="svg-mark-item mark-1"></i></span>
+                                    <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>
+                                </a>
+                            </li>
+                            <li class="js-image-magnify-trigger slick-slide">
+                                <a href="{!! $item->image !!}"
+                                   data-modal="img" class="js-modal-trigger img-label-wrap label-large" tabindex="0">
+                                    <img src="{!! $item->image !!}" alt="">
+                                    <span class="img-label pos2"><i class="svg-mark-item mark-1"></i></span>
+                                    <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>
+                                </a>
+                            </li>
                         </ul>
+                        <a href="javascript:void(0);" class="slick-arrow next" ><span>&nbsp;</span></a>
+                        <a href="javascript:void(0);" class="slick-arrow prev" style=""><span>&nbsp;</span></a>
                     </div>
+                        @push('scripts')
+                            <script>
+                                $('.product-detail-sp-visual-slick').slick({
+                                    dots: true,
+                                    infinite: true,
+                                    speed: 300,
+                                    slidesToShow: 1,
+                                    adaptiveHeight: true,
+                                    prevArrow: $(".product-detail-sp-visual .prev"),
+                                    nextArrow: $('.product-detail-sp-visual .next'),
+                                });
+                            </script>
+                        @endpush
+                    @endif
                     <div class="product-detail-info-block">
                         <div class="product-detail-price-area">
                             <p class="product-detail-price">{!! $item->price_buy !!}<span class="unit">円</span></p>
@@ -292,5 +308,6 @@
                 nextArrow: $('#ppz_recommend04 .product-carousel .next-btn'),
             });
         </script>
+
     @endpush
 @endsection

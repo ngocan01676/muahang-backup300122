@@ -470,6 +470,13 @@
                 window.location.href = "/cart";
             }
         });
+        $(".js-sp-side-menu-trigger").click(function () {
+            $('body').addClass('show-drawer');
+        });
+        $(".sp-drawer-bg").click(function () {
+            $('body').removeClass('show-drawer');
+            console.log("121212121")
+        })
         //
         // $('.minicart-dropdown-trigger').hover(function () {
         //     $(this).addClass('hover');
@@ -502,5 +509,3 @@
 @stack('scripts')
 @section('extra-script')
 @show
-</body>
-</html>

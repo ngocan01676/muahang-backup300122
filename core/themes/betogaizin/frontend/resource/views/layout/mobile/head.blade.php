@@ -1,116 +1,6 @@
-<html class="">
-<title>Demo</title>
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<script type="text/javascript">
-    var spector;
-    var captureOnLoad = false;
-    var captureOffScreen = false;
-    window.__SPECTOR_Canvases = [];
 
-    (function() {
-        var __SPECTOR_Origin_EXTENSION_GetContext = HTMLCanvasElement.prototype.getContext;
-        HTMLCanvasElement.prototype.__SPECTOR_Origin_EXTENSION_GetContext = __SPECTOR_Origin_EXTENSION_GetContext;
-
-        if (typeof OffscreenCanvas !== 'undefined') {
-            var __SPECTOR_Origin_EXTENSION_OffscreenGetContext = OffscreenCanvas.prototype.getContext;
-            OffscreenCanvas.prototype.__SPECTOR_Origin_EXTENSION_OffscreenGetContext = __SPECTOR_Origin_EXTENSION_OffscreenGetContext;
-
-            OffscreenCanvas.prototype.getContext = function () {
-                var context = null;
-                if (!arguments.length) {
-                    return context;
-                }
-
-                if (arguments.length === 1) {
-                    context = this.__SPECTOR_Origin_EXTENSION_OffscreenGetContext(arguments[0]);
-                    if (context === null) {
-                        return context;
-                    }
-                }
-                else if (arguments.length === 2) {
-                    context = this.__SPECTOR_Origin_EXTENSION_OffscreenGetContext(arguments[0], arguments[1]);
-                    if (context === null) {
-                        return context;
-                    }
-                }
-
-                var contextNames = ["webgl", "experimental-webgl", "webgl2", "experimental-webgl2"];
-                if (contextNames.indexOf(arguments[0]) !== -1) {
-                    // context.canvas.setAttribute("__spector_context_type", arguments[0]);
-                    // Notify the page a canvas is available.
-                    var myEvent = new CustomEvent("SpectorWebGLCanvasAvailableEvent");
-                    document.dispatchEvent(myEvent);
-                    this.id = "Offscreen";
-                    window.__SPECTOR_Canvases.push(this);
-
-                    if (captureOnLoad) {
-                        // Ensures canvas is in the dom to capture the one we are currently tracking.
-                        if (false) {
-                            spector.captureContext(context, 500, false, false);
-                            captureOnLoad = false;
-                        }
-                    }
-                }
-
-                return context;
-            }
-        }
-
-        HTMLCanvasElement.prototype.getContext = function () {
-            var context = null;
-            if (!arguments.length) {
-                return context;
-            }
-
-            if (arguments.length === 1) {
-                context = this.__SPECTOR_Origin_EXTENSION_GetContext(arguments[0]);
-                if (context === null) {
-                    return context;
-                }
-            }
-            else if (arguments.length === 2) {
-                context = this.__SPECTOR_Origin_EXTENSION_GetContext(arguments[0], arguments[1]);
-                if (context === null) {
-                    return context;
-                }
-            }
-
-            var contextNames = ["webgl", "experimental-webgl", "webgl2", "experimental-webgl2"];
-            if (contextNames.indexOf(arguments[0]) !== -1) {
-                context.canvas.setAttribute("__spector_context_type", arguments[0]);
-                // Notify the page a canvas is available.
-                var myEvent = new CustomEvent("SpectorWebGLCanvasAvailableEvent");
-                document.dispatchEvent(myEvent);
-
-                if (captureOffScreen) {
-                    var found = false;
-                    for (var i = 0; i < window.__SPECTOR_Canvases.length; i++) {
-                        if (window.__SPECTOR_Canvases[i] === this) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        window.__SPECTOR_Canvases.push(this);
-                    }
-                }
-
-                if (captureOnLoad) {
-                    // Ensures canvas is in the dom to capture the one we are currently tracking.
-                    if (this.parentElement || false) {
-                        spector.captureContext(context, 500, false, false);
-                        captureOnLoad = false;
-                    }
-                }
-            }
-
-            return context;
-        }
-    })()
-</script>
-
-<head>
     <title>楽天西友ネットスーパー｜食品・日用品をいつでも安く最短当日宅配</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta data-n-head="ssr" charset="utf-8">
     <meta data-n-head="ssr" name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0">
     <meta data-n-head="ssr" property="og:site_name" content="楽天西友ネットスーパー">
@@ -119,7 +9,7 @@
     <meta data-n-head="ssr" data-hid="description" name="description" content="楽天と西友のネットスーパー「楽天西友ネットスーパー」の公式サイト。一定金額以上購入で送料無料。最短当日配送。毎日の食品や日用品が、いつだって安い！商品豊富に揃ってます。24時間受付、インターネットの宅配サービスです。">
     <meta data-n-head="ssr" data-hid="keywords" name="keywords" content="楽天西友ネットスーパー,楽天SEIYUネットスーパー,西友,SEIYU,ネットスーパー,楽天市場,通信販売,通販">
     <meta data-n-head="ssr" property="og:title" content="楽天西友ネットスーパー｜食品・日用品をいつでも安く最短当日宅配">
-    <meta data-n-head="ssr" property="og:url" content="https://sm.rakuten.co.jp/">
+    <meta data-n-head="ssr" property="og:url" content="">
     <meta data-n-head="ssr" property="og:description" content="楽天と西友のネットスーパー「楽天西友ネットスーパー」の公式サイト。一定金額以上購入で送料無料。最短当日配送。毎日の食品や日用品が、いつだって安い！商品豊富に揃ってます。24時間受付、インターネットの宅配サービスです。">
     <meta data-n-head="ssr" property="og:image" content="https://sm.rakuten.co.jp/img/ogp.png">
     <link data-n-head="ssr" rel="icon" type="image/x-icon" href="https://sm.rakuten.co.jp/favicon.ico">
@@ -127,8 +17,6 @@
     <link data-n-head="ssr" rel="shortcut icon" href="https://sm.rakuten.co.jp/favicon.ico">
     <link data-n-head="ssr" rel="stylesheet" href="https://sm.rakuten.co.jp/css/sp/style.css">
     <link data-n-head="ssr" rel="canonical" href="https://sm.rakuten.co.jp/">
-
-    <script data-n-head="ssr" src="//www.googletagmanager.com/gtm.js?id=GTM-MN82X2Z&amp;l=dataLayer" async=""></script>
 
     <style data-vue-ssr-id="bc665e54:0 68ee8c94:0 ea3b7714:0 fd547dac:0 6635373b:0 6bff294a:0 09b0fbd0:0 893e5ac8:0 1c4ef2a3:0 2aa3358a:0 7355a148:0 7e99d7e5:0 59ae5254:0 c3fecebe:0">
         /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}[hidden],template{display:none}
@@ -226,7 +114,6 @@
     <style type="text/css">
         .loading-wave-dots[data-v-46b20d22]{position:relative}.loading-wave-dots[data-v-46b20d22] .wave-item{position:absolute;top:50%;left:50%;display:inline-block;margin-top:-4px;width:8px;height:8px;border-radius:50%;-webkit-animation:loading-wave-dots-data-v-46b20d22 linear 2.8s infinite;animation:loading-wave-dots-data-v-46b20d22 linear 2.8s infinite}.loading-wave-dots[data-v-46b20d22] .wave-item:first-child{margin-left:-36px}.loading-wave-dots[data-v-46b20d22] .wave-item:nth-child(2){margin-left:-20px;-webkit-animation-delay:.14s;animation-delay:.14s}.loading-wave-dots[data-v-46b20d22] .wave-item:nth-child(3){margin-left:-4px;-webkit-animation-delay:.28s;animation-delay:.28s}.loading-wave-dots[data-v-46b20d22] .wave-item:nth-child(4){margin-left:12px;-webkit-animation-delay:.42s;animation-delay:.42s}.loading-wave-dots[data-v-46b20d22] .wave-item:last-child{margin-left:28px;-webkit-animation-delay:.56s;animation-delay:.56s}@-webkit-keyframes loading-wave-dots-data-v-46b20d22{0%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}10%{-webkit-transform:translateY(-6px);transform:translateY(-6px);background:#999}20%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}to{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}}@keyframes loading-wave-dots-data-v-46b20d22{0%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}10%{-webkit-transform:translateY(-6px);transform:translateY(-6px);background:#999}20%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}to{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}}.loading-circles[data-v-46b20d22] .circle-item{width:5px;height:5px;-webkit-animation:loading-circles-data-v-46b20d22 linear .75s infinite;animation:loading-circles-data-v-46b20d22 linear .75s infinite}.loading-circles[data-v-46b20d22] .circle-item:first-child{margin-top:-14.5px;margin-left:-2.5px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(2){margin-top:-11.26px;margin-left:6.26px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(3){margin-top:-2.5px;margin-left:9.5px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(4){margin-top:6.26px;margin-left:6.26px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(5){margin-top:9.5px;margin-left:-2.5px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(6){margin-top:6.26px;margin-left:-11.26px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(7){margin-top:-2.5px;margin-left:-14.5px}.loading-circles[data-v-46b20d22] .circle-item:last-child{margin-top:-11.26px;margin-left:-11.26px}@-webkit-keyframes loading-circles-data-v-46b20d22{0%{background:#dfdfdf}90%{background:#505050}to{background:#dfdfdf}}@keyframes loading-circles-data-v-46b20d22{0%{background:#dfdfdf}90%{background:#505050}to{background:#dfdfdf}}.loading-bubbles[data-v-46b20d22] .bubble-item{background:#666;-webkit-animation:loading-bubbles-data-v-46b20d22 linear .75s infinite;animation:loading-bubbles-data-v-46b20d22 linear .75s infinite}.loading-bubbles[data-v-46b20d22] .bubble-item:first-child{margin-top:-12.5px;margin-left:-.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(2){margin-top:-9.26px;margin-left:8.26px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(3){margin-top:-.5px;margin-left:11.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(4){margin-top:8.26px;margin-left:8.26px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(5){margin-top:11.5px;margin-left:-.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(6){margin-top:8.26px;margin-left:-9.26px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(7){margin-top:-.5px;margin-left:-12.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:last-child{margin-top:-9.26px;margin-left:-9.26px}@-webkit-keyframes loading-bubbles-data-v-46b20d22{0%{width:1px;height:1px;box-shadow:0 0 0 3px #666}90%{width:1px;height:1px;box-shadow:0 0 0 0 #666}to{width:1px;height:1px;box-shadow:0 0 0 3px #666}}@keyframes loading-bubbles-data-v-46b20d22{0%{width:1px;height:1px;box-shadow:0 0 0 3px #666}90%{width:1px;height:1px;box-shadow:0 0 0 0 #666}to{width:1px;height:1px;box-shadow:0 0 0 3px #666}}.loading-default[data-v-46b20d22]{position:relative;border:1px solid #999;-webkit-animation:loading-rotating-data-v-46b20d22 ease 1.5s infinite;animation:loading-rotating-data-v-46b20d22 ease 1.5s infinite}.loading-default[data-v-46b20d22]:before{content:"";position:absolute;display:block;top:0;left:50%;margin-top:-3px;margin-left:-3px;width:6px;height:6px;background-color:#999;border-radius:50%}.loading-spiral[data-v-46b20d22]{border:2px solid #777;border-right-color:transparent;-webkit-animation:loading-rotating-data-v-46b20d22 linear .85s infinite;animation:loading-rotating-data-v-46b20d22 linear .85s infinite}@-webkit-keyframes loading-rotating-data-v-46b20d22{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@keyframes loading-rotating-data-v-46b20d22{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}.loading-bubbles[data-v-46b20d22],.loading-circles[data-v-46b20d22]{position:relative}.loading-bubbles[data-v-46b20d22] .bubble-item,.loading-circles[data-v-46b20d22] .circle-item{position:absolute;top:50%;left:50%;display:inline-block;border-radius:50%}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(2),.loading-circles[data-v-46b20d22] .circle-item:nth-child(2){-webkit-animation-delay:93ms;animation-delay:93ms}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(3),.loading-circles[data-v-46b20d22] .circle-item:nth-child(3){-webkit-animation-delay:.186s;animation-delay:.186s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(4),.loading-circles[data-v-46b20d22] .circle-item:nth-child(4){-webkit-animation-delay:.279s;animation-delay:.279s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(5),.loading-circles[data-v-46b20d22] .circle-item:nth-child(5){-webkit-animation-delay:.372s;animation-delay:.372s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(6),.loading-circles[data-v-46b20d22] .circle-item:nth-child(6){-webkit-animation-delay:.465s;animation-delay:.465s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(7),.loading-circles[data-v-46b20d22] .circle-item:nth-child(7){-webkit-animation-delay:.558s;animation-delay:.558s}.loading-bubbles[data-v-46b20d22] .bubble-item:last-child,.loading-circles[data-v-46b20d22] .circle-item:last-child{-webkit-animation-delay:.651s;animation-delay:.651s}
     </style>
-
     <style type="text/css">
         pre[data-v-c63beacc]{padding-left:0;margin:1em 0;white-space:pre-wrap;word-wrap:break-word;text-align:justify}
     </style>
@@ -239,5 +126,3 @@
     <style type="text/css">
         .title-wrapper[data-v-72224b09]{display:flex;justify-content:space-between;align-items:center;border-radius:4px}.order-link[data-v-72224b09]{border:1px solid #002faf;border-radius:4px;padding:10px 11px;color:#002faf}.order-link[data-v-72224b09]:hover{text-decoration:none;opacity:.65}
     </style>
-
-</head>

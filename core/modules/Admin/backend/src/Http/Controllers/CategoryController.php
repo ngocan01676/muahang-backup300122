@@ -33,7 +33,7 @@ class CategoryController extends \Zoe\Http\ControllerBackend
             if ($post['act'] == "info") {
                 $data = $post['data'];
 
-                $is_lang = isset($post['lang'])?$post['lang']==1:false;
+                $is_lang = isset($data['lang'])?$data['lang']==1:false;
 
                 $filter = [
                     'name' => 'required',
@@ -93,6 +93,7 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         $category->description = isset($data['description'])?$data['description']:"";
                         $category->status = $data['status'];
                         $category->type = isset($data['type'])?$data['type']:0;
+                        $category->image = isset($data['image'])?$data['image']:"";
                         $category->icon = "";
                         $category->featured = $data['featured'];
                         $category->order = 0;

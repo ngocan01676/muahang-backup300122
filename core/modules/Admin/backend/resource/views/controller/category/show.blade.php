@@ -73,6 +73,7 @@
                 {!! Form::hidden('type',$type) !!}
                 {!! Form::hidden('is_slug',$is_slug) !!}
                 {!! Form::hidden('id',0) !!}
+                {!! Form::hidden('lang',1) !!}
                 {!! Form::hidden('class_nestable',$class_nestable) !!}
                 @if(isset($configs['core']['language']['multiple']))
                     <div class="nav-tabs-custom">
@@ -129,6 +130,29 @@
                     </div>
                     <table class="table table-borderless">
                         <tbody>
+                        <tr>
+                            <td>
+
+                                <div class="box box box-zoe">
+                                    <div class="box-body">
+                                        {!! Form::label('id_status', 'Image', ['class' => 'status']) !!}
+                                        <div class="image-wrapper" data-path='Post/Thumb'>
+                                            <div class="preview-image-wrapper" >
+                                                <img src="http://placehold.jp/150x150.png" alt="" height="150px">
+                                                <a onclick="btn_remove_image(this)" class="btn_remove_image" title="Remove image">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                                {!! Form::hidden('image',null, []) !!}
+                                            </div>
+                                            <a href="#" onclick="openElfinder(this);" class="btn_gallery">
+                                                Choose image
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 {!! Form::label('id_router_url', z_language('Router enabled'), ['class' => 'status']) !!}
@@ -214,6 +238,15 @@
             </div>
             <div class="box-footer">
                 <button type="button" id="btnSave" class="btn btn-default ">Save</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="elfinderShow">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="elfinder"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -523,6 +556,13 @@
     </style>
 @endpush
 @push('scripts')
+
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/elfinder.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/theme.css') }}">
+    <script src="{{ asset('module/admin/assets/elfinder/js/elfinder.min.js') }}"></script>
     <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
     <script>
 
@@ -580,6 +620,11 @@
                             $("#form-title").html(label.replace(":Name", data.data.name));
                             console.log(data.data);
                             form_store.zoe_inputs('set', data.data);
+                            $(".preview-image-wrapper img").attr('src','http://placehold.jp/150x150.png');
+                            if(data.data.image && data.data.image.length > 0)
+                            {
+                                $(".preview-image-wrapper img").attr('src',data.data.image);
+                            }
                         } else {
 
                         }
@@ -688,5 +733,78 @@
                 });
             });
         });
+    </script>
+    <script>
+        function btn_remove_image(self) {
+            console.log($(self).closest('.preview-image-wrapper').find('img').attr('src', 'http://placehold.jp/150x150.png'));
+        }
+
+        function openElfinder(self) {
+            let parent = $(self).parent();
+            console.log(parent.data());
+            $('#elfinderShow').modal();
+            console.log(parent.attr('data-path'));
+            $('#elfinder').elfinder({
+                debug: false,
+                width: '100%',
+                height: '80%',
+                cssAutoLoad: false,
+                startPathHash : 'l1_' + btoa(parent.attr('data-path')).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '.').replace(/\.+$/, ''),
+                customData: {
+                    _token: '{{ csrf_token() }}'
+                },
+                commandsOptions: {
+                    getfile: {
+                        onlyPath: true,
+                        folders: false,
+                        multiple: false,
+                        oncomplete: 'destroy'
+                    },
+                    ui: 'uploadbutton'
+                },
+                mimeDetect: 'internal',
+                onlyMimes: [
+                    'image/jpeg',
+                    'image/jpg',
+                    'image/png',
+                    'image/gif'
+                ],
+                ui: ['toolbar', 'path', 'stat'],
+                rememberLastDir: false,
+                url: '{{ route("backend:elfinder:showConnector") }}?image=1',
+                soundPath: '{{ asset('module/admin/assets/elfinder/sounds') }}',
+                getFileCallback: function (file) {
+                    console.log(file);
+
+                    var preview_image_wrapper = $(".preview-image-wrapper");
+                    preview_image_wrapper.show();
+                    console.log(file.url);
+
+                    preview_image_wrapper.find("img").attr('src', "/"+file.path.split("\\").join("/"));
+                    preview_image_wrapper.find("[name='image']").val("/"+file.path.split("\\").join("/"));
+
+                    $('#elfinderShow').modal('hide');
+                },
+                resizable: false,
+                uiOptions: {
+                    toolbar: [
+                        ['home', 'up'],
+                        ['upload'],
+                        ['quicklook'],
+                    ],
+                    tree: {
+                        openRootOnLoad: true,
+                        syncTree: true
+                    },
+                    navbar: {
+                        minWidth: 150,
+                        maxWidth: 500
+                    },
+                    cwd: {
+                        oldSchool: false
+                    }
+                }
+            }).elfinder('instance');
+        }
     </script>
 @endpush

@@ -1,14 +1,14 @@
-@php
-    $nestable  = \BetoGaizinTheme\Helper\Nestable::getInstance();
-    $type = "menu";
-    $menus = get_menu_type($type);
-    $position = config_get("menu", $type);
+@if(!isset($_isMobile) || !$_isMobile)
+    @php
+        $nestable  = \BetoGaizinTheme\Helper\Nestable::getInstance();
+        $type = "menu";
+        $menus = get_menu_type($type);
+        $position = config_get("menu", $type);
 
-    $category = get_category_type("shop-ja:product:category");
-    $position_category = config_get("category","shop-ja:product:category");
-
-@endphp
-<div class="lyt-side-pattern01-menu only-pc">
+        $category = get_category_type("shop-ja:product:category");
+        $position_category = config_get("category","shop-ja:product:category");
+    @endphp
+    <div class="lyt-side-pattern01-menu only-pc">
     <p class="side-content-btn-clock">
         <a href="javascript:void(0);" data-auto-id="set-delivery-pc" data-ratid="delivery_schedule_button_click" data-ratevent="click" data-ratparam="all" class="js-popup-trigger">
             <span class="svg-icon icon-clock-white">お届け日時選択</span>
@@ -78,3 +78,4 @@
         </ul>
     </div>
 </div>
+@endif

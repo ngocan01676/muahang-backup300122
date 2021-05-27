@@ -1,5 +1,4 @@
-<html>
-<head>
+
     <title>Demo</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/theme/betogaizin/desktop/css/normalize.css">
@@ -32,5 +31,3 @@
         mr-20[data-v-4aea0aac]{margin-right:20px}
         @media only screen and (min-device-width:768px) and (max-device-width:1024px) and (orientation:portrait){.popup-wrap[data-v-06f90f1e]{min-width:100vw}.popup-width-middle[data-v-06f90f1e]{height:95%}.popup-content[data-v-06f90f1e]{height:85%}}@media only screen and (min-device-width:768px) and (max-device-width:1024px) and (orientation:landscape){.popup-wrap[data-v-06f90f1e]{min-width:100vw}.popup-width-middle[data-v-06f90f1e]{height:95%}.popup-content[data-v-06f90f1e]{height:80%}}
     </style>
-</head>
-<body>

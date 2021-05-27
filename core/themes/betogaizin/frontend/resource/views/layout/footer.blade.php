@@ -501,5 +501,3 @@
 @stack('scripts')
 @section('extra-script')
 @show
-</body>
-</html>

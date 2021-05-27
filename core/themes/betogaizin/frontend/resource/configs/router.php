@@ -12,6 +12,11 @@ $routers['home'] = [
             "guard" => "",
             "action"=>'getCategoryProduct'
         ],
+        "category-product-group" => [
+            "url" => "/loai-sp/{slug}/{id}",
+            "guard" => "",
+            "action"=>'getCategoryGroupProduct'
+        ],
         "item-product" => [
             "url" => "/item-product/{slug}/{id}",
             "guard" => "",
