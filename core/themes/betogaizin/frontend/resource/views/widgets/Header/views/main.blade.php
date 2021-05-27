@@ -29,21 +29,21 @@
                 <dl class="header-keyword">
                     <dd>
                         <ul class="header-keyword-list">
-                            <li><a href="https://sm.rakuten.co.jp/promotion/thanks_spr.html?l-id=_header_keyword_thanks">1万円分クーポン当たる</a>
+                            <li><a href="#">1万円分クーポン当たる</a>
                             </li>
-                            <li><a href="https://sm.rakuten.co.jp/corner/N22426?l-id=_header_keyword_newitems">春の新商品</a>
+                            <li><a href="#">春の新商品</a>
                             </li>
-                            <li><a href="https://sm.rakuten.co.jp/corner/N22412?l-id=_header_keyword_babykidsfair">ベビー＆キッズフェア</a>
+                            <li><a href="#">ベビー＆キッズフェア</a>
                             </li>
-                            <li><a href="https://sm.rakuten.co.jp/corner/N22442?l-id=_header_keyword_health">花粉・ウイルス対策</a>
+                            <li><a href="#">花粉・ウイルス対策</a>
                             </li>
-                            <li><a href="https://sm.rakuten.co.jp/corner/N22402?l-id=_header_keyword_ienomi">家飲み</a>
+                            <li><a href="#">家飲み</a>
                             </li>
-                            <li><a href="https://sm.rakuten.co.jp/corner/rcp2103tmt?l-id=_header_keyword_recipe">トマトレシピ</a>
+                            <li><a href="#">トマトレシピ</a>
                             </li>
-                            <li><a href="https://sm.rakuten.co.jp/corner/N20509?l-id=_header_keyword_mo">みなさまのお墨付き</a>
+                            <li><a href="#">みなさまのお墨付き</a>
                             </li>
-                            <li><a href="https://sm.rakuten.co.jp/promotion/cpnlist1908.html?l-id=_header_keyword_couponlist">本日使えるクーポン</a>
+                            <li><a href="#">本日使えるクーポン</a>
                             </li>
                         </ul>
                     </dd>
@@ -57,11 +57,11 @@
                 <p class="category-menu-btn max-374" data-v-defa9620=""><a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">カテゴリ</a>
                 </p>
                 <ul class="header-utility-link" data-v-defa9620="">
-                    <li class="header-utility-link-item" data-v-defa9620=""><a href="//sm.rakuten.co.jp/event/list?l-id=_header_campaignlist" class="svg-icon icon-top-center icon-campaign" data-v-defa9620="">キャンペーン</a>
+                    <li class="header-utility-link-item" data-v-defa9620=""><a href="#" class="svg-icon icon-top-center icon-campaign" data-v-defa9620="">キャンペーン</a>
                     </li>
-                    <li class="header-utility-link-item" data-v-defa9620=""><a href="/mypage/favorite?l-id=_header_favorite" class="svg-icon icon-top-center icon-favorite-black" data-v-defa9620="">お気に入り</a>
+                    <li class="header-utility-link-item" data-v-defa9620=""><a href="#" class="svg-icon icon-top-center icon-favorite-black" data-v-defa9620="">お気に入り</a>
                     </li>
-                    <li class="header-utility-link-item" data-v-defa9620=""><a href="/mypage/purchase?l-id=_header_phistory" class="svg-icon icon-top-center icon-menu-black" data-v-defa9620="">購入履歴</a>
+                    <li class="header-utility-link-item" data-v-defa9620=""><a href="#" class="svg-icon icon-top-center icon-menu-black" data-v-defa9620="">購入履歴</a>
                     </li>
                 </ul>
             </div>
@@ -106,15 +106,15 @@
             <div class="sp-drawer-menuIn">
                 <div class="user-info-block">
                     <div class="co-name co-name-login">
-                        <p><a href="https://www.rakuten.co.jp/">楽天市場</a>
+                        <p><a href="#">楽天市場</a>
                         </p>
                     </div>
                     <div class="name">
-                        <p><a href="https://my.rakuten.co.jp/">TruongThieuHuyen</a><span class="unit">さん</span>
+                        <p><a href="#">TruongThieuHuyen</a><span class="unit">さん</span>
                         </p>
                     </div>
                     <div class="point">
-                        <p><a href="https://point.rakuten.co.jp/" class="svg-icon icon-18 icon-point">0</a>  <span class="unit">ポイント</span>
+                        <p><a href="#" class="svg-icon icon-18 icon-point">0</a>  <span class="unit">ポイント</span>
                         </p>
                     </div>
                     <div class="large-btn">
@@ -140,13 +140,13 @@
                         </li>
                         <li><a href="javascript:void(0);">お気に入り</a>
                         </li>
-                        <li><a href="https://coupon.rakuten.co.jp/myCoupon?system=楽天西友ネットスーパー">myクーポン</a>
+                        <li><a href="#">myクーポン</a>
                         </li>
-                        <li><a href="https://member.id.rakuten.co.jp/rms/nid/menufwd">楽天会員情報の確認・変更</a>
+                        <li><a href="#">楽天会員情報の確認・変更</a>
                         </li>
                         <li><a href="javascript:void(0);">企業/団体コード</a>
                         </li>
-                        <li><a href="https://emagazine.rakuten.co.jp/">メールマガジンの購読・配信停止</a>
+                        <li><a href="#">メールマガジンの購読・配信停止</a>
                         </li>
                         <li><a href="javascript:void(0);">欠品お知らせメールの受信・配信停止</a>
                         </li>
@@ -155,31 +155,31 @@
                 </div>
                 <div class="link-wrap-type-b">
                     <ul>
-                        <li><a href="https://sm.faq.rakuten.net/?l-id=_footer_help">ヘルプ</a>
+                        <li><a href="#">ヘルプ</a>
                         </li>
                         <li><a href="javascript:void(0);">はじめての方へ</a>
                         </li>
-                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003093?l-id=_footer_member_regist">会員登録方法</a>
+                        <li><a href="#">会員登録方法</a>
                         </li>
-                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003081?l-id=_footer_deliveryfee">配送料・利用料</a>
+                        <li><a href="#">配送料・利用料</a>
                         </li>
-                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003114?l-id=_footer_deliverytime">配送時間</a>
+                        <li><a href="#">配送時間</a>
                         </li>
-                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003122?l-id=_footer_payment">お支払い方法</a>
+                        <li><a href="#">お支払い方法</a>
                         </li>
-                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003089?l-id=_footer_coupon">クーポンの使い方</a>
+                        <li><a href="#">クーポンの使い方</a>
                         </li>
-                        <li><a href="https://sm.faq.rakuten.net/s/detail/000003117?l-id=_footer_cancel">ご注文のキャンセル</a>
+                        <li><a href="#">ご注文のキャンセル</a>
                         </li>
                         <li><a href="javascript:void(0);">再配送手続き</a>
                         </li>
-                        <li><a href="/promotion/area.html?l-id=_footer_area">配送エリア一覧</a>
+                        <li><a href="#">配送エリア一覧</a>
                         </li>
-                        <li><a href="/info/liquor?l-id=_footer_shuruikanri">酒類販売管理者標識</a>
+                        <li><a href="#">酒類販売管理者標識</a>
                         </li>
-                        <li><a href="https://sm.faq.rakuten.net/s/ask?l-id=_footer_ask">お問い合わせ</a>
+                        <li><a href="#">お問い合わせ</a>
                         </li>
-                        <li><a href="/promotion/corporation.html?l-id=_footer_b2b">法人様のご利用について</a>
+                        <li><a href="#">法人様のご利用について</a>
                         </li>
                     </ul>
                 </div>
@@ -204,7 +204,7 @@
                         <a href="#" onclick="">もれなく1,000ポイント！</a>
                     </li>
                     <li class="rc-h-dropdown rc-h-group-dropdown">
-                        <a href="http://www.rakuten.co.jp/sitemap/">楽天グループ</a>
+                        <a href="#">楽天グループ</a>
                         <ul class="rc-h-dropdown-panel">
                             <li><a href="#">楽天銀行</a></li>
                             <li><a href="#">楽天ペイ</a></li>
@@ -214,11 +214,11 @@
                             <li><a href="#">サービス一覧</a></li>
                         </ul>
                     </li>
-                    <li><a href="https://research.rakuten.co.jp/monitor/?scid=wi_grp_gmx_sup_hetopbu_rsc">リサーチ</a></li>
+                    <li><a href="#">リサーチ</a></li>
                     <li>
-                        <a href="https://www.rakuten-card.co.jp/campaign/rakuten_card/rakuten/?scid=wi_grp_gmx_sup_hetopbu_rtc">カード</a>
+                        <a href="#">カード</a>
                     </li>
-                    <li><a href="https://www.rakuten.co.jp/">楽天市場</a></li>
+                    <li><a href="#">楽天市場</a></li>
                 </ul>
             </div>
         </div>
@@ -230,8 +230,8 @@
                     </a>
                 </h1>
                 <ul class="header-main-link">
-                    <li><a href="/notice?l-id=_header_notice" class="">お知らせ</a></li>
-                    <li><a href="https://sm.faq.rakuten.net/?l-id=_header_help">ヘルプ</a></li>
+                    <li><a href="#" class="">お知らせ</a></li>
+                    <li><a href="#">ヘルプ</a></li>
                 </ul>
                 @if(auth('frontend')->user())
                     <form id="logout-form-12345" action="{!! (route('logout')) !!}" method="POST" style="display: none;">
@@ -258,10 +258,10 @@
                 @else
                     <div class="header-user-info">
                         <p class="header-user-info-new">
-                            <a href="/help" class="svg-icon icon-new-user">はじめての方へ</a>
+                            <a href="#" class="svg-icon icon-new-user">はじめての方へ</a>
                         </p>
                         <p class="header-user-info-btn">
-                            <a href="/register" class="btn btn-default btn-color01">楽天会員登録</a>
+                            <a href="#" class="btn btn-default btn-color01">楽天会員登録</a>
                         </p>
                         <p class="header-user-info-btn"><a href="/login" data-auto-id="login-btn-pc" class="btn btn-default btn-color01">ログイン</a></p>
                     </div>
@@ -281,15 +281,15 @@
                     </form>
                 </div>
                 <ul class="header-utility-nav" data-v-0eb98668="">
-                    <li class="header-utility-nav-item" data-v-0eb98668=""><a href="//sm.rakuten.co.jp/event/list?l-id=_header_campaignlist" class="header-utility-nav-btn svg-icon icon-campaign" data-v-0eb98668="">
+                    <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-campaign" data-v-0eb98668="">
                             キャンペーン
                         </a>
                     </li>
-                    <li class="header-utility-nav-item" data-v-0eb98668=""><a href="/mypage/favorite?l-id=_header_favorite" class="header-utility-nav-btn svg-icon icon-favorite-black" data-v-0eb98668="">
+                    <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-favorite-black" data-v-0eb98668="">
                             お気に入り
                         </a>
                     </li>
-                    <li class="header-utility-nav-item" data-v-0eb98668=""><a href="/mypage/purchase?l-id=_header_phistory" class="header-utility-nav-btn svg-icon icon-menu-black" data-v-0eb98668="">
+                    <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-menu-black" data-v-0eb98668="">
                             購入履歴
                         </a>
                     </li>
@@ -344,16 +344,16 @@
                 <dl class="header-keyword">
                     <dd>
                         <ul class="header-keyword-list">
-                            <li><a href="/promotion/pointback.html?l-id=_header_keyword_pointback2102">全額ポイントバック</a>
+                            <li><a href="#">全額ポイントバック</a>
                             </li>
-                            <li><a href="/search/220195?l-id=_header_keyword_hinamatsuri">ひなまつり</a></li>
-                            <li><a href="/corner/N22365?l-id=_header_keyword_health">花粉・ウイルス対策</a></li>
-                            <li><a href="/corner/N22355?l-id=_header_keyword_hotmenu">あったかメニュー</a></li>
-                            <li><a href="/corner/rtn2021?l-id=_header_keyword_jitan">手間抜きごはん</a></li>
-                            <li><a href="/corner/N23507?l-id=_header_keyword_ienomi">家呑み</a></li>
-                            <li><a href="/corner/rcp2020?l-id=_header_keyword_recipe">レシピ</a></li>
-                            <li><a href="/corner/N20509?l-id=_header_keyword_mo">みなさまのお墨付き</a></li>
-                            <li><a href="/promotion/cpnlist1908.html?l-id=_header_keyword_couponlist">本日使えるクーポン</a></li>
+                            <li><a href="#">ひなまつり</a></li>
+                            <li><a href="#">花粉・ウイルス対策</a></li>
+                            <li><a href="#">あったかメニュー</a></li>
+                            <li><a href="#">手間抜きごはん</a></li>
+                            <li><a href="#">家呑み</a></li>
+                            <li><a href="#">レシピ</a></li>
+                            <li><a href="#">みなさまのお墨付き</a></li>
+                            <li><a href="#">本日使えるクーポン</a></li>
                         </ul>
                     </dd>
                 </dl>
@@ -361,7 +361,7 @@
         </div>
         <div class="header-fixed only-pc js-fixed-scroll">
             <div class="header-fixed-inner">
-                <p class="header-logo"><a href="/?l-id=_header_logo" class="">
+                <p class="header-logo"><a href="/" class="">
                         <img src="logo.jpg" alt="楽天西友ネットスーパー"></a>
                 </p>
                 <div class="header-utility" data-v-0eb98668="">
@@ -373,15 +373,15 @@
                             </div>
                         </div>
                         <ul class="header-utility-nav" data-v-0eb98668="">
-                            <li class="header-utility-nav-item" data-v-0eb98668=""><a href="//sm.rakuten.co.jp/event/list?l-id=_header_campaignlist" class="header-utility-nav-btn svg-icon icon-campaign" data-v-0eb98668="">
+                            <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-campaign" data-v-0eb98668="">
                                     キャンペーン
                                 </a>
                             </li>
-                            <li class="header-utility-nav-item" data-v-0eb98668=""><a href="/mypage/favorite?l-id=_header_favorite" class="header-utility-nav-btn svg-icon icon-favorite-black" data-v-0eb98668="">
+                            <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-favorite-black" data-v-0eb98668="">
                                     お気に入り
                                 </a>
                             </li>
-                            <li class="header-utility-nav-item" data-v-0eb98668=""><a href="/mypage/purchase?l-id=_header_phistory" class="header-utility-nav-btn svg-icon icon-menu-black" data-v-0eb98668="">
+                            <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-menu-black" data-v-0eb98668="">
                                     購入履歴
                                 </a>
                             </li>
