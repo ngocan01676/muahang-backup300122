@@ -11,12 +11,23 @@
     <meta data-n-head="ssr" property="og:title" content="楽天西友ネットスーパー｜食品・日用品をいつでも安く最短当日宅配">
     <meta data-n-head="ssr" property="og:url" content="">
     <meta data-n-head="ssr" property="og:description" content="楽天と西友のネットスーパー「楽天西友ネットスーパー」の公式サイト。一定金額以上購入で送料無料。最短当日配送。毎日の食品や日用品が、いつだって安い！商品豊富に揃ってます。24時間受付、インターネットの宅配サービスです。">
-    <meta data-n-head="ssr" property="og:image" content="https://sm.rakuten.co.jp/img/ogp.png">
-    <link data-n-head="ssr" rel="icon" type="image/x-icon" href="https://sm.rakuten.co.jp/favicon.ico">
-    <link data-n-head="ssr" rel="apple-touch-icon" href="https://sm.rakuten.co.jp/img/touch-icon.png">
-    <link data-n-head="ssr" rel="shortcut icon" href="https://sm.rakuten.co.jp/favicon.ico">
-    <link data-n-head="ssr" rel="stylesheet" href="https://sm.rakuten.co.jp/css/sp/style.css">
-    <link data-n-head="ssr" rel="canonical" href="https://sm.rakuten.co.jp/">
+    <meta data-n-head="ssr" property="og:image" content="http://zoecms.com/logo.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="/theme/betogaizin/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/theme/betogaizin/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/theme/betogaizin/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/theme/betogaizin/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/theme/betogaizin/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/theme/betogaizin/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/theme/betogaizin/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/theme/betogaizin/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/theme/betogaizin/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/theme/betogaizin/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/theme/betogaizin/betogaizin/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/theme/betogaizin/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/theme/betogaizin/favicon-16x16.png">
+    <link rel="manifest" href="/theme/betogaizin/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/theme/betogaizin/ms-icon-144x144.png">
 
     <style data-vue-ssr-id="bc665e54:0 68ee8c94:0 ea3b7714:0 fd547dac:0 6635373b:0 6bff294a:0 09b0fbd0:0 893e5ac8:0 1c4ef2a3:0 2aa3358a:0 7355a148:0 7e99d7e5:0 59ae5254:0 c3fecebe:0">
         /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}[hidden],template{display:none}

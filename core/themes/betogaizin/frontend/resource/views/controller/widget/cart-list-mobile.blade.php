@@ -41,7 +41,7 @@
                     </div>
                     <div class="utility-navCol responsive-item">
                         <p class="order-btn">
-                            <a class="go-step-sp" href="javascript:void(0);">
+                            <a class="go-step-sp" onclick="open_cart(this)" href="javascript:void(0);">
                                 レジに進む
                             </a>
                         </p>
@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="minicart-dropdown-area" style="{!! $load?'':'display: none;opacity: 0' !!}">
+        <div class="minicart-dropdown-area" style="{!! $open?'display: block;opacity: 1':'display: none;opacity: 0' !!}">
             <div class="minicart-dropdown-overlay"></div>
             <div data-ratid="minicart_pulldown_appear" data-ratevent="appear" data-ratparam="all" class="minicart-dropdown-wrap" style="height: calc(100% - 68px);">
                 <button type="button" class="minicart-dropdown-close-btn"></button>
@@ -78,7 +78,7 @@
                                                 <div class="minicart-product-item-info-price">195<span class="unit">円</span></div>
                                                 <div class="minicart-product-item-info-tax">(税込 210円)</div>
                                                 <div class="item-btn-area"><div class="item-add-btn-area">
-                                                        <div data-load="false" data-platform="mobile" class="size-set-wrap set-data" data-id="{!! $product->id !!}" data-count="{!! $product->count !!}" data-act="update">
+                                                        <div data-open="true" data-platform="mobile" class="size-set-wrap set-data" data-id="{!! $product->id !!}" data-count="{!! $product->count !!}" data-act="update">
                                                             <div class="size-set">
                                                                 <span data-type="-" class="btn-set-btn">－</span>
                                                                 <span class="btn-set-num">{!! $product->count !!}</span>

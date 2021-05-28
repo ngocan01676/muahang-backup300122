@@ -119,12 +119,12 @@ class WidgetController extends \Zoe\Http\ControllerFront
             return $a->order_index - $b->order_index;
         });
 
-        $load = isset($data['load'])?$data['load']=="true":false;
+        $open = isset($data['open'])?$data['open']=="true":false;
 
         if($this->_isMobile){
-            return $this->render('widget.cart-list-mobile',['counts'=>count($ids),'products'=>$_products,'load'=>$load]);
+            return $this->render('widget.cart-list-mobile',['counts'=>count($ids),'products'=>$_products,'open'=>$open]);
         }else{
-            return $this->render('widget.cart-list',['counts'=>count($ids),'products'=>$_products,'load'=>$load]);
+            return $this->render('widget.cart-list',['counts'=>count($ids),'products'=>$_products,'open'=>$open]);
         }
 
     }
