@@ -85,9 +85,6 @@
                 @endif
         </div>
     </div>
-
-
-
     <div class="fixed-cart-area js-show">
         <div class="fixed-page-top only-sp" style="">
             <p><a href="#container"><span class="svg-icon icon-42 icon-page-top icon-no-text">上へ</span></a>
@@ -268,4 +265,5 @@
             </div>
         </div>
     </div>
+
 @endsection

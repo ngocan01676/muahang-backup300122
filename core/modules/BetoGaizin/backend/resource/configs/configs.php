@@ -49,8 +49,13 @@
                                     ],
                                     [
                                         'type'=>'text',
+                                        'name'=>'price_buy',
+                                        'label'=>z_language('Giá tiền bán'),
+                                    ],
+                                    [
+                                        'type'=>'text',
                                         'name'=>'price',
-                                        'label'=>z_language('Giá tiền'),
+                                        'label'=>z_language('Giá tiền nhập'),
                                     ]
                                 ]
                             ]
