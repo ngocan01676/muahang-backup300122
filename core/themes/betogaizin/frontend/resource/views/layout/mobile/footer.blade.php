@@ -435,6 +435,13 @@
             $('.popup').css({'position':'absolute','top':'30px','transform':'translate(-50%, 0px)'}).show();
         }
     }
+    function open_menu(){
+        console.log("1212121");
+        $("#category-menu-search").show();
+    }
+    function close_menu(){
+        $("#category-menu-search").hide();
+    }
     $(document).ready(function () {
         $('.category-menu-level01-item').hover(function () {
             $('.category-menu-wrap .category-menu-level01-item.is-active').removeClass('is-active');
@@ -496,6 +503,9 @@
                 self.hide();
             });
         });
+
+
+
         $(document).on("click",".open-cart",function (e) {
             e.preventDefault();
             var self = $(".minicart-dropdown-area");

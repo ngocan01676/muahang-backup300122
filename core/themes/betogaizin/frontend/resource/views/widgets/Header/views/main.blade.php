@@ -52,9 +52,11 @@
         </div>
         <div class="header-utility" data-v-defa9620="">
             <div class="header-inner" data-v-defa9620="">
-                <p class="category-menu-btn min-375" data-v-defa9620=""><a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">カテゴリから探す</a>
+                <p class="category-menu-btn min-375" data-v-defa9620="">
+                    <a onclick="open_menu()" class="js-category-menuBtn OpenMenu" data-v-defa9620="">カテゴリから探す</a>
                 </p>
-                <p class="category-menu-btn max-374" data-v-defa9620=""><a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">カテゴリ</a>
+                <p class="category-menu-btn max-374" data-v-defa9620="">
+                    <a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">カテゴリ</a>
                 </p>
                 <ul class="header-utility-link" data-v-defa9620="">
                     <li class="header-utility-link-item" data-v-defa9620=""><a href="#" class="svg-icon icon-top-center icon-campaign" data-v-defa9620="">キャンペーン</a>
@@ -72,7 +74,7 @@
                     <div class="form-parts-search"><span class="sggstInputWrap"><input type="text" name="keyword" placeholder="キーワードから探す" autocomplete="off" id="fixSearchKeyword" value=""></span>
                         <button id="fixSearchButton" type="button" class="form-parts-search-btn"><span class="svg-icon icon-search"></span>
                         </button>
-                        <!---->
+
                     </div>
                 </div>
             </div>
