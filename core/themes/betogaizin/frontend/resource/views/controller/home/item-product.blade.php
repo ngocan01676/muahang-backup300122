@@ -306,6 +306,35 @@
                 slidesToScroll: 5,
                 prevArrow: $("#ppz_recommend04 .product-carousel .prev-btn"),
                 nextArrow: $('#ppz_recommend04 .product-carousel .next-btn'),
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 4,
+                            prevArrow: $("#ppz_recommend04 .product-carousel .prev-btn"),
+                            nextArrow: $('#ppz_recommend04 .product-carousel .next-btn'),
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            prevArrow: $("#ppz_recommend04 .product-carousel .prev-btn"),
+                            nextArrow: $('#ppz_recommend04 .product-carousel .next-btn'),
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2,
+                            prevArrow: $("#ppz_recommend04 .product-carousel .prev-btn"),
+                            nextArrow: $('#ppz_recommend04 .product-carousel .next-btn'),
+                        }
+                    }
+                ]
             });
         </script>
 
