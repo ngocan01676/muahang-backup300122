@@ -143,4 +143,8 @@
         .img-base-size{
             height: 109px !important;
         }
+        .header-search {
+            background: #fff;
+            margin-top: 11px;
+        }
     </style>
