@@ -44,8 +44,13 @@
                                     ],
                                     [
                                         'type'=>'text',
-                                        'name'=>'price1',
-                                        'label'=>z_language('Giá trị'),
+                                        'name'=>'label',
+                                        'label'=>z_language('Tên hiển thị'),
+                                    ],
+                                    [
+                                        'type'=>'text',
+                                        'name'=>'price',
+                                        'label'=>z_language('Giá tiền'),
                                     ]
                                 ]
                             ]
