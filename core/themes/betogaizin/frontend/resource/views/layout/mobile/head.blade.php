@@ -126,3 +126,8 @@
     <style type="text/css">
         .title-wrapper[data-v-72224b09]{display:flex;justify-content:space-between;align-items:center;border-radius:4px}.order-link[data-v-72224b09]{border:1px solid #002faf;border-radius:4px;padding:10px 11px;color:#002faf}.order-link[data-v-72224b09]:hover{text-decoration:none;opacity:.65}
     </style>
+    <style>
+        .img-base-size{
+            height: 109px !important;
+        }
+    </style>

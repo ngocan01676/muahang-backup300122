@@ -105,6 +105,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
     }
 
     public function WidgetCartList(Request $request){
+        $data = $request->all();
         $carts = $request->session()->get(WidgetController::$keyCart,[]);
         $ids = array_keys($carts);
         $_products = DB::table('shop_product')->whereIn('id',$ids)->get()->keyBy('id')->all();
@@ -117,10 +118,13 @@ class WidgetController extends \Zoe\Http\ControllerFront
         usort($_products, function($a,$b){
             return $a->order_index - $b->order_index;
         });
+
+        $load = isset($data['load'])?$data['load']=="true":false;
+
         if($this->_isMobile){
-            return $this->render('widget.cart-list.mobile',['counts'=>count($ids),'products'=>$_products]);
+            return $this->render('widget.cart-list-mobile',['counts'=>count($ids),'products'=>$_products,'load'=>$load]);
         }else{
-            return $this->render('widget.cart-list',['counts'=>count($ids),'products'=>$_products]);
+            return $this->render('widget.cart-list',['counts'=>count($ids),'products'=>$_products,'load'=>$load]);
         }
 
     }

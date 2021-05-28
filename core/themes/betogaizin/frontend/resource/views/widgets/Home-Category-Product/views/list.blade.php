@@ -20,6 +20,7 @@
         <div  class="product-carousel slider-basic item-parts static">
             <div class="scrollbar-hidden slider-basic-frame touch-hover-event">
                 @foreach($data['results'] as $result)
+
                 <div class="slider-basic-item flex-shrink-0 slider-wrapper-pc">
                     <div data-ratunit="item" class="product-item">
                         <div class="product-item-image-area" last="19">
@@ -35,7 +36,7 @@
                                     <p>
                                         <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="">
                                                  <span class="product-item-info-name">
-                                                    ブロッコリー(国産)
+                                                  {!! $result->title !!}
                                                  </span>
                                         </a>
                                         <span class="product-item-info-amount">
@@ -50,7 +51,7 @@
                                                 <div class="product-item-info-price-with-icon">
                                                     <p class="product-item-info-price">{!! $result->price_buy !!}<span class="unit">円</span></p>
                                                 </div>
-                                                <p class="product-item-info-tax">(税込 145円)</p>
+                                                {{--<p class="product-item-info-tax">(税込 145円)</p>--}}
                                             </div>
                                         </div>
                                         <div class="product-item-info-btn-area">

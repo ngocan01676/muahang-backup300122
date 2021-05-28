@@ -27,7 +27,7 @@
             </div>
             <div class="header-utility-cart-grid-item">
                 <p class="header-utility-cart-btn">
-                    <a class="open_cart" onclick="open_cart(this)" data-auto-id="go-step-pc" href="javascript:void(0);" data-ratid="cart_button_click" data-ratevent="click" data-ratparam="all">
+                    <a class="open_cart" onclick="open_cart(this)"  href="javascript:void(0);">
                         レジに進む
                     </a>
                 </p>
@@ -61,7 +61,7 @@
                                                     <div class="minicart-product-item-info-price">{!! number_format($product->price_total) !!}<span class="unit">円</span></div>
                                                     <div class="minicart-product-item-info-tax">(税込 {!! number_format($product->price_total) !!}円)</div>
                                                     <div class="minicart-btn-set">
-                                                        <div class="btn-set-wrap" data-id="{!! $product->id !!}" data-count="{!! $product->count !!}" data-act="update">
+                                                        <div class="btn-set-wrap set-data" data-load="false" data-platform="pc" data-id="{!! $product->id !!}" data-count="{!! $product->count !!}" data-act="update">
                                                             <span class="btn-set-btn" data-type="-">－</span>
                                                             <span class="btn-set-num">{!! $product->count !!}</span>
                                                             <span class="btn-set-btn" data-type="+">＋</span>
@@ -80,7 +80,7 @@
                     @endforeach
                     </table>
                 @else
-                    <li class="minicart-products-item">Giỏ hàng rỗng</li>
+                    <p class="minicart-products-item">Giỏ hàng rỗng</p>
                 @endif
         </div>
     </div>

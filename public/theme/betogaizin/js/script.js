@@ -8,12 +8,11 @@ $(document).ready(function () {
                 }});
             }});
     }
-
     function initCarts(conf) {
 
         $.ajax({
             url:window._urlCartList,
-            data:{},
+            data:conf,
             type:"POST",
             success:function (html) {
                 $("#cart").html(html.content);
@@ -21,7 +20,6 @@ $(document).ready(function () {
         });
 
         if(conf.hasOwnProperty('company')){
-
             if($('.Controller_Cart')){
                 $.ajax({
                     data:{},
@@ -50,8 +48,7 @@ $(document).ready(function () {
             url:window._urlCartAdd,
             data:data,
             type:"POST",
-            success:function (html) {
-                console.log(html);
+            success:function () {
                 initCarts(data);
             }
         });
@@ -63,7 +60,7 @@ $(document).ready(function () {
             data:data,
             type:"POST",
             success:function () {
-                initCarts();
+                initCarts(data);
             }
         });
     }
@@ -85,13 +82,14 @@ $(document).ready(function () {
             }
         });
     });
+
     $(document).on('click','.js-minicart-del',function () {
         cartRemove($(this).data(),this);
     });
 
     $(document).on('click','.btn-set-btn',function () {
        var type = $(this).data().type;
-       var element = $(this).closest('.btn-set-wrap');
+       var element = $(this).closest('.set-data');
        var num = element.find('.btn-set-num');
        var count = parseInt(num.text());
        console.log(count);
@@ -104,6 +102,7 @@ $(document).ready(function () {
        console.log(count);
        num.html(count);
        var data = element.data();
+       console.log(data);
        if(count <= 0){
            data.count = 0;
            cartRemove(data,this);

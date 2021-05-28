@@ -496,7 +496,7 @@
                 self.hide();
             });
         });
-        $(".go-step-sp").click(function (e) {
+        $(document).on("click",".open-cart",function (e) {
             e.preventDefault();
             var self = $(".minicart-dropdown-area");
             self.show();
@@ -506,7 +506,7 @@
 
             });
         });
-        $(".minicart-dropdown-close-btn").click(function (e) {
+         $(document).on("click",".minicart-dropdown-close-btn",function (e) {
             e.preventDefault();
             var self = $(".minicart-dropdown-area");
             self.animate({
