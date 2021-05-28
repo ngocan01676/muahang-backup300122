@@ -117,9 +117,12 @@ class WidgetController extends \Zoe\Http\ControllerFront
         usort($_products, function($a,$b){
             return $a->order_index - $b->order_index;
         });
-        //$configs->prices($carts);
-       // dd($carts);
-        return $this->render('widget.cart-list',['counts'=>count($ids),'products'=>$_products]);
+        if($this->_isMobile){
+            return $this->render('widget.cart-list.mobile',['counts'=>count($ids),'products'=>$_products]);
+        }else{
+            return $this->render('widget.cart-list',['counts'=>count($ids),'products'=>$_products]);
+        }
+
     }
     public function WidgetShipTime(Request $request){
         $data = $request->all();

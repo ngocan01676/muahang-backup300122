@@ -7,12 +7,14 @@
     @endif
 </head>
 <body>
-
-{{CONTENT}}
+<div id="container">
+    {{CONTENT}}
+</div>
   @if(isset($_isMobile) && $_isMobile)
        @includeIf('theme::layout.mobile.footer')
   @else
        @includeIf('theme::layout.footer')
   @endif
+
 </body>
 </html>

@@ -475,7 +475,8 @@
         });
         $(".sp-drawer-bg").click(function () {
             $('body').removeClass('show-drawer');
-            console.log("121212121")
+            console.log("121212121");
+
         })
         //
         // $('.minicart-dropdown-trigger').hover(function () {
@@ -485,6 +486,36 @@
         // },function () {
         //     console.log('.minicart-dropdown-trigger out');
         // });
+        $(".notice-popup-close-btn").click(function () {
+            let self = $(this).parent();
+            self.animate({
+                opacity: 0,
+                bottom: "+=-60",
+            }, 100, function() {
+
+                self.hide();
+            });
+        });
+        $(".go-step-sp").click(function (e) {
+            e.preventDefault();
+            var self = $(".minicart-dropdown-area");
+            self.show();
+            self.animate({
+                opacity: 1
+            }, 50, function() {
+
+            });
+        });
+        $(".minicart-dropdown-close-btn").click(function (e) {
+            e.preventDefault();
+            var self = $(".minicart-dropdown-area");
+            self.animate({
+                opacity: 0,
+                bottom: "+=-100",
+            }, 50, function() {
+                self.hide();
+            });
+        });
     });
 
 </script>

@@ -10,7 +10,6 @@ $(document).ready(function () {
     }
 
     function initCarts(conf) {
-        console.log(conf);
 
         $.ajax({
             url:window._urlCartList,
