@@ -108,10 +108,10 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
         $validator = Validator::make($data, [
             'group_id' => 'required',
-            'title' => 'required',
+//            'title' => 'required',
             'category_id' => 'required',
-            'price' => 'required|integer',
-            'price_buy' => 'required|integer',
+//            'price' => 'required|integer',
+//            'price_buy' => 'required|integer',
         ], [
             'group_id.required' => z_language('Chuyên mục sản phẩm không được bỏ trống'),
             'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
