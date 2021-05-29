@@ -60,6 +60,11 @@
                                     ],
                                     [
                                         'type'=>'text',
+                                        'name'=>'name',
+                                        'label'=>z_language('Tên xuất'),
+                                    ],
+                                    [
+                                        'type'=>'text',
                                         'name'=>'label',
                                         'label'=>z_language('Tên hiển thị'),
                                     ],
