@@ -1,11 +1,11 @@
 <?php
-namespace PluginFaq\Controllers;
+namespace PluginTag\Controllers;
 
-use PluginFaq\Models\FaqModel;
+use PluginTag\Models\TagModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use PluginFaq\Plugin;
+use PluginTag\Plugin;
 use Validator;
 
 class IndexController extends \Zoe\Http\ControllerBackend

@@ -15,6 +15,17 @@
 
             ]
         ],
+        'modules' => [
+            'admin.category' => [
+                \ModuleBetoGaizin\Module::$key.":category" => [
+                    'views' => 'BetoGaizin::module.admin.category',
+                    'rules' => [
+
+                    ],
+                    'breadcrumb' => ['name' => 'Chuyên mục Sản phẩm', 'route' => 'backend:blog:post:list']
+                ]
+            ],
+        ],
         'options' => [
 
         ],
@@ -41,6 +52,11 @@
                                         'view'=>'BetoGaizin::composer.View-Product-Prototype',
                                         'name'=>'value',
                                         'label'=>z_language('Tên thuộc tính'),
+                                    ],
+                                    [
+                                        'type'=>'text',
+                                        'name'=>'code',
+                                        'label'=>z_language('Mã sản phẩm'),
                                     ],
                                     [
                                         'type'=>'text',

@@ -45,7 +45,11 @@ return [
                 "router" => [
                     "show" => [
                         "url" => "/",
-                        'defaults' => ["type" => $key.":category", "views" => "blog::module.admin.category"]
+                        'defaults' => [
+                            "type" => $key.":category",
+                            "views" => "blog::module.admin.category",
+
+                        ]
                     ]
                 ]
             ],

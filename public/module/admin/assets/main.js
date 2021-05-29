@@ -79,7 +79,7 @@ Click.prototype = {
                  arr.push(resulted);
              }
         });
-        console.log(arr);
+
         Promise.all(arr).then(function (t) {
             thisObj(t);
         }).catch(function (t) {

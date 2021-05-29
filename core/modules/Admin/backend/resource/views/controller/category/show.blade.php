@@ -183,11 +183,13 @@
                                 {!! Form::radio('featured', '2',true) !!} No
                             </td>
                         </tr>
+
                         <tr>
                             <td>
                                 @includeIf($views)
                             </td>
                         </tr>
+
                         </tbody>
                     </table>
                 @else
@@ -555,7 +557,7 @@
         }
     </style>
 @endpush
-@push('scripts')
+@push('scriptsTop')
 
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
@@ -565,7 +567,7 @@
     <script src="{{ asset('module/admin/assets/elfinder/js/elfinder.min.js') }}"></script>
     <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
     <script>
-
+        window.category_get  = new Click();
         $(document).ready(function () {
             function SavePosition(id, cb) {
                 var e = $('#nestable').data('output', $('#nestable-output'));
@@ -613,7 +615,7 @@
                     type: "POST",
                     data: {act: "edit", data: {id: data_item.id, type: '{!! $type !!}'}},
                     success: function (data) {
-                        console.log(JSON.stringify(data));
+
                         document.getElementById("form_store").reset();
                         if (data.hasOwnProperty("data")) {
                             var label = "{{ z_language('Category Edit : :Name')  }}";
@@ -625,6 +627,7 @@
                             {
                                 $(".preview-image-wrapper img").attr('src',data.data.image);
                             }
+                            window.category_get.fire(data);
                         } else {
 
                         }
@@ -700,7 +703,6 @@
             $("#btnSave").click(function () {
                 var form_store = $("#form_store");
                 form_store.loading({circles: 3, overlay: true, width: "5em", top: "30%", left: "50%"});
-                console.log('save');
                 $.ajax({
                     url: '{{@route('backend:category:ajax')}}',
                     type: "POST",
