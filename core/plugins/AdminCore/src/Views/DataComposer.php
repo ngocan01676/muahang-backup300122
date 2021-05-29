@@ -25,7 +25,7 @@ class DataComposer extends \Zoe\Views\ComposerView
                 $name = isset($composer['variable'])?$composer['variable']:$this->class;
                 $data[$this->class]['key'] = $this->class.'_'.md5($this->class.'-'.$name.'-'.rand(1000,9999));
                 $model_name = isset($composer['model_name'])?$composer['model_name']:'item';
-                $item =$dataView[$model_name]? $dataView[$model_name]->toArray():[];
+                $item = isset($dataView[$model_name]) && $dataView[$model_name]? $dataView[$model_name]->toArray():[];
                 $values =
                     old($composer['config']['name'],
                           isset($item[$composer['config']['name']]) ? $item[$composer['config']['name']]:'[]');

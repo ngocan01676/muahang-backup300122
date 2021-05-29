@@ -167,6 +167,13 @@
                                 </tr>
                                 <tr>
                                     <td>
+
+                                        {!! Form::label('id_tag', 'Tag', ['class' => 'tag']) !!} *
+                                        {!! Form::text('tag',null, ['class' => 'form-control','placeholder'=>'Tag']) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         {!! Form::label('unit', z_language('Đơn vị'), ['class' => 'unit']) !!} &nbsp;
                                         @php
                                             $lists_uint = config('shop_ja.configs.lists_uint');
@@ -220,6 +227,8 @@
         </div>
     </div>
 </div>
+@AssetCss('assets','module/admin/assets/tagging/css/amsify.suggestags.css')
+@AssetJs('assets','module/admin/assets/tagging/js/jquery.amsify.suggestags.js')
 @section('extra-script')
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
@@ -228,6 +237,23 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/theme.css') }}">
     <script src="{{ asset('module/admin/assets/elfinder/js/elfinder.min.js') }}"></script>
     <script !src="">
+        $(document).ready(function () {
+
+            // $('#category-select').multiselect();
+            var tags = [];
+            $('input[name="tag"]').amsifySuggestags({
+                type: 'bootstrap',
+                suggestions: [],
+                afterAdd: function (value) {
+                    console.log()
+                },
+                afterRemove: function (value) {
+                    // after remove
+                },
+
+            });
+
+        });
         function Save(){
             let form_store = $("#form_store");
 

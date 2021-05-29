@@ -289,7 +289,7 @@
             var tags = [];
             $('input[name="tag"]').amsifySuggestags({
                 type: 'bootstrap',
-                suggestions: ['Black', 'White', 'Red', 'Blue', 'Green', 'Orange'],
+                suggestions: [],
                 afterAdd: function (value) {
                     console.log()
                 },
