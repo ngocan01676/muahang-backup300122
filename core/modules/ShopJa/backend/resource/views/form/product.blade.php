@@ -243,7 +243,7 @@
             var tags = [];
             $('input[name="tag"]').amsifySuggestags({
                 type: 'bootstrap',
-                suggestions: [],
+                suggestions: @json($tag_all),
                 afterAdd: function (value) {
                     console.log()
                 },

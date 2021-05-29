@@ -133,7 +133,7 @@ class PostController extends \Zoe\Http\ControllerBackend
         $item->offsetSet("tag", implode( ',',$item->getTag()));
         //$item->offsetSet("category", $item->getCategory());
 
-        return $this->render('post.edit', ["item" => $item, "lang_active" => $this->data['current_language']], 'blog');
+        return $this->render('post.edit',["item" => $item, "lang_active" => $this->data['current_language']], 'blog');
     }
 
     public function store(Request $request)

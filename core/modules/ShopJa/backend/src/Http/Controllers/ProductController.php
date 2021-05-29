@@ -76,7 +76,8 @@ class ProductController extends \Zoe\Http\ControllerBackend
     public function create()
     {
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), ('backend:shop_ja:product:create'));
-        return $this->render('product.create', ['item' => []], 'blog');
+        $model = new ProductModel();
+        return $this->render('product.create', ["tag_all"=>$model->allTag(),'item' => []], 'blog');
     }
 
     public function edit($id)
@@ -84,7 +85,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
         $model = ProductModel::find($id);
         $model->offsetSet("tag", implode( ',',$model->getTag()));
-        return $this->render('product.edit', ["model" => $model]);
+        return $this->render('product.edit', ["tag_all"=>$model->allTag(),"model" => $model]);
     }
 
     public function delete($id)

@@ -22,4 +22,12 @@ class ProductModel extends Model
         }
         return $tag;
     }
+    public function allTag(){
+        $rs = DB::table("tag")->select(['name'])->where("type","shopja:product")->get()->all();
+        $data = [];
+        foreach ($rs as $all){
+            $data[] = $all->name;
+        }
+        return $data;
+    }
 }
