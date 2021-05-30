@@ -17,7 +17,7 @@
         ],
         'modules' => [
             'admin.category' => [
-                \ModuleBetoGaizin\Module::$key.":category" => [
+                \ModuleBetoGaizin\Module::$key.":menu" => [
                     'views' => 'BetoGaizin::module.admin.category',
                     'rules' => [
 

@@ -132,8 +132,13 @@
             let form = $("<form></form>").html(tr);
             let vals = form.zoe_inputs('get');
 
-            let oke = true;
+            console.log(vals);
 
+            let oke = true;
+            @if(isset($configs['filterData']))
+               vals = {!! '('.$configs['filterData'].')(vals)' !!};
+            @endif
+            console.log(vals);
             for(let i in vals){
                 if(vals[i].toString().length === 0){
                     oke = false;
@@ -144,6 +149,9 @@
             }
 
             if(oke && Object.values(cols).length == 0){
+                cloneTr.find('.data').each(function () {
+                    $(this).val('');
+                });
                 {!! $keyId.'_' !!}template(parent,vals,trs.length);
                 tr.find('.data').each(function () {
                     $(this).val("");

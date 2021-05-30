@@ -17,6 +17,10 @@ return [
                     "name" => z_language("Category"),
                     "url" => "backend:".$key.":category:show",
                 ],
+                [
+                    "name" => z_language("Menu"),
+                    "url" => "backend:".$key.":menu:show",
+                ],
             ]
         ],
     ]

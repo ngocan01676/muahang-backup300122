@@ -627,7 +627,9 @@
                             {
                                 $(".preview-image-wrapper img").attr('src',data.data.image);
                             }
-                            window.category_get.fire(data);
+                            window.category_get.fire(data,function () {
+                                
+                            });
                         } else {
 
                         }

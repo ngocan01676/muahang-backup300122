@@ -53,7 +53,27 @@ return [
                     ]
                 ]
             ],
+            $key.':menu' => [
+                "namespace" => "Admin\Http\Controllers",
+                "controller" => "CategoryController",
+                "sub_prefix" => "/$url/menu",
+                "guard" => "backend",
+                'acl'=>'blog:menu',
+                "module" => [
+                    "name" => "admin",
+                    "type" => "module"
+                ],
+                "router" => [
+                    "show" => [
+                        "url" => "/",
+                        'defaults' => [
+                            "type" => $key.":menu",
+                            "views" => "blog::module.admin.category",
 
+                        ]
+                    ]
+                ]
+            ],
          ]
     ]
 ];

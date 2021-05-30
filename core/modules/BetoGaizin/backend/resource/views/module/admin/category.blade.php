@@ -15,6 +15,7 @@
                 'push_name'=>'scripts',
                 'configs'=>[
                     'name'=>'data',
+                    'filterData'=>'function(data){return data.data[0];}',
                     'key'=>'@INDEX@',
                     'options'=>[
                         [
