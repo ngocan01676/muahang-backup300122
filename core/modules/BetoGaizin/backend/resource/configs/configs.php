@@ -100,9 +100,10 @@
         'composers'=>[
             BACKEND=>[
                 'PluginGallery\Views\GalleryComposer'=>[
-                    'shop_ja::form.product'=>[
+                    'BetoGaizin::form.product'=>[
                         'file'=>'BetoGaizin::form.product',
                         'router'=>'backend:shop_ja:product:store',
+                        'type'=>'file',
                         'data'=>[],
                         'model_name'=>'model',
                         'config'=>[
@@ -114,7 +115,8 @@
                     'BetoGaizin::form.product'=>[
                         [
                             'item'=>true,
-                            'router'=>'backend:shop_ja:product:store',
+
+                            'router'=>'backend:'.\ModuleBetoGaizin\Module::$key.':product:store',
                             'data'=>[],
                             'variable'=>'BetoGaizin_DataComposer_Price',
                             'model_name'=>'model',
@@ -158,5 +160,4 @@
                 ],
             ],
         ]
-    ]
-;
+    ];

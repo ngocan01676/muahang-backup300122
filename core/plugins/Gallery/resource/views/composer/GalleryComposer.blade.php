@@ -28,7 +28,15 @@
                                     <input type="hidden" value="{!! $image !!}" name="{!! $GalleryComposer['name'] !!}.images[]">
                                     <img class="thumbnail img-responsive" src="/{!! $image !!}" alt="">
                                     <div class="tool">
-                                        <button onclick="{!! $GalleryComposer['name'] !!}_remove(this)" class="btn btn-danger btn-xs" type="button"><i class="fa fa-remove"></i></button>
+                                        @if($GalleryComposer['type'] == "file")
+                                            <div class="large-12">
+                                                <label for="">Ảnh chụp không gian cần thiết kế (tối đa 10 ảnh) </label>
+                                                <input type="file" class="files" multiple="" hidden="">
+                                                <label id="label-file" for="files">Chọn Ảnh</label>
+                                            </div>
+                                        @else
+                                            <button onclick="{!! $GalleryComposer['name'] !!}_remove(this)" class="btn btn-danger btn-xs" type="button"><i class="fa fa-remove"></i></button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -88,6 +96,7 @@
         function {!! $GalleryComposer['name'] !!}_remove(self) {
             $(self).closest('.item').remove();
         }
+
         function {!! $GalleryComposer['name'] !!}_openElfinderMedia(self) {
             $('#{!! $GalleryComposer["name"] !!}elfinderShow').modal();
 
@@ -147,6 +156,39 @@
                 }
             }).elfinder('instance');
         }
+
+        var FileData = {};
+
+        function deletel_image(slef){
+            var item = $(slef);
+            console.log(item.attr('name'));
+            delete FileData[item.attr('name')];
+            item.parent().remove();
+        }
+        $('#{!! $GalleryComposer["name"] !!} .files').change(function() {
+            $files = $(this)[0];
+            let fileList = $files.files;
+            // $('.reviewImage').empty();
+            function readURL(file,image) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    image.find('img').attr('src', e.target.result);
+                    $(".reviewImage").append(image);
+                };
+                reader.readAsDataURL(file);
+            }
+            var wh = 150;
+            if(width<600){
+                wh = ($('.reviewImage').width()/3)*0.9;
+            }
+            for (var i=0, l=fileList.length; i<l; i++) {
+                console.log(fileList[i].name);
+                console.log(fileList[i]);
+                FileData[fileList[i].name] = fileList[i];
+                readURL(fileList[i],$("<div class='image-item' style='width: "+wh+"px!important;height:"+wh+"px!important;display: inline-block'><a name='"+fileList[i].name+"' onclick='deletel_image(this)' style=\" cursor: pointer;display: inline-block; position: absolute; width: 20px; height: 20px; background: url(/images/btn-delete.png); background-size: 100%; top: 10px; left: 10px; \" ></a><img style='width: 100%;height: 100%' src='' alt=''></div>"))
+            }
+        });
+
         clicks.subscribe(function (form) {
             let data = form.zoe_inputs('get');
              return new Promise((resolve, reject) => {

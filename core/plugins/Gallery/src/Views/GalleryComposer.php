@@ -27,7 +27,7 @@ class GalleryComposer extends \Zoe\Views\ComposerView
 
         if(isset($this->composers[$this->namespace][$view->name()])){
             $composer = $this->composers[$this->namespace][$view->name()];
-
+            var_dump($composer);die;
             $data['GalleryComposer'] = $composer;
             $data['GalleryComposer']['name'] = 'GalleryComposer';
             $data['GalleryComposer']['token'] = $this->token($view->name(),$data['GalleryComposer']['name'], $this->namespace);
