@@ -1,8 +1,8 @@
 @if(isset($model))
-    {!! Form::model($model, ['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store','class'=>'submit']) !!}
+    {!! Form::model($model, ['method' => 'POST','route' => ['backend:'.\ModuleBetoGaizin\Module::$key.':product:store'],'id'=>'form_store','class'=>'submit']) !!}
     {!! Form::hidden('id') !!}
 @else
-    {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store','class'=>'submit']) !!}
+    {!! Form::open(['method' => 'POST','route' => ['backend:'.\ModuleBetoGaizin\Module::$key.':product:store'],'id'=>'form_store','class'=>'submit']) !!}
 @endif
 <script src="{!! config('zoe.tiny') !!}"></script>
 <div class="col-md-12">
@@ -62,18 +62,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        {!! Form::label('Image_Web', z_language('Ảnh sản phẩm Website'), ['class' => 'image']) !!}
-                                        <div class="image-wrapper">
-                                            <div class="preview-image-wrapper-web">
-                                                <img  class="preview-image" style="width: 100px;height: 150px" src="{!! isset($model) && !is_null($model->image_web)?$model->image_web:"http://placehold.jp/100x150.png" !!}" alt="">
-                                            </div>
-                                            <br>
-                                            <input data-preview="#preview-image-web-2" data-input="#file_input_web" onfocus="openElfinderWeb(this)" name="image_web" type="text" id="file_input_web" class="form-control itemVal" value="{!! isset($model)?$model->image_web:"" !!}"><br>
-                                        </div>
-                                    </td>
-                                </tr>
+
                                 <tr>
                                     <td>
                                         {!! Form::label('group_id',z_language('Chuyên mục'), ['class' => 'Category']) !!} *

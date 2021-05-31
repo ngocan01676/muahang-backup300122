@@ -20,6 +20,15 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $this->breadcrumb(z_language("Quản lý sản phẩm"), ('backend:shop_ja:product:list'));
         return $this;
     }
+    public function ajax(Request $request){
+        $id = $request->all();
+        $lists = DB::table('shop_product')->where('category_id',$id['cate'])->get()->all();
+        $data = [];
+        foreach ( $lists as $row){
+            $data[] = ['id'=>$row->id,'title'=>$row->title,'description'=>$row->description];
+        }
+        return response()->json($data);
+    }
     public function list(Request $request)
     {
         $this->getcrumb();

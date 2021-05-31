@@ -1,0 +1,1 @@
+<div id="UrlCompany" data-url="{!! route('backend:shop_ja:product:ajax') !!}" data-type="POST"></div>

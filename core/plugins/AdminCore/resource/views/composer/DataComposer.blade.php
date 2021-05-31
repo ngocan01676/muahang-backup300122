@@ -1,3 +1,4 @@
+
 <table class="table table-bordered" id="{!! $DataComposer['key'].'_wrap' !!}">
     <thead>
         <tr>
@@ -13,9 +14,9 @@
             <td style="vertical-align: middle;text-align:center;width: 50px">0</td>
             @foreach($DataComposer['config']['columns'] as $columns)
                 @if(isset($columns['view']))
-                    <td style="vertical-align: middle;text-align:center;">
+
                     @include($columns['view'],['columns'=>$columns,'DataComposer'=>$DataComposer])
-                    </td>
+
                 @else
                     <td style="vertical-align: middle;text-align:center;">
                          @if($columns['type'] == "text" || $columns['type'] == "time" || $columns['type'] == "date" || $columns['type'] == "number")
@@ -44,8 +45,23 @@
 </table>
 <div class="hide">
     <textarea id="{!! $DataComposer['key'] !!}_{!! $DataComposer['name'] !!}" name="{!! $DataComposer['config']['name'] !!}">{!! $DataComposer['values'] !!}</textarea>
+    @isset($DataComposer['include'])
+        @includeIf($DataComposer['include'])
+    @endisset
 </div>
-
+@isset($DataComposer['assets'])
+    @foreach($DataComposer['assets'] as $kes=>$val)
+        @if($kes == "js")
+            @foreach($val as $_val)
+                @AssetJs("Controller",$_val)
+            @endforeach
+        @else
+            @foreach($val as $_val)
+                @AssetCss("Controller",$_val)
+            @endforeach
+        @endif
+    @endforeach
+@endisset
 @AssetCss("Controller","module/admin/plugins/timepicker/bootstrap-timepicker.min.css")
 @AssetJs("Controller","module/admin/plugins/timepicker/bootstrap-timepicker.min.js")
 
@@ -252,7 +268,8 @@
                     }
                 }
             });
-
+            template.find('.add').hide();
+            template.find('.remove').show();
             tbody.append(template);
 
             let datepicker = template.find('.datepicker');
@@ -320,7 +337,7 @@
 
             if(oke && Object.values(cols).length == 0){
                 {!! $DataComposer['key'].'_' !!}template(parent,vals,trs.length);
-                tr.find('.data').each(function () {
+                cloneTr.find('.data').each(function () {
                     $(this).val("");
                 });
             }else{

@@ -2,7 +2,7 @@
 namespace PluginGallery\Views;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-
+use Illuminate\Http\Request;
 class GalleryComposer extends \Zoe\Views\ComposerView
 {
     public $config = [];
@@ -11,15 +11,66 @@ class GalleryComposer extends \Zoe\Views\ComposerView
     public function init(){
        $this->config($this);
     }
-    public function store($data){
+    public function store(Request $request,$data){
+
+        $imageUp = [
+
+        ];
+        $plugin_gallery = DB::table('plugin_gallery')->where([
+            'key_id'=>$data['id'],
+            'key_group'=>$data['key'],
+            'name'=>$data['name'],
+        ])->first();
+
+        if($request->hasfile('images'))
+        {
+            $files = $request->file('images');
+
+            $allowedfileExtension=['jpg','png','gif','jpeg'];
+
+            $exe_flg = true;
+            foreach($files as $file) {
+                $extension = $file->getClientOriginalExtension();
+                $check= in_array($extension,$allowedfileExtension);
+                if(!$check) {
+                    // nếu có file nào không đúng đuôi mở rộng thì đổi flag thành false
+                    $exe_flg = false;
+                    break;
+                }
+            }
+            if($exe_flg) {
+
+                $imageUp = [];
+
+                foreach($files as $file)
+                {
+                    $name = (isset($data['prefix'])?$data['prefix']:rand(100000,99999)).'-'.$file->getClientOriginalName();
+                    $file->move(public_path().'/files/', $name);
+                    $imageUp[] = '/files/'.$name;
+                }
+            }
+
+        }
+        $_data_img = [];
+        if(isset($data['images'])){
+            for ($i = count($data['images'])-1; $i >= 0 ; $i--){
+                if(count($imageUp) == 0){
+                    $_data_img[$i] = $data['images'][$i];
+                }else{
+                    $_data_img[$i] = array_pop($imageUp);
+                }
+            }
+        }
+
         DB::table('plugin_gallery')->updateOrInsert([
             'key_id'=>$data['id'],
             'key_group'=>$data['key'],
             'name'=>$data['name'],
         ],[
-            'data'=>serialize(isset($data['data'])?$data['data']:[]),
+            'data'=>serialize(['images'=>$_data_img]),
             'update_time'=>date('Y-m-d H:i:s')
         ]);
+        return $_data_img;
     }
     public function compose(View $view)
     {
@@ -27,7 +78,7 @@ class GalleryComposer extends \Zoe\Views\ComposerView
 
         if(isset($this->composers[$this->namespace][$view->name()])){
             $composer = $this->composers[$this->namespace][$view->name()];
-            var_dump($composer);die;
+
             $data['GalleryComposer'] = $composer;
             $data['GalleryComposer']['name'] = 'GalleryComposer';
             $data['GalleryComposer']['token'] = $this->token($view->name(),$data['GalleryComposer']['name'], $this->namespace);

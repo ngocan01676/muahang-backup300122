@@ -154,7 +154,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $this->log('shop_js:product',$type,['id'=>$model->id]);
             \Actions::do_action("tag_add", "shopja:product", $model->id, $data['tag'], $model->getTag());
             $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
-            return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
+            return redirect(route('backend:'. \ModuleBetoGaizin\Module::$key.':product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
         }
@@ -165,4 +165,5 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
 
     }
+
 }

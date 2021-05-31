@@ -115,11 +115,14 @@
                     'BetoGaizin::form.product'=>[
                         [
                             'item'=>true,
-
                             'router'=>'backend:'.\ModuleBetoGaizin\Module::$key.':product:store',
                             'data'=>[],
                             'variable'=>'BetoGaizin_DataComposer_Price',
                             'model_name'=>'model',
+                            'assets'=>[
+                                'js'=>['module/betogaizin/admin/Product-Prototype.js']
+                            ],
+                            'include'=>'BetoGaizin::composer.View-Product-Config',
                             'config'=>[
                                 'name'=>'prototype',
                                 'columns'=>[
@@ -129,30 +132,20 @@
                                         'label'=>z_language('Tên thuộc tính'),
                                     ],
                                     [
-                                        'type'=>'text',
-                                        'name'=>'code',
-                                        'label'=>z_language('Mã sản phẩm'),
-                                    ],
-                                    [
-                                        'type'=>'text',
                                         'name'=>'name',
-                                        'label'=>z_language('Tên xuất'),
+                                        'type'=>'text',
+                                        'label'=>z_language('Hiển thị'),
                                     ],
                                     [
-                                        'type'=>'text',
-                                        'name'=>'label',
-                                        'label'=>z_language('Tên hiển thị'),
+                                        'view'=>'BetoGaizin::composer.View-Company-Prototype',
+                                        'name'=>'company',
+                                        'label'=>z_language('Công Ty'),
                                     ],
                                     [
-                                        'type'=>'text',
-                                        'name'=>'price_buy',
-                                        'label'=>z_language('Giá tiền bán'),
+                                        'view'=>'BetoGaizin::composer.View-Product-Product',
+                                        'name'=>'id',
+                                        'label'=>z_language('Sản phẩm'),
                                     ],
-                                    [
-                                        'type'=>'text',
-                                        'name'=>'price',
-                                        'label'=>z_language('Giá tiền nhập'),
-                                    ]
                                 ]
                             ]
                         ]

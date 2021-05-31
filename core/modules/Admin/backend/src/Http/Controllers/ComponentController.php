@@ -13,15 +13,24 @@ class ComponentController extends \Zoe\Http\ControllerBackend
         $item = 20;
         $models = DB::table('component');
         $models->orderBy('id', 'desc');
+
         return $this->render('component.list', [
             'models' => $models->paginate($item)
         ]);
+
     }
     public function run(Request $request){
         $data = $request->all();
-        if(isset($data['class']) && class_exists($data['class'])){
-           $model = (new $data['class']);
-           return $model->store($data);
+        $conf = [];
+        if(isset($data['key']) && isset($data[$data['key']])){
+            $conf = $data[$data['key']];
+            if(is_string($conf)){
+                $conf = json_decode($conf,true);
+            }
+        }
+        if(isset($conf['class']) && class_exists($conf['class'])){
+           $model = (new $conf['class']);
+           return $model->store($request,$conf);
         }
     }
 }

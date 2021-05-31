@@ -56,7 +56,8 @@ return [
                     "store" => [
                         "url" => "/store",
                         "method" => ['post'],
-                    ]
+                    ],
+
                 ]
             ],
             $key.':category' => [
