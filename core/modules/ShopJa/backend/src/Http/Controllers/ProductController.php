@@ -12,7 +12,6 @@ class ProductController extends \Zoe\Http\ControllerBackend
     {
         $this->data['language'] = config('zoe.language');
         $this->data['nestables'] = config_get("category", "shop-ja:product:category");
-        $this->data['cate_group'] = config_get("category", "beto_gaizin:category");
         $this->data['configs'] = config_get("config", "shopja");
         $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
     }
@@ -26,6 +25,9 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $this->getcrumb();
 
         $filter = $request->query('filter', []);
+
+
+
 
         $search = $request->query('search', "");
         $status = $request->query('status', "");
@@ -75,17 +77,15 @@ class ProductController extends \Zoe\Http\ControllerBackend
     }
     public function create()
     {
-        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), ('backend:shop_ja:product:create'));
-        $model = new ProductModel();
-        return $this->render('product.create', ["tag_all"=>$model->allTag(),'item' => []], 'blog');
+        $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:product:create'));
+        return $this->render('product.create', ['item' => []], 'blog');
     }
 
     public function edit($id)
     {
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
         $model = ProductModel::find($id);
-        $model->offsetSet("tag", implode( ',',$model->getTag()));
-        return $this->render('product.edit', ["tag_all"=>$model->allTag(),"model" => $model]);
+        return $this->render('product.edit', ["model" => $model]);
     }
 
     public function delete($id)
@@ -105,15 +105,14 @@ class ProductController extends \Zoe\Http\ControllerBackend
     public function store(Request $request){
 
         $data = $request->all();
-
         $validator = Validator::make($data, [
-            'group_id' => 'required',
-//            'title' => 'required',
+//            'image' => 'required',
+            'title' => 'required',
             'category_id' => 'required',
-//            'price' => 'required|integer',
-//            'price_buy' => 'required|integer',
+            'price' => 'required|integer',
+            'price_buy' => 'required|integer',
         ], [
-            'group_id.required' => z_language('Chuyên mục sản phẩm không được bỏ trống'),
+//            'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
             'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
             'category_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
             'price.required' => z_language('Giá nhập không được bỏ trống.'),
@@ -135,12 +134,10 @@ class ProductController extends \Zoe\Http\ControllerBackend
         }
         try {
             $model->title = $data['title'];
-            $model->group_id = $data['group_id'];
             $model->slug = $model->title ;
             $model->description = $data['description'];
             $model->category_id = $data['category_id'];
             $model->image =  $data['image'];
-            $model->image_web =  $data['image_web'];
             $model->price = $data['price'];
             $model->code = $data['code'];
             $model->unit = $data['unit'];
@@ -149,10 +146,8 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->price_buy = $data['price_buy'];
             $model->type_excel = $data['type_excel'];
             $model->order_index = isset($data['order_index'])?$data['order_index']:0;
-            $model->prototype = isset($data['prototype'])?$data['prototype']:'[]';
             $model->save();
             $this->log('shop_js:product',$type,['id'=>$model->id]);
-            \Actions::do_action("tag_add", "shopja:product", $model->id, $data['tag'], $model->getTag());
             $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
             return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){

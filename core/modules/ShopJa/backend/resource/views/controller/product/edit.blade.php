@@ -1,7 +1,7 @@
 @section('content-header')
     <h1>
         {!! @z_language(["Chức năng sản phẩm"]) !!}
-        <button type="button" class="btn btn-default btn-md" onclick="Save()"> Save </button>
+        {!! Form::btn_save("form_store"); !!}
     </h1>
 @endsection
 @section('content')

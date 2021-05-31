@@ -32,6 +32,33 @@ return [
 ////                    ],
 //                ]
 //            ],
+            $key.':product' => [
+                "namespace" => "BetoGaizin\Http\Controllers",
+                "controller" => "ProductController",
+                "sub_prefix" => "/beto-shop-ja/product",
+                "guard" => "backend",
+                "acl"=> "beto_shop_ja:product:store",
+                "router" => [
+                    "list" => [
+                        "url" => "/",
+                        'acl'=>true
+                    ],
+                    "create" => [
+                        "url" => "/create",
+                    ],
+                    "edit" => [
+                        "url" => "/edit/{id}",
+                    ],
+                    "delete" => [
+                        "url" => "/delete/{id}",
+                        "method" => ['post'],
+                    ],
+                    "store" => [
+                        "url" => "/store",
+                        "method" => ['post'],
+                    ]
+                ]
+            ],
             $key.':category' => [
                 "namespace" => "Admin\Http\Controllers",
                 "controller" => "CategoryController",

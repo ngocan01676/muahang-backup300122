@@ -40,39 +40,43 @@
 @endpush
 @push("scripts")
     <script>
-        (function () {
-            var myModalOption = $("#myModalOption");
-            var FormModal  = myModalOption.find("form");
-            var dataOption = {!! json_encode($data) !!};
-            $('.btnSaveOption').click(function () {
-                myModalOption.modal('toggle');
-                var data = FormModal.zoe_inputs('get');
-                $.ajax({
-                    url: '{{route('backend:dashboard:option')}}',
-                    type: "POST",
-                    data: {act:"save",name:'{{$config['name']}}',data:data},
-                    success: function (html) {
-                       if(data.hasOwnProperty('data')){
-                           dataOption.data= data.data;
-                       }
-                    }
-                });
-            });    
-            $(".btnOption").click(function () {
-                myModalOption.modal();
-                $.ajax({
-                    url: '{{route('backend:dashboard:option')}}',
-                    type: "POST",
-                    data: {act:"get",name:'{{$config['name']}}',configs:dataOption},
-                    success: function (html) {
+       $(document).ready(function () {
+           (function () {
+               var myModalOption = $("#myModalOption");
 
-                        myModalOption.find('.modal-body').html(html);
-                        myModalOption.find("form").zoe_inputs('set',dataOption);
-                        myModalOption.find('.modal-body').append("<input type='hidden' name='data.extend' value='{!! isset($config['extend'])?$config['extend']:$config['name'] !!}' />")
-                    }
-                });
-            });
-        })();
+               var FormModal  = myModalOption.find("form");
+               var dataOption = {!! json_encode($data) !!};
+               $('.btnSaveOption').click(function () {
+                   myModalOption.modal('toggle');
+                   var data = FormModal.zoe_inputs('get');
+                   $.ajax({
+                       url: '{{route('backend:dashboard:option')}}',
+                       type: "POST",
+                       data: {act:"save",name:'{{$config['name']}}',data:data},
+                       success: function (html) {
+                           if(data.hasOwnProperty('data')){
+                               dataOption.data= data.data;
+                           }
+                       }
+                   });
+               });
+               $(".btnOption").click(function () {
+                   myModalOption.modal();
+                   $.ajax({
+                       url: '{{route('backend:dashboard:option')}}',
+                       type: "POST",
+                       data: {act:"get",name:'{{$config['name']}}',configs:dataOption},
+                       success: function (html) {
+                           console.log(html);
+                           console.log(myModalOption);
+                           myModalOption.find('.modal-body').html(html);
+                           myModalOption.find("form").zoe_inputs('set',dataOption);
+                           myModalOption.find('.modal-body').append("<input type='hidden' name='data.extend' value='{!! isset($config['extend'])?$config['extend']:$config['name'] !!}' />")
+                       }
+                   });
+               });
+           })();
+       });
     </script>
 @endpush
 @endif

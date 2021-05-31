@@ -42,18 +42,25 @@
 </table>
 @push($push_name)
     <script>
+        if( window.hasOwnProperty('category_get')){
+            window.category_get.subscribe(function (data) {
+                if(data.data.hasOwnProperty){
+                    console.log(data);
+                }
+            });
+        }
         function {!! $keyId.'_' !!}template(tbody,vals,index) {
             let template = tbody.find(".{!! $keyId.'_' !!}template").clone();
             template.removeClass("{!! $keyId.'_' !!}template");
             template.find("td").first().empty().html(index+1);
             template.addClass('Element');
 
-            template.find('.data').each(function () {
+            template.find('.data').each(function (i) {
                 $(this).removeAttr('name');
                 let key = $(this).attr('data-key');
                 let tagName = ($(this).prop("tagName").toLowerCase());
                 let type = $(this).prop("type").toLowerCase();
-
+                $(this).attr('name',$(this).attr('data-name').replace("{!! $configs['key'] !!}",i));
                 let datepicker = template.find('.datepicker');
                 if(datepicker.length > 0){
                     datepicker.removeClass("hasDatepicker").removeAttr('id');
@@ -96,7 +103,6 @@
             let parent = _this.parent().parent();
             let wrap = parent.closest(".wrap_rows").find('tbody');
             parent.remove();
-
         }
         function {!! $keyId.'_' !!}add(self){
             let _this = $(self);
@@ -153,9 +159,7 @@
                     $(this).val('');
                 });
                 {!! $keyId.'_' !!}template(parent,vals,trs.length);
-                tr.find('.data').each(function () {
-                    $(this).val("");
-                });
+
             }else{
                 for(let i in cols){
                     $(cols[i]).addClass('BgError');
