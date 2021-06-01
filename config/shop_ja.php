@@ -19,6 +19,7 @@ return [
             '4' => 'Hộp',
             '5' => 'Con',
             '6' => 'Size',
+            '7' => 'gram',
         ],
         'lists_city'=>[
 
