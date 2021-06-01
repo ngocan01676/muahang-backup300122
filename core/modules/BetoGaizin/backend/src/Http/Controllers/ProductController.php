@@ -158,7 +158,6 @@ class ProductController extends \Zoe\Http\ControllerBackend
             return redirect(route('backend:'. \ModuleBetoGaizin\Module::$key.':product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
-            dd($ex);
         }
 
 

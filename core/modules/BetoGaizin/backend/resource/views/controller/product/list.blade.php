@@ -2,7 +2,7 @@
     <h1>
         &starf; {!! @z_language(["Chức năng quản lý sản phẩm"]) !!}
         <small>it all starts here</small>
-        <a href="{{route('backend:shop_ja:product:create')}}"
+        <a href="{{route('backend:'.\ModuleBetoGaizin\Module::$key.':product:create')}}"
            class="btn btn-default btn-md"><i class="fa fa-fw fa-plus"></i> {!! @z_language(["Tạo mới"]) !!} </a>
         <x-btnOption :config="['name'=>'module:beto_shop_ja:product']">
             <x-slot name="label">
