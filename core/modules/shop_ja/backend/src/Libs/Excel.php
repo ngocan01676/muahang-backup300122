@@ -1207,7 +1207,7 @@ class Excel
         $date_export->date = $this->date_export;
         $date_nhan = new \stdClass();
         $date_nhan->date = $this->date;
-
+        $columns_value = array_flip($datas['columns']);
         $colums = [
             ["注文日", ['callback' => function ($index, $date) use ($date_export) {
                 return date("d", $date_export->date) . '日';
@@ -1236,8 +1236,8 @@ class Excel
             ["仕入金額", 'order_total_price', 6.43, 9],//O
             ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
             ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
-            ["紹介料", ['callback' => function ($index, $date,$a,$val) use ($date_export) {
-                if($val['payMethod'] == "銀行振込"){
+            ["紹介料", ['callback' => function ($index, $date,$a,$val) use ($date_export,$columns_value) {
+                if($val[$columns_value['payMethod']] == "銀行振込"){
                     return "=-O$index";
                 }else{
                     return "=P$index-J$index*K$index-N$index-Q$index";
@@ -1297,7 +1297,7 @@ class Excel
 
         ];
 
-        $columns_value = array_flip($datas['columns']);
+
         $products = DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
         $ids = [];
