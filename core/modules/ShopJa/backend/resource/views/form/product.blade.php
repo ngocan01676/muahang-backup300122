@@ -160,6 +160,12 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        {!! Form::label('count', z_language('Số lượng'), ['class' => 'count']) !!}
+                                        {!! Form::text('count',null, ['class' => 'form-control','placeholder'=>z_language('Số lượng')]) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         {!! Form::label('unit', z_language('Đơn vị'), ['class' => 'unit']) !!} &nbsp;
                                         @php
                                             $lists_uint = config('shop_ja.configs.lists_uint');
