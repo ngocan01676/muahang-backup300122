@@ -116,6 +116,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $data = $request->all();
         $validator = Validator::make($data, [
 //            'image' => 'required',
+            'body' => 'required',
             'title' => 'required',
             'category_id' => 'required',
             'price' => 'required|integer',
@@ -123,6 +124,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
         ], [
 //            'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
             'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
+            'body.required' => z_language('Nội dung được phép bỏ trống.'),
             'category_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
             'price.required' => z_language('Giá nhập không được bỏ trống.'),
             'price.integer' => z_language('Giá nhập phải là giá trị số.'),
@@ -141,15 +143,15 @@ class ProductController extends \Zoe\Http\ControllerBackend
         } else {
             $model = new ProductModel();
         }
-        $imageUp  = "";
-        if($request->hasfile('image'))
+        $imageUp  = $data['image'];
+        if($request->hasfile('image_up'))
         {
-            $files = $request->file('image');
+            $files = $request->file('image_up');
 
             $allowedfileExtension=['jpg','png','gif','jpeg'];
 
             $exe_flg = true;
-            foreach($files as $file) {
+            foreach([$files] as $file) {
                 $extension = $file->getClientOriginalExtension();
                 $check= in_array($extension,$allowedfileExtension);
                 if(!$check) {
@@ -178,6 +180,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->title = $data['title'];
             $model->slug = $model->title ;
             $model->description = $data['description'];
+            $model->body = $data['body'];
             $model->category_id = $data['category_id'];
             $model->image =  $imageUp;
             $model->price = $data['price'];

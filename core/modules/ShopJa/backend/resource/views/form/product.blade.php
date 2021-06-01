@@ -47,7 +47,7 @@
                                 <tr>
                                     <td>
                                         {!! Form::label('Image', z_language('Ảnh sản phẩm'), ['class' => 'image']) !!}
-                                        <input type="file" name="image" accept="image/*" onchange="loadFile(event)">
+                                        <input type="file" name="image_up" accept="image/*" onchange="loadFile(event)">
                                         <div class="image-wrapper">
                                             <div class="preview-image-wrapper">
                                                 <img id="preview-image-2" class="preview-image" style="width: 100px;height: 150px" src="{!! isset($model)?$model->image:"http://placehold.jp/100x150.png" !!}" alt="">
@@ -55,6 +55,7 @@
                                             <br>
                                         {{--<input data-preview="#preview-image" data-input="#file_input" onfocus="openElfinder(this)" name="image" type="text" id="file_input" class="form-control itemVal" value="{!! isset($model)?$model->image:"" !!}"><br>--}}
                                         </div>
+                                        {!! Form::hidden('image') !!}
                                     </td>
                                 </tr>
                                 <tr>
