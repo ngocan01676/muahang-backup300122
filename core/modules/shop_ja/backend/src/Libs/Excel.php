@@ -1238,7 +1238,7 @@ class Excel
             ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
             ["紹介料", ['callback' => function ($index, $date,$a,$val) use ($date_export,$columns_value) {
                 if($val[$columns_value['payMethod']] == "決済不要"){
-                    return "=-O$index";
+                    return "=0-O$index";
                 }else{
                     return "=P$index-J$index*K$index-N$index-Q$index";
                 }
