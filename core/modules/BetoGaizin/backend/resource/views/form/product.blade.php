@@ -77,6 +77,13 @@
                                 </tr>
                                 <tr>
                                     <td>
+
+                                        {!! Form::label('id_tag', 'Tag', ['class' => 'tag']) !!} *
+                                        {!! Form::text('tag',null, ['class' => 'form-control','placeholder'=>'Tag']) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         {!! Form::label('id_description', z_language('Mô tả'), ['class' => 'description']) !!}
                                         {!! Form::textarea('description',null, ['class' => 'form-control my-editor','placeholder'=>z_language('Mô tả'),'cols'=>5,'rows'=>5]) !!}
                                         <script>
@@ -154,13 +161,7 @@
                                         {!! Form::text('value',null, ['class' => 'form-control','placeholder'=>z_language('Cân nặng')]) !!}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
 
-                                        {!! Form::label('id_tag', 'Tag', ['class' => 'tag']) !!} *
-                                        {!! Form::text('tag',null, ['class' => 'form-control','placeholder'=>'Tag']) !!}
-                                    </td>
-                                </tr>
                                 <tr>
                                     <td>
                                         {!! Form::label('unit', z_language('Đơn vị'), ['class' => 'unit']) !!} &nbsp;

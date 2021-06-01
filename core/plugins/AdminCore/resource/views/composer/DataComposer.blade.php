@@ -14,9 +14,7 @@
             <td style="vertical-align: middle;text-align:center;width: 50px">0</td>
             @foreach($DataComposer['config']['columns'] as $columns)
                 @if(isset($columns['view']))
-
                     @include($columns['view'],['columns'=>$columns,'DataComposer'=>$DataComposer])
-
                 @else
                     <td style="vertical-align: middle;text-align:center;">
                          @if($columns['type'] == "text" || $columns['type'] == "time" || $columns['type'] == "date" || $columns['type'] == "number")
@@ -85,6 +83,7 @@
             showMeridian: false,
             minuteStep: 5 ,
         };
+
         $(document).ready(function () {
 
             $datepicker =  $("#{!! $DataComposer['key'].'_wrap' !!} .{!! $DataComposer['key'].'_template' !!} .datepicker").datepicker({!! $DataComposer['key'].'_wrap' !!}configDatePicker);
@@ -110,6 +109,10 @@
                 for(let k in data){
                     {!! $DataComposer['key'].'_' !!}template($("#{!! $DataComposer['key'].'_wrap' !!}"),data[k],index++);
                 }
+                @isset($DataComposer['callback'])
+                eval("{!! $DataComposer['callback']['name'] !!}").call({!! $DataComposer['callback']['parameters'] !!})
+                @endisset
+
                 $("#{!! $DataComposer['key'].'_wrap' !!}").unmask();
             }
         }
@@ -243,16 +246,13 @@
                     datepicker.datepicker("destroy");
                     console.log(datepicker);
                 }
-
                 if(tagName === 'select'){
-
                     if(vals.hasOwnProperty(key)){
+                        $(this).attr('data-value',vals[key]);
                         $(this).find('option').each(function () {
-
                             if($(this).attr('value')+"".toString() === vals[key]+"".toString()){
                                 $(this).attr('selected','selected');
                             }
-
                         });
                     }
                 }else if(type === 'checkbox' || type === 'radio'){
@@ -309,11 +309,14 @@
 
             let cols = {};
             let tr = cloneTr.clone();
+            let valsData = {};
             cloneTr.find('.data').each(function () {
                 cols[ $(this).attr('data-key')] = $(this).parent();
+                valsData[$(this).attr('data-key')] = $(this).val();
             });
             tr.find('.data').each(function () {
                 $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",0));
+                $(this).val(valsData[$(this).attr('data-key')]);
             });
             for(let i in cols){
                 $(cols[i]).removeClass('BgError');
@@ -334,7 +337,7 @@
                     delete cols[i];
                 }
             }
-
+            console.log(vals);
             if(oke && Object.values(cols).length == 0){
                 {!! $DataComposer['key'].'_' !!}template(parent,vals,trs.length);
                 cloneTr.find('.data').each(function () {

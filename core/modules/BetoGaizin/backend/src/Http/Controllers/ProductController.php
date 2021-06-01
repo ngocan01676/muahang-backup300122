@@ -140,7 +140,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->description = $data['description'];
             $model->category_id = $data['category_id'];
             $model->image =  $data['image'];
-            $model->image_web =  $data['image_web'];
+
             $model->price = $data['price'];
             $model->code = $data['code'];
             $model->unit = $data['unit'];
@@ -150,6 +150,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->type_excel = $data['type_excel'];
             $model->order_index = isset($data['order_index'])?$data['order_index']:0;
             $model->prototype = isset($data['prototype'])?$data['prototype']:'[]';
+
             $model->save();
             $this->log('shop_js:product',$type,['id'=>$model->id]);
             \Actions::do_action("tag_add", "shopja:product", $model->id, $data['tag'], $model->getTag());
@@ -157,6 +158,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             return redirect(route('backend:'. \ModuleBetoGaizin\Module::$key.':product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
+            dd($ex);
         }
 
 

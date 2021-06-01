@@ -123,6 +123,10 @@
                                 'js'=>['module/betogaizin/admin/Product-Prototype.js']
                             ],
                             'include'=>'BetoGaizin::composer.View-Product-Config',
+                            'callback'=>[
+                                'name'=>'BetoGaizin_DataComposer_Price_beforeInit',
+                                'parameters'=>'[data]'
+                            ],
                             'config'=>[
                                 'name'=>'prototype',
                                 'columns'=>[
