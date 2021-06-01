@@ -441,7 +441,18 @@
         ],
         'composers'=>[
             BACKEND=>[
-
+                'PluginGallery\Views\GalleryComposer'=>[
+                    'shop_ja::form.product'=>[
+                        'file'=>'shop_ja::form.product',
+                        'router'=>'backend:shop_ja:product:store',
+                        'type'=>'file',
+                        'data'=>[],
+                        'model_name'=>'model',
+                        'config'=>[
+                            'open'=>'room/media'
+                        ]
+                    ]
+                ],
             ]
         ]
     ];

@@ -141,12 +141,45 @@ class ProductController extends \Zoe\Http\ControllerBackend
         } else {
             $model = new ProductModel();
         }
+        $imageUp  = "";
+        if($request->hasfile('image'))
+        {
+            $files = $request->file('image');
+
+            $allowedfileExtension=['jpg','png','gif','jpeg'];
+
+            $exe_flg = true;
+            foreach($files as $file) {
+                $extension = $file->getClientOriginalExtension();
+                $check= in_array($extension,$allowedfileExtension);
+                if(!$check) {
+                    // nếu có file nào không đúng đuôi mở rộng thì đổi flag thành false
+                    $exe_flg = false;
+                    break;
+                }
+            }
+
+            $fileSys = new \Illuminate\Filesystem\Filesystem();
+            if(!$fileSys->isDirectory(public_path().'/uploads/thumbs')){
+
+                $fileSys->makeDirectory(public_path().'/uploads/thumbs', 0777, true, true);
+
+            }
+            if($exe_flg) {
+
+                $name =rand(100000,99999).'-'.rand(100000,99999).'-'.$files->getClientOriginalName();
+
+                $files->move(public_path().'/uploads/thumbs/', $name);
+                $imageUp= '/uploads/thumbs/'.$name;
+            }
+
+        }
         try {
             $model->title = $data['title'];
             $model->slug = $model->title ;
             $model->description = $data['description'];
             $model->category_id = $data['category_id'];
-            $model->image =  $data['image'];
+            $model->image =  $imageUp;
             $model->price = $data['price'];
             $model->code = $data['code'];
             $model->unit = $data['unit'];

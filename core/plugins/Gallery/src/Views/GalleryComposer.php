@@ -16,11 +16,7 @@ class GalleryComposer extends \Zoe\Views\ComposerView
         $imageUp = [
 
         ];
-        $plugin_gallery = DB::table('plugin_gallery')->where([
-            'key_id'=>$data['id'],
-            'key_group'=>$data['key'],
-            'name'=>$data['name'],
-        ])->first();
+
 
         if($request->hasfile('images'))
         {
@@ -47,9 +43,7 @@ class GalleryComposer extends \Zoe\Views\ComposerView
             if($exe_flg) {
 
                 $imageUp = [];
-                if(!is_dir(public_path().'/uploads/files/')){
 
-                }
                 foreach($files as $file)
                 {
                     $name = (isset($data['prefix'])?$data['prefix']:rand(100000,99999)).'-'.$file->getClientOriginalName();
@@ -79,6 +73,7 @@ class GalleryComposer extends \Zoe\Views\ComposerView
             'data'=>serialize(['images'=>$_data_img]),
             'update_time'=>date('Y-m-d H:i:s')
         ]);
+
         return $_data_img;
     }
     public function compose(View $view)

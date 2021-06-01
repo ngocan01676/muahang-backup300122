@@ -199,6 +199,7 @@
 
         clicks.subscribe(function (form) {
             let data = form.zoe_inputs('get');
+
              return new Promise((resolve, reject) => {
                  let _data = {!! json_encode($GalleryComposer['token']) !!};
 
