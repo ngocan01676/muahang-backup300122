@@ -87,14 +87,16 @@ class ProductController extends \Zoe\Http\ControllerBackend
     public function create()
     {
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), route('backend:shop_ja:product:create'));
-        return $this->render('product.create', ['item' => []], 'blog');
+        $model = new ProductModel();
+        return $this->render('product.create', ["tag_all"=>$model->allTag(),'item' => []], 'blog');
     }
 
     public function edit($id)
     {
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
         $model = ProductModel::find($id);
-        return $this->render('product.edit', ["model" => $model]);
+        $model->offsetSet("tag", implode( ',',$model->getTag()));
+        return $this->render('product.edit', ["tag_all"=>$model->allTag(),"model" => $model]);
     }
 
     public function delete($id)
@@ -194,10 +196,13 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->order_index = isset($data['order_index'])?$data['order_index']:0;
             $model->save();
             $this->log('shop_js:product',$type,['id'=>$model->id]);
+
+            \Actions::do_action("tag_add", "shopja:product", $model->id, $data['tag'], $model->getTag());
             $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
             return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
+          
         }
 
 
