@@ -40,13 +40,13 @@
                                 <tr>
                                     <td>
                                         {!! Form::label('name', z_language('Tên sản phẩm Website'), ['class' => 'name']) !!}
-                                        {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Tên sản phẩm Website')]) !!}
+                                        {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Tên hiển thị trên Website')]) !!}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         {!! Form::label('id_title', z_language('Tên sản phẩm'), ['class' => 'title']) !!}
-                                        {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>z_language('Tên sản phẩm')]) !!}
+                                        {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>z_language('Tên khi xuất file')]) !!}
                                     </td>
                                 </tr>
                                 <tr>

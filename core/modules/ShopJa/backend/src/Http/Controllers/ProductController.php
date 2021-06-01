@@ -129,8 +129,8 @@ class ProductController extends \Zoe\Http\ControllerBackend
             'price_buy' => 'required|integer',
         ], [
 //            'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
-            'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
-            'name.required' => z_language('Tên sản phẩm Website không được phép bỏ trống.'),
+            'title.required' => z_language('Tên khi xuất file không được phép bỏ trống.'),
+            'name.required' => z_language('Tên hiển thị trên Website không được phép bỏ trống.'),
             'group_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
             'body.required' => z_language('Nội dung được phép bỏ trống.'),
             'category_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
