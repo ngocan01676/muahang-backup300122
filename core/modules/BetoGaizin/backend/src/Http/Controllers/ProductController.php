@@ -34,7 +34,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $config = config_get('option', "module:beto_shop_ja:product");
         $item = isset($config['pagination']['item']) ? $config['pagination']['item'] : 20;
 
-        $models = DB::table('shop_product');
+        $models = DB::table('beto_shop_product');
         if(isset($filter['search'])){
             $search = $filter['search'];
         }else {
