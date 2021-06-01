@@ -13,6 +13,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $this->data['language'] = config('zoe.language');
         $this->data['nestables'] = config_get("category", "shop-ja:product:category");
         $this->data['configs'] = config_get("config", "shopja");
+        $this->data['cate_group'] = config_get("category", "beto_gaizin:category");
         $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
     }
     public function getCrumb()
@@ -119,6 +120,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $validator = Validator::make($data, [
 //            'image' => 'required',
             'body' => 'required',
+            'group_id' => 'required',
             'title' => 'required',
             'category_id' => 'required',
             'price' => 'required|integer',
@@ -126,6 +128,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
         ], [
 //            'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
             'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
+            'group_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
             'body.required' => z_language('Nội dung được phép bỏ trống.'),
             'category_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
             'price.required' => z_language('Giá nhập không được bỏ trống.'),
@@ -183,6 +186,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->slug = $model->title ;
             $model->description = $data['description'];
             $model->body = $data['body'];
+            $model->group_id = $data['group_id'];
             $model->category_id = $data['category_id'];
             $model->image =  $imageUp;
             $model->price = $data['price'];
@@ -202,7 +206,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
-          
+
         }
 
 

@@ -69,6 +69,12 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        {!! Form::label('group_id',z_language('Chuyên mục'), ['class' => 'Category']) !!} *
+                                        {!! Form::CategoriesNestableOne($cate_group,[Form::value('group_id')=>""],"group_id") !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         {!! Form::label('category_id',z_language('Công ty'), ['class' => 'Category']) !!} *
                                         {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"category_id") !!}
                                     </td>
