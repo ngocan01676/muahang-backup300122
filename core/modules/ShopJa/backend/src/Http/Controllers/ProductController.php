@@ -4,6 +4,7 @@ use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Str;
 use \ShopJa\Http\Models\ProductModel;
 class ProductController extends \Zoe\Http\ControllerBackend
 {
@@ -122,12 +123,14 @@ class ProductController extends \Zoe\Http\ControllerBackend
             'body' => 'required',
             'group_id' => 'required',
             'title' => 'required',
+            'name' => 'required',
             'category_id' => 'required',
             'price' => 'required|integer',
             'price_buy' => 'required|integer',
         ], [
 //            'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
             'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
+            'name.required' => z_language('Tên sản phẩm Website không được phép bỏ trống.'),
             'group_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
             'body.required' => z_language('Nội dung được phép bỏ trống.'),
             'category_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
@@ -183,7 +186,9 @@ class ProductController extends \Zoe\Http\ControllerBackend
         }
         try {
             $model->title = $data['title'];
-            $model->slug = $model->title ;
+            $model->name = $data['name'];
+            $model->slug = $slug = Str::slug( $data['name'], '-');;
+
             $model->description = $data['description'];
             $model->body = $data['body'];
             $model->group_id = $data['group_id'];
