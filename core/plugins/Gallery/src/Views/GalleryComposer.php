@@ -38,13 +38,22 @@ class GalleryComposer extends \Zoe\Views\ComposerView
                     break;
                 }
             }
+            $fileSys = new \Illuminate\Filesystem\Filesystem();
+            if(!$fileSys->isDirectory(public_path().'/files/')){
+
+                $fileSys->makeDirectory(public_path().'/files/', 0777, true, true);
+
+            }
             if($exe_flg) {
 
                 $imageUp = [];
+                if(!is_dir(public_path().'/files/')){
 
+                }
                 foreach($files as $file)
                 {
                     $name = (isset($data['prefix'])?$data['prefix']:rand(100000,99999)).'-'.$file->getClientOriginalName();
+
                     $file->move(public_path().'/files/', $name);
                     $imageUp[] = '/files/'.$name;
                 }
