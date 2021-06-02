@@ -91,7 +91,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        {!! Form::label('id_description', z_language('Không quan tâm'), ['class' => 'description']) !!}
+                                        {!! Form::label('id_description', z_language('Mô tả'), ['class' => 'description']) !!}
                                         {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>z_language('Mô tả'),'cols'=>5,'rows'=>5]) !!}
                                     </td>
                                 </tr>
@@ -104,7 +104,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        {!! Form::label('id_body', z_language('Mô tả'), ['class' => 'body']) !!}
+                                        {!! Form::label('id_body', z_language('Không quan tam'), ['class' => 'body']) !!}
                                         {!! Form::textarea('body',null, ['class' => 'form-control','placeholder'=>z_language('Mô tả'),'cols'=>5,'rows'=>5]) !!}
                                     </td>
                                 </tr>
