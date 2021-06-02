@@ -32,7 +32,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             $current_page = 1;
         }
         $start = ($current_page - 1) * $limit;
-        $results = DB::table('shop_product')->where('group_id',$id)->offset($start)->limit($limit)->get()->all();
+        $results = DB::table('shop_product')->where('status',1)->where('group_id',$id)->offset($start)->limit($limit)->get()->all();
 
         return $this->render('home.category-product', [
             'results'=>$results,
@@ -42,7 +42,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         ]);
     }
     public function getCategoryProduct($slug,$id){
-        $total_records = DB::table('shop_product')->where('category_id',$id)->count();
+        $total_records = DB::table('shop_product')->where('status',1)->where('category_id',$id)->count();
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
         $total_page = ceil($total_records / $limit);
@@ -53,7 +53,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             $current_page = 1;
         }
         $start = ($current_page - 1) * $limit;
-        $results = DB::table('shop_product')->where('category_id',$id)->offset($start)->limit($limit)->get()->all();
+        $results = DB::table('shop_product')->where('status',1)->where('category_id',$id)->offset($start)->limit($limit)->get()->all();
 
         return $this->render('home.category-product', [
             'results'=>$results,
@@ -64,7 +64,7 @@ class HomeController extends \Zoe\Http\ControllerFront
     }
     public function getSearchProduct(Request $request){
         $kw = $request->keyword;
-        $model = DB::table('shop_product')->where('title', 'like', '%'.$kw.'%');
+        $model = DB::table('shop_product')->where('status',1)->where('title', 'like', '%'.$kw.'%');
         $total_records = $model->count();
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
@@ -86,7 +86,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         ]);
     }
     public function getItemProduct($slug,$id){
-        $result = DB::table('shop_product')->where('id',$id)->get()->all();
+        $result = DB::table('shop_product')->where('status',1)->where('id',$id)->get()->all();
         $item = isset($result[0])?$result[0]:null;
         $array = array_merge([$item->image],\PluginGallery\Views\GalleryComposer::get($id,"shop_ja::form.product"));
         return $this->render('home.item-product', [
