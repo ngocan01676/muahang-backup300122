@@ -15,11 +15,13 @@ function Main($option){
         $config_language = app()->config_language;
 
         if(isset($config_language['lang'])){
+
             $cate =(array) DB::table('categories_translation')
-                ->select(['slug'])
+                ->select(['slug','name'])
                 ->where('lang_code',$config_language['lang'])
                 ->where('_id',$category)
                 ->get()->first();
+
             $cate['id'] = $category;
         }
         $results = DB::table('shop_product')->where('group_id',$category)->orderBy('id',$order_buy)->limit($limit)->get()->all();

@@ -6,7 +6,7 @@
         <div class="title-wrap-carousel">
             <h2 class="title title-other01 title-color01">
                 <a href="#" class="">
-                    {!! isset($data['conf']['name'])?$data['conf']['name']:"" !!}
+                    {!! isset($data['cate']['name'])?$data['cate']['name']:"" !!}
                     <span class="title-subtext small">
                             {{--更新日: 2020年12月15日(火)--}}
                             </span>
