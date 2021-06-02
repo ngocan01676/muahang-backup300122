@@ -1,5 +1,5 @@
 @php
-    $categorys = get_category_type("shop-ja:product:category");
+    $categorys = get_category_type("beto_gaizin:category");
 
 @endphp
 <table class="table table-bordered">

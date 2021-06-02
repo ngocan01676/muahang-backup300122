@@ -88,6 +88,12 @@ class HomeController extends \Zoe\Http\ControllerFront
     public function getItemProduct($slug,$id){
         $result = DB::table('shop_product')->where('status',1)->where('id',$id)->get()->all();
         $item = isset($result[0])?$result[0]:null;
+
+        $config_language = app()->config_language;
+
+        //$db = DB::table('blog_post_translation')->where('slug',$slug)->where('lang_code',$config_language['lang'])->get()->all();
+
+
         $array = array_merge([$item->image],\PluginGallery\Views\GalleryComposer::get($id,"shop_ja::form.product"));
         return $this->render('home.item-product', [
             'item'=>$item,

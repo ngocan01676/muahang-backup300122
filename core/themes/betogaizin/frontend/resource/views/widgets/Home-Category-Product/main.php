@@ -12,7 +12,7 @@ function Main($option){
     $cate = [];
     if($category){
         $cate =(array) DB::table('categories')->select(['id','slug'])->where('status',1)->where('id',$category)->get()->first();
-        $results = DB::table('shop_product')->where('category_id',$category)->orderBy('id',$order_buy)->limit($limit)->get()->all();
+        $results = DB::table('shop_product')->where('group_id',$category)->orderBy('id',$order_buy)->limit($limit)->get()->all();
     }
     return [
         'results'=>$results,
