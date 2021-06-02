@@ -15,7 +15,11 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $this->data['nestables'] = config_get("category", "shop-ja:product:category");
         $this->data['configs'] = config_get("config", "shopja");
         $this->data['cate_group'] = config_get("category", "beto_gaizin:category");
-        $this->data['current_language'] = isset($this->data['configs']['shopja']['language']['default']) ? $this->data['configs']['shopja']['language']['default'] : "en";
+        $this->data['configs'] = config_get("config", "system");
+        $this->data['current_language'] =
+            isset($this->data['configs']['core']['site_language']) ?
+                $this->data['configs']['core']['site_language'] :
+                config('zoe.default_lang');
     }
     public function getCrumb()
     {
@@ -98,6 +102,17 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
         $model = ProductModel::find($id);
         $model->offsetSet("tag", implode( ',',$model->getTag()));
+        if (isset($this->data['configs']['core']['language']['multiple'])) {
+            $trans = $model->table_translation_model()->where(['_id' => $id])->get();
+            $table = $model->table_translation_columns();
+
+            foreach ($trans as $tran) {
+                foreach ($table as $val){
+                 
+                    $model->offsetSet($val."_" . $tran->lang_code, $tran->{$val});
+                }
+            }
+        }
         return $this->render('product.edit', ["tag_all"=>$model->allTag(),"model" => $model]);
     }
 
@@ -118,17 +133,49 @@ class ProductController extends \Zoe\Http\ControllerBackend
     public function store(Request $request){
 
         $data = $request->all();
-        $validator = Validator::make($data, [
-//            'image' => 'required',
-            'body' => 'required',
+
+        $filter = [
+        ];
+        $langs_key = isset($data['_keys'])?json_decode(base64_decode($data['_keys']),true):[];
+
+        foreach ($langs_key as $key=>$_filter){
+            if(is_numeric($key)){
+                $filter[$_filter] = "required";
+            }else{
+                $filter[$key] ="required";
+            }
+        }
+        $newFilter = [];
+        foreach ($this->data['language'] as $lang => $_language) {
+            if(
+                isset($this->data['configs']['core']['language']['lists']) &&
+                (is_string($this->data['configs']['core']['language']['lists']) &&
+                    $this->data['configs']['core']['language']['lists'] == $_language['lang']||
+                    is_array($this->data['configs']['core']['language']['lists']) &&  in_array($_language['lang'],$this->data['configs']['core']['language']['lists'])) ){
+                foreach ($filter as $col=>$value){
+                    if(isset($langs_key[$col]['default'])){
+                        if($lang == $langs_key[$col]['default']){
+                            $newFilter[$col.'_'.$lang] = $value;
+                        }
+                    }else{
+
+                        $newFilter[$col.'_'.$lang] = $value;
+                    }
+                }
+            }
+
+        }
+        $newFilter = array_merge( [
+//            'body' => 'required',
             'group_id' => 'required',
             'title' => 'required',
-            'name' => 'required',
+//            'name' => 'required',
             'category_id' => 'required',
             'price' => 'required|integer',
             'price_buy' => 'required|integer',
-        ], [
-//            'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
+        ],$newFilter);
+        $validator = Validator::make($data, $newFilter, [
+
             'title.required' => z_language('Tên khi xuất file không được phép bỏ trống.'),
             'name.required' => z_language('Tên hiển thị trên Website không được phép bỏ trống.'),
             'group_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
@@ -176,9 +223,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
             }
             if($exe_flg) {
-
-                $name =rand(100000,99999).'-'.rand(100000,99999).'-'.$files->getClientOriginalName();
-
+                $name =rand(100000,900000).'-'.rand(100000,900000).'-'.Str::slug($files->getClientOriginalName(), '-');
                 $files->move(public_path().'/uploads/thumbs/', $name);
                 $imageUp= '/uploads/thumbs/'.$name;
             }
@@ -186,11 +231,11 @@ class ProductController extends \Zoe\Http\ControllerBackend
         }
         try {
             $model->title = $data['title'];
-            $model->name = $data['name'];
-            $model->slug = $slug = Str::slug( $data['name'], '-');;
+
+            $model->slug = $slug = Str::slug(  $model->title, '-');
 
             $model->description = $data['description'];
-            $model->body = $data['body'];
+
             $model->group_id = $data['group_id'];
             $model->category_id = $data['category_id'];
             $model->image =  $imageUp;
@@ -203,15 +248,54 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->price_buy = $data['price_buy'];
             $model->type_excel = $data['type_excel'];
             $model->order_index = isset($data['order_index'])?$data['order_index']:0;
-            $model->save();
+
             $this->log('shop_js:product',$type,['id'=>$model->id]);
 
+
+
+            $model->save();
+
+            foreach ($this->data['language'] as $lang => $_language) {
+                $data_save = [];
+                $langs_key['slug'] = ['default'=>'vi','slug'=>'name'];
+                foreach ($langs_key as $k=>$val){
+                    $conf = [];
+                    if(is_numeric($k)){
+                        $col = $val;
+                        $data_save[$col] = isset($data[$col.'_' . $lang])?$data[$col.'_' . $lang]:"";
+                    }else{
+                        $col = $k;
+                        if(isset($val['slug'])){
+                            $data_save[$col] = isset($data[$val['slug'].'_vi'])?Str::slug($data[$val['slug'].'_vi'], '-','ja'):"";
+                        }else{
+                            $data_save[$col] = isset($data[$col.'_' . $lang])?$data[$col.'_' . $lang]:"";
+                        }
+                        $conf = $val;
+                    }
+                    if(empty($data_save[$col]) && isset($conf['default'])){
+                        $data_save[$col] = isset($data[$col.'_' . $conf['default']])?$data[$col.'_' . $conf['default']]:"";
+                    }
+                }
+
+                $model->table_translation_model("_")->updateOrInsert(
+                    [
+                        '_id' => $model->id,
+                        'lang_code' => $lang
+                    ],
+                    $data_save
+                );
+
+            }
+
             \Actions::do_action("tag_add", "shopja:product", $model->id, $data['tag'], $model->getTag());
+
+
             $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
             return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
-
+            var_dump($ex->getMessage()); echo $ex->getLine();
+            die;
         }
 
 

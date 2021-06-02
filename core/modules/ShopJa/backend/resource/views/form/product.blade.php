@@ -4,6 +4,11 @@
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store','class'=>'submit','enctype'=>"multipart/form-data"]) !!}
 @endif
+
+{!! Form::hidden('_lang','_') !!}
+{!! Form::hidden('_keys',base64_encode(json_encode([
+        'name'=>['default'=>'vi'],'content'=>['default'=>'vi']
+]))) !!}
 <script src="{!! config('zoe.tiny') !!}"></script>
 <div class="col-md-12">
     <div class="box box box-zoe">
@@ -37,12 +42,7 @@
                                         {!! Form::text('code',null, ['class' => 'form-control','placeholder'=>z_language('Mã sản phẩm')]) !!}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        {!! Form::label('name', z_language('Tên sản phẩm Website'), ['class' => 'name']) !!}
-                                        {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Tên hiển thị trên Website')]) !!}
-                                    </td>
-                                </tr>
+
                                 <tr>
                                     <td>
                                         {!! Form::label('id_title', z_language('Tên sản phẩm'), ['class' => 'title']) !!}
@@ -99,57 +99,101 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        {!! Form::label('id_body', z_language('Nội dung'), ['class' => 'body']) !!}
-                                        {!! Form::textarea('body',null, ['class' => 'form-control my-editor','placeholder'=>z_language('Nội dung'),'cols'=>5,'rows'=>5]) !!}
-                                        <script>
-                                            var editor_config = {
-                                                    path_absolute: "/",
-                                                    selector: "textarea.my-editor",
-                                                    plugins: [
-                                                        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                                                        "searchreplace wordcount visualblocks visualchars code fullscreen",
-                                                        "insertdatetime media nonbreaking save table contextmenu directionality",
-                                                        "emoticons template paste textcolor colorpicker textpattern"
-                                                    ],
-                                                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
-                                                    relative_urls: false,
-                                                    height:"500",
-                                                    file_browser_callback: function (field_name, url, type, win) {
 
-                                                        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-                                                        var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+                                        <div class="nav-tabs-custom">
+                                            <ul class="nav nav-tabs" {{$current_language}}>
 
-                                                        var cmsURL = '{{route('backend:elfinder:tinymce4')}}' + '?field_name=' + field_name;
-                                                        console.log(cmsURL);
-                                                        if (type === 'image') {
-                                                            cmsURL = cmsURL + "&type=Images";
-                                                        } else {
-                                                            cmsURL = cmsURL + "&type=Files";
-                                                        }
-                                                        tinyMCE.activeEditor.windowManager.open({
-                                                            file: cmsURL,
-                                                            title: 'Filemanager',
-                                                            width: x * 0.8,
-                                                            height: y * 0.8,
-                                                            resizable: "yes",
-                                                            close_previous: "no",
-                                                        }, {
-                                                            oninsert: function (file, fm) {
-                                                                var url, reg, info;
-                                                                console.log(file);
-                                                                win.document.getElementById(field_name).value = file.url;
-                                                                // URL normalization
-                                                                url = fm.convAbsUrl(file.url);
-                                                                console.log(url);
-                                                            }
-                                                        });
+                                                @foreach($language as $lang=>$_language)
+                                                    @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                                                        <li @if($current_language == $lang) class="active" @endif {{$lang}}><a href="#tab_{{$lang}}"
+                                                                                                                               data-toggle="tab"><span
+                                                                        class="flag-icon flag-icon-{{$_language['flag']}}"></span></a>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                            <div class="tab-content">
+                                                @foreach($language as $lang=>$_language)
+                                                    @if(
+                                                    isset($configs['core']['language']['lists']) &&
+                                                    (is_string($configs['core']['language']['lists']) &&
+                                                    $configs['core']['language']['lists'] == $_language['lang']||
+                                                    is_array($configs['core']['language']['lists']) &&  in_array($_language['lang'],$configs['core']['language']['lists'])) )
+                                                        <div  class="tab-pane @if($current_language == $lang) active @endif" id="tab_{{$lang}}">
+                                                            <table class="table table-borderless">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        {!! Form::label('name_'.$lang, z_language('Tên hiển thị trên Website'), ['class' => 'description']) !!}
+                                                                        {!! Form::text('name_'.$lang,null, ['class' => 'form-control','placeholder'=>z_language('Tên hiển thị trên Website')]) !!}
+                                                                        <span class="error help-block"></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        {!! Form::label('content_'.$lang, z_language('Nội dung'), ['class' => 'description']) !!}
 
-                                                    }
-                                                }
-                                            ;
+                                                                        {!! Form::textarea('content_'.$lang, null, ['class' => 'form-control my-editor-'.'content_'.$lang]) !!}
+                                                                        <span class="error help-block"></span>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <script>
+                                                            var editor_config = {
+                                                                    path_absolute: "/",
+                                                                    selector: "textarea.my-editor-{!! 'body_'.$lang !!}",
+                                                                    plugins: [
+                                                                        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                                                                        "searchreplace wordcount visualblocks visualchars code fullscreen",
+                                                                        "insertdatetime media nonbreaking save table contextmenu directionality",
+                                                                        "emoticons template paste textcolor colorpicker textpattern"
+                                                                    ],
+                                                                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+                                                                    relative_urls: false,
+                                                                    height:"500",
+                                                                    file_browser_callback: function (field_name, url, type, win) {
 
-                                            tinymce.init(editor_config);
-                                        </script>
+                                                                        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+                                                                        var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+
+                                                                        var cmsURL = '{{route('backend:elfinder:tinymce4')}}' + '?field_name=' + field_name;
+                                                                        console.log(cmsURL);
+                                                                        if (type === 'image') {
+                                                                            cmsURL = cmsURL + "&type=Images";
+                                                                        } else {
+                                                                            cmsURL = cmsURL + "&type=Files";
+                                                                        }
+                                                                        tinyMCE.activeEditor.windowManager.open({
+                                                                            file: cmsURL,
+                                                                            title: 'Filemanager',
+                                                                            width: x * 0.8,
+                                                                            height: y * 0.8,
+                                                                            resizable: "yes",
+                                                                            close_previous: "no",
+                                                                        }, {
+                                                                            oninsert: function (file, fm) {
+                                                                                var url, reg, info;
+                                                                                console.log(file);
+                                                                                win.document.getElementById(field_name).value = file.url;
+                                                                                // URL normalization
+                                                                                url = fm.convAbsUrl(file.url);
+                                                                                console.log(url);
+                                                                            }
+                                                                        });
+
+                                                                    }
+                                                                }
+                                                            ;
+
+                                                            tinymce.init(editor_config);
+                                                        </script>
+                                                    @endif
+                                                @endforeach
+
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>

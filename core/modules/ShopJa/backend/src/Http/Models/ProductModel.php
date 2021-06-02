@@ -2,7 +2,7 @@
 
 namespace ShopJa\Http\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Zoe\Http\Model;
 use Illuminate\Support\Facades\DB;
 
 class ProductModel extends Model

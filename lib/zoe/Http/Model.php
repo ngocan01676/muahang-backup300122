@@ -13,7 +13,7 @@ class Model extends \Illuminate\Database\Eloquent\Model{
     {
         return DB::getSchemaBuilder()->getColumnListing($table);
     }
-    public function table_translation_columns($prefix){
+    public function table_translation_columns($prefix = "_"){
         return $this->getTableColumns($this->table_translation_name($prefix));
     }
 }

@@ -156,7 +156,9 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                                     );
 
                                 }
+
                             }
+
                             $request->session()->flash('success', $create == "create"?z_language('Faq is added successfully'):z_language('Faq is updated successfully'));
                             DB::commit();
                             return response()->json(['success' => $data,'status'=>true]);
@@ -200,9 +202,6 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         foreach ($table as $val){
                             $category->offsetSet($val."_" . $tran->lang_code, $tran->{$val});
                         }
-                      //  $category->offsetSet("name_" . $tran->lang_code, $tran->name);
-                       // $category->offsetSet("slug_" . $tran->lang_code, $tran->slug);
-                      //  $category->offsetSet("description_" . $tran->lang_code, $tran->description);
                     }
                 }
 
