@@ -46,11 +46,9 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         $filter[$key] ="required";
                     }
                 }
-
                 if(
                     isset($this->data['configs']['core']['language']['multiple']) &&
                     !empty($prefix_lang)
-//                    && isset($data['type']) &&  isset($this->data['configs']['core']['language']['type'][$data['type']])
                 ){
                     $newFilter = [];
                     foreach ($this->data['language'] as $lang => $_language) {
@@ -128,13 +126,13 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         DB::beginTransaction();
                         try {
                             $category->save();
-
-                            foreach ($this->data['language'] as $lang => $_language) {
+                            if(!empty($prefix_lang)){
+                                foreach ($this->data['language'] as $lang => $_language) {
                                     $data_save = [];
                                     foreach ($langs_key as $k=>$val){
                                         $conf = [];
                                         if(is_numeric($k)){
-                                           $col = $val;
+                                            $col = $val;
                                             $data_save[$col] = isset($data[$col.'_' . $lang])?$data[$col.'_' . $lang]:"";
                                         }else{
                                             $col = $k;
@@ -157,6 +155,7 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                                         $data_save
                                     );
 
+                                }
                             }
                             $request->session()->flash('success', $create == "create"?z_language('Faq is added successfully'):z_language('Faq is updated successfully'));
                             DB::commit();

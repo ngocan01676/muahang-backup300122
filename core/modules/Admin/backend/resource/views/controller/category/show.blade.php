@@ -73,9 +73,10 @@
                 {!! Form::hidden('type',$type) !!}
                 {!! Form::hidden('is_slug',$is_slug) !!}
                 {!! Form::hidden('id',0) !!}
-                {!! Form::hidden('lang',1) !!}
+
                 {!! Form::hidden('class_nestable',$class_nestable) !!}
                 @if(isset($configs['core']['language']['multiple']))
+                    {!! Form::hidden('_lang',"_") !!}
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs" {{$current_language}}>
 
@@ -601,7 +602,9 @@
                 document.getElementById("form_store").reset();
                 var label = "{{ z_language('Category Create')}}";
                 $("#form_store input:hidden[name=id]").val(0);
+                $("#form_store input:hidden[name=image]").val("");
                 $("#form-title").html(label);
+                $(".preview-image-wrapper img").attr('src','http://placehold.jp/150x150.png');
             });
             $("#nestable").on("click", ".edit", function () {
                 var data_item = $(this).closest('.dd-item').data();
