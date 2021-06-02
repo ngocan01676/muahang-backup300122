@@ -105,7 +105,7 @@
                             <li onclick="changeImage(this)" class="product-detail-image-current">
                                 <span class="product-detail-image-item">
                                     <span class="item-cell">
-                                        <img data-image="{!! $gallery !!}" src="{!! $gallery !!}" alt="">
+                                        <img data-image="{!! $gallery !!}" src="{!! get_thumbnails($gallery,55) !!}" alt="">
                                     </span>
                                 </span>
                             </li>

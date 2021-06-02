@@ -33,7 +33,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         }
         $start = ($current_page - 1) * $limit;
         $config_language = app()->config_language;
-        
+
         $results = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$id)
             ->join('shop_product_translation as t','t._id','=','p.id')
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')

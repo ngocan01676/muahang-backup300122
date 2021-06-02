@@ -25,7 +25,7 @@
                     <div data-ratunit="item" class="product-item">
                         <div class="product-item-image-area" last="19">
                             <p class="product-item-img">
-                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="img-label-wrap link-img label-middle">
+                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>empty($result->slug)?'slug-'.rand(1000,9999):$result->slug]) !!}" class="img-label-wrap link-img label-middle">
                                     <img alt="" class="img-base-size"  src="{!! get_thumbnails($result->image,165) !!}" lazy="loaded">
                                 </a>
                             </p>
@@ -34,7 +34,7 @@
                             <div class="product-item-info-in">
                                 <div class="product-item-info-top">
                                     <p>
-                                        <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="">
+                                        <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>empty($result->slug)?'slug-'.rand(1000,9999):$result->slug]) !!}" class="">
                                                  <span class="product-item-info-name">
                                                   {!! $result->title !!}
                                                  </span>
