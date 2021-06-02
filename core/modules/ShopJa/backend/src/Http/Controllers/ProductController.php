@@ -108,7 +108,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
             foreach ($trans as $tran) {
                 foreach ($table as $val){
-                 
+
                     $model->offsetSet($val."_" . $tran->lang_code, $tran->{$val});
                 }
             }

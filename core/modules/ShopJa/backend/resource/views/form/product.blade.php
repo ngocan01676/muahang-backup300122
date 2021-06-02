@@ -42,7 +42,12 @@
                                         {!! Form::text('code',null, ['class' => 'form-control','placeholder'=>z_language('Mã sản phẩm')]) !!}
                                     </td>
                                 </tr>
-
+                                <tr>
+                                    <td>
+                                        {!! Form::label('id_name', z_language('Tên sản phẩm Website'), ['class' => 'name']) !!}
+                                        {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Tên hiển thị website')]) !!}
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>
                                         {!! Form::label('id_title', z_language('Tên sản phẩm'), ['class' => 'title']) !!}
