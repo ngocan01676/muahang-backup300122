@@ -67,7 +67,17 @@
                         </ul>
                     </div>
                 </li>
-                @elseif($menus[$value['id']]->name =="category")
+                @elseif($menus[$value['id']]->name =="Category")
+                    @php
+                        $position_category = config_get("category","beto_gaizin:category");
+                        $category = get_category_type("beto_gaizin:category");
+
+                    @endphp
+                    @foreach($position_category as $cate_value)
+                    <li>
+                        <a href="{!! router_frontend_lang($menus[$value['id']]->router_name,['id'=>$category[$cate_value['id']]->id,'slug'=>$category[$cate_value['id']]->slug]) !!}" class="category-menu-link">{!! $category[$cate_value['id']]->name !!}</a>
+                    </li>
+                    @endforeach
 
                 @else
                     <li>

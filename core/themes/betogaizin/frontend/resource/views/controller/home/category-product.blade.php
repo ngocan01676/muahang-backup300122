@@ -446,6 +446,7 @@
         </div>
         <div id="item-list" class="js-product-item-switch static-last-no-border pattern01 static">
             @foreach($results as $key=>$result)
+
                 @if($key == -1)
             <div data-ratid="{!! $result->id !!}" data-ratunit="item" class="product-item first matchHeight">
                         <div class="check-item-single" style="display: none;">
@@ -530,7 +531,7 @@
                 <div class="product-item-image-area">
                     <p class="product-item-img">
                         <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="img-label-wrap link-img label-middle">
-                            <img alt="" class="img-base-size"  src="{!! $result->image !!}" lazy="loaded">
+                            <img alt="" class="img-base-size"  src="{!! get_thumbnails($result->image,165) !!}" lazy="loaded">
                             <span class="img-label pos2">
                                 <i class="svg-mark-item mark-1"></i>
                             </span>
@@ -541,7 +542,7 @@
                     <div class="product-item-info-in">
                         <div class="product-item-info-top">
                             <p><span class="product-item-info-maker">味の素</span>
-                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class=""><span class="product-item-info-name">{!! $result->title !!}</span></a>
+                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class=""><span class="product-item-info-name">{!! $result->name !!}</span></a>
                                 <span class="product-item-info-amount">600g</span>
                             </p>
                         </div>

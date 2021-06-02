@@ -49,3 +49,10 @@
         mr-20[data-v-4aea0aac]{margin-right:20px}
         @media only screen and (min-device-width:768px) and (max-device-width:1024px) and (orientation:portrait){.popup-wrap[data-v-06f90f1e]{min-width:100vw}.popup-width-middle[data-v-06f90f1e]{height:95%}.popup-content[data-v-06f90f1e]{height:85%}}@media only screen and (min-device-width:768px) and (max-device-width:1024px) and (orientation:landscape){.popup-wrap[data-v-06f90f1e]{min-width:100vw}.popup-width-middle[data-v-06f90f1e]{height:95%}.popup-content[data-v-06f90f1e]{height:80%}}
     </style>
+    <style>
+        body, html {
+            font-family: "Helvetica Neue", Helvetica, Arial, 文泉驛正黑, "WenQuanYi Zen Hei", "Hiragino Sans GB", "儷黑 Pro", "LiHei Pro", "Heiti TC", 微軟正黑體, "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif;
+            color: rgba(0, 0, 0, 0.8);
+            line-height: 1.2;
+        }
+    </style>

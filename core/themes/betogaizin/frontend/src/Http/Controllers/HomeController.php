@@ -32,9 +32,15 @@ class HomeController extends \Zoe\Http\ControllerFront
             $current_page = 1;
         }
         $start = ($current_page - 1) * $limit;
-        $results = DB::table('shop_product')->where('status',1)->where('group_id',$id)->offset($start)->limit($limit)->get()->all();
-        $cate = [];
         $config_language = app()->config_language;
+        
+        $results = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$id)
+            ->join('shop_product_translation as t','t._id','=','p.id')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->where('lang_code',$config_language['lang'])
+            ->offset($start)->limit($limit)->get()->all();
+        $cate = [];
+
         $name = "";
         if(isset($config_language['lang'])){
 

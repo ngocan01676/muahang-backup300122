@@ -26,7 +26,7 @@
                         <div class="product-item-image-area" last="19">
                             <p class="product-item-img">
                                 <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="img-label-wrap link-img label-middle">
-                                    <img alt="" class="img-base-size"  src="{!! $result->image !!}" lazy="loaded">
+                                    <img alt="" class="img-base-size"  src="{!! get_thumbnails($result->image,165) !!}" lazy="loaded">
                                 </a>
                             </p>
                         </div>
