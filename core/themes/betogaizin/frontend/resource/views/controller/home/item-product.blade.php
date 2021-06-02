@@ -5,7 +5,7 @@
                 <div class="product-detail-col product-detail-pc-image-area">
                     <p class="product-detail-image">
                         <a href="{!! $item->image !!}" data-modal="img" class="js-modal-trigger img-label-wrap label-large link-img">
-                            <img src="{!! $item->image !!}" alt="">
+                            <img src="{!! get_thumbnails($item->image,300) !!}" alt="">
                             <span class="img-label pos2">
                                 <i class="svg-mark-item mark-1"></i>
                             </span>
@@ -60,7 +60,7 @@
                     <div class="product-detail-info-block">
                         <div class="product-detail-price-area">
                             <p class="product-detail-price">{!! $item->price_buy !!}<span class="unit">円</span></p>
-                            <p class="product-detail-price-without-tax">(税込 226円)</p>
+                            <p class="product-detail-price-without-tax">{!! z_language('(税込 Price:円)',['Price:'=>226]) !!}</p>
                         </div>
                         <div class="product-detail-amount-area">
                             <div class="product-detail-btn-area">
@@ -70,7 +70,7 @@
                                              data-count="1"
                                              data-cate="{!! $item->category_id !!}"
                                              data-act="add" href="javascript:void(0);" class="btn btn-add js-btn-add-switch" >
-                                            <i class="svg-icon icon-cart-02"></i>かごに追加
+                                            <i class="svg-icon icon-cart-02"></i>{!! z_language('かごに追加') !!}
                                         </a>
                                         <div class="btn-set-wrap" style="display:none;">
                                             <span  class="btn-set-btn">－</span>
@@ -133,8 +133,8 @@
         </div>
     </div>
     <div class="product-info">
-        <h3>商品説明</h3>
-        <p>【おすすめポイント】香ばしい“スライスアーモンド”と濃厚な味わいの“キャラメル”のハーモニー。<br></p>
+        <h3>{!! z_language('商品説明') !!}</h3>
+        <p>{!! z_language('【おすすめポイント】香ばしい“スライスアーモンド”と濃厚な味わいの“キャラメル”のハーモニー。') !!}<br></p>
         <div>
             {!! $item->body !!}
         </div>
