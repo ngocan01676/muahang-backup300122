@@ -29,22 +29,16 @@
                     @if(isset($_isMobile) && $_isMobile)
                     <div class="product-detail-sp-visual">
                         <ul class="product-detail-sp-visual-slick">
-                            <li class="js-image-magnify-trigger slick-slide">
-                                <a href="{!! $item->image !!}"
-                                   data-modal="img" class="js-modal-trigger img-label-wrap label-large" tabindex="0">
-                                    <img src="{!! $item->image !!}" alt="">
-                                    <span class="img-label pos2"><i class="svg-mark-item mark-1"></i></span>
-                                    <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>
-                                </a>
-                            </li>
-                            <li class="js-image-magnify-trigger slick-slide">
-                                <a href="{!! $item->image !!}"
-                                   data-modal="img" class="js-modal-trigger img-label-wrap label-large" tabindex="0">
-                                    <img src="{!! $item->image !!}" alt="">
-                                    <span class="img-label pos2"><i class="svg-mark-item mark-1"></i></span>
-                                    <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>
-                                </a>
-                            </li>
+                            @foreach($gallerys as $key=>$gallery)
+                                <li class="js-image-magnify-trigger slick-slide">
+                                    <a href="{!! $gallery !!}"
+                                       data-modal="img" class="js-modal-trigger img-label-wrap label-large" tabindex="0">
+                                        <img src="{!! $gallery !!}" alt="">
+                                        <span class="img-label pos2"><i class="svg-mark-item mark-1"></i></span>
+                                        <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                         <a href="javascript:void(0);" class="slick-arrow next" ><span>&nbsp;</span></a>
                         <a href="javascript:void(0);" class="slick-arrow prev" style=""><span>&nbsp;</span></a>
@@ -93,9 +87,8 @@
                             <li>
                                 <div class="fb-share-button fb_iframe_widget">
                                     <span style="vertical-align: bottom; width: 67px; height: 20px;">
-                                        <iframe name="f1fe57f11aa59cc"
-                                                width="1000px" height="1000px" data-testid="fb:share_button Facebook Social Plugin" title="fb:share_button Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://www.facebook.com/v2.0/plugins/share_button.php?app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Dfd8fa64992b76c%26domain%3Dsm.rakuten.co.jp%26origin%3Dhttps%253A%252F%252Fsm.rakuten.co.jp%252Ff2e6bdcae1fb46%26relation%3Dparent.parent&amp;container_width=0&amp;href=https%3A%2F%2Fsm.rakuten.co.jp%2Fitem%2F4976994206307&amp;layout=button&amp;locale=ja_JP&amp;mobile_iframe=true&amp;sdk=joey&amp;size=small" style="border: none; visibility: visible; width: 67px; height: 20px;" class=""></iframe>
-                                    </span>
+
+                                             </span>
                                 </div>
                             </li>
 
@@ -106,13 +99,27 @@
             <div class="product-detail-row">
                 <div class="product-detail-col only-pc product-detail-image-select-area">
                     <ul class="cf">
-                        <li class="product-detail-image-current">
-                            <span class="product-detail-image-item">
-                                <span class="item-cell">
-                                    <img src="{!! $item->image !!}" alt="">
+
+                        @foreach($gallerys as $key=>$gallery)
+
+                            @if($key == 0)
+                            <li class="product-detail-image-current">
+                                <span class="product-detail-image-item">
+                                    <span class="item-cell">
+                                        <img src="{!! $gallery !!}" alt="">
+                                    </span>
                                 </span>
-                            </span>
-                        </li>
+                            </li>
+                            @else
+                            <li>
+                                <span class="product-detail-image-item">
+                                    <span class="item-cell">
+                                        <img src="{!! $gallery !!}" alt="">
+                                    </span>
+                                </span>
+                            </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
                 <div class="product-detail-col product-detail-text-area">
@@ -130,87 +137,87 @@
         <h3>商品説明</h3>
         <p>【おすすめポイント】香ばしい“スライスアーモンド”と濃厚な味わいの“キャラメル”のハーモニー。<br></p>
         <div>
-            {!! $item->description !!}
+            {!! $item->body !!}
         </div>
     </div>
-    {{--<div>--}}
-        {{--<div class="accordion">--}}
-            {{--<h3 class="accordion-head">商品の返品について</h3>--}}
-            {{--<div class="accordion-body" style="display: none;">--}}
-                {{--<p>お届けした商品に、破損、汚損等があった場合や、ご注文と異なる商品が届いた場合、お問い合わせフォームより、楽天西友カスタマーセンターへご連絡ください。<br>店舗の商品入れ替え時において、各店舗ごとの新規商品の導入タイミングのずれにより、お届けした商品の内容量など、ご注文と異なる場合がありますのでご了承ください。</p>--}}
-                {{--<p>返品については原則承っておりません。ただし初期不良の場合には、お客様からのお問い合わせ内容に応じて全額返金することがあります。<br>以下の商品は、返品を一切承っておりませんのでご了承ください。</p>--}}
-                {{--<ul class="list-disc">--}}
-                    {{--<li>食品、飲料、サプリメント ベビーフード、粉ミルクなど</li>--}}
-                    {{--<li>ペットフードなどのペット用食品、飲料、サプリメント、ペット用医薬品</li>--}}
-                    {{--<li>パッケージを開封してしまった商品</li>--}}
-                    {{--<li>一度ご使用になった商品</li>--}}
-                    {{--<li>お客様の責任で傷や汚れが生じた商品</li>--}}
-                    {{--<li>受注限定生産の商品</li>--}}
-                    {{--<li>試着を含む使用済みまたは開封済みの下着（靴下、ストッキング、レギンスなどを含む）</li>--}}
-                    {{--<li>植物</li>--}}
-                    {{--<li>訳あり商品（掘り出し物）</li>--}}
-                {{--</ul>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-    {{--<div>--}}
-        {{--<div class="accordion">--}}
-            {{--<h3 class="accordion-head">キャンセルについて</h3>--}}
-            {{--<div class="accordion-body" style="display: none;">--}}
-                {{--<p>キャンセル可能期限内であれば、マイページの「注文履歴一覧」からご注文のキャンセルが可能です（注文内容修正も可能です）。一度キャンセルされたご注文については復活できませんのでご了承ください。キャンセル可能期限はヘルプよりご確認ください。--}}
-                    {{--<br>また、キャンセル可能期限を過ぎた場合に、やむを得ずキャンセルが必要になった際には、手数料440円(税込)をご請求させていただきます。--}}
-                    {{--<br>ネットスーパーでは生鮮食品、冷蔵・冷凍食品を扱っており、キャンセル可能期限後のキャンセルは一部廃棄となります。何卒ご理解をお願いいたします。--}}
-                {{--</p>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="block-related-category">--}}
-        {{--<div class="title-wrap">--}}
-            {{--<h3 class="title title-small title-color01">関連するカテゴリ</h3>--}}
-        {{--</div>--}}
-        {{--<div class="product-relation-box-wrap"><div class="product-relation-box">--}}
-                {{--<h3 class="product-relation-title">--}}
-                    {{--<a href="/search/200620" class="">--}}
-                        {{--プリン--}}
-                    {{--</a>--}}
-                {{--</h3>--}}
-                {{--<div class="product-relation-row">--}}
-                    {{--<div class="product-relation-col">--}}
-                        {{--<p class="product-relation-col-top">--}}
-                            {{--<a href="/item/4908011646773" class="">--}}
-                                {{--<img alt="" data-src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a>--}}
-                        {{--</p>--}}
-                        {{--<p class="product-relation-col-bottom">--}}
-                            {{--<span class="unit">税込</span>--}}
-                        {{--</p>--}}
-                        {{--<p class="product-relation-col-bottom">84<span class="unit">円</span></p>--}}
-                    {{--</div>--}}
-                    {{--<div class="product-relation-col">--}}
-                        {{--<p class="product-relation-col-top">--}}
-                            {{--<a href="/item/4952794813310" class="">--}}
-                                {{--<img alt="" data-src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white"--}}
-                                     {{--src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded">--}}
-                            {{--</a>--}}
-                        {{--</p>--}}
-                        {{--<p class="product-relation-col-bottom">--}}
-                            {{--<span class="unit">税込</span>--}}
-                        {{--</p>--}}
-                        {{--<p class="product-relation-col-bottom">170<span class="unit">円</span></p>--}}
-                    {{--</div>--}}
-                    {{--<div class="product-relation-col">--}}
-                        {{--<p class="product-relation-col-top">--}}
-                            {{--<a href="/item/4973450174330" class="">--}}
-                                {{--<img alt="" data-src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white"--}}
-                                     {{--src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded">--}}
-                            {{--</a>--}}
-                        {{--</p>--}}
-                        {{--<p class="product-relation-col-bottom"><span class="unit">税込</span></p>--}}
-                        {{--<p class="product-relation-col-bottom">96<span class="unit">円</span></p>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+    <div>
+        <div class="accordion">
+            <h3 class="accordion-head">商品の返品について</h3>
+            <div class="accordion-body" style="display: none;">
+                <p>お届けした商品に、破損、汚損等があった場合や、ご注文と異なる商品が届いた場合、お問い合わせフォームより、楽天西友カスタマーセンターへご連絡ください。<br>店舗の商品入れ替え時において、各店舗ごとの新規商品の導入タイミングのずれにより、お届けした商品の内容量など、ご注文と異なる場合がありますのでご了承ください。</p>
+                <p>返品については原則承っておりません。ただし初期不良の場合には、お客様からのお問い合わせ内容に応じて全額返金することがあります。<br>以下の商品は、返品を一切承っておりませんのでご了承ください。</p>
+                <ul class="list-disc">
+                    <li>食品、飲料、サプリメント ベビーフード、粉ミルクなど</li>
+                    <li>ペットフードなどのペット用食品、飲料、サプリメント、ペット用医薬品</li>
+                    <li>パッケージを開封してしまった商品</li>
+                    <li>一度ご使用になった商品</li>
+                    <li>お客様の責任で傷や汚れが生じた商品</li>
+                    <li>受注限定生産の商品</li>
+                    <li>試着を含む使用済みまたは開封済みの下着（靴下、ストッキング、レギンスなどを含む）</li>
+                    <li>植物</li>
+                    <li>訳あり商品（掘り出し物）</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="accordion">
+            <h3 class="accordion-head">キャンセルについて</h3>
+            <div class="accordion-body" style="display: none;">
+                <p>キャンセル可能期限内であれば、マイページの「注文履歴一覧」からご注文のキャンセルが可能です（注文内容修正も可能です）。一度キャンセルされたご注文については復活できませんのでご了承ください。キャンセル可能期限はヘルプよりご確認ください。
+                    <br>また、キャンセル可能期限を過ぎた場合に、やむを得ずキャンセルが必要になった際には、手数料440円(税込)をご請求させていただきます。
+                    <br>ネットスーパーでは生鮮食品、冷蔵・冷凍食品を扱っており、キャンセル可能期限後のキャンセルは一部廃棄となります。何卒ご理解をお願いいたします。
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="block-related-category">
+        <div class="title-wrap">
+            <h3 class="title title-small title-color01">関連するカテゴリ</h3>
+        </div>
+        <div class="product-relation-box-wrap"><div class="product-relation-box">
+                <h3 class="product-relation-title">
+                    <a href="/search/200620" class="">
+                        プリン
+                    </a>
+                </h3>
+                <div class="product-relation-row">
+                    <div class="product-relation-col">
+                        <p class="product-relation-col-top">
+                            <a href="/item/4908011646773" class="">
+                                <img alt="" data-src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a>
+                        </p>
+                        <p class="product-relation-col-bottom">
+                            <span class="unit">税込</span>
+                        </p>
+                        <p class="product-relation-col-bottom">84<span class="unit">円</span></p>
+                    </div>
+                    <div class="product-relation-col">
+                        <p class="product-relation-col-top">
+                            <a href="/item/4952794813310" class="">
+                                <img alt="" data-src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white"
+                                     src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded">
+                            </a>
+                        </p>
+                        <p class="product-relation-col-bottom">
+                            <span class="unit">税込</span>
+                        </p>
+                        <p class="product-relation-col-bottom">170<span class="unit">円</span></p>
+                    </div>
+                    <div class="product-relation-col">
+                        <p class="product-relation-col-top">
+                            <a href="/item/4973450174330" class="">
+                                <img alt="" data-src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white"
+                                     src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded">
+                            </a>
+                        </p>
+                        <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
+                        <p class="product-relation-col-bottom">96<span class="unit">円</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div>
         <div id="ppz_recommend04">
             <div class="block-carousel">

@@ -90,7 +90,8 @@ class HomeController extends \Zoe\Http\ControllerFront
         $item = isset($result[0])?$result[0]:null;
         return $this->render('home.item-product', [
             'item'=>$item,
-            'categorys'=>$item != null ?DB::table('shop_product')->where('category_id',$item->category_id)->orderByRaw('RAND()')->limit(10)->get()->all():[]
+            'categorys'=>$item != null ?DB::table('shop_product')->where('category_id',$item->category_id)->orderByRaw('RAND()')->limit(10)->get()->all():[],
+            'gallerys'=>\PluginGallery\Views\GalleryComposer::get($id,"shop_ja::form.product")
         ]);
     }
     public function getCart(Request $request){

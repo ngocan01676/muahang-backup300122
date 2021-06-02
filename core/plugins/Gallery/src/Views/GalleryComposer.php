@@ -76,6 +76,21 @@ class GalleryComposer extends \Zoe\Views\ComposerView
 
         return $_data_img;
     }
+
+    public static function Get($id,$name){
+
+        $results = DB::table('plugin_gallery')->where([
+            'key_id'=>$id,
+            'key_group'=>$name,
+            'name'=>"GalleryComposer",
+        ])->get()->all();
+
+        if(isset($results[0])){
+            $data =  unserialize($results[0]->data);
+            return isset($data['images'])?$data['images']:[];
+        }
+        return [];
+    }
     public function compose(View $view)
     {
         $dataView = $view->getData();
