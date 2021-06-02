@@ -45,6 +45,12 @@
                 {!! Form::open(['method' => 'POST','id'=>'form_store']) !!}
                 {!! Form::hidden('type',$type) !!}
                 {!! Form::hidden('id',0) !!}
+                {!! Form::hidden('_lang',"_") !!}
+                {!! Form::hidden('_slug',$current_language) !!}
+
+                {!! Form::hidden('_keys',base64_encode(json_encode([
+                      'name'=>['default'=>'vi'],'description'=>['default'=>'vi']
+              ]))) !!}
                 @if(isset($configs['core']['language']['multiple']))
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs" {{$current_language}}>
@@ -102,7 +108,7 @@
                                          'router' => z_language('Router'),
                                          'link' => z_language('External Link'),
                                      ),
-                                     '',['class'=>'form-control'])
+                                     '',['class'=>'form-control','id'=>'type_link'])
                                 !!}
                                 <span class="error help-block"></span>
                             </td>

@@ -5,8 +5,8 @@
         $menus = get_menu_type($type);
         $position = config_get("menu", $type);
 
-        $category = get_category_type("shop-ja:product:category");
-        $position_category = config_get("category","shop-ja:product:category");
+
+
     @endphp
     <div class="lyt-side-pattern01-menu only-pc">
     <p class="side-content-btn-clock">
@@ -20,6 +20,7 @@
                 <h2 class="title title-other01 title-with-border">カテゴリから探す</h2>
             </div>
         </div>
+
         <ul class="category-menu category-menu-level01">
             @foreach($position as $value)
                 @if(isset($value['children']))
@@ -36,6 +37,7 @@
                             @isset($value['children'])
                                 @foreach($value['children'] as $key1 => $value1)
                                    @if($menus[$value1['id']]->name == "Category")
+                                       @php  $position_category = config_get("category","shop-ja:product:category");   $category = get_category_type("shop-ja:product:category"); @endphp
                                        @foreach($position_category as $cate_value)
                                             <li class="category-menu-link">
                                                 <a {!! $menus[$value1['id']]->router_name !!} href="{!! router_frontend_lang($menus[$value1['id']]->router_name,['id'=>$category[$cate_value['id']]->id,'slug'=>$category[$cate_value['id']]->slug]) !!}">{!! $category[$cate_value['id']]->name !!}</a>
@@ -65,6 +67,8 @@
                         </ul>
                     </div>
                 </li>
+                @elseif($menus[$value['id']]->name =="category")
+
                 @else
                     <li>
                         @if($menus[$value['id']]->type_link == "router" && !empty($menus[$value['id']]->router_name))

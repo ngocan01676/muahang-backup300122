@@ -33,16 +33,27 @@ class MenuController extends \Zoe\Http\ControllerBackend
             if ($post['act'] == "info") {
                 $data = $post['data'];
 
-
+                $prefix_lang = isset($data['_lang'])?$data['_lang']:"";
                 $filter = [
-                    'name' => 'required',
-                    'description' => 'required',
+
                 ];
+                $slug = isset($data['_slug'])?$data['_slug']:$this->data['current_language'];
+                $langs_key = isset($data['_keys'])?json_decode(base64_decode($data['_keys']),true):["name","description"];
+
+                foreach ($langs_key as $key=>$_filter){
+                    if(is_numeric($key)){
+                        $filter[$_filter] = "required";
+                    }else{
+                        $filter[$key] ="required";
+                    }
+                }
+
                 if(
                     isset($this->data['configs']['core']['language']['multiple'])
-                    && isset($data['type']) &&  isset($this->data['configs']['core']['menu']['type'][$data['type']])
+                    && !empty($prefix_lang)
                 ){
                     $newFilter = [];
+
                     foreach ($this->data['language'] as $lang => $_language) {
                         if(
                             isset($this->data['configs']['core']['language']['lists']) &&
@@ -50,7 +61,14 @@ class MenuController extends \Zoe\Http\ControllerBackend
                                 $this->data['configs']['core']['language']['lists'] == $_language['lang']||
                                 is_array($this->data['configs']['core']['language']['lists']) &&  in_array($_language['lang'],$this->data['configs']['core']['language']['lists'])) ){
                             foreach ($filter as $col=>$value){
-                                $newFilter[$col.'_'.$lang] = $value;
+
+                                if(isset($langs_key[$col]['default'])){
+                                    if($lang == $langs_key[$col]['default']){
+                                        $newFilter[$col.'_'.$lang] = $value;
+                                    }
+                                }else{
+                                    $newFilter[$col.'_'.$lang] = $value;
+                                }
                             }
                         }
 
@@ -58,6 +76,17 @@ class MenuController extends \Zoe\Http\ControllerBackend
 
                     $filter = $newFilter;
                 }
+
+                if(!in_array("name",$langs_key) && !isset($langs_key['name'])){
+                    $filter["name"] = "required";
+                }
+                if(!in_array("description",$langs_key) && !isset($langs_key['description'])){
+                    $filter["description"] = "required";
+                }
+                if(!in_array("type_link",$langs_key) && !isset($langs_key['type_link'])){
+                    $filter["type_link"] = "required";
+                }
+
                 $rules = [];
 
                 $validator = Validator::make($data,$filter);
@@ -106,20 +135,42 @@ class MenuController extends \Zoe\Http\ControllerBackend
                         try {
                             $menu->save();
 
-                            foreach ($this->data['language'] as $lang => $_language) {
-                                if (isset($data['name_' . $lang])) {
-                                    $menu->table_translation_model()->updateOrInsert(
+                            if(!empty($prefix_lang)){
+
+                                if(!isset($langs_key['slug']) && !in_array("slug",$langs_key)  ){
+                                    $langs_key['slug'] = [
+                                        'slug'=>'name'
+                                    ];
+                                }
+                                foreach ($this->data['language'] as $lang => $_language) {
+                                    $data_save = [];
+                                    foreach ($langs_key as $k=>$val){
+                                        $conf = [];
+                                        if(is_numeric($k)){
+                                            $col = $val;
+                                            $data_save[$col] = isset($data[$col.'_' . $lang])?$data[$col.'_' . $lang]:"";
+                                        }else{
+                                            $col = $k;
+                                            if(isset($val['slug'])){
+                                                $data_save[$col] = isset($data[$val['slug'].'_' . $lang])?Str::slug($data[$val['slug'].'_' . $lang], '-','ja'):"";
+                                            }else{
+                                                $data_save[$col] = isset($data[$col.'_' . $lang])?$data[$col.'_' . $lang]:"";
+                                            }
+                                            $conf = $val;
+                                        }
+                                        if(empty($data_save[$col]) && isset($conf['default'])){
+                                            $data_save[$col] = isset($data[$col.'_' . $conf['default']])?$data[$col.'_' . $conf['default']]:"";
+                                        }
+                                    }
+                                    $menu->table_translation_model($prefix_lang)->updateOrInsert(
                                         [
                                             '_id' => $menu->id,
                                             'lang_code' => $lang
                                         ],
-                                        [
-                                            'name' => $data['name_' . $lang],
-                                            'slug' =>Str::slug($data['name_' . $lang], '-','ja'),
-                                            'description' => $data['description_' . $lang]
-                                        ]
+                                        $data_save
                                     );
                                 }
+
                             }
                             $request->session()->flash('success', $create == "create"?z_language('Faq is added successfully'):z_language('Faq is updated successfully'));
                             DB::commit();
