@@ -42,12 +42,7 @@
                                         {!! Form::text('code',null, ['class' => 'form-control','placeholder'=>z_language('Mã sản phẩm')]) !!}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        {!! Form::label('id_name', z_language('không quan tâm'), ['class' => 'name']) !!}
-                                        {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Tên hiển thị website')]) !!}
-                                    </td>
-                                </tr>
+
                                 <tr>
                                     <td>
                                         {!! Form::label('id_title', z_language('Tên khi xuất file'), ['class' => 'title']) !!}
@@ -100,6 +95,12 @@
 
                                         {!! Form::label('id_tag', 'Tag', ['class' => 'tag']) !!} *
                                         {!! Form::text('tag',null, ['class' => 'form-control','placeholder'=>'Tag']) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {!! Form::label('id_name', z_language('không quan tâm'), ['class' => 'name']) !!}
+                                        {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Tên hiển thị website')]) !!}
                                     </td>
                                 </tr>
                                 <tr>
