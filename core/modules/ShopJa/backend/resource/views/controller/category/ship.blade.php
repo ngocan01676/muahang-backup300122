@@ -122,14 +122,14 @@
                                                     <tr>
                                                         <td>
                                                             {!! Form::label('order_returns_'.$lang, z_language('Chính sách về trả hàng'), ['class' => 'description']) !!}
-                                                             <textarea id="{!! 'order_returns_'.$lang !!}" class="form-control" name="{!! 'order_returns_'.$lang !!}"></textarea>
+                                                             <textarea rows="10" id="{!! 'order_returns_'.$lang !!}" class="form-control" name="{!! 'order_returns_'.$lang !!}"></textarea>
                                                             <span class="error help-block"></span>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             {!! Form::label('order_cancel_'.$lang, z_language('Chính sách về hủy hàng'), ['class' => 'description']) !!}
-                                                            <textarea id="{!! 'order_cancel_'.$lang !!}" class="form-control" name="{!! 'order_cancel_'.$lang !!}"></textarea>
+                                                            <textarea rows="10" id="{!! 'order_cancel_'.$lang !!}" class="form-control" name="{!! 'order_cancel_'.$lang !!}"></textarea>
                                                             <span class="error help-block"></span>
                                                         </td>
                                                     </tr>
