@@ -46,7 +46,7 @@ class GalleryComposer extends \Zoe\Views\ComposerView
 
                 foreach($files as $file)
                 {
-                    $name = (isset($data['prefix'])?$data['prefix']:rand(100000,99999)).'-'.$file->getClientOriginalName();
+                    $name =rand(100000,900000) .'-'.rand(100000,900000).'-'.$file->getClientOriginalName();
 
                     $file->move(public_path().'/uploads/files/', $name);
                     $imageUp[] = '/uploads/files/'.$name;
