@@ -10,6 +10,7 @@ function Main($option){
     $category = isset($option['data']['category'])?$option['data']['category']:56;
     $results = [];
     $cate = [];
+    $name = "";
     if($category){
 
         $config_language = app()->config_language;
@@ -23,12 +24,14 @@ function Main($option){
                 ->get()->first();
 
             $cate['id'] = $category;
+            $name = $cate['name'];
+            unset($cate['name']);
         }
         $results = DB::table('shop_product')->where('group_id',$category)->orderBy('id',$order_buy)->limit($limit)->get()->all();
     }
     return [
         'results'=>$results,
         'conf'=> isset($option['data'])?$option['data']:[],
-        'cate'=>$cate
+        'cate'=>['router'=>$cate,"name"=>$name]
     ];
 }

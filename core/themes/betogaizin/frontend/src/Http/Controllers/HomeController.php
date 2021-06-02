@@ -33,12 +33,29 @@ class HomeController extends \Zoe\Http\ControllerFront
         }
         $start = ($current_page - 1) * $limit;
         $results = DB::table('shop_product')->where('status',1)->where('group_id',$id)->offset($start)->limit($limit)->get()->all();
+        $cate = [];
+        $config_language = app()->config_language;
+        $name = "";
+        if(isset($config_language['lang'])){
+
+            $cate =(array) DB::table('categories_translation')
+                ->select(['slug','name'])
+                ->where('lang_code',$config_language['lang'])
+                ->where('_id',$id)
+                ->get()->first();
+            $cate['id'] = $id;
+            $name = $cate['name'];
+            unset($cate['name']);
+        }
 
         return $this->render('home.category-product', [
             'results'=>$results,
             'current_page'=>$current_page,
             'total_page'=>$total_page,
-            'cate'=>(array)DB::table('categories')->select(['id','slug'])->where('id',$id)->get()->first()
+            'cate'=>[
+                'router'=>$cate,
+                'name'=>$name
+            ]
         ]);
     }
     public function getCategoryProduct($slug,$id){

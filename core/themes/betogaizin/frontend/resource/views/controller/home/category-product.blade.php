@@ -593,7 +593,7 @@
                         @if($i == $current_page)
                             <span>{!! $i !!}</span>
                         @else
-                            <a href="{!! router_frontend_lang('home:category-product',array_merge($cate,['page'=>$i])) !!}">
+                            <a href="{!! router_frontend_lang('home:category-product',array_merge($cate['router'],['page'=>$i])) !!}">
                                 {!! $i !!}
                             </a>
                         @endif

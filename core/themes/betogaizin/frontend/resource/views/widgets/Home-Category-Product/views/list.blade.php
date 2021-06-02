@@ -12,7 +12,7 @@
                             </span>
                 </a>
             </h2>
-            <p class="title-link"><a href="{!! router_frontend_lang('home:category-product',$data['cate']) !!}" class="btn btn-link btn-arrow-right">
+            <p class="title-link"><a href="{!! router_frontend_lang('home:category-product-group',$data['cate']['router']) !!}" class="btn btn-link btn-arrow-right">
                     商品をもっと見る
                 </a>
             </p>
