@@ -101,20 +101,19 @@
                     <ul class="cf">
 
                         @foreach($gallerys as $key=>$gallery)
-
                             @if($key == 0)
-                            <li class="product-detail-image-current">
+                            <li onclick="changeImage(this)" class="product-detail-image-current">
                                 <span class="product-detail-image-item">
                                     <span class="item-cell">
-                                        <img src="{!! $gallery !!}" alt="">
+                                        <img data-image="{!! $gallery !!}" src="{!! $gallery !!}" alt="">
                                     </span>
                                 </span>
                             </li>
                             @else
-                            <li>
+                            <li onclick="changeImage(this)">
                                 <span class="product-detail-image-item">
                                     <span class="item-cell">
-                                        <img src="{!! $gallery !!}" alt="">
+                                        <img data-image="{!! $gallery !!}" src="{!! $gallery !!}" alt="">
                                     </span>
                                 </span>
                             </li>
@@ -171,53 +170,55 @@
             </div>
         </div>
     </div>
-    <div class="block-related-category">
-        <div class="title-wrap">
-            <h3 class="title title-small title-color01">関連するカテゴリ</h3>
-        </div>
-        <div class="product-relation-box-wrap"><div class="product-relation-box">
-                <h3 class="product-relation-title">
-                    <a href="/search/200620" class="">
-                        プリン
-                    </a>
-                </h3>
-                <div class="product-relation-row">
-                    <div class="product-relation-col">
-                        <p class="product-relation-col-top">
-                            <a href="/item/4908011646773" class="">
-                                <img alt="" data-src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a>
-                        </p>
-                        <p class="product-relation-col-bottom">
-                            <span class="unit">税込</span>
-                        </p>
-                        <p class="product-relation-col-bottom">84<span class="unit">円</span></p>
-                    </div>
-                    <div class="product-relation-col">
-                        <p class="product-relation-col-top">
-                            <a href="/item/4952794813310" class="">
-                                <img alt="" data-src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white"
-                                     src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded">
-                            </a>
-                        </p>
-                        <p class="product-relation-col-bottom">
-                            <span class="unit">税込</span>
-                        </p>
-                        <p class="product-relation-col-bottom">170<span class="unit">円</span></p>
-                    </div>
-                    <div class="product-relation-col">
-                        <p class="product-relation-col-top">
-                            <a href="/item/4973450174330" class="">
-                                <img alt="" data-src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white"
-                                     src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded">
-                            </a>
-                        </p>
-                        <p class="product-relation-col-bottom"><span class="unit">税込</span></p>
-                        <p class="product-relation-col-bottom">96<span class="unit">円</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{----}}
+    {{--<div class="block-related-category">--}}
+        {{--<div class="title-wrap">--}}
+            {{--<h3 class="title title-small title-color01">関連するカテゴリ</h3>--}}
+        {{--</div>--}}
+        {{--<div class="product-relation-box-wrap"><div class="product-relation-box">--}}
+                {{--<h3 class="product-relation-title">--}}
+                    {{--<a href="/search/200620" class="">--}}
+                        {{--プリン--}}
+                    {{--</a>--}}
+                {{--</h3>--}}
+                {{--<div class="product-relation-row">--}}
+                    {{--<div class="product-relation-col">--}}
+                        {{--<p class="product-relation-col-top">--}}
+                            {{--<a href="/item/4908011646773" class="">--}}
+                                {{--<img alt="" data-src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" src="//sm.r10s.jp/item/73/4908011646773.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded"></a>--}}
+                        {{--</p>--}}
+                        {{--<p class="product-relation-col-bottom">--}}
+                            {{--<span class="unit">税込</span>--}}
+                        {{--</p>--}}
+                        {{--<p class="product-relation-col-bottom">84<span class="unit">円</span></p>--}}
+                    {{--</div>--}}
+                    {{--<div class="product-relation-col">--}}
+                        {{--<p class="product-relation-col-top">--}}
+                            {{--<a href="/item/4952794813310" class="">--}}
+                                {{--<img alt="" data-src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white"--}}
+                                     {{--src="//sm.r10s.jp/item/10/4952794813310.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded">--}}
+                            {{--</a>--}}
+                        {{--</p>--}}
+                        {{--<p class="product-relation-col-bottom">--}}
+                            {{--<span class="unit">税込</span>--}}
+                        {{--</p>--}}
+                        {{--<p class="product-relation-col-bottom">170<span class="unit">円</span></p>--}}
+                    {{--</div>--}}
+                    {{--<div class="product-relation-col">--}}
+                        {{--<p class="product-relation-col-top">--}}
+                            {{--<a href="/item/4973450174330" class="">--}}
+                                {{--<img alt="" data-src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white"--}}
+                                     {{--src="//sm.r10s.jp/item/30/4973450174330.jpg?fit=inside|93:93&amp;composite-to=*,*|93:93&amp;background-color=white" lazy="loaded">--}}
+                            {{--</a>--}}
+                        {{--</p>--}}
+                        {{--<p class="product-relation-col-bottom"><span class="unit">税込</span></p>--}}
+                        {{--<p class="product-relation-col-bottom">96<span class="unit">円</span></p>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+    {{----}}
     <div>
         <div id="ppz_recommend04">
             <div class="block-carousel">
@@ -307,6 +308,16 @@
     </div>
     @push('scripts')
         <script>
+            function changeImage(self){
+                    $(self).parent().find('.product-detail-image-current').removeClass('product-detail-image-current');
+                    $(self).addClass('product-detail-image-current');
+                    let img = $(self).find('img').attr('data-image');
+                    let a = $(".product-detail .link-img");
+                    console.log(a);
+                    console.log(img);
+                    a.attr('href',img);
+                    a.find('img').attr('src',img)
+            }
             $('#ppz_recommend04 .slider-basic-frame').slick({
                 speed: 300,
                 slidesToShow: 5,
