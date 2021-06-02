@@ -27,7 +27,7 @@ function Main($option){
             $name = $cate['name'];
             unset($cate['name']);
         }
-        $results = DB::table('shop_product')->where('group_id',$category)->orderBy('id',$order_buy)->limit($limit)->get()->all();
+        $results = DB::table('shop_product')->where('group_id',$category)->where('status',1)->orderBy('id',$order_buy)->limit($limit)->get()->all();
     }
     return [
         'results'=>$results,
