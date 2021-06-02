@@ -104,6 +104,12 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        {!! Form::label('id_body', z_language('Mô tả'), ['class' => 'body']) !!}
+                                        {!! Form::textarea('body',null, ['class' => 'form-control','placeholder'=>z_language('Mô tả'),'cols'=>5,'rows'=>5]) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
 
                                         <div class="nav-tabs-custom">
                                             <ul class="nav nav-tabs" {{$current_language}}>
