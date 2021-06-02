@@ -69,6 +69,12 @@
                 {!! Form::hidden('is_slug',$is_slug) !!}
                 {!! Form::hidden('id',0) !!}
                 {!! Form::hidden('class_nestable',$class_nestable) !!}
+
+                {!! Form::hidden('_lang','_company_') !!}
+                {!! Form::hidden('_keys',base64_encode(json_encode([
+                        'order_returns'=>['default'=>'vi'],'order_cancel'=>['default'=>'vi']
+                ]))) !!}
+
                 <table class="table table-borderless">
                     <tbody>
 
@@ -87,6 +93,53 @@
                                 class="req">*</span>):
                             {!! Form::textarea('description',null, ['class' => 'form-control','placeholder'=>'Mô tả','cols'=>5,'rows'=>5]) !!}
                             <span class="error help-block"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs" {{$current_language}}>
+
+                                    @foreach($language as $lang=>$_language)
+                                        @if(isset($configs['core']['language']['lists']) &&(is_string($configs['core']['language']['lists']) && $configs['core']['language']['lists'] == $_language['lang']|| is_array($configs['core']['language']['lists']) && in_array($_language['lang'],$configs['core']['language']['lists'])))
+                                            <li @if($current_language == $lang) class="active" @endif {{$lang}}><a href="#tab_{{$lang}}"
+                                                                                                                   data-toggle="tab"><span
+                                                            class="flag-icon flag-icon-{{$_language['flag']}}"></span></a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                                <div class="tab-content">
+                                    @foreach($language as $lang=>$_language)
+                                        @if(
+                                        isset($configs['core']['language']['lists']) &&
+                                        (is_string($configs['core']['language']['lists']) &&
+                                        $configs['core']['language']['lists'] == $_language['lang']||
+                                        is_array($configs['core']['language']['lists']) &&  in_array($_language['lang'],$configs['core']['language']['lists'])) )
+                                            <div  class="tab-pane @if($current_language == $lang) active @endif" id="tab_{{$lang}}">
+                                                <table class="table table-borderless">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            {!! Form::label('order_returns_'.$lang, z_language('Chính sách về trả hàng'), ['class' => 'description']) !!}
+                                                             <textarea id="{!! 'order_returns_'.$lang !!}" class="form-control" name="{!! 'order_returns_'.$lang !!}"></textarea>
+                                                            <span class="error help-block"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            {!! Form::label('order_cancel_'.$lang, z_language('Chính sách về hủy hàng'), ['class' => 'description']) !!}
+                                                            <textarea id="{!! 'order_cancel_'.$lang !!}" class="form-control" name="{!! 'order_cancel_'.$lang !!}"></textarea>
+                                                            <span class="error help-block"></span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <tr>

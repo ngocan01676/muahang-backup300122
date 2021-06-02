@@ -33,14 +33,23 @@ class CategoryController extends \Zoe\Http\ControllerBackend
             if ($post['act'] == "info") {
                 $data = $post['data'];
 
-                $is_lang = isset($data['lang'])?$data['lang']==1:false;
+                $prefix_lang = isset($data['_lang'])?$data['_lang']:"";
 
                 $filter = [
-                    'name' => 'required',
-                    'description' => 'required',
+
                 ];
+                $langs_key = isset($data['_keys'])?json_decode(base64_decode($data['_keys']),true):["name","description"];
+                foreach ($langs_key as $key=>$_filter){
+                    if(is_numeric($key)){
+                        $filter[$_filter] = "required";
+                    }else{
+                        $filter[$key] ="required";
+                    }
+                }
+
                 if(
-                    isset($this->data['configs']['core']['language']['multiple']) && $is_lang
+                    isset($this->data['configs']['core']['language']['multiple']) &&
+                    !empty($prefix_lang)
 //                    && isset($data['type']) &&  isset($this->data['configs']['core']['language']['type'][$data['type']])
                 ){
                     $newFilter = [];
@@ -51,13 +60,29 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                                 $this->data['configs']['core']['language']['lists'] == $_language['lang']||
                                 is_array($this->data['configs']['core']['language']['lists']) &&  in_array($_language['lang'],$this->data['configs']['core']['language']['lists'])) ){
                             foreach ($filter as $col=>$value){
-                                $newFilter[$col.'_'.$lang] = $value;
+
+
+                                if(isset($langs_key[$col]['default'])){
+                                    if($lang == $langs_key[$col]['default']){
+                                        $newFilter[$col.'_'.$lang] = $value;
+                                    }
+                                }else{
+                                    $newFilter[$col.'_'.$lang] = $value;
+                                }
                             }
                         }
 
                     }
                     $filter = $newFilter;
                 }
+
+                if(!in_array("name",$langs_key)){
+                    $filter["name"] = "required";
+                }
+                if(!in_array("description",$langs_key)){
+                    $filter["description"] = "required";
+                }
+
                 $validator = Validator::make($data, $filter);
                 $rules = [];
                 if ($validator->passes()) {
@@ -82,11 +107,11 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         $category->name = isset($data['name'])?$data['name']:"";
 
                         $slug = empty($category->name)?"": Str::slug($category->name, '-');
-
                         $category->slug = $slug;
 
-                        $category->parent_id = 0;
+                        $category->lang_prefix = $prefix_lang;
 
+                        $category->parent_id = 0;
                         $category->router_enabled = isset($data['router_enabled'])?$data['router_enabled']:2;
                         $category->router_name = isset($data['router_name'])?$data['router_name']:"";
 
@@ -105,25 +130,39 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                             $category->save();
 
                             foreach ($this->data['language'] as $lang => $_language) {
-                                if (isset($data['name_' . $lang])) {
-                                    $category->table_translation_model()->updateOrInsert(
+                                    $data_save = [];
+                                    foreach ($langs_key as $k=>$val){
+                                        $conf = [];
+                                        if(is_numeric($k)){
+                                           $col = $val;
+                                            $data_save[$col] = isset($data[$col.'_' . $lang])?$data[$col.'_' . $lang]:"";
+                                        }else{
+                                            $col = $k;
+                                            if(isset($val['slug'])){
+                                                $data_save[$col] = isset($data[$val['slug'].'_' . $lang])?Str::slug($data[$val['slug'].'_' . $lang], '-','ja'):"";
+                                            }else{
+                                                $data_save[$col] = isset($data[$col.'_' . $lang])?$data[$col.'_' . $lang]:"";
+                                            }
+                                            $conf = $val;
+                                        }
+                                        if(empty($data_save[$col]) && isset($conf['default'])){
+                                            $data_save[$col] = isset($data[$col.'_' . $conf['default']])?$data[$col.'_' . $conf['default']]:"";
+                                        }
+                                    }
+                                    $category->table_translation_model($prefix_lang)->updateOrInsert(
                                         [
                                             '_id' => $category->id,
                                             'lang_code' => $lang
                                         ],
-                                        [
-                                            'name' => $data['name_' . $lang],
-                                            'slug' =>Str::slug($data['name_' . $lang], '-','ja'),
-                                            'description' => $data['description_' . $lang]
-                                        ]
+                                        $data_save
                                     );
-                                }
+
                             }
                             $request->session()->flash('success', $create == "create"?z_language('Faq is added successfully'):z_language('Faq is updated successfully'));
                             DB::commit();
                             return response()->json(['success' => $data,'status'=>true]);
                         } catch (\Exception $ex) {
-                            $validator->getMessageBag()->add('id', $ex->getMessage());
+                            $validator->getMessageBag()->add('id', $ex->getMessage()." ".$ex->getLine());
                             DB::rollBack();
                         }
                         return response()->json(['error' => $validator->errors(), 'data_rules' => $rules]);
@@ -152,16 +191,22 @@ class CategoryController extends \Zoe\Http\ControllerBackend
 
             } else if ($post['act'] == "edit") {
                 $data = $post['data'];
-
                 $category = Categories::find($data['id']);
-                if (isset($this->data['configs']['core']['language']['multiple'])) {
-                    $trans = $category->table_translation_model()->where(['_id' => $data['id']])->get();
+
+                if (isset($this->data['configs']['core']['language']['multiple']) && !empty($category->lang_prefix)) {
+                    $trans = $category->table_translation_model($category->lang_prefix)->where(['_id' => $data['id']])->get();
+                    $table = $category->table_translation_columns($category->lang_prefix);
+
                     foreach ($trans as $tran) {
-                        $category->offsetSet("name_" . $tran->lang_code, $tran->name);
-                        $category->offsetSet("slug_" . $tran->lang_code, $tran->slug);
-                        $category->offsetSet("description_" . $tran->lang_code, $tran->description);
+                        foreach ($table as $val){
+                            $category->offsetSet($val."_" . $tran->lang_code, $tran->{$val});
+                        }
+                      //  $category->offsetSet("name_" . $tran->lang_code, $tran->name);
+                       // $category->offsetSet("slug_" . $tran->lang_code, $tran->slug);
+                      //  $category->offsetSet("description_" . $tran->lang_code, $tran->description);
                     }
                 }
+
                 if(!empty($category['data']) && ($category['data'] == 'b:0;' || @unserialize($category['data']) !== false)){
                     $category['data'] = unserialize($category['data']);
                 }else{
