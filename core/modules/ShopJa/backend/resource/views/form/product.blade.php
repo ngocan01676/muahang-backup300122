@@ -50,7 +50,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        {!! Form::label('id_title', z_language('Tên sản phẩm'), ['class' => 'title']) !!}
+                                        {!! Form::label('id_title', z_language('Tên khi xuất file'), ['class' => 'title']) !!}
                                         {!! Form::text('title',null, ['class' => 'form-control','placeholder'=>z_language('Tên khi xuất file')]) !!}
                                     </td>
                                 </tr>
