@@ -8,12 +8,12 @@
     </div>
 
     @if(isset($model))
-        {!! Form::model($model, ['method' => 'POST','id'=>'formAction','class'=>'submit']) !!}
+        {!! Form::model($model, ['method' => 'POST','id'=>'formAction','class'=>'submit','action'=>router_frontend_lang('widget:WidgetCart:Address')]) !!}
         {!! Form::hidden('id') !!}
     @else
-        {!! Form::open(['method' => 'POST','id'=>'formAction','class'=>'submit']) !!}
+        {!! Form::open(['method' => 'POST','id'=>'formAction','class'=>'submit','action'=>router_frontend_lang('widget:WidgetCart:Address')]) !!}
     @endif
-    
+    @csrf
      <div class="lyt-contents">
         <h1 class="title title-large">お届け先情報を編集</h1>
         <div class="step1 only-sp">
@@ -133,7 +133,7 @@
 
             <div  class="btn-flex btn-column">
                 <div  class="btn-form-wrap">
-                    <button  class="btn-form btn-next" type="button">
+                    <button  class="btn-form btn-next" type="submit">
                         {!! z_language('次へ') !!}
                     </button>
                 </div>
@@ -153,14 +153,14 @@
         $('.btn-next').click(function () {
             var saveForm = $("#formAction").zoe_inputs('get');
 
-            $.ajax({
-                url:"{!! router_frontend_lang('widget:WidgetCart:Address') !!}",
-                data:saveForm,
-                type:"POST",
-                success:function (data) {
-                    $('.error').show();
-                }
-            });
+            {{--$.ajax({--}}
+                {{--url:"{!! router_frontend_lang('widget:WidgetCart:Address') !!}",--}}
+                {{--data:saveForm,--}}
+                {{--type:"POST",--}}
+                {{--success:function (data) {--}}
+                    {{--$('.error').show();--}}
+                {{--}--}}
+            {{--});--}}
         });
         // $(".postal_code").keypress(function () {
         //     let val = $(this).val();
