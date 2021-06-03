@@ -128,7 +128,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                 $model->offsetSet("content", $tran->content);
             }
         }
-
+        dd($model);
         $array = array_merge([$model->image],\PluginGallery\Views\GalleryComposer::get($id,"shop_ja::form.product"));
         return $this->render('home.item-product', [
             'item'=>$model,
