@@ -131,7 +131,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         }
 
         $array = array_merge([$model->image],\PluginGallery\Views\GalleryComposer::get($id,"shop_ja::form.product"));
-        dd((array)$model);
+        dd($model->toArray());
         return $this->render('home.item-product', [
             'item'=>$model,
             'categorys'=>$model != null ?DB::table('shop_product')->where('category_id',$model->category_id)->orderByRaw('RAND()')->limit(10)->get()->all():[],
