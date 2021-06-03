@@ -8,10 +8,10 @@
     </div>
 
     @if(isset($model))
-        {!! Form::model($model, ['method' => 'POST','id'=>'formAction','class'=>'submit','action'=>router_frontend_lang('widget:WidgetCart:Address')]) !!}
+        {!! Form::model($model, ['method' => 'POST','id'=>'formAction','class'=>'submit','route'=>router_frontend_lang_name('widget:WidgetCart:Address')]) !!}
         {!! Form::hidden('id') !!}
     @else
-        {!! Form::open(['method' => 'POST','id'=>'formAction','class'=>'submit','action'=>router_frontend_lang('widget:WidgetCart:Address')]) !!}
+        {!! Form::open(['method' => 'POST','id'=>'formAction','class'=>'submit','route'=>router_frontend_lang_name('widget:WidgetCart:Address')]) !!}
     @endif
     @csrf
      <div class="lyt-contents">
