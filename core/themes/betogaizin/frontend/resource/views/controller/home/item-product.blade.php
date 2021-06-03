@@ -258,7 +258,7 @@
                                             <p>
                                                 <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}">
                                                 <span class="product-item-info-name">
-                                                   {!! $result->title !!}
+                                                   {!! $result->name !!}
                                                 </span>
                                                 </a>
                                                 <span class="product-item-info-amount">5食入り</span>
