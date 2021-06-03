@@ -130,7 +130,6 @@
                     </div>
                 </dd>
             </dl>
-
             <div  class="btn-flex btn-column">
                 <div  class="btn-form-wrap">
                     <button  class="btn-form btn-next" type="submit">
@@ -150,8 +149,8 @@
 @endsection
 @push('scripts')
     <script>
-        $('.btn-next').click(function () {
-            var saveForm = $("#formAction").zoe_inputs('get');
+     //   $('.btn-next').click(function () {
+           // var saveForm = $("#formAction").zoe_inputs('get');
 
             {{--$.ajax({--}}
                 {{--url:"{!! router_frontend_lang('widget:WidgetCart:Address') !!}",--}}
@@ -161,7 +160,7 @@
                     {{--$('.error').show();--}}
                 {{--}--}}
             {{--});--}}
-        });
+       // });
         // $(".postal_code").keypress(function () {
         //     let val = $(this).val();
         //     if(val.length > 4){
