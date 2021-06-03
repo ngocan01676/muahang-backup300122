@@ -118,20 +118,17 @@ class HomeController extends \Zoe\Http\ControllerFront
         if($model == null){
             return redirect('/404');
         }
-        if (isset($this->data['configs']['core']['language']['multiple'])) {
-            $trans = $model->table_translation_model()
-                ->where(['_id' => $id])
-                ->where('lang_code',$config_language['lang'])
-                ->get()->all();
+        $trans = $model->table_translation_model()
+            ->where(['_id' => $id])
+            ->where('lang_code',$config_language['lang'])
+            ->get()->all();
 
-            foreach ($trans as $tran) {
-                $model->offsetSet("name", $tran->name);
-                $model->offsetSet("slug", $tran->slug);
-                $model->offsetSet("content", $tran->content);
-            }
+        foreach ($trans as $tran) {
+            $model->offsetSet("name", $tran->name);
+            $model->offsetSet("slug", $tran->slug);
+            $model->offsetSet("content", $tran->content);
         }
-        echo $id;
-        dd($model);
+     
         $array = array_merge([$model->image],\PluginGallery\Views\GalleryComposer::get($id,"shop_ja::form.product"));
         return $this->render('home.item-product', [
             'item'=>$model,
