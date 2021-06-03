@@ -6,7 +6,11 @@
             ネットスーパーをご利用いただけます。番地以下の住所をご入力ください。
         </p>
     </div>
-
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div><br/>
+    @endif
     @if(isset($model))
         {!! Form::model($model, ['method' => 'POST','id'=>'formAction','class'=>'submit','route'=>router_frontend_lang_name('widget:WidgetCart:Address')]) !!}
         {!! Form::hidden('id') !!}

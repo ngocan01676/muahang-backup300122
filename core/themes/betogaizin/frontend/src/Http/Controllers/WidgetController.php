@@ -196,6 +196,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
               ]
           );
         }
+        $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
         return back();
     }
     public function WidgetAddressActive(Request $request){
