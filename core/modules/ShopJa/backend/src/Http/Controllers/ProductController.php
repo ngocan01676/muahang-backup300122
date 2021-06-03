@@ -297,8 +297,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             return redirect(route('backend:shop_ja:product:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
-            var_dump($ex->getMessage()); echo $ex->getLine();
-            die;
+
         }
 
 

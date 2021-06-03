@@ -196,6 +196,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
               ]
           );
         }
+        return back();
     }
     public function WidgetAddressActive(Request $request){
         $data = $request->all();
