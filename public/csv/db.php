@@ -2,9 +2,9 @@
 include __DIR__.'/idiorm.php';
 $config =[
     'host'=>'localhost',
-    'username' => 'bombimdb',
-    'password' => '8YjWzrd239x2VtTvuz3R',
-    'database'=>'bomh',
+    'username' => 'root',
+    'password' => '',
+    'database'=>'betogaizin',
     'charset'=>'utf8'
 ];
 $mysql = 'mysql:host='.$config['host'].';';

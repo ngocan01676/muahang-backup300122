@@ -129,6 +129,12 @@ $routers['widget'] =   [
             "guard" => "",
             "action"=>'WidgetCartOrder',
             "method"=>['POST','GET']
+        ],
+        'WidgetCart:Address:CheckInfo'=>[
+            "url" => "/widget/".md5('WidgetCart:Address:CheckInfo'),
+            "guard" => "",
+            "action"=>'WidgetAdressCheckInfo',
+            "method"=>['POST']
         ]
     ]
 ];

@@ -35,13 +35,16 @@ class ProductController extends \Zoe\Http\ControllerBackend
         }
         return response()->json($data);
     }
+
+
+
     public function list(Request $request)
     {
         $this->getcrumb();
 
         $filter = $request->query('filter', []);
 
-
+         dd($this->csvToArray(__DIR__.'/file.csv'));
 
 
         $search = $request->query('search', "");

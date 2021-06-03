@@ -111,7 +111,7 @@ class HomeController extends \Zoe\Http\ControllerFront
     public function getItemProduct($id){
 
         $config_language = app()->config_language;
-       
+
         $model = \ShopJa\Http\Models\ProductModel::where('status', 1)->where('id',$id)->first();
 
 
@@ -193,7 +193,10 @@ class HomeController extends \Zoe\Http\ControllerFront
         ]);
     }
     public function getchangeCreateaddress(Request $request){
-        return $this->render('home.address.edit');
+
+        return $this->render(
+            'home.address.edit',['lists_city'=>config('shop_ja.configs.lists_city')]
+        );
     }
     public function get_order_oke(){
 

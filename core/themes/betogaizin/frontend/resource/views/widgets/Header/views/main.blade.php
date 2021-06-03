@@ -53,7 +53,7 @@
         <div class="header-utility" data-v-defa9620="">
             <div class="header-inner" data-v-defa9620="">
                 <p class="category-menu-btn min-375" data-v-defa9620="">
-                    <a onclick="open_menu()" class="js-category-menuBtn OpenMenu" data-v-defa9620="">カテゴリから探す</a>
+                    <a onclick="open_menu()" class="js-category-menuBtn OpenMenu" data-v-defa9620="">{!! z_language('カテゴリから探す') !!}</a>
                 </p>
                 <p class="category-menu-btn max-374" data-v-defa9620="">
                     <a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">カテゴリ</a>
@@ -80,7 +80,7 @@
             </div>
             <div class="header-utility" data-v-defa9620="">
                 <div class="header-inner" data-v-defa9620="">
-                    <p class="category-menu-btn min-375" data-v-defa9620=""><a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">カテゴリから探す</a>
+                    <p class="category-menu-btn min-375" data-v-defa9620=""><a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">{!! z_language('カテゴリから探す') !!}</a>
                     </p>
                     <p class="category-menu-btn max-374" data-v-defa9620=""><a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">カテゴリ</a>
                     </p>

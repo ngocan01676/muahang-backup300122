@@ -17,7 +17,7 @@
     <div class="category-menu-wrap">
         <div class="title-wrap">
             <div class="title-with-item">
-                <h2 class="title title-other01 title-with-border">カテゴリから探す</h2>
+                <h2 class="title title-other01 title-with-border">{!! z_language('カテゴリから探す') !!}</h2>
             </div>
         </div>
 

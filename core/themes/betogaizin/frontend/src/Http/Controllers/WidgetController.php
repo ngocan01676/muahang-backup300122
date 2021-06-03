@@ -331,4 +331,17 @@ class WidgetController extends \Zoe\Http\ControllerFront
         }
 
     }
+    public function WidgetAdressCheckInfo(Request $request){
+        $data = $request->all();
+        $res = [];
+        if(isset($data['code'])){
+            $rs = DB::table('shop_postcode_jp')->where("0",$data['code'])->get()->all();
+            $info = isset($rs[0])?(array)$rs[0]:[];
+
+            if(isset($info[0])){
+                $res['info'] = $info;
+            }
+        }
+        return response()->json($res);
+    }
 }

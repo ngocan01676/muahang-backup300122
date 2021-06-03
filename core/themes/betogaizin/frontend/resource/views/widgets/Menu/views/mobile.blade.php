@@ -38,7 +38,7 @@
 
     <div data-v-5991889a="" id="category-menu-search" class="category-menu-content" style="display: none;">
         <section data-v-5991889a="">
-            <h2 data-v-5991889a="" onclick="close_menu()" class="category-menu-head">カテゴリから探す</h2>
+            <h2 data-v-5991889a="" onclick="close_menu()" class="category-menu-head">{!! z_language('カテゴリから探す') !!}</h2>
             <ul data-v-5991889a="" class="category-menu-level01 category-menu-secondary">
                 <li data-v-5991889a="" class="category-menu-level01-item" style="">
             <span data-v-5991889a="" class="category-menu-link category-menu-link-arrow js-category-menu-trigger">
