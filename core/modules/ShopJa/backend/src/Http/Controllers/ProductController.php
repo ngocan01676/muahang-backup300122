@@ -44,7 +44,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
         $filter = $request->query('filter', []);
 
-         
+
 
         $search = $request->query('search', "");
         $status = $request->query('status', "");
