@@ -44,8 +44,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
         $filter = $request->query('filter', []);
 
-         dd($this->csvToArray(__DIR__.'/file.csv'));
-
+         
 
         $search = $request->query('search', "");
         $status = $request->query('status', "");
