@@ -111,8 +111,10 @@ class HomeController extends \Zoe\Http\ControllerFront
     public function getItemProduct($id){
 
         $config_language = app()->config_language;
-
+        DB::connection()->enableQueryLog();
         $model = \ShopJa\Http\Models\ProductModel::where('status', 1)->where('id',$id)->first();
+        $queries = DB::getQueryLog();
+        var_dump($last_query = end($queries));
         if($model == null){
             return redirect('/404');
         }
