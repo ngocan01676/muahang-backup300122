@@ -111,18 +111,24 @@ class HomeController extends \Zoe\Http\ControllerFront
     public function getItemProduct($slug,$id){
 
         $config_language = app()->config_language;
-        $model = \ShopJa\Http\Models\ProductModel::where('status', 1)->where('id',$id)->first();
 
+        $model = \ShopJa\Http\Models\ProductModel::where('status', 1)->where('id',$id)->first();
+        if($model == null){
+            return redirect('/404');
+        }
         if (isset($this->data['configs']['core']['language']['multiple'])) {
-            $trans = $model->table_translation_model()->where(['_id' => $id])->get();
-            $table = $model->table_translation_columns();
+            $trans = $model->table_translation_model()
+                ->where(['_id' => $id])
+                ->where('lang_code',$config_language['lang'])
+                ->get()->all();
+
             foreach ($trans as $tran) {
-                foreach ($table as $val){
-                    $model->offsetSet($val."_" . $tran->lang_code, $tran->{$val});
-                }
+                $model->offsetSet("name", $tran->name);
+                $model->offsetSet("slug", $tran->slug);
+                $model->offsetSet("content", $tran->content);
             }
         }
-        dd($model);
+
         $array = array_merge([$model->image],\PluginGallery\Views\GalleryComposer::get($id,"shop_ja::form.product"));
         return $this->render('home.item-product', [
             'item'=>$model,
