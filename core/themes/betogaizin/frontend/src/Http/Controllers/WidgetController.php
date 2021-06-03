@@ -170,6 +170,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
               ],
               ['id'=>$id]
           );
+            $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
         }else{
           $id =  DB::table('shop_adresss')->insertGetId(
               [
@@ -195,8 +196,9 @@ class WidgetController extends \Zoe\Http\ControllerFront
                   'time_update'=>date('Y-m-d H:i:s'),
               ]
           );
+            $request->session()->flash('success',z_language('Thêm mới thành công'));
         }
-        $request->session()->flash('success',z_language('Cập nhật thông tin thành công'));
+
         return back();
     }
     public function WidgetAddressActive(Request $request){

@@ -7,9 +7,11 @@
         </p>
     </div>
     @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div><br/>
+        <div data-v-35ade1f0="">
+            <div class="loggedOutDisclaimer sp-width" data-v-35ade1f0="">
+                {{ session('success') }}
+            </div>
+        </div>
     @endif
     @if(isset($model))
         {!! Form::model($model, ['method' => 'POST','id'=>'formAction','class'=>'submit','route'=>router_frontend_lang_name('widget:WidgetCart:Address')]) !!}
