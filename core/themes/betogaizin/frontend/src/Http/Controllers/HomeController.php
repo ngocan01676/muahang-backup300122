@@ -20,7 +20,7 @@ class HomeController extends \Zoe\Http\ControllerFront
     {
 
     }
-    public function getCategoryGroupProduct($slug,$id){
+    public function getCategoryGroupProduct($id){
         $total_records = DB::table('shop_product')->where('group_id',$id)->count();
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
@@ -64,7 +64,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             ]
         ]);
     }
-    public function getCategoryProduct($slug,$id){
+    public function getCategoryProduct($id){
         $total_records = DB::table('shop_product')->where('status',1)->where('category_id',$id)->count();
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
@@ -108,7 +108,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             'keyword'=>$kw
         ]);
     }
-    public function getItemProduct($slug,$id){
+    public function getItemProduct($id){
 
         $config_language = app()->config_language;
 
