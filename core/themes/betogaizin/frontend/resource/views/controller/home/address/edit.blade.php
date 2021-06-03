@@ -27,19 +27,19 @@
         </div>
         <div class="title-wrap no-item">
             <p class="btn-wrap txt-ar"><a href="/promotion/area.html" class="btn btn-default btn-color00 btn-arrow-right">
-                    配送エリアを確認する
+                   {!! z_language(' 配送エリアを確認する') !!}
                 </a>
             </p>
         </div>
         <br>
         <div >
-            <h3  class="title title-other01 title-with-border">お届け先宛名</h3>
+            <h3  class="title title-other01 title-with-border">{!! z_language('お届け先宛名') !!}</h3>
             <dl  class="form-grid">
-                <dt  class="form-grid-head">氏名<span  class="badge-required">必須</span></dt>
+                <dt  class="form-grid-head">{!! z_language('氏名') !!}<span  class="badge-required">{!! z_language('必須') !!}</span></dt>
                 <dd  class="form-grid-body">
                     <div  class="form-box-name">
                         <span  class="form-box-name-item">
-                            <span  class="form-name-item-label">姓</span>
+                            <span  class="form-name-item-label">{!! z_language('姓') !!}</span>
                             {!! Form::text('last_name',null, ['class' => 'form-parts-text','placeholder'=>z_language('（例）楽天')]) !!}
                         </span>
                         <span  class="form-box-name-item" style="display: none;">
@@ -63,7 +63,7 @@
                 </dd>
             </dl>
 
-            <h3  class="title title-other01 title-with-border">お届け先住所</h3>
+            <h3  class="title title-other01 title-with-border">{!! z_language('お届け先住所') !!}</h3>
             {{--<div  class="box box-primary">--}}
                 {{--<p  class="txt-ac m0">--}}
                     {{--郵便番号が分からない方は、郵便番号を入力せず都道府県、--}}
@@ -72,8 +72,8 @@
             {{--</div>--}}
             <dl  class="form-grid">
                 <dt  class="form-grid-head">
-                    郵便番号(半角数字)
-                    <span  class="badge-required">必須</span>
+                   {!! z_language('郵便番号(半角数字)') !!}
+                    <span  class="badge-required">{!! z_language('必須') !!}</span>
                 </dt>
                 <dd  class="form-grid-body">
                     <div  class="form-box-code">

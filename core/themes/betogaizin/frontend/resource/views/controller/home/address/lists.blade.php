@@ -1,6 +1,6 @@
 @section('content')
     <div class="lyt-contents">
-        <h1 class="title title-large">お届け先情報</h1>
+        <h1 class="title title-large">{!! z_language('お届け先情報') !!}</h1>
         <!---->
         {{--<div class="title-wrap no-item">--}}
             {{--<p class="btn-wrap txt-ar">--}}
@@ -19,7 +19,7 @@
 
                         <label class="form-item-label js-addressList-select-trigger">
                             <div class="mb5">
-                                <span class="txt-large fw-bold">通常のお届け先</span>
+                                <span class="txt-large fw-bold">{!! z_language('通常のお届け先') !!}</span>
                             </div>
                                 {!! $list->	last_name !!}
                                 {!! $list->	first_name !!}
@@ -55,12 +55,12 @@
                 @endforeach
                 <div class="col col4-pc col6-sp">
                     <div class="form-item-container form-item-address-container ">
-                        <label class="form-item-address-label"><a class="btn btn-link" href="{!! router_frontend_lang('home:change-address-create') !!}">+ 新しい住所を入力する</a></label></div>
+                        <label class="form-item-address-label"><a class="btn btn-link" href="{!! router_frontend_lang('home:change-address-create') !!}">+ {!! z_language('新しい住所を入力する') !!}</a></label></div>
                 </div>
             </div>
             <div class="btn-flex btn-column">
                 <div class="btn-form-wrap"><a href="{!! router_frontend_lang('home:cart-product') !!}" class="btn-form btn-prev narrow">
-                        前に戻る
+                        {!! z_language('前に戻る') !!}
                     </a>
                 </div>
             </div>
