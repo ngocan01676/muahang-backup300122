@@ -109,11 +109,14 @@ class WidgetController extends \Zoe\Http\ControllerFront
         $carts = $request->session()->get(WidgetController::$keyCart,[]);
         $ids = array_keys($carts);
         $_products = DB::table('shop_product')->whereIn('id',$ids)->get()->keyBy('id')->all();
+        $config_language = app()->config_language;
+        $_products_lang = DB::table('shop_product_translation')->whereIn('_id',$ids)->where('lang_code',$config_language['lang'])->get()->keyBy('id')->all();
         $configs = new \BetoGaizinTheme\Lib\Price();
         foreach ($_products as $key=>$product){
             $_products[$key]->count = $carts[$product->id]['count'];
             $_products[$key]->price_total = $_products[$key]->count * $product->price_buy;
             $_products[$key]->order_index = $carts[$product->id]['time'];
+            $_products[$key]->slug = empty($_products_lang[$product->id]->slug)?'slug':$_products_lang[$product->id]->slug;
         }
         usort($_products, function($a,$b){
             return $a->order_index - $b->order_index;
@@ -232,15 +235,15 @@ class WidgetController extends \Zoe\Http\ControllerFront
         $carts = $request->session()->get(WidgetController::$keyCart,[]);
         $ids = array_keys($carts);
         $_products = DB::table('shop_product')->whereIn('id',$ids)->get()->keyBy('id')->all();
-        $config_language = app()->config_language;
-        $_products_lang = DB::table('shop_product_translation')->whereIn('_id',$ids)->where('lang_code',$config_language['lang'])->get()->keyBy('id')->all();
+
+
         $configs = new \BetoGaizinTheme\Lib\Price();
         foreach ($_products as $key=>$product){
 
             $_products[$key]->count = $carts[$product->id]['count'];
             $_products[$key]->price_total = $_products[$key]->count * $product->price_buy;
             $_products[$key]->order_index = $carts[$product->id]['time'];
-            $_products[$key]->slug = empty($_products_lang[$product->id]->slug)?'slug':$_products_lang[$product->id]->slug;
+
         }
         usort($_products, function($a,$b){
             return $a->order_index - $b->order_index;
