@@ -167,7 +167,7 @@
                                                         <div class="product-cart-item4" style="padding-bottom: 10px;">
                                                             <span class="product-cart-small-text only-sp">数量</span>
                                                             <div class="product-cart-pieces">
-                                                                <div class="btn-set-wrap" data-company="{!! $value->id !!}" data-id="{!! $product->id !!}" data-count="1" data-act="update">
+                                                                <div class="btn-set-wrap set-data" data-company="{!! $value->id !!}" data-id="{!! $product->id !!}" data-count="1" data-act="update">
                                                                     <span class="btn-set-btn" data-type="-">－</span>
                                                                     <span class="btn-set-num">{!! $product->count !!}</span>
                                                                     <span class="btn-set-btn" data-type="+">＋</span>
@@ -426,7 +426,7 @@
                         data:saveForm,
                         type:"POST",
                         success:function (data) {
-                            window.location.href = data.url;
+                           // window.location.href = data.url;
                         }
                     });
                 }else{
