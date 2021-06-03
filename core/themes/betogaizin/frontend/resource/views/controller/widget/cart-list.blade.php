@@ -53,7 +53,7 @@
                                                 <div class="minicart-products-data">
                                                     <p class="minicart-img-wrap">
                                                         <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="img-label-wrap link-img ">
-                                                            <img style="height: 150px" src="{!! $product->image !!}" alt="-" class="minicart-img">
+                                                            <img  src="{!! get_thumbnails($product->image,100) !!}" alt="-" class="minicart-img">
                                                         </a>
                                                     </p>
                                                 </div>

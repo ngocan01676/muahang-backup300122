@@ -151,11 +151,18 @@ class HomeController extends \Zoe\Http\ControllerFront
         $ids = array_keys($carts);
         $_products = DB::table('shop_product')->whereIn('id',$ids)->get()->keyBy('id')->all();
         $configs = new \BetoGaizinTheme\Lib\Price();
+
         foreach ($_products as $key=>$product){
             $_products[$key]->count = $carts[$product->id]['count'];
             $_products[$key]->price_total = $_products[$key]->count * $product->price_buy;
             $_products[$key]->order_index = $carts[$product->id]['time'];
+
+             $rs = DB::table('shop_product_translation')->select('slug')->where('lang_code','vi')->where('_id',$product->id)->get()->all();
+             if(isset($rs[0])){
+                 $_products[$key]->slug = $rs[0]->slug;
+             }
         }
+
         usort($_products, function($a,$b){
             return $a->order_index - $b->order_index;
         });

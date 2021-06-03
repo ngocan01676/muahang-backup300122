@@ -143,14 +143,14 @@
                                                             <div class="product-cart-item1">
                                                                 <div class="product-cart-img">
                                                                     <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="link-img">
-                                                                        <img src="{!! $product->image !!}" width="80" height="80" alt="">
+                                                                        <img src="{!! get_thumbnails($product->image,80) !!}" width="80" height="80" alt="">
                                                                     </a>
                                                                 </div>
                                                                 <div class="tax-reduced-item">*</div>
                                                                 <div class="product-cart-item1-right">
                                                                     <p class="product-cart-maker">ロッテ</p>
                                                                     <p class="product-cart-name">
-                                                                       <a href="https://sm.rakuten.co.jp/item/4953823080093">{!! $product->title !!}</a>
+                                                                       <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}">{!! $product->title !!}</a>
                                                                     </p>
                                                                     <p class="product-cart-amount">470ml</p>
                                                                 </div>
