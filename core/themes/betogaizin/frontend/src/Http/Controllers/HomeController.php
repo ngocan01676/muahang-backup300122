@@ -124,17 +124,23 @@ class HomeController extends \Zoe\Http\ControllerFront
             ->get()->all();
 
         foreach ($trans as $tran) {
-            var_dump($tran);
+
             $model->offsetSet("name", $tran->name);
             $model->offsetSet("slug", $tran->slug);
             $model->offsetSet("content", $tran->content);
         }
 
         $array = array_merge([$model->image],\PluginGallery\Views\GalleryComposer::get($id,"shop_ja::form.product"));
-        dd($model->toArray());
+
+        $results = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$model->group_id)
+            ->join('shop_product_translation as t','t._id','=','p.id')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->where('lang_code',$config_language['lang'])
+            ->orderByRaw('RAND()')
+            ->offset(0)->limit(10)->get()->all();
         return $this->render('home.item-product', [
             'item'=>$model,
-            'categorys'=>$model != null ?DB::table('shop_product')->where('category_id',$model->category_id)->orderByRaw('RAND()')->limit(10)->get()->all():[],
+            'categorys'=>$results,
             'gallerys'=>$array
         ]);
     }
