@@ -8,17 +8,17 @@ $routers['home'] = [
     ],
     "router" => [
         "category-product" => [
-            "url" => "/category-product/{slug}/{id}",
+            "url" => "/category-product/{id}/{slug}",
             "guard" => "",
             "action"=>'getCategoryProduct'
         ],
         "category-product-group" => [
-            "url" => "/loai-sp/{slug}/{id}",
+            "url" => "/loai-sp/{id}/{slug}",
             "guard" => "",
             "action"=>'getCategoryGroupProduct'
         ],
         "item-product" => [
-            "url" => "/item-product/{slug}/{id}",
+            "url" => "/item-product/{id}/{slug}",
             "guard" => "",
             "action"=>'getItemProduct'
         ],
