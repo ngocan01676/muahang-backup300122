@@ -109,18 +109,23 @@ class HomeController extends \Zoe\Http\ControllerFront
         ]);
     }
     public function getItemProduct($slug,$id){
-        $result = DB::table('shop_product')->where('status',1)->where('id',$id)->get()->all();
-        $item = isset($result[0])?$result[0]:null;
 
         $config_language = app()->config_language;
+        $model = \ShopJa\Http\Models\ProductModel::where('status', 1)->where('id',$id)->first();
 
-        //$db = DB::table('blog_post_translation')->where('slug',$slug)->where('lang_code',$config_language['lang'])->get()->all();
-
-
-        $array = array_merge([$item->image],\PluginGallery\Views\GalleryComposer::get($id,"shop_ja::form.product"));
+        if (isset($this->data['configs']['core']['language']['multiple'])) {
+            $trans = $model->table_translation_model()->where(['_id' => $id])->get();
+            $table = $model->table_translation_columns();
+            foreach ($trans as $tran) {
+                foreach ($table as $val){
+                    $model->offsetSet($val."_" . $tran->lang_code, $tran->{$val});
+                }
+            }
+        }
+        $array = array_merge([$model->image],\PluginGallery\Views\GalleryComposer::get($id,"shop_ja::form.product"));
         return $this->render('home.item-product', [
-            'item'=>$item,
-            'categorys'=>$item != null ?DB::table('shop_product')->where('category_id',$item->category_id)->orderByRaw('RAND()')->limit(10)->get()->all():[],
+            'item'=>$model,
+            'categorys'=>$model != null ?DB::table('shop_product')->where('category_id',$model->category_id)->orderByRaw('RAND()')->limit(10)->get()->all():[],
             'gallerys'=>$array
         ]);
     }
