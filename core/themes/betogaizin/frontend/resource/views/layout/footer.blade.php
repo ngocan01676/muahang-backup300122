@@ -426,7 +426,13 @@
        display: block !important;
    }
 </style>
-
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 <script>
     function open_cart() {
         var count = parseInt($('#cart .header-utility-cart-icon .popout').text());

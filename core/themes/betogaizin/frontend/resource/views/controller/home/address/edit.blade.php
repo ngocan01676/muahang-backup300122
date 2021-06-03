@@ -13,7 +13,7 @@
     @else
         {!! Form::open(['method' => 'POST','id'=>'formAction','class'=>'submit']) !!}
     @endif
-    @csrf
+    
      <div class="lyt-contents">
         <h1 class="title title-large">お届け先情報を編集</h1>
         <div class="step1 only-sp">
@@ -152,6 +152,7 @@
     <script>
         $('.btn-next').click(function () {
             var saveForm = $("#formAction").zoe_inputs('get');
+
             $.ajax({
                 url:"{!! router_frontend_lang('widget:WidgetCart:Address') !!}",
                 data:saveForm,

@@ -166,7 +166,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
                   'phone4'=>isset($data['phone4'])?$data['phone4']:"",
                   'phone5'=>isset($data['phone5'])?$data['phone5']:"",
                   'phone6'=>isset($data['phone6'])?$data['phone6']:"",
-                  'update_create'=>date('Y-m-d H:i:s'),
+                  'time_update'=>date('Y-m-d H:i:s'),
               ],
               ['id'=>$id]
           );
