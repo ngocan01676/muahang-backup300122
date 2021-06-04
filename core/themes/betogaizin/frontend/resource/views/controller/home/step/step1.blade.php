@@ -139,6 +139,8 @@
                                             @continue($product['cate'] != $cate)
                                                 @php
                                                     $isSub = true;
+                                                     $totals_product+=$product['total_sum_price'];
+
                                                 @endphp
 
                                             <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
@@ -217,17 +219,12 @@
                             <BR>
 
                             <div class="tax-item-description"> *Phí daikby {!! $prices["products"][$value->name]["total_cou"] !!}</div>
-                            @php
-                                if(isset($prices[$value->name])){
+                                    @php
+                                        $total_cou+=$prices["products"][$value->name]["total_cou"];
+                                    @endphp
 
-                                    //$totals_product+=$prices[$value->name]['total_price'];
-                                  //  $totals_ship+=$prices[$value->name]['total_ship'];
-                                   // $total_cou+=$prices[$value->name]['total_cou'];
-                                }
-                            @endphp
-
-                        </div>
-                    @endsection
+                                </div>
+                            @endsection
                                 @if($isSub)
                                     @yield('treeview_'.$cate)
                                 @endif
@@ -250,7 +247,10 @@
                                                 @foreach($products as $k=>$product)
                                                     @continue($product->category_id != $cate)
                                                     @php $isSub = true;
-                                                         $price = isset($prices["products"][$value->name]['products'][$product->id])?$prices["products"][$value->name]['products'][$product->id]:[];
+
+                                                           $price = isset($prices["products"][$value->name]['products'][$product->id])?$prices["products"][$value->name]['products'][$product->id]:[];
+                                                          $totals_product+=isset($price['total_sum_price'])?$price['total_sum_price']:0;
+
                                                     @endphp
                                                     <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
                                                         <div class="product-cart-row-top">
@@ -328,12 +328,7 @@
 
                                         <div class="tax-item-description"> *Phí daikby {!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['total_cou'] : 0 !!}</div>
                                         @php
-                                            if(isset($prices[$value->name])){
-
-                                                $totals_product+=$prices[$value->name]['total_price'];
-                                                $totals_ship+=$prices[$value->name]['total_ship'];
-                                                $total_cou+=$prices[$value->name]['total_cou'];
-                                            }
+                                            $total_cou+=isset($prices["products"][$value->name])? $prices["products"][$value->name]['total_cou'] : 0;
 
                                         @endphp
 
@@ -382,22 +377,22 @@
                                                 <dt class="side-content-frame-data-title">Tiền hàng
                                                 </dt>
                                                 <dd class="side-content-frame-data-body">
-                                                <span class="sp-large">{!! number_format($prices['total_sum']) !!}</span>円
+                                                <span class="sp-large">{!! number_format($totals_product) !!}</span>円
                                                 </dd>
 
                                             </dl>
                                             <hr class="line line-lightgray">
                                             <!---->
-                                            <dl class="side-content-frame-data">
-                                                <dt class="side-content-frame-data-title">Phí Ship
-                                                </dt>
-                                                <dd class="side-content-frame-data-body">{!! number_format($prices['total_ship']) !!}円
-                                                </dd>
-                                            </dl>
+                                            {{--<dl class="side-content-frame-data">--}}
+                                                {{--<dt class="side-content-frame-data-title">Phí Ship--}}
+                                                {{--</dt>--}}
+                                                {{--<dd class="side-content-frame-data-body">{!! number_format($prices['total_ship']) !!}円--}}
+                                                {{--</dd>--}}
+                                            {{--</dl>--}}
                                             <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title">Phí Daibiki
                                                 </dt>
-                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_cou'])) !!}円
+                                                <dd class="side-content-frame-data-body">{!! number_format(($total_cou)) !!}円
                                                 </dd>
                                             </dl>
                                             <!---->
@@ -432,7 +427,7 @@
                                             <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title with-num"> Tổng tiền
                                                 </dt>
-                                                <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_sum'] +  $prices['total_ship'] + $prices['total_cou']) !!}</span>
+                                                <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($total_cou + $totals_product) !!}</span>
                                                     <span class="side-content-frame-unit">円</span>
                                                 </dd>
                                             </dl>
@@ -452,7 +447,7 @@
                                                 <dl class="side-content-frame-data">
                                                     <dt class="side-content-frame-data-title with-num">Tổng tiền phải trả
                                                     </dt>
-                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_sum'] +  $prices['total_ship'] + $prices['total_cou'] - $prices['sale']) !!}</span>
+                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($total_cou + $totals_product) !!}</span>
                                                         <span class="side-content-frame-unit">円</span>
                                                     </dd>
                                                 </dl>
