@@ -495,10 +495,14 @@ class PriceCartWeb{
 
                     $orders[$order_index]['products'][$id]['cou'] = $ship_cou;
 
-                    $orders[$order_index]['products'][$id]['total_sum_price'] =  $orders[$order_index]['products'][$id]['total_price_buy'] +  $orders[$order_index]['products'][$id]['total_ship'];
+                    $orders[$order_index]['products'][$id]['total_sum_price'] =
+                        $orders[$order_index]['products'][$id]['total_price_buy'] +  $orders[$order_index]['products'][$id]['total_ship'];
+                    $orders[$order_index]['total_sum']+= $orders[$order_index]['products'][$id]['total_sum_price'];
 
                 }
             }
+            $orders[$order_index]['total_sum']+=  $orders[$order_index]['total_cou'];
+            $orders[$order_index]['total_sum']+=  $orders[$order_index]['total_ship'];
         }
         $arrays = [
             "total_sum"=>0,
@@ -506,11 +510,13 @@ class PriceCartWeb{
             "total_cou"=>0,
             "products"=>$orders
         ];
+
         foreach ($orders as $order){
             $arrays['total_sum']+=$order['total_sum'];
             $arrays['total_ship']+=$order['total_ship'];
             $arrays['total_cou']+=$order['total_cou'];
         }
+
         return $arrays;
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){
@@ -656,10 +662,12 @@ class PriceCartWeb{
                         $orders[$order_index]['products'][$id]['ship'] = $price_ship > -1 ? $price_ship : 0;
                         $orders[$order_index]['products'][$id]['cou'] = $ship_cou;
                         $orders[$order_index]['products'][$id]['total_ship'] = $orders[$order_index]['products'][$id]['ship'] * $count;
+
                         $orders[$order_index]['products'][$id]['total_sum_price'] =
                         $orders[$order_index]['products'][$id]['total_price_buy'] +
                         $orders[$order_index]['products'][$id]['total_ship'];
                         $orders[$order_index]['total_cou'] = $ship_cou;
+                       
                 }
                 }
             }

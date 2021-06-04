@@ -222,6 +222,7 @@
                             @if($value->name =="KOGYJA")
                             <BR>
                             <div class="tax-item-description"><strong> *Tiền ship {!! $prices["products"][$value->name]["total_ship"] !!}</strong></div>
+
                             @endif
                                     @php
                                         $total_cou+=$prices["products"][$value->name]["total_cou"];
@@ -431,7 +432,7 @@
                                             <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title with-num"> Tổng tiền
                                                 </dt>
-                                                <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($total_cou + $totals_product) !!}</span>
+                                                <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_sum']) !!}</span>
                                                     <span class="side-content-frame-unit">円</span>
                                                 </dd>
                                             </dl>
@@ -451,7 +452,7 @@
                                                 <dl class="side-content-frame-data">
                                                     <dt class="side-content-frame-data-title with-num">Tổng tiền phải trả
                                                     </dt>
-                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($total_cou + $totals_product) !!}</span>
+                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_sum']) !!}</span>
                                                         <span class="side-content-frame-unit">円</span>
                                                     </dd>
                                                 </dl>
