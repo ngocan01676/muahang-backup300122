@@ -667,7 +667,8 @@ class PriceCartWeb{
                         $orders[$order_index]['products'][$id]['total_price_buy'] +
                         $orders[$order_index]['products'][$id]['total_ship'];
                         $orders[$order_index]['total_cou'] = $ship_cou;
-                       
+                        $orders[$order_index]['total_sum']+= $orders[$order_index]['products'][$id]['total_sum_price'];
+
                 }
                 }
             }
