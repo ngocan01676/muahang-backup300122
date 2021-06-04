@@ -417,6 +417,7 @@ class PriceCartWeb{
 
                     $ship_cou = -1;
                     if($key == 0){
+
                         foreach($configShip as $i => $val){
                             $is_IF_Start = $this->IF_Start($totalCountAll,$configShip[$i]);
                             $is_IF_End =  $this->IF_End($totalCountAll,$configShip[$i]);
@@ -437,40 +438,43 @@ class PriceCartWeb{
                         }
                         $price_ship_default  = -1;
                         $price_ship  = -1;
-                        foreach ($arr_ship as $i=>$val){
-                            if($val[0]->unit == 0 && $price_ship_default==-1){
-                                $price_ship_default =  $val[1]['value'];
-                            }else if($val[0]->unit == $product->unit && $price_ship == -1){
-                                $price_ship = $val[1]['value'];
+                        if($totalCountAll <10){
+                            foreach ($arr_ship as $i=>$val){
+                                if($val[0]->unit == 0 && $price_ship_default==-1){
+                                    $price_ship_default =  $val[1]['value'];
+                                }else if($val[0]->unit == $product->unit && $price_ship == -1){
+                                    $price_ship = $val[1]['value'];
+                                }
                             }
-                        }
-                        $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                            $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
 
-                        if( $type == 2 || $type == 3 ){
-                            $ship_cou = 0;
-                        }else{
-                            $datadaibiki = $this->data['daibiki'];
-                            foreach ($datadaibiki as $i=>$_val){
-                                if($ship == $_val->id){
-                                    foreach((array)$_val->data as $units){
-                                        foreach($units as $_unit){
-                                            if($_unit){
+                            if( $type == 2 || $type == 3 ){
+                                $ship_cou = 0;
+                            }else{
+                                $datadaibiki = $this->data['daibiki'];
+                                foreach ($datadaibiki as $i=>$_val){
+                                    if($ship == $_val->id){
+                                        foreach((array)$_val->data as $units){
+                                            foreach($units as $_unit){
+                                                if($_unit){
 
-                                                $is_IF_Start = $this->IF_Start($orders[$order_index]['total_price_buy'],$_unit);
-                                                $is_IF_End = $this->IF_End($orders[$order_index]['total_price_buy'],$_unit);
-                                                if($is_IF_Start && $is_IF_End){
-                                                    $ship_cou = (int)$_unit['value'];
+                                                    $is_IF_Start = $this->IF_Start($orders[$order_index]['total_price_buy'],$_unit);
+                                                    $is_IF_End = $this->IF_End($orders[$order_index]['total_price_buy'],$_unit);
+                                                    if($is_IF_Start && $is_IF_End){
+                                                        $ship_cou = (int)$_unit['value'];
+                                                    }
                                                 }
                                             }
                                         }
                                     }
-                                }
-                                if($ship_cou != -1){
-                                    break;
+                                    if($ship_cou != -1){
+                                        break;
+                                    }
                                 }
                             }
+                        }else{
+                            $price_ship = 0;
                         }
-
                     }else{
                         $ship_cou = 0;
                         $price_ship = 0;
