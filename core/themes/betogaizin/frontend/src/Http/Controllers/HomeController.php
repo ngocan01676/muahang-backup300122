@@ -152,7 +152,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         $carts = $request->session()->get(WidgetController::$keyCart,[]);
         $ids = array_keys($carts);
         $_products = DB::table('shop_product')->whereIn('id',$ids)->get()->keyBy('id')->all();
-        $configs = new \BetoGaizinTheme\Lib\Price();
+        $configs = new \BetoGaizinTheme\Lib\PriceCartWeb();
 
         foreach ($_products as $key=>$product){
             $_products[$key]->count = $carts[$product->id]['count'];

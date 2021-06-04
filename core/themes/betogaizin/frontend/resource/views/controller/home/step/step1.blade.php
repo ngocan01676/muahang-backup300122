@@ -124,11 +124,12 @@
                             <h3 class="title title-middle">かごの中の商品 {!! $value->name !!}</h3>
                             <div id="cartList" class="product-cart cf">
                                 <div class="product-cart-header cf only-pc">
-                                    <p>商品</p>
-                                    <p>価格</p>
-                                    <p>別途送料</p>
-                                    <p>数量</p>
-                                    <p>小計</p>
+                                    <p>Tên sản phẩm</p>
+                                    <p>Giá bán</p>
+                                    <p>Số lượng</p>
+                                    <p>Tổng tiền</p>
+                                    <p>Tiền ship</p>
+                                    <p>Thành tiền</p>
                                     <p>小計</p>
                                 </div>
                                 <div>
@@ -162,11 +163,8 @@
                                                         <div class="product-cart-item2">
                                                             <p class="product-cart-price"><span class="only-sp">価格(税抜)&nbsp;</span>{!! number_format(  $product['price_buy']) !!}円</p>
                                                         </div>
-                                                    </div>
-                                                </div>
 
-                                                <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['ship']) !!}円</p>
+                                                    </div>
                                                 </div>
                                                 <div class="product-cart-row-bottom">
                                                     <div class="product-cart-item4" style="padding-bottom: 10px;">
@@ -187,6 +185,14 @@
                                                     </div>
 
                                                 </div>
+                                                <div class="product-cart-item3" style="padding-bottom: 10px;">
+                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['total_ship']) !!}円</p>
+                                                </div>
+
+                                                <div class="product-cart-item3" style="padding-bottom: 10px;">
+                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['total_sum_price']) !!}円</p>
+                                                </div>
+
 
                                                 {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
                                                 {{--<p class="product-cart-price">--}}
@@ -231,11 +237,12 @@
                                         <h3 class="title title-middle">かごの中の商品 {!! $value->name !!}</h3>
                                         <div id="cartList" class="product-cart cf">
                                             <div class="product-cart-header cf only-pc">
-                                                <p>商品</p>
-                                                <p>価格</p>
-                                                <p>別途送料</p>
-                                                <p>数量</p>
-                                                <p>小計</p>
+                                                <p>Tên sản phẩm</p>
+                                                <p>Giá bán</p>
+                                                <p>Số lượng</p>
+                                                <p>Tổng tiền</p>
+                                                <p>Tiền ship</p>
+                                                <p>Thành tiền</p>
                                                 <p>小計</p>
                                             </div>
                                             <div>
@@ -243,10 +250,8 @@
                                                 @foreach($products as $k=>$product)
                                                     @continue($product->category_id != $cate)
                                                     @php $isSub = true;
-                                                                $price = isset($prices["products"][$value->name]['products'][$product->id])?$prices["products"][$value->name]['products'][$product->id]:[];
-
+                                                         $price = isset($prices["products"][$value->name]['products'][$product->id])?$prices["products"][$value->name]['products'][$product->id]:[];
                                                     @endphp
-
                                                     <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
                                                         <div class="product-cart-row-top">
                                                             <div class="product-cart-row-top-group">
@@ -271,9 +276,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                            <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['ship'])?$price['ship']:0) !!}円</p>
-                                                        </div>
                                                         <div class="product-cart-row-bottom">
                                                             <div class="product-cart-item4" style="padding-bottom: 10px;">
                                                                 <span class="product-cart-small-text only-sp">数量</span>
@@ -288,11 +290,21 @@
                                                             <div class="product-cart-item5" style="padding-bottom: 10px;">
                                                                 <p class="product-cart-price">
                                                                     <span class="only-sp product-cart-small-text">小計(税込)</span>
-                                                                    {!! number_format(isset($price['total_sum_price'])?$price['total_sum_price']:0) !!}円
+                                                                    {!! number_format(isset($price['total_price_buy'])?$price['total_price_buy']:0) !!}円
+                                                                </p>
+                                                            </div>
+                                                            <div class="product-cart-item5" style="padding-bottom: 10px;">
+                                                                <p class="product-cart-price">
+                                                                    <span class="only-sp product-cart-small-text">小計(税込)</span>
+                                                                    {!! number_format(isset($price['total_ship'])?$price['total_ship']:0) !!}円
                                                                 </p>
                                                             </div>
 
                                                         </div>
+                                                        <div class="product-cart-item3" style="padding-bottom: 10px;">
+                                                            <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['total_sum_price'])?$price['total_sum_price']:0) !!}円</p>
+                                                        </div>
+
                                                         {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
                                                         {{--<p class="product-cart-price">--}}
                                                         {{--<span class="only-sp product-cart-small-text">小計(税込)</span>--}}
@@ -314,7 +326,7 @@
                                         <BR>
                                         <BR>
 
-                                        <div class="tax-item-description"> *Phí daikby {!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['total_cou']-330 : 0 !!}</div>
+                                        <div class="tax-item-description"> *Phí daikby {!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['total_cou'] : 0 !!}</div>
                                         @php
                                             if(isset($prices[$value->name])){
 
