@@ -620,98 +620,213 @@ class Price{
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){
         $products['total_price'] = 0;
+        $products['total_price_buy'] = 0;
+        $products['total_sum'] = 0;
         $products['total_ship'] = 0;
         $products['total_cou'] = 0;
-        foreach ($products['products'] as $key=>$product){
+        $products['profit'] = 0;
 
-            if(isset($this->data['products']['YAMADA'][$product['id']])){
+        $row = array_values($products['products']);
+        $n = count($row);
+        echo $province;
+        $orders = [
+            [
+                "total_count"=>0,
+                "total_price"=>0,
+                "total_price_buy"=>0,
+                "total_sum"=>0,
+                "total_ship"=>0,
+                "total_cou"=>0,
+                "profit"=>0,
+                "products"=>[]
+            ]
+        ];
 
-                $data_product =  ($this->data['products']['YAMADA'][$product['id']]);
-                $count = $product['count'];
-                $total_price = $count * $data_product['data']['price_buy'];
+        $i = 0;
 
-                if($key == 0){
-                    $total_price+=330;
+        usort($row, function ($a,$b){
+            return $a['time'] - $b['time'];
+        });
+
+        $kgs = [2,5,10,15];
+
+        while (count($row)>0){
+            if($orders[$i]['total_count'] <10){
+                $val = array_shift($row);
+                if($orders[$i]['total_count'] + (int)$val['count'] <= 10){
+                    $orders[$i]['total_count']+=$val['count'];
+                    $orders[$i]["products"][] = ['count'=>$val['count'],'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
+                }else{
+                    $_count = (10 - $orders[$i]['total_count']);
+                    $orders[$i]['total_count']+= $_count;
+                    $orders[$i]["products"][] = ['count'=>$_count,'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
+                    $val['count'] = $val['count'] - $_count;
+
+                    array_unshift($row,$val);
                 }
+            }else if(count($row)>0){
+                $i++;
+                $orders[$i] =   [
+                    "total_count"=>0,
+                    "total_price"=>0,
+                    "total_price_buy"=>0,
+                    "total_sum"=>0,
+                    "total_ship"=>0,
+                    "total_cou"=>0,
+                    "profit"=>0,
+                    "products"=>[]
+                ];
+            }
+        }
+        foreach ($orders as $order_index=>$order){
+            $totalCountAll = $order['total_count'];
+            $row = $order['products'];
 
-                $products['total_price']+= $total_price;
-                $arr_ship = [];
+            usort($row, function ($a,$b){
+                return $a['time'] - $b['time'];
+            });
 
-                $configShip =  $this->data['ships']["cate_".$product['cate']]?$this->data['ships']["cate_".$product['cate']]:[];
+            $n = count($row);
 
-                $ship =  $this->data['categorys'][$product['cate']]?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
+            for ($key = $n-1;$key >= 0; $key--){
+                $product = $row[$key];
+                $id = $key;
+                if(isset($this->data['products']['KURICHIKU'][$product['id']])){
+                    $data_product =  ($this->data['products']['KURICHIKU'][$product['id']]);
+                    $count = $product['count'];
 
-                foreach($configShip as $i => $val){
+                    $total_price_buy = $count * $data_product['data']['price_buy'];
+                    $total_price = $count * $data_product['data']['price'];
 
-                    $is_IF_Start = $this->IF_Start($count,$configShip[$i]);
-                    $is_IF_End =  $this->IF_End($count,$configShip[$i]);
 
-                    if($is_IF_Start && $is_IF_End){
-                        $conf  =  $configShip[$i]->config;
-                        foreach ($conf as $ii=>$_val){
-                            $val = $conf[$ii];
-                            $arr = explode('-',$val['text']);
-                            foreach ($arr as $iii=>$__val){
-                                $v = $arr[$iii];
-                                if($province == $v){
-                                    $arr_ship[] = [$configShip[$i],$val];
-                                }
-                            }
-                        }
-                    }
-                }
+                    $orders[$order_index]['products'][$id]['price_buy'] = $data_product['data']['price_buy'];
+                    $orders[$order_index]['products'][$id]['price'] = $data_product['data']['price'];
+                    $orders[$order_index]['products'][$id]['total_price_buy'] = $total_price_buy;
+                    $orders[$order_index]['products'][$id]['total_price'] = $total_price;
 
-                $price_ship_default  = -1;
-                $price_ship  = -1;
-                foreach ($arr_ship as $i=>$val){
-                    if($val[0]->unit == 0 && $price_ship_default==-1){
-                        $price_ship_default =  $val[1]['value'];
-                    }else if($val[0]->unit == $product->unit && $price_ship == -1){
-                        $price_ship = $val[1]['value'];
-                    }
-                }
-                $ship_cou = -1;
-                if($key == 0){
-                    if( $type == 2 || $type == 3 ){
-                        $ship_cou = 0;
-                    }else{
+                    $orders[$order_index]['total_price_buy']+= $orders[$order_index]['products'][$id]['total_price_buy'];
 
-                        $datadaibiki = $this->data['daibiki'];
+                    $orders[$order_index]['total_price']+= $orders[$order_index]['products'][$id]['total_price'];
 
-                        foreach ($datadaibiki as $i=>$_val){
-                            if($ship == $_val->id){
-                                foreach($_val->data as $units){
-                                    foreach($units as $_unit){
-                                        if($_unit){
 
-                                            $is_IF_Start = $this->IF_Start($total_price,$_unit);
-                                            $is_IF_End = $this->IF_End($total_price,$_unit);
-                                            if($is_IF_Start && $is_IF_End){
-                                                $ship_cou = $_unit['value'];
-                                            }
+
+                    $arr_ship = [];
+
+                    $configShip =  $this->data['ships']["cate_".$product['cate']]?$this->data['ships']["cate_".$product['cate']]:[];
+
+                    $ship =  $this->data['categorys'][$product['cate']]?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
+
+                    $ship_cou = -1;
+                    if($key == 0){
+                        foreach($configShip as $i => $val){
+
+                            $is_IF_Start = $this->IF_Start($totalCountAll,$configShip[$i]);
+                            $is_IF_End =  $this->IF_End($totalCountAll,$configShip[$i]);
+
+                            if($is_IF_Start && $is_IF_End){
+                                $conf  =  $configShip[$i]->config;
+                                foreach ($conf as $ii=>$_val){
+                                    $val = $conf[$ii];
+                                    $arr = explode('-',$val['text']);
+                                    foreach ($arr as $iii=>$__val){
+                                        $v = $arr[$iii];
+                                        if($province == $v){
+                                            $arr_ship[] = [$configShip[$i],$val];
                                         }
                                     }
                                 }
                             }
-                            if($ship_cou != -1){
-                                break;
+                        }
+                        $price_ship_default  = -1;
+                        $price_ship  = -1;
+                        if($key == 0){
+                            $orders[$order_index]['products'][$id]['total_price_buy']+=330;
+                        }
+                        foreach ($arr_ship as $i=>$val){
+                            if($val[0]->unit == 0 && $price_ship_default==-1){
+                                $price_ship_default =  $val[1]['value'];
+                            }else if($val[0]->unit == $product->unit && $price_ship == -1){
+                                $price_ship = $val[1]['value'];
                             }
                         }
+                        $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+
+                        if( $type == 2 || $type == 3 ){
+                            $ship_cou = 0;
+                        }else{
+                            $datadaibiki = $this->data['daibiki'];
+                            foreach ($datadaibiki as $i=>$_val){
+                                if($ship == $_val->id){
+                                    foreach((array)$_val->data as $units){
+                                        foreach($units as $_unit){
+                                            if($_unit){
+
+                                                $is_IF_Start = $this->IF_Start($orders[$order_index]['total_price_buy'],$_unit);
+                                                $is_IF_End = $this->IF_End($orders[$order_index]['total_price_buy'],$_unit);
+                                                if($is_IF_Start && $is_IF_End){
+                                                    $ship_cou = (int)$_unit['value'];
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if($ship_cou != -1){
+                                    break;
+                                }
+                            }
+                        }
+
+                    }else{
+                        $ship_cou = 0;
+                        $price_ship = 0;
                     }
-                }else{
-                    $ship_cou = 0;
+                    $ship_cou = $ship_cou == -1?0:$ship_cou;
+                    $orders[$order_index]['products'][$id]['ship'] = $price_ship > -1?$price_ship:-1;
+                    $orders[$order_index]['products'][$id]['cou'] = $ship_cou;
+
+                    $orders[$order_index]['total_cou']+=  $orders[$order_index]['products'][$id]['cou'];
+
+
+                    if( $key == 0){
+
+                        $orders[$order_index]['total_sum'] =  $orders[$order_index]['products'][$id]['total_price_buy'];
+
+
+                        $orders[$order_index]['products'][$id]['profit'] =
+                            $orders[$order_index]['products'][$id]['total_price_buy'] -
+                            $orders[$order_index]['products'][$id]['total_price'] -
+                            $orders[$order_index]['products'][$id]['ship'] - $orders[$order_index]['total_cou'];
+
+                    }else{
+
+                        $orders[$order_index]['products'][$id]['profit'] =
+                            $orders[$order_index]['products'][$id]['total_price_buy'] - 330-
+                            $orders[$order_index]['products'][$id]['total_price'] -
+                            $orders[$order_index]['products'][$id]['ship'] - 330;
+
+
+                    }
+
+                    $orders[$order_index]['profit']+= $orders[$order_index]['products'][$id]['profit'];
+
+
+                    $orders[$order_index]['total_ship']+= $orders[$order_index]['products'][$id]['ship'];
                 }
-                $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
-                $ship_cou = $ship_cou == -1?0:$ship_cou;
-                $products['products'][$key]['cou'] = $ship_cou;
-                if($key == 0){
-                    $products['cou'] = $ship_cou;
-                }
-                $products['total_ship']+=$price_ship;
-                $products['products'][$key]['ship'] = $price_ship > -1?$price_ship*$count:-1;
             }
         }
-        return $products;
+        $arrays = [
+            "total_sum"=>0,
+            "total_ship"=>0,
+            "total_cou"=>0,
+            "products"=>$orders
+        ];
+        foreach ($orders as $order){
+            $arrays['total_sum']+=$order['total_sum'];
+            $arrays['total_ship']+=$order['total_ship'];
+            $arrays['total_cou']+=$order['total_cou'];
+        }
+
+        return $arrays;
     }
     public function FUKUI($cate,$products,$province = "北海道",$type = 1){
         $products['total_price'] = 0;

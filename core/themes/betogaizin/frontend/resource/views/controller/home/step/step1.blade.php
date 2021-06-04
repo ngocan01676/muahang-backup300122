@@ -117,7 +117,7 @@
                     @foreach($category as $cate=>$value)
 
                             @php $isSub = false @endphp
-                           @if($value->name =="KOGYJA")
+                           @if($value->name =="KOGYJA" || $value->name == "KURICHIKU")
 
                                 @section('treeview_'.$cate)
                         <div id="company_{!! $value->id !!}" class="item_row">
