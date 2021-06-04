@@ -314,7 +314,7 @@
                                         <BR>
                                         <BR>
 
-                                        <div class="tax-item-description"> *Phí daikby {!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['total_cou'] : 0 !!}</div>
+                                        <div class="tax-item-description"> *Phí daikby {!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['total_cou']-330 : 0 !!}</div>
                                         @php
                                             if(isset($prices[$value->name])){
 
