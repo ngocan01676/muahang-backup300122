@@ -206,7 +206,11 @@ class PriceCartWeb{
                         $price_ship = $val[1]['value'];
                     }
                 }
-                $ship_cou = 330;
+                if($type == 1){
+                    $ship_cou = 330;
+                }else{
+                    $ship_cou = 0;
+                }
                 $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
 
                 $products['products'][$id]['ship'] = $price_ship > -1?$price_ship * $count:-1;
@@ -287,7 +291,11 @@ class PriceCartWeb{
                         $price_ship = $val[1]['value'];
                     }
                 }
-                $ship_cou = 330;
+                if($type == 1){
+                    $ship_cou = 330;
+                }else{
+                    $ship_cou = 0;
+                }
                 $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
 
                 $products['products'][$id]['ship'] = $price_ship > -1?$price_ship * $count:-1;
@@ -467,7 +475,12 @@ class PriceCartWeb{
                         $ship_cou = 0;
                         $price_ship = 0;
                     }
-                    $ship_cou = 330;
+                    if($type == 1){
+                        $ship_cou = 330;
+                    }else{
+                        $ship_cou = 0;
+                    }
+
 
                     $orders[$order_index]['products'][$id]['ship'] = $price_ship > -1?$price_ship:-1;
                     $orders[$order_index]['products'][$id]['total_ship'] = $price_ship > -1?$price_ship*$count:-1;
@@ -626,7 +639,11 @@ class PriceCartWeb{
                         }
                         $price_ship = $price_ship != -1 ? $price_ship : $price_ship_default;
 
-                        $ship_cou = 330;
+                        if($type == 1){
+                            $ship_cou = 330;
+                        }else{
+                            $ship_cou = 0;
+                        }
 
                         $orders[$order_index]['products'][$id]['ship'] = $price_ship > -1 ? $price_ship : 0;
                         $orders[$order_index]['products'][$id]['cou'] = $ship_cou;
@@ -714,7 +731,11 @@ class PriceCartWeb{
                         $price_ship = $val[1]['value'];
                     }
                 }
-                $ship_cou = 330;
+                if($type == 1){
+                    $ship_cou = 330;
+                }else{
+                    $ship_cou = 0;
+                }
                 $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
 
                 $products['products'][$id]['ship'] = $price_ship > -1?$price_ship * $count:-1;
@@ -801,7 +822,11 @@ class PriceCartWeb{
                     }
                 }
 
-                $ship_cou = 330;
+                if($type == 1){
+                    $ship_cou = 330;
+                }else{
+                    $ship_cou = 0;
+                }
 
                 $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
 
