@@ -378,7 +378,7 @@ class Price{
                           $products['products'][$id]['profit'] =
                           $products['products'][$id]['total_sum_price'] -
                           $products['products'][$id]['total_price'] -
-                          $products['products'][$id]['total_ship'] - $products['products'][$id]['cou'];
+                          ($products['products'][$id]['total_ship'] < 0 ?0:$products['products'][$id]['total_ship']) - $products['products'][$id]['cou'];
                   }else{
                       $products['products'][$id]['profit'] =
                           $products['products'][$id]['total_sum_price'] -

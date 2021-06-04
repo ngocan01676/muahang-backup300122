@@ -272,7 +272,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-cart-item2">
-                                                                    <p class="product-cart-price"><span class="only-sp">価格(税抜)&nbsp;</span>{!! number_format($product->price_total) !!}円</p>
+                                                                    <p class="product-cart-price"><span class="only-sp">価格(税抜)&nbsp;</span>{!! number_format($product->price_buy) !!}円</p>
                                                                 </div>
                                                             </div>
                                                         </div>
