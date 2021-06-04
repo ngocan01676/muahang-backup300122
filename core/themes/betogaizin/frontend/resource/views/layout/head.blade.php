@@ -55,4 +55,10 @@
             color: rgba(0, 0, 0, 0.8);
             line-height: 1.2;
         }
+        .lyt-contents-narrow{
+            max-width: 100%;
+        }
+        .product-cart-header p:nth-child(1){
+
+        }
     </style>

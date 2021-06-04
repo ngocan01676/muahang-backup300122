@@ -4,10 +4,12 @@
     @endphp
     @php
         $category = get_category_type("shop-ja:product:category");
+
         $totals_product = 0;
         $totals_ship =0;
         $total_cou = 0;
         $sale = 0;
+
     @endphp
     @if($counts > 0))
      <div id="step1" class="Controller_Cart">
@@ -113,101 +115,233 @@
                     </div>
                     <hr class="line line-lightgray mt40-pc mb40-pc">
                     @foreach($category as $cate=>$value)
-                        @php $isSub = false @endphp
 
-                        @section('treeview_'.$cate)
+                            @php $isSub = false @endphp
+                           @if($value->name =="KOGYJA")
+
+                                @section('treeview_'.$cate)
                         <div id="company_{!! $value->id !!}" class="item_row">
                             <h3 class="title title-middle">かごの中の商品 {!! $value->name !!}</h3>
-                             <div id="cartList" class="product-cart cf">
+                            <div id="cartList" class="product-cart cf">
+                                <div class="product-cart-header cf only-pc">
+                                    <p>商品</p>
+                                    <p>価格</p>
+                                    <p>別途送料</p>
+                                    <p>数量</p>
+                                    <p>小計</p>
+                                    <p>小計</p>
+                                </div>
+                                <div>
+
+                                    @foreach($prices["products"][$value->name]['products'] as $_products)
+                                        @foreach($_products['products'] as $k=>$product)
+                                            @continue($product['cate'] != $cate)
+                                                @php
+                                                    $isSub = true;
+                                                @endphp
+
+                                            <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
+                                                <div class="product-cart-row-top">
+                                                    <div class="product-cart-row-top-group">
+                                                        <p class="product-cart-sp-btn only-sp"><button class="btn btn-default btn-sm03 btn-color00">削除</button></p>
+                                                        <div class="product-cart-item1">
+                                                            <div class="product-cart-img">
+                                                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$product['id'],'slug'=>$products[$product['id']]->slug]) !!}" class="link-img">
+                                                                    <img src="{!! get_thumbnails( $products[$product['id']]->image,80) !!}" width="80" height="80" alt="">
+                                                                </a>
+                                                            </div>
+                                                            <div class="tax-reduced-item">*</div>
+                                                            <div class="product-cart-item1-right">
+                                                                <p class="product-cart-maker">ロッテ</p>
+                                                                <p class="product-cart-name">
+                                                                    <a href="{!! router_frontend_lang('home:item-product',['id'=> $products[$product['id']]->id,'slug'=> $products[$product['id']]->slug]) !!}">{!! $products[$product['id']]->name !!}</a>
+                                                                </p>
+                                                                {{--<p class="product-cart-amount">470ml</p>--}}
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-cart-item2">
+                                                            <p class="product-cart-price"><span class="only-sp">価格(税抜)&nbsp;</span>{!! number_format(  $product['price_buy']) !!}円</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="product-cart-item3" style="padding-bottom: 10px;">
+                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['ship']) !!}円</p>
+                                                </div>
+                                                <div class="product-cart-row-bottom">
+                                                    <div class="product-cart-item4" style="padding-bottom: 10px;">
+                                                        <span class="product-cart-small-text only-sp">数量</span>
+                                                        <div class="product-cart-pieces">
+                                                            <div class="btn-set-wrap set-data" data-company="{!! $value->id !!}" data-id="{!!  $products[$product['id']]->id !!}" data-count="1" data-act="update">
+                                                                <span class="btn-set-btn" data-type="-">－</span>
+                                                                <span class="btn-set-num">{!! $product['count'] !!}</span>
+                                                                <span class="btn-set-btn" data-type="+">＋</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-cart-item5" style="padding-bottom: 10px;">
+                                                        <p class="product-cart-price">
+                                                            <span class="only-sp product-cart-small-text">小計(税込)</span>
+                                                            {!! number_format($product['total_price_buy']) !!}円
+                                                        </p>
+                                                    </div>
+                                                    <div class="product-cart-item5" style="padding-bottom: 10px;">
+                                                        <p class="product-cart-price">
+                                                            <span class="only-sp product-cart-small-text">小計(税込)</span>
+                                                            {!! number_format($product['total_price_buy']+$product['ship'] + $product['cou']) !!}円
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
+                                                {{--<p class="product-cart-price">--}}
+                                                {{--<span class="only-sp product-cart-small-text">小計(税込)</span>--}}
+                                                {{--{!! number_format((isset($price['total_sum_price'])?$price['total_sum_price']:0) + (isset($price['ship'])?$price['ship']:0)) !!}円--}}
+                                                {{--</p>--}}
+                                                {{--</div>--}}
+                                                <div class="product-cart-item6 only-pc" style="padding-bottom: 10px;">
+
+                                                    <button
+                                                            data-company="{!! $value->id !!}"  data-id="{!!  $products[$product['id']]->id !!}" data-count="0" data-act="update"
+                                                            type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">削除
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endforeach
+
+                                </div>
+                            </div>
+                            <BR>
+                            <BR>
+
+                            <div class="tax-item-description"> *Phí daikby {!! $prices["products"][$value->name]["total_cou"] !!}</div>
+                            @php
+                                if(isset($prices[$value->name])){
+
+                                    //$totals_product+=$prices[$value->name]['total_price'];
+                                  //  $totals_ship+=$prices[$value->name]['total_ship'];
+                                   // $total_cou+=$prices[$value->name]['total_cou'];
+                                }
+                            @endphp
+
+                        </div>
+                    @endsection
+                                @if($isSub)
+                                    @yield('treeview_'.$cate)
+                                @endif
+                            @else
+                                @section('treeview_'.$cate)
+                                    <div id="company_{!! $value->id !!}" class="item_row">
+                                        <h3 class="title title-middle">かごの中の商品 {!! $value->name !!}</h3>
+                                        <div id="cartList" class="product-cart cf">
                                             <div class="product-cart-header cf only-pc">
                                                 <p>商品</p>
                                                 <p>価格</p>
                                                 <p>別途送料</p>
                                                 <p>数量</p>
                                                 <p>小計</p>
-                                                <p>&nbsp;</p>
+                                                <p>小計</p>
                                             </div>
-                                        <div>
+                                            <div>
 
-                                        @foreach($products as $k=>$product)
-                                            @continue($product->category_id != $cate)
-                                                @php $isSub = true;
-                                                $price = isset($prices[$value->name]['products'][$product->id])?$prices[$value->name]['products'][$product->id]:[];
+                                                @foreach($products as $k=>$product)
+                                                    @continue($product->category_id != $cate)
+                                                    @php $isSub = true;
+                                                                $price = isset($prices["products"][$value->name]['products'][$product->id])?$prices["products"][$value->name]['products'][$product->id]:[];
 
-                                                @endphp
+                                                    @endphp
 
-                                                <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
-                                                    <div class="product-cart-row-top">
-                                                        <div class="product-cart-row-top-group">
-                                                            <p class="product-cart-sp-btn only-sp"><button class="btn btn-default btn-sm03 btn-color00">削除</button></p>
-                                                            <div class="product-cart-item1">
-                                                                <div class="product-cart-img">
-                                                                    <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="link-img">
-                                                                        <img src="{!! get_thumbnails($product->image,80) !!}" width="80" height="80" alt="">
-                                                                    </a>
+                                                    <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
+                                                        <div class="product-cart-row-top">
+                                                            <div class="product-cart-row-top-group">
+                                                                <p class="product-cart-sp-btn only-sp"><button class="btn btn-default btn-sm03 btn-color00">削除</button></p>
+                                                                <div class="product-cart-item1">
+                                                                    <div class="product-cart-img">
+                                                                        <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="link-img">
+                                                                            <img src="{!! get_thumbnails($product->image,80) !!}" width="80" height="80" alt="">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="tax-reduced-item">*</div>
+                                                                    <div class="product-cart-item1-right">
+                                                                        <p class="product-cart-maker">ロッテ</p>
+                                                                        <p class="product-cart-name">
+                                                                            <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}">{!! $product->title !!}</a>
+                                                                        </p>
+                                                                        {{--<p class="product-cart-amount">470ml</p>--}}
+                                                                    </div>
                                                                 </div>
-                                                                <div class="tax-reduced-item">*</div>
-                                                                <div class="product-cart-item1-right">
-                                                                    <p class="product-cart-maker">ロッテ</p>
-                                                                    <p class="product-cart-name">
-                                                                       <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}">{!! $product->title !!}</a>
-                                                                    </p>
-                                                                    <p class="product-cart-amount">470ml</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-cart-item2">
-                                                                <p class="product-cart-price"><span class="only-sp">価格(税抜)&nbsp;</span>{!! number_format($product->price_total) !!}円</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                        <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['ship'])?$price['ship']:0) !!}円</p>
-                                                    </div>
-                                                    <div class="product-cart-row-bottom">
-                                                        <div class="product-cart-item4" style="padding-bottom: 10px;">
-                                                            <span class="product-cart-small-text only-sp">数量</span>
-                                                            <div class="product-cart-pieces">
-                                                                <div class="btn-set-wrap set-data" data-company="{!! $value->id !!}" data-id="{!! $product->id !!}" data-count="1" data-act="update">
-                                                                    <span class="btn-set-btn" data-type="-">－</span>
-                                                                    <span class="btn-set-num">{!! $product->count !!}</span>
-                                                                    <span class="btn-set-btn" data-type="+">＋</span>
+                                                                <div class="product-cart-item2">
+                                                                    <p class="product-cart-price"><span class="only-sp">価格(税抜)&nbsp;</span>{!! number_format($product->price_total) !!}円</p>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="product-cart-item5" style="padding-bottom: 10px;">
-                                                            <p class="product-cart-price"><span class="only-sp product-cart-small-text">小計(税込)</span>{!! number_format($product->price_total+(!isset($price['ship'][0])?0:$price['ship'])) !!}円</p>
+                                                        <div class="product-cart-item3" style="padding-bottom: 10px;">
+                                                            <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['ship'])?$price['ship']:0) !!}円</p>
+                                                        </div>
+                                                        <div class="product-cart-row-bottom">
+                                                            <div class="product-cart-item4" style="padding-bottom: 10px;">
+                                                                <span class="product-cart-small-text only-sp">数量</span>
+                                                                <div class="product-cart-pieces">
+                                                                    <div class="btn-set-wrap set-data" data-company="{!! $value->id !!}" data-id="{!! $product->id !!}" data-count="1" data-act="update">
+                                                                        <span class="btn-set-btn" data-type="-">－</span>
+                                                                        <span class="btn-set-num">{!! $product->count !!}</span>
+                                                                        <span class="btn-set-btn" data-type="+">＋</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-cart-item5" style="padding-bottom: 10px;">
+                                                                <p class="product-cart-price">
+                                                                    <span class="only-sp product-cart-small-text">小計(税込)</span>
+                                                                    {!! number_format(isset($price['total_sum_price'])?$price['total_sum_price']:0) !!}円
+                                                                </p>
+                                                            </div>
+                                                            <div class="product-cart-item5" style="padding-bottom: 10px;">
+                                                                <p class="product-cart-price">
+                                                                    <span class="only-sp product-cart-small-text">小計(税込)</span>
+                                                                    {!! number_format((isset($price['total_sum_price'])?$price['total_sum_price']:0) + (isset($price['ship'])?$price['ship']:0)) !!}円
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
+                                                        {{--<p class="product-cart-price">--}}
+                                                        {{--<span class="only-sp product-cart-small-text">小計(税込)</span>--}}
+                                                        {{--{!! number_format((isset($price['total_sum_price'])?$price['total_sum_price']:0) + (isset($price['ship'])?$price['ship']:0)) !!}円--}}
+                                                        {{--</p>--}}
+                                                        {{--</div>--}}
+                                                        <div class="product-cart-item6 only-pc" style="padding-bottom: 10px;">
+
+                                                            <button
+                                                                    data-company="{!! $value->id !!}"  data-id="{!! $product->id !!}" data-count="0" data-act="update"
+                                                                    type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">削除
+                                                            </button>
                                                         </div>
                                                     </div>
+                                                @endforeach
 
-                                                    <div class="product-cart-item6 only-pc" style="padding-bottom: 10px;">
+                                            </div>
+                                        </div>
+                                        <BR>
+                                        <BR>
 
-                                                        <button
-                                                                data-company="{!! $value->id !!}"  data-id="{!! $product->id !!}" data-count="0" data-act="update"
-                                                                type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">削除
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                        @endforeach
+                                        <div class="tax-item-description"> *Phí daikby {!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['total_cou'] : 0 !!}</div>
+                                        @php
+                                            if(isset($prices[$value->name])){
 
-                                </div>
-                            </div>
-                            <BR>
+                                                $totals_product+=$prices[$value->name]['total_price'];
+                                                $totals_ship+=$prices[$value->name]['total_ship'];
+                                                $total_cou+=$prices[$value->name]['total_cou'];
+                                            }
 
-                            <div class="tax-item-description"> *Phí daikby {!! isset($prices[$value->name])? $prices[$value->name]['total_cou'] : 0 !!}</div>
-                            @php
-                                if(isset($prices[$value->name])){
+                                        @endphp
 
-                                    $totals_product+=$prices[$value->name]['total_price'];
-                                    $totals_ship+=$prices[$value->name]['total_ship'];
-                                    $total_cou+=$prices[$value->name]['total_cou'];
-                                }
-                            @endphp
+                                    </div>
+                                @endsection
+                                @if($isSub)
+                                      @yield('treeview_'.$cate)
+                                @endif
+                            @endif
 
-                        </div>
-                    @endsection
-                        @if($isSub)
-                            @yield('treeview_'.$cate)
-                        @endif
                     @endforeach
                 </div>
                <div class="lyt-side-wrap mt40-pc">
@@ -234,18 +368,19 @@
                                 </ul>
                             </div>
                         </div>
+
                         <div class="lyt-side-pattern02-menu">
                             <p class="title title-small mb5">お支払い内訳
                             </p>
-                            <div>
-                                <div>
+                             <div>
+                                <div id="info_order">
                                     <div class="side-content-frame">
                                         <div class="side-content-frame-data-group">
                                             <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title">Tiền hàng
                                                 </dt>
                                                 <dd class="side-content-frame-data-body">
-                                                <span class="sp-large">{!! $totals_product !!}</span>円
+                                                <span class="sp-large">{!! number_format($prices['total_sum']) !!}</span>円
                                                 </dd>
 
                                             </dl>
@@ -254,13 +389,13 @@
                                             <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title">Phí Ship
                                                 </dt>
-                                                <dd class="side-content-frame-data-body">{!! $totals_ship !!}円
+                                                <dd class="side-content-frame-data-body">{!! number_format($prices['total_ship']) !!}円
                                                 </dd>
                                             </dl>
                                             <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title">Phí Daibiki
                                                 </dt>
-                                                <dd class="side-content-frame-data-body">{!! $total_cou !!}円
+                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_cou'])) !!}円
                                                 </dd>
                                             </dl>
                                             <!---->
@@ -295,7 +430,7 @@
                                             <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title with-num"> Tổng tiền
                                                 </dt>
-                                                <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($totals_product +  $totals_ship + $total_cou) !!}</span>
+                                                <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_sum'] +  $prices['total_ship'] + $prices['total_cou']) !!}</span>
                                                     <span class="side-content-frame-unit">円</span>
                                                 </dd>
                                             </dl>
@@ -315,7 +450,7 @@
                                                 <dl class="side-content-frame-data">
                                                     <dt class="side-content-frame-data-title with-num">Tổng tiền phải trả
                                                     </dt>
-                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($totals_product +  $totals_ship + $total_cou - $sale) !!}</span>
+                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_sum'] +  $prices['total_ship'] + $prices['total_cou'] - $prices['sale']) !!}</span>
                                                         <span class="side-content-frame-unit">円</span>
                                                     </dd>
                                                 </dl>
@@ -337,17 +472,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="txt-large">クーポンまたはポイントをお使いの方は、次ページで選択いただけます。
-                            </p>
-                            <hr class="line line-lightgray">
-                            <ul class="bnr-area">
-                                <li class="bnr-item">
-                                    <img src="/step/images/bnr/bnr-walmart.png" alt="">
-                                </li>
-                            </ul>
+                                    <p class="txt-large">クーポンまたはポイントをお使いの方は、次ページで選択いただけます。
+                                    </p>
+                                    <hr class="line line-lightgray">
+                                    <ul class="bnr-area">
+                                        <li class="bnr-item">
+                                            <img src="/step/images/bnr/bnr-walmart.png" alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+                             </div>
                         </div>
-                    </div>
-                        </div>
+
                 </div>
                 <div class="btn-flex btn-column">
                     <form id="cartsubmmit">

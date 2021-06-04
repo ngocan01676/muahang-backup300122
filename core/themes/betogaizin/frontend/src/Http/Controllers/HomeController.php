@@ -145,8 +145,10 @@ class HomeController extends \Zoe\Http\ControllerFront
         ]);
     }
     public function getCart(Request $request){
-
-
+        if(auth('frontend')
+                ->user() == null){
+            return redirect(route('login'));
+        }
         $carts = $request->session()->get(WidgetController::$keyCart,[]);
         $ids = array_keys($carts);
         $_products = DB::table('shop_product')->whereIn('id',$ids)->get()->keyBy('id')->all();
@@ -158,27 +160,28 @@ class HomeController extends \Zoe\Http\ControllerFront
             $_products[$key]->order_index = $carts[$product->id]['time'];
 
              $rs = DB::table('shop_product_translation')->select('slug')->where('lang_code','vi')->where('_id',$product->id)->get()->all();
+
              if(isset($rs[0])){
                  $_products[$key]->slug = $rs[0]->slug;
              }
+
         }
 
-        usort($_products, function($a,$b){
-            return $a->order_index - $b->order_index;
-        });
+//        usort($_products, function($a,$b){
+//            return $a->order_index - $b->order_index;
+//        });
 
-        if(auth('frontend')
-            ->user() == null){
-            return redirect(route('login'));
-        }
+
         $address = DB::table('shop_adresss')
             ->where('user_id',auth('frontend')
                 ->user()->id)->where('active',1)
             ->orderBy('active','desc')->get()->all();
+
+        $pay = isset($address[0])?$address[0]->prefecture_code:"";
         return $this->render('home.step.step1', [
             'counts'=>count($ids),
             'products'=>$_products,
-            'prices'=> $configs->prices($carts),
+            'prices'=> $configs->prices($carts,$pay),
             'address'=> $address
         ]);
     }
