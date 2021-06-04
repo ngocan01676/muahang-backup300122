@@ -185,12 +185,7 @@
                                                             {!! number_format($product['total_price_buy']) !!}円
                                                         </p>
                                                     </div>
-                                                    <div class="product-cart-item5" style="padding-bottom: 10px;">
-                                                        <p class="product-cart-price">
-                                                            <span class="only-sp product-cart-small-text">小計(税込)</span>
-                                                            {!! number_format($product['total_price_buy']+$product['ship'] + $product['cou']) !!}円
-                                                        </p>
-                                                    </div>
+                                                   
                                                 </div>
 
                                                 {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
@@ -296,12 +291,7 @@
                                                                     {!! number_format(isset($price['total_sum_price'])?$price['total_sum_price']:0) !!}円
                                                                 </p>
                                                             </div>
-                                                            <div class="product-cart-item5" style="padding-bottom: 10px;">
-                                                                <p class="product-cart-price">
-                                                                    <span class="only-sp product-cart-small-text">小計(税込)</span>
-                                                                    {!! number_format((isset($price['total_sum_price'])?$price['total_sum_price']:0) + (isset($price['ship'])?$price['ship']:0)) !!}円
-                                                                </p>
-                                                            </div>
+
                                                         </div>
                                                         {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
                                                         {{--<p class="product-cart-price">--}}
