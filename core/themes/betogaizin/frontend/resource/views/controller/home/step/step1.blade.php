@@ -216,7 +216,7 @@
                             <BR>
                             <BR>
 
-                            <div class="tax-item-description"> *Phí daikby {!! $prices["products"][$value->name]["total_cou"]-330 !!}</div>
+                            <div class="tax-item-description"> *Phí daikby {!! $prices["products"][$value->name]["total_cou"] !!}</div>
                             @php
                                 if(isset($prices[$value->name])){
 

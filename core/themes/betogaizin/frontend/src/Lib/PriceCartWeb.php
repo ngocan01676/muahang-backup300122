@@ -220,6 +220,7 @@ class PriceCartWeb{
                 $products['total_ship']+=$products['products'][$id]['ship'];
 
                 $products['total_sum']+= $products['products'][$id]['total_sum_price'] + $products['products'][$id]['cou'];
+                $products['total_cou'] = $ship_cou;
             }
         }
         return $products;
@@ -305,6 +306,7 @@ class PriceCartWeb{
                 $products['total_ship']+=$products['products'][$id]['ship'];
 
                 $products['total_sum']+= $products['products'][$id]['total_sum_price'] + $products['products'][$id]['cou'];
+                $products['total_cou'] = $ship_cou;
             }
 
         }
@@ -473,7 +475,7 @@ class PriceCartWeb{
                     $orders[$order_index]['products'][$id]['cou'] = $ship_cou;
 
                     $orders[$order_index]['products'][$id]['total_sum_price'] =  $orders[$order_index]['products'][$id]['total_price_buy'] +  $orders[$order_index]['products'][$id]['total_ship'];
-
+                    $orders[$order_index]['total_cou'] = $ship_cou;
                 }
             }
         }
@@ -632,7 +634,8 @@ class PriceCartWeb{
                         $orders[$order_index]['products'][$id]['total_sum_price'] =
                         $orders[$order_index]['products'][$id]['total_price_buy'] +
                         $orders[$order_index]['products'][$id]['total_ship'];
-                    }
+                        $orders[$order_index]['total_cou'] = $ship_cou;
+                }
                 }
             }
         }
@@ -730,6 +733,7 @@ class PriceCartWeb{
                 $products['total_ship']+=$products['products'][$id]['ship'];
 
                 $products['total_sum']+= $products['products'][$id]['total_sum_price'] + $products['products'][$id]['cou'];
+                $products['total_cou'] = $ship_cou;
             }
 
         }
@@ -814,6 +818,7 @@ class PriceCartWeb{
                 $products['total_ship']+=$products['products'][$id]['ship'];
 
                 $products['total_sum']+= $products['products'][$id]['total_sum_price'] + $products['products'][$id]['cou'];
+                $products['total_cou'] = $ship_cou;
             }
 
         }
