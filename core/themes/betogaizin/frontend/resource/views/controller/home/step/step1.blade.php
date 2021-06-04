@@ -219,6 +219,8 @@
                             <BR>
 
                             <div class="tax-item-description"> *Phí daikby {!! $prices["products"][$value->name]["total_cou"] !!}</div>
+                            <BR>
+                            <div class="tax-item-description"><strong> *Tiền ship {!! $prices["products"][$value->name]["total_ship"] !!}</strong></div>
                                     @php
                                         $total_cou+=$prices["products"][$value->name]["total_cou"];
                                     @endphp

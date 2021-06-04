@@ -475,24 +475,28 @@ class PriceCartWeb{
                         }else{
                             $price_ship = 0;
                         }
+                        if($type == 1){
+                            $ship_cou = 330;
+                        }else{
+                            $ship_cou = 0;
+                        }
+                        $orders[$order_index]['total_cou'] = $ship_cou;
+                        $orders[$order_index]['total_ship'] = $price_ship > -1?$price_ship:-1;
+
                     }else{
                         $ship_cou = 0;
                         $price_ship = 0;
                     }
-                    if($type == 1){
-                        $ship_cou = 330;
-                    }else{
-                        $ship_cou = 0;
-                    }
 
 
-                    $orders[$order_index]['products'][$id]['ship'] = $price_ship > -1?$price_ship:-1;
-                    $orders[$order_index]['products'][$id]['total_ship'] = $price_ship > -1?$price_ship*$count:-1;
+
+                    $orders[$order_index]['products'][$id]['ship'] = 0;
+                    $orders[$order_index]['products'][$id]['total_ship'] =0;
 
                     $orders[$order_index]['products'][$id]['cou'] = $ship_cou;
 
                     $orders[$order_index]['products'][$id]['total_sum_price'] =  $orders[$order_index]['products'][$id]['total_price_buy'] +  $orders[$order_index]['products'][$id]['total_ship'];
-                    $orders[$order_index]['total_cou'] = $ship_cou;
+
                 }
             }
         }
