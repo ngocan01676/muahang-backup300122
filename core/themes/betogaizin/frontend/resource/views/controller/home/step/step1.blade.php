@@ -185,7 +185,7 @@
                                                             {!! number_format($product['total_price_buy']) !!}円
                                                         </p>
                                                     </div>
-                                                   
+
                                                 </div>
 
                                                 {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
@@ -210,7 +210,7 @@
                             <BR>
                             <BR>
 
-                            <div class="tax-item-description"> *Phí daikby {!! $prices["products"][$value->name]["total_cou"] !!}</div>
+                            <div class="tax-item-description"> *Phí daikby {!! $prices["products"][$value->name]["total_cou"]-330 !!}</div>
                             @php
                                 if(isset($prices[$value->name])){
 
