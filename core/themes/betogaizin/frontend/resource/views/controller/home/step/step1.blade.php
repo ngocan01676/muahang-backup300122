@@ -569,7 +569,6 @@
                         data:saveForm,
                         type:"POST",
                         success:function (data) {
-                            console.log(data);
                            window.location.href = data.url;
                         }
                     });
