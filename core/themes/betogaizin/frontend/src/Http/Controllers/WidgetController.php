@@ -78,10 +78,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
 
     public function WidgetCartAdd(Request $request){
         $data = $request->all();
-
         $carts = $request->session()->get(WidgetController::$keyCart,[]);
-
-
         if($data['act'] == "update"){
             if(isset($carts[$data['id']])){
                 $carts[$data['id']]['count'] = $data['count'];
@@ -96,11 +93,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
         if(isset( $carts[$data['id']]['count']) && $carts[$data['id']]['count']<=0 ){
             unset($carts[$data['id']]);
         }
-
-
-
         $request->session()->put(WidgetController::$keyCart ,$carts);
-
         return response()->json(['carts'=>$carts]);
     }
 

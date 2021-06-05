@@ -569,7 +569,8 @@
                         data:saveForm,
                         type:"POST",
                         success:function (data) {
-                           // window.location.href = data.url;
+                            console.log(data);
+                           window.location.href = data.url;
                         }
                     });
                 }else{
