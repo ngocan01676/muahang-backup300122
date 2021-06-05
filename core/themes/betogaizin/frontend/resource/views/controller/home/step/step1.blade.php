@@ -132,7 +132,7 @@
                                     <p>小計</p>
                                 </div>
                                 <div>
-
+                                    @php $total_price = 0; @endphp
                                     @foreach($prices["products"][$value->name]['products'] as $_products)
                                         @foreach($_products['products'] as $k=>$product)
                                             @continue($product['cate'] != $cate)
@@ -191,7 +191,7 @@
                                                 <div class="product-cart-item3" style="padding-bottom: 10px;">
                                                     <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['web_total_sum_price']) !!}円</p>
                                                 </div>
-
+                                                @php $total_price+=$product['web_total_sum_price']; @endphp
 
                                                 {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
                                                 {{--<p class="product-cart-price">--}}
@@ -214,15 +214,24 @@
                             </div>
                             <BR>
                             <BR>
-
-                            <div class="tax-item-description"> *Phí daikby {!! $prices["products"][$value->name]["web_total_cou"] !!}</div>
-                            @if($value->name =="KOGYJA")
-                            <BR>
-                            <div class="tax-item-description"><strong> *Tiền ship {!! $prices["products"][$value->name]["web_total_ship"] !!}</strong></div>
-
-                            @endif
-
-                                </div>
+                            <div class="tax-item-description">
+                            <table style="">
+                                <tr>
+                                    <td style="width: 100px"><strong>Phí Cou</strong> : </td>
+                                    <td class="text-center">{!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['web_total_cou'] : 0 !!}</td>
+                                </tr>
+                                @if($value->name =="KOGYJA")
+                                <tr>
+                                    <td style="width: 100px"><strong>Phí ship</strong> : </td>
+                                    <td>{!! number_format($prices["products"][$value->name]["web_total_ship"]) !!}</td>
+                                </tr>
+                                @endif
+                                <tr>
+                                    <td style="width: 100px"><strong>Tổng tiền</strong> : </td>
+                                    <td>{!! number_format($total_price) !!}</td>
+                                </tr>
+                            </table>
+                            </div>
                             @endsection
                                 @if($isSub)
                                     @yield('treeview_'.$cate)
@@ -242,7 +251,7 @@
                                                 <p>小計</p>
                                             </div>
                                             <div>
-
+                                                @php $total_price = 0; @endphp
                                                 @foreach($products as $k=>$product)
                                                     @continue($product->category_id != $cate)
                                                     @php $isSub = true;
@@ -303,7 +312,7 @@
                                                         <div class="product-cart-item3" style="padding-bottom: 10px;">
                                                             <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['web_total_sum_price'])?$price['web_total_sum_price']:0) !!}円</p>
                                                         </div>
-
+                                                        @php $total_price+=isset($price['web_total_sum_price'])?$price['web_total_sum_price']:0; @endphp
                                                         {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
                                                         {{--<p class="product-cart-price">--}}
                                                         {{--<span class="only-sp product-cart-small-text">小計(税込)</span>--}}
@@ -324,12 +333,24 @@
                                         </div>
                                         <BR>
                                         <BR>
-
-                                        <div class="tax-item-description"> *Phí daikby {!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['web_total_cou'] : 0 !!}</div>
-                                        @php
-                                            $total_cou+=isset($prices["products"][$value->name])? $prices["products"][$value->name]['total_cou'] : 0;
-
-                                        @endphp
+                                        <div class="tax-item-description">
+                                            <table style="">
+                                                <tr>
+                                                    <td style="width: 100px"><strong>Phí Cou</strong> : </td>
+                                                    <td class="text-center">{!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['web_total_cou'] : 0 !!}</td>
+                                                </tr>
+                                                @if($value->name =="KOGYJA")
+                                                    <tr>
+                                                        <td style="width: 100px"><strong>Phí ship</strong> : </td>
+                                                        <td>{!! number_format($prices["products"][$value->name]["web_total_ship"]) !!}</td>
+                                                    </tr>
+                                                @endif
+                                                <tr>
+                                                    <td style="width: 100px"><strong>Tổng tiền</strong> : </td>
+                                                    <td>{!! number_format($total_price) !!}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
 
                                     </div>
                                 @endsection
