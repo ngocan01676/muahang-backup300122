@@ -389,6 +389,12 @@
                                                 {{--</dd>--}}
                                             {{--</dl>--}}
                                             <dl class="side-content-frame-data">
+                                                <dt class="side-content-frame-data-title">Phí Ship
+                                                </dt>
+                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_ship'])) !!}円
+                                                </dd>
+                                            </dl>
+                                            <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title">Phí Daibiki
                                                 </dt>
                                                 <dd class="side-content-frame-data-body">{!! number_format(($prices['total_cou'])) !!}円
@@ -432,7 +438,7 @@
                                                 <dl class="side-content-frame-data">
                                                     <dt class="side-content-frame-data-title with-num">Tổng tiền phải trả
                                                     </dt>
-                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_sum']+$prices['total_cou']) !!}</span>
+                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_ship']+$prices['total_sum']+$prices['total_cou']) !!}</span>
                                                         <span class="side-content-frame-unit">円</span>
                                                     </dd>
                                                 </dl>

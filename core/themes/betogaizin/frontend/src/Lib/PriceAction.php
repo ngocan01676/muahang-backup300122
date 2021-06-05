@@ -460,7 +460,9 @@ class PriceAction{
                 "total_ship"=>0,
                 "total_cou"=>0,
                 "profit"=>0,
-                "products"=>[]
+                "products"=>[],
+                "web_total_sum"=>0,
+                "web_total_ship"=>0,
             ]
         ];
 
@@ -483,7 +485,6 @@ class PriceAction{
                     $orders[$i]['total_count']+= $_count;
                     $orders[$i]["products"][] = ['count'=>$_count,'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
                     $val['count'] = $val['count'] - $_count;
-
                     array_unshift($row,$val);
                 }
             }else if(count($row)>0){
@@ -603,10 +604,12 @@ class PriceAction{
                             }
                         }
                         $orders[$order_index]['web_total_ship'] = $price_ship> 0 ?$price_ship*$count:0;
+                        $orders[$order_index]['web_total_cou'] =  330;
                     }else{
                         $ship_cou = 0;
                         $price_ship = 0;
                     }
+                    $orders[$order_index]['products'][$id]['web_total_ship'] = 0;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
                     $orders[$order_index]['products'][$id]['ship'] = $price_ship > -1?$price_ship:-1;
                     $orders[$order_index]['products'][$id]['cou'] = $ship_cou;
@@ -623,6 +626,7 @@ class PriceAction{
                         }
                     }
 
+
                     if( $key == 0){
 
                         if($type != 3){
@@ -630,6 +634,7 @@ class PriceAction{
                             $orders[$order_index]['products'][$id]['total_price_buy'] = $orders[$order_index]['total_price_buy'];
                         }
                         $orders[$order_index]['total_sum'] =  $orders[$order_index]['products'][$id]['total_price_buy'];
+
 
 
                         $orders[$order_index]['products'][$id]['total_count'] = $v;
@@ -646,11 +651,10 @@ class PriceAction{
                         $orders[$order_index]['products'][$id]['profit'] = $orders[$order_index]['products'][$id]['total_price']*-1;
 
                     }
-
+                    $orders[$order_index]['products'][$id]['web_total_sum_price'] = $orders[$order_index]['products'][$id]['web_total_price_buy'];
                     $orders[$order_index]['profit']+= $orders[$order_index]['products'][$id]['profit'];
+                    $orders[$order_index]['web_total_sum']+=  $orders[$order_index]['products'][$id]['web_total_price_buy'];
 
-
-                    $orders[$order_index]['total_ship']+= $orders[$order_index]['products'][$id]['ship'];
                 }
             }
         }
@@ -665,7 +669,7 @@ class PriceAction{
             $arrays['web_total_ship']+=$order['web_total_ship'];
             $arrays['web_total_cou']+=$order['web_total_cou'];
         }
-        dd($arrays);
+
         return $arrays;
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){
