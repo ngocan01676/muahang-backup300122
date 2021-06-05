@@ -13,7 +13,6 @@
     @endphp
     @if($counts > 0))
      <div id="step1" class="Controller_Cart">
-
         <form action="" id="formAction">
         <div id="container" class="container">
             <div>
@@ -139,10 +138,8 @@
                                             @continue($product['cate'] != $cate)
                                                 @php
                                                     $isSub = true;
-                                                     $totals_product+=$product['total_sum_price'];
-
+                                                    // $totals_product+=$product['web_total_sum_price'];
                                                 @endphp
-
                                             <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
                                                 <div class="product-cart-row-top">
                                                     <div class="product-cart-row-top-group">
@@ -182,17 +179,17 @@
                                                     <div class="product-cart-item5" style="padding-bottom: 10px;">
                                                         <p class="product-cart-price">
                                                             <span class="only-sp product-cart-small-text">小計(税込)</span>
-                                                            {!! number_format($product['total_price_buy']) !!}円
+                                                            {!! number_format($product['web_total_price_buy']) !!}円
                                                         </p>
                                                     </div>
 
                                                 </div>
                                                 <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['total_ship']) !!}円</p>
+                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['web_total_ship']) !!}円</p>
                                                 </div>
 
                                                 <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['total_sum_price']) !!}円</p>
+                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['web_total_sum_price']) !!}円</p>
                                                 </div>
 
 
@@ -218,15 +215,12 @@
                             <BR>
                             <BR>
 
-                            <div class="tax-item-description"> *Phí daikby {!! $prices["products"][$value->name]["total_cou"] !!}</div>
+                            <div class="tax-item-description"> *Phí daikby {!! $prices["products"][$value->name]["web_total_cou"] !!}</div>
                             @if($value->name =="KOGYJA")
                             <BR>
-                            <div class="tax-item-description"><strong> *Tiền ship {!! $prices["products"][$value->name]["total_ship"] !!}</strong></div>
+                            <div class="tax-item-description"><strong> *Tiền ship {!! $prices["products"][$value->name]["web_total_ship"] !!}</strong></div>
 
                             @endif
-                                    @php
-                                        $total_cou+=$prices["products"][$value->name]["total_cou"];
-                                    @endphp
 
                                 </div>
                             @endsection
@@ -254,7 +248,7 @@
                                                     @php $isSub = true;
 
                                                            $price = isset($prices["products"][$value->name]['products'][$product->id])?$prices["products"][$value->name]['products'][$product->id]:[];
-                                                          $totals_product+=isset($price['total_sum_price'])?$price['total_sum_price']:0;
+                                                           $totals_product+=isset($price['total_sum_price'])?$price['total_sum_price']:0;
 
                                                     @endphp
                                                     <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
@@ -295,19 +289,19 @@
                                                             <div class="product-cart-item5" style="padding-bottom: 10px;">
                                                                 <p class="product-cart-price">
                                                                     <span class="only-sp product-cart-small-text">小計(税込)</span>
-                                                                    {!! number_format(isset($price['total_price_buy'])?$price['total_price_buy']:0) !!}円
+                                                                    {!! number_format(isset($price['web_total_price_buy'])?$price['web_total_price_buy']:0) !!}円
                                                                 </p>
                                                             </div>
                                                             <div class="product-cart-item5" style="padding-bottom: 10px;">
                                                                 <p class="product-cart-price">
                                                                     <span class="only-sp product-cart-small-text">小計(税込)</span>
-                                                                    {!! number_format(isset($price['total_ship'])?$price['total_ship']:0) !!}円
+                                                                    {!! number_format(isset($price['web_total_ship'])?$price['web_total_ship']:0) !!}円
                                                                 </p>
                                                             </div>
 
                                                         </div>
                                                         <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                            <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['total_sum_price'])?$price['total_sum_price']:0) !!}円</p>
+                                                            <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['web_total_sum_price'])?$price['web_total_sum_price']:0) !!}円</p>
                                                         </div>
 
                                                         {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
@@ -331,7 +325,7 @@
                                         <BR>
                                         <BR>
 
-                                        <div class="tax-item-description"> *Phí daikby {!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['total_cou'] : 0 !!}</div>
+                                        <div class="tax-item-description"> *Phí daikby {!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['web_total_cou'] : 0 !!}</div>
                                         @php
                                             $total_cou+=isset($prices["products"][$value->name])? $prices["products"][$value->name]['total_cou'] : 0;
 
@@ -374,7 +368,7 @@
                         <div class="lyt-side-pattern02-menu">
                             <p class="title title-small mb5">お支払い内訳
                             </p>
-                             <div>
+
                                 <div id="info_order">
                                     <div class="side-content-frame">
                                         <div class="side-content-frame-data-group">
@@ -382,7 +376,7 @@
                                                 <dt class="side-content-frame-data-title">Tiền hàng
                                                 </dt>
                                                 <dd class="side-content-frame-data-body">
-                                                <span class="sp-large">{!! number_format($totals_product) !!}</span>円
+                                                <span class="sp-large">{!! number_format($prices['total_sum']) !!}</span>円
                                                 </dd>
 
                                             </dl>
@@ -397,7 +391,13 @@
                                             <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title">Phí Daibiki
                                                 </dt>
-                                                <dd class="side-content-frame-data-body">{!! number_format(($total_cou)) !!}円
+                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_cou'])) !!}円
+                                                </dd>
+                                            </dl>
+                                            <dl class="side-content-frame-data">
+                                                <dt class="side-content-frame-data-title">Phụ thu
+                                                </dt>
+                                                <dd class="side-content-frame-data-body">{!! number_format((0)) !!}円
                                                 </dd>
                                             </dl>
                                             <!---->
@@ -429,51 +429,29 @@
                                         </div>
                                         <hr class="line line-lightgray">
                                         <div class="side-content-frame-data-group">
-                                            <dl class="side-content-frame-data">
-                                                <dt class="side-content-frame-data-title with-num"> Tổng tiền
-                                                </dt>
-                                                <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_sum']) !!}</span>
-                                                    <span class="side-content-frame-unit">円</span>
-                                                </dd>
-                                            </dl>
-                                        <div>
-                                        <div id="reduced_tax">
-                                            <dl class="side-content-frame-data indent">
-                                                <dt class="side-content-frame-data-title">Khuyến mại
-                                                </dt>
-                                                <dd class="side-content-frame-data-body">-0円
-                                                </dd>
-                                            </dl>
-                                            <dl class="side-content-frame-data mt5">
-                                                <!---->
-                                            </dl>
-                                        </div>
-                                            <div class="side-content-frame-data-group">
                                                 <dl class="side-content-frame-data">
                                                     <dt class="side-content-frame-data-title with-num">Tổng tiền phải trả
                                                     </dt>
-                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_sum']) !!}</span>
+                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_sum']+$prices['total_cou']) !!}</span>
                                                         <span class="side-content-frame-unit">円</span>
                                                     </dd>
                                                 </dl>
-                                                <div>
-                                                {{--<div id="normal_tax">--}}
-                                                    {{--<dl class="side-content-frame-data indent">--}}
-                                                        {{--<dt class="side-content-frame-data-title">内税対象額(10%)--}}
-                                                        {{--</dt>--}}
-                                                        {{--<dd class="side-content-frame-data-body">330円--}}
-                                                        {{--</dd>--}}
-                                                    {{--</dl>--}}
-                                                    {{--<dl class="side-content-frame-data mt5">--}}
-                                                        {{--<!---->--}}
-                                                    {{--</dl>--}}
+                                                {{--<div>--}}
+                                                    {{--<div id="normal_tax">--}}
+                                                        {{--<dl class="side-content-frame-data indent">--}}
+                                                            {{--<dt class="side-content-frame-data-title">内税対象額(10%)--}}
+                                                            {{--</dt>--}}
+                                                            {{--<dd class="side-content-frame-data-body">330円--}}
+                                                            {{--</dd>--}}
+                                                        {{--</dl>--}}
+                                                        {{--<dl class="side-content-frame-data mt5">--}}
+                                                            {{--<!---->--}}
+                                                        {{--</dl>--}}
+                                                    {{--</div>--}}
                                                 {{--</div>--}}
-                                               {{----}}
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                                     <p class="txt-large">クーポンまたはポイントをお使いの方は、次ページで選択いただけます。
                                     </p>
                                     <hr class="line line-lightgray">
@@ -483,16 +461,16 @@
                                         </li>
                                     </ul>
                                 </div>
-                             </div>
                         </div>
 
+
                 </div>
-                <div class="btn-flex btn-column">
-                    <form id="cartsubmmit">
-                        <div class="btn-form-wrap"><button type="button" class="btn-form btn-next">購入手続き</button></div>
-                    </form>
-                    <a href="/" class="btn btn-form btn-prev narrow">お買い物を続ける</a>
-                </div>
+            <div class="btn-flex btn-column">
+                <form id="cartsubmmit">
+                    <div class="btn-form-wrap"><button type="button" class="btn-form btn-next">購入手続き</button></div>
+                </form>
+                <a href="/" class="btn btn-form btn-prev narrow">お買い物を続ける</a>
+            </div>
             <div>
                 <footer class="pc-site-footer">
                     <div class="section block00">
