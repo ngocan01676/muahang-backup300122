@@ -344,7 +344,7 @@
                             <a href="#" class="svg-icon icon-new-user">はじめての方へ</a>
                         </p>
                         <p class="header-user-info-btn">
-                            <a href="#" class="btn btn-default btn-color01">楽天会員登録</a>
+                            <a href="/register" class="btn btn-default btn-color01">楽天会員登録</a>
                         </p>
                         <p class="header-user-info-btn"><a href="/login" data-auto-id="login-btn-pc" class="btn btn-default btn-color01">ログイン</a></p>
                     </div>

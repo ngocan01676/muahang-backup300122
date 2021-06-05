@@ -53,9 +53,7 @@
                             <p>
                                 <input type="submit" name="submit" value="Login" onclick="preventMultiClicks(this)" class="loginButton">
                             </p>
-                            <p class="center">
-                                By logging in, I agree to the <a target="_blank" href="h#">Privacy Policy</a> <span style="color: #666666;">(February 13, 2017).</span>
-                            </p>
+
                         </div>
                     </form>
                 </div>

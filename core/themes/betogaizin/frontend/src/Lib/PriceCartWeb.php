@@ -173,7 +173,7 @@ class PriceCartWeb{
 
                 $arr_ship = [];
 
-                $configShip =  $this->data['ships']["cate_".$product['cate']]?$this->data['ships']["cate_".$product['cate']]:[];
+                $configShip =  isset($this->data['ships']["cate_".$product['cate']])?$this->data['ships']["cate_".$product['cate']]:[];
 
                 $ship =  $this->data['categorys'][$product['cate']]?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
 
@@ -668,10 +668,11 @@ class PriceCartWeb{
                         $orders[$order_index]['products'][$id]['total_ship'];
                         $orders[$order_index]['total_cou'] = $ship_cou;
                         $orders[$order_index]['total_sum']+= $orders[$order_index]['products'][$id]['total_sum_price'];
-
+                    }
                 }
-                }
+                $orders[$order_index]['total_sum']+=$orders[$order_index]['total_cou'];
             }
+
         }
         $arrays = [
             "total_sum"=>0,
