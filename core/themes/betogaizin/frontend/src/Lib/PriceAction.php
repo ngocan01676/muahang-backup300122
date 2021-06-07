@@ -187,7 +187,7 @@ class PriceAction{
 
                 $arr_ship = [];
 
-                $configShip =  $this->data['ships']["cate_".$product['cate']]?$this->data['ships']["cate_".$product['cate']]:[];
+                $configShip =  isset($this->data['ships']["cate_".$product['cate']])?$this->data['ships']["cate_".$product['cate']]:[];
 
                 $ship =  $this->data['categorys'][$product['cate']]?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
 
@@ -262,8 +262,8 @@ class PriceAction{
                 $products['products'][$id]['total_ship'] = $products['products'][$id]['ship'];
                 $products['products'][$id]['total_sum_price']= $products['products'][$id]['total_price_buy']  + $products['products'][$id]['total_ship'];
 
-                $products['products'][$id]['web_total_ship'] = $products['products'][$id]['ship'];
-                $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy']  + $products['products'][$id]['web_total_ship'];
+                $products['products'][$id]['web_total_ship'] = 0;
+                $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy'] ;
 
                 if($key == 0){
                     $products['products'][$id]['profit'] =
@@ -407,7 +407,7 @@ class PriceAction{
                 $products['products'][$id]['total_ship'] = $products['products'][$id]['ship'];
                 $products['products'][$id]['total_sum_price']= $products['products'][$id]['total_price_buy']  + $products['products'][$id]['total_ship'];
 
-                $products['products'][$id]['web_total_ship'] = $products['products'][$id]['ship'];
+                $products['products'][$id]['web_total_ship'] = 0;
                 $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy']  + $products['products'][$id]['web_total_ship'];
 
                 if($key == 0){
@@ -450,7 +450,7 @@ class PriceAction{
 
         $row = array_values($products['products']);
         $n = count($row);
-
+        echo $province;
         $orders = [
             [
                 "total_count"=>0,
@@ -603,7 +603,7 @@ class PriceAction{
                                 }
                             }
                         }
-                        $orders[$order_index]['web_total_ship'] = $price_ship> 0 ?$price_ship*$count:0;
+                        $orders[$order_index]['web_total_ship'] = 0;
                         $orders[$order_index]['web_total_cou'] =  330;
                     }else{
                         $ship_cou = 0;
@@ -662,14 +662,18 @@ class PriceAction{
             "web_total_sum"=>0,
             "web_total_ship"=>0,
             "web_total_cou"=>0,
+            "profit_total_cou"=>0,
             "products"=>$orders
         ];
         foreach ($orders as $order){
             $arrays['web_total_sum']+=$order['web_total_sum'];
             $arrays['web_total_ship']+=$order['web_total_ship'];
             $arrays['web_total_cou']+=$order['web_total_cou'];
-        }
+            if($order['web_total_cou']["profit"]){
 
+            }
+        }
+        dd($arrays);
         return $arrays;
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){
@@ -884,9 +888,9 @@ class PriceAction{
                     $orders[$order_index]['total_ship']+= $orders[$order_index]['products'][$id]['ship'];
 
                     $orders[$order_index]['products'][$id]['web_total_ship']+= ($orders[$order_index]['products'][$id]['ship'] > 0 ?$orders[$order_index]['products'][$id]['ship']:0) * $count ;
-                    $orders[$order_index]['products'][$id]['web_total_sum_price']= $orders[$order_index]['products'][$id]['web_total_price_buy']  + $orders[$order_index]['products'][$id]['web_total_ship'];
+                    $orders[$order_index]['products'][$id]['web_total_sum_price']= $orders[$order_index]['products'][$id]['web_total_price_buy'];
 
-                    $orders[$order_index]['web_total_ship']+=($orders[$order_index]['products'][$id]['ship'] > 0 ?$orders[$order_index]['products'][$id]['ship']:0) * $count ;
+                    $orders[$order_index]['web_total_ship']+=($orders[$order_index]['products'][$id]['ship'] > 0 ?$orders[$order_index]['products'][$id]['ship']:0) ;
                     $orders[$order_index]['web_total_sum']+=$orders[$order_index]['products'][$id]['web_total_sum_price'] ;
                 }
             }
@@ -1021,9 +1025,8 @@ class PriceAction{
                 $products['products'][$id]['cou'] = $ship_cou;
                 $products['products'][$id]['total_ship'] = $products['products'][$id]['ship'];
                 $products['products'][$id]['total_sum_price']= $products['products'][$id]['total_price_buy']  + $products['products'][$id]['total_ship'];
-
-                $products['products'][$id]['web_total_ship'] = $products['products'][$id]['ship'];
-                $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy']  + $products['products'][$id]['web_total_ship'];
+                $products['products'][$id]['web_total_ship'] =0;
+                $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy'];
 
                 if($key == 0){
                     $products['products'][$id]['profit'] =
@@ -1044,7 +1047,7 @@ class PriceAction{
                 $products['total_ship']+=$products['products'][$id]['ship'];
 
                 $products['web_total_sum']+= $products['products'][$id]['web_total_sum_price'];
-                $products['web_total_ship']+= $products['products'][$id]['web_total_ship'] > 0?$products['products'][$id]['web_total_ship']:0;
+                $products['web_total_ship']+= 0;
             }
         }
 
@@ -1167,7 +1170,7 @@ class PriceAction{
                 $products['products'][$id]['total_sum_price']= $products['products'][$id]['total_price_buy']  + $products['products'][$id]['total_ship'];
 
                 $products['products'][$id]['web_total_ship'] = $products['products'][$id]['ship'];
-                $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy']  + $products['products'][$id]['web_total_ship'];
+                $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy'];
 
                 if($key == 0){
                     $products['products'][$id]['profit'] =
@@ -1188,7 +1191,7 @@ class PriceAction{
                 $products['total_ship']+=$products['products'][$id]['ship'];
 
                 $products['web_total_sum']+= $products['products'][$id]['web_total_sum_price'];
-                $products['web_total_ship']+= $products['products'][$id]['web_total_ship'] > 0?$products['products'][$id]['web_total_ship']:0;
+                $products['web_total_ship']+= 0;
             }
         }
 

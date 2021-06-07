@@ -134,7 +134,7 @@
     </div>
     <div class="product-info">
         <h3>{!! z_language('商品説明') !!}</h3>
-        <p>{!! z_language('【おすすめポイント】香ばしい“スライスアーモンド”と濃厚な味わいの“キャラメル”のハーモニー。') !!}<br></p>
+
         <div>
             {!! $item->content !!}
         </div>

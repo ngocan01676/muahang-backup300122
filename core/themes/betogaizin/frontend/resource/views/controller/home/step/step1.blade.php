@@ -254,8 +254,7 @@
                                                 @php $total_price = 0; @endphp
                                                 @foreach($products as $k=>$product)
                                                     @continue($product->category_id != $cate)
-                                                    @php $isSub = true;
-
+                                                    @php   $isSub = true;
                                                            $price = isset($prices["products"][$value->name]['products'][$product->id])?$prices["products"][$value->name]['products'][$product->id]:[];
                                                            $totals_product+=isset($price['total_sum_price'])?$price['total_sum_price']:0;
 
@@ -342,7 +341,7 @@
                                                 @if($value->name =="KOGYJA")
                                                     <tr>
                                                         <td style="width: 100px"><strong>Phí ship</strong> : </td>
-                                                        <td>{!! number_format($prices["products"][$value->name]["web_total_ship"]) !!}</td>
+                                                        <td>{!! number_format(isset($prices["products"][$value->name]["web_total_ship"])?$prices["products"][$value->name]["web_total_ship"]:0) !!}</td>
                                                     </tr>
                                                 @endif
                                                 <tr>

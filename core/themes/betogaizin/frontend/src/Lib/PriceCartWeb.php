@@ -331,7 +331,7 @@ class PriceCartWeb{
 
         $row = array_values($products['products']);
         $n = count($row);
-
+        echo $province;
         $orders = [
             [
                 "total_count"=>0,
@@ -354,13 +354,13 @@ class PriceCartWeb{
         $kgs = [2,5,10,15];
 
         while (count($row)>0){
-            if($orders[$i]['total_count'] <15){
+            if($orders[$i]['total_count'] <20){
                 $val = array_shift($row);
-                if($orders[$i]['total_count'] + (int)$val['count'] <= 15){
+                if($orders[$i]['total_count'] + (int)$val['count'] <= 20){
                     $orders[$i]['total_count']+=$val['count'];
                     $orders[$i]["products"][] = ['count'=>$val['count'],'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
                 }else{
-                    $_count = (15 - $orders[$i]['total_count']);
+                    $_count = (20 - $orders[$i]['total_count']);
                     $orders[$i]['total_count']+= $_count;
                     $orders[$i]["products"][] = ['count'=>$_count,'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
                     $val['count'] = $val['count'] - $_count;
