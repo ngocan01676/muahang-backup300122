@@ -154,4 +154,9 @@
             color: rgba(0, 0, 0, 0.8);
             line-height: 1.2;
         }
+        .tax-item-description {
+            font-size: 14px;
+            /* position: relative; */
+            /* margin: 4% 0 -13% 0; */
+        }
     </style>
