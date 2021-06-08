@@ -158,7 +158,7 @@
                                                                     <a href="{!! router_frontend_lang('home:item-product',['id'=> $products[$product['id']]->id,'slug'=> $products[$product['id']]->slug]) !!}">{!! $products[$product['id']]->name !!}</a>
                                                                 </p>
                                                                 @if(!empty($_products['msg']))
-                                                                <p class="product-cart-amount">{!! $_products['msg'] !!}</p>
+                                                                <p style="color: red" class="product-cart-amount">{!! $_products['msg'] !!}</p>
                                                                  @endif
                                                             </div>
                                                         </div>
