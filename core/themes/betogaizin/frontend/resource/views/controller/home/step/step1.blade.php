@@ -153,7 +153,7 @@
                                                             </div>
                                                             <div class="tax-reduced-item">*</div>
                                                             <div class="product-cart-item1-right">
-                                                                <p class="product-cart-maker">ロッテ</p>
+                                                                {{--<p class="product-cart-maker">ロッテ</p>--}}
                                                                 <p class="product-cart-name">
                                                                     <a href="{!! router_frontend_lang('home:item-product',['id'=> $products[$product['id']]->id,'slug'=> $products[$product['id']]->slug]) !!}">{!! $products[$product['id']]->name !!}</a>
                                                                 </p>
