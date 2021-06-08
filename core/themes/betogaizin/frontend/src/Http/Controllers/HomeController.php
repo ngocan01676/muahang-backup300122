@@ -158,9 +158,10 @@ class HomeController extends \Zoe\Http\ControllerFront
             $_products[$key]->count = $carts[$product->id]['count'];
             $_products[$key]->price_total = $_products[$key]->count * $product->price_buy;
             $_products[$key]->order_index = $carts[$product->id]['time'];
-            $rs = DB::table('shop_product_translation')->select('slug')->where('lang_code','vi')->where('_id',$product->id)->get()->all();
+            $rs = DB::table('shop_product_translation')->select('slug','name')->where('lang_code','vi')->where('_id',$product->id)->get()->all();
             if(isset($rs[0])){
                  $_products[$key]->slug = $rs[0]->slug;
+                 $_products[$key]->name = $rs[0]->name;
             }
             $carts[$product->id]['data'] = $product;
         }
