@@ -122,31 +122,34 @@ class PriceAction{
             $pro = [];
             if($value['name'] == "YAMADA"){
                 $pro = $this->YAMADA($key,$value,$province,$this->getValuePayMethod($payment));
-            }
+            }else
             if($value['name'] == "KOGYJA"){
                 $pro = $this->KOGYJA($key,$value,$province,$this->getValuePayMethod($payment));
 
-            }
+            }else
             if($value['name'] == "KURICHIKU"){
                 $pro = $this->KURICHIKU($key,$value,$province,$this->getValuePayMethod($payment));
-            }
+            }else
             if($value['name'] == "FUKUI"){
                 $pro = $this->FUKUI($key,$value,$province,$this->getValuePayMethod($payment));
-            }
+            }else
             if($value['name'] == "OHGA"){
                 $pro = $this->OHGA($key,$value,$province,$this->getValuePayMethod($payment));
-            }
+            }else
             if($value['name'] == "AMAZON"){
                 $pro = $this->AMAZON($key,$value,$province,$this->getValuePayMethod($payment));
+            }else{
+                $pro = $this->YAMADA($key,$value,$province,$this->getValuePayMethod($payment),$value['name']);
+            }
+            if($pro['web_total_sum'] > 0){
+                $results['total_sum']+=$pro['web_total_sum'];
+                $results['total_ship']+=0;
+                $results['total_cou']+=$pro['web_total_cou'];
+                $results['total_profit']+=isset($pro['web_total_profit'])?$pro['web_total_profit']:0;
+                $results['products'][$value['name']] = $pro;
             }
 
-            $results['total_sum']+=$pro['web_total_sum'];
-            $results['total_ship']+=0;
-            $results['total_cou']+=$pro['web_total_cou'];
-            $results['total_profit']+=isset($pro['web_total_profit'])?$pro['web_total_profit']:0;
-            $results['products'][$value['name']] = $pro;
         }
-
         return $results;
     }
     public function AMAZON($cate,$products,$province = "北海道",$type = 1){
@@ -293,7 +296,7 @@ class PriceAction{
 
         return $products;
     }
-    public function YAMADA($cate,$products,$province = "北海道",$type = 1){
+    public function YAMADA($cate,$products,$province = "北海道",$type = 1,$nameCate = "YAMADA"){
 
         $products['total_price'] = 0;
         $products['total_price_buy'] = 0;
@@ -314,9 +317,9 @@ class PriceAction{
             //$products['products'] as $key=>$product
             $product = $row[$key];
             $id = $product['id'];
-            if(isset($this->data['products']['YAMADA'][$product['id']])){
+            if(isset($this->data['products'][$nameCate][$product['id']])){
 
-                $data_product =  ($this->data['products']['YAMADA'][$product['id']]);
+                $data_product =  ($this->data['products'][$nameCate][$product['id']]);
                 $count = $product['count'];
                 $total_price_buy = $count * $data_product['data']['price_buy'];
                 $total_price = $count * $data_product['data']['price'];
@@ -336,9 +339,9 @@ class PriceAction{
 
                 $arr_ship = [];
 
-                $configShip =  $this->data['ships']["cate_".$product['cate']]?$this->data['ships']["cate_".$product['cate']]:[];
+                $configShip = isset($this->data['ships']["cate_".$product['cate']])?$this->data['ships']["cate_".$product['cate']]:[];
 
-                $ship =  $this->data['categorys'][$product['cate']]?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
+                $ship =  isset($this->data['categorys'][$product['cate']])?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
 
                 foreach($configShip as $i => $val){
 
@@ -816,9 +819,9 @@ class PriceAction{
 
                     $arr_ship = [];
 
-                    $configShip =  $this->data['ships']["cate_".$product['cate']]?$this->data['ships']["cate_".$product['cate']]:[];
+                    $configShip =  isset($this->data['ships']["cate_".$product['cate']])?$this->data['ships']["cate_".$product['cate']]:[];
 
-                    $ship =  $this->data['categorys'][$product['cate']]?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
+                    $ship =  isset($this->data['categorys'][$product['cate']])?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
 
                     $ship_cou = -1;
                     if($key == 0){
@@ -990,9 +993,9 @@ class PriceAction{
 
                 $arr_ship = [];
 
-                $configShip =  $this->data['ships']["cate_".$product['cate']]?$this->data['ships']["cate_".$product['cate']]:[];
+                $configShip =  isset($this->data['ships']["cate_".$product['cate']])?$this->data['ships']["cate_".$product['cate']]:[];
 
-                $ship =  $this->data['categorys'][$product['cate']]?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
+                $ship =  isset($this->data['categorys'][$product['cate']])?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
 
                 foreach($configShip as $i => $val){
 
@@ -1133,9 +1136,9 @@ class PriceAction{
 
                 $arr_ship = [];
 
-                $configShip =  $this->data['ships']["cate_".$product['cate']]?$this->data['ships']["cate_".$product['cate']]:[];
+                $configShip = isset( $this->data['ships']["cate_".$product['cate']])?$this->data['ships']["cate_".$product['cate']]:[];
 
-                $ship =  $this->data['categorys'][$product['cate']]?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
+                $ship =  isset($this->data['categorys'][$product['cate']])?($this->data['categorys'][$product['cate']]->data['ship'])? $this->data['categorys'][$product['cate']]->data['ship']:"-1":"-1";
 
                 foreach($configShip as $i => $val){
 
