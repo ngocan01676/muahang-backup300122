@@ -141,7 +141,7 @@ class PriceAction{
             }
 
             $results['total_sum']+=$pro['web_total_sum'];
-            $results['total_ship']+=$pro['web_total_ship'];
+            $results['total_ship']+=0;
             $results['total_cou']+=$pro['web_total_cou'];
             $results['total_profit']+=$pro['web_total_profit'];
             $results['products'][$value['name']] = $pro;
@@ -764,7 +764,7 @@ class PriceAction{
             $ordersAll[$_unit] = $_orders;
         }
         $orders= [];
- 
+
         foreach ($ordersAll as $value){
             foreach ($value as $_value){
                 if($_value['total_count'] > 0)
@@ -884,7 +884,7 @@ class PriceAction{
 
 
                     if( $key == 0){
-                        $orders[$order_index]['web_total_cou']+=330;
+                        $orders[$order_index]['web_total_cou']=330;
                         $orders[$order_index]['total_sum'] =  $orders[$order_index]['products'][$id]['total_price_buy'];
 
 
@@ -935,7 +935,7 @@ class PriceAction{
         foreach ($orders as $order){
             $arrays['web_total_sum']+=$order['web_total_sum'];
             $arrays['web_total_ship']+=$order['web_total_ship'];
-            $arrays['web_total_cou']+=$order['web_total_cou'];
+            $arrays['web_total_cou']=330;
             $arrays['web_total_profit']+=$order['web_total_profit'];
         }
 

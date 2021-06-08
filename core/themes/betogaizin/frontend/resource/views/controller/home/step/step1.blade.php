@@ -430,7 +430,7 @@
                                             <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title">Phụ thu
                                                 </dt>
-                                                <dd class="side-content-frame-data-body">{!! number_format((0)) !!}円
+                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_profit'])) !!}円
                                                 </dd>
                                             </dl>
                                             <!---->
@@ -465,7 +465,7 @@
                                                 <dl class="side-content-frame-data">
                                                     <dt class="side-content-frame-data-title with-num">Tổng tiền phải trả
                                                     </dt>
-                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_ship']+$prices['total_sum']+$prices['total_cou']) !!}</span>
+                                                    <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['total_profit']+$prices['total_sum']+$prices['total_cou']) !!}</span>
                                                         <span class="side-content-frame-unit">円</span>
                                                     </dd>
                                                 </dl>
