@@ -157,7 +157,9 @@
                                                                 <p class="product-cart-name">
                                                                     <a href="{!! router_frontend_lang('home:item-product',['id'=> $products[$product['id']]->id,'slug'=> $products[$product['id']]->slug]) !!}">{!! $products[$product['id']]->name !!}</a>
                                                                 </p>
-                                                                {{--<p class="product-cart-amount">470ml</p>--}}
+                                                                @if(!empty($_products['msg']))
+                                                                <p class="product-cart-amount">{!! $_products['msg'] !!}</p>
+                                                                 @endif
                                                             </div>
                                                         </div>
                                                         <div class="product-cart-item2">
@@ -280,7 +282,7 @@
                                                                         <p class="product-cart-name">
                                                                             <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}">{!! $product->title !!}</a>
                                                                         </p>
-                                                                        {{--<p class="product-cart-amount">470ml</p>--}}
+                                                                        <p class="product-cart-amount">{!! "1212121" !!}</p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-cart-item2">

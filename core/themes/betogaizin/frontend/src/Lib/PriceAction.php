@@ -690,7 +690,7 @@ class PriceAction{
         $products['web_total_ship'] = 0;
         $products['web_total_cou'] = 0;
         $products['web_total_profit'] = 0;
-
+        $products['total_kg'] = 0;
         $products['profit'] = 0;
 
         $row = array_values($products['products']);
@@ -721,8 +721,11 @@ class PriceAction{
                     $_orders[$i]['total_count']+=$val['count'];
                     $_orders[$i]["products"][] = ['count'=>$val['count'],'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
                     $create_row = true;
+                    $kg = $val['data']->value < 0 ?$val['count']:$val['count']*$val['data']->value;
+                    $_orders[$i]['total_kg']+=$kg;
                 }else{
                     $kg = $val['data']->value < 0 ?$val['count']:$val['count']*$val['data']->value;
+                    $_orders[$i]['total_kg']+=$kg;
                     if($kg > 0){
                         if($_orders[$i]['total_count'] + $kg <= 10){
                             $_orders[$i]['total_count']+=$val['count'];
@@ -744,6 +747,7 @@ class PriceAction{
             }else{
                 $_orders[] = [
                     "total_count"=>0,
+                    "total_kg"=>0,
                     "total_price"=>0,
                     "total_price_buy"=>0,
                     "total_sum"=>0,
@@ -756,6 +760,7 @@ class PriceAction{
                     "web_total_ship"=>0,
                     "web_total_cou"=>0,
                     "web_total_profit"=>0,
+                    "unit"=>$_unit,
                 ];
                 array_unshift($row,$val);
                 $create_row = false;
@@ -767,11 +772,14 @@ class PriceAction{
 
         foreach ($ordersAll as $value){
             foreach ($value as $_value){
-                if($_value['total_count'] > 0)
-                $orders[] = $_value;
+                if($_value['total_count'] > 0){
+                    $_value['status'] = 1;
+                    $_value['req'] =10-$_value['total_kg'];
+                    $_value['msg'] =$_value['unit'] == 5?"":(($_value['total_kg'] < 10)?"Không đủ kiện hàng vui lòng thêm ".($_value['req']).'Kg':"");
+                    $orders[] = $_value;
+                }
             }
         }
-
 
         foreach ($orders as $order_index=>$order){
             $totalCountAll = $order['total_count'];
@@ -938,7 +946,7 @@ class PriceAction{
             $arrays['web_total_cou']=330;
             $arrays['web_total_profit']+=$order['web_total_profit'];
         }
-       
+//        dd($arrays);
         return $arrays;
     }
     public function FUKUI($cate,$products,$province = "北海道",$type = 1){
