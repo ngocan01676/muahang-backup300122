@@ -450,7 +450,7 @@ class PriceAction{
 
         $row = array_values($products['products']);
         $n = count($row);
-        echo $province;
+
         $orders = [
             [
                 "total_count"=>0,
@@ -463,6 +463,7 @@ class PriceAction{
                 "products"=>[],
                 "web_total_sum"=>0,
                 "web_total_ship"=>0,
+                "web_total_profit"=>0,
             ]
         ];
 
@@ -500,6 +501,7 @@ class PriceAction{
                     "products"=>[],
                     "web_total_sum"=>0,
                     "web_total_ship"=>0,
+                    "web_total_profit"=>0,
                 ];
             }
         }
@@ -604,17 +606,19 @@ class PriceAction{
                             }
                         }
                         $orders[$order_index]['web_total_ship'] = 0;
-                        $orders[$order_index]['web_total_cou'] =  330;
+                        if($order_index == 0)
+                            $orders[$order_index]['web_total_cou'] =  330;
+                        else
+                            $orders[$order_index]['web_total_cou'] =  0;
                     }else{
                         $ship_cou = 0;
                         $price_ship = 0;
                     }
-                    $orders[$order_index]['products'][$id]['web_total_ship'] = 0;
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
                     $orders[$order_index]['products'][$id]['ship'] = $price_ship > -1?$price_ship:-1;
                     $orders[$order_index]['products'][$id]['cou'] = $ship_cou;
-
                     $orders[$order_index]['total_cou']+=  $orders[$order_index]['products'][$id]['cou'];
+                    $orders[$order_index]['products'][$id]['web_total_ship'] = 0;
                     $v = 0;
                     if($totalCountAll >=1 ){
                         if( $totalCountAll <= 5){
@@ -625,8 +629,6 @@ class PriceAction{
                             $v = 142;
                         }
                     }
-
-
                     if( $key == 0){
 
                         if($type != 3){
@@ -634,27 +636,23 @@ class PriceAction{
                             $orders[$order_index]['products'][$id]['total_price_buy'] = $orders[$order_index]['total_price_buy'];
                         }
                         $orders[$order_index]['total_sum'] =  $orders[$order_index]['products'][$id]['total_price_buy'];
-
-
-
                         $orders[$order_index]['products'][$id]['total_count'] = $v;
-
                         $orders[$order_index]['total_count_val'] = $v;
-
                         $orders[$order_index]['products'][$id]['profit'] =
                             $orders[$order_index]['products'][$id]['total_price_buy'] -
                             $orders[$order_index]['products'][$id]['total_price'] -
                             $orders[$order_index]['products'][$id]['ship'] - $orders[$order_index]['total_cou'] - $v ;
-
                     }else{
-
                         $orders[$order_index]['products'][$id]['profit'] = $orders[$order_index]['products'][$id]['total_price']*-1;
-
                     }
                     $orders[$order_index]['products'][$id]['web_total_sum_price'] = $orders[$order_index]['products'][$id]['web_total_price_buy'];
                     $orders[$order_index]['profit']+= $orders[$order_index]['products'][$id]['profit'];
                     $orders[$order_index]['web_total_sum']+=  $orders[$order_index]['products'][$id]['web_total_price_buy'];
-
+                    if($orders[$order_index]['products'][$id]['profit'] < 0){
+                        $orders[$order_index]['products'][$id]['web_total_profit'] = $orders[$order_index]['products'][$id]['profit']*-1 + 500;
+                    }else{
+                        $orders[$order_index]['products'][$id]['web_total_profit'] = 0;
+                    }
                 }
             }
         }
@@ -663,17 +661,16 @@ class PriceAction{
             "web_total_ship"=>0,
             "web_total_cou"=>0,
             "profit_total_cou"=>0,
+            "web_total_profit"=>0,
             "products"=>$orders
         ];
         foreach ($orders as $order){
             $arrays['web_total_sum']+=$order['web_total_sum'];
             $arrays['web_total_ship']+=$order['web_total_ship'];
             $arrays['web_total_cou']+=$order['web_total_cou'];
-            if($order['web_total_cou']["profit"]){
-
-            }
+            $arrays['web_total_profit']+=$order['web_total_profit'];
         }
-        dd($arrays);
+
         return $arrays;
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){
