@@ -946,7 +946,7 @@ class PriceAction{
             $arrays['web_total_cou']=330;
             $arrays['web_total_profit']+=$order['web_total_profit'];
         }
-//        dd($arrays);
+
         return $arrays;
     }
     public function FUKUI($cate,$products,$province = "北海道",$type = 1){

@@ -280,7 +280,7 @@
                                                                     <div class="product-cart-item1-right">
                                                                         <p class="product-cart-maker">ロッテ</p>
                                                                         <p class="product-cart-name">
-                                                                            <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}">{!! $product->title !!}</a>
+                                                                            <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}">{!! $product->name !!}</a>
                                                                         </p>
                                                                         <p class="product-cart-amount">{!! "1212121" !!}</p>
                                                                     </div>
