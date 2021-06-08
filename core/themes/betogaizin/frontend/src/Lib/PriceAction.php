@@ -143,7 +143,7 @@ class PriceAction{
             $results['total_sum']+=$pro['web_total_sum'];
             $results['total_ship']+=0;
             $results['total_cou']+=$pro['web_total_cou'];
-            $results['total_profit']+=$pro['web_total_profit'];
+            $results['total_profit']+=isset($pro['web_total_profit'])?$pro['web_total_profit']:0;
             $results['products'][$value['name']] = $pro;
         }
 
