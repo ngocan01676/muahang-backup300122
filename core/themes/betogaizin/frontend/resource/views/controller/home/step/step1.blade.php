@@ -203,7 +203,7 @@
                                                 <div class="product-cart-item6 only-pc" style="padding-bottom: 10px;">
 
                                                     <button
-                                                            data-company="{!! $value->id !!}"  data-id="{!!  $products[$product['id']]->id !!}" data-count="0" data-act="add"
+                                                            data-company="{!! $value->id !!}"  data-id="{!!  $products[$product['id']]->id !!}" data-count="{!! $product['count']*-1 !!}" data-act="add"
                                                             type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">削除
                                                     </button>
                                                 </div>

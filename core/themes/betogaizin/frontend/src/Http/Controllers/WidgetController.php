@@ -85,7 +85,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
             }
         }else if($data['act'] == "add"){
             if(isset($carts[$data['id']])){
-                $carts[$data['id']]['count']+= $data['count'];
+                $carts[$data['id']]['count']+=(int) $data['count'];
             }else{
                 $carts[$data['id']] = ['id'=>$data['id'],'count'=>(int) $data['count'],'time'=>time(),'cate'=>$data['cate']];
             }
