@@ -113,6 +113,7 @@ class PriceAction{
             "total_price"=>0,
             "total_ship"=>0,
             "total_cou"=>0,
+            "total_profit"=>0,
             "sale"=>0,
             "products"=>[]
         ];
@@ -142,8 +143,10 @@ class PriceAction{
             $results['total_sum']+=$pro['web_total_sum'];
             $results['total_ship']+=$pro['web_total_ship'];
             $results['total_cou']+=$pro['web_total_cou'];
+            $results['total_profit']+=$pro['web_total_profit'];
             $results['products'][$value['name']] = $pro;
         }
+
         return $results;
     }
     public function AMAZON($cate,$products,$province = "北海道",$type = 1){
@@ -301,6 +304,7 @@ class PriceAction{
         $products['web_total_cou'] = 0;
         $products['web_total_sum'] = 0;
         $products['web_total_ship'] = 0;
+        $products['web_total_profit'] = 0;
 
         $products['profit'] = 0;
 
@@ -447,6 +451,7 @@ class PriceAction{
         $products['web_total_sum'] = 0;
         $products['web_total_ship'] = 0;
         $products['web_total_cou'] = 0;
+        $products['web_total_profit'] = 0;
 
         $row = array_values($products['products']);
         $n = count($row);
@@ -649,13 +654,14 @@ class PriceAction{
                     $orders[$order_index]['profit']+= $orders[$order_index]['products'][$id]['profit'];
                     $orders[$order_index]['web_total_sum']+=  $orders[$order_index]['products'][$id]['web_total_price_buy'];
                     if($orders[$order_index]['products'][$id]['profit'] < 0){
-                        $orders[$order_index]['products'][$id]['web_total_profit'] = $orders[$order_index]['products'][$id]['profit']*-1 + 500;
+                        $orders[$order_index]['web_total_profit'] = $orders[$order_index]['products'][$id]['profit']*-1 + 500;
                     }else{
-                        $orders[$order_index]['products'][$id]['web_total_profit'] = 0;
+                        $orders[$order_index]['web_total_profit'] = 0;
                     }
                 }
             }
         }
+
         $arrays = [
             "web_total_sum"=>0,
             "web_total_ship"=>0,
@@ -683,7 +689,7 @@ class PriceAction{
         $products['web_total_sum'] = 0;
         $products['web_total_ship'] = 0;
         $products['web_total_cou'] = 0;
-
+        $products['web_total_profit'] = 0;
 
         $products['profit'] = 0;
 
@@ -691,47 +697,33 @@ class PriceAction{
         $n = count($row);
 
         $orders = [
-            [
-                "total_count"=>0,
-                "total_price"=>0,
-                "total_price_buy"=>0,
-                "total_sum"=>0,
-                "total_ship"=>0,
-                "total_cou"=>0,
-                "profit"=>0,
-                "products"=>[],
-                "web_total_price_buy"=>0,
-                "web_total_sum"=>0,
-                "web_total_ship"=>0,
-                "web_total_cou"=>0,
-            ]
+
         ];
-
         $i = 0;
-
         usort($row, function ($a,$b){
             return $a['time'] - $b['time'];
         });
-
         $kgs = [2,5,10,15];
-
         while (count($row)>0){
+            $val = array_shift($row);
             if($orders[$i]['total_count'] <10){
-                $val = array_shift($row);
-                if($orders[$i]['total_count'] + (int)$val['count'] <= 10){
-                    $orders[$i]['total_count']+=$val['count'];
-                    $orders[$i]["products"][] = ['count'=>$val['count'],'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
-                }else{
-                    $_count = (10 - $orders[$i]['total_count']);
-                    $orders[$i]['total_count']+= $_count;
-                    $orders[$i]["products"][] = ['count'=>$_count,'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
-                    $val['count'] = $val['count'] - $_count;
+                if($val['data']['']){
 
-                    array_unshift($row,$val);
+                }else{
+                    if( $orders[$i]['total_count'] + (int)$val['count'] <= 10){
+                        $orders[$i]['total_count']+=$val['count'];
+                        $orders[$i]["products"][] = ['count'=>$val['count'],'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
+                    }else{
+                        $_count = (10 - $orders[$i]['total_count']);
+                        $orders[$i]['total_count']+= $_count;
+                        $orders[$i]["products"][] = ['count'=>$_count,'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
+                        $val['count'] = $val['count'] - $_count;
+                        array_unshift($row,$val);
+                    }
                 }
             }else if(count($row)>0){
                 $i++;
-                $orders[$i] =   [
+                $orders[$i] = [
                     "total_count"=>0,
                     "total_price"=>0,
                     "total_price_buy"=>0,
@@ -744,7 +736,9 @@ class PriceAction{
                     "web_total_sum"=>0,
                     "web_total_ship"=>0,
                     "web_total_cou"=>0,
+                    "web_total_profit"=>0,
                 ];
+                array_unshift($row,$val);
             }
         }
         foreach ($orders as $order_index=>$order){
@@ -917,7 +911,7 @@ class PriceAction{
         $products['web_total_cou'] = 0;
         $products['web_total_sum'] = 0;
         $products['web_total_ship'] = 0;
-
+        $products['web_total_profit'] = 0;
         $products['profit'] = 0;
 
         $row = array_values($products['products']);
@@ -1060,7 +1054,7 @@ class PriceAction{
         $products['web_total_cou'] = 0;
         $products['web_total_sum'] = 0;
         $products['web_total_ship'] = 0;
-
+        $products['web_total_profit'] = 0;
         $products['profit'] = 0;
 
         $row = array_values($products['products']);

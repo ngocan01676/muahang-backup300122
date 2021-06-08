@@ -246,6 +246,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->unit = $data['unit'];
             $model->status = $data['status'];
             $model->count = isset($data['count'])?$data['count']:1;
+            $model->count_actual = isset($data['count_actual'])&&!empty($data['count_actual'])?$data['count_actual']:1;
             $model->value = $data['value'];
             $model->price_buy = $data['price_buy'];
             $model->type_excel = $data['type_excel'];

@@ -132,13 +132,14 @@
                                     <p>小計</p>
                                 </div>
                                 <div>
-                                    @php $total_price = 0; @endphp
+                                    @php $total_price = 0;  @endphp
                                     @foreach($prices["products"][$value->name]['products'] as $_products)
                                         @foreach($_products['products'] as $k=>$product)
                                             @continue($product['cate'] != $cate)
                                                 @php
                                                     $isSub = true;
                                                     // $totals_product+=$product['web_total_sum_price'];
+
                                                 @endphp
                                             <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
                                                 <div class="product-cart-row-top">
@@ -202,7 +203,7 @@
                                                 <div class="product-cart-item6 only-pc" style="padding-bottom: 10px;">
 
                                                     <button
-                                                            data-company="{!! $value->id !!}"  data-id="{!!  $products[$product['id']]->id !!}" data-count="0" data-act="update"
+                                                            data-company="{!! $value->id !!}"  data-id="{!!  $products[$product['id']]->id !!}" data-count="0" data-act="add"
                                                             type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">削除
                                                     </button>
                                                 </div>
@@ -218,7 +219,7 @@
                             <table style="">
                                 <tr>
                                     <td style="width: 100px"><strong>Phí Cou</strong> : </td>
-                                    <td class="text-center">{!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['web_total_cou'] : 0 !!}</td>
+                                    <td class="text-center">{!! isset($prices["products"][$value->name]['web_total_cou'])? $prices["products"][$value->name]['web_total_cou'] : 0 !!}</td>
                                 </tr>
                                 @if($value->name =="KOGYJA")
                                 <tr>
@@ -226,6 +227,10 @@
                                     <td>{!! number_format($prices["products"][$value->name]["web_total_ship"]) !!}</td>
                                 </tr>
                                 @endif
+                                <tr>
+                                    <td style="width: 100px"><strong>Phụ thu</strong> : </td>
+                                    <td>{!! number_format(isset($prices["products"][$value->name]['web_total_profit'])?$prices["products"][$value->name]['web_total_profit']:0) !!}</td>
+                                </tr>
                                 <tr>
                                     <td style="width: 100px"><strong>Tổng tiền</strong> : </td>
                                     <td>{!! number_format($total_price) !!}</td>
@@ -338,12 +343,14 @@
                                                     <td style="width: 100px"><strong>Phí Cou</strong> : </td>
                                                     <td class="text-center">{!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['web_total_cou'] : 0 !!}</td>
                                                 </tr>
-                                                @if($value->name =="KOGYJA")
-                                                    <tr>
-                                                        <td style="width: 100px"><strong>Phí ship</strong> : </td>
-                                                        <td>{!! number_format(isset($prices["products"][$value->name]["web_total_ship"])?$prices["products"][$value->name]["web_total_ship"]:0) !!}</td>
-                                                    </tr>
-                                                @endif
+                                                <tr>
+                                                    <td style="width: 100px"><strong>Phí ship</strong> : </td>
+                                                    <td>{!! number_format(isset($prices["products"][$value->name]["web_total_ship"])?$prices["products"][$value->name]["web_total_ship"]:0) !!}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px"><strong>Phụ phí</strong> : </td>
+                                                    <td>{!! number_format(isset($prices["products"][$value->name]["total_profit"])?$prices["products"][$value->name]["total_profit"]:0) !!}</td>
+                                                </tr>
                                                 <tr>
                                                     <td style="width: 100px"><strong>Tổng tiền</strong> : </td>
                                                     <td>{!! number_format($total_price) !!}</td>

@@ -101,6 +101,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
         $data = $request->all();
         $carts = $request->session()->get(WidgetController::$keyCart,[]);
         $ids = array_keys($carts);
+
         $_products = DB::table('shop_product')->whereIn('id',$ids)->get()->keyBy('id')->all();
         $config_language = app()->config_language;
         $_products_lang = DB::table('shop_product_translation')->whereIn('_id',$ids)->where('lang_code',$config_language['lang'])->get()->keyBy('id')->all();

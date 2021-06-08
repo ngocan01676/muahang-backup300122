@@ -234,8 +234,14 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        {!! Form::label('count', z_language('Số lượng'), ['class' => 'count']) !!}
+                                        {!! Form::label('count', z_language('Số lượng gói'), ['class' => 'count']) !!}
                                         {!! Form::text('count',null, ['class' => 'form-control','placeholder'=>z_language('Số lượng')]) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {!! Form::label('count_actual', z_language('Số lượng thực tế'), ['class' => 'count']) !!}
+                                        {!! Form::text('count_actual',null, ['class' => 'form-control','placeholder'=>z_language('Số lượng thực tế')]) !!}
                                     </td>
                                 </tr>
                                 <tr>
