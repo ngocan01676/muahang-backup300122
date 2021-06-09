@@ -60,7 +60,7 @@
         }
         .product-cart-header p:nth-child(1) {
             width: -webkit-calc(100% - 559px);
-            width: calc(100% - 655px);
+            width: calc(100% - 600px);
         }
         .product-cart-header p:nth-child(3) {
             width: 100px;
@@ -76,5 +76,12 @@
         }
         .product-cart-header p:nth-child(6) {
             width: 112px;
+        }
+        .product-cart-row .product-cart-row-top{
+            width: calc(100% - 490px);
+
+        }
+        .product-cart-row .product-cart-item3{
+            width: 118px;
         }
     </style>

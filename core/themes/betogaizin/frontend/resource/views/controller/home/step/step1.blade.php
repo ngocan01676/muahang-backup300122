@@ -253,9 +253,9 @@
                                                 <p>Giá bán</p>
                                                 <p>Số lượng</p>
                                                 <p>Tổng tiền</p>
-                                                <p>Tiền ship</p>
-                                                <p>Thành tiền</p>
-                                                <p>小計</p>
+
+                                                <p>Tiền Ship</p>
+                                                <p></p>
                                             </div>
                                             <div>
                                                 @php $total_price = 0; @endphp
@@ -307,16 +307,11 @@
                                                                     {!! number_format(isset($price['web_total_price_buy'])?$price['web_total_price_buy']:0) !!}円
                                                                 </p>
                                                             </div>
-                                                            <div class="product-cart-item5" style="padding-bottom: 10px;">
-                                                                <p class="product-cart-price">
-                                                                    <span class="only-sp product-cart-small-text">小計(税込)</span>
-                                                                    {!! number_format(isset($price['web_total_ship'])?$price['web_total_ship']:0) !!}円
-                                                                </p>
-                                                            </div>
+
 
                                                         </div>
                                                         <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                            <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['web_total_sum_price'])?$price['web_total_sum_price']:0) !!}円</p>
+                                                            <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['web_total_ship'])?$price['web_total_ship']:0) !!}円</p>
                                                         </div>
                                                         @php $total_price+=isset($price['web_total_sum_price'])?$price['web_total_sum_price']:0; @endphp
                                                         {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
@@ -343,19 +338,23 @@
                                             <table style="">
                                                 <tr>
                                                     <td style="width: 100px"><strong>Phí Cou</strong> : </td>
-                                                    <td class="text-center">{!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['web_total_cou'] : 0 !!}</td>
+                                                    <td class="text-center">{!! number_format(isset($prices["products"][$value->name])? $prices["products"][$value->name]['web_total_sum'] : 0) !!} 円</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px"><strong>Phí Cou</strong> : </td>
+                                                    <td class="text-center">{!! isset($prices["products"][$value->name])? $prices["products"][$value->name]['web_total_cou'] : 0 !!} 円</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 100px"><strong>Phí ship</strong> : </td>
-                                                    <td>{!! number_format(isset($prices["products"][$value->name]["web_total_ship"])?$prices["products"][$value->name]["web_total_ship"]:0) !!}</td>
+                                                    <td>{!! number_format(isset($prices["products"][$value->name]["web_total_ship"])?$prices["products"][$value->name]["web_total_ship"]:0) !!} 円</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 100px"><strong>Phụ phí</strong> : </td>
-                                                    <td>{!! number_format(isset($prices["products"][$value->name]["total_profit"])?$prices["products"][$value->name]["total_profit"]:0) !!}</td>
+                                                    <td>{!! number_format(isset($prices["products"][$value->name]["total_profit"])?$prices["products"][$value->name]["total_profit"]:0) !!} 円</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 100px"><strong>Tổng tiền</strong> : </td>
-                                                    <td>{!! number_format($total_price) !!}</td>
+                                                    <td>{!! number_format(isset($prices["products"][$value->name]["total_sum"])?$prices["products"][$value->name]["total_sum"]:0) !!} 円</td>
                                                 </tr>
                                             </table>
                                         </div>
