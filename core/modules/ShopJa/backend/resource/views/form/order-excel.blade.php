@@ -10264,7 +10264,7 @@
             });
         },timeAction+1000);
 
-        let siteTitle = '{!! $_title !!}';
+        let siteTitle = '{!! isset($_title)?$_title:"" !!}';
 
         window.addEventListener('blur', () => {
             document.title = siteTitle+ ' Come back! :c';

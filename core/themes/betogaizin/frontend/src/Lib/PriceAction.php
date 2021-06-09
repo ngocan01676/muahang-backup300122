@@ -151,7 +151,7 @@ class PriceAction{
             }
             $results['totals_order'] = $results['total_sum'] + $results['total_ship'] + $results['total_cou'] +  $results['total_profit'];
         }
-        
+
         return $results;
     }
     public function AMAZON($cate,$products,$province = "北海道",$type = 1){
@@ -408,16 +408,13 @@ class PriceAction{
                 $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
 
-
-
-
                 $products['products'][$id]['ship'] = $price_ship > -1?$price_ship*$count:-1;
                 $products['products'][$id]['cou'] = $ship_cou;
                 $products['products'][$id]['total_ship'] = $products['products'][$id]['ship'];
                 $products['products'][$id]['total_sum_price']= $products['products'][$id]['total_price_buy']  + $products['products'][$id]['total_ship'];
 
                 $products['products'][$id]['web_total_ship'] = $products['products'][$id]['ship'];
-                $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy']  + $products['products'][$id]['web_total_ship'];
+                $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy']  + $products['products'][$id]['web_total_ship'] + 330;
 
                 if($key == 0){
                     $products['products'][$id]['profit'] =
