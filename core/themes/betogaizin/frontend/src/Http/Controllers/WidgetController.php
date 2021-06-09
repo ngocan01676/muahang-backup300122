@@ -285,7 +285,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
                        ->user() != null?auth()
                    ->user()->id:1,
                'pay_method'=>$data['payment'],
-               'phone'=>$address[0]->phone1.'-'.$address[1]->phone1.'-'.$address[2]->phone1,
+               'phone'=>$address[0]->phone1.'-'.$address[0]->phone2.'-'.$address[0]->phone3,
                'country'=>$address[0]->address2,
                'city'=>$address[0]->prefecture_code,
                'address'=>$address[0]->address5,
@@ -338,7 +338,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
             DB::rollBack();
             return response()->json([
                 'url1'=>router_frontend_lang('home:cart-product',[]),
-                'error'=>$ex->getMessage()
+                'error'=>$ex->getMessage().' '.$ex->getLine()
             ]);
         }
 
