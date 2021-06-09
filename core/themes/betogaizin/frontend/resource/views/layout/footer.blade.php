@@ -396,9 +396,6 @@
         </div>
     </div>
 </section>
-
-
-
 <div>
     <div class="popup-wrap popup-leaveFromOrderChanging" style="left: 0px;display: none">
         <section class="popup popup-nohead popup-width-middle">
