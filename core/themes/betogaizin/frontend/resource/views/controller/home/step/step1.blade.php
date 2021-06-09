@@ -581,6 +581,7 @@
                         success:function (data) {
                            window.location.href = data.url;
                         }
+                        
                     });
                 }else{
                     alert("Chon địa chỉ giao hàng");
