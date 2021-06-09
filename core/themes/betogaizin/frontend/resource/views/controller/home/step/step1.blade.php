@@ -11,7 +11,7 @@
         $sale = 0;
 
     @endphp
-    @if($counts > 0))
+    @if($counts > 0)
      <div id="step1" class="Controller_Cart">
         <form action="" id="formAction">
         <div id="container" class="container">

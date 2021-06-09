@@ -25,7 +25,7 @@ $(document).ready(function () {
                     data:{},
                     type:"GET",
                     success:function (html) {
-
+                       $('#info_order').html($(html.views.content).find('#info_order').html());
                         $("#company_"+conf.company).html($(html.views['treeview_'+conf.company]).html());
                         if($('.item_row').length === 0){
                             location.reload();
