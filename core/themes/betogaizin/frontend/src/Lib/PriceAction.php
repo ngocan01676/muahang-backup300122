@@ -56,7 +56,7 @@ class PriceAction{
         if($val === "代金引換") return 1;
         if($val === "銀行振込") return 2;
         if($val === "決済不要") return 3;
-        return 0;
+        return $val;
     }
     private function IF_End($val,$conf){
         $conf = (array)$conf;
@@ -95,7 +95,7 @@ class PriceAction{
         }
         return false;
     }
-    public function prices($datas,$province = "北海道",$payment =  "代金引換"){
+    public function prices($datas,$province = "北海道",$payment =  "1"){
         $products_group = [];
 
         foreach ($datas as $key=>$value){

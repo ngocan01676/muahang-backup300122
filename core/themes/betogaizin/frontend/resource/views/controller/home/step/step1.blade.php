@@ -104,10 +104,10 @@
                                 <h3 class="title title-middle">支払区分</h3>
                             </div>
                             <div>
-                                <select name="payment">
-                                    <option value="1">代金引換</option>
-                                    <option value="2">銀行振込</option>
-                                    <option value="3">決済不要</option>
+                                <select id="payment_change" name="payment">
+                                    <option value="1" {!! $payment == "1"?"selected":"" !!}>代金引換</option>
+                                    <option value="2" {!! $payment == "2"?"selected":"" !!}>銀行振込</option>
+                                    <option value="3" {!! $payment == "3"?"selected":"" !!}>決済不要</option>
                                 </select>
                             </div>
                         </div>
@@ -357,6 +357,7 @@
                                                     <td>{!! number_format(isset($prices["products"][$value->name]["total_sum"])?$prices["products"][$value->name]["total_sum"]:0) !!} 円</td>
                                                 </tr>
                                             </table>
+
                                         </div>
 
                                     </div>
@@ -585,6 +586,10 @@
                     alert("Chon địa chỉ giao hàng");
                 }
 
+            });
+
+            $("#payment_change").change(function () {
+                window.location.href= "{!! url()->current() !!}?payment="+$("#payment_change").val();
             });
         </script>
     @endpush

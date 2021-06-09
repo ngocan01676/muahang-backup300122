@@ -145,6 +145,8 @@ class HomeController extends \Zoe\Http\ControllerFront
         ]);
     }
     public function getCart(Request $request){
+        $data = $request->all();
+        $payment = isset($data['payment'])?$data['payment']:1;
         if(auth('frontend')
                 ->user() == null){
             return redirect(route('login'));
@@ -175,8 +177,9 @@ class HomeController extends \Zoe\Http\ControllerFront
         return $this->render('home.step.step1', [
             'counts'=>count($ids),
             'products'=>$_products,
-            'prices'=> $configs->prices($carts,$pay),
-            'address'=> $address
+            'prices'=> $configs->prices($carts,$pay,$payment),
+            'address'=> $address,
+            'payment'=>$payment
         ]);
     }
     public function getchangeInfoaddress(){
