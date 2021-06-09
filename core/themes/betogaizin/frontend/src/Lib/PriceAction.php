@@ -329,8 +329,13 @@ class PriceAction{
                 $products['products'][$id]['web_total_price_buy'] = $total_price_buy;
 
                 if($key == 0){
-                    $total_price_buy += 330;
-                    $products['web_total_cou'] = 330;
+                    if($type == 2 || $type == 3){
+                        $total_price_buy += 330;
+                        $products['web_total_cou'] = 330;
+                    }else{
+                        $total_price_buy += 0;
+                        $products['web_total_cou'] = 0;
+                    }
                 }
 
                 $products['products'][$id]['total_price_buy'] = $total_price_buy;
@@ -980,8 +985,13 @@ class PriceAction{
                 $products['products'][$id]['web_total_price_buy'] = $total_price_buy;
 
                 if($key == 0){
-                    $total_price_buy += 330;
-                    $products['web_total_cou'] = 330;
+                   if($type == 2 || $type == 3){
+                       $total_price_buy += 0;
+                       $products['web_total_cou'] = 0;
+                   }else{
+                       $total_price_buy += 330;
+                       $products['web_total_cou'] = 330;
+                   }
                 }
 
                 $products['products'][$id]['total_price_buy'] = $total_price_buy;
@@ -1123,8 +1133,12 @@ class PriceAction{
                 $products['products'][$id]['web_total_price_buy'] = $total_price_buy;
 
                 if($key == 0){
-                    $total_price_buy += 330;
-                    $products['web_total_cou'] = 330;
+                    if($type == 2 || $type == 3){
+
+                    }else{
+                        $total_price_buy += 330;
+                        $products['web_total_cou'] = 330;
+                    }
                 }
 
                 $products['products'][$id]['total_price_buy'] = $total_price_buy;
