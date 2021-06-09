@@ -87,4 +87,5 @@
         .load{
             background: #dedede;
         }
+
     </style>
