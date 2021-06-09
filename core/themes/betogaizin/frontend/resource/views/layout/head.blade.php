@@ -84,4 +84,7 @@
         .product-cart-row .product-cart-item3{
             width: 118px;
         }
+        .load{
+            background: #dedede;
+        }
     </style>
