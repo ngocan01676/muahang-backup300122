@@ -1,5 +1,5 @@
 @php
-    $id = time().'-'.rand(1,100);
+    $id = time().'-'.rand(1,1000000);
 @endphp
 @isset($data['results'][0])
     <div class="block-carousel" id="id_{!! $id !!}">
