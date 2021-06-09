@@ -173,9 +173,9 @@
                                                         <span class="product-cart-small-text only-sp">数量</span>
                                                         <div class="product-cart-pieces">
                                                             <div class="btn-set-wrap set-data" data-company="{!! $value->id !!}" data-id="{!!  $products[$product['id']]->id !!}" data-count="1" data-act="update">
-                                                                <span class="btn-set-btn" data-type="-">－</span>
+                                                                <span class="btn-set-btn" data-loading=".product-cart-row" data-type="-">－</span>
                                                                 <span class="btn-set-num">{!! $product['count'] !!}</span>
-                                                                <span class="btn-set-btn" data-type="+">＋</span>
+                                                                <span class="btn-set-btn" data-loading=".product-cart-row" data-type="+">＋</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -295,9 +295,9 @@
                                                                 <span class="product-cart-small-text only-sp">数量</span>
                                                                 <div class="product-cart-pieces">
                                                                     <div class="btn-set-wrap set-data" data-company="{!! $value->id !!}" data-id="{!! $product->id !!}" data-count="1" data-act="update">
-                                                                        <span class="btn-set-btn" data-type="-">－</span>
+                                                                        <span class="btn-set-btn" data-loading=".product-cart-row" data-type="-">－</span>
                                                                         <span class="btn-set-num">{!! $product->count !!}</span>
-                                                                        <span class="btn-set-btn" data-type="+">＋</span>
+                                                                        <span class="btn-set-btn" data-loading=".product-cart-row" data-type="+">＋</span>
                                                                     </div>
                                                                 </div>
                                                             </div>

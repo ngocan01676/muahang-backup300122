@@ -25,8 +25,8 @@ $(document).ready(function () {
                     data:{},
                     type:"GET",
                     success:function (html) {
-                        console.log(html.views['treeview_'+conf.company]);
-                        $("#company_"+conf.company).html($(html.views['treeview_'+conf.company]));
+
+                        $("#company_"+conf.company).html($(html.views['treeview_'+conf.company]).html());
                         if($('.item_row').length === 0){
                             location.reload();
                         }
@@ -40,7 +40,7 @@ $(document).ready(function () {
         var data = $(this).data();
        cartAdd(data);
    });
-    function cartAdd(data) {
+    function cartAdd(data,cb) {
         if(data.act === "add") {
             effectCard();
         }
@@ -50,10 +50,11 @@ $(document).ready(function () {
             type:"POST",
             success:function () {
                 initCarts(data);
+                if(cb) cb();
             }
         });
     }
-    function cartRemove(data,self){
+    function cartRemove(data,self,func){
         $(self).closest('.minicart-products-item').remove();
         $.ajax({
             url:window._urlCartAdd,
@@ -61,6 +62,7 @@ $(document).ready(function () {
             type:"POST",
             success:function () {
                 initCarts(data);
+                if(func) func();
             }
         });
     }
@@ -88,8 +90,19 @@ $(document).ready(function () {
     });
 
     $(document).on('click','.btn-set-btn',function () {
-       var type = $(this).data().type;
+       var dataConf = $(this).data();
+        console.log(dataConf);
+       var type = dataConf.type;
+       if(dataConf.hasOwnProperty('loading')){
+           $(this).closest(dataConf.loading).addClass('load');
+       }
        var element = $(this).closest('.set-data');
+       if(element.attr('lock')){
+            alert("Thao tác quá nhanh");
+            return;
+        }
+       element.attr('lock',true);
+
        var num = element.find('.btn-set-num');
        var count = parseInt(num.text());
        console.log(count);
@@ -99,18 +112,26 @@ $(document).ready(function () {
        }else{
            count--;
        }
-       console.log(count);
+
        num.html(count);
        var data = element.data();
-       console.log(data);
+
        if(count <= 0){
            data.count = 0;
-           cartRemove(data,this);
+           cartRemove(data,this,function () {
+               if(dataConf.hasOwnProperty('loading')){
+                   $(this).closest(dataConf.loading).remove('load');
+               }
+           });
        }else{
            data.count = count;
-           cartAdd(data);
+           cartAdd(data,function () {
+               element.attr('lock',false);
+               if(dataConf.hasOwnProperty('loading')){
+                   $(this).closest(dataConf.loading).remove('load');
+               }
+           });
        }
-       // console.log(type);
     });
    initCarts({});
 });
