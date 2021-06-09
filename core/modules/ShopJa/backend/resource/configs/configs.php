@@ -150,6 +150,10 @@
                             'fullname' => ['label' => z_language('Tên Khách Hàng', false), 'type' => 'title', 'primary' => true],
                             'GetCountOrder' => ['label' => z_language('Sản phẩm', false), 'type' => 'number','callback' => "GetCountOrder"],
                             'GetStatus' => ['label' => z_language('Trạng thái', false), 'type' => 'status','callback'=>'GetStatus'],
+                            'total_profit' => ['label' => z_language('Phụ phí', false), 'type' => 'number'],
+                            'total_sum' => ['label' => z_language('Tổng tiền SP', false), 'type' => 'number'],
+                            'total_cou' => ['label' => z_language('Cou', false), 'type' => 'number'],
+                            'totals_order' => ['label' => z_language('Tổng tiền', false), 'type' => 'number'],
                             'created_at' => ['label' => z_language('Tạo lúc', false), 'type' => 'date'],
                             'updated_at' => ['label' => z_language('Sửa lúc', false), 'type' => 'date'],
 

@@ -285,7 +285,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
                        ->user() != null?auth()
                    ->user()->id:1,
                'pay_method'=>$data['payment'],
-               'phone'=>$address[0]->phone1.'-'.$address[0]->phone1.'-'.$address[0]->phone1,
+               'phone'=>$address[0]->phone1.'-'.$address[1]->phone1.'-'.$address[2]->phone1,
                'country'=>$address[0]->address2,
                'city'=>$address[0]->prefecture_code,
                'address'=>$address[0]->address5,
@@ -293,6 +293,11 @@ class WidgetController extends \Zoe\Http\ControllerFront
                'day_ship'=>$timeShip['year'].'-'.$timeShip['month'].'-'.$timeShip['day'],
                'time_ship'=>$timeShip['time'],
                'info'=>'',
+               'total_profit'=>$prices['total_profit'],
+               'total_sum'=>$prices['total_sum'],
+               'total_cou'=>$prices['total_cou'],
+               'total_ship'=>$prices['total_ship'],
+               'totals_order'=>$prices['totals_order'],
                'created_at'=>date('Y-m-d'),
                'updated_at'=>date('Y-m-d'),
            ]);
@@ -312,11 +317,13 @@ class WidgetController extends \Zoe\Http\ControllerFront
                         'price'=>$product->price,
                         'price_ship'=>isset($price['ship'])?$price['ship']:0,
                         'company'=>$product->category_id,
-                        'ship'=>isset($price['cou'])?$price['cou']:0,
+                        'ship'=>0,
                         'image'=>"",
                         'image_order'=>$product->image,
                         'tracking'=>"",
                         'status'=>0,
+                        'profit'=>isset($price['profit'])?$price['profit']:0,
+                        'total_count'=>isset($price['total_count'])?$price['total_count']:0,
                         'updated_at'=>date('Y-m-d H:i:s'),
                     ]);
                 }

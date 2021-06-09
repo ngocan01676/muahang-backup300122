@@ -143,13 +143,15 @@ class PriceAction{
             }
             if($pro['web_total_sum'] > 0){
                 $results['total_sum']+=$pro['web_total_sum'];
-                $results['total_ship']+=0;
+                $results['total_ship']+=$pro['web_total_ship'];
                 $results['total_cou']+=$pro['web_total_cou'];
                 $results['total_profit']+=isset($pro['web_total_profit'])?$pro['web_total_profit']:0;
+
                 $results['products'][$value['name']] = $pro;
             }
-
+            $results['totals_order'] = $results['total_sum'] + $results['total_ship'] + $results['total_cou'] +  $results['total_profit'];
         }
+        
         return $results;
     }
     public function AMAZON($cate,$products,$province = "北海道",$type = 1){
@@ -414,7 +416,7 @@ class PriceAction{
                 $products['products'][$id]['total_ship'] = $products['products'][$id]['ship'];
                 $products['products'][$id]['total_sum_price']= $products['products'][$id]['total_price_buy']  + $products['products'][$id]['total_ship'];
 
-                $products['products'][$id]['web_total_ship'] = 0;
+                $products['products'][$id]['web_total_ship'] = $products['products'][$id]['ship'];
                 $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy']  + $products['products'][$id]['web_total_ship'];
 
                 if($key == 0){
@@ -1067,8 +1069,8 @@ class PriceAction{
                 $products['products'][$id]['cou'] = $ship_cou;
                 $products['products'][$id]['total_ship'] = $products['products'][$id]['ship'];
                 $products['products'][$id]['total_sum_price']= $products['products'][$id]['total_price_buy']  + $products['products'][$id]['total_ship'];
-                $products['products'][$id]['web_total_ship'] =0;
-                $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy'];
+                $products['products'][$id]['web_total_ship'] = $products['products'][$id]['ship'];
+                $products['products'][$id]['web_total_sum_price']= $products['products'][$id]['web_total_price_buy'] + $products['products'][$id]['ship'];
 
                 if($key == 0){
                     $products['products'][$id]['profit'] =
