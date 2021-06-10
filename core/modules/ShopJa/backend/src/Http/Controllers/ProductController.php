@@ -233,8 +233,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
         }
         try {
             $model->title = $data['title'];
-
-            $model->slug = $slug = Str::slug(  $model->title, '-');
+            $model->slug = Str::slug(isset($data['name_' . config('zoe.default_lang')])?$data['name_' . config('zoe.default_lang')]:"", '-');
 
             $model->description = $data['description'];
 
