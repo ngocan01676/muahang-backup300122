@@ -689,11 +689,14 @@ class PriceAction{
             $arrays['web_total_sum']+=$order['web_total_sum'];
             $arrays['web_total_ship']+=$order['web_total_ship'];
             $arrays['web_total_cou']+=$order['web_total_cou'];
-            if($order['profit'] < 0){
-                $arrays['web_total_profit']+= $order['profit']*-1 + 500;
+            if($order['profit'] < 0 || $order['profit'] < 500){
+                if($order['profit'] < 0 ){
+                    $arrays['web_total_profit']+= $order['profit']*-1 + 500;
+                }else{
+                    $arrays['web_total_profit']+=500 - $order['profit'];
+                }
             }
         }
-        dump($arrays);
         return $arrays;
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){
