@@ -454,7 +454,6 @@ class PriceAction{
         return $products;
     }
     public function KOGYJA($cate,$products,$province = "北海道",$type = 1){
-
         $products['total_price'] = 0;
         $products['total_price_buy'] = 0;
         $products['total_sum'] = 0;
