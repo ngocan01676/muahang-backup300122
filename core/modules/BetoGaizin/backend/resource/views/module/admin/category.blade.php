@@ -58,12 +58,12 @@
 </table>
 @push("scripts")
     <script>
-        if( window.hasOwnProperty('category_get')){
-            window.category_get.subscribe(function (data) {
-                if(data.data.hasOwnProperty){
-                    console.log(data);
-                }
-            });
-        }
+        // if( window.hasOwnProperty('category_get')){
+        //     window.category_get.subscribe(function (data) {
+        //         if(data.data.hasOwnProperty){
+        //             console.log(data);
+        //         }
+        //     });
+        // }
     </script>
 @endpush

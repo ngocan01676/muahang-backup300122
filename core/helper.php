@@ -1144,7 +1144,7 @@ function expand_directories_matrix($base_dir, $level = 0) {
     }
     return $directories;
 }
-function show_preg_match($list, $path = '',$permission,$role){
+function show_preg_match($list, $path = '',$permission = '',$role = ''){
     $html = "";
     $_path = $path;
     foreach ($list as $directory){
@@ -1174,7 +1174,7 @@ function show_preg_match($list, $path = '',$permission,$role){
     }
     return trim($html,"|");
 }
-function show_preg_match_1($list, $path = '',$permission,$role){
+function show_preg_match_1($list, $path = '',$permission = '',$role = ''){
     $html = "";
     $_path = $path;
     foreach ($list as $directory){

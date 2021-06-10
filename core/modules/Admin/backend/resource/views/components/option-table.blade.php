@@ -1,5 +1,5 @@
 @php $keyId = 'func_'.rand() @endphp
-<table id="{!! $keyId.'_wrap' !!}" class="table table-bordered">
+<table id="{!! $keyId.'_wrap' !!}" class="table table-bordered wrap_rows">
     <thead>
         <tr class="{!! $keyId.'_template' !!}">
             <td style="vertical-align: middle;text-align:center;width: 50px">0</td>
@@ -45,9 +45,17 @@
         if( window.hasOwnProperty('category_get')){
             window.category_get.subscribe(function (data) {
                 if(data.data.hasOwnProperty){
-                    console.log(data);
+                    console.log(data.data.data);
+                    {!! $keyId.'_' !!}renderData(data.data.data);
                 }
             });
+        }
+        function {!! $keyId.'_' !!}renderData(data) {
+            $("#{!! $keyId.'_wrap' !!}").find('tbody').empty();
+            let index = 0;
+            for(let k in data){
+                {!! $keyId.'_' !!}template($("#{!! $keyId.'_wrap' !!}"),data[k],index++);
+            }
         }
         function {!! $keyId.'_' !!}template(tbody,vals,index) {
             let template = tbody.find(".{!! $keyId.'_' !!}template").clone();
@@ -88,7 +96,10 @@
                     }
                 }
             });
+            template.find('.add').hide();
+            template.find('.remove').show();
             tbody.append(template);
+            {!! $keyId.'_' !!}beforeSave(tbody);
             tbody.find('.template').find('.data').each(function () {
                 $(this).removeAttr('name');
                 if($(this).hasClass('uint')){
@@ -98,11 +109,37 @@
                 }
             });
         }
+        function {!! $keyId.'_' !!}beforeSave(parent) {
+            let trs = parent.find('tr.Element');
+            let count = 1;
+            trs.each(function () {
+                console.log(this);
+                if(!$(this).hasClass('template')){
+                    let elements = $(this).find('.data');
+                    let _index = "";
+                    elements.each(function (index) {
+                        if(this.hasAttribute('data-index')){
+                            _index+= $(this).val().trim()+"_";
+                        }
+                    });
+                    if(_index.length === 0)
+                        _index = count++;
+                    else
+                        _index = _index.trimRight("_");
+                    $(this).attr('data-index',_index);
+                    $(this).find("td").first().empty().html(_index);
+                    elements.each(function () {
+                        $(this).attr('name',$(this).attr('data-name').replace("@INDEX@",_index))
+                    });
+                }
+            });
+        }
         function {!! $keyId.'_' !!}remove(self) {
             let _this = $(self);
             let parent = _this.parent().parent();
             let wrap = parent.closest(".wrap_rows").find('tbody');
             parent.remove();
+            beforeSave(wrap);
         }
         function {!! $keyId.'_' !!}add(self){
             let _this = $(self);
