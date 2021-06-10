@@ -75,6 +75,7 @@
                 {!! Form::hidden('id',0) !!}
                 {!! Form::hidden('class_nestable',$class_nestable) !!}
                 @if(isset($configs['core']['language']['multiple']))
+                    {!! Form::hidden('_lang',"_") !!}
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs" {{$current_language}}>
 
