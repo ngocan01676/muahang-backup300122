@@ -127,6 +127,11 @@ class CategoryController extends \Zoe\Http\ControllerBackend
                         try {
                             $category->save();
                             if(!empty($prefix_lang)){
+                                if(!isset($langs_key['slug']) && !in_array("slug",$langs_key)  ){
+                                    $langs_key['slug'] = [
+                                        'slug'=>'name'
+                                    ];
+                                }
                                 foreach ($this->data['language'] as $lang => $_language) {
                                     $data_save = [];
                                     foreach ($langs_key as $k=>$val){
