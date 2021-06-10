@@ -4,7 +4,7 @@
     </tr>
     <tr>
         <td>
-            Sản phẩm phải thỏa mãn : <input type="radio" name="data.typeAction"> Tất cả các điều kiện <input type="radio" name="data.typeAction"> Một trang các điều kiện
+            {{--Sản phẩm phải thỏa mãn : <input type="radio" name="data.typeAction"> Tất cả các điều kiện <input type="radio" name="data.typeAction"> Một trang các điều kiện--}}
         </td>
     </tr>
     <tr>
