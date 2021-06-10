@@ -141,6 +141,9 @@ class PriceAction{
             }else{
                 $pro = $this->YAMADA($key,$value,$province,$this->getValuePayMethod($payment),$value['name']);
             }
+
+
+            
             if($pro['web_total_sum'] > 0){
                 $results['total_sum']+=$pro['web_total_sum'];
                 $results['total_ship']+=$pro['web_total_ship'];
