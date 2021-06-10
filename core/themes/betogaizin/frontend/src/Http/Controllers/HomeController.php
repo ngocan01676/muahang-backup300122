@@ -21,9 +21,14 @@ class HomeController extends \Zoe\Http\ControllerFront
 
     }
     public function getCategoryGroupProduct($id){
-        $total_records = DB::table('shop_product')->where('group_id',$id)->count();
+        $config_language = app()->config_language;
+        $total_records = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$id)
+            ->join('shop_product_translation as t','t._id','=','p.id')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->where('lang_code',$config_language['lang'])->count();
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
+       
         $total_page = ceil($total_records / $limit);
         if ($current_page > $total_page){
             $current_page = $total_page;
@@ -32,8 +37,6 @@ class HomeController extends \Zoe\Http\ControllerFront
             $current_page = 1;
         }
         $start = ($current_page - 1) * $limit;
-        $config_language = app()->config_language;
-
         $results = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$id)
             ->join('shop_product_translation as t','t._id','=','p.id')
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')

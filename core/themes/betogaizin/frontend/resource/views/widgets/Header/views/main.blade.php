@@ -106,100 +106,113 @@
         </div>
         <div class="sp-drawer-menu">
             <div class="sp-drawer-menuIn">
+                @if(auth('frontend')->user())
                 <div class="user-info-block">
                     <div class="co-name co-name-login">
                         <p><a href="#">楽天市場</a>
                         </p>
                     </div>
                     <div class="name">
-                        <p><a href="#">TruongThieuHuyen</a><span class="unit">さん</span>
+                        <p>
+                            <a href="#">{!! auth('frontend')->user()->first_name.' '.auth('frontend')->user()->last_name !!}</a>
+                            <span class="unit">さん</span>
                         </p>
                     </div>
                     <div class="point">
-                        <p><a href="#" class="svg-icon icon-18 icon-point">0</a>  <span class="unit">ポイント</span>
+                        <p><a href="#" class="svg-icon icon-18 icon-point">0</a>  <span class="unit">{!! z_language('Điểm') !!}</span>
                         </p>
                     </div>
                     <div class="large-btn">
                         <ul>
-                            <li><a href="javascript:void(0);"><span class="svg-icon icon-28 icon-cart-black">買い物かご</span></a>
+                            <li><a href="javascript:void(0);"><span class="svg-icon icon-28 icon-cart-black">{!! z_language('Giỏ hàng') !!}</span></a>
                             </li>
                         </ul>
                     </div>
                 </div>
+                @else
+                    <div class="user-info-block">
+                        <div class="co-name">
+                            <p><a href="/">{!! z_language('Trang chủ') !!}</a></p>
+                        </div>
+                        <div class="large-btn">
+                            <ul>
+                                <li>
+                                    <a data-auto-id="login-btn-sp" href="/login">{!! z_language('Đăng nhập') !!}</a>
+                                </li>
+                                <li>
+                                    <a href="/register">{!! z_language('Đăng ký') !!}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="link-wrap-type-a">
-                    <p class="top-level-link"><a href="javascript:void(0);"><span class="svg-icon icon-comments">お知らせ</span></a>
-                    </p>
-                </div>
-                <div class="link-wrap-type-a">
-                    <p class="top-level-link"><a href="javascript:void(0);"><span class="svg-icon icon-mypage">マイページ</span></a>
-                    </p>
+
                     <ul>
-                        <li><a href="javascript:void(0);">注文履歴一覧</a>
+                        <li><a href="javascript:void(0);">{!! z_language('Lịch sử đặt hàng') !!}</a>
                         </li>
-                        <li><a href="javascript:void(0);">お届け先情報の変更</a>
+
+                        <li><a href="javascript:void(0);">{!! z_language('Yêu thích') !!}</a>
                         </li>
-                        <li><a href="javascript:void(0);">購入履歴</a>
+                        <li><a href="#">{!! z_language('Phiếu giảm giá') !!}</a>
                         </li>
-                        <li><a href="javascript:void(0);">お気に入り</a>
-                        </li>
-                        <li><a href="#">myクーポン</a>
-                        </li>
-                        <li><a href="#">楽天会員情報の確認・変更</a>
-                        </li>
-                        <li><a href="javascript:void(0);">企業/団体コード</a>
-                        </li>
-                        <li><a href="#">メールマガジンの購読・配信停止</a>
-                        </li>
-                        <li><a href="javascript:void(0);">欠品お知らせメールの受信・配信停止</a>
-                        </li>
-                        <!---->
+
                     </ul>
                 </div>
                 <div class="link-wrap-type-b">
                     <ul>
-                        <li><a href="#">ヘルプ</a>
+                        <li><a href="#">{!! z_language('Hướng dẫn mua hàng') !!}</a>
                         </li>
-                        <li><a href="javascript:void(0);">はじめての方へ</a>
+                        <li><a href="#">{!! z_language('Câu hỏi thường gặp') !!}</a>
                         </li>
-                        <li><a href="#">会員登録方法</a>
-                        </li>
-                        <li><a href="#">配送料・利用料</a>
-                        </li>
-                        <li><a href="#">配送時間</a>
-                        </li>
-                        <li><a href="#">お支払い方法</a>
-                        </li>
-                        <li><a href="#">クーポンの使い方</a>
-                        </li>
-                        <li><a href="#">ご注文のキャンセル</a>
-                        </li>
-                        <li><a href="javascript:void(0);">再配送手続き</a>
-                        </li>
-                        <li><a href="#">配送エリア一覧</a>
-                        </li>
-                        <li><a href="#">酒類販売管理者標識</a>
-                        </li>
-                        <li><a href="#">お問い合わせ</a>
-                        </li>
-                        <li><a href="#">法人様のご利用について</a>
-                        </li>
+                        {{--<li><a href="javascript:void(0);">はじめての方へ</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="#">会員登録方法</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="#">配送料・利用料</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="#">配送時間</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="#">お支払い方法</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="#">クーポンの使い方</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="#">ご注文のキャンセル</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="javascript:void(0);">再配送手続き</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="#">配送エリア一覧</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="#">酒類販売管理者標識</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="#">お問い合わせ</a>--}}
+                        {{--</li>--}}
+                        {{--<li><a href="#">法人様のご利用について</a>--}}
+                        {{--</li>--}}
                     </ul>
                 </div>
+               @if(auth('frontend')->user())
+
                 <div class="user-info-block">
+                    <form id="logout-form-12345" action="{!! (route('logout')) !!}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                     <div class="large-btn-wh">
                         <ul>
-                            <li><a data-auto-id="logout-btn-sp" href="javascript:void(0);">ログアウト</a>
+                            <li><a data-auto-id="logout-btn-sp" href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('logout-form-12345').submit();">{!! z_language('Thoát') !!}</a>
                             </li>
                         </ul>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </aside>
 
     <div class="fixed-cart-area js-show" id="cart">
         <div class="fixed-page-top only-sp" style="">
-            <p><a href="#container"><span class="svg-icon icon-42 icon-page-top icon-no-text">上へ</span></a>
+            <p><a href="#container"><span class="svg-icon icon-42 icon-page-top icon-no-text">{!! z_language('Lên') !!}</span></a>
             </p>
         </div>
         <div class="notice-popup notice-popup-nohead">
@@ -330,7 +343,7 @@
                             </span>
                             </p>
                             <p class="header-user-info-box-point">
-                                <a href="https://point.rakuten.co.jp/" class="svg-icon icon-18 icon-point">0</a>
+                                <a href="#" class="svg-icon icon-18 icon-point">0</a>
                                 <span class="txt-small">ポイント</span>
                             </p>
                         </div>

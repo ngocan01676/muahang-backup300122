@@ -20,7 +20,6 @@
         <div  class="product-carousel slider-basic item-parts static">
             <div class="scrollbar-hidden slider-basic-frame touch-hover-event">
                 @foreach($data['results'] as $result)
-
                 <div class="slider-basic-item flex-shrink-0 slider-wrapper-pc">
                     <div data-ratunit="item" class="product-item">
                         <div class="product-item-image-area" last="19">
@@ -88,44 +87,50 @@
             </div>
         </div>
     </div>
-    @push('scripts')
-        <script>
-            $('#id_{!! $id !!} .slider-basic-frame').slick({
-                speed: 300,
-                slidesToShow: 5,
-                slidesToScroll: 5,
-                prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
-                nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 4,
-                            slidesToScroll: 4,
-                            prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
-                            nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
-                        }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3,
-                            prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
-                            nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2,
-                            prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
-                            nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
-                        }
-                    }
-                ]
-            });
-        </script>
-    @endpush
+    @isset($data['results'][0])
+        @push('scripts')
+            <script>
+               $(document).ready(function () {
+                   if($('#id_{!! $id !!} .slider-basic-frame').html().length > 0){
+                       $('#id_{!! $id !!} .slider-basic-frame').not('.slick-initialized').slick({
+                           speed: 300,
+                           slidesToShow: 5,
+                           slidesToScroll: 5,
+                           prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
+                           nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
+                           responsive: [
+                               {
+                                   breakpoint: 1024,
+                                   settings: {
+                                       slidesToShow: 4,
+                                       slidesToScroll: 4,
+                                       prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
+                                       nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
+                                   }
+                               },
+                               {
+                                   breakpoint: 600,
+                                   settings: {
+                                       slidesToShow: 3,
+                                       slidesToScroll: 3,
+                                       prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
+                                       nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
+                                   }
+                               },
+                               {
+                                   breakpoint: 480,
+                                   settings: {
+                                       slidesToShow: 2,
+                                       slidesToScroll: 2,
+                                       prevArrow: $('#id_{!! $id !!} .product-carousel .prev-btn'),
+                                       nextArrow: $('#id_{!! $id !!} .product-carousel .next-btn'),
+                                   }
+                               }
+                           ]
+                       });
+                   }
+               });
+            </script>
+        @endpush
+    @endisset
 @endisset
