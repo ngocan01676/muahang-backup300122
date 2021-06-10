@@ -60,7 +60,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         $start = ($current_page - 1) * $limit;
 
         $results = $model->offset($start)->limit($limit)->get()->all();
-         
+
 
         $cate = [];
 

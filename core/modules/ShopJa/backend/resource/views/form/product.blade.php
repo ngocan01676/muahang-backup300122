@@ -97,18 +97,7 @@
                                         {!! Form::text('tag',null, ['class' => 'form-control','placeholder'=>'Tag']) !!}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        {!! Form::label('id_name', z_language('không quan tâm'), ['class' => 'name']) !!}
-                                        {!! Form::text('name',null, ['class' => 'form-control','placeholder'=>z_language('Tên hiển thị website')]) !!}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {!! Form::label('id_body', z_language('Không quan tam'), ['class' => 'body']) !!}
-                                        {!! Form::textarea('body',null, ['class' => 'form-control','placeholder'=>z_language('Mô tả'),'cols'=>5,'rows'=>5]) !!}
-                                    </td>
-                                </tr>
+                               
                                 <tr>
                                     <td>
 
