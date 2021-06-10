@@ -1084,7 +1084,7 @@ class PriceAction{
                 foreach ($arr_ship as $i=>$val){
                     if($val[0]->unit == 0 && $price_ship_default==-1){
                         $price_ship_default =  $val[1]['value'];
-                    }else if($val[0]->unit == $product->unit && $price_ship == -1){
+                    }else if($val[0]->unit == $data_product["data"]['unit'] && $price_ship == -1){
                         $price_ship = $val[1]['value'];
                     }
                 }
