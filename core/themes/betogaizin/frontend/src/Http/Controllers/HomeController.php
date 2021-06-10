@@ -32,7 +32,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
 
-       
+
 
         $total_page = ceil($total_records / $limit);
         if ($current_page > $total_page){
