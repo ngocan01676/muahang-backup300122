@@ -40,8 +40,8 @@ $(document).ready(function () {
         var data = $(this).data();
        cartAdd(data);
    });
-    function cartAdd(data,cb) {
-        if(data.act === "add") {
+    function cartAdd(data,cb,type) {
+        if(data.act === "add" && type !== "cart" ) {
             effectCard();
         }
         $.ajax({
@@ -104,34 +104,25 @@ $(document).ready(function () {
        element.attr('lock',true);
 
        var num = element.find('.btn-set-num');
-       var count = parseInt(num.text());
-       console.log(count);
-       console.log(type.toString() === '+');
+       var counts = parseInt(num.text());
+       var count = 0;
+
        if(type === "+"){
-           count++;
+           count = 1;
        }else{
-           count--;
+           count = -1;
        }
 
-       num.html(count);
+       num.html(counts+count);
        var data = element.data();
 
-       if(count <= 0){
-           data.count = 0;
-           cartRemove(data,this,function () {
-               if(dataConf.hasOwnProperty('loading')){
-                   $(this).closest(dataConf.loading).remove('load');
-               }
-           });
-       }else{
-           data.count = count;
-           cartAdd(data,function () {
-               element.attr('lock',false);
-               if(dataConf.hasOwnProperty('loading')){
-                   $(this).closest(dataConf.loading).remove('load');
-               }
-           });
-       }
+        data.count = count;
+        cartAdd(data,function () {
+            element.attr('lock',false);
+            if(dataConf.hasOwnProperty('loading')){
+                $(this).closest(dataConf.loading).remove('load');
+            }
+        },"cart");
     });
    initCarts({});
 });

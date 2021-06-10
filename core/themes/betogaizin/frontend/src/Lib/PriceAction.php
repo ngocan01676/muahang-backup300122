@@ -227,7 +227,7 @@ class PriceAction{
                     }
                 }
 
-                $price_ship_default  = -1;
+                $price_ship_default  = 0;
                 $price_ship  = -1;
                 foreach ($arr_ship as $i=>$val){
                     if($val[0]->unit == 0 && $price_ship_default==-1){
@@ -377,7 +377,7 @@ class PriceAction{
                     }
                 }
 
-                $price_ship_default  = -1;
+                $price_ship_default  = 0;
                 $price_ship  = -1;
                 foreach ($arr_ship as $i=>$val){
                     if($val[0]->unit == 0 && $price_ship_default==-1){
@@ -471,19 +471,7 @@ class PriceAction{
         $n = count($row);
 
         $orders = [
-            [
-                "total_count"=>0,
-                "total_price"=>0,
-                "total_price_buy"=>0,
-                "total_sum"=>0,
-                "total_ship"=>0,
-                "total_cou"=>0,
-                "profit"=>0,
-                "products"=>[],
-                "web_total_sum"=>0,
-                "web_total_ship"=>0,
-                "web_total_profit"=>0,
-            ]
+
         ];
 
         $i = 0;
@@ -493,23 +481,55 @@ class PriceAction{
         });
 
         $kgs = [2,5,10,15];
-
+        $create = false;
+        $newPush = [];
         while (count($row)>0){
-            if($orders[$i]['total_count'] <15.5){
-                $val = array_shift($row);
-                if($orders[$i]['total_count'] + (int)$val['count']*$val['data']->value <= 15.5){
+            $val = array_shift($row);
+            if(($val['count']*$val['data']->value) < 15){
+                $newPush[] = $val;
+            }else {
+                $_count = 15/$val['data']->value;
+                $orders[] = [
+                    "total_count"=>$_count,
+                    "total_price"=>0,
+                    "total_price_buy"=>0,
+                    "total_sum"=>0,
+                    "total_ship"=>0,
+                    "total_cou"=>0,
+                    "profit"=>0,
+                    "products"=>[
+                        ['count'=>$_count,'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate'],'data'=>$val['data']]
+                    ],
+                    "web_total_sum"=>0,
+                    "web_total_ship"=>0,
+                    "web_total_profit"=>0,
+                ];
+                $val['count'] =$val['count'] - $_count;
+                if( $val['count'] >= 1){
+                    array_unshift($row,$val);
+                }
+            }
+        }
+
+        //dd($newPush,$orders);
+        $i = count($orders);
+        while (count($newPush)>0){
+            if(isset($orders[$i]['total_count']) && $orders[$i]['total_count'] < 15){
+                $val = array_shift($newPush);
+                if($orders[$i]['total_count'] + (int)$val['count']*$val['data']->value <= 15){
                     $orders[$i]['total_count']+=(int)$val['count']*$val['data']->value;
                     $orders[$i]["products"][] = ['count'=>$val['count'],'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
                 }else{
-                    $_count = (15 - $orders[$i]['total_count']);
-                    $orders[$i]['total_count']+= $_count*$val['data']->value;
+                    $_count = (int)(15 - $orders[$i]['total_count']);
+                    $orders[$i]['total_count']+= $_count;
                     $orders[$i]["products"][] = ['count'=>$_count,'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
-                    $val['count'] = $val['count'] - $_count;
-                    array_unshift($row,$val);
+                    $val['count'] = $val['count'] - $_count/$val['data']->value;
+                    if( $val['count'] >= 1){
+                        array_unshift($newPush,$val);
+                    }
                 }
-            }else if(count($row)>0){
-                $i++;
-                $orders[$i] =   [
+            }else if(count($newPush)>0){
+                $orders[] =   [
                     "total_count"=>0,
                     "total_price"=>0,
                     "total_price_buy"=>0,
@@ -517,15 +537,19 @@ class PriceAction{
                     "total_ship"=>0,
                     "total_cou"=>0,
                     "profit"=>0,
-                    "products"=>[],
+                    "products"=>[
+
+                    ],
                     "web_total_sum"=>0,
                     "web_total_ship"=>0,
                     "web_total_profit"=>0,
                 ];
+                $i = count($orders)-1;
             }
         }
+
         foreach ($orders as $order_index=>$order){
-            $totalCountAll = $order['total_count'];
+            $totalCountAll = (int)$order['total_count'];
             $row = $order['products'];
 
             usort($row, function ($a,$b){
@@ -589,7 +613,7 @@ class PriceAction{
                                 }
                             }
                         }
-                        $price_ship_default  = -1;
+                        $price_ship_default  =0;
                         $price_ship  = -1;
                         foreach ($arr_ship as $i=>$val){
                             if($val[0]->unit == 0 && $price_ship_default==-1){
@@ -703,6 +727,7 @@ class PriceAction{
                 }
             }
         }
+
         return $arrays;
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){

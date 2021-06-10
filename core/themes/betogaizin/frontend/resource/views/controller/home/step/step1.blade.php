@@ -19,7 +19,10 @@
                 <header id="header" class="header with-border-bottom only-pc">
                     <div class="header-main">
                         <div class="header-inner">
-                            <p class="header-logo"><a href="/"><img src="/step/images/logo/logo_pc.svg" alt=""></a></p>
+                            <p class="header-logo"><a href="/">
+                                    {{--<img src="/step/images/logo/logo_pc.svg" alt="">--}}
+                                </a>
+                            </p>
                             <ul class="header-step">
                                 <li class="header-step-item header-step-item1">買い物かご</li>
                                 <li class="header-step-item header-step-item2">お支払い</li>
@@ -114,12 +117,10 @@
                     </div>
                     <hr class="line line-lightgray mt40-pc mb40-pc">
                     @foreach($category as $cate=>$value)
-
                             @php $isSub = false @endphp
                            @if(($value->name =="KOGYJA"  || $value->name == "KURICHIKU") && isset($prices["products"][$value->name]['products']))
-
                                 @section('treeview_'.$cate)
-                        <div id="company_{!! $value->id !!}" class="item_row">
+                                <div id="company_{!! $value->id !!}" class="item_row">
                             <h3 class="title title-middle">かごの中の商品 {!! $value->name !!}</h3>
                             <div id="cartList" class="product-cart cf">
                                 <div class="product-cart-header cf only-pc">
@@ -172,7 +173,7 @@
                                                     <div class="product-cart-item4" style="padding-bottom: 10px;">
                                                         <span class="product-cart-small-text only-sp">数量</span>
                                                         <div class="product-cart-pieces">
-                                                            <div class="btn-set-wrap set-data" data-company="{!! $value->id !!}" data-id="{!!  $products[$product['id']]->id !!}" data-count="1" data-act="update">
+                                                            <div class="btn-set-wrap set-data" data-company="{!! $value->id !!}" data-id="{!!  $products[$product['id']]->id !!}" data-count="1" data-act="add">
                                                                 <span class="btn-set-btn" data-loading=".product-cart-row" data-type="-">－</span>
                                                                 <span class="btn-set-num">{!! $product['count'] !!}</span>
                                                                 <span class="btn-set-btn" data-loading=".product-cart-row" data-type="+">＋</span>
@@ -212,7 +213,6 @@
                                             </div>
                                         @endforeach
                                     @endforeach
-
                                 </div>
                             </div>
                             <BR>
@@ -239,7 +239,8 @@
                                 </tr>
                             </table>
                             </div>
-                            @endsection
+                            </div>
+                                @endsection
                                 @if($isSub)
                                     @yield('treeview_'.$cate)
                                 @endif
@@ -323,7 +324,7 @@
                                                         <div class="product-cart-item6 only-pc" style="padding-bottom: 10px;">
 
                                                             <button
-                                                                    data-company="{!! $value->id !!}"  data-id="{!! $product->id !!}" data-count="0" data-act="update"
+                                                                    data-company="{!! $value->id !!}"  data-id="{!! $product->id !!}" data-count="0" data-act="add"
                                                                     type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">削除
                                                             </button>
                                                         </div>
@@ -601,7 +602,7 @@
                     <header id="header" class="header with-border-bottom only-pc">
                         <div class="header-main">
                             <div class="header-inner">
-                                <p class="header-logo"><a href="/"><img src="/step/images/logo/logo_pc.svg" alt=""></a></p>
+                                {{--<p class="header-logo"><a href="/"><img src="/step/images/logo/logo_pc.svg" alt=""></a></p>--}}
                                 <ul class="header-step">
                                     <li class="header-step-item header-step-item1">買い物かご</li>
                                     <li class="header-step-item header-step-item2">お支払い</li>
