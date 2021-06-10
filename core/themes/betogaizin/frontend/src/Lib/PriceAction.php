@@ -230,7 +230,7 @@ class PriceAction{
                     }
                 }
 
-                $price_ship_default  = 0;
+                $price_ship_default  = -1;
                 $price_ship  = -1;
                 foreach ($arr_ship as $i=>$val){
                     if($val[0]->unit == 0 && $price_ship_default==-1){
@@ -270,7 +270,7 @@ class PriceAction{
                     $ship_cou = 0;
 
                 }
-                $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                $price_ship =  $price_ship!=-1?$price_ship:($price_ship_default==-1?0:$price_ship_default);
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
 
                 $products['products'][$id]['ship'] = $price_ship > -1?$price_ship*$count:-1;
@@ -380,7 +380,7 @@ class PriceAction{
                     }
                 }
 
-                $price_ship_default  = 0;
+                $price_ship_default  = -1;
                 $price_ship  = -1;
                 foreach ($arr_ship as $i=>$val){
                     if($val[0]->unit == 0 && $price_ship_default==-1){
@@ -420,7 +420,7 @@ class PriceAction{
                     $ship_cou = 0;
 
                 }
-                $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                $price_ship =  $price_ship!=-1?$price_ship:($price_ship_default==-1?0:$price_ship_default);
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
 
                 $products['products'][$id]['ship'] = $price_ship > -1?$price_ship*$count:-1;
@@ -616,17 +616,16 @@ class PriceAction{
                                 }
                             }
                         }
-                        $price_ship_default  =0;
+                        $price_ship_default  =-1;
                         $price_ship  = -1;
                         foreach ($arr_ship as $i=>$val){
-                           ;
                             if($val[0]->unit == 0 && $price_ship_default==-1){
                                 $price_ship_default =  $val[1]['value'];
                             }else if($val[0]->unit == $data_product["data"]['unit'] && $price_ship == -1){
                                 $price_ship = $val[1]['value'];
                             }
                         }
-                        $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                        $price_ship =  $price_ship!=-1?$price_ship:($price_ship_default == -1?0:$price_ship_default);
 
                         if( $type == 2 || $type == 3 ){
                             $ship_cou = 0;
@@ -908,7 +907,7 @@ class PriceAction{
                                 $price_ship = $val[1]['value'];
                             }
                         }
-                        $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                        $price_ship =  $price_ship!=-1?$price_ship:($price_ship_default == -1?0:$price_ship_default);
 
                         if( $type == 2 || $type == 3 ){
                             $ship_cou = 0;
@@ -1122,7 +1121,7 @@ class PriceAction{
                     $ship_cou = 0;
 
                 }
-                $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                $price_ship =  $price_ship!=-1?$price_ship:($price_ship_default==-1?0:$price_ship_default);
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
 
                 $products['products'][$id]['ship'] = $price_ship > -1?$price_ship*$count:-1;
@@ -1271,7 +1270,7 @@ class PriceAction{
                     $ship_cou = 0;
 
                 }
-                $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
+                $price_ship =  $price_ship!=-1?$price_ship:($price_ship_default==-1?0:$price_ship_default);
                 $ship_cou = $ship_cou == -1?0:$ship_cou;
 
                 $products['products'][$id]['ship'] = $price_ship > -1?$price_ship*$count:-1;
