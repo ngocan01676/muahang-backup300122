@@ -690,9 +690,10 @@ class PriceAction{
             $arrays['web_total_ship']+=$order['web_total_ship'];
             $arrays['web_total_cou']+=$order['web_total_cou'];
             if($order['profit'] < 0){
-                $arrays['web_total_profit']= $order['profit']*-1 + 500;
+                $arrays['web_total_profit']+= $order['profit']*-1 + 500;
             }
         }
+        
         return $arrays;
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){
