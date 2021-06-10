@@ -237,7 +237,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
             $_products[$key]->count = $carts[$product->id]['count'];
             $_products[$key]->price_total = $_products[$key]->count * $product->price_buy;
             $_products[$key]->order_index = $carts[$product->id]['time'];
-
+            $carts[$product->id]['data'] = $product;
         }
         usort($_products, function($a,$b){
             return $a->order_index - $b->order_index;
