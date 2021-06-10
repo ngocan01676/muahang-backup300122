@@ -7,6 +7,7 @@ use Validator;
 use Illuminate\Support\Str;
 use Mail;
 use BetoGaizinTheme\Mail\MyEmail;
+
 class HomeController extends \Zoe\Http\ControllerFront
 {
     public $config_language = [];
@@ -38,7 +39,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             ->where('lang_code',$config_language['lang']);
         foreach ($cate->data as $val){
             if($val['type'] == "name"){
-                $model->where('t.name','like','%'.$val['value'].'%');
+                $model->where('t.name','like','%'.Str::slug($val['value']).'%');
             }
         }
 
