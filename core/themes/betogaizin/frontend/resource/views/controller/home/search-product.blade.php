@@ -456,8 +456,8 @@
                         <div class="product-item-image-area">
                             <!---->
                             <p class="product-item-img">
-                                <a href="/item/4976994206307" class="img-label-wrap link-img label-large">
-                                    <img alt="" class="img-base-size" data-src="//sm.r10s.jp/item/07/4976994206307.jpg?fit=inside|200:200&amp;composite-to=*,*|200:200&amp;background-color=white" src="/img/loader.gif" lazy="loading">
+                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="img-label-wrap link-img label-large">
+                                    <img alt="" class="img-base-size" src="{!! get_thumbnails($result->image,165) !!}" lazy="loading">
                                     <span class="img-label pos2"><i class="svg-mark-item mark-1"></i></span>
                                     <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>
                                 </a>
@@ -508,7 +508,10 @@
                                                     data-act="add"
                                                class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
                                             </a>
-                                            <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-4976994206307" class="btn-set-btn">－</span>  <span class="btn-set-num">0</span>  <span data-auto-id="undefined/inc-cart-4976994206307" class="btn-set-btn">＋</span>
+                                            <div class="btn-set-wrap" style="display: none;">
+                                                <span data-auto-id="undefined/dec-cart-4976994206307" class="btn-set-btn">－</span>
+                                                <span class="btn-set-num">0</span>
+                                                <span data-auto-id="undefined/inc-cart-4976994206307" class="btn-set-btn">＋</span>
                                             </div>
                                             <!---->
                                         </div>
@@ -541,7 +544,7 @@
                     <div class="product-item-info-in">
                         <div class="product-item-info-top">
                             <p><span class="product-item-info-maker">味の素</span>
-                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class=""><span class="product-item-info-name">{!! $result->title !!}</span></a>
+                                <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class=""><span class="product-item-info-name">{!! $result->name !!}</span></a>
                                 <span class="product-item-info-amount">600g</span>
                             </p>
                         </div>
@@ -592,7 +595,7 @@
                         @if($i == $current_page)
                             <span>{!! $i !!}</span>
                         @else
-                            <a href="{!! router_frontend_lang('home:category-product',$cate) !!}?page={!! $i !!}">
+                            <a href="{!! router_frontend_lang('home:search-product',['page'=>$i,'keyword'=>$keyword]) !!}">
                                 {!! $i !!}
                             </a>
                         @endif
