@@ -41,8 +41,8 @@
                                             </li>
                                        @endforeach
                                    @else
-                                        <li>
-                                            <a href="#">{!! $menus[$value1['id']]->name !!}</a>
+                                        <li class="category-menu-link">
+                                            <a href="{!! router_frontend_lang('home:menu-product-group',['id'=>$value1['id'],'slug'=>$menus[$value1['id']]->slug]) !!}">{!! $menus[$value1['id']]->name !!}</a>
                                         </li>
                                    @endif
                                 @endforeach
