@@ -693,7 +693,7 @@ class PriceAction{
                 $arrays['web_total_profit']+= $order['profit']*-1 + 500;
             }
         }
-
+        dump($arrays);
         return $arrays;
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){
