@@ -495,9 +495,9 @@ class PriceAction{
         $kgs = [2,5,10,15];
 
         while (count($row)>0){
-            if($orders[$i]['total_count'] <15){
+            if($orders[$i]['total_count'] <15.5){
                 $val = array_shift($row);
-                if($orders[$i]['total_count'] + (int)$val['count']*$val['data']->value <= 15){
+                if($orders[$i]['total_count'] + (int)$val['count']*$val['data']->value <= 15.5){
                     $orders[$i]['total_count']+=(int)$val['count']*$val['data']->value;
                     $orders[$i]["products"][] = ['count'=>$val['count'],'id'=>$val['id'],'time'=>$val['time'],'cate'=>$val['cate']];
                 }else{
