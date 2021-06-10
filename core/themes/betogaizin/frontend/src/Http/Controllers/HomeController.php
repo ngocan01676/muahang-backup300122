@@ -31,7 +31,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         }
         $cate = $cate[$id];
 
-
+        DB::connection()->enableQueryLog();
         $model = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$id)
             ->join('shop_product_translation as t','t._id','=','p.id')
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
@@ -43,7 +43,9 @@ class HomeController extends \Zoe\Http\ControllerFront
         }
 
         $total_records = $model->count();
-
+        $queries = DB::getQueryLog();
+        $last_query = end($queries);
+        dump($last_query);
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
 
@@ -55,7 +57,11 @@ class HomeController extends \Zoe\Http\ControllerFront
             $current_page = 1;
         }
         $start = ($current_page - 1) * $limit;
+
         $results = $model->offset($start)->limit($limit)->get()->all();
+        $queries = DB::getQueryLog();
+        $last_query = end($queries);
+        dump($last_query);
         $cate = [];
 
         $name = "";
