@@ -24,16 +24,16 @@ class HomeController extends \Zoe\Http\ControllerFront
     }
     public function getCategoryGroupProduct($id){
         $config_language = app()->config_language;
-        DB::connection()->enableQueryLog();
+
         $total_records = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$id)
             ->join('shop_product_translation as t','t._id','=','p.id')
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
             ->where('lang_code',$config_language['lang'])->count();
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
-        $queries = DB::getQueryLog();
-        $last_query = end($queries);
-        dump($last_query);
+
+       
+
         $total_page = ceil($total_records / $limit);
         if ($current_page > $total_page){
             $current_page = $total_page;
