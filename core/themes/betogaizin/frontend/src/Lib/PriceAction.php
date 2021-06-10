@@ -572,8 +572,8 @@ class PriceAction{
                     if($key == 0){
                         foreach($configShip as $i => $val){
 
-                            $is_IF_Start = $this->IF_Start($totalCountAll,$configShip[$i]);
-                            $is_IF_End =  $this->IF_End($totalCountAll,$configShip[$i]);
+                            $is_IF_Start = $this->IF_Start((int)$totalCountAll ,$configShip[$i]);
+                            $is_IF_End =  $this->IF_End((int)$totalCountAll,$configShip[$i]);
 
                             if($is_IF_Start && $is_IF_End){
                                 $conf  =  $configShip[$i]->config;
