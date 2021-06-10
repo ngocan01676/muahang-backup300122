@@ -626,7 +626,13 @@ class PriceAction{
                         }
                         $orders[$order_index]['web_total_ship'] = 0;
                         if($order_index == 0)
-                            $orders[$order_index]['web_total_cou'] =  330;
+                        {
+                            if($type == 1){
+                                $orders[$order_index]['web_total_cou'] =  330;
+                            }else{
+                                $orders[$order_index]['web_total_cou'] =  0;
+                            }
+                        }
                         else
                             $orders[$order_index]['web_total_cou'] =  0;
                     }else{
@@ -912,7 +918,12 @@ class PriceAction{
 
 
                     if( $key == 0){
-                        $orders[$order_index]['web_total_cou']=330;
+                        if($type == 1){
+                            $orders[$order_index]['web_total_cou']=330;
+                        }else{
+                            $orders[$order_index]['web_total_cou']=0;
+                        }
+
                         $orders[$order_index]['total_sum'] =  $orders[$order_index]['products'][$id]['total_price_buy'];
 
 
