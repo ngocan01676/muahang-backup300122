@@ -913,10 +913,7 @@ class PriceAction{
                     $ship_cou = $ship_cou == -1?0:$ship_cou;
                     $orders[$order_index]['products'][$id]['ship'] = $price_ship > -1?$price_ship:-1;
                     $orders[$order_index]['products'][$id]['cou'] = $ship_cou;
-
                     $orders[$order_index]['total_cou']+=  $orders[$order_index]['products'][$id]['cou'];
-
-
                     if( $key == 0){
                         if($type == 1){
                             $orders[$order_index]['web_total_cou']=330;
