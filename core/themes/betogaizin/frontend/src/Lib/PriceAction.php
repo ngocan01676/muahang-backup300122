@@ -667,11 +667,12 @@ class PriceAction{
                     $orders[$order_index]['products'][$id]['web_total_sum_price'] = $orders[$order_index]['products'][$id]['web_total_price_buy'];
                     $orders[$order_index]['profit']+= $orders[$order_index]['products'][$id]['profit'];
                     $orders[$order_index]['web_total_sum']+=  $orders[$order_index]['products'][$id]['web_total_price_buy'];
-                    if($orders[$order_index]['products'][$id]['profit'] < 0){
-                        $orders[$order_index]['web_total_profit'] = $orders[$order_index]['products'][$id]['profit']*-1 + 500;
-                    }else{
-                        $orders[$order_index]['web_total_profit'] = 0;
-                    }
+
+//                    if($orders[$order_index]['products'][$id]['profit'] < 0){
+//                        $orders[$order_index]['web_total_profit']+= $orders[$order_index]['products'][$id]['profit']*-1 + 500;
+//                    }else{
+//                        $orders[$order_index]['web_total_profit']+= 0;
+//                    }
                 }
             }
         }
@@ -688,9 +689,10 @@ class PriceAction{
             $arrays['web_total_sum']+=$order['web_total_sum'];
             $arrays['web_total_ship']+=$order['web_total_ship'];
             $arrays['web_total_cou']+=$order['web_total_cou'];
-            $arrays['web_total_profit']+=$order['web_total_profit'];
+            if($order['profit'] < 0){
+                $arrays['web_total_profit']= $order['profit']*-1 + 500;
+            }
         }
-
         return $arrays;
     }
     public function KURICHIKU($cate,$products,$province = "北海道",$type = 1){
