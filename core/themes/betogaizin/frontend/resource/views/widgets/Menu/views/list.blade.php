@@ -1,12 +1,9 @@
 @if(!isset($_isMobile) || !$_isMobile)
     @php
         $nestable  = \BetoGaizinTheme\Helper\Nestable::getInstance();
-        $type = "menu";
-        $menus = get_menu_type($type);
-        $position = config_get("menu", $type);
-
-
-
+        $type =  \ModuleBetoGaizin\Module::$key.":menu";
+        $menus = get_category_type($type);
+        $position = config_get("category",$type);
     @endphp
     <div class="lyt-side-pattern01-menu only-pc">
     <p class="side-content-btn-clock">
@@ -67,25 +64,9 @@
                         </ul>
                     </div>
                 </li>
-                @elseif($menus[$value['id']]->name =="Category")
-                    @php
-                        $position_category = config_get("category","beto_gaizin:category");
-                        $category = get_category_type("beto_gaizin:category");
-
-                    @endphp
-                    @foreach($position_category as $cate_value)
-                    <li>
-                        <a href="{!! router_frontend_lang($menus[$value['id']]->router_name,['id'=>$category[$cate_value['id']]->id,'slug'=>$category[$cate_value['id']]->slug]) !!}" class="category-menu-link">{!! $category[$cate_value['id']]->name !!}</a>
-                    </li>
-                    @endforeach
-
                 @else
                     <li>
-                        @if($menus[$value['id']]->type_link == "router" && !empty($menus[$value['id']]->router_name))
-                            <a href="{!! router_frontend_lang($menus[$value['id']]->router_name,[]) !!}" class="category-menu-link">{!! $menus[$value['id']]->name !!}</a>
-                        @else
-                            <a href="{!! $menus[$value['id']]->router_name !!}" class="category-menu-link">{!! $menus[$value['id']]->name !!}</a>
-                        @endif
+                        <a href="{!! router_frontend_lang('home:menu-product-group',['id'=>$value['id'],'slug'=>$menus[$value['id']]->slug]) !!}" class="category-menu-link">{!! $menus[$value['id']]->name !!}</a>
                     </li>
                 @endif
             @endforeach

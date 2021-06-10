@@ -567,7 +567,23 @@ function config_delete($type, $name)
         ['name' => $name, 'type' => $type]
     )->delete();
 }
+function get_category_id($id){
+    $arr = [];
+    $rs = DB::table('categories')->where(['id' => $id])->get();
+    if($rs){
+        foreach ($rs as $k => $v) {
 
+            if(!empty($v->data) && ($v->data == 'b:0;' || @unserialize($v->data) !== false)){
+                $v->data = unserialize($v->data);
+            }else{
+                $v->data = [];
+            }
+
+            $arr[$v->id] = $v;
+        }
+    }
+    return $arr;
+}
 function get_category_type($type)
 {
     $rs = DB::table('categories')->where(['type' => $type])->get();

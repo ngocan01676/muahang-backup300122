@@ -22,6 +22,68 @@ class HomeController extends \Zoe\Http\ControllerFront
     {
 
     }
+    public function getMenuProduct($id){
+        $config_language = app()->config_language;
+
+        $cate = get_category_id($id);
+        if(!isset($cate[$id])){
+                return redirect('/404');
+        }
+        $cate = $cate[$id];
+
+
+        $model = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$id)
+            ->join('shop_product_translation as t','t._id','=','p.id')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->where('lang_code',$config_language['lang']);
+        foreach ($cate->data as $val){
+            if($val['type'] == "name"){
+                $model->where('t.name','like','%'.$val['value'].'%');
+            }
+        }
+        $total_records = $model->count();
+
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $limit = 10;
+
+        $total_page = ceil($total_records / $limit);
+        if ($current_page > $total_page){
+            $current_page = $total_page;
+        }
+        else if ($current_page < 1){
+            $current_page = 1;
+        }
+        $start = ($current_page - 1) * $limit;
+        $results = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$id)
+            ->join('shop_product_translation as t','t._id','=','p.id')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->where('lang_code',$config_language['lang'])
+            ->offset($start)->limit($limit)->get()->all();
+        $cate = [];
+
+        $name = "";
+        if(isset($config_language['lang'])){
+
+            $cate =(array) DB::table('categories_translation')
+                ->select(['slug','name'])
+                ->where('lang_code',$config_language['lang'])
+                ->where('_id',$id)
+                ->get()->first();
+            $cate['id'] = $id;
+            $name = $cate['name'];
+            unset($cate['name']);
+        }
+
+        return $this->render('home.category-product', [
+            'results'=>$results,
+            'current_page'=>$current_page,
+            'total_page'=>$total_page,
+            'cate'=>[
+                'router'=>$cate,
+                'name'=>$name
+            ]
+        ]);
+    }
     public function getCategoryGroupProduct($id){
         $config_language = app()->config_language;
 

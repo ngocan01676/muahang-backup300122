@@ -17,6 +17,11 @@ $routers['home'] = [
             "guard" => "",
             "action"=>'getCategoryGroupProduct'
         ],
+        "menu-product-group" => [
+            "url" => "/chuyen-muc/{id}/{slug}",
+            "guard" => "",
+            "action"=>'getMenuProduct'
+        ],
         "item-product" => [
             "url" => "/item-product/{id}/{slug}",
             "guard" => "",
@@ -81,6 +86,7 @@ $routers['page'] = [
 
     ]
 ];
+
 $routers['widget'] =   [
     "namespace" => "BetoGaizinTheme\Http\Controllers",
     "controller" => "WidgetController",
