@@ -35,11 +35,11 @@ class HomeController extends \Zoe\Http\ControllerFront
         DB::connection()->enableQueryLog();
         $model = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$id)
             ->join('shop_product_translation as t','t._id','=','p.id')
-            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
             ->where('lang_code',$config_language['lang']);
         foreach ($cate->data as $val){
             if($val['type'] == "name"){
-                $model->where('t.name','like','%'.Str::slug($val['value']).'%');
+                $model->where('p.slug','like','%'.Str::slug($val['value']).'%');
             }
         }
 
