@@ -8,6 +8,7 @@ use Validator;
 use Illuminate\Support\Str;
 use User\Http\Model\Member;
 use Illuminate\Support\Facades\Hash;
+use Socialite;
 class AuthController extends \UserFront\Http\Controllers\AuthController {
     public function username()
     {
@@ -188,5 +189,31 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
     }
     public function getRegisterForm(){
         return $this->render('auth.register');
+    }
+    public function redirect($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+    public function callback($provider)
+    {
+        $getInfo = Socialite::driver($provider)->user();
+
+        $member = new Member();
+        $member->email = $getInfo->email;
+        $member->role_id = 3;
+        $member->password = Hash::make( $getInfo->id);
+        $member->name = $getInfo->name;
+        $member->username = $getInfo->email;
+
+        if (Auth::guard('frontend')->attempt(
+            ['username'], $request->filled('remember')
+        )) {
+            $request->session()->regenerate();
+            return response()->json([
+                "success"=>true,
+                "uri"=> url('/')
+            ]);
+        }
+        return redirect()->to('/');
     }
 }

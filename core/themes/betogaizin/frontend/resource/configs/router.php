@@ -138,11 +138,22 @@ $routers['widget'] =   [
         ]
     ]
 ];
-$routers['guest:missterry'] = [
-    "namespace" => "MissTerryTheme\Http\Controllers",
+$routers['guest:betoGaizin'] = [
+    "namespace" => "BetoGaizinTheme\Http\Controllers",
     "controller" => "AuthController",
     "router" => [
-
+        'redirect'=>[
+            "url" => "/redirect/{provider}",
+            "action" => "redirect",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
+        'callback'=>[
+            "url" => "/callback/{provider}",
+            "action" => "callback",
+            "method" => ["get","post"],
+            "guard" => ""
+        ]
     ]
 ];
 $routers['missterry:user'] = [
