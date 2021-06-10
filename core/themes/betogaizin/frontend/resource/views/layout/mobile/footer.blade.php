@@ -21,27 +21,23 @@
     ];
 
 @endphp
-
-
-
-
-<div>
-    <div class="popup-wrap popup-leaveFromOrderChanging" style="left: 0px;display: none">
-        <section class="popup popup-nohead popup-width-middle">
-            <button type="button" data-obj="popup-leaveFromOrderChanging" class="popup-close-btn"></button>
-            <div class="popup-content">
-                <p class="title title-middle mt40 txt-ac">変更を取り消しますか？</p>
-                <div class="btn-flex btn-row mt20">
-                    <form>
-                        <div class="btn-form-wrap"><span class="btn-select btn-select01 btn-color-gray">取り消す</span></div>
-                        <div class="btn-form-wrap"><span data-obj="popup-leaveFromOrderChanging" class="btn-select btn-select02">キャンセル</span></div>
-                    </form>
-                </div>
-            </div>
-        </section>
-        <div data-obj="popup-leaveFromOrderChanging" class="popup-overlay"></div>
-    </div>
-</div>
+{{--<div>--}}
+    {{--<div class="popup-wrap popup-leaveFromOrderChanging" style="left: 0px;display: none">--}}
+        {{--<section class="popup popup-nohead popup-width-middle">--}}
+            {{--<button type="button" data-obj="popup-leaveFromOrderChanging" class="popup-close-btn"></button>--}}
+            {{--<div class="popup-content">--}}
+                {{--<p class="title title-middle mt40 txt-ac">変更を取り消しますか？</p>--}}
+                {{--<div class="btn-flex btn-row mt20">--}}
+                    {{--<form>--}}
+                        {{--<div class="btn-form-wrap"><span class="btn-select btn-select01 btn-color-gray">取り消す</span></div>--}}
+                        {{--<div class="btn-form-wrap"><span data-obj="popup-leaveFromOrderChanging" class="btn-select btn-select02">キャンセル</span></div>--}}
+                    {{--</form>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</section>--}}
+        {{--<div data-obj="popup-leaveFromOrderChanging" class="popup-overlay"></div>--}}
+    {{--</div>--}}
+{{--</div>--}}
 
 <div class="popup-wrap" style="position: absolute; height: auto;display: none">
 
@@ -435,9 +431,9 @@
 <script>
     function open_cart() {
         var count = parseInt($('.popout').text());
-        console.log(count);
         if(count > 0){
-            $('.popup-wrap').css({'position':'absolute','top':'30px'}).show();
+            $('.popup-wrap').css({}).show().find('.popup').show();
+            $(window).scrollTop(0);
         }
     }
     function open_menu(){
