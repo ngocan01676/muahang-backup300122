@@ -1,7 +1,7 @@
 @php $keyId = 'func_'.rand() @endphp
 <table id="{!! $keyId.'_wrap' !!}" class="table table-bordered wrap_rows">
     <thead>
-        <tr class="{!! $keyId.'_template' !!}">
+        <tr class="{!! $keyId.'_template' !!} row">
             <td style="vertical-align: middle;text-align:center;width: 50px">0</td>
             @foreach($configs['options'] as $config)
 
@@ -22,11 +22,16 @@
                         @break
                     @endswitch
                 @else
-                <input type="{!! isset($config['type'])?$config['type']:'text' !!}" {!! isset($config['class'])?'class="data '.$config['class'].'"':'class="data"' !!}
-                    data-key="{!! $config['key'] !!}"
-                    data-type="{!! $config['type'] !!}"
-                    data-name="{!! $configs['name'] !!}[{!! $configs['key'] !!}].{!! $config['key'] !!}"
-                >
+                    <div class="input-group input-group-sm">
+                        <input type="{!! isset($config['type'])?$config['type']:'text' !!}" {!! isset($config['class'])?'class="data '.$config['class'].'"':'class="data"' !!}
+                        data-key="{!! $config['key'] !!}"
+                               data-type="{!! $config['type'] !!}"
+                               data-name="{!! $configs['name'] !!}[{!! $configs['key'] !!}].{!! $config['key'] !!}"
+                        >
+                        <span class="input-group-btn">
+                         <button type="button" class="btn btn-info btn-flat" onclick="{!! $keyId.'_' !!}openPopup(this)">Go</button>
+                        </span>
+                    </div>
                 @endif
             </td>
             @endforeach
@@ -40,6 +45,60 @@
 
     </tbody>
 </table>
+@if(isset($configs['modal']))
+
+@push($push_name)
+    <div class="modal fade" id="myModalOptionTable" role="dialog">
+        <form action="">
+            <div class="modal-dialog" style="width: 50%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Lựa chọn</h4>
+                    </div>
+                    <div class="modal-body">
+                        @includeIf($configs['modal'])
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btnSaveOption btn btn-primary" onclick="{!! $keyId.'_' !!}SaveSelect()">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        var {!! $keyId.'_' !!}myModalOption = $("#myModalOptionTable");
+        function {!! $keyId.'_' !!}openPopup(self){
+            {!! $keyId.'_' !!}myModalOption.button = $(self);
+            let tmpVal = {};
+            $(self).closest('.row').find('.data').each(function (i) {
+                tmpVal[$(this).attr('data-key')] = $(this).val();
+            });
+            {!! $keyId.'_' !!}myModalOption.dataForm = tmpVal;
+
+            {!! $keyId.'_' !!}myModalOption.modal();
+            {!! $keyId.'_' !!}myModalOption.find('.table tr').hide();
+
+            let ele = {!! $keyId.'_' !!}myModalOption.find('.table tr.wrap_'+{!! $keyId.'_' !!}myModalOption.dataForm.type);
+            ele.val(tmpVal.value);
+            ele.show();
+        }
+        function {!! $keyId.'_' !!}SaveSelect(){
+            var FormModal  = {!! $keyId.'_' !!}myModalOption.find("form");
+
+            var data = FormModal.zoe_inputs('get');
+            console.log(data);
+            console.log({!! $keyId.'_' !!}myModalOption.dataForm);
+
+            {!! $keyId.'_' !!}myModalOption.modal('toggle');
+
+            if(data.hasOwnProperty({!! $keyId.'_' !!}myModalOption.dataForm.type)){
+                $({!! $keyId.'_' !!}myModalOption.button).closest('.input-group').find('.data').val(data[{!! $keyId.'_' !!}myModalOption.dataForm.type]);
+            }
+        }
+    </script>
+@endpush
+@endif
 @push($push_name)
     <script>
         if( window.hasOwnProperty('category_get')){
