@@ -615,7 +615,7 @@
     </style>
 @endpush
 @push('scripts')
-    <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
+    <script src="{{asset("/module/admin/assets/nestable.js")}}"></script>
     <script>
         function ChangePar(self) {
             var parent = $(self).closest("td");
