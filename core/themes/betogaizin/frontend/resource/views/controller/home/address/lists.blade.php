@@ -36,15 +36,15 @@
                             <div class="txt-ac">
                                 <label>
                                     <input data-auto-id="edit-address-radio-1" type="radio" name="edit-address" class="set-default-address-radio" value="0">
-                                    <a href="{!! router_frontend_lang('home:change-address-edit',['id'=>$list->id]) !!}"><span data-auto-id="edit-address-span-1" class="btn btn-default btn-color00 btn-wid05 js-popup-trigger mt5 mb5">編集</span></a>
+                                    <a href="{!! router_frontend_lang('home:change-address-edit',['id'=>$list->id]) !!}"><span data-auto-id="edit-address-span-1" class="btn btn-default btn-color00 btn-wid05 js-popup-trigger mt5 mb5">{!! z_language('Sửa') !!}</span></a>
                                 </label>
                                 <label>
                                     <input onclick="delete_address({!! $list->id !!})" data-auto-id="delete-address-radio-1" type="radio" name="delete-address" @if($list->active == 1) disabled="disabled" @endif class="set-default-address-radio" value="0">
-                                    <span data-auto-id="delete-address-span-1" class="btn btn-default btn-color00 btn-wid05 js-popup-trigger mt5 mb5">削除</span>
+                                    <span data-auto-id="delete-address-span-1" class="btn btn-default btn-color00 btn-wid05 js-popup-trigger mt5 mb5">{!! z_language('Xóa bỏ') !!}</span>
                                 </label>
                                 <label>
                                     <input onclick="active_adress({!! $list->id !!})" data-auto-id="set-default-address-radio-1" type="radio" name="set-default-address" @if($list->active == 1) disabled="disabled" @endif class="set-default-address-radio" value="0">
-                                    <span data-auto-id="set-default-address-span-1" class="btn btn-default btn-color00 btn-wid05 js-popup-trigger mt5 mb5">通常のお届け先に設定</span>
+                                    <span data-auto-id="set-default-address-span-1" class="btn btn-default btn-color00 btn-wid05 js-popup-trigger mt5 mb5">{!! z_language('Đặt làm địa chỉ giao hàng') !!}</span>
                                 </label>
 
                             </div>
