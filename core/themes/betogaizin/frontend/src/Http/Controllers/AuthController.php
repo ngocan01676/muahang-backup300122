@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use User\Http\Model\Member;
 use Illuminate\Support\Facades\Hash;
 use Socialite;
+use Illuminate\Support\Facades\Auth;
 class AuthController extends \UserFront\Http\Controllers\AuthController {
     public function username()
     {
@@ -197,22 +198,24 @@ class AuthController extends \UserFront\Http\Controllers\AuthController {
     public function callback($provider)
     {
         $getInfo = Socialite::driver($provider)->user();
+        $member = Member::where('facebook_id', $getInfo->id)->first();
+        if($member){
 
-        $member = new Member();
-        $member->email = $getInfo->email;
-        $member->role_id = 3;
-        $member->password = Hash::make( $getInfo->id);
-        $member->name = $getInfo->name;
-        $member->username = $getInfo->email;
+        }else{
+            $member = new Member();
+            $member->email = $getInfo->email;
+            $member->role_id = 3;
+            $member->facebook_id =  $getInfo->id;
+            $member->password = Hash::make( $getInfo->id);
+            $member->name = $getInfo->name;
+            $member->first_name = $getInfo->name;
+            $member->username = $getInfo->email;
+            $member->save();
+        }
 
-        if (Auth::guard('frontend')->attempt(
-            ['username'], $request->filled('remember')
-        )) {
-            $request->session()->regenerate();
-            return response()->json([
-                "success"=>true,
-                "uri"=> url('/')
-            ]);
+        if ($this->attemptLogin(["facebook_id"=>$getInfo->id,"password"=>$getInfo->id],\request())) {
+            \request()->session()->regenerate();
+            return redirect()->intended('/');
         }
         return redirect()->to('/');
     }

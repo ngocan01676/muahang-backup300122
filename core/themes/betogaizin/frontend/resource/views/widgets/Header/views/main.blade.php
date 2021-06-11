@@ -291,6 +291,7 @@
         </div>
     </div>
 @else
+
     <header class="header only-pc">
         <div class="rc-h-utility-bar">
             <div class="rc-h-inner">
