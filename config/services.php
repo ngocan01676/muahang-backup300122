@@ -46,6 +46,6 @@ return [
     'facebook' => [
         'client_id' => '538964443762910',
         'client_secret' => '1a14d3593ffa628a9843fe7953e8607c',
-        'redirect' => 'http://zoecms.com/callback/facebook',
+        'redirect' => 'https://zoecms.com/callback/facebook',
     ],
 ];
