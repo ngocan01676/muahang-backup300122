@@ -570,7 +570,7 @@
             background: green;
         }
     </style>
-    <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
+    <script src="{{asset("/module/admin/assets/nestable.js")}}"></script>
     <script>
 
         String.prototype.trimRight = function(charlist) {

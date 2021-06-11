@@ -9,30 +9,16 @@
                         </h2>
                         <div class="flex-container with-margin border-right">
                             <div class="row">
+
                                 <div class="col wid4">
                                     <ul class="guide-link">
-                                        <li><a href="#" class="">はじめての方へ</a></li>
-                                        <li><a href="#">会員登録方法</a></li>
-                                        <li><a href="#">配送料・利用料</a></li>
-                                        <li><a href="#">配送時間</a></li>
+                                        <li><a href="#">{!! z_language('Phương thức thanh toán') !!}</a></li>
+                                        <li><a href="#">{!! z_language('Cách sử dụng phiếu giảm giá') !!}</a></li>
+                                        <li><a href="#">{!! z_language('Hủy đơn đặt hàng của bạn') !!}</a></li>
+                                        <li><a href="#" class="">{!! z_language('Quy trình giao hàng lại') !!}</a></li>
                                     </ul>
                                 </div>
-                                <div class="col wid4">
-                                    <ul class="guide-link">
-                                        <li><a href="#">お支払い方法</a></li>
-                                        <li><a href="#">クーポンの使い方</a></li>
-                                        <li><a href="#">ご注文のキャンセル</a></li>
-                                        <li><a href="#" class="">再配送手続き</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col wid4">
-                                    <ul class="guide-link">
-                                        <li><a href="#">配送エリア一覧</a></li>
-                                        <li><a href="#" to="/info/liquor?l-id=_footer_shuruikanri" class="">酒類販売管理者標識</a></li>
-                                        <li><a href="#">お問い合わせ</a></li>
-                                        <li><a href="#">法人様のご利用について</a></li>
-                                    </ul>
-                                </div>
+
                             </div>
                         </div>
                     </div>

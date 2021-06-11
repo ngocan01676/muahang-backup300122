@@ -438,7 +438,7 @@
     </style>
 @endpush
 @push('scripts')
-    <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
+    <script src="{{asset("/module/admin/assets/nestable.js")}}"></script>
     <style>
         .SelectEdit{
             background: green;
