@@ -44,7 +44,7 @@
                                 </label>
                                 <label>
                                     <input onclick="active_adress({!! $list->id !!})" data-auto-id="set-default-address-radio-1" type="radio" name="set-default-address" @if($list->active == 1) disabled="disabled" @endif class="set-default-address-radio" value="0">
-                                    <span data-auto-id="set-default-address-span-1" class="btn btn-default btn-color00 btn-wid05 js-popup-trigger mt5 mb5">{!! z_language('Đặt làm địa chỉ giao hàng') !!}</span>
+                                    <span data-auto-id="set-default-address-span-1" class="btn btn-default btn-color00 btn-wid05 js-popup-trigger mt5 mb5">{!! z_language('Đặt làm mặc định') !!}</span>
                                 </label>
 
                             </div>
