@@ -97,7 +97,7 @@
                                         {!! Form::text('tag',null, ['class' => 'form-control','placeholder'=>'Tag']) !!}
                                     </td>
                                 </tr>
-                               
+
                                 <tr>
                                     <td>
 

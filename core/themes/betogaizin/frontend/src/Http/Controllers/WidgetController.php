@@ -306,26 +306,28 @@ class WidgetController extends \Zoe\Http\ControllerFront
                 foreach($_products as $k=>$product){
                     if($product->category_id != $cate) continue;
                     $isSub = true;
+                    if($value->name == ""){
 
-                    $price = isset($prices[$value->name]['products'][$product->id])?$prices[$value->name]['products'][$product->id]:[];
-
-                    DB::table('shop_order_detail')->insert([
-                        'order_id'=>$id,
-                        'product_id'=>$product->id,
-                        'count'=>$product->count,
-                        'price_buy'=>$product->price_buy,
-                        'price'=>$product->price,
-                        'price_ship'=>isset($price['ship'])?$price['ship']:0,
-                        'company'=>$product->category_id,
-                        'ship'=>0,
-                        'image'=>"",
-                        'image_order'=>$product->image,
-                        'tracking'=>"",
-                        'status'=>0,
-                        'profit'=>isset($price['profit'])?$price['profit']:0,
-                        'total_count'=>isset($price['total_count'])?$price['total_count']:0,
-                        'updated_at'=>date('Y-m-d H:i:s'),
-                    ]);
+                    }else{
+                        $price = isset($prices[$value->name]['products'][$product->id])?$prices[$value->name]['products'][$product->id]:[];
+                        DB::table('shop_order_detail')->insert([
+                            'order_id'=>$id,
+                            'product_id'=>$product->id,
+                            'count'=>$product->count,
+                            'price_buy'=>$product->price_buy,
+                            'price'=>$product->price,
+                            'price_ship'=>isset($price['ship'])?$price['ship']:0,
+                            'company'=>$product->category_id,
+                            'ship'=>0,
+                            'image'=>"",
+                            'image_order'=>$product->image,
+                            'tracking'=>"",
+                            'status'=>0,
+                            'profit'=>isset($price['profit'])?$price['profit']:0,
+                            'total_count'=>isset($price['total_count'])?$price['total_count']:0,
+                            'updated_at'=>date('Y-m-d H:i:s'),
+                        ]);
+                    }
                 }
             }
             DB::commit();
