@@ -580,7 +580,7 @@
                         data:saveForm,
                         type:"POST",
                         success:function (data) {
-                         //  window.location.href = data.url;
+                          window.location.href = data.url;
                         }
                         
                     });
