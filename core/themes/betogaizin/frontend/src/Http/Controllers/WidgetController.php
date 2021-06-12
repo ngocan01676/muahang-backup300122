@@ -357,7 +357,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
                             DB::table('shop_order_detail')->insert($dataSave);
                         }
                     }
-                } if($name =="KURICHIKU") {
+                }else if($name =="KURICHIKU") {
 
 
                     foreach ($priceAll['products'] as $key=>$row){
