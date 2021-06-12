@@ -10,7 +10,7 @@
                     <form name="LoginForm" method="post" action="{!! router_frontend_lang('guest:login:post') !!}" autocomplete="off" id="loginForm">
                         @csrf
                         <div id="loginInner">
-                            <h3>Rakuten Member Login</h3>
+                            <h3>Member Login</h3>
                             <table class="loginBox">
 
                                 <tbody><tr>
@@ -57,6 +57,7 @@
                         </div>
                     </form>
                 </div>
+                <a href="{!! router_frontend_lang('guest:betoGaizin:redirect',['provider'=>'facebook']) !!}" class="fb connect">Sign in with Facebook</a>
             </div>
         </div>
 

@@ -22,7 +22,7 @@
             @foreach($position as $value)
                 @if(isset($value['children']))
                 <li class="category-menu-level01-item">
-                    <a href="#" class="category-menu-link category-menu-link-trigger">
+                    <a href="{!! router_frontend_lang('home:menu-product-group',['id'=>$value['id'],'slug'=>$menus[$value['id']]->slug]) !!}" class="category-menu-link category-menu-link-trigger">
                         {!! $menus[$value['id']]->name !!}
                     </a>
                     <div class="category-menu-level02" style="bottom: -372.5px; min-height: 666px;">
@@ -40,7 +40,7 @@
                                                 <a {!! $menus[$value1['id']]->router_name !!} href="{!! router_frontend_lang($menus[$value1['id']]->router_name,['id'=>$category[$cate_value['id']]->id,'slug'=>$category[$cate_value['id']]->slug]) !!}">{!! $category[$cate_value['id']]->name !!}</a>
                                             </li>
                                        @endforeach
-                                   @else
+                                   @elseif($menus[$value1['id']]->status)
                                         <li class="category-menu-link">
                                             <a href="{!! router_frontend_lang('home:menu-product-group',['id'=>$value1['id'],'slug'=>$menus[$value1['id']]->slug]) !!}">{!! $menus[$value1['id']]->name !!}</a>
                                         </li>
@@ -64,7 +64,7 @@
                         </ul>
                     </div>
                 </li>
-                @else
+                @elseif($menus[$value['id']]->status)
                     <li>
                         <a href="{!! router_frontend_lang('home:menu-product-group',['id'=>$value['id'],'slug'=>$menus[$value['id']]->slug]) !!}" class="category-menu-link">{!! $menus[$value['id']]->name !!}</a>
                     </li>

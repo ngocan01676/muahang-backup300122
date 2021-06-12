@@ -38,9 +38,9 @@
                                                   {!! $result->title !!}
                                                  </span>
                                         </a>
-                                        <span class="product-item-info-amount">
-                                              1個
-                                              </span>
+                                        {{--<span class="product-item-info-amount">--}}
+                                            {{----}}
+                                              {{--</span>--}}
                                     </p>
                                 </div>
                                 <div class="product-item-info-bottom">

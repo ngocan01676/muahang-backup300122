@@ -33,8 +33,8 @@
 
                                 <dd><span class="form-parts-select-secondary">
                                         <select name="price_range" onchange="function_price_range(this)">
-                                            <option disabled="disabled" hidden="hidden" value="">価格で絞り込む</option>
-                                            <option value="">全ての価格</option>
+                                            <option disabled="disabled" hidden="hidden" value="">{!! z_language('Giá') !!}</option>
+                                            <option value="">{!! z_language('Tất cả giá') !!}</option>
                                             @foreach($price_ranges as $id=>$price_range)
                                                 <option {!! $id == $par['price_range']?"selected":"" !!} value="{!! $id !!}">{!! $price_range['label'] !!}</option>
                                             @endforeach
@@ -50,10 +50,10 @@
                             <dl>
                                 <dd><span class="form-parts-select-secondary">
                                         <select name="sort_name" >
-                                            <option value="0">おすすめ順</option>
-                                            <option value="1">人気売れ筋順</option>
-                                            <option value="2">価格の安い順</option>
-                                            <option value="3">価格の高い順</option>
+                                            {{--<option value="0">おすすめ順</option>--}}
+                                            {{--<option value="1">人気売れ筋順</option>--}}
+                                            <option value="2">{!! z_language('Giá theo thứ tự tăng dần') !!}</option>
+                                            <option value="3">{!! z_language('Giá cao nhất') !!}</option>
                                         </select>
                                     </span>
                                 </dd>
@@ -101,21 +101,22 @@
                                 <div class="product-item-info-top">
                                     <p><span class="product-item-info-maker">
                       ハーゲンダッツ
-                    </span>  <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class=""><span class="product-item-info-name"><!---->
-                        デコレーションズ アーモンドキャラメルクッキー
-                      </span></a>  <span class="product-item-info-amount">
-                      88ml
-                    </span>
-                            </p>
+                    </span>  <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="">
+                                            <span class="product-item-info-name">
+                                                デコレーションズ アーモンドキャラメルクッキー
+                                            </span>
+                                        </a>
+                                        {{--<span class="product-item-info-amount">88ml</span>--}}
+                                    </p>
                         </div>
                         <div class="product-item-info-bottom">
                             <div class="product-item-image-area">
                                 <!---->
                                 <p class="product-item-img">
-                                    <a href="/item/4976994206307" class="img-label-wrap link-img label-large">
-                                        <img alt="" class="img-base-size" data-src="//sm.r10s.jp/item/07/4976994206307.jpg?fit=inside|256:256&amp;composite-to=*,*|256:256&amp;background-color=white" src="//sm.r10s.jp/item/07/4976994206307.jpg?fit=inside|256:256&amp;composite-to=*,*|256:256&amp;background-color=white" lazy="loaded">
-                                        <!----><span class="img-label pos2"><i class="svg-mark-item mark-1"></i></span>
-                                        <!----><span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>
+                                    <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="img-label-wrap link-img label-large">
+                                        <img alt="" src="{!! get_thumbnails($result->image,165) !!}" class="img-base-size" lazy="loaded">
+                                        <span class="img-label pos2"><i class="svg-mark-item mark-1"></i></span>
+                                        <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>
                                     </a>
                                 </p>
                             </div>
@@ -125,10 +126,9 @@
                                         <!---->
                                         <div class="product-item-info-price-with-icon">
                                             <!---->
-                                            <p class="product-item-info-price">210<span class="unit">円</span>
-                                            </p>
+                                            <p class="product-item-info-price">{!! $result->price_buy !!}<span class="unit">円</span></p>
                                         </div>
-                                        <p class="product-item-info-tax">(税込 226円)</p>
+                                        {{--<p class="product-item-info-tax">(税込 226円)</p>--}}
                                     </div>
                                 </div>
                                 <div class="product-item-info-btn-area">
@@ -138,7 +138,8 @@
                                                     data-count="1"
                                                     data-act="add"
                                                     data-cate="{!! $result->category_id !!}"
-                                                    href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
+                                                    href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block">
+                                                <i class="svg-icon icon-cart-02"></i>{!! z_language('Thêm vào giỏ') !!}
                                             </a>
                                             <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-4901001754199" class="btn-set-btn">－</span>  <span class="btn-set-num">0</span>  <span data-auto-id="undefined/inc-cart-4901001754199" class="btn-set-btn">＋</span>
                                             </div>

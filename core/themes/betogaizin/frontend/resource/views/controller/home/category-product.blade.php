@@ -555,7 +555,7 @@
                                             <p class="product-item-info-price">{!! $result->price_buy !!}<span class="unit">円</span>
                                             </p>
                                         </div>
-                                        <p class="product-item-info-tax">(税込 413円)</p>
+                                        {{--<p class="product-item-info-tax">(税込 413円)</p>--}}
                                     </div>
                                 </div>
                                 <div class="product-item-info-btn-area">

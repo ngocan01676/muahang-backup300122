@@ -17,6 +17,7 @@
                     'name'=>'data',
                     'filterData'=>'function(data){return data.data[0];}',
                     'key'=>'@INDEX@',
+                    'modal'=>'BetoGaizin::module.admin.modal',
                     'options'=>[
                         [
                             'tag'=>'select',
@@ -48,7 +49,7 @@
                             'type'=>'text',
                             'data'=>"",
                             'class'=>'form-control',
-                            'key'=>'value',
+                            'key'=>'value'
                         ]
                     ]
                 ]

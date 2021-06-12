@@ -566,7 +566,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/elfinder.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('module/admin/assets/elfinder/css/theme.css') }}">
     <script src="{{ asset('module/admin/assets/elfinder/js/elfinder.min.js') }}"></script>
-    <script src="{{asset("http://wojoscripts.com/cmspro/assets/nestable.js")}}"></script>
+    <script src="{{asset("/module/admin/assets/nestable.js")}}"></script>
     <script>
         window.category_get  = new Click();
         $(document).ready(function () {

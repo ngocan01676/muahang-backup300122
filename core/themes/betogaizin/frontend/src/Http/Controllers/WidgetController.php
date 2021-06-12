@@ -191,6 +191,7 @@ class WidgetController extends \Zoe\Http\ControllerFront
                   'phone6'=>isset($data['phone6'])?$data['phone6']:"",
                   'time_create'=>date('Y-m-d H:i:s'),
                   'time_update'=>date('Y-m-d H:i:s'),
+                  'active'=>DB::table('shop_adresss')->where('user_id',auth('frontend')->user()->id)->count() == 0?1:0
               ]
           );
             $request->session()->flash('success',z_language('Thêm mới thành công'));
