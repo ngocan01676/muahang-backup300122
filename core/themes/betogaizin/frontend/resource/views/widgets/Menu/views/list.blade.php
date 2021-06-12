@@ -22,7 +22,7 @@
             @foreach($position as $value)
                 @if(isset($value['children']))
                 <li class="category-menu-level01-item">
-                    <a href="#" class="category-menu-link category-menu-link-trigger">
+                    <a href="{!! router_frontend_lang('home:menu-product-group',['id'=>$value['id'],'slug'=>$menus[$value['id']]->slug]) !!}" class="category-menu-link category-menu-link-trigger">
                         {!! $menus[$value['id']]->name !!}
                     </a>
                     <div class="category-menu-level02" style="bottom: -372.5px; min-height: 666px;">
