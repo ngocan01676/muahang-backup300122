@@ -253,27 +253,16 @@ class WidgetController extends \Zoe\Http\ControllerFront
                 ->user()->id)->where('active',1)
             ->orderBy('active','desc')->get()->all();
 
-        $prices = $configs->prices($carts);
+        $prices = $configs->prices($carts,$address[0]->prefecture_code,$data['payment']);
 
         $timeShip = request()->session()->get(\BetoGaizinTheme\Http\Controllers\WidgetController::$keyCart_ship_time,[]);
 
         $category = get_category_type("shop-ja:product:category");
 
-        $totals_product = 0;
-        $totals_ship =0;
-        $total_cou = 0;
-        $sale = 0;
-
-
-
-
-
         $address = DB::table('shop_adresss')
             ->where('user_id',auth('frontend')
                 ->user()->id)->where('active',1)
             ->orderBy('active','desc')->get()->all();
-
-
         DB::beginTransaction();
         try{
             //$timeShip['year'].'年'.$timeShip['month'].'月'.$timeShip['day'].'日(日) '.$timeShip['time']
@@ -299,38 +288,239 @@ class WidgetController extends \Zoe\Http\ControllerFront
                'total_cou'=>$prices['total_cou'],
                'total_ship'=>$prices['total_ship'],
                'totals_order'=>$prices['totals_order'],
+               'data_cart'=>json_encode($carts),
                'created_at'=>date('Y-m-d'),
                'updated_at'=>date('Y-m-d'),
            ]);
 
-            foreach($category as $cate=>$value){
-                foreach($_products as $k=>$product){
-                    if($product->category_id != $cate) continue;
-                    $isSub = true;
-                    if($value->name == ""){
+            foreach ($prices['products'] as $name=>$priceAll){
+                if($name =="KOGYJA"){
+                    foreach ($priceAll['products'] as $key=>$row){
+                        if(isset($row['products'][0])){
+                            $token = md5(json_encode($row['products']));
+                            $order_index = strtotime(date('Y-m-d H:i:s'));
+                            foreach ($row['products'] as $k=>$price){
+                                $product = $price['data'];
+                                $dataSave = [
+                                    'order_id'=>$id,
+                                    'product_id'=>$product->id,
+                                    'count'=>$price['count'],
+                                    'company'=>$price['cate'],
+                                    'company_name'=>$name,
+                                    'total_price_buy'=>$price['total_price_buy'],
+                                    'total_price'=>$price['total_price'],
+                                    'ship'=>$price['ship'],
+                                    'cou'=>$price['cou'],
+                                    'sale'=>$key == 0 && $k ==0?-1*$priceAll['web_total_profit']:0,
+                                    'total_ship'=>$price['ship'],
+                                    'total_sum_price'=>0,
+                                    'profit'=>$price['profit'],
+                                    'price'=>$price['data']->price,
+                                    'title'=>$price['data']->title,
+                                    'code'=>$price['data']->code,
+                                    'price_buy'=>$price['data']->price_buy,
+                                    'unit'=>$price['data']->unit,
+                                    'value'=>$price['data']->value,
+                                    'total_count'=>isset($price['total_count'])?$price['total_count']:0,
+                                    'updated_at'=>date('Y-m-d H:i:s'),
+                                    'index'=>$k,
+                                    'token'=>$token,
+                                    'order_index'=>$order_index+$k*10000
+                                ];
+                                DB::table('shop_order_detail')->insert($dataSave);
+                            }
+                            $dataSave = [
+                                'order_id'=>$id,
+                                'product_id'=>0,
+                                'count'=>isset($row['total_count'])?$row['total_count']:0,
+                                'company'=>0,
+                                'company_name'=>$name,
+                                'total_price_buy'=>0,
+                                'total_price'=>0,
+                                'ship'=>$row['total_ship'],
+                                'cou'=>$row['total_cou'],
+                                'total_ship'=>$row['total_ship'],
+                                'total_sum_price'=>0,
+                                'profit'=>$row['profit'],
+                                'price'=>0,
+                                'title'=>"",
+                                'code'=>"",
+                                'price_buy'=>0,
+                                'unit'=>"0",
+                                'value'=>"0",
+                                'total_count'=>isset($row['total_count_val'])?$row['total_count_val']:0,
+                                'updated_at'=>date('Y-m-d H:i:s'),
+                                'index'=>count($row['products']),
+                                'token'=>$token,
+                                'order_index'=>$order_index+count($row['products'])*100000
+                            ];
+                            DB::table('shop_order_detail')->insert($dataSave);
+                        }
+                    }
+                } if($name =="KURICHIKU") {
 
-                    }else{
-                        $price = isset($prices[$value->name]['products'][$product->id])?$prices[$value->name]['products'][$product->id]:[];
-                        DB::table('shop_order_detail')->insert([
-                            'order_id'=>$id,
-                            'product_id'=>$product->id,
-                            'count'=>$product->count,
-                            'price_buy'=>$product->price_buy,
-                            'price'=>$product->price,
-                            'price_ship'=>isset($price['ship'])?$price['ship']:0,
-                            'company'=>$product->category_id,
-                            'ship'=>0,
-                            'image'=>"",
-                            'image_order'=>$product->image,
-                            'tracking'=>"",
-                            'status'=>0,
-                            'profit'=>isset($price['profit'])?$price['profit']:0,
-                            'total_count'=>isset($price['total_count'])?$price['total_count']:0,
-                            'updated_at'=>date('Y-m-d H:i:s'),
-                        ]);
+
+                    foreach ($priceAll['products'] as $key=>$row){
+                        $pro_kurichiku = DB::table('shop_product')->where('category_id',$row['cate_id'])->get()->keyBy('id')->all();
+
+                        if(isset($row['products'][0])){
+                            $token = md5(json_encode($row['products']));
+                            $order_index = strtotime(date('Y-m-d H:i:s'));
+                            $configs = [];
+                            $product_id = "";
+                            $product_code = "";
+                            $product_title = "";
+                            foreach ($pro_kurichiku as $_id=>$value){
+                                $configs[$_id] = 0;
+                                $product_id.=$_id.";";
+                                $product_code.=$_id.",";
+                                $product_title.=$value->title.",";
+                            }
+                            $product_id = rtrim($product_id,";");
+                            $product_code = rtrim($product_code,",");
+                            $product_title = rtrim($product_title,",");
+
+                            foreach ($row['products'] as $k=>$price){
+                                $configs[$price['id']] = $price['count'];
+                            }
+
+                            $dataSave = [
+                                'order_id'=>$id,
+                                'product_id'=>$product_id,
+                                'count'=>1,
+                                'count_jon'=>json_encode($configs),
+                                'company'=>$row['cate_id'],
+                                'company_name'=>$name,
+                                'total_price_buy'=>$row['total_sum'],
+                                'total_price'=>$row['total_price'],
+                                'ship'=>$row['total_ship'],
+                                'cou'=>$row['total_cou'],
+                                'total_ship'=>$row['total_ship'],
+                                'total_sum_price'=>0,
+                                'profit'=>$row['profit'],
+                                'price'=>$row['total_price'],
+                                'title'=>$product_title,
+                                'code'=>$product_code,
+                                'price_buy'=>$price['data']->price_buy,
+                                'unit'=>0,
+                                'value'=>0,
+                                'total_count'=>0,
+                                'updated_at'=>date('Y-m-d H:i:s'),
+                                'index'=>$key,
+                                'token'=>$name,
+                            ];
+
+                            DB::table('shop_order_detail')->insert($dataSave);
+                        }
+                    }
+                }
+                else{
+                    foreach ($priceAll['products'] as $key=>$price){
+                            $dataSave = [
+                                'order_id'=>$id,
+                                'product_id'=>$product->id,
+                                'count'=>$price['count'],
+
+                                'company'=>$price['cate'],
+                                'company_name'=>$name,
+                                'total_price_buy'=>$price['total_price_buy'],
+                                'total_price'=>$price['total_price'],
+                                'ship'=>$price['ship'],
+                                'cou'=>$price['cou'],
+                                'total_ship'=>$price['total_ship'],
+                                'total_sum_price'=>$price['total_sum_price'],
+                                'profit'=>$price['profit'],
+                                'price'=>$price['data']->price,
+                                'title'=>$price['data']->title,
+                                'code'=>$price['data']->code,
+                                'price_buy'=>$price['data']->price_buy,
+                                'unit'=>$price['data']->unit,
+                                'value'=>$price['data']->value,
+                                'total_count'=>isset($price['total_count'])?$price['total_count']:0,
+                                'updated_at'=>date('Y-m-d H:i:s'),
+                                'index'=>$key,
+                                'token'=>$name,
+                            ];
+                            DB::table('shop_order_detail')->insert($dataSave);
                     }
                 }
             }
+
+//            foreach($category as $cate=>$value){
+//                foreach($_products as $k=>$product){
+//                    if($product->category_id != $cate) continue;
+//                    $isSub = true;
+//                    if($value->name == "KOGYJA"){
+//                        $priceAll = isset($prices["products"][$value->name]['products'])?$prices["products"][$value->name]['products']:[];
+//
+//                        foreach ($priceAll as $row){
+//                            dump($row);
+//                            if(isset($row['products'][0])){
+//
+//                                foreach ($row['products'] as $price){
+//                                    $dataSave = [
+//                                        'order_id'=>$id,
+//                                        'product_id'=>$product->id,
+//                                        'count'=>$price['count'],
+//                                        'company'=>$price['cate'],
+//                                        'company_name'=>$value->name,
+//                                        'total_price_buy'=>$price['total_price_buy'],
+//                                        'total_price'=>$price['total_price'],
+//                                        'ship'=>$price['ship'],
+//                                        'cou'=>$price['cou'],
+//                                        'total_ship'=>$price['ship'],
+//                                        'total_sum_price'=>0,
+//                                        'profit'=>$price['profit'],
+//                                        'price'=>$price['data']->price,
+//                                        'title'=>$price['data']->title,
+//                                        'code'=>$price['data']->code,
+//                                        'price_buy'=>$price['data']->price_buy,
+//                                        'unit'=>$price['data']->unit,
+//                                        'value'=>$price['data']->value,
+//                                        'total_count'=>isset($price['total_count'])?$price['total_count']:0,
+//                                        'updated_at'=>date('Y-m-d H:i:s'),
+//                                        'index'=>$k,
+//                                        'token'=>""
+//                                    ];
+//
+//                                }
+//                            }
+//                        }
+//
+//                    }else{
+//                        $price = isset($prices["products"][$value->name]['products'][$product->id])?$prices["products"][$value->name]['products'][$product->id]:[];
+//
+//                        $dataSave = [
+//                            'order_id'=>$id,
+//                            'product_id'=>$product->id,
+//                            'count'=>$price['count'],
+//
+//                            'company'=>$price['cate'],
+//                            'company_name'=>$value->name,
+//                            'total_price_buy'=>$price['total_price_buy'],
+//                            'total_price'=>$price['total_price'],
+//                            'ship'=>$price['ship'],
+//                            'cou'=>$price['cou'],
+//                            'total_ship'=>$price['total_ship'],
+//                            'total_sum_price'=>$price['total_sum_price'],
+//                            'profit'=>$price['profit'],
+//                            'price'=>$price['data']->price,
+//                            'title'=>$price['data']->title,
+//                            'code'=>$price['data']->code,
+//                            'price_buy'=>$price['data']->price_buy,
+//                            'unit'=>$price['data']->unit,
+//                            'value'=>$price['data']->value,
+//                            'total_count'=>isset($price['total_count'])?$price['total_count']:0,
+//                            'updated_at'=>date('Y-m-d H:i:s'),
+//                            'index'=>$k,
+//
+//                        ];
+//
+//                        DB::table('shop_order_detail')->insert($dataSave);
+//                    }
+//                }
+//            }
+
             DB::commit();
             $request->session()->put(WidgetController::$keyCart,[]);
             $request->session()->put(WidgetController::$keyCart_ship_time,[]);

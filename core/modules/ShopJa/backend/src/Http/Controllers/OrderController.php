@@ -174,14 +174,14 @@ class OrderController extends \Zoe\Http\ControllerBackend
                 "GetCountOrder" => function ($model){
                     $count =  DB::table('shop_order_detail as t')->where('order_id', $model->id)->count('order_id');
                     $html = "<ul>";
-                    $results = DB::table('shop_order_detail as t')->where('order_id', $model->id)->get(['product_id','count','status','price_ship'])->all();
+                    $results = DB::table('shop_order_detail as t')->where('order_id', $model->id)->get(['product_id','count','status','ship'])->all();
                     $ids = [];
                     if(count($results) > 0){
                         foreach ($results as $index=>$result){
                             $results_products =  DB::table('shop_product')->where('id', $result->product_id)->get(['title','description'])->all();
 
                             foreach ($results_products as $value){
-                                if($result->price_ship < 0){
+                                if($result->ship < 0){
                                     $html.='<li>('.$result->count.') <span class="label bg-red">'.$value->title.'-'.$value->description.'</span></li>';
                                 }else{
                                     if($result->status == 1){
@@ -218,15 +218,249 @@ class OrderController extends \Zoe\Http\ControllerBackend
         $this->getCrumb()->breadcrumb(z_language("Tạo mới"), ('backend:shop_ja:order:create'));
         return $this->render('order.create', ['item' => []], 'blog');
     }
+    public function excel(Request $request){
+        $data = $request->all();
+        $order_id = $data['order_id'];
 
+        $model = OrderModel::find($order_id);
+
+        $detailInfo = $model->GetDetailsInfo();
+        $arrDetail = [];
+        foreach ($detailInfo as $value){
+            if(!isset($arrDetail[$value->company_name])){
+                $arrDetail[$value->company_name] = [];
+            }
+            if(!isset($arrDetail[$value->company_name][$value->token])){
+                $arrDetail[$value->company_name][$value->token] = [];
+            }
+            $arrDetail[$value->company_name][$value->token][] = $value;
+        }
+        $repon = [];
+        DB::beginTransaction();
+        try{
+            $model->status = 2;
+            $model->save();
+
+            foreach ($arrDetail as $key=>$values){
+                foreach ($values as $_keys=>$infos){
+                    $admin_id = 100;
+                    $shop_order = $model;
+                    $infos = (array) $infos;
+                    $n = count($infos);
+                    $dataSave = [];
+                    if($key == "KOGYJA"){
+                        $indexAction = 0;
+                        $next = 100000;
+                        foreach ($infos as $_key=>$info){
+                            $info = (array) $info;
+                            $dataSave = [
+                                "order_create_date"=>date('Y-m-d H:i:s'),
+                                "company"=>$info['company_name'],
+                                "session_id"=> $info['id'],
+                                "admin_id"=>$admin_id,
+                                "order_id"=>$order_id,
+                                "ctv_id" => 0,
+                                "fullname"=>$shop_order->fullname,
+                                "address"=>$shop_order->address,
+                                "phone"=>$shop_order->phone,
+                                "zipcode"=>$shop_order->postal_code,
+                                "province"=>$shop_order->city,
+                                "pay_method"=>$shop_order->pay_method,
+                                "product_id"=>$info['product_id'],
+                                "product_code"=>$info['code'],
+                                "product_title"=>$info['title'],
+                                "price"=>$info['price'],
+                                "price_buy"=>$info['price_buy'],
+                                "total_price"=>$info['total_price'],
+                                "price_buy_sale"=>0,
+                                "total_price_buy"=>$info['total_price_buy'],
+                                "count"=>$info['count'],
+                                "total_count"=>$info['total_count'],
+                                "order_image"=>"",
+                                "order_date"=>$shop_order->day_ship,
+                                "order_hours"=>$shop_order->time_ship,
+                                "order_ship"=>$info['ship'],
+                                "order_price"=>$info['profit'],
+                                "order_ship_cou"=>$info['cou'],
+                                "order_tracking"=>"",
+                                "order_info"=>$shop_order->info,
+                                "order_link"=>$shop_order->link?$shop_order->link:"",
+                                "updated_at"=>date('Y-m-d H:i:s'),
+                                "one_address"=>(int)$info['index'] == 0 ? (($indexAction > 0)?1:0):0,
+                                "status"=>1,
+                                "public"=>1,
+                                "type"=>($info['index'] == "0"?"Info":($info['index']==$n-1?"Footer":"Item")),
+                                "token"=>$_keys,
+                                "order_index"=>$info['index'],
+                                "form_index"=>$info['index'],
+                                "group"=> $info['gorup'],
+                                "comment"=> "",
+                            ];
+                            if($info['index'] == "0"){
+                                $next = $info['id'];
+                            }
+//                            $dataSave["sort"] = $admin_id * 10000000 +
+//                                (1 + $info['index']+$indexAction ) * $admin_id +
+//                                $dataSave["order_index"] + strtotime(date('Y-m-d'));
+                                $dataSave["sort"] = $admin_id * 10000000 +$next*1000000+($info['index']+$order_id)+strtotime(date('Y-m-d'));
+
+                            DB::table('shop_order_excel')
+                                ->updateOrInsert(["order_id"=>$order_id,'session_id'=>$info['id']],$dataSave);
+                            $repon[] = $dataSave;
+                            $indexAction++;
+                        }
+                    } else if($key == "KURICHIKU"){
+                        foreach ($infos as $_key=>$info){
+                            $info = (array) $info;
+                            $dataSave = [
+                                "order_create_date"=>date('Y-m-d H:i:s'),
+                                "company"=>$info['company_name'],
+                                "session_id"=> $info['id'],
+                                "admin_id"=>$admin_id,
+                                "order_id"=>$order_id,
+                                "ctv_id" => 0,
+                                "fullname"=>$shop_order->fullname,
+                                "address"=>$shop_order->address,
+                                "phone"=>$shop_order->phone,
+                                "zipcode"=>$shop_order->postal_code,
+                                "province"=>$shop_order->city,
+                                "pay_method"=>$shop_order->pay_method,
+                                "product_id"=>$info['product_id'],
+                                "product_code"=>$info['code'],
+                                "product_title"=>$info['title'],
+                                "price"=>$info['price'],
+                                "price_buy"=>$info['price_buy'],
+                                "total_price"=>$info['total_price'],
+                                "price_buy_sale"=>0,
+                                "total_price_buy"=>$info['total_price_buy'],
+                                "count"=>$info['count_jon'],
+                                "total_count"=>$info['count'],
+                                "order_image"=>"",
+                                "order_date"=>$shop_order->day_ship,
+                                "order_hours"=>$shop_order->time_ship,
+                                "order_ship"=>$info['ship'],
+                                "order_price"=>$info['profit'],
+                                "order_ship_cou"=>$info['cou'],
+                                "order_tracking"=>"",
+                                "order_info"=>$shop_order->info,
+                                "order_link"=>$shop_order->link?$shop_order->link:"",
+                                "updated_at"=>date('Y-m-d H:i:s'),
+                                "one_address"=>(int)$info['index'] != 0,
+                                "status"=>1,
+                                "public"=>1,
+                                "token"=>$info['index'],
+                                "order_index"=>$info['index'],
+                                "form_index"=>$_key,
+                                "group"=> $info['gorup'],
+                                "comment"=> "",
+                            ];
+                            $next = $info['id'];
+                            $dataSave["sort"] = $admin_id * 10000000 +$next*1000000+($info['index']+$order_id)+strtotime(date('Y-m-d'));
+                            DB::table('shop_order_excel')
+                                ->updateOrInsert(["order_id"=>$order_id,'session_id'=>$info['id']],$dataSave);
+                            $repon[] = $dataSave;
+                        }
+                    }
+                    else{
+                        foreach ($infos as $_key=>$info){
+                            $info = (array) $info;
+                            $dataSave = [
+                                "order_create_date"=>date('Y-m-d H:i:s'),
+                                "company"=>$info['company_name'],
+                                "session_id"=> $info['id'],
+                                "admin_id"=>$admin_id,
+                                "order_id"=>$order_id,
+                                "ctv_id" => 0,
+                                "fullname"=>$shop_order->fullname,
+                                "address"=>$shop_order->address,
+                                "phone"=>$shop_order->phone,
+                                "zipcode"=>$shop_order->postal_code,
+                                "province"=>$shop_order->city,
+                                "pay_method"=>$shop_order->pay_method,
+                                "product_id"=>$info['product_id'],
+                                "product_code"=>$info['code'],
+                                "product_title"=>$info['title'],
+                                "price"=>$info['price'],
+                                "price_buy"=>$info['price_buy'],
+                                "total_price"=>$info['total_price'],
+                                "price_buy_sale"=>0,
+                                "total_price_buy"=>$info['total_price_buy'],
+                                "count"=>$info['count'],
+                                "total_count"=>$info['total_count'],
+                                "order_image"=>"",
+                                "order_date"=>$shop_order->day_ship,
+                                "order_hours"=>$shop_order->time_ship,
+                                "order_ship"=>$info['ship'],
+                                "order_price"=>$info['profit'],
+                                "order_ship_cou"=>$info['cou'],
+                                "order_tracking"=>"",
+                                "order_info"=>$shop_order->info,
+                                "order_link"=>$shop_order->link?$shop_order->link:"",
+                                "updated_at"=>date('Y-m-d H:i:s'),
+                                "one_address"=>(int)$info['index'] != 0,
+                                "status"=>1,
+                                "public"=>1,
+                                "token"=>$info['index'],
+                                "order_index"=>$info['index'],
+                                "form_index"=>$_key,
+                                "group"=> $info['gorup'],
+                                "comment"=> "",
+                            ];
+                            $next = $info['id'];
+                            $dataSave["sort"] = $admin_id * 10000000 +$next*1000000+($info['index']+$order_id)+strtotime(date('Y-m-d'));
+                            DB::table('shop_order_excel')
+                                ->updateOrInsert(["order_id"=>$order_id,'session_id'=>$info['id']],$dataSave);
+                            $repon[] = $dataSave;
+                        }
+                    }
+
+                }
+            }
+            DB::commit();
+        }catch (\Exception $ex){
+            DB::rollBack();
+            die($ex->getMessage());
+        }
+      //DB::table('shop_order_excel')->insert();
+        return response()->json($repon);
+    }
     public function edit($id)
     {
         $this->getcrumb()->breadcrumb(z_language("Sửa"), false);
         $model = OrderModel::find($id);
 
         $model->detailOrder = json_encode($model->GetDetails());
+        $detailInfo = $model->GetDetailsInfo();
+        $arrDetail = [];
+        foreach ($detailInfo as $value){
+            if(!isset($arrDetail[$value->company_name])){
+                $arrDetail[$value->company_name] = [];
+            }
+            $arrDetail[$value->company_name][] = $value;
 
-        return $this->render('order.edit', ["model" => $model]);
+        }
+
+
+//        $carts = $model->data_cart;
+//
+//        $ids = array_keys($carts);
+//        $_products = DB::table('shop_product')->whereIn('id',$ids)->get()->keyBy('id')->all();
+//
+//
+//        $configs = new \BetoGaizinTheme\Lib\PriceAction();
+//        foreach ($_products as $key=>$product){
+//
+//            $_products[$key]->count = $carts[$product->id]['count'];
+//            $_products[$key]->price_total = $_products[$key]->count * $product->price_buy;
+//            $_products[$key]->order_index = $carts[$product->id]['time'];
+//            $carts[$product->id]['data'] = $product;
+//        }
+//        usort($_products, function($a,$b){
+//            return $a->order_index - $b->order_index;
+//        });
+//        $prices = $configs->prices($carts);
+
+        return $this->render('order.edit', ["model" => $model,'arrDetail'=>$arrDetail]);
     }
     public function delete()
     {

@@ -1,7 +1,9 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"> {!! @z_language(["Thông tin hóa đơn"]) !!} </a></li>
-        <li><a href="#tab_2" data-toggle="tab" aria-expanded="true"> {!! @z_language(["Thông tin sản phẩm"]) !!} </a></li>
+        @foreach($arrDetail as $name=>$value)
+        <li><a data-toggle="tab" aria-expanded="true" href="#tab_{!! $name !!}"> {!! $name !!} </a></li>
+        @endforeach
     </ul>
     <div class="tab-content">
         <div class="tab-pane active clearfix" id="tab_1">
@@ -230,13 +232,11 @@
             </div>
             {!! Form::close() !!}
         </div>
-        <div class="tab-pane" id="tab_2">
+        @foreach($arrDetail as $name=>$values)
+        <div class="tab-pane" id="tab_{!! $name !!}">
             <form id="FromOrderDetail">
             <table class="table table-bordered">
-                <tr>
-                    <td>{!! Form::text('name',null, ['id'=>"search_data",'class' => 'form-control','placeholder'=>z_language('Tên sản phẩm')]) !!}</td>
-                    <td>{!! Form::number('number',null, ['id'=>'number','class' => 'form-control','placeholder'=>z_language('Số lượng')]) !!}</td>
-                </tr>
+
                 <tr>
                     <td colspan="2">
                         <table class="table table-bordered" id="orderDetail">
@@ -245,20 +245,44 @@
                                 <th class="text-center">STT</th>
                                 <th class="text-center">Mã sản phẩm</th>
                                 <th class="text-center">Tên Sản phẩm</th>
-                                <th class="text-center">Công ty</th>
-                                <th class="text-center">Vận chuyển</th>
                                 <th class="text-center">Số lượng</th>
-                                <th class="text-center">Hóa đơn</th>
+                                @if($name == "KOGYJA")
+                                <th class="text-center">Số lượng</th>
+                                @endif
                                 <th class="text-center">Giá nhập</th>
                                 <th class="text-center">Giá bán</th>
-                                <th class="text-center">Phí ship</th>
+
                                 <th class="text-center">Tổng giá nhập</th>
                                 <th class="text-center">Tổng giá bán</th>
-                                <th class="text-center"> &nbsp; </th>
+                                <th class="text-center">Phí ship</th>
+                                <th class="text-center">Cou</th>
+                                <th class="text-center">Lãi</th>
+
                             </tr>
                             </thead>
                             <tbody>
-
+                                @foreach($values as $stt=>$value)
+                                    <tr>
+                                        <td class="text-center">{!! $stt !!}</td>
+                                        <td class="text-center">{!! $value->code !!}</td>
+                                        <td class="text-center">{!! $value->title !!}</td>
+                                        <td class="text-center">{!! $value->count !!}</td>
+                                        @if($name == "KOGYJA")
+                                            <td class="text-center">{!! $value->total_count !!}</td>
+                                        @endif
+                                        <td class="text-center">{!! $value->price !!}</td>
+                                        <td class="text-center">{!! $value->price_buy !!}</td>
+                                        <td class="text-center">{!! $value->total_price !!}</td>
+                                        <td class="text-center">{!! $value->total_price_buy !!}</td>
+                                        <td class="text-center">{!! $value->total_ship !!}</td>
+                                        <td class="text-center">{!! $value->cou !!}</td>
+                                        <td class="text-center">{!! $value->profit !!}</td>
+                                        <td class="text-center">
+                                            <button onclick="update_excel(this);" type="button" class="btn btn-xs btn-primary">Excel</button>
+                                            <div style="display: none"><textarea>{!! base64_encode(json_encode((array)$value)) !!}</textarea></div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </td>
@@ -266,11 +290,9 @@
             </table>
             </form>
         </div>
+        @endforeach
     </div>
 </div>
-
-
-
 <div class="modal fade" id="elfinderShow">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -341,6 +363,17 @@
     <script src="{{ asset('module/admin/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
 
     <script !src="">
+        function update_excel(self){
+            data = $(self).closest('.text-center').find('textarea').val();
+            $.ajax({
+                url:"{!! route('backend:shop_ja:order:excel') !!}",
+                type:"POST",
+                data:{
+                    data:data,
+                    order_id:'{!! $model->id !!}'
+                }
+            })
+        }
         $(function () {
             $('.select2').select2()
         });
@@ -625,24 +658,24 @@
                 });
             });
 
-            $('#search_data').autocomplete({
-                source: function (request, response) {
-                    request.city = $("#city-select").val();
-                    $.post("{!! route('backend:shop_ja:order:ajax') !!}" , request, response);
-                },
-                minLength: 1,
-                select: function(event, ui)
-                {
-                    $('#search_data').val(ui.item.value);
-                    $("#number").attr('data-id',ui.item.data.id);
-                    insertRow(ui.item.data,ui.item.hidden,{});
-                }
-            }).data('ui-autocomplete')._renderItem = function(ul, item){
-                return $("<li class='ui-autocomplete-row'></li>")
-                    .data("item.autocomplete", item)
-                    .append(item.label)
-                    .appendTo(ul);
-            };
+            {{--$('#search_data').autocomplete({--}}
+                {{--source: function (request, response) {--}}
+                    {{--request.city = $("#city-select").val();--}}
+                    {{--$.post("{!! route('backend:shop_ja:order:ajax') !!}" , request, response);--}}
+                {{--},--}}
+                {{--minLength: 1,--}}
+                {{--select: function(event, ui)--}}
+                {{--{--}}
+                    {{--$('#search_data').val(ui.item.value);--}}
+                    {{--$("#number").attr('data-id',ui.item.data.id);--}}
+                    {{--insertRow(ui.item.data,ui.item.hidden,{});--}}
+                {{--}--}}
+            {{--}).data('ui-autocomplete')._renderItem = function(ul, item){--}}
+                {{--return $("<li class='ui-autocomplete-row'></li>")--}}
+                    {{--.data("item.autocomplete", item)--}}
+                    {{--.append(item.label)--}}
+                    {{--.appendTo(ul);--}}
+            {{--};--}}
             (function (data) {
                 console.log(data);
                 let par = {};
@@ -663,7 +696,7 @@
                         }
                     }
                 });
-            })({!! isset($model)?$model->detailOrder:'[]' !!});
+            })({!! isset($model)?'[]':'[]' !!});
             (function (val) {
                 if(val){
                     let _val =  val.split("|");

@@ -61,6 +61,10 @@ return [
                         "ajax" => [
                             "url" => "/ajax", "method" => ['post'],
                         ],
+                        "excel" => [
+                            "url" => "/excel",
+                            "method" => ['post'],
+                        ],
                     ]
                 ],
                 'shop_ja:japan:category:ship' => [

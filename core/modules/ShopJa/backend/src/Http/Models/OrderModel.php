@@ -17,4 +17,7 @@ class OrderModel extends Model
         }
         return $datas;
     }
+    public function GetDetailsInfo(){
+        return DB::table('shop_order_detail')->where('order_id',$this->id)->orderBy('order_index','asc')->get()->all();
+    }
 }
