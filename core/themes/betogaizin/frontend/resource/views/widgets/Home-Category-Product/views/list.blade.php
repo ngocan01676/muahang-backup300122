@@ -1,5 +1,7 @@
 @php
     $id = time().'-'.rand(1,1000000);
+    $carts = request()->session()->get(\BetoGaizinTheme\Http\Controllers\WidgetController::$keyCart,[]);
+
 @endphp
 @isset($data['results'][0])
     <div class="block-carousel" id="id_{!! $id !!}">
@@ -56,20 +58,45 @@
                                         <div class="product-item-info-btn-area">
                                             <div class="product-item-info-btn">
                                                 <div class="btn-add-set-wrap">
-                                                    <a  href="javascript:void(0);"
-                                                        data-id="{!! $result->id !!}"
-                                                        data-count="1"
-                                                        data-cate="{!! $result->category_id !!}"
-                                                        data-act="add"
-                                                        class="btn btn-add js-btn-add-switch btn-block">
-                                                        <i class="svg-icon icon-cart-02"></i>
-                                                        かごに追加
-                                                    </a>
-                                                    <div class="btn-set-wrap" style="display: none;">
-                                                        <span class="btn-set-btn">－</span>
-                                                        <span class="btn-set-num">0</span>
-                                                        <span data-auto-id="0" class="btn-set-btn">＋</span>
-                                                    </div>
+                                                    @if(isset($carts[$result->id]))
+                                                        <a style="display: none;" href="javascript:void(0);"
+                                                            data-id="{!! $result->id !!}"
+                                                            data-count="1"
+                                                            data-cate="{!! $result->category_id !!}"
+                                                            data-act="add"
+                                                            class="btn btn-add js-btn-add-switch btn-block">
+                                                            <i class="svg-icon icon-cart-02"></i>
+                                                            {!! z_language('Thêm vào giỏ') !!}
+                                                        </a>
+                                                        <div class="btn-set-wrap set-data"
+                                                             data-cate="{!! $result->category_id !!}"
+                                                             data-id="{!! $result->id !!}"
+                                                             data-count="1"
+                                                             data-act="add">
+                                                            <span class="btn-set-btn" data-type="-">－</span>
+                                                            <span class="btn-set-num">{!! $carts[$result->id]['count'] !!}</span>
+                                                            <span class="btn-set-btn" data-type="+">＋</span>
+                                                        </div>
+                                                    @else
+                                                        <a  href="javascript:void(0);"
+                                                            data-id="{!! $result->id !!}"
+                                                            data-count="1"
+                                                            data-cate="{!! $result->category_id !!}"
+                                                            data-act="add"
+                                                            class="btn btn-add js-btn-add-switch btn-block">
+                                                            <i class="svg-icon icon-cart-02"></i>
+                                                            {!! z_language('Thêm vào giỏ') !!}
+                                                        </a>
+                                                        <div class="btn-set-wrap set-data" style="display: none"
+                                                             data-cate="{!! $result->category_id !!}"
+                                                             data-id="{!! $result->id !!}"
+                                                             data-count="1"
+                                                             data-act="add">
+                                                            <span class="btn-set-btn" data-type="-">－</span>
+                                                            <span class="btn-set-num">1</span>
+                                                            <span class="btn-set-btn" data-type="+">＋</span>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

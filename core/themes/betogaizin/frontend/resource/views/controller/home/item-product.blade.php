@@ -73,9 +73,9 @@
                                             <i class="svg-icon icon-cart-02"></i>{!! z_language('かごに追加') !!}
                                         </a>
                                         <div class="btn-set-wrap" style="display:none;">
-                                            <span  class="btn-set-btn">－</span>
+                                            <span class="btn-set-btn">－</span>
                                             <span class="btn-set-num">0</span>
-                                            <span data-auto-id="undefined/inc-cart-4976994206307" class="btn-set-btn">＋</span>
+                                            <span  class="btn-set-btn">＋</span>
                                         </div>
                                     </div>
                                 </div>

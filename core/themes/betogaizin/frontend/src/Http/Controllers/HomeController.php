@@ -7,7 +7,7 @@ use Validator;
 use Illuminate\Support\Str;
 use Mail;
 use BetoGaizinTheme\Mail\MyEmail;
-
+use Illuminate\Support\Facades\View;
 class HomeController extends \Zoe\Http\ControllerFront
 {
     public $config_language = [];
