@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="product-item-info-btn-area">
                                             <div class="product-item-info-btn">
-                                                <div class="btn-add-set-wrap">
+                                                <div class="btn-add-set-wrap" data-show=".js-btn-add-switch">
                                                     @if(isset($carts[$result->id]))
                                                         <a style="display: none;" href="javascript:void(0);"
                                                             data-id="{!! $result->id !!}"

@@ -38,7 +38,13 @@ $(document).ready(function () {
     }
    $(".btn-add").click(function () {
         var data = $(this).data();
-       cartAdd(data);
+        var parent = $(this).closest('.btn-add-set-wrap');
+        var self = $(this);
+       cartAdd(data,function () {
+           self.hide();
+           parent.find('.btn-set-wrap').show();
+           parent.find('.btn-set-wrap .btn-set-num').html(1);
+       });
    });
     function cartAdd(data,cb,type) {
         if(data.act === "add" && type !== "cart" ) {
@@ -91,13 +97,16 @@ $(document).ready(function () {
 
     $(document).on('click','.btn-set-btn',function () {
        var dataConf = $(this).data();
-        console.log(dataConf);
+
+        console.error(dataConf);
+
        var type = dataConf.type;
        if(dataConf.hasOwnProperty('loading')){
            $(this).closest(dataConf.loading).addClass('load');
        }
        var element = $(this).closest('.set-data');
-       if(element.attr('lock')){
+
+       if(element.attr('lock') === "true"){
             alert("Thao tác quá nhanh");
             return;
         }
@@ -115,13 +124,17 @@ $(document).ready(function () {
 
        num.html(counts+count);
        var data = element.data();
-
         data.count = count;
+        console.log(1111111);
         cartAdd(data,function () {
+
             element.attr('lock',false);
+
             if(dataConf.hasOwnProperty('loading')){
                 $(this).closest(dataConf.loading).remove('load');
             }
+
+
         },"cart");
     });
    initCarts({});
