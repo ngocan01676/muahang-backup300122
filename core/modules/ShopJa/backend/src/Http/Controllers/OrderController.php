@@ -419,7 +419,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
             DB::commit();
         }catch (\Exception $ex){
             DB::rollBack();
-            die($ex->getMessage());
+            die("Error:".$ex->getMessage() ." ".$ex->getLine());
         }
       //DB::table('shop_order_excel')->insert();
         return response()->json($repon);
@@ -475,7 +475,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
         $validator = Validator::make($data, [
             'fullname' => 'required',
             'phone' => 'required',
-            'postal_code' => 'required|integer',
+            'postal_code' => 'required',
             'city' => 'required',
             'country' => 'required',
             'address' => 'required',
@@ -521,25 +521,25 @@ class OrderController extends \Zoe\Http\ControllerBackend
             $model->status = $data['status'];
             $model->save();
 
-            if(isset($data['dataDetailOrder'])){
-                $dataDetailOrder = json_decode($data['dataDetailOrder'],true);
-                $updated_at = date('Y-m-d H:i:s');
-                foreach ($dataDetailOrder as $k=>$item){
-                  DB::table('shop_order_detail')
-                      ->updateOrInsert(
-                          ['order_id' => $model->id, 'product_id' => $item['id']],
-                          [
-                              'count' =>$item['count'],
-                              'company' =>$item['company'],
-                              'ship' =>$item['ship'],
-                              'image' =>$item['image'],
-                              'price' =>(int) $item['price'],
-                              'price_buy' =>(int)$item['price_buy'],
-                              'price_ship' => (int) $item['price_ship'],
-                              'updated_at' => $updated_at]);
-                }
-                DB::table('shop_order_detail')->where('order_id',$model->id)->where('updated_at','!=',$updated_at)->delete();
-            }
+//            if(isset($data['dataDetailOrder'])){
+//                $dataDetailOrder = json_decode($data['dataDetailOrder'],true);
+//                $updated_at = date('Y-m-d H:i:s');
+//                foreach ($dataDetailOrder as $k=>$item){
+//                  DB::table('shop_order_detail')
+//                      ->updateOrInsert(
+//                          ['order_id' => $model->id, 'product_id' => $item['id']],
+//                          [
+//                              'count' =>$item['count'],
+//                              'company' =>$item['company'],
+//                              'ship' =>$item['ship'],
+//                              'image' =>$item['image'],
+//                              'price' =>(int) $item['price'],
+//                              'price_buy' =>(int)$item['price_buy'],
+//                              'price_ship' => (int) $item['price_ship'],
+//                              'updated_at' => $updated_at]);
+//                }
+//                DB::table('shop_order_detail')->where('order_id',$model->id)->where('updated_at','!=',$updated_at)->delete();
+//            }
             return redirect(route('backend:shop_ja:order:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
