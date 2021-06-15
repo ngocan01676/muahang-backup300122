@@ -1,14 +1,5 @@
 @section('content')
     <div>
-        {{--<div>--}}
-            {{--<div class="loggedOutDisclaimer sp-width">こちらは見学ページです。お客様のお届け地域の品揃え・価格・送料体系は--}}
-                {{--<a href="#" data-ratid="link_logged-out-disclaimer_login_click" data-ratevent="click" data-ratparam="all">ログイン</a>--}}
-                {{--後にご確認ください。--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--<h1 class="title title-large">--}}
-            {{--新商品<span class="title-subtext">&nbsp;&nbsp;&nbsp;1～48件&nbsp;（全697件）</span>--}}
-        {{--</h1>--}}
         <div>
             <div class="item-slot-bar">
                 <div class="item-slot-bar-in">

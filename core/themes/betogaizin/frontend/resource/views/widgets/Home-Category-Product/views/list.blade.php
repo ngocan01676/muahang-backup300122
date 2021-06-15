@@ -15,7 +15,7 @@
                 </a>
             </h2>
             <p class="title-link"><a href="{!! router_frontend_lang('home:category-product-group',$data['cate']['router']) !!}" class="btn btn-link btn-arrow-right">
-                    商品をもっと見る
+                    {!! z_language('商品をもっと見る') !!}
                 </a>
             </p>
         </div>
