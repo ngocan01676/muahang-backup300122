@@ -1207,7 +1207,7 @@ class Excel
         $date_export->date = $this->date_export;
         $date_nhan = new \stdClass();
         $date_nhan->date = $this->date;
-
+        $columns_value = array_flip($datas['columns']);
         $colums = [
             ["注文日", ['callback' => function ($index, $date) use ($date_export) {
                 return date("d", $date_export->date) . '日';
@@ -1236,8 +1236,13 @@ class Excel
             ["仕入金額", 'order_total_price', 6.43, 9],//O
             ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
             ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
-            ["紹介料", ['callback' => function ($index, $date) use ($date_export) {
-                return "=P$index-J$index*K$index-N$index-Q$index";
+            ["紹介料", ['callback' => function ($index, $date,$a,$val) use ($date_export,$columns_value) {
+                if($val[$columns_value['payMethod']] == "決済不要"){
+                    return "=0-O$index";
+                }else{
+                    return "=P$index-J$index*K$index-N$index-Q$index";
+                }
+
             }, 'key' => 'order_price'], 5.43, 9],//R =IF(J4="","",P4-J4*K4-N4-Q4) P4-J4*K4-N4-Q4
             ["追跡番号", 'order_tracking', 4.86, 9],//S
             ["振込み情報",['callback' => function ($index, $value) use ($date_export) {
@@ -1292,7 +1297,7 @@ class Excel
 
         ];
 
-        $columns_value = array_flip($datas['columns']);
+
         $products = DB::table('shop_product')->get()->keyBy('id')->all();
         $images = [];
         $ids = [];
@@ -1330,7 +1335,7 @@ class Excel
                         $sheet->setCellValue($nameCol . $start, trim($_val));
                     } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
                         $conf = $value[1]['callback'];
-                        $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start]);
+                        $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start,$values]);
                         if ($_val == "0") {
                            // $_val = "";
                         }
