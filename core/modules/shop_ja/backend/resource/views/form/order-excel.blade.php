@@ -8936,11 +8936,11 @@
                                     break
                                 }
                             }
-                            console.log(11111111111111);
+                        
                             if(!isNaN(token)){
                                 Row = token;
                             }
-                            console.log("Row:"+Row);
+                        
                             token = "";
                         }else{
                             for(let iii = r-1;iii>=0;iii--){
@@ -8971,9 +8971,11 @@
                 function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all) {
 
                     let configShip = dataship.hasOwnProperty("cate_"+$category_id)?dataship["cate_"+$category_id]:[];
+					
                     if(total_price_buy_all == 0){
                         total_price_buy_all = $total_price_buy;
                     }
+					
                     console.log(configShip);
                     console.log("$count:"+$count);
                     console.log("$province:"+$province);
