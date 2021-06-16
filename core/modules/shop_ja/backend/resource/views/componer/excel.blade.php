@@ -8,6 +8,12 @@
  <script src="{{ asset('module/admin/assets/jQuery-MD5/jquery.md5.js') }}"></script>
  <script src="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
  <link rel="stylesheet" href="{{ asset('module/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+ <style>
+
+  .jexcel > tbody > tr > td.jexcel_dropdown{
+   white-space: nowrap !important;
+  }
+ </style>
  <script>
   let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
   let  date = moment(stringDate);
