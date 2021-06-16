@@ -4,6 +4,12 @@
 @else
     {!! Form::open(['method' => 'POST','route' => ['backend:shop_ja:product:store'],'id'=>'form_store']) !!}
 @endif
+<style>
+
+    .jexcel > tbody > tr > td.jexcel_dropdown{
+        white-space: nowrap !important;
+    }
+</style>
 <div class="box box-default box-solid">
     <div class="box-header with-border">
         <h3 class="box-title">{!! z_language('Đơn ngày :DATE',['DATE'=>date('d-m-Y',strtotime($model?$model->key_date:time()))]) !!}</h3>
@@ -6225,6 +6231,7 @@
                 },
             };
         }
+
         function BANH_CHUNG() {
             let  sheetName  =  'BANH_CHUNG';
             let data = [];
