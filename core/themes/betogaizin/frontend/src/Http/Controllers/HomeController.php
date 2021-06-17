@@ -32,7 +32,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         }
         $cate = $cate[$id];
 
-        DB::connection()->enableQueryLog();
+        
         $model = DB::table('shop_product as p')->where('p.status',1)
             ->join('shop_product_translation as t','t._id','=','p.id')
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
@@ -45,14 +45,15 @@ class HomeController extends \Zoe\Http\ControllerFront
                         $query->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
                     }else if($val['type'] == "make"){
                         $query->orWhere('p.category_id','=',$val['value']);
+                    }else{
+
                     }
                 }
             });
         }
         $total_records = $model->count();
-        $queries = DB::getQueryLog();
-        $last_query = end($queries);
-        dump($last_query);
+
+
         $model = DB::table('shop_product as p')->where('p.status',1)
             ->join('shop_product_translation as t','t._id','=','p.id')
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
