@@ -45,7 +45,18 @@ class HomeController extends \Zoe\Http\ControllerFront
                         $query->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
                     }else if($val['type'] == "make"){
                         $query->orWhere('p.category_id','=',$val['value']);
-                    }else{
+                    }else if($val['type'] == "tag"){
+                        $ids = Cache::remember('tag:'.$val['value'], 60, function () use($val) {
+                            $rs = DB::table('tag_item')->select('item_id')->where('tag_id',$val['value'])->get();
+                            $array = [];
+                            foreach ($rs as $k){
+                                $array[] = $k;
+                            }
+                            return $array;
+                        });
+                        if(count($ids) > 0){
+                            $query->orWhereIn('p.id',$ids);
+                        }
 
                     }
                 }
