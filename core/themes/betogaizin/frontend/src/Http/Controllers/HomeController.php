@@ -52,7 +52,6 @@ class HomeController extends \Zoe\Http\ControllerFront
             });
         }
         $total_records = $model->count();
-        echo $total_records;
 
         $model = DB::table('shop_product as p')->where('p.status',1)
             ->join('shop_product_translation as t','t._id','=','p.id')
@@ -104,6 +103,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             'results'=>$results,
             'current_page'=>$current_page,
             'total_page'=>$total_page,
+            'router'=>'menu-product-group',
             'cate'=>[
                 'router'=>$cate,
                 'name'=>$name
