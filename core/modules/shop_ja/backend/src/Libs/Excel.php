@@ -1639,7 +1639,7 @@ class Excel
                                 } else if ($products[$pro_id]->unit == 4) {
                                     $product_title .= $products[$pro_id]->title . '、';
                                 } else {
-                                    $product_title .= $products[$pro_id]->title . " " . $kg . "kg" . '、';
+                                    $product_title .= $products[$pro_id]->title . " x" . $kg . "" . '、';
                                 }
                             }
                         }
