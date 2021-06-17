@@ -32,7 +32,24 @@ class HomeController extends \Zoe\Http\ControllerFront
         }
         $cate = $cate[$id];
 
+        DB::connection()->enableQueryLog();
+        $model = DB::table('shop_product as p')->where('p.status',1)
+            ->join('shop_product_translation as t','t._id','=','p.id')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
+            ->where('lang_code',$config_language['lang']);
+        dump($cate->data);
+        foreach ($cate->data as $val){
+            if($val['type'] == "name"){
+                $model->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
+            }else if($val['type'] == "make"){
+                $model->orWhere('p.category_id','=',$val['value']);
+            }
+        }
 
+        $total_records = $model->count();
+        $queries = DB::getQueryLog();
+        $last_query = end($queries);
+        dump($last_query);
         $model = DB::table('shop_product as p')->where('p.status',1)
             ->join('shop_product_translation as t','t._id','=','p.id')
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
@@ -43,20 +60,6 @@ class HomeController extends \Zoe\Http\ControllerFront
                 $model->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
             }else if($val['type'] == "make"){
                 $model->orWhere('p.category_id','=',$val['value']);
-            }
-        }
-
-        $total_records = $model->count();
-
-
-        $model = DB::table('shop_product as p')->where('p.status',1)
-            ->join('shop_product_translation as t','t._id','=','p.id')
-            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
-            ->where('lang_code',$config_language['lang']);
-
-        foreach ($cate->data as $val){
-            if($val['type'] == "name"){
-                $model->where('p.slug','like','%'.Str::slug($val['value']).'%');
             }
         }
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
