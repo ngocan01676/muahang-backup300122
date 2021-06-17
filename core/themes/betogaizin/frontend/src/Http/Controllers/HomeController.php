@@ -31,7 +31,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         if(!isset($cate[$id])){
                 return redirect('/404');
         }
-        $cate = $cate[$id];
+        $cateData = $cate[$id];
 
 
         $model = DB::table('shop_product as p')->where('p.status',1)
@@ -39,9 +39,9 @@ class HomeController extends \Zoe\Http\ControllerFront
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
             ->where('lang_code',$config_language['lang']);
 
-        if(count($cate->data) > 0){
-            $model->where(function($query) use($cate) {
-                foreach ($cate->data as $val){
+        if(count($cateData->data) > 0){
+            $model->where(function($query) use($cateData) {
+                foreach ($cateData->data as $val){
                     if($val['type'] == "name"){
                         $query->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
                     }else if($val['type'] == "make"){
@@ -74,10 +74,10 @@ class HomeController extends \Zoe\Http\ControllerFront
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
             ->where('lang_code',$config_language['lang']);
 
-        if(count($cate->data) > 0){
+        if(count($cateData->data) > 0){
 
-            $model->where(function($query) use($cate) {
-                foreach ($cate->data as $val){
+            $model->where(function($query) use($cateData) {
+                foreach ($cateData->data as $val){
                     if($val['type'] == "name"){
                         $query->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
                     }else if($val['type'] == "make"){
@@ -99,7 +99,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                     }
                 }
             });
-        } 
+        }
 
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
@@ -132,7 +132,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         }
 
         return $this->render('home.category-product', [
-            'results'=>count($cate->data)?$results:[],
+            'results'=>count($cateData->data)?$results:[],
             'current_page'=>$current_page,
             'total_page'=>$total_page,
             'router'=>'menu-product-group',
