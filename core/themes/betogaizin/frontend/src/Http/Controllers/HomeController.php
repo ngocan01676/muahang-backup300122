@@ -55,6 +55,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                             }
                             return $array;
                         });
+                        dd($ids);
                         if(count($ids) > 0){
                             $query->orWhereIn('p.id',$ids);
                         }
