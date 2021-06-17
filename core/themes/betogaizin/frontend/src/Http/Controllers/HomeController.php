@@ -40,7 +40,9 @@ class HomeController extends \Zoe\Http\ControllerFront
 
         foreach ($cate->data as $val){
             if($val['type'] == "name"){
-                $model->where('p.slug','like','%'.Str::slug($val['value']).'%');
+                $model->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
+            }else if($val['type'] == "make"){
+                $model->orWhere('p.category_id','=',$val['value']);
             }
         }
 
