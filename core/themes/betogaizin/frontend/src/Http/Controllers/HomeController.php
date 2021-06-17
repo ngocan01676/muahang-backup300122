@@ -63,8 +63,11 @@ class HomeController extends \Zoe\Http\ControllerFront
                     }
                 }
             });
+            $total_records = $model->count();
+        }else{
+            $total_records = 0;
         }
-        $total_records = $model->count();
+
 
         $model = DB::table('shop_product as p')->where('p.status',1)
             ->join('shop_product_translation as t','t._id','=','p.id')
@@ -72,6 +75,7 @@ class HomeController extends \Zoe\Http\ControllerFront
             ->where('lang_code',$config_language['lang']);
 
         if(count($cate->data) > 0){
+
             $model->where(function($query) use($cate) {
                 foreach ($cate->data as $val){
                     if($val['type'] == "name"){
@@ -95,7 +99,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                     }
                 }
             });
-        }
+        } 
 
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
@@ -128,7 +132,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         }
 
         return $this->render('home.category-product', [
-            'results'=>$results,
+            'results'=>count($cate->data)?$results:[],
             'current_page'=>$current_page,
             'total_page'=>$total_page,
             'router'=>'menu-product-group',
