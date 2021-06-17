@@ -37,15 +37,18 @@ class HomeController extends \Zoe\Http\ControllerFront
             ->join('shop_product_translation as t','t._id','=','p.id')
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
             ->where('lang_code',$config_language['lang']);
-        dump($cate->data);
-        foreach ($cate->data as $val){
-            if($val['type'] == "name"){
-                $model->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
-            }else if($val['type'] == "make"){
-                $model->orWhere('p.category_id','=',$val['value']);
-            }
-        }
 
+        if(count($cate->data) > 0){
+            $model->where(function($query) use($cate) {
+                foreach ($cate->data as $val){
+                    if($val['type'] == "name"){
+                        $query->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
+                    }else if($val['type'] == "make"){
+                        $query->orWhere('p.category_id','=',$val['value']);
+                    }
+                }
+            });
+        }
         $total_records = $model->count();
         $queries = DB::getQueryLog();
         $last_query = end($queries);
@@ -55,12 +58,16 @@ class HomeController extends \Zoe\Http\ControllerFront
             ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
             ->where('lang_code',$config_language['lang']);
 
-        foreach ($cate->data as $val){
-            if($val['type'] == "name"){
-                $model->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
-            }else if($val['type'] == "make"){
-                $model->orWhere('p.category_id','=',$val['value']);
-            }
+        if(count($cate->data) > 0){
+            $model->where(function($query) use($cate) {
+                foreach ($cate->data as $val){
+                    if($val['type'] == "name"){
+                        $query->orWhere('p.slug','like','%'.Str::slug($val['value']).'%');
+                    }else if($val['type'] == "make"){
+                        $query->orWhere('p.category_id','=',$val['value']);
+                    }
+                }
+            });
         }
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 10;
