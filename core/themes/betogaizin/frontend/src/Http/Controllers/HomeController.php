@@ -51,7 +51,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                             $rs = DB::table('tag_item')->select('item_id')->where('tag_id',$val['value'])->get();
                             $array = [];
                             foreach ($rs as $k){
-                                $array[] = $k;
+                                $array[] = $k->item_id;
                             }
                             return $array;
                         });
@@ -83,7 +83,7 @@ class HomeController extends \Zoe\Http\ControllerFront
                             $rs = DB::table('tag_item')->select('item_id')->where('tag_id',$val['value'])->get();
                             $array = [];
                             foreach ($rs as $k){
-                                $array[] = $k;
+                                $array[] = $k->item_id;
                             }
                             return $array;
                         });
