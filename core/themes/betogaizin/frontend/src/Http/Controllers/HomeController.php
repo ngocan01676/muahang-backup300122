@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Mail;
 use BetoGaizinTheme\Mail\MyEmail;
 use Illuminate\Support\Facades\View;
+use Cache;
 class HomeController extends \Zoe\Http\ControllerFront
 {
     public $config_language = [];
