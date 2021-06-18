@@ -241,6 +241,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $model->category_id = $data['category_id'];
             $model->image =  $imageUp;
             $model->price = $data['price'];
+            $model->price_buy_km = isset($data['price_buy_km'])?$data['price_buy_km']:0;
             $model->code = $data['code'];
             $model->unit = $data['unit'];
             $model->status = $data['status'];
