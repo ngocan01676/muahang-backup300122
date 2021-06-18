@@ -211,6 +211,12 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        {!! Form::label('price_buy_km', z_language('Giá bán Trước Km'), ['class' => 'price_buy_km']) !!}
+                                        {!! Form::text('price_buy_km',null, ['class' => 'form-control','placeholder'=>z_language('Giá bán Trước Km')]) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         {!! Form::label('order_index', z_language('Vị trí'), ['class' => 'order_index']) !!}
                                         {!! Form::text('order_index',null, ['class' => 'form-control','placeholder'=>z_language('Vị trí')]) !!}
                                     </td>
