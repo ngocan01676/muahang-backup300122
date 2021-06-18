@@ -60,7 +60,9 @@
                     <div class="product-detail-info-block">
                         <div class="product-detail-price-area">
                             <p class="product-detail-price">{!! $item->price_buy !!}<span class="unit">円</span></p>
-                            <p class="product-detail-price-without-tax">{!! z_language('(Giá trước giảm :Price円)',['Price'=>$item->price_buy_km]) !!}</p>
+                            @if($item->price_buy_km > 0)
+                             <p class="product-detail-price-without-tax">{!! z_language('(Giá trước giảm :Price円)',['Price'=>$item->price_buy_km]) !!}</p>
+                            @endif
                         </div>
                         <div class="product-detail-amount-area">
                             <div class="product-detail-btn-area">
