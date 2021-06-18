@@ -62,7 +62,7 @@
                             <p class="product-detail-price">{!! $item->price_buy !!}<span class="unit">円</span></p>
 
                             @if($item->price_buy_km > 0)
-                             <p class="product-detail-price-without-tax">{!! z_language('(Giá trước giảm :Price 円)',['Price'=>'<span style="color: #bf0000;text-decoration-line: line-through;">'.$item->price_buy_km.'</span> ']) !!}</p>
+                             <p class="product-detail-price-without-tax">{!! z_language('(Giá trước giảm :Price)',['Price'=>'<span style="color: #bf0000;text-decoration-line: line-through;">'.$item->price_buy_km.' 円</span> ']) !!}</p>
                             @endif
                         </div>
                         <div class="product-detail-amount-area">
