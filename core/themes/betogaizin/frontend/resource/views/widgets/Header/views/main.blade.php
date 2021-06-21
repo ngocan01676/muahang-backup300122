@@ -304,7 +304,14 @@
                         {{--<a href="#" onclick="">もれなく1,000ポイント！</a>--}}
                     {{--</li>--}}
                     <li class="rc-h-dropdown rc-h-group-dropdown">
-                        <a href="#">{!! z_language('Tiếng việt') !!}</a>
+                        @if(app()->config_language['lang'] == "jp")
+                            <a href="#">{!! z_language('Tiếng nhật') !!}</a>
+                        @elseif(app()->config_language['lang'] == "en")
+                            <a href="#">{!! z_language('Tiếng anh') !!}</a>
+                        @else
+                            <a href="#">{!! z_language('Tiếng việt') !!}</a>
+                        @endif
+                         
                         <ul class="rc-h-dropdown-panel">
                             <li><a href="/vi"> {!! z_language('Tiếng việt') !!} </a></li>
                             <li><a href="/jp">{!! z_language('Tiếng nhật') !!}</a></li>
