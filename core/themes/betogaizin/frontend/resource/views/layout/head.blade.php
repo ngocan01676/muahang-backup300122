@@ -60,9 +60,11 @@
         }
         .easy-autocomplete input{
             padding: 11px 47px 11px 11px;
+            font-size: 25px;
         }
         .eac-icon-right .eac-item{
             font-size: 15px;
+
         }
     </style>
     <style>
