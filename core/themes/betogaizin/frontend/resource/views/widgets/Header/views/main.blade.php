@@ -300,25 +300,23 @@
             <div class="rc-h-inner">
                 <p class="rc-h-tagline">Betogaizin</p>
                 <ul class="rc-h-group-nav">
-                    <li id="grpNote">
-                        <a href="#" onclick="">もれなく1,000ポイント！</a>
-                    </li>
+                    {{--<li id="grpNote">--}}
+                        {{--<a href="#" onclick="">もれなく1,000ポイント！</a>--}}
+                    {{--</li>--}}
                     <li class="rc-h-dropdown rc-h-group-dropdown">
-                        <a href="#">楽天グループ</a>
+                        <a href="#">{!! z_language('Tiếng việt') !!}</a>
                         <ul class="rc-h-dropdown-panel">
-                            <li><a href="#">楽天銀行</a></li>
-                            <li><a href="#">楽天ペイ</a></li>
-                            <li><a href="#">楽天Edy</a></li>
-                            <li><a href="#">楽天トラベル</a></li>
-                            <li><a href="#">楽天ブックス</a></li>
-                            <li><a href="#">サービス一覧</a></li>
+                            <li><a href="/vi"> {!! z_language('Tiếng việt') !!} </a></li>
+                            <li><a href="/ja">{!! z_language('Tiếng nhật') !!}</a></li>
+                            <li><a href="/en">{!! z_language('Tiếng anh') !!}</a></li>
+
                         </ul>
                     </li>
-                    <li><a href="#">リサーチ</a></li>
-                    <li>
-                        <a href="#">カード</a>
-                    </li>
-                    <li><a href="#">楽天市場</a></li>
+                    {{--<li><a href="#">リサーチ</a></li>--}}
+                    {{--<li>--}}
+                        {{--<a href="#">カード</a>--}}
+                    {{--</li>--}}
+                    {{--<li><a href="#">楽天市場</a></li>--}}
                 </ul>
             </div>
         </div>

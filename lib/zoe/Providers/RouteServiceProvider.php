@@ -74,7 +74,7 @@ class RouteServiceProvider extends ServiceProvider
         if($guard == "frontend"){
            // dump($configRouter);
             $language = config('zoe.language');
-            $selects = ['en_us','vi'];
+            $selects = ['en_us','vi','jp'];
 
             $current_language = config('zoe.default_lang');
 
