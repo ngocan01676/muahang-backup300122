@@ -3,6 +3,7 @@ namespace BetoGaizinTheme\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use function React\Promise\all;
 use Validator;
 use Illuminate\Support\Str;
 class WidgetController extends \Zoe\Http\ControllerFront
@@ -548,5 +549,22 @@ class WidgetController extends \Zoe\Http\ControllerFront
             }
         }
         return response()->json($res);
+    }
+    public function WidgetSearchAutocomplete(Request $request){
+        $kw = $request->kw;
+        $config_language = app()->config_language;
+        $model = DB::table('shop_product as p')
+            ->join('shop_product_translation as t','t._id','=','p.id')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->where('lang_code',$config_language['lang'])
+            ->where('p.status',1)->where('t.name', 'like', '%'.$kw.'%')->limit(10)->get()->all();
+        $array = [];
+        foreach ($model as $k=>$v){
+            $array[] = [
+                'name'=>$v->name,
+                'icon'=>get_thumbnails($v->image,150),
+            ];
+        }
+        return response()->json($array);
     }
 }

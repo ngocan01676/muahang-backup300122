@@ -141,6 +141,12 @@ $routers['widget'] =   [
             "guard" => "",
             "action"=>'WidgetAdressCheckInfo',
             "method"=>['POST']
+        ] ,
+        'WidgetSearchAutocomplete'=>[
+            "url" => "/widget/".md5('WidgetSearchAutocomplete'),
+            "guard" => "",
+            "action"=>'WidgetSearchAutocomplete',
+            "method"=>['GET']
         ]
     ]
 ];
