@@ -307,7 +307,7 @@
                         <a href="#">{!! z_language('Tiếng việt') !!}</a>
                         <ul class="rc-h-dropdown-panel">
                             <li><a href="/vi"> {!! z_language('Tiếng việt') !!} </a></li>
-                            <li><a href="/ja">{!! z_language('Tiếng nhật') !!}</a></li>
+                            <li><a href="/jp">{!! z_language('Tiếng nhật') !!}</a></li>
                             <li><a href="/en">{!! z_language('Tiếng anh') !!}</a></li>
 
                         </ul>
