@@ -451,14 +451,23 @@
             },
 
             list: {
+                onChooseEvent: function($self) {
+
+                    window.location.replace("{!! router_frontend_lang('home:search-product',[]) !!}?keyword="+encodeURI($("#sheroes").val()));
+                },
                 showAnimation: {
                     type: "slide"
                 },
                 hideAnimation: {
                     type: "slide"
                 }
-            }
+            },
+            select: function (a, b) {
 
+                var label = ui.item.label;
+                var value = ui.item.value;
+
+            }
         };
         $("#sheroes").easyAutocomplete(options);
     })
