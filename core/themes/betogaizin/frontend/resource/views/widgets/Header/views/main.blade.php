@@ -394,9 +394,16 @@
                             お気に入り
                         </a>
                     </li>
-                    <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-menu-black" data-v-0eb98668="">
-                            購入履歴
-                        </a>
+                    <li class="header-utility-nav-item" data-v-0eb98668="">
+                        @if(auth('frontend')->user())
+                            <a href="{!! router_frontend_lang('beto-user:orders') !!}" class="header-utility-nav-btn svg-icon icon-menu-black" data-v-0eb98668="">
+                                {!! z_language('Lich sử mua') !!}
+                            </a>
+                        @else
+                            <a href="/login" class="header-utility-nav-btn svg-icon icon-menu-black" data-v-0eb98668="">
+                                {!! z_language('Lich sử mua') !!}
+                            </a>
+                        @endif
                     </li>
                     <li class="header-utility-nav-item minicart-dropdown-trigger" id="cart">
                         <div class="minicart-dropdown-trigger-inner">

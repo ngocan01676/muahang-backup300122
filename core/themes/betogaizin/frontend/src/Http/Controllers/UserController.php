@@ -76,10 +76,11 @@ class UserController extends \Zoe\Http\ControllerFront
 
     public function getdashboard(Request $request)
     {
-        $this->addDataGlobal("Blog-featured-style",  2);
-        $this->addDataGlobal("Blog-featured-background",  'theme/missterry/images/IMG_2769-1.jpg');
-        $this->addDataGlobal("Blog-featured-title",  z_language('MY ACCOUNT'));
-        $this->addDataGlobal("User-Menu-Router",$request->route()->getName());
+//        $this->addDataGlobal("Blog-featured-style",  2);
+//        $this->addDataGlobal("Blog-featured-background",  'theme/missterry/images/IMG_2769-1.jpg');
+//        $this->addDataGlobal("Blog-featured-title",  z_language('MY ACCOUNT'));
+//        $this->addDataGlobal("User-Menu-Router",$request->route()->getName());
+
         return $this->render('user.dashboard',[]);
     }
     public function getinfo(Request $request)
@@ -98,26 +99,9 @@ class UserController extends \Zoe\Http\ControllerFront
         $this->addDataGlobal("Blog-featured-title",  z_language('MY ACCOUNT'));
         $this->addDataGlobal("User-Menu-Router",$request->route()->getName());
 
-        $miss_room = DB::table('miss_room')->where('status',1)->get()->keyBy('id')->all();
-
-        $config_language = app()->config_language;
-        $translation = [];
-        if(isset($config_language['lang'])){
-
-            $translation = DB::table('miss_room_translation')->where('lang_code',$config_language['lang'])->get()->keyBy('room_id')->all();
-            foreach ($miss_room as $key=>$value){
-                if(isset($translation[$value->id])){
-                    $value->title = $translation[$value->id]->title;
-                    $value->address = $translation[$value->id]->address;
-                    $value->info = $translation[$value->id]->info;
-                    $value->description = $translation[$value->id]->description;
-                    $value->content = $translation[$value->id]->content;
-                }
-            }
-        }
         $user = Auth('frontend')->user();
 
-        $results = DB::table('miss_booking')->where('email',$user->email);
+        $results = DB::table('shop_order')->where('user_id',$user->id);
 
         $total_records = $results->count();
 
@@ -134,11 +118,31 @@ class UserController extends \Zoe\Http\ControllerFront
 
         $results = $results->offset($start)->limit($limit)->orderBy('id','desc')->get()->all();
 
-        return $this->render('user.orders',['results'=>$results,'rooms'=>$miss_room,
+        return $this->render('user.orders',[
+            'results'=>$results,
+            'function'=>function($order_id){
+                $rs = DB::table('shop_order_detail')->where('order_id',$order_id)->get()->all();
+
+                $ids = [];
+
+                foreach ($rs as $key=>$value){
+                    $ids[] = $value->product_id;
+                }
+                $config_language = app()->config_language;
+                $translation = DB::table('shop_product_translation')->whereIn('_id',$ids)->where('lang_code',$config_language['lang'])->get()->keyBy('_id')->all();
+                return[
+                    'product'=>$translation,
+                    'order_detail'=>$rs
+                ];
+            },
             'pagination'=>[
             'current_page'=>$current_page,
             'total_page'=>$total_page,
+
         ]]);
+    }
+    public function getdetail_order(){
+
     }
     public function get_announce(){
 
@@ -175,5 +179,8 @@ class UserController extends \Zoe\Http\ControllerFront
                 'total_page'=>$total_page,
             ]
         ]);
+    }
+    public function history_cart(){
+
     }
 }

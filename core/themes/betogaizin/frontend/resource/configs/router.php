@@ -168,7 +168,7 @@ $routers['guest:betoGaizin'] = [
         ]
     ]
 ];
-$routers['missterry:user'] = [
+$routers['beto-user'] = [
     "namespace" => "BetoGaizinTheme\Http\Controllers",
     "controller" => "UserController",
     "language"=>[
@@ -196,6 +196,12 @@ $routers['missterry:user'] = [
         "orders" => [
             "url" => "/my-account/orders",
             "action" => "getorders",
+            "method" => ["get","post"],
+            "guard" => ""
+        ],
+        "orders-detail" => [
+            "url" => "/my-account/orders-detail/{id}",
+            "action" => "getdetail_order",
             "method" => ["get","post"],
             "guard" => ""
         ],
