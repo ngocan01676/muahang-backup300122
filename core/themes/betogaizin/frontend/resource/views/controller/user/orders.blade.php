@@ -2,7 +2,6 @@
     <table class="table-list-primary table-list-history mt20">
         <thead class="table-list-head">
         <tr>
-
             <th class="txt-nowrap">{!! z_language('Mã hóa đơn') !!}</th>
             <th class="txt-nowrap">{!! z_language('Địa chỉ người nhận') !!}</th>
             <th class="txt-nowrap">{!! z_language('Sản phẩm') !!}</th>
@@ -13,13 +12,10 @@
             <th class="txt-nowrap">{!! z_language('Tổng  tiền') !!}</th>
             <th class="txt-nowrap">{!! z_language('Ngày tạo') !!}</th>
             <th class="txt-nowrap">{!! z_language('Hành động') !!}</th>
-
         </tr>
         </thead>
-
         <tbody class="table-list-body-history">
         @foreach($results as $result)
-
         <tr class="txt-bg-f9 txt-bg-gray">
             <td class="txt-nowrap">
                 <dl class="table-list-data">

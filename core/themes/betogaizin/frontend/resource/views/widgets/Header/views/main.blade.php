@@ -1,3 +1,12 @@
+@php
+
+    $user = auth('frontend')->user();
+    $_data_user = new stdClass(['coin'=>0]);
+    if($user){
+       $_data_user = DB::table('shop_user')->where('user_id',$user->id)->first();
+    }
+
+    @endphp
 @if(isset($_isMobile) && $_isMobile)
     <header class="header with-border-bottom only-sp">
         <div></div>
@@ -122,7 +131,7 @@
                         </p>
                     </div>
                     <div class="point">
-                        <p><a href="#" class="svg-icon icon-18 icon-point">0</a>  <span class="unit">{!! z_language('Điểm') !!}</span>
+                        <p><a href="#" class="svg-icon icon-18 icon-point">{!! $_data_user->coin !!}</a>  <span class="unit">{!! z_language('Điểm') !!}</span>
                         </p>
                     </div>
                     <div class="large-btn">
@@ -352,23 +361,23 @@
                             </span>
                             </p>
                             <p class="header-user-info-box-point">
-                                <a href="#" class="svg-icon icon-18 icon-point">0</a>
-                                <span class="txt-small">ポイント</span>
+                                <a href="#" class="svg-icon icon-18 icon-point">{!! $_data_user->coin !!}</a>
+                                <span class="txt-small">{!! z_language('ポイント') !!}</span>
                             </p>
                         </div>
                         <p class="header-user-info-btn">
-                            <a href="/" class="btn btn-default btn-color01">マイページ</a>
+                            <a href="/" class="btn btn-default btn-color01">{!! z_language('マイページ') !!}</a>
                         </p>
                     </div>
                 @else
                     <div class="header-user-info">
                         <p class="header-user-info-new">
-                            <a href="#" class="svg-icon icon-new-user">はじめての方へ</a>
+                            <a href="#" class="svg-icon icon-new-user">{!! z_language('はじめての方へ') !!}</a>
                         </p>
                         <p class="header-user-info-btn">
-                            <a href="/register" class="btn btn-default btn-color01">楽天会員登録</a>
+                            <a href="/register" class="btn btn-default btn-color01">{!! z_language('楽天会員登録') !!}</a>
                         </p>
-                        <p class="header-user-info-btn"><a href="/login" data-auto-id="login-btn-pc" class="btn btn-default btn-color01">ログイン</a></p>
+                        <p class="header-user-info-btn"><a href="/login" data-auto-id="login-btn-pc" class="btn btn-default btn-color01">{!! z_language('ログイン') !!}</a></p>
                     </div>
                 @endif
             </div>
@@ -387,11 +396,11 @@
                 </div>
                 <ul class="header-utility-nav" data-v-0eb98668="">
                     <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-campaign" data-v-0eb98668="">
-                            キャンペーン
+                            {!! z_language('キャンペーン') !!}
                         </a>
                     </li>
                     <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-favorite-black" data-v-0eb98668="">
-                            お気に入り
+                            {!! z_language('お気に入り') !!}
                         </a>
                     </li>
                     <li class="header-utility-nav-item" data-v-0eb98668="">

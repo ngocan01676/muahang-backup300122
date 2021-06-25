@@ -439,8 +439,6 @@ class OrderController extends \Zoe\Http\ControllerBackend
             $arrDetail[$value->company_name][] = $value;
 
         }
-
-
 //        $carts = $model->data_cart;
 //
 //        $ids = array_keys($carts);
@@ -504,7 +502,7 @@ class OrderController extends \Zoe\Http\ControllerBackend
             $model = new OrderModel();
         }
         try {
-
+            DB::beginTransaction();
             $model->fullname = $data['fullname'];
             $model->admin_id =\Illuminate\Support\Facades\Auth::user()->id;
             $model->postal_code = $data['postal_code'];
@@ -519,8 +517,19 @@ class OrderController extends \Zoe\Http\ControllerBackend
             $model->link = $data['link'];
             $model->bank_info = $data['bank_info'];
             $model->status = $data['status'];
-            $model->save();
 
+            if($model->status == 2 && $model->coin == 0){
+                $count = DB::table('shop_user')->where('user_id',$model->user_id)->count();
+                $model->coin = (int)$model->totals_order*0.01;
+                if($count == 1){
+                    DB::table('shop_user')
+                        ->where('user_id',$model->user_id)
+                        ->increment('coin', $model->coin);
+                }else{
+                    DB::table('shop_user')->insert(['user_id'=>$model->user_id,'coin'=>$model->coin]);
+                }
+            }
+            $model->save();
 //            if(isset($data['dataDetailOrder'])){
 //                $dataDetailOrder = json_decode($data['dataDetailOrder'],true);
 //                $updated_at = date('Y-m-d H:i:s');
@@ -540,10 +549,12 @@ class OrderController extends \Zoe\Http\ControllerBackend
 //                }
 //                DB::table('shop_order_detail')->where('order_id',$model->id)->where('updated_at','!=',$updated_at)->delete();
 //            }
+            DB::commit();
             return redirect(route('backend:shop_ja:order:edit', ['id' => $model->id]));
         }catch (\Exception $ex){
             $validator->getMessageBag()->add('id', $ex->getMessage());
             echo $ex->getMessage();
+            DB::rollBack();
             die;
         }
         return back();

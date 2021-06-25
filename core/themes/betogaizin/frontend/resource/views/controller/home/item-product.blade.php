@@ -62,7 +62,7 @@
                             <p class="product-detail-price">{!! $item->price_buy !!}<span class="unit">円</span></p>
 
                             @if($item->price_buy_km > 0)
-                             <p class="product-detail-price-without-tax">{!! z_language('(Giá trước giảm :Price)',['Price'=>'<span style="color: #bf0000;text-decoration-line: line-through;">'.$item->price_buy_km.' 円</span> ']) !!}</p>
+                             <p class="product-detail-price-without-tax">{!! z_language('(:Price)',['Price'=>'<span style="color: #bf0000;text-decoration-line: line-through;">'.$item->price_buy_km.' 円</span> ']) !!}</p>
                             @endif
                         </div>
                         <div class="product-detail-amount-area">
@@ -126,9 +126,9 @@
                 </div>
                 <div class="product-detail-col product-detail-text-area">
                     <ul class="list-indent">
-                        <li>※写真はイメージです。<br class="only-pc">
-                            予告なくパッケージ、商品名、産地等が変更になる場合がございます。予めご了承ください。<br class="only-pc">
-                            （実際にお届けする商品と掲載内容が異なる場合がございます）
+                        <li>{!! z_language('※写真はイメージです。') !!}<br class="only-pc">
+                             {!! z_language('予告なくパッケージ、商品名、産地等が変更になる場合がございます。予めご了承ください。') !!}<br class="only-pc">
+                            （{!! z_language('実際にお届けする商品と掲載内容が異なる場合がございます') !!}）
                         </li>
                     </ul>
                 </div>
@@ -228,12 +228,12 @@
                 <div class="title-wrap-carousel">
                     <h2 class="title title-other01 title-color01">
                         <a href="/corner/" class="">
-                            この商品を買った人はこんな商品も買っています
+                            {!! z_language('この商品を買った人はこんな商品も買っています') !!}
                         </a>
                     </h2>
                     <p class="title-link" style="display: none;">
                         <a href="/corner/" class="btn btn-link btn-arrow-right">
-                            商品をもっと見る
+                            {!! z_language('商品をもっと見る') !!}
                         </a>
                     </p>
                 </div>
