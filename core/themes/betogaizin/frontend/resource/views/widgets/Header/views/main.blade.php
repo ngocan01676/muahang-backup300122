@@ -1,7 +1,7 @@
 @php
 
     $user = auth('frontend')->user();
-    $_data_user = new stdClass(['coin'=>0]);
+    $_data_user = null;
     if($user){
        $_data_user = DB::table('shop_user')->where('user_id',$user->id)->first();
     }
@@ -131,7 +131,7 @@
                         </p>
                     </div>
                     <div class="point">
-                        <p><a href="#" class="svg-icon icon-18 icon-point">{!! $_data_user->coin !!}</a>  <span class="unit">{!! z_language('Điểm') !!}</span>
+                        <p><a href="#" class="svg-icon icon-18 icon-point">{!! $_data_user?$_data_user->coin:0 !!}</a>  <span class="unit">{!! z_language('Điểm') !!}</span>
                         </p>
                     </div>
                     <div class="large-btn">
@@ -361,7 +361,7 @@
                             </span>
                             </p>
                             <p class="header-user-info-box-point">
-                                <a href="#" class="svg-icon icon-18 icon-point">{!! $_data_user->coin !!}</a>
+                                <a href="#" class="svg-icon icon-18 icon-point">{!! $_data_user?$_data_user->coin:0 !!}</a>
                                 <span class="txt-small">{!! z_language('ポイント') !!}</span>
                             </p>
                         </div>
