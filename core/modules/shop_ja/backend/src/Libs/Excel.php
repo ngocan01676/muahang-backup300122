@@ -175,7 +175,32 @@ class Excel
                 ["余分金", 'order_price', 15, 9],
                 ["追跡番号", 'order_tracking', 15, 9],
                 ["振込み情報", 'order_info', 25, 9],
-            ]
+            ],
+            'MISHIMA' => [
+                ["注文日", ['callback' => function ($index, $date) {
+                    return date("d", strtotime($date)) . '日';
+                }, 'key' => 'timeCreate'], 10, 9],//A
+                ["支払区分", 'payMethod', 10, 9],//Phương thức thanh toán
+                ["配送先電話番号", 'phone', 10, 9],//Số điện thoại
+                ["郵便番号", 'zipcode', 9, 9],//Mã bưu điện
+                ["配送先都道府県", 'province', 14, 9],//Tỉnh/TP
+                ["配送先住所", 'address', 18, 9],//Địa chỉ giao hàng
+                ["配送先氏名", 'fullname', 18, 9],//Họ tên người nhận
+                ["品番", ['product' => ['product_id', 'code']], 10, 9],//H
+                ["商品名", ['product' => ['product_name', 'title']], 18, 9],//I
+                ["単価", 'price', 15, 9],//Giá nhập
+                ["数量", 'count', 15, 9],//SL
+                ["到着希望日", 'order_date', 15, 9],//Ngày nhận
+                ["配送希望時間帯", 'order_hours', 15, 9],//Giờ nhận
+                ["送料", 'order_ship', 15, 9],//Phí ship
+
+                ["仕入金額", 'order_total_price', 15, 9],//Giá bán
+                ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
+                ["手数料", 'order_ship_cou', 15, 9],
+                ["余分金", 'order_price', 15, 9],
+                ["追跡番号", 'order_tracking', 15, 9],
+                ["振込み情報", 'order_info', 25, 9],
+            ],
         ];
     }
 
@@ -442,6 +467,8 @@ class Excel
             return "FUKUI";
         }else if (strpos($name, "BANH_CHUNGの注文分") !== false) {
             return "BANH_CHUNG";
+        } else if (strpos($name, "MISHIMA株式会社クリチク") !== false) {
+            return "MISHIMA";
         }
     }
 
@@ -1943,6 +1970,512 @@ class Excel
             $filename = '/BANH_CHUNGの注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
         }else{
             $filename = '株式会社クリチク-様-' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日注文分';
+        }
+
+
+        $path = $path . '/' . $filename;
+        if (!$this->file->isDirectory(public_path() . $path)) {
+            $this->file->makeDirectory(public_path() . $path);
+        }
+        $pathZip = $path . '/zip';
+        if ($this->file->isDirectory(public_path() . $pathZip)) {
+            $this->file->deleteDirectory(public_path() . $pathZip, true);
+        }
+        if (!$this->file->isDirectory(public_path() . $pathZip)) {
+            $this->file->makeDirectory(public_path() . $pathZip);
+        }
+        $path2 = $pathZip . '/' . $filename . '.xlsx';
+        $writer->save(public_path() . $path2);
+        $files = [
+            [$filename . '.xlsx', public_path() . $path2]
+        ];
+        foreach ($images as $image) {
+
+            if (!empty($image[0]) && file_exists(public_path() . "/" . $image[0])) {
+
+                $pathinfo = pathinfo(public_path() . "/" . $image[0]);
+
+                if (empty($image[1])) {
+                    $file_image = $pathinfo['filename'] . '.' . $pathinfo['extension'];
+                    $newName = $pathZip . '/' . $file_image;
+                    if ($this->file->exists(public_path() . '/' . $newName)) {
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    $file_image = $image[1] . '.' . $pathinfo['extension'];
+                    $newName = $pathZip . '/' . $file_image;
+                    if ($this->file->exists(public_path() . '/' . $newName)) {
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                $this->file->copy(public_path() . "/" . $image[0], public_path() . '/' . $newName);
+                $files[] = [
+                    $file_image, public_path() . '/' . $newName
+                ];
+            }
+        }
+        $zipFileName = $filename . '.zip';
+        $zip = new \ZipArchive();
+        if ($this->file->exists(public_path() . '/' . $path . '/' . $zipFileName)) {
+            $this->file->delete(public_path() . '/' . $path . '/' . $zipFileName);
+        }
+        if ($zip->open(public_path() . '/' . $path . '/' . $zipFileName, \ZipArchive::CREATE) === TRUE) {
+            foreach ($files as $file) {
+                $zip->addFile($file[1], $file[0]);
+            }
+            $zip->close();
+        }
+//        if( $this->file->isDirectory(public_path().$pathZip)){
+//            $this->file->deleteDirectory(public_path().$pathZip,true);
+//        }
+        return ['link' => url($path . '/' . $zipFileName).'?time='.time().'-'.rand(1000,9999), 'images' => $images, 'ids' => $ids];
+
+
+    }
+    public function MISHIMA($datas,$name, $formatFileName)
+    {
+        //$name = "KURICHIKU";
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $spreadsheet->createSheet();
+        $sheet1 = $spreadsheet->getSheet(1);
+        $sheet1->setTitle('Sheet2');
+
+        $sheet->setTitle("Sheet1");
+        $spreadsheet->getProperties()
+            ->setTitle('PHP Download Example')
+            ->setSubject('A PHPExcel example')
+            ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
+            ->setCreator('php-download.com')
+            ->setLastModifiedBy('php-download.com');
+
+        //$sheet->setCellValue('B1', '株式会社クリチク　様 注文フォーマット');
+
+
+        $styleArray = array(
+            'font' => array(
+                'size' => 9,
+                'name' => 'ＭＳ Ｐゴシック'
+            ));
+        $style_header = array(
+            'fill' => array(
+                'fillType' => Fill::FILL_SOLID,
+                'color' => array('rgb' => 'ffff00'),
+            ),
+            'borders' => [
+                'allBorders' => array(
+                    'borderStyle' => Border::BORDER_DOTTED,
+                    'color' => array('rgb' => '000000')
+                ),
+            ],
+            'font' => array(
+                'size' => 9,
+                'name' => 'ＭＳ Ｐゴシック'
+            )
+        );
+        $sheet->getStyle('B1')->applyFromArray($styleArray);
+        $start = 2;
+        $products = DB::table('shop_product')->get()->keyBy('id')->all();
+        $images = [];
+        $ids = [];
+        $date_export = new \stdClass();
+        $date_export->date = $this->date_export;
+        $_dateNhan = new \stdClass();
+        $_dateNhan->date = $this->date;
+        $postions = [2,1];
+
+        $logs = [];
+        for ($typeMethod1 = 0; $typeMethod1 < count($postions); $typeMethod1++) {
+            $typeMethod = $postions[$typeMethod1];
+            $total_order_ship = 0;
+            $total_order_total_price = 0;
+            $total_order_total_price_buy = 0;
+            $total_ship_cou = 0;
+            $total_order_price = 0;
+            $columns_value = array_flip($datas['columns']);
+            $colums = [
+                ["注文日",['callback'=>function($index,$date) use($date_export){return date("d", $date_export->date).'日';},'key'=>'timeCreate'],10,9],//A
+                ["支払区分",'payMethod',10,9],//Phương thức thanh toán
+                ["配送先電話番号",'phone',10,9],//Số điện thoại
+                ["郵便番号",'zipcode',9,9],//Mã bưu điện
+                ["配送先都道府県",'province',14,9],//Tỉnh/TP
+                ["配送先住所",['callback'=>function($index,$value){return preg_replace('/\s+/', '',$value );},'key'=>'address'],18,9],//Địa chỉ giao hàng
+                ["配送先氏名",['callback'=>function($index,$value){return preg_replace('/\s+/', ' ',$value );},'key'=>'fullname'],18,9],//Họ tên người nhận
+                ["品番",['callback'=>
+                    function($index,$product_id,$a,$values) use($products,$columns_value){
+                        try{
+                            $array_product = explode(";",$product_id);
+                        }catch (\Exception $ex) {
+                            $array_product = [];
+                        }
+                        $product_code = "";$product_title = "";
+                        $count = (isset($columns_value["count"])?$values[$columns_value["count"]]:"");
+                        try{
+                            $array_count = json_decode($count,true);
+                        }catch (\Exception $ex) {
+                            $array_count = [];
+                        }
+                        foreach ($array_product as $pro_id){
+                            if(isset( $products[$pro_id]) && isset($array_count[$pro_id]) && $array_count[$pro_id] > 0){
+                                $product_code.= $products[$pro_id]->code.",";
+                                $product_title.= $products[$pro_id]->title.",";
+                            }
+                        }
+                        return rtrim($product_code,',');
+                    },'key'=>'product_id'],10,9
+                ],//H
+                ["商品名",
+                    ['callback' => function ($index, $product_id, $a, $values) use ($products, $columns_value) {
+                        try {
+                            $array_product = explode(";", $product_id);
+                        } catch (\Exception $ex) {
+                            $array_product = [];
+                        }
+                        $count = (isset($columns_value["count"]) ? $values[$columns_value["count"]] : "");
+                        try {
+                            $array_count = json_decode($count, true);
+                        } catch (\Exception $ex) {
+                            $array_count = [];
+                        }
+                        $product_title = "";
+
+                        foreach ($array_product as $pro_id) {
+                            if (isset($products[$pro_id]) && isset($array_count[$pro_id]) && $array_count[$pro_id] > 0) {
+                                $kg = 0;
+                                if (isset($array_count[$pro_id])) {
+                                    $kg = $array_count[$pro_id];
+                                }
+                                if ($products[$pro_id]->unit == 1) {
+                                    $product_title .= $products[$pro_id]->title . " " . $kg . " cái" . '、';
+                                }else if ($products[$pro_id]->unit == 5) {
+                                    $product_title .= str_replace('鶏羽', "鶏" . $kg . "羽", $products[$pro_id]->title) . '、';
+                                } else if ($products[$pro_id]->unit == 4) {
+                                    $product_title .= $products[$pro_id]->title . '、';
+                                } else {
+                                    $product_title .= $products[$pro_id]->title . " " . $kg . "kg" . '、';
+                                }
+                            }
+                        }
+
+                        return rtrim($product_title, '、');
+                    }, 'key' => 'product_name'], 18, 9],//I
+                ["単価", 'price', 15, 9],//Giá nhập
+                ["数量", "total_count", 15, 9],//SL
+                ["到着希望日", ['callback' => function ($index, $date) use ($_dateNhan) {
+                    return date("Y/m/d", strtotime($date));
+                }, 'key' => 'order_date'], 15, 9],//Ngày nhận
+                ["配送希望時間帯", ['callback' => function ($index, $value) {
+                    return "8:00 ~ 12:00" == $value ? "午前中" : $value;
+                }, 'key' => 'order_hours'], 15, 9],//Giờ nhận
+                ["送料", 'order_ship', 15, 9],//Phí ship
+                ["仕入金額", 'order_total_price', 15, 9],//Giá bán
+                ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
+                ["手数料", 'order_ship_cou', 15, 9],
+                ["余分金", ['callback' => function ($index, $val) use ($_dateNhan) {
+                    return "=P$index-N$index-O$index-Q$index";//$val;
+                }, 'key' => 'order_price'], 15, 9],
+                ["追跡番号", 'order_tracking', 15, 9],
+                ["振込み情報",['callback' => function ($index, $value) use ($date_export) {
+                    return str_replace('依頼人名.','',$value);
+                }, 'key' => 'order_info'], 25, 9],
+                ["", 'comment', 15, 9], // Số lượng O
+            ];
+            $nameColList = [];
+
+            foreach ($colums as $key => $value) {
+                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
+                $keyCol = "";
+                if (is_array($value[1])) {
+                    if (isset($value[1]['product'])) {
+                        $conf = $value[1]['product'];
+                        $nameColList[$conf[0]] = $key;
+                        $keyCol = $conf[1];
+                    } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
+                        $nameColList[$value[1]['key']] = $key;
+                        $keyCol = $value[1]['key'];
+                    }
+                } else {
+                    $nameColList[$value[1]] = $key;
+                    $keyCol = $value[1];
+                }
+                $sheet->setCellValue($nameCol . $start, $value[0])->getStyle($nameCol . $start)->applyFromArray(array(
+                        'font' => array(
+                            'size' => 9,
+                            'name' => 'ＭＳ Ｐゴシック'
+                        ),
+                    )
+                );
+                if($keyCol == "title"){
+                    $keyCol = "product_name";
+                }else  if($keyCol == "code"){
+                    $keyCol = "product_id";
+                }
+                if (isset($this->config["excel_width"][$name][$keyCol])) {
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
+                } else if ($value[2] > 0) {
+                    $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]+0.72);
+                }
+
+            }
+
+            $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . $start)->applyFromArray($style_header);
+//            $ship = 34;
+//            $datas = [];
+//            $company = "22";
+//            $orders = [
+//
+//            ];
+            $sheet->getStyle("P" . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+            $start++;
+
+            $products = DB::table('shop_product')->get()->keyBy('id')->all();
+            $startIndex = $start;
+            foreach ($datas['datas'] as $key => $values) {
+                $payMethod = (isset($columns_value['payMethod']) ? $values[$columns_value['payMethod']] : "");
+
+                if (empty($values[$columns_value['fullname']])) {
+                    continue;
+                }
+                if(isset($logs[$key])){
+                    continue;
+                }
+                $_checktypeMethod = $this->getValuePayMethod($payMethod);
+                if ($typeMethod != $_checktypeMethod) {
+                    if( $typeMethod == 2 && $_checktypeMethod == 3){
+
+                    }else{
+                        continue;
+                    }
+                }
+                $logs[$key] = 1;
+                $order_id = (isset($columns_value['id']) ? $values[$columns_value['id']] : "");
+                $ids[$order_id] = 1;
+                $image = (isset($columns_value['image']) ? $values[$columns_value['image']] : "");
+
+                $order_info = (isset($columns_value['order_info']) ? $values[$columns_value['order_info']] : "");
+
+                if (!empty($image)) {
+                    $images[] = [str_replace(url('/'), "", $image), str_replace('依頼人名.','',$order_info)];
+                }
+                $total_order_ship += (int)(isset($columns_value['order_ship']) ? $values[$columns_value['order_ship']] : "0");
+                $total_order_total_price += (int)(isset($columns_value['order_total_price']) ? $values[$columns_value['order_total_price']] : "0");
+                $total_order_total_price_buy += (int)(isset($columns_value['order_total_price_buy']) ? $values[$columns_value['order_total_price_buy']] : "0");
+                $total_ship_cou += (int)(isset($columns_value['order_ship_cou']) ? $values[$columns_value['order_ship_cou']] : "0");
+                $total_order_price += (int)(isset($columns_value['order_price']) ? $values[$columns_value['order_price']] : "0");
+
+                $count = (isset($columns_value['count']) ? $values[$columns_value['total_count']] : "0");
+                $sheet1->setCellValue("A".$start,$order_id);
+                $sheet1->setCellValue("B".$start,$count);
+
+                foreach ($colums as $key1 => $value) {
+                    $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key1 + 1);
+                    $_val = "";
+                    if (is_array($value[1])) {
+                        if (isset($value[1]['product'])) {
+                            $conf = $value[1]['product'];
+                            $id = (isset($columns_value[$conf[0]]) ? $values[$columns_value[$conf[0]]] : "");
+
+                            if (isset($products[$id]) && property_exists($products[$id], $conf[1])) {
+                                $_val = $products[$id]->{$conf[1]};
+                            }
+                            $sheet->setCellValue($nameCol . $start, trim($_val));
+                        } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
+                            $conf = $value[1]['callback'];
+                            $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start, $values]);
+
+                            $sheet->setCellValue($nameCol . $start, trim($_val));
+                        }
+                    } else {
+                        $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
+                        $sheet->setCellValue($nameCol . $start, trim($v));
+                        $_val = $v;
+                        if ($value[1] == "payMethod") {
+                            $payMethod = $v;
+                        }
+                    }
+
+
+                }
+
+                $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . '' . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                    ),
+                ));
+
+                if ($payMethod == "銀行振込" || $payMethod == "決済不要") {
+                    foreach (["B", "H", "I", "J", "S"] as $col) {
+                        $sheet->getStyle($col . $start)->applyFromArray(array(
+                            'font' => array(
+                                'color' => array('rgb' => '0070c0'),
+                            ),
+                        ));
+                    }
+
+                } else if ($payMethod == "決済不要") {
+                    foreach (["B", "H", "I", "J", "S"] as $col) {
+                        $sheet->getStyle($col . $start)->applyFromArray(array(
+                            'font' => array(
+                                'color' => array('rgb' => 'ff0000'),
+                            ),
+                        ));
+                    }
+
+                } else {
+                    foreach (["B", "H", "I", "J", "S"] as $col) {
+                        $sheet->getStyle($col . $start)->applyFromArray(array(
+                            'font' => array(
+                                'color' => array('rgb' => '0070c0'),
+                            ),
+                        ));
+                    }
+                }
+                $start++;
+            }
+
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship'] + 1);
+            $sheet->setCellValue($nameCol . $start, "=SUM($nameCol$startIndex:".$nameCol.($start-1).")");
+            $sheet->getStyle($nameCol . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_total_price'] + 1);
+            $sheet->setCellValue($nameCol . $start, "=SUM($nameCol$startIndex:".$nameCol.($start-1).")");
+            $sheet->getStyle($nameCol . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_total_price_buy'] + 1);
+            $sheet->setCellValue($nameCol . $start, "=SUM($nameCol$startIndex:".$nameCol.($start-1).")");
+            $sheet->getStyle($nameCol . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_ship_cou'] + 1);
+            $sheet->setCellValue($nameCol . $start, "=SUM($nameCol$startIndex:".$nameCol.($start-1).")");
+            $sheet->getStyle($nameCol . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nameColList['order_price'] + 1);
+            $sheet->setCellValue($nameCol . $start, "=SUM($nameCol$startIndex:".$nameCol.($start-1).")");
+            $sheet->getStyle($nameCol . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+
+            $start++;
+            if ($typeMethod == 0) {
+//                $start+=2;
+//                $sheet->setCellValue('N'.$start, '合計');
+//                $sheet->setCellValue('P'.$start, '合計代引き金額：　19330');
+
+//                $sheet->getStyle('N'.$start)->applyFromArray(array(
+//                        'font'  => array(
+//                            'size'  => 9,
+//                            'name' => 'Times New Roman',
+//                            'color' => array('rgb' => 'ff1100'),
+//                        ),
+//                    )
+//                );
+//                $sheet->getStyle('P'.$start)->applyFromArray(array(
+//                        'font'  => array(
+//                            'size'  => 9,
+//                            'name' => 'Times New Roman',
+//                            'color' => array('rgb' => 'ff1100'),
+//                        ),
+//                    )
+//                );
+                $start++;
+                $sheet->setCellValue('I' . $start, '※1キロずつの小分けをお願いします。');
+                $sheet->getStyle('I' . $start)->applyFromArray(array(
+                        'font' => array(
+                            'size' => 9,
+                            'name' => 'ＭＳ Ｐゴシック',
+                            'color' => array('rgb' => 'ff1100'),
+                        ),
+                    )
+                );
+            }
+            $start += 1;
+            $dataRow = [];
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        if($name == "BANH_CHUNG"){
+            if($datas['type'] != "demo"){
+                $path = '/uploads/exports/BANH_CHUNG';
+            }else{
+                $path = '/uploads/demo/BANH_CHUNG';
+            }
+        }else{
+            if($datas['type'] != "demo"){
+                $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+            }else{
+                $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+            }
+        }
+
+        if (!$this->file->isDirectory(public_path() . $path)) {
+            $this->file->makeDirectory(public_path() . $path);
+        }
+
+        $path = $path . '/' . date('Y-m-d', $this->date_export);
+        if (!$this->file->isDirectory(public_path() . $path)) {
+            $this->file->makeDirectory(public_path() . $path);
+        }
+        // 株式会社クリチク-様-11月03日注文分
+        //  $filename ='株式会社クリチク-様-'.date('m',$this->date).'月'.date('d',$this->date).'日注文分';
+        if($name == "BANH_CHUNG"){//BANH_CHUNGの注文分[MONTH]月[DAY]日
+            $filename = '/BANH_CHUNGの注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
+        }else{
+            $filename = 'MISHIMA株式会社クリチク-様-' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日注文分';
         }
 
 
