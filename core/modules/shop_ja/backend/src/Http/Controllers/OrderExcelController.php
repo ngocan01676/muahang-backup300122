@@ -978,7 +978,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                     }
                     $this->log('shop_js:orderExcel',$type,['id' => $model->id]);
-                    return response()->json(['id'=>$model->id,'url1'=>route('backend:shop_ja:order:excel:edit',
+                    return response()->json(['id'=>$model->id,'url'=>route('backend:shop_ja:order:excel:edit',
                         ['id' => $model->id]),'logs'=>$logs,'deletes'=>$deletes,"ids"=>$ids,'ids_sort'=>$ids_sort]);
                 }
                 else
@@ -2118,8 +2118,11 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         }
                         if($total_price == 0)
                             $total_price = $price * $result->count;
-                        if($total_price_buy == 0)
-                            $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
+
+                        if($result->pay_method != 3){
+                            if($total_price_buy == 0)
+                                $total_price_buy = $price_buy * $result->count + $result->order_ship + $result->order_ship_cou + $result->price_buy_sale;
+                        }
                         if($order_profit == 0){
                             $order_profit = $total_price_buy - $total_price - $result->order_ship - $result->order_ship_cou;
                         }
