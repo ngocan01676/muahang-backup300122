@@ -10144,8 +10144,8 @@
                     }
                     let arr_ship = [];
                     for(let i in configShip){
-                        $is_IF_Start = IF_Start(kg,configShip[i]);
-                        $is_IF_End =  IF_End(kg,configShip[i]);
+                        $is_IF_Start = IF_Start(kg*$count,configShip[i]);
+                        $is_IF_End =  IF_End(kg*$count,configShip[i]);
                         if($is_IF_Start && $is_IF_End){
                             $conf  =  configShip[i].config;
                             for (let ii in $conf){
