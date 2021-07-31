@@ -10027,6 +10027,7 @@
                         }else{
                             price = product.data.price;
                         }
+                        data.kg = product.data.value;
                         console.log("price_buy:"+price_buy);
                         total_price = parseFloat(price) * data.count;
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price.index, r]), total_price,true);
@@ -10073,14 +10074,14 @@
 
                         console.log(total_price_buy_all);
 
-                        let confShipCou = GetShip(product.data,product.data.category_id,data.count,data.province,data.total_price_buy, data.payMethod,total_price_buy_all);
+                        let confShipCou = GetShip(product.data,product.data.category_id,data.count,data.province,data.total_price_buy, data.payMethod,total_price_buy_all,data.kg);
 
                         console.log(confShipCou);
 
                         setInterest(confShipCou.order_ship,confShipCou.order_ship_cou,confShipCou.total_price_buy);
                 }
 
-                function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all) {
+                function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all,kg) {
 
                     let configShip = dataship.hasOwnProperty("cate_"+$category_id)?dataship["cate_"+$category_id]:[];
 
@@ -10143,8 +10144,8 @@
                     }
                     let arr_ship = [];
                     for(let i in configShip){
-                        $is_IF_Start = IF_Start($count,configShip[i]);
-                        $is_IF_End =  IF_End($count,configShip[i]);
+                        $is_IF_Start = IF_Start(kg,configShip[i]);
+                        $is_IF_End =  IF_End(kg,configShip[i]);
                         if($is_IF_Start && $is_IF_End){
                             $conf  =  configShip[i].config;
                             for (let ii in $conf){
