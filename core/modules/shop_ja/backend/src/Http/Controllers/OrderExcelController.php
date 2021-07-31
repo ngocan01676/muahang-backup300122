@@ -339,7 +339,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     $values[$kkkkk] = rtrim(trim($valllll));
                                 }
                                 $product_title = "";$product_code = "";$count = 0;
-                                if($name== "KURICHIKU" || $name== "BANH_CHUNG" || $name == "MISHIMA"){
+                                if($name== "KURICHIKU" || $name== "BANH_CHUNG"){
                                     $product_id = (isset($columns["product_id"])?$values[$columns["product_id"]]:"");
                                     $count = (isset($columns["count"])?$values[$columns["count"]]:"");
 
@@ -796,7 +796,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     $values[$kkkkk] = rtrim(trim($valllll));
                                 }
                                 $product_title = "";$product_code = "";$count = 0;
-                                if($name== "KURICHIKU" || $name == "BANH_CHUNG" || $name == "MISHIMA"){
+                                if($name== "KURICHIKU" || $name == "BANH_CHUNG"){
                                     $product_id = (isset($columns["product_id"])?$values[$columns["product_id"]]:"");
                                     $count = (isset($columns["count"])?$values[$columns["count"]]:"");
                                     try{
@@ -1057,7 +1057,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                         $ship_cou = -1;
 
                         $price_ship =  $price_ship!=-1?$price_ship:$price_ship_default;
-                        if($data['data']['sheetName'] == "YAMADA"){
+                        if($data['data']['sheetName'] == "YAMADA" || $data['data']['sheetName'] =='MISHIMA'){
                             if($data['data']['payMethod'] == 1){
                                 $total_price_buy =  $total_price_buy + 330;
                             }else{
@@ -1077,7 +1077,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             }else{
                                 $ship_cou = 0;
                             }
-                        }else  if($data['data']['sheetName'] == "KURICHIKU" || $data['data']['sheetName'] == "BANH_CHUNG" || $data['data']['sheetName'] == "MISHIMA"){
+                        }else  if($data['data']['sheetName'] == "KURICHIKU" || $data['data']['sheetName'] == "BANH_CHUNG"){
                             if($data['data']['payMethod'] == 1){
                                 $total_price_buy =  $total_price_buy + 330;
                                 $ship_cou = 330;
@@ -2012,7 +2012,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->group,
                             $result->comment,
                         ];
-                    } else if($result->company == "KURICHIKU" || $result->company == "MISHIMA" || $result->company == "BANH_CHUNG"){
+                    } else if($result->company == "KURICHIKU" || $result->company == "BANH_CHUNG"){
                         $pay_method = "";
                         if($result->pay_method == 1){
                             $pay_method = "代金引換";
