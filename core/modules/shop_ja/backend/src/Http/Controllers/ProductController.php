@@ -109,16 +109,16 @@ class ProductController extends \Zoe\Http\ControllerBackend
 //            'image' => 'required',
             'title' => 'required',
             'category_id' => 'required',
-            'price' => 'required|integer',
-            'price_buy' => 'required|integer',
+            'price' => 'required|numeric',
+            'price_buy' => 'required|numeric',
         ], [
 //            'image.required' => z_language('Ảnh sản phẩm không được phép bỏ trống.'),
             'title.required' => z_language('Tên sản phẩm không được phép bỏ trống.'),
             'category_id.required' => z_language('Chuyên mục không được phép bỏ trống.'),
             'price.required' => z_language('Giá nhập không được bỏ trống.'),
-            'price.integer' => z_language('Giá nhập phải là giá trị số.'),
+            'price.numeric' => z_language('Giá nhập phải là giá trị số.'),
             'price_buy.required' => z_language('Giá bán không được bỏ trống.'),
-            'price_buy.integer' => z_language('Giá bán phải là giá trị số.'),
+            'price_buy.numeric' => z_language('Giá bán phải là giá trị số.'),
         ]);
         if ($validator->fails()) {
             return back()
