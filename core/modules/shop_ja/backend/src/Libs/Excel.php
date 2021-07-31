@@ -467,7 +467,7 @@ class Excel
             return "FUKUI";
         }else if (strpos($name, "BANH_CHUNGの注文分") !== false) {
             return "BANH_CHUNG";
-        } else if (strpos($name, "MISHIMA-の注文分-福井精米様御中") !== false) {
+        } else if (strpos($name, "株式会社三島食鶏-様") !== false) {
             return "MISHIMA";
         }
     }
@@ -2344,7 +2344,8 @@ class Excel
         if ($name == "AMAZON") {//AMAZONの注文分[MONTH]月[DAY]日
             $filename = 'の注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
         } else {
-            $filename = 'MISHIMA-株式会社ヤマダ-様-のお米の注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
+            //株式会社三島食鶏-様-07月01日注文分
+            $filename = '株式会社三島食鶏-様-' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日注文分';
         }
 
         $path = $path . '/' . $filename;
