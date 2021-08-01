@@ -10223,7 +10223,7 @@
                         }
 
 
-                        total_price_buy = total_price_buy;
+                        total_price_buy = total_price_buy + order_ship_cou;
                         if(total_price_buy ===0 || total_price == 0){ return;}
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                         let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
