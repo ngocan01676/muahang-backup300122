@@ -10223,7 +10223,7 @@
                         }
 
 
-                        total_price_buy = total_price_buy + price_ship;
+                        total_price_buy = total_price_buy;
                         if(total_price_buy ===0 || total_price == 0){ return;}
                         instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_total_price_buy.index, r]), total_price_buy,false );
                         let one_address = instance.jexcel.getValue(jexcel.getColumnNameFromId([columns.one_address.index, r]));
@@ -10246,12 +10246,12 @@
                         }else{
                             if(one_address){
 
-                                let a = (parseInt(total_price_buy) - parseInt(total_price));
+                                let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship));
 
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),0,false);
                             }else{
-                                let a = (parseInt(total_price_buy) - parseInt(total_price) - order_ship_cou);
+                                let a = (parseInt(total_price_buy) - parseInt(total_price) - parseInt(price_ship) - order_ship_cou);
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_price.index, r]),a,false);
                                 instance.jexcel.setValue(jexcel.getColumnNameFromId([columns.order_ship_cou.index, r]),order_ship_cou,false);
                             }
