@@ -2311,6 +2311,23 @@ class Excel
             $sheet->setCellValue("R" . $start, "=SUM(R" . $defaultStart . ":R" . ($start - 1) . ")");
             $sheet->setCellValue("Q" . $start, "=SUM(Q" . $defaultStart . ":Q" . ($start - 1) . ")");
 
+            $sheet->getStyle("O" . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+            $sheet->getStyle("N" . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+
             $sheet->getStyle("K" . $start)->applyFromArray(array(
                     'font' => array(
                         'size' => 9,
