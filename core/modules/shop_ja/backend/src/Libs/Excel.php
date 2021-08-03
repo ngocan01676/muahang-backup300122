@@ -2303,45 +2303,48 @@ class Excel
                 }
                 $start++;
             }
+            $sheet->setCellValue("K" . $start, "=SUM(K" . $defaultStart . ":K" . ($start - 1) . ")");
+            $sheet->setCellValue("P" . $start, "=SUM(P" . $defaultStart . ":P" . ($start - 1) . ")");
+            $sheet->setCellValue("R" . $start, "=SUM(R" . $defaultStart . ":R" . ($start - 1) . ")");
+            $sheet->setCellValue("Q" . $start, "=SUM(Q" . $defaultStart . ":Q" . ($start - 1) . ")");
+
+            $sheet->getStyle("K" . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+
+            $sheet->getStyle("P" . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+            $sheet->getStyle("R" . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+            $sheet->getStyle("Q" . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                )
+            );
+            $start++;
+            $start++;
         }
-        $sheet->setCellValue("K" . $start, "=SUM(K" . $defaultStart . ":K" . ($start - 1) . ")");
-        $sheet->setCellValue("P" . $start, "=SUM(P" . $defaultStart . ":P" . ($start - 1) . ")");
-        $sheet->setCellValue("R" . $start, "=SUM(R" . $defaultStart . ":R" . ($start - 1) . ")");
-        $sheet->setCellValue("Q" . $start, "=SUM(Q" . $defaultStart . ":Q" . ($start - 1) . ")");
 
-        $sheet->getStyle("K" . $start)->applyFromArray(array(
-                'font' => array(
-                    'size' => 9,
-                    'name' => 'ＭＳ Ｐゴシック',
-                    'color' => array('rgb' => 'ff0000'),
-                ),
-            )
-        );
-
-        $sheet->getStyle("P" . $start)->applyFromArray(array(
-                'font' => array(
-                    'size' => 9,
-                    'name' => 'ＭＳ Ｐゴシック',
-                    'color' => array('rgb' => 'ff0000'),
-                ),
-            )
-        );
-        $sheet->getStyle("R" . $start)->applyFromArray(array(
-                'font' => array(
-                    'size' => 9,
-                    'name' => 'ＭＳ Ｐゴシック',
-                    'color' => array('rgb' => 'ff0000'),
-                ),
-            )
-        );
-        $sheet->getStyle("Q" . $start)->applyFromArray(array(
-                'font' => array(
-                    'size' => 9,
-                    'name' => 'ＭＳ Ｐゴシック',
-                    'color' => array('rgb' => 'ff0000'),
-                ),
-            )
-        );
         $writer = new Xlsx($spreadsheet);
         if($datas['type'] != "demo"){
             if ($name == "AMAZON") {
