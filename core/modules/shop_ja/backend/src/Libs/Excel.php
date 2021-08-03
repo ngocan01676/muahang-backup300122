@@ -2066,7 +2066,7 @@ class Excel
             ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
             ->setCreator('php-download.com')
             ->setLastModifiedBy('php-download.com');
-        $title1 = "株式会社ヤマダ 様 注文フォーマット";
+        $title1 = "株式会社三島食鶏様 注文フォーマット";
         $title2 = "見本";
         $info = "";
         $sheet->setCellValue('B1', $title1);
@@ -2103,7 +2103,7 @@ class Excel
                 ),
             )
         );
-        $sheet->getStyle('A3:T3')->applyFromArray($style_header);
+
         $date_export = new \stdClass();
         $date_export->date = $this->date_export;
         $date_nhan = new \stdClass();
@@ -2116,7 +2116,7 @@ class Excel
         $logs = [];
         for ($typeMethod1 = 0; $typeMethod1 < count($postions); $typeMethod1++) {
             $typeMethod = $postions[$typeMethod1];
-
+            $sheet->getStyle('A'.$start.':T'.$start)->applyFromArray($style_header);
 
             $colums = [
                 ["注文日", ['callback' => function ($index, $date) use ($date_export) {
@@ -2210,7 +2210,7 @@ class Excel
 
 
             $products = DB::table('shop_product')->get()->keyBy('id')->all();
-            
+
             $ids = [];
             foreach ($datas['datas'] as $key => $values) {
                 $payMethod = (isset($columns_value['payMethod']) ? $values[$columns_value['payMethod']] : "");
