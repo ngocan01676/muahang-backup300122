@@ -2110,7 +2110,7 @@ class Excel
         $date_nhan->date = $this->date;
         $columns_value = array_flip($datas['columns']);
 
-
+        $images = [];
         $postions = [2,1];
         $start = 3;
         $logs = [];
@@ -2210,7 +2210,7 @@ class Excel
 
 
             $products = DB::table('shop_product')->get()->keyBy('id')->all();
-            $images = [];
+            
             $ids = [];
             foreach ($datas['datas'] as $key => $values) {
                 $payMethod = (isset($columns_value['payMethod']) ? $values[$columns_value['payMethod']] : "");
