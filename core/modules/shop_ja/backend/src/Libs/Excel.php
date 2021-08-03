@@ -2114,6 +2114,7 @@ class Excel
         $postions = [2,1];
         $start = 3;
         $logs = [];
+        $ids = [];
         for ($typeMethod1 = 0; $typeMethod1 < count($postions); $typeMethod1++) {
             $typeMethod = $postions[$typeMethod1];
             $sheet->getStyle('A'.$start.':T'.$start)->applyFromArray($style_header);
@@ -2211,7 +2212,7 @@ class Excel
 
             $products = DB::table('shop_product')->get()->keyBy('id')->all();
 
-            $ids = [];
+
             foreach ($datas['datas'] as $key => $values) {
                 $payMethod = (isset($columns_value['payMethod']) ? $values[$columns_value['payMethod']] : "");
                 if (empty($values[$columns_value['fullname']])) {
