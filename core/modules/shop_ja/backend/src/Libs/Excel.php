@@ -2303,6 +2303,9 @@ class Excel
                 }
                 $start++;
             }
+            $sheet->setCellValue("O" . $start, "=SUM(O" . $defaultStart . ":O" . ($start - 1) . ")");
+            $sheet->setCellValue("N" . $start, "=SUM(N" . $defaultStart . ":N" . ($start - 1) . ")");
+
             $sheet->setCellValue("K" . $start, "=SUM(K" . $defaultStart . ":K" . ($start - 1) . ")");
             $sheet->setCellValue("P" . $start, "=SUM(P" . $defaultStart . ":P" . ($start - 1) . ")");
             $sheet->setCellValue("R" . $start, "=SUM(R" . $defaultStart . ":R" . ($start - 1) . ")");
