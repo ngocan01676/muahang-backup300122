@@ -146,9 +146,8 @@
                         type:$("#myform input[type='radio']:checked").val()
                     },
                     success:function (data) {
-                        console.log(data);
-                        console.log(window.location.protocol+"//"+getDomain(location.href)+"/"+data.url);
-                        window.location.replace =window.location.protocol+"//"+getDomain(location.href)+"/"+data.url;
+
+                        window.location.href = window.location.protocol+"//"+getDomain(location.href)+"/"+data.url;
                     }
                 });
             });
