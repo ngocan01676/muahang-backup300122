@@ -380,7 +380,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $xml.= '<feed xmlns="http://www.w3.org/2005/Atom" xmlns:g="http://base.google.com/ns/1.0">';
         $xml.='<title>Betogaizin</title>';
         $xml.='<link href="https://muahang.tokyo" rel="self"/>';
-       
+
         foreach ($shop_product as $k=>$v){
             $xml.='<entry>';
                 $xml.='<g:id>'.$v->id.'</g:id>';
