@@ -370,8 +370,12 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
         $cates = $request->cates;
         \DB::enableQueryLog();
-        $shop_product = DB::table('shop_product')->whereIn('category_id',$cates)->get()->all();
-
+       // $shop_product = DB::table('shop_product')->whereIn('category_id',$cates)->join('')->get()->all();
+        $shop_product = DB::table('shop_product as p')->where('p.status',1)
+            ->join('shop_product_translation as t','t._id','=','p.id')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
+            ->whereIn('p.category_id',$cates)
+            ->where('lang_code','vi');
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml.= '<feed xmlns="http://www.w3.org/2005/Atom" xmlns:g="http://base.google.com/ns/1.0">';
         $xml.='<title>Betogaizin</title>';
@@ -379,8 +383,8 @@ class ProductController extends \Zoe\Http\ControllerBackend
         foreach ($shop_product as $k=>$v){
             $xml.='<entry>';
                 $xml.='<g:id>'.$v->id.'</g:id>';
-                $xml.='<g:title>'.$v->title.'</g:title>';
-                $xml.='<g:description>'.$v->description.'</g:description>';
+                $xml.='<g:title>'.$v->name.'</g:title>';
+                $xml.='<g:description>'.$v->content.'</g:description>';
                 $xml.='<g:link>'.router_frontend_lang('home:item-product',['id'=>$v->id,'slug'=>$v->slug]).'</g:link>';
                 $xml.='<g:image_link>'.$v->image.'</g:image_link>';
                 $xml.='<g:brand>betogaizin</g:brand>';
@@ -391,8 +395,8 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $indexName = 1;
             $index++;
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->id);
-            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->title);
-            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->description);
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->name);
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->content);
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,'in stock');
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,'New');
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->price_buy_km > 0?$v->price_buy_km:$v->price_buy);
