@@ -90,7 +90,9 @@
                                 <tr>
                                     <th>Chuyên mục</th>
                                     <td>
-                                        {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"congty","",[]) !!}
+                                         @foreach($nestables as $value)
+                                            <input name="type" type="checkbox" value="{!! $value['id'] !!}"> {!! $value['name'] !!} <BR>
+                                         @endforeach
                                     </td>
                                 </tr>
                                 <tr>
@@ -138,16 +140,22 @@
                 myModalOption.modal();
             });
             $('.btnExportOption').click(function () {
+                var idsArr = [];
+                $('#myModalOptionExcel').find('input[name=type]:checked').each(function() {
+                    idsArr.push(this.value);
+                });
+                console.log(idsArr);
                 $.ajax({
                     url:"{!! route('backend:shop_ja:product:export') !!}",
                     type:"POST",
                     data:{
-                        cate:$("#congty-select").val(),
-                        type:$("#myform input[type='radio']:checked").val()
+                        cates:idsArr,
+                        type:$('input[name=export_type]:checked', '#myModalOptionExcel').val()
+
                     },
                     success:function (data) {
 
-                        window.location.href = window.location.protocol+"//"+getDomain(location.href)+"/"+data.url;
+                       // window.location.href = window.location.protocol+"//"+getDomain(location.href)+"/"+data.url;
                     }
                 });
             });

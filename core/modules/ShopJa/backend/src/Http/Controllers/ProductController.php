@@ -368,8 +368,10 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
         }
 
-        $cate_id = $request->cate;
-        $shop_product = DB::table('shop_product')->where('category_id',$cate_id)->get()->all();
+        $cates = $request->cates;
+        \DB::enableQueryLog();
+        $shop_product = DB::table('shop_product')->whereIn('category_id',$cates)->get()->all();
+
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml.= '<feed xmlns="http://www.w3.org/2005/Atom" xmlns:g="http://base.google.com/ns/1.0">';
         $xml.='<title>Betogaizin</title>';
