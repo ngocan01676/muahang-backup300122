@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 use \ShopJa\Http\Models\ProductModel;
 use File;
+
+
+use \PhpOffice\PhpSpreadsheet;
+use \PhpOffice\PhpSpreadsheet\Style\Border;
+use \PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class ProductController extends \Zoe\Http\ControllerBackend
 {
 
@@ -307,6 +314,60 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
     }
     public function export(Request $request){
+
+
+
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $spreadsheet->createSheet();
+        $sheet1 = $spreadsheet->getSheet(1);
+        $sheet1->setTitle('Sheet2');
+
+        $sheet->setTitle("Sheet1");
+        $spreadsheet->getProperties()
+            ->setTitle('PHP Download Example')
+            ->setSubject('A PHPExcel example')
+            ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
+            ->setCreator('php-download.com')
+            ->setLastModifiedBy('php-download.com');
+
+
+        $titles = [
+            'id',
+            'title',
+            'description',
+            'availability',
+            'condition',
+            'price',
+            'link',
+            'image_link',
+            'brand',
+            'google_product_category',
+            'fb_product_category',
+            'quantity_to_sell_on_facebook',
+            'sale_price',
+            'sale_price_effective_date',
+            'item_group_id',
+            'gender',
+            'color',
+            'size',
+            'age_group',
+            'material',
+            'pattern',
+            'shipping',
+            'shipping_weight',
+            'style[0]',
+        ];
+        $index = 1;
+
+        foreach ($titles as $num=>$title) {
+
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($num+1);
+            $sheet->setCellValue($nameCol.$index,$title);
+
+        }
+
         $cate_id = $request->cate;
         $shop_product = DB::table('shop_product')->where('category_id',$cate_id)->get()->all();
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -320,14 +381,48 @@ class ProductController extends \Zoe\Http\ControllerBackend
                 $xml.='<g:description>'.$v->description.'</g:description>';
                 $xml.='<g:link>'.router_frontend_lang('home:item-product',['id'=>$v->id,'slug'=>$v->slug]).'</g:link>';
                 $xml.='<g:image_link>'.$v->image.'</g:image_link>';
-                $xml.='<g:brand>'.$v->category_id.'</g:brand>';
+                $xml.='<g:brand>betogaizin</g:brand>';
                 $xml.='<g:condition>New</g:condition>';
                 $xml.='<g:availability>in stock</g:availability>';
                 $xml.='<g:price>'.$v->price_buy.'</g:price>';
             $xml.='</entry>';
+            $indexName = 1;
+            $index++;
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->id);
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->title);
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->description);
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,'in stock');
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,'New');
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->price_buy_km);
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,router_frontend_lang('home:item-product',['id'=>$v->id,'slug'=>$v->slug]));
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->image);
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,'Betogaizin');
+            $indexName+=4;
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->price_buy);
+
+
+
         }
         $xml.='</feed>';
         File::put(public_path('uploads/xml/FB_export_product_xml_for_facebook.xml'),$xml);
-        return response()->json(['url'=>'uploads/xml/FB_export_product_xml_for_facebook.xml']);
+
+        $pathZip = '/uploads/xml';
+        $filename = 'FB_export_product_xml_for_facebook';
+        $writer = new Xlsx($spreadsheet);
+        $path2 = $pathZip . '/' . $filename . '.xlsx';
+        $writer->save(public_path() . $path2);
+        $file = new \Illuminate\Filesystem\Filesystem();
+
+        $zipFileName =  'FB_export_product_xml_for_facebook.zip';
+        $zip = new \ZipArchive();
+        if ($file->exists(public_path() . '/uploads/xml/' . $zipFileName)) {
+            $file->delete(public_path() . '/uploads/xml/' . $zipFileName);
+        }
+        if ($zip->open(public_path() . '/uploads/xml/' . $zipFileName, \ZipArchive::CREATE) === TRUE) {
+            $zip->addFile( public_path('uploads/xml/FB_export_product_xml_for_facebook.xml'),'FB_export_product_xml_for_facebook.xml');
+            $zip->addFile( public_path($path2),'FB_export_product_xml_for_facebook.xlsx');
+            $zip->close();
+        }
+        return response()->json(['url'=>'uploads/xml/FB_export_product_xml_for_facebook.zip']);
     }
 }
