@@ -155,7 +155,7 @@
                     },
                     success:function (data) {
 
-                       // window.location.href = window.location.protocol+"//"+getDomain(location.href)+"/"+data.url;
+                       window.location.href = window.location.protocol+"//"+getDomain(location.href)+"/"+data.url;
                     }
                 });
             });
