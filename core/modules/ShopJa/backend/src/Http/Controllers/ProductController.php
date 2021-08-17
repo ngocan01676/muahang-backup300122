@@ -373,13 +373,14 @@ class ProductController extends \Zoe\Http\ControllerBackend
        // $shop_product = DB::table('shop_product')->whereIn('category_id',$cates)->join('')->get()->all();
         $shop_product = DB::table('shop_product as p')->where('p.status',1)
             ->join('shop_product_translation as t','t._id','=','p.id')
-            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content','p.price_buy_km')
             ->whereIn('p.category_id',$cates)
             ->where('lang_code','vi');
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml.= '<feed xmlns="http://www.w3.org/2005/Atom" xmlns:g="http://base.google.com/ns/1.0">';
         $xml.='<title>Betogaizin</title>';
         $xml.='<link href="https://muahang.tokyo" rel="self"/>';
+        dd($shop_product);
         foreach ($shop_product as $k=>$v){
             $xml.='<entry>';
                 $xml.='<g:id>'.$v->id.'</g:id>';
