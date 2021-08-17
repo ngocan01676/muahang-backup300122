@@ -12,6 +12,7 @@
                 {{@z_language(["Option"])}}
             </x-slot>
         </x-btnOption>
+
     </h1>
 @endsection
 @section('content')

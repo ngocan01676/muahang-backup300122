@@ -12,6 +12,7 @@
                 {{@z_language(["Option"])}}
             </x-slot>
         </x-btnOption>
+        <a href="javascript:void(0)" class="btn btn-default btn-md ExcelExport"><i class="fa fa-fw fa-file-excel-o"></i> {!! @z_language(["Xuất"]) !!} </a>
     </h1>
 @endsection
 @section('content')
@@ -74,11 +75,83 @@
     @endcomponent
 @endsection
 @push('links')
+    <div class="modal fade" id="myModalOptionExcel" role="dialog">
+        <form action="">
+            <div class="modal-dialog" style="width: 50%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Option</h4>
 
+                    </div>
+                    <div class="modal-body">
+                        <form action="" id="myform">
+                            <table class="table">
+                                <tr>
+                                    <th>Chuyên mục</th>
+                                    <td>
+                                        {!! Form::CategoriesNestableOne($nestables,[Form::value('category_id')=>""],"congty","",[]) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Loại xuất</th>
+                                    <td>
+                                        <input name="export_type" type="radio" value="facebook" checked> facebook
+                                        <input name="export_type" type="radio" value="facebook"> zalo
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="button"  class="btnExportOption btn btn-primary">Xuất</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 @endpush
 @push('scripts')
     <script>
+        function getDomain(url, subdomain) {
+            subdomain = subdomain || false;
+
+            url = url.replace(/(https?:\/\/)?(www.)?/i, '');
+
+            if (!subdomain) {
+                url = url.split('.');
+
+                url = url.slice(url.length - 2).join('.');
+            }
+
+            if (url.indexOf('/') !== -1) {
+                return url.split('/')[0];
+            }
+
+            return url;
+        }
         $(document).ready(function () {
+
+            $(".ExcelExport").click(function () {
+                var myModalOption = $("#myModalOptionExcel");
+                myModalOption.modal();
+            });
+            $('.btnExportOption').click(function () {
+                $.ajax({
+                    url:"{!! route('backend:shop_ja:product:export') !!}",
+                    type:"POST",
+                    data:{
+                        cate:$("#congty-select").val(),
+                        type:$("#myform input[type='radio']:checked").val()
+                    },
+                    success:function (data) {
+                        console.log(data);
+                        console.log(window.location.protocol+"//"+getDomain(location.href)+"/"+data.url);
+                        window.location.replace =window.location.protocol+"//"+getDomain(location.href)+"/"+data.url;
+                    }
+                });
+            });
             let action = false;
             function myFunction(){
                 let delay = true;

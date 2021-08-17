@@ -27,6 +27,10 @@ return [
                             "url" => "/store",
                             "method" => ['post'],
                         ],
+                        "export" => [
+                            "url" => "/export",
+                            "method" => ['post'],
+                        ],
                         "ajax" => [
                             "url" => "/ajax",
                             "method" => ['post'],

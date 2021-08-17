@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 use \ShopJa\Http\Models\ProductModel;
+use File;
 class ProductController extends \Zoe\Http\ControllerBackend
 {
 
@@ -304,5 +305,29 @@ class ProductController extends \Zoe\Http\ControllerBackend
 
 
 
+    }
+    public function export(Request $request){
+        $cate_id = $request->cate;
+        $shop_product = DB::table('shop_product')->where('category_id',$cate_id)->get()->all();
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>';
+        $xml.= '<feed xmlns="http://www.w3.org/2005/Atom" xmlns:g="http://base.google.com/ns/1.0">';
+        $xml.='<title>Betogaizin</title>';
+        $xml.='<link href="https://muahang.tokyo" rel="self"/>';
+        foreach ($shop_product as $k=>$v){
+            $xml.='<entry>';
+                $xml.='<g:id>'.$v->id.'</g:id>';
+                $xml.='<g:title>'.$v->title.'</g:title>';
+                $xml.='<g:description>'.$v->description.'</g:description>';
+                $xml.='<g:link>'.router_frontend_lang('home:item-product',['id'=>$v->id,'slug'=>$v->slug]).'</g:link>';
+                $xml.='<g:image_link>'.$v->image.'</g:image_link>';
+                $xml.='<g:brand>'.$v->category_id.'</g:brand>';
+                $xml.='<g:condition>New</g:condition>';
+                $xml.='<g:availability>in stock</g:availability>';
+                $xml.='<g:price>'.$v->price_buy.'</g:price>';
+            $xml.='</entry>';
+        }
+        $xml.='</feed>';
+        File::put(public_path('uploads/xml/FB_export_product_xml_for_facebook.xml'),$xml);
+        return response()->json(['url'=>'uploads/xml/FB_export_product_xml_for_facebook.xml']);
     }
 }
