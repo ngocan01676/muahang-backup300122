@@ -403,7 +403,7 @@ class Excel
                         'count' => trim(rtrim($value['data'][$nameColList['count']])),
                     ];
 
-                    
+
                     $_result = DB::table('shop_order_excel')->where($where)
                         ->where('order_create_date', '>=', date('Y-m-d', $this->date_export) . ' 00:00:00')
                         ->where('order_create_date', '<=', date('Y-m-d', $this->date_export) . ' 23:59:59')
@@ -496,6 +496,9 @@ class Excel
             ['H2', '北海道：800円'],
             ['H2', '沖縄：1200円'],
             ['N5', ''],
+        ];
+        $titles = [
+        
         ];
         foreach ($titles as $title) {
             $sheet->setCellValue($title[0], $title[1]);

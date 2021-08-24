@@ -14,3 +14,5 @@ public/uploads/
 .idea
 .idea/**/workspace.xml
 tool/node_modules/
+tmp/
+tool/
