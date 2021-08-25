@@ -334,7 +334,7 @@ class Excel
                             }
                             if(!isset($item['ids'][0])){
                                 foreach ($dataRowDatabase as $_tran_id=>$_value){
-                                    if($_value[0]->fullname == $fullname &&
+                                    if($_value != 0 && $_value[0]->fullname == $fullname &&
                                         $_value[0]->address == $address &&
                                         $payMethod == $this->NumberToStringPayMethod($_value[0]->pay_method)){
                                         $item['ids'][] = $_tran_id;
@@ -498,7 +498,7 @@ class Excel
             ['N5', ''],
         ];
         $titles = [
-        
+
         ];
         foreach ($titles as $title) {
             $sheet->setCellValue($title[0], $title[1]);
