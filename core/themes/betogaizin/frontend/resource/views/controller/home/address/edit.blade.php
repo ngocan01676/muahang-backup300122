@@ -25,9 +25,9 @@
         <div class="step1 only-sp">
             <div class="is-step1 header-step-wrap only-sp">
                 <ul class="header-step">
-                    <li class="header-step-item header-step-item1"><span class="header-step-item-inner">編集</span></li>
-                    <li class="header-step-item header-step-item2"><span class="header-step-item-inner">確認</span></li>
-                    <li class="header-step-item header-step-item3"><span class="header-step-item-inner">完了</span></li>
+                    <li class="header-step-item header-step-item1"><span class="header-step-item-inner">{!! z_language('編集') !!}</span></li>
+                    <li class="header-step-item header-step-item2"><span class="header-step-item-inner">{!! z_language('確認') !!}</span></li>
+                    <li class="header-step-item header-step-item3"><span class="header-step-item-inner">{!! z_language('完了') !!}</span></li>
                 </ul>
             </div>
         </div>
@@ -90,7 +90,7 @@
                             <button type="button" onclick="get_postal_code(this)" class="btn btn-default btn-color00 w10-pc">{!! z_language('Tìm kiếm địa chỉ') !!}</button>
                         </span>
                     </div>
-                    <i class="error_code" style="display: none;color: red">Mã Code không tồn tại</i>
+                    <i class="error_code" style="display: none;color: red">{!! z_language('Mã Code không tồn tại') !!}</i>
                 </dd>
             </dl>
             <dl  class="form-grid">
@@ -119,7 +119,7 @@
             </dl>
 
             <dl  class="form-grid">
-                <dt  class="form-grid-head">電話番号(半角数字)<span  class="badge-required">必須</span></dt>
+                <dt  class="form-grid-head">{!! z_language('電話番号(半角数字)') !!}<span  class="badge-required">{!! z_language('必須') !!}</span></dt>
                 <dd  class="form-grid-body">
                     <div  class="form-box-tel">
                         <span class="form-box-tel-item">

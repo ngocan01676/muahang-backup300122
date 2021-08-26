@@ -6,7 +6,7 @@
                     <div class="item-slot-bar-left-col">
                         <div class="item-slot-setting-area">
                             <dl><dt>
-                                    絞り込み
+                                    {!! z_language('絞り込み') !!}
                                 </dt>
                                 <dd><span class="form-parts-select-secondary">
                                         @php
@@ -91,10 +91,10 @@
                             <div class="product-item-info-in">
                                 <div class="product-item-info-top">
                                     <p><span class="product-item-info-maker">
-                      ハーゲンダッツ
+                     {!! z_language('ハーゲンダッツ') !!}
                     </span>  <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class="">
                                             <span class="product-item-info-name">
-                                                デコレーションズ アーモンドキャラメルクッキー
+                                                {!! z_language('デコレーションズ アーモンドキャラメルクッキー') !!}
                                             </span>
                                         </a>
                                         {{--<span class="product-item-info-amount">88ml</span>--}}
@@ -117,7 +117,7 @@
                                         <!---->
                                         <div class="product-item-info-price-with-icon">
                                             <!---->
-                                            <p class="product-item-info-price">{!! $result->price_buy !!}<span class="unit">円</span></p>
+                                            <p class="product-item-info-price">{!! $result->price_buy !!}<span class="unit">{!! z_language('円') !!}</span></p>
                                         </div>
                                         {{--<p class="product-item-info-tax">(税込 226円)</p>--}}
                                     </div>
@@ -202,7 +202,7 @@
                 @endif
             @endforeach
             <div class="product-item product-item-next normal" style="height: 453px;">
-                <p><a><span>次のページ</span></a>
+                <p><a><span>{!! z_language('次のページ') !!}</span></a>
                 </p>
             </div>
         </div>

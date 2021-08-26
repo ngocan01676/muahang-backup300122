@@ -42,45 +42,45 @@
             <ul data-v-5991889a="" class="category-menu-level01 category-menu-secondary">
                 <li data-v-5991889a="" class="category-menu-level01-item" style="">
             <span data-v-5991889a="" class="category-menu-link category-menu-link-arrow js-category-menu-trigger">
-            当店のおすすめ
+            {!! z_language('当店のおすすめ') !!}
             </span>
                     <div data-v-5991889a="" class="category-menu-level02" style="">
-                        <p data-v-5991889a="" class="category-menu-head-cate">すべてのカテゴリ</p>
+                        <p data-v-5991889a="" class="category-menu-head-cate">{!! z_language('すべてのカテゴリ') !!}</p>
                         <dl data-v-5991889a="">
-                            <dt data-v-5991889a="" class="category-menu-sub-head">当店のおすすめ</dt>
+                            <dt data-v-5991889a="" class="category-menu-sub-head">{!! z_language('当店のおすすめ') !!}</dt>
                             <dd data-v-5991889a="" class="category-menu-sub-body">
                                 <ul data-v-5991889a="">
                                     <li data-v-5991889a="" class="category-menu-level02-item"><a data-v-5991889a="" href="javascript:void(0);" class="category-menu-link">
-                                            当店のおすすめすべて
+                                            {!! z_language('当店のおすすめすべて') !!}
                                         </a>
                                     </li>
                                     <li data-v-5991889a="" class="category-menu-level02-item">
                            <span data-v-5991889a="" class="category-menu-link category-menu-accordion-btn js-category-accordion-trigger">
-                           新商品
+                           {!! z_language('新商品') !!}
                            </span>
                                         <ul data-v-5991889a="" class="category-menu-level03 category-menu-accordion-body">
                                             <li data-v-5991889a="" class="category-menu-level03-item"><a data-v-5991889a="" href="javascript:void(0);" class="category-menu-link">
-                                                    新商品すべて
+                                                    {!! z_language('新商品すべて') !!}
                                                 </a>
                                             </li>
                                             <li data-v-5991889a="" class="category-menu-level03-item"><a data-v-5991889a="" href="javascript:void(0);" class="category-menu-link">
-                                                    菓子・飲料
+                                                   {!! z_language('菓子・飲料') !!}
                                                 </a>
                                             </li>
                                             <li data-v-5991889a="" class="category-menu-level03-item"><a data-v-5991889a="" href="javascript:void(0);" class="category-menu-link">
-                                                    お酒
+                                                    {!! z_language('お酒') !!}
                                                 </a>
                                             </li>
                                             <li data-v-5991889a="" class="category-menu-level03-item"><a data-v-5991889a="" href="javascript:void(0);" class="category-menu-link">
-                                                    食品
+                                                    {!! z_language('食品') !!}
                                                 </a>
                                             </li>
                                             <li data-v-5991889a="" class="category-menu-level03-item"><a data-v-5991889a="" href="javascript:void(0);" class="category-menu-link">
-                                                    美容・衛生・紙・生理用品
+                                                    {!! z_language('美容・衛生・紙・生理用品') !!}
                                                 </a>
                                             </li>
                                             <li data-v-5991889a="" class="category-menu-level03-item"><a data-v-5991889a="" href="javascript:void(0);" class="category-menu-link">
-                                                    日用品
+                                                    {!! z_language('日用品') !!}
                                                 </a>
                                             </li>
                                             <!---->
@@ -88,11 +88,11 @@
                                     </li>
                                     <li data-v-5991889a="" class="category-menu-level02-item">
                            <span data-v-5991889a="" class="category-menu-link category-menu-accordion-btn js-category-accordion-trigger">
-                           みなさまのお墨付き
+                           {!! z_language('みなさまのお墨付き') !!}
                            </span>
                                         <ul data-v-5991889a="" class="category-menu-level03 category-menu-accordion-body">
                                             <li data-v-5991889a="" class="category-menu-level03-item"><a data-v-5991889a="" href="javascript:void(0);" class="category-menu-link">
-                                                    みなさまのお墨付きすべて
+                                                    {!! z_language('みなさまのお墨付きすべて') !!}
                                                 </a>
                                             </li>
                                             <li data-v-5991889a="" class="category-menu-level03-item"><a data-v-5991889a="" href="javascript:void(0);" class="category-menu-link">

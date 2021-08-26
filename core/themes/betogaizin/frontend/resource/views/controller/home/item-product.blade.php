@@ -19,7 +19,7 @@
                         <div class="product-detail-title-block-inner">
                             <p class="product-detail-maker">
                                 <a href="#" class="">
-                                    ハーゲンダッツ
+                                    {!! z_language('ハーゲンダッツ') !!}
                                 </a>
                             </p>
                             <h1 class="product-detail-title">{!! $item->title !!}</h1>

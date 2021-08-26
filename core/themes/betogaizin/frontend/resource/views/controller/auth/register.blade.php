@@ -8,12 +8,12 @@
     <div id="contents">
         <form name="Regist1Form" method="post" action="{!! router_frontend_lang('guest:register:post') !!}" autocomplete="off">
             @csrf
-            <h3 class="circle">Email Address/UserID/Password</h3>
+            <h3 class="circle">{!! z_language('Email Address/UserID/Password') !!}</h3>
             <table class="address" cellspacing="0" summary="memberInformation1">
                 <tbody><tr>
-                    <th class="headRow" id="email,email2" scope="row"><span class="essential">Required</span>Email Address</th>
+                    <th class="headRow" id="email,email2" scope="row"><span class="essential">{!! z_language('Required') !!}</span>{!! z_language('Email Address') !!}</th>
                     <td>
-                        <em>It is not possible to register an email address already in use.</em><br>
+                        <em>{!! z_language('It is not possible to register an email address already in use.') !!}</em><br>
 
                         {!! Form::text('email',null, ['class' => 'text email','size'=>35]) !!}<BR>
                         @error("email")
@@ -39,11 +39,11 @@
                     {{--<td class="note">&nbsp;</td>--}}
                 {{--</tr>--}}
                 <tr>
-                    <th class="headRow" id="p" scope="row"><span class="essential">Required</span>Password</th>
+                    <th class="headRow" id="p" scope="row"><span class="essential">{!! z_language('Required') !!}</span>{!! z_language('Password') !!}</th>
                     <td>
-                        <em>&lt;6 or more characters/alphanumeric characters&gt;</em><br>
-                        <em>You cannot register your "User ID" as a password.</em><br>
-                        <em>To avoid cyber crime, please choose a complex password.</em><br>
+                        <em>&lt;{!! z_language('6 or more characters/alphanumeric characters') !!}&gt;</em><br>
+                        <em>{!! z_language('You cannot register your "User ID" as a password.') !!}</em><br>
+                        <em>{!! z_language('To avoid cyber crime, please choose a complex password.') !!}</em><br>
                         <input type="p" name="p" maxlength="128" size="35" value="">
                         @error("p")
                         <BR><span class="errorMsg">{!! $message !!}</span>
@@ -66,14 +66,14 @@
                 </tr>
                 </tbody>
             </table>
-            <h3 class="circle">Your User Information</h3>
+            <h3 class="circle">{!! z_language('Your User Information') !!}</h3>
             <table class="address" cellspacing="0" summary="memberInformation1">
                 <tbody>
                 <tr>
-                    <th class="headRow" id="lname,fname" scope="row"><span class="essential">Required</span>Name</th>
+                    <th class="headRow" id="lname,fname" scope="row"><span class="essential">{!! z_language('Required') !!}</span>{!! z_language('Name') !!}</th>
                     <td>
-                        <em>Your first and last name are necessary to reset your password.</em><br>
-                        <strong><em class="em">Please type them correctly when registering.</em></strong><br>
+                        <em>{!! z_language('Your first and last name are necessary to reset your password.') !!}</em><br>
+                        <strong><em class="em">{!! z_language('Please type them correctly when registering.') !!}</em></strong><br>
                         (First Name)
                         {{--<input type="text" name="fname" maxlength="85" size="28" value="" class="text name" title="John" style="color: rgb(153, 153, 153);">--}}
                         {!! Form::text('fname',null, ['class' => 'text email','size'=>28,'maxlength'=>85]) !!}
@@ -95,7 +95,7 @@
                 <tr>
                     <th class="headRow" id="by,bm,bd" scope="row"><span class="essential">Required</span>Date of Birth</th>
                     <td>
-                        <em>&lt;Once registered, this information cannot be changed.&gt;</em><br>
+                        <em>&lt;{!! z_language('Once registered, this information cannot be changed.') !!}&gt;</em><br>
 
                         <select name="bd">
                             <option value="">-</option>
@@ -136,7 +136,7 @@
                 <tr>
                     <th class="headRow" id="sex" scope="row"><span class="essential">Required</span>Gender</th>
                     <td>
-                        <em>&lt;Once registered, this information cannot be changed.&gt;</em><br>
+                        <em>&lt;{!! z_language('Once registered, this information cannot be changed.') !!}&gt;</em><br>
                         @php $val = Form::value("sex"); @endphp
                         <input type="radio" name="sex" value="M" {!! $val == "M"?"checked":($val == null?'checked':'') !!}> Male
                         <input type="radio" name="sex" value="F" {!! $val == "F"?"checked":"" !!}> Female
@@ -146,10 +146,10 @@
                 </tr>
                 </tbody>
             </table>
-            <h3 class="circle">User Contact Information</h3>
+            <h3 class="circle">{!! z_language('User Contact Information') !!}</h3>
             <table class="address" cellspacing="0" summary="memberInformation1">
                 <tbody><tr>
-                    <th class="headRow" id="zip" scope="row"><span class="essential">Required</span>Postal Code</th>
+                    <th class="headRow" id="zip" scope="row"><span class="essential">{!! z_language('Required') !!}</span>{!! z_language('Postal Code') !!}</th>
                     <td>
 
                         {!! Form::text('zip',null, ['class' => 'text zip','size'=>8,'maxlength'=>8]) !!}
@@ -160,11 +160,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="headRow" id="prefecture" scope="row"><span class="essential">Required</span>Prefecture</th>
+                    <th class="headRow" id="prefecture" scope="row"><span class="essential">{!! z_language('Required') !!}</span>{!! z_language('Prefecture') !!}</th>
                     <td>
-                        <em>Please select the prefecture where you live.</em><br>
+                        <em>{!! z_language('Please select the prefecture where you live.') !!}</em><br>
                         @php $prefecture_conf = config('shop_ja'); @endphp
-                        @php $val = Form::value("prefecture");  var_dump($val) ;@endphp
+                        @php $val = Form::value("prefecture");   @endphp
                         <select name="prefecture">
                             <option value="">-Select-</option>
                             @foreach($prefecture_conf['configs']['prefecture'] as $key=>$value)
@@ -181,7 +181,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="headRow" id="city" scope="row"><span class="essential">Required</span>City, Ward (Island)</th>
+                    <th class="headRow" id="city" scope="row"><span class="essential">{!! z_language('Required') !!}</span>{!! z_language('City, Ward (Island)') !!}</th>
                     <td>
                         {!! Form::text('city',null, ['class' => 'text city','size'=>20,'maxlength'=>85,'placeholder'=>'For example, Shinagawa Ward/Hachijo Island']) !!}
                         @error("city")
@@ -191,10 +191,10 @@
                     <td class="note">&nbsp;</td>
                 </tr>
                 <tr>
-                    <th class="headRow" id="street" scope="row"><span class="essential">Required</span>Rest of Address</th>
+                    <th class="headRow" id="street" scope="row"><span class="essential">{!! z_language('Required') !!}</span>{!! z_language('Rest of Address') !!}</th>
                     <td id="streetTd">
 
-                        <label style="display: none" id="banchiErrorMessage">Please enter information such as banchi, building name, room number, etc. (for example) Tamagawa 1-14-1 1 mansion 106. If there is no banchi, please check No Banchi.</label>
+                        <label style="display: none" id="banchiErrorMessage">{!! z_language('Please enter information such as banchi, building name, room number, etc. (for example) Tamagawa 1-14-1 1 mansion 106. If there is no banchi, please check No Banchi.') !!}</label>
 
                         {!! Form::text('street',null, ['class' => 'text street','size'=>35,'maxlength'=>85,'placeholder'=>'For example, Shinagawa Seaside Rakuten Tower, Higashi Shinagawa 4-12-3']) !!}
                         <input type="checkbox" name="noBanchi" value="on">No Banchi<br>
@@ -208,9 +208,9 @@
                 </tr>
 
                 <tr>
-                    <th class="headRow" id="tel" scope="row"><span class="essential">Required</span>Telephone Number</th>
+                    <th class="headRow" id="tel" scope="row"><span class="essential">{!! z_language('Required') !!}</span>{!! z_language('Telephone Number') !!}</th>
                     <td>
-                        <em>Users who have only a mobile phone may enter their mobile phone number.</em><br>
+                        <em>{!! z_language('Users who have only a mobile phone may enter their mobile phone number.') !!}</em><br>
                         {!! Form::text('tel_valueAt_0',null, ['class' => 'text tel1','size'=>8,'maxlength'=>8,'placeholder'=>'']) !!}
                         {!! Form::text('tel_valueAt_1',null, ['class' => 'text tel2','size'=>8,'maxlength'=>8,'placeholder'=>'']) !!}
                         {!! Form::text('tel_valueAt_2',null, ['class' => 'text tel3','size'=>8,'maxlength'=>8,'placeholder'=>'']) !!}

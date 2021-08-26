@@ -7,7 +7,7 @@
      class="toasted-container toast-container top-center">
     <div class="toasted toast-base-frame toasted-primary success"
          style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; transform: translateY(-100px);">
-        <span class="icon-add-cart">商品をかごに<br>追加しました</span>
+        <span class="icon-add-cart">{!! z_language('商品をかごに') !!}<br>{!! z_language('追加しました') !!}</span>
     </div>
 </div>
 @php
@@ -23,17 +23,17 @@
 @endphp
 <section class="popup popup-narrow" style="display: none">
     <button type="button" class="popup-close-btn js-popup-close"></button>
-    <h2 class="popup-head">お届け日時選択</h2>
+    <h2 class="popup-head">{!! z_language('お届け日時選択') !!}</h2>
     <div  class="popup-content delivery-content">
         <div  class="delivery-header">
             <p  class="delivery-header-txt">
-                ご希望のお届け日時を選択してください。<br  />
-               
+               {!! z_language('ご希望のお届け日時を選択してください。') !!}<br  />
+
             </p>
-           
+
         </div>
         <div  id="slot01" class="forIpadStyle">
-           
+
             <div  class="delivery-table-test">
                 <table  class="delivery-time-title">
                     <tr >
@@ -357,9 +357,9 @@
                     </dd>
                     <dd  class="delivery-info-list-note only-pc">この時間帯は必ずご在宅ください</dd>
                 </dl>
-               
-               
-               
+
+
+
                 <dl  class="delivery-info-list">
                     <dt  class="delivery-info-list-heading">お届け先</dt>
                     <dd  class="delivery-info-list-txt">東京都新宿区箪笥町</dd>

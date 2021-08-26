@@ -41,21 +41,21 @@
                 <dl class="header-keyword">
                     <dd>
                         <ul class="header-keyword-list">
-                            <li><a href="#">1万円分クーポン当たる</a>
+                            <li><a href="#">{!! z_language('万円分クーポン当たる') !!}</a>
                             </li>
-                            <li><a href="#">春の新商品</a>
+                            <li><a href="#">{!! z_language('春の新商品') !!}</a>
                             </li>
-                            <li><a href="#">ベビー＆キッズフェア</a>
+                            <li><a href="#">{!! z_language('ベビー＆キッズフェア') !!}</a>
                             </li>
-                            <li><a href="#">花粉・ウイルス対策</a>
+                            <li><a href="#">{!! z_language('花粉・ウイルス対策') !!}</a>
                             </li>
-                            <li><a href="#">家飲み</a>
+                            <li><a href="#">{!! z_language('家飲み') !!}</a>
                             </li>
-                            <li><a href="#">トマトレシピ</a>
+                            <li><a href="#">{!! z_language('トマトレシピ') !!}</a>
                             </li>
-                            <li><a href="#">みなさまのお墨付き</a>
+                            <li><a href="#">{!! z_language('みなさまのお墨付き') !!}</a>
                             </li>
-                            <li><a href="#">本日使えるクーポン</a>
+                            <li><a href="#">{!! z_language('本日使えるクーポン') !!}</a>
                             </li>
                         </ul>
                     </dd>
@@ -68,14 +68,14 @@
                     <a onclick="open_menu()" class="js-category-menuBtn OpenMenu" data-v-defa9620="">{!! z_language('カテゴリから探す') !!}</a>
                 </p>
                 <p class="category-menu-btn max-374" data-v-defa9620="">
-                    <a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">カテゴリ</a>
+                    <a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">{!! z_language('カテゴリ') !!}</a>
                 </p>
                 <ul class="header-utility-link" data-v-defa9620="">
-                    <li class="header-utility-link-item" data-v-defa9620=""><a href="#" class="svg-icon icon-top-center icon-campaign" data-v-defa9620="">キャンペーン</a>
+                    <li class="header-utility-link-item" data-v-defa9620=""><a href="#" class="svg-icon icon-top-center icon-campaign" data-v-defa9620="">{!! z_language('キャンペーン') !!}</a>
                     </li>
-                    <li class="header-utility-link-item" data-v-defa9620=""><a href="#" class="svg-icon icon-top-center icon-favorite-black" data-v-defa9620="">お気に入り</a>
+                    <li class="header-utility-link-item" data-v-defa9620=""><a href="#" class="svg-icon icon-top-center icon-favorite-black" data-v-defa9620="">{!! z_language('お気に入り') !!}</a>
                     </li>
-                    <li class="header-utility-link-item" data-v-defa9620=""><a href="#" class="svg-icon icon-top-center icon-menu-black" data-v-defa9620="">購入履歴</a>
+                    <li class="header-utility-link-item" data-v-defa9620=""><a href="#" class="svg-icon icon-top-center icon-menu-black" data-v-defa9620="">{!! z_language('購入履歴') !!}</a>
                     </li>
                 </ul>
             </div>
@@ -94,14 +94,14 @@
                 <div class="header-inner" data-v-defa9620="">
                     <p class="category-menu-btn min-375" data-v-defa9620=""><a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">{!! z_language('カテゴリから探す') !!}</a>
                     </p>
-                    <p class="category-menu-btn max-374" data-v-defa9620=""><a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">カテゴリ</a>
+                    <p class="category-menu-btn max-374" data-v-defa9620=""><a href="#category-menu-search" class="js-category-menuBtn" data-v-defa9620="">{!! z_language('カテゴリ') !!}</a>
                     </p>
                     <ul class="header-utility-link" data-v-defa9620="">
-                        <li class="header-utility-link-item" data-v-defa9620=""><a href="//sm.rakuten.co.jp/event/list?l-id=_header_campaignlist" class="svg-icon icon-top-center icon-campaign" data-v-defa9620="">キャンペーン</a>
+                        <li class="header-utility-link-item" data-v-defa9620=""><a href="//sm.rakuten.co.jp/event/list?l-id=_header_campaignlist" class="svg-icon icon-top-center icon-campaign" data-v-defa9620="">{!! z_language('キャンペーン') !!}</a>
                         </li>
-                        <li class="header-utility-link-item" data-v-defa9620=""><a href="/mypage/favorite?l-id=_header_favorite" class="svg-icon icon-top-center icon-favorite-black" data-v-defa9620="">お気に入り</a>
+                        <li class="header-utility-link-item" data-v-defa9620=""><a href="/mypage/favorite?l-id=_header_favorite" class="svg-icon icon-top-center icon-favorite-black" data-v-defa9620="">{!! z_language('お気に入り') !!}</a>
                         </li>
-                        <li class="header-utility-link-item" data-v-defa9620=""><a href="/mypage/purchase?l-id=_header_phistory" class="svg-icon icon-top-center icon-menu-black" data-v-defa9620="">購入履歴</a>
+                        <li class="header-utility-link-item" data-v-defa9620=""><a href="/mypage/purchase?l-id=_header_phistory" class="svg-icon icon-top-center icon-menu-black" data-v-defa9620="">{!! z_language('購入履歴') !!}</a>
                         </li>
                     </ul>
                 </div>
@@ -121,13 +121,13 @@
                 @if(auth('frontend')->user())
                 <div class="user-info-block">
                     <div class="co-name co-name-login">
-                        <p><a href="#">楽天市場</a>
+                        <p><a href="#">{!! z_language('楽天市場') !!}</a>
                         </p>
                     </div>
                     <div class="name">
                         <p>
                             <a href="#">{!! auth('frontend')->user()->first_name.' '.auth('frontend')->user()->last_name !!}</a>
-                            <span class="unit">さん</span>
+                            <span class="unit">{!! z_language('さん') !!}</span>
                         </p>
                     </div>
                     <div class="point">
@@ -252,15 +252,15 @@
                     </div>
                     <div class="utility-navCol">
                         <div class="cart-info">
-                            <p class="cart-total-trice">0<span class="unit">円(税込)</span></p>
-                            <p class="cart-fee">送料0<span class="unit">円(税込)</span></p>
-                            <p class="cart-free">あと0<span class="unit">円(税込)</span>で送料無料</p>
+                            <p class="cart-total-trice">0<span class="unit">{!! z_language('円(税込)') !!}</span></p>
+                            <p class="cart-fee">{!! z_language('送料') !!}0<span class="unit">{!! z_language('円(税込)') !!}</span></p>
+                            <p class="cart-free">{!! z_language('あと') !!}0<span class="unit">{!! z_language('円(税込)') !!}</span>{!! z_language('で送料無料') !!}</p>
                         </div>
                     </div>
                     <div class="utility-navCol responsive-item">
                         <p class="order-btn">
                             <a class="go-step-sp" href="javascript:void(0);">
-                                レジに進む
+                                {!! z_language('レジに進む') !!}
                             </a>
                         </p>
                     </div>
@@ -320,7 +320,7 @@
                         @else
                             <a href="#">{!! z_language('Tiếng việt') !!}</a>
                         @endif
-                         
+
                         <ul class="rc-h-dropdown-panel">
                             <li><a href="/vi"> {!! z_language('Tiếng việt') !!} </a></li>
                             <li><a href="/jp">{!! z_language('Tiếng nhật') !!}</a></li>
@@ -344,8 +344,8 @@
                     </a>
                 </h1>
                 <ul class="header-main-link">
-                    <li><a href="#" class="">お知らせ</a></li>
-                    <li><a href="#">ヘルプ</a></li>
+                    <li><a href="#" class="">{!! z_language('お知らせ') !!}</a></li>
+                    <li><a href="#">{!! z_language('ヘルプ') !!}</a></li>
                 </ul>
                 @if(auth('frontend')->user())
                     <form id="logout-form-12345" action="{!! (route('logout')) !!}" method="POST" style="display: none;">
@@ -465,16 +465,16 @@
                 <dl class="header-keyword">
                     <dd>
                         <ul class="header-keyword-list">
-                            <li><a href="#">全額ポイントバック</a>
+                            <li><a href="#">{!! z_language('全額ポイントバック') !!}</a>
                             </li>
-                            <li><a href="#">ひなまつり</a></li>
-                            <li><a href="#">花粉・ウイルス対策</a></li>
-                            <li><a href="#">あったかメニュー</a></li>
-                            <li><a href="#">手間抜きごはん</a></li>
-                            <li><a href="#">家呑み</a></li>
-                            <li><a href="#">レシピ</a></li>
-                            <li><a href="#">みなさまのお墨付き</a></li>
-                            <li><a href="#">本日使えるクーポン</a></li>
+                            <li><a href="#">{!! z_language('ひなまつり') !!}</a></li>
+                            <li><a href="#">{!! z_language('花粉・ウイルス対策') !!}</a></li>
+                            <li><a href="#">{!! z_language('あったかメニュー') !!}</a></li>
+                            <li><a href="#">{!! z_language('手間抜きごはん') !!}</a></li>
+                            <li><a href="#">{!! z_language('家呑み') !!}</a></li>
+                            <li><a href="#">{!! z_language('レシピ') !!}</a></li>
+                            <li><a href="#">{!! z_language('みなさまのお墨付き') !!}</a></li>
+                            <li><a href="#">{!! z_language('本日使えるクーポン') !!}</a></li>
                         </ul>
                     </dd>
                 </dl>
@@ -495,15 +495,15 @@
                         </div>
                         <ul class="header-utility-nav" data-v-0eb98668="">
                             <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-campaign" data-v-0eb98668="">
-                                    キャンペーン
+                                    {!! z_language('キャンペーン') !!}
                                 </a>
                             </li>
                             <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-favorite-black" data-v-0eb98668="">
-                                    お気に入り
+                                    {!! z_language('お気に入り') !!}
                                 </a>
                             </li>
                             <li class="header-utility-nav-item" data-v-0eb98668=""><a href="#" class="header-utility-nav-btn svg-icon icon-menu-black" data-v-0eb98668="">
-                                    購入履歴
+                                    {!! z_language('購入履歴') !!}
                                 </a>
                             </li>
                             <li class="header-utility-nav-item">minicart-img-wrap
@@ -518,7 +518,7 @@
                                         <div class="header-utility-cart-grid-item" data-v-0eb98668="">
                                             <div class="header-utility-cart-txt" data-v-0eb98668="">
                                                 <p class="header-utility-cart-txt-price" data-v-0eb98668="">
-                                                    0<span class="unit" data-v-0eb98668="">円(税込)</span>
+                                                    0<span class="unit" data-v-0eb98668="">{!! z_language('円(税込)') !!}</span>
                                                 </p>
 
                                             </div>
@@ -526,7 +526,7 @@
                                         <div class="header-utility-cart-grid-item" data-v-0eb98668="">
                                             <p class="header-utility-cart-btn">
                                                 <a class="open_cart" data-auto-id="go-step-pc" href="javascript:void(0);" data-ratid="cart_button_click" data-ratevent="click" data-ratparam="all">
-                                                    レジに進む
+                                                    {!! z_language('レジに進む') !!}
                                                 </a>
                                             </p>
                                         </div>

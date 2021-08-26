@@ -10,19 +10,19 @@
                     <form name="LoginForm" method="post" action="{!! router_frontend_lang('guest:login:post') !!}" autocomplete="off" id="loginForm">
                         @csrf
                         <div id="loginInner">
-                            <h3>Member Login</h3>
+                            <h3>{!! z_language('Member Login') !!}</h3>
                             <table class="loginBox">
 
                                 <tbody><tr>
                                     <td class="loginBoxName">
                                         <p class="fomName">
-                                            <em><label for="userid">Username</label></em>
+                                            <em><label for="userid">{!! z_language('Username') !!}</label></em>
                                             <span></span>
                                         </p>
                                     </td>
                                     <td class="loginBoxValue">
                                         @error("email")
-                                        <span class="errorMsg">Username is mandatory.</span>
+                                        <span class="errorMsg">{!! z_language('Username is mandatory') !!}.</span>
                                         @enderror
                                         {!! Form::text('email',null, ['class' => 'textBox']) !!}
 
@@ -31,7 +31,7 @@
                                 <tr>
                                     <td class="loginBoxName">
                                         <p class="fomName">
-                                            <em><label for="passwd">Password</label></em>
+                                            <em><label for="passwd">{!! z_language('Password') !!}</label></em>
                                             <span></span>
                                         </p>
                                     </td>
@@ -57,7 +57,7 @@
                         </div>
                     </form>
                 </div>
-                <a href="{!! router_frontend_lang('guest:betoGaizin:redirect',['provider'=>'facebook']) !!}" class="fb connect">Sign in with Facebook</a>
+                <a href="{!! router_frontend_lang('guest:betoGaizin:redirect',['provider'=>'facebook']) !!}" class="fb connect">{!! z_language('Sign in with Facebook') !!}</a>
             </div>
         </div>
 

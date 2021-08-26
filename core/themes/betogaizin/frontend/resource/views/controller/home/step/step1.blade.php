@@ -24,10 +24,10 @@
                                 </a>
                             </p>
                             <ul class="header-step">
-                                <li class="header-step-item header-step-item1">買い物かご</li>
-                                <li class="header-step-item header-step-item2">お支払い</li>
-                                <li class="header-step-item header-step-item3">注文確認</li>
-                                <li class="header-step-item header-step-item4">注文完了</li>
+                                <li class="header-step-item header-step-item1">{!! z_language('買い物かご') !!}</li>
+                                <li class="header-step-item header-step-item2">{!! z_language('お支払い') !!}</li>
+                                <li class="header-step-item header-step-item3">{!! z_language('注文確認') !!}</li>
+                                <li class="header-step-item header-step-item4">{!! z_language('注文完了') !!}</li>
                             </ul>
                         </div>
                     </div>
@@ -39,45 +39,45 @@
                 </header>
             </div>
             <div class="lyt-contents">
-                <h2 class="title title-large">買い物かご</h2>
+                <h2 class="title title-large">{!! z_language('買い物かご') !!}</h2>
                 <div class="step1 only-sp">
                     <div class="cart-step">
                         <ul>
-                            <li class="cart-step1"><span class="cart-step-item"><span class="cart-step-item-in">買い物かご</span></span></li>
-                            <li class="cart-step2"><span class="cart-step-item"><span class="cart-step-item-in">お支払い</span></span></li>
-                            <li class="cart-step3"><span class="cart-step-item"><span class="cart-step-item-in">注文確認</span></span></li>
-                            <li class="cart-step4"><span class="cart-step-item"><span class="cart-step-item-in">注文完了</span></span></li>
+                            <li class="cart-step1"><span class="cart-step-item"><span class="cart-step-item-in">{!! z_language('買い物かご') !!}</span></span></li>
+                            <li class="cart-step2"><span class="cart-step-item"><span class="cart-step-item-in">{!! z_language('お支払い') !!}</span></span></li>
+                            <li class="cart-step3"><span class="cart-step-item"><span class="cart-step-item-in">{!! z_language('注文確認') !!}</span></span></li>
+                            <li class="cart-step4"><span class="cart-step-item"><span class="cart-step-item-in">{!! z_language('注文完了') !!}</span></span></li>
                         </ul>
                     </div>
                 </div>
 
                 <div id="errorMsgTop" class="lyt-contents-narrow">
-                    <p class="txt-attention txt-attention-error">商品合計金額2,000円(税込)以上でご購入いただけます。</p>
+{{--                    <p class="txt-attention txt-attention-error">商品合計金額2,000円(税込)以上でご購入いただけます。</p>--}}
 
                     <div class="grid grid-justify-center">
                         <div class="col col6-pc col6-sp">
                             <div class="title-wrap">
                                 <div class="title-with-item">
-                                    <h3 class="title title-middle">お届け日時</h3>
-                                    <!---->
+                                    <h3 class="title title-middle">{!! z_language('お届け日時') !!}</h3>
+
                                     <p class="btn-wrap">
                                         <a data-auto-id="change-delivery-time-btn" >
-                                            <button type="button" onclick="open_cart(this)" class="btn btn-default btn-color03 btn-sm03 js-popup-trigger">変更</button>
+                                            <button type="button" onclick="open_cart(this)" class="btn btn-default btn-color03 btn-sm03 js-popup-trigger">{!! z_language('変更') !!}</button>
                                         </a>
                                     </p>
                                 </div>
                             </div>
                             <p class="txt-alert txt-alert-middle"> {!!  $timeShip['year'].'年'.$timeShip['month'].'月'.$timeShip['day'].'日(日) '.$timeShip['time'] !!}</p>
-                            <p class="txt-large txt-ac mt5">この時間帯は必ずご在宅ください。</p>
-                            <p class="txt-small txt-al mt5">注文完了後、ネットでのお届け日時変更は承りかねますのでご了承願います。</p>
+                            <p class="txt-large txt-ac mt5">{!! z_language('この時間帯は必ずご在宅ください。') !!}</p>
+                            <p class="txt-small txt-al mt5">{!! z_language('注文完了後、ネットでのお届け日時変更は承りかねますのでご了承願います。') !!}</p>
                         </div>
                         <div class="col col6-pc col6-sp">
                             <hr class="line line-lightgray only-sp">
                             <div class="title-wrap">
                                 <div class="title-with-item">
-                                    <h3 class="title title-middle">お届け先住所</h3>
+                                    <h3 class="title title-middle">{!! z_language('お届け先住所') !!}</h3>
                                     <p class="btn-wrap">
-                                        <a  href="{!! router_frontend_lang('home:change-address') !!}" class="btn btn-default btn-color03 btn-sm03 change-delivery-address-btn">変更</a>
+                                        <a  href="{!! router_frontend_lang('home:change-address') !!}" class="btn btn-default btn-color03 btn-sm03 change-delivery-address-btn">{!! z_language('変更') !!}</a>
                                     </p>
                                 </div>
                             </div>
@@ -95,8 +95,8 @@
                             </p>
                             @endif
                             <ul class="txt-large" style="display: none;">
-                                <li>・店舗、専用ロッカー等よりお受け取りください。</li>
-                                <li>・お支払はクレジットカードのみとなります。</li>
+                                <li>・{!! z_language('店舗、専用ロッカー等よりお受け取りください。') !!}</li>
+                                <li>・{!! z_language('お支払はクレジットカードのみとなります。') !!}</li>
                             </ul>
                             <p></p>
                         </div>
@@ -104,13 +104,13 @@
                     <div>
                         <div class="title-wrap">
                             <div class="title-with-item">
-                                <h3 class="title title-middle">支払区分</h3>
+                                <h3 class="title title-middle">{!! z_language('支払区分') !!}</h3>
                             </div>
                             <div>
                                 <select id="payment_change" name="payment">
-                                    <option value="1" {!! $payment == "1"?"selected":"" !!}>代金引換</option>
-                                    <option value="2" {!! $payment == "2"?"selected":"" !!}>銀行振込</option>
-                                    <option value="3" {!! $payment == "3"?"selected":"" !!}>決済不要</option>
+                                    <option value="1" {!! $payment == "1"?"selected":"" !!}>{!! z_language('代金引換') !!}</option>
+                                    <option value="2" {!! $payment == "2"?"selected":"" !!}>{!! z_language('銀行振込') !!}</option>
+                                    <option value="3" {!! $payment == "3"?"selected":"" !!}>{!! z_language('決済不要') !!}</option>
                                 </select>
                             </div>
                         </div>
@@ -121,16 +121,16 @@
                            @if(($value->name =="KOGYJA"  || $value->name == "KURICHIKU") && isset($prices["products"][$value->name]['products']))
                                 @section('treeview_'.$cate)
                                 <div id="company_{!! $value->id !!}" class="item_row">
-                            <h3 class="title title-middle">かごの中の商品 {!! $value->name !!}</h3>
+                            <h3 class="title title-middle">{!! z_language('かごの中の商品') !!} {!! $value->name !!}</h3>
                             <div id="cartList" class="product-cart cf">
                                 <div class="product-cart-header cf only-pc">
-                                    <p>Tên sản phẩm</p>
-                                    <p>Giá bán</p>
-                                    <p>Số lượng</p>
-                                    <p>Tổng tiền</p>
-                                    <p>Tiền ship</p>
-                                    <p>Thành tiền</p>
-                                    <p>小計</p>
+                                    <p>{!! z_language('Tên sản phẩm') !!}</p>
+                                    <p>{!! z_language('Giá bán') !!}</p>
+                                    <p>{!! z_language('Số lượng') !!}</p>
+                                    <p>{!! z_language('Tổng tiền') !!}</p>
+                                    <p>{!! z_language('Tiền ship') !!}</p>
+                                    <p>{!! z_language('Thành tiền') !!}</p>
+                                    <p>{!! z_language('小計') !!}</p>
                                 </div>
                                 <div>
                                     @php $total_price = 0;  @endphp
@@ -145,7 +145,7 @@
                                             <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
                                                 <div class="product-cart-row-top">
                                                     <div class="product-cart-row-top-group">
-                                                        <p class="product-cart-sp-btn only-sp"><button class="btn btn-default btn-sm03 btn-color00">削除</button></p>
+                                                        <p class="product-cart-sp-btn only-sp"><button class="btn btn-default btn-sm03 btn-color00">{!! z_language('削除') !!}</button></p>
                                                         <div class="product-cart-item1">
                                                             <div class="product-cart-img">
                                                                 <a href="{!! router_frontend_lang('home:item-product',['id'=>$product['id'],'slug'=>$products[$product['id']]->slug]) !!}" class="link-img">
@@ -164,14 +164,14 @@
                                                             </div>
                                                         </div>
                                                         <div class="product-cart-item2">
-                                                            <p class="product-cart-price"><span class="only-sp">価格(税抜)&nbsp;</span>{!! number_format(  $product['price_buy']) !!}円</p>
+                                                            <p class="product-cart-price"><span class="only-sp">{!! z_language('価格(税抜)') !!}&nbsp;</span>{!! number_format(  $product['price_buy']) !!}円</p>
                                                         </div>
 
                                                     </div>
                                                 </div>
                                                 <div class="product-cart-row-bottom">
                                                     <div class="product-cart-item4" style="padding-bottom: 10px;">
-                                                        <span class="product-cart-small-text only-sp">数量</span>
+                                                        <span class="product-cart-small-text only-sp">{!! z_language('数量') !!}</span>
                                                         <div class="product-cart-pieces">
                                                             <div class="btn-set-wrap set-data" data-company="{!! $value->id !!}" data-id="{!!  $products[$product['id']]->id !!}" data-count="1" data-act="add">
                                                                 <span class="btn-set-btn" data-loading=".product-cart-row" data-type="-">－</span>
@@ -182,18 +182,18 @@
                                                     </div>
                                                     <div class="product-cart-item5" style="padding-bottom: 10px;">
                                                         <p class="product-cart-price">
-                                                            <span class="only-sp product-cart-small-text">小計(税込)</span>
-                                                            {!! number_format($product['web_total_price_buy']) !!}円
+                                                            <span class="only-sp product-cart-small-text">{!! z_language('小計(税込)') !!}</span>
+                                                            {!! number_format($product['web_total_price_buy']) !!}{!! z_language('円') !!}
                                                         </p>
                                                     </div>
 
                                                 </div>
                                                 <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['web_total_ship']) !!}円</p>
+                                                    <p class="product-cart-price"><span class="only-sp">{!! z_language('価格(税込)') !!} &nbsp;</span>{!! number_format($product['web_total_ship']) !!}{!! z_language('円') !!}</p>
                                                 </div>
 
                                                 <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                    <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format($product['web_total_sum_price']) !!}円</p>
+                                                    <p class="product-cart-price"><span class="only-sp">{!! z_language('価格(税込)') !!}&nbsp;</span>{!! number_format($product['web_total_sum_price']) !!}{!! z_language('円') !!}</p>
                                                 </div>
                                                 @php $total_price+=$product['web_total_sum_price']; @endphp
 
@@ -207,7 +207,7 @@
 
                                                     <button
                                                             data-company="{!! $value->id !!}"  data-id="{!!  $products[$product['id']]->id !!}" data-count="{!! $product['count']*-1 !!}" data-act="add"
-                                                            type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">削除
+                                                            type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">{!! z_language('削除') !!}
                                                     </button>
                                                 </div>
                                             </div>
@@ -220,17 +220,17 @@
                             <div class="tax-item-description">
                             <table style="">
                                 <tr>
-                                    <td style="width: 100px"><strong>Phí Cou</strong> : </td>
+                                    <td style="width: 100px"><strong>{!! z_language('Phí Cou') !!}</strong> : </td>
                                     <td class="text-center">{!! isset($prices["products"][$value->name]['web_total_cou'])? $prices["products"][$value->name]['web_total_cou'] : 0 !!}</td>
                                 </tr>
                                 @if($value->name =="KOGYJA")
                                 <tr>
-                                    <td style="width: 100px"><strong>Phí ship</strong> : </td>
+                                    <td style="width: 100px"><strong>{!! z_language('Phí ship') !!}</strong> : </td>
                                     <td>{!! number_format($prices["products"][$value->name]["web_total_ship"]) !!}</td>
                                 </tr>
                                 @endif
                                 <tr>
-                                    <td style="width: 100px"><strong>Phụ thu</strong> : </td>
+                                    <td style="width: 100px"><strong>{!! z_language('Phụ thu') !!}</strong> : </td>
                                     <td>{!! number_format(isset($prices["products"][$value->name]['web_total_profit'])?$prices["products"][$value->name]['web_total_profit']:0) !!}</td>
                                 </tr>
                                 <tr>
@@ -247,15 +247,15 @@
                             @else
                                 @section('treeview_'.$cate)
                                     <div id="company_{!! $value->id !!}" class="item_row">
-                                        <h3 class="title title-middle">かごの中の商品 {!! $value->name !!}</h3>
+                                        <h3 class="title title-middle">{!! z_language('かごの中の商品') !!} {!! $value->name !!}</h3>
                                         <div id="cartList" class="product-cart cf">
                                             <div class="product-cart-header cf only-pc">
-                                                <p>Tên sản phẩm</p>
-                                                <p>Giá bán</p>
-                                                <p>Số lượng</p>
-                                                <p>Tổng tiền</p>
+                                                <p>{!! z_language('Tên sản phẩm') !!}</p>
+                                                <p>{!! z_language('Giá bán') !!}</p>
+                                                <p>{!! z_language('Số lượng') !!}</p>
+                                                <p>{!! z_language('Tổng tiền') !!}</p>
 
-                                                <p>Tiền Ship</p>
+                                                <p>{!! z_language('Tiền Ship') !!}</p>
                                                 <p></p>
                                             </div>
                                             <div>
@@ -270,7 +270,7 @@
                                                     <div data-ratid="4953823080093" data-ratunit="item" class="product-cart-row cf">
                                                         <div class="product-cart-row-top">
                                                             <div class="product-cart-row-top-group">
-                                                                <p class="product-cart-sp-btn only-sp"><button class="btn btn-default btn-sm03 btn-color00">削除</button></p>
+                                                                <p class="product-cart-sp-btn only-sp"><button class="btn btn-default btn-sm03 btn-color00">{!! z_language('削除') !!}</button></p>
                                                                 <div class="product-cart-item1">
                                                                     <div class="product-cart-img">
                                                                         <a href="{!! router_frontend_lang('home:item-product',['id'=>$product->id,'slug'=>$product->slug]) !!}" class="link-img">
@@ -287,13 +287,13 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-cart-item2">
-                                                                    <p class="product-cart-price"><span class="only-sp">価格(税抜)&nbsp;</span>{!! number_format($product->price_buy) !!}円</p>
+                                                                    <p class="product-cart-price"><span class="only-sp">{!! z_language('価格(税抜)') !!}&nbsp;</span>{!! number_format($product->price_buy) !!}{!! z_language('円') !!}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="product-cart-row-bottom">
                                                             <div class="product-cart-item4" style="padding-bottom: 10px;">
-                                                                <span class="product-cart-small-text only-sp">数量</span>
+                                                                <span class="product-cart-small-text only-sp">{!! z_language('数量') !!}</span>
                                                                 <div class="product-cart-pieces">
                                                                     <div class="btn-set-wrap set-data" data-company="{!! $value->id !!}" data-id="{!! $product->id !!}" data-count="1" data-act="add">
                                                                         <span class="btn-set-btn" data-loading=".product-cart-row" data-type="-">－</span>
@@ -304,15 +304,15 @@
                                                             </div>
                                                             <div class="product-cart-item5" style="padding-bottom: 10px;">
                                                                 <p class="product-cart-price">
-                                                                    <span class="only-sp product-cart-small-text">小計(税込)</span>
-                                                                    {!! number_format(isset($price['web_total_price_buy'])?$price['web_total_price_buy']:0) !!}円
+                                                                    <span class="only-sp product-cart-small-text">{!! z_language('小計(税込)') !!}</span>
+                                                                    {!! number_format(isset($price['web_total_price_buy'])?$price['web_total_price_buy']:0) !!}{!! z_language('円') !!}
                                                                 </p>
                                                             </div>
 
 
                                                         </div>
                                                         <div class="product-cart-item3" style="padding-bottom: 10px;">
-                                                            <p class="product-cart-price"><span class="only-sp">価格(税込)&nbsp;</span>{!! number_format(isset($price['web_total_ship'])?$price['web_total_ship']:0) !!}円</p>
+                                                            <p class="product-cart-price"><span class="only-sp">{!! z_language('価格(税込)') !!}&nbsp;</span>{!! number_format(isset($price['web_total_ship'])?$price['web_total_ship']:0) !!}{!! z_language('円') !!}</p>
                                                         </div>
                                                         @php $total_price+=isset($price['web_total_sum_price'])?$price['web_total_sum_price']:0; @endphp
                                                         {{--<div class="product-cart-item5" style="padding-bottom: 10px;">--}}
@@ -325,7 +325,7 @@
 
                                                             <button
                                                                     data-company="{!! $value->id !!}"  data-id="{!! $product->id !!}" data-count="0" data-act="add"
-                                                                    type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">削除
+                                                                    type="button" class="btn btn-cart-remove btn-default btn-sm03 btn-color00">{!! z_language('削除') !!}
                                                             </button>
                                                         </div>
                                                     </div>
@@ -398,17 +398,17 @@
                         </div>
 
                         <div class="lyt-side-pattern02-menu">
-                            <p class="title title-small mb5">お支払い内訳
+                            <p class="title title-small mb5">{!! z_language('お支払い内訳') !!}
                             </p>
 
                                 <div id="info_order">
                                     <div class="side-content-frame">
                                         <div class="side-content-frame-data-group">
                                             <dl class="side-content-frame-data">
-                                                <dt class="side-content-frame-data-title">Tiền hàng
+                                                <dt class="side-content-frame-data-title">{!! z_language('Tiền hàng') !!}
                                                 </dt>
                                                 <dd class="side-content-frame-data-body">
-                                                <span class="sp-large">{!! number_format($prices['total_sum']) !!}</span>円
+                                                <span class="sp-large">{!! number_format($prices['total_sum']) !!}</span>{!! z_language('円') !!}
                                                 </dd>
 
                                             </dl>
@@ -423,19 +423,19 @@
                                             <dl class="side-content-frame-data">
                                                 <dt class="side-content-frame-data-title">Phí Ship
                                                 </dt>
-                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_ship'])) !!}円
+                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_ship'])) !!}{!! z_language('円') !!}
                                                 </dd>
                                             </dl>
                                             <dl class="side-content-frame-data">
-                                                <dt class="side-content-frame-data-title">Phí Daibiki
+                                                <dt class="side-content-frame-data-title">{!! z_language('Phí Daibiki') !!}
                                                 </dt>
-                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_cou'])) !!}円
+                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_cou'])) !!}{!! z_language('円') !!}
                                                 </dd>
                                             </dl>
                                             <dl class="side-content-frame-data">
-                                                <dt class="side-content-frame-data-title">Phụ thu
+                                                <dt class="side-content-frame-data-title">{!! z_language('Phụ thu') !!}
                                                 </dt>
-                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_profit'])) !!}円
+                                                <dd class="side-content-frame-data-body">{!! number_format(($prices['total_profit'])) !!}{!! z_language('円') !!}
                                                 </dd>
                                             </dl>
                                             <!---->
@@ -468,10 +468,10 @@
                                         <hr class="line line-lightgray">
                                         <div class="side-content-frame-data-group">
                                                 <dl class="side-content-frame-data">
-                                                    <dt class="side-content-frame-data-title with-num">Tổng tiền phải trả
+                                                    <dt class="side-content-frame-data-title with-num">{!! z_language('Tổng tiền phải trả') !!}
                                                     </dt>
                                                     <dd class="side-content-frame-data-body"><span class="side-content-frame-num">{!! number_format($prices['totals_order']) !!}</span>
-                                                        <span class="side-content-frame-unit">円</span>
+                                                        <span class="side-content-frame-unit">{!! z_language('円') !!}</span>
                                                     </dd>
                                                 </dl>
                                                 {{--<div>--}}
@@ -490,7 +490,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                    <p class="txt-large">クーポンまたはポイントをお使いの方は、次ページで選択いただけます。
+                                    <p class="txt-large">{!! z_language('クーポンまたはポイントをお使いの方は、次ページで選択いただけます。') !!}
                                     </p>
                                     <hr class="line line-lightgray">
                                     <ul class="bnr-area">
@@ -505,9 +505,9 @@
                 </div>
             <div class="btn-flex btn-column">
                 <form id="cartsubmmit">
-                    <div class="btn-form-wrap"><button type="button" class="btn-form btn-next">購入手続き</button></div>
+                    <div class="btn-form-wrap"><button type="button" class="btn-form btn-next">{!! z_language('購入手続き') !!}</button></div>
                 </form>
-                <a href="/" class="btn btn-form btn-prev narrow">お買い物を続ける</a>
+                <a href="/" class="btn btn-form btn-prev narrow">{!! z_language('お買い物を続ける') !!}</a>
             </div>
             <div>
                 <footer class="pc-site-footer">
@@ -515,53 +515,53 @@
                         <div class="inner">
                             <div class="box box-primary">
                                 <ul class="list-disc">
-                                    <li>法令により20歳未満への酒類販売はいたしません。20歳未満の飲酒は法律で禁止されています。</li>
-                                    <li>写真はイメージです。実際にお届けする商品とパッケージなどが異なる場合がございます。商品名・規格などは予告なく変更になる場合がございます。</li>
-                                    <li>天候不順および市場等の事情により、商品をお届けできない場合や、産地が変更になる場合がございます。予めご了承ください。</li>
+                                    <li>{!! z_language('法令により20歳未満への酒類販売はいたしません。20歳未満の飲酒は法律で禁止されています。') !!}</li>
+                                    <li>{!! z_language('写真はイメージです。実際にお届けする商品とパッケージなどが異なる場合がございます。商品名・規格などは予告なく変更になる場合がございます。') !!}</li>
+                                    <li>{!! z_language('天候不順および市場等の事情により、商品をお届けできない場合や、産地が変更になる場合がございます。予めご了承ください。') !!}</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="rc-f-standard rc-f-custom00">
-                        <div class="rc-f-section-content00">
-                            <div class="rc-f-section01">
-                                <div class="rc-f-inner">
-                                    <ul class="rcf-list-inline rcf-list-block">
-                                        <li><a href="/info/company">会社概要</a></li>
-                                        <li><a href="/info/privacy">プライバシーポリシー</a></li>
-                                        <li><a href="/info/rule">利用規約</a></li>
-                                        <li><a href="/info/compliance">特定商取引法に基づく表示</a></li>
-                                    </ul>
-                                    <p class="copyright">© Rakuten Seiyu Netsuper, Inc.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="rc-f-standard rc-f-custom00">--}}
+{{--                        <div class="rc-f-section-content00">--}}
+{{--                            <div class="rc-f-section01">--}}
+{{--                                <div class="rc-f-inner">--}}
+{{--                                    <ul class="rcf-list-inline rcf-list-block">--}}
+{{--                                        <li><a href="/info/company">会社概要</a></li>--}}
+{{--                                        <li><a href="/info/privacy">プライバシーポリシー</a></li>--}}
+{{--                                        <li><a href="/info/rule">利用規約</a></li>--}}
+{{--                                        <li><a href="/info/compliance">特定商取引法に基づく表示</a></li>--}}
+{{--                                    </ul>--}}
+{{--                                    <p class="copyright">© Rakuten Seiyu Netsuper, Inc.</p>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </footer>
                 <footer class="sp-site-footer">
                     <div class="section block00">
                         <div class="inner">
                             <div class="box box-primary">
                                 <ul class="list-disc">
-                                    <li>法令により20歳未満への酒類販売はいたしません。20歳未満の飲酒は法律で禁止されています。</li>
-                                    <li>写真はイメージです。実際にお届けする商品とパッケージなどが異なる場合がございます。商品名・規格などは予告なく変更になる場合がございます。</li>
-                                    <li>天候不順および市場等の事情により、商品をお届けできない場合や、産地が変更になる場合がございます。予めご了承ください。</li>
+                                    <li>{!! z_language('法令により20歳未満への酒類販売はいたしません。20歳未満の飲酒は法律で禁止されています。') !!}</li>
+                                    <li>{!! z_language('写真はイメージです。実際にお届けする商品とパッケージなどが異なる場合がございます。商品名・規格などは予告なく変更になる場合がございます。') !!}</li>
+                                    <li>{!! z_language('天候不順および市場等の事情により、商品をお届けできない場合や、産地が変更になる場合がございます。予めご了承ください。') !!}</li>
                                 </ul>
                             </div>
 
                             <div id="sp_footer_common"></div>
                         </div>
                     </div>
-                    <div class="rc-f-standard">
-                        <div class="logoutBtn"><a href="">ログアウト</a></div>
-                        <ul>
-                            <li><a rel="nofollow" href="/info/company">会社概要</a></li>
-                            <li><a rel="nofollow" href="/info/privacy">プライバシーポリシー</a></li>
-                            <li><a rel="nofollow" href="/info/rule">利用規約</a></li>
-                            <li><a rel="nofollow" href="/info/compliance">特定商取引法に基づく表示</a></li>
-                        </ul>
-                        <div id="copyright">© Rakuten Seiyu Netsuper, Inc.</div>
-                    </div>
+{{--                    <div class="rc-f-standard">--}}
+{{--                        <div class="logoutBtn"><a href="">{!! z_language('ログアウト') !!}</a></div>--}}
+{{--                        <ul>--}}
+{{--                            <li><a rel="nofollow" href="/info/company">会社概要</a></li>--}}
+{{--                            <li><a rel="nofollow" href="/info/privacy">プライバシーポリシー</a></li>--}}
+{{--                            <li><a rel="nofollow" href="/info/rule">利用規約</a></li>--}}
+{{--                            <li><a rel="nofollow" href="/info/compliance">特定商取引法に基づく表示</a></li>--}}
+{{--                        </ul>--}}
+{{--                        <div id="copyright">© Rakuten Seiyu Netsuper, Inc.</div>--}}
+{{--                    </div>--}}
                 </footer>
             </div>
         </div>
@@ -603,9 +603,9 @@
                             <div class="header-inner">
                                 {{--<p class="header-logo"><a href="/"><img src="/step/images/logo/logo_pc.svg" alt=""></a></p>--}}
                                 <ul class="header-step">
-                                    <li class="header-step-item header-step-item1">買い物かご</li>
-                                    <li class="header-step-item header-step-item2">お支払い</li>
-                                    <li class="header-step-item header-step-item3">注文確認</li>
+                                    <li class="header-step-item header-step-item1">{!! z_language('買い物かご') !!}</li>
+                                    <li class="header-step-item header-step-item2">{!! z_language('お支払い') !!}</li>
+                                    <li class="header-step-item header-step-item3">{!! z_language('注文確認') !!}</li>
                                     <li class="header-step-item header-step-item4">注文完了</li>
                                 </ul>
                             </div>
@@ -619,34 +619,34 @@
 
                 </div>
                 <div class="lyt-contents">
-                    <h2 class="title title-large">買い物かご</h2>
+                    <h2 class="title title-large">{!! z_language('買い物かご') !!}</h2>
                     <div class="step1 only-sp">
                         <div class="cart-step">
                             <ul>
-                                <li class="cart-step1"><span class="cart-step-item"><span class="cart-step-item-in">買い物かご</span></span></li>
-                                <li class="cart-step2"><span class="cart-step-item"><span class="cart-step-item-in">お支払い</span></span></li>
-                                <li class="cart-step3"><span class="cart-step-item"><span class="cart-step-item-in">注文確認</span></span></li>
-                                <li class="cart-step4"><span class="cart-step-item"><span class="cart-step-item-in">注文完了</span></span></li>
+                                <li class="cart-step1"><span class="cart-step-item"><span class="cart-step-item-in">{!! z_language('買い物かご') !!}</span></span></li>
+                                <li class="cart-step2"><span class="cart-step-item"><span class="cart-step-item-in">{!! z_language('お支払い') !!}</span></span></li>
+                                <li class="cart-step3"><span class="cart-step-item"><span class="cart-step-item-in">{!! z_language('注文確認') !!}</span></span></li>
+                                <li class="cart-step4"><span class="cart-step-item"><span class="cart-step-item-in">{!! z_language('注文完了') !!}</span></span></li>
                             </ul>
                         </div>
                     </div>
                     <div class="txt-ac">
-                        <h3 class="title title-middle">買い物かごには商品が入っていません。</h3>
-                        <p class="txt-large">現在、買い物かごには商品が入っていません。
-                            <br class="only-sp">ぜひお買い物をお楽しみください。<br>
-                            ご利用をお待ちしております。
+                        <h3 class="title title-middle">{!! z_language('買い物かごには商品が入っていません。') !!}</h3>
+                        <p class="txt-large">{!! z_language('現在、買い物かごには商品が入っていません。') !!}
+                            <br class="only-sp">{!! z_language('ぜひお買い物をお楽しみください。') !!}<br>
+                            {!! z_language('ご利用をお待ちしております。') !!}
                         </p>
                     </div>
                     <div class="btn-flex btn-column">
                         <form id="cartsubmmit">
-                            <div class="btn-form-wrap"><a href="/" class="btn-form btn-prev narrow">お買い物を続ける</a></div>
+                            <div class="btn-form-wrap"><a href="/" class="btn-form btn-prev narrow">{!! z_language('お買い物を続ける') !!}</a></div>
                         </form>
                     </div>
 
                 </div>
                 <div>
                     <div class="fixed-page-top only-pc">
-                        <p><a href="#container"><span class="svg-icon icon-42 icon-page-top icon-no-text">上へ</span></a></p>
+                        <p><a href="#container"><span class="svg-icon icon-42 icon-page-top icon-no-text">{!! z_language('上へ') !!}</span></a></p>
                     </div>
                 </div>
 

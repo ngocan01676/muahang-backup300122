@@ -2,7 +2,7 @@
 $id = time().'-'.rand(1,100);
 @endphp
 <div class="bnr-slider-area pc" id="id_{!! $id !!}">
-    <h1 class="title title-other01 title-with-border">楽天グループのサービス</h1>
+    <h1 class="title title-other01 title-with-border">{!! z_language('楽天グループのサービス') !!}</h1>
     <div class="slider-basic group-service">
         <div class="slider-basic-frame">
             <div class="slider-basic-item slider-wrapper-pc">
