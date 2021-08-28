@@ -373,7 +373,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
        // $shop_product = DB::table('shop_product')->whereIn('category_id',$cates)->join('')->get()->all();
         $shop_product = DB::table('shop_product as p')->where('p.status',1)
             ->join('shop_product_translation as t','t._id','=','p.id')
-            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content','p.price_buy_km')
+            ->select('p.id','p.image','p.price_buy','p.price','p.category_id','t.name','t.slug as slug','t.content','p.price_buy_km')
             ->whereIn('p.category_id',$cates)
             ->where('lang_code','vi')->get()->all();
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
