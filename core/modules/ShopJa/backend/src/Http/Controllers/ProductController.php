@@ -406,7 +406,7 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,'Betogaizin');
             $indexName+=3;
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->price_buy);
-
+            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->price);
 
 
         }
