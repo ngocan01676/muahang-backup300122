@@ -381,7 +381,10 @@ class ProductController extends \Zoe\Http\ControllerBackend
         $xml.='<title>Betogaizin</title>';
         $xml.='<link href="https://muahang.tokyo" rel="self"/>';
 
+
+
         foreach ($shop_product as $k=>$v){
+            $array = array_merge([$v->image],\PluginGallery\Views\GalleryComposer::get($v->id,"shop_ja::form.product"));
             $xml.='<entry>';
                 $xml.='<g:id>'.$v->id.'</g:id>';
                 $xml.='<g:title>'.$v->name.'</g:title>';
@@ -402,7 +405,11 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,'New');
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->price_buy_km > 0?$v->price_buy_km:$v->price_buy);
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,router_frontend_lang('home:item-product',['id'=>$v->id,'slug'=>$v->slug]));
-            $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->image);
+            foreach($array as $_k=>$_v ){
+                $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$_v);
+            }
+
+
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,'Betogaizin');
             $indexName+=3;
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->price_buy);
