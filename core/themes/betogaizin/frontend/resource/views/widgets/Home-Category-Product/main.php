@@ -34,7 +34,7 @@ function Main($option){
             ->where('lang_code',$config_language['lang'])
             ->orderBy('id',$order_buy)
             ->offset(0)->limit(10)->get()->all();
-        var_dump($results);die;
+        dd($results);die;
     }
     return [
         'results'=>$results,
