@@ -40,7 +40,7 @@ class Excel
                 ["配送先住所", 'address', 18, 9], // G Địa chỉ giao hàng
                 ["配送先電話番号", 'phone', 10, 9], // H Số điện thoại
                 ["別途送料", 'order_ship', 15, 9], //I Phí Ship
-                ["紹介料", ['callback' => function ($index, $value) {
+                ["余分金", ['callback' => function ($index, $value) {
                     return (int)$value;
                 }, 'key' => 'order_price'], 15, 9],// Lợi nhuận J
                 ["仕入金額", 'order_total_price_buy', 15, 9], // Tổng giá đơn hàng K
@@ -70,7 +70,7 @@ class Excel
                 ["仕入金額", 'order_total_price', 15, 9],//O
                 ["代引き請求金額", 'order_total_price_buy', 15, 9],//P
                 ["代引き手数料", 'order_ship_cou', 15, 9],//Q
-                ["紹介料", 'order_price', 15, 9],//R
+                ["余分金", 'order_price', 15, 9],//R
                 ["追跡番号", 'order_tracking', 15, 9],//S
                 ["振込み情報", 'order_info', 25, 9],//T
                 ["", 'comment', 15, 9], // Số lượng O
@@ -96,7 +96,7 @@ class Excel
                 ["仕入金額", 'order_total_price', 15, 9],//O
                 ["代引き請求金額", 'order_total_price_buy', 15, 9],//P
                 ["代引き手数料", 'order_ship_cou', 15, 9],//Q
-                ["紹介料", 'order_price', 15, 9],//R
+                ["余分金", 'order_price', 15, 9],//R
                 ["追跡番号", 'order_tracking', 15, 9],//S
                 ["振込み情報", 'order_info', 25, 9],//T
                 ["", 'order_link', 25, 9],//U
@@ -196,7 +196,7 @@ class Excel
                 ["仕入金額", 'order_total_price', 15, 9],//O
                 ["代引き請求金額", 'order_total_price_buy', 15, 9],//P
                 ["代引き手数料", 'order_ship_cou', 15, 9],//Q
-                ["紹介料", 'order_price', 15, 9],//R
+                ["余分金", 'order_price', 15, 9],//R
                 ["追跡番号", 'order_tracking', 15, 9],//S
                 ["振込み情報", 'order_info', 25, 9],//T
                 ["", 'order_link', 25, 9],//U
@@ -563,7 +563,7 @@ class Excel
             }, 'key' => 'address'], 18, 9], // G Địa chỉ giao hàng
             ["配送先電話番号", 'phone', 10, 9], // H Số điện thoại
             ["別途送料", 'order_ship', 15, 9], //I Phí Ship
-            ["紹介料", [
+            ["余分金", [
 //                'callback' => function ($index, $value, $a, $values) use ($columns_value) {
 //                    return $values[$columns_value['payMethod']] == "銀行振込" ? $value : (int)$value + 330;
 //                }
@@ -923,7 +923,7 @@ class Excel
             ["仕入金額", 'order_total_price', 15, 9],//O
             ["代引き請求金額", 'order_total_price_buy', 15, 9],//P
             ["代引き手数料", 'order_ship_cou', 15, 9],//Q
-            ["紹介料",['callback' => function ($index, $date) use ($date_export) {
+            ["余分金",['callback' => function ($index, $date) use ($date_export) {
                 return "=P$index-J$index*K$index-N$index-Q$index";
             }, 'key' => 'order_price'] , 15, 9],//R
             ["追跡番号", 'order_tracking', 15, 9],//S
@@ -1267,7 +1267,7 @@ class Excel
             ["仕入金額", 'order_total_price', 6.43, 9],//O
             ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
             ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
-            ["紹介料", ['callback' => function ($index, $date,$a,$val) use ($date_export,$columns_value) {
+            ["余分金", ['callback' => function ($index, $date,$a,$val) use ($date_export,$columns_value) {
                 if($val[$columns_value['payMethod']] == "決済不要"){
                     return "=0-O$index";
                 }else{
@@ -2151,7 +2151,7 @@ class Excel
                 ["仕入金額", 'order_total_price', 6.43, 9],//O
                 ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
                 ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
-                ["紹介料", ['callback' => function ($index, $date, $a, $val) use ($date_export, $columns_value) {
+                ["余分金", ['callback' => function ($index, $date, $a, $val) use ($date_export, $columns_value) {
                     if ($val[$columns_value['payMethod']] == "決済不要") {
                         return "=0-O$index";
                     } else {
