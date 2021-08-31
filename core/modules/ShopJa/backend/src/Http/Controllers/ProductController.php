@@ -410,7 +410,8 @@ class ProductController extends \Zoe\Http\ControllerBackend
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,$v->price_buy_km > 0?$v->price_buy_km:$v->price_buy);
             $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,router_frontend_lang('home:item-product',['id'=>$v->id,'slug'=>$v->slug]));
             for($i = 0; $i < 5 ; $i++){
-                $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,isset($array[$i])?$array[$i]:"");
+                $sheet->setCellValue(PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($indexName++).''.$index,
+                    isset($array[$i])?$array[$i]:"");
             }
 
 
