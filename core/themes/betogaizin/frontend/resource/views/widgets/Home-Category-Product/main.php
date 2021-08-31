@@ -14,7 +14,7 @@ function Main($option){
     if($category){
 
         $config_language = app()->config_language;
-        var_dump($config_language);
+       
         if(isset($config_language['lang'])){
 
             $cate =(array) DB::table('categories_translation')
@@ -34,7 +34,7 @@ function Main($option){
             ->where('lang_code',$config_language['lang'])
             ->orderBy('id',$order_buy)
             ->offset(0)->limit(10)->get()->all();
-       
+
     }
     return [
         'results'=>$results,
