@@ -307,7 +307,7 @@ class HomeController extends \Zoe\Http\ControllerFront
 
         $results = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$model->group_id)
             ->join('shop_product_translation as t','t._id','=','p.id')
-            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name as title','t.slug','t.content')
             ->where('lang_code',$config_language['lang'])
             ->orderByRaw('RAND()')
             ->offset(0)->limit(10)->get()->all();
