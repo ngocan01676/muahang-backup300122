@@ -14,7 +14,7 @@ function Main($option){
     if($category){
 
         $config_language = app()->config_language;
-
+        var_dump($config_language);
         if(isset($config_language['lang'])){
 
             $cate =(array) DB::table('categories_translation')
@@ -27,7 +27,13 @@ function Main($option){
             $name = $cate['name'];
             unset($cate['name']);
         }
-        $results = DB::table('shop_product')->where('group_id',$category)->where('status',1)->orderBy('id',$order_buy)->limit($limit)->get()->all();
+       
+        $results = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$category)
+            ->join('shop_product_translation as t','t._id','=','p.id')
+            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->where('lang_code',$config_language['lang'])
+            ->orderBy('id',$order_buy)
+            ->offset(0)->limit(10)->get()->all();
     }
     return [
         'results'=>$results,
