@@ -14,7 +14,7 @@ function Main($option){
     if($category){
 
         $config_language = app()->config_language;
-       
+
         if(isset($config_language['lang'])){
 
             $cate =(array) DB::table('categories_translation')
