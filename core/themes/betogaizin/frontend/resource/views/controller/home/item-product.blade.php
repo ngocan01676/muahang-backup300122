@@ -90,11 +90,10 @@
                             <li>
                                 <div class="fb-share-button fb_iframe_widget">
                                     <span style="vertical-align: bottom; width: 67px; height: 20px;">
-
-                                             </span>
+                                        <img src="/theme/betogaizin/images/off.png" alt="">
+                                    </span>
                                 </div>
                             </li>
-
                         </ul>
                     </div>
                 </div>
