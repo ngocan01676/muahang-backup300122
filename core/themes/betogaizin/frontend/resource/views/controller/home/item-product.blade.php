@@ -7,10 +7,11 @@
                         <a href="{!! $item->image !!}" data-modal="img" class="js-modal-trigger img-label-wrap label-large link-img">
                             <img src="{!! get_thumbnails($item->image,300) !!}" alt="">
                             <span class="img-label pos2">
-                                <i class="svg-mark-item mark-1"></i>
+                                <img src="/theme/betogaizin/images/off.png" alt="">
                             </span>
-                            <span class="img-label pos4">
-                                <i class="svg-mark-item mark-555"></i></span>
+{{--                            <span class="img-label pos4">--}}
+{{--                                <i class="svg-mark-item mark-555"></i>--}}
+{{--                            </span>--}}
                         </a>
                     </p>
                 </div>
@@ -85,17 +86,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="social-btn-area">
-                        <ul>
-                            <li>
-                                <div class="fb-share-button fb_iframe_widget">
-                                    <span style="vertical-align: bottom; width: 67px; height: 20px;">
-                                        <img src="/theme/betogaizin/images/off.png" alt="">
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+{{--                    <div class="social-btn-area">--}}
+{{--                        <ul>--}}
+{{--                            <li>--}}
+{{--                                <div class="fb-share-button fb_iframe_widget">--}}
+{{--                                    <span style="vertical-align: bottom; width: 67px; height: 20px;">--}}
+{{--                                       --}}
+{{--                                    </span>--}}
+{{--                                </div>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
                 </div>
             </div>
             <div class="product-detail-row">
