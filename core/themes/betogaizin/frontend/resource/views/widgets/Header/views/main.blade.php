@@ -426,13 +426,13 @@
                                     <div class="header-utility-cart-grid-item" data-v-0eb98668="">
                                         <div class="header-utility-cart-txt" data-v-0eb98668="">
                                             <p class="header-utility-cart-txt-price" data-v-0eb98668="">
-                                                0<span class="unit" data-v-0eb98668="">円(税込)</span>
+                                                0<span class="unit" data-v-0eb98668="">{!! z_language('円(税込)') !!}</span>
                                             </p>
                                             <p data-v-0eb98668="" class="header-utility-cart-txt-fee">
-                                                送料 0<span data-v-0eb98668="" class="unit">円(税込)</span>
+                                                {!! z_language('送料 :COUNT',['COUNT'=>0]) !!}<span data-v-0eb98668="" class="unit">{!! z_language('円(税込)') !!}</span>
                                             </p>
                                             <p data-v-0eb98668="" class="header-utility-cart-txt-free">
-                                                あと0<span data-v-0eb98668="" class="unit">円(税込)</span>で送料無料<!---->
+                                                {!! z_language('あと:COUNT',["COUNT"=>0]) !!}<span data-v-0eb98668="" class="unit">{!! z_language('円(税込)') !!}</span>{!! z_language('で送料無料') !!}<!---->
                                             </p>
                                         </div>
                                     </div>

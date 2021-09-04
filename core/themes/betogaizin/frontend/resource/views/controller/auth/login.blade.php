@@ -1,6 +1,6 @@
 @section('content')
     <link rel="stylesheet" href="/theme/betogaizin/css/login.css">
-        <p align="left" style="background-color: #eeeeee; padding:5px 5px">Please do not use the same ID or password used for other web services or accounts.<br>Furthermore, we would highly recommend you to register with <nobr>"<a href="https://member.id.rakuten.co.jp/rms/nid/menufwd">Login alert function</a>"</nobr> to improve your account's security.</p>
+        <p align="left" style="background-color: #eeeeee; padding:5px 5px">{!! z_language('Please do not use the same ID or password used for other web services or accounts.<br>Furthermore, we would highly recommend you to register with') !!}<nobr>"<a href="#">{!! z_language('Login alert function') !!}</a>"</nobr> {!! z_language("to improve your account's security.") !!}</p>
         <div id="main">
 
             <div id="mainLeft" style="float: none !important;margin: 0 auto">

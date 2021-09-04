@@ -15,20 +15,20 @@
                 <div class="header-utility-cart-txt">
                     <p class="header-utility-cart-txt-price">
                        0
-                        <span class="unit">円(税込)</span>
+                        <span class="unit">{!! z_language('円(税込)') !!}</span>
                     </p>
                     <p class="header-utility-cart-txt-fee">
-                        送料 0<span class="unit">円(税込)</span></p>
+                        {!! z_language('送料 :COUNT',['COUNT'=>0]) !!}<span class="unit">{!! z_language('円(税込)') !!}</span></p>
                     <p class="header-utility-cart-txt-free">
-                        あと0
-                        <span class="unit">円(税込)</span>で送料無料
+                        {!! z_language('あと:COUNT',["COUNT"=>0]) !!}
+                        <span class="unit">{!! z_language('円(税込)') !!}</span>{!! z_language('で送料無料') !!}
                     </p>
                 </div>
             </div>
             <div class="header-utility-cart-grid-item">
                 <p class="header-utility-cart-btn">
                     <a class="open_cart" onclick="open_cart(this)"  href="javascript:void(0);">
-                        レジに進む
+                        {!! z_language('レジに進む') !!}
                     </a>
                 </p>
             </div>
@@ -80,7 +80,7 @@
                     @endforeach
                     </table>
                 @else
-                    <p class="minicart-products-item">Giỏ hàng rỗng</p>
+                    <p class="minicart-products-item">{!! z_language('Giỏ hàng rỗng') !!}</p>
                 @endif
         </div>
     </div>

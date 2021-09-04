@@ -22,7 +22,7 @@
                                     {!! z_language('ハーゲンダッツ') !!}
                                 </a>
                             </p>
-                            <h1 class="product-detail-title">{!! $item->title !!}</h1>
+                            <h1 class="product-detail-title">{!! $item->name !!}</h1>
                             {{--<p class="product-detail-info">88ml</p>--}}
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                     @endif
                     <div class="product-detail-info-block">
                         <div class="product-detail-price-area">
-                            <p class="product-detail-price">{!! $item->price_buy !!}<span class="unit">円</span></p>
+                            <p class="product-detail-price">{!! $item->price_buy !!}<span class="unit">{!! z_language('円') !!}</span></p>
 
                             @if($item->price_buy_km > 0)
                              <p class="product-detail-price-without-tax">{!! z_language('(:Price)',['Price'=>'<span style="color: #bf0000;text-decoration-line: line-through;">'.$item->price_buy_km.' 円</span> ']) !!}</p>
