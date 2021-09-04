@@ -35,8 +35,10 @@
                                     <a href="{!! $gallery !!}"
                                        data-modal="img" class="js-modal-trigger img-label-wrap label-large" tabindex="0">
                                         <img src="{!! $gallery !!}" alt="">
-                                        <span class="img-label pos2"><i class="svg-mark-item mark-1"></i></span>
-                                        <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>
+                                        <span class="img-label pos2">
+                                           <img src="/theme/betogaizin/images/off.png" alt="">
+                                        </span>
+{{--                                        <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>--}}
                                     </a>
                                 </li>
                             @endforeach
