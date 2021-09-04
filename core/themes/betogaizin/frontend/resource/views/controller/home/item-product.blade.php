@@ -70,7 +70,7 @@
                                 <div class="product-detail-btn">
                                     <div class="btn-add-set-wrap btn-add-wrap mb0-sp mt0">
                                         <a   data-id="{!! $item->id !!}"
-                                             data-count="1"
+                                             data-count="{!! $item->count > 0 ?1:0 !!}"
                                              data-cate="{!! $item->category_id !!}"
                                              data-act="add" href="javascript:void(0);" class="btn btn-add js-btn-add-switch" >
                                             <i class="svg-icon icon-cart-02"></i>{!! z_language('かごに追加') !!}
@@ -264,7 +264,7 @@
                                                    {!! $result->name !!}
                                                 </span>
                                                 </a>
-                                                <span class="product-item-info-amount">5食入り</span>
+{{--                                                <span class="product-item-info-amount">5食入り</span>--}}
                                             </p>
                                         </div>
                                         <div class="product-item-info-bottom">
@@ -274,7 +274,7 @@
                                                         <div class="product-item-info-price-with-icon">
                                                             <p class="product-item-info-price">{!! $result->price_buy !!}<span class="unit">円</span></p>
                                                         </div>
-                                                        <p class="product-item-info-tax">(税込 199円)</p>
+                                                        <p class="product-item-info-tax">Hết hàng</p>
                                                     </div>
                                                 </div>
                                                 <div class="product-item-info-btn-area">
@@ -283,7 +283,7 @@
                                                             <a
                                                                     data-id="{!! $result->id !!}"
                                                                     data-cate="{!! $result->category_id !!}"
-                                                                    data-count="1"
+                                                                    data-count="{!! $item->count > 0 ?1:0 !!}"
                                                                     data-act="add"
                                                                     class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加 </a>
                                                             <div class="btn-set-wrap" style="display: none;">

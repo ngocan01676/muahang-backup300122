@@ -124,8 +124,13 @@ $(document).ready(function () {
 
        num.html(counts+count);
        var data = element.data();
+
+        if(data.count == 0){
+            alert("Sản phẩm hết hàng");
+            return;
+        }
         data.count = count;
-        console.log(1111111);
+
         cartAdd(data,function () {
 
             element.attr('lock',false);

@@ -175,7 +175,7 @@
                                     <div class="product-item-info-price-area-in">
                                         <div class="product-item-info-price-with-icon">
 
-                                            <p class="product-item-info-price">{!! $result->price_buy !!}<span class="unit">円</span>
+                                            <p class="product-item-info-price">{!! $result->price_buy !!}<span class="unit">{!! z_language('円') !!}</span>
                                             </p>
                                         </div>
                                         {{--<p class="product-item-info-tax">(税込 0円)</p>--}}
@@ -226,13 +226,13 @@
             <div class="paging-select only-sp">
                 <select>
                     @for ($i = 1; $i <= $total_page; $i++)
-                    <option {!! $i == $current_page?"selected":"" !!} value="1">1ページ</option>
+                    <option {!! $i == $current_page?"selected":"" !!} value="{!! $i !!}">{!! z_language(':PAGEページ',$i) !!}</option>
                     @endfor
                 </select>
             </div>
             <span class="paging-etc only-pc">…</span>
             <p class="paging-next-page"><a href="javascript:void(0);">
-                    次のページ
+                    {!! z_language('次のページ') !!}
                 </a>
             </p>
         </div>
