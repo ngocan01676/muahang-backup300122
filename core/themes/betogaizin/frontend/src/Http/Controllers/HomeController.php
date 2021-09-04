@@ -36,7 +36,7 @@ class HomeController extends \Zoe\Http\ControllerFront
 
         $model = DB::table('shop_product as p')->where('p.status',1)
             ->join('shop_product_translation as t','t._id','=','p.id')
-            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
+            ->select('p.id','p.image','p.count','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
             ->where('lang_code',$config_language['lang']);
 
         if(count($cateData->data) > 0){
@@ -71,7 +71,7 @@ class HomeController extends \Zoe\Http\ControllerFront
 
         $model = DB::table('shop_product as p')->where('p.status',1)
             ->join('shop_product_translation as t','t._id','=','p.id')
-            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
+            ->select('p.id','p.image','p.count','p.price_buy','p.category_id','t.name','t.slug as slug','t.content')
             ->where('lang_code',$config_language['lang']);
 
         if(count($cateData->data) > 0){
@@ -164,7 +164,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         $start = ($current_page - 1) * $limit;
         $results = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$id)
             ->join('shop_product_translation as t','t._id','=','p.id')
-            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->select('p.id','p.image','p.count','p.price_buy','p.category_id','t.name','t.slug','t.content')
             ->where('lang_code',$config_language['lang'])
             ->offset($start)->limit($limit)->get()->all();
         $cate = [];
@@ -233,7 +233,7 @@ class HomeController extends \Zoe\Http\ControllerFront
         $config_language = app()->config_language;
         $model = DB::table('shop_product as p')
             ->join('shop_product_translation as t','t._id','=','p.id')
-            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->select('p.id','p.image','p.count','p.price_buy','p.category_id','t.name','t.slug','t.content')
             ->where('lang_code',$config_language['lang'])
             ->where('p.status',1)->where('t.name', 'like', '%'.$kw.'%');
         if($category_code){
@@ -307,7 +307,7 @@ class HomeController extends \Zoe\Http\ControllerFront
 
         $results = DB::table('shop_product as p')->where('p.status',1)->where('p.group_id',$model->group_id)
             ->join('shop_product_translation as t','t._id','=','p.id')
-            ->select('p.id','p.image','p.price_buy','p.category_id','t.name','t.slug','t.content')
+            ->select('p.id','p.image','p.price_buy','p.count','p.category_id','t.name','t.slug','t.content')
             ->where('lang_code',$config_language['lang'])
             ->orderByRaw('RAND()')
             ->offset(0)->limit(10)->get()->all();
