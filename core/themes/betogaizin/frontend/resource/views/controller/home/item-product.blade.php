@@ -6,9 +6,11 @@
                     <p class="product-detail-image">
                         <a href="{!! $item->image !!}" data-modal="img" class="js-modal-trigger img-label-wrap label-large link-img">
                             <img src="{!! get_thumbnails($item->image,300) !!}" alt="">
+                            @if($item->count == 0)
                             <span class="img-label pos2">
                                 <img src="/theme/betogaizin/images/off.png" alt="">
                             </span>
+                            @endif
 {{--                            <span class="img-label pos4">--}}
 {{--                                <i class="svg-mark-item mark-555"></i>--}}
 {{--                            </span>--}}
@@ -35,9 +37,11 @@
                                     <a href="{!! $gallery !!}"
                                        data-modal="img" class="js-modal-trigger img-label-wrap label-large" tabindex="0">
                                         <img src="{!! $gallery !!}" alt="">
+                                        @if($item->count == 0)
                                         <span class="img-label pos2">
                                            <img src="/theme/betogaizin/images/off.png" alt="">
                                         </span>
+                                        @endif
 {{--                                        <span class="img-label pos4"><i class="svg-mark-item mark-555"></i></span>--}}
                                     </a>
                                 </li>

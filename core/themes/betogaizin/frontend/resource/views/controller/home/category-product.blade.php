@@ -369,7 +369,9 @@
                 <div class="product-item-info">
                     <div class="product-item-info-in">
                         <div class="product-item-info-top">
-                            <p><span class="product-item-info-maker">{!! z_language('味の素') !!}</span>
+                            <p>
+                                <span class="product-item-info-maker">{!! z_language('味の素') !!}
+                                </span>
                                 <a href="{!! router_frontend_lang('home:item-product',['id'=>$result->id,'slug'=>$result->slug]) !!}" class=""><span class="product-item-info-name">{!! $result->name !!}</span></a>
 {{--                                <span class="product-item-info-amount">600g</span>--}}
                             </p>
