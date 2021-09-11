@@ -1157,32 +1157,37 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $address = $request->get('address','');
         $zipcode = $request->get('zipcode','');
         $cate_id = $request->get('cate','');
+        $model = null;
         $this->data['category_com'] = config_get("category", "shop-ja:product:category");
-        $company = "";
+        if(!empty($fullname) || !empty($address) || !empty($zipcode) || !empty($cate_id)){
+            $company = "";
 
-        if(!empty($cate_id)){
-            foreach ($this->data['category_com'] as $cate){
-                if($cate['id'] == $cate_id){
-                    $company = $cate['name'];
-                    break;
+            if(!empty($cate_id)){
+                foreach ($this->data['category_com'] as $cate){
+                    if($cate['id'] == $cate_id){
+                        $company = $cate['name'];
+                        break;
+                    }
+
                 }
 
             }
 
+            $this->GetCache('show',0,$company);
+
+            $model = new OrderExcelModel();
+
+            $datas = $model->searchAll(Auth::user()->id,[
+                'fullname'=>$fullname,
+                'address'=>$address,
+                'company'=>$company,
+                'zipcode'=>$zipcode,
+            ]);
+
+            $model->detail = $this->GetData($datas,true);
+            $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
+
         }
-
-        $this->GetCache('show',0,$company);
-
-        $model = new OrderExcelModel();
-
-        $datas = $model->searchAll(Auth::user()->id,[
-            'fullname'=>$fullname,
-            'address'=>$address,
-            'company'=>$company,
-            'zipcode'=>$zipcode,
-        ]);
-        $model->detail = $this->GetData($datas,true);
-        $users = DB::table('admin')->select('id','name')->get()->keyBy('id')->toArray();
         return $this->render('order-excel.search',[
             'fullname'=>$fullname,
             'address'=>$address,
@@ -1204,7 +1209,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
 
         for($day = $first;$day<=$last;$day++){
             $key_date = $next.'-'.(($day<10)?"0".$day:$day);
-           
+
             if(!isset($cacheDate[$key_date])){
                 if(DB::table("shop_order_excel_session")->where([
                         'admin_id'=>$admin_id,
@@ -1602,7 +1607,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $html.='</tr>';
                             $html.='</table>';
                         }
-                   
+
                     return $html;
                 }
             ]
@@ -2314,7 +2319,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                     );
                     //{company?}/{date?}/{hour?}
                 }
-                
+
                 if($data['action']!=1)
                     $data = ['link'=>route(
                         'backend:shop_ja:order:excel:show',
