@@ -1158,6 +1158,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
         $zipcode = $request->get('zipcode','');
         $cate_id = $request->get('cate','');
         $model = null;
+        $users = [];
         $this->data['category_com'] = config_get("category", "shop-ja:product:category");
         if(!empty($fullname) || !empty($address) || !empty($zipcode) || !empty($cate_id)){
             $company = "";
