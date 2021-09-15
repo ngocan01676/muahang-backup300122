@@ -149,7 +149,7 @@
     <script>
         let stringDate = '{!! date('Y-m-d',strtotime($model?$model->key_date:time())) !!}';
         let  date = moment(stringDate);
-       
+
         console.log = function () {
 
         };
@@ -906,6 +906,11 @@
                     type: 'text',
                     width:'100px',
                 },
+                order_product_link:{
+                    title: '{!! z_language("Link SP") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
             };
 
             columnsAll[sheetName] = columns;
@@ -1220,7 +1225,7 @@
                     }
                 }
                 console.log("SEND");
-                
+
                 {{--$.ajax({--}}
                     {{--type: "POST",--}}
                     {{--url:"{{ route('backend:shop_ja:order:excel:store') }}",--}}
@@ -2058,6 +2063,11 @@
                 },
                 comment:{
                     title: '{!! z_language("Ghi chú") !!}',//T title: '',//T title: 'Position',//T
+                    type: 'text',
+                    width:'100px',
+                },
+                order_product_link:{
+                    title: '{!! z_language("Link SP") !!}',//T
                     type: 'text',
                     width:'100px',
                 },
@@ -3721,6 +3731,11 @@
                     type: 'text',
                     width:'100px',
                 },
+                order_product_link:{
+                    title: '{!! z_language("Link SP") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
             };
             columnsAll[sheetName] = columns;
             let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
@@ -5348,6 +5363,11 @@
                     type: 'text',
                     width:'100px',
                 },
+                order_product_link:{
+                    title: '{!! z_language("Link SP") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
             };
             columns.count.editor = customColumn;
             columnsAll[sheetName] = columns;
@@ -6618,6 +6638,11 @@
                     type: 'text',
                     width:'100px',
                 },
+                order_product_link:{
+                    title: '{!! z_language("Link SP") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
             };
             columns.count.editor = customColumn;
             columnsAll[sheetName] = columns;
@@ -7731,6 +7756,11 @@
                 },
                 comment:{
                     title: '{!! z_language("Ghi chú") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
+                order_product_link:{
+                    title: '{!! z_language("Link SP") !!}',//T
                     type: 'text',
                     width:'100px',
                 },
@@ -8849,6 +8879,11 @@
                     type: 'text',
                     width:'100px',
                 },
+                order_product_link:{
+                    title: '{!! z_language("Link SP") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
             };
             columnsAll[sheetName] = columns;
 
@@ -8888,7 +8923,7 @@
                 data.province = data.province.trim();
                 let total_price_buy =  0;
                 let total_price =  0;
-               
+
                 let valueRow =  instance.jexcel.getRowData(r);
 
                 let idOrder = valueRow[columns.id.index]+"";
@@ -8911,7 +8946,7 @@
                     let product = dropdown[data.id];
                         let price_buy = 0;
                         let price = 0;
-                        
+
                         if(valueRow[columns.price_buy.index] > 0){
                             price_buy = valueRow[columns.price_buy.index];
                         }else{
@@ -8943,11 +8978,11 @@
                                     break
                                 }
                             }
-                        
+
                             if(!isNaN(token)){
                                 Row = token;
                             }
-                        
+
                             token = "";
                         }else{
                             for(let iii = r-1;iii>=0;iii--){
@@ -8978,11 +9013,11 @@
                 function GetShip($product,$category_id,$count,$province,$total_price_buy,payMethod,total_price_buy_all) {
 
                     let configShip = dataship.hasOwnProperty("cate_"+$category_id)?dataship["cate_"+$category_id]:[];
-					
+
                     if(total_price_buy_all == 0){
                         total_price_buy_all = $total_price_buy;
                     }
-					
+
                     console.log(configShip);
                     console.log("$count:"+$count);
                     console.log("$province:"+$province);
@@ -9682,7 +9717,7 @@
 
                                 });
                             }
-                        }        
+                        }
                     }else if(c === columns.province.index){
                         if(change.col == c){
 
@@ -9951,6 +9986,11 @@
                 },
                 comment:{
                     title: '{!! z_language("Ghi chú") !!}',//T
+                    type: 'text',
+                    width:'100px',
+                },
+                order_product_link:{
+                    title: '{!! z_language("Link SP") !!}',//T
                     type: 'text',
                     width:'100px',
                 },

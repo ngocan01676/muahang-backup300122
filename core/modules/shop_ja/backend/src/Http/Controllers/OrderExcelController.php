@@ -300,6 +300,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "rate"=> isset($this->data['options'][$name]['rate'])? (int)$this->data['options'][$name]['rate']:"0",
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                     "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
+                                    "order_product_link"=> isset($columns["order_product_link"])? $values[$columns["order_product_link"]]:"",
                                 ];
 //                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date(' H:i:s');
                                 $_ = [$values,$_data,$columns];
@@ -431,6 +432,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                     "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
+                                    "order_product_link"=> isset($columns["order_product_link"])? $values[$columns["order_product_link"]]:"",
                                 ];
 //                                $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
                                 //$_data["sort"] = $model->admin_id * 10000 + ($key+1) * $model->admin_id + $_data["order_index"] + strtotime($_data['order_create_date']);
@@ -691,6 +693,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                         "rate" => isset($this->data['options'][$name]['rate']) ? (int)$this->data['options'][$name]['rate'] : "0",
                                         "group" => isset($columns["group"]) ? $values[$columns["group"]] : "",
                                         "comment" => isset($columns["comment"]) ? $values[$columns["comment"]] : "",
+                                        "order_product_link"=> isset($columns["order_product_link"])? $values[$columns["order_product_link"]]:"",
                                     ];
                                     $_data['order_create_date'] = date('Y-m-d', strtotime($_data['order_create_date'])) . " " . date(' H:i:s');
 
@@ -885,6 +888,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                                     "order_index"=> isset($columns["position"])? (int)$values[$columns["position"]]:"0",
                                     "group"=> isset($columns["group"])? $values[$columns["group"]]:"",
                                     "comment"=> isset($columns["comment"])? $values[$columns["comment"]]:"",
+                                    "order_product_link"=> isset($columns["order_product_link"])? $values[$columns["order_product_link"]]:"",
                                 ];
                                 $_data['order_create_date'] = date('Y-m-d',strtotime($_data['order_create_date']))." ".date('H:i:s');
                                 $_data["sort"] = $user_admin_id * 1000000 + ($key+1) * $user_admin_id + $_data["order_index"] + strtotime($model->key_date);
@@ -1960,6 +1964,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->admin,
                             $result->group,
                             $result->comment,
+                            $result->order_product_link,
                         ];
 
                     }else  if($result->company == "KOGYJA" || $result->company == "KURICHIKU1"){
@@ -2017,6 +2022,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->admin,
                             $result->group,
                             $result->comment,
+                            $result->order_product_link,
                         ];
                     } else if($result->company == "KURICHIKU" || $result->company == "BANH_CHUNG"){
                         $pay_method = "";
@@ -2095,6 +2101,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->admin,
                             $result->group,
                             $result->comment,
+                            $result->order_product_link,
                         ];
                     }else{
                         $pay_method = "";
@@ -2175,6 +2182,7 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                             $result->admin,
                             $result->group,
                             $result->comment,
+                            $result->order_product_link,
                         ];
                     }
                 }

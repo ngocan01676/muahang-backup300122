@@ -745,6 +745,11 @@
      type: 'text',
      width:'100px',
     },
+       order_product_link:{
+           title: '{!! z_language("Link SP") !!}',//T
+           type: 'text',
+           width:'100px',
+       },
    };
 
    columnsAll[sheetName] = columns;
@@ -1822,6 +1827,11 @@
      type: 'text',
      width:'100px',
     },
+       order_product_link:{
+           title: '{!! z_language("Link SP") !!}',//T
+           type: 'text',
+           width:'100px',
+       },
    };
    columnsAll[sheetName] = columns;
    let hide = hideprototy.hasOwnProperty(sheetName)?hideprototy[sheetName]:{};
@@ -3397,6 +3407,11 @@
      type: 'text',
      width:'100px',
     },
+       order_product_link:{
+           title: '{!! z_language("Link SP") !!}',//T
+           type: 'text',
+           width:'100px',
+       },
    };
    columns.count.editor = customColumn;
    columnsAll[sheetName] = columns;
@@ -4597,6 +4612,11 @@
               type: 'text',
               width:'100px',
           },
+          order_product_link:{
+              title: '{!! z_language("Link SP") !!}',//T
+              type: 'text',
+              width:'100px',
+          },
       };
       columns.count.editor = customColumn;
       columnsAll[sheetName] = columns;
@@ -5647,6 +5667,11 @@
      type: 'text',
      width:'100px',
     },
+       order_product_link:{
+           title: '{!! z_language("Link SP") !!}',//T
+           type: 'text',
+           width:'100px',
+       },
    };
 
    columnsAll[sheetName] = columns;
@@ -6694,6 +6719,11 @@
      type: 'text',
      width:'100px',
     },
+       order_product_link:{
+           title: '{!! z_language("Link SP") !!}',//T
+           type: 'text',
+           width:'100px',
+       },
    };
    columnsAll[sheetName] = columns;
 
@@ -7724,6 +7754,11 @@
      type: 'text',
      width:'100px',
     },
+       order_product_link:{
+           title: '{!! z_language("Link SP") !!}',//T
+           type: 'text',
+           width:'100px',
+       },
    };
    columnsAll[sheetName] = columns;
 
