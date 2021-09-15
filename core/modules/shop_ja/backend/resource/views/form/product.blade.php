@@ -87,6 +87,12 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        {!! Form::label('link', z_language('Đường dẫn'), ['class' => 'value']) !!}
+                                        {!! Form::text('link',null, ['class' => 'form-control','placeholder'=>z_language('Đường dẫn')]) !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         {!! Form::label('value', z_language('Cân nặng'), ['class' => 'value']) !!}
                                         {!! Form::text('value',null, ['class' => 'form-control','placeholder'=>z_language('Cân nặng')]) !!}
                                     </td>
