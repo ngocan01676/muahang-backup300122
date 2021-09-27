@@ -12051,9 +12051,11 @@
         let spreadsheet =  document.getElementById('spreadsheet');
         let worksheets = jexcel.tabs(spreadsheet, sheets);
         $(document).ready(function () {
+            $('[data-spreadsheet="0"]').trigger("click");
             let changeDate = 0;
             let changeDate1 = 0;
             $('body').addClass('sidebar-collapse');
+
             $datepicker = $('#datepicker').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
