@@ -101,6 +101,31 @@ class Excel
                 ["振込み情報", 'order_info', 25, 9],//T
                 ["", 'order_link', 25, 9],//U
             ],
+            "Cocolala" => [
+                ["注文日", ['callback' => function ($index, $date) {
+                    return date("d", strtotime($date)) . '日';
+                }, 'key' => 'timeCreate'], 10, 9],//A
+                ["支払区分", 'payMethod', 10, 9],//B
+                ["配送先電話番号", 'phone', 10, 9],//C
+                ["配送先郵便番号", 'zipcode', 9, 9],//D
+                ["配送先都道府県", 'province', 14, 9],//E
+                ["配送先住所", 'address', 18, 9],//F
+                ["配送先氏名", 'fullname', 18, 9],//G
+                ["品番", ['product' => ['product_id', 'code']], 10, 9],//H
+                ["商品名", ['product' => ['product_name', 'title']], 18, 9],//I
+                ["単価", 'price', 15, 9],//J
+                ["数量", 'count', 15, 9],//K
+                ["到着希望日", 'order_date', 15, 9],//L
+                ["配送希望時間帯", 'order_hours', 15, 9],//M
+                ["別途送料", 'order_ship', 15, 9],//N
+                ["仕入金額", 'order_total_price', 15, 9],//O
+                ["代引き請求金額", 'order_total_price_buy', 15, 9],//P
+                ["代引き手数料", 'order_ship_cou', 15, 9],//Q
+                ["余分金", 'order_price', 15, 9],//R
+                ["追跡番号", 'order_tracking', 15, 9],//S
+                ["振込み情報", 'order_info', 25, 9],//T
+                ["", 'order_link', 25, 9],//U
+            ],
             "KOGYJA" => [
                 ["注文日", ['callback' => function ($index, $date) {
                     return date("d", strtotime($date)) . '日';
@@ -1552,6 +1577,380 @@ class Excel
         return ['link' => url($path . '/' . $zipFileName).'?time='.time().'-'.rand(1000,9999), 'images' => $images, "ids" => $ids];
 
     }
+    public function Cocolala($datas, $name, $formatFileName)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $spreadsheet->createSheet();
+
+        $sheet->setTitle("Sheet1");
+
+        $sheet1 = $spreadsheet->getSheet(1);
+        $sheet1->setTitle('Sheet2');
+
+        $spreadsheet->getProperties()
+            ->setTitle('PHP Download Example')
+            ->setSubject('A PHPExcel example')
+            ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
+            ->setCreator('php-download.com')
+            ->setLastModifiedBy('php-download.com');
+        $title1 = "株式会社ヤマダ 様 注文フォーマット";
+        $title2 = "見本";
+        $info = "";
+        $sheet->setCellValue('B1', $title1);
+        $sheet->setCellValue('F2', $title2);
+        $sheet->setCellValue('P2', $info);
+        $styleArray = array(
+            'font' => array(
+                'size' => 9,
+                'name' => 'ＭＳ Ｐゴシック'
+            ));
+        $style_header = array(
+            'fill' => array(
+                'fillType' => Fill::FILL_SOLID,
+                'color' => array('rgb' => 'ffff00'),
+            ),
+            'borders' => [
+                'allBorders' => array(
+                    'borderStyle' => Border::BORDER_DOTTED,
+                    'color' => array('rgb' => '000000')
+                ),
+            ],
+            'font' => array(
+                'size' => 9,
+                'name' => 'ＭＳ Ｐゴシック'
+            )
+        );
+        $sheet->getStyle('B1')->applyFromArray($styleArray);
+        $sheet->getStyle('F2')->applyFromArray($styleArray);
+        $sheet->getStyle('P2')->applyFromArray(array(
+                'font' => array(
+                    'size' => 9,
+                    'name' => 'ＭＳ Ｐゴシック',
+                    'color' => array('rgb' => '0070c0'),
+                ),
+            )
+        );
+        $sheet->getStyle('A3:T3')->applyFromArray($style_header);
+        $date_export = new \stdClass();
+        $date_export->date = $this->date_export;
+        $date_nhan = new \stdClass();
+        $date_nhan->date = $this->date;
+        $columns_value = array_flip($datas['columns']);
+        $colums = [
+            ["注文日", ['callback' => function ($index, $date) use ($date_export) {
+                return date("d", $date_export->date) . '日';
+            }, 'key' => 'timeCreate'], 3.29, 9],//A
+            ["支払区分", 'payMethod', 6.57, 9],//B
+            ["配送先電話番号", 'phone', 10.86, 9],//C
+            ["配送先郵便番号", 'zipcode', 6.57, 9],//D
+            ["配送先都道府県", 'province', 5.14, 9],//E
+            ["配送先住所", ['callback' => function ($index, $value) {
+                return preg_replace('/\s+/', '', $value);
+            }, 'key' => 'address'], 28.71, 9],//F
+            ["配送先氏名", ['callback' => function ($index, $value) {
+                return preg_replace('/\s+/', ' ', $value);
+            }, 'key' => 'fullname'], 14.71, 9],//G
+            ["品番", ['product' => ['product_id', 'code']], 7, 9],//H
+            ["商品名", ['product' => ['product_name', 'title']], 18.57, 9],//I
+            ["単価", 'price', 4.57, 9],//J
+            ["数量", 'count', 2.86, 9],//K
+            ["到着希望日", ['callback' => function ($index, $date) use ($date_nhan) {
+                return date("Y/m/d", strtotime($date));
+            }, 'key' => 'order_date'], 9, 9],//L
+            ["配送希望時間帯", ['callback' => function ($index, $value) {
+                return "8:00 ~ 12:00" == $value ? "午前中" : $value;
+            }, 'key' => 'order_hours'], 10, 9],//M
+            ["別途送料", 'order_ship', 4.71, 9],//N
+            ["仕入金額", 'order_total_price', 6.43, 9],//O
+            ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
+            ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
+            ["余分金", ['callback' => function ($index, $date,$a,$val) use ($date_export,$columns_value) {
+                if($val[$columns_value['payMethod']] == "決済不要"){
+                    return "=0-O$index";
+                }else{
+                    return "=P$index-J$index*K$index-N$index-Q$index";
+                }
+
+            }, 'key' => 'order_price'], 5.43, 9],//R =IF(J4="","",P4-J4*K4-N4-Q4) P4-J4*K4-N4-Q4
+            ["追跡番号", 'order_tracking', 4.86, 9],//S
+            ["振込み情報",['callback' => function ($index, $value) use ($date_export) {
+                return str_replace('依頼人名.','',$value);
+            }, 'key' => 'order_info'], 8.57, 9],//T
+            ["", 'comment', 15, 9], // Số lượng O
+//            ["",'order_link',25,9],//U
+        ];
+        $start = 3;
+        $nameColList = [];
+        foreach ($colums as $key => $value) {
+            $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
+            $keyCol = "";
+            if (is_array($value[1])) {
+                if (isset($value[1]['product'])) {
+                    $conf = $value[1]['product'];
+                    $nameColList[$conf[0]] = $key;
+                    $keyCol = $conf[1];
+                } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
+                    $nameColList[$value[1]['key']] = $key;
+                    $keyCol = $value[1]['key'];
+                }
+            } else {
+                $nameColList[$value[1]] = $key;
+                $keyCol = $value[1];
+            }
+            $sheet->setCellValue($nameCol . $start, $value[0])->getStyle($nameCol . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック'
+                    ),
+                )
+            );
+            if($keyCol == "title"){
+                $keyCol = "product_name";
+            }else  if($keyCol == "code"){
+                $keyCol = "product_id";
+            }
+            if (isset($this->config["excel_width"][$name][$keyCol])) {
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($this->config["excel_width"][$name][$keyCol]+0.72);
+            } else if ($value[2] > 0) {
+                $spreadsheet->getActiveSheet()->getColumnDimension($nameCol)->setWidth($value[2]+0.72);
+            }
+
+        }
+        $start++;
+        $defaultStart = $start;
+        $lastIndex = "";
+
+        $company = "22";
+        $orders = [
+
+        ];
+
+
+        $products = DB::table('shop_product')->get()->keyBy('id')->all();
+        $images = [];
+        $ids = [];
+        foreach ($datas['datas'] as $key => $values) {
+            $payMethod = "";
+            if (empty($values[$columns_value['fullname']])) {
+                continue;
+            }
+            $image = (isset($columns_value['image']) ? $values[$columns_value['image']] : "");
+            $order_id = (isset($columns_value['id']) ? $values[$columns_value['id']] : "");
+
+            $ids[$order_id] = 1;
+            $order_info = (isset($columns_value['order_info']) ? $values[$columns_value['order_info']] : "");
+            if (!empty($image)) {
+                $images[] = [str_replace(url('/'), "", $image), str_replace('依頼人名.','',$order_info)];
+            }
+
+            $count = (isset($columns_value['count']) ? $values[$columns_value['count']] : "0");
+            $sheet1->setCellValue("A".$start,$order_id);
+            $sheet1->setCellValue("B".$start,$count);
+
+            foreach ($colums as $key => $value) {
+                $nameCol = PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($key + 1);
+                if (is_array($value[1])) {
+                    if (isset($value[1]['product'])) {
+                        $conf = $value[1]['product'];
+                        $id = (isset($columns_value[$conf[0]]) ? $values[$columns_value[$conf[0]]] : "");
+                        $_val = "";
+                        if (isset($products[$id]) && property_exists($products[$id], $conf[1])) {
+                            $_val = $products[$id]->{$conf[1]};
+                        }
+                        if ($_val == "0") {
+                            //$_val = "";
+                        }
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
+                    } else if (isset($value[1]['callback']) && isset($value[1]['key'])) {
+                        $conf = $value[1]['callback'];
+                        $_val = call_user_func_array($conf, [$start, (isset($columns_value[$value[1]['key']]) ? $values[$columns_value[$value[1]['key']]] : ""), $nameCol . $start,$values]);
+                        if ($_val == "0") {
+                            // $_val = "";
+                        }
+                        $sheet->setCellValue($nameCol . $start, trim($_val));
+                    }
+                } else {
+                    $v = (isset($columns_value[$value[1]]) ? $values[$columns_value[$value[1]]] : "");
+                    if ($v == "0") {
+                        //  $v = "";
+                    }
+                    $sheet->setCellValue($nameCol . $start, trim($v));
+                    if ($value[1] == "payMethod") {
+                        $payMethod = $v;
+                    }
+                }
+            }
+            if ($payMethod == "銀行振込" || $payMethod == "決済不要") {
+                $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . '' . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => '0070c0'),
+                    ),
+                ));
+            } else if ($payMethod == "決済不要") {
+                $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . '' . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+                        'color' => array('rgb' => 'ff0000'),
+                    ),
+                ));
+            } else {
+                $sheet->getStyle('A' . $start . ':' . PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(count($colums)) . '' . $start)->applyFromArray(array(
+                    'font' => array(
+                        'size' => 9,
+                        'name' => 'ＭＳ Ｐゴシック',
+
+                    ),
+                ));
+            }
+            $start++;
+        }
+
+        $sheet->setCellValue("K" . $start, "=SUM(K" . $defaultStart . ":K" . ($start - 1) . ")");
+        $sheet->setCellValue("P" . $start, "=SUM(P" . $defaultStart . ":P" . ($start - 1) . ")");
+        $sheet->setCellValue("R" . $start, "=SUM(R" . $defaultStart . ":R" . ($start - 1) . ")");
+        $sheet->setCellValue("Q" . $start, "=SUM(Q" . $defaultStart . ":Q" . ($start - 1) . ")");
+
+        $sheet->getStyle("K" . $start)->applyFromArray(array(
+                'font' => array(
+                    'size' => 9,
+                    'name' => 'ＭＳ Ｐゴシック',
+                    'color' => array('rgb' => 'ff0000'),
+                ),
+            )
+        );
+
+        $sheet->getStyle("P" . $start)->applyFromArray(array(
+                'font' => array(
+                    'size' => 9,
+                    'name' => 'ＭＳ Ｐゴシック',
+                    'color' => array('rgb' => 'ff0000'),
+                ),
+            )
+        );
+        $sheet->getStyle("R" . $start)->applyFromArray(array(
+                'font' => array(
+                    'size' => 9,
+                    'name' => 'ＭＳ Ｐゴシック',
+                    'color' => array('rgb' => 'ff0000'),
+                ),
+            )
+        );
+        $sheet->getStyle("Q" . $start)->applyFromArray(array(
+                'font' => array(
+                    'size' => 9,
+                    'name' => 'ＭＳ Ｐゴシック',
+                    'color' => array('rgb' => 'ff0000'),
+                ),
+            )
+        );
+        $writer = new Xlsx($spreadsheet);
+        if($datas['type'] != "demo"){
+            if ($name == "AMAZON") {
+                $path = '/uploads/exports/AMAZON';
+            }else{
+                $path = '/uploads/exports/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+            }
+
+        }else{
+            if ($name == "AMAZON")
+                $path = '/uploads/demo/AMAZON' ;
+            else
+                $path = '/uploads/demo/' . str_replace(__CLASS__ . '::', "", __METHOD__);
+        }
+        if (!$this->file->isDirectory(public_path() . $path)) {
+            $this->file->makeDirectory(public_path() . $path);
+        }
+        $path = $path . '/' . date('Y-m-d', $this->date_export);
+        if (!$this->file->isDirectory(public_path() . $path)) {
+            $this->file->makeDirectory(public_path() . $path);
+        }
+
+        if ($name == "AMAZON") {//AMAZONの注文分[MONTH]月[DAY]日
+            $filename = 'の注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
+        } else {
+            $filename = '株式会社ヤマダ-様-のお米の注文分' . date('m', $this->date_export) . '月' . date('d', $this->date_export) . '日';
+        }
+
+        $path = $path . '/' . $filename;
+        if (!$this->file->isDirectory(public_path() . $path)) {
+            $this->file->makeDirectory(public_path() . $path);
+        }
+
+        $pathZip = $path . '/zip';
+        if ($this->file->isDirectory(public_path() . $pathZip)) {
+            $this->file->deleteDirectory(public_path() . $pathZip, true);
+        }
+        if (!$this->file->isDirectory(public_path() . $pathZip)) {
+            $this->file->makeDirectory(public_path() . $pathZip);
+        }
+        $path2 = $pathZip . '/' . $filename . '.xlsx';
+        $writer->save(public_path() . $path2);
+        $files = [
+            [$filename . '.xlsx', public_path() . $path2]
+        ];
+        foreach ($images as $image) {
+            if (!empty($image[0]) && file_exists(public_path() . "/" . $image[0])) {
+
+                $pathinfo = pathinfo(public_path() . "/" . $image[0]);
+
+                if (empty($image[1])) {
+                    $file_image = $pathinfo['filename'] . '.' . $pathinfo['extension'];
+                    $newName = $pathZip . '/' . $file_image;
+                    if ($this->file->exists(public_path() . '/' . $newName)) {
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $pathinfo['filename'] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    $file_image = $image[1] . '.' . $pathinfo['extension'];
+                    $newName = $pathZip . '/' . $file_image;
+                    if ($this->file->exists(public_path() . '/' . $newName)) {
+                        if(md5_file(public_path() . '/' . $newName) != md5_file(public_path() . "/" . $image[0])){
+                            for ($i = 1; $i < 100; $i++) {
+                                $file_image = $image[1] . '(' . $i . ')' . '.' . $pathinfo['extension'];
+                                $newName = $pathZip . '/' . $file_image;
+                                if (!$this->file->exists(public_path() . '/' . $newName)) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                $this->file->copy(public_path() . "/" . $image[0], public_path() . '/' . $newName);
+                $files[] = [
+                    $file_image, public_path() . '/' . $newName
+                ];
+            }
+        }
+        $zipFileName = $filename . '.zip';
+        $zip = new \ZipArchive();
+        if ($this->file->exists(public_path() . '/' . $path . '/' . $zipFileName)) {
+            $this->file->delete(public_path() . '/' . $path . '/' . $zipFileName);
+        }
+        if ($zip->open(public_path() . '/' . $path . '/' . $zipFileName, \ZipArchive::CREATE) === TRUE) {
+            foreach ($files as $file) {
+                $zip->addFile($file[1], $file[0]);
+            }
+            $zip->close();
+        }
+//        if( $this->file->isDirectory(public_path().$pathZip)){
+//            $this->file->deleteDirectory(public_path().$pathZip,true);
+//        }
+        return ['link' => url($path . '/' . $zipFileName).'?time='.time().'-'.rand(1000,9999), 'images' => $images, "ids" => $ids];
+
+    }
+
     public function BANH_CHUNG($datas,$name, $formatFileName)
     {
         //$name = "KURICHIKU";

@@ -364,6 +364,10 @@
                    'start'=>date("d/m/Y", strtotime("first day of this month")),
                    'end'=>date("d/m/Y", strtotime("last day of this month"))
                 ],
+                'Cocolala'=>[
+                   'start'=>date("d/m/Y", strtotime("first day of this month")),
+                   'end'=>date("d/m/Y", strtotime("last day of this month"))
+                ],
                 'FUKUI'=>[
                    'start'=>date("d/m/Y", strtotime("first day of this month")),
                    'end'=>date("d/m/Y", strtotime("last day of this month"))

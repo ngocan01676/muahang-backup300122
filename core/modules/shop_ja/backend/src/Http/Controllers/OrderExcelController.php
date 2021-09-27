@@ -1381,6 +1381,10 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->YAMADA($data,$data['name'],'AMAZONの注文分[MONTH]月[DAY]日');
 
+            }else  if($data['name'] == "Cocolala"){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output =$excel->Cocolala($data,$data['name'],'AMAZONの注文分[MONTH]月[DAY]日');
+
             }else  if($data['name'] == "OHGA"){
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->OHGA($data);
