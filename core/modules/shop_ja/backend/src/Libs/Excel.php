@@ -1595,7 +1595,7 @@ class Excel
             ->setDescription('A simple example for PhpSpreadsheet. This class replaces the PHPExcel class')
             ->setCreator('php-download.com')
             ->setLastModifiedBy('php-download.com');
-        $title1 = "株式会社三島食鶏様 注文フォーマット";
+        $title1 = "株式会社ココナッツリー様注文フォーマット";
         $title2 = "見本";
         $info = "";
         $sheet->setCellValue('B1', $title1);
