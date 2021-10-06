@@ -8619,7 +8619,7 @@
   }
   if(!statusCompnay.hasOwnProperty('QUAT')){
       if(options.hasOwnProperty('QUAT') && options.QUAT.status == 1)
-          sheets.push(Object.assign(MISHIMA("QUAT0.",config),config ));
+          sheets.push(Object.assign(MISHIMA("QUAT",config),config ));
   }
 
   if(!statusCompnay.hasOwnProperty('MISHIMA')){
