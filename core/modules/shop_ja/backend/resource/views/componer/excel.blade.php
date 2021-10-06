@@ -8608,6 +8608,20 @@
    if(options.hasOwnProperty('Cocolala') && options.Cocolala.status == 1)
     sheets.push(Object.assign(MISHIMA("Cocolala",config),config ));
   }
+
+  if(!statusCompnay.hasOwnProperty('DO_KHO')){
+      if(options.hasOwnProperty('DO_KHO') && options.DO_KHO.status == 1)
+          sheets.push(Object.assign(MISHIMA("DO_KHO",config),config ));
+  }
+  if(!statusCompnay.hasOwnProperty('HOA_QUA')){
+      if(options.hasOwnProperty('HOA_QUA') && options.HOA_QUA.status == 1)
+          sheets.push(Object.assign(MISHIMA("HOA_QUA",config),config ));
+  }
+  if(!statusCompnay.hasOwnProperty('QUAT')){
+      if(options.hasOwnProperty('QUAT') && options.QUAT.status == 1)
+          sheets.push(Object.assign(MISHIMA("QUAT0.",config),config ));
+  }
+
   if(!statusCompnay.hasOwnProperty('MISHIMA')){
    if(options.hasOwnProperty('MISHIMA') && options.MISHIMA.status == 1)
     sheets.push(Object.assign(MISHIMA("MISHIMA",config),config ));

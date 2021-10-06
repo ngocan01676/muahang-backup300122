@@ -10927,6 +10927,29 @@
                 sheets.push(conf);
             }
         }
+
+        if(!statusCompnay.hasOwnProperty('DO_KHO')){
+            if(options.hasOwnProperty('DO_KHO') && options.DO_KHO.status == 1){
+                let conf = Object.assign(MISHIMA("DO_KHO",config),config );
+                conf.minDimensions = [conf.minDimensions[0],200];
+                sheets.push(conf);
+            }
+        }
+        if(!statusCompnay.hasOwnProperty('HOA_QUA')){
+            if(options.hasOwnProperty('HOA_QUA') && options.HOA_QUA.status == 1){
+                let conf = Object.assign(MISHIMA("HOA_QUA",config),config );
+                conf.minDimensions = [conf.minDimensions[0],200];
+                sheets.push(conf);
+            }
+        }
+        if(!statusCompnay.hasOwnProperty('QUAT')){
+            if(options.hasOwnProperty('QUAT') && options.QUAT.status == 1){
+                let conf = Object.assign(MISHIMA("QUAT",config),config );
+                conf.minDimensions = [conf.minDimensions[0],200];
+                sheets.push(conf);
+            }
+        }
+
         if(!statusCompnay.hasOwnProperty('MISHIMA')){
             if(options.hasOwnProperty('MISHIMA') && options.YAMADA.status == 1){
                 let conf = Object.assign(MISHIMA("MISHIMA",config),config );

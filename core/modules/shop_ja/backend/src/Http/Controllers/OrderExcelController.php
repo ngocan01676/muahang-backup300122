@@ -1400,6 +1400,17 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             } else if($data['name'] == "BANH_CHUNG"){
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->BANH_CHUNG($data,$data['name'],'AMAZONの注文分[MONTH]月[DAY]日');
+            }else  if($data['name'] == "DO_KHO"){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output =$excel->DO_KHO($data,$data['name'],'AMAZONの注文分[MONTH]月[DAY]日');
+            }
+            else  if($data['name'] == "HOA_QUA"){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output =$excel->HOA_QUA($data,$data['name'],'AMAZONの注文分[MONTH]月[DAY]日');
+            }
+            else  if($data['name'] == "QUAT"){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output =$excel->QUAT($data,$data['name'],'AMAZONの注文分[MONTH]月[DAY]日');
             }
             if(isset($output['ids']) && isset($data['type']) && $data['type'] != "demo"){
                 DB::beginTransaction();
