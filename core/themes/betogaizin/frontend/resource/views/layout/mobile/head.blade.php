@@ -27,7 +27,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/theme/betogaizin/favicon-16x16.png">
     <link rel="manifest" href="/theme/betogaizin/manifest.json">
     <link rel="stylesheet" href="/theme/betogaizin/desktop/css/normalize.css">
-    <link rel="stylesheet" href="/theme/betogaizin/css/style.css">
+    <link rel="stylesheet" href="/theme/betogaizin/desktop/css/style.css">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/theme/betogaizin/ms-icon-144x144.png">
 
