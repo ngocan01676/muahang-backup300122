@@ -11333,7 +11333,7 @@ img.img-auto {
   position: absolute;
   top: 100%;
   right: -1px;
-  z-index: 1;
+  z-index: 9999;
   -webkit-transform: translateY(-2px);
           transform: translateY(-2px);
   border: 1px solid #CFCFCF;
