@@ -10191,9 +10191,12 @@
                         $is_IF_End =  IF_End(kg,configShip[i]);
                         if($is_IF_Start && $is_IF_End){
                             $conf  =  configShip[i].config;
+                            console.log($conf);
                             for (let ii in $conf){
                                 $val = $conf[ii];
+
                                 $arr = $val['text'].split("-");
+                                console.log($arr);
                                 for (let iii in $arr){
                                     $v = $arr[iii];
                                     if($province == $v){
