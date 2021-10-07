@@ -30,7 +30,7 @@
         </div>
         <p class="category-btn" data-v-0bf912cd="">
             <a  class="js-category-menuBtn" data-v-0bf912cd="">
-                すべての商品カテゴリ
+                {!! z_language('すべての商品カテゴリ') !!}
             </a>
         </p>
     </div>
