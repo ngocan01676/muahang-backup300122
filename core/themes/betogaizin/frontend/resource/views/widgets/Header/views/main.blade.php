@@ -27,11 +27,13 @@
         <div class="header-search">
             <div class="header-inner">
                 <div class="form-parts-search">
+                    <form action="<?php echo router_frontend_lang('home:search-product'); ?>" method="get">
                     <span class="sggstInputWrap">
                         <input id="sheroes" type="text" name="keyword" placeholder="{!! z_language('キーワードから探す') !!}" autocomplete="off" id="topSearchKeyword" value="">
                     </span>
                     <button id="topSearchButton" type="button" class="form-parts-search-btn"><span class="svg-icon icon-search"></span>
                     </button>
+                    </form>
                     <!---->
                 </div>
             </div>
@@ -83,11 +85,13 @@
         <div class="header-fixed only-sp">
             <div class="header-search">
                 <div class="header-inner">
+                    <form action="<?php echo router_frontend_lang('home:search-product'); ?>" method="get">
                     <div class="form-parts-search"><span class="sggstInputWrap"><input type="text" name="keyword" placeholder="キーワードから探す" autocomplete="off" id="fixSearchKeyword" value=""></span>
                         <button id="fixSearchButton" type="button" class="form-parts-search-btn"><span class="svg-icon icon-search"></span>
                         </button>
 
                     </div>
+                    </form>
                 </div>
             </div>
             <div class="header-utility" data-v-defa9620="">
