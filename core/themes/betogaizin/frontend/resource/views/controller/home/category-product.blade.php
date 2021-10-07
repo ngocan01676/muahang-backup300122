@@ -395,7 +395,7 @@
                                                     data-count="{!! $result->count > 0 ?1:0 !!}"
                                                     data-act="add"
                                                     data-cate="{!! $result->category_id !!}"
-                                                    href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>かごに追加
+                                                    href="javascript:void(0);" class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>{!! z_language('Thêm vào giỏ') !!}
                                             </a>
                                             <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-4901001754199" class="btn-set-btn">－</span>  <span class="btn-set-num">0</span>  <span data-auto-id="undefined/inc-cart-4901001754199" class="btn-set-btn">＋</span>
                                             </div>
