@@ -496,6 +496,7 @@
         // });
         $(".notice-popup-close-btn").click(function () {
             let self = $(this).parent();
+            console.log(self);
             self.animate({
                 opacity: 0,
                 bottom: "+=-60",
