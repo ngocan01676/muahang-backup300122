@@ -14,7 +14,7 @@
 
     @endphp
     <div class="category" data-v-0bf912cd="" data-v-12143966="">
-        <div class="category-title" data-v-0bf912cd="">カテゴリから品揃えをチェック</div>
+        <div class="category-title" data-v-0bf912cd="">{!! z_language('カテゴリから品揃えをチェック') !!}</div>
         <div class="category-items" data-v-0bf912cd="">
             @foreach($cate_group_position as $value)
                 @php $row = $cate_group_list[$value['id']]; @endphp

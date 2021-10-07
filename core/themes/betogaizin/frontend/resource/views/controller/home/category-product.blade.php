@@ -335,7 +335,7 @@
                                                     data-id="{!! $result->id !!}"
                                                     data-count="{!! $result->count > 0 ?1:0 !!}"
                                                     data-act="add"
-                                               class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>{!! z_language('かごに追加') !!}
+                                               class="btn btn-add js-btn-add-switch btn-block"><i class="svg-icon icon-cart-02"></i>{!! z_language('Thêm vào giỏ') !!}
                                             </a>
                                             <div class="btn-set-wrap" style="display: none;"><span data-auto-id="undefined/dec-cart-4976994206307" class="btn-set-btn">－</span>  <span class="btn-set-num">0</span>  <span data-auto-id="undefined/inc-cart-4976994206307" class="btn-set-btn">＋</span>
                                             </div>
