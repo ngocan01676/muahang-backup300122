@@ -401,7 +401,7 @@
         <section class="popup popup-nohead popup-width-middle">
             <button type="button" data-obj="popup-leaveFromOrderChanging" class="popup-close-btn"></button>
             <div class="popup-content">
-                <p class="title title-middle mt40 txt-ac">変更を取り消しますか？</p>
+                <p class="title title-middle mt40 txt-ac">{!! z_language('変更を取り消しますか？') !!}</p>
                 <div class="btn-flex btn-row mt20">
                     <form>
                         <div class="btn-form-wrap"><span class="btn-select btn-select01 btn-color-gray">取り消す</span></div>

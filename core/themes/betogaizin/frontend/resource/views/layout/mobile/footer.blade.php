@@ -494,7 +494,7 @@
         // },function () {
         //     console.log('.minicart-dropdown-trigger out');
         // });
-        $(".notice-popup-close-btn").click(function () {
+        $(document).on("click",".notice-popup-close-btn",function (e) {
             let self = $(this).parent();
             console.log(self);
             self.animate({
@@ -505,7 +505,6 @@
                 self.hide();
             });
         });
-
 
 
         $(document).on("click",".open-cart",function (e) {
