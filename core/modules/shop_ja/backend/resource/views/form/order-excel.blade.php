@@ -10185,6 +10185,8 @@
                     }
                     let arr_ship = [];
                     for(let i in configShip){
+                        console.log(kg);
+                        console.log(configShip[i]);
                         $is_IF_Start = IF_Start(kg,configShip[i]);
                         $is_IF_End =  IF_End(kg,configShip[i]);
                         if($is_IF_Start && $is_IF_End){
