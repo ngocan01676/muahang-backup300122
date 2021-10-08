@@ -1674,7 +1674,7 @@ class Excel
                 }, 'key' => 'order_hours'], 10, 9],//M
                 ["別途送料", 'order_ship', 4.71, 9],//N
                 ["仕入金額", 'order_total_price', 6.43, 9],//O
-                ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
+                ["振込請求金額", 'order_total_price_buy', 8, 9],//P 代引き請求金額
                 ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
                 ["余分金", ['callback' => function ($index, $date, $a, $val) use ($date_export, $columns_value) {
                     if ($val[$columns_value['payMethod']] == "決済不要") {
@@ -2598,7 +2598,7 @@ class Excel
                 }, 'key' => 'order_hours'], 10, 9],//M
                 ["別途送料", 'order_ship', 4.71, 9],//N
                 ["仕入金額", 'order_total_price', 6.43, 9],//O
-                ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
+                ["振込請求金額", 'order_total_price_buy', 8, 9],//P
                 ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
                 ["余分金", ['callback' => function ($index, $date, $a, $val) use ($date_export, $columns_value) {
                     if ($val[$columns_value['payMethod']] == "決済不要") {
@@ -3020,7 +3020,7 @@ class Excel
                 }, 'key' => 'order_hours'], 10, 9],//M
                 ["別途送料", 'order_ship', 4.71, 9],//N
                 ["仕入金額", 'order_total_price', 6.43, 9],//O
-                ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
+                ["振込請求金額", 'order_total_price_buy', 8, 9],//P
                 ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
                 ["余分金", ['callback' => function ($index, $date, $a, $val) use ($date_export, $columns_value) {
                     if ($val[$columns_value['payMethod']] == "決済不要") {
@@ -3442,7 +3442,7 @@ class Excel
                 }, 'key' => 'order_hours'], 10, 9],//M
                 ["別途送料", 'order_ship', 4.71, 9],//N
                 ["仕入金額", 'order_total_price', 6.43, 9],//O
-                ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
+                ["振込請求金額", 'order_total_price_buy', 8, 9],//P
                 ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
                 ["余分金", ['callback' => function ($index, $date, $a, $val) use ($date_export, $columns_value) {
                     if ($val[$columns_value['payMethod']] == "決済不要") {
@@ -3864,7 +3864,7 @@ class Excel
                 }, 'key' => 'order_hours'], 10, 9],//M
                 ["別途送料", 'order_ship', 4.71, 9],//N
                 ["仕入金額", 'order_total_price', 6.43, 9],//O
-                ["代引き請求金額", 'order_total_price_buy', 8, 9],//P
+                ["振込請求金額", 'order_total_price_buy', 8, 9],//P
                 ["代引き手数料", 'order_ship_cou', 3.43, 9],//Q
                 ["余分金", ['callback' => function ($index, $date, $a, $val) use ($date_export, $columns_value) {
                     if ($val[$columns_value['payMethod']] == "決済不要") {
@@ -4329,7 +4329,7 @@ class Excel
                 }, 'key' => 'order_hours'], 15, 9],//Giờ nhận
                 ["送料", 'order_ship', 15, 9],//Phí ship
                 ["仕入金額", 'order_total_price', 15, 9],//Giá bán
-                ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
+                ["代引き請求金額", 'order_total_price_buy', 15, 9],//Giá bán  振込み金額
                 ["手数料", 'order_ship_cou', 15, 9],
                 ["余分金", ['callback' => function ($index, $val) use ($_dateNhan) {
                     return "=P$index-N$index-O$index-Q$index";//$val;
@@ -4782,7 +4782,7 @@ class Excel
                     return empty($value)?0:$value;
                 }, 'key' => 'total_count'] , 15, 9],//Tổng giá nhập
                 ["仕入金額", 'order_total_price', 15, 9],//Giá bán
-                ["振込み金額", 'order_total_price_buy', 15, 9],//Giá bán
+                ["代引き請求金額", 'order_total_price_buy', 15, 9],//Giá bán // 振込み金額
                 ["手数料",  ['callback' => function ($index, $value) use ($date_export) {
                     return empty($value)?0:$value;
                 }, 'key' => 'order_ship_cou'], 15, 9],
