@@ -10,6 +10,7 @@
         <span class="icon-add-cart">{!! z_language('商品をかごに') !!}<br>{!! z_language('追加しました') !!}</span>
     </div>
 </div>
+
 @php
     $times = [
         ['time'=>'10:00～12:00','note'=>'締切00:00'],
