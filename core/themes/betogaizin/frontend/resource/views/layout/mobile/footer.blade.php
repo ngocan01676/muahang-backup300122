@@ -43,7 +43,7 @@
 
     <section data-v-7394c006="" class="popup popup-narrow">
         <button data-v-7394c006="" type="button" class="popup-close-btn js-popup-close"></button>
-        <h2 data-v-7394c006="" class="popup-head">お届け日時選択</h2>
+        <h2 data-v-7394c006="" class="popup-head">{!! z_language('お届け日時選択') !!}</h2>
         <div data-v-7394c006="" class="popup-content delivery-content" style="height: auto;">
             <div data-v-7394c006="" class="delivery-header">
                 <div data-v-7394c006="" id="okihaiArea" class="mt10-sp mb20">
@@ -354,14 +354,14 @@
             </div>
             <div data-v-7394c006="" class="delivery-footer">
                 <ul data-v-7394c006="" class="delivery-icon-list">
-                    <li data-v-7394c006=""><i data-v-7394c006="" class="svg-icon icon-18 icon-possible"></i>：空きあり</li>
-                    <li data-v-7394c006=""><i data-v-7394c006="" class="svg-icon icon-18 icon-slightly"></i>：残りわずか</li>
-                    <li data-v-7394c006=""><i data-v-7394c006="" class="svg-icon icon-18 icon-impracticably-dark"></i>：受付終了</li>
+                    <li data-v-7394c006=""><i data-v-7394c006="" class="svg-icon icon-18 icon-possible"></i>：{!! z_language('空きあり') !!}</li>
+                    <li data-v-7394c006=""><i data-v-7394c006="" class="svg-icon icon-18 icon-slightly"></i>：{!! z_language('残りわずか') !!}</li>
+                    <li data-v-7394c006=""><i data-v-7394c006="" class="svg-icon icon-18 icon-impracticably-dark"></i>：{!! z_language('受付終了') !!}</li>
                 </ul>
                 <div data-v-7394c006="" id="delivery-info" class="delivery-info">
                     <dl data-v-7394c006="" class="delivery-info-list">
-                        <dt data-v-7394c006="" class="delivery-info-list-heading">お届け日時</dt>
-                        <dd data-v-7394c006="" class="delivery-info-list-note only-sp">この時間帯は必ずご在宅ください</dd>
+                        <dt data-v-7394c006="" class="delivery-info-list-heading">{!! z_language('お届け日時') !!}</dt>
+                        <dd data-v-7394c006="" class="delivery-info-list-note only-sp">{!! z_language('この時間帯は必ずご在宅ください') !!}</dd>
                         <dd data-v-7394c006="" class="delivery-info-list-date">
                             @if(isset($timeShip['time']))
                                 <span  class="txt-color00 txt-bold selectedShip" >
@@ -369,42 +369,43 @@
                             </span>
                             @else
                                 <span  class="txt-color00">
-                               選択してください
+                               {!! z_language('選択してください') !!}
                             </span>
                             @endif
 
                         </dd>
-                        <dd data-v-7394c006="" class="delivery-info-list-note only-pc">この時間帯は必ずご在宅ください</dd>
+                        <dd data-v-7394c006="" class="delivery-info-list-note only-pc">{!! z_language('この時間帯は必ずご在宅ください') !!}</dd>
                     </dl>
                     <!----> <!----> <!----> <!---->
                     <dl data-v-7394c006="" class="delivery-info-list">
-                        <dt data-v-7394c006="" class="delivery-info-list-heading">お届け先</dt>
-                        <dd data-v-7394c006="" class="delivery-info-list-txt">東京都新宿区箪笥町　</dd>
+                        <dt data-v-7394c006="" class="delivery-info-list-heading">{!! z_language('お届け先') !!}</dt>
+                        <dd data-v-7394c006="" class="delivery-info-list-txt">{!! z_language('東京都新宿区箪笥町') !!}　</dd>
                         <dd data-v-7394c006="" class="delivery-info-list-btn"><a data-v-7394c006="" href="javascript:void(0);" class="btn btn-default btn-color03 btn-sm02">
-                                変更
+                                {!! z_language('変更') !!}
                             </a>
                         </dd>
                     </dl>
                 </div>
                 <div data-v-7394c006="" class="accordion">
-                    <h2 data-v-7394c006="" class="accordion-head is-open">お買い物のご注意</h2>
+                    <h2 data-v-7394c006="" class="accordion-head is-open">{!! z_language('お買い物のご注意') !!}</h2>
                     <div data-v-7394c006="" class="accordion-body" style="display: block;">
                         <ul data-v-7394c006="" class="list-disc">
-                            <li data-v-7394c006="">お届け先住所や日時によって、送料が異なる場合がございます。</li>
-                            <li data-v-7394c006="">お届け日時によって、送料無料となるお買い上げ金額が異なる場合がございます。</li>
-                            <li data-v-7394c006="">お届け日時を選択した後の「締め切り時間後のキャンセル」は承っておりません。
-                                やむを得ずキャンセルされる場合には、キャンセル手数料として440円<span data-v-7394c006="" class="tax">(税込)</span>を頂戴します。
+                            <li data-v-7394c006="">{!! z_language('お届け先住所や日時によって、送料が異なる場合がございます。') !!}</li>
+                            <li data-v-7394c006="">{!! z_language('お届け日時によって、送料無料となるお買い上げ金額が異なる場合がございます。') !!}</li>
+                            <li data-v-7394c006="">{!! z_language('お届け日時を選択した後の「締め切り時間後のキャンセル」は承っておりません。') !!}
+                                {!! z_language('やむを得ずキャンセルされる場合には、キャンセル手数料として:ABC 円',['ABC'=>440]) !!}
+                                <span data-v-7394c006="" class="tax">({!! z_language('税込') !!})</span>{!! z_language('を頂戴します。') !!}
                             </li>
-                            <li data-v-7394c006="">別途利用料が表示されている時間帯は、「ピーク時間利用料」として送料とは別に利用料がかかります。</li>
-                            <li data-v-7394c006="">選択したお届け日時によって付与される「お届け日時ポイント」は、当月中に配送完了した注文に対して翌月15日頃に付与され、翌々月末利用期限の期間限定ポイントとなります。
-                                また、再配送ご依頼時については、初回のお届け日時ポイントが優先されます。再配送時に指定したお届け日時ポイントは付与されません。
+                            <li data-v-7394c006="">{!! z_language('別途利用料が表示されている時間帯は、「ピーク時間利用料」として送料とは別に利用料がかかります。') !!}</li>
+                            <li data-v-7394c006="">{!! z_language('選択したお届け日時によって付与される「お届け日時ポイント」は、当月中に配送完了した注文に対して翌月15日頃に付与され、翌々月末利用期限の期間限定ポイントとなります。
+                                また、再配送ご依頼時については、初回のお届け日時ポイントが優先されます。再配送時に指定したお届け日時ポイントは付与されません。') !!}
                             </li>
-                            <li data-v-7394c006="" style="display: none;">置き配をご利用の際はクレジット支払いのみに限らせていただきます。代金引換でのお支払いはご利用いただけません。1回あたり110円(税込)の利用料を申し受けます。</li>
+                            <li data-v-7394c006="" style="display: none;">{!! z_language('置き配をご利用の際はクレジット支払いのみに限らせていただきます。代金引換でのお支払いはご利用いただけません。1回あたり110円(税込)の利用料を申し受けます。') !!}</li>
                         </ul>
                     </div>
                 </div>
                 <div data-v-7394c006="" class="delivery-footer-btn"><button data-v-7394c006="" class="btn btn-primary btn-color04 btn-lg disabled">
-                        日時を選択してください
+                       {!! z_language(' 日時を選択してください') !!}
                     </button>
                 </div>
             </div>
