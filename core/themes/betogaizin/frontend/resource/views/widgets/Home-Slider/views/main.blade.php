@@ -4,35 +4,35 @@
             <li class="slick-slide">
                 <a href="#">
                     <img alt="みなさまのお墨付き" class=""
-                         height="200px"
+                         width="200px"
                          src="/theme/betogaizin/banner/0f1106ded16726397f76.jpg">
                 </a>
             </li>
             <li class="slick-slide">
                 <a href="#">
                     <img alt="みなさまのお墨付き" class=""
-                         height="200px"
+                         width="200px"
                          src="/theme/betogaizin/banner/2e2036e6e15f16014f4e.jpg">
                 </a>
             </li>
             <li class="slick-slide">
                 <a href="#">
                     <img alt="みなさまのお墨付き" class=""
-                         height="200px"
+                         width="200px"
                          src="/theme/betogaizin/banner/d4088fcb5872af2cf663.jpg">
                 </a>
             </li>
             <li class="slick-slide">
                 <a href="#">
                     <img alt="みなさまのお墨付き" class=""
-                         height="200px"
+                         width="200px"
                          src="/theme/betogaizin/banner/eefa99314e88b9d6e099.jpg">
                 </a>
             </li>
             <li class="slick-slide">
                 <a href="#">
                     <img alt="みなさまのお墨付き" class=""
-                         height="200px"
+                         width="200px"
                          src="/theme/betogaizin/banner/835ee4a97fd98987d0c8.jpg">
                 </a>
             </li>
