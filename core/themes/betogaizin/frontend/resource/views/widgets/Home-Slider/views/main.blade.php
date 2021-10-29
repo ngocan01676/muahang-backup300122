@@ -33,7 +33,7 @@
                 <a href="#">
                     <img alt="みなさまのお墨付き" class=""
                          width="200px"
-                         src="/theme/betogaizin/banner/835ee4a97fd98987d0c8.jpg">
+                         src="/theme/betogaizin/banner/436.png">
                 </a>
             </li>
         </ul>
