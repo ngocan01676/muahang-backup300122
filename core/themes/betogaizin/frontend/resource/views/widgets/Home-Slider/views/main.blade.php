@@ -19,7 +19,7 @@
                 <a href="#">
                     <img alt="みなさまのお墨付き" class=""
                          width="200px"
-                         src="/theme/betogaizin/banner/d4088fcb5872af2cf663.jpg">
+                         src="/theme/betogaizin/banner/32442.png">
                 </a>
             </li>
             <li class="slick-slide">
