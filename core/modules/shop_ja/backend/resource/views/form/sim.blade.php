@@ -413,7 +413,7 @@
                     title: 'Số điện thoại',//C
                     type: 'text',
                     width:'100px',
-                    value:"070-1398-2234",
+                    value:"070-8409-5968",
                 },
                 zipcode:{
                     title: 'Mã bưu điện',//D
@@ -1032,7 +1032,7 @@
                     title: 'Số điện thoại',//C
                     type: 'text',
                     width:'100px',
-                    value:"070-1398-2234",
+                    value:"070-8409-5968",
                 },
                 zipcode:{
                     title: 'Mã bưu điện',//D

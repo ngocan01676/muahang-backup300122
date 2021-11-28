@@ -1616,7 +1616,7 @@
      title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
      type: 'text',
      width:'100px',
-     value:"070-1398-2234",
+     value:"070-8409-5968",
      // row:"0",
     },
     zipcode:{
@@ -3189,7 +3189,7 @@
      title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
      type: 'text',
      width:'100px',
-     value:"070-1398-2234",
+     value:"070-8409-5968",
     },
     zipcode:{
      title: '{!! z_language("Mã bưu điện") !!}',//D Mã bưu điện
@@ -4388,7 +4388,7 @@
               title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
               type: 'text',
               width:'100px',
-              value:"070-1398-2234",
+              value:"070-8409-5968",
           },
           zipcode:{
               title: '{!! z_language("Mã bưu điện") !!}',//D Mã bưu điện
@@ -5472,7 +5472,7 @@
      title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
      type: 'text',
      width:'100px',
-     value:"070-1398-2234",
+     value:"070-8409-5968",
     },
     zipcode:{
      title: '{!! z_language("Mã bưu điện") !!}',//D Mã bưu điện
@@ -6516,7 +6516,7 @@
      title: '{!! z_language("Số điện thoại") !!}',//C Số điện thoại
      type: 'text',
      width:'90px',
-     value:"070-1398-2234",
+     value:"070-8409-5968",
     },
     zipcode:{
      title: '{!! z_language("Mã bưu điện") !!}',//D Mã bưu điện
