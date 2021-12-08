@@ -1403,6 +1403,9 @@ class OrderExcelController extends \Zoe\Http\ControllerBackend
             }else  if($data['name'] == "DO_KHO"){
                 $data['datas'] = json_decode($data['datas'],true);
                 $output =$excel->DO_KHO($data,$data['name'],'AMAZONの注文分[MONTH]月[DAY]日');
+            }else  if($data['name'] == "LICH_2022"){
+                $data['datas'] = json_decode($data['datas'],true);
+                $output =$excel->LICH_2022($data,$data['name'],'AMAZONの注文分[MONTH]月[DAY]日');
             }
             else  if($data['name'] == "HOA_QUA"){
                 $data['datas'] = json_decode($data['datas'],true);

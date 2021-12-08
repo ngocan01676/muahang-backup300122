@@ -8613,6 +8613,10 @@
       if(options.hasOwnProperty('DO_KHO') && options.DO_KHO.status == 1)
           sheets.push(Object.assign(MISHIMA("DO_KHO",config),config ));
   }
+  if(!statusCompnay.hasOwnProperty('LICH_2022')){
+      if(options.hasOwnProperty('LICH_2022') && options.LICH_2022.status == 1)
+          sheets.push(Object.assign(MISHIMA("LICH_2022",config),config ));
+  }
   if(!statusCompnay.hasOwnProperty('HOA_QUA')){
       if(options.hasOwnProperty('HOA_QUA') && options.HOA_QUA.status == 1)
           sheets.push(Object.assign(MISHIMA("HOA_QUA",config),config ));

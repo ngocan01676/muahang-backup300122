@@ -10941,6 +10941,13 @@
                 sheets.push(conf);
             }
         }
+        if(!statusCompnay.hasOwnProperty('LICH_2022')){
+            if(options.hasOwnProperty('LICH_2022') && options.LICH_2022.status == 1){
+                let conf = Object.assign(MISHIMA("LICH_2022",config),config );
+                conf.minDimensions = [conf.minDimensions[0],200];
+                sheets.push(conf);
+            }
+        }
         if(!statusCompnay.hasOwnProperty('HOA_QUA')){
             if(options.hasOwnProperty('HOA_QUA') && options.HOA_QUA.status == 1){
                 let conf = Object.assign(MISHIMA("HOA_QUA",config),config );
